@@ -101,6 +101,19 @@ pub(super) fn evaluate_on_arch(
             *field.expect("expected payload")
         }
         ExprX::Const(Constant::Bool(b)) => Value::Bool(*b),
+        ExprX::Unary(UnaryOp::BitNot(width), a) => {
+            let n = !evaluate_on_arch(a, variable, word_bits).int();
+            Value::Int(match width {
+                None => n,
+                Some(w) => {
+                    let bits = match w {
+                        IntegerTypeBitwidth::Width(n) => *n,
+                        IntegerTypeBitwidth::ArchWordSize => word_bits,
+                    };
+                    n.rem_euclid(1i128 << bits)
+                }
+            })
+        }
         ExprX::Unary(UnaryOp::Not, a) => {
             Value::Bool(!evaluate_on_arch(a, variable, word_bits).boolean())
         }
@@ -127,6 +140,24 @@ pub(super) fn evaluate_on_arch(
                         InequalityOp::Lt => a < b,
                         InequalityOp::Ge => a >= b,
                         InequalityOp::Gt => a > b,
+                    })
+                }
+                BinaryOp::Bitwise(op, _) => {
+                    let (a, b) = (a.int(), b.int());
+                    Value::Int(match op {
+                        BitwiseOp::BitAnd => a & b,
+                        BitwiseOp::BitOr => a | b,
+                        BitwiseOp::BitXor => a ^ b,
+                        BitwiseOp::Shr => a >> b,
+                        BitwiseOp::Shl(w, signed) => {
+                            let bits = match w {
+                                IntegerTypeBitwidth::Width(n) => *n,
+                                IntegerTypeBitwidth::ArchWordSize => word_bits,
+                            };
+                            let modulus = 1i128 << bits;
+                            let n = (a << b).rem_euclid(modulus);
+                            if *signed && n >= modulus / 2 { n - modulus } else { n }
+                        }
                     })
                 }
                 BinaryOp::Arith(op) => {

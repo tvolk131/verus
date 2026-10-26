@@ -179,137 +179,23 @@ pub(super) fn field(span: &Span, value: Term, variant: &Ident) -> Result<Term, V
     term(span, &typ, ExprX::UnaryOpr(UnaryOpr::Field(op), value.expr), 1 + value.size)
 }
 
-#[derive(Clone, Copy, Debug)]
-pub(super) enum Checked {
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Rem,
-    DivEuclid,
-    RemEuclid,
-}
-/// Never identify an approved model from an unqualified method name. Require
-/// the core numeric identity, fixed signature, vstd proxy and unconditional,
-/// non-unwinding interface used by the existing trusted standard-library model.
-pub(super) fn checked(function: &Function) -> Option<Checked> {
-    let f = &function.x;
-    let segments = &f.name.path.segments;
-    if f.name.path.krate != CrateId::Core || segments.first()?.as_str() != "num" {
-        return None;
-    }
-    let operation = match segments.last()?.as_str() {
-        "checked_add" => Checked::Add,
-        "checked_sub" => Checked::Sub,
-        "checked_mul" => Checked::Mul,
-        "checked_div" => Checked::Div,
-        "checked_rem" => Checked::Rem,
-        "checked_div_euclid" => Checked::DivEuclid,
-        "checked_rem_euclid" => Checked::RemEuclid,
-        _ => return None,
-    };
-    if f.mode != Mode::Exec
-        || !matches!(f.kind, FunctionKind::Static)
-        || !f.typ_params.is_empty()
-        || !f.typ_bounds.is_empty()
-        || f.params.len() != 2
-        || !f.require.is_empty()
-        || !matches!(f.unwind_spec, Some(UnwindSpec::NoUnwind))
-    {
-        return None;
-    }
-    let TypX::Int(range) = &*f.params[0].x.typ else {
-        return None;
-    };
-    if !arithmetic::exact_range(*range) {
-        return None;
-    }
-    if !crate::ast_util::types_equal(&f.params[0].x.typ, &f.params[1].x.typ) {
-        return None;
-    }
-    let TypX::Datatype(dt, ts, _) = &*f.inner_ret.x.typ else {
-        return None;
-    };
-    if !is_path(dt, "option", "Option")
-        || ts.len() != 1
-        || !crate::ast_util::types_equal(&ts[0], &f.params[0].x.typ)
-    {
-        return None;
-    }
-    let proxy = &f.proxy.as_ref()?.x;
-    let module = match range {
-        IntRange::U(bits) => format!("u{bits}_specs_tmp"),
-        IntRange::I(bits) => format!("i{bits}_specs_tmp"),
-        IntRange::USize => "usize_specs_tmp".into(),
-        IntRange::ISize => "isize_specs_tmp".into(),
-        _ => return None,
-    };
-    if proxy.krate != CrateId::Vstd
-        || proxy.segments.len() != 4
-        || proxy.segments[0].as_str() != "std_specs"
-        || proxy.segments[1].as_str() != "num"
-        || proxy.segments[2].as_str() != module
-        || !proxy.segments[3].starts_with("_verus_external_fn_specification_")
-    {
-        return None;
-    }
-    Some(operation)
-}
+pub(super) use super::integer_models::Operation as Checked;
 
+pub(super) fn checked(function: &Function) -> Option<Checked> {
+    let m = integer_models::recognize(function)?;
+    (m.policy == integer_models::Policy::Checked).then_some(m.operation)
+}
+#[cfg(test)]
 pub(super) fn checked_value(
     span: &Span,
     function: &Function,
     a: Term,
     b: Term,
 ) -> Result<Term, VirErr> {
-    let op = checked(function)
-        .ok_or_else(|| unsupported(span, "unapproved checked arithmetic model"))?;
-    let binary = |op, a: Term, b: Term, typ: Typ| {
-        term(span, &typ, ExprX::Binary(op, a.expr, b.expr), 1 + a.size + b.size)
-    };
-    let TypX::Int(range) = &*function.x.params[0].x.typ else { unreachable!() };
-    let signed = match range {
-        IntRange::I(_) | IntRange::ISize => Some(*range),
-        _ => None,
-    };
-    let math = match op {
-        Checked::Add => ArithOp::Add(OverflowBehavior::Allow),
-        Checked::Sub => ArithOp::Sub(OverflowBehavior::Allow),
-        Checked::Mul => ArithOp::Mul(OverflowBehavior::Allow),
-        Checked::Div if signed.is_some() => {
-            ArithOp::TruncatingDiv(Div0Behavior::Allow, SignedDivEdgeCaseBehavior::Allow)
-        }
-        Checked::Rem if signed.is_some() => {
-            ArithOp::TruncatingMod(Div0Behavior::Allow, SignedDivEdgeCaseBehavior::Allow)
-        }
-        Checked::Div | Checked::DivEuclid => ArithOp::EuclideanDiv(Div0Behavior::Allow),
-        Checked::Rem | Checked::RemEuclid => ArithOp::EuclideanMod(Div0Behavior::Allow),
-    };
-    let output = binary(BinaryOp::Arith(math), a.clone(), b.clone(), int_typ())?;
-    let zero = Term {
-        expr: SpannedTyped::new(span, &int_typ(), ExprX::Const(Constant::Int(0.into()))),
-        size: 1,
-    };
-    let valid = match op {
-        Checked::Div | Checked::Rem | Checked::DivEuclid | Checked::RemEuclid => {
-            arithmetic::division_valid(span, a, b, signed)?
-        }
-        _ if signed.is_some() => arithmetic::in_range(span, output.clone(), *range)?,
-        Checked::Sub => {
-            binary(BinaryOp::Inequality(InequalityOp::Ge), output.clone(), zero, bool_typ())?
-        }
-        Checked::Add | Checked::Mul => {
-            let max = arithmetic::maximum(span, *range)?;
-            binary(BinaryOp::Inequality(InequalityOp::Le), output.clone(), max, bool_typ())?
-        }
-    };
-    let typ = &function.x.inner_ret.x.typ;
-    conditional(
-        span,
-        valid,
-        ctor(span, typ, &Arc::new("Some".into()), Some(output))?,
-        ctor(span, typ, &Arc::new("None".into()), None)?,
-    )
+    if checked(function).is_none() {
+        return Err(unsupported(span, "unapproved checked arithmetic model"));
+    }
+    integer_models::value(span, function, vec![a, b])
 }
 
 pub(super) fn validate_match(place: &Place, arms: &Arms, irrefutable: bool) -> Result<(), VirErr> {

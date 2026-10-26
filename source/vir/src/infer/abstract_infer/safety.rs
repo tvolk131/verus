@@ -737,6 +737,42 @@ impl Analyzer<'_> {
             ),
             ExprX::ReadPlace(p, _) => self.place(p, checked),
             ExprX::NeverToAny(a) => self.expr(a, checked),
+            ExprX::Unary(UnaryOp::BitNot(_), a) => {
+                let a = self.expr(a, checked)?;
+                Ok(Checked {
+                    safe: a.safe,
+                    value: Value::from_range(s, Range::full(&e.typ, self.word_bits)?),
+                })
+            }
+            ExprX::Binary(BinaryOp::Bitwise(bit, policy), a, b) => {
+                let l = self.expr(a, checked)?;
+                let r = self.expr(b, checked)?;
+                let mut safe = logical(s, LogicalOp::And, l.safe, r.safe)?;
+                if checked && matches!(bit, BitwiseOp::Shl(..) | BitwiseOp::Shr) {
+                    let BitshiftBehavior::Error(width) = policy else {
+                        return Err(unsupported(s, "unchecked source shift"));
+                    };
+                    let count = match width {
+                        IntegerTypeBitwidth::Width(w) => *w,
+                        IntegerTypeBitwidth::ArchWordSize => self.word_bits,
+                    };
+                    let n = r.value.number(s)?;
+                    let zero = Numeric::range(Range::Int(0.into(), 0.into()));
+                    let limit = Numeric::range(Range::Int(count.into(), count.into()));
+                    let valid = logical(
+                        s,
+                        LogicalOp::And,
+                        Numeric::compare(s, BinaryOp::Inequality(InequalityOp::Ge), &n, &zero)?.yes,
+                        Numeric::compare(s, BinaryOp::Inequality(InequalityOp::Lt), &n, &limit)?
+                            .yes,
+                    )?;
+                    safe = logical(s, LogicalOp::And, safe, valid)?;
+                }
+                Ok(Checked {
+                    safe,
+                    value: Value::from_range(s, Range::full(&e.typ, self.word_bits)?),
+                })
+            }
             ExprX::Unary(UnaryOp::Not, a) => {
                 let a = self.expr(a, checked)?;
                 Ok(Checked { safe: a.safe, value: Value::Bool(a.value.predicate(s)?.not()) })
@@ -972,6 +1008,26 @@ impl Analyzer<'_> {
                     .get(name)
                     .ok_or_else(|| unsupported(s, "missing safety callee"))?
                     .clone();
+                if let Some(model) = integer_models::recognize(&f) {
+                    if model.policy == integer_models::Policy::Checked {
+                        return Err(unsupported(
+                            s,
+                            "enum expressions currently require exact inference",
+                        ));
+                    }
+                    if args.len() != f.x.params.len() {
+                        return Err(unsupported(s, "integer model argument count"));
+                    }
+                    let mut safe = boolean(s, true);
+                    for arg in args.iter() {
+                        let arg = self.expr(arg, checked)?;
+                        safe = logical(s, LogicalOp::And, safe, arg.safe)?;
+                    }
+                    return Ok(Checked {
+                        safe,
+                        value: Value::from_range(s, Range::full(&e.typ, self.word_bits)?),
+                    });
+                }
                 if !f.x.attrs.infer || args.len() != f.x.params.len() {
                     return Err(unsupported(s, "safety requires an inferred scalar callee"));
                 }

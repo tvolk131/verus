@@ -9,6 +9,7 @@ pub(super) fn unary(span: &Span, op: UnaryOp, a: Term) -> Result<Term, VirErr> {
         return slices::length(span, a);
     }
     let typ = match op {
+        UnaryOp::BitNot(_) if bitwise::unary_valid(op, &a.expr.typ) => a.expr.typ.clone(),
         UnaryOp::Not if matches!(&*a.expr.typ, TypX::Bool) => bool_typ(),
         UnaryOp::Clip {
             range:
@@ -31,6 +32,11 @@ pub(super) fn binary(span: &Span, op: BinaryOp, a: Term, b: Term) -> Result<Term
         return arrays::index(span, a, b);
     }
     let typ = match op {
+        BinaryOp::Bitwise(bit, BitshiftBehavior::Allow)
+            if bitwise::pure_valid(bit, &a.expr.typ, &b.expr.typ) =>
+        {
+            a.expr.typ.clone()
+        }
         BinaryOp::Arith(
             ArithOp::Add(OverflowBehavior::Allow)
             | ArithOp::Sub(OverflowBehavior::Allow)
@@ -121,7 +127,18 @@ pub(super) fn instantiate(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result
             ExprX::UnaryOpr(UnaryOpr::Field(op), a) if enums::valid_field(op, &a.typ) => {
                 enums::field(span, go(a, vars, remaining)?, &op.variant)?
             }
+            ExprX::Unary(op @ UnaryOp::BitNot(_), a) => {
+                unary(span, *op, bitwise::coerce(span, &a.typ, go(a, vars, remaining)?)?)?
+            }
             ExprX::Unary(op, a) => unary(span, *op, go(a, vars, remaining)?)?,
+            ExprX::Binary(op @ BinaryOp::Bitwise(bit, _), a, b) => {
+                let left = bitwise::coerce(span, &a.typ, go(a, vars, remaining)?)?;
+                let mut right = go(b, vars, remaining)?;
+                if matches!(bit, BitwiseOp::BitAnd | BitwiseOp::BitOr | BitwiseOp::BitXor) {
+                    right = bitwise::coerce(span, &b.typ, right)?;
+                }
+                binary(span, *op, left, right)?
+            }
             ExprX::Binary(op, a, b) => {
                 binary(span, *op, go(a, vars, remaining)?, go(b, vars, remaining)?)?
             }

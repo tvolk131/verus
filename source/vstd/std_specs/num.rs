@@ -135,6 +135,26 @@ macro_rules! num_specs {
                 opens_invariants none
                 no_unwind;
 
+            // Trusted Rust numeric specifications added for Verus Infer's
+            // integer-method coverage; see VERUS_INFER_ASSURANCE.md.
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$uN>::checked_neg](x: $uN) -> Option<$uN>
+                returns (if x == 0 { Some(0 as $uN) } else { None })
+                no_unwind;
+
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$uN>::checked_sub_signed](x: $uN, y: $iN) -> Option<$uN>
+                returns (
+                    if x - y < <$uN>::MIN || x - y > <$uN>::MAX {
+                        None
+                    } else {
+                        Some((x - y) as $uN)
+                    }
+                )
+                no_unwind;
+
             #[verifier::allow_in_spec]
             #[cfg(not(verus_verify_core))]
             pub assume_specification[<$uN>::checked_add](x: $uN, y: $uN) -> Option<$uN>
@@ -397,6 +417,55 @@ macro_rules! num_specs {
             pub assume_specification[<$iN>::wrapping_shr](x: $iN, rhs: u32) -> $iN
                 returns $mod_i::wrapping_shr(x, rhs)
                 opens_invariants none
+                no_unwind;
+
+            // Trusted specifications of total, non-panicking Rust methods.
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$iN>::checked_neg](x: $iN) -> Option<$iN>
+                returns (if x == <$iN>::MIN { None } else { Some((-x) as $iN) })
+                no_unwind;
+
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$iN>::saturating_add](x: $iN, y: $iN) -> $iN
+                returns (
+                    if x + y < <$iN>::MIN {
+                        <$iN>::MIN
+                    } else if x + y > <$iN>::MAX {
+                        <$iN>::MAX
+                    } else {
+                        (x + y) as $iN
+                    }
+                )
+                no_unwind;
+
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$iN>::saturating_sub](x: $iN, y: $iN) -> $iN
+                returns (
+                    if x - y < <$iN>::MIN {
+                        <$iN>::MIN
+                    } else if x - y > <$iN>::MAX {
+                        <$iN>::MAX
+                    } else {
+                        (x - y) as $iN
+                    }
+                )
+                no_unwind;
+
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$iN>::saturating_mul](x: $iN, y: $iN) -> $iN
+                returns (
+                    if x * y < <$iN>::MIN {
+                        <$iN>::MIN
+                    } else if x * y > <$iN>::MAX {
+                        <$iN>::MAX
+                    } else {
+                        (x * y) as $iN
+                    }
+                )
                 no_unwind;
 
             #[verifier::allow_in_spec]

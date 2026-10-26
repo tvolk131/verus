@@ -111,3 +111,20 @@ verus! {
         },
     { infer_middle::offset(base, delta) }
 }
+
+verus! {
+    pub fn capped_offset_property(value: isize, multiplier: isize) -> (result: isize)
+        ensures result as int == (if (value as int) * (multiplier as int) < isize::MIN {
+            isize::MIN as int
+        } else if (value as int) * (multiplier as int) > isize::MAX {
+            isize::MAX as int
+        } else {
+            value as int * multiplier as int
+        }),
+    { infer_middle::capped_offset(value, multiplier) }
+
+    pub fn checked_offset_boundary() {
+        let result = infer_middle::checked_wrapping_offset(isize::MAX, 1);
+        assert(result == None);
+    }
+}

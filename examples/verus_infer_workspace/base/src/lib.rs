@@ -68,3 +68,14 @@ pub fn checked_offset(base: isize, delta: isize) -> Option<isize> {
 
 #[verus_infer(precision = "sound")]
 pub fn coarse_size(value: usize) -> usize { value / 10 }
+
+#[verus_infer]
+pub fn mask_bits(value: usize) -> usize { value & 15 }
+
+#[verus_infer]
+pub fn wrapping_offset(value: isize, delta: isize) -> isize { value.wrapping_add(delta) }
+
+#[verus_infer]
+pub fn capped_offset(value: isize, multiplier: isize) -> isize {
+    value.saturating_mul(multiplier)
+}

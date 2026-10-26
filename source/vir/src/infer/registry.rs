@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v15:platform-integers:4096";
+const VERSION: &str = "verus-infer-v16:integer-operations:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -22,6 +22,7 @@ enum Formula {
     Int(BigInt),
     Param(usize),
     Not(Box<Formula>),
+    BitNot(Option<IntegerTypeBitwidth>, Box<Formula>),
     SliceLen(Box<Formula>),
     Clip(u32, Box<Formula>),
     USizeClip(Box<Formula>),
@@ -85,6 +86,7 @@ fn encode(e: &Expr, params: &Params) -> Formula {
         ExprX::Const(Constant::Bool(v)) => Formula::Bool(*v),
         ExprX::Const(Constant::Int(v)) => Formula::Int(v.clone()),
         ExprX::Var(v) => Formula::Param(params.iter().position(|p| &p.x.name == v).unwrap()),
+        ExprX::Unary(UnaryOp::BitNot(w), a) => Formula::BitNot(*w, enc(a)),
         ExprX::Unary(UnaryOp::Not, a) => Formula::Not(enc(a)),
         ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => Formula::SliceLen(enc(a)),
         ExprX::Unary(UnaryOp::Clip { range: IntRange::U(bits), .. }, a) => {
@@ -182,6 +184,9 @@ fn decode(
                 function.x.params.get(*i).ok_or_else(invalid)?
             };
             term(span, &p.x.typ, ExprX::Var(p.x.name.clone()), 1)
+        }
+        Formula::BitNot(w, a) => {
+            summary::unary(span, UnaryOp::BitNot(*w), decode(a, function, remaining, allow_result)?)
         }
         Formula::Not(a) => {
             summary::unary(span, UnaryOp::Not, decode(a, function, remaining, allow_result)?)

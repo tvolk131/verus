@@ -14,10 +14,12 @@ use std::sync::Arc;
 mod abstract_infer;
 mod arithmetic;
 mod arrays;
+mod bitwise;
 mod contract;
 mod eligibility;
 mod enums;
 mod exits;
+mod integer_models;
 mod loops;
 mod models;
 mod propagation;
@@ -243,6 +245,14 @@ impl Engine<'_> {
                 }
                 Ok(Summary { safe, value: Some(arrays::literal(span, &expr.typ, values)?) })
             }
+            ExprX::Unary(op @ UnaryOp::BitNot(_), arg) if bitwise::unary_valid(*op, &arg.typ) => {
+                let arg_summary = self.expr(arg)?;
+                let operand = bitwise::coerce(span, &arg.typ, value(&arg_summary, span)?)?;
+                Ok(Summary {
+                    safe: arg_summary.safe,
+                    value: Some(summary::unary(span, *op, operand)?),
+                })
+            }
             ExprX::Unary(UnaryOp::Not, arg) if matches!(&*arg.typ, TypX::Bool) => {
                 let arg = self.expr(arg)?;
                 let v = value(&arg, span)?;
@@ -321,6 +331,23 @@ impl Engine<'_> {
                 let array = self.expr(lhs)?;
                 let index = self.expr(rhs)?;
                 self.index_summary(span, array, index)
+            }
+            ExprX::Binary(op @ BinaryOp::Bitwise(..), lhs, rhs) => {
+                let (pure, shift) = bitwise::source(*op, &lhs.typ, &rhs.typ, &expr.typ)
+                    .ok_or_else(|| unsupported(span, "invalid executable bitwise operation"))?;
+                let l = self.expr(lhs)?;
+                let r = self.expr(rhs)?;
+                let a = bitwise::coerce(span, &lhs.typ, value(&l, span)?)?;
+                let mut b = value(&r, span)?;
+                if shift.is_none() {
+                    b = bitwise::coerce(span, &rhs.typ, b)?;
+                }
+                let mut safe = logical(span, LogicalOp::And, l.safe, r.safe)?;
+                if let Some(width) = shift {
+                    let valid = bitwise::shift_safe(span, b.clone(), width)?;
+                    safe = logical(span, LogicalOp::And, safe, self.require_active(span, valid)?)?;
+                }
+                Ok(Summary { safe, value: Some(summary::binary(span, pure, a, b)?) })
             }
             ExprX::Binary(op, lhs, rhs) => {
                 let lhs = self.expr(lhs)?;
@@ -474,17 +501,20 @@ impl Engine<'_> {
                         unsupported(span, "calls require an acyclic same-crate inferred callee or certified imported summary")
                     })?
                     .clone();
-                if enums::checked(&callee).is_some() {
-                    if args.len() != 2 {
-                        return Err(unsupported(span, "checked arithmetic argument count"));
+                if integer_models::recognize(&callee).is_some() {
+                    if args.len() != callee.x.params.len() {
+                        return Err(unsupported(span, "integer arithmetic argument count"));
                     }
-                    let a = self.expr(&args[0])?;
-                    let b = self.expr(&args[1])?;
-                    let output =
-                        enums::checked_value(span, &callee, value(&a, span)?, value(&b, span)?)?;
+                    let mut safe = boolean(span, true);
+                    let mut values = Vec::new();
+                    for arg in args.iter() {
+                        let arg = self.expr(arg)?;
+                        safe = logical(span, LogicalOp::And, safe, arg.safe.clone())?;
+                        values.push(value(&arg, span)?);
+                    }
                     return Ok(Summary {
-                        safe: logical(span, LogicalOp::And, a.safe, b.safe)?,
-                        value: Some(output),
+                        safe,
+                        value: Some(integer_models::value(span, &callee, values)?),
                     });
                 }
                 if args.len() != callee.x.params.len() {
@@ -623,7 +653,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    is_checked_arithmetic(function)
+    integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
         || arithmetic::division_model(function)
@@ -944,6 +974,17 @@ fn format_expr(e: &Expr) -> String {
             },
             format_expr(b)
         ),
+        ExprX::Unary(UnaryOp::BitNot(_), a) => format!("!({})", format_expr(a)),
+        ExprX::Binary(BinaryOp::Bitwise(op, _), a, b) => {
+            let symbol = match op {
+                BitwiseOp::BitAnd => "&",
+                BitwiseOp::BitOr => "|",
+                BitwiseOp::BitXor => "^",
+                BitwiseOp::Shl(..) => "<<",
+                BitwiseOp::Shr => ">>",
+            };
+            format!("({} {symbol} {})", format_expr(a), format_expr(b))
+        }
         ExprX::Unary(UnaryOp::Not, a) => format!("!({})", format_expr(a)),
         ExprX::Unary(UnaryOp::Clip { range: IntRange::U(bits), .. }, a) => {
             format!("({} as u{bits})", format_expr(a))
@@ -984,6 +1025,8 @@ fn format_expr(e: &Expr) -> String {
     }
 }
 
+#[cfg(test)]
+mod integer_tests;
 #[cfg(test)]
 mod platform_tests;
 #[cfg(test)]

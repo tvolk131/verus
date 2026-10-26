@@ -252,7 +252,8 @@ Exact mode supports `bool`, `usize`, `isize`, fixed-width unsigned integers (`u8
 `u64`, `u128`), and fixed-width signed integers (`i8`, `i16`, `i32`, `i64`,
 `i128`), immutable parameters and locals, scalar return values, `+`, `-`, `*`,
 `/`, `%`, signed negation, comparisons, Boolean operations, signed/unsigned integer
-casts, and `if` expressions. Short-circuit conditions guard the safety checks of
+casts, bitwise `&`, `|`, `^`, `!`, shifts `<<`/`>>`, and `if` expressions.
+Short-circuit conditions guard the safety checks of
 the expressions that are actually evaluated. Casts retain Rust's truncation
 semantics; inferred arithmetic formulas otherwise use mathematical integers.
 As in ordinary Verus proofs, callers may need a `by(bit_vector)` assertion to
@@ -345,8 +346,12 @@ payload exactly.
 For signed values, `checked_div`/`checked_rem` use Rust's rounding/sign rules;
 `checked_div_euclid`/`checked_rem_euclid` use Euclidean division with a nonnegative
 remainder. All four return `None` for a zero divisor or `(MIN, -1)`. Mixed-sign
-methods such as `checked_add_unsigned`, checked negation, and wrapping/saturating
-methods remain outside the current allowlist.
+methods are also supported: unsigned receivers accept `checked_add_signed` and
+`checked_sub_signed`; signed receivers accept `checked_add_unsigned` and
+`checked_sub_unsigned`, using the corresponding signed/unsigned width. Both
+signed and unsigned types support `checked_neg`: signed `MIN` returns `None`,
+and unsigned negation returns `Some(0)` only for zero. These checked methods
+remain exact-mode enum operations.
 
 For example:
 
@@ -596,6 +601,42 @@ fault-injection strategy.
 calls, and runs zero-count and overflow-boundary cases. The Cargo workspace
 also composes a counted loop across three crates.
 
+## Bitwise operations and explicit arithmetic policies
+
+Exact mode supports `&`, `|`, `^`, and integer `!` on every supported integer
+type, including `usize`/`isize`. Operands retain their finite signedness and width
+through arithmetic expressions, enum payloads, cache decoding, and imported calls.
+Signed right shifts extend the sign bit. Left shifts discard high bits as Rust
+does. Normal `<<` and `>>` require `0 <= amount < bit_width`; a zero left operand
+does not remove that requirement. The amount may use any supported integer type.
+No new bitwise axioms are added; ordinary Verus checks the original operations.
+
+Both signed and unsigned integers support `wrapping_add`, `wrapping_sub`,
+`wrapping_mul`, `saturating_add`, `saturating_sub`, and `saturating_mul` in exact
+mode. Wrapping returns the representable modular result; saturation clamps the
+mathematical result to the receiver's `MIN..=MAX`. Their total semantics admit
+all inputs, while preserving safety checks of argument expressions. They do not
+change the overflow policy of ordinary `+`, `-`, or `*`.
+
+Sound scalar mode supports these operations with conservative intervals. Bitwise
+and shift transfers can return the full destination range; wrapping and saturation
+are analyzed through their scalar model formulas and may also widen to that range.
+Compositional safety retains shift-amount checks and guarded arithmetic. Lost
+relations or insufficient range information can still produce an incomplete result.
+Optional precision failures retain honest labels and never replace soundness.
+
+The new checked negation, unsigned `checked_sub_signed`, and signed saturating
+specifications are explicit trusted vstd additions, audited in the repository's
+`VERUS_INFER_ASSURANCE.md`. Other supported numeric methods reuse existing models.
+Models require canonical core identities, matching receiver/argument/return types,
+a vstd proxy, empty preconditions, and `no_unwind`; their declarations and entire
+artifacts are fingerprinted. Rebuild vstd when using the added models.
+
+This batch does not add rotate/count methods, wrapping/saturating mixed-sign
+methods, explicit wrapping shifts, or general user-defined integer models.
+`examples/verus_infer_integer_ops.rs` verifies caller properties and runs wrapping,
+saturation, bitwise, shift, and checked-result boundary examples.
+
 ## Analysis budgets and other restrictions
 
 The synthesizer merges branch results as conditional expressions instead of
@@ -614,7 +655,7 @@ are substituted without analyzing their executable bodies again.
 Unsupported features include general loops (the counted pattern below is supported),
 recursion, converting `Result` errors with `?`, calls to functions
 without inferred contracts other than the approved standard models,
-integer bitwise operations,
+integer operations outside the allowlist above,
 references beyond shared scalar arrays/slices, mutable state, collections beyond the supported arrays/slices, generics,
 and ghost/proof statements.
 An ordinary verified caller may compose inferred functions at any supported depth.
@@ -719,7 +760,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-Platform-sized exact/interval inference uses metadata schema 10 and candidate-cache version 15.
+Platform-sized exact/interval inference uses metadata schema 11 and candidate-cache version 16.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved
 for a fixed width constrains its consumers to that width; incompatible fixed
@@ -779,13 +820,14 @@ subset excludes general effects and source-level assumptions. Counted loops
 allow only the recognized two-local mutation pattern and checked proof
 decoration described above. Calls use inferred
 summaries or the explicitly approved standard models, including the array helpers
-and fixed-array length lowering. Those methods
-rely on the existing trusted vstd specifications, just as ordinary Verus
-verification does. The driver names these dependencies in its diagnostics and
+and fixed-array length lowering. Those methods rely on trusted vstd specifications, just as ordinary Verus
+verification does. The integer-operation batch additionally introduces 36 trusted
+primitive-method declarations, explicitly audited in `VERUS_INFER_ASSURANCE.md`;
+these specifications are assumptions about Rust library behavior. The driver names these dependencies in its diagnostics and
 preserves their fingerprints through caches and crate exports.
-There are no new array axioms, assumed candidate contracts, or additional
-externalized bodies. The two existing external-body array helpers now declare
-`no_unwind`; those declarations are additions to the trusted specifications.
+No inferred executable body is externalized or assumed, and no array axioms are
+added. The two existing external-body array helpers declare `no_unwind`; those
+and the numeric specifications above are explicit trusted-specification additions.
 The precision transformations and proof-publication machinery are also part of
 the added trust boundary and have not themselves been formally verified.
 The driver validates inferred functions in separate buckets before starting any

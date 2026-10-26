@@ -58,3 +58,16 @@ pub fn offset(base: isize, delta: isize) -> Option<isize> {
 
 #[verus_infer(precision = "sound")]
 pub fn shifted_size(value: usize) -> usize { infer_base::coarse_size(value) + 1 }
+
+#[verus_infer]
+pub fn masked_increment(value: usize) -> usize { infer_base::mask_bits(value + 1) }
+
+#[verus_infer]
+pub fn checked_wrapping_offset(value: isize, delta: isize) -> Option<isize> {
+    infer_base::wrapping_offset(value, delta).checked_neg()
+}
+
+#[verus_infer]
+pub fn capped_offset(value: isize, multiplier: isize) -> isize {
+    infer_base::capped_offset(value, multiplier)
+}

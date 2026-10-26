@@ -13,7 +13,8 @@ fixed-width and platform-sized integer inference are implemented. Retain the
 formal verification targets below as separate work. Formalization of the entire
 precision checker is not a prerequisite for every feature.
 
-The next feature batch covers integer operations. Every extension must keep
+The integer-operation batch adds bitwise/shifts and explicit arithmetic policies.
+Every extension must keep
 source eligibility, typed summaries, fresh ordinary proofs, and publication gates
 aligned. Any added standard-library specification is an explicit trusted-model
 change requiring a documented audit and dependency fingerprints. The feature
@@ -43,7 +44,11 @@ backlog and proposed milestone order are maintained in
   metadata checks are additional enforcement, not independently checkable proofs.
 - Two existing external-body array helpers additionally declare `no_unwind`.
   Those declarations are trusted specification additions. No new array axioms
-  or external-body functions were introduced for this milestone.
+  or external-body functions were introduced for that array milestone.
+- The integer-operation batch adds 36 explicit trusted primitive-method
+  specifications for missing checked and saturating methods. The model audit
+  below records their semantics, `no_unwind` justification, and limits; ordinary
+  vstd verification does not prove these assumed library implementations.
 
 Candidate synthesis need not be correct for a properly checked contract to be
 sound. Correctness of contract installation, query construction, outcome
@@ -348,7 +353,8 @@ Exact `usize`/`isize` candidates retain Verus's existing symbolic architecture o
 for `usize::MAX`, `isize::MIN/MAX`, pointer width, and truncating casts. Cache decoding and imported
 summary validation admit only closed architecture constants, not arbitrary bound
 operators or new axioms. Candidate-cache configuration includes the merged local
-and imported architecture. Inference metadata schema 10 fingerprints the architecture
+and imported architecture. The platform milestone introduced schema 10, which
+fingerprints the architecture
 together with exported functions; ordinary Verus rejects incompatible fixed widths.
 Tests check 32/64-bit arithmetic/casts, portable and width-constrained imports,
 cache reproving, and rejection of a poisoned 32-bit candidate with a 64-bit bound.
@@ -364,5 +370,48 @@ host width. A conservative 64-bit envelope is used only for optional affine
 simplification; executable safety checks and interval transfer use the selected
 model. Tests include boundary execution comparisons, cross-crate composition,
 malformed selectors/branches, and a well-typed poisoned range that ordinary
-soundness rejects. Cache version 15 and metadata schema 10 require rebuilding
-older inferred libraries and dependents.
+soundness rejects. The platform milestone used cache version 15 and metadata
+schema 10; the integer-operation batch below updates these versions.
+
+## Integer-operation model audit
+
+The added trusted declarations in `source/vstd/std_specs/num.rs` are generated
+for the six unsigned/signed pairs, including `usize`/`isize`:
+
+| Method | Added declarations | Specification justification |
+| --- | ---: | --- |
+| Unsigned `checked_neg` | 6 | Only zero has a representable unsigned mathematical negation. |
+| Signed `checked_neg` | 6 | Every input except `MIN` has a representable negation. |
+| Unsigned `checked_sub_signed` | 6 | Compute mathematical `x - y`; return `Some` exactly when it lies in the receiver's unsigned range. This avoids negating a signed `MIN` intermediate. |
+| Signed `saturating_add`, `saturating_sub`, `saturating_mul` | 18 | Clamp the mathematical operation to the receiver's `MIN..=MAX` range. |
+
+These are 36 explicit trusted specification additions. They describe total Rust
+primitive methods, so they declare `no_unwind`. Their justification relies on
+Rust's primitive-method semantics, not on proving the compiler or standard
+library implementation. Rebuilding/verifying vstd does not independently prove
+an `assume_specification`. Independent small-width execution comparisons and
+boundary tests supplement this audit; model and containing-artifact fingerprints
+bind their use through caches and inferred interfaces. The declarations retain
+the existing `not(verus_verify_core)` guard to avoid duplicate core specifications.
+
+Wrapping add/subtract/multiply, unsigned saturation, unsigned checked addition
+of signed values, and signed checked addition/subtraction of unsigned values
+reuse existing vstd models. Numeric-model recognition checks the core identity,
+receiver-specific vstd proxy module, arity, argument signedness/width, return type,
+empty precondition, and non-unwinding policy. No bitwise axioms are added. Bitwise
+operators and shifts use Verus's existing AST semantics; normal shifts require
+`0 <= amount < bit_width` and left shifts discard high bits. Wrapping summaries
+use bounded corrections or modular products matching the existing models;
+saturation and checked results retain their distinct policies.
+
+
+Integer-operation candidates use cache version 16 and metadata schema 11. Typed
+summary substitution re-establishes finite operand types before bitwise evaluation;
+cache decoding rejects mismatched widths, signedness, operand types, and executable
+shift checks in pure formulas. Source shifts require the checked amount policy.
+Independent exhaustive `u8`/`i8` tests compare results and safe shift domains with
+Rust, including wrap/saturation/mixed-sign/negation boundaries. Compiler matrix
+coverage checks all supported widths and architecture tests exercise both pointer
+models. Wrong but well-typed cache formulas must fail fresh ordinary or maximality
+proofs and suppress caller use and export. Source bodies and the precision/evidence
+acceptance machinery retain the existing preservation and publication checks.

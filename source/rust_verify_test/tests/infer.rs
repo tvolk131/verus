@@ -4085,3 +4085,248 @@ fn platform_wrong_cached_sound_architecture_range_is_reproved() {
     assert_eq!(f["available_to_same_crate_callers"], false);
     assert!(!crates.vir("platform_cache").exists());
 }
+#[test]
+fn integer_operations_all_types_exact_proofs_and_cache_reuse() {
+    let crates = InferCrates::new();
+    let mut body = String::from("use vstd::prelude::*;\n");
+    let mut callers = String::from("fn caller(){\n");
+    for (unsigned, signed) in [
+        ("u8", "i8"),
+        ("u16", "i16"),
+        ("u32", "i32"),
+        ("u64", "i64"),
+        ("u128", "i128"),
+        ("usize", "isize"),
+    ] {
+        for typ in [unsigned, signed] {
+            for (name, expr) in [("and", "x&y"), ("or", "x|y"), ("xor", "x^y")] {
+                body.push_str(&format!(
+                    "#[verifier::infer] fn {typ}_{name}(x:{typ},y:{typ})->{typ}{{{expr}}}\n"
+                ));
+            }
+            body.push_str(&format!("#[verifier::infer] fn {typ}_not(x:{typ})->{typ}{{!x}}\n"));
+            for (name, symbol) in [("shl", "<<"), ("shr", ">>")] {
+                body.push_str(&format!(
+                    "#[verifier::infer] fn {typ}_{name}(x:{typ},n:i32)->{typ}{{x{symbol}n}}\n"
+                ));
+            }
+            for policy in ["wrapping", "saturating"] {
+                for operation in ["add", "sub", "mul"] {
+                    body.push_str(&format!("#[verifier::infer] fn {typ}_{policy}_{operation}(x:{typ},y:{typ})->{typ}{{x.{policy}_{operation}(y)}}\n"));
+                }
+            }
+            body.push_str(&format!(
+                "#[verifier::infer] fn {typ}_neg(x:{typ})->Option<{typ}>{{x.checked_neg()}}\n"
+            ));
+            let (other, suffix) =
+                if typ == unsigned { (signed, "signed") } else { (unsigned, "unsigned") };
+            for operation in ["add", "sub"] {
+                body.push_str(&format!("#[verifier::infer] fn {typ}_checked_{operation}(x:{typ},y:{other})->Option<{typ}>{{x.checked_{operation}_{suffix}(y)}}\n"));
+            }
+            callers.push_str(&format!(
+                r#"
+                assert((3{typ}&5{typ})==1) by(bit_vector);let r={typ}_and(3,5);assert(r==1);
+                assert((3{typ}|5{typ})==7) by(bit_vector);let r={typ}_or(3,5);assert(r==7);
+                assert((3{typ}^5{typ})==6) by(bit_vector);let r={typ}_xor(3,5);assert(r==6);
+                let r={typ}_shl(1,0);assert(r==(1{typ}<<0));
+                let r={typ}_shr(1,0);assert(r==(1{typ}>>0));
+                let r={typ}_saturating_add({typ}::MAX,1);assert(r=={typ}::MAX);
+                let r={typ}_saturating_sub({typ}::MIN,1);assert(r=={typ}::MIN);
+                let r={typ}_saturating_mul({typ}::MAX,2);assert(r=={typ}::MAX);
+                let r={typ}_neg(0);assert(r==Some(0{typ}));
+                let r={typ}_checked_add({typ}::MAX,1);assert(r==None);
+                let r={typ}_checked_sub({typ}::MIN,1);assert(r==None);
+            "#
+            ));
+        }
+    }
+    callers.push('}');
+    body.push_str(&callers);
+    for cache in ["miss", "hit"] {
+        let run =
+            crates.build("integer_matrix", &body, &[], &["--output-json", "--num-threads", "4"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 180);
+        for f in report["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][proof]["status"], "proved");
+            }
+        }
+    }
+}
+
+#[test]
+fn integer_operations_32_64_signedness_edges_and_safe_shift_domains() {
+    for bytes in [4, 8] {
+        let crates = InferCrates::new();
+        let body = format!(
+            r#"use vstd::prelude::*;global size_of usize == {bytes};
+            #[verifier::infer] fn shift(x:usize,n:i64)->usize{{x<<n}}
+            #[verifier::infer] fn right(x:isize,n:u32)->isize{{x>>n}}
+            #[verifier::infer] fn inv(x:usize)->usize{{!x}}
+            #[verifier::infer] fn wrap(x:isize,y:isize)->isize{{x.wrapping_add(y)}}
+            #[verifier::infer] fn mixed(x:usize,y:isize)->Option<usize>{{x.checked_sub_signed(y)}}
+            #[verifier::infer] fn neg(x:isize)->Option<isize>{{x.checked_neg()}}
+            fn caller(){{
+                assert((usize::MAX<<1)==usize::MAX-1) by(bit_vector);
+                let r=shift(usize::MAX,1);assert(r==usize::MAX-1);
+                assert((-2isize>>1)== -1) by(bit_vector);
+                let r=right(-2,1);assert(r == -1);
+                assert(!0usize==usize::MAX) by(bit_vector);
+                let r=inv(0);assert(r==usize::MAX);
+                let r=wrap(isize::MAX,1);assert(r==isize::MIN);
+                let r=mixed(0,-1);assert(r==Some(1usize));
+                let r=mixed(usize::MAX,-1);assert(r==None);
+                let r=neg(isize::MIN);assert(r==None);
+            }}"#
+        );
+        let run = crates.verify("integer_arch", &body, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for count in ["-1", "usize::BITS as i64", "64"] {
+            let bad = format!("{body} fn invalid(){{let _=shift(0,{count});}}");
+            let run = crates.verify("integer_bad_shift", &bad, &[], &["--output-json"]);
+            assert!(!run.status.success());
+            assert!(String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"));
+            assert!(!crates.vir("integer_bad_shift").exists());
+        }
+    }
+}
+
+#[test]
+fn integer_operations_composition_retypes_bitwise_operands_and_imports() {
+    let crates = InferCrates::new();
+    let base = r#"use vstd::prelude::*;
+        #[verifier::infer] pub fn mask(x:usize)->usize{x&15}
+        #[verifier::infer] pub fn shift(x:usize,n:u32)->usize{x<<n}
+        #[verifier::infer] pub fn wrap(x:isize,y:isize)->isize{x.wrapping_add(y)}
+        #[verifier::infer] pub fn negate(x:isize)->Option<isize>{x.checked_neg()}
+        #[verifier::infer] pub fn bounded(x:isize,y:isize)->isize{x.saturating_mul(y)}
+    "#;
+    for _ in 0..2 {
+        crates.succeeds("integer_base", base, &[]);
+    }
+    let middle = r#"use vstd::prelude::*;
+        #[verifier::infer] pub fn masked(x:usize)->usize{integer_base::mask(integer_base::shift(x,1))}
+        #[verifier::infer] pub fn increment_mask(x:usize)->usize{integer_base::mask(x+1)}
+        #[verifier::infer] pub fn carry(x:isize,y:isize)->Option<isize>{integer_base::negate(integer_base::wrap(x,y))}
+        #[verifier::infer] pub fn sat(x:isize,y:isize)->isize{integer_base::bounded(x,y)}
+    "#;
+    for _ in 0..2 {
+        crates.succeeds("integer_middle", middle, &["integer_base"]);
+    }
+    for bytes in [4, 8] {
+        let app = format!(
+            r#"use vstd::prelude::*;global size_of usize == {bytes};fn caller(){{
+            assert(((usize::MAX<<1)&15)==14) by(bit_vector);
+            let r=integer_middle::masked(usize::MAX);assert(r==14);
+            assert(((((14usize+1) as usize)&15))==15) by(bit_vector);
+            let r=integer_middle::increment_mask(14);assert(r==15);
+            let r=integer_middle::carry(isize::MAX,1);assert(r==None);
+            let r=integer_middle::sat(isize::MIN,2);assert(r==isize::MIN);
+        }}"#
+        );
+        let run = crates.verify("integer_app", &app, &["integer_base", "integer_middle"], &[]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    }
+}
+
+test_verify_one_file! {
+    #[test] integer_operations_sound_intervals_and_guarded_composition code! {
+        use vstd::prelude::*;
+        #[verus_infer(precision="sound")] fn scale(x:u8)->u8{x/100}
+        #[verus_infer(precision="sound")] fn shifted(x:u8)->u8{1u8<<scale(x)}
+        #[verus_infer(precision="sound")] fn mixed(x:u8)->u8{scale(x).wrapping_add(1)&15}
+        #[verus_infer(precision="sound")] fn guarded(x:isize,y:isize)->isize {
+            let v=x.saturating_add(y);if v<isize::MAX{v+1}else{0}
+        }
+        #[verus_infer(precision="sound")] fn complemented(x:usize)->usize{!x}
+        verus!{fn caller(){let r=shifted(255);assert(r<=255);let r=mixed(255);assert(r<=255);let r=guarded(isize::MAX,1);assert(isize::MIN<=r && r<=isize::MAX);}}
+    } => Ok(diags) => {assert_eq!(diags.notes.iter().filter(|n|n.message.contains("soundness: PROVED")).count(),5);}
+}
+
+#[test]
+fn integer_operations_incorrect_cached_candidates_never_publish() {
+    for kind in [
+        "permissive_shift",
+        "restrictive_shift",
+        "wrong_wrapping",
+        "wrong_saturating",
+        "wrong_checked",
+    ] {
+        let crates = InferCrates::new();
+        let function = match kind {
+            "permissive_shift" | "restrictive_shift" => {
+                "#[verifier::infer] pub fn op(x:u8,y:i32)->u8{x<<y}"
+            }
+            "wrong_wrapping" => "#[verifier::infer] pub fn op(x:u8,y:u8)->u8{x.wrapping_add(y)}",
+            "wrong_saturating" => {
+                "#[verifier::infer] pub fn op(x:u8,y:u8)->u8{x.saturating_mul(y)}"
+            }
+            _ => "#[verifier::infer] pub fn op(x:u8,y:i8)->Option<u8>{x.checked_add_signed(y)}",
+        };
+        let body = format!("use vstd::prelude::*; {function}");
+        let run = crates.build("integer_poison", &body, &[], &["--output-json"]);
+        assert!(run.status.success());
+        for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+            let path = file.unwrap().path();
+            let mut c: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            match kind {
+                "permissive_shift" => c["pre"] = serde_json::json!({"Bool":true}),
+                "restrictive_shift" => c["pre"] = serde_json::json!({"Bool":false}),
+                "wrong_checked" => {
+                    let typ = c["post"]["Binary"][2]["If"][1]["Ctor"][0].clone();
+                    assert!(!typ.is_null());
+                    c["post"]["Binary"][2] = serde_json::json!({"Ctor":[typ,"None",null]});
+                }
+                _ => {
+                    c["post"]["Binary"][2] =
+                        serde_json::to_value(vir::ast::Constant::Int(0.into())).unwrap()
+                }
+            }
+            std::fs::write(path, serde_json::to_vec(&c).unwrap()).unwrap();
+        }
+        let run = crates.build("integer_poison", &body, &[], &["--output-json"]);
+        assert!(!run.status.success(), "{}", kind);
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], "hit");
+        assert_eq!(f["available_to_same_crate_callers"], false);
+        assert_eq!(f["exported"], false);
+        assert_eq!(
+            f["proofs"][if kind == "restrictive_shift" { "maximality" } else { "soundness" }]["status"],
+            "not_proved"
+        );
+        assert!(!crates.vir("integer_poison").exists());
+    }
+}
+
+#[test]
+fn integer_operations_malformed_cached_bit_widths_are_rejected_before_reproof() {
+    let crates = InferCrates::new();
+    let body = "#[verifier::infer] pub fn invert(x:u8)->u8{!x}";
+    let run = crates.build("integer_bad_width", body, &[], &["--output-json"]);
+    assert!(run.status.success());
+    for width in
+        [serde_json::Value::Null, serde_json::json!({"Width":16}), serde_json::json!({"Width":256})]
+    {
+        for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+            let path = file.unwrap().path();
+            let mut candidate: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            assert!(candidate["post"]["Binary"][2]["BitNot"].is_array());
+            candidate["post"]["Binary"][2]["BitNot"][0] = width.clone();
+            std::fs::write(path, serde_json::to_vec(&candidate).unwrap()).unwrap();
+        }
+        let run = crates.build("integer_bad_width", body, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], "miss");
+        for proof in ["soundness", "maximality", "exactness"] {
+            assert_eq!(f["proofs"][proof]["status"], "proved");
+        }
+    }
+}

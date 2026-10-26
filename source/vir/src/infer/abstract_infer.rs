@@ -157,6 +157,10 @@ impl Interpreter<'_> {
                 .ok_or_else(|| unsupported(&e.span, "unknown interval variable"))?,
             ExprX::ReadPlace(p, _) => self.place(p)?,
             ExprX::NeverToAny(inner) => self.expr(inner)?,
+            ExprX::Unary(UnaryOp::BitNot(_), a) => {
+                self.expr(a)?;
+                unknown()?
+            }
             ExprX::Unary(UnaryOp::Not, a) => match self.expr(a)? {
                 Range::Bool(b) => Range::Bool(b.map(|b| !b)),
                 _ => return Err(unsupported(&e.span, "nonboolean interval negation")),
@@ -354,6 +358,37 @@ impl Interpreter<'_> {
                 let mut locals = HashMap::new();
                 for (param, arg) in callee.x.params.iter().zip(args.iter()) {
                     locals.insert(param.x.name.clone(), self.expr(arg)?);
+                }
+                if let Some(model) = integer_models::recognize(&callee) {
+                    if model.policy == integer_models::Policy::Checked {
+                        return Err(unsupported(
+                            &e.span,
+                            "enum expressions currently require exact inference",
+                        ));
+                    }
+                    let terms = callee
+                        .x
+                        .params
+                        .iter()
+                        .map(|p| Term {
+                            expr: SpannedTyped::new(
+                                &p.span,
+                                &p.x.typ,
+                                ExprX::Var(p.x.name.clone()),
+                            ),
+                            size: 1,
+                        })
+                        .collect();
+                    let formula = integer_models::value(&e.span, &callee, terms)?;
+                    let mut child = Interpreter {
+                        locals,
+                        callees: self.callees,
+                        remaining: self.remaining,
+                        word_bits: self.word_bits,
+                    };
+                    let result = child.expr(&formula.expr)?;
+                    self.remaining = child.remaining;
+                    return Ok(result.restrict(&e.typ, self.word_bits));
                 }
                 if callee.x.attrs.infer_allow_approx {
                     range_from_summary(&callee, self.word_bits)?

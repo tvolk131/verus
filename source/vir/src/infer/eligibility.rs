@@ -282,6 +282,11 @@ fn validate_root(
                             && slices::element(&a.typ).is_some()
                             && arrays::index_type(&i.typ) => {}
                     _ if arithmetic::arch_constant(e).is_some() => {}
+                    ExprX::Unary(op @ UnaryOp::BitNot(_), a)
+                        if bitwise::unary_valid(*op, &a.typ)
+                            && crate::ast_util::types_equal(&e.typ, &a.typ) => {}
+                    ExprX::Binary(op @ BinaryOp::Bitwise(..), a, b)
+                        if bitwise::source(*op, &a.typ, &b.typ, &e.typ).is_some() => {}
                     ExprX::Unary(UnaryOp::Not, a) if matches!(&*a.typ, TypX::Bool) => {}
                     ExprX::Unary(UnaryOp::Clip { range, .. }, _)
                         if arithmetic::exact_range(*range) => {}

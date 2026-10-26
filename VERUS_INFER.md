@@ -99,7 +99,13 @@ Implemented and covered by regression tests:
 - [x] Sound `usize`/`isize` intervals and compositional safety, analyzed separately
   at 32 and 64 bits and merged under a checked symbolic-width selector. Both
   branches are validated in caches/imports; mandatory soundness still gates use.
-- [x] Reproducible 31-case evaluation baseline, including expected failures,
+- [x] Exact bitwise operators and checked shift amounts, wrapping/saturating
+  add/subtract/multiply, checked negation, and mixed-sign checked add/subtract
+  across supported fixed-width/platform integers. Scalar sound-mode transfers
+  remain conservative. Typed summaries, caches, imports, and model fingerprints
+  preserve the existing independent proof requirements. The assurance document
+  audits 36 added trusted numeric specifications.
+- [x] Reproducible 34-case evaluation baseline, including expected failures,
   cold/warm reproving, incremental dependency invalidation, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
@@ -113,9 +119,10 @@ Still planned or outside the implemented subset:
 
 - [ ] Formal verification of the acceptance component and precision
   transformations; see the [assurance plan](VERUS_INFER_ASSURANCE.md).
-- [ ] Integer bitwise operations, and broader arithmetic policies such as explicit wrapping
-  or saturating operations. Mixed-sign checked methods and checked negation
-  remain outside the current checked-method allowlist.
+- [ ] Further numeric methods such as rotates/counts, mixed-sign wrapping or
+  saturating methods, and explicit wrapping shifts; the current batch covers
+  bitwise operators, normal shifts, wrapping/saturating add/subtract/multiply,
+  checked negation, and mixed-sign checked add/subtract.
 - [ ] General user-defined or nested enums, broader payloads, richer patterns,
   `let-else`, converting `Result` errors with `?`, custom `Try` implementations,
   and enum abstractions in sound mode.
@@ -142,7 +149,7 @@ Still planned or outside the implemented subset:
 | Roadmap phase | Current state |
 | --- | --- |
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
-| Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shift operations and broader arithmetic policies remain. |
+| Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs; automatic demand-driven strengthening remains future work. |
 | Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, immutable arrays, and shared scalar slices are implemented. Broader collections and frame conditions remain. |
 | Phase 4: loop inference | First exact unsigned counted accumulator pattern implemented with checked invariants and termination; broader loops remain. |
@@ -167,17 +174,12 @@ updated examples. The guide is the source of supported syntax; the original
 phases later in this RFC retain their proposed design, including unimplemented
 APIs and research directions.
 
-1. **Next batch: integer-operation coverage.** Add exact fixed-width and
-   platform-sized bitwise operators and checked shifts; explicit wrapping and
-   saturating add/subtract/multiply; checked negation and mixed-sign checked
-   add/subtract methods. Keep their distinct Rust safety policies visible.
-   Extend typed summary construction, cache decoding, imported validation, and
-   model fingerprints together. Audit and document any required standard-model
-   additions. Use honest sound-mode ranges where supported and explicit limits
-   otherwise. Acceptance must retain the existing required proofs, source
-   preservation, and publication gates. Validate small-width semantics, integer
-   boundaries, both architecture models, negative cases, cached reproving, and
-   cross-crate/Cargo composition in debug and release builds.
+1. **Integer-operation batch implemented.** Exact fixed-width/platform bitwise
+   operators, shifts, wrapping/saturating add/subtract/multiply, checked negation,
+   and mixed-sign checked add/subtract share typed builders and a closed numeric
+   model validator. The guide records their policies and conservative sound-mode
+   transfers. The assurance audit records added standard specifications. Broader
+   numeric methods remain in the checklist above.
 2. **Broader counted-loop families.** Extend the proof design to constant or
    immutable accumulator steps, subtraction, and countdown counters. Signed
    accumulators/counters and collection traversal need explicit additional
