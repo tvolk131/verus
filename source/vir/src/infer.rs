@@ -22,6 +22,7 @@ mod models;
 mod propagation;
 mod registry;
 mod report;
+mod slices;
 mod summary;
 
 pub use report::{GeneratedCandidate, GenerationReport};
@@ -153,6 +154,11 @@ impl Engine<'_> {
             PlaceX::Temporary(expr) => self.expr(expr),
             PlaceX::Index(base, index, ArrayKind::Array, BoundsCheck::Error)
                 if arrays::shape(&base.typ).is_some() =>
+            {
+                self.array_index(&place.span, base, index)
+            }
+            PlaceX::Index(base, index, ArrayKind::Slice, BoundsCheck::Error)
+                if slices::element(&base.typ).is_some() =>
             {
                 self.array_index(&place.span, base, index)
             }
@@ -305,7 +311,11 @@ impl Engine<'_> {
                     value: Some(logical(span, *op, a, b)?),
                 })
             }
-            ExprX::Binary(BinaryOp::Index(ArrayKind::Array, BoundsCheck::Error), lhs, rhs) => {
+            ExprX::Binary(
+                BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Error),
+                lhs,
+                rhs,
+            ) => {
                 let array = self.expr(lhs)?;
                 let index = self.expr(rhs)?;
                 self.index_summary(span, array, index)
@@ -376,7 +386,7 @@ impl Engine<'_> {
                     Some(exits::unit_value(span)?)
                 } else {
                     match (a.value, b.value) {
-                        (Some(a), Some(b)) => Some(conditional(span, c, a, b)?),
+                        (Some(a), Some(b)) => Some(summary::conditional(span, c, a, b)?),
                         (None, None) => None,
                         _ => {
                             return Err(unsupported(span, "branches with different result shapes"));
@@ -439,7 +449,11 @@ impl Engine<'_> {
                 if let Some(model) = models::array_call(expr, self.callees)? {
                     return self.array_model_call(expr, model);
                 }
-                if self.callees.get(name).is_some_and(arithmetic::division_model) {
+                if self
+                    .callees
+                    .get(name)
+                    .is_some_and(|f| arithmetic::division_model(f) || slices::model(f))
+                {
                     return Err(unsupported(
                         span,
                         "signed division models are implicit dependencies, not executable callees",
@@ -557,7 +571,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
                         unsupported(&e.span, "calls require an acyclic same-crate inferred callee or certified imported summary")
                     })?;
-                    if arithmetic::division_model(callee) {
+                    if arithmetic::division_model(callee) || slices::model(callee) {
                         return Err(unsupported(
                             &e.span,
                             "signed division models are implicit dependencies, not executable callees",
@@ -617,6 +631,7 @@ pub fn is_approved_model(function: &Function) -> bool {
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
         || arithmetic::division_model(function)
+        || slices::model(function)
 }
 
 pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]) -> Vec<Function> {
@@ -635,6 +650,11 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                     if let Some(model) =
                         available.get(&name).filter(|f| arithmetic::division_model(f))
                     {
+                        used.insert(name, model.clone());
+                    }
+                }
+                for name in slices::dependencies(e, &available) {
+                    if let Some(model) = available.get(&name).filter(|f| slices::model(f)) {
                         used.insert(name, model.clone());
                     }
                 }
@@ -845,7 +865,12 @@ fn format_expr(e: &Expr) -> String {
         ExprX::ArrayLiteral(elements) => {
             format!("[{}]", elements.iter().map(format_expr).collect::<Vec<_>>().join(", "))
         }
-        ExprX::Binary(BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow), a, i) => {
+        ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => format!("({}).len()", format_expr(a)),
+        ExprX::Binary(
+            BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Allow),
+            a,
+            i,
+        ) => {
             format!("({})[{}]", format_expr(a), format_expr(i))
         }
         ExprX::Ctor(_, variant, fields, None) => {

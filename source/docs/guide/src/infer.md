@@ -440,17 +440,68 @@ helpers additionally declare `no_unwind`, and inference requires this guarantee
 on all approved array models. There are no new array axioms.
 
 This array subset excludes nested arrays, mutable references, reference-valued
-elements, dynamic slice parameters or locals, array patterns, and mutation.
+elements, array patterns, and mutation. Shared dynamic slices are supported as
+described below.
 Signatures and local bindings support one shared reference to an array; compiler
-reborrows are handled transparently. The temporary slice conversion used by
-`.len()` is permitted only at fixed array types, without enabling general slice
-interfaces or other generic calls. Sound interval mode does not yet support
+reborrows are handled transparently. Array-to-slice conversion also supports
+forwarding these arrays to inferred slice helpers. Sound interval mode does not yet support
 arrays, shared-array references, or `usize` signatures.
 
 `examples/verus_infer_arrays.rs` composes array lookup, addition, and checked
 arithmetic, proves a pricing property, and runs success, overflow, and invalid-tier
 cases. It also constructs a repeated fee schedule and passes it through a borrowed
 interface. It can be verified, compiled, and run with the workflow above.
+
+Exact mode additionally supports read-only dynamic slices `&[T]`, with the same
+scalar element types. Their runtime lengths stay symbolic, so the fixed-array
+limit of 64 elements does not apply to slice inputs. For example:
+
+```rust
+#[verus_infer]
+fn at(values: &[u8], index: usize) -> u8 { values[index] }
+
+#[verus_infer]
+fn get(values: &[u8], index: usize) -> Option<u8> {
+    if index < values.len() { Some(at(values, index)) } else { None }
+}
+```
+
+`at` requires `0 <= index < values.len()` and returns exactly `values[index]`.
+`get` admits every index and describes `Some(values[index])` or `None` exactly.
+The ordinary executable supplies the independent bounds checks. Guarded reads,
+short-circuit conditions, length comparisons between slices, immutable aliases,
+shared reborrows, and selection between slice parameters compose normally.
+Scalar and flat `Option`/`Result` returns, early returns, checked arithmetic,
+and `?` retain their existing support and restrictions. Arithmetic on read
+elements adds its usual overflow/division requirements.
+
+Inferred callers can pass shared slices or coerce supported fixed arrays into
+slices. Array coercion retains the exact array term, specializing subsequent
+lengths and reads. Receiver evaluation remains eager: `get(&[x + 1; 0], 0)`
+still requires that `x + 1` not overflow, even though `get` returns `None`.
+Ordinary callers can pass arrays larger than 64 elements to slice interfaces;
+inferred bodies that construct arrays retain the fixed-array policy above.
+
+Slice summaries use existing Verus length/index operations and existing vstd
+specifications. The canonical `spec_slice_len` and `spec_slice_index`
+declarations and their containing artifacts are recorded as implicit model
+dependencies when used. The executable `.len()` model is recognized by the
+same closed identity/signature checks as before. No slice axioms or stronger
+library specifications were added. Cached candidates are retyped and reproved;
+cross-crate interfaces and JSON reports preserve all three exact-mode guarantees.
+
+This milestone excludes mutable slices, slice/array returns, nested or
+reference-valued elements, subslice/range operations, generic slice methods,
+loops, and sound-mode slice inference. `usize` remains restricted to indices,
+lengths, comparisons, and the existing fixed-width casts. Conditional coercions
+mixing arrays of different fixed lengths, or mixing an array term and a dynamic
+slice term, report an unsupported conditional; selection between dynamic slice
+inputs is supported even when their runtime lengths differ.
+
+`examples/verus_infer_slices.rs` proves lookup and pricing properties, composes
+checked arithmetic and `?`, and runs empty, invalid-index, overflow, signed-edge,
+and 300-element cases. The three-crate Cargo workspace also composes a slice
+lookup and charge through exported interfaces.
 
 The synthesizer merges branch results as conditional expressions instead of
 enumerating paths. It bounds both source traversal and expanded formula size at
@@ -572,11 +623,11 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-Current inference metadata uses schema 6; compositional safety inference uses candidate
-cache version 11. The internal candidate-identity field introduced with schema 6
-also changes serialized VIR:
-rebuild `vstd`, other `.vir` libraries, and their dependents with the updated
-compiler. Ordinary exports still omit inference proof trailers.
+Shared-slice inference uses metadata schema 7 and candidate-cache version 12;
+rebuild inferred libraries and their dependents with the updated compiler.
+The internal candidate-identity field introduced with schema 6 changed serialized
+VIR; libraries built before that change, including `vstd`, also need rebuilding.
+Ordinary exports still omit inference proof trailers.
 
 Ordinary libraries keep their existing export representation. Imported proof
 metadata uses Verus's normal trusted-library model: it records completed proofs;
@@ -681,6 +732,12 @@ Structured-report regressions additionally check fresh proofs on cache hits,
 honest optional timeouts and skips, failed caller export suppression, imported
 candidate/model identities, and rejection of a corrupted cached precondition
 with removal of the previous export.
+Slice regressions compare generated domains and outputs with concrete Rust
+reads/checked arithmetic over small vectors and every `u8`/`i8` element value,
+including empty and 300-element inputs. They also cover caller bounds and
+overflow rejection, symbolic lengths, aliases and guards, typed cache corruption,
+restrictive domains failing maximality, three-crate composition, stale model
+artifacts, and failed-proof export removal.
 Enum regressions additionally compare checked `u8` arithmetic against concrete
 Rust for every input pair, check supported widths and match-arm safety, compose
 enum interfaces through cached cross-crate builds, reject stale model

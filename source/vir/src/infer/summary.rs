@@ -5,6 +5,9 @@ use super::*;
 use eligibility::integer;
 
 pub(super) fn unary(span: &Span, op: UnaryOp, a: Term) -> Result<Term, VirErr> {
+    if op == UnaryOp::Length(ArrayKind::Slice) {
+        return slices::length(span, a);
+    }
     let typ = match op {
         UnaryOp::Not if matches!(&*a.expr.typ, TypX::Bool) => bool_typ(),
         UnaryOp::Clip {
@@ -18,6 +21,9 @@ pub(super) fn unary(span: &Span, op: UnaryOp, a: Term) -> Result<Term, VirErr> {
 }
 
 pub(super) fn binary(span: &Span, op: BinaryOp, a: Term, b: Term) -> Result<Term, VirErr> {
+    if matches!(op, BinaryOp::Index(ArrayKind::Slice, BoundsCheck::Allow)) {
+        return slices::index(span, a, b);
+    }
     if matches!(op, BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow)) {
         return arrays::index(span, a, b);
     }
@@ -124,7 +130,9 @@ pub(super) fn instantiate(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result
             )?,
             _ => return Err(invalid()),
         };
-        if !enums::compatible(&result.expr.typ, &expr.typ) {
+        if !enums::compatible(&result.expr.typ, &expr.typ)
+            && !slices::substitutes(&result.expr.typ, &expr.typ)
+        {
             return Err(invalid());
         }
         Ok(result)

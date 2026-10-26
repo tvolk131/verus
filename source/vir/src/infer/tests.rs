@@ -1,7 +1,7 @@
 use super::*;
 use num_traits::ToPrimitive;
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub(super) enum Value {
     Int(i128),
     Bool(bool),
@@ -24,51 +24,65 @@ pub(super) fn evaluate(e: &Expr, x: u8, y: u8) -> Value {
 }
 
 pub(super) fn evaluate_integer(e: &Expr, x: i128, y: i128) -> Value {
+    evaluate_with(e, &|name| {
+        Value::Int(match name {
+            "x" => x,
+            "y" => y,
+            _ => panic!("unknown variable"),
+        })
+    })
+}
+
+pub(super) fn evaluate_with(e: &Expr, variable: &dyn Fn(&str) -> Value) -> Value {
     match &e.x {
-        ExprX::ArrayLiteral(elements) => {
-            Value::Array(elements.iter().map(|e| evaluate_integer(e, x, y)).collect())
+        ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => {
+            let Value::Array(values) = evaluate_with(a, variable) else { panic!("expected slice") };
+            Value::Int(values.len() as i128)
         }
-        ExprX::Binary(BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow), a, i) => {
-            let Value::Array(values) = evaluate_integer(a, x, y) else { panic!("expected array") };
-            let index = evaluate_integer(i, x, y).int() as usize;
+        ExprX::ArrayLiteral(elements) => {
+            Value::Array(elements.iter().map(|e| evaluate_with(e, variable)).collect())
+        }
+        ExprX::Binary(
+            BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Allow),
+            a,
+            i,
+        ) => {
+            let Value::Array(values) = evaluate_with(a, variable) else { panic!("expected array") };
+            let index = evaluate_with(i, variable).int() as usize;
             values.into_iter().nth(index).expect("safe array index")
         }
         ExprX::Ctor(_, variant, fields, None) => Value::Enum(
             variant.to_string(),
-            fields.first().map(|f| Box::new(evaluate_integer(&f.a, x, y))),
+            fields.first().map(|f| Box::new(evaluate_with(&f.a, variable))),
         ),
         ExprX::UnaryOpr(UnaryOpr::IsVariant { variant, .. }, arg) => {
-            let Value::Enum(actual, _) = evaluate_integer(arg, x, y) else {
+            let Value::Enum(actual, _) = evaluate_with(arg, variable) else {
                 panic!("expected enum");
             };
             Value::Bool(actual == variant.as_str())
         }
         ExprX::UnaryOpr(UnaryOpr::Field(op), arg) => {
-            let Value::Enum(actual, field) = evaluate_integer(arg, x, y) else {
+            let Value::Enum(actual, field) = evaluate_with(arg, variable) else {
                 panic!("expected enum");
             };
             assert_eq!(actual, op.variant.as_str());
             *field.expect("expected payload")
         }
         ExprX::Const(Constant::Bool(b)) => Value::Bool(*b),
-        ExprX::Unary(UnaryOp::Not, a) => Value::Bool(!evaluate_integer(a, x, y).boolean()),
+        ExprX::Unary(UnaryOp::Not, a) => Value::Bool(!evaluate_with(a, variable).boolean()),
         ExprX::Const(Constant::Int(n)) => Value::Int(n.to_i128().unwrap()),
-        ExprX::Var(v) => Value::Int(match v.0.as_str() {
-            "x" => x.into(),
-            "y" => y.into(),
-            _ => panic!("unknown variable"),
-        }),
+        ExprX::Var(v) => variable(v.0.as_str()),
         ExprX::Logical(op, a, b) => {
-            let a = evaluate_integer(a, x, y).boolean();
+            let a = evaluate_with(a, variable).boolean();
             Value::Bool(match op {
-                LogicalOp::And => a && evaluate_integer(b, x, y).boolean(),
-                LogicalOp::Or => a || evaluate_integer(b, x, y).boolean(),
-                LogicalOp::Implies => !a || evaluate_integer(b, x, y).boolean(),
+                LogicalOp::And => a && evaluate_with(b, variable).boolean(),
+                LogicalOp::Or => a || evaluate_with(b, variable).boolean(),
+                LogicalOp::Implies => !a || evaluate_with(b, variable).boolean(),
             })
         }
         ExprX::Binary(op, a, b) => {
-            let a = evaluate_integer(a, x, y);
-            let b = evaluate_integer(b, x, y);
+            let a = evaluate_with(a, variable);
+            let b = evaluate_with(b, variable);
             match op {
                 BinaryOp::Eq(_) => Value::Bool(a == b),
                 BinaryOp::Ne => Value::Bool(a != b),
@@ -97,15 +111,15 @@ pub(super) fn evaluate_integer(e: &Expr, x: i128, y: i128) -> Value {
             }
         }
         ExprX::Unary(UnaryOp::Clip { range: IntRange::U(bits), .. }, a) => {
-            Value::Int(evaluate_integer(a, x, y).int().rem_euclid(1i128 << bits))
+            Value::Int(evaluate_with(a, variable).int().rem_euclid(1i128 << bits))
         }
         ExprX::Unary(UnaryOp::Clip { range: IntRange::I(bits), .. }, a) => {
             let modulus = 1i128 << bits;
-            let wrapped = evaluate_integer(a, x, y).int().rem_euclid(modulus);
+            let wrapped = evaluate_with(a, variable).int().rem_euclid(modulus);
             Value::Int(if wrapped >= modulus / 2 { wrapped - modulus } else { wrapped })
         }
         ExprX::If(c, a, Some(b)) => {
-            evaluate_integer(if evaluate_integer(c, x, y).boolean() { a } else { b }, x, y)
+            evaluate_with(if evaluate_with(c, variable).boolean() { a } else { b }, variable)
         }
         _ => panic!("unexpected formula: {e:?}"),
     }

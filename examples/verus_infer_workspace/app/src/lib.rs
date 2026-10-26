@@ -61,6 +61,21 @@ pub fn signed_settlement(balance: i64, delta: i64) -> Option<i64> {
     Some(infer_middle::signed_settlement(balance, delta)?)
 }
 
+#[verus_infer]
+pub fn slice_total(fees: &[u64], tier: usize, amount: u64) -> Option<u64> {
+    infer_middle::slice_charge(fees, tier, amount)
+}
+
+verus! {
+    pub fn slice_pricing_property(fees: &[u64], tier: usize, amount: u64) -> (result: Option<u64>)
+        ensures match result {
+            Some(total) => tier < fees@.len()
+                && total as int == amount as int + fees@[tier as int] as int,
+            None => true,
+        },
+    { slice_total(fees, tier, amount) }
+}
+
 verus! {
     pub fn signed_settlement_property(balance: i64, delta: i64) -> (result: Option<i64>)
         ensures match result {

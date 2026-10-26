@@ -47,6 +47,7 @@ pub(super) fn supported(typ: &Typ) -> bool {
 pub(super) fn compatible(a: &Typ, b: &Typ) -> bool {
     (eligibility::integer(a) && eligibility::integer(b))
         || arrays::compatible(a, b)
+        || slices::compatible(a, b)
         || crate::ast_util::types_equal(a, b)
 }
 impl ValueType {

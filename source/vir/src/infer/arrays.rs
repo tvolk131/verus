@@ -99,20 +99,6 @@ pub(super) fn index(span: &Span, array: Term, index: Term) -> Result<Term, VirEr
     )
 }
 
-pub(super) fn bound(span: &Span, array_type: &Typ, index: Term) -> Result<Term, VirErr> {
-    let (_, length) =
-        shape(array_type).ok_or_else(|| unsupported(span, "unsupported array bounds check"))?;
-    let number = |n: usize| Term {
-        expr: SpannedTyped::new(span, &int_typ(), ExprX::Const(Constant::Int(n.into()))),
-        size: 1,
-    };
-    let lower =
-        summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), number(0), index.clone())?;
-    let upper =
-        summary::binary(span, BinaryOp::Inequality(InequalityOp::Lt), index, number(length))?;
-    logical(span, LogicalOp::And, lower, upper)
-}
-
 impl Engine<'_> {
     pub(super) fn array_index(
         &mut self,
@@ -134,8 +120,8 @@ impl Engine<'_> {
         let a = value(&array, span)?;
         let i = value(&index, span)?;
         let safe = logical(span, LogicalOp::And, array.safe, index.safe)?;
-        let bounds = self.require_active(span, bound(span, &a.expr.typ, i.clone())?)?;
+        let bounds = self.require_active(span, slices::bound(span, a.clone(), i.clone())?)?;
         let safe = logical(span, LogicalOp::And, safe, bounds)?;
-        Ok(Summary { safe, value: Some(self::index(span, a, i)?) })
+        Ok(Summary { safe, value: Some(slices::index(span, a, i)?) })
     }
 }

@@ -35,3 +35,8 @@ pub fn uniform_fee(fee: u64, tier: usize) -> Option<u64> { infer_base::repeated_
 pub fn signed_settlement(balance: i64, delta: i64) -> Option<i64> {
     Some(infer_base::apply_delta(balance, delta)?)
 }
+
+#[verus_infer]
+pub fn slice_charge(fees: &[u64], tier: usize, amount: u64) -> Option<u64> {
+    Some(amount.checked_add(infer_base::slice_fee(fees, tier)?)?)
+}

@@ -94,6 +94,9 @@ overwrite inference outcomes. Query kinds must match ordinary/precision bodies.
 
 The assurance milestone introduced metadata schema 6 and cache version 6.
 Compositional safety inference uses cache version 11 and retains metadata schema 6.
+Shared-slice inference extends the summary language with existing slice length
+and index operations, using cache version 12 and metadata schema 7. Older inferred
+interfaces must be rebuilt. This extension adds no serialized AST fields.
 The serialized identity introduced with the assurance milestone also requires
 rebuilding `vstd`, other `.vir` libraries, and dependents, including ordinary
 libraries built with older compiler binaries.
@@ -244,6 +247,33 @@ precondition with fresh failed soundness and stale-export removal. The curated
 and publication, including deliberate frontend/unsupported/budget/proof failures.
 The corpus supplements the existing semantic and assurance tests; it does not
 prove the implementation or estimate general Rust coverage.
+
+## Shared-slice inference
+
+Dynamic slice candidates use the existing Verus slice length/index IR. The
+original executable retains ordinary bounds checks, arithmetic checks, and its
+control flow. Exact mode still requires soundness, maximality, and exactness;
+no precision-check or acceptance rules were added for slices.
+
+The canonical vstd slice length and index spec declarations are implicit
+dependencies, with closed signature checks and fingerprints covering their
+entire artifacts and supporting axioms. The existing executable `.len()` model
+retains its closed recognition and `no_unwind` requirement. Shared reborrows
+are stripped only as immutable value representations; mutable references remain
+ineligible. No new axioms, trusted helpers, or stronger specifications were added.
+
+Array-to-slice substitution retains the array's precise symbolic value and
+receiver safety. Length/index operators specialize to the array, while reverse
+slice-to-array substitution is rejected. Conditional summaries require compatible
+branch representations, so differing-length array coercions cannot install an
+ill-typed summary. Summary decoding and imported-summary substitution use the
+same typed builders. Source eligibility is rechecked on cache hits.
+
+Tests compare signed/unsigned slice domains and outputs against concrete Rust,
+check empty/large slices and eager receiver evaluation, poison cached bounds
+and reads, reject restrictive domains via maximality, and verify cache/import
+proofs and stale-export removal. Extending collection support does not formally
+verify the inference implementation; the formal targets below remain open.
 
 ## Later: formal verification targets
 

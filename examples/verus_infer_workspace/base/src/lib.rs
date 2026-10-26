@@ -39,3 +39,8 @@ pub fn repeated_fee(fee: u64, tier: usize) -> Option<u64> {
 pub fn apply_delta(balance: i64, delta: i64) -> Option<i64> {
     balance.checked_add(delta)
 }
+
+#[verus_infer]
+pub fn slice_fee(fees: &[u64], tier: usize) -> Option<u64> {
+    if tier < fees.len() { Some(fees[tier]) } else { None }
+}

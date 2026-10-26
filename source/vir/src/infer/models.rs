@@ -137,8 +137,9 @@ pub(super) fn array_call(
         return Err(invalid());
     }
     let is_slice = |typ: &Typ| {
-        matches!(&**typ, TypX::Decorate(TypDecoration::Ref, None, inner)
-        if matches!(&**inner, TypX::Primitive(Primitive::Slice, ts) if ts.len() == 1 && crate::ast_util::types_equal(&ts[0], &typs[0])))
+        matches!(&**typ, TypX::Decorate(TypDecoration::Ref, None, _))
+            && matches!(&**arrays::readonly_base(typ), TypX::Primitive(Primitive::Slice, ts)
+                if ts.len() == 1 && crate::ast_util::types_equal(&ts[0], &typs[0]))
     };
     match kind {
         ArrayModel::AsSlice | ArrayModel::Fill => {
@@ -162,7 +163,6 @@ pub(super) fn array_call(
             if typs.len() != 1
                 || !arrays::index_type(&expr.typ)
                 || !is_slice(&args[0].typ)
-                || array_call(&args[0], functions)? != Some(ArrayModel::AsSlice)
             {
                 return Err(invalid());
             }
@@ -180,14 +180,9 @@ impl Engine<'_> {
         let ExprX::Call { args, .. } = &expr.x else { unreachable!() };
         let span = &expr.span;
         if kind == ArrayModel::Len {
-            let ExprX::Call { args: conversion_args, .. } = &args[0].x else { unreachable!() };
-            let array = self.expr(&conversion_args[0])?;
-            let (_, length) = arrays::shape(&value(&array, span)?.expr.typ)
-                .ok_or_else(|| unsupported(span, "length requires a fixed-size array"))?;
-            return Ok(Summary {
-                safe: array.safe,
-                value: Some(term(span, &int_typ(), ExprX::Const(Constant::Int(length.into())), 1)?),
-            });
+            let array = self.expr(&args[0])?;
+            let output = slices::length(span, value(&array, span)?)?;
+            return Ok(Summary { safe: array.safe, value: Some(output) });
         }
         let arg = self.expr(&args[0])?;
         let output = if kind == ArrayModel::Fill {
@@ -195,9 +190,9 @@ impl Engine<'_> {
                 .ok_or_else(|| unsupported(span, "unsupported repeated array"))?;
             Some(arrays::literal(span, &expr.typ, vec![value(&arg, span)?; n])?)
         } else {
-            // The internal slice value is only consumed by the Len case above.
-            // An unused conversion still evaluates its array argument.
-            None
+            // Preserve the exact array value through a slice coercion. Summary
+            // substitution specializes subsequent length/index operations.
+            Some(value(&arg, span)?)
         };
         Ok(Summary { safe: arg.safe, value: output })
     }

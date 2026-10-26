@@ -1561,10 +1561,15 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] array_slice_parameters_are_explicitly_unsupported code! {
+    #[test] shared_slice_first_has_exact_contract code! {
         use vstd::prelude::*;
         #[verus_infer] fn first(values: &[u8]) -> u8 { values[0] }
-    } => Err(e) => assert_vir_error_msg(e, "parameters and return values must be")
+        verus! { fn caller() { let r=first(&[9, 12]); assert(r==9); } }
+    } => Ok(diags) => {
+        for label in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+            assert!(diags.notes.iter().any(|d| d.message.contains(label)));
+        }
+    }
 }
 
 test_verify_one_file! {
@@ -3164,4 +3169,254 @@ fn structured_report_poisoned_cache_is_reproved_and_stale_export_removed() {
     assert_eq!(f["exported"], false);
     assert_ne!(f["candidate_id"], original["functions"][0]["candidate_id"]);
     assert!(!crates.vir("json_poison").exists());
+}
+
+test_verify_one_file! {
+    #[test] slices_guarded_indexing_length_and_composition code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn at(xs:&[u8], i:usize)->u8 {xs[i]}
+        #[verus_infer] fn get(xs:&[u8], i:usize)->Option<u8> {
+            let n=xs.len(); if i<n {Some(at(xs,i))} else {None}
+        }
+        #[verus_infer] fn checked(xs:&[u8], i:usize, extra:u8)->Option<u8> {
+            Some(get(xs,i)?.checked_add(extra)?)
+        }
+        #[verus_infer] fn uniform(x:u8, i:usize)->Option<u8> {get(&[x;3],i)}
+        #[verus_infer] fn length_byte(xs:&[u8])->u8 {xs.len() as u8}
+        verus! {fn caller(){
+            let r=get(&[],0);assert(r==None);
+            let r=get(&[4,8],1);assert(r==Some(8u8));
+            let r=get(&[4,8],2);assert(r==None);
+            let r=checked(&[250],0,5);assert(r==Some(255u8));
+            let r=checked(&[250],0,6);assert(r==None);
+            let r=uniform(9,2);assert(r==Some(9u8));
+            let r=uniform(9,3);assert(r==None);
+            assert(300usize as u8 == 44) by(bit_vector);
+            let r=length_byte(&[0u8;300]);assert(r==44);
+        }}
+    } => Ok(diags) => {
+        for label in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+            assert_eq!(diags.notes.iter().filter(|d|d.message.contains(label)).count(),5,"{label}: {:?}",diags.notes);
+        }
+    }
+}
+
+test_verify_one_file! {
+    #[test] slices_signed_reads_branches_and_short_circuit code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn negate(xs:&[i8],i:usize)->i8 {-xs[i]}
+        #[verus_infer] fn positive(xs:&[i8],i:usize)->bool {i<xs.len()&&xs[i]>0}
+        #[verus_infer] fn selected(a:&[i8],b:&[i8],pick:bool,i:usize)->i8 {
+            let xs=if pick {a}else{b};let alias=&*xs; alias[i]
+        }
+        #[verus_infer] fn same_length(a:&[bool],b:&[bool])->bool {a.len()==b.len()}
+        verus! {fn caller(){
+            let r=negate(&[-127i8],0);assert(r==127);
+            let r=positive(&[],0);assert(!r);
+            let r=positive(&[1i8],0);assert(r);
+            let r=selected(&[2i8],&[-3i8,4],false,1);assert(r==4);
+            let r=same_length(&[true,false],&[false,true]);assert(r);
+        }}
+    } => Ok(())
+}
+
+test_verify_one_file! {
+    #[test] slices_out_of_bounds_caller_is_rejected code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn at(xs:&[u8],i:usize)->u8 {xs[i]}
+        verus! {fn caller(){let _=at(&[4],1); /* FAILS */}}
+    } => Err(e) => assert_one_fails(e)
+}
+
+test_verify_one_file! {
+    #[test] slices_overflowing_element_operation_is_rejected code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn increment(xs:&[u8],i:usize)->u8 {xs[i]+1}
+        verus! {fn caller(){let _=increment(&[255],0); /* FAILS */}}
+    } => Err(e) => assert_one_fails(e)
+}
+
+test_verify_one_file! {
+    #[test] slices_length_relations_early_returns_and_boolean_elements code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn zipped(xs:&[u8],ys:&[u8],i:usize)->Result<u8,u8> {
+            if xs.len()!=ys.len(){return Err(1);}
+            if i>=xs.len(){return Err(2);}
+            Ok(xs[i]+ys[i])
+        }
+        #[verus_infer] fn flag(xs:&[bool],i:usize)->Option<bool> {
+            if i<xs.len() {Some(xs[i])}else{None}
+        }
+        verus! {fn caller(){
+            let r=zipped(&[1,2],&[3,4],1);assert(r==Ok::<u8,u8>(6));
+            let r=zipped(&[255],&[],0);assert(r==Err::<u8,u8>(1));
+            let r=zipped(&[],&[],0);assert(r==Err::<u8,u8>(2));
+            let r=flag(&[true,false],1);assert(r==Some(false));
+            let r=flag(&[],usize::MAX);assert(r==None);
+        }}
+    } => Ok(())
+}
+
+test_verify_one_file! {
+    #[test] slices_array_coercions_preserve_eager_operand_safety code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn get(xs:&[u8],i:usize)->Option<u8> {
+            if i<xs.len(){Some(xs[i])}else{None}
+        }
+        #[verus_infer] fn empty(x:u8)->Option<u8> {get(&[x+1;0],0)}
+        verus!{fn caller(){let _=empty(255); /* FAILS */}}
+    } => Err(e) => assert_one_fails(e)
+}
+
+test_verify_one_file! {
+    #[test] slices_sound_mode_is_explicitly_unsupported code! {
+        use vstd::prelude::*;
+        #[verus_infer(precision="sound")] fn at(xs:&[u8])->u8 {xs[0]}
+    } => Err(e) => assert_vir_error_msg(e,"shared slices also require exact mode")
+}
+
+test_verify_one_file! {
+    #[test] slices_mutable_references_are_unsupported code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn at(xs:&mut[u8])->u8 {xs[0]}
+    } => Err(e) => assert_vir_error_msg(e,"parameters and return values must be")
+}
+
+test_verify_one_file! {
+    #[test] slices_nested_elements_are_unsupported code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn at(xs:&[&[u8]])->u8 {xs[0][0]}
+    } => Err(e) => assert_vir_error_msg(e,"parameters and return values must be")
+}
+
+test_verify_one_file! {
+    #[test] slices_returns_are_unsupported code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn identity(xs:&[u8])->&[u8] {xs}
+    } => Err(e) => assert_vir_error_msg(e,"slice returns are also unsupported")
+}
+
+test_verify_one_file! {
+    #[test] slices_reslicing_and_generic_methods_remain_unsupported code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn subslice(xs:&[u8],i:usize)->u8 {let part=&xs[i..];part[0]}
+    } => Err(e) => assert_vir_error_msg(e,"Verus Infer unsupported")
+}
+
+test_verify_one_file! {
+    #[test] slices_different_array_coercion_branches_are_explicitly_unsupported code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn selected(x:u8,b:bool,i:usize)->u8 {
+            let xs:&[u8]=if b {&[x;1]}else{&[x;2]};xs[i]
+        }
+    } => Err(e) => assert_vir_error_msg(e,"invalid summary conditional")
+}
+
+const SLICE_BASE: &str = r#"
+    use vstd::prelude::*;
+    #[verifier::infer] pub fn at(xs:&[i8],i:usize)->i8 {xs[i]}
+    #[verifier::infer] pub fn get(xs:&[i8],i:usize)->Result<i8,u8> {
+        if i<xs.len(){Ok(at(xs,i))}else{Err(7)}
+    }
+"#;
+const SLICE_MIDDLE: &str = r#"
+    use vstd::prelude::*;
+    #[verifier::infer] pub fn increment(xs:&[i8],i:usize)->Result<i8,u8> {
+        Ok(slice_base::get(xs,i)?+1)
+    }
+"#;
+
+#[test]
+fn slices_cross_crate_caches_reports_and_transitive_model_provenance() {
+    let crates = InferCrates::new();
+    let vstd_path = crates.directory.path().join("vstd.vir");
+    std::fs::copy(crates.profile.join("vstd.vir"), &vstd_path).unwrap();
+    for (name, body, deps) in
+        [("slice_base", SLICE_BASE, vec![]), ("slice_middle", SLICE_MIDDLE, vec!["slice_base"])]
+    {
+        for cache in ["miss", "hit"] {
+            let run = crates.build(name, body, &deps, &["--output-json", "--num-threads", "4"]);
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+            let report = json_inference(&run);
+            for f in report["functions"].as_array().unwrap() {
+                assert_eq!(f["metrics"]["cache"], cache);
+                assert_eq!(f["exported"], true);
+                for o in ["soundness", "maximality", "exactness"] {
+                    assert_eq!(f["proofs"][o]["status"], "proved");
+                }
+            }
+            for model in ["spec_slice_len", "spec_slice_index"] {
+                assert!(
+                    report["trusted_models"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .any(|m| m["function"].as_str().unwrap().ends_with(model))
+                );
+            }
+        }
+    }
+    crates.succeeds("slice_app",r#"
+        use vstd::prelude::*;
+        #[verifier::infer] pub fn top(xs:&[i8],i:usize)->Result<i8,u8> {slice_middle::increment(xs,i)}
+        pub fn caller(){
+            let r=top(&[-128,126],1);assert(r==Ok::<i8,u8>(127));
+            let r=top(&[],0);assert(r==Err::<i8,u8>(7));
+            let r=top(&[1i8;300],299);assert(r==Ok::<i8,u8>(2));
+        }
+    "#,&["slice_base","slice_middle"]);
+    let mut changed = std::fs::read(&vstd_path).unwrap();
+    changed.push(b' ');
+    std::fs::write(&vstd_path, changed).unwrap();
+    let run = crates.build("slice_middle", SLICE_MIDDLE, &["slice_base"], &["--output-json"]);
+    assert!(!run.status.success());
+    assert!(
+        String::from_utf8_lossy(&run.stderr).contains("stale or missing trusted-model fingerprint")
+    );
+    assert_eq!(json_inference(&run)["interface_written"], false);
+    assert!(!crates.vir("slice_middle").exists());
+}
+
+#[test]
+fn slices_poisoned_cache_bounds_and_outputs_are_independently_rejected() {
+    for poison in ["permissive", "restrictive", "wrong_index"] {
+        let crates = InferCrates::new();
+        let source =
+            r#"use vstd::prelude::*;#[verifier::infer] pub fn at(xs:&[u8],i:usize)->u8{xs[i]}"#;
+        let run = crates.build("slice_cache", source, &[], &["--output-json"]);
+        assert!(run.status.success());
+        for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+            let path = file.unwrap().path();
+            let mut candidate: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            match poison {
+                "permissive" => candidate["pre"] = serde_json::json!({"Bool":true}),
+                "restrictive" => candidate["pre"] = serde_json::json!({"Logical":[
+                    vir::ast::LogicalOp::And, candidate["pre"].clone(),
+                    {"Binary":[vir::ast::BinaryOp::Inequality(vir::ast::InequalityOp::Le),
+                        {"SliceLen":{"Param":0}}, vir::ast::Constant::Int(64.into())]}
+                ]}),
+                _ => {
+                    candidate["post"]["Binary"][2]["Binary"][2] =
+                        serde_json::to_value(&vir::ast::Constant::Int(0.into())).unwrap()
+                }
+            }
+            std::fs::write(path, serde_json::to_vec(&candidate).unwrap()).unwrap();
+        }
+        let run = crates.build("slice_cache", source, &[], &["--output-json"]);
+        assert!(!run.status.success(), "{poison}: {}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["status"], "required_proof_failed", "{poison}: {report}");
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], "hit");
+        assert_eq!(f["required_checks_passed"], false);
+        assert_eq!(f["exported"], false);
+        if poison == "restrictive" {
+            assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+            assert_eq!(f["proofs"]["maximality"]["status"], "not_proved");
+        } else {
+            assert_eq!(f["proofs"]["soundness"]["status"], "not_proved");
+        }
+        assert!(!crates.vir("slice_cache").exists());
+    }
 }

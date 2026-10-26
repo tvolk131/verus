@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v11:composed-safety:4096";
+const VERSION: &str = "verus-infer-v12:shared-slices:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -22,6 +22,7 @@ enum Formula {
     Int(BigInt),
     Param(usize),
     Not(Box<Formula>),
+    SliceLen(Box<Formula>),
     Clip(u32, Box<Formula>),
     SignedClip(u32, Box<Formula>),
     Binary(BinaryOp, Box<Formula>, Box<Formula>),
@@ -56,6 +57,7 @@ fn encode(e: &Expr, params: &Params) -> Formula {
         ExprX::Const(Constant::Int(v)) => Formula::Int(v.clone()),
         ExprX::Var(v) => Formula::Param(params.iter().position(|p| &p.x.name == v).unwrap()),
         ExprX::Unary(UnaryOp::Not, a) => Formula::Not(enc(a)),
+        ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => Formula::SliceLen(enc(a)),
         ExprX::Unary(UnaryOp::Clip { range: IntRange::U(bits), .. }, a) => {
             Formula::Clip(*bits, enc(a))
         }
@@ -140,6 +142,11 @@ fn decode(
         Formula::Not(a) => {
             summary::unary(span, UnaryOp::Not, decode(a, function, remaining, allow_result)?)
         }
+        Formula::SliceLen(a) => summary::unary(
+            span,
+            UnaryOp::Length(ArrayKind::Slice),
+            decode(a, function, remaining, allow_result)?,
+        ),
         Formula::Clip(bits @ (8 | 16 | 32 | 64 | 128), a) => summary::unary(
             span,
             UnaryOp::Clip { range: IntRange::U(*bits), truncate: true },
@@ -285,6 +292,10 @@ impl Registry {
                     dependencies.push(keys.get(&name).ok_or_else(|| unsupported(&e.span,
                         "signed division/remainder requires vstd arithmetic models; import vstd::prelude::*"))?.clone());
                 }
+                for name in slices::dependencies(e, &all) {
+                    dependencies.push(keys.get(&name).ok_or_else(|| unsupported(&e.span,
+                        "slice indexing/length requires vstd slice models; import vstd::prelude::*"))?.clone());
+                }
                 Ok::<_, VirErr>(())
             })?;
             // Includes the entire typed function (body, signature, attributes,
@@ -341,6 +352,37 @@ impl Registry {
 mod tests {
     use super::*;
     use crate::infer::tests::{function, input};
+
+    #[test]
+    fn malformed_slice_length_and_index_cache_types_are_misses() {
+        let f = slices::tests::slice_function(false);
+        let imports = [slices::tests::model_function(false), slices::tests::model_function(true)];
+        let mut registry = Registry::new(None);
+        registry.infer_with_imports(&[f.clone()], &imports).unwrap();
+        let key = registry.entries.keys().next().unwrap().clone();
+        let original = registry.entries[&key].clone();
+        let malformed = [
+            Formula::SliceLen(Box::new(Formula::Bool(true))),
+            Formula::SliceLen(Box::new(Formula::Param(1))),
+            Formula::Binary(
+                BinaryOp::Index(ArrayKind::Slice, BoundsCheck::Allow),
+                Box::new(Formula::Param(0)),
+                Box::new(Formula::Bool(false)),
+            ),
+            Formula::Binary(
+                BinaryOp::Index(ArrayKind::Slice, BoundsCheck::Allow),
+                Box::new(Formula::Bool(false)),
+                Box::new(Formula::Param(1)),
+            ),
+        ];
+        for bad in malformed {
+            let mut poison = original.clone();
+            poison.pre = bad;
+            registry.entries.insert(key.clone(), poison);
+            registry.infer_with_imports(&[f.clone()], &imports).unwrap();
+        }
+        assert_eq!((registry.hits, registry.misses), (0, 5));
+    }
 
     #[test]
     fn disk_roundtrip_corruption_version_and_configuration() {

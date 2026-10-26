@@ -80,7 +80,11 @@ Implemented and covered by regression tests:
   proof outcomes, required/optional distinctions, dependency/model fingerprints,
   actual caller/export availability, formula sizes, and generation/cache/SMT
   measurements. Reports are observations, not importable proof certificates.
-- [x] Reproducible 16-case evaluation baseline, including expected failures,
+- [x] Exact read-only shared scalar slices with symbolic lengths, guarded and
+  unguarded indexing, aliases, length relationships, scalar/enum results, and
+  composition through caches and certified cross-crate interfaces. Existing
+  slice models are fingerprinted; no new slice axioms or stronger specs were added.
+- [x] Reproducible 18-case evaluation baseline, including expected failures,
   cold/warm reproving, incremental dependency invalidation, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
@@ -101,7 +105,8 @@ Still planned or outside the implemented subset:
 - [ ] General user-defined or nested enums, broader payloads, richer patterns,
   `let-else`, converting `Result` errors with `?`, custom `Try` implementations,
   and enum abstractions in sound mode.
-- [ ] Broader array syntax, array-valued interfaces, and basic dynamic slice properties.
+- [ ] Broader array syntax, array/slice-valued interfaces, subslices, and richer
+  slice element types; shared scalar slice reads and length properties are implemented.
 - [ ] Mutation, state relations, and frame-condition inference.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
@@ -123,7 +128,7 @@ Still planned or outside the implemented subset:
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed unsigned/signed integers and Booleans; integer bitwise operations and broader arithmetic policies remain. |
 | Phase 2: modular composition | Implemented within that subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs. |
-| Phase 3: partial inference and collections | Partial: scalar intervals, exact enums, and immutable flat array reads are implemented; broader arrays, slices, and frame conditions remain. |
+| Phase 3: partial inference and collections | Partial: scalar intervals, exact enums, immutable flat arrays, and shared scalar slices are implemented; broader collections and frame conditions remain. |
 | Phase 4: loop inference | Not implemented. |
 | Phase 5: richer verification | Future work. |
 
@@ -140,8 +145,9 @@ transformations remains separately scoped work.
 ## Proposed next milestones
 
 The checklist above is the ongoing backlog. Exact signed inference, its
-signed-interval follow-up, and the reporting/evaluation baseline are implemented.
-The suggested next language milestone is shared dynamic slices:
+signed-interval follow-up, the reporting/evaluation baseline, and basic shared
+dynamic slices are implemented. Selected loop inference remains the next larger
+language milestone and needs a separately scoped design:
 
 1. **Completed: exact signed integers.** `i8` through `i128` arithmetic,
    comparisons, negation, and casts, including signed enum payloads, arrays, and
@@ -155,15 +161,17 @@ The suggested next language milestone is shared dynamic slices:
 2. **Implemented baseline: contract reporting and measurement.** Schema-versioned
    JSON separates checked predicates, requested precision, actual proof outcomes,
    dependencies, trusted models, incomplete results, and publication. Predicates
-   retain their checked meaning and expose parameter/result types. A 16-case
+   retain their checked meaning and expose parameter/result types. An 18-case
    corpus measures selected feature coverage and known limits, caller-property
    outcomes, exact versus sound summaries, formula size, generation/solver time,
    cache reuse, incremental invalidation, and two call-graph depths. Broader
    evaluation and further formula simplification remain in the backlog.
-3. **Basic dynamic slices.** Start with shared scalar slices, length relationships,
-   indexing safety, and scalar/enum results. Retain the existing proof and
-   publication requirements; broader collections, mutation, and frame conditions
-   remain tracked in the backlog above.
+3. **Completed: basic dynamic slices.** Shared scalar slices support symbolic
+   lengths, length relationships, guarded reads, immutable aliases, scalar/enum
+   results, and acyclic composition. Caches, cross-crate metadata, and reports
+   preserve the existing proof and publication requirements. Broader collections,
+   mutable slices, returned slices, subslices, and frame conditions remain tracked
+   in the backlog above.
 4. **Selected loop inference.** Begin with bounded or recognizable accumulator,
    search, and traversal patterns. Establish a separate design for termination,
    invariant generation, and independent invariant checks before implementation.

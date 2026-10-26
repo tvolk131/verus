@@ -25,7 +25,10 @@ pub(super) fn value_type(typ: &Typ, allow_approx: bool) -> bool {
     if allow_approx {
         scalar(typ)
     } else {
-        enums::supported(typ) || arrays::input_type(typ) || arrays::index_type(typ)
+        enums::supported(typ)
+            || arrays::input_type(typ)
+            || slices::input_type(typ)
+            || arrays::index_type(typ)
     }
 }
 
@@ -43,7 +46,10 @@ fn readable_place(place: &Place, allow_approx: bool) -> bool {
         {
             true
         }
-        PlaceX::Local(_) | PlaceX::Temporary(_) => value_type(&place.typ, allow_approx),
+        PlaceX::Local(_) | PlaceX::Temporary(_) => {
+            value_type(&place.typ, allow_approx)
+                || (!allow_approx && slices::element(&place.typ).is_some())
+        }
         PlaceX::Field(op, base) => {
             !allow_approx && enums::valid_field(op, &base.typ) && readable_place(base, false)
         }
@@ -51,6 +57,13 @@ fn readable_place(place: &Place, allow_approx: bool) -> bool {
             !allow_approx
                 && arrays::shape(&base.typ)
                     .is_some_and(|(element, _)| crate::ast_util::types_equal(&element, &place.typ))
+                && arrays::index_type(&index.typ)
+                && readable_place(base, false)
+        }
+        PlaceX::Index(base, index, ArrayKind::Slice, BoundsCheck::Error) => {
+            !allow_approx
+                && slices::element(&base.typ)
+                    .is_some_and(|element| crate::ast_util::types_equal(&element, &place.typ))
                 && arrays::index_type(&index.typ)
                 && readable_place(base, false)
         }
@@ -152,7 +165,7 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
     {
         return Err(unsupported(
             span,
-            "parameters and return values must be bool or fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be usize indices or scalar arrays of length 0..=64 or shared references to them (array/usize returns are unsupported)",
+            "parameters and return values must be bool or fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be usize indices, scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (array/usize returns are unsupported; slice returns are also unsupported)",
         ));
     }
     if !value_type(&f.inner_ret.x.typ, f.attrs.infer_allow_approx)
@@ -160,7 +173,7 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
     {
         return Err(unsupported(
             span,
-            "sound interval inference requires scalar signatures; Option/Result inference currently requires exact mode, as do arrays and usize indices",
+            "sound interval inference requires scalar signatures; Option/Result inference currently requires exact mode, as do arrays and usize indices; shared slices also require exact mode",
         ));
     }
     Ok(())
@@ -246,6 +259,10 @@ fn validate_root(
                     ExprX::Binary(BinaryOp::Index(ArrayKind::Array, BoundsCheck::Error), a, i)
                         if !f.x.attrs.infer_allow_approx
                             && arrays::shape(&a.typ).is_some()
+                            && arrays::index_type(&i.typ) => {}
+                    ExprX::Binary(BinaryOp::Index(ArrayKind::Slice, BoundsCheck::Error), a, i)
+                        if !f.x.attrs.infer_allow_approx
+                            && slices::element(&a.typ).is_some()
                             && arrays::index_type(&i.typ) => {}
                     ExprX::Unary(UnaryOp::Not, a) if matches!(&*a.typ, TypX::Bool) => {}
                     ExprX::Unary(UnaryOp::Clip { range, .. }, _)

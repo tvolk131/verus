@@ -13,12 +13,12 @@ persistent temporary directory and prints its location. `--case signed` selects
 one case; repeat the option to select several. `--timeout` bounds each compiler
 process and defaults to 180 seconds. No packages or network access are needed.
 
-The manifest contains 16 curated cases: eight positive examples and eight
+The manifest contains 18 curated cases: ten positive examples and eight
 expected failures. They exercise unsigned and signed arithmetic, casts, arrays,
 checked arithmetic, `Option`/`Result`, early returns and `?`, exact and sound
-composition, caller properties, call-graph depth, unsupported loops/slices,
+composition, shared dynamic slices, caller properties, call-graph depth, unsupported loops/mutable slices,
 analysis budgets, required solver limits, and frontend errors. Depth cases
-generate deterministic chains of four and sixteen functions. The five existing
+generate deterministic chains of four and sixteen functions. The six existing
 standalone examples are shared with the documentation.
 
 Each case runs with its own empty candidate cache, then again with that cache.
