@@ -220,6 +220,10 @@ fn handle_autospec<'tcx>(
                 outer_ret: spec_ret_param,
                 item_kind: ItemKind::Function,
                 attrs: Arc::new(FunctionAttrsX {
+                    infer: false,
+                    infer_allow_approx: false,
+                    infer_precision_rlimit: None,
+                    infer_candidate_id: None,
                     uses_ghost_blocks: vattrs.verus_macro,
                     inline: false,
                     broadcast_forall: false,
@@ -1470,6 +1474,10 @@ fn make_attributes<'tcx>(
         );
     }
     let fattrs = FunctionAttrsX {
+        infer: vattrs.infer,
+        infer_allow_approx: vattrs.infer_allow_approx,
+        infer_precision_rlimit: vattrs.infer_precision_rlimit,
+        infer_candidate_id: None,
         uses_ghost_blocks,
         inline: vattrs.inline,
         no_auto_trigger: vattrs.no_auto_trigger,

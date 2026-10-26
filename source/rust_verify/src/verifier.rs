@@ -329,6 +329,11 @@ pub struct Verifier {
     dep_tracker: Option<crate::cargo_verus_dep_tracker::DepTracker>,
     import_virs_via_cargo: Option<Vec<(String, String)>>,
     export_vir_path_via_cargo: Option<std::path::PathBuf>,
+    imported_inference_dependencies: Vec<crate::import_export::InferenceDependency>,
+    inference_trusted_models: Vec<(Fun, String)>,
+    available_trusted_models: HashMap<Fun, String>,
+    pending_inference_export: Option<(crate::import_export::CrateMetadata, Krate)>,
+    inference_proofs: vir::infer_proof::Proofs,
     pub(crate) compile: bool,
 
     // If we've already created the log directory, this is the path to it:
@@ -432,6 +437,8 @@ mod util {
 use util::PanicOnDropVec;
 
 struct RunCommandQueriesResult {
+    /// Any unproved query, independently of diagnostic severity.
+    unproved: bool,
     invalidity: bool,
     timed_out: bool,
     not_skipped: bool,
@@ -443,6 +450,7 @@ impl std::ops::Add for RunCommandQueriesResult {
 
     fn add(self, rhs: Self) -> Self::Output {
         RunCommandQueriesResult {
+            unproved: self.unproved || rhs.unproved,
             invalidity: self.invalidity || rhs.invalidity,
             timed_out: self.timed_out || rhs.timed_out,
             not_skipped: self.not_skipped || rhs.not_skipped,
@@ -520,6 +528,11 @@ impl Verifier {
             via_cargo_args,
             import_virs_via_cargo: None,
             export_vir_path_via_cargo: None,
+            imported_inference_dependencies: Vec::new(),
+            inference_trusted_models: Vec::new(),
+            available_trusted_models: HashMap::new(),
+            pending_inference_export: None,
+            inference_proofs: Default::default(),
             compile,
 
             created_log_dir: Arc::new(std::sync::Mutex::new(None)),
@@ -568,6 +581,11 @@ impl Verifier {
             dep_tracker: None,
             import_virs_via_cargo: self.import_virs_via_cargo.clone(),
             export_vir_path_via_cargo: self.export_vir_path_via_cargo.clone(),
+            imported_inference_dependencies: self.imported_inference_dependencies.clone(),
+            inference_trusted_models: self.inference_trusted_models.clone(),
+            available_trusted_models: self.available_trusted_models.clone(),
+            pending_inference_export: None,
+            inference_proofs: self.inference_proofs.fresh(),
             compile: self.compile,
 
             created_log_dir: self.created_log_dir.clone(),
@@ -590,6 +608,9 @@ impl Verifier {
         self.count_verified += other.count_verified;
         self.count_errors += other.count_errors;
         self.func_fails.extend(other.func_fails);
+        if !self.inference_proofs.merge(other.inference_proofs) {
+            self.encountered_vir_error = true;
+        }
         self.time_vir += other.time_vir;
         self.time_vir_rust_to_vir += other.time_vir_rust_to_vir;
         self.bucket_stats.extend(other.bucket_stats);
@@ -838,6 +859,7 @@ impl Verifier {
         let mut checks_remaining = self.args.multiple_errors;
         let mut only_check_earlier = false;
         let mut invalidity = false;
+        let mut unproved = false;
         let mut timed_out = false;
         let mut used_axioms = None;
         loop {
@@ -859,6 +881,7 @@ impl Verifier {
                     panic!("internal error: generated ill-typed AIR code: {}", err);
                 }
                 ValidityResult::Canceled => {
+                    unproved = true;
                     if is_first_check && level == Some(MessageLevel::Error) {
                         self.count_errors += 1;
                         self.func_fails.insert(context.fun.clone());
@@ -881,6 +904,7 @@ impl Verifier {
                 }
                 ValidityResult::Invalid(None, error, _)
                 | ValidityResult::Invalid(_, error @ None, _) => {
+                    unproved = true;
                     if is_first_check && level == Some(MessageLevel::Error) {
                         self.count_errors += 1;
                         invalidity = true;
@@ -900,6 +924,7 @@ impl Verifier {
                     break;
                 }
                 ValidityResult::Invalid(Some(_air_model), Some(error), assert_id_opt) => {
+                    unproved = true;
                     if let Some(assert_id) = assert_id_opt {
                         if prover_choice == vir::def::ProverChoice::DefaultProver {
                             default_prover_failed_assert_ids.push(assert_id.clone());
@@ -987,6 +1012,7 @@ impl Verifier {
 
         RunCommandQueriesResult {
             used_axioms,
+            unproved,
             invalidity,
             timed_out,
             not_skipped: matches!(**command, CommandX::CheckValid(_)),
@@ -1052,6 +1078,7 @@ impl Verifier {
         let includes_function = user_filter.includes_function(function_name);
         if !includes_function {
             return RunCommandQueriesResult {
+                unproved: false,
                 invalidity: false,
                 timed_out: false,
                 not_skipped: false,
@@ -1060,6 +1087,7 @@ impl Verifier {
         }
 
         let mut result = RunCommandQueriesResult {
+            unproved: false,
             invalidity: false,
             timed_out: false,
             not_skipped: false,
@@ -1482,7 +1510,13 @@ impl Verifier {
                         profile_rerun,
                         func_check_sst,
                     } => {
+                        let inference_request = op.inference_request()?;
+                        let function = &op.get_function();
                         let level = match query_op {
+                            QueryOp::Infer(_) if function.x.attrs.infer_allow_approx => {
+                                MessageLevel::Warning
+                            }
+                            QueryOp::Infer(_) => MessageLevel::Error,
                             QueryOp::SpecTermination => MessageLevel::Error,
                             QueryOp::Body(Style::Normal) => MessageLevel::Error,
                             QueryOp::Body(Style::RecommendsFollowupFromError) => MessageLevel::Note,
@@ -1497,6 +1531,7 @@ impl Verifier {
                         let mut spinoff_context_counter = 1;
 
                         let mut any_invalid = false;
+                        let mut inference_outcome = vir::infer_proof::Aggregate::default();
                         let mut any_timed_out = false;
                         let mut default_prover_failed_assert_ids = vec![];
                         let mut func_curr_smt_time = Duration::ZERO;
@@ -1587,9 +1622,29 @@ impl Verifier {
                             let iter_curr_smt_time = query_air_context.get_time().1;
                             let iter_curr_smt_rlimit_count =
                                 query_air_context.get_rlimit_count().map(|x| x.1);
-                            if let Some(rlimit) = function.x.attrs.rlimit {
+                            let query_rlimit = if matches!(query_op, QueryOp::Infer(_)) {
+                                function.x.attrs.infer_precision_rlimit.or(function.x.attrs.rlimit)
+                            } else {
+                                function.x.attrs.rlimit
+                            };
+                            if let Some(rlimit) = query_rlimit {
                                 if query_air_context.rlimit_is_mutable() {
-                                    Self::set_rlimit(&mut query_air_context, rlimit);
+                                    if matches!(query_op, QueryOp::Infer(_))
+                                        && function.x.attrs.infer_precision_rlimit.is_some()
+                                    {
+                                        // Zero means infinity to the solvers. A tiny
+                                        // positive precision budget must round up.
+                                        let per_second = match query_air_context.get_solver() {
+                                            SmtSolver::Z3 => RLIMIT_PER_SECOND_Z3,
+                                            SmtSolver::Cvc5 => RLIMIT_PER_SECOND_CVC5,
+                                        };
+                                        query_air_context.set_rlimit(
+                                            (rlimit * per_second).max(1.0).min(u32::MAX as f32)
+                                                as u32,
+                                        );
+                                    } else {
+                                        Self::set_rlimit(&mut query_air_context, rlimit);
+                                    }
                                 } else {
                                     reporter.report(
                                         &warning(
@@ -1602,6 +1657,7 @@ impl Verifier {
                                 }
                             }
                             let RunCommandQueriesResult {
+                                unproved: command_unproved,
                                 invalidity: command_invalidity,
                                 timed_out: command_timed_out,
                                 not_skipped: command_not_skipped,
@@ -1642,11 +1698,16 @@ impl Verifier {
                                     (*spunoff_rlimit_count).1 += run;
                                 }
                             }
-                            if function.x.attrs.rlimit.is_some() {
+                            if query_rlimit.is_some() {
                                 self.set_default_rlimit(&mut query_air_context);
                             }
 
                             any_invalid |= command_invalidity;
+                            inference_outcome.observe_query(
+                                command_not_skipped,
+                                command_unproved,
+                                command_timed_out,
+                            );
                             any_timed_out |= command_timed_out;
 
                             if let Some(used_axioms) = command_used_axioms {
@@ -1763,6 +1824,48 @@ impl Verifier {
                             if let Some(rlimit_count) = &mut func_stats.rlimit_count {
                                 *rlimit_count += func_curr_smt_rlimit_count
                                     .expect("current rlimit count should be present");
+                            }
+                        }
+
+                        if function.x.attrs.infer && !profile_rerun {
+                            let claim = match query_op {
+                                QueryOp::Body(Style::Normal) => Some("soundness"),
+                                QueryOp::Infer(kind) => Some(kind.label()),
+                                _ => None,
+                            };
+                            if let Some(claim) = claim {
+                                let (id, obligation) =
+                                    inference_request.as_ref().ok_or_else(|| {
+                                        vir::messages::error(
+                                            &function.span,
+                                            "Verus Infer: missing query identity",
+                                        )
+                                    })?;
+                                let outcome = inference_outcome.outcome();
+                                self.inference_proofs.record(
+                                    id,
+                                    *obligation,
+                                    outcome,
+                                    &function.span,
+                                )?;
+                                let proved = outcome == vir::infer_proof::Outcome::Valid;
+                                let status = if any_timed_out {
+                                    "INCOMPLETE (resource limit)"
+                                } else if !proved {
+                                    "NOT PROVED"
+                                } else {
+                                    "PROVED"
+                                };
+                                reporter.report(
+                                    &note(
+                                        &function.span,
+                                        format!(
+                                            "Verus Infer {}: {claim}: {status}",
+                                            fun_as_friendly_rust_name(&function.x.name)
+                                        ),
+                                    )
+                                    .to_any(),
+                                );
                             }
                         }
 
@@ -2078,8 +2181,59 @@ impl Verifier {
         };
         let buckets = crate::buckets::get_buckets(&krate, &modules_to_verify);
         let buckets = user_filter.filter_buckets(buckets);
-        let bucket_ids: Vec<BucketId> = buckets.iter().map(|p| p.0.clone()).collect();
+        self.inference_proofs = Default::default();
+        for function in krate.functions.iter().filter(|f| f.x.attrs.infer && f.x.body.is_some()) {
+            self.inference_proofs.register(function)?;
+        }
+        let inferred_functions: HashSet<_> =
+            krate.functions.iter().filter(|f| f.x.attrs.infer).map(|f| f.x.name.clone()).collect();
+        let (mut inference_buckets, bucket_ids): (Vec<BucketId>, Vec<BucketId>) = buckets
+            .iter()
+            .map(|p| p.0.clone())
+            .partition(|id| id.function().is_some_and(|f| inferred_functions.contains(f)));
         self.buckets = buckets.into_iter().collect();
+
+        // Publish only after each mode's required checks, in dependency order.
+        // A soundness failure or required precision failure blocks dependents.
+        let order = vir::infer::verification_order(&krate.functions)?;
+        let ranks: HashMap<_, _> =
+            order.into_iter().enumerate().map(|(i, name)| (name, i)).collect();
+        inference_buckets.sort_by_key(|id| ranks[id.function().unwrap()]);
+        for bucket_id in &inference_buckets {
+            global_ctx = self.verify_bucket_outer(&reporter, &krate, bucket_id, global_ctx)?;
+            if self.count_errors != 0 {
+                reporter.report(&note_bare("Verus Infer: candidates were not published; dependent verification was not started").to_any());
+                return Ok(());
+            }
+            let name = bucket_id.function().unwrap();
+            let function = krate.functions.iter().find(|f| &f.x.name == name).unwrap();
+            let proof = self.inference_proofs.status(function)?;
+            if !proof.satisfies(function.x.attrs.infer_allow_approx) {
+                return Err(vir::messages::error(
+                    &function.span,
+                    "Verus Infer: required proof guarantees were not established",
+                )
+                .into());
+            }
+            if function.x.attrs.infer_allow_approx {
+                reporter.report(&note(&function.span, format!("Verus Infer {}: VERIFIED SOUND; maximal safe domain: {}; exact output: {}", fun_as_friendly_rust_name(name), if proof.maximality { "PROVED" } else { "NOT ESTABLISHED" }, if proof.exactness { "PROVED" } else { "NOT ESTABLISHED" })).to_any());
+                if vir::infer::uses_approximate_callee(
+                    function,
+                    &krate.functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect(),
+                ) {
+                    reporter.report(&note(&function.span, "Verus Infer safe-domain maximality: NOT ESTABLISHED (sound-mode dependency)").to_any());
+                }
+            }
+        }
+        if !inference_buckets.is_empty() {
+            reporter.report(
+                &note_bare(format!(
+                    "Verus Infer: {} verified contracts available to same-crate callers",
+                    inference_buckets.len()
+                ))
+                .to_any(),
+            );
+        }
 
         let time_verify_sequential_end = Instant::now();
         self.time_verify_crate_sequential =
@@ -2727,9 +2881,37 @@ impl Verifier {
             pre_crate,
             self.crate_id.clone().unwrap(),
         );
+        query.set_inference_model_fingerprints(&self.available_trusted_models);
 
         // Export crate if requested.
         let local_crate = query.get_exportable_crate().map_err(map_query_err)?;
+
+        if let Some(inferred) = local_crate.functions.iter().find(|f| f.x.attrs.infer) {
+            if self.args.no_verify
+                || self.args.verify_root
+                || self.args.verify_function.is_some()
+                || !self.args.verify_module.is_empty()
+                || !self.args.verify_only_module.is_empty()
+            {
+                return Err(map_err_diagnostics(vir::messages::error(
+                    &inferred.span,
+                    "Verus Infer requires full-crate verification; --no-verify and function/module filters are unsupported",
+                )));
+            }
+            for f in local_crate.functions.iter().filter(|f| f.x.attrs.infer) {
+                diagnostics.report(
+                    &note(
+                        &f.span,
+                        format!(
+                            "Verus Infer {} candidate (mathematical integer arithmetic): {}",
+                            fun_as_friendly_rust_name(&f.x.name),
+                            vir::infer::format_contract(f)
+                        ),
+                    )
+                    .to_any(),
+                );
+            }
+        }
 
         let time2 = Instant::now();
 
@@ -2737,15 +2919,56 @@ impl Verifier {
             crate_id: spans.local_crate.as_u64(),
             original_files: spans.local_files.clone(),
         };
-        crate::import_export::export_crate(
-            &self.args,
-            &self.export_vir_path_via_cargo,
-            crate_metadata,
-            local_crate.clone(),
-        )
-        .map_err(map_err_diagnostics)?;
+        if local_crate.functions.iter().any(|f| f.x.attrs.infer) {
+            // Inferred API metadata must never be published before its proofs.
+            self.pending_inference_export = Some((crate_metadata, local_crate.clone()));
+        } else {
+            crate::import_export::export_crate(
+                &self.args,
+                &self.export_vir_path_via_cargo,
+                crate_metadata,
+                local_crate.clone(),
+                None,
+            )
+            .map_err(map_err_diagnostics)?;
+        }
 
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
+        let mut models: std::collections::BTreeMap<_, _> =
+            self.inference_trusted_models.iter().cloned().collect();
+        for function in local_crate.functions.iter().filter(|f| f.x.attrs.infer) {
+            let used = vir::infer::trusted_model_dependencies(
+                std::slice::from_ref(function),
+                &merged_crate.functions,
+            );
+            if !used.is_empty() {
+                diagnostics.report(
+                    &note(
+                        &function.span,
+                        format!(
+                            "Verus Infer {}: trusted standard models from vstd: {}",
+                            fun_as_friendly_rust_name(&function.x.name),
+                            used.iter()
+                                .map(|f| fun_as_friendly_rust_name(&f.x.name))
+                                .collect::<Vec<_>>()
+                                .join(", ")
+                        ),
+                    )
+                    .to_any(),
+                );
+            }
+            for model in used {
+                let fingerprint =
+                    self.available_trusted_models.get(&model.x.name).ok_or_else(|| {
+                        map_err_diagnostics(vir::messages::error(
+                            &function.span,
+                            "Verus Infer: missing approved standard model",
+                        ))
+                    })?;
+                models.insert(model.x.name.clone(), fingerprint.clone());
+            }
+        }
+        self.inference_trusted_models = models.into_iter().collect();
         self.maybe_log_impl_names(&merged_crate).map_err(map_err_diagnostics)?;
         self.maybe_log_vir_crate(&merged_crate).map_err(map_err_diagnostics)?;
 
@@ -2953,6 +3176,14 @@ fn lower_to_hir<'tcx>(
 
 impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
     fn config(&mut self, config: &mut rustc_interface::interface::Config) {
+        // Direct --export paths are known before parsing/expansion. Invalidate
+        // a prior certified artifact even if the new source fails that early.
+        if let Err(err) =
+            crate::import_export::invalidate_inferred_export(&self.verifier.args, &None)
+        {
+            eprintln!("Error: {}", err.note);
+            std::process::exit(1);
+        }
         if let Some(mut dep_tracker) = self.verifier.dep_tracker.take() {
             let import_dep_if_present = &self
                 .verifier
@@ -3049,6 +3280,15 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
             }
         }
 
+        if let Err(err) = crate::import_export::invalidate_inferred_export(
+            &self.verifier.args,
+            &self.verifier.export_vir_path_via_cargo,
+        ) {
+            compiler.sess.dcx().err(err.note.clone());
+            self.verifier.encountered_vir_error = true;
+            return rustc_driver::Compilation::Stop;
+        }
+
         let mut import_virs_via_cargo =
             self.verifier.import_virs_via_cargo.clone().unwrap_or_default();
         if !self.unresolved_import_deps.is_empty() {
@@ -3082,6 +3322,9 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
             };
         let time_import1 = Instant::now();
         self.verifier.time_import = time_import1 - time_import0;
+        self.verifier.imported_inference_dependencies = imported.inference_dependencies;
+        self.verifier.inference_trusted_models = imported.trusted_models;
+        self.verifier.available_trusted_models = imported.available_trusted_models;
         let verus_items = Arc::new(crate::verus_items::from_diagnostic_items(tcx));
         self.verifier.verus_items = Some(verus_items.clone());
         let spans = SpanContextX::new(
@@ -3249,6 +3492,28 @@ impl VerifierCallbacksEraseMacro {
         for err in std::mem::take(&mut *self.verifier.deferred_errors.lock().unwrap()) {
             reporter.report_as(&err.to_any(), MessageLevel::Error);
             self.verifier.encountered_vir_error = true;
+        }
+        if let Some((metadata, krate)) = self.verifier.pending_inference_export.take() {
+            if self.verifier.count_errors == 0
+                && !self.verifier.encountered_error
+                && !self.verifier.encountered_vir_error
+                && compiler.sess.dcx().has_errors().is_none()
+            {
+                if let Err(err) = crate::import_export::export_crate(
+                    &self.verifier.args,
+                    &self.verifier.export_vir_path_via_cargo,
+                    metadata,
+                    krate,
+                    Some((
+                        &self.verifier.imported_inference_dependencies,
+                        &self.verifier.inference_proofs,
+                        &self.verifier.inference_trusted_models,
+                    )),
+                ) {
+                    reporter.report_as(&err.to_any(), MessageLevel::Error);
+                    self.verifier.encountered_vir_error = true;
+                }
+            }
         }
         if !self.verifier.args.output_json
             && !self.verifier.args.no_verify

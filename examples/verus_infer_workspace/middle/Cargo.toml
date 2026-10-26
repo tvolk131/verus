@@ -1,0 +1,12 @@
+[package]
+name = "infer-middle"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+vstd = { path = "../../../source/vstd" }
+infer-base = { path = "../base" }
+
+[package.metadata.verus]
+verify = true
+trusted_crates = ["vstd"]

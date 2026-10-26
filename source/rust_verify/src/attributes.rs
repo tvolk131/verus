@@ -235,6 +235,8 @@ pub(crate) enum AttrPublish {
 
 #[derive(Debug, PartialEq)]
 pub(crate) enum Attr {
+    Infer(bool),
+    InferPrecisionRLimit(f32),
     // specify mode (spec, proof, exec)
     Mode(Mode),
     // special case in modes.rs
@@ -735,6 +737,22 @@ pub(crate) fn parse_attrs(
                     // and so must be at least two segments,
                     // so we don't have to cover the one-segment case with AttrTree::Fun
                     v.push(Attr::ExternalTraitPrivateBound(segments.clone()))
+                }
+                AttrTree::Fun(span, arg, attrs) if arg == "infer_precision_rlimit" => {
+                    let limit = get_rlimit_arg(*span, attrs)?;
+                    if !limit.is_finite() || limit <= 0.0 {
+                        return err_span(*span, "precision_rlimit must be finite and positive");
+                    }
+                    v.push(Attr::InferPrecisionRLimit(limit));
+                }
+                AttrTree::Fun(_, arg, None) if arg == "infer" => v.push(Attr::Infer(false)),
+                AttrTree::Fun(_, arg, Some(box [AttrTree::Fun(_, precision, None)]))
+                    if arg == "infer" && (precision == "sound" || precision == "exact") =>
+                {
+                    v.push(Attr::Infer(precision == "sound"));
+                }
+                AttrTree::Fun(span, arg, Some(_)) if arg == "infer" => {
+                    return err_span(*span, "expected infer, infer(exact), or infer(sound)");
                 }
                 AttrTree::Fun(_, arg, None) if arg == "sealed" => v.push(Attr::Sealed),
                 AttrTree::Fun(_, arg, None) if arg == "internal_trait" => {
@@ -1257,6 +1275,9 @@ pub(crate) struct ExternalAttrs {
 
 #[derive(Debug, Clone)]
 pub(crate) struct VerifierAttrs {
+    pub(crate) infer: bool,
+    pub(crate) infer_allow_approx: bool,
+    pub(crate) infer_precision_rlimit: Option<f32>,
     pub(crate) verus_macro: bool,
     pub(crate) external_body: bool,
     pub(crate) opaque: bool,
@@ -1453,6 +1474,9 @@ pub(crate) fn get_verifier_attrs_maybe_check(
     do_check: bool,
 ) -> Result<VerifierAttrs, VirErr> {
     let mut vs = VerifierAttrs {
+        infer: false,
+        infer_allow_approx: false,
+        infer_precision_rlimit: None,
         verus_macro: false,
         external_body: false,
         opaque: false,
@@ -1531,6 +1555,14 @@ pub(crate) fn get_verifier_attrs_maybe_check(
             Attr::ExternalTraitPrivateBound(bound) => {
                 vs.external_trait_private_bounds.push(bound.clone());
             }
+            Attr::Infer(allow_approx) => {
+                if vs.infer {
+                    return err_span(attrs[0].span(), "duplicate inference modes are not allowed");
+                }
+                vs.infer = true;
+                vs.infer_allow_approx = allow_approx;
+            }
+            Attr::InferPrecisionRLimit(limit) => vs.infer_precision_rlimit = Some(limit),
             Attr::Opaque => vs.opaque = true,
             Attr::Publish(open) => vs.publish = Some(open),
             Attr::OpaqueOutsideModule => vs.opaque_outside_module = true,
@@ -1605,6 +1637,9 @@ pub(crate) fn get_verifier_attrs_maybe_check(
             Attr::TrackedTakeOption => vs.tracked_take_option = true,
             _ => {}
         }
+    }
+    if vs.infer_precision_rlimit.is_some() && !vs.infer {
+        return err_span(attrs[0].span(), "precision_rlimit requires an inference annotation");
     }
     if do_check {
         if let Some((rustc_attr, span)) = unsupported_rustc_attr {

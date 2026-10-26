@@ -1532,6 +1532,14 @@ pub struct AutoExtEqual {
 pub type FunctionAttrs = Arc<FunctionAttrsX>;
 #[derive(Debug, Serialize, Deserialize, ToDebugSNode, Default, Clone)]
 pub struct FunctionAttrsX {
+    /// Opt in to experimental, checked contract inference for a pure loop-free body.
+    pub infer: bool,
+    /// Permit sound interval summaries without requiring precision proofs.
+    pub infer_allow_approx: bool,
+    /// Optional resource limit for precision probes, independent of soundness.
+    pub infer_precision_rlimit: Option<f32>,
+    /// Installed candidate identity; never accepted as a source-level attribute.
+    pub infer_candidate_id: Option<String>,
     /// Erasure and lifetime checking based on ghost blocks
     pub uses_ghost_blocks: bool,
     /// Inline spec function for SMT

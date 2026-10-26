@@ -40,6 +40,7 @@ pub(crate) struct Query<'r, 'tcx> {
     args: Args,
     reporter: &'r dyn Diagnostics,
     crate_id: CrateId,
+    inference_model_fingerprints: Vec<(Fun, String)>,
 
     /// Imported crates
     cache_other_vir_crates: Option<Res<Arc<Vec<Krate>>>>,
@@ -87,6 +88,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             args,
             reporter,
             crate_id,
+            inference_model_fingerprints: Vec::new(),
 
             cache_other_vir_crates: Some(Ok(Arc::new(other_vir_crates))),
             cache_pre_crate: Some(Ok(Arc::new(pre_crate))),
@@ -104,6 +106,12 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             deferred_errors,
             func_details,
         }
+    }
+
+    pub fn set_inference_model_fingerprints(&mut self, models: &HashMap<Fun, String>) {
+        self.inference_model_fingerprints =
+            models.iter().map(|(name, hash)| (name.clone(), hash.clone())).collect();
+        self.inference_model_fingerprints.sort_by(|a, b| a.0.cmp(&b.0));
     }
 
     fn emit_errors(&mut self, errs: Vec<VirErr>) -> QueryError {
@@ -490,7 +498,22 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             return Err(err);
         }
 
+        // Synthesize after mode/erasure analysis of every function, so forward
+        // references can be composed in callee-first order.
         let other_vir_crates = self.get_other_vir_crates()?;
+        let imported: Vec<_> = other_vir_crates
+            .iter()
+            .flat_map(|k| k.functions.iter())
+            .filter(|f| f.x.attrs.infer || vir::infer::is_approved_model(f))
+            .cloned()
+            .collect();
+        cratex.functions = vir::infer::infer_functions(
+            &cratex.functions,
+            &imported,
+            &format!("{:?}:{:?}", self.args, self.inference_model_fingerprints),
+        )
+        .map_err(|e| self.emit_error(e))?;
+
         vir::traits::set_krate_dyn_compatibility(&other_vir_crates, &mut cratex);
         let krate = Arc::new(cratex);
 

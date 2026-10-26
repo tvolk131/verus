@@ -1897,7 +1897,37 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
 
                 let error = error(&stm.span, description);
                 let filter = Some(fun_to_air_ident(&ctx.name_ctxt, &func.x.name));
-                stmts.push(Arc::new(StmtX::Assert(assert_id.clone(), error, filter, e_req)));
+                if matches!(state.post_condition_info.kind, PostConditionKind::InferMaximality) {
+                    // Callee maximality has already been proved by the publication
+                    // barrier: successful execution is equivalent to its requires.
+                    assert!(
+                        func.x.attrs.infer && !func.x.attrs.infer_allow_approx && typs.is_empty()
+                    );
+                    // Requires predicates contain diagnostic axiom labels that
+                    // are enabled by *asserting* a precondition. Assuming that
+                    // predicate alone does not enable those labels. Instantiate
+                    // the verifier-lowered conditions directly instead.
+                    let callee = &ctx.func_sst_map[fun];
+                    let substitutions = callee
+                        .x
+                        .pars
+                        .iter()
+                        .zip(args.iter())
+                        .map(|(p, a)| (p.x.name.clone(), a.clone()))
+                        .collect();
+                    for condition in callee.x.decl.reqs.iter() {
+                        let condition = crate::sst_util::subst_exp(
+                            &std::collections::HashMap::new(),
+                            &substitutions,
+                            condition,
+                        );
+                        stmts.push(Arc::new(StmtX::Assume(exp_to_expr(
+                            ctx, &condition, expr_ctxt,
+                        )?)));
+                    }
+                } else {
+                    stmts.push(Arc::new(StmtX::Assert(assert_id.clone(), error, filter, e_req)));
+                }
             }
 
             let callee_unwind_spec = func.x.unwind_spec_or_default();
@@ -2095,6 +2125,14 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         // return-expression. Augment with an additional label pointing
                         // to the 'ensures' clause that fails.
                         let error = match state.post_condition_info.kind {
+                            PostConditionKind::InferMaximality => crate::messages::error(
+                                span,
+                                "Verus Infer safe-domain maximality could not be proved",
+                            ),
+                            PostConditionKind::InferExactness => crate::messages::error(
+                                span,
+                                "Verus Infer output exactness could not be proved",
+                            ),
                             PostConditionKind::Ensures => {
                                 let new_error = base_error
                                     .primary_label(&span, crate::def::THIS_POST_FAILED.to_string());

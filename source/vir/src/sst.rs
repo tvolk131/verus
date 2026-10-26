@@ -361,6 +361,8 @@ pub enum UnwindSst {
 #[derive(Debug, Clone, Copy, ToDebugSNode)]
 pub enum PostConditionKind {
     Ensures,
+    InferMaximality,
+    InferExactness,
     DecreasesImplicitLemma,
     DecreasesBy,
     EnsuresSafeApiCheck,

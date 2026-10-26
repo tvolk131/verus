@@ -1,0 +1,1353 @@
+# Verus Infer
+## Automatic Contract Inference and Compositional Verification for Rust
+
+**Status:** Draft RFC / Working prototype for a bounded subset  
+**Date:** October 25, 2026  
+**Target:** Extension or fork of [Verus](https://github.com/verus-lang/verus)  
+**Proposed name:** Verus Infer  
+**Implementation language:** Rust  
+**Primary verification backend:** Verus + SMT (Z3)
+
+---
+
+## Implementation status — October 26, 2026
+
+The design below includes future work. The current implementation is documented
+in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
+and restrictions take precedence over illustrative APIs in this RFC.
+
+Implemented and covered by regression tests:
+
+- [x] Opt-in native Rust `#[verus_infer]` and `verus!` executable-function annotations.
+- [x] Exact loop-free inference for `bool`, `u8`, `u16`, `u32`, `u64`, and `u128`:
+  arithmetic, comparisons, Boolean operations, unsigned casts, immutable locals,
+  branches, and short-circuit safety conditions.
+- [x] Exact `i8` through `i128` arithmetic, comparisons, negation, and casts,
+  including signed enum payloads, fixed arrays, checked arithmetic, and cached
+  cross-crate composition. Signed division/remainder preserve Rust's truncation
+  semantics and exclude both zero divisors and `MIN` with `-1`.
+- [x] Independent soundness, safe-domain maximality, and output-exactness checks
+  using the original executable and the existing Verus backend. Exact mode
+  requires all three proofs before dependent verification or publication.
+- [x] Acyclic composition of inferred functions, including forward references,
+  private helpers, shared dependencies, and explicit caller properties derived
+  from contracts without inlining implementations.
+- [x] A bounded candidate registry and persistent cache with transitive dependency
+  invalidation. Source eligibility is always checked, and every reused candidate
+  receives fresh proofs; the cache stores no proof outcomes.
+- [x] Certified inferred `.vir` interfaces and three-crate `cargo verus build`
+  and `verify` examples. Metadata records per-function proofs and dependency/model
+  fingerprints; failed full-crate verification prevents inferred API export.
+- [x] Explicit `precision = "sound"` scalar interval summaries, compositional
+  safety domains, independent optional precision budgets, and honest reporting
+  when maximality or output exactness is not established. Exact mode never
+  silently falls back. Exact inferred callers require exact-mode dependencies.
+- [x] Signed interval approximations for `i8` through `i128`, including negative
+  ranges, arithmetic, branch joins, casts, and Rust division/remainder. Exact
+  safety predicates are retained when available. Optional precision outcomes, candidate-cache
+  reproving, and mixed exact/sound cross-crate interfaces retain the existing gates.
+- [x] Bounded safety inference from scalar callee preconditions and result
+  ranges, replacing automatic small-input restrictions for signed and unsigned
+  functions. Affine normalization handles repeated arithmetic without expanded
+  substitutions; guarded operations and callee requirements remain enforced.
+  Insufficient information or exhausted analysis budgets produce an incomplete
+  diagnostic, with no guessed small argument domain.
+- [x] Exact core `Option`/`Result` constructors and simple exhaustive matches with
+  flat scalar/unit payloads. Approved checked fixed-width integer arithmetic uses existing
+  vstd models, with visible trust dependencies and model fingerprints.
+- [x] Exact immutable flat arrays of up to 64 scalar elements: by-value inputs,
+  element-list literals, local copies, branches, index-safety preconditions,
+  scalar/enum results, cached cross-crate summaries, and a Cargo pricing example.
+  `usize` is available for index inputs and comparisons, with general arithmetic
+  and array/`usize` returns still excluded.
+- [x] Exact early returns in blocks, branches, matches, and supported expressions,
+  preserving reachability and operand evaluation order. Return summaries retain
+  all three checks, source eligibility, and cached cross-crate composition.
+- [x] Exact `?` propagation for flat core `Option`/`Result` with scalar/unit
+  payloads and identical `Result` error types, including nested expressions,
+  checked arithmetic, cached summaries, and cross-crate composition.
+- [x] Shared `&[T; N]` array inputs and immutable local borrows, `.len()` guards,
+  and `[value; N]` repetitions. Approved generic array models remain limited
+  to fixed scalar arrays; their non-unwinding guarantees and containing model
+  artifacts are recorded and checked through caches and cross-crate exports.
+- [x] Shared source capability rules, typed summary builders for cache decoding
+  and imported-summary substitution, and one proof-publication requirement used
+  by local verification, exports, and imports.
+- [x] Exhaustive small-integer comparisons, deliberately incorrect candidates,
+  malformed artifact regressions, and tests that incomplete or failed required
+  proofs block dependent verification and remove older inferred exports.
+
+- [x] Assurance consolidation: contract-only generation/cache reuse, one
+  body-preserving installer, candidate-bound proof evidence, explicit query-kind
+  checks, failure injection, and source mutation tests. The checking and acceptance
+  components are not themselves formally verified; see the
+  [assurance plan](VERUS_INFER_ASSURANCE.md).
+
+Still planned or outside the implemented subset:
+
+- [ ] Formal verification of the acceptance component and precision
+  transformations; see the [assurance plan](VERUS_INFER_ASSURANCE.md).
+- [ ] General platform-sized arithmetic, integer
+  bitwise operations, and broader arithmetic policies such as explicit wrapping
+  or saturating operations. Mixed-sign checked methods and checked negation
+  remain outside the current checked-method allowlist.
+- [ ] General user-defined or nested enums, broader payloads, richer patterns,
+  `let-else`, converting `Result` errors with `?`, custom `Try` implementations,
+  and enum abstractions in sound mode.
+- [ ] Broader array syntax, array-valued interfaces, and basic dynamic slice properties.
+- [ ] Mutation, state relations, and frame-condition inference.
+- [ ] General consumption of handwritten/external contracts by inferred functions,
+  mixed handwritten-and-inferred contracts, and generic/trait specialization.
+- [ ] Loop inference, invariant discovery, and recursive summaries.
+- [ ] Safe-only mode and the other proposed attribute options; the implemented
+  options are `precision` and `precision_rlimit`. Proposed controls include
+  safety policy, incomplete-result behavior, budgets, export, and diagnostics.
+- [ ] Readable contract simplification, dedicated contract-query/reporting APIs,
+  and IDE presentation and suggestions.
+- [ ] Richer abstract domains and refinement, including relational properties
+  beyond the current scalar intervals and Boolean summaries, broader branch
+  refinement, and more precise ranges for wrapping casts.
+- [ ] Systematic coverage, precision, composition, and performance evaluation.
+
+| Roadmap phase | Current state |
+| --- | --- |
+| Phase 0: integration research | Complete for the prototype's VIR insertion point. |
+| Phase 1: exact arithmetic | Implemented for fixed unsigned/signed integers and Booleans; integer bitwise operations and broader arithmetic policies remain. |
+| Phase 2: modular composition | Implemented within that subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs. |
+| Phase 3: partial inference and collections | Partial: scalar intervals, exact enums, and immutable flat array reads are implemented; broader arrays, slices, and frame conditions remain. |
+| Phase 4: loop inference | Not implemented. |
+| Phase 5: richer verification | Future work. |
+
+The prototype retains Verus's existing trusted-library and standard-model
+assumptions. Export metadata records completed proofs and is not a signed or
+portable proof object. Application intent remains an explicit specification.
+
+The focused consolidation in the [assurance plan](VERUS_INFER_ASSURANCE.md) is
+implemented, as are exact early returns, bounded `Option`/`Result` propagation,
+and exact/interval signed integer inference.
+Formal verification of the acceptance component and precision
+transformations remains separately scoped work.
+
+## Proposed next milestones
+
+The checklist above is the ongoing backlog. Exact signed inference and its
+signed-interval follow-up are complete; the suggested sequence continues with reporting and
+measurement:
+
+1. **Completed: exact signed integers.** `i8` through `i128` arithmetic,
+   comparisons, negation, and casts, including signed enum payloads, arrays, and
+   the seven existing checked arithmetic methods. The same soundness,
+   maximality, and exactness proofs remain required. Tests cover exhaustive
+   small-width execution comparisons, signed overflow and division boundaries,
+   cached/cross-crate composition, and unsigned regressions. The signed
+   sound-mode follow-up is also implemented, including negative ranges,
+   compositional safety domains, and honest precision metadata. Additional
+   arithmetic methods remain in the backlog.
+2. **Contract reporting and measurement.** Provide structured reports of
+   contracts, proof outcomes, dependencies, trusted assumptions, and incomplete
+   results. Improve formula readability while preserving the checked meaning.
+   Establish a representative benchmark corpus measuring supported coverage,
+   exact versus approximate results, caller-property success, formula size,
+   inference/solver time, cache reuse, and incremental rebuild cost.
+3. **Basic dynamic slices.** Start with shared scalar slices, length relationships,
+   indexing safety, and scalar/enum results. Retain the existing proof and
+   publication requirements; broader collections, mutation, and frame conditions
+   remain tracked in the backlog above.
+4. **Selected loop inference.** Begin with bounded or recognizable accumulator,
+   search, and traversal patterns. Establish a separate design for termination,
+   invariant generation, and independent invariant checks before implementation.
+   Exactness requires accounting for every execution, including every iteration.
+
+The remaining backlog items can be reprioritized as these milestones expose
+practical needs. The [assurance plan](VERUS_INFER_ASSURANCE.md) tracks formal
+verification of acceptance, precision transformations, and possible independent
+replay alongside feature development.
+
+# 1. Executive Summary
+
+Verus Infer is a proposed extension to Verus that automatically discovers, proves, and composes formal specifications for Rust functions.
+
+Today, Verus primarily operates on developer-supplied specifications. Developers provide preconditions (`requires`), postconditions (`ensures`), loop invariants, and supporting proofs. Verus then checks whether the implementation satisfies them.
+
+Verus Infer would partially reverse this workflow.
+
+Developers could opt individual functions into automated specification inference. The system would analyze the implementation, infer its safe input domain and input/output behavior, and produce reusable, machine-checked contracts.
+
+For sufficiently tractable functions, it would aim to derive:
+
+1. **Maximally permissive preconditions:** The complete set of inputs for which execution satisfies a specified safety policy.
+2. **Maximally precise postconditions:** An exact mathematical characterization of possible results and relevant state changes.
+3. **Conditional guarantees:** Additional properties that follow when callers establish stronger assumptions about inputs.
+4. **Composable specifications:** Contracts that can be consumed by Verus when verifying higher-level functions.
+5. **Proof-quality metadata:** Explicit distinctions between exact inference, sound approximation, incomplete analysis, and trusted assumptions.
+
+The project intentionally does not attempt automatic verification of arbitrary Rust programs.
+
+Instead, it focuses initially on pure, deterministic, structurally tractable functions, expanding toward collections, state machines, heap mutation, and selected bounded loops.
+
+**The central design principle is that exact inference should be attempted automatically when practical, while correctness must never depend on the inference algorithm being complete.**
+
+Failure to infer a useful contract should not be confused with verification failure.
+
+# 2. Motivation
+
+Consider the following Rust function:
+
+```rust
+fn compute(x: u64) -> u64 {
+    (x + 10) * 2
+}
+```
+
+In traditional Verus, developers write a specification describing its valid input domain and output behavior.
+
+An automatic inference engine could instead derive:
+
+```rust
+requires
+    x <= 9_223_372_036_854_775_797,
+
+ensures
+    result as int == (x as int + 10) * 2,
+```
+
+Under the policy that arithmetic overflow is rejected, this precondition is both sufficient and necessary for safe execution.
+
+The postcondition precisely describes the result on that domain.
+
+This is a straightforward example, but the same concept applies to more substantial code:
+
+- Financial amount calculations.
+- Fee calculations and rounding.
+- Bounds-checked indexing.
+- Serialization helpers.
+- Deterministic state transitions.
+- Validation functions.
+- Pure portions of cryptographic implementations.
+
+The value is not merely reducing annotation overhead.
+
+**Automatically inferred contracts can become reusable semantic interfaces between functions**, allowing stronger guarantees to be established compositionally.
+
+For example, if a verified transaction processor invokes several functions whose specifications have been inferred automatically, Verus could reason about the overall transaction using those contracts without having to inspect every implementation in full.
+
+# 3. Goals and Non-Goals
+
+## 3.1 Goals
+
+**G1 — Opt-in, minimally invasive annotation**
+
+Developers should be able to request inference for individual Rust functions without substantially rewriting their implementations.
+
+**G2 — Exact inference for tractable cases**
+
+For supported finite, loop-free computations, infer the precise safe-input predicate and input/output relation, subject to practical solver limits.
+
+**G3 — Partial success**
+
+When exact inference is impractical, infer useful sound properties, report any precision loss, and preserve the distinction between proven and unresolved results.
+
+**G4 — Conditional, demand-driven reasoning**
+
+Enable callers to derive additional guarantees from inferred specifications under caller-specific assumptions.
+
+**G5 — First-class Verus interoperability**
+
+Inferred specifications should participate in normal Verus verification, including modular reasoning and proof composition.
+
+**G6 — Auditable soundness**
+
+Every published guarantee must be justified by a machine-checked proof or explicitly marked as relying on trusted assumptions.
+
+**G7 — Incremental adoption**
+
+Support existing Rust codebases and permit verification to expand function by function.
+
+**G8 — No production runtime overhead**
+
+Inference, specifications, and supporting proofs must not change release executable behavior or require a runtime verifier.
+
+## 3.2 Non-Goals
+
+The initial project will not:
+
+- Automatically prove arbitrary Rust correct.
+- Infer developer intent from implementations alone.
+- Guarantee inference termination for every supported function.
+- Automatically discover every interesting semantic invariant.
+- Verify arbitrary external I/O, databases, or concurrent execution.
+- Replace explicit developer-written Verus contracts.
+- Require an LLM or other probabilistic component for correctness.
+- Automatically treat verified descriptive behavior as proof that a function is free from logical design bugs.
+
+# 4. Mathematical Model
+
+For a deterministic pure function:
+
+\[
+f:X\rightarrow Y
+\]
+
+we define a safety policy specifying which executions are considered acceptable.
+
+Examples include excluding arithmetic overflow, panics, invalid memory accesses, or nontermination.
+
+Let:
+
+\[
+Safe_f(x)
+\]
+
+mean that evaluating \(f(x)\) satisfies this policy.
+
+## 4.1 Maximally permissive precondition
+
+The ideal precondition is:
+
+\[
+P_f(x)\iff Safe_f(x)
+\]
+
+This admits every safe input and excludes every unsafe input.
+
+A proposed inferred precondition must satisfy two separate properties.
+
+**Soundness:**
+
+\[
+P_f(x)\implies Safe_f(x)
+\]
+
+**Maximality:**
+
+\[
+Safe_f(x)\implies P_f(x)
+\]
+
+A sound but nonmaximal precondition is useful; it simply excludes some safe inputs.
+
+## 4.2 Maximally precise postcondition
+
+For a terminating deterministic function, the ideal postcondition is:
+
+\[
+Q_f(x,y)\iff y=f(x)
+\]
+
+over the safe input domain.
+
+For stateful, nondeterministic, or otherwise more general computations, this becomes a relational specification:
+
+\[
+Q_f(x,y)\iff (x,y)\in Behaviors_f
+\]
+
+A precise postcondition represents all and only the permitted observable behaviors.
+
+For mutable functions, the relation must also include relevant pre-state and post-state information.
+
+## 4.3 Sound approximations
+
+When exact inference is unavailable, the system may produce a contract satisfying:
+
+\[
+P(x)\land Execute_f(x,y)\implies Q(x,y)
+\]
+
+Such a contract is valid even if its precondition is unnecessarily restrictive or its postcondition admits more results than the implementation actually produces.
+
+Importantly, inferring a restrictive precondition does not establish that excluded inputs are unsafe.
+
+## 4.4 Conditional guarantees
+
+A function's exact contract may imply additional properties under specific input assumptions.
+
+For example:
+
+\[
+result=x\cdot y
+\]
+
+together with:
+
+\[
+0\leq x,y\leq100
+\]
+
+implies:
+
+\[
+0\leq result\leq10{,}000
+\]
+
+These conditional guarantees need not all be stored explicitly.
+
+Instead, Verus Infer should retain a reusable base specification and derive specialized consequences as needed.
+
+# 5. User Experience and API
+
+All syntax in this section is proposed and does not represent existing Verus functionality.
+
+## 5.1 Minimal opt-in
+
+```rust
+#[verus_infer]
+fn calculate_fee(amount: u64) -> u64 {
+    amount / 100
+}
+```
+
+Default behavior:
+
+- Analyze the function.
+- Infer safety conditions.
+- Infer an input/output relation.
+- Verify the generated specification.
+- Produce a diagnostic summary.
+- Make the inferred contract available to compatible verified callers.
+
+For this function, inference could establish that all `u64` inputs are safe and:
+
+```rust
+ensures
+    result == amount / 100,
+```
+
+## 5.2 Configurable inference
+
+```rust
+#[verus_infer(
+    safety = "checked",
+    precision = "exact",
+    on_incomplete = "warn"
+)]
+fn calculate(x: u64, y: u64) -> u64 {
+    (x + y) / 2
+}
+```
+
+Proposed options:
+
+| Option | Purpose |
+|---|---|
+| `safety` | Defines the required execution-safety policy |
+| `precision` | Requests exact inference or permits approximation |
+| `on_incomplete` | Error, warning, or reporting behavior |
+| `budget` | Limits solver resources |
+| `export` | Controls publication of inferred contracts |
+| `diagnostics` | Selects reporting verbosity |
+
+Requested precision is not a guarantee that inference will succeed.
+
+## 5.3 Inference modes
+
+Two primary modes are proposed.
+
+### `infer_safe`
+
+Infers a safe input domain and relevant safety properties.
+
+```rust
+#[verus_infer(mode = "safe")]
+fn debit(balance: u64, amount: u64) -> u64 {
+    balance - amount
+}
+```
+
+The system would aim to infer:
+
+```rust
+requires
+    amount <= balance,
+```
+
+### `infer_exact`
+
+Additionally infers the precise mathematical relationship between inputs and outputs.
+
+```rust
+#[verus_infer(mode = "exact")]
+fn debit(balance: u64, amount: u64) -> u64 {
+    balance - amount
+}
+```
+
+The generated contract would include:
+
+```rust
+requires
+    amount <= balance,
+
+ensures
+    result as int ==
+        balance as int - amount as int,
+```
+
+## 5.4 Safety semantics
+
+The system must define safety precisely.
+
+For example, wrapping arithmetic may be intentionally valid for some Rust functions.
+
+Verus Infer must distinguish:
+
+- Arithmetic defined to wrap.
+- Checked arithmetic returning an error.
+- Arithmetic operations required not to overflow.
+- Panicking behavior.
+- Aborting behavior.
+- Nontermination.
+- Memory safety.
+
+The inference policy should be explicit rather than treating every overflow or panic as intrinsically invalid.
+
+The verifier must model the selected Rust execution semantics, including relevant compilation configuration.
+
+# 6. Proposed Architecture
+
+Verus currently processes Rust through rustc integration, VIR-AST, VIR-SST, AIR, and SMT-LIB queries.
+
+Verus Infer should integrate with this infrastructure rather than introduce a completely independent verification language.
+
+Proposed architecture:
+
+```text
+             Rust source code
+                    |
+                    v
+             Rust compiler front end
+                    |
+                    v
+               Verus VIR
+                    |
+                    v
+          Eligibility / effect analysis
+                    |
+                    v
+           Contract inference engine
+                    |
+           +--------+--------+
+           |                 |
+           v                 v
+     Exact symbolic      Abstract / template
+       inference             inference
+           |                 |
+           +--------+--------+
+                    |
+                    v
+          Candidate specification
+                    |
+                    v
+          Verification + precision
+                 checking
+                    |
+                    v
+            Verified contract
+                    |
+           +--------+--------+
+           |                 |
+           v                 v
+       Contract store    Diagnostics / API
+           |
+           v
+      Standard Verus verifier
+           |
+           v
+      Higher-level composition
+```
+
+## 6.1 Integration strategy
+
+The preferred long-term architecture is a new inference component operating over Verus's verification intermediate representation.
+
+The initial design should avoid depending on a separate MIR-only analysis pipeline unless required by a specific feature.
+
+**Rationale:** Verus VIR already contains the type information, expressions, specifications, and verification-oriented constructs needed for many inference tasks.
+
+However, MIR may be useful for faithfully modeling particular Rust operations, especially when lowering and borrowing semantics are relevant.
+
+A production implementation may therefore use both:
+
+- **VIR:** Main contract-inference and specification interface.
+- **MIR/rustc information:** Supporting semantic information for eligible executable Rust constructs.
+- **AIR/SMT:** Query generation and verification.
+
+The precise hook point is an engineering decision for the prototype.
+
+# 7. Core Components
+
+## 7.1 Eligibility Analyzer
+
+Determines whether a function is suitable for the available inference algorithms.
+
+Inputs:
+
+- Function body and signature.
+- Rust types.
+- Control-flow structure.
+- Called functions.
+- Mutability and effects.
+- Existing Verus annotations.
+
+Example classifications:
+
+```text
+ExactCandidate
+BoundedCandidate
+AbstractCandidate
+RequiresExternalContracts
+Unsupported
+```
+
+Eligibility must not itself imply successful inference.
+
+## 7.2 Symbolic Execution Engine
+
+For eligible functions, constructs a symbolic representation of their execution.
+
+Consider:
+
+```rust
+fn abs_diff(a: u64, b: u64) -> u64 {
+    if a >= b {
+        a - b
+    } else {
+        b - a
+    }
+}
+```
+
+A symbolic engine may derive:
+
+\[
+result=
+\begin{cases}
+a-b,&a\geq b\\
+b-a,&a<b
+\end{cases}
+\]
+
+It can then establish that the function is safe for all `u64` inputs.
+
+The engine should favor path merging and symbolic conditional expressions over exhaustive enumeration of execution paths.
+
+## 7.3 Safety Precondition Synthesizer
+
+Derives conditions required for execution to satisfy the requested safety policy.
+
+Potential techniques:
+
+- Weakest-precondition calculus.
+- Symbolic execution.
+- SMT constraint solving.
+- Predicate simplification.
+- Counterexample-guided refinement.
+
+For functions with multiple potentially failing operations, safety preconditions must account for the conditions under which those operations are actually reached.
+
+A branch containing an overflowing expression does not necessarily make all function inputs unsafe.
+
+## 7.4 Postcondition Synthesizer
+
+Constructs mathematical relationships between:
+
+- Input values.
+- Return values.
+- Modified state.
+- Observable error outcomes.
+
+For simple deterministic functions, an exact postcondition should characterize the result uniquely.
+
+For mutable functions, the specification should include frame conditions describing preserved state.
+
+For example, swapping two array elements should also establish that all other elements are unchanged.
+
+## 7.5 Abstract Interpretation Engine
+
+Provides sound approximations when exact symbolic inference is too expensive.
+
+Initial abstract domains may include:
+
+- Numeric intervals.
+- Constant propagation.
+- Equality relationships.
+- Selected linear relationships.
+- Known bits or bit masks.
+
+The implementation should support expanding the set of abstract domains without changing the contract API.
+
+## 7.6 Contract Simplifier
+
+Translates inferred logical formulas into smaller, more comprehensible specifications.
+
+Examples:
+
+- Simplify arithmetic bounds.
+- Remove redundant predicates.
+- Recognize equivalent expressions.
+- Produce readable conditional guarantees.
+- Retain exact internal representations when simplification would lose precision.
+
+A human-readable approximation must never silently replace an exact contract while retaining an exactness claim.
+
+## 7.7 Contract Registry
+
+Stores proven specifications for reuse across verification tasks.
+
+Registry entries should include:
+
+- Stable function identity.
+- Implementation fingerprint.
+- Relevant dependency fingerprints.
+- Parameter and return types.
+- Safety policy.
+- Preconditions.
+- Postconditions.
+- Precision classification.
+- Proof result.
+- Trusted assumptions.
+- Verus and solver versions.
+
+Cache invalidation should account for modifications to called functions and imported contracts, not just changes to the annotated function's source.
+
+## 7.8 Demand-Driven Guarantee Synthesizer
+
+Allows callers to ask questions about an inferred contract.
+
+For example:
+
+```rust
+fn fee(amount: u64) -> u64 {
+    amount / 100
+}
+```
+
+A caller might need to prove:
+
+```text
+amount < 100 implies fee(amount) == 0
+```
+
+Another caller might need:
+
+```text
+fee(amount) <= amount
+```
+
+Both follow from the same exact mathematical model.
+
+The system should prove these consequences on demand rather than eagerly enumerate possible guarantees.
+
+This is particularly important because the set of valid consequences of a specification is generally infinite.
+
+# 8. Verification and Trust Model
+
+The inference engine must not be part of the trusted correctness boundary.
+
+It is permitted to generate incorrect candidate contracts.
+
+Those candidates must be rejected unless a trusted verification path establishes their soundness.
+
+## 8.1 Proof pipeline
+
+For each inferred contract:
+
+1. Generate candidate preconditions and postconditions.
+2. Construct proof obligations against executable behavior.
+3. Submit obligations through Verus.
+4. Publish the contract only after successful verification.
+5. Record any trusted assumptions.
+
+For exactness claims, additional proof obligations are required.
+
+## 8.2 Optimality checking
+
+A contract being sound does not mean it is optimal.
+
+The tool must distinguish:
+
+**Verified sound**
+
+All included guarantees hold on the admitted input domain.
+
+**Verified exact behavior**
+
+The inferred input/output relation accurately characterizes execution on the admitted domain.
+
+**Verified maximal safe domain**
+
+All excluded inputs violate the selected safety policy.
+
+**Sound approximation**
+
+The contract is correct, but the tool has not established maximality or completeness.
+
+**Incomplete**
+
+The tool could not finish its analysis or verification.
+
+## 8.3 No silent assumptions
+
+The inference engine must not make a candidate pass by inserting unreported assumptions, marking implementations external, or weakening required specifications.
+
+Any reliance on trusted functions, axioms, or external models must be visible.
+
+For higher-level proofs, trust assumptions should be transitively traceable through dependencies.
+
+## 8.4 Verifying exactness
+
+For suitable deterministic finite computations, exactness may be established through a relational equivalence check between implementation semantics and the inferred summary.
+
+For more general code, proving maximality and exactness can be harder than proving the contract sound.
+
+The system must support declining an exactness claim without invalidating already verified sound properties.
+
+# 9. Handling Increasing Program Complexity
+
+## 9.1 Phase-one supported subset
+
+The initial implementation should prioritize:
+
+- Integer and Boolean parameters.
+- Integer arithmetic and bitwise operations.
+- Comparisons.
+- Local variables.
+- Immutable computations.
+- Conditional branches.
+- Pattern matching on simple enums.
+- `Option` and `Result`.
+- Calls to other functions with approved contracts.
+- Loop-free control flow.
+
+Functions using unsupported constructs should receive explicit diagnostics.
+
+## 9.2 Loops
+
+Unbounded loops introduce the need for termination reasoning and invariant discovery.
+
+However, automatically analyzing loops should not be categorically ruled out.
+
+The system should distinguish:
+
+**Statically bounded loops:** Can be unrolled when cost is reasonable.
+
+**Structurally bounded loops:** May be handled through inferred bounds or summarization.
+
+**Template-recognizable loops:** Common patterns such as summation, counting, scanning, and minimum/maximum can be handled with invariant templates.
+
+**General loops:** May require supplied invariants or remain unsupported.
+
+A complete exactness claim cannot be derived from incomplete loop unrolling.
+
+## 9.3 Recursion
+
+Recursive functions require similar handling through:
+
+- Termination measures.
+- Inductive summaries.
+- Recognized recursive patterns.
+- Developer-provided specifications.
+
+General recursive invariant inference is outside initial scope.
+
+## 9.4 Collections
+
+Initial collection support could include:
+
+- Fixed-size arrays.
+- Index safety.
+- Length relationships.
+- Simple element-wise updates.
+- Frame conditions.
+
+Later support may include slices, vectors, maps, and dynamic collections.
+
+Quantified properties over arbitrary collection elements may require additional solver guidance.
+
+## 9.5 Nonlinear arithmetic
+
+Nonlinear arithmetic and symbolic multiplication can be computationally expensive.
+
+The system should preserve exact bitvector representations where possible but permit resource-limited solving and sound fallback abstractions.
+
+A solver timeout must not be treated as evidence that a contract is invalid or maximal.
+
+## 9.6 External dependencies
+
+Calls into external or unsupported code require explicit contracts or conservative effect summaries.
+
+The inference engine cannot establish arbitrary guarantees about databases, network operations, filesystems, or external cryptographic libraries without modeled semantics.
+
+## 9.7 Concurrency
+
+General concurrent execution is deferred.
+
+Future extensions may integrate with Verus's state-machine and permission-based verification mechanisms.
+
+Concurrency would require reasoning about interleavings, synchronization, shared state, and environmental interference.
+
+# 10. Composition of Inferred Contracts
+
+A principal goal is enabling higher-level proofs without reanalyzing every callee.
+
+Suppose function \(f\) has contract:
+
+\[
+\{P_f\}\ f\ \{Q_f\}
+\]
+
+and function \(g\) has contract:
+
+\[
+\{P_g\}\ g\ \{Q_g\}
+\]
+
+For a caller invoking \(g(f(x))\), Verus must establish:
+
+1. The caller's assumptions imply \(P_f\).
+2. The postcondition \(Q_f\) establishes the conditions needed for \(P_g\).
+3. The combined postconditions imply the caller's requested guarantee.
+
+The inference engine's job is to make the callee specifications sufficiently precise to support this reasoning.
+
+## 10.1 Demand-driven strengthening
+
+If a caller cannot establish a property from a sound but imprecise callee contract, Verus Infer may attempt to refine that contract.
+
+For example:
+
+```text
+Initial inferred guarantee:
+    result >= 0
+
+Caller needs:
+    result <= amount
+```
+
+The tool could reanalyze the callee or consult a previously retained exact symbolic summary.
+
+If successful, it publishes an additional verified lemma or stronger contract.
+
+If unsuccessful, it requests explicit developer assistance.
+
+## 10.2 Compositional state invariants
+
+For a state transition function:
+
+\[
+T:S\times Input\rightarrow S
+\]
+
+suppose a property \(I(S)\) satisfies:
+
+\[
+I(S)\land ValidInput(S,x)
+\implies I(T(S,x))
+\]
+
+If the initial state satisfies \(I\), induction establishes that every reachable state produced by a sequence of valid transitions satisfies the invariant.
+
+Verus Infer could automate lower-level arithmetic and transition contracts used in this proof.
+
+The higher-level invariant itself would normally still be explicitly supplied.
+
+# 11. Fedimint-Inspired Use Case
+
+A motivating application is financial accounting in a distributed Rust system such as Fedimint.
+
+The initial goal would not be to prove an entire federation correct.
+
+Instead, the tool could infer contracts for pure monetary operations and use them to support explicit higher-level safety properties.
+
+## 11.1 Amount calculation
+
+```rust
+#[verus_infer(mode = "exact")]
+fn required_funding(outputs: u64, fee: u64)
+    -> Option<u64>
+{
+    outputs.checked_add(fee)
+}
+```
+
+The exact contract would characterize both success and overflow cases:
+
+\[
+result=
+\begin{cases}
+Some(outputs+fee), & outputs+fee\leq MAX\\
+None, & outputs+fee>MAX
+\end{cases}
+\]
+
+Here the sum is mathematical, not wrapping arithmetic.
+
+No input restriction is necessary, because overflow is handled explicitly.
+
+## 11.2 Transaction validation
+
+```rust
+#[verus_infer(mode = "exact")]
+fn is_funded(
+    inputs: u64,
+    outputs: u64,
+    fee: u64,
+) -> bool {
+    outputs
+        .checked_add(fee)
+        .is_some_and(|required| inputs == required)
+}
+```
+
+An inferred specification would describe exactly when the function returns true.
+
+A higher-level explicitly written invariant could then use the verified funding predicate.
+
+## 11.3 State transition verification
+
+Eventually, a financial state transition may have an explicitly declared invariant such as:
+
+```text
+An accepted transfer preserves the total represented
+value and does not produce an invalid balance.
+```
+
+Verus Infer would automatically establish relevant arithmetic subproperties.
+
+Verus would then compose those properties into the developer-specified state invariant.
+
+**This illustrates the intended division of responsibility: automatic inference describes how code behaves; explicit system specifications define which behaviors are acceptable.**
+
+# 12. Diagnostics and Developer Workflow
+
+An example command-line workflow:
+
+```bash
+cargo verus infer
+```
+
+The command is hypothetical.
+
+It could produce:
+
+```text
+Analyzing compute(u64) -> u64
+
+Safety precondition:
+  x <= 9223372036854775797
+
+Output relation:
+  result == (x + 10) * 2
+
+Verification:
+  Soundness: PROVED
+  Safe-domain maximality: PROVED
+  Output exactness: PROVED
+
+Dependencies:
+  None
+
+Trusted assumptions:
+  Standard arithmetic model
+
+Contract published.
+```
+
+For a more complex function:
+
+```text
+Analyzing process(Vec<u64>)
+
+Safety:
+  PROVED under inferred precondition
+
+Output relation:
+  Sound interval approximation
+
+Exactness:
+  NOT ESTABLISHED
+
+Reason:
+  Unsupported dynamic collection mutation
+
+Suggested next step:
+  Provide a loop invariant or enable collection analysis.
+```
+
+Diagnostics should distinguish:
+
+- Unsupported syntax.
+- Solver timeout.
+- Verification counterexample.
+- Missing dependency contract.
+- Candidate contract too weak for a caller.
+- Failed exactness or maximality proof.
+- Unresolved environmental assumptions.
+
+Ideally, inferred specifications should also be viewable through editor tooling without requiring developers to permanently insert verbose generated annotations into source files.
+
+# 13. Implementation Plan
+
+## Phase 0 — Integration Research
+
+**Goal:** Validate the best insertion points in the current Verus architecture.
+
+Tasks:
+
+- Study VIR-AST, VIR-SST, and AIR interfaces.
+- Investigate existing `dual_spec` support.
+- Determine how inferred contracts can be exposed to normal call-site verification.
+- Evaluate reusable symbolic execution and SMT infrastructure.
+- Establish a minimal experiment using a pure Rust arithmetic function.
+
+**Deliverable:** Architectural prototype and integration decision.
+
+## Phase 1 — Exact Loop-Free Arithmetic
+
+**Goal:** Produce a working end-to-end inference prototype.
+
+Supported features:
+
+- Integer and Boolean inputs.
+- Arithmetic and comparisons.
+- Branches.
+- Simple local variables.
+- Pure loop-free functions.
+
+Implement:
+
+- Symbolic execution.
+- Safety-predicate extraction.
+- Exact relational summaries.
+- SMT verification.
+- Basic simplification.
+- Exactness diagnostics.
+
+**Exit criterion:** The tool correctly infers and proves contracts for a curated set of arithmetic and branching functions without developer-supplied `requires` or `ensures`.
+
+## Phase 2 — Modular Composition
+
+**Goal:** Make inferred contracts useful to callers.
+
+Implement:
+
+- Function-call summaries.
+- Contract registry.
+- Dependency tracking.
+- Cross-function proof obligations.
+- Demand-driven conditional guarantees.
+- Contract caching.
+
+**Exit criterion:** A higher-level verified function can establish a new property by composing inferred contracts from several callees, without inlining their implementations.
+
+## Phase 3 — Partial Inference and Collections
+
+**Goal:** Expand coverage without sacrificing soundness.
+
+Implement:
+
+- Abstract interpretation.
+- Fixed-size arrays.
+- Basic slice properties.
+- Additional `Option`/`Result` handling.
+- Frame-condition inference.
+- Sound fallback summaries.
+
+**Exit criterion:** Functions outside the exact subset can still produce useful proven contracts, with accurate precision labels.
+
+## Phase 4 — Loop Inference
+
+**Goal:** Support selected iterative algorithms.
+
+Implement:
+
+- Loop-bound analysis.
+- Common invariant templates.
+- Candidate invariant generation.
+- Inductive invariant verification.
+- Counterexample-guided refinement.
+
+**Exit criterion:** Automatically verify selected accumulator, search, and collection-traversal functions without handwritten loop invariants.
+
+## Phase 5 — Richer Verification
+
+Potential subsequent work:
+
+- Mutable heap state.
+- Trait and generic specialization.
+- More sophisticated refinement relations.
+- State-machine summaries.
+- Integration with AI-assisted invariant generation.
+- Incremental verification across large crates.
+- IDE presentation and automated contract suggestions.
+
+These are research directions, not commitments for the initial project.
+
+# 14. Testing and Evaluation
+
+The evaluation plan must measure both correctness and usefulness.
+
+## 14.1 Correctness tests
+
+For simple finite functions:
+
+- Compare inferred predicates against exhaustive enumeration for small integer domains.
+- Compare inferred output relations against concrete execution.
+- Validate behavior at arithmetic boundaries.
+- Test panic and overflow conditions.
+- Test branching, pattern matching, and error returns.
+
+Exhaustive small-domain testing provides additional confidence but does not replace mathematical verification.
+
+## 14.2 Soundness regression tests
+
+Every published guarantee must remain independently verifiable through the designated verification backend.
+
+Regression tests should include deliberately buggy inference passes to demonstrate that invalid candidate contracts are rejected.
+
+## 14.3 Precision evaluation
+
+Measure:
+
+- Fraction of functions receiving sound contracts.
+- Fraction receiving exact contracts.
+- Fraction receiving proven maximal safe domains.
+- Number of unsupported operations.
+- Solver timeouts.
+- Precision loss relative to known reference contracts.
+
+A sound approximation must not be counted as exact inference.
+
+## 14.4 Composition evaluation
+
+Measure how often inferred callee contracts are sufficient to prove real caller properties without manual intervention.
+
+This is arguably a better measure of practical value than simply counting the number of inferred annotations.
+
+## 14.5 Performance evaluation
+
+Track:
+
+- Inference time per function.
+- Solver time.
+- Formula size.
+- Peak memory usage.
+- Cache reuse.
+- Incremental rebuild costs.
+- Growth in verification time as call graphs become deeper.
+
+The tool should expose bounded resource budgets and predictable failure behavior.
+
+# 15. Major Risks
+
+## 15.1 Inference versus verification mismatch
+
+**Risk:** Generated contracts do not accurately reflect actual Rust execution semantics.
+
+**Mitigation:** Reuse Verus/rustc semantics, validate generated contracts through the verifier, and avoid unsupported language constructs.
+
+## 15.2 False claims of maximality
+
+**Risk:** A sound, restrictive precondition is incorrectly described as the weakest possible precondition.
+
+**Mitigation:** Require separate maximality proof obligations and report exactness status independently.
+
+## 15.3 Solver scalability
+
+**Risk:** Path explosion, nonlinear arithmetic, and quantified collection properties make inference expensive.
+
+**Mitigation:** Resource limits, path merging, approximation, modular summaries, and caching.
+
+## 15.4 Unreadable contracts
+
+**Risk:** Exact specifications become too complicated for humans to understand.
+
+**Mitigation:** Separate internal exact representations from simplified presentation contracts, preserving provenance and proof status.
+
+## 15.5 Weak inferred semantics
+
+**Risk:** Functionally correct descriptions are mistaken for meaningful application-level guarantees.
+
+**Mitigation:** Keep system-level intent specifications explicit and provide separate checks against those specifications.
+
+## 15.6 Maintenance burden
+
+**Risk:** Changes in Rust or Verus internals break inference integration.
+
+**Mitigation:** Isolate Verus-specific adapters, minimize invasive changes, and seek upstream collaboration once the architecture is proven.
+
+# 16. Initial Development Decisions
+
+The recommended starting decisions are:
+
+| Decision | Recommendation |
+|---|---|
+| Project structure | Experimental Verus fork initially |
+| Source language | Supported Rust/Verus subset |
+| Primary IR | VIR |
+| Rust semantic integration | Reuse rustc information when required |
+| Solver | Existing Verus Z3 infrastructure |
+| First algorithms | Symbolic execution + weakest-precondition analysis |
+| First target | Pure loop-free numeric functions |
+| Exactness | Explicitly proved, never assumed |
+| Fallback behavior | Sound approximation or incomplete result |
+| Contract storage | Versioned, dependency-aware registry |
+| User interface | Opt-in attribute plus CLI |
+| Higher-level verification | Existing Verus contracts and proof mechanisms |
+| AI dependency | None required |
+
+A standalone inference prototype may be easier to build initially, but the long-term design should ensure that inferred contracts become natural inputs to the existing Verus verifier.
+
+# 17. Open Questions
+
+The following should be resolved through implementation experiments.
+
+1. **Inference IR:** Should the engine primarily operate on VIR-AST, VIR-SST, or a specialized symbolic IR?
+2. **Existing `dual_spec`:** How much functionality can be reused from automatic executable-to-specification translation?
+3. **Exactness proof:** What is the cleanest way to prove equivalence between executable behavior and inferred contracts?
+4. **Arithmetic semantics:** How should checked, wrapping, saturating, and configuration-dependent behavior be represented?
+5. **Function purity:** What is the best method for classifying side effects and determining eligible functions?
+6. **Public interfaces:** How should inferred contracts become stable interfaces for external crates?
+7. **Conditional inference:** When should additional guarantees be generated eagerly versus on demand?
+8. **Contract simplification:** How can human-readable representations preserve exact logical meaning?
+9. **Inference budgets:** What resource limits produce predictable performance in developer workflows?
+10. **Upstream strategy:** Which components should eventually become part of Verus, and which should remain optional?
+
+# 18. Long-Term Vision
+
+The desired end state is a verification workflow in which developers can progressively opt code into stronger guarantees without writing a complete formal specification for every function.
+
+For simple code, contracts are inferred and proved automatically.
+
+For more complicated code, the system generates the strongest sound information it can establish within its analysis budget and requests human guidance where necessary.
+
+For higher-level code, inferred guarantees are composed with explicitly written semantic invariants.
+
+Over time, the system becomes a reusable collection of machine-checked facts about a Rust codebase.
+
+Rather than requiring developers to formally specify every low-level operation, they can focus on meaningful application-level properties:
+
+- Value cannot be created by a transfer.
+- A note cannot be redeemed twice.
+- An unauthorized transition cannot succeed.
+- A parser cannot access memory outside its input.
+- A successful state transition preserves required invariants.
+
+Verus Infer does not attempt to eliminate the need for human specifications.
+
+**It attempts to make the mechanical construction of those specifications—and the proofs supporting them—as automatic as possible.**
+
+---
+
+# 19. References and Related Work
+
+- [Verus repository](https://github.com/verus-lang/verus)
+- [Verus architecture overview](https://github.com/verus-lang/verus/blob/main/source/CODE.md)
+- [Verus tutorial and reference](https://verus-lang.github.io/verus/guide/)
+- [Verus automatic exec-to-spec generation](https://verus-lang.github.io/verus/guide/exec_to_spec.html)
+- [Verus specification and proof modes](https://verus-lang.github.io/verus/guide/modes.html)
+- [Microsoft Verus proof synthesis research](https://github.com/microsoft/verus-proof-synthesis)
+
+Related techniques include weakest-precondition calculus, symbolic execution, abstract interpretation, counterexample-guided abstraction refinement, inductive invariant synthesis, and SMT-based deductive verification.
+
+**End of draft RFC.**

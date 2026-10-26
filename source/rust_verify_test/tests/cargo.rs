@@ -162,3 +162,14 @@ cargo_examples!(true);
 
 // Tests that run `cargo {check, build}` on each crate in the cargo-tests/unverified directory
 cargo_examples!(false);
+
+#[test]
+fn cargo_inferred_contracts_across_three_crates() {
+    let workspace = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../examples/verus_infer_workspace");
+    let target = tempdir().unwrap();
+    for command in ["build", "verify"] {
+        let run = run_cargo_verus_with_target(&[command], &workspace, target.path());
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    }
+}

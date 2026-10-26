@@ -116,6 +116,7 @@ pub fn array_as_slice<T, const N: usize>(ar: &[T; N]) -> (out: &[T])
     ensures
         out == spec_array_as_slice(ar),
         ar@ == out@,
+    no_unwind
 {
     ar
 }
@@ -146,6 +147,7 @@ pub broadcast axiom fn axiom_spec_array_fill_for_copy_type<T: Copy, const N: usi
 pub fn array_fill_for_copy_types<T: Copy, const N: usize>(t: T) -> (res: [T; N])
     ensures
         res == spec_array_fill_for_copy_type::<T, N>(t),
+    no_unwind
 {
     [t;N]
 }

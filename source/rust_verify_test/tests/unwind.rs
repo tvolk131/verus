@@ -3,6 +3,19 @@
 mod common;
 use common::*;
 
+test_verify_one_file! {
+    #[test] readonly_array_primitives_do_not_unwind verus_code! {
+        use vstd::prelude::*;
+        fn array_operations(value: u8) -> (length: usize)
+            ensures length == 4,
+            no_unwind
+        {
+            let values = [value; 4];
+            values.len()
+        }
+    } => Ok(())
+}
+
 test_verify_one_file_with_options! {
     #[test] basic ["exec_allows_no_decreases_clause"] => verus_code! {
         use vstd::prelude::*;

@@ -341,6 +341,77 @@ pub fn calc_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
 // #[verus_verify(external_body)] annotates the item with verifier::external_body
 // When compiling code with standard rust tool, the item has no verifier annotation.
 #[proc_macro_attribute]
+pub fn verus_infer(
+    args: proc_macro::TokenStream,
+    input: proc_macro::TokenStream,
+) -> proc_macro::TokenStream {
+    let parsed = syn::parse_macro_input!(args with syn::punctuated::Punctuated::<syn::Meta, syn::Token![,]>::parse_terminated);
+    let mut precision = None;
+    let mut precision_rlimit = None;
+    for option in parsed {
+        let syn::Meta::NameValue(option) = option else {
+            return syn::Error::new_spanned(
+                option,
+                "expected precision = \"exact\" or precision = \"sound\"",
+            )
+            .to_compile_error()
+            .into();
+        };
+        if option.path.is_ident("precision_rlimit") && precision_rlimit.is_none() {
+            let number = match &option.value {
+                syn::Expr::Lit(syn::ExprLit { lit: syn::Lit::Float(n), .. }) => {
+                    n.base10_parse::<f32>().ok()
+                }
+                syn::Expr::Lit(syn::ExprLit { lit: syn::Lit::Int(n), .. }) => {
+                    n.base10_parse::<f32>().ok()
+                }
+                _ => None,
+            };
+            if !number.is_some_and(|n| n.is_finite() && n > 0.0) {
+                return syn::Error::new_spanned(
+                    option,
+                    "precision_rlimit must be finite and positive",
+                )
+                .to_compile_error()
+                .into();
+            }
+            precision_rlimit = Some(option.value);
+            continue;
+        }
+        if !option.path.is_ident("precision") || precision.is_some() {
+            return syn::Error::new_spanned(option, "only one precision option is supported")
+                .to_compile_error()
+                .into();
+        }
+        let syn::Expr::Lit(syn::ExprLit { lit: syn::Lit::Str(value), .. }) = &option.value else {
+            return syn::Error::new_spanned(option, "precision must be \"exact\" or \"sound\"")
+                .to_compile_error()
+                .into();
+        };
+        match value.value().as_str() {
+            "exact" => precision = Some(false),
+            "sound" => precision = Some(true),
+            _ => {
+                return syn::Error::new_spanned(value, "precision must be \"exact\" or \"sound\"")
+                    .to_compile_error()
+                    .into();
+            }
+        }
+    }
+    let attribute = if precision == Some(true) {
+        quote::quote! { infer(sound) }
+    } else {
+        quote::quote! { infer }
+    };
+    let attribute = if let Some(limit) = precision_rlimit {
+        quote::quote! { #attribute, infer_precision_rlimit(#limit) }
+    } else {
+        attribute
+    };
+    attr_rewrite::rewrite_verus_attribute(&cfg_erase(), attribute.into(), input)
+}
+
+#[proc_macro_attribute]
 pub fn verus_verify(
     args: proc_macro::TokenStream,
     input: proc_macro::TokenStream,

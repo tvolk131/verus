@@ -1,0 +1,243 @@
+# Verus Infer assurance plan
+
+This tracks assurance work for the implemented prototype. It is a development
+plan, not a claim that the new verification machinery is formally verified or
+that the potential failure modes below are known bugs. Supported behavior is
+documented in the [inference guide](source/docs/guide/src/infer.md).
+
+## Recommended sequence
+
+The focused assurance consolidation, exact early returns, and bounded
+`Option`/`Result` propagation, and exact/interval signed integer inference are implemented. Retain the formal verification
+targets below as separate work.
+Formalization of the entire precision checker is not a prerequisite for every
+feature.
+The feature backlog and proposed milestone order are maintained in
+[the main roadmap](VERUS_INFER.md#proposed-next-milestones).
+
+## Current protections and trust boundary
+
+- Contract installation preserves the original executable body. Ordinary Verus
+  verification checks the proposed contract against that body.
+- Exact mode requires soundness, safe-domain maximality, and output exactness.
+  Sound mode always requires soundness; optional precision failures do not
+  establish those precision guarantees.
+- Proof outcomes start unproved. A recorded success requires a query to have
+  been checked without unproved subqueries or timeouts.
+- Candidate caches store typed formulas, not proof results. Reused candidates
+  receive fresh proofs, and source eligibility is checked independently.
+- Inferred functions are checked in dependency order before dependent callers.
+  Full-crate verification is required for local inferred definitions. Exports
+  are withheld on failure, and previous inferred exports are invalidated during
+  a rebuild.
+- Imports validate per-function guarantees, contract fingerprints, dependency
+  fingerprints, and standard-model fingerprints. Imported bodies are not
+  reverified. This retains Verus's existing trusted-library model; the new
+  metadata checks are additional enforcement, not independently checkable proofs.
+- Two existing external-body array helpers additionally declare `no_unwind`.
+  Those declarations are trusted specification additions. No new array axioms
+  or external-body functions were introduced for this milestone.
+
+Candidate synthesis need not be correct for a properly checked contract to be
+sound. Correctness of contract installation, query construction, outcome
+recording, publication, and trusted specifications still matters. A defect
+confined to precision checking can mislabel a sound contract as maximal or
+exact; that alone does not invalidate its separate ordinary soundness proof.
+Early-return support adds only candidate-generation logic. The original body,
+precision transformations, and acceptance policy remain unchanged by that
+feature; its guarded formulas receive the same independent proofs.
+Propagation additionally recognizes a closed set of existing core/vstd helpers
+and their complete lowered expression. It retains the original executable and
+all proof gates. Source eligibility runs before resolution expansion; subsequent
+verification ordering scans every call in the expanded body for inferred dependencies.
+See the propagation-model audit below for the existing `Result` trust assumptions.
+Checking a caller before its callee is not inherently unsound: accepting the
+overall verification without the required callee proof would be the error.
+
+## Completed consolidation: structural safeguards and targeted tests
+
+These safeguards and tests are implemented. They do not constitute formal
+verification of the checker or its integration.
+
+- [x] Have synthesis and cache decoding return contract data through a narrow
+  interface, with one installer responsible for preserving the original body,
+  function identity, signature, and unrelated attributes.
+- [x] Make the separation between the ordinary query and transformed precision
+  queries explicit. Test that constructing or running precision probes cannot
+  suppress ordinary overflow or array-bounds failures.
+- [x] Isolate proof-outcome aggregation and acceptance rules in a small component.
+  Associate outcomes with the function, candidate identity, and obligation kind;
+  prevent absent or unsuccessful outcomes from authorizing use or export.
+- [x] Extend fault injection for failed, canceled, timed-out, skipped, duplicate,
+  reordered, and mismatched outcomes, including mixed exact/sound dependencies.
+  Cover both caller acceptance and export suppression.
+- [x] Mutation-test critical precision and publication rules: deliberately weaken
+  a rule and require the corresponding regression test to detect the change.
+- [x] Review the two added array `no_unwind` declarations and record their
+  justification. A test that itself relies on these declarations is not an
+  independent proof of them.
+
+The dependency-free production policy is in
+`source/vir/src/infer_proof/policy.rs`; its compiler-facing evidence adapter is
+`source/vir/src/infer_proof.rs`. The source mutation runner is
+`source/tools/test_infer_assurance_mutations.py`. It tests nine acceptance-core
+mutations and three precision-check mutations in temporary copies. Baselines
+must pass; each mutant must run tests and fail them. Compilation failures and
+empty test runs do not count as detected mutations. This tests selected failure
+mechanisms, not all possible defects in the pipeline.
+
+Candidate identities include the original typed function, actual formulas,
+configuration, and transitive dependencies. Outcomes are bound to candidate and
+obligation; duplicate, mismatched, and unknown records invalidate acceptance.
+Diagnostic/profile reruns supply no evidence. Ordinary parallel workers cannot
+overwrite inference outcomes. Query kinds must match ordinary/precision bodies.
+
+The assurance milestone introduced metadata schema 6 and cache version 6.
+Compositional safety inference uses cache version 11 and retains metadata schema 6.
+The serialized identity introduced with the assurance milestone also requires
+rebuilding `vstd`, other `.vir` libraries, and dependents, including ordinary
+libraries built with older compiler binaries.
+
+## Trusted array-helper audit
+
+The additions are `no_unwind` on two pre-existing external-body functions in
+`source/vstd/array.rs`:
+
+- `array_as_slice<T, N>` returns a shared array reference through Rust's built-in
+  array-to-slice coercion. Its body performs no indexing, arithmetic, allocation,
+  or user-defined call that could unwind.
+- `array_fill_for_copy_types<T: Copy, N>` uses built-in `[t; N]` repetition.
+  Copying a `Copy` value invokes no user-defined `Clone`, and a `Copy` type has no
+  destructor. Its body performs no checked arithmetic, indexing, or heap
+  allocation. This reasoning also covers `N = 0`.
+
+These arguments justify the declarations by review of the bodies and Rust
+operation semantics; they are not formal implementation proofs. Evaluating the
+operand passed to a helper remains the caller's responsibility, even for a
+zero-length repetition. Inference regressions retain operand-overflow checks.
+The `no_unwind` integration test checks use of the trusted model; it is not an
+independent proof of those declarations.
+
+## Propagation-model audit
+
+`?` uses the existing `Option`/`Result` `branch` and `from_residual` specifications
+in `source/vstd/std_specs/control_flow.rs`. Recognition checks their core identity,
+vstd proxy, generic signature and bounds, then the concrete operand types,
+ControlFlow arms, bindings, return, and residual call. The internal `Infallible`
+and `ControlFlow` types are not generally eligible source values. Operands still
+pass ordinary source eligibility, including checks for proof assumptions.
+Generic helpers outside this complete lowering are rejected.
+
+`Result` propagation requires identical scalar/unit error types and the core
+conversion implementation. Rust's blanket `From<T> for T` returns its input;
+the existing trusted `spec_from_blanket_identity` axiom models that identity.
+The generic Result residual specification has no `no_unwind` clause, so this
+feature does not add or export that guarantee. A `no_unwind` inferred wrapper
+propagating an arbitrary Result input fails ordinary verification with that
+existing model; a regression test checks this. The absence of runtime unwinding in the restricted identity
+case rests on reviewed standard-library semantics, not a new formal proof.
+The two branch models and Option residual model already declare `no_unwind`.
+No specification, axiom, or external-body declaration was added or strengthened
+for propagation. Declaration and containing-library fingerprints cover these
+models, including their supporting axioms, through caches and exports.
+
+## Signed-arithmetic integration
+
+Signed support uses existing VIR operations and Verus's original executable
+overflow checks, including the separate `MIN`/`-1` checks for both signed division
+and remainder. Candidate generation derives bounds using mathematical integers.
+The closed literal-negation lowering also admits signed `MIN` literals without
+generally allowing unchecked executable arithmetic. Casts retain the existing
+signed/unsigned truncation operations through synthesis, cache decoding, and
+imported-summary substitution.
+
+Verus lowers signed `/` and `%` to the existing inline vstd `rust_div` and
+`rust_rem` definitions. These implicit dependencies are recorded alongside
+explicit standard-model calls in candidate keys and exported model fingerprints.
+Missing models receive an unsupported diagnostic before verification. Signed
+checked methods use the pre-existing vstd numeric specifications, with distinct
+Rust and Euclidean division/remainder summaries. No standard specification or
+axiom was added or strengthened. The original body, precision transformations,
+and proof-acceptance machinery remain unchanged by this feature.
+
+Exhaustive i8 comparisons cover ordinary and checked arithmetic, including both
+division conventions; cast comparisons cover complete i16/u16 input domains.
+Native tests cover all widths and i128 boundaries. Cache corruption tests retain
+the independent maximality and soundness gates, including rejection of a cached
+remainder domain that admits `MIN % -1`. Cross-crate tests check signed summary
+composition and invalidation when the containing vstd artifact changes.
+
+## Signed interval approximation
+
+Sound mode now supports signed scalars and intermediate values using the same
+mandatory ordinary soundness proof as unsigned intervals. Arithmetic and branch
+joins operate on mathematical integer bounds. Division splits denominator ranges
+around zero; remainder bounds account for the dividend's sign. Wrapping casts
+conservatively widen to the full destination range. The compiler's special
+signed `MIN` literal lowering is recognized before restricting intermediate
+values to machine ranges.
+
+When exact safety extraction exceeds its budget or a sound-mode dependency
+prevents it, bounded compositional synthesis derives a sufficient domain from
+scalar contracts and result ranges. The previous signed `[-1, 1]` and unsigned
+`[0, 1]` argument heuristics have been removed. Ordinary verification must still
+prove safety under the generated domain. Maximality probing remains skipped
+for sound-mode dependencies, and optional precision failures do not establish
+the missing guarantees.
+
+Exhaustive tests compare signed arithmetic and casts with concrete executions
+and check division/remainder bounds across sign-changing intervals. Native tests
+check useful ranges, all widths, expansion-budget fallback, and optional precision
+timeouts. Cache poisoning tests reject ranges that omit valid negative results
+and domains that admit unsafe negation. Cross-crate tests preserve mixed
+exact/sound guarantees, require soundness evidence, and invalidate stale vstd
+model dependencies. No standard specifications, precision transformations, or
+proof-acceptance rules were changed for this feature.
+
+## Compositional safety synthesis
+
+The untrusted analyzer in `source/vir/src/infer/abstract_infer/safety.rs` carries
+scalar value bounds and sufficient truth/falsehood conditions for predicates.
+It instantiates callee preconditions over argument values; approximate returns
+use their published intervals, while exact scalar relations can retain symbolic
+values. Arithmetic checks are derived from those values and machine ranges.
+Affine normalization prevents repeated addition from duplicating formulas.
+Non-affine formulas and coefficients remain bounded; exhaustion reports an
+incomplete analysis rather than selecting arbitrary small inputs.
+
+Conditional and short-circuit requirements retain their execution guards.
+Simple comparisons refine local values and copied aliases within a branch;
+facts are restored at the join. This is candidate-generation logic, not a new
+assumption in the executable or verifier query. Incomplete or obviously empty
+derived domains produce diagnostics. The original executable, precision
+transformations, candidate-bound evidence, and publication gates are unchanged.
+
+Regressions check full signed/unsigned domains for safe range-based composition,
+operation-derived offset limits, retained callee requirements, scoped branch
+facts, affine expansion, and explicit budget exhaustion. Exhaustive small-width
+tests check admitted domains against every result allowed by the callee range.
+Poisoned caches must still fail the original ordinary overflow checks and
+suppress exports. Cross-crate tests preserve honest optional precision metadata
+while accepting the broader generated domains.
+
+## Later: formal verification targets
+
+1. **Acceptance component.** Prove that an accepted or exported contract has all
+   required successful outcomes for that exact candidate and dependency set.
+   Prefer verifying the component used by production. A separate state-machine
+   model needs an explicit connection to the implementation before its theorem
+   can be claimed for the implementation. State assumptions about solver results,
+   fingerprinting, serialization, and filesystem behavior explicitly.
+2. **Precision transformations.** Define semantics for the supported intermediate
+   language and prove that the generated obligations establish maximality and
+   exactness. Include branch reachability, arbitrary valid outputs, and modular
+   calls. This is a larger project than checking the acceptance rules.
+3. **Independent replay.** Evaluate emitting original bodies, inferred contracts,
+   and explicit precision obligations for checking through a separate verifier
+   path. Replay can reduce reliance on our driver, but its translation and build
+   correspondence still need justification.
+
+The objective is to reduce and justify the added trust boundary. Existing
+Verus/rustc semantics, solver correctness, and trusted library specifications
+remain assumptions; these tasks do not establish the entire toolchain's
+correctness.

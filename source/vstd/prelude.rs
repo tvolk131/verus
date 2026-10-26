@@ -26,6 +26,7 @@ pub use verus_builtin_macros::verus_exec_inv_macro_exprs;
 pub use verus_builtin_macros::verus_exec_macro_exprs;
 pub use verus_builtin_macros::verus_ghost_inv_macro_exprs;
 pub use verus_builtin_macros::verus_impl;
+pub use verus_builtin_macros::verus_infer;
 pub use verus_builtin_macros::verus_keep_ghost;
 pub use verus_builtin_macros::verus_proof_expr;
 pub use verus_builtin_macros::verus_proof_macro_explicit_exprs;

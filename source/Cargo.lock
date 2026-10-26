@@ -3311,8 +3311,10 @@ dependencies = [
  "num-bigint 0.5.1",
  "num-traits",
  "serde",
+ "serde_json",
  "sha2",
  "sise",
+ "tempfile",
  "vir-macros",
 ]
 

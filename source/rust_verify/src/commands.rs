@@ -31,6 +31,7 @@ pub enum Style {
 
 #[derive(Clone, Copy, Debug)]
 pub enum QueryOp {
+    Infer(vir::infer_checks::PrecisionCheck),
     /// Includes both with and without 'decreases_by'.
     /// The 'fun' associated with this is always the spec fun (even if it uses decreases_by)
     SpecTermination,
@@ -282,11 +283,48 @@ impl<'a> OpGenerator<'a> {
             return Ok(vec![]);
         };
 
+        if function.x.attrs.infer && matches!(style, Style::Normal) {
+            vir::infer_checks::validate_query_kind(func_check_sst, None, &function.span)?;
+        }
+
         let commands = vir::sst_to_air_func::func_sst_to_air(self.ctx, &function, func_check_sst)?;
-
+        let mut ops = vec![Op::query(
+            QueryOp::Body(style),
+            commands,
+            &function,
+            Some(func_check_sst.clone()),
+        )];
+        if function.x.attrs.infer && matches!(style, Style::Normal) {
+            for kind in [
+                vir::infer_checks::PrecisionCheck::Maximality,
+                vir::infer_checks::PrecisionCheck::Exactness,
+            ] {
+                if matches!(kind, vir::infer_checks::PrecisionCheck::Maximality)
+                    && vir::infer::uses_approximate_callee(
+                        &self.ctx.func_map[&function.x.name],
+                        &self.ctx.func_map,
+                    )
+                {
+                    // A sound but restrictive callee domain cannot characterize
+                    // all successful executions of the original executable.
+                    continue;
+                }
+                if function.x.attrs.infer_allow_approx
+                    && matches!(kind, vir::infer_checks::PrecisionCheck::Exactness)
+                    && func_check_sst.post_condition.dest.is_none()
+                {
+                    // A Boolean top summary has no result relation to prove exact.
+                    continue;
+                }
+                let check =
+                    Arc::new(vir::infer_checks::precision_check(&function, func_check_sst, kind)?);
+                vir::infer_checks::validate_query_kind(&check, Some(kind), &function.span)?;
+                let commands = vir::sst_to_air_func::func_sst_to_air(self.ctx, &function, &check)?;
+                ops.push(Op::query(QueryOp::Infer(kind), commands, &function, Some(check)));
+            }
+        }
         self.ctx.fun = None;
-
-        Ok(vec![Op::query(QueryOp::Body(style), commands, &function, Some(func_check_sst.clone()))])
+        Ok(ops)
     }
 
     fn handle_proof_body_expand(
@@ -441,11 +479,50 @@ fn focus_commands_with_context_on_assert_id(
 }
 
 impl Op {
+    /// Only original ordinary queries and matching precision queries may
+    /// contribute evidence. Diagnostic/profile reruns never mint receipts.
+    pub fn inference_request(
+        &self,
+    ) -> Result<Option<(vir::infer_proof::CandidateId, vir::infer_proof::Obligation)>, VirErr> {
+        let OpKind::Query { query_op, profile_rerun: false, func_check_sst, .. } = &self.kind else {
+            return Ok(None);
+        };
+        let function = self.get_function();
+        if !function.x.attrs.infer {
+            return Ok(None);
+        }
+        use vir::infer_checks::PrecisionCheck;
+        use vir::infer_proof::Obligation;
+        let (precision, obligation) = match query_op {
+            QueryOp::Body(Style::Normal) => (None, Obligation::Soundness),
+            QueryOp::Infer(PrecisionCheck::Maximality) => {
+                (Some(PrecisionCheck::Maximality), Obligation::Maximality)
+            }
+            QueryOp::Infer(PrecisionCheck::Exactness) => {
+                (Some(PrecisionCheck::Exactness), Obligation::Exactness)
+            }
+            _ => return Ok(None),
+        };
+        let check = func_check_sst.as_ref().ok_or_else(|| {
+            vir::messages::error(&function.span, "Verus Infer: missing query verification body")
+        })?;
+        vir::infer_checks::validate_query_kind(check, precision, &function.span)?;
+        let id = vir::infer_proof::CandidateId::from_parts(
+            &function.x.name,
+            &function.x.attrs,
+            &function.span,
+        )?;
+        Ok(Some((id, obligation)))
+    }
+
     pub fn to_air_comment(&self) -> String {
         fn append_profile_rerun(s: &str, profile: bool) -> String {
             if !profile { s.to_owned() } else { format!("{s}-Profile-Rerun") }
         }
         let prefix = match &self.kind {
+            OpKind::Query { query_op: QueryOp::Infer(kind), profile_rerun, .. } => {
+                append_profile_rerun(&format!("Infer-{}", kind.label()), *profile_rerun)
+            }
             OpKind::Context(ContextOp::SpecDefinition, _) => "Function-Axioms".into(),
             OpKind::Context(ContextOp::ReqEns, _) => "Function-Specs".into(),
             OpKind::Context(ContextOp::Broadcast, _) => "Broadcast".into(),
@@ -478,6 +555,12 @@ impl Op {
             if !profile { s.to_owned() } else { format!("{s} (profile rerun)") }
         }
         match &self.kind {
+            OpKind::Query { query_op: QueryOp::Infer(kind), profile_rerun, .. } => {
+                Some(append_profile_rerun(
+                    &format!("checking inferred {}", kind.label()),
+                    *profile_rerun,
+                ))
+            }
             OpKind::Context(_, _) => None,
             OpKind::Query { query_op: QueryOp::SpecTermination, profile_rerun, .. } => {
                 Some(append_profile_rerun("checking termination", *profile_rerun))
@@ -536,6 +619,7 @@ impl Op {
 impl QueryOp {
     pub fn is_recommend(&self) -> bool {
         match self {
+            QueryOp::Infer(_) => false,
             QueryOp::SpecTermination => false,
             QueryOp::Body(Style::RecommendsFollowupFromError | Style::RecommendsChecked) => true,
             QueryOp::Body(Style::Normal) => false,
@@ -546,6 +630,7 @@ impl QueryOp {
 
     pub fn is_expanded(&self) -> bool {
         match self {
+            QueryOp::Infer(_) => false,
             QueryOp::SpecTermination => false,
             QueryOp::Body(Style::RecommendsFollowupFromError | Style::RecommendsChecked) => false,
             QueryOp::Body(Style::Normal) => false,
