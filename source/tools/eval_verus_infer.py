@@ -113,7 +113,7 @@ def measure(case, phase, source, directory, verifier, env, timeout, cold):
     (directory / f"{phase}.input.rs").write_bytes(source.read_bytes())
     command = [str(verifier), str(source), "--crate-type=lib", "--edition=2021",
                "--crate-name", case["name"], "--output-json", "--time",
-               "--num-threads", "1", "--export", str(artifact)]
+               "--num-threads", "1", "--export", str(artifact), *case.get("verifier_args", [])]
     started = time.perf_counter_ns()
     row = {"case": case["name"], "phase": phase, "command": command,
            "source_sha256": digest(source), "features": case["features"],

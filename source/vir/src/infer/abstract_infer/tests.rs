@@ -106,7 +106,10 @@ fn negative_min_literals_negation_and_casts_keep_all_signed_results() {
         ),
     );
     let inferred = infer_function(&sound_function(min_literal, range)).unwrap();
-    assert_eq!(range_from_summary(&inferred).unwrap(), Range::Int((-128).into(), (-128).into()));
+    assert_eq!(
+        range_from_summary(&inferred, 64).unwrap(),
+        Range::Int((-128).into(), (-128).into())
+    );
     let negate = SpannedTyped::new(
         &span(),
         &Arc::new(TypX::Int(range)),

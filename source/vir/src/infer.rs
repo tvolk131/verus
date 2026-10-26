@@ -193,6 +193,9 @@ impl Engine<'_> {
             return pure(term(span, &int_typ(), ExprX::Const(Constant::Int(n)), 1)?);
         }
         match &expr.x {
+            _ if arithmetic::arch_constant(expr).is_some() => {
+                Ok(Summary { safe: boolean(span, true), value: arithmetic::arch_constant(expr) })
+            }
             ExprX::Const(c @ (Constant::Bool(_) | Constant::Int(_))) => {
                 let typ = if matches!(c, Constant::Int(_)) { int_typ() } else { bool_typ() };
                 pure(term(span, &typ, ExprX::Const(c.clone()), 1)?)
@@ -253,9 +256,7 @@ impl Engine<'_> {
                     )?),
                 })
             }
-            ExprX::Unary(UnaryOp::Clip { range, .. }, arg)
-                if arithmetic::bounds(*range).is_some() =>
-            {
+            ExprX::Unary(UnaryOp::Clip { range, .. }, arg) if arithmetic::exact_range(*range) => {
                 // rust_to_vir also inserts these coercions around integer
                 // division/remainder. Preserve their exact truncation semantics.
                 let arg = self.expr(arg)?;
@@ -339,15 +340,9 @@ impl Engine<'_> {
                 if div_check {
                     let signed = match op {
                         BinaryOp::Arith(
-                            ArithOp::TruncatingDiv(
-                                _,
-                                SignedDivEdgeCaseBehavior::Error(IntegerTypeBitwidth::Width(bits)),
-                            )
-                            | ArithOp::TruncatingMod(
-                                _,
-                                SignedDivEdgeCaseBehavior::Error(IntegerTypeBitwidth::Width(bits)),
-                            ),
-                        ) => Some(*bits),
+                            ArithOp::TruncatingDiv(_, SignedDivEdgeCaseBehavior::Error(width))
+                            | ArithOp::TruncatingMod(_, SignedDivEdgeCaseBehavior::Error(width)),
+                        ) => Some(arithmetic::signed_range(*width)),
                         _ => None,
                     };
                     let valid = arithmetic::division_valid(span, a, b, signed)?;
@@ -886,6 +881,32 @@ pub fn format_loop_proofs(function: &Function) -> Vec<serde_json::Value> {
 
 fn format_expr(e: &Expr) -> String {
     match &e.x {
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            "usize::MAX".into()
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMin), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            "isize::MIN".into()
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMax), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            "isize::MAX".into()
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::ISize, .. }, a) => {
+            format!("({} as isize)", format_expr(a))
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            "usize::BITS".into()
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, .. }, a) => {
+            format!("({} as usize)", format_expr(a))
+        }
         ExprX::ArrayLiteral(elements) => {
             format!("[{}]", elements.iter().map(format_expr).collect::<Vec<_>>().join(", "))
         }
@@ -963,5 +984,7 @@ fn format_expr(e: &Expr) -> String {
     }
 }
 
+#[cfg(test)]
+mod platform_tests;
 #[cfg(test)]
 pub(crate) mod tests;

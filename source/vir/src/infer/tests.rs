@@ -34,55 +34,89 @@ pub(super) fn evaluate_integer(e: &Expr, x: i128, y: i128) -> Value {
 }
 
 pub(super) fn evaluate_with(e: &Expr, variable: &dyn Fn(&str) -> Value) -> Value {
+    evaluate_on_arch(e, variable, 64)
+}
+
+pub(super) fn evaluate_on_arch(
+    e: &Expr,
+    variable: &dyn Fn(&str) -> Value,
+    word_bits: u32,
+) -> Value {
     match &e.x {
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits), _) => {
+            Value::Int(word_bits.into())
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax), a) => {
+            Value::Int((1i128 << evaluate_on_arch(a, variable, word_bits).int()) - 1)
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMin), a) => {
+            Value::Int(-(1i128 << (evaluate_on_arch(a, variable, word_bits).int() - 1)))
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMax), a) => {
+            Value::Int((1i128 << (evaluate_on_arch(a, variable, word_bits).int() - 1)) - 1)
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::ISize, .. }, a) => {
+            let modulus = 1i128 << word_bits;
+            let n = evaluate_on_arch(a, variable, word_bits).int().rem_euclid(modulus);
+            Value::Int(if n >= modulus / 2 { n - modulus } else { n })
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, .. }, a) => Value::Int(
+            evaluate_on_arch(a, variable, word_bits).int().rem_euclid(1i128 << word_bits),
+        ),
         ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => {
-            let Value::Array(values) = evaluate_with(a, variable) else { panic!("expected slice") };
+            let Value::Array(values) = evaluate_on_arch(a, variable, word_bits) else {
+                panic!("expected slice")
+            };
             Value::Int(values.len() as i128)
         }
-        ExprX::ArrayLiteral(elements) => {
-            Value::Array(elements.iter().map(|e| evaluate_with(e, variable)).collect())
-        }
+        ExprX::ArrayLiteral(elements) => Value::Array(
+            elements.iter().map(|e| evaluate_on_arch(e, variable, word_bits)).collect(),
+        ),
         ExprX::Binary(
             BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Allow),
             a,
             i,
         ) => {
-            let Value::Array(values) = evaluate_with(a, variable) else { panic!("expected array") };
-            let index = evaluate_with(i, variable).int() as usize;
+            let Value::Array(values) = evaluate_on_arch(a, variable, word_bits) else {
+                panic!("expected array")
+            };
+            let index = evaluate_on_arch(i, variable, word_bits).int() as usize;
             values.into_iter().nth(index).expect("safe array index")
         }
         ExprX::Ctor(_, variant, fields, None) => Value::Enum(
             variant.to_string(),
-            fields.first().map(|f| Box::new(evaluate_with(&f.a, variable))),
+            fields.first().map(|f| Box::new(evaluate_on_arch(&f.a, variable, word_bits))),
         ),
         ExprX::UnaryOpr(UnaryOpr::IsVariant { variant, .. }, arg) => {
-            let Value::Enum(actual, _) = evaluate_with(arg, variable) else {
+            let Value::Enum(actual, _) = evaluate_on_arch(arg, variable, word_bits) else {
                 panic!("expected enum");
             };
             Value::Bool(actual == variant.as_str())
         }
         ExprX::UnaryOpr(UnaryOpr::Field(op), arg) => {
-            let Value::Enum(actual, field) = evaluate_with(arg, variable) else {
+            let Value::Enum(actual, field) = evaluate_on_arch(arg, variable, word_bits) else {
                 panic!("expected enum");
             };
             assert_eq!(actual, op.variant.as_str());
             *field.expect("expected payload")
         }
         ExprX::Const(Constant::Bool(b)) => Value::Bool(*b),
-        ExprX::Unary(UnaryOp::Not, a) => Value::Bool(!evaluate_with(a, variable).boolean()),
+        ExprX::Unary(UnaryOp::Not, a) => {
+            Value::Bool(!evaluate_on_arch(a, variable, word_bits).boolean())
+        }
         ExprX::Const(Constant::Int(n)) => Value::Int(n.to_i128().unwrap()),
         ExprX::Var(v) => variable(v.0.as_str()),
         ExprX::Logical(op, a, b) => {
-            let a = evaluate_with(a, variable).boolean();
+            let a = evaluate_on_arch(a, variable, word_bits).boolean();
             Value::Bool(match op {
-                LogicalOp::And => a && evaluate_with(b, variable).boolean(),
-                LogicalOp::Or => a || evaluate_with(b, variable).boolean(),
-                LogicalOp::Implies => !a || evaluate_with(b, variable).boolean(),
+                LogicalOp::And => a && evaluate_on_arch(b, variable, word_bits).boolean(),
+                LogicalOp::Or => a || evaluate_on_arch(b, variable, word_bits).boolean(),
+                LogicalOp::Implies => !a || evaluate_on_arch(b, variable, word_bits).boolean(),
             })
         }
         ExprX::Binary(op, a, b) => {
-            let a = evaluate_with(a, variable);
-            let b = evaluate_with(b, variable);
+            let a = evaluate_on_arch(a, variable, word_bits);
+            let b = evaluate_on_arch(b, variable, word_bits);
             match op {
                 BinaryOp::Eq(_) => Value::Bool(a == b),
                 BinaryOp::Ne => Value::Bool(a != b),
@@ -111,16 +145,18 @@ pub(super) fn evaluate_with(e: &Expr, variable: &dyn Fn(&str) -> Value) -> Value
             }
         }
         ExprX::Unary(UnaryOp::Clip { range: IntRange::U(bits), .. }, a) => {
-            Value::Int(evaluate_with(a, variable).int().rem_euclid(1i128 << bits))
+            Value::Int(evaluate_on_arch(a, variable, word_bits).int().rem_euclid(1i128 << bits))
         }
         ExprX::Unary(UnaryOp::Clip { range: IntRange::I(bits), .. }, a) => {
             let modulus = 1i128 << bits;
-            let wrapped = evaluate_with(a, variable).int().rem_euclid(modulus);
+            let wrapped = evaluate_on_arch(a, variable, word_bits).int().rem_euclid(modulus);
             Value::Int(if wrapped >= modulus / 2 { wrapped - modulus } else { wrapped })
         }
-        ExprX::If(c, a, Some(b)) => {
-            evaluate_with(if evaluate_with(c, variable).boolean() { a } else { b }, variable)
-        }
+        ExprX::If(c, a, Some(b)) => evaluate_on_arch(
+            if evaluate_on_arch(c, variable, word_bits).boolean() { a } else { b },
+            variable,
+            word_bits,
+        ),
         _ => panic!("unexpected formula: {e:?}"),
     }
 }

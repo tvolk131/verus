@@ -7,12 +7,17 @@ documented in the [inference guide](source/docs/guide/src/infer.md).
 
 ## Recommended sequence
 
-The focused assurance consolidation, exact early returns, and bounded
-`Option`/`Result` propagation, and exact/interval signed integer inference are implemented. Retain the formal verification
-targets below as separate work.
-Formalization of the entire precision checker is not a prerequisite for every
-feature.
-The feature backlog and proposed milestone order are maintained in
+The focused assurance consolidation, early returns, bounded `Option`/`Result`
+propagation, shared slices, the first counted-loop pattern, and exact/interval
+fixed-width and platform-sized integer inference are implemented. Retain the
+formal verification targets below as separate work. Formalization of the entire
+precision checker is not a prerequisite for every feature.
+
+The next feature batch covers integer operations. Every extension must keep
+source eligibility, typed summaries, fresh ordinary proofs, and publication gates
+aligned. Any added standard-library specification is an explicit trusted-model
+change requiring a documented audit and dependency fingerprints. The feature
+backlog and proposed milestone order are maintained in
 [the main roadmap](VERUS_INFER.md#proposed-next-milestones).
 
 ## Current protections and trust boundary
@@ -100,7 +105,7 @@ Compositional safety inference uses cache version 11 and retains metadata schema
 Shared-slice inference extends the summary language with existing slice length
 and index operations, using cache version 12 and metadata schema 7. Older inferred
 interfaces must be rebuilt. This extension adds no serialized AST fields.
-Counted-loop inference uses cache version 13, candidate identity version 2, and
+Counted-loop inference introduced cache version 13, candidate identity version 2, and
 metadata schema 8. It binds generated proof annotations into candidate identities
 and also adds no serialized AST fields.
 The serialized identity introduced with the assurance milestone also requires
@@ -336,3 +341,28 @@ The objective is to reduce and justify the added trust boundary. Existing
 Verus/rustc semantics, solver correctness, and trusted library specifications
 remain assumptions; these tasks do not establish the entire toolchain's
 correctness.
+
+## Platform-sized integers
+
+Exact `usize`/`isize` candidates retain Verus's existing symbolic architecture operations
+for `usize::MAX`, `isize::MIN/MAX`, pointer width, and truncating casts. Cache decoding and imported
+summary validation admit only closed architecture constants, not arbitrary bound
+operators or new axioms. Candidate-cache configuration includes the merged local
+and imported architecture. Inference metadata schema 10 fingerprints the architecture
+together with exported functions; ordinary Verus rejects incompatible fixed widths.
+Tests check 32/64-bit arithmetic/casts, portable and width-constrained imports,
+cache reproving, and rejection of a poisoned 32-bit candidate with a 64-bit bound.
+These are regression safeguards; the new synthesis and plumbing are not formally
+verified. The existing seven checked methods use the same closed model allowlist
+and fingerprints for both platform types.
+
+Sound intervals run separately at 32 and 64 bits; differing ranges and safety
+domains are merged under `arch_word_bits() == 32`. Merging retypes both formulas
+and enforces the expanded formula budget. Imported sound-summary validation checks
+the closed selector and both interval branches. Numeric endpoints never use the
+host width. A conservative 64-bit envelope is used only for optional affine
+simplification; executable safety checks and interval transfer use the selected
+model. Tests include boundary execution comparisons, cross-crate composition,
+malformed selectors/branches, and a well-typed poisoned range that ordinary
+soundness rejects. Cache version 15 and metadata schema 10 require rebuilding
+older inferred libraries and dependents.

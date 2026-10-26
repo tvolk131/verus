@@ -58,8 +58,7 @@ Implemented and covered by regression tests:
 - [x] Exact immutable flat arrays of up to 64 scalar elements: by-value inputs,
   element-list literals, local copies, branches, index-safety preconditions,
   scalar/enum results, cached cross-crate summaries, and a Cargo pricing example.
-  `usize` is available for index inputs and comparisons, with general arithmetic
-  and array/`usize` returns still excluded.
+  `usize` arithmetic and scalar results are also supported; array returns remain excluded.
 - [x] Exact early returns in blocks, branches, matches, and supported expressions,
   preserving reachability and operand evaluation order. Return summaries retain
   all three checks, source eligibility, and cached cross-crate composition.
@@ -84,12 +83,23 @@ Implemented and covered by regression tests:
   unguarded indexing, aliases, length relationships, scalar/enum results, and
   composition through caches and certified cross-crate interfaces. Existing
   slice models are fingerprinted; no new slice axioms or stronger specs were added.
-- [x] First exact counted-loop pattern for same-width unsigned inputs: generated
+- [x] Exact `usize` arithmetic, casts to/from supported integers, scalar and flat
+  enum results, array/slice elements and index arithmetic, and counted loops.
+  Bounds and casts preserve the symbolic 32/64-bit model. Cache identities and
+  exported contract fingerprints bind the merged architecture; ordinary Verus
+  rejects incompatible imported widths.
+- [x] First exact counted-loop pattern for same-type unsigned inputs: generated
   prefix invariants, checked termination, maximality without assuming the
   candidate precondition, and exact output. Proof-only decoration preserves
   executable code through a production projection check. See the
   [loop proof design](VERUS_INFER_LOOPS.md).
-- [x] Reproducible 22-case evaluation baseline, including expected failures,
+- [x] Exact `isize` arithmetic, division/remainder edge checks, casts, flat enum
+  payloads and arrays/slices, plus all seven existing checked methods for both
+  `usize` and `isize`. No new standard models or axioms were added.
+- [x] Sound `usize`/`isize` intervals and compositional safety, analyzed separately
+  at 32 and 64 bits and merged under a checked symbolic-width selector. Both
+  branches are validated in caches/imports; mandatory soundness still gates use.
+- [x] Reproducible 31-case evaluation baseline, including expected failures,
   cold/warm reproving, incremental dependency invalidation, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
@@ -103,8 +113,7 @@ Still planned or outside the implemented subset:
 
 - [ ] Formal verification of the acceptance component and precision
   transformations; see the [assurance plan](VERUS_INFER_ASSURANCE.md).
-- [ ] General platform-sized arithmetic, integer
-  bitwise operations, and broader arithmetic policies such as explicit wrapping
+- [ ] Integer bitwise operations, and broader arithmetic policies such as explicit wrapping
   or saturating operations. Mixed-sign checked methods and checked negation
   remain outside the current checked-method allowlist.
 - [ ] General user-defined or nested enums, broader payloads, richer patterns,
@@ -117,7 +126,7 @@ Still planned or outside the implemented subset:
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
-  search, signed/platform-sized counters, and recursive summaries.
+  search, signed counters, and recursive summaries.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
@@ -133,9 +142,9 @@ Still planned or outside the implemented subset:
 | Roadmap phase | Current state |
 | --- | --- |
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
-| Phase 1: exact arithmetic | Implemented for fixed unsigned/signed integers and Booleans; integer bitwise operations and broader arithmetic policies remain. |
-| Phase 2: modular composition | Implemented within that subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs. |
-| Phase 3: partial inference and collections | Partial: scalar intervals, exact enums, immutable flat arrays, and shared scalar slices are implemented; broader collections and frame conditions remain. |
+| Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shift operations and broader arithmetic policies remain. |
+| Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs; automatic demand-driven strengthening remains future work. |
+| Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, immutable arrays, and shared scalar slices are implemented. Broader collections and frame conditions remain. |
 | Phase 4: loop inference | First exact unsigned counted accumulator pattern implemented with checked invariants and termination; broader loops remain. |
 | Phase 5: richer verification | Future work. |
 
@@ -151,46 +160,45 @@ transformations remains separately scoped work.
 
 ## Proposed next milestones
 
-The checklist above is the ongoing backlog. Exact signed inference, its
-signed-interval follow-up, reporting/evaluation, shared dynamic slices, and the
-first unsigned counted-loop pattern are implemented. Further loop patterns need
-their own synthesis and proof scope:
+The implementation checklist above records completed work and the full backlog.
+The current checkpoint includes exact and sound platform-sized integers, checked
+platform methods, counted `usize` loops, architecture-bound caches/imports, and
+updated examples. The guide is the source of supported syntax; the original
+phases later in this RFC retain their proposed design, including unimplemented
+APIs and research directions.
 
-1. **Completed: exact signed integers.** `i8` through `i128` arithmetic,
-   comparisons, negation, and casts, including signed enum payloads, arrays, and
-   the seven existing checked arithmetic methods. The same soundness,
-   maximality, and exactness proofs remain required. Tests cover exhaustive
-   small-width execution comparisons, signed overflow and division boundaries,
-   cached/cross-crate composition, and unsigned regressions. The signed
-   sound-mode follow-up is also implemented, including negative ranges,
-   compositional safety domains, and honest precision metadata. Additional
-   arithmetic methods remain in the backlog.
-2. **Implemented baseline: contract reporting and measurement.** Schema-versioned
-   JSON separates checked predicates, requested precision, actual proof outcomes,
-   dependencies, trusted models, incomplete results, and publication. Predicates
-   retain their checked meaning and expose parameter/result types. A 22-case
-   corpus measures selected feature coverage and known limits, caller-property
-   outcomes, exact versus sound summaries, formula size, generation/solver time,
-   cache reuse, incremental invalidation, and two call-graph depths. Broader
-   evaluation and further formula simplification remain in the backlog.
-3. **Completed: basic dynamic slices.** Shared scalar slices support symbolic
-   lengths, length relationships, guarded reads, immutable aliases, scalar/enum
-   results, and acyclic composition. Caches, cross-crate metadata, and reports
-   preserve the existing proof and publication requirements. Broader collections,
-   mutable slices, returned slices, subslices, and frame conditions remain tracked
-   in the backlog above.
-4. **First loop milestone implemented.** Two-local counted accumulator loops
-   over fixed-width unsigned inputs use generated prefix invariants and a
-   decreasing measure, checked by ordinary Verus. Maximality checks those prefix
-   facts without the candidate precondition. Cache, export, and report paths
-   preserve required proofs. Broader accumulators, traversal, and search remain
-   future work; each extension must justify independent invariants, termination,
-   maximality, and exactness. See [the design](VERUS_INFER_LOOPS.md).
+1. **Next batch: integer-operation coverage.** Add exact fixed-width and
+   platform-sized bitwise operators and checked shifts; explicit wrapping and
+   saturating add/subtract/multiply; checked negation and mixed-sign checked
+   add/subtract methods. Keep their distinct Rust safety policies visible.
+   Extend typed summary construction, cache decoding, imported validation, and
+   model fingerprints together. Audit and document any required standard-model
+   additions. Use honest sound-mode ranges where supported and explicit limits
+   otherwise. Acceptance must retain the existing required proofs, source
+   preservation, and publication gates. Validate small-width semantics, integer
+   boundaries, both architecture models, negative cases, cached reproving, and
+   cross-crate/Cargo composition in debug and release builds.
+2. **Broader counted-loop families.** Extend the proof design to constant or
+   immutable accumulator steps, subtraction, and countdown counters. Signed
+   accumulators/counters and collection traversal need explicit additional
+   designs. Each supported pattern must preserve checked termination, invariant
+   induction, safe-domain maximality without assuming the candidate predicate,
+   and output exactness. See [the current loop design](VERUS_INFER_LOOPS.md).
+3. **Rust ergonomics and collections.** Prioritize `let-else`, richer flat
+   patterns, converting `Result` errors, array-valued interfaces, and subslices
+   as separate bounded extensions. Nested/user-defined enums, mutation, frame
+   conditions, and generic specialization remain larger projects.
+4. **Precision and practical evaluation.** Improve branch/cast precision,
+   division/range proof automation, and readable contract simplification.
+   Broaden real-world cases and measure repeated timings, memory, and Cargo
+   incremental verification. Dedicated property queries, demand-driven
+   strengthening, and IDE presentation remain future work.
 
-The remaining backlog items can be reprioritized as these milestones expose
-practical needs. The [assurance plan](VERUS_INFER_ASSURANCE.md) tracks formal
-verification of acceptance, precision transformations, and possible independent
-replay alongside feature development.
+The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
+tracks formal verification of production acceptance and precision transformations,
+and possible independent replay. Structural safeguards and mutation tests are
+implemented; those formal proofs remain open. They are a separate workstream
+alongside these feature milestones.
 
 # 1. Executive Summary
 

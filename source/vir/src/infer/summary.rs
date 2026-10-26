@@ -12,7 +12,10 @@ pub(super) fn unary(span: &Span, op: UnaryOp, a: Term) -> Result<Term, VirErr> {
         UnaryOp::Not if matches!(&*a.expr.typ, TypX::Bool) => bool_typ(),
         UnaryOp::Clip {
             range:
-                range @ (IntRange::U(8 | 16 | 32 | 64 | 128) | IntRange::I(8 | 16 | 32 | 64 | 128)),
+                range @ (IntRange::USize
+                | IntRange::ISize
+                | IntRange::U(8 | 16 | 32 | 64 | 128)
+                | IntRange::I(8 | 16 | 32 | 64 | 128)),
             ..
         } if integer(&a.expr.typ) => Arc::new(TypX::Int(range)),
         _ => return Err(unsupported(span, "invalid summary unary operation")),
@@ -85,6 +88,9 @@ pub(super) fn instantiate(expr: &Expr, vars: &HashMap<VarIdent, Term>) -> Result
         let invalid = || unsupported(&expr.span, "invalid summary expression");
         let span = &expr.span;
         let result = match &expr.x {
+            _ if arithmetic::arch_constant(expr).is_some() => {
+                arithmetic::arch_constant(expr).unwrap()
+            }
             ExprX::Var(v) => vars.get(v).cloned().ok_or_else(invalid)?,
             ExprX::Const(Constant::Bool(b)) => boolean(span, *b),
             ExprX::Const(Constant::Int(n)) if n.bits() <= 4096 => {

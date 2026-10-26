@@ -142,7 +142,10 @@ fn compare(span: &Span, op: BinaryOp, a: &Bound, b: &Bound) -> Result<Term, VirE
         let (mut lo, mut hi) = (n.clone(), n);
         for (_, (typ, c)) in vars {
             let TypX::Int(r) = &*typ else { unreachable!() };
-            let (min, max) = arithmetic::bounds(*r)
+            // This optional affine simplification uses an envelope valid for
+            // both models; architecture-specific arithmetic checks below use
+            // the current analysis width.
+            let (min, max) = arithmetic::bounds_at(*r, 64)
                 .ok_or_else(|| unsupported(span, "unbounded affine input"))?;
             if c >= BigInt::zero() {
                 lo += &c * min;
@@ -488,9 +491,9 @@ impl Numeric {
             range,
         })
     }
-    fn in_range(&self, span: &Span, r: IntRange) -> Result<Term, VirErr> {
-        let (min, max) =
-            arithmetic::bounds(r).ok_or_else(|| unsupported(span, "safety arithmetic range"))?;
+    fn in_range(&self, span: &Span, r: IntRange, word_bits: u32) -> Result<Term, VirErr> {
+        let (min, max) = arithmetic::bounds_at(r, word_bits)
+            .ok_or_else(|| unsupported(span, "safety arithmetic range"))?;
         if matches!(&self.range,Range::Int(a,b) if a>=&min && b<=&max) {
             return Ok(boolean(span, true));
         }
@@ -597,6 +600,7 @@ struct Analyzer<'a> {
     locals: HashMap<VarIdent, Value>,
     callees: &'a HashMap<Fun, Function>,
     remaining: usize,
+    word_bits: u32,
 }
 impl Analyzer<'_> {
     fn refine(&mut self, e: &Expr, truth: bool) {
@@ -713,6 +717,12 @@ impl Analyzer<'_> {
                 Range::Int(n.clone(), n),
             )));
         }
+        if let Some(n) = arithmetic::arch_value(e, self.word_bits) {
+            return pure(Value::Number(Numeric::point(
+                Bound::constant(n.clone()),
+                Range::Int(n.clone(), n),
+            )));
+        }
         match &e.x {
             ExprX::Const(Constant::Int(n)) => pure(Value::Number(Numeric::point(
                 Bound::constant(n.clone()),
@@ -734,7 +744,7 @@ impl Analyzer<'_> {
             ExprX::Unary(UnaryOp::Clip { range, .. }, a) => {
                 let a = self.expr(a, checked)?;
                 let n = a.value.number(s)?;
-                let (min, max) = arithmetic::bounds(*range)
+                let (min, max) = arithmetic::bounds_at(*range, self.word_bits)
                     .ok_or_else(|| unsupported(s, "safety cast range"))?;
                 let fits = matches!(&n.range,Range::Int(a,b) if a>=&min&&b<=&max);
                 let value = if fits {
@@ -794,21 +804,30 @@ impl Analyzer<'_> {
                         let BinaryOp::Arith(pure_op) = pure_op else { unreachable!() };
                         let mut out = Numeric::arithmetic(s, pure_op, &n, &m)?;
                         if let Some(r) = overflow {
-                            safe = logical(s, LogicalOp::And, safe, out.in_range(s, r)?)?;
+                            safe = logical(
+                                s,
+                                LogicalOp::And,
+                                safe,
+                                out.in_range(s, r, self.word_bits)?,
+                            )?;
                         }
                         if div_check {
                             let zero = Numeric::range(Range::Int(0.into(), 0.into()));
                             let mut valid = Numeric::compare(s, BinaryOp::Ne, &m, &zero)?.yes;
                             if let ArithOp::TruncatingDiv(
                                 _,
-                                SignedDivEdgeCaseBehavior::Error(IntegerTypeBitwidth::Width(bits)),
+                                SignedDivEdgeCaseBehavior::Error(width),
                             )
                             | ArithOp::TruncatingMod(
                                 _,
-                                SignedDivEdgeCaseBehavior::Error(IntegerTypeBitwidth::Width(bits)),
+                                SignedDivEdgeCaseBehavior::Error(width),
                             ) = arith
                             {
-                                let (min, _) = arithmetic::bounds(IntRange::I(*bits)).unwrap();
+                                let (min, _) = arithmetic::bounds_at(
+                                    arithmetic::signed_range(*width),
+                                    self.word_bits,
+                                )
+                                .unwrap();
                                 let min = Numeric::range(Range::Int(min.clone(), min));
                                 let minus_one =
                                     Numeric::range(Range::Int((-1).into(), (-1).into()));
@@ -822,7 +841,7 @@ impl Analyzer<'_> {
                             }
                             safe = logical(s, LogicalOp::And, safe, valid)?;
                         }
-                        out.range = out.range.restrict(&e.typ);
+                        out.range = out.range.restrict(&e.typ, self.word_bits);
                         Value::Number(out)
                     }
                     BinaryOp::Eq(_) | BinaryOp::Ne | BinaryOp::Inequality(_) => {
@@ -963,19 +982,23 @@ impl Analyzer<'_> {
                     safe = logical(s, LogicalOp::And, safe, a.safe)?;
                     locals.insert(param.x.name.clone(), a.value);
                 }
-                let mut child =
-                    Analyzer { locals, callees: self.callees, remaining: self.remaining };
+                let mut child = Analyzer {
+                    locals,
+                    callees: self.callees,
+                    remaining: self.remaining,
+                    word_bits: self.word_bits,
+                };
                 let pre = child.expr(&f.x.require[0], false)?.value.predicate(s)?.yes;
                 safe = logical(s, LogicalOp::And, safe, pre)?;
                 let value = if f.x.attrs.infer_allow_approx {
-                    Value::from_range(s, range_from_summary(&f)?)
+                    Value::from_range(s, range_from_summary(&f, self.word_bits)?)
                 } else {
                     let ExprX::Binary(BinaryOp::Eq(_), _, out) = &f.x.ensure.0[0].x else {
                         return Err(unsupported(s, "invalid safety callee summary"));
                     };
                     let mut v = child.expr(out, false)?.value;
                     if let Value::Number(n) = &mut v {
-                        n.range = n.range.clone().restrict(&f.x.inner_ret.x.typ);
+                        n.range = n.range.clone().restrict(&f.x.inner_ret.x.typ, self.word_bits);
                         if n.lo.is_none() {
                             *n = Numeric::range(n.range.clone());
                         }
@@ -990,10 +1013,14 @@ impl Analyzer<'_> {
     }
 }
 
-pub(super) fn infer(function: &Function, callees: &HashMap<Fun, Function>) -> Result<Term, VirErr> {
+pub(super) fn infer(
+    function: &Function,
+    callees: &HashMap<Fun, Function>,
+    word_bits: u32,
+) -> Result<Term, VirErr> {
     let mut locals = HashMap::new();
     for p in function.x.params.iter() {
-        let r = Range::full(&p.x.typ)?;
+        let r = Range::full(&p.x.typ, word_bits)?;
         let v = if matches!(&*p.x.typ, TypX::Bool) {
             Value::Bool(Predicate::exact(
                 &p.span,
@@ -1012,7 +1039,8 @@ pub(super) fn infer(function: &Function, callees: &HashMap<Fun, Function>) -> Re
         .body
         .as_ref()
         .ok_or_else(|| unsupported(&function.span, "missing safety body"))?;
-    let pre = Analyzer { locals, callees, remaining: FORMULA_BUDGET }.expr(body, true)?.safe;
+    let pre =
+        Analyzer { locals, callees, remaining: FORMULA_BUDGET, word_bits }.expr(body, true)?.safe;
     if is_bool(&pre, false) {
         return Err(incomplete(
             &function.span,

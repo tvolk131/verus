@@ -13,8 +13,8 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 8;
-const INFER_POLICY: &str = "candidate-bound-evidence-v8";
+const INFER_SCHEMA: u32 = 10;
+const INFER_POLICY: &str = "candidate-bound-evidence-v10";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -60,7 +60,7 @@ fn producer() -> String {
 
 fn summaries(krate: &Krate) -> Result<String, VirErr> {
     let functions: Vec<_> = krate.functions.iter().filter(|f| f.x.attrs.infer).collect();
-    bincode_next::serde::encode_to_vec(&functions, bincode_next::config::legacy())
+    bincode_next::serde::encode_to_vec((&functions, &krate.arch), bincode_next::config::legacy())
         .map(digest)
         .map_err(|_| crate::util::error("failed to fingerprint inferred contracts"))
 }
@@ -155,7 +155,9 @@ pub(crate) fn import_crates(
                 || certificate.maximality != certificate.proofs.iter().all(|(_, p)| p.maximality)
                 || certificate.exactness != certificate.proofs.iter().all(|(_, p)| p.exactness)
                 || inferred.iter().any(|f| {
-                    !proofs.get(&f.x.name).is_some_and(|p| p.satisfies(f.x.attrs.infer_allow_approx))
+                    !proofs
+                        .get(&f.x.name)
+                        .is_some_and(|p| p.satisfies(f.x.attrs.infer_allow_approx))
                 })
             {
                 return Err(inference_error(file_path, "incomplete inference proof guarantees"));
@@ -186,10 +188,7 @@ pub(crate) fn import_crates(
     for (path, id, certificate) in &inference {
         for (name, fingerprint) in &certificate.trusted_models {
             if available_trusted_models.get(name) != Some(fingerprint) {
-                return Err(inference_error(
-                    path,
-                    "stale or missing trusted-model fingerprint",
-                ));
+                return Err(inference_error(path, "stale or missing trusted-model fingerprint"));
             }
             trusted_models.insert(name.clone(), fingerprint.clone());
         }
@@ -350,4 +349,36 @@ fn atomic_export(
         let _ = std::fs::remove_file(tmp);
     }
     result
+}
+
+#[cfg(test)]
+mod infer_arch_tests {
+    use super::*;
+    use vir::ast::{Arch, ArchWordBits, KrateX};
+
+    #[test]
+    fn inference_fingerprint_binds_architecture_without_function_changes() {
+        let mut krate = Arc::new(KrateX {
+            functions: vec![],
+            reveal_groups: vec![],
+            datatypes: vec![],
+            traits: vec![],
+            trait_impls: vec![],
+            assoc_type_impls: vec![],
+            modules: vec![],
+            external_fns: vec![],
+            external_types: vec![],
+            path_as_rust_names: vec![],
+            opaque_types: vec![],
+            arch: Arch { word_bits: ArchWordBits::Either32Or64 },
+        });
+        let portable = summaries(&krate).unwrap();
+        Arc::make_mut(&mut krate).arch.word_bits = ArchWordBits::Exactly(32);
+        let bits32 = summaries(&krate).unwrap();
+        Arc::make_mut(&mut krate).arch.word_bits = ArchWordBits::Exactly(64);
+        let bits64 = summaries(&krate).unwrap();
+        assert_ne!(portable, bits32);
+        assert_ne!(portable, bits64);
+        assert_ne!(bits32, bits64);
+    }
 }

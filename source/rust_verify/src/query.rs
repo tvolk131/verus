@@ -509,10 +509,13 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             .filter(|f| f.x.attrs.infer || vir::infer::is_approved_model(f))
             .cloned()
             .collect();
+        let inference_arch =
+            vir::ast_simplify::krate_merge_arch(&Arc::new(cratex.clone()), &other_vir_crates)
+                .map_err(|e| self.emit_error(e))?;
         cratex.functions = vir::infer::infer_functions_with_report(
             &cratex.functions,
             &imported,
-            &format!("{:?}:{:?}", self.args, self.inference_model_fingerprints),
+            &format!("{:?}:{:?}:{inference_arch:?}", self.args, self.inference_model_fingerprints),
             &mut self.inference_generation,
         )
         .map_err(|e| self.emit_error(e))?;

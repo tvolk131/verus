@@ -248,7 +248,7 @@ includes dependency ordering and failed work. See the
 
 ## Supported code and safety policy
 
-Exact mode supports `bool`, fixed-width unsigned integers (`u8`, `u16`, `u32`,
+Exact mode supports `bool`, `usize`, `isize`, fixed-width unsigned integers (`u8`, `u16`, `u32`,
 `u64`, `u128`), and fixed-width signed integers (`i8`, `i16`, `i32`, `i64`,
 `i128`), immutable parameters and locals, scalar return values, `+`, `-`, `*`,
 `/`, `%`, signed negation, comparisons, Boolean operations, signed/unsigned integer
@@ -257,6 +257,29 @@ the expressions that are actually evaluated. Casts retain Rust's truncation
 semantics; inferred arithmetic formulas otherwise use mathematical integers.
 As in ordinary Verus proofs, callers may need a `by(bit_vector)` assertion to
 derive a concrete value from a narrowing cast outside its destination range.
+
+`usize`/`isize` arithmetic and casts use Verus's existing symbolic pointer-width model.
+The default verifies both 32-bit and 64-bit architectures. Existing
+`global size_of usize == 4;` or `== 8;` declarations select one width. Native
+compilation also checks that the declaration matches the actual Rust target.
+The explicit-width regression probes test verification with `--no-erasure-check`;
+portable examples retain erasure checks and run on the host. For example:
+
+```rust
+#[verus_infer]
+fn advance(index: usize, count: usize) -> usize { index + count }
+```
+
+Its contract requires the mathematical sum to lie in `0..=usize::MAX` and ensures
+that the result equals that sum. `usize::MAX` remains symbolic in formulas,
+candidate caches, and exported interfaces. Casts to `usize` truncate at the modeled
+width: `4294967297u64 as usize` is `1` on 32-bit and `4294967297` on 64-bit.
+Both platform types work as flat enum payloads, array/slice elements and scalar
+results. Signed division excludes zero divisors and `isize::MIN` with `-1`, with
+Rust's truncation semantics. The seven checked methods listed below also support
+both types through existing vstd models. Counted loops remain unsigned, including
+`usize`; signed counted loops require further work. See
+`examples/verus_infer_usize.rs` and `examples/verus_infer_platform.rs`.
 
 For ordinary arithmetic, the safety policy excludes overflow, underflow, and
 division/remainder by zero, consistently with Verus's existing executable
@@ -291,8 +314,14 @@ specifications or axioms were added.
 See `examples/verus_infer_signed.rs` for a runnable example covering negative
 division, overflow-safe adjustments, conservation, and signed casts. Signed
 values are also supported in flat enum payloads and fixed arrays in exact mode.
-Sound interval mode supports unsigned/signed scalar integers and Booleans,
-including signed intermediate expressions.
+Sound interval mode supports fixed-width and platform-sized unsigned/signed
+scalar integers and Booleans, including signed intermediate expressions.
+Platform-sized analysis computes independent 32-bit and 64-bit ranges and guards
+differing results with `usize::BITS == 32`. For example, `x: usize` divided by
+`10` yields `0..=429496729` on 32-bit and `0..=1844674407370955161` on 64-bit.
+The matching safety predicates and ranges are preserved through composition,
+caches, and imported interfaces. Mandatory soundness proves these claims;
+optional precision checks can still report that exact output is not established.
 
 Exact mode additionally supports core `Option<T>` and `Result<T, E>` as inputs,
 locals, and return values. Each payload must be a supported scalar or `()`;
@@ -304,7 +333,7 @@ guards, or-patterns, reference patterns, and mutable bindings are unsupported.
 Enum expressions currently require exact mode; sound interval inference remains
 scalar-only.
 
-The fixed-width unsigned and signed methods `checked_add`, `checked_sub`, `checked_mul`,
+The fixed-width and platform-sized unsigned and signed methods `checked_add`, `checked_sub`, `checked_mul`,
 `checked_div`, `checked_div_euclid`, `checked_rem`, and `checked_rem_euclid` are
 also supported in exact mode. Inference recognizes their core identities and
 existing vstd specifications, rather than accepting arbitrary methods with the
@@ -404,7 +433,7 @@ particular, a wrapper that can propagate an `Err` cannot establish `no_unwind`
 from this model. No new axioms or stronger standard specifications were added for `?`.
 
 Exact mode also supports immutable, flat fixed-size arrays `[T; N]` with
-`0 <= N <= 64`, where `T` is `bool` or a supported fixed-width unsigned/signed integer.
+`0 <= N <= 64`, where `T` is `bool`, `usize`, `isize`, or a supported fixed-width unsigned/signed integer.
 Arrays may be passed by value or through `&[T; N]`, copied or borrowed into
 immutable locals, selected by branches, or constructed with element-list
 literals such as `[x, x + 1]` and repetition literals such as `[x; 4]`. Functions return
@@ -435,10 +464,10 @@ Repetition evaluates its operand once, including when the length is zero. Thus
 `[x + 1; 0].len()` still requires that `x + 1` not overflow. `.len()` preserves
 the safety conditions of its receiver even though the result is a known constant.
 
-`usize` inputs, locals, integer literals, comparisons, and casts from `usize` to
-supported fixed-width unsigned/signed types are available for index calculations.
-General `usize` arithmetic, `usize` return values, and casts to `usize` remain
-unsupported. Array indexing uses Verus's existing array model; its normal bounds
+`usize` inputs, locals, arithmetic, comparisons, results, and casts to/from
+supported integer types are available for index calculations. Expressions such as
+`values[index + 1]` retain both arithmetic overflow and indexing bounds checks.
+Array indexing uses Verus's existing array model; its normal bounds
 assertions independently check the inferred safe domain. Shared references use
 Verus's existing immutable value representation. Length, array-to-slice coercion,
 and repetition use a closed allowlist of existing core/vstd models, specialized
@@ -452,7 +481,7 @@ described below.
 Signatures and local bindings support one shared reference to an array; compiler
 reborrows are handled transparently. Array-to-slice conversion also supports
 forwarding these arrays to inferred slice helpers. Sound interval mode does not yet support
-arrays, shared-array references, or `usize` signatures.
+arrays or shared-array references.
 
 `examples/verus_infer_arrays.rs` composes array lookup, addition, and checked
 arithmetic, proves a pricing property, and runs success, overflow, and invalid-tier
@@ -499,8 +528,7 @@ cross-crate interfaces and JSON reports preserve all three exact-mode guarantees
 
 This milestone excludes mutable slices, slice/array returns, nested or
 reference-valued elements, subslice/range operations, generic slice methods,
-loops, and sound-mode slice inference. `usize` remains restricted to indices,
-lengths, comparisons, and the existing fixed-width casts. Conditional coercions
+slice traversal loops, and sound-mode slice inference. Conditional coercions
 mixing arrays of different fixed lengths, or mixing an array term and a dynamic
 slice term, report an unsupported conditional; selection between dynamic slice
 inputs is supported even when their runtime lengths differ.
@@ -513,7 +541,7 @@ lookup and charge through exported interfaces.
 ## Counted numeric loops
 
 Exact mode supports this first closed loop pattern over two immutable unsigned
-inputs of the same fixed width (`u8`, `u16`, `u32`, `u64`, or `u128`):
+inputs of the same type (`usize`, `u8`, `u16`, `u32`, `u64`, or `u128`):
 
 ```rust
 #[verus_infer]
@@ -586,8 +614,8 @@ are substituted without analyzing their executable bodies again.
 Unsupported features include general loops (the counted pattern below is supported),
 recursion, converting `Result` errors with `?`, calls to functions
 without inferred contracts other than the approved standard models,
-general platform-sized arithmetic, integer bitwise operations,
-references beyond shared scalar arrays, mutable state, collections beyond the supported arrays, generics,
+integer bitwise operations,
+references beyond shared scalar arrays/slices, mutable state, collections beyond the supported arrays/slices, generics,
 and ghost/proof statements.
 An ordinary verified caller may compose inferred functions at any supported depth.
 Handwritten contracts cannot be combined with inference yet; they receive an
@@ -691,8 +719,13 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-Counted-loop inference uses metadata schema 8 and candidate-cache version 13;
-rebuild inferred libraries and their dependents with the updated compiler.
+Platform-sized exact/interval inference uses metadata schema 10 and candidate-cache version 15.
+Cache identities include the merged architecture of the crate and its imports;
+exported contract fingerprints also bind that architecture. A library proved
+for a fixed width constrains its consumers to that width; incompatible fixed
+widths are rejected by Verus's existing architecture merge. A portable library
+can be consumed at either width. All cached candidates still receive fresh proofs.
+Rebuild inferred libraries and their dependents with the updated compiler.
 The internal candidate-identity field introduced with schema 6 changed serialized
 VIR; libraries built before that change, including `vstd`, also need rebuilding.
 Ordinary exports still omit inference proof trailers.

@@ -91,3 +91,23 @@ verus! {
         },
     { signed_settlement(balance, delta) }
 }
+
+verus! {
+    pub fn counted_usize_property(x: usize, n: usize) -> (result: usize)
+        requires x as int + 2 * n as int <= usize::MAX,
+        ensures result as int == x as int + 2 * n as int,
+    { infer_middle::counted_usize_twice(x, n) }
+}
+
+verus! {
+    pub fn platform_size_property(value: usize) -> (result: usize)
+        ensures 1 <= result <= usize::MAX / 10 + 1,
+    { infer_middle::shifted_size(value) }
+
+    pub fn platform_offset_property(base: isize, delta: isize) -> (result: Option<isize>)
+        ensures match result {
+            Some(value) => value as int == base as int + delta as int,
+            None => true,
+        },
+    { infer_middle::offset(base, delta) }
+}

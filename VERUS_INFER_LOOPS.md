@@ -1,8 +1,8 @@
 # First counted-loop inference milestone
 
 The first supported pattern is an exact, nongeneric executable function over two
-immutable fixed-width unsigned inputs of the same type. It initializes a mutable
-accumulator from one input and a mutable counter to zero, then executes
+immutable unsigned inputs of the same type (`usize` or `u8` through `u128`).
+It initializes a mutable accumulator from one input and a mutable counter to zero, then executes
 `while counter < bound { accumulator += 1; counter += 1; }` and returns the
 accumulator. Local names are irrelevant. The recognizer checks the entire typed
 body, arithmetic policies, assignments, and absence of user proof annotations.
@@ -73,3 +73,7 @@ report, and Cargo tests exercise ordinary acceptance and publication paths.
 This document describes the checking strategy, not a formal proof of its
 implementation. The broader assurance targets remain in
 [VERUS_INFER_ASSURANCE.md](VERUS_INFER_ASSURANCE.md).
+
+`usize` uses this same proof pattern with a symbolic `usize::MAX`; it does not
+specialize the synthesized contract to the host machine. The ordinary Verus
+architecture model and cross-crate architecture merge determine 32/64-bit bounds.

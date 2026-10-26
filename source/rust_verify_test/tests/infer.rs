@@ -320,10 +320,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] unsupported_isize code! {
+    #[test] isize_increment_has_verified_contract code! {
         #[verus_infer]
         fn f(x: isize) -> isize { x + 1 }
-    } => Err(e) => assert_vir_error_msg(e, "parameters and return values must be")
+        verus! {fn caller(){let r=f(isize::MAX-1);assert(r==isize::MAX);}}
+    } => Ok(())
 }
 
 test_verify_one_file! {
@@ -622,6 +623,27 @@ impl InferCrates {
         dependencies: &[&str],
         options: &[&str],
     ) -> std::process::Output {
+        self.build_mode(name, body, dependencies, options, true)
+    }
+    // These model-only tests skip erased native-code checks: global size
+    // assertions would otherwise reject the other pointer width on this host.
+    fn verify(
+        &self,
+        name: &str,
+        body: &str,
+        dependencies: &[&str],
+        options: &[&str],
+    ) -> std::process::Output {
+        self.build_mode(name, body, dependencies, options, false)
+    }
+    fn build_mode(
+        &self,
+        name: &str,
+        body: &str,
+        dependencies: &[&str],
+        options: &[&str],
+        compile: bool,
+    ) -> std::process::Output {
         let source = self.directory.path().join(format!("{name}.rs"));
         std::fs::write(
             &source,
@@ -636,7 +658,6 @@ impl InferCrates {
                 "--internal-test-mode",
                 "--crate-type=lib",
                 "--edition=2021",
-                "--compile",
                 "--crate-name",
                 name,
             ])
@@ -668,7 +689,12 @@ impl InferCrates {
                     .unwrap()
                     .join(if cfg!(windows) { "z3.exe" } else { "z3" }),
             );
-        if body.contains("vstd::") {
+        if compile {
+            command.arg("--compile");
+        } else {
+            command.arg("--no-erasure-check");
+        }
+        if body.contains("vstd::") || body.contains("global size_of") {
             let override_vir = self.directory.path().join("vstd.vir");
             let vstd_vir =
                 if override_vir.exists() { override_vir } else { self.profile.join("vstd.vir") };
@@ -1517,7 +1543,7 @@ test_verify_one_file! {
         use vstd::prelude::*;
         #[verus_infer(precision = "sound")]
         fn at(values: [u8; 2]) -> u8 { values[0] }
-    } => Err(e) => assert_vir_error_msg(e, "arrays and usize indices")
+    } => Err(e) => assert_vir_error_msg(e, "as do arrays")
 }
 
 test_verify_one_file! {
@@ -1557,7 +1583,7 @@ test_verify_one_file! {
     #[test] array_return_values_are_explicitly_unsupported code! {
         use vstd::prelude::*;
         #[verus_infer] fn identity(values: [u8; 2]) -> [u8; 2] { values }
-    } => Err(e) => assert_vir_error_msg(e, "array/usize returns are unsupported")
+    } => Err(e) => assert_vir_error_msg(e, "array returns are unsupported")
 }
 
 test_verify_one_file! {
@@ -1580,10 +1606,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] array_indices_do_not_enable_general_usize_arithmetic code! {
+    #[test] array_indices_support_checked_usize_arithmetic code! {
         use vstd::prelude::*;
         #[verus_infer] fn shifted(values: [u8; 2], index: usize) -> u8 { values[index + 1] }
-    } => Err(e) => assert_vir_error_msg(e, "Verus Infer unsupported")
+        verus! { fn caller() { let r=shifted([4,9],0); assert(r==9); } }
+    } => Ok(())
 }
 
 const ARRAY_BASE: &str = r#"
@@ -1853,7 +1880,7 @@ test_verify_one_file! {
     #[test] shared_arrays_remain_exact_mode_only code! {
         use vstd::prelude::*;
         #[verus_infer(precision = "sound")] fn read(values: &[u8; 2]) -> u8 { values[0] }
-    } => Err(e) => assert_vir_error_msg(e, "arrays and usize indices")
+    } => Err(e) => assert_vir_error_msg(e, "as do arrays")
 }
 
 test_verify_one_file! {
@@ -3272,7 +3299,7 @@ test_verify_one_file! {
     #[test] slices_sound_mode_is_explicitly_unsupported code! {
         use vstd::prelude::*;
         #[verus_infer(precision="sound")] fn at(xs:&[u8])->u8 {xs[0]}
-    } => Err(e) => assert_vir_error_msg(e,"shared slices also require exact mode")
+    } => Err(e) => assert_vir_error_msg(e,"as do arrays and shared slices")
 }
 
 test_verify_one_file! {
@@ -3635,4 +3662,426 @@ fn counted_loops_precision_timeout_blocks_dependents_and_exports() {
     assert_eq!(report["functions"][0]["proofs"]["soundness"]["status"], "proved");
     assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
     assert!(!crates.vir("loop_timeout").exists());
+}
+
+const USIZE_OPERATIONS: &str = r#"
+    use vstd::prelude::*;
+    #[verifier::infer] pub fn add(x:usize,y:usize)->usize{x+y}
+    #[verifier::infer] pub fn sub(x:usize,y:usize)->usize{x-y}
+    #[verifier::infer] pub fn mul(x:usize,y:usize)->usize{x*y}
+    #[verifier::infer] pub fn div(x:usize,y:usize)->usize{x/y}
+    #[verifier::infer] pub fn rem(x:usize,y:usize)->usize{x%y}
+    #[verifier::infer] pub fn cast(x:u64)->usize{x as usize}
+    #[verifier::infer] pub fn signed(x:i64)->usize{x as usize}
+    #[verifier::infer] pub fn narrow(x:usize)->u8{x as u8}
+    #[verifier::infer] pub fn maybe(x:usize)->Option<usize>{if x<usize::MAX{Some(x+1)}else{None}}
+    #[verifier::infer] pub fn propagate(x:usize)->Option<usize>{let n=maybe(x)?;Some(n)}
+    #[verifier::infer] pub fn result(x:usize)->Result<usize,usize>{if x<usize::MAX{Ok(x+1)}else{Err(x)}}
+    #[verifier::infer] pub fn error(x:usize)->Result<usize,usize>{let n=result(x)?;Ok(n)}
+    #[verifier::infer] pub fn counted(x:usize,n:usize)->usize{
+        let mut r=x;let mut i=0usize;while i<n{r+=1;i+=1;}r
+    }
+    #[verifier::infer] pub fn twice(x:usize,n:usize)->usize{counted(counted(x,n),n)}
+"#;
+
+#[test]
+fn usize_exact_arithmetic_enum_cast_loop_boundaries_on_32_and_64_bits() {
+    for bytes in [4, 8] {
+        let crates = InferCrates::new();
+        let expected = if bytes == 4 { 1u64 } else { 4294967297u64 };
+        let body = format!(
+            r#"
+            global size_of usize == {bytes};
+            {USIZE_OPERATIONS}
+            fn caller(){{
+                let r=add(usize::MAX-1,1);assert(r==usize::MAX);
+                let r=sub(usize::MAX,usize::MAX);assert(r==0);
+                let r=mul(usize::MAX,1);assert(r==usize::MAX);
+                let r=div(usize::MAX,1);assert(r==usize::MAX);
+                let r=rem(usize::MAX,2);assert(r==1);
+                assert((4294967297u64 as usize)=={expected}) by(bit_vector);
+                let r=cast(4294967297);assert(r=={expected});
+                assert((-1i64 as usize)==usize::MAX) by(bit_vector);
+                let r=signed(-1);assert(r==usize::MAX);
+                assert((257usize as u8)==1) by(bit_vector);
+                let r=narrow(257);assert(r==1);
+                let r=maybe(usize::MAX);assert(r==None);
+                let r=propagate(usize::MAX-1);assert(r==Some(usize::MAX));
+                let r=error(usize::MAX);assert(r==Err(usize::MAX));
+                let r=counted(0,usize::MAX);assert(r==usize::MAX);
+                let r=counted(usize::MAX,0);assert(r==usize::MAX);
+                let r=twice(usize::MAX-2,1);assert(r==usize::MAX);
+            }}
+        "#
+        );
+        for cache in ["miss", "hit"] {
+            let run =
+                crates.verify("usize_ops", &body, &[], &["--output-json", "--num-threads", "4"]);
+            assert!(run.status.success(), "{bytes}: {}", String::from_utf8_lossy(&run.stderr));
+            let report = json_inference(&run);
+            assert_eq!(report["functions"].as_array().unwrap().len(), 14);
+            for f in report["functions"].as_array().unwrap() {
+                assert_eq!(f["metrics"]["cache"], cache);
+                for obligation in ["soundness", "maximality", "exactness"] {
+                    assert_eq!(f["proofs"][obligation]["status"], "proved");
+                }
+            }
+        }
+    }
+}
+
+test_verify_one_file! {
+    #[test] usize_portable_slices_arrays_lengths_and_index_arithmetic code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn length(values:&[usize])->usize{values.len()}
+        #[verus_infer] fn next(values:&[usize],i:usize)->usize{values[i+1]}
+        #[verus_infer] fn fixed(values:[usize;2])->Option<usize>{Some(values[1]+1)}
+        #[verus_infer] fn bounded(x:usize)->Option<usize>{if x<usize::MAX {Some(x+1)}else{None}}
+        #[verus_infer] fn repeated(x:usize,i:usize)->usize{[x+1;2][i]}
+        #[verus_infer] fn literal(x:usize)->usize{[0usize,x+1][1]}
+        #[verus_infer] fn bits()->u32{usize::BITS}
+        verus!{fn caller(){
+            let r=length(&[usize::MAX,2]);assert(r==2);
+            let r=next(&[3,usize::MAX],0);assert(r==usize::MAX);
+            let r=fixed([0,usize::MAX-1]);assert(r==Some(usize::MAX));
+            let r=bounded(usize::MAX);assert(r==None);
+            let r=repeated(usize::MAX-1,1);assert(r==usize::MAX);
+            let r=literal(usize::MAX-1);assert(r==usize::MAX);
+            let r=bits();assert(r==usize::BITS);
+        }}
+    } => Ok(diags) => {
+        assert_eq!(diags.notes.iter().filter(|n|n.message.contains("output exactness: PROVED")).count(),7);
+    }
+}
+
+#[test]
+fn usize_unsafe_operations_fail_callers_on_both_architectures() {
+    for bytes in [4, 8] {
+        for (name, expression) in [
+            ("add", "usize::MAX+1usize"),
+            ("sub", "0usize-1usize"),
+            ("mul", "usize::MAX*2usize"),
+            ("div", "1usize/0usize"),
+            ("rem", "1usize%0usize"),
+        ] {
+            // Keep arithmetic in the inferred function so Rust's constant-folding
+            // lint cannot preempt the Verus precondition check.
+            let op = match name {
+                "add" => "+",
+                "sub" => "-",
+                "mul" => "*",
+                "div" => "/",
+                _ => "%",
+            };
+            let args = match name {
+                "add" => "usize::MAX,1",
+                "sub" => "0,1",
+                "mul" => "usize::MAX,2",
+                _ => "1,0",
+            };
+            let crates = InferCrates::new();
+            let body = format!(
+                "global size_of usize == {bytes}; #[verifier::infer] pub fn op(x:usize,y:usize)->usize{{x{op}y}} fn caller(){{let _=op({args});}}"
+            );
+            let run = crates.verify("usize_bad", &body, &[], &["--output-json"]);
+            assert!(!run.status.success(), "{} {}", bytes, expression);
+            assert!(
+                String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"),
+                "{}",
+                String::from_utf8_lossy(&run.stderr)
+            );
+            assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
+            assert!(!crates.vir("usize_bad").exists());
+        }
+    }
+}
+
+#[test]
+fn usize_cache_architecture_changes_and_cross_crate_compatibility() {
+    let crates = InferCrates::new();
+    let ops = r#"
+        use vstd::prelude::*;
+        #[verifier::infer] pub fn add(x:usize,n:usize)->usize{
+            let mut r=x;let mut i=0usize;while i<n{r+=1;i+=1;}r
+        }
+        #[verifier::infer] pub fn cast(x:u64)->usize{x as usize}
+        #[verifier::infer] pub fn wrapped(x:usize)->Option<usize>{Some(add(x,1))}
+    "#;
+    // Native rlib metadata describes the same executable functions; model-specific
+    // VIR is exported separately. These cross-width tests never execute the rlib.
+    crates.succeeds("usize_base", ops, &[]);
+    for bytes in [4, 8] {
+        let base = format!("global size_of usize == {bytes}; {ops}");
+        for cache in ["miss", "hit"] {
+            let run = crates.verify("usize_base", &base, &[], &["--output-json"]);
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+            for f in json_inference(&run)["functions"].as_array().unwrap() {
+                assert_eq!(f["metrics"]["cache"], cache);
+            }
+        }
+        // Architecture is inherited from the dependency and enters the cache key.
+        let middle = r#"#[verifier::infer] pub fn twice(x:usize,n:usize)->usize{usize_base::add(usize_base::add(x,n),n)}"#;
+        crates.succeeds("usize_middle", middle, &["usize_base"]);
+        let app = format!(
+            r#"global size_of usize == {bytes};
+            fn caller(){{let r=usize_middle::twice(usize::MAX-2,1);assert(r==usize::MAX);
+                let r=usize_base::wrapped(usize::MAX-1);assert(r==Some(usize::MAX));}}
+        "#
+        );
+        let run = crates.verify("usize_app", &app, &["usize_base", "usize_middle"], &[]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let mismatch = format!("global size_of usize == {}; fn caller(){{}}", 12 - bytes);
+        let run = crates.verify("usize_mismatch", &mismatch, &["usize_base", "usize_middle"], &[]);
+        assert!(!run.status.success());
+        assert!(String::from_utf8_lossy(&run.stderr).contains("compatible arch_word_bits"));
+    }
+    // A portable producer can be consumed at either width.
+    crates.succeeds("usize_portable", ops, &[]);
+    for bytes in [4, 8] {
+        let run=crates.verify("usize_consumer",&format!("global size_of usize == {bytes}; fn caller(){{let r=usize_portable::add(usize::MAX,0);assert(r==usize::MAX);}}"),&["usize_portable"],&[]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    }
+}
+
+#[test]
+fn usize_wrong_host_width_cached_bound_is_reproved_and_rejected() {
+    let crates = InferCrates::new();
+    let body = "global size_of usize == 4; #[verifier::infer] pub fn add(x:usize,y:usize)->usize{x+y} fn caller(){let _=add(0,0);}";
+    let run = crates.verify("usize_poison", body, &[], &["--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    for entry in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+        let path = entry.unwrap().path();
+        let text = std::fs::read_to_string(&path).unwrap();
+        assert!(text.contains("USizeMax"));
+        let max = serde_json::to_string(&vir::ast::Constant::Int(u64::MAX.into())).unwrap();
+        std::fs::write(path, text.replace("\"USizeMax\"", &max)).unwrap();
+    }
+    let run = crates.verify("usize_poison", body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    let f = &report["functions"][0];
+    assert_eq!(f["metrics"]["cache"], "hit");
+    assert_eq!(f["proofs"]["soundness"]["status"], "not_proved");
+    assert_eq!(f["available_to_same_crate_callers"], false);
+    assert!(!crates.vir("usize_poison").exists());
+}
+
+test_verify_one_file! {
+    #[test] usize_sound_mode_supports_scalar_signatures code! {
+        #[verus_infer(precision="sound")] fn identity(x:usize)->usize{x}
+        verus! {fn caller(){let r=identity(usize::MAX);assert(r<=usize::MAX);}}
+    } => Ok(diags) => {
+        assert!(diags.notes.iter().any(|d|d.message.contains("soundness: PROVED")));
+        assert!(diags.notes.iter().any(|d|d.message.contains("exact output: NOT ESTABLISHED")));
+    }
+}
+
+test_verify_one_file! {
+    #[test] isize_exact_scalar_signature code! {
+        #[verus_infer] fn identity(x:isize)->isize{x}
+        verus! {fn caller(){let r=identity(isize::MIN);assert(r==isize::MIN);}}
+    } => Ok(())
+}
+
+const PLATFORM_BASE: &str = r#"
+    use vstd::prelude::*;
+    #[verifier::infer] pub fn add(x:isize,y:isize)->isize{x+y}
+    #[verifier::infer] pub fn sub(x:isize,y:isize)->isize{x-y}
+    #[verifier::infer] pub fn mul(x:isize,y:isize)->isize{x*y}
+    #[verifier::infer] pub fn div(x:isize,y:isize)->isize{x/y}
+    #[verifier::infer] pub fn rem(x:isize,y:isize)->isize{x%y}
+    #[verifier::infer] pub fn neg(x:isize)->isize{-x}
+    #[verifier::infer] pub fn cast(x:usize)->isize{x as isize}
+    #[verifier::infer] pub fn unsigned(x:isize)->usize{x as usize}
+    #[verifier::infer] pub fn from_wide(x:i128)->isize{x as isize}
+    #[verifier::infer] pub fn narrow(x:isize)->i8{x as i8}
+    #[verifier::infer] pub fn checked(x:isize,y:isize)->Option<isize>{x.checked_add(y)}
+    #[verifier::infer] pub fn checked_unsigned(x:usize,y:usize)->Option<usize>{x.checked_add(y)}
+    #[verifier::infer] pub fn propagate(x:isize,y:isize)->Result<isize,isize>{
+        match checked(x,y){Some(z)=>Ok(z),None=>Err(x)}
+    }
+    #[verifier::infer] pub fn slice(values:&[isize],i:usize)->isize{values[i]}
+    #[verifier::infer(sound)] pub fn scale(x:usize)->usize{x/10}
+    #[verifier::infer(sound)] pub fn signed_scale(x:isize)->isize{x/10}
+    #[verifier::infer(sound)] pub fn remainder(x:isize)->isize{x%10}
+"#;
+
+#[test]
+fn platform_exact_boundaries_casts_payloads_and_sound_ranges_on_both_widths() {
+    for bytes in [4, 8] {
+        let crates = InferCrates::new();
+        let cast = if bytes == 4 { 1i128 } else { 4294967297i128 };
+        let body = format!(
+            r#"
+            global size_of usize == {bytes}; {PLATFORM_BASE}
+            fn caller(){{
+                let r=add(isize::MAX-1,1);assert(r==isize::MAX);
+                let r=sub(isize::MIN+1,1);assert(r==isize::MIN);
+                let r=mul(isize::MIN,1);assert(r==isize::MIN);
+                let r=div(-10,3);assert(r == -3);
+                let r=rem(-10,3);assert(r == -1);
+                let r=neg(isize::MAX);assert(r == -isize::MAX);
+                assert((usize::MAX as isize)== -1) by(bit_vector);
+                let r=cast(usize::MAX);assert(r == -1);
+                assert((-1isize as usize)==usize::MAX) by(bit_vector);
+                let r=unsigned(-1);assert(r==usize::MAX);
+                assert((4294967297i128 as isize)=={cast}) by(bit_vector);
+                let r=from_wide(4294967297);assert(r=={cast});
+                assert((-129isize as i8)==127) by(bit_vector);
+                let r=narrow(-129);assert(r==127);
+                let r=checked(isize::MAX,1);assert(r==None);
+                let r=checked(isize::MIN,-1);assert(r==None);
+                let r=checked_unsigned(usize::MAX,1);assert(r==None);
+                let r=propagate(isize::MAX,1);assert(r==Err(isize::MAX));
+                let r=slice(&[isize::MIN,isize::MAX],0);assert(r==isize::MIN);
+                let r=scale(usize::MAX);assert(r<=usize::MAX/10);
+                let r=signed_scale(isize::MIN);assert(r>=isize::MIN/10 && r<=isize::MAX/10);
+                let r=remainder(isize::MIN);assert(-9<=r && r<=9);
+            }}
+        "#
+        );
+        for cache in ["miss", "hit"] {
+            let run = crates.verify("platform_bounds", &body, &[], &["--output-json"]);
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+            for f in json_inference(&run)["functions"].as_array().unwrap() {
+                assert_eq!(f["metrics"]["cache"], cache);
+                assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+                if f["mode"] == "exact" {
+                    assert_eq!(f["proofs"]["maximality"]["status"], "proved");
+                    assert_eq!(f["proofs"]["exactness"]["status"], "proved");
+                }
+            }
+        }
+    }
+}
+
+#[test]
+fn platform_all_checked_methods_use_existing_models_and_reprove_cache() {
+    let crates = InferCrates::new();
+    let mut body = String::from("use vstd::prelude::*; ");
+    for (prefix, typ) in [("u", "usize"), ("i", "isize")] {
+        for method in ["add", "sub", "mul", "div", "rem", "div_euclid", "rem_euclid"] {
+            body.push_str(&format!("#[verifier::infer] fn {prefix}_{method}(x:{typ},y:{typ})->Option<{typ}>{{x.checked_{method}(y)}}\n"));
+        }
+    }
+    body.push_str(
+        r#"fn caller(){
+        let r=u_add(usize::MAX,1);assert(r==None);let r=u_sub(0,1);assert(r==None);
+        let r=u_mul(usize::MAX,2);assert(r==None);let r=u_div(1,0);assert(r==None);
+        let r=u_rem(1,0);assert(r==None);let r=u_div_euclid(10,3);assert(r==Some(3));
+        let r=u_rem_euclid(10,3);assert(r==Some(1));
+        let r=i_add(isize::MAX,1);assert(r==None);let r=i_sub(isize::MIN,1);assert(r==None);
+        let r=i_mul(isize::MIN,-1);assert(r==None);let r=i_div(isize::MIN,-1);assert(r==None);
+        let r=i_rem(isize::MIN,-1);assert(r==None);let r=i_div(-10,3);assert(r==Some(-3isize));
+        let r=i_rem(-10,3);assert(r==Some(-1isize));let r=i_div_euclid(-10,-3);assert(r==Some(4));
+        let r=i_rem_euclid(-10,-3);assert(r==Some(2));
+    }"#,
+    );
+    for cache in ["miss", "hit"] {
+        let run =
+            crates.build("platform_checked", &body, &[], &["--output-json", "--num-threads", "4"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 14);
+        for f in report["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][proof]["status"], "proved");
+            }
+            assert!(!report["trusted_models"].as_array().unwrap().is_empty());
+        }
+    }
+}
+
+#[test]
+fn platform_invalid_isize_operations_fail_callers_and_remove_exports() {
+    for bytes in [4, 8] {
+        for (op, args) in [
+            ("+", "isize::MAX,1"),
+            ("-", "isize::MIN,1"),
+            ("*", "isize::MIN,-1"),
+            ("/", "isize::MIN,-1"),
+            ("%", "isize::MIN,-1"),
+            ("/", "1,0"),
+            ("%", "1,0"),
+        ] {
+            let crates = InferCrates::new();
+            let body = format!(
+                "global size_of usize == {bytes}; use vstd::prelude::*; #[verifier::infer] fn op(x:isize,y:isize)->isize{{x{op}y}} fn caller(){{let _=op({args});}}"
+            );
+            let run = crates.verify("platform_bad", &body, &[], &["--output-json"]);
+            assert!(!run.status.success());
+            assert!(
+                String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"),
+                "{}",
+                String::from_utf8_lossy(&run.stderr)
+            );
+            assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
+            assert!(!crates.vir("platform_bad").exists());
+        }
+    }
+}
+
+#[test]
+fn platform_sound_composition_and_exact_calls_across_three_crates_at_both_widths() {
+    let crates = InferCrates::new();
+    for cache in ["miss", "hit"] {
+        let run = crates.build("platform_base", PLATFORM_BASE, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for f in json_inference(&run)["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+        }
+    }
+    let middle = r#"
+        use vstd::prelude::*;
+        #[verifier::infer(sound)] pub fn shifted(x:usize)->usize{platform_base::scale(x)+1}
+        #[verifier::infer(sound)] pub fn signed_shifted(x:isize)->isize{platform_base::signed_scale(x)+1}
+        #[verifier::infer(sound)] pub fn guarded(x:isize)->isize{
+            let r=platform_base::remainder(x);let alias=r;if alias!=0{alias+1}else{0}
+        }
+        #[verifier::infer] pub fn exact(x:isize,y:isize)->Option<isize>{Some(platform_base::checked(x,y)?)}
+    "#;
+    for cache in ["miss", "hit"] {
+        let run = crates.build("platform_middle", middle, &["platform_base"], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for f in json_inference(&run)["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+        }
+    }
+    for bytes in [4, 8] {
+        let body = format!(
+            r#"use vstd::prelude::*;global size_of usize == {bytes};fn caller(){{
+            let r=platform_middle::shifted(usize::MAX);assert(1<=r && r<=usize::MAX/10+1);
+            let r=platform_middle::signed_shifted(isize::MIN);assert(isize::MIN/10+1<=r && r<=isize::MAX/10+1);
+            let r=platform_middle::guarded(isize::MIN);assert(-8<=r && r<=10);
+            let r=platform_middle::exact(isize::MAX,1);assert(r==None);
+        }}"#
+        );
+        let run = crates.verify("platform_app", &body, &["platform_base", "platform_middle"], &[]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    }
+}
+
+#[test]
+fn platform_wrong_cached_sound_architecture_range_is_reproved() {
+    let crates = InferCrates::new();
+    let body = "use vstd::prelude::*;#[verifier::infer(sound)] pub fn scale(x:usize)->usize{x/10} fn caller(){let _=scale(10);}";
+    let run = crates.build("platform_cache", body, &[], &["--output-json"]);
+    assert!(run.status.success());
+    for entry in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+        let path = entry.unwrap().path();
+        let mut c: serde_json::Value =
+            serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        // Keep a well-typed interval shape but falsely claim a constant result on 32-bit.
+        assert!(c["post"]["If"].is_array());
+        c["post"]["If"][1] = serde_json::json!({"Binary":[{"Eq":"Spec"},{"Param":1},serde_json::to_value(vir::ast::Constant::Int(0.into())).unwrap()]});
+        std::fs::write(path, serde_json::to_vec(&c).unwrap()).unwrap();
+    }
+    let run = crates.build("platform_cache", body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let f = &json_inference(&run)["functions"][0];
+    assert_eq!(f["metrics"]["cache"], "hit");
+    assert_eq!(f["proofs"]["soundness"]["status"], "not_proved");
+    assert_eq!(f["available_to_same_crate_callers"], false);
+    assert!(!crates.vir("platform_cache").exists());
 }

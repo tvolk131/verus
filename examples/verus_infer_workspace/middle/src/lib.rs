@@ -45,3 +45,16 @@ pub fn slice_charge(fees: &[u64], tier: usize, amount: u64) -> Option<u64> {
 pub fn counted_twice(x: u64, n: u64) -> u64 {
     infer_base::counted_add(infer_base::counted_add(x, n), n)
 }
+
+#[verus_infer]
+pub fn counted_usize_twice(x: usize, n: usize) -> usize {
+    infer_base::counted_usize(infer_base::counted_usize(x, n), n)
+}
+
+#[verus_infer]
+pub fn offset(base: isize, delta: isize) -> Option<isize> {
+    Some(infer_base::checked_offset(base, delta)?)
+}
+
+#[verus_infer(precision = "sound")]
+pub fn shifted_size(value: usize) -> usize { infer_base::coarse_size(value) + 1 }

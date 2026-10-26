@@ -53,12 +53,12 @@ pub(super) fn typ(element: Typ, length: usize) -> Option<Typ> {
 }
 
 pub(super) fn index_type(typ: &Typ) -> bool {
-    matches!(&**typ, TypX::Int(IntRange::USize))
+    matches!(&**typ, TypX::Int(IntRange::USize | IntRange::ISize))
 }
 
 pub(super) fn literal(span: &Span, typ: &Typ, elements: Vec<Term>) -> Result<Term, VirErr> {
-    let (element_type, length) = shape(typ)
-        .ok_or_else(|| unsupported(span, "arrays require at most 64 fixed scalar elements"))?;
+    let (element_type, length) =
+        shape(typ).ok_or_else(|| unsupported(span, "arrays require at most 64 scalar elements"))?;
     if elements.len() != length {
         return Err(unsupported(span, "array literal length mismatch"));
     }
@@ -69,7 +69,10 @@ pub(super) fn literal(span: &Span, typ: &Typ, elements: Vec<Term>) -> Result<Ter
             return Err(unsupported(span, "array element type mismatch"));
         }
         if !crate::ast_util::types_equal(&element.expr.typ, &element_type) {
-            let TypX::Int(range @ (IntRange::U(_) | IntRange::I(_))) = &*element_type else {
+            let TypX::Int(
+                range @ (IntRange::USize | IntRange::ISize | IntRange::U(_) | IntRange::I(_)),
+            ) = &*element_type
+            else {
                 return Err(unsupported(span, "array element type mismatch"));
             };
             element =

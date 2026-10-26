@@ -1,4 +1,4 @@
-//! Closed support for core Option/Result over fixed scalar payloads, plus unit.
+//! Closed support for core Option/Result over supported scalar payloads, plus unit.
 //! Checked arithmetic candidates are verified using the existing vstd models.
 use super::*;
 
@@ -6,6 +6,8 @@ use super::*;
 pub(super) enum ValueType {
     Bool,
     Unsigned(u32),
+    USize,
+    ISize,
     Signed(u32),
     Unit,
     Option(Box<ValueType>),
@@ -57,6 +59,8 @@ impl ValueType {
         }
         match &**typ {
             TypX::Bool => Some(Self::Bool),
+            TypX::Int(IntRange::USize) => Some(Self::USize),
+            TypX::Int(IntRange::ISize) => Some(Self::ISize),
             TypX::Int(IntRange::U(bits)) => Some(Self::Unsigned(*bits)),
             TypX::Int(IntRange::I(bits)) => Some(Self::Signed(*bits)),
             TypX::Datatype(Dt::Tuple(0), ..) => Some(Self::Unit),
@@ -73,6 +77,8 @@ impl ValueType {
     pub(super) fn typ(&self) -> Option<Typ> {
         let typ = match self {
             Self::Bool => bool_typ(),
+            Self::USize => Arc::new(TypX::Int(IntRange::USize)),
+            Self::ISize => Arc::new(TypX::Int(IntRange::ISize)),
             Self::Unsigned(bits @ (8 | 16 | 32 | 64 | 128)) => {
                 Arc::new(TypX::Int(IntRange::U(*bits)))
             }
@@ -112,7 +118,10 @@ pub(super) fn ctor(
         (None, None) => {}
         (Some(expected), Some(mut field)) if compatible(&field.expr.typ, &expected) => {
             if !crate::ast_util::types_equal(&field.expr.typ, &expected) {
-                let TypX::Int(range @ (IntRange::U(_) | IntRange::I(_))) = &*expected else {
+                let TypX::Int(
+                    range @ (IntRange::USize | IntRange::ISize | IntRange::U(_) | IntRange::I(_)),
+                ) = &*expected
+                else {
                     return Err(unsupported(span, "enum payload type mismatch"));
                 };
                 field = term(
@@ -212,7 +221,9 @@ pub(super) fn checked(function: &Function) -> Option<Checked> {
     let TypX::Int(range) = &*f.params[0].x.typ else {
         return None;
     };
-    arithmetic::bounds(*range)?;
+    if !arithmetic::exact_range(*range) {
+        return None;
+    }
     if !crate::ast_util::types_equal(&f.params[0].x.typ, &f.params[1].x.typ) {
         return None;
     }
@@ -229,6 +240,8 @@ pub(super) fn checked(function: &Function) -> Option<Checked> {
     let module = match range {
         IntRange::U(bits) => format!("u{bits}_specs_tmp"),
         IntRange::I(bits) => format!("i{bits}_specs_tmp"),
+        IntRange::USize => "usize_specs_tmp".into(),
+        IntRange::ISize => "isize_specs_tmp".into(),
         _ => return None,
     };
     if proxy.krate != CrateId::Vstd
@@ -256,7 +269,7 @@ pub(super) fn checked_value(
     };
     let TypX::Int(range) = &*function.x.params[0].x.typ else { unreachable!() };
     let signed = match range {
-        IntRange::I(bits) => Some(*bits),
+        IntRange::I(_) | IntRange::ISize => Some(*range),
         _ => None,
     };
     let math = match op {
@@ -286,15 +299,7 @@ pub(super) fn checked_value(
             binary(BinaryOp::Inequality(InequalityOp::Ge), output.clone(), zero, bool_typ())?
         }
         Checked::Add | Checked::Mul => {
-            let TypX::Int(IntRange::U(bits)) = &*function.x.params[0].x.typ else { unreachable!() };
-            let max = Term {
-                expr: SpannedTyped::new(
-                    span,
-                    &int_typ(),
-                    ExprX::Const(Constant::Int((BigInt::one() << bits) - 1)),
-                ),
-                size: 1,
-            };
+            let max = arithmetic::maximum(span, *range)?;
             binary(BinaryOp::Inequality(InequalityOp::Le), output.clone(), max, bool_typ())?
         }
     };

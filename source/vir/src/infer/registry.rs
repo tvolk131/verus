@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v13:counted-loops:4096";
+const VERSION: &str = "verus-infer-v15:platform-integers:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -24,6 +24,12 @@ enum Formula {
     Not(Box<Formula>),
     SliceLen(Box<Formula>),
     Clip(u32, Box<Formula>),
+    USizeClip(Box<Formula>),
+    ISizeClip(Box<Formula>),
+    ISizeMin,
+    ISizeMax,
+    USizeMax,
+    ArchWordBits,
     SignedClip(u32, Box<Formula>),
     Binary(BinaryOp, Box<Formula>, Box<Formula>),
     Logical(LogicalOp, Box<Formula>, Box<Formula>),
@@ -45,6 +51,29 @@ struct Candidate {
 fn encode(e: &Expr, params: &Params) -> Formula {
     let enc = |e| Box::new(encode(e, params));
     match &e.x {
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMin), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            Formula::ISizeMin
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::SignedMax), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            Formula::ISizeMax
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::ISize, .. }, a) => Formula::ISizeClip(enc(a)),
+
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            Formula::USizeMax
+        }
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits), _)
+            if arithmetic::arch_constant(e).is_some() =>
+        {
+            Formula::ArchWordBits
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, .. }, a) => Formula::USizeClip(enc(a)),
         ExprX::ArrayLiteral(elements) => {
             let (element, length) = arrays::shape(&e.typ).expect("generated array type");
             Formula::Array(
@@ -96,6 +125,21 @@ fn decode(
     }
     *remaining -= 1;
     match f {
+        Formula::ISizeMin => Ok(arithmetic::arch_bound(span, IntegerTypeBoundKind::SignedMin)),
+        Formula::ISizeMax => Ok(arithmetic::arch_bound(span, IntegerTypeBoundKind::SignedMax)),
+        Formula::ISizeClip(a) => summary::unary(
+            span,
+            UnaryOp::Clip { range: IntRange::ISize, truncate: true },
+            decode(a, function, remaining, allow_result)?,
+        ),
+
+        Formula::USizeMax => Ok(arithmetic::usize_max(span)),
+        Formula::ArchWordBits => Ok(arithmetic::arch_bits(span)),
+        Formula::USizeClip(a) => summary::unary(
+            span,
+            UnaryOp::Clip { range: IntRange::USize, truncate: true },
+            decode(a, function, remaining, allow_result)?,
+        ),
         Formula::Array(element, length, elements) => {
             let typ =
                 arrays::typ(element.typ().ok_or_else(invalid)?, *length).ok_or_else(invalid)?;

@@ -13,12 +13,12 @@ pub(super) enum Range {
     Bool(Option<bool>),
 }
 impl Range {
-    fn full(typ: &Typ) -> Result<Self, VirErr> {
+    fn full(typ: &Typ, word_bits: u32) -> Result<Self, VirErr> {
         match &**typ {
             TypX::Bool => Ok(Self::Bool(None)),
             TypX::Int(IntRange::Int) => Ok(Self::IntTop),
-            TypX::Int(range) if arithmetic::bounds(*range).is_some() => {
-                let (min, max) = arithmetic::bounds(*range).unwrap();
+            TypX::Int(range) if arithmetic::bounds_at(*range, word_bits).is_some() => {
+                let (min, max) = arithmetic::bounds_at(*range, word_bits).unwrap();
                 Ok(Self::Int(min, max))
             }
             _ => Err(unsupported(
@@ -43,14 +43,14 @@ impl Range {
             _ => unreachable!("typed scalar branches"),
         }
     }
-    fn restrict(self, typ: &Typ) -> Self {
+    fn restrict(self, typ: &Typ, word_bits: u32) -> Self {
         if let TypX::Int(range) = &**typ
-            && arithmetic::bounds(*range).is_some()
+            && arithmetic::bounds_at(*range, word_bits).is_some()
         {
             if self == Self::IntTop {
-                return Self::full(typ).unwrap();
+                return Self::full(typ, word_bits).unwrap();
             }
-            let Self::Int(min, max) = Self::full(typ).unwrap() else { unreachable!() };
+            let Self::Int(min, max) = Self::full(typ, word_bits).unwrap() else { unreachable!() };
             if let Self::Int(a, b) = self {
                 let (a, b) = (a.max(min.clone()), b.min(max.clone()));
                 // No successful execution in this abstract interval; widening
@@ -115,6 +115,7 @@ struct Interpreter<'a> {
     locals: HashMap<VarIdent, Range>,
     callees: &'a HashMap<Fun, Function>,
     remaining: usize,
+    word_bits: u32,
 }
 impl Interpreter<'_> {
     fn spend(&mut self, span: &Span) -> Result<(), VirErr> {
@@ -138,8 +139,12 @@ impl Interpreter<'_> {
     }
     fn expr(&mut self, e: &Expr) -> Result<Range, VirErr> {
         self.spend(&e.span)?;
-        let unknown = || Range::full(&e.typ);
+        let word_bits = self.word_bits;
+        let unknown = || Range::full(&e.typ, word_bits);
         if let Some(n) = arithmetic::negative_literal(e) {
+            return Ok(Range::Int(n.clone(), n));
+        }
+        if let Some(n) = arithmetic::arch_value(e, self.word_bits) {
             return Ok(Range::Int(n.clone(), n));
         }
         let value = match &e.x {
@@ -158,7 +163,9 @@ impl Interpreter<'_> {
             },
             ExprX::Unary(UnaryOp::Clip { range, .. }, a) => {
                 let value = self.expr(a)?;
-                let Some((min, max)) = arithmetic::bounds(*range) else { return unknown() };
+                let Some((min, max)) = arithmetic::bounds_at(*range, self.word_bits) else {
+                    return unknown();
+                };
                 match value {
                     Range::Int(a, b) if a >= min && b <= max => Range::Int(a, b),
                     // A wrapping cast can cross the destination's signed boundary.
@@ -349,21 +356,26 @@ impl Interpreter<'_> {
                     locals.insert(param.x.name.clone(), self.expr(arg)?);
                 }
                 if callee.x.attrs.infer_allow_approx {
-                    range_from_summary(&callee)?
+                    range_from_summary(&callee, self.word_bits)?
                 } else {
                     let ExprX::Binary(BinaryOp::Eq(_), _, output) = &callee.x.ensure.0[0].x else {
                         return Err(unsupported(&e.span, "invalid exact callee summary"));
                     };
-                    let mut child =
-                        Interpreter { locals, callees: self.callees, remaining: self.remaining };
-                    let range = child.expr(output)?.restrict(&callee.x.inner_ret.x.typ);
+                    let mut child = Interpreter {
+                        locals,
+                        callees: self.callees,
+                        remaining: self.remaining,
+                        word_bits: self.word_bits,
+                    };
+                    let range =
+                        child.expr(output)?.restrict(&callee.x.inner_ret.x.typ, self.word_bits);
                     self.remaining = child.remaining;
                     range
                 }
             }
             _ => return Err(unsupported(&e.span, "expression outside interval subset")),
         };
-        Ok(value.restrict(&e.typ))
+        Ok(value.restrict(&e.typ, self.word_bits))
     }
 }
 
@@ -410,6 +422,47 @@ pub(super) fn infer(
     function: &Function,
     callees: &HashMap<Fun, Function>,
 ) -> Result<Contract, VirErr> {
+    // Keep width-specific intervals and safety domains. Merge only pure, typed
+    // formulas, with the usual expanded-size budget, then let Verus prove them.
+    let a = infer_on_arch(function, callees, 32)?;
+    let b = infer_on_arch(function, callees, 64)?;
+    let span = &function.span;
+    let selector = summary::binary(
+        span,
+        BinaryOp::Eq(Mode::Spec),
+        arithmetic::arch_bits(span),
+        term(span, &int_typ(), ExprX::Const(Constant::Int(32.into())), 1)?,
+    )?;
+    let vars = function
+        .x
+        .params
+        .iter()
+        .chain(std::iter::once(&function.x.inner_ret))
+        .map(|p| {
+            (
+                p.x.name.clone(),
+                Term {
+                    expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
+                    size: 1,
+                },
+            )
+        })
+        .collect();
+    let merge = |a: &Expr, b: &Expr| -> Result<Expr, VirErr> {
+        let a_term = instantiate(a, &vars)?;
+        if format!("{a:?}") == format!("{b:?}") {
+            return Ok(a_term.expr);
+        }
+        Ok(summary::conditional(span, selector.clone(), a_term, instantiate(b, &vars)?)?.expr)
+    };
+    Contract::new(merge(&a.pre, &b.pre)?, merge(&a.post, &b.post)?)
+}
+
+fn infer_on_arch(
+    function: &Function,
+    callees: &HashMap<Fun, Function>,
+    word_bits: u32,
+) -> Result<Contract, VirErr> {
     validate_signature(function)?;
     let exact = if !uses_approximate_callee(function, callees) {
         infer_exact_with_callees(function, callees).ok()
@@ -418,32 +471,46 @@ pub(super) fn infer(
     };
     let pre = match exact {
         Some(exact) => exact.pre,
-        None => safety::infer(function, callees)?.expr,
+        None => safety::infer(function, callees, word_bits)?.expr,
     };
     let locals = function
         .x
         .params
         .iter()
-        .map(|p| Ok((p.x.name.clone(), Range::full(&p.x.typ)?)))
+        .map(|p| Ok((p.x.name.clone(), Range::full(&p.x.typ, word_bits)?)))
         .collect::<Result<HashMap<_, _>, VirErr>>()?;
     let body = function
         .x
         .body
         .as_ref()
         .ok_or_else(|| unsupported(&function.span, "missing interval body"))?;
-    let output = Interpreter { locals, callees, remaining: FORMULA_BUDGET }
+    let output = Interpreter { locals, callees, remaining: FORMULA_BUDGET, word_bits }
         .expr(body)?
-        .restrict(&function.x.inner_ret.x.typ);
+        .restrict(&function.x.inner_ret.x.typ, word_bits);
     Contract::new(pre, postcondition(function, output))
 }
 
-pub(super) fn range_from_summary(function: &Function) -> Result<Range, VirErr> {
+pub(super) fn range_from_summary(function: &Function, word_bits: u32) -> Result<Range, VirErr> {
     let invalid = || unsupported(&function.span, "invalid sound interval summary");
     if function.x.ensure.0.len() != 1 || !function.x.ensure.1.is_empty() {
         return Err(invalid());
     }
     let ret = |e: &Expr| matches!(&e.x, ExprX::Var(v) if v == &function.x.inner_ret.x.name);
-    let post = &function.x.ensure.0[0];
+    let mut post = &function.x.ensure.0[0];
+    if let ExprX::If(c, a, Some(b)) = &post.x {
+        let ExprX::Binary(BinaryOp::Eq(Mode::Spec), left, right) = &c.x else {
+            return Err(invalid());
+        };
+        if !matches!(
+            &left.x,
+            ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits), _)
+        ) || arithmetic::arch_value(left, word_bits).is_none()
+            || !matches!(&right.x,ExprX::Const(Constant::Int(n)) if n==&BigInt::from(32))
+        {
+            return Err(invalid());
+        }
+        post = if word_bits == 32 { a } else { b };
+    }
     match &post.x {
         ExprX::Const(Constant::Bool(true))
             if matches!(&*function.x.inner_ret.x.typ, TypX::Bool) =>
@@ -490,7 +557,8 @@ pub(super) fn validate_summary(function: &Function) -> Result<(), VirErr> {
     signature.require = Arc::new(vec![]);
     signature.ensure = (Arc::new(vec![]), Arc::new(vec![]));
     validate_signature(&function.new_x(signature))?;
-    range_from_summary(function)?;
+    range_from_summary(function, 32)?;
+    range_from_summary(function, 64)?;
     let params = f
         .params
         .iter()

@@ -8,7 +8,7 @@ pub(super) struct CountedLoop {
     pub accumulator: VarIdent,
     pub counter: VarIdent,
     pub typ: Typ,
-    pub bits: u32,
+    pub range: IntRange,
     isolation: bool,
 }
 
@@ -50,7 +50,7 @@ fn declaration(stmt: &Stmt, typ: &Typ) -> Option<(VarIdent, Place)> {
     .then(|| (binding.name.clone(), init.clone()))
 }
 
-fn increment(stmt: &Stmt, name: &VarIdent, typ: &Typ, bits: u32) -> bool {
+fn increment(stmt: &Stmt, name: &VarIdent, typ: &Typ, range: IntRange) -> bool {
     let StmtX::Expr(e) = &stmt.x else { return false };
     let ExprX::Assign { place, rhs, op, typ: assigned, resolve: false } = &e.x else {
         return false;
@@ -61,7 +61,7 @@ fn increment(stmt: &Stmt, name: &VarIdent, typ: &Typ, bits: u32) -> bool {
     {
         return false;
     }
-    let add = BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(IntRange::U(bits))));
+    let add = BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(range)));
     match (op, &rhs.x) {
         (Some(op), _) => {
             *op == add && constant(rhs, 1) && crate::ast_util::types_equal(&rhs.typ, typ)
@@ -111,7 +111,7 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
         return Err(invalid());
     }
     let typ = f.inner_ret.x.typ.clone();
-    let TypX::Int(IntRange::U(bits @ (8 | 16 | 32 | 64 | 128))) = &*typ else {
+    let TypX::Int(range @ (IntRange::USize | IntRange::U(8 | 16 | 32 | 64 | 128))) = &*typ else {
         return Err(invalid());
     };
     if f.params.iter().any(|p| !crate::ast_util::types_equal(&p.x.typ, &typ)) {
@@ -173,8 +173,8 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
     }
     let ExprX::Block(updates, None) = &loop_body.x else { return Err(invalid()) };
     if updates.len() != 2
-        || !increment(&updates[0], &accumulator, &typ, *bits)
-        || !increment(&updates[1], &counter, &typ, *bits)
+        || !increment(&updates[0], &accumulator, &typ, *range)
+        || !increment(&updates[1], &counter, &typ, *range)
     {
         return Err(invalid());
     }
@@ -184,7 +184,7 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
         accumulator,
         counter,
         typ: typ.clone(),
-        bits: *bits,
+        range: *range,
         isolation: *loop_isolation,
     }))
 }
@@ -201,8 +201,7 @@ impl CountedLoop {
             self.variable(span, &self.initial.x.name),
             self.variable(span, &self.bound.x.name),
         )?;
-        let (_, max) = arithmetic::bounds(IntRange::U(self.bits)).unwrap();
-        let max = term(span, &int_typ(), ExprX::Const(Constant::Int(max)), 1)?;
+        let max = arithmetic::maximum(span, self.range)?;
         let pre = summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), sum.clone(), max)?;
         let post = summary::binary(
             span,

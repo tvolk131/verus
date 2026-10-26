@@ -52,3 +52,19 @@ pub fn counted_add(x: u64, n: u64) -> u64 {
     while i < n { result += 1; i += 1; }
     result
 }
+
+#[verus_infer]
+pub fn counted_usize(x: usize, n: usize) -> usize {
+    let mut result = x;
+    let mut i = 0usize;
+    while i < n { result += 1; i += 1; }
+    result
+}
+
+#[verus_infer]
+pub fn checked_offset(base: isize, delta: isize) -> Option<isize> {
+    base.checked_add(delta)
+}
+
+#[verus_infer(precision = "sound")]
+pub fn coarse_size(value: usize) -> usize { value / 10 }

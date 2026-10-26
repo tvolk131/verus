@@ -5,6 +5,7 @@ pub(super) fn scalar(typ: &Typ) -> bool {
     matches!(
         &**typ,
         TypX::Bool
+            | TypX::Int(IntRange::USize | IntRange::ISize)
             | TypX::Int(IntRange::U(8 | 16 | 32 | 64 | 128) | IntRange::I(8 | 16 | 32 | 64 | 128))
     )
 }
@@ -15,6 +16,7 @@ pub(super) fn integer(typ: &Typ) -> bool {
         TypX::Int(
             IntRange::Int
                 | IntRange::USize
+                | IntRange::ISize
                 | IntRange::U(8 | 16 | 32 | 64 | 128)
                 | IntRange::I(8 | 16 | 32 | 64 | 128)
         )
@@ -25,10 +27,7 @@ pub(super) fn value_type(typ: &Typ, allow_approx: bool) -> bool {
     if allow_approx {
         scalar(typ)
     } else {
-        enums::supported(typ)
-            || arrays::input_type(typ)
-            || slices::input_type(typ)
-            || arrays::index_type(typ)
+        enums::supported(typ) || arrays::input_type(typ) || slices::input_type(typ)
     }
 }
 
@@ -77,13 +76,22 @@ pub(super) fn source_binary(op: BinaryOp) -> Option<(BinaryOp, Option<IntRange>,
     let arithmetic = |op| BinaryOp::Arith(op);
     Some(match op {
         BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(
-            r @ (IntRange::U(8 | 16 | 32 | 64 | 128) | IntRange::I(8 | 16 | 32 | 64 | 128)),
+            r @ (IntRange::USize
+            | IntRange::ISize
+            | IntRange::U(8 | 16 | 32 | 64 | 128)
+            | IntRange::I(8 | 16 | 32 | 64 | 128)),
         ))) => (arithmetic(ArithOp::Add(OverflowBehavior::Allow)), Some(r), false),
         BinaryOp::Arith(ArithOp::Sub(OverflowBehavior::Error(
-            r @ (IntRange::U(8 | 16 | 32 | 64 | 128) | IntRange::I(8 | 16 | 32 | 64 | 128)),
+            r @ (IntRange::USize
+            | IntRange::ISize
+            | IntRange::U(8 | 16 | 32 | 64 | 128)
+            | IntRange::I(8 | 16 | 32 | 64 | 128)),
         ))) => (arithmetic(ArithOp::Sub(OverflowBehavior::Allow)), Some(r), false),
         BinaryOp::Arith(ArithOp::Mul(OverflowBehavior::Error(
-            r @ (IntRange::U(8 | 16 | 32 | 64 | 128) | IntRange::I(8 | 16 | 32 | 64 | 128)),
+            r @ (IntRange::USize
+            | IntRange::ISize
+            | IntRange::U(8 | 16 | 32 | 64 | 128)
+            | IntRange::I(8 | 16 | 32 | 64 | 128)),
         ))) => (arithmetic(ArithOp::Mul(OverflowBehavior::Allow)), Some(r), false),
         BinaryOp::Arith(ArithOp::EuclideanDiv(Div0Behavior::Error)) => {
             (arithmetic(ArithOp::EuclideanDiv(Div0Behavior::Allow)), None, true)
@@ -93,7 +101,10 @@ pub(super) fn source_binary(op: BinaryOp) -> Option<(BinaryOp, Option<IntRange>,
         }
         BinaryOp::Arith(ArithOp::TruncatingDiv(
             Div0Behavior::Error,
-            SignedDivEdgeCaseBehavior::Error(IntegerTypeBitwidth::Width(8 | 16 | 32 | 64 | 128)),
+            SignedDivEdgeCaseBehavior::Error(
+                IntegerTypeBitwidth::Width(8 | 16 | 32 | 64 | 128)
+                | IntegerTypeBitwidth::ArchWordSize,
+            ),
         )) => (
             arithmetic(ArithOp::TruncatingDiv(
                 Div0Behavior::Allow,
@@ -104,7 +115,10 @@ pub(super) fn source_binary(op: BinaryOp) -> Option<(BinaryOp, Option<IntRange>,
         ),
         BinaryOp::Arith(ArithOp::TruncatingMod(
             Div0Behavior::Error,
-            SignedDivEdgeCaseBehavior::Error(IntegerTypeBitwidth::Width(8 | 16 | 32 | 64 | 128)),
+            SignedDivEdgeCaseBehavior::Error(
+                IntegerTypeBitwidth::Width(8 | 16 | 32 | 64 | 128)
+                | IntegerTypeBitwidth::ArchWordSize,
+            ),
         )) => (
             arithmetic(ArithOp::TruncatingMod(
                 Div0Behavior::Allow,
@@ -165,7 +179,7 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
     {
         return Err(unsupported(
             span,
-            "parameters and return values must be bool or fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be usize indices, scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (array/usize returns are unsupported; slice returns are also unsupported)",
+            "parameters and return values must be bool, usize/isize, fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (array returns are unsupported; slice returns are also unsupported)",
         ));
     }
     if !value_type(&f.inner_ret.x.typ, f.attrs.infer_allow_approx)
@@ -173,7 +187,7 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
     {
         return Err(unsupported(
             span,
-            "sound interval inference requires scalar signatures; Option/Result inference currently requires exact mode, as do arrays and usize indices; shared slices also require exact mode",
+            "sound interval inference requires scalar signatures; Option/Result inference currently requires exact mode, as do arrays and shared slices",
         ));
     }
     Ok(())
@@ -267,9 +281,10 @@ fn validate_root(
                         if !f.x.attrs.infer_allow_approx
                             && slices::element(&a.typ).is_some()
                             && arrays::index_type(&i.typ) => {}
+                    _ if arithmetic::arch_constant(e).is_some() => {}
                     ExprX::Unary(UnaryOp::Not, a) if matches!(&*a.typ, TypX::Bool) => {}
                     ExprX::Unary(UnaryOp::Clip { range, .. }, _)
-                        if arithmetic::bounds(*range).is_some() => {}
+                        if arithmetic::exact_range(*range) => {}
                     ExprX::Logical(..) => {}
                     ExprX::Binary(op, ..) if source_binary(*op).is_some() => {}
                     ExprX::Binary(..) if arithmetic::negative_literal(e).is_some() => {}

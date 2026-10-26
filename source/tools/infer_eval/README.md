@@ -13,14 +13,22 @@ persistent temporary directory and prints its location. `--case signed` selects
 one case; repeat the option to select several. `--timeout` bounds each compiler
 process and defaults to 180 seconds. No packages or network access are needed.
 
-The manifest contains 22 curated cases: eleven positive examples and eleven
+The manifest contains 31 curated cases: seventeen positive examples and fourteen
 expected failures. They exercise unsigned and signed arithmetic, casts, arrays,
 checked arithmetic, `Option`/`Result`, early returns and `?`, exact and sound
-composition, shared dynamic slices, counted-loop invariants/termination, caller
+composition, shared dynamic slices, counted-loop invariants/termination, symbolic `usize`
+bounds, `isize` arithmetic and checked methods, architecture-specific interval
+summaries, 32/64-bit casts, caller
 properties, call-graph depth, unsupported loops/mutable slices,
 analysis budgets, required solver limits, and frontend errors. Depth cases
-generate deterministic chains of four and sixteen functions. The seven existing
+generate deterministic chains of four and sixteen functions. The nine existing
 standalone examples are shared with the documentation.
+
+The explicit 32/64-bit cast and platform-integer probes use `--no-erasure-check` to inspect the
+verification model without evaluating the native target's global-size assertions.
+Their exact arguments are recorded; they do not test cross-target native codegen.
+The portable `usize` example retains normal erasure checks and is separately
+compiled and run on the host.
 
 Each case runs with its own empty candidate cache, then again with that cache.
 The runner checks the exit status, report schema and result, actual interface

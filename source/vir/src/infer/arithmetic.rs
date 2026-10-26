@@ -1,4 +1,4 @@
-//! Fixed-width arithmetic facts for untrusted synthesis. The original Verus
+//! Integer arithmetic facts for untrusted synthesis. The original Verus
 //! executable supplies all independent overflow and division checks.
 use super::*;
 
@@ -50,21 +50,133 @@ pub(super) fn bounds(range: IntRange) -> Option<(BigInt, BigInt)> {
     }
 }
 
+/// Architecture-dependent terms stay symbolic through synthesis, cache decoding,
+/// and imports. Ordinary Verus supplies the existing 32/64-bit architecture model.
+pub(super) fn exact_range(range: IntRange) -> bool {
+    matches!(range, IntRange::USize | IntRange::ISize) || bounds(range).is_some()
+}
+
+pub(super) fn arch_bits(span: &Span) -> Term {
+    let zero = number(span, 0.into());
+    Term {
+        expr: SpannedTyped::new(
+            span,
+            &int_typ(),
+            ExprX::UnaryOpr(
+                UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits),
+                zero.expr,
+            ),
+        ),
+        size: 2,
+    }
+}
+
+pub(super) fn arch_bound(span: &Span, kind: IntegerTypeBoundKind) -> Term {
+    let bits = arch_bits(span);
+    Term {
+        expr: SpannedTyped::new(
+            span,
+            &int_typ(),
+            ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(kind), bits.expr),
+        ),
+        size: 3,
+    }
+}
+pub(super) fn usize_max(span: &Span) -> Term {
+    arch_bound(span, IntegerTypeBoundKind::UnsignedMax)
+}
+
+/// Numeric bounds for one verification architecture, never the host architecture.
+pub(super) fn bounds_at(range: IntRange, word_bits: u32) -> Option<(BigInt, BigInt)> {
+    if !matches!(word_bits, 32 | 64) {
+        return None;
+    }
+    bounds(match range {
+        IntRange::USize => IntRange::U(word_bits),
+        IntRange::ISize => IntRange::I(word_bits),
+        other => other,
+    })
+}
+
+pub(super) fn signed_range(width: IntegerTypeBitwidth) -> IntRange {
+    match width {
+        IntegerTypeBitwidth::Width(bits) => IntRange::I(bits),
+        IntegerTypeBitwidth::ArchWordSize => IntRange::ISize,
+    }
+}
+
+/// Admit only these closed constants, never arbitrary integer-bound operators.
+pub(super) fn arch_constant(e: &Expr) -> Option<Term> {
+    if !eligibility::integer(&e.typ) {
+        return None;
+    }
+    match &e.x {
+        ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits), a)
+            if eligibility::integer(&a.typ)
+                && matches!(&a.x, ExprX::Const(Constant::Int(n)) if n == &BigInt::from(0)) =>
+        {
+            Some(arch_bits(&e.span))
+        }
+        ExprX::UnaryOpr(
+            UnaryOpr::IntegerTypeBound(
+                kind @ (IntegerTypeBoundKind::UnsignedMax
+                | IntegerTypeBoundKind::SignedMin
+                | IntegerTypeBoundKind::SignedMax),
+            ),
+            a,
+        ) if matches!(
+            &a.x,
+            ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::ArchWordBits), _)
+        ) && arch_constant(a).is_some() =>
+        {
+            Some(arch_bound(&e.span, kind.clone()))
+        }
+        _ => None,
+    }
+}
+
+/// Evaluate only closed architecture constants for an explicitly chosen model.
+pub(super) fn arch_value(e: &Expr, word_bits: u32) -> Option<BigInt> {
+    arch_constant(e)?;
+    let ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(kind), _) = &e.x else {
+        return None;
+    };
+    match kind {
+        IntegerTypeBoundKind::ArchWordBits => Some(word_bits.into()),
+        IntegerTypeBoundKind::UnsignedMax => bounds_at(IntRange::USize, word_bits).map(|(_, n)| n),
+        IntegerTypeBoundKind::SignedMin => bounds_at(IntRange::ISize, word_bits).map(|(n, _)| n),
+        IntegerTypeBoundKind::SignedMax => bounds_at(IntRange::ISize, word_bits).map(|(_, n)| n),
+    }
+}
+
+pub(super) fn maximum(span: &Span, range: IntRange) -> Result<Term, VirErr> {
+    match range {
+        IntRange::USize => Ok(usize_max(span)),
+        IntRange::ISize => Ok(arch_bound(span, IntegerTypeBoundKind::SignedMax)),
+        _ => bounds(range)
+            .map(|(_, max)| number(span, max))
+            .ok_or_else(|| unsupported(span, "unsupported arithmetic range")),
+    }
+}
+pub(super) fn minimum(span: &Span, range: IntRange) -> Result<Term, VirErr> {
+    match range {
+        IntRange::USize => Ok(number(span, 0.into())),
+        IntRange::ISize => Ok(arch_bound(span, IntegerTypeBoundKind::SignedMin)),
+        _ => bounds(range)
+            .map(|(min, _)| number(span, min))
+            .ok_or_else(|| unsupported(span, "unsupported arithmetic range")),
+    }
+}
+
 fn number(span: &Span, n: BigInt) -> Term {
     Term { expr: SpannedTyped::new(span, &int_typ(), ExprX::Const(Constant::Int(n))), size: 1 }
 }
 
 pub(super) fn in_range(span: &Span, value: Term, range: IntRange) -> Result<Term, VirErr> {
-    let (min, max) =
-        bounds(range).ok_or_else(|| unsupported(span, "unsupported arithmetic range"))?;
-    let lower = summary::binary(
-        span,
-        BinaryOp::Inequality(InequalityOp::Le),
-        number(span, min),
-        value.clone(),
-    )?;
-    let upper =
-        summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), value, number(span, max))?;
+    let min = minimum(span, range)?;
+    let max = maximum(span, range)?;
+    let lower = summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), min, value.clone())?;
+    let upper = summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), value, max)?;
     logical(span, LogicalOp::And, lower, upper)
 }
 
@@ -72,13 +184,12 @@ pub(super) fn division_valid(
     span: &Span,
     a: Term,
     b: Term,
-    signed: Option<u32>,
+    signed: Option<IntRange>,
 ) -> Result<Term, VirErr> {
     let nonzero = summary::binary(span, BinaryOp::Ne, b.clone(), number(span, 0.into()))?;
-    let Some(bits) = signed else { return Ok(nonzero) };
-    let (min, _) = bounds(IntRange::I(bits))
-        .ok_or_else(|| unsupported(span, "unsupported signed division width"))?;
-    let not_min = summary::binary(span, BinaryOp::Ne, a, number(span, min))?;
+    let Some(range) = signed else { return Ok(nonzero) };
+    let min = minimum(span, range)?;
+    let not_min = summary::binary(span, BinaryOp::Ne, a, min)?;
     let not_minus_one = summary::binary(span, BinaryOp::Ne, b, number(span, (-1).into()))?;
     let no_overflow = logical(span, LogicalOp::Or, not_min, not_minus_one)?;
     logical(span, LogicalOp::And, nonzero, no_overflow)
@@ -88,7 +199,7 @@ pub(super) fn division_valid(
 /// including MIN's otherwise out-of-range positive magnitude. Recognize only
 /// this constant shape, rather than allowing unchecked executable arithmetic.
 pub(super) fn negative_literal(e: &Expr) -> Option<BigInt> {
-    let TypX::Int(range @ IntRange::I(_)) = &*e.typ else { return None };
+    let TypX::Int(range @ (IntRange::I(_) | IntRange::ISize)) = &*e.typ else { return None };
     let ExprX::Binary(BinaryOp::Arith(ArithOp::Sub(OverflowBehavior::Allow)), a, b) = &e.x else {
         return None;
     };
@@ -101,7 +212,7 @@ pub(super) fn negative_literal(e: &Expr) -> Option<BigInt> {
     else {
         return None;
     };
-    let (min, _) = bounds(*range)?;
+    let (min, _) = bounds_at(*range, 64)?;
     if zero != &BigInt::from(0) || magnitude < &BigInt::from(0) || -magnitude < min {
         return None;
     }
@@ -393,5 +504,123 @@ mod checked_tests {
             invalid.proxy = Some(proxy);
             assert!(enums::checked(&signed.new_x(invalid)).is_none());
         }
+    }
+}
+
+#[cfg(test)]
+mod usize_tests {
+    use super::*;
+    use crate::infer::tests::{Value, evaluate_on_arch, function, input, span};
+
+    fn usize_input(name: &str) -> Expr {
+        SpannedTyped::new(&span(), &Arc::new(TypX::Int(IntRange::USize)), input(name).x.clone())
+    }
+    fn usize_function(body: Expr) -> Function {
+        let base = function("usize_arithmetic", body.clone());
+        let mut f = base.x.clone();
+        f.params = Arc::new(
+            f.params
+                .iter()
+                .map(|p| {
+                    let mut param = p.x.clone();
+                    param.typ = usize_input("x").typ.clone();
+                    p.new_x(param)
+                })
+                .collect(),
+        );
+        let mut ret = f.inner_ret.x.clone();
+        ret.typ = body.typ.clone();
+        f.inner_ret = f.inner_ret.new_x(ret);
+        f.outer_ret = f.inner_ret.clone();
+        base.new_x(f)
+    }
+
+    #[test]
+    fn usize_arithmetic_matches_checked_execution_on_both_architectures() {
+        for bits in [32, 64] {
+            let max = (1u128 << bits) - 1;
+            for op in [
+                ArithOp::Add(OverflowBehavior::Error(IntRange::USize)),
+                ArithOp::Sub(OverflowBehavior::Error(IntRange::USize)),
+                ArithOp::Mul(OverflowBehavior::Error(IntRange::USize)),
+                ArithOp::EuclideanDiv(Div0Behavior::Error),
+                ArithOp::EuclideanMod(Div0Behavior::Error),
+            ] {
+                let body = SpannedTyped::new(
+                    &span(),
+                    &usize_input("x").typ,
+                    ExprX::Binary(BinaryOp::Arith(op), usize_input("x"), usize_input("y")),
+                );
+                let inferred = infer_function(&usize_function(body)).unwrap();
+                let ExprX::Binary(BinaryOp::Eq(_), _, output) = &inferred.x.ensure.0[0].x else {
+                    panic!("contract")
+                };
+                for x in [0, 1, 2, 65536, max / 2, max - 1, max] {
+                    for y in [0, 1, 2, 3, 65536] {
+                        let expected = match op {
+                            ArithOp::Add(_) => x.checked_add(y).filter(|n| *n <= max),
+                            ArithOp::Sub(_) => x.checked_sub(y),
+                            ArithOp::Mul(_) => x.checked_mul(y).filter(|n| *n <= max),
+                            ArithOp::EuclideanDiv(_) => x.checked_div(y),
+                            ArithOp::EuclideanMod(_) => x.checked_rem(y),
+                            _ => unreachable!(),
+                        };
+                        let vars = |name: &str| {
+                            Value::Int(if name == "x" { x as i128 } else { y as i128 })
+                        };
+                        assert_eq!(
+                            evaluate_on_arch(&inferred.x.require[0], &vars, bits),
+                            Value::Bool(expected.is_some()),
+                            "{bits} {op:?} {x} {y}"
+                        );
+                        if let Some(expected) = expected {
+                            assert_eq!(
+                                evaluate_on_arch(output, &vars, bits),
+                                Value::Int(expected as i128)
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn usize_casts_and_closed_architecture_constants_remain_symbolic() {
+        let source = Arc::new(TypX::Int(IntRange::I(64)));
+        let x = SpannedTyped::new(&span(), &source, input("x").x.clone());
+        let body = SpannedTyped::new(
+            &span(),
+            &usize_input("x").typ,
+            ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, truncate: true }, x),
+        );
+        let f = usize_function(body);
+        // Use the matching signed source parameter type.
+        let mut fx = f.x.clone();
+        let mut px = fx.params[0].x.clone();
+        px.typ = source;
+        let mut ps = (*fx.params).clone();
+        ps[0] = fx.params[0].new_x(px);
+        fx.params = Arc::new(ps);
+        let inferred = infer_function(&f.new_x(fx)).unwrap();
+        let ExprX::Binary(BinaryOp::Eq(_), _, out) = &inferred.x.ensure.0[0].x else {
+            panic!("contract")
+        };
+        for bits in [32, 64] {
+            for x in [i64::MIN as i128, -1, 0, 1, 1i128 << 32, i64::MAX as i128] {
+                let expected = if bits == 32 { (x as u32) as i128 } else { (x as u64) as i128 };
+                assert_eq!(evaluate_on_arch(out, &|_| Value::Int(x), bits), Value::Int(expected));
+            }
+            assert_eq!(
+                evaluate_on_arch(&usize_max(&span()).expr, &|_| unreachable!(), bits),
+                Value::Int((1i128 << bits) - 1)
+            );
+        }
+        let bad = usize_max(&span()).expr.new_x(ExprX::UnaryOpr(
+            UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax),
+            usize_input("x"),
+        ));
+        assert!(arch_constant(&bad).is_none());
+        assert!(summary::instantiate(&bad, &HashMap::new()).is_err());
     }
 }
