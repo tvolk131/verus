@@ -8,15 +8,14 @@ documented in the [inference guide](source/docs/guide/src/infer.md).
 ## Recommended sequence
 
 The focused assurance consolidation, early returns, bounded `Option`/`Result`
-propagation, shared slices, the first counted-loop pattern, and exact/interval
+propagation, shared slices, unsigned stepped/countdown loops, and exact/interval
 fixed-width and platform-sized integer inference are implemented. Retain the
 formal verification targets below as separate work. Formalization of the entire
 precision checker is not a prerequisite for every feature.
 
 The integer-operation batch adds bitwise/shifts and explicit arithmetic policies.
-Every extension must keep
-source eligibility, typed summaries, fresh ordinary proofs, and publication gates
-aligned. Any added standard-library specification is an explicit trusted-model
+Every extension must keep source eligibility, typed summaries, fresh ordinary
+proofs, and publication gates aligned. Any added standard-library specification is an explicit trusted-model
 change requiring a documented audit and dependency fingerprints. The feature
 backlog and proposed milestone order are maintained in
 [the main roadmap](VERUS_INFER.md#proposed-next-milestones).
@@ -93,7 +92,7 @@ The dependency-free production policy is in
 `source/vir/src/infer_proof/policy.rs`; its compiler-facing evidence adapter is
 `source/vir/src/infer_proof.rs`. The source mutation runner is
 `source/tools/test_infer_assurance_mutations.py`. It tests nine acceptance-core
-mutations, four precision-check mutations, and four counted-loop boundary
+mutations, four precision-check mutations, and five counted-loop boundary
 mutations in temporary copies. Baselines
 must pass; each mutant must run tests and fail them. Compilation failures and
 empty test runs do not count as detected mutations. This tests selected failure
@@ -293,19 +292,25 @@ verify the inference implementation; the formal targets below remain open.
 
 ## Counted-loop proof boundary
 
-The first loop recipe and its checking strategy are specified in
-[VERUS_INFER_LOOPS.md](VERUS_INFER_LOOPS.md). The recognizer admits the whole
-typed two-local, unit-step unsigned accumulator body, not an arbitrary loop with
-matching fragments. Source proof annotations and termination-suppression settings
-are ineligible. Loop-free inference retains its prior source policy.
+The unsigned loop families and their checking strategy are specified in
+[VERUS_INFER_LOOPS.md](VERUS_INFER_LOOPS.md). The recognizer checks the whole
+typed two-local body: constant/immutable parameter accumulator steps, checked
+addition/subtraction, and ascending/countdown unit counters. Source proof
+annotations and termination-suppression settings are ineligible. Loop-free
+inference retains its prior source policy.
 
 The installer adds only binder-free, typed invariant/measure expressions and the
 non-isolation proof setting. It projects those fields away and compares the
 remaining serialized body with the original. This prevents candidate generation
 or cache reuse from changing any executable operation. Candidate identities bind
 the installed proof body as well as the original source, actual contract,
-configuration, and dependencies. Cache entries still contain formulas only;
-annotations are regenerated through the same checked boundary on every hit.
+configuration, and dependencies. Parameter products and symbolic platform
+constants also select Verus's existing nonlinear prover. This proof-only setting
+is bound into candidate identity version 3; ordinary and precision queries still
+must succeed. Tests verify all other attributes and fields are preserved. Cache
+version 17 contains formulas only; annotations and prover choice are regenerated
+through the same source-checked boundary on every hit. Metadata schema 12 rejects
+older inferred interfaces. No serialized VIR fields change in this extension.
 
 Ordinary soundness includes invariant initialization/preservation, overflow,
 termination, and the result relation. Maximality removes the candidate precondition
@@ -316,14 +321,27 @@ exit branch introduced by non-isolated `while` lowering. Query-kind validation
 rejects missing loop invariants/measures or incompatible loop proof settings.
 No new loop axioms or trusted helper specifications were introduced.
 
-Concrete `u8` iteration tests cover every input pair. Backend fault injection
-rejects bad invariants, nondecreasing measures, restrictive domains, and circular
-use of a candidate precondition as an invariant. Tests additionally check source
-projection, assumption smuggling, termination suppression, cache/output poisoning,
-fresh cross-crate proofs, timeout publication barriers, and ordinary caller
+Concrete checked `u8` iteration covers every starting value/count for both
+counter directions and accumulator operations, with literal steps 0/2/255 and
+parameter steps 0/1/2/3/7/127/128/255. Independent backend fault injection rejects
+bad invariants, nondecreasing measures, permissive/restrictive domains, circular
+preconditions, weak output relations, and incorrect outputs. Compiler matrices
+check all unsigned widths and both pointer models, including zero/full-range
+boundaries, aliased step parameters, and symbolic platform constants. Tests
+additionally check source projection, assumption smuggling, termination
+suppression, cache/output poisoning, fresh cross-crate proofs, timeout publication
+barriers, and ordinary caller
 enforcement. Source mutations exercise the new projection, recipe, and
 termination guards. These checks supplement, rather than replace, the formal
 verification targets below.
+
+The unsigned loop-family checkpoint passed 490 targeted Rust tests (two existing
+loop tests remain ignored), debug/release verifier builds, all required
+proofs for the unsigned-width matrices at both pointer sizes, three-crate Cargo
+verification, and compiled native example runs. The 36-case corpus passed all
+73 cold/warm/incremental runs in each profile. All 18 deliberate source mutations
+were detected by failing tests after their baselines passed. These results are
+regression evidence for this checkpoint, not a formal implementation proof.
 
 ## Later: formal verification targets
 

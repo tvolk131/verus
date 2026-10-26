@@ -1,4 +1,4 @@
-//! Untrusted inference for one closed counted-loop pattern. Proof annotations
+//! Untrusted inference for closed unsigned counted-loop families. Proof annotations
 //! are checked by ordinary Verus; installation separately preserves source code.
 use super::*;
 
@@ -9,6 +9,10 @@ pub(super) struct CountedLoop {
     pub counter: VarIdent,
     pub typ: Typ,
     pub range: IntRange,
+    step: Term,
+    subtract: bool,
+    countdown: bool,
+    pub nonlinear: bool,
     isolation: bool,
 }
 
@@ -50,32 +54,35 @@ fn declaration(stmt: &Stmt, typ: &Typ) -> Option<(VarIdent, Place)> {
     .then(|| (binding.name.clone(), init.clone()))
 }
 
-fn increment(stmt: &Stmt, name: &VarIdent, typ: &Typ, range: IntRange) -> bool {
-    let StmtX::Expr(e) = &stmt.x else { return false };
-    let ExprX::Assign { place, rhs, op, typ: assigned, resolve: false } = &e.x else {
-        return false;
-    };
+/// Return the immutable operand and direction of a checked add/sub assignment.
+fn update(stmt: &Stmt, name: &VarIdent, typ: &Typ, range: IntRange) -> Option<(bool, Expr)> {
+    let StmtX::Expr(e) = &stmt.x else { return None };
+    let ExprX::Assign { place, rhs, op, typ: assigned, resolve: false } = &e.x else { return None };
     if local(place) != Some(name)
         || !crate::ast_util::types_equal(&place.typ, typ)
         || !crate::ast_util::types_equal(assigned, typ)
+        || !crate::ast_util::types_equal(&rhs.typ, typ)
     {
-        return false;
+        return None;
     }
-    let add = BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(range)));
-    match (op, &rhs.x) {
-        (Some(op), _) => {
-            *op == add && constant(rhs, 1) && crate::ast_util::types_equal(&rhs.typ, typ)
+    let (op, operand) = if let Some(op) = op {
+        (*op, rhs.clone())
+    } else {
+        let ExprX::Binary(op, a, b) = &rhs.x else { return None };
+        if read(a) != Some(name)
+            || !crate::ast_util::types_equal(&a.typ, typ)
+            || !crate::ast_util::types_equal(&b.typ, typ)
+        {
+            return None;
         }
-        (None, ExprX::Binary(op, a, b)) => {
-            *op == add
-                && read(a) == Some(name)
-                && constant(b, 1)
-                && crate::ast_util::types_equal(&a.typ, typ)
-                && crate::ast_util::types_equal(&b.typ, typ)
-                && crate::ast_util::types_equal(&rhs.typ, typ)
-        }
-        _ => false,
-    }
+        (*op, b.clone())
+    };
+    let subtract = match op {
+        BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(r))) if r == range => false,
+        BinaryOp::Arith(ArithOp::Sub(OverflowBehavior::Error(r))) if r == range => true,
+        _ => return None,
+    };
+    Some((subtract, operand))
 }
 
 pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirErr> {
@@ -99,14 +106,14 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
     let invalid = || {
         unsupported(
             &function.span,
-            "loops currently require one counted unsigned accumulator loop with two mutable locals, unit increments, and no handwritten loop proofs",
+            "loops currently require one counted unsigned accumulator loop with two mutable locals, an immutable step, a unit ascending/countdown counter, and no handwritten loop proofs",
         )
     };
     let f = &function.x;
     if f.attrs.infer_allow_approx
         || f.attrs.exec_assume_termination
         || f.attrs.exec_allows_no_decreases_clause
-        || f.params.len() != 2
+        || !(2..=3).contains(&f.params.len())
     {
         return Err(invalid());
     }
@@ -142,24 +149,47 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
     if !invs.is_empty() || !decrease.is_empty() || label.name.is_some() {
         return Err(invalid());
     }
-    let ExprX::Binary(BinaryOp::Inequality(InequalityOp::Lt), i, n) = &cond.x else {
-        return Err(invalid());
+    let (counter, bound_expr, countdown) = match &cond.x {
+        ExprX::Binary(BinaryOp::Inequality(InequalityOp::Lt), i, n)
+            if crate::ast_util::types_equal(&i.typ, &typ) =>
+        {
+            (read(i).ok_or_else(invalid)?, Some(n), false)
+        }
+        ExprX::Binary(BinaryOp::Inequality(InequalityOp::Gt), i, zero)
+            if constant(zero, 0)
+                && crate::ast_util::types_equal(&zero.typ, &typ)
+                && crate::ast_util::types_equal(&i.typ, &typ) =>
+        {
+            (read(i).ok_or_else(invalid)?, None, true)
+        }
+        _ => return Err(invalid()),
     };
-    if !matches!(&*cond.typ, TypX::Bool)
-        || !crate::ast_util::types_equal(&i.typ, &typ)
-        || !crate::ast_util::types_equal(&n.typ, &typ)
-    {
+    if !matches!(&*cond.typ, TypX::Bool) {
         return Err(invalid());
     }
-    let counter = read(i).ok_or_else(invalid)?;
-    let bound = f.params.iter().find(|p| Some(&p.x.name) == read(n)).ok_or_else(invalid)?.clone();
-    let ((accumulator, init), (counter, zero)) = if &second.0 == counter {
+    let ((accumulator, init), (counter, counter_init)) = if &second.0 == counter {
         (first, second)
     } else if &first.0 == counter {
         (second, first)
     } else {
         return Err(invalid());
     };
+    let bound = if countdown {
+        f.params.iter().find(|p| Some(&p.x.name) == local(&counter_init))
+    } else {
+        if !matches!(&counter_init.x,PlaceX::Temporary(e) if constant(e,0)
+            && crate::ast_util::types_equal(&e.typ,&typ))
+        {
+            return Err(invalid());
+        }
+        let n = bound_expr.unwrap();
+        if !crate::ast_util::types_equal(&n.typ, &typ) {
+            return Err(invalid());
+        }
+        f.params.iter().find(|p| Some(&p.x.name) == read(n))
+    }
+    .ok_or_else(invalid)?
+    .clone();
     let initial =
         f.params.iter().find(|p| Some(&p.x.name) == local(&init)).ok_or_else(invalid)?.clone();
     if initial.x.name == bound.x.name
@@ -167,15 +197,43 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
         || f.params.iter().any(|p| p.x.name == accumulator || p.x.name == counter)
         || read(tail) != Some(&accumulator)
         || !crate::ast_util::types_equal(&tail.typ, &typ)
-        || !matches!(&zero.x, PlaceX::Temporary(e) if constant(e, 0) && crate::ast_util::types_equal(&e.typ, &typ))
     {
         return Err(invalid());
     }
     let ExprX::Block(updates, None) = &loop_body.x else { return Err(invalid()) };
-    if updates.len() != 2
-        || !increment(&updates[0], &accumulator, &typ, *range)
-        || !increment(&updates[1], &counter, &typ, *range)
-    {
+    if updates.len() != 2 {
+        return Err(invalid());
+    }
+    let (subtract, operand) =
+        update(&updates[0], &accumulator, &typ, *range).ok_or_else(invalid)?;
+    let (counter_sub, counter_step) =
+        update(&updates[1], &counter, &typ, *range).ok_or_else(invalid)?;
+    if counter_sub != countdown || !constant(&counter_step, 1) {
+        return Err(invalid());
+    }
+    let mut used = std::collections::HashSet::from([initial.x.name.clone(), bound.x.name.clone()]);
+    let (step, nonlinear) =
+        if let Some(param) = f.params.iter().find(|p| Some(&p.x.name) == read(&operand)) {
+            used.insert(param.x.name.clone());
+            (
+                Term {
+                    expr: SpannedTyped::new(&operand.span, &typ, ExprX::Var(param.x.name.clone())),
+                    size: 1,
+                },
+                true,
+            )
+        } else if let ExprX::Const(Constant::Int(n)) = &operand.x {
+            if n < &BigInt::from(0) || n.bits() > 128 {
+                return Err(invalid());
+            }
+            (term(&operand.span, &int_typ(), ExprX::Const(Constant::Int(n.clone())), 1)?, false)
+        } else if *range == IntRange::USize {
+            let Some(value) = arithmetic::arch_constant(&operand) else { return Err(invalid()) };
+            (value, true)
+        } else {
+            return Err(invalid());
+        };
+    if used.len() != f.params.len() {
         return Err(invalid());
     }
     Ok(Some(CountedLoop {
@@ -185,6 +243,10 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
         counter,
         typ: typ.clone(),
         range: *range,
+        step,
+        subtract,
+        countdown,
+        nonlinear,
         isolation: *loop_isolation,
     }))
 }
@@ -193,21 +255,56 @@ impl CountedLoop {
     fn variable(&self, span: &Span, name: &VarIdent) -> Term {
         Term { expr: SpannedTyped::new(span, &self.typ, ExprX::Var(name.clone())), size: 1 }
     }
+    fn product(&self, span: &Span, count: Term) -> Result<Term, VirErr> {
+        if matches!(&self.step.expr.x,ExprX::Const(Constant::Int(n)) if n==&BigInt::from(1)) {
+            return Ok(count);
+        }
+        if matches!(&self.step.expr.x,ExprX::Const(Constant::Int(n)) if n==&BigInt::from(0)) {
+            return Ok(self.step.clone());
+        }
+        summary::binary(
+            span,
+            BinaryOp::Arith(ArithOp::Mul(OverflowBehavior::Allow)),
+            count,
+            self.step.clone(),
+        )
+    }
+    fn result(&self, span: &Span, amount: Term) -> Result<Term, VirErr> {
+        summary::binary(
+            span,
+            BinaryOp::Arith(if self.subtract {
+                ArithOp::Sub(OverflowBehavior::Allow)
+            } else {
+                ArithOp::Add(OverflowBehavior::Allow)
+            }),
+            self.variable(span, &self.initial.x.name),
+            amount,
+        )
+    }
     pub(super) fn contract(&self, f: &Function) -> Result<Contract, VirErr> {
         let span = &f.span;
-        let sum = summary::binary(
-            span,
-            BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Allow)),
-            self.variable(span, &self.initial.x.name),
-            self.variable(span, &self.bound.x.name),
-        )?;
-        let max = arithmetic::maximum(span, self.range)?;
-        let pre = summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), sum.clone(), max)?;
+        let amount = self.product(span, self.variable(span, &self.bound.x.name))?;
+        let result = self.result(span, amount.clone())?;
+        let pre = if self.subtract {
+            summary::binary(
+                span,
+                BinaryOp::Inequality(InequalityOp::Le),
+                amount,
+                self.variable(span, &self.initial.x.name),
+            )?
+        } else {
+            summary::binary(
+                span,
+                BinaryOp::Inequality(InequalityOp::Le),
+                result.clone(),
+                arithmetic::maximum(span, self.range)?,
+            )?
+        };
         let post = summary::binary(
             span,
             BinaryOp::Eq(Mode::Spec),
             self.variable(span, &f.x.inner_ret.x.name),
-            sum,
+            result,
         )?;
         Contract::new(pre.expr, post.expr)
     }
@@ -216,20 +313,20 @@ impl CountedLoop {
         let n = self.variable(span, &self.bound.x.name);
         let upper =
             summary::binary(span, BinaryOp::Inequality(InequalityOp::Le), i.clone(), n.clone())?;
-        let sum = summary::binary(
+        let difference = summary::binary(
             span,
-            BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Allow)),
-            self.variable(span, &self.initial.x.name),
+            BinaryOp::Arith(ArithOp::Sub(OverflowBehavior::Allow)),
+            n,
             i.clone(),
         )?;
+        let (done, measure) = if self.countdown { (difference, i) } else { (i, difference) };
+        let result = self.result(span, self.product(span, done)?)?;
         let relation = summary::binary(
             span,
             BinaryOp::Eq(Mode::Spec),
             self.variable(span, &self.accumulator),
-            sum,
+            result,
         )?;
-        let measure =
-            summary::binary(span, BinaryOp::Arith(ArithOp::Sub(OverflowBehavior::Allow)), n, i)?;
         Ok((
             Arc::new(
                 vec![upper, relation]
@@ -294,8 +391,12 @@ fn validate_decoration(
             "Verus Infer: loop proof decoration changed executable code or contains invalid annotations",
         )
     };
-    let variables = [&plan.initial.x.name, &plan.bound.x.name, &plan.counter, &plan.accumulator]
-        .into_iter()
+    let variables = original
+        .x
+        .params
+        .iter()
+        .map(|p| &p.x.name)
+        .chain([&plan.counter, &plan.accumulator])
         .map(|v| (v.clone(), plan.variable(&original.span, v)))
         .collect();
     let projected = crate::ast_visitor::map_expr_visitor(annotated, &|e| {

@@ -71,3 +71,13 @@ pub fn checked_wrapping_offset(value: isize, delta: isize) -> Option<isize> {
 pub fn capped_offset(value: isize, multiplier: isize) -> isize {
     infer_base::capped_offset(value, multiplier)
 }
+
+#[verus_infer]
+pub fn credited_twice(x: u64, n: u64, step: u64) -> u64 {
+    infer_base::counted_credit(infer_base::counted_credit(x, n, step), n, step)
+}
+
+#[verus_infer]
+pub fn debited(x: u64, n: u64, step: u64) -> u64 {
+    infer_base::counted_debit(x, n, step)
+}

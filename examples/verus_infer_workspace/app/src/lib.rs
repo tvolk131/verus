@@ -128,3 +128,15 @@ verus! {
         assert(result == None);
     }
 }
+
+verus! {
+    pub fn counted_credit_property(x: u64, n: u64, step: u64) -> (result: u64)
+        requires x as int + 2 * (n as int * step as int) <= u64::MAX,
+        ensures result as int == x as int + 2 * (n as int * step as int),
+    { infer_middle::credited_twice(x, n, step) }
+
+    pub fn counted_debit_property(x: u64, n: u64, step: u64) -> (result: u64)
+        requires n as int * step as int <= x as int,
+        ensures result as int == x as int - n as int * step as int,
+    { infer_middle::debited(x, n, step) }
+}

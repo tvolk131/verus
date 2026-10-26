@@ -233,8 +233,8 @@ actual typed formulas and provenance, including source spans; they are not stabl
 semantic hashes for comparing cold and warm runs.
 
 Counted-loop functions also report `loop_proofs`: the installed invariant
-predicates, decreasing measure, and loop-isolation proof setting. These are
-proposed proof annotations. Successful ordinary soundness establishes invariant
+predicates, decreasing measure, loop-isolation setting, and arithmetic prover.
+These are proposed proof annotations and settings. Successful ordinary soundness establishes invariant
 and termination obligations under the reported precondition; the separate
 precision queries retain their own checks. The report does not mint an additional
 termination receipt or treat an unchecked annotation as a theorem.
@@ -545,61 +545,70 @@ lookup and charge through exported interfaces.
 
 ## Counted numeric loops
 
-Exact mode supports this first closed loop pattern over two immutable unsigned
-inputs of the same type (`usize`, `u8`, `u16`, `u32`, `u64`, or `u128`):
+Exact mode supports unsigned accumulator loops over two or three immutable
+same-width inputs (`usize`, `u8`, `u16`, `u32`, `u64`, or `u128`):
 
 ```rust
 #[verus_infer]
-fn add_n(x: u8, n: u8) -> u8 {
+fn subtract_steps(x: u64, n: u64, step: u64) -> u64 {
     let mut result = x;
-    let mut i = 0u8;
-    while i < n {
-        result += 1;
-        i += 1;
+    let mut remaining = n;
+    while remaining > 0 {
+        result -= step;
+        remaining -= 1;
     }
     result
 }
 ```
 
-The inferred mathematical predicates are `requires x + n <= 255` and
-`ensures result == x + n`. Zero iterations admit `x == 255`; positive counts
-retain the actual accumulator-overflow restriction. Runtime counts remain
-symbolic, with no unrolling or small-count cap. The verifier proves induction
-and termination even for types whose full range is impractical to execute.
+This infers mathematical `requires n * step <= x` and
+`ensures result == x - n * step`. Addition infers
+`requires x + n * step <= MAX` and `ensures result == x + n * step`.
+The product is unbounded mathematical arithmetic. Zero steps/counts admit the
+full input range; there is no small-count cap or incomplete unrolling.
 
-Local names and input order may differ. The two local declarations may be
-reversed. Unit increments can use `+= 1` or `v = v + 1`. The accumulator update
-must precede the counter update, the guard must be `counter < bound`, and the
-tail expression must return the accumulator. The recognizer checks the entire
-typed body and rejects extra statements, other steps/guards, signed counters,
-nested loops, user breaks/continues, handwritten loop annotations, and general
-local/state mutation. Loop inference currently requires exact mode.
-`assume_termination` and `exec_allows_no_decreases_clause` settings are rejected
-for this pattern. Loop-free inferred wrappers can compose its exact summary.
+The counter may instead start at zero and use `while i < n` with `i += 1`.
+Either counter direction supports accumulator addition or subtraction. The step
+may be an unsigned literal or immutable same-width input (including `x` or `n`);
+`usize::MAX` is supported symbolically. Unit steps retain simpler `x + n` /
+`x - n` contracts. All parameters must be used. Local names and parameter order
+may differ, and the two declarations may be reversed. Updates may use `+=`/`-=`
+or `v = v + operand` / `v = v - operand`. The accumulator update must precede the
+unit counter update; the tail expression returns the accumulator.
 
-The proposed prefix invariants are `i <= n` and `result == x + i`, over
-mathematical integers. The decreasing measure is `n - i`. Loop isolation is
-disabled so ordinary soundness can use its input precondition without including
-that precondition in the invariant set. Ordinary Verus checks invariant entry
-and preservation, both additions, decreasing-measure obligations, and the result
-relation. Maximality removes the candidate precondition, retains independent
-prefix-invariant and termination checks, and uses successful execution to
-establish `i == n` and hence the safe input domain. Exactness retains the
-arbitrary-output query. All three required outcomes still gate use and export.
+The whole typed body is checked. Other guards/counter steps, extra statements,
+dynamic step expressions, signed loops, nested/multiple loops, breaks/continues,
+handwritten loop annotations, and general mutation remain unsupported. Loop
+inference requires exact mode. `assume_termination` and
+`exec_allows_no_decreases_clause` settings are rejected. Loop-free inferred
+wrappers can compose the exact summaries.
 
-The installer adds proof annotations only. A production projection check removes
-exactly the generated invariants, measure, and isolation setting and compares
-every remaining serialized typed-body field with the source. Annotation terms
-must also belong to the restricted, pure summary language. Candidate identities
-cover both the source and installed proof annotations. Cache hits recheck source
-eligibility and regenerate these annotations; cache entries store no bodies,
-annotations, or proof results. No loop axioms or trusted helper contracts were
-introduced. See the repository's `VERUS_INFER_LOOPS.md` for the proof design and
-fault-injection strategy.
+The prefix invariants are `counter <= n` and
+`result == x ± completed * step`. For ascending counters, `completed = counter`
+and the measure is `n - counter`; for countdown counters, `completed = n - counter`
+and the measure is `counter`. Loop isolation is disabled so ordinary soundness
+can use its precondition without including that predicate in the invariants.
+Verus checks invariant entry/preservation, arithmetic safety, termination, and
+the result relation. Parameter products and symbolic platform constants select
+Verus's existing nonlinear prover. Literal-step loops do not require it.
+Neither selection adds an assumption or trusted helper specification.
 
-`examples/verus_infer_loops.rs` verifies a caller property, composes two counted
-calls, and runs zero-count and overflow-boundary cases. The Cargo workspace
-also composes a counted loop across three crates.
+Maximality removes the candidate precondition and checks the prefix invariants
+and termination independently. At a successful exit, type bounds establish the
+safe domain. Exactness retains the arbitrary-output query. All three required
+outcomes gate dependent callers and export.
+
+A production projection check removes exactly the generated invariants, measure,
+and isolation setting and compares every remaining serialized typed-body field
+with source. Annotation terms must belong to the restricted pure summary
+language. Candidate identities bind source, installed annotations, actual
+contract, and nonlinear-prover setting. Cache hits recheck eligibility and
+regenerate proof settings; caches contain no bodies, annotations, or outcomes.
+See `VERUS_INFER_LOOPS.md` for the design and fault-injection strategy.
+
+`examples/verus_infer_loops.rs` demonstrates all four parameter-step families,
+constant/zero steps, composition, and runtime boundary cases. The Cargo workspace
+composes stepped addition and countdown subtraction across three crates.
 
 ## Bitwise operations and explicit arithmetic policies
 
@@ -760,7 +769,8 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-Platform-sized exact/interval inference uses metadata schema 11 and candidate-cache version 16.
+The current inference policy uses metadata schema 12 and candidate-cache version 17.
+Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved
 for a fixed width constrains its consumers to that width; incompatible fixed

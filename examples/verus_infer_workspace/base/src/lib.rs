@@ -79,3 +79,19 @@ pub fn wrapping_offset(value: isize, delta: isize) -> isize { value.wrapping_add
 pub fn capped_offset(value: isize, multiplier: isize) -> isize {
     value.saturating_mul(multiplier)
 }
+
+#[verus_infer]
+pub fn counted_credit(x: u64, n: u64, step: u64) -> u64 {
+    let mut result = x;
+    let mut i = 0u64;
+    while i < n { result += step; i += 1; }
+    result
+}
+
+#[verus_infer]
+pub fn counted_debit(x: u64, n: u64, step: u64) -> u64 {
+    let mut result = x;
+    let mut remaining = n;
+    while remaining > 0 { result -= step; remaining -= 1; }
+    result
+}

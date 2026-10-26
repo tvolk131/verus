@@ -88,10 +88,12 @@ Implemented and covered by regression tests:
   Bounds and casts preserve the symbolic 32/64-bit model. Cache identities and
   exported contract fingerprints bind the merged architecture; ordinary Verus
   rejects incompatible imported widths.
-- [x] First exact counted-loop pattern for same-type unsigned inputs: generated
-  prefix invariants, checked termination, maximality without assuming the
-  candidate precondition, and exact output. Proof-only decoration preserves
-  executable code through a production projection check. See the
+- [x] Exact unsigned counted-loop families: constant/immutable parameter steps,
+  accumulator addition/subtraction, and ascending/countdown unit counters, for
+  `u8` through `u128` and `usize`. Generated prefix invariants and termination
+  measures, independent safe-domain maximality, and arbitrary-output exactness
+  are checked by Verus. Proof-only decoration preserves executable code through
+  a production projection check. See the
   [loop proof design](VERUS_INFER_LOOPS.md).
 - [x] Exact `isize` arithmetic, division/remainder edge checks, casts, flat enum
   payloads and arrays/slices, plus all seven existing checked methods for both
@@ -105,7 +107,7 @@ Implemented and covered by regression tests:
   remain conservative. Typed summaries, caches, imports, and model fingerprints
   preserve the existing independent proof requirements. The assurance document
   audits 36 added trusted numeric specifications.
-- [x] Reproducible 34-case evaluation baseline, including expected failures,
+- [x] Reproducible 36-case evaluation baseline, including expected failures,
   cold/warm reproving, incremental dependency invalidation, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
@@ -129,7 +131,7 @@ Still planned or outside the implemented subset:
 - [ ] Broader array syntax, array/slice-valued interfaces, subslices, and richer
   slice element types; shared scalar slice reads and length properties are implemented.
 - [ ] General mutation, state relations, and frame-condition inference beyond
-  the two locals in the recognized counted-loop pattern.
+  the two locals in recognized counted-loop families.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
@@ -152,7 +154,7 @@ Still planned or outside the implemented subset:
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs; automatic demand-driven strengthening remains future work. |
 | Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, immutable arrays, and shared scalar slices are implemented. Broader collections and frame conditions remain. |
-| Phase 4: loop inference | First exact unsigned counted accumulator pattern implemented with checked invariants and termination; broader loops remain. |
+| Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
 
 The prototype retains Verus's existing trusted-library and standard-model
@@ -169,8 +171,8 @@ transformations remains separately scoped work.
 
 The implementation checklist above records completed work and the full backlog.
 The current checkpoint includes exact and sound platform-sized integers, checked
-platform methods, counted `usize` loops, architecture-bound caches/imports, and
-updated examples. The guide is the source of supported syntax; the original
+platform methods, unsigned stepped/countdown loops, architecture-bound
+caches/imports, and updated examples. The guide is the source of supported syntax; the original
 phases later in this RFC retain their proposed design, including unimplemented
 APIs and research directions.
 
@@ -180,13 +182,14 @@ APIs and research directions.
    model validator. The guide records their policies and conservative sound-mode
    transfers. The assurance audit records added standard specifications. Broader
    numeric methods remain in the checklist above.
-2. **Broader counted-loop families.** Extend the proof design to constant or
-   immutable accumulator steps, subtraction, and countdown counters. Signed
-   accumulators/counters and collection traversal need explicit additional
-   designs. Each supported pattern must preserve checked termination, invariant
-   induction, safe-domain maximality without assuming the candidate predicate,
-   and output exactness. See [the current loop design](VERUS_INFER_LOOPS.md).
-3. **Rust ergonomics and collections.** Prioritize `let-else`, richer flat
+2. **Unsigned counted-loop batch implemented.** Constant/immutable parameter
+   steps, addition/subtraction, and ascending/countdown counters share checked
+   prefix invariants, termination, independent maximality, and output exactness.
+   Parameter products use the existing nonlinear prover with candidate-bound
+   proof settings. Signed accumulators/counters, arbitrary counter steps,
+   multiple/nested loops, and slice traversal/search remain separate designs.
+   See [the loop design](VERUS_INFER_LOOPS.md).
+3. **Next: Rust ergonomics and collections.** Prioritize `let-else`, richer flat
    patterns, converting `Result` errors, array-valued interfaces, and subslices
    as separate bounded extensions. Nested/user-defined enums, mutation, frame
    conditions, and generic specialization remain larger projects.

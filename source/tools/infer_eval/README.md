@@ -13,10 +13,11 @@ persistent temporary directory and prints its location. `--case signed` selects
 one case; repeat the option to select several. `--timeout` bounds each compiler
 process and defaults to 180 seconds. No packages or network access are needed.
 
-The manifest contains 34 curated cases: eighteen positive examples and sixteen
+The manifest contains 36 curated cases: eighteen positive examples and eighteen
 expected failures. They exercise unsigned and signed arithmetic, casts, arrays,
 checked arithmetic, `Option`/`Result`, early returns and `?`, exact and sound
-composition, shared dynamic slices, counted-loop invariants/termination, symbolic `usize`
+composition, shared dynamic slices, counted-loop invariants/termination, constant/parameter steps, subtraction and
+countdown counters, symbolic `usize`
 bounds, bitwise/shifts, wrapping/saturation, mixed-sign checks and negation,
 `isize` arithmetic and checked methods, architecture-specific interval
 summaries, 32/64-bit casts, caller

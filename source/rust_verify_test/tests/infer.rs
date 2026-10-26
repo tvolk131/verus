@@ -3492,11 +3492,12 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] counted_loops_non_unit_update_is_unsupported code! {
+    #[test] counted_loops_constant_step_is_supported code! {
         #[verus_infer] fn add(x:u8,n:u8)->u8 {
             let mut r=x;let mut i=0u8;while i<n {r+=2;i+=1;}r
         }
-    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+        verus!{fn caller(){let r=add(1,127);assert(r==255);}}
+    } => Ok(())
 }
 
 test_verify_one_file! {
@@ -4328,5 +4329,197 @@ fn integer_operations_malformed_cached_bit_widths_are_rejected_before_reproof() 
         for proof in ["soundness", "maximality", "exactness"] {
             assert_eq!(f["proofs"][proof]["status"], "proved");
         }
+    }
+}
+// Generate source separately from the recognizer and inspect every required proof.
+#[test]
+fn counted_step_families_all_unsigned_widths_and_pointer_models() {
+    for bytes in [4, 8] {
+        let crates = InferCrates::new();
+        let mut body = format!("use vstd::prelude::*; global size_of usize == {bytes};");
+        let mut calls = String::from("fn caller(){");
+        for typ in ["u8", "u16", "u32", "u64", "u128", "usize"] {
+            for subtract in [false, true] {
+                for countdown in [false, true] {
+                    for param in [false, true] {
+                        let name = format!("f_{typ}_{subtract}_{countdown}_{param}");
+                        let third = if param { format!(",step:{typ}") } else { String::new() };
+                        let step = if param { "step" } else { "2" };
+                        let op = if subtract { "-" } else { "+" };
+                        let init = if countdown { "n".into() } else { format!("0{typ}") };
+                        let guard = if countdown { "i>0" } else { "i<n" };
+                        let update = if countdown { "i=i-1" } else { "i+=1" };
+                        body.push_str(&format!("#[verifier::infer] pub fn {name}(x:{typ},n:{typ}{third})->{typ}{{let mut r=x;let mut i={init};while {guard}{{r=r{op}{step};{update};}}r}}"));
+                        let third_arg = if param { ",2" } else { "" };
+                        let (x, n, result) =
+                            if subtract { ("254", "127", "0") } else { ("1", "127", "255") };
+                        calls.push_str(&format!("let r={name}({x},{n}{third_arg});assert(r=={result});let r={name}({typ}::MAX,0{third_arg});assert(r=={typ}::MAX);"));
+                        if param {
+                            calls.push_str(&format!("let r={name}({typ}::MAX,{typ}::MAX,0);assert(r=={typ}::MAX);let r={name}({typ}::MAX,0,{typ}::MAX);assert(r=={typ}::MAX);"));
+                            let start = if subtract { format!("{typ}::MAX") } else { "0".into() };
+                            let result = if subtract { "0".into() } else { format!("{typ}::MAX") };
+                            calls.push_str(&format!(
+                                "let r={name}({start},1,{typ}::MAX);assert(r=={result});"
+                            ));
+                        }
+                    }
+                }
+            }
+        }
+        body.push_str(&calls);
+        body.push('}');
+        // A symbolic platform constant and aliased step parameters have no host-width specialization.
+        body.push_str("#[verifier::infer] fn platform_constant(x:usize,n:usize)->usize{let mut r=x;let mut i=n;while i>0{r+=usize::MAX;i-=1;}r}");
+        body.push_str("#[verifier::infer] fn alias_initial(x:u8,n:u8)->u8{let mut r=x;let mut i=0u8;while i<n{r+=x;i+=1;}r}");
+        body.push_str("#[verifier::infer] fn alias_bound(x:u8,n:u8)->u8{let mut r=x;let mut i=n;while i>0{r-=n;i-=1;}r}");
+        let run =
+            crates.verify("family_matrix", &body, &[], &["--output-json", "--num-threads", "4"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 51);
+        for f in report["functions"].as_array().unwrap() {
+            assert_eq!(f["loop_proofs"].as_array().unwrap().len(), 1);
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][proof]["status"], "proved", "{f}");
+            }
+        }
+    }
+}
+
+const COUNTED_FAMILY_BASE: &str = r#"
+    #[verifier::infer] pub fn up_add(x:u8,n:u8,s:u8)->u8{let mut r=x;let mut i=0u8;while i<n{r+=s;i+=1;}r}
+    #[verifier::infer] pub fn up_sub(x:u8,n:u8,s:u8)->u8{let mut r=x;let mut i=0u8;while i<n{r-=s;i+=1;}r}
+    #[verifier::infer] pub fn down_add(x:u8,n:u8,s:u8)->u8{let mut i=n;let mut r=x;while i>0{r=r+s;i=i-1;}r}
+    #[verifier::infer] pub fn down_sub(x:u8,n:u8,s:u8)->u8{let mut i=n;let mut r=x;while i>0{r=r-s;i=i-1;}r}
+    #[verifier::infer] pub fn platform_debit(x:usize,n:usize,s:usize)->usize{let mut r=x;let mut i=n;while i>0{r-=s;i-=1;}r}
+"#;
+
+#[test]
+fn counted_step_families_cache_and_three_crate_composition() {
+    let crates = InferCrates::new();
+    for cache in ["miss", "hit"] {
+        let run = crates.build("family_base", COUNTED_FAMILY_BASE, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for f in json_inference(&run)["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+            assert_eq!(f["loop_proofs"][0]["arithmetic_prover"], "nonlinear");
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][proof]["status"], "proved");
+            }
+        }
+    }
+    crates.succeeds("family_middle", r#"
+        #[verifier::infer] pub fn twice(x:u8,n:u8,s:u8)->u8{family_base::up_add(family_base::down_add(x,n,s),n,s)}
+        #[verifier::infer] pub fn debit(x:u8,n:u8,s:u8)->u8{family_base::down_sub(family_base::up_sub(x,n,s),n,s)}
+        #[verifier::infer] pub fn platform(x:usize,n:usize,s:usize)->usize{family_base::platform_debit(x,n,s)}
+    "#, &["family_base"]);
+    crates.succeeds("family_app", r#"
+        #[verifier::infer] pub fn top(x:u8,n:u8,s:u8)->u8{family_middle::twice(x,n,s)}
+        fn caller(){let r=top(3,63,2);assert(r==255);let r=family_middle::debit(252,63,2);assert(r==0);}
+    "#, &["family_base", "family_middle"]);
+    for bytes in [4, 8] {
+        let body = format!(
+            r#"use vstd::prelude::*;global size_of usize == {bytes};
+            #[verifier::infer] pub fn top(x:usize,n:usize,s:usize)->usize{{family_middle::platform(x,n,s)}}
+            fn caller(){{let r=top(usize::MAX,1,usize::MAX);assert(r==0);let r=top(usize::MAX,usize::MAX,0);assert(r==usize::MAX);}}
+        "#
+        );
+        let run =
+            crates.verify("family_platform_app", &body, &["family_base", "family_middle"], &[]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    }
+}
+
+#[test]
+fn counted_step_families_poisoned_candidates_and_incomplete_proofs_never_publish() {
+    for kind in ["restrictive", "permissive", "wrong_output", "weak_output"] {
+        let crates = InferCrates::new();
+        let body = "#[verifier::infer] pub fn op(x:u8,n:u8,s:u8)->u8{let mut r=x;let mut i=n;while i>0{r-=s;i-=1;}r}fn caller(){let _=op(0,0,0);}";
+        assert!(crates.build("family_poison", body, &[], &["--output-json"]).status.success());
+        for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+            let path = file.unwrap().path();
+            let mut c: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            match kind {
+                "restrictive" => c["pre"] = serde_json::json!({"Bool":false}),
+                "permissive" => c["pre"] = serde_json::json!({"Bool":true}),
+                "weak_output" => c["post"] = serde_json::json!({"Bool":true}),
+                _ => {
+                    c["post"]["Binary"][2] =
+                        serde_json::to_value(vir::ast::Constant::Int(0.into())).unwrap()
+                }
+            }
+            std::fs::write(path, serde_json::to_vec(&c).unwrap()).unwrap();
+        }
+        let run = crates.build("family_poison", body, &[], &["--output-json"]);
+        if kind == "weak_output" {
+            // Cache recipes require result equality. A malformed relation is
+            // discarded, then source inference and all proofs run afresh.
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+            let report = json_inference(&run);
+            assert_eq!(report["functions"][0]["metrics"]["cache"], "miss");
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(report["functions"][0]["proofs"][proof]["status"], "proved");
+            }
+            continue;
+        }
+        assert!(!run.status.success(), "{kind}: {}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], "hit");
+        assert_eq!(f["available_to_same_crate_callers"], false);
+        assert_eq!(f["exported"], false);
+        let failed = match kind {
+            "restrictive" => "maximality",
+            "weak_output" => "exactness",
+            _ => "soundness",
+        };
+        assert_eq!(f["proofs"][failed]["status"], "not_proved", "{f}");
+        assert!(!crates.vir("family_poison").exists());
+    }
+    let crates = InferCrates::new();
+    let body = "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer] pub fn op(x:u8,n:u8,s:u8)->u8{let mut r=x;let mut i=n;while i>0{r+=s;i-=1;}r}fn caller(){assert(false);}";
+    let run = crates.build("family_timeout", body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    assert_eq!(report["status"], "required_proof_incomplete");
+    assert_eq!(report["functions"][0]["proofs"]["soundness"]["status"], "proved");
+    assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    assert!(!crates.vir("family_timeout").exists());
+}
+
+#[test]
+fn counted_step_families_reject_unsafe_calls_and_unsupported_source_shapes() {
+    let crates = InferCrates::new();
+    for (function, call) in [
+        ("up_add", "255,1,1"),
+        ("down_add", "1,255,2"),
+        ("up_sub", "0,1,1"),
+        ("down_sub", "254,128,2"),
+    ] {
+        let body = format!("{COUNTED_FAMILY_BASE} fn caller(){{let _={function}({call});}}");
+        let run = crates.verify("family_unsafe", &body, &[], &[]);
+        assert!(!run.status.success(), "{}", function);
+        assert!(String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"));
+    }
+    for source in [
+        "let mut r=x;let mut i=n;while i>0{r+=s;i+=1;}r",
+        "let mut r=x;let mut i=0u8;while i<n{r+=s;i-=1;}r",
+        "let mut r=x;let mut i=n;while i>0{r+=s;i-=2;}r",
+        "let mut r=x;let mut i=n;while i>0{r+=i;i-=1;}r",
+        "let mut r=x;let mut i=n;while i>0{r+=r;i-=1;}r",
+        "let mut r=x;let mut i=n;while i>0{r+=s+1;i-=1;}r",
+        "let mut r=x;let mut i=n;while i>0{r=r.wrapping_add(s);i-=1;}r",
+        "let mut r=x;let mut i=n;while i>=1{r+=s;i-=1;}r",
+        "let mut r=x;let mut i=n;while i>0{r+=s;s-=1;i-=1;}r",
+    ] {
+        let mutable = if source.contains("s-=1") { "mut " } else { "" };
+        let run = crates.verify(
+            "family_shape",
+            &format!("#[verifier::infer] fn op(x:u8,n:u8,{mutable}s:u8)->u8{{{source}}}"),
+            &[],
+            &[],
+        );
+        assert!(!run.status.success(), "{}", source);
     }
 }

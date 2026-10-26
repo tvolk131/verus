@@ -17,7 +17,7 @@
     {"name": "usize_32", "source": "usize_32_cast.rs", "verifier_args": ["--no-erasure-check"], "features": ["usize", "32_bit_casts"], "expected_status": "verified"},
     {"name": "usize_64", "source": "usize_64_cast.rs", "verifier_args": ["--no-erasure-check"], "features": ["usize", "64_bit_casts"], "expected_status": "verified"},
     {"name": "usize_unsafe_caller", "source": "usize_unsafe_caller.rs", "features": ["usize", "precondition_enforcement"], "expected_status": "caller_proof_failed"},
-    {"name": "counted_loops", "source": "../../../examples/verus_infer_loops.rs", "features": ["counted_loops", "termination", "composition", "caller_properties"], "expected_status": "verified", "expected_loop_functions": 2},
+    {"name": "counted_loops", "source": "../../../examples/verus_infer_loops.rs", "features": ["counted_loops", "termination", "composition", "caller_properties", "constant_steps", "parameter_steps", "subtraction", "countdown"], "expected_status": "verified", "expected_loop_functions": 8},
     {"name": "loop_unsafe_caller", "source": "loop_unsafe_caller.rs", "features": ["counted_loops", "precondition_enforcement"], "expected_status": "caller_proof_failed", "expected_loop_functions": 1},
     {"name": "loop_precision_timeout", "source": "loop_precision_timeout.rs", "features": ["counted_loops", "required_precision_timeout"], "expected_status": "required_proof_incomplete", "expected_loop_functions": 1},
     {"name": "unsupported_loop_update", "source": "unsupported_loop_update.rs", "features": ["unsupported_loops"], "expected_status": "unsupported"},
@@ -34,6 +34,8 @@
     {"name": "analysis_budget", "source": "analysis_budget.rs", "features": ["formula_budget"], "expected_status": "analysis_incomplete"},
     {"name": "precision_timeout", "source": "precision_timeout.rs", "features": ["required_precision_timeout"], "expected_status": "required_proof_incomplete"},
     {"name": "soundness_timeout", "source": "soundness_timeout.rs", "features": ["required_soundness_timeout"], "expected_status": "required_proof_incomplete"},
-    {"name": "syntax_error", "source": "syntax_error.rs", "features": ["frontend_failure"], "expected_status": "verification_failed"}
+    {"name": "syntax_error", "source": "syntax_error.rs", "features": ["frontend_failure"], "expected_status": "verification_failed"},
+    {"name": "loop_step_unsafe_caller", "source": "loop_step_unsafe_caller.rs", "features": ["counted_loops", "parameter_steps", "countdown", "precondition_enforcement"], "expected_status": "caller_proof_failed", "expected_loop_functions": 1},
+    {"name": "loop_step_precision_timeout", "source": "loop_step_precision_timeout.rs", "features": ["counted_loops", "parameter_steps", "required_precision_timeout"], "expected_status": "required_proof_incomplete", "expected_loop_functions": 1}
   ]
 }

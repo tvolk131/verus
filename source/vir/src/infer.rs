@@ -900,6 +900,7 @@ pub fn format_loop_proofs(function: &Function) -> Vec<serde_json::Value> {
                     "invariants": invs.iter().map(|i| format_expr(&i.inv)).collect::<Vec<_>>(),
                     "decreases": decrease.iter().map(format_expr).collect::<Vec<_>>(),
                     "loop_isolation": loop_isolation,
+                    "arithmetic_prover": if function.x.attrs.nonlinear { "nonlinear" } else { "default" },
                     "checked_by": "ordinary soundness, including termination; independent precision queries",
                 }));
             }

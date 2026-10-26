@@ -109,7 +109,8 @@ def precision_tests(directory, env):
         ("executable projection check omitted", "if encode(&projected)? != encode(original.x.body.as_ref().unwrap())? {", "if false {"),
         ("termination assumption admitted", "|| f.attrs.exec_assume_termination", "|| false"),
         ("termination suppression admitted", "|| f.attrs.exec_allows_no_decreases_clause", "|| false"),
-        ("non-unit update admitted", "constant(rhs, 1)", "true"),
+        ("non-unit counter update admitted", "constant(&counter_step, 1)", "true"),
+        ("wrong counter direction admitted", "counter_sub != countdown ||", "false ||"),
     ]
     for name, contents in [("baseline", source)] + [
         (name, change(source, before, after)) for name, before, after in mutations
