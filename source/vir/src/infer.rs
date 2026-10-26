@@ -21,7 +21,10 @@ mod exits;
 mod models;
 mod propagation;
 mod registry;
+mod report;
 mod summary;
+
+pub use report::{GeneratedCandidate, GenerationReport};
 
 use contract::Contract;
 use eligibility::{scalar, validate_body, validate_signature};
@@ -647,10 +650,32 @@ pub fn infer_functions(
     imported: &[Function],
     configuration: &str,
 ) -> Result<Vec<Function>, VirErr> {
+    infer_functions_with_report(
+        functions,
+        imported,
+        configuration,
+        &mut GenerationReport::default(),
+    )
+}
+
+pub fn infer_functions_with_report(
+    functions: &[Function],
+    imported: &[Function],
+    configuration: &str,
+    report: &mut GenerationReport,
+) -> Result<Vec<Function>, VirErr> {
+    *report = GenerationReport::default();
+    report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
     if !functions.iter().any(|f| f.x.attrs.infer) {
         return Ok(functions.to_vec());
     }
-    registry::Registry::from_environment(configuration).infer_with_imports(functions, imported)
+    let start = std::time::Instant::now();
+    let mut registry = registry::Registry::from_environment(configuration);
+    let result = registry.infer_with_imports(functions, imported);
+    report.elapsed_micros = start.elapsed().as_micros();
+    report.candidates = registry.generated;
+    report.failure = result.as_ref().err().map(|e| e.note.clone());
+    result
 }
 
 /// Validate the restricted summary shape on the import boundary. Proof
@@ -786,6 +811,15 @@ fn infer_exact_with_callees(
 /// A deliberately small presentation layer. It prints the very same formulas
 /// that are verified, never a separately approximated display contract.
 pub fn format_contract(function: &Function) -> String {
+    let (pre, post) = format_contract_parts(function);
+    let suffix =
+        if function.x.attrs.infer_allow_approx { " [sound approximation candidate]" } else { "" };
+    format!("requires {pre}; ensures {post}{suffix}")
+}
+
+/// Separate the checked predicates for structured presentation. Arithmetic is
+/// mathematical, with explicit machine casts and Rust signed division/remainder.
+pub fn format_contract_parts(function: &Function) -> (String, String) {
     if function.x.attrs.infer_allow_approx {
         let result = Term {
             expr: SpannedTyped::new(
@@ -798,20 +832,12 @@ pub fn format_contract(function: &Function) -> String {
         let names = HashMap::from([(function.x.inner_ret.x.name.clone(), result)]);
         let post =
             instantiate(&function.x.ensure.0[0], &names).expect("generated interval postcondition");
-        return format!(
-            "requires {}; ensures {} [sound approximation candidate]",
-            format_expr(&function.x.require[0]),
-            format_expr(&post.expr)
-        );
+        return (format_expr(&function.x.require[0]), format_expr(&post.expr));
     }
     let ExprX::Binary(BinaryOp::Eq(_), _, output) = &function.x.ensure.0[0].x else {
         unreachable!()
     };
-    format!(
-        "requires {}; ensures result == {}",
-        format_expr(&function.x.require[0]),
-        format_expr(output)
-    )
+    (format_expr(&function.x.require[0]), format!("result == {}", format_expr(output)))
 }
 
 fn format_expr(e: &Expr) -> String {

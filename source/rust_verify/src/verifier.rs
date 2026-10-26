@@ -1,4 +1,7 @@
 use crate::commands::{OpGenerator, OpKind, QueryOp, Style};
+
+#[path = "infer_report.rs"]
+mod infer_report;
 use crate::config::{Args, CargoVerusArgs, ShowTriggers};
 use crate::context::{ContextX, ErasureInfo};
 use crate::external::VerifOrExternal;
@@ -334,6 +337,9 @@ pub struct Verifier {
     available_trusted_models: HashMap<Fun, String>,
     pending_inference_export: Option<(crate::import_export::CrateMetadata, Krate)>,
     inference_proofs: vir::infer_proof::Proofs,
+    inference_generation: vir::infer::GenerationReport,
+    inference_ready: bool,
+    inference_exported: bool,
     pub(crate) compile: bool,
 
     // If we've already created the log directory, this is the path to it:
@@ -533,6 +539,9 @@ impl Verifier {
             available_trusted_models: HashMap::new(),
             pending_inference_export: None,
             inference_proofs: Default::default(),
+            inference_generation: Default::default(),
+            inference_ready: false,
+            inference_exported: false,
             compile,
 
             created_log_dir: Arc::new(std::sync::Mutex::new(None)),
@@ -586,6 +595,9 @@ impl Verifier {
             available_trusted_models: self.available_trusted_models.clone(),
             pending_inference_export: None,
             inference_proofs: self.inference_proofs.fresh(),
+            inference_generation: Default::default(),
+            inference_ready: false,
+            inference_exported: false,
             compile: self.compile,
 
             created_log_dir: self.created_log_dir.clone(),
@@ -2226,6 +2238,7 @@ impl Verifier {
             }
         }
         if !inference_buckets.is_empty() {
+            self.inference_ready = true;
             reporter.report(
                 &note_bare(format!(
                     "Verus Infer: {} verified contracts available to same-crate callers",
@@ -2884,7 +2897,9 @@ impl Verifier {
         query.set_inference_model_fingerprints(&self.available_trusted_models);
 
         // Export crate if requested.
-        let local_crate = query.get_exportable_crate().map_err(map_query_err)?;
+        let local_crate = query.get_exportable_crate();
+        self.inference_generation = query.inference_generation.clone();
+        let local_crate = local_crate.map_err(map_query_err)?;
 
         if let Some(inferred) = local_crate.functions.iter().find(|f| f.x.attrs.infer) {
             if self.args.no_verify
@@ -3512,6 +3527,9 @@ impl VerifierCallbacksEraseMacro {
                 ) {
                     reporter.report_as(&err.to_any(), MessageLevel::Error);
                     self.verifier.encountered_vir_error = true;
+                } else {
+                    self.verifier.inference_exported = self.verifier.args.export.is_some()
+                        || self.verifier.export_vir_path_via_cargo.is_some();
                 }
             }
         }

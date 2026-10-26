@@ -220,6 +220,31 @@ Poisoned caches must still fail the original ordinary overflow checks and
 suppress exports. Cross-crate tests preserve honest optional precision metadata
 while accepting the broader generated domains.
 
+## Structured reporting and evaluation
+
+`--output-json` reports actual candidate formulas and reads proof outcomes from
+the production evidence tracker using the same identity and poison checks as
+acceptance. The accessor returns a copy and cannot create or modify evidence.
+Generation observations, presentation strings, timers, and cache-hit records
+never participate in proof acceptance or imported-interface validation. The JSON
+report is not a certificate and has no import path.
+
+Aggregated resource-limit outcomes now retain `Incomplete` instead of collapsing
+to a generic rejected outcome. This changes presentation categories, not the
+acceptance condition: only `Valid` passes. Exhaustive acceptance/order tests and
+the existing source mutations still check that failures, skips, and timeouts
+cannot be repaired by later successes. New tests check resource-limit
+classification, read-only observations, worker freshness, and poisoned evidence.
+
+Integration regressions check cold/warm reproving, optional timeouts and skipped
+precision, valid inference followed by failed caller verification, actual export
+state, imported identities and model fingerprints, and a corrupted cached
+precondition with fresh failed soundness and stale-export removal. The curated
+[evaluation corpus](source/tools/infer_eval/README.md) checks structured outcomes
+and publication, including deliberate frontend/unsupported/budget/proof failures.
+The corpus supplements the existing semantic and assurance tests; it does not
+prove the implementation or estimate general Rust coverage.
+
 ## Later: formal verification targets
 
 1. **Acceptance component.** Prove that an accepted or exported contract has all

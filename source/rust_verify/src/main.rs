@@ -559,6 +559,16 @@ pub fn main() {
         let mut out: serde_json::Map<String, serde_json::Value> = serde_json::Map::new();
         out.insert("func-details".to_string(), serde_json::Value::Object(func_details));
         out.insert("verification-results".to_string(), res);
+        out.insert(
+            "verus-infer".to_string(),
+            verifier.inference_report_json(
+                status.is_ok()
+                    && !verifier.encountered_error
+                    && !verifier.encountered_vir_error
+                    && verifier.count_errors == 0,
+                total_time.as_micros(),
+            ),
+        );
         if let Some(times_ms) = times_ms_json_data {
             out.insert("times-ms".to_string(), times_ms);
         }

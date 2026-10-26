@@ -41,6 +41,7 @@ pub(crate) struct Query<'r, 'tcx> {
     reporter: &'r dyn Diagnostics,
     crate_id: CrateId,
     inference_model_fingerprints: Vec<(Fun, String)>,
+    pub inference_generation: vir::infer::GenerationReport,
 
     /// Imported crates
     cache_other_vir_crates: Option<Res<Arc<Vec<Krate>>>>,
@@ -89,6 +90,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             reporter,
             crate_id,
             inference_model_fingerprints: Vec::new(),
+            inference_generation: Default::default(),
 
             cache_other_vir_crates: Some(Ok(Arc::new(other_vir_crates))),
             cache_pre_crate: Some(Ok(Arc::new(pre_crate))),
@@ -507,10 +509,11 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             .filter(|f| f.x.attrs.infer || vir::infer::is_approved_model(f))
             .cloned()
             .collect();
-        cratex.functions = vir::infer::infer_functions(
+        cratex.functions = vir::infer::infer_functions_with_report(
             &cratex.functions,
             &imported,
             &format!("{:?}:{:?}", self.args, self.inference_model_fingerprints),
+            &mut self.inference_generation,
         )
         .map_err(|e| self.emit_error(e))?;
 

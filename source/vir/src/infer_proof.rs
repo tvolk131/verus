@@ -94,6 +94,16 @@ impl Proofs {
         Ok(status(&entry.evidence))
     }
 
+    /// Reporting uses the same candidate identity and poison checks as acceptance.
+    /// No caller can create or modify evidence through this interface.
+    pub fn outcomes(&self, f: &Function) -> Result<[Option<Outcome>; 3], VirErr> {
+        self.status(f)?;
+        self.entries[&f.x.name]
+            .evidence
+            .outcomes()
+            .ok_or_else(|| error(&f.span, "Verus Infer: invalidated proof evidence"))
+    }
+
     /// Worker verifiers receive identities, never outcomes from another run.
     pub fn fresh(&self) -> Self {
         Self {
@@ -200,5 +210,31 @@ mod tests {
         let id = CandidateId::from_function(&f).unwrap();
         assert!(proofs.record(&id, Obligation::Exactness, Outcome::Invalid, &f.span).is_err());
         assert!(proofs.status(&f).is_err());
+    }
+
+    #[test]
+    fn reporting_preserves_outcomes_and_cannot_supply_evidence() {
+        let f = candidate("reported");
+        let mut proofs = Proofs::default();
+        assert!(proofs.outcomes(&f).is_err());
+        proofs.register(&f).unwrap();
+        assert_eq!(proofs.outcomes(&f).unwrap(), [None; 3]);
+        let id = CandidateId::from_function(&f).unwrap();
+        proofs.record(&id, Obligation::Soundness, Outcome::Valid, &f.span).unwrap();
+        proofs.record(&id, Obligation::Maximality, Outcome::Incomplete, &f.span).unwrap();
+        proofs.record(&id, Obligation::Exactness, Outcome::Invalid, &f.span).unwrap();
+        let snapshot = proofs.outcomes(&f).unwrap();
+        assert_eq!(
+            snapshot,
+            [Some(Outcome::Valid), Some(Outcome::Incomplete), Some(Outcome::Invalid)]
+        );
+        let mut edited = snapshot;
+        edited[1] = Some(Outcome::Valid);
+        assert_ne!(proofs.outcomes(&f).unwrap(), edited);
+        assert!(!proofs.status(&f).unwrap().satisfies(false));
+        assert!(proofs.status(&f).unwrap().satisfies(true));
+        assert_eq!(proofs.fresh().outcomes(&f).unwrap(), [None; 3]);
+        assert!(proofs.record(&id, Obligation::Exactness, Outcome::Valid, &f.span).is_err());
+        assert!(proofs.outcomes(&f).is_err());
     }
 }

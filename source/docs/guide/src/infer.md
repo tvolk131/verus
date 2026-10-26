@@ -169,6 +169,76 @@ then proves a new application property using the top-level summary. It also uses
 `fee` to prove that inputs below 100 incur no fee. These proofs use callee
 contracts without inlining the executable implementations.
 
+## Structured contract reports
+
+`--output-json` includes a `verus-infer` object with schema version 1. Save it
+with the existing timing breakdown using:
+
+```sh
+source/target-verus/release/verus examples/verus_infer_partial.rs \
+  --output-json --time > /tmp/infer-report.json
+```
+
+Stdout contains the JSON; source and proof diagnostics remain on stderr. Check
+the process exit status as well as the report. Normal compiler and verification
+failures still produce a report when control returns to the driver; an invalid
+command line, process crash, or external interruption may produce none.
+
+Each generated function records its name, source location, parameter/result
+types, requested `mode`, actual `candidate_id`, separate `contract.requires` and
+`contract.ensures` strings, and three `proofs` entries. These predicates come
+from the actual installed candidate. They use mathematical integer arithmetic,
+explicit machine casts, and `rust_div`/`rust_rem` for signed truncating arithmetic.
+`result` names the return value. No separate simplified predicate is substituted
+for the checked formula.
+
+| Proof status | Meaning |
+| --- | --- |
+| `proved` | Candidate-bound evidence records successful verification of every required subquery for that obligation. |
+| `not_proved` | The query did not establish the obligation. This does not by itself prove the candidate false. |
+| `incomplete` | At least one subquery exhausted its solver resource limit. |
+| `not_established` | No successful check is recorded; `reason` explains a skip, a check not run, or unavailable matching evidence. |
+
+Every proof entry also has `required` and `reason` fields. Sound mode requires
+soundness; exact mode requires all three obligations. A sound-mode dependency
+explains a skipped maximality probe with `sound_mode_dependency`. An unconstrained
+Boolean result can skip exactness with `unconstrained_result`. Neither skip
+becomes a proved precision claim. Optional failed or incomplete probes can
+coexist with successful sound-mode verification.
+
+`required_checks_passed` uses the same candidate-identity and poisoned-evidence
+checks as acceptance. `available_to_same_crate_callers` records whether all
+inferred functions passed the required-check barrier. `exported` additionally
+requires successful interface writing and public visibility. A later ordinary
+caller failure can leave valid inference proofs visible while preventing
+interface export. The crate-level `interface_written` reports the actual export
+action; an invocation without an export path leaves it false.
+
+Crate-level `status` distinguishes `verified`, `no_inference`, `unsupported`,
+`analysis_incomplete`, `generation_failed`, `required_proof_failed`,
+`required_proof_incomplete`, `caller_proof_failed`, and `verification_failed`.
+`generation_failure` retains the synthesis diagnostic. Other frontend, import,
+and verifier errors use `verification_failed` with details on stderr. An early
+frontend failure can precede discovery of annotations; zero requested or
+generated functions in such a failed invocation does not mean it had no
+inference annotations. Partial generation reports only completed candidates,
+without granting them proof status or publication.
+
+Per-function dependencies record inferred callee identities and modes. The
+crate report also lists validated imported inference fingerprints and trusted
+standard-model fingerprints, including transitive assumptions. These preserve
+the existing Verus trust policy. This JSON is a read-only report; it cannot be
+imported as a certificate or used to bypass verification. Candidate IDs identify
+actual typed formulas and provenance, including source spans; they are not stable
+semantic hashes for comparing cold and warm runs.
+
+`metrics` records generation time, candidate-cache hits/misses, candidate SMT
+time, and expanded predicate AST sizes. Generation and solver results remain
+separate: a cache hit still requires fresh proofs. Optional precision queries
+and diagnostic reruns contribute to SMT time. The whole-generation timer also
+includes dependency ordering and failed work. See the
+[evaluation corpus](../../../tools/infer_eval/README.md) for measurement scope.
+
 ## Supported code and safety policy
 
 Exact mode supports `bool`, fixed-width unsigned integers (`u8`, `u16`, `u32`,
@@ -607,6 +677,10 @@ proofs, bounded safety synthesis after exact formula-budget exhaustion,
 independent precision timeouts, compositional domains, fresh cache proofs, and
 per-function imported precision metadata.
 Exhaustive testing supplements the solver proofs.
+Structured-report regressions additionally check fresh proofs on cache hits,
+honest optional timeouts and skips, failed caller export suppression, imported
+candidate/model identities, and rejection of a corrupted cached precondition
+with removal of the previous export.
 Enum regressions additionally compare checked `u8` arithmetic against concrete
 Rust for every input pair, check supported widths and match-arm safety, compose
 enum interfaces through cached cross-crate builds, reject stale model

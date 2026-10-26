@@ -76,6 +76,13 @@ Implemented and covered by regression tests:
 - [x] Exhaustive small-integer comparisons, deliberately incorrect candidates,
   malformed artifact regressions, and tests that incomplete or failed required
   proofs block dependent verification and remove older inferred exports.
+- [x] Schema-versioned `--output-json` contract reports with candidate-bound
+  proof outcomes, required/optional distinctions, dependency/model fingerprints,
+  actual caller/export availability, formula sizes, and generation/cache/SMT
+  measurements. Reports are observations, not importable proof certificates.
+- [x] Reproducible 16-case evaluation baseline, including expected failures,
+  cold/warm reproving, incremental dependency invalidation, and call-graph depth.
+  See [the corpus runner](source/tools/infer_eval/README.md).
 
 - [x] Assurance consolidation: contract-only generation/cache reuse, one
   body-preserving installer, candidate-bound proof evidence, explicit query-kind
@@ -102,12 +109,14 @@ Still planned or outside the implemented subset:
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
-- [ ] Readable contract simplification, dedicated contract-query/reporting APIs,
+- [ ] Further readable contract simplification, dedicated contract-query APIs,
   and IDE presentation and suggestions.
 - [ ] Richer abstract domains and refinement, including relational properties
   beyond the current scalar intervals and Boolean summaries, broader branch
   refinement, and more precise ranges for wrapping casts.
-- [ ] Systematic coverage, precision, composition, and performance evaluation.
+- [ ] Broader real-world coverage and precision suites, statistical performance
+  repetitions, peak-memory profiling, and Cargo incremental-build timing beyond
+  the implemented curated evaluation baseline.
 
 | Roadmap phase | Current state |
 | --- | --- |
@@ -130,9 +139,9 @@ transformations remains separately scoped work.
 
 ## Proposed next milestones
 
-The checklist above is the ongoing backlog. Exact signed inference and its
-signed-interval follow-up are complete; the suggested sequence continues with reporting and
-measurement:
+The checklist above is the ongoing backlog. Exact signed inference, its
+signed-interval follow-up, and the reporting/evaluation baseline are implemented.
+The suggested next language milestone is shared dynamic slices:
 
 1. **Completed: exact signed integers.** `i8` through `i128` arithmetic,
    comparisons, negation, and casts, including signed enum payloads, arrays, and
@@ -143,12 +152,14 @@ measurement:
    sound-mode follow-up is also implemented, including negative ranges,
    compositional safety domains, and honest precision metadata. Additional
    arithmetic methods remain in the backlog.
-2. **Contract reporting and measurement.** Provide structured reports of
-   contracts, proof outcomes, dependencies, trusted assumptions, and incomplete
-   results. Improve formula readability while preserving the checked meaning.
-   Establish a representative benchmark corpus measuring supported coverage,
-   exact versus approximate results, caller-property success, formula size,
-   inference/solver time, cache reuse, and incremental rebuild cost.
+2. **Implemented baseline: contract reporting and measurement.** Schema-versioned
+   JSON separates checked predicates, requested precision, actual proof outcomes,
+   dependencies, trusted models, incomplete results, and publication. Predicates
+   retain their checked meaning and expose parameter/result types. A 16-case
+   corpus measures selected feature coverage and known limits, caller-property
+   outcomes, exact versus sound summaries, formula size, generation/solver time,
+   cache reuse, incremental invalidation, and two call-graph depths. Broader
+   evaluation and further formula simplification remain in the backlog.
 3. **Basic dynamic slices.** Start with shared scalar slices, length relationships,
    indexing safety, and scalar/enum results. Retain the existing proof and
    publication requirements; broader collections, mutation, and frame conditions

@@ -31,6 +31,7 @@ pub enum Outcome {
 pub struct Aggregate {
     checked: bool,
     rejected: bool,
+    incomplete: bool,
 }
 
 impl Aggregate {
@@ -49,13 +50,14 @@ impl Aggregate {
     pub fn observe(&mut self, outcome: Outcome) {
         self.checked = true;
         self.rejected |= outcome != Outcome::Valid;
+        self.incomplete |= outcome == Outcome::Incomplete;
     }
 
     pub fn outcome(&self) -> Outcome {
         if !self.checked {
             Outcome::Skipped
         } else if self.rejected {
-            Outcome::Invalid
+            if self.incomplete { Outcome::Incomplete } else { Outcome::Invalid }
         } else {
             Outcome::Valid
         }
@@ -107,6 +109,11 @@ impl<Id: PartialEq> Evidence<Id> {
 
     pub fn passed(&self) -> [bool; 3] {
         self.outcomes.map(|o| !self.poisoned && o == Some(Outcome::Valid))
+    }
+
+    /// Read-only observations; poisoned evidence cannot report successful checks.
+    pub fn outcomes(&self) -> Option<[Option<Outcome>; 3]> {
+        (!self.poisoned).then_some(self.outcomes)
     }
 
     pub fn accepts(&self, allow_approx: bool) -> bool {
@@ -231,6 +238,19 @@ mod tests {
                     a.observe(outcome);
                 }
                 assert_eq!(a.outcome() == Outcome::Valid, all_valid);
+            }
+        }
+    }
+
+    #[test]
+    fn resource_limit_remains_distinguishable_without_becoming_success() {
+        for before in OUTCOMES {
+            for after in OUTCOMES {
+                let mut aggregate = Aggregate::default();
+                aggregate.observe(before);
+                aggregate.observe(Outcome::Incomplete);
+                aggregate.observe(after);
+                assert_eq!(aggregate.outcome(), Outcome::Incomplete);
             }
         }
     }

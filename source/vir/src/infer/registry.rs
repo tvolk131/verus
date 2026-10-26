@@ -178,6 +178,7 @@ pub struct Registry {
     entries: HashMap<String, Candidate>,
     pub hits: usize,
     pub misses: usize,
+    pub generated: Vec<GeneratedCandidate>,
 }
 impl Registry {
     pub fn from_environment(configuration: &str) -> Self {
@@ -192,6 +193,7 @@ impl Registry {
             entries: HashMap::new(),
             hits: 0,
             misses: 0,
+            generated: Vec::new(),
         }
     }
     fn read(&self, key: &str) -> Option<Candidate> {
@@ -254,6 +256,7 @@ impl Registry {
                 continue;
             }
             let f = &all[&name];
+            let start = std::time::Instant::now();
             validate_signature(f)?;
             validate_body(f, &all)?;
             if !f.x.attrs.infer_allow_approx && uses_approximate_callee(f, &candidates) {
@@ -304,6 +307,7 @@ impl Registry {
                     validate_imported_summary(&candidate.new_x(exported)).ok()?;
                     Some(candidate)
                 });
+            let cache_hit = hit.is_some();
             let inferred = if let Some(hit) = hit {
                 self.hits += 1;
                 hit
@@ -321,6 +325,11 @@ impl Registry {
                 });
                 inferred
             };
+            self.generated.push(GeneratedCandidate::new(
+                &inferred,
+                cache_hit,
+                start.elapsed().as_micros(),
+            ));
             keys.insert(name.clone(), key);
             candidates.insert(name, inferred);
         }
