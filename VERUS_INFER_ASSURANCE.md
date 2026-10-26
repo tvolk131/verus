@@ -17,8 +17,10 @@ The feature backlog and proposed milestone order are maintained in
 
 ## Current protections and trust boundary
 
-- Contract installation preserves the original executable body. Ordinary Verus
-  verification checks the proposed contract against that body.
+- Contract installation preserves original executable code. Loop-free bodies
+  retain their original pointer. Counted loops receive only pure proof
+  annotations, with a production source-projection check; ordinary Verus checks
+  the proposed contract, invariants, and termination against that code.
 - Exact mode requires soundness, safe-domain maximality, and output exactness.
   Sound mode always requires soundness; optional precision failures do not
   establish those precision guarantees.
@@ -60,7 +62,7 @@ These safeguards and tests are implemented. They do not constitute formal
 verification of the checker or its integration.
 
 - [x] Have synthesis and cache decoding return contract data through a narrow
-  interface, with one installer responsible for preserving the original body,
+  interface, with one installer responsible for preserving executable code,
   function identity, signature, and unrelated attributes.
 - [x] Make the separation between the ordinary query and transformed precision
   queries explicit. Test that constructing or running precision probes cannot
@@ -81,7 +83,8 @@ The dependency-free production policy is in
 `source/vir/src/infer_proof/policy.rs`; its compiler-facing evidence adapter is
 `source/vir/src/infer_proof.rs`. The source mutation runner is
 `source/tools/test_infer_assurance_mutations.py`. It tests nine acceptance-core
-mutations and three precision-check mutations in temporary copies. Baselines
+mutations, four precision-check mutations, and four counted-loop boundary
+mutations in temporary copies. Baselines
 must pass; each mutant must run tests and fail them. Compilation failures and
 empty test runs do not count as detected mutations. This tests selected failure
 mechanisms, not all possible defects in the pipeline.
@@ -97,6 +100,9 @@ Compositional safety inference uses cache version 11 and retains metadata schema
 Shared-slice inference extends the summary language with existing slice length
 and index operations, using cache version 12 and metadata schema 7. Older inferred
 interfaces must be rebuilt. This extension adds no serialized AST fields.
+Counted-loop inference uses cache version 13, candidate identity version 2, and
+metadata schema 8. It binds generated proof annotations into candidate identities
+and also adds no serialized AST fields.
 The serialized identity introduced with the assurance milestone also requires
 rebuilding `vstd`, other `.vir` libraries, and dependents, including ordinary
 libraries built with older compiler binaries.
@@ -274,6 +280,40 @@ check empty/large slices and eager receiver evaluation, poison cached bounds
 and reads, reject restrictive domains via maximality, and verify cache/import
 proofs and stale-export removal. Extending collection support does not formally
 verify the inference implementation; the formal targets below remain open.
+
+## Counted-loop proof boundary
+
+The first loop recipe and its checking strategy are specified in
+[VERUS_INFER_LOOPS.md](VERUS_INFER_LOOPS.md). The recognizer admits the whole
+typed two-local, unit-step unsigned accumulator body, not an arbitrary loop with
+matching fragments. Source proof annotations and termination-suppression settings
+are ineligible. Loop-free inference retains its prior source policy.
+
+The installer adds only binder-free, typed invariant/measure expressions and the
+non-isolation proof setting. It projects those fields away and compares the
+remaining serialized body with the original. This prevents candidate generation
+or cache reuse from changing any executable operation. Candidate identities bind
+the installed proof body as well as the original source, actual contract,
+configuration, and dependencies. Cache entries still contain formulas only;
+annotations are regenerated through the same checked boundary on every hit.
+
+Ordinary soundness includes invariant initialization/preservation, overflow,
+termination, and the result relation. Maximality removes the candidate precondition
+and keeps the original checked prefix invariants; their initialization,
+preservation, and decreasing-measure checks are emitted by normal loop lowering
+and are not converted into assumptions. The SST transformation preserves the
+exit branch introduced by non-isolated `while` lowering. Query-kind validation
+rejects missing loop invariants/measures or incompatible loop proof settings.
+No new loop axioms or trusted helper specifications were introduced.
+
+Concrete `u8` iteration tests cover every input pair. Backend fault injection
+rejects bad invariants, nondecreasing measures, restrictive domains, and circular
+use of a candidate precondition as an invariant. Tests additionally check source
+projection, assumption smuggling, termination suppression, cache/output poisoning,
+fresh cross-crate proofs, timeout publication barriers, and ordinary caller
+enforcement. Source mutations exercise the new projection, recipe, and
+termination guards. These checks supplement, rather than replace, the formal
+verification targets below.
 
 ## Later: formal verification targets
 

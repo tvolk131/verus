@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v12:shared-slices:4096";
+const VERSION: &str = "verus-infer-v13:counted-loops:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -312,7 +312,8 @@ impl Registry {
                     if !boolean_type(&pre) || !boolean_type(&output) {
                         return None;
                     }
-                    let candidate = Contract::new(pre.expr, output.expr).ok()?.install(f, &key);
+                    let candidate =
+                        Contract::new(pre.expr, output.expr).ok()?.install(f, &key).ok()?;
                     let mut exported = candidate.x.clone();
                     exported.body = None;
                     validate_imported_summary(&candidate.new_x(exported)).ok()?;
@@ -324,7 +325,7 @@ impl Registry {
                 hit
             } else {
                 self.misses += 1;
-                let inferred = infer_with_callees(f, &candidates)?.install(f, &key);
+                let inferred = infer_with_callees(f, &candidates)?.install(f, &key)?;
                 let mut post_params = (*f.x.params).clone();
                 post_params.push(f.x.inner_ret.clone());
                 self.write(Candidate {

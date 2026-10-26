@@ -225,6 +225,214 @@ fn correct_candidate_passes_all_checks() {
     }
 }
 
+fn counted_loop_fixture() -> (Ctx, Pars, FuncCheckSst) {
+    use crate::sst::{ArithOp as A, BinaryOp as B};
+    let (ctx, _, mut check) = fixture();
+    let typ = Arc::new(TypX::Int(IntRange::U(8)));
+    let read = |n: &str| SpannedTyped::new(&span(), &typ, ExpX::Var(var(n)));
+    let assignment = |n: &str, rhs: Exp, is_init| {
+        Spanned::new(
+            span(),
+            StmX::Assign {
+                lhs: Dest { dest: SpannedTyped::new(&span(), &typ, ExpX::VarLoc(var(n))), is_init },
+                rhs,
+            },
+        )
+    };
+    let x = read("x");
+    let n = read("n");
+    let r = read("r");
+    let i = read("i");
+    let sum = binary(B::Arith(A::Add), x.clone(), n.clone());
+    let fits = |e| binary(B::Inequality(InequalityOp::Le), e, integer(255));
+    let measure = binary(B::Arith(A::Sub), n.clone(), i.clone());
+    let label = Label { id: 0, name: None };
+    let guard = binary(B::Inequality(InequalityOp::Lt), i.clone(), n.clone());
+    let exit = Spanned::new(
+        span(),
+        StmX::If(
+            SpannedTyped::new(&span(), &bool_typ(), ExpX::Unary(UnaryOp::Not, guard)),
+            Spanned::new(span(), StmX::BreakOrContinue { label: label.clone(), is_break: true }),
+            None,
+        ),
+    );
+    let next_r = binary(B::Arith(A::Add), r.clone(), integer(1));
+    let next_i = binary(B::Arith(A::Add), i.clone(), integer(1));
+    let body = Spanned::new(
+        span(),
+        StmX::Block(Arc::new(vec![
+            exit,
+            Spanned::new(
+                span(),
+                StmX::Assert(
+                    None,
+                    Some(error(&span(), "accumulator overflow")),
+                    fits(next_r.clone()),
+                ),
+            ),
+            assignment("r", next_r, false),
+            Spanned::new(
+                span(),
+                StmX::Assert(None, Some(error(&span(), "counter overflow")), fits(next_i.clone())),
+            ),
+            assignment("i", next_i, false),
+        ])),
+    );
+    let invariants = [
+        binary(B::Inequality(InequalityOp::Le), i.clone(), n),
+        binary(B::Eq, r.clone(), binary(B::Arith(A::Add), x.clone(), i)),
+    ];
+    let loop_stm = Spanned::new(
+        span(),
+        StmX::Loop {
+            pre_stms: Arc::new(vec![]),
+            loop_isolation: false,
+            is_for_loop: false,
+            id: 0,
+            label,
+            cond: None,
+            body,
+            invs: Arc::new(
+                invariants
+                    .into_iter()
+                    .map(|inv| LoopInv { at_entry: true, at_exit: true, inv })
+                    .collect(),
+            ),
+            decrease: Arc::new(vec![measure.clone()]),
+            typ_inv_vars: Arc::new(vec![]),
+            modified_vars: None,
+            au_branch_bool: None,
+            pre_modified_params_incl: None,
+            pre_modified_params_excl: None,
+        },
+    );
+    check.body = Spanned::new(
+        span(),
+        StmX::Block(Arc::new(vec![
+            assignment("r", x, true),
+            assignment("i", integer(0), true),
+            loop_stm,
+            Spanned::new(
+                span(),
+                StmX::Return {
+                    assert_id: None,
+                    base_error: error(&span(), "postcondition"),
+                    ret_exp: Some(r),
+                    inside_body: false,
+                },
+            ),
+        ])),
+    );
+    check.reqs = Arc::new(vec![fits(sum.clone())]);
+    Arc::make_mut(&mut check.post_condition).ens_exps =
+        Arc::new(vec![binary(B::Eq, read("result"), sum)]);
+    check.local_decls = Arc::new(
+        [
+            ("x", LocalDeclKind::Param { mutable: false }),
+            ("n", LocalDeclKind::Param { mutable: false }),
+            ("r", LocalDeclKind::StmtLet { mutable: true }),
+            ("i", LocalDeclKind::StmtLet { mutable: true }),
+            ("result", LocalDeclKind::Return),
+        ]
+        .into_iter()
+        .map(|(n, kind)| Arc::new(LocalDeclX { ident: var(n), typ: typ.clone(), kind }))
+        .collect(),
+    );
+    let (decls, _) =
+        crate::recursion::mk_decreases_at_entry(&ctx, &span(), Some(0), &vec![measure]).unwrap();
+    Arc::make_mut(&mut check.local_decls).extend(decls);
+    let pars = Arc::new(
+        ["x", "n"]
+            .into_iter()
+            .map(|n| {
+                Spanned::new(span(), ParX { name: var(n), typ: typ.clone(), mode: Mode::Exec })
+            })
+            .collect(),
+    );
+    (ctx, pars, check)
+}
+
+fn change_counted_loop(
+    check: &FuncCheckSst,
+    inv: Option<Exp>,
+    measure: Option<Exp>,
+) -> FuncCheckSst {
+    let mut changed = check.clone();
+    changed.body = crate::sst_visitor::map_stm_visitor(&check.body, &mut |stm| {
+        let mut x = stm.x.clone();
+        if let StmX::Loop { invs, decrease, .. } = &mut x {
+            if let Some(inv) = &inv {
+                Arc::make_mut(invs)[1].inv = inv.clone();
+            }
+            if let Some(measure) = &measure {
+                *decrease = Arc::new(vec![measure.clone()]);
+            }
+        }
+        Ok(Spanned::new(stm.span.clone(), x))
+    })
+    .unwrap();
+    changed
+}
+
+#[test]
+fn counted_loop_has_independent_soundness_maximality_and_exactness() {
+    let (ctx, pars, check) = counted_loop_fixture();
+    assert!(validate_query_kind(&check, None, &span()).is_ok());
+    assert!(verifies(&ctx, &pars, &check));
+    for kind in [PrecisionCheck::Maximality, PrecisionCheck::Exactness] {
+        let precision = precision_check_body(&span(), &pars[0].x.typ, &check, kind).unwrap();
+        assert!(verifies(&ctx, &pars, &precision));
+    }
+}
+
+#[test]
+fn counted_loop_restrictive_candidate_and_circular_invariant_cannot_prove_maximality() {
+    let (ctx, pars, mut check) = counted_loop_fixture();
+    check.reqs = Arc::new(vec![binary(
+        crate::sst::BinaryOp::Inequality(InequalityOp::Lt),
+        SpannedTyped::new(&span(), &pars[0].x.typ, ExpX::Var(var("x"))),
+        integer(10),
+    )]);
+    // Keep the real safe bound as well, so soundness remains true.
+    check.reqs = Arc::new(vec![counted_loop_fixture().2.reqs[0].clone(), check.reqs[0].clone()]);
+    assert!(verifies(&ctx, &pars, &check));
+    let maximality =
+        precision_check_body(&span(), &pars[0].x.typ, &check, PrecisionCheck::Maximality).unwrap();
+    assert!(!verifies(&ctx, &pars, &maximality));
+    // Even if a proposed invariant includes the candidate precondition, its
+    // initialization must be proved after that precondition is removed.
+    let circular = change_counted_loop(&check, Some(check.reqs[1].clone()), None);
+    let maximality =
+        precision_check_body(&span(), &pars[0].x.typ, &circular, PrecisionCheck::Maximality)
+            .unwrap();
+    assert!(!verifies(&ctx, &pars, &maximality));
+}
+
+#[test]
+fn counted_loop_bad_invariant_and_non_decreasing_measure_fail_ordinary_checks() {
+    let (ctx, pars, check) = counted_loop_fixture();
+    let bad_inv = SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(false)));
+    assert!(!verifies(&ctx, &pars, &change_counted_loop(&check, Some(bad_inv), None)));
+    assert!(!verifies(&ctx, &pars, &change_counted_loop(&check, None, Some(integer(0)))));
+}
+
+#[test]
+fn counted_loop_missing_measure_cannot_receive_an_ordinary_or_precision_query() {
+    let (_, pars, mut check) = counted_loop_fixture();
+    check.body = crate::sst_visitor::map_stm_visitor(&check.body, &mut |stm| {
+        let mut x = stm.x.clone();
+        if let StmX::Loop { decrease, .. } = &mut x {
+            *decrease = Arc::new(vec![]);
+        }
+        Ok(Spanned::new(stm.span.clone(), x))
+    })
+    .unwrap();
+    assert!(validate_query_kind(&check, None, &span()).is_err());
+    for kind in [PrecisionCheck::Maximality, PrecisionCheck::Exactness] {
+        assert!(precision_check_body(&span(), &pars[0].x.typ, &check, kind).is_err());
+    }
+}
+
 #[test]
 fn overpermissive_domain_fails_soundness() {
     let (ctx, pars, mut check) = fixture();

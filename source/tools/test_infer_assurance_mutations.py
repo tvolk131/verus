@@ -90,6 +90,7 @@ def precision_tests(directory, env):
         ("maximality assumes its own precondition", "check.reqs = Arc::new(vec![]);", "check.reqs = original.reqs.clone();"),
         ("exactness examines only the actual output", "let other = SpannedTyped::new(span, typ, ExpX::Var(name.clone()));", "let other = SpannedTyped::new(span, typ, ExpX::Var(dest.clone()));"),
         ("precision body accepted as ordinary input", "validate_query_kind(original, None, span)?;", "// Incorrectly omit the query-kind check."),
+        ("missing loop termination measure accepted", "|| decrease.len() != 1", "|| false"),
     ]
     for name, contents in [("baseline", source)] + [
         (name, change(source, before, after)) for name, before, after in mutations
@@ -98,6 +99,25 @@ def precision_tests(directory, env):
         run(["cargo", "test", "-p", "vir", "infer_checks::tests"], workspace, env,
             should_pass=name == "baseline")
         print(f"Precision {'passed' if name == 'baseline' else 'detected'}: {name}", flush=True)
+
+    # Reset the precision checker before independently mutating the loop-only
+    # installation/eligibility boundary in the same temporary workspace.
+    path.write_text(source)
+    path = workspace / "vir/src/infer/loops.rs"
+    source = path.read_text()
+    mutations = [
+        ("executable projection check omitted", "if encode(&projected)? != encode(original.x.body.as_ref().unwrap())? {", "if false {"),
+        ("termination assumption admitted", "|| f.attrs.exec_assume_termination", "|| false"),
+        ("termination suppression admitted", "|| f.attrs.exec_allows_no_decreases_clause", "|| false"),
+        ("non-unit update admitted", "constant(rhs, 1)", "true"),
+    ]
+    for name, contents in [("baseline", source)] + [
+        (name, change(source, before, after)) for name, before, after in mutations
+    ]:
+        path.write_text(contents)
+        run(["cargo", "test", "-p", "vir", "infer::loops::tests"], workspace, env,
+            should_pass=name == "baseline")
+        print(f"Loop {'passed' if name == 'baseline' else 'detected'}: {name}", flush=True)
 
 
 def main():

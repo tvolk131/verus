@@ -1,6 +1,6 @@
 //! Untrusted candidate generation and modular composition for Verus Infer.
 //!
-//! The executable body is never rewritten. Candidates are checked by ordinary
+//! Executable code is preserved. Candidates are checked by ordinary
 //! verification, and `infer_checks` checks their precision against the lowered body.
 
 use crate::ast::*;
@@ -18,6 +18,7 @@ mod contract;
 mod eligibility;
 mod enums;
 mod exits;
+mod loops;
 mod models;
 mod propagation;
 mod registry;
@@ -756,13 +757,16 @@ pub fn infer_function(function: &Function) -> Result<Function, VirErr> {
     }
     validate_signature(function)?;
     validate_body(function, &HashMap::new())?;
-    Ok(infer_with_callees(function, &HashMap::new())?.install(function, "standalone"))
+    infer_with_callees(function, &HashMap::new())?.install(function, "standalone")
 }
 
 fn infer_with_callees(
     function: &Function,
     callees: &HashMap<Fun, Function>,
 ) -> Result<Contract, VirErr> {
+    if let Some(plan) = loops::recognize(function)? {
+        return plan.contract(function);
+    }
     if function.x.attrs.infer_allow_approx {
         return abstract_infer::infer(function, callees);
     }
@@ -858,6 +862,26 @@ pub fn format_contract_parts(function: &Function) -> (String, String) {
         unreachable!()
     };
     (format_expr(&function.x.require[0]), format!("result == {}", format_expr(output)))
+}
+
+/// Read-only presentation of installed loop proof annotations, never evidence.
+pub fn format_loop_proofs(function: &Function) -> Vec<serde_json::Value> {
+    let mut proofs = Vec::new();
+    if let Some(body) = &function.x.body {
+        crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+            if let ExprX::Loop { invs, decrease, loop_isolation, .. } = &e.x {
+                proofs.push(serde_json::json!({
+                    "source": e.span.as_string,
+                    "invariants": invs.iter().map(|i| format_expr(&i.inv)).collect::<Vec<_>>(),
+                    "decreases": decrease.iter().map(format_expr).collect::<Vec<_>>(),
+                    "loop_isolation": loop_isolation,
+                    "checked_by": "ordinary soundness, including termination; independent precision queries",
+                }));
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+    }
+    proofs
 }
 
 fn format_expr(e: &Expr) -> String {

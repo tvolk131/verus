@@ -182,6 +182,9 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
 // Source eligibility is checked independently of cached formulas, so cache data
 // cannot permit proof assumptions, effects, or unsupported control flow.
 pub(super) fn validate_body(f: &Function, callees: &HashMap<Fun, Function>) -> Result<(), VirErr> {
+    if loops::recognize(f)?.is_some() {
+        return Ok(());
+    }
     let body = f.x.body.as_ref().ok_or_else(|| unsupported(&f.span, "missing executable body"))?;
     let mut remaining = FORMULA_BUDGET;
     validate_root(body, f, callees, &mut remaining)

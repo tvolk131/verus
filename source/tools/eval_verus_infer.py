@@ -62,6 +62,14 @@ def validate(report, case, returncode, phase, cold, artifact):
     functions = report.get("functions", [])
     if success and not functions:
         errors.append("successful inference case produced zero contracts")
+    if "expected_loop_functions" in case:
+        loop_functions = [f for f in functions if f.get("loop_proofs")]
+        if len(loop_functions) != case["expected_loop_functions"]:
+            errors.append("missing counted-loop proof annotations")
+        for f in loop_functions:
+            for proof in f["loop_proofs"]:
+                if len(proof["invariants"]) != 2 or len(proof["decreases"]) != 1 or proof["loop_isolation"]:
+                    errors.append("incompatible counted-loop proof annotations")
     for f in functions:
         checks = f["proofs"]
         required = OBLIGATIONS if f["mode"] == "exact" else ("soundness",)

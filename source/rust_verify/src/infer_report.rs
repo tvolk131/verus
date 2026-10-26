@@ -79,6 +79,7 @@ impl Verifier {
                 })).collect::<Vec<_>>(),
                 "result_type": typ_to_diagnostic_str(&f.x.inner_ret.x.typ),
                 "contract": {"requires": requires, "ensures": ensures},
+                "loop_proofs": vir::infer::format_loop_proofs(f),
                 "proofs": {
                     "soundness": check(observed[0], true, unavailable),
                     "maximality": check(observed[1], !allow_approx, maximality_missing),

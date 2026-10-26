@@ -232,6 +232,13 @@ imported as a certificate or used to bypass verification. Candidate IDs identify
 actual typed formulas and provenance, including source spans; they are not stable
 semantic hashes for comparing cold and warm runs.
 
+Counted-loop functions also report `loop_proofs`: the installed invariant
+predicates, decreasing measure, and loop-isolation proof setting. These are
+proposed proof annotations. Successful ordinary soundness establishes invariant
+and termination obligations under the reported precondition; the separate
+precision queries retain their own checks. The report does not mint an additional
+termination receipt or treat an unchecked annotation as a theorem.
+
 `metrics` records generation time, candidate-cache hits/misses, candidate SMT
 time, and expanded predicate AST sizes. Generation and solver results remain
 separate: a cache hit still requires fresh proofs. Optional precision queries
@@ -503,6 +510,66 @@ checked arithmetic and `?`, and runs empty, invalid-index, overflow, signed-edge
 and 300-element cases. The three-crate Cargo workspace also composes a slice
 lookup and charge through exported interfaces.
 
+## Counted numeric loops
+
+Exact mode supports this first closed loop pattern over two immutable unsigned
+inputs of the same fixed width (`u8`, `u16`, `u32`, `u64`, or `u128`):
+
+```rust
+#[verus_infer]
+fn add_n(x: u8, n: u8) -> u8 {
+    let mut result = x;
+    let mut i = 0u8;
+    while i < n {
+        result += 1;
+        i += 1;
+    }
+    result
+}
+```
+
+The inferred mathematical predicates are `requires x + n <= 255` and
+`ensures result == x + n`. Zero iterations admit `x == 255`; positive counts
+retain the actual accumulator-overflow restriction. Runtime counts remain
+symbolic, with no unrolling or small-count cap. The verifier proves induction
+and termination even for types whose full range is impractical to execute.
+
+Local names and input order may differ. The two local declarations may be
+reversed. Unit increments can use `+= 1` or `v = v + 1`. The accumulator update
+must precede the counter update, the guard must be `counter < bound`, and the
+tail expression must return the accumulator. The recognizer checks the entire
+typed body and rejects extra statements, other steps/guards, signed counters,
+nested loops, user breaks/continues, handwritten loop annotations, and general
+local/state mutation. Loop inference currently requires exact mode.
+`assume_termination` and `exec_allows_no_decreases_clause` settings are rejected
+for this pattern. Loop-free inferred wrappers can compose its exact summary.
+
+The proposed prefix invariants are `i <= n` and `result == x + i`, over
+mathematical integers. The decreasing measure is `n - i`. Loop isolation is
+disabled so ordinary soundness can use its input precondition without including
+that precondition in the invariant set. Ordinary Verus checks invariant entry
+and preservation, both additions, decreasing-measure obligations, and the result
+relation. Maximality removes the candidate precondition, retains independent
+prefix-invariant and termination checks, and uses successful execution to
+establish `i == n` and hence the safe input domain. Exactness retains the
+arbitrary-output query. All three required outcomes still gate use and export.
+
+The installer adds proof annotations only. A production projection check removes
+exactly the generated invariants, measure, and isolation setting and compares
+every remaining serialized typed-body field with the source. Annotation terms
+must also belong to the restricted, pure summary language. Candidate identities
+cover both the source and installed proof annotations. Cache hits recheck source
+eligibility and regenerate these annotations; cache entries store no bodies,
+annotations, or proof results. No loop axioms or trusted helper contracts were
+introduced. See the repository's `VERUS_INFER_LOOPS.md` for the proof design and
+fault-injection strategy.
+
+`examples/verus_infer_loops.rs` verifies a caller property, composes two counted
+calls, and runs zero-count and overflow-boundary cases. The Cargo workspace
+also composes a counted loop across three crates.
+
+## Analysis budgets and other restrictions
+
 The synthesizer merges branch results as conditional expressions instead of
 enumerating paths. It bounds both source traversal and expanded formula size at
 4,096 nodes, and bounds dependency traversal depth at 128 functions. Solver checks use Verus's `--rlimit` and per-function
@@ -516,7 +583,8 @@ references, shared helpers, conditional calls, and
 short-circuit guards. Dependencies must form an acyclic graph. Callee summaries
 are substituted without analyzing their executable bodies again.
 
-Unsupported features include loops, recursion, converting `Result` errors with `?`, calls to functions
+Unsupported features include general loops (the counted pattern below is supported),
+recursion, converting `Result` errors with `?`, calls to functions
 without inferred contracts other than the approved standard models,
 general platform-sized arithmetic, integer bitwise operations,
 references beyond shared scalar arrays, mutable state, collections beyond the supported arrays, generics,
@@ -623,7 +691,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-Shared-slice inference uses metadata schema 7 and candidate-cache version 12;
+Counted-loop inference uses metadata schema 8 and candidate-cache version 13;
 rebuild inferred libraries and their dependents with the updated compiler.
 The internal candidate-identity field introduced with schema 6 changed serialized
 VIR; libraries built before that change, including `vstd`, also need rebuilding.
@@ -674,7 +742,9 @@ original executable's verifier-generated SST:
 
 These checks rely on the existing Verus/rustc arithmetic and array models and Z3, plus the
 small precision-check transformation as part of the verifier. The supported
-subset has no loops, effects, or source-level assumptions. Calls use inferred
+subset excludes general effects and source-level assumptions. Counted loops
+allow only the recognized two-local mutation pattern and checked proof
+decoration described above. Calls use inferred
 summaries or the explicitly approved standard models, including the array helpers
 and fixed-array length lowering. Those methods
 rely on the existing trusted vstd specifications, just as ordinary Verus

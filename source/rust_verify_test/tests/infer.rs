@@ -3420,3 +3420,219 @@ fn slices_poisoned_cache_bounds_and_outputs_are_independently_rejected() {
         assert!(!crates.vir("slice_cache").exists());
     }
 }
+
+test_verify_one_file! {
+    #[test] counted_loops_fixed_widths_alias_names_and_composition code! {
+        #[verus_infer] fn add8(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {r+=1;i+=1;}r
+        }
+        #[verus_infer] fn add16(x:u16,n:u16)->u16 {
+            let mut i=0u16;let mut total=x;while i<n {total=total+1;i=i+1;}total
+        }
+        #[verus_infer] fn add32(x:u32,n:u32)->u32 {
+            let mut x=x;let mut i=0u32;while i<n {x+=1;i+=1;}x
+        }
+        #[verus_infer] fn add64(n:u64,seed:u64)->u64 {
+            let mut total=seed;let mut tick=0u64;while tick<n {total+=1;tick+=1;}total
+        }
+        #[verus_infer] fn add128(x:u128,n:u128)->u128 {
+            let mut r=x;let mut i=0u128;while i<n {r+=1;i+=1;}r
+        }
+        #[verus_infer] fn composed(x:u8,n:u8)->u8 {add8(add8(x,n),n)}
+        verus!{fn caller(){
+            let r=add8(255,0);assert(r==255);
+            let r=add8(0,255);assert(r==255);
+            let r=add16(65534,1);assert(r==65535);
+            let r=add32(u32::MAX,0);assert(r==u32::MAX);
+            let r=add64(1,4);assert(r==5);
+            let r=add128(u128::MAX-1,1);assert(r==u128::MAX);
+            let r=composed(251,2);assert(r==255);
+        }}
+    } => Ok(diags) => {
+        for label in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"] {
+            assert_eq!(diags.notes.iter().filter(|n|n.message.contains(label)).count(),6,"{label}");
+        }
+    }
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_unsafe_caller_is_rejected code! {
+        #[verus_infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {r+=1;i+=1;}r
+        }
+        verus!{fn caller(){let _=add(255,1); /* FAILS */}}
+    } => Err(e) => assert_one_fails(e)
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_non_unit_update_is_unsupported code! {
+        #[verus_infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {r+=2;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_wrong_update_order_is_unsupported code! {
+        #[verus_infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {i+=1;r+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_extra_body_statement_is_unsupported code! {
+        #[verus_infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {let hidden=1u8;r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_handwritten_invariants_are_unsupported verus_code! {
+        #[verifier::infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;
+            while i<n invariant i<=n, {r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"no handwritten loop proofs")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_termination_assumptions_are_unsupported verus_code! {
+        #[verifier::infer] #[verifier::assume_termination]
+        fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file_with_options! {
+    #[test] counted_loops_termination_suppression_option_is_unsupported ["exec_allows_no_decreases_clause"] => verus_code! {
+        #[verifier::infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_sound_mode_is_unsupported code! {
+        #[verus_infer(precision="sound")] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_user_break_is_unsupported code! {
+        #[verus_infer] fn add(x:u8,n:u8)->u8 {
+            let mut r=x;let mut i=0u8;while i<n {if i==1{break;}r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+test_verify_one_file! {
+    #[test] counted_loops_signed_counters_are_explicitly_unsupported code! {
+        #[verus_infer] fn add(x:i8,n:i8)->i8 {
+            let mut r=x;let mut i=0i8;while i<n {r+=1;i+=1;}r
+        }
+    } => Err(e) => assert_vir_error_msg(e,"loops currently require one counted")
+}
+
+const COUNTED_LOOP_BASE: &str = r#"
+    #[verifier::infer] pub fn add(x:u8,n:u8)->u8 {
+        let mut r=x;let mut i=0u8;while i<n {r+=1;i+=1;}r
+    }
+"#;
+
+#[test]
+fn counted_loops_cache_reproves_annotations_and_cross_crate_contracts() {
+    let crates = InferCrates::new();
+    for cache in ["miss", "hit"] {
+        let run = crates.build(
+            "loop_base",
+            COUNTED_LOOP_BASE,
+            &[],
+            &["--output-json", "--num-threads", "4"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], cache);
+        assert_eq!(f["loop_proofs"][0]["loop_isolation"], false);
+        assert_eq!(f["loop_proofs"][0]["invariants"].as_array().unwrap().len(), 2);
+        assert_eq!(f["loop_proofs"][0]["decreases"][0], "(n - i)");
+        for o in ["soundness", "maximality", "exactness"] {
+            assert_eq!(f["proofs"][o]["status"], "proved");
+        }
+    }
+    for _ in 0..2 {
+        crates.succeeds(
+            "loop_middle",
+            r#"
+            #[verifier::infer] pub fn twice(x:u8,n:u8)->u8 {loop_base::add(loop_base::add(x,n),n)}
+        "#,
+            &["loop_base"],
+        );
+    }
+    crates.succeeds(
+        "loop_app",
+        r#"
+        #[verifier::infer] pub fn top(x:u8,n:u8)->u8 {loop_middle::twice(x,n)}
+        pub fn caller(){let r=top(253,1);assert(r==255);let r=loop_base::add(255,0);assert(r==255);}
+    "#,
+        &["loop_base", "loop_middle"],
+    );
+}
+
+#[test]
+fn counted_loops_wrong_cached_candidates_block_dependents_and_remove_exports() {
+    for kind in ["restrictive", "permissive", "wrong_output"] {
+        let crates = InferCrates::new();
+        let body = format!("{COUNTED_LOOP_BASE} fn caller(){{let _=add(0,0);}}");
+        let run = crates.build("loop_cache", &body, &[], &["--output-json"]);
+        assert!(run.status.success());
+        for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+            let path = file.unwrap().path();
+            let mut c: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            match kind {
+                "restrictive" => c["pre"] = serde_json::json!({"Bool":false}),
+                "permissive" => c["pre"] = serde_json::json!({"Bool":true}),
+                _ => {
+                    c["post"]["Binary"][2] =
+                        serde_json::to_value(vir::ast::Constant::Int(0.into())).unwrap()
+                }
+            }
+            std::fs::write(path, serde_json::to_vec(&c).unwrap()).unwrap();
+        }
+        let run = crates.build("loop_cache", &body, &[], &["--output-json"]);
+        assert!(!run.status.success(), "{kind}: {}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], "hit");
+        assert_eq!(f["available_to_same_crate_callers"], false);
+        assert_eq!(f["exported"], false);
+        if kind == "restrictive" {
+            assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+            assert_eq!(f["proofs"]["maximality"]["status"], "not_proved");
+        } else {
+            assert_eq!(f["proofs"]["soundness"]["status"], "not_proved");
+        }
+        assert!(!crates.vir("loop_cache").exists());
+    }
+}
+
+#[test]
+fn counted_loops_precision_timeout_blocks_dependents_and_exports() {
+    let crates = InferCrates::new();
+    let body = format!(
+        "#[verifier::infer_precision_rlimit(0.000001)] {COUNTED_LOOP_BASE} fn caller(){{assert(false);}}"
+    );
+    let run = crates.build("loop_timeout", &body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    assert_eq!(report["status"], "required_proof_incomplete");
+    assert_eq!(report["functions"][0]["proofs"]["soundness"]["status"], "proved");
+    assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    assert!(!crates.vir("loop_timeout").exists());
+}

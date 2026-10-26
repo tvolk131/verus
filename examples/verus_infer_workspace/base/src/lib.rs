@@ -44,3 +44,11 @@ pub fn apply_delta(balance: i64, delta: i64) -> Option<i64> {
 pub fn slice_fee(fees: &[u64], tier: usize) -> Option<u64> {
     if tier < fees.len() { Some(fees[tier]) } else { None }
 }
+
+#[verus_infer]
+pub fn counted_add(x: u64, n: u64) -> u64 {
+    let mut result = x;
+    let mut i = 0u64;
+    while i < n { result += 1; i += 1; }
+    result
+}

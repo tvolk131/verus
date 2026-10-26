@@ -84,12 +84,17 @@ Implemented and covered by regression tests:
   unguarded indexing, aliases, length relationships, scalar/enum results, and
   composition through caches and certified cross-crate interfaces. Existing
   slice models are fingerprinted; no new slice axioms or stronger specs were added.
-- [x] Reproducible 18-case evaluation baseline, including expected failures,
+- [x] First exact counted-loop pattern for same-width unsigned inputs: generated
+  prefix invariants, checked termination, maximality without assuming the
+  candidate precondition, and exact output. Proof-only decoration preserves
+  executable code through a production projection check. See the
+  [loop proof design](VERUS_INFER_LOOPS.md).
+- [x] Reproducible 22-case evaluation baseline, including expected failures,
   cold/warm reproving, incremental dependency invalidation, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
-- [x] Assurance consolidation: contract-only generation/cache reuse, one
-  body-preserving installer, candidate-bound proof evidence, explicit query-kind
+- [x] Assurance consolidation: formula-only candidate caches, one installer
+  preserving executable code, candidate-bound proof evidence, explicit query-kind
   checks, failure injection, and source mutation tests. The checking and acceptance
   components are not themselves formally verified; see the
   [assurance plan](VERUS_INFER_ASSURANCE.md).
@@ -107,10 +112,12 @@ Still planned or outside the implemented subset:
   and enum abstractions in sound mode.
 - [ ] Broader array syntax, array/slice-valued interfaces, subslices, and richer
   slice element types; shared scalar slice reads and length properties are implemented.
-- [ ] Mutation, state relations, and frame-condition inference.
+- [ ] General mutation, state relations, and frame-condition inference beyond
+  the two locals in the recognized counted-loop pattern.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
-- [ ] Loop inference, invariant discovery, and recursive summaries.
+- [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
+  search, signed/platform-sized counters, and recursive summaries.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
@@ -129,7 +136,7 @@ Still planned or outside the implemented subset:
 | Phase 1: exact arithmetic | Implemented for fixed unsigned/signed integers and Booleans; integer bitwise operations and broader arithmetic policies remain. |
 | Phase 2: modular composition | Implemented within that subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs. |
 | Phase 3: partial inference and collections | Partial: scalar intervals, exact enums, immutable flat arrays, and shared scalar slices are implemented; broader collections and frame conditions remain. |
-| Phase 4: loop inference | Not implemented. |
+| Phase 4: loop inference | First exact unsigned counted accumulator pattern implemented with checked invariants and termination; broader loops remain. |
 | Phase 5: richer verification | Future work. |
 
 The prototype retains Verus's existing trusted-library and standard-model
@@ -145,9 +152,9 @@ transformations remains separately scoped work.
 ## Proposed next milestones
 
 The checklist above is the ongoing backlog. Exact signed inference, its
-signed-interval follow-up, the reporting/evaluation baseline, and basic shared
-dynamic slices are implemented. Selected loop inference remains the next larger
-language milestone and needs a separately scoped design:
+signed-interval follow-up, reporting/evaluation, shared dynamic slices, and the
+first unsigned counted-loop pattern are implemented. Further loop patterns need
+their own synthesis and proof scope:
 
 1. **Completed: exact signed integers.** `i8` through `i128` arithmetic,
    comparisons, negation, and casts, including signed enum payloads, arrays, and
@@ -161,7 +168,7 @@ language milestone and needs a separately scoped design:
 2. **Implemented baseline: contract reporting and measurement.** Schema-versioned
    JSON separates checked predicates, requested precision, actual proof outcomes,
    dependencies, trusted models, incomplete results, and publication. Predicates
-   retain their checked meaning and expose parameter/result types. An 18-case
+   retain their checked meaning and expose parameter/result types. A 22-case
    corpus measures selected feature coverage and known limits, caller-property
    outcomes, exact versus sound summaries, formula size, generation/solver time,
    cache reuse, incremental invalidation, and two call-graph depths. Broader
@@ -172,10 +179,13 @@ language milestone and needs a separately scoped design:
    preserve the existing proof and publication requirements. Broader collections,
    mutable slices, returned slices, subslices, and frame conditions remain tracked
    in the backlog above.
-4. **Selected loop inference.** Begin with bounded or recognizable accumulator,
-   search, and traversal patterns. Establish a separate design for termination,
-   invariant generation, and independent invariant checks before implementation.
-   Exactness requires accounting for every execution, including every iteration.
+4. **First loop milestone implemented.** Two-local counted accumulator loops
+   over fixed-width unsigned inputs use generated prefix invariants and a
+   decreasing measure, checked by ordinary Verus. Maximality checks those prefix
+   facts without the candidate precondition. Cache, export, and report paths
+   preserve required proofs. Broader accumulators, traversal, and search remain
+   future work; each extension must justify independent invariants, termination,
+   maximality, and exactness. See [the design](VERUS_INFER_LOOPS.md).
 
 The remaining backlog items can be reprioritized as these milestones expose
 practical needs. The [assurance plan](VERUS_INFER_ASSURANCE.md) tracks formal

@@ -25,6 +25,25 @@ pub fn validate_query_kind(
     precision: Option<PrecisionCheck>,
     span: &Span,
 ) -> Result<(), VirErr> {
+    // Invariant and decreasing-measure checks are emitted by the ordinary
+    // SST-to-AIR loop lowering. Never accept a loop with those checks disabled.
+    crate::sst_visitor::map_stm_visitor(&check.body, &mut |stm| {
+        if let StmX::Loop { loop_isolation, cond, invs, decrease, is_for_loop, .. } = &stm.x {
+            if *loop_isolation
+                || *is_for_loop
+                || cond.is_some()
+                || invs.len() != 2
+                || invs.iter().any(|inv| !inv.at_entry || !inv.at_exit)
+                || decrease.len() != 1
+            {
+                return Err(error(
+                    &stm.span,
+                    "Verus Infer: missing or incompatible counted-loop proof annotations",
+                ));
+            }
+        }
+        Ok(stm.clone())
+    })?;
     let valid = matches!(
         (precision, check.post_condition.kind),
         (None, PostConditionKind::Ensures)
@@ -70,7 +89,7 @@ fn precision_check_body(
             // Safe execution implies P. Remove P from the assumptions and Q from
             // the conclusion. Every built-in safety check becomes a constraint
             // selecting successful executions; it is *not* removed from the
-            // ordinary soundness query. Eligibility excludes loops,
+            // ordinary soundness query. Eligibility excludes arbitrary loops,
             // explicit assumptions, and proof code in the source body.
             check.reqs = Arc::new(vec![]);
             post.ens_exps = original.reqs.clone();
@@ -85,6 +104,12 @@ fn precision_check_body(
                     | StmX::Assign { .. }
                     | StmX::Return { .. }
                     | StmX::If(..)
+                    // Non-isolated while lowering inserts its exit branch.
+                    | StmX::BreakOrContinue { .. }
+                    // Only prefix invariants occur here. The backend still
+                    // checks their initialization/preservation and termination
+                    // without the candidate precondition in this query.
+                    | StmX::Loop { .. }
                     | StmX::Block(_) => Ok(stm.clone()),
                     _ => Err(error(
                         &stm.span,

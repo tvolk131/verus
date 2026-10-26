@@ -67,6 +67,13 @@ pub fn slice_total(fees: &[u64], tier: usize, amount: u64) -> Option<u64> {
 }
 
 verus! {
+    pub fn counted_property(x: u64, n: u64) -> (result: u64)
+        requires x as int + 2 * n as int <= u64::MAX,
+        ensures result as int == x as int + 2 * n as int,
+    { infer_middle::counted_twice(x, n) }
+}
+
+verus! {
     pub fn slice_pricing_property(fees: &[u64], tier: usize, amount: u64) -> (result: Option<u64>)
         ensures match result {
             Some(total) => tier < fees@.len()

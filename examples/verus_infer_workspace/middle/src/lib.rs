@@ -40,3 +40,8 @@ pub fn signed_settlement(balance: i64, delta: i64) -> Option<i64> {
 pub fn slice_charge(fees: &[u64], tier: usize, amount: u64) -> Option<u64> {
     Some(amount.checked_add(infer_base::slice_fee(fees, tier)?)?)
 }
+
+#[verus_infer]
+pub fn counted_twice(x: u64, n: u64) -> u64 {
+    infer_base::counted_add(infer_base::counted_add(x, n), n)
+}
