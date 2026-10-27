@@ -20,7 +20,7 @@ precondition, and can use the postcondition in ordinary Verus proofs.
 Inside `verus!`, use `#[verifier::infer]` on an `exec` function instead. The
 equivalent attribute spelling for native Rust is `#[verus_verify(infer)]`.
 Exact inference is the default. `#[verus_infer(precision = "exact")]` requests
-it explicitly. Opt into sound interval summaries with
+it explicitly. Opt into sound summaries with
 `#[verus_infer(precision = "sound")]`; inside `verus!`, the equivalent spellings
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
@@ -77,6 +77,64 @@ compares a handwritten threshold contract with this inference path, supplies
 native boundary/state-sequence probes, and records the remaining collector proof
 requirements. Its formal collector is the existing manually verified production
 core, not the generic collector from clean main.
+
+## Bounded vector views and updates
+
+Three small templates support ordinary `Vec` references, including generic
+payloads. These native Rust bodies need no handwritten contracts:
+
+```rust
+use vstd::prelude::*;
+
+#[verus_infer]
+fn length<T>(v: &Vec<T>) -> usize { v.len() }
+
+#[verus_infer]
+fn read<T: Copy>(v: &Vec<T>, i: usize) -> T { v[i] }
+
+#[verus_infer(precision = "sound")]
+fn replace<T: Copy>(v: &mut Vec<T>, i: usize, value: T) { v[i] = value; }
+```
+
+`length` gets `result == v@.len()`. `read` gets the safety requirement
+`i < v@.len()` and `result == v@[i as int]`. Both default to exact mode and
+receive independent soundness, safe-domain maximality and output-exactness proofs.
+
+`replace` gets `i < old(v)@.len()` and the state relation
+`final(v)@ == old(v)@.update(i as int, value)`. This describes the complete final
+sequence: its length and every other slot stay the same. Ordinary callers may
+use that relation with their own invariants and checked sequence lemmas.
+
+Mutation requires explicit sound mode. The current precision checker quantifies
+returned values, so it cannot certify precision of mutable state. Reports mark
+state maximality and exactness `not_established`, with reason
+`state_precision_not_supported`; they are not run even with a precision budget.
+The original executable body must still pass ordinary soundness verification.
+An informative state equation does not by itself establish these two precision
+guarantees.
+
+The mutator also accepts exactly `if i < v.len() { v[i] = value; }`, or
+`if i >= v.len() { return; } v[i] = value;`. These guarded forms have no input
+restriction; their postcondition describes an update in bounds and no change
+otherwise. All templates use the default allocator. Generic read/write require
+`T: Copy`; nongeneric scalar vectors are also supported. Additional effects,
+aliases/locals, pushes, loops, arbitrary mutable records, custom allocators,
+owned vector arguments and generic helper composition remain unsupported.
+Handwritten contracts and proof statements cannot be added to an inferred helper.
+
+This path copies and instantiates existing checked/trusted vstd vector and
+sequence models; it adds no axioms or external bodies. Original function bodies
+and signatures remain intact. Candidate identities and exported metadata bind
+the state formulas and model dependencies. Collection templates regenerate and
+are reverified on every run (`metrics.cache_policy = "regenerated_template"`),
+including warm runs; their formulas do not enter the scalar candidate cache.
+Ordinary callers can use certified collection summaries across crate boundaries.
+
+The AlephBFT collection experiment extracts these three operations from the
+existing manually verified collector. Its counting invariant, induction lemmas,
+loop annotations and proof calls remain explicit. This demonstrates composition
+with inferred state effects; it does not yet automate selection of those lemmas
+or inference of the whole collector method.
 
 ## Demand-driven scalar proof assistance
 
@@ -894,7 +952,7 @@ Unsupported features include general loops (the counted pattern below is support
 recursion, converting `Result` errors with `?`, calls to functions
 without inferred contracts other than the approved standard models,
 integer operations outside the allowlist above,
-references beyond shared scalar arrays/slices, mutable state, collections beyond the supported arrays/slices, generics,
+references, mutation, collections and generics beyond the templates described above,
 and ghost/proof statements.
 An ordinary verified caller may compose inferred functions at any supported depth.
 Handwritten contracts cannot be combined with inference yet; they receive an
@@ -998,7 +1056,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 15 and candidate-cache version 20.
+The current inference policy uses metadata schema 16 and candidate-cache version 21.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

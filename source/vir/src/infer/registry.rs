@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v20:scalar-newtypes:4096";
+const VERSION: &str = "verus-infer-v21:collection-templates:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -301,7 +301,8 @@ impl Registry {
             candidates.insert(f.x.name.clone(), f.clone());
         }
         for f in imported.iter().filter(|f| f.x.attrs.infer) {
-            validate_imported_summary(f)?;
+            if collections::kind(f).is_some() { collections::validate_summary(f, &all)?; }
+            else { validate_imported_summary(f)?; }
             let key: String = Sha256::digest(format!("{VERSION}:import:{f:?}"))
                 .iter()
                 .map(|b| format!("{b:02x}"))
@@ -315,6 +316,21 @@ impl Registry {
             }
             let f = &all[&name];
             let start = std::time::Instant::now();
+            if collections::kind(f).is_some() {
+                let mut dependencies: Vec<_> = all.values()
+                    .filter(|f| collections::model(f).is_some())
+                    .map(|f| keys[&f.x.name].clone()).collect();
+                dependencies.sort();
+                let key = candidate_key(self.originals.get(&name).unwrap_or(f), &dependencies, &self.configuration);
+                let inferred = collections::infer(f, &all)?.install_lifted(f, &key)?;
+                // Regenerate these bounded templates; never decode arbitrary
+                // state expressions through the scalar candidate-cache format.
+                self.misses += 1;
+                self.generated.push(GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros()));
+                keys.insert(name.clone(), key);
+                candidates.insert(name, inferred);
+                continue;
+            }
             validate_signature(f)?;
             validate_body(f, &all)?;
             if !f.x.attrs.infer_allow_approx && uses_approximate_callee(f, &candidates) {

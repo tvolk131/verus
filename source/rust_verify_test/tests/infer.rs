@@ -630,6 +630,59 @@ fn private_inferred_helpers_mark_exports_and_remove_stale_ordinary_outputs() {
 }
 
 #[test]
+fn collection_views_and_effects_cross_crates_preserve_honest_precision() {
+    let crates = InferCrates::new();
+    let base = r#"
+        use vstd::prelude::*;
+        #[verifier::infer] pub fn length<T>(v:&Vec<T>)->usize {v.len()}
+        #[verifier::infer] pub fn read<T:Copy>(v:&Vec<T>,i:usize)->T {v[i]}
+        #[verifier::infer_precision_rlimit(1)]
+        #[verifier::infer(sound)] pub fn replace<T:Copy>(v:&mut Vec<T>,i:usize,x:T){v[i]=x;}
+    "#;
+    let caller = r#"
+        use vstd::prelude::*;
+        #[verifier::infer] fn own_length<T>(v:&Vec<T>)->usize {v.len()}
+        pub fn property(v:&mut Vec<u8>,i:usize,x:u8)
+            requires i<old(v)@.len(),
+            ensures final(v)@==old(v)@.update(i as int,x),
+        {
+            let n=collection_base::length(&*v); assert(n==v@.len());
+            let own=own_length(&*v); assert(own==n);
+            let old=collection_base::read(&*v,i); assert(old==v@[i as int]);
+            collection_base::replace(v,i,x);
+        }
+    "#;
+    for _ in 0..2 {
+        let run = crates.build("collection_base", base, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        for f in report["functions"].as_array().unwrap() {
+            assert_eq!(f["required_checks_passed"], true);
+            assert_eq!(f["metrics"]["cache_policy"], "regenerated_template");
+            assert_eq!(f["metrics"]["cache"], "miss");
+            if f["function"].as_str().unwrap().ends_with("::replace") {
+                assert_eq!(f["summary_kind"], "collection_state");
+                for p in ["maximality", "exactness"] {
+                    assert_eq!(f["proofs"][p]["status"], "not_established");
+                    assert_eq!(f["proofs"][p]["required"], false);
+                    assert_eq!(f["proofs"][p]["reason"], "state_precision_not_supported");
+                }
+            } else {
+                for p in ["soundness", "maximality", "exactness"] {
+                    assert_eq!(f["proofs"][p]["status"], "proved");
+                }
+            }
+        }
+        crates.succeeds("collection_consumer", caller, &["collection_base"]);
+    }
+    let wrong = caller.replace(".update(i as int,x)", ".update(i as int,x.wrapping_add(1))");
+    let run = crates.build("collection_consumer", &wrong, &["collection_base"], &[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    assert!(!crates.vir("collection_consumer").exists());
+}
+
+#[test]
 fn scalar_newtypes_cross_crate_cache_reproof_and_failed_export() {
     let crates = InferCrates::new();
     let base = r#"

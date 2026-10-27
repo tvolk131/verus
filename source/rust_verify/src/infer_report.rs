@@ -51,10 +51,13 @@ impl Verifier {
                 "check_not_run"
             };
             let approximate_dependency = vir::infer::uses_approximate_callee(f, &available);
-            let maximality_missing = if approximate_dependency {
+            let state_summary = vir::infer::is_state_summary(f);
+            let maximality_missing = if state_summary { "state_precision_not_supported" }
+            else if approximate_dependency {
                 "sound_mode_dependency"
             } else { unavailable };
-            let exactness_missing = if allow_approx && matches!(
+            let exactness_missing = if state_summary { "state_precision_not_supported" }
+            else if allow_approx && matches!(
                 f.x.ensure.0.first().map(|e| &e.x),
                 Some(ExprX::Const(vir::ast::Constant::Bool(true)))
             ) { "unconstrained_result" } else { unavailable };
@@ -74,6 +77,7 @@ impl Verifier {
                 "source": f.span.as_string,
                 "candidate_id": f.x.attrs.infer_candidate_id,
                 "mode": if allow_approx { "sound" } else { "exact" },
+                "summary_kind": if state_summary { "collection_state" } else { "value" },
                 "parameters": f.x.params.iter().map(|p| json!({
                     "name": p.x.name.0, "type": typ_to_diagnostic_str(&p.x.typ)
                 })).collect::<Vec<_>>(),
@@ -91,6 +95,7 @@ impl Verifier {
                 "dependencies": dependencies,
                 "metrics": {
                     "cache": if candidate.cache_hit { "hit" } else { "miss" },
+                    "cache_policy": if vir::infer::is_collection_summary(f) { "regenerated_template" } else { "candidate_cache" },
                     "generation_micros": candidate.elapsed_micros,
                     "solver_micros": solver_micros,
                     "requires_nodes": candidate.requires_nodes,

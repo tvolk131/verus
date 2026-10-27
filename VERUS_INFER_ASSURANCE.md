@@ -693,6 +693,37 @@ support is separately classified. Bounded native exploration and mutation tests
 provide concrete runtime evidence, not universal state-space coverage or a
 new distributed-protocol theorem.
 
+## Bounded vector view/effect checkpoint
+
+The collection path recognizes closed, direct `Vec` length/read/slot-assignment
+templates. Its model catalog validates canonical core/vstd identities, signatures,
+generic bounds, modes and contract shapes. Exact read maximality can assume an
+index operation's precondition only when that condition is the canonical
+`i < vec@.len()` on the same parameters; stronger or different conditions are
+rejected by targeted regressions. Ordinary soundness still checks every bound.
+Candidate formulas instantiate the existing vstd contracts, and the original
+body/signature are installed unchanged. No new trusted specification is added.
+
+Mutable templates require sound mode. Their full sequence update relation
+supports ordinary frame and counting proofs, but state maximality/exactness are
+explicitly not established. The return-only precision checker defensively rejects
+mutable-reference parameters, and the driver does not submit state precision
+queries. This avoids certifying a state property with a return-only transformation.
+
+Cache version 21 and metadata schema 16 cover the new summary forms and model
+dependencies. Collection candidates bypass scalar cache serialization: templates
+regenerate each time and all required proofs run. Imported summaries are checked
+against the closed template schema using the full imported model catalog.
+Cross-crate tests check reproof, honest precision labels, caller rejection and
+failed-export cleanup. Existing metadata remains trusted compiler-generated
+evidence, not an independently replayable proof certificate.
+
+A generic counting regression verifies a supplied invariant through the inferred
+update contract using checked recursive update/bound lemmas. The AlephBFT runner
+uses the same approach in the supplied manual collector and distinguishes its
+source from clean main. This checkpoint does not synthesize invariants, prove
+induction automatically, or infer general record/collection mutation.
+
 Cargo edit measurements observe broad candidate invalidation, including an
 independent function, after changing the source. Such source-span/build-provenance
 sensitivity is a cache-efficiency follow-up; it does not reuse failed evidence or

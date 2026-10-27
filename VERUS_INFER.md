@@ -38,6 +38,12 @@ Implemented and covered by regression tests:
   type definitions bind caches and exported contracts. An AlephBFT quorum/parent
   comparison replaces one five-clause threshold contract, confirms two existing
   overflow boundaries, and retains the manual collector's state/counting proofs.
+- [x] Bounded generic `Vec` length/read templates with all three exact-mode
+  proofs, and explicit sound-mode single-slot updates with old/new sequence
+  relations and unchanged-slot frames. Guarded updates admit out-of-range indices
+  as no-ops. State precision is explicitly not established. Original bodies and
+  existing vstd models are retained; collection candidates regenerate and reprove
+  on every run, including across certified crate interfaces.
 - [x] Initial demand-driven scalar proof strategy behind `--infer-goals`:
   explicit ordinary caller assertions can use bounded exact-summary substitution
   and checked bit-vector theorems, without eager contract enrichment. A pinned,
@@ -165,7 +171,9 @@ Still planned or outside the implemented subset:
   local views, and richer slice element types. Owned array outputs and local
   exclusive/open shared subslices are implemented.
 - [ ] General mutation, state relations, and frame-condition inference beyond
-  the two locals in recognized counted-loop families.
+  the bounded single-slot vector templates and counted-loop locals. State-aware
+  maximality/exactness checks, generic mutable records, and automatic counting
+  lemma selection remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
 - [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
@@ -193,7 +201,7 @@ Still planned or outside the implemented subset:
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Initial opt-in goal assistance handles selected explicit scalar assertions; general queries, automatic retries and contract strengthening remain future work. |
-| Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, richer control flow, fixed-array outputs, and shared slice views are implemented. Broader collections and frame conditions remain. |
+| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec length/read and sound single-slot state summaries are implemented. General mutation and state precision remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
 
@@ -256,10 +264,18 @@ APIs and research directions.
    adapter contract, not the collector's invariant or induction proofs. Removing
    the update lemma call or constructor invariant still fails. Native mutation
    controls detect duplicate/stale counts, future slots and missing own parents.
-7. **Next: collection/state support and operator specifications.** The collector
-   inference probe stops at unsupported `Vec::len` consumption; generic mutable
-   receivers, state relations, frames and counting induction also remain outside
-   inference. Concrete operator implementations cannot introduce inferred
+7. **Bounded collection/state checkpoint implemented.** Generic vector
+   length/read helpers receive exact checks; single-slot replacement receives a
+   checked sound state relation, including its frame. A supplied counting
+   invariant composes with that relation through checked sequence lemmas.
+   The AlephBFT experiment extracts three operations from the existing manual
+   collector; it replaces experiment wrapper contracts and removes no existing
+   collector proof annotations. Counting induction and lemma calls remain manual.
+8. **Next: invariant-directed composition and operator specifications.** Connect
+   a supplied invariant and inferred effects to bounded selection of checked
+   update/counting lemmas. General mutable records, state-aware precision,
+   generic helper composition and whole-collector inference remain open.
+   Concrete operator implementations cannot introduce inferred
    preconditions independently of their inherited trait contracts. Address these
    boundaries with checked models/specifications before promising a clean-main
    collector proof from one supplied invariant. Goal-directed usability can add

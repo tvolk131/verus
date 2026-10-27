@@ -71,6 +71,10 @@ pub fn precision_check(
     original: &FuncCheckSst,
     kind: PrecisionCheck,
 ) -> Result<FuncCheckSst, VirErr> {
+    if function.x.pars.iter().any(|p| matches!(&*p.x.typ, crate::ast::TypX::MutRef(_))) {
+        return Err(error(&function.span,
+            "Verus Infer incomplete: mutable-state precision requires a state-aware checker"));
+    }
     precision_check_body(&function.span, &function.x.inner_ret.x.typ, original, kind)
 }
 

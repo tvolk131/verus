@@ -315,6 +315,10 @@ impl<'a> OpGenerator<'a> {
             Some(func_check_sst.clone()),
         )];
         if function.x.attrs.infer && matches!(style, Style::Normal) {
+            if vir::infer::is_state_summary(&self.ctx.func_map[&function.x.name]) {
+                self.ctx.fun = None;
+                return Ok(ops);
+            }
             for kind in [
                 vir::infer_checks::PrecisionCheck::Maximality,
                 vir::infer_checks::PrecisionCheck::Exactness,

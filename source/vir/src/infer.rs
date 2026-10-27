@@ -16,6 +16,7 @@ mod arithmetic;
 mod arrays;
 mod bitvector_hints;
 mod bitwise;
+mod collections;
 mod contract;
 mod eligibility;
 mod enums;
@@ -36,6 +37,22 @@ pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
+
+pub fn is_state_summary(function: &Function) -> bool {
+    function.x.attrs.infer && function.x.attrs.infer_allow_approx
+        && collections::kind(function) == Some(collections::Kind::Write)
+}
+
+pub fn is_collection_summary(function: &Function) -> bool {
+    function.x.attrs.infer && collections::kind(function).is_some()
+}
+
+pub(crate) fn is_vec_maximality_model(function: &Function, typs: &Typs) -> bool {
+    collections::model(function) == Some(collections::Model::Index)
+        && typs.len() == 2
+        && matches!(&*typs[1], TypX::Datatype(Dt::Path(p), ts, _) if ts.is_empty()
+            && models::path_is(p, CrateId::Alloc, &["alloc", "Global"]))
+}
 
 use contract::Contract;
 use eligibility::{scalar, validate_body, validate_signature};
@@ -616,6 +633,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                     if source
                         && !helper
                         && models::array_call(e, all)?.is_none()
+                        && !collections::source_call(e, all)
                         && (!typs.is_empty() || !impls.is_empty())
                     {
                         return Err(unsupported(&e.span, "generic calls"));
@@ -665,7 +683,8 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    integer_models::recognize(function).is_some()
+    collections::model(function).is_some()
+        || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
         || arithmetic::division_model(function)
@@ -679,6 +698,11 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
         available.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
+        if collections::kind(f).is_some() {
+            for model in available.values().filter(|f| collections::model(f).is_some()) {
+                used.insert(model.x.name.clone(), model.clone());
+            }
+        }
         if arrays::shape(&f.x.inner_ret.x.typ).is_some() {
             for model in available.values().filter(|f| arrays::equality_model(f)) {
                 used.insert(model.x.name.clone(), model.clone());
@@ -762,11 +786,16 @@ pub fn infer_functions_with_datatypes(
     result
 }
 
-pub fn validate_imported_summary_with_datatypes(
+pub fn validate_imported_summary_with_context(
     function: &Function,
     datatypes: &[Datatype],
+    functions: &[Function],
 ) -> Result<(), VirErr> {
-    validate_imported_summary(&newtypes::Newtypes::new(datatypes).project(function)?)
+    let projected = newtypes::Newtypes::new(datatypes).project(function)?;
+    if collections::kind(&projected).is_some() {
+        collections::validate_summary(&projected,
+            &functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect())
+    } else { validate_imported_summary(&projected) }
 }
 
 /// Validate the restricted summary shape on the import boundary. Proof
@@ -919,6 +948,18 @@ pub fn format_contract(function: &Function) -> String {
 /// Separate the checked predicates for structured presentation. Arithmetic is
 /// mathematical, with explicit machine casts and Rust signed division/remainder.
 pub fn format_contract_parts(function: &Function) -> (String, String) {
+    if collections::kind(function).is_some() {
+        let result_name = VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal);
+        let result = &function.x.inner_ret.x.name;
+        let post = crate::ast_visitor::map_expr_place_visitor(&function.x.ensure.0[0],
+            &|e| Ok(if matches!(&e.x, ExprX::Var(v) if v == result) {
+                e.new_x(ExprX::Var(result_name.clone()))
+            } else { e.clone() }),
+            &|p| Ok(if matches!(&p.x, PlaceX::Local(v) if v == result) {
+                p.new_x(PlaceX::Local(result_name.clone()))
+            } else { p.clone() })).expect("collection summary presentation");
+        return (format_expr(&function.x.require[0]), format_expr(&post));
+    }
     if function.x.attrs.infer_allow_approx {
         let result = Term {
             view: None,
@@ -1016,6 +1057,25 @@ fn format_expr(e: &Expr) -> String {
         ExprX::Const(Constant::Bool(b)) => b.to_string(),
         ExprX::Const(Constant::Int(i)) => i.to_string(),
         ExprX::Var(v) => v.0.to_string(),
+        ExprX::VarAt(v, VarAt::Pre) => format!("old({})", v.0),
+        ExprX::ReadPlace(p, _) => format_place(p),
+        ExprX::Old(e) => format!("old({})", format_expr(e)),
+        ExprX::Unary(UnaryOp::MutRefCurrent, e) => format_expr(e),
+        ExprX::Unary(UnaryOp::MutRefFuture(_) | UnaryOp::MutRefFinal(_), e) => format!("final({})", format_expr(e)),
+        ExprX::Call { target: CallTarget::Fun(_, name, ..), args, .. } => {
+            let p = &name.path;
+            if p.krate == CrateId::Vstd && p.segments.first().is_some_and(|s| s.as_str() == "view") && args.len() == 1 {
+                format!("({})@", format_expr(&args[0]))
+            } else if models::path_is(p, CrateId::Vstd, &["std_specs", "vec", "spec_vec_len"]) && args.len() == 1 {
+                format!("({}).len()", format_expr(&args[0]))
+            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "len"]) && args.len() == 1 {
+                format!("({}).len()", format_expr(&args[0]))
+            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "index"]) && args.len() == 2 {
+                format!("({})[{}]", format_expr(&args[0]), format_expr(&args[1]))
+            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "update"]) && args.len() == 3 {
+                format!("({}).update({}, {})", format_expr(&args[0]), format_expr(&args[1]), format_expr(&args[2]))
+            } else { format!("{}({})", crate::ast_util::fun_as_friendly_rust_name(name), args.iter().map(format_expr).collect::<Vec<_>>().join(", ")) }
+        }
         ExprX::Logical(op, a, b) => format!(
             "({} {} {})",
             format_expr(a),
@@ -1074,6 +1134,15 @@ fn format_expr(e: &Expr) -> String {
             format!("if {} {{ {} }} else {{ {} }}", format_expr(c), format_expr(a), format_expr(b))
         }
         _ => unreachable!("only synthesized expressions are printed"),
+    }
+}
+
+fn format_place(p: &Place) -> String {
+    match &p.x {
+        PlaceX::Local(v) => v.0.to_string(),
+        PlaceX::Temporary(e) => format_expr(e),
+        PlaceX::DerefMut(p) => format_place(p),
+        _ => format!("{:?}", p.x),
     }
 }
 

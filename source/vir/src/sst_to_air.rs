@@ -1910,7 +1910,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         .is_some_and(|resolved| {
                             crate::infer::is_subslice_maximality_model(func, resolved, typs)
                         });
-                    if !inferred && !subslice {
+                    let vector_index = crate::infer::is_vec_maximality_model(func, typs);
+                    if !inferred && !subslice && !vector_index {
                         return Err(crate::messages::error(
                             &stm.span,
                             "Verus Infer incomplete: unsupported callee requirement in maximality check",
