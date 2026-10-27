@@ -819,6 +819,16 @@ fn visit_trigs(ctx: &Ctx, state: &mut State, trigs: &Trigs) -> Trigs {
 }
 
 pub(crate) fn visit_exp_native_for_pure_exp(ctx: &Ctx, exp: &Exp) -> Exp {
+    visit_exp_native_for_pure_exp_with_vars(ctx, exp, &[])
+}
+
+/// Encode a newly constructed pure expression after the main Poly pass.
+/// Callers supply its free variables with their native types.
+pub(crate) fn visit_exp_native_for_pure_exp_with_vars(
+    ctx: &Ctx,
+    exp: &Exp,
+    vars: &[(VarIdent, Typ)],
+) -> Exp {
     let mut state = State {
         remaining_temps: HashSet::new(),
         types: ScopeMap::new(),
@@ -827,6 +837,10 @@ pub(crate) fn visit_exp_native_for_pure_exp(ctx: &Ctx, exp: &Exp) -> Exp {
         in_exec_closure: false,
         is_poly_ret_with_opaque: false,
     };
+    state.types.push_scope(true);
+    for (name, typ) in vars {
+        state.types.insert(name.clone(), typ.clone()).unwrap();
+    }
     visit_exp_native(ctx, &mut state, exp)
 }
 

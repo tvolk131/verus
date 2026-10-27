@@ -43,8 +43,9 @@ pub use goals::prepare as prepare_proof_goals;
 pub use counting_goals::prepare as prepare_counting_goals;
 
 pub fn is_state_summary(function: &Function) -> bool {
-    function.x.attrs.infer && function.x.attrs.infer_allow_approx
-        && (collections::kind(function) == Some(collections::Kind::Write) || records::candidate(function))
+    function.x.attrs.infer
+        && (collections::kind(function) == Some(collections::Kind::Write)
+            || records::candidate(function))
 }
 
 pub fn is_record_summary(function: &Function) -> bool { function.x.attrs.infer && records::candidate(function) }
@@ -54,10 +55,26 @@ pub fn is_collection_summary(function: &Function) -> bool {
 }
 
 pub(crate) fn is_vec_maximality_model(function: &Function, typs: &Typs) -> bool {
-    collections::model(function) == Some(collections::Model::Index)
+    matches!(
+        collections::model(function),
+        Some(collections::Model::Index | collections::Model::IndexMut)
+    )
         && typs.len() == 2
         && matches!(&*typs[1], TypX::Datatype(Dt::Path(p), ts, _) if ts.is_empty()
             && models::path_is(p, CrateId::Alloc, &["alloc", "Global"]))
+}
+
+/// Resolve the existing, signature-validated Vec view model for state precision.
+/// This does not inspect or reuse the candidate's postcondition.
+pub(crate) fn record_vec_view(functions: &HashMap<Fun, Function>) -> Option<Function> {
+    let mut views = functions.values()
+        .filter(|f| collections::model(f) == Some(collections::Model::View));
+    let view = views.next()?.clone();
+    views.next().is_none().then_some(view)
+}
+
+pub(crate) fn record_vec_args(typ: &Typ) -> Option<&Typs> {
+    collections::vec_args(typ)
 }
 
 use contract::Contract;

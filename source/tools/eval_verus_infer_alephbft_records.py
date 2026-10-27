@@ -28,7 +28,7 @@ def infer_add(source):
     start = source.rindex("    #[cfg_attr(verus_keep_ghost, verus_spec(", 0, end)
     contract = source[start:end]
     before = item(source, "pub fn add(&mut self")[2]
-    source = source[:start] + '    #[cfg_attr(verus_keep_ghost, verus_infer(precision = "sound"))]\n' + source[end:]
+    source = source[:start] + '    #[cfg_attr(verus_keep_ghost, verus_infer)]\n' + source[end:]
     harnesses = """
     // Minimal developer goal: every valid state can call add and stays valid.
     #[cfg(verus_keep_ghost)]
@@ -56,7 +56,7 @@ def add_mutation(source, old, new):
     return source[:start] + method.replace(old, new, 1) + source[end:]
 
 
-def validate(run, expected, state_count, unsupported=None):
+def validate(run, expected, state_count, unsupported=None, state_mode="exact"):
     data = json.loads(run["stdout"])
     verification = data["verification-results"]
     if (run["returncode"] == 0) != expected or verification.get("success") != expected:
@@ -78,15 +78,13 @@ def validate(run, expected, state_count, unsupported=None):
         state = f in states
         if not f["required_checks_passed"] or f["proofs"]["soundness"]["status"] != "proved":
             raise ValueError("missing ordinary candidate soundness proof")
-        if f["mode"] != ("sound" if state else "exact"):
+        if f["mode"] != (state_mode if state else "exact"):
             raise ValueError("unexpected precision mode")
         for p in ("maximality", "exactness"):
             evidence = f["proofs"][p]
-            if state:
-                if evidence["status"] != "not_established" or evidence["required"] or evidence["reason"] != "state_precision_not_supported":
-                    raise ValueError("record state precision must not be claimed")
-            elif evidence["status"] != "proved" or not evidence["required"]:
-                raise ValueError("missing exact scalar helper proofs")
+            required = not state or state_mode == "exact"
+            if evidence["status"] != "proved" or evidence["required"] != required:
+                raise ValueError("missing state-aware precision proofs or wrong requirement")
         if state and (f["metrics"]["cache"] != "miss" or f["metrics"]["cache_policy"] != "regenerated_state"):
             raise ValueError("record summaries must regenerate and reprove")
     return data
@@ -154,10 +152,10 @@ def main():
             specification_equivalence="checked generic count equivalence retained from counting experiment")
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK="20971520", VERUS_INFER_CACHE=str(output / "candidate-cache"))
         cases = ("manual", "unassisted", "inferred", "inferred-warm", "wrong-slot", "wrong-round", "wrong-counter",
-                 "duplicate-count", "changed-round-field", "missing-accounting", "extra-overflow-domain", "missing-loop-invariant", "exact-state-unsupported")
+                 "duplicate-count", "changed-round-field", "missing-accounting", "extra-overflow-domain", "missing-loop-invariant", "explicit-sound")
         for name in cases:
             state = original if name == "manual" else inferred
-            expected = name in ("manual", "inferred", "inferred-warm")
+            expected = name in ("manual", "inferred", "inferred-warm", "explicit-sound")
             enabled = name != "unassisted"
             unsupported = None
             if name == "wrong-slot": state = add_mutation(state, "self.candidates[creator] =", "self.candidates[0] =")
@@ -168,9 +166,8 @@ def main():
             if name == "missing-accounting": state = state.replace("#[verus_spec(requires old(self).valid(), ensures final(self).valid())]", "#[verus_spec(ensures final(self).valid())]", 1)
             if name == "extra-overflow-domain": state = add_mutation(state, "        if creator >=", "        let extra = creator + 1;\n        if creator >=")
             if name == "missing-loop-invariant": state = remove_constructor_loop_annotation(state)
-            if name == "exact-state-unsupported":
-                state = state.replace('verus_infer(precision = "sound")', "verus_infer", 1)
-                unsupported = "record state inference requires sound mode"
+            if name == "explicit-sound":
+                state = state.replace('verus_infer)', 'verus_infer(precision = "sound"))', 1)
             (checkout / STATE).write_text(state)
             command = [str(verus), str(checkout / PROPERTIES), "--crate-type=lib", "--crate-name=aleph_records", "--no-cheating", "--output-json"]
             if enabled: command.append("--infer-goals")
@@ -178,7 +175,7 @@ def main():
             guard.check(); run = measured(command, env, 60, ROOT); guard.check()
             (output / f"{name}.stdout.json").write_text(run["stdout"])
             (output / f"{name}.stderr.txt").write_text(run["stderr"])
-            data = validate(run, expected, 0 if name == "manual" else 1, unsupported)
+            data = validate(run, expected, 0 if name == "manual" else 1, unsupported, "sound" if name == "explicit-sound" else "exact")
             if not unsupported and name in ("extra-overflow-domain", "missing-accounting"):
                 require_domain_rejection(data, run["stderr"])
             if name == "inferred-warm" and any(f["metrics"]["cache"] != "hit" for f in data["verus-infer"]["functions"] if f["summary_kind"] != "record_state"):
@@ -219,7 +216,7 @@ def main():
         (output / "summary.md").write_text(
             "# AlephBFT direct record inference\n\n"
             "The supplied manual collector's original executable add body is inferred directly, with no vector wrappers. "
-            "Its handwritten contract is replaced by a checked sound state summary. "
+            "Its handwritten contract is replaced by a checked exact state summary. "
             "A minimal ordinary harness proves safe-call coverage and invariant preservation for every valid state and arbitrary arguments. "
             "The original behavioral clauses remain separately as an experiment-only regression oracle. "
             "The counting-library equivalence, other state contracts, loop annotations and transition equality assertion remain. "
@@ -227,8 +224,8 @@ def main():
             + "\n".join(f"- {r['case']}: {r['classification']}" for r in result["runs"])
             + "\n\n" + "\n".join(f"- native {r['case']}: expected outcome" for r in result["native"])
             + "\n\nSemantic controls require successfully checked inferred helpers. "
-            "The extra-overflow control adds a real unsafe operation; its sound restricted contract is insufficient for the requested domain. "
-            "No new production bug is claimed. State precision remains explicitly unestablished; timings are not a benchmark.\n")
+            "The extra-overflow control adds a real unsafe operation; its exact contract identifies a smaller safe domain than requested. "
+            "No new production bug is claimed. State precision is independently checked against the original body; timings are not a benchmark.\n")
     except Exception as error:
         result["success"] = False; result["error"] = str(error)
         raise

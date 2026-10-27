@@ -11,7 +11,7 @@ impl<T:Copy> Pool<T> {
     pub closed spec fn valid(&self)->bool {
         self.used == self.slots@.count_prefix(|slot:Option<T>|slot.is_some(),self.slots@.len())
     }
-    #[verifier::infer(sound)]
+    #[verifier::infer]
     pub fn insert(&mut self,i:usize,value:T) {
         if i>=self.slots.len(){return;}
         let empty=match self.slots[i] {None=>true,Some(_)=>false};
@@ -72,7 +72,7 @@ test_verify_one_file_with_options! {
     #[test] scalar_frames_early_returns_and_read_after_write ["vstd"] => verus_code! {
         pub struct State { pub x:u8, pub y:u8, pub stable:bool }
         impl State {
-            #[verifier::infer(sound)] fn update(&mut self,skip:bool,x:u8) {
+            #[verifier::infer] fn update(&mut self,skip:bool,x:u8) {
                 if skip {return;}
                 self.x=x;
                 self.y=self.x;
@@ -88,29 +88,60 @@ test_verify_one_file_with_options! {
 test_verify_one_file_with_options! {
     #[test] unsafe_record_calls_are_rejected ["vstd"] => verus_code! {
         pub struct State {pub n:u8}
-        impl State {#[verifier::infer(sound)] fn bump(&mut self){self.n+=1;}}
+        impl State {#[verifier::infer] fn bump(&mut self){self.n+=1;}}
         fn unrestricted(s:&mut State){s.bump(); /* FAILS */}
     } => Err(e) => assert_one_fails(e)
 }
 
 test_verify_one_file_with_options! {
-    #[test] exact_state_claims_are_unsupported ["vstd"] => verus_code! {
+    #[test] exact_state_checks_cover_unit_return_mutation ["vstd"] => verus_code! {
         pub struct State {pub n:u8}
         impl State {#[verifier::infer] fn bump(&mut self){self.n+=1;}}
-    } => Err(e) => assert_vir_error_msg(e,"sound mode")
+    } => Ok(())
+}
+
+test_verify_one_file_with_options! {
+    #[test] exact_generic_records_cover_multiple_vectors_and_copy_fields ["vstd"] => verus_code! {
+        use vstd::prelude::*;
+        pub struct State<T:Copy,U:Copy> {
+            pub left:Vec<T>, pub right:Vec<U>, pub last:Option<(T,u16)>, pub stable:bool,
+        }
+        impl<T:Copy,U:Copy> State<T,U> {
+            #[verifier::infer] pub fn update(&mut self,i:usize,j:usize,a:T,b:U,n:u16) {
+                if i>=self.left.len() || j>=self.right.len() {return;}
+                self.left[i]=a;
+                self.right[j]=b;
+                self.last=Some((a,n));
+            }
+            #[verifier::infer] pub fn idle(&mut self) {}
+        }
+        fn check<T:Copy,U:Copy>(s:&mut State<T,U>,i:usize,j:usize,a:T,b:U,n:u16)
+            requires i<old(s).left@.len(),j<old(s).right@.len(),
+            ensures final(s).left@==old(s).left@.update(i as int,a),
+                final(s).right@==old(s).right@.update(j as int,b),
+                final(s).last==Some((a,n)),final(s).stable==old(s).stable,
+        {s.update(i,j,a,b,n);s.idle();}
+    } => Ok(())
 }
 
 test_verify_one_file_with_options! {
     #[test] second_mutable_reference_is_unsupported ["vstd"] => verus_code! {
         pub struct State {pub n:u8}
-        impl State {#[verifier::infer(sound)] fn bump(&mut self,n:&mut u8){self.n=*n;}}
+        impl State {#[verifier::infer] fn bump(&mut self,n:&mut u8){self.n=*n;}}
     } => Err(e) => assert_vir_error_msg(e,"record state requires")
+}
+
+test_verify_one_file_with_options! {
+    #[test] opaque_record_fields_are_rejected_before_contract_lowering ["vstd"] => verus_code! {
+        mod data {pub struct State<T:Copy>{value:T}}
+        #[verifier::infer] fn idle<T:Copy>(s:&mut data::State<T>) {}
+    } => Err(e) => assert_vir_error_msg(e,"transparent record")
 }
 
 test_verify_one_file_with_options! {
     #[test] proof_assumptions_are_unsupported ["vstd"] => verus_code! {
         pub struct State {pub n:u8}
-        impl State {#[verifier::infer(sound)] fn bump(&mut self){assume(self.n<255);self.n+=1;}}
+        impl State {#[verifier::infer] fn bump(&mut self){assume(self.n<255);self.n+=1;}}
     } => Err(e) => assert_vir_error_msg(e,"record expression")
 }
 
@@ -118,14 +149,14 @@ test_verify_one_file_with_options! {
     #[test] vector_aliases_are_unsupported ["vstd"] => verus_code! {
         use vstd::prelude::*;
         pub struct State {pub slots:Vec<u8>}
-        impl State {#[verifier::infer(sound)] fn set(&mut self,i:usize,value:u8){let alias=&mut self.slots;alias[i]=value;}}
+        impl State {#[verifier::infer] fn set(&mut self,i:usize,value:u8){let alias=&mut self.slots;alias[i]=value;}}
     } => Err(e) => assert_vir_error_msg(e,"local aliases")
 }
 
 test_verify_one_file_with_options! {
     #[test] signed_field_bounds_remain_required ["vstd"] => verus_code! {
         pub struct State {pub n:i8,pub flag:bool}
-        impl State {#[verifier::infer(sound)] fn decrement(&mut self){self.n-=1;}}
+        impl State {#[verifier::infer] fn decrement(&mut self){self.n-=1;}}
         fn check(s:&mut State) requires old(s).n>i8::MIN,
             ensures final(s).n==old(s).n-1, final(s).flag==old(s).flag,
         {s.decrement();}
@@ -170,7 +201,7 @@ test_verify_one_file_with_options! {
 #[test]
 fn record_source_budget_is_enforced_even_for_overwritten_values() {
     let source = format!(
-        "use vstd::prelude::*; verus! {{pub struct State{{pub x:u8}} impl State{{#[verifier::infer(sound)] fn set(&mut self){{{}}}}}}}",
+        "use vstd::prelude::*; verus! {{pub struct State{{pub x:u8}} impl State{{#[verifier::infer] fn set(&mut self){{{}}}}}}}",
         "self.x=1;".repeat(1500)
     );
     let e = verify_one_file("source_budget", source, &["vstd"]).unwrap_err();
@@ -184,7 +215,7 @@ fn record_source_budget_is_enforced_even_for_overwritten_values() {
 #[test]
 fn record_expansion_budget_is_enforced() {
     let source = format!(
-        "use vstd::prelude::*; verus! {{pub struct State{{pub x:u8}} impl State{{#[verifier::infer(sound)] fn double(&mut self){{{}}}}}}}",
+        "use vstd::prelude::*; verus! {{pub struct State{{pub x:u8}} impl State{{#[verifier::infer] fn double(&mut self){{{}}}}}}}",
         "self.x=self.x+self.x;".repeat(16)
     );
     let e = verify_one_file("expansion_budget", source, &["vstd"]).unwrap_err();

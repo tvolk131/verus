@@ -106,10 +106,11 @@ receive independent soundness, safe-domain maximality and output-exactness proof
 sequence: its length and every other slot stay the same. Ordinary callers may
 use that relation with their own invariants and checked sequence lemmas.
 
-Mutation requires explicit sound mode. The current precision checker quantifies
-returned values, so it cannot certify precision of mutable state. Reports mark
-state maximality and exactness `not_established`, with reason
-`state_precision_not_supported`; they are not run even with a precision budget.
+Standalone mutable vector templates require explicit sound mode. Their precision
+checks remain unimplemented: reports mark maximality and exactness
+`not_established`, with reason `state_precision_not_supported`, even with a
+precision budget. The bounded mutable-record path below supports default exact
+mode and independently checked state precision.
 The original executable body must still pass ordinary soundness verification.
 An informative state equation does not by itself establish these two precision
 guarantees.
@@ -207,7 +208,7 @@ in the [experiment README](../../../tools/infer_alephbft/README.md).
 
 ## Bounded mutable records
 
-Explicit sound mode also supports loop-free updates to one exclusively borrowed,
+Default exact mode supports loop-free updates to one exclusively borrowed,
 transparent record. Inference tracks each field through branches and early unit
 returns, deriving guarded safety requirements and a final relation for every
 field. For vector fields the relation describes the complete sequence; unchanged
@@ -227,7 +228,7 @@ impl<T: Copy> Pool<T> {
             |slot: Option<T>| slot.is_some(), self.slots@.len())
     }
 
-    #[verifier::infer(sound)]
+    #[verifier::infer]
     pub fn insert(&mut self, i: usize, value: T) {
         if i >= self.slots.len() { return; }
         let empty = match self.slots[i] { None => true, Some(_) => false };
@@ -256,7 +257,7 @@ parameters and eight parameters including the one mutable record. Values may be
 machine integers, Booleans, opaque Copy parameters, tuples of up to four elements,
 and bounded nested `Option`/tuple combinations (depth four). Vector fields require
 such Copy elements and the default allocator. The type definition must be
-available and transparent, with one variant, no custom destructor, proxy,
+available and transparent in the inferred function's module, with one variant, no custom destructor, proxy,
 tracked/ghost fields or user-defined type invariant. Supplied spec predicates
 such as `valid()` are ordinary functions and remain supported.
 
@@ -278,8 +279,29 @@ implementations do not receive guessed conversion semantics.
 
 Record synthesis visits at most 4,096 source nodes and bounds generated formulas
 at 4,096 nodes. It installs only contract data on the original function body.
-Soundness must be proved before callers or exports can use it. State maximality
-and exactness remain `not_established`, including with a precision budget.
+Default exact mode requires three independent proofs before callers or exports
+can use it:
+
+- **Soundness:** the original body executes safely under the inferred precondition
+  and satisfies its final-state relation.
+- **Maximal input safety:** successful executions of the original body imply the
+  inferred precondition, evaluated on the entry snapshot. The query does not
+  assume that precondition; it uses the verifier-generated safety conditions.
+- **Output exactness:** for any legal typed candidate final record, the inferred
+  relation holds if and only if every modeled field matches the actual execution.
+  Observations are enumerated from the datatype independently of the inferred
+  clauses, so omitted changed or unchanged fields cannot escape this check.
+
+Vector observations compare full sequence contents extensionally. This does not
+claim exact allocation addresses or capacity. Copy fields use value equality.
+The actual body and its borrow-expiration constraints remain unchanged in the
+exactness query; only the proposed relation's final-state value is substituted.
+No application invariant is assumed by these checks.
+
+Explicit `precision = "sound"` remains available: soundness is required and both
+state-precision probes are optional, with their actual outcomes reported. An
+incomplete required precision proof blocks publication and dependent verification;
+there is no automatic fallback to sound mode.
 Record summaries regenerate and reprove on every run
 (`summary_kind = "record_state"`, `metrics.cache_policy = "regenerated_state"`);
 their state expressions never enter the scalar persistent cache. Identities bind
@@ -1214,7 +1236,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 17 and candidate-cache version 22.
+The current inference policy uses metadata schema 18 and candidate-cache version 23.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

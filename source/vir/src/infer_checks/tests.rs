@@ -44,6 +44,10 @@ fn binary(op: crate::sst::BinaryOp, a: Exp, b: Exp) -> Exp {
 }
 
 fn fixture() -> (Ctx, Pars, FuncCheckSst) {
+    fixture_with_datatypes(vec![])
+}
+
+fn fixture_with_datatypes(datatypes: Vec<Datatype>) -> (Ctx, Pars, FuncCheckSst) {
     let span = span();
     let krate_id = CrateId::Id(Arc::new("infer_test".into()), 1);
     let module_path = Arc::new(PathX { krate: krate_id.clone(), segments: Arc::new(vec![]) });
@@ -51,7 +55,7 @@ fn fixture() -> (Ctx, Pars, FuncCheckSst) {
     let krate = Arc::new(KrateX {
         functions: vec![],
         reveal_groups: vec![],
-        datatypes: vec![],
+        datatypes,
         traits: vec![],
         trait_impls: vec![],
         assoc_type_impls: vec![],
@@ -192,10 +196,9 @@ fn verifies_using(ctx: &Ctx, pars: &Pars, check: &FuncCheckSst, nonlinear: bool)
             ValidityResult::Valid(_)
         ));
     }
-    if ctx.used_builtins.uses_array {
-        for cmd in
-            crate::datatype_to_air::datatypes_and_primitives_to_air(ctx, &Arc::new(vec![])).iter()
-        {
+    if ctx.used_builtins.uses_array || !ctx.datatype_map.is_empty() {
+        let datatypes = Arc::new(ctx.datatype_map.values().cloned().collect());
+        for cmd in crate::datatype_to_air::datatypes_and_primitives_to_air(ctx, &datatypes).iter() {
             assert!(matches!(
                 solver.command(&*interface, &Silent, cmd, Default::default()),
                 ValidityResult::Valid(_)
@@ -239,6 +242,244 @@ fn correct_candidate_passes_all_checks() {
         let precision = precision_check_body(&span(), &pars[0].x.typ, &check, kind).unwrap();
         assert!(verifies(&ctx, &pars, &precision));
     }
+}
+
+/// An independent transition oracle: a u8 increment and an unchanged Boolean.
+/// No candidate or transition formula is obtained from the record synthesizer.
+fn record_fixture() -> (Ctx, Pars, FuncCheckSst) {
+    let name = Dt::Path(Arc::new(PathX {
+        krate: CrateId::Id(Arc::new("infer_test".into()), 1),
+        segments: Arc::new(vec![Arc::new("Counter".into())]),
+    }));
+    let visibility = Visibility { restricted_to: None };
+    let u8_typ = Arc::new(TypX::Int(IntRange::U(8)));
+    let datatype = Spanned::new(
+        span(),
+        DatatypeX {
+            name: name.clone(),
+            proxy: None,
+            owning_module: None,
+            visibility: visibility.clone(),
+            transparency: DatatypeTransparency::WhenVisible(visibility.clone()),
+            typ_params: Arc::new(vec![]),
+            typ_bounds: Arc::new(vec![]),
+            variants: Arc::new(vec![Variant {
+                name: Arc::new("Counter".into()),
+                ctor_style: CtorPrintStyle::Braces,
+                fields: Arc::new(vec![
+                    Arc::new(air::ast::BinderX {
+                        name: Arc::new("count".into()),
+                        a: (u8_typ.clone(), Mode::Exec, visibility.clone()),
+                    }),
+                    Arc::new(air::ast::BinderX {
+                        name: Arc::new("flag".into()),
+                        a: (bool_typ(), Mode::Exec, visibility),
+                    }),
+                ]),
+            }]),
+            mode: Mode::Exec,
+            ext_equal: false,
+            user_defined_invariant_fn: None,
+            sized_constraint: None,
+            destructor: false,
+        },
+    );
+    let (ctx, _, mut check) = fixture_with_datatypes(vec![datatype]);
+    let record_typ = Arc::new(TypX::Datatype(name.clone(), Arc::new(vec![]), Arc::new(vec![])));
+    let root_typ = Arc::new(TypX::MutRef(record_typ.clone()));
+    let root = SpannedTyped::new(&span(), &root_typ, ExpX::VarAt(var("state"), VarAt::Pre));
+    let initial =
+        SpannedTyped::new(&span(), &record_typ, ExpX::Unary(UnaryOp::MutRefCurrent, root.clone()));
+    let final_state = SpannedTyped::new(
+        &span(),
+        &record_typ,
+        ExpX::Unary(UnaryOp::MutRefFuture(MutRefFutureSourceName::Final), root),
+    );
+    let select = |r: Exp, field: &str, typ: &Typ| {
+        SpannedTyped::new(
+            &span(),
+            typ,
+            ExpX::UnaryOpr(
+                UnaryOpr::Field(FieldOpr {
+                    datatype: name.clone(),
+                    variant: Arc::new("Counter".into()),
+                    field: Arc::new(field.into()),
+                    get_variant: false,
+                    check: VariantCheck::None,
+                }),
+                r,
+            ),
+        )
+    };
+    let count = select(initial.clone(), "count", &u8_typ);
+    let sum =
+        binary(crate::sst::BinaryOp::Arith(crate::sst::ArithOp::Add), count.clone(), integer(1));
+    let fits =
+        binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), sum.clone(), integer(255));
+    let output =
+        binary(crate::sst::BinaryOp::Eq, select(final_state.clone(), "count", &u8_typ), sum);
+    let frame = binary(
+        crate::sst::BinaryOp::Eq,
+        select(final_state, "flag", &bool_typ()),
+        select(initial, "flag", &bool_typ()),
+    );
+    let vars = [(var("state"), root_typ.clone())];
+    let encode = |e: Exp| crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx, &e, &vars);
+    let output = encode(output);
+    let frame = encode(frame);
+    let fits = encode(fits);
+    check.reqs = Arc::new(vec![fits.clone()]);
+    check.post_condition = Arc::new(PostConditionSst {
+        dest: None,
+        ens_exps: Arc::new(vec![output.clone(), frame.clone()]),
+        ens_spec_precondition_stms: Arc::new(vec![]),
+        kind: PostConditionKind::Ensures,
+    });
+    check.body = Spanned::new(
+        span(),
+        StmX::Block(Arc::new(vec![
+            Spanned::new(
+                span(),
+                StmX::Assert(None, Some(error(&span(), "overflow")), fits.clone()),
+            ),
+            Spanned::new(span(), StmX::Assume(fits)),
+            Spanned::new(span(), StmX::Assume(output)),
+            Spanned::new(span(), StmX::Assume(frame)),
+            Spanned::new(
+                span(),
+                StmX::Return {
+                    assert_id: None,
+                    base_error: error(&span(), "postcondition"),
+                    ret_exp: None,
+                    inside_body: false,
+                },
+            ),
+        ])),
+    );
+    check.local_decls = Arc::new(vec![Arc::new(LocalDeclX {
+        ident: var("state"),
+        typ: root_typ.clone(),
+        kind: LocalDeclKind::Param { mutable: false },
+    })]);
+    let pars = Arc::new(vec![Spanned::new(
+        span(),
+        ParX { name: var("state"), typ: root_typ, mode: Mode::Exec },
+    )]);
+    (ctx, pars, check)
+}
+
+#[test]
+fn record_precision_rejects_loose_missing_wrong_and_restrictive_candidates() {
+    let (ctx, pars, check) = record_fixture();
+    let exact = |c: &FuncCheckSst| state::exactness_body(&ctx, &span(), &pars, c).unwrap();
+    let maximal = |c: &FuncCheckSst| {
+        precision_check_body(&span(), &crate::ast_util::unit_typ(), c, PrecisionCheck::Maximality)
+            .unwrap()
+    };
+    assert!(verifies(&ctx, &pars, &check));
+    assert!(verifies(&ctx, &pars, &maximal(&check)));
+    assert!(verifies(&ctx, &pars, &exact(&check)));
+    // Each field is independently required, including unchanged frame fields.
+    for clauses in [
+        vec![],
+        vec![check.post_condition.ens_exps[0].clone()],
+        vec![check.post_condition.ens_exps[1].clone()],
+    ] {
+        let mut weak = check.clone();
+        Arc::make_mut(&mut weak.post_condition).ens_exps = Arc::new(clauses);
+        assert!(verifies(&ctx, &pars, &weak));
+        assert!(!verifies(&ctx, &pars, &exact(&weak)));
+    }
+    let mut range = check.clone();
+    let equality = &check.post_condition.ens_exps[0];
+    let ExpX::Binary(_, lhs, rhs) = &equality.x else { panic!() };
+    Arc::make_mut(&mut range.post_condition).ens_exps = Arc::new(vec![
+        binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), lhs.clone(), rhs.clone()),
+        check.post_condition.ens_exps[1].clone(),
+    ]);
+    assert!(verifies(&ctx, &pars, &range));
+    assert!(!verifies(&ctx, &pars, &exact(&range)));
+    let mut wrong = check.clone();
+    Arc::make_mut(&mut wrong.post_condition).ens_exps =
+        Arc::new(vec![binary(crate::sst::BinaryOp::Eq, lhs.clone(), integer(0))]);
+    assert!(!verifies(&ctx, &pars, &wrong));
+    assert!(!verifies(&ctx, &pars, &exact(&wrong)));
+    let mut restricted = check.clone();
+    Arc::make_mut(&mut restricted.reqs).push(binary(
+        crate::sst::BinaryOp::Inequality(InequalityOp::Lt),
+        rhs.clone(),
+        integer(10),
+    ));
+    assert!(verifies(&ctx, &pars, &restricted));
+    assert!(!verifies(&ctx, &pars, &maximal(&restricted)));
+    let mut unsafe_candidate = check.clone();
+    unsafe_candidate.reqs = Arc::new(vec![]);
+    let before = format!("{:?}", unsafe_candidate);
+    assert!(!verifies(&ctx, &pars, &unsafe_candidate));
+    let precision = maximal(&unsafe_candidate);
+    assert!(verifies(&ctx, &pars, &precision));
+    assert!(validate_query_kind(&precision, None, &span()).is_err());
+    assert!(state::exactness_body(&ctx, &span(), &pars, &precision).is_err());
+    assert_eq!(before, format!("{:?}", unsafe_candidate));
+    assert!(!verifies(&ctx, &pars, &unsafe_candidate));
+}
+
+#[test]
+fn record_maximality_cannot_test_a_restrictive_domain_on_the_updated_state() {
+    let (ctx, pars, mut check) = record_fixture();
+    let ExpX::Binary(_, _, sum) = &check.post_condition.ens_exps[0].x else { panic!() };
+    let ExpX::Binary(_, count, _) = &sum.x else { panic!() };
+    // This executable sets count to zero and is safe for every initial count.
+    // A forged precondition count < 10 must still be rejected as nonmaximal.
+    let current_count = crate::sst_visitor::map_exp_visitor(count, &mut |e| match &e.x {
+        ExpX::VarAt(n, _) => e.new_x(ExpX::Var(n.clone())),
+        _ => e.clone(),
+    });
+    check.reqs = Arc::new(vec![binary(
+        crate::sst::BinaryOp::Inequality(InequalityOp::Lt),
+        current_count.clone(),
+        integer(10),
+    )]);
+    Arc::make_mut(&mut check.post_condition).ens_exps = Arc::new(vec![]);
+    let location = crate::sst_visitor::map_exp_visitor(&current_count, &mut |e| match &e.x {
+        ExpX::Var(n) => e.new_x(ExpX::VarLoc(n.clone())),
+        _ => e.clone(),
+    });
+    Arc::make_mut(&mut check.local_decls)[0] = Arc::new(LocalDeclX {
+        ident: pars[0].x.name.clone(),
+        typ: pars[0].x.typ.clone(),
+        kind: LocalDeclKind::Param { mutable: true },
+    });
+    check.body = Spanned::new(
+        span(),
+        StmX::Block(Arc::new(vec![
+            Spanned::new(
+                span(),
+                StmX::Assign { lhs: Dest { dest: location, is_init: false }, rhs: integer(0) },
+            ),
+            Spanned::new(
+                span(),
+                StmX::Return {
+                    assert_id: None,
+                    base_error: error(&span(), "postcondition"),
+                    ret_exp: None,
+                    inside_body: false,
+                },
+            ),
+        ])),
+    );
+    assert!(verifies(&ctx, &pars, &check));
+    let mut maximal = precision_check_body(
+        &span(),
+        &crate::ast_util::unit_typ(),
+        &check,
+        PrecisionCheck::Maximality,
+    )
+    .unwrap();
+    // Demonstrate the false acceptance that omitting entry snapshots would cause.
+    assert!(verifies(&ctx, &pars, &maximal));
+    Arc::make_mut(&mut maximal.post_condition).ens_exps = entry_requirements(&pars, &check.reqs);
+    assert!(!verifies(&ctx, &pars, &maximal));
 }
 
 fn counted_loop_fixture() -> (Ctx, Pars, FuncCheckSst) {

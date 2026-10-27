@@ -12,6 +12,8 @@ use crate::sst::*;
 use std::collections::HashMap;
 use std::sync::Arc;
 
+mod state;
+
 #[derive(Clone, Copy, Debug)]
 pub enum PrecisionCheck {
     Maximality,
@@ -67,15 +69,36 @@ impl PrecisionCheck {
 }
 
 pub fn precision_check(
+    ctx: &crate::context::Ctx,
     function: &FunctionSst,
     original: &FuncCheckSst,
     kind: PrecisionCheck,
 ) -> Result<FuncCheckSst, VirErr> {
     if function.x.pars.iter().any(|p| matches!(&*p.x.typ, crate::ast::TypX::MutRef(_))) {
-        return Err(error(&function.span,
-            "Verus Infer incomplete: mutable-state precision requires a state-aware checker"));
+        if !crate::infer::is_record_summary(&ctx.func_map[&function.x.name]) {
+            return Err(error(
+                &function.span,
+                "Verus Infer incomplete: mutable-state precision requires a supported record",
+            ));
+        }
+        if matches!(kind, PrecisionCheck::Exactness) {
+            return state::exactness(ctx, function, original);
+        }
     }
-    precision_check_body(&function.span, &function.x.inner_ret.x.typ, original, kind)
+    let mut check =
+        precision_check_body(&function.span, &function.x.inner_ret.x.typ, original, kind)?;
+    if matches!(kind, PrecisionCheck::Maximality) {
+        // Preconditions describe entry state. Mutable-reference lowering can
+        // update the parameter's current value; evaluate P against its snapshot.
+        Arc::make_mut(&mut check.post_condition).ens_exps =
+            entry_requirements(&function.x.pars, &original.reqs);
+    }
+    Ok(check)
+}
+
+fn entry_requirements(pars: &Pars, reqs: &Exps) -> Exps {
+    let inputs = pars.iter().map(|p| p.x.name.clone()).collect();
+    Arc::new(reqs.iter().map(|e| crate::sst_util::exp_with_vars_at_pre_state(e, &inputs)).collect())
 }
 
 fn precision_check_body(

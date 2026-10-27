@@ -822,8 +822,7 @@ fn record_state_summaries_cross_crates_preserve_frames_and_honest_precision() {
         pub struct Pool {pub slots:Vec<bool>,pub used:usize,pub epoch:u8}
         impl Pool {
             pub open spec fn valid(&self)->bool {self.used==self.slots@.count_prefix(|b:bool|b,self.slots@.len())}
-            #[verifier::infer_precision_rlimit(1)]
-            #[verifier::infer(sound)] pub fn insert(&mut self,i:usize) {
+            #[verifier::infer] pub fn insert(&mut self,i:usize) {
                 if i<self.slots.len() && !self.slots[i] {self.slots[i]=true;self.used+=1;}
             }
         }
@@ -837,8 +836,8 @@ fn record_state_summaries_cross_crates_preserve_frames_and_honest_precision() {
         assert_eq!(f["metrics"]["cache"],"miss");
         assert_eq!(f["proofs"]["soundness"]["status"],"proved");
         for p in ["maximality","exactness"] {
-            assert_eq!(f["proofs"][p]["status"],"not_established");
-            assert_eq!(f["proofs"][p]["reason"],"state_precision_not_supported");
+            assert_eq!(f["proofs"][p]["status"],"proved");
+            assert_eq!(f["proofs"][p]["required"],true);
         }
     }
     let caller=r#"
@@ -855,6 +854,58 @@ fn record_state_summaries_cross_crates_preserve_frames_and_honest_precision() {
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     assert!(!crates.vir("record_app").exists());
+}
+
+#[test]
+fn record_precision_timeouts_block_exact_publication_but_remain_optional_in_sound_mode() {
+    let crates = InferCrates::new();
+    let source = r#"
+        pub struct Counter { pub count:u8, pub stable:bool }
+        impl Counter { #[verifier::infer] pub fn bump(&mut self) {self.count+=1;} }
+    "#;
+    assert!(crates.build("record_budget", source, &[], &["--output-json"]).status.success());
+    assert!(crates.vir("record_budget").exists());
+    let limited = source.replace("#[verifier::infer]", "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer]");
+    let run = crates.build("record_budget", &format!("{limited} fn caller(){{assert(false);}}"), &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    assert_eq!(report["status"], "required_proof_incomplete");
+    let f = &report["functions"][0];
+    assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+    assert_eq!(f["proofs"]["exactness"]["status"], "incomplete");
+    assert_eq!(f["available_to_same_crate_callers"], false);
+    assert_eq!(f["exported"], false);
+    assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    assert!(!crates.vir("record_budget").exists());
+    let run = crates.build("record_budget", &limited.replace("#[verifier::infer]", "#[verifier::infer(sound)]"), &[], &["--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let report = json_inference(&run);
+    let f = &report["functions"][0];
+    assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+    assert_eq!(f["proofs"]["exactness"]["status"], "incomplete");
+    assert_eq!(f["proofs"]["exactness"]["required"], false);
+    assert_eq!(f["exported"], true);
+    assert!(crates.vir("record_budget").exists());
+}
+
+#[test]
+fn record_precision_covers_all_integer_widths_and_both_pointer_models() {
+    let crates = InferCrates::new();
+    let mut source = String::new();
+    for (i, typ) in ["u8","u16","u32","u64","u128","usize","i8","i16","i32","i64","i128","isize"].iter().enumerate() {
+        source.push_str(&format!("pub struct State{i} {{pub count:{typ},pub stable:bool}} impl State{i} {{ #[verifier::infer] pub fn update(&mut self,skip:bool){{if skip{{return;}} self.count+=1;}} }}"));
+    }
+    for bytes in [4,8] {
+        let run = crates.verify("record_widths", &format!("global size_of usize == {bytes};{source}"), &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let functions = report["functions"].as_array().unwrap();
+        assert_eq!(functions.len(),12);
+        for f in functions { for p in ["soundness","maximality","exactness"] {
+            assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+            assert_eq!(f["proofs"][p]["required"], true);
+        }}
+    }
 }
 
 impl InferCrates {

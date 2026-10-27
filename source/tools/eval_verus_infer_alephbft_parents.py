@@ -249,7 +249,7 @@ def main():
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK="20971520",
                    VERUS_INFER_CACHE=str(output / "candidate-cache"))
         cases = ["manual", "inferred", "inferred-warm", "wrong-goal", "changed-threshold", "overflowing-threshold",
-                 "missing-update-hint", "missing-loop-invariant", "wrong-collector-update", "collector-inference-unsupported"]
+                 "missing-update-hint", "missing-loop-invariant", "wrong-collector-update", "collector-alias-unsupported"]
         for name in cases:
             source, state, properties = corrected, collector, goals
             expected = name in ("manual", "inferred", "inferred-warm")
@@ -265,9 +265,12 @@ def main():
             if name == "missing-update-hint": state = remove_update_hint(state)
             if name == "missing-loop-invariant": state = remove_constructor_loop_annotation(state)
             if name == "wrong-collector-update": state = state.replace("self.direct_parents += 1", "self.direct_parents += 2", 1)
-            if name == "collector-inference-unsupported":
+            if name == "collector-alias-unsupported":
                 state = request_collector_inference(state)
-                unsupported = "record state inference requires sound mode"
+                a, b, method = item(state, "pub fn add(&mut self")
+                method = method.replace("{", "{ let alias = &mut self.candidates;", 1)
+                state = state[:a] + method + state[b:]
+                unsupported = "record local aliases"
             (checkout / METHOD).write_text(source)
             (checkout / "verification-infer/collector_state.rs").write_text(state)
             path = checkout / "verification-infer/parents.rs"; path.write_text(properties)
@@ -287,7 +290,7 @@ def main():
                 report=data.get("verus-infer"), input_snapshot=str(snapshot),
                 handwritten_production_threshold_contracts=1 if name == "manual" else 0,
                 handwritten_adapter_contracts=1 if name == "manual" else 0,
-                collector_proofs_retained=name not in ("missing-update-hint", "missing-loop-invariant", "collector-inference-unsupported")))
+                collector_proofs_retained=name not in ("missing-update-hint", "missing-loop-invariant", "collector-alias-unsupported")))
             save(); print(f"{name}: expected outcome", flush=True)
         # Probe the actual pinned Mul implementation independently. Verus trait
         # preconditions cannot be replaced by an implementation's inferred P.

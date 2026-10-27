@@ -90,12 +90,11 @@ verification of clean main's generic `UnitsCollector<H>` or its whole crate.
   overflow and corrupted collector accounting are semantic negative controls.
   They must leave both inferred helpers successfully checked while the ordinary
   caller/collector proof fails.
-- Requesting inference on the generic mutable collector removes the update
-  method's contract and ghost proof block, and is separately reported as
-  unsupported in default exact mode: mutable state precision is not established.
-  Explicit sound mode now supports this supplied method through the record
-  experiment below, including its `u32::from(round)` dependency. This probe is
-  a capability/mode check, not a program defect.
+- A collector capability probe removes the update method's contract and ghost
+  proof block, then deliberately adds a local mutable alias. This remains an
+  unsupported source shape, not a program defect. The original direct method
+  now supports default exact mode through the record experiment below, including
+  its `u32::from(round)` dependency.
 - Requesting inference on the actual pinned `Mul<usize>` implementation is also
   unsupported. Verus inherits operator preconditions from its trait/extension
   specifications; an implementation cannot introduce an inferred `requires`.
@@ -204,8 +203,8 @@ artifacts, input collector, runner/support code and fixtures are fingerprinted;
 changes during evaluation abort the run. Timings are not a benchmark.
 
 The counting-assistance checkpoint below implements bounded selection of checked
-sequence/counting lemmas. General mutable records, generic helper composition and
-state-aware precision checking remain separate designs. Operator-trait inference
+sequence/counting lemmas. Broader mutable records, generic helper composition and
+standalone-vector state precision remain separate designs. Operator-trait inference
 also needs a design through Verus's inherited/extension specifications.
 
 ## Supplied counting-invariant assistance
@@ -282,7 +281,7 @@ This checkpoint infers the supplied collector's **original executable `add`
 body**, retaining its direct vector operations, `Option<(T, u16)>` match and
 `u32::from(round)`. Its counting proof block is removed as before, and no vector
 wrappers are extracted. The runner checks body identity against the original
-after removing exactly that ghost block. The inferred sound contract relates all
+after removing exactly that ghost block. The inferred exact contract relates all
 three fields to their old values under the actual branches and includes the
 bounds/overflow requirements. The handwritten contract is removed from `add`.
 
@@ -307,8 +306,11 @@ documented runtime origins.
 
 Thirteen formal scenarios cover manual/unassisted/inferred/warm comparisons,
 wrong slots/rounds/counters, duplicate counting, changing the round field, missing
-accounting, a new overflow restriction, a missing loop invariant and unsupported
-exact-state mode. Every semantic control must leave all inferred helper proofs
+accounting, a new overflow restriction, a missing loop invariant and explicit
+sound mode. Default exact record inference proves soundness, maximal input safety
+and exact final modeled state; the explicit sound comparison records the same
+precision proofs as optional. Vector contents are the modeled observations, not
+allocation addresses or capacity. Every semantic control must leave all inferred helper proofs
 successfully checked. For domain controls, the minimal invariant harness itself
 must fail its call precondition; failure of the behavioral oracle alone does not
 count as failed input-domain coverage.

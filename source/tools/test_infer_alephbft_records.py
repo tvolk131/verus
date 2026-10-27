@@ -19,7 +19,7 @@ class RecordExperimentTests(unittest.TestCase):
         source = self.source(); inferred = infer_add(source)
         self.assertEqual(item(remove_update_block(source), "pub fn add(&mut self")[2],
                          item(inferred, "pub fn add(&mut self")[2])
-        self.assertIn('verus_infer(precision = "sound")', inferred)
+        self.assertIn('verus_infer)', inferred)
         self.assertIn("pub fn check_add_invariant", inferred)
         self.assertIn("pub fn check_add_behavior", inferred)
         self.assertNotIn("collection_ops", inferred)
@@ -35,10 +35,9 @@ class RecordExperimentTests(unittest.TestCase):
     def report(self):
         exact = dict(mode="exact", summary_kind="value", required_checks_passed=True,
             proofs={p:dict(status="proved",required=True) for p in ("soundness","maximality","exactness")})
-        state = dict(mode="sound", summary_kind="record_state", required_checks_passed=True,
+        state = dict(mode="exact", summary_kind="record_state", required_checks_passed=True,
             metrics=dict(cache="miss",cache_policy="regenerated_state"),
-            proofs=dict(soundness=dict(status="proved",required=True),
-                **{p:dict(status="not_established",required=False,reason="state_precision_not_supported") for p in ("maximality","exactness")}))
+            proofs={p:dict(status="proved",required=True) for p in ("soundness","maximality","exactness")})
         return {"verification-results":dict(success=False),"verus-infer":dict(functions=[exact,copy.deepcopy(exact),state],failed_functions=[])}
 
     def run_report(self,data,stderr=""):
@@ -46,9 +45,18 @@ class RecordExperimentTests(unittest.TestCase):
 
     def test_semantic_controls_require_checked_candidates_and_honest_state_precision(self):
         validate(self.run_report(self.report()),False,1)
-        for proof,status in (("soundness","not_proved"),("maximality","proved"),("exactness","proved")):
+        for proof,status in (("soundness","not_proved"),("maximality","not_established"),("exactness","not_established")):
             bad = self.report(); bad["verus-infer"]["functions"][2]["proofs"][proof]["status"] = status
             with self.assertRaises(ValueError): validate(self.run_report(bad),False,1)
+
+    def test_sound_comparison_keeps_state_precision_optional_and_checked(self):
+        data = self.report(); state = data["verus-infer"]["functions"][2]
+        state["mode"] = "sound"
+        for p in ("maximality", "exactness"): state["proofs"][p]["required"] = False
+        validate(self.run_report(data),False,1,state_mode="sound")
+        with self.assertRaises(ValueError): validate(self.run_report(data),False,1)
+        state["proofs"]["exactness"]["status"] = "not_established"
+        with self.assertRaises(ValueError): validate(self.run_report(data),False,1,state_mode="sound")
 
     def test_frontend_and_resource_failures_are_not_semantic_controls(self):
         bad = self.report(); bad["verification-results"]["encountered-vir-error"] = True

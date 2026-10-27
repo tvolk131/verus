@@ -90,7 +90,8 @@ fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirErr> {
         || d.x.destructor
         || d.x.user_defined_invariant_fn.is_some()
         || d.x.variants.len() != 1
-        || !matches!(d.x.transparency, DatatypeTransparency::WhenVisible(_))
+        || !matches!(&d.x.transparency, DatatypeTransparency::WhenVisible(vis)
+            if crate::ast_util::is_visible_to_opt(vis, &f.x.owning_module))
         || d.x.variants[0].fields.is_empty()
         || d.x.variants[0].fields.len() > 8
         || args.len() != d.x.typ_params.len()
@@ -146,7 +147,6 @@ fn validate_signature(f: &Function, datatypes: &[Datatype]) -> Result<Shape, Vir
         || !matches!(x.kind, FunctionKind::Static)
         || !matches!(x.item_kind, ItemKind::Function)
         || x.inner_ret.x.mode != Mode::Exec
-        || !x.attrs.infer_allow_approx
         || x.attrs.is_external_body
         || x.attrs.is_unsafe
         || x.attrs.is_async
@@ -167,7 +167,7 @@ fn validate_signature(f: &Function, datatypes: &[Datatype]) -> Result<Shape, Vir
     {
         return Err(unsupported(
             &f.span,
-            "record state inference requires sound mode and no handwritten contracts, proof settings or decreases",
+            "record state inference requires no handwritten contracts, proof settings or decreases",
         ));
     }
     Ok(shape)

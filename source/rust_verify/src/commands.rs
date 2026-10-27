@@ -315,7 +315,9 @@ impl<'a> OpGenerator<'a> {
             Some(func_check_sst.clone()),
         )];
         if function.x.attrs.infer && matches!(style, Style::Normal) {
-            if vir::infer::is_state_summary(&self.ctx.func_map[&function.x.name]) {
+            if vir::infer::is_state_summary(&self.ctx.func_map[&function.x.name])
+                && !vir::infer::is_record_summary(&self.ctx.func_map[&function.x.name])
+            {
                 self.ctx.fun = None;
                 return Ok(ops);
             }
@@ -336,12 +338,14 @@ impl<'a> OpGenerator<'a> {
                 if function.x.attrs.infer_allow_approx
                     && matches!(kind, vir::infer_checks::PrecisionCheck::Exactness)
                     && func_check_sst.post_condition.dest.is_none()
+                    && !vir::infer::is_record_summary(&self.ctx.func_map[&function.x.name])
                 {
                     // A Boolean top summary has no result relation to prove exact.
                     continue;
                 }
-                let check =
-                    Arc::new(vir::infer_checks::precision_check(&function, func_check_sst, kind)?);
+                let check = Arc::new(vir::infer_checks::precision_check(
+                    self.ctx, &function, func_check_sst, kind,
+                )?);
                 vir::infer_checks::validate_query_kind(&check, Some(kind), &function.span)?;
                 let commands = vir::sst_to_air_func::func_sst_to_air(self.ctx, &function, &check)?;
                 ops.push(Op::query(QueryOp::Infer(kind), commands, &function, Some(check)));

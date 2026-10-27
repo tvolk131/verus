@@ -52,11 +52,12 @@ impl Verifier {
             };
             let approximate_dependency = vir::infer::uses_approximate_callee(f, &available);
             let state_summary = vir::infer::is_state_summary(f);
-            let maximality_missing = if state_summary { "state_precision_not_supported" }
+            let unsupported_state_precision = state_summary && !vir::infer::is_record_summary(f);
+            let maximality_missing = if unsupported_state_precision { "state_precision_not_supported" }
             else if approximate_dependency {
                 "sound_mode_dependency"
             } else { unavailable };
-            let exactness_missing = if state_summary { "state_precision_not_supported" }
+            let exactness_missing = if unsupported_state_precision { "state_precision_not_supported" }
             else if allow_approx && matches!(
                 f.x.ensure.0.first().map(|e| &e.x),
                 Some(ExprX::Const(vir::ast::Constant::Bool(true)))

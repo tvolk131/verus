@@ -704,11 +704,12 @@ rejected by targeted regressions. Ordinary soundness still checks every bound.
 Candidate formulas instantiate the existing vstd contracts, and the original
 body/signature are installed unchanged. No new trusted specification is added.
 
-Mutable templates require sound mode. Their full sequence update relation
+Standalone mutable vector templates require sound mode. Their full sequence update relation
 supports ordinary frame and counting proofs, but state maximality/exactness are
-explicitly not established. The return-only precision checker defensively rejects
-mutable-reference parameters, and the driver does not submit state precision
-queries. This avoids certifying a state property with a return-only transformation.
+explicitly not established. The return-only checker rejects mutable-reference
+parameters outside the supported record path, and the driver does not submit
+precision queries for these standalone templates. The record follow-up below
+adds a separate state-aware transformation.
 
 Cache version 21 and metadata schema 16 cover the new summary forms and model
 dependencies. Collection candidates bypass scalar cache serialization: templates
@@ -777,7 +778,8 @@ signature, actual predicates, datatype definitions and dependencies to identity.
 Every generated postcondition contains one final equality per record field.
 Vector equalities describe the full sequence; scalar/opaque Copy fields describe
 their final values, including unchanged frames. Ordinary soundness checks that
-relation against the original body. State precision is not established or probed.
+relation against the original body. This initial checkpoint did not establish
+state precision; the follow-up below adds independent precision queries.
 An ordinary harness supplies the input invariant and desired output invariant;
 its call must establish the synthesized safety predicate for every allowed input.
 That coverage check is distinct from soundness of a potentially restrictive
@@ -814,3 +816,56 @@ independent function, after changing the source. Such source-span/build-provenan
 sensitivity is a cache-efficiency follow-up; it does not reuse failed evidence or
 weaken proof requirements. The runner records these hits/misses instead of
 assuming that a body-only edit must preserve cache identities.
+
+
+## Independent bounded record-state precision
+
+The record path now supports default exact precision, requiring ordinary
+soundness, safe-domain maximality and modeled-output exactness before publication.
+Explicit sound mode still requires soundness and reports optional precision
+probes honestly, including resource exhaustion. Standalone mutable-vector
+summaries retain their previous sound-only policy.
+
+Maximality uses the original verifier-generated executable SST and safety checks,
+without assuming the proposed precondition. It evaluates the proposed domain on
+parameter entry snapshots, including the initial value behind the mutable root.
+Only signature-validated canonical Vec index/index_mut bounds and the already
+approved exact callee models may constrain successful calls. Ordinary soundness
+continues asserting every safety condition independently.
+
+Exactness introduces an arbitrary legal typed final record and substitutes that
+record only for the proposed relation's final value behind the input borrow.
+The original body, initial snapshots, arguments and borrow-expiration constraints
+remain fixed. The independent comparison enumerates every field from the datatype,
+rather than relying on candidate clause coverage. It proves the substituted
+relation iff every final observation equals the original execution's observation.
+Copy fields use value equality; Vec fields use existing canonical views and
+extensional sequence equality. Allocation identity and capacity are outside this
+observation model. The return is unit in this subset, so unit equality never
+stands in for state exactness. No application invariant, guessed frame axiom,
+extra external specification or synthesized safety assumption is introduced.
+
+Candidate-cache version 23 and metadata schema 18 bind this policy change. Record
+candidates still regenerate and reprove on every run. Imported exact summaries
+require all three candidate-bound outcomes; incomplete required precision blocks
+same-crate callers and removes stale exports. No precision-transformed query can
+be recorded as ordinary soundness.
+
+Independent SST/backend fault injection rejects overly restrictive preconditions,
+loose output ranges, omitted updated fields, omitted unchanged frame fields and
+wrong outputs while preserving the ordinary safety query. A resetting-body
+control shows why maximality must test entry state rather than updated state.
+Opaque record fields are rejected before contract lowering. Compiler coverage
+includes integer widths on both pointer models, generic Copy fields, multiple Vec
+fields, early returns, read-after-write, cold/warm cross-crate use and optional
+versus required precision exhaustion. The Aleph runner uses default exact mode
+for the original supplied add body and requires all three checked outcomes in
+its semantic controls. Its ordinary invariant harness remains necessary: exact
+behavior alone does not assert that the behavior preserves an application goal.
+
+Validation for this checkpoint: 386 targeted Rust tests and 32 evaluation-tool
+Python tests pass. The direct record experiment passes all 13 formal scenarios
+and five native runs; earlier parents, counting, collection and common-vote
+experiments pass 11, 11, 11 and nine formal scenarios respectively. Experiment
+artifacts preserve source hashes, raw diagnostics and actual proof outcomes;
+the supplied manual collector remains distinct from the clean-main generic API.
