@@ -92,9 +92,10 @@ verification of clean main's generic `UnitsCollector<H>` or its whole crate.
   caller/collector proof fails.
 - Requesting inference on the generic mutable collector removes the update
   method's contract and ghost proof block, and is separately reported as
-  unsupported. Its first observed blocker is consuming the `Vec::len` dependency;
-  generic receivers, mutation and frame/count reasoning are additional unsupported
-  capabilities. This is not classified as a program defect.
+  unsupported. With the bounded collection models now available, its first
+  observed blocker is the `u32::from(round)` dependency. Generic mutable record
+  receivers and whole-method frame/count inference also remain unsupported.
+  This is not classified as a program defect.
 - Requesting inference on the actual pinned `Mul<usize>` implementation is also
   unsupported. Verus inherits operator preconditions from its trait/extension
   specifications; an implementation cannot introduce an inferred `requires`.
@@ -150,12 +151,59 @@ the successful inferred variant. Native cases mutate the real collector before
 each Cargo run; their mutations and commands are defined in the runner and raw
 diagnostics retain the failing trace.
 
-## Next bounded experiment
+## Bounded collection views and state effects
 
-The next reduction target is the collector's count/update preservation proof.
-It needs collection/view support, generic immutable payload handling and explicit
-old/new state relations before goal assistance can replace the retained counting
-lemma calls. Start with a developer-supplied accounting invariant and compare the
-same positive proof and semantic mutations. Operator-trait inference needs its
-own design through Verus's existing extension specifications. More scalar
-arithmetic tactics alone do not remove these source/model boundaries.
+The next checkpoint is implemented by
+`source/tools/eval_verus_infer_alephbft_collections.py`. From the repository root:
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_collections.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-collections \
+  --native-tests --native-target /tmp/infer-aleph-collections-native
+```
+
+The input checkout remains read-only. In an isolated pinned clone, the runner
+imports the existing manually verified working-tree `collector/state.rs`, uses
+the corrected shared `NodeCount` threshold and its checked adapter, and extracts
+only three operations from `Collector::add`: vector length, copy read and slot
+replacement. Both native and ghost builds use the functions in
+`collection_ops.rs`. This is the supplied manual collector core, not the generic
+clean-main collector. The threshold runtime correction and widened collector
+round representation retain their separate origins from the preceding experiment.
+
+Length and read receive soundness, maximality and exactness proofs. Replacement
+uses explicit sound mode and gets the complete sequence update relation, including
+unchanged length/other slots. Its maximality and state exactness are explicitly
+not established. The vector/sequence specifications already exist in vstd; this
+experiment adds no assumed contracts or axioms. Collection candidates regenerate
+and reprove on warm runs while the two scalar candidates are reused and rechecked.
+
+The supplied counting invariant, recursive induction lemmas, contracts, loop
+invariants and calls to `count_update`/`count_bound` remain explicit and checked.
+Inference replaces **three experiment-introduced wrapper contracts** and removes
+**zero existing collector proof annotations**. The original code used builtin
+vector specifications directly; extracting these helpers is a capability and
+composition experiment, not yet a net reduction in the original proof effort.
+`--infer-goals` is also tested, but its scalar strategy does not select the
+counting lemmas.
+
+The checkpoint passes 11 formal scenarios: original/manual-wrapper/inferred/
+warm/goal-assisted positives, proof rejections for wrong slots, rounds, counters
+and a missing counting-update hint, and separately classified unsupported extra
+effects/default-exact mutation. All helper obligations pass in the semantic
+negative cases. Four native runs execute the supplied three collector tests on
+both original and extracted implementations, then catch wrong-slot/wrong-round
+mutations. These are selected tests and universal Verus checks of the supplied
+contracts, not a new distributed-protocol theorem.
+
+Outputs include raw diagnostics, `results.json`, `summary.md`, per-case formal
+and native source snapshots/hashes, a reviewable `collection-extraction.patch`,
+and the isolated clone restored to its passing inferred variant. Tools, model
+artifacts, input collector, runner/support code and fixtures are fingerprinted;
+changes during evaluation abort the run. Timings are not a benchmark.
+
+The next reduction target is bounded, invariant-directed selection of the checked
+sequence/counting lemmas. General mutable records, generic helper composition and
+state-aware precision checking remain separate designs. Operator-trait inference
+also needs a design through Verus's inherited/extension specifications.
