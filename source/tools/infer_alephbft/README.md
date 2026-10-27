@@ -327,4 +327,4 @@ snapshots/hashes, `record-inference.patch`, native lockfile and the passing clon
 Tools, model artifacts, supplied source and runner/support files are fingerprinted.
 The record summary regenerates/reproves on warm runs; scalar candidates reuse
 only proposals and repeat all required proofs. State maximality/exactness remain
-explicitly unestablished. Timings are not a benchmark.
+independently checked on every run. Timings are not a benchmark.
