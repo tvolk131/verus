@@ -92,10 +92,10 @@ verification of clean main's generic `UnitsCollector<H>` or its whole crate.
   caller/collector proof fails.
 - Requesting inference on the generic mutable collector removes the update
   method's contract and ghost proof block, and is separately reported as
-  unsupported. With the bounded collection models now available, its first
-  observed blocker is the `u32::from(round)` dependency. Generic mutable record
-  receivers and whole-method frame/count inference also remain unsupported.
-  This is not classified as a program defect.
+  unsupported in default exact mode: mutable state precision is not established.
+  Explicit sound mode now supports this supplied method through the record
+  experiment below, including its `u32::from(round)` dependency. This probe is
+  a capability/mode check, not a program defect.
 - Requesting inference on the actual pinned `Mul<usize>` implementation is also
   unsupported. Verus inherits operator preconditions from its trait/extension
   specifications; an implementation cannot introduce an inferred `requires`.
@@ -265,5 +265,64 @@ and recheck. Discovery and solver work are bounded; timings are not a benchmark.
 This is a proof-effort reduction on the supplied manual core, not a proof of the
 clean-main generic collector. Reusable library lemmas replace application
 induction; arbitrary induction and invariant discovery remain unsupported.
-Further work includes general record mutation, expected-domain audits, collection
-loop annotations and trait/operator specifications.
+The record checkpoint below adds bounded record composition and ordinary
+whole-invariant-domain harnesses. Broader heap mutation, a dedicated domain
+interface, collection-loop annotations and trait/operator specifications remain.
+
+## Direct record inference and whole-valid-domain coverage
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_records.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-records \
+  --native-tests --native-target /tmp/infer-aleph-records-native
+```
+
+This checkpoint infers the supplied collector's **original executable `add`
+body**, retaining its direct vector operations, `Option<(T, u16)>` match and
+`u32::from(round)`. Its counting proof block is removed as before, and no vector
+wrappers are extracted. The runner checks body identity against the original
+after removing exactly that ghost block. The inferred sound contract relates all
+three fields to their old values under the actual branches and includes the
+bounds/overflow requirements. The handwritten contract is removed from `add`.
+
+Two ordinary ghost-only caller checks make the result reviewable:
+
+- `check_add_invariant` requires only `old(self).valid()` and ensures
+  `final(self).valid()`, for arbitrary creator, payload and round. Its call must
+  prove every synthesized safety requirement, establishing coverage of the whole
+  supplied valid domain as well as invariant preservation.
+- `check_add_behavior` retains the original `add` postconditions as an
+  **experiment-only regression oracle**, checking slot behavior, unchanged other
+  slots, unchanged round/length and monotone accounting. These clauses are not
+  silently assumed by inference or counted as erased from the regression suite.
+
+The supplied invariant, predicate, other methods' state contracts, loop
+annotations, transition equality assertion and counting-library equivalence
+remain. A minimal developer proof can use the first harness alone; the second
+preserves the previous behavioral proof target. This remains the existing manual
+working-tree collector core, not clean main's NodeMap/Unit/Hasher collector.
+The threshold correction and widened round representation retain their previously
+documented runtime origins.
+
+Thirteen formal scenarios cover manual/unassisted/inferred/warm comparisons,
+wrong slots/rounds/counters, duplicate counting, changing the round field, missing
+accounting, a new overflow restriction, a missing loop invariant and unsupported
+exact-state mode. Every semantic control must leave all inferred helper proofs
+successfully checked. For domain controls, the minimal invariant harness itself
+must fail its call precondition; failure of the behavioral oracle alone does not
+count as failed input-domain coverage.
+
+The overflow control deliberately inserts `creator + 1` before the bounds guard.
+Inference correctly checks its restricted safe contract, while the invariant
+harness rejects the lost `creator == usize::MAX` input. A native test catches the
+same introduced overflow. Five native runs execute the supplied three tests on
+original and inferred bodies and detect wrong-slot, wrong-round and overflow
+mutations. No new production bug is claimed.
+
+Outputs include raw diagnostics, `results.json`, `summary.md`, per-case source
+snapshots/hashes, `record-inference.patch`, native lockfile and the passing clone.
+Tools, model artifacts, supplied source and runner/support files are fingerprinted.
+The record summary regenerates/reproves on warm runs; scalar candidates reuse
+only proposals and repeat all required proofs. State maximality/exactness remain
+explicitly unestablished. Timings are not a benchmark.

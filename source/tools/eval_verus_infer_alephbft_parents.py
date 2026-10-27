@@ -267,7 +267,7 @@ def main():
             if name == "wrong-collector-update": state = state.replace("self.direct_parents += 1", "self.direct_parents += 2", 1)
             if name == "collector-inference-unsupported":
                 state = request_collector_inference(state)
-                unsupported = "only static, nongeneric inferred calls are supported"
+                unsupported = "record state inference requires sound mode"
             (checkout / METHOD).write_text(source)
             (checkout / "verification-infer/collector_state.rs").write_text(state)
             path = checkout / "verification-infer/parents.rs"; path.write_text(properties)
