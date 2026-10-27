@@ -10,7 +10,7 @@
 
 ---
 
-## Implementation status — October 26, 2026
+## Implementation status — October 27, 2026
 
 The design below includes future work. The current implementation is documented
 in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
@@ -32,6 +32,12 @@ Implemented and covered by regression tests:
 - [x] Acyclic composition of inferred functions, including forward references,
   private helpers, shared dependencies, and explicit caller properties derived
   from contracts without inlining implementations.
+- [x] Initial demand-driven scalar proof strategy behind `--infer-goals`:
+  explicit ordinary caller assertions can use bounded exact-summary substitution
+  and checked bit-vector theorems, without eager contract enrichment. A pinned,
+  source-connected AlephBFT `common_vote` pilot compares manual/baseline/assisted
+  proofs and semantic mutations. This bridges equivalent parity representations;
+  it does not reproduce the existing stateful/distributed verification effort.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -162,7 +168,9 @@ Still planned or outside the implemented subset:
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
 - [ ] Further relational simplification, dedicated contract-query APIs,
-  demand-driven strengthening, and IDE presentation and suggestions.
+  ordinary-proof-first goal retries, broader demand-driven strengthening, and
+  IDE presentation and suggestions. The initial `--infer-goals` strategy is
+  restricted to explicit scalar assertions and a checked bit-vector tactic.
 - [ ] Richer abstract domains and refinement, including relational properties
   beyond scalar intervals and Boolean summaries, disjunctive/relational branch
   refinement, and wrapping-cast ranges spanning more than one modular cycle.
@@ -176,7 +184,7 @@ Still planned or outside the implemented subset:
 | --- | --- |
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
-| Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs; automatic demand-driven strengthening remains future work. |
+| Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Initial opt-in goal assistance handles selected explicit scalar assertions; general queries, automatic retries and contract strengthening remain future work. |
 | Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, richer control flow, fixed-array outputs, and shared slice views are implemented. Broader collections and frame conditions remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
@@ -225,12 +233,20 @@ APIs and research directions.
    cover parsing, indexing and pricing. Repeated cold/warm timings, honestly
    scoped memory observations, build-stability checks and Cargo incremental
    verification now have reproducible runners.
-5. **Next: property-directed usability or a broader capability.** Dedicated
-   property queries and demand-driven strengthening could recover useful facts
-   lost by scalar intervals. Alternatively, choose a separate design for slice
-   traversal loops, richer enum payloads, returned views, or mutation. None is
-   implicitly included in the completed batch. Formal acceptance/precision
-   verification remains the independent assurance workstream below.
+5. **Initial bottom-up/top-down pilot implemented.** `--infer-goals` consumes
+   explicit ordinary scalar assertions and exact inferred summaries. Bounded
+   conditional bit-vector proofs bridge equivalent representations without eager
+   contract enrichment. A pinned AlephBFT experiment shares the original
+   `common_vote` body with production and records manual, baseline, assisted and
+   mutation outcomes. Canonical remainder-based properties already pass; the
+   measured benefit is a low-bit parity formulation, not stateful agreement.
+6. **Next: broader goal-directed usability or a broader Rust capability.** Add
+   ordinary-proof-first retries, explicit query/strategy controls, richer proof
+   contexts and postcondition/implicit-safety goals based on further real cases.
+   AlephBFT quorum wrappers and stateful collectors require datatype, trait and
+   mutation support in addition to proof search. Slice traversal loops, richer
+   enum payloads and returned views remain separate designs. Formal acceptance/
+   precision verification remains the independent assurance workstream below.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,

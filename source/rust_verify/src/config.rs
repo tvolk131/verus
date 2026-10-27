@@ -97,6 +97,7 @@ pub struct ArgsX {
     pub smt_options: Vec<(String, String)>,
     pub multiple_errors: u32,
     pub expand_errors: bool,
+    pub infer_goals: bool,
     pub log_dir: Option<String>,
     pub log_all: bool,
     pub log_args: LogArgs,
@@ -146,6 +147,7 @@ impl ArgsX {
             smt_options: Default::default(),
             multiple_errors: Default::default(),
             expand_errors: Default::default(),
+            infer_goals: false,
             log_dir: Default::default(),
             log_all: Default::default(),
             log_args: Default::default(),
@@ -328,6 +330,7 @@ pub fn parse_args_with_imports(
     const OPT_IS_CORE: &str = "is-core";
     const OPT_IS_STDLIB_OUTSIDE_OF_CORE: &str = "is-stdlib-outside-of-core";
     const OPT_EXPAND_ERRORS: &str = "expand-errors";
+    const OPT_INFER_GOALS: &str = "infer-goals";
 
     const OPT_LOG_DIR: &str = "log-dir";
     const OPT_LOG_ALL: &str = "log-all";
@@ -477,6 +480,7 @@ pub fn parse_args_with_imports(
     );
     opts.optflag("", OPT_NO_EXTERNAL_BY_DEFAULT, "(deprecated) Verify all items, even those declared outside the verus! macro, and even if they aren't marked #[verifier::verify]");
     opts.optflag("", OPT_NO_VERIFY, "Do not run verification");
+    opts.optflag("", OPT_INFER_GOALS, "Experimental checked, goal-directed bit-vector proofs for scalar assertions using exact inferred contracts");
     opts.optflag("", OPT_BUILD_SST, "Always build SST even if no-verify is set");
     opts.optflag("", OPT_NO_LIFETIME, "Do not run lifetime checking on proofs");
     opts.optflag("", OPT_NO_TRAIT_CONFLICTS, "Do not run trait conflict checking");
@@ -737,6 +741,7 @@ pub fn parse_args_with_imports(
             .unwrap_or_else(|_| error("expected integer after multiple-errors".to_string()))
             .unwrap_or(2),
         expand_errors: matches.opt_present(OPT_EXPAND_ERRORS),
+        infer_goals: matches.opt_present(OPT_INFER_GOALS),
         log_dir: matches.opt_str(OPT_LOG_DIR),
         log_all: matches.opt_present(OPT_LOG_ALL),
         log_args: LogArgs {

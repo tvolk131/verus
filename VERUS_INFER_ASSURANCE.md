@@ -517,6 +517,57 @@ in each profile, and all 22 deliberate mutations were detected after their
 baselines passed. The corpus includes expected failures and incomplete proofs;
 these counts describe selected regression coverage, not general Rust coverage.
 
+## Goal-directed ordinary caller proofs
+
+The opt-in `--infer-goals` strategy decorates ordinary caller SST only. It never
+runs on inferred soundness, maximality or arbitrary-output exactness bodies.
+The base contract, input domain, precision policy and import/export gates remain
+the existing ones. No serialized VIR fields, trusted models or project axioms
+are added by this strategy.
+
+Definition tracking and exact-summary substitution are untrusted proposals.
+For a requested scalar assertion, a restricted translator proposes a pure
+conditional theorem containing finite-type bounds, nonzero-divisor conditions
+and supported caller/branch assumptions. The existing bit-vector backend checks
+the complete theorem independently; the same immutable expression is used in
+the ordinary query through the existing production check/use pair validator.
+The original assertion is retained, so even a stale or wrong substitution still
+has to connect to the actual executable values through normal verification.
+No guessed equality for a call result is installed as an assumption.
+
+With `--infer-goals`, ordinary exports also wait behind the existing complete
+post-verification publication barrier, even when the consumer contains no local
+inferred function. Direct export paths are invalidated before parsing; Cargo
+paths are invalidated once known. A frontend error at those boundaries or a
+failed auxiliary proof cannot leave a stale assisted API.
+Legacy ordinary exports without the flag retain their existing behavior.
+
+Auxiliary failure or timeout fails the ordinary caller, including when a later
+ordinary query succeeds. Unsupported expressions, exceeded expansion/visit/
+request budgets, proof scopes and loop bodies receive no generated theorem.
+Definitions are discarded at unsupported calls/control flow and branch joins.
+Sound-only contracts are not treated as exact. Successful theorems are local to
+this proof; this milestone does not persist proof evidence or cached lemmas.
+
+Compiler regressions cover mask bounds and modulo consequences, multi-layer
+composition, conditional requirements, branch-local context, signed variables,
+false goals, exhausted request budgets, stale definitions after mutation,
+callee safety requirements, sound-only interfaces, and cross-crate consumption
+with failed-proof/frontend-error stale-export cleanup. The pinned AlephBFT
+evaluation checks identical shared production executable code, unrestricted
+input domain, all three exact checks, manual and assisted formulations, and
+five semantic mutations. Canonical remainder-based schedule proofs already
+pass in the baseline; the observed assistance benefit is an equivalent
+bitwise parity formulation, not distributed consensus automation. The pinned
+no-default-features build failure is compared to unmodified source and reported
+separately from passing native tests.
+
+The new proposal traversal is not formally verified. Conditional-theorem
+construction/check-use binding, BV-to-integer correspondence and complete
+ordinary query outcome accounting remain implementation obligations. The
+unchanged original assertion supplies an additional check on substitutions;
+it does not eliminate the need to safeguard that proof plumbing.
+
 ## Precision, simplification and application evaluation
 
 The practical-precision milestone uses candidate cache version 19 and inferred

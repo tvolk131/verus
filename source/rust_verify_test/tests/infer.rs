@@ -605,6 +605,31 @@ struct InferCrates {
     directory: tempfile::TempDir,
     profile: std::path::PathBuf,
 }
+#[test]
+fn goal_assistance_uses_checked_imports_and_failed_goals_remove_stale_exports() {
+    let crates = InferCrates::new();
+    let base = "#[verifier::infer] pub fn bucket(x:u8)->u8{x & 15}";
+    let run = crates.build("goals_base", base, &[], &[]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let caller = "pub fn property(x:u8){let y=goals_base::bucket(x);assert(y<16);}";
+    let run = crates.build("goals_consumer", caller, &["goals_base"], &[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    let run = crates.build("goals_consumer", caller, &["goals_base"], &["--infer-goals"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    assert!(crates.vir("goals_consumer").exists());
+    let wrong = caller.replace("y<16", "y==16");
+    let run = crates.build("goals_consumer", &wrong, &["goals_base"], &["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("bitvector assertion not satisfied"));
+    assert!(!crates.vir("goals_consumer").exists());
+    let run = crates.build("goals_consumer", caller, &["goals_base"], &["--infer-goals"]);
+    assert!(run.status.success());
+    let run = crates.build("goals_consumer", "pub fn broken( {", &["goals_base"], &["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("goals_consumer").exists());
+}
+
 impl InferCrates {
     fn new() -> Self {
         let executable = std::env::current_exe().unwrap();

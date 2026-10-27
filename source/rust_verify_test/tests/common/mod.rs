@@ -359,6 +359,8 @@ pub fn run_verus(
         } else if let Some(module) = option.strip_prefix("--verify-only-module ") {
             verus_args.push("--verify-only-module".to_string());
             verus_args.push(module.to_string());
+        } else if *option == "--infer-goals" {
+            verus_args.push("--infer-goals".to_string());
         } else if *option == "--expand-errors" {
             verus_args.push("--expand-errors".to_string());
             verus_args.push("--multiple-errors".to_string());

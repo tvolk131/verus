@@ -71,6 +71,7 @@ pub struct OpGenerator<'a> {
     trait_impl_map: HashMap<Path, TraitImpl>,
 
     scc_idx: usize,
+    infer_goals: bool,
 }
 
 pub struct FunctionOpGenerator<'a: 'b, 'b> {
@@ -80,7 +81,12 @@ pub struct FunctionOpGenerator<'a: 'b, 'b> {
 }
 
 impl<'a> OpGenerator<'a> {
-    pub fn new(ctx: &'a mut vir::context::Ctx, krate: &vir::sst::KrateSst, bucket: Bucket) -> Self {
+    pub fn new(
+        ctx: &'a mut vir::context::Ctx,
+        krate: &vir::sst::KrateSst,
+        bucket: Bucket,
+        infer_goals: bool,
+    ) -> Self {
         let mut func_map: HashMap<Fun, FunctionSst> = HashMap::new();
         for function in &krate.functions {
             assert!(!func_map.contains_key(&function.x.name));
@@ -93,7 +99,7 @@ impl<'a> OpGenerator<'a> {
             trait_impl_map.insert(imp.x.impl_path.clone(), imp.clone());
         }
 
-        OpGenerator { ctx, func_map, trait_impl_map, bucket, scc_idx: 0 }
+        OpGenerator { ctx, func_map, trait_impl_map, bucket, scc_idx: 0, infer_goals }
     }
 
     pub fn next<'b>(&'b mut self) -> Result<Option<FunctionOpGenerator<'a, 'b>>, VirErr>
@@ -281,6 +287,20 @@ impl<'a> OpGenerator<'a> {
 
         let Some(func_check_sst) = func_check_sst else {
             return Ok(vec![]);
+        };
+
+        let goal_check;
+        let func_check_sst = if self.infer_goals
+            && matches!(style, Style::Normal)
+            && !function.x.attrs.infer
+            && !function.x.attrs.bit_vector
+            && matches!(func_check_sst.post_condition.kind, vir::sst::PostConditionKind::Ensures)
+        {
+            goal_check =
+                Arc::new(vir::infer::prepare_proof_goals(func_check_sst, &self.ctx.func_map)?);
+            &goal_check
+        } else {
+            func_check_sst
         };
 
         if function.x.attrs.infer && matches!(style, Style::Normal) {

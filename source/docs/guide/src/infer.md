@@ -25,6 +25,81 @@ it explicitly. Opt into sound interval summaries with
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
 
+## Demand-driven scalar proof assistance
+
+The experimental `--infer-goals` command-line flag asks an additional bounded
+proof strategy to handle eligible ordinary caller assertions. For example:
+
+```rust
+use vstd::prelude::*;
+
+#[verus_infer]
+fn bucket(key: u64) -> u8 { (key & 15) as u8 }
+
+verus! {
+fn caller(key: u64) {
+    let index = bucket(key);
+    assert(index < 16);
+}
+}
+```
+
+Run `verus example.rs --crate-type=lib --infer-goals`. Exact inference still
+publishes the equation `result == ((key & 15) as u8)`. The additional strategy
+starts from the assertion, substitutes relevant exact summaries and local
+definitions, and proposes a conditional theorem for the existing bit-vector
+prover. Ordinary verification then uses that checked theorem to establish the
+unchanged assertion. It does not eagerly add ranges or alternative equations
+to every function's contract.
+
+The first strategy handles assertions whose expanded goals depend on an exact
+inferred call and contain bitwise `&`, `|`, or `^`. Free variables must be Booleans
+or fixed-width integers. Caller requirements and branch conditions can supply
+explicit premises. Type bounds and nonzero divisors are premises too, never
+unchecked facts. Each complete theorem is checked and used verbatim, and all
+original calls, safety checks and assertions remain. A failed or timed-out
+auxiliary proof fails verification, as with a handwritten `by(bit_vector)` proof.
+Goal-assisted exports wait for complete verification, including for consumers
+with only imported inferred contracts. Previous outputs are invalidated as soon
+as their paths are known (before parsing for direct `--export` paths).
+
+This is an opt-in strategy, not yet an ordinary-proof-first retry planner.
+Omitted unsupported context can make it less effective than a manual proof.
+It handles at most eight requests per caller, with 2,048 expanded nodes and
+32 substitution levels per request, 8,192 statement visits and a 4,096-bit
+intermediate-width limit. Unsupported/exhausted requests get no generated fact;
+the original verifier still must prove them. It does not strengthen sound-only
+contracts, infer loop invariants, directly discharge postconditions or implicit
+index obligations, or cache successful lemmas. An explicit proved assertion can
+provide the fact needed by a subsequent array access.
+
+The source-connected AlephBFT pilot can be reproduced without network access:
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft.py \
+    --alephbft /path/to/AlephBFT \
+    --output /tmp/aleph-infer-pilot --native-tests
+```
+
+Build this fork first. The runner makes a local clone at commit
+`f35c7bba6d628bcafdf0d65dd471cc6f868ec034`, ignoring the input checkout's uncommitted
+changes. It mechanically moves the original `common_vote` function to a shared
+production module, checks executable-body identity, and verifies that exact
+source file. The canonical remainder schedule and round alternation already
+verify without assistance. An equivalent low-bit parity formulation needs two
+manual local lemma invocations or the new strategy. This is a representation
+bridge, not a new voting-agreement or recovery theorem.
+
+Results include ordinary handwritten-contract/manual-proof, inferred baseline,
+inferred/manual-proof and inferred/assisted variants; five semantic negative
+controls; the source integration patch; tool fingerprints; proof reports; and
+raw diagnostics. Timing observations are not a performance benchmark. Six
+production election tests pass with default features. The pinned original
+`--no-default-features` build fails in `collection/mod.rs`; the runner compares
+the patched and unmodified error signatures and reports this as a baseline
+limitation, not as passing tests. Quorum wrappers, generic state mutation and
+the larger distributed proofs remain outside this pilot.
+
 ## Sound approximations and partial success
 
 ```rust

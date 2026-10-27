@@ -34,7 +34,11 @@ fn full(typ: &Typ, bits: u32) -> Option<Bounds> {
 // This conversion only PROPOSES lemmas about pure published formulas. Any bug
 // here still has to produce a universally valid BV theorem, used verbatim by
 // the ordinary proof; it cannot install a callee fact or change a call.
-fn summary_exp(e: &Expr, vars: &HashMap<VarIdent, Exp>, budget: &mut usize) -> Option<Exp> {
+pub(super) fn summary_exp(
+    e: &Expr,
+    vars: &HashMap<VarIdent, Exp>,
+    budget: &mut usize,
+) -> Option<Exp> {
     *budget = budget.checked_sub(1)?;
     let x = match &e.x {
         ExprX::Var(v) => return vars.get(v).cloned(),
@@ -73,6 +77,12 @@ fn summary_exp(e: &Expr, vars: &HashMap<VarIdent, Exp>, budget: &mut usize) -> O
                 }
                 BinaryOp::Arith(ArithOp::Mul(OverflowBehavior::Allow)) => {
                     sst::BinaryOp::Arith(sst::ArithOp::Mul)
+                }
+                BinaryOp::Arith(ArithOp::EuclideanDiv(Div0Behavior::Allow)) => {
+                    sst::BinaryOp::Arith(sst::ArithOp::EuclideanDiv)
+                }
+                BinaryOp::Arith(ArithOp::EuclideanMod(Div0Behavior::Allow)) => {
+                    sst::BinaryOp::Arith(sst::ArithOp::EuclideanMod)
                 }
                 _ => return None,
             },
@@ -254,7 +264,7 @@ fn lemma(e: &Exp, env: &Env, bits: u32) -> Option<Exp> {
     Some(binary(sst::BinaryOp::Implies, premise, within(&e, range)))
 }
 
-fn checked(fact: Exp) -> Result<Stm, VirErr> {
+pub(super) fn checked(fact: Exp) -> Result<Stm, VirErr> {
     let span = fact.span.clone();
     let pair = Spanned::new(
         span.clone(),

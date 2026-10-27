@@ -221,7 +221,8 @@ fn export_path(args: &Args, via_cargo: &Option<PathBuf>) -> Option<PathBuf> {
 }
 
 /// An unsuccessful re-verification must not leave an older certified inference
-/// artifact at the requested output path. Ordinary exports retain their behavior.
+/// artifact at the requested output path. Goal-assisted ordinary exports use
+/// the same post-verification barrier; legacy ordinary exports retain their behavior.
 pub(crate) fn invalidate_inferred_export(
     args: &Args,
     via_cargo: &Option<PathBuf>,
@@ -234,6 +235,12 @@ pub(crate) fn invalidate_inferred_export(
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(()),
         Err(e) => return Err(io_vir_err("open previous inference export".into(), e)),
     };
+    if args.infer_goals {
+        drop(file);
+        std::fs::remove_file(&path)
+            .map_err(|e| io_vir_err("invalidate previous goal-assisted export".into(), e))?;
+        return Ok(());
+    }
     if file.metadata().map_err(|e| io_vir_err("stat previous inference export".into(), e))?.len()
         >= INFER_MAGIC.len() as u64
     {

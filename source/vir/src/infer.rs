@@ -20,6 +20,7 @@ mod contract;
 mod eligibility;
 mod enums;
 mod exits;
+mod goals;
 mod integer_models;
 mod loops;
 mod models;
@@ -33,6 +34,7 @@ mod summary;
 pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
+pub use goals::prepare as prepare_proof_goals;
 
 use contract::Contract;
 use eligibility::{scalar, validate_body, validate_signature};

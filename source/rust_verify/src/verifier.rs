@@ -1467,7 +1467,7 @@ impl Verifier {
         self.run_command_batches(bucket_id, reporter, &mut air_context, &bucket_context);
 
         let bucket = self.get_bucket(bucket_id);
-        let mut opgen = OpGenerator::new(ctx, krate, bucket.clone());
+        let mut opgen = OpGenerator::new(ctx, krate, bucket.clone(), self.args.infer_goals);
         while let Some(mut function_opgen) = opgen.next()? {
             let diagnostics_to_report: std::cell::RefCell<
                 Option<PanicOnDropVec<(Message, MessageLevel)>>,
@@ -2934,8 +2934,9 @@ impl Verifier {
             crate_id: spans.local_crate.as_u64(),
             original_files: spans.local_files.clone(),
         };
-        if local_crate.functions.iter().any(|f| f.x.attrs.infer) {
-            // Inferred API metadata must never be published before its proofs.
+        if self.args.infer_goals || local_crate.functions.iter().any(|f| f.x.attrs.infer) {
+            // Inferred and goal-assisted APIs must wait for their complete
+            // proofs, including every generated auxiliary query.
             self.pending_inference_export = Some((crate_metadata, local_crate.clone()));
         } else {
             crate::import_export::export_crate(
