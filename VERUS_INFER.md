@@ -56,6 +56,13 @@ Implemented and covered by regression tests:
   proof block; a checked equivalence preserves the original count definition's
   meaning. Invariants, loop annotations and the transition's sequence-equality
   assertion remain supplied.
+- [x] Bounded compositional record-state inference in explicit sound mode:
+  guarded scalar/vector field effects, unchanged-field frames, immutable locals,
+  Copy generic tuple/Option matching, early unit returns and direct vector
+  operations. Closed primitive `From` widenings reuse existing vstd models.
+  The supplied Aleph `add` body receives an inferred contract; ordinary caller
+  harnesses check the whole valid domain, invariant preservation and the original
+  behavior. No vector wrappers or assumed invariants are required.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -177,8 +184,8 @@ Still planned or outside the implemented subset:
   local views, and richer slice element types. Owned array outputs and local
   exclusive/open shared subslices are implemented.
 - [ ] General mutation, state relations, and frame-condition inference beyond
-  the bounded single-slot vector templates and counted-loop locals. State-aware
-  maximality/exactness checks, generic mutable records, and automatic counting
+  the bounded vector/record subset and counted-loop locals. State-aware
+  maximality/exactness checks, nested records, mutable helper composition and counting
   lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
@@ -208,7 +215,7 @@ Still planned or outside the implemented subset:
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Opt-in goal assistance handles selected scalar assertions and supplied counting invariants; general queries, automatic retries and contract strengthening remain future work. |
-| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec length/read and sound single-slot state summaries are implemented. General mutation and state precision remain. |
+| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec views and bounded sound record-state composition are implemented. General heap mutation and state precision remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
 
@@ -286,9 +293,18 @@ APIs and research directions.
    zero-count calls. A checked reference equivalence
    validates the specification migration. State contracts and loop
    annotations remain explicit; whole-collector inference is not established.
-9. **Next: record mutation, expected-domain checks and operator specifications.**
-   Broader mutable records, state-aware precision,
-   generic helper composition and whole-collector inference remain open.
+9. **Record-state composition checkpoint implemented.** Bounded symbolic fields,
+   pure Copy tuple/Option matching, standard widening and direct vector operations
+   infer the supplied collector's `add` contract from its original executable
+   body. An ordinary harness proves every valid state can call it and stays valid;
+   the old behavioral contract is retained separately as a regression oracle.
+   Mutation tests distinguish candidate soundness from requested-domain coverage.
+   This does not establish clean-main collector or arbitrary record inference.
+10. **Next: production abstractions, collection loops and richer composition.**
+   Nested records/newtype fields, generic mutable helper composition, `NodeMap`
+   views and `Unit`/`Hasher` trait specifications remain open, along with vector
+   construction/copy loop annotations, a dedicated expected-domain interface and
+   state-aware precision checking.
    Concrete operator implementations cannot introduce inferred
    preconditions independently of their inherited trait contracts. Address these
    boundaries with checked models/specifications before promising a clean-main

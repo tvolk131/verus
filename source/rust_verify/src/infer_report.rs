@@ -77,7 +77,7 @@ impl Verifier {
                 "source": f.span.as_string,
                 "candidate_id": f.x.attrs.infer_candidate_id,
                 "mode": if allow_approx { "sound" } else { "exact" },
-                "summary_kind": if state_summary { "collection_state" } else { "value" },
+                "summary_kind": if vir::infer::is_record_summary(f) { "record_state" } else if state_summary { "collection_state" } else { "value" },
                 "parameters": f.x.params.iter().map(|p| json!({
                     "name": p.x.name.0, "type": typ_to_diagnostic_str(&p.x.typ)
                 })).collect::<Vec<_>>(),
@@ -95,7 +95,7 @@ impl Verifier {
                 "dependencies": dependencies,
                 "metrics": {
                     "cache": if candidate.cache_hit { "hit" } else { "miss" },
-                    "cache_policy": if vir::infer::is_collection_summary(f) { "regenerated_template" } else { "candidate_cache" },
+                    "cache_policy": if vir::infer::is_record_summary(f) { "regenerated_state" } else if vir::infer::is_collection_summary(f) { "regenerated_template" } else { "candidate_cache" },
                     "generation_micros": candidate.elapsed_micros,
                     "solver_micros": solver_micros,
                     "requires_nodes": candidate.requires_nodes,

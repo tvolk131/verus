@@ -762,6 +762,53 @@ proof are experiment-only, while state contracts, loop annotations and the
 transition's sequence-equality assertion remain supplied. These checks do not establish
 general invariant discovery, arbitrary proof search or new protocol properties.
 
+## Bounded record-state composition and requested-domain checks
+
+The record synthesizer tracks one exclusive mutable root, Copy parameters/locals
+and bounded transparent fields. Each assignment changes a symbolic field under
+its active path; branches merge field values, early returns disable later effects,
+and vector writes use existing Seq updates. Scalar arithmetic contributes guarded
+range requirements. Immutable aliases, additional reference parameters, proof
+statements, loops, unsupported calls and effectful match/value expressions are
+rejected. Source and actual generated formula nodes are bounded independently.
+The shared installer preserves the original executable body and binds its typed
+signature, actual predicates, datatype definitions and dependencies to identity.
+
+Every generated postcondition contains one final equality per record field.
+Vector equalities describe the full sequence; scalar/opaque Copy fields describe
+their final values, including unchanged frames. Ordinary soundness checks that
+relation against the original body. State precision is not established or probed.
+An ordinary harness supplies the input invariant and desired output invariant;
+its call must establish the synthesized safety predicate for every allowed input.
+That coverage check is distinct from soundness of a potentially restrictive
+candidate. Invariants are never assumed by the synthesizer.
+
+Closed primitive From recognition reuses existing vstd conversion extension
+specifications, validating the canonical trait/concrete implementation, proxy,
+primitive argument/result types and the approved 35 lossless pairs. User-defined
+conversions are excluded. It adds no external-body/no-unwind declarations or
+conversion axioms. All supported exact scalar conversions receive the existing
+three independent checks; record callers use the same existing library models.
+
+Cache version 22 regenerates record formulas instead of using scalar formula
+serialization. Metadata schema 17 validates the closed imported expression
+language and complete field coverage, alongside existing candidate-bound proof,
+datatype and model/dependency fingerprints. Invalid imported summary diagnostics
+are made span-free at the import boundary, where source spans are unavailable;
+they reject the interface rather than triggering the driver's span assertion.
+
+Compiler regressions cover the unrelated occupied-slot record, read-after-write,
+early returns, signed arithmetic, frame changes, missing accounting, duplicate
+counting, source/expansion budgets, unsupported aliases/proof code, all primitive
+widenings, cross-crate use, honest precision labels and failed-export cleanup.
+The Aleph experiment checks the direct supplied `add` body without wrappers.
+A minimal invariant harness and a separate copy of the original behavioral
+contract check the inferred relation. An added overflow operation yields a sound
+restricted contract but fails whole-valid-domain coverage and a native test.
+These are mutation controls, not claims of a newly discovered production bug.
+The supplied manual core, its count-equivalence evidence and loop annotations
+remain distinct from clean main's generic collector and protocol verification.
+
 Cargo edit measurements observe broad candidate invalidation, including an
 independent function, after changing the source. Such source-span/build-provenance
 sensitivity is a cache-efficiency follow-up; it does not reuse failed evidence or

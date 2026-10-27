@@ -13,8 +13,8 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 16;
-const INFER_POLICY: &str = "candidate-bound-evidence-v16";
+const INFER_SCHEMA: u32 = 17;
+const INFER_POLICY: &str = "candidate-bound-evidence-v17";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -207,7 +207,9 @@ pub(crate) fn import_crates(
     let datatypes: Vec<_> = vir_crates.iter().flat_map(|k| k.datatypes.iter()).cloned().collect();
     let functions: Vec<_> = vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
     for f in vir_crates.iter().flat_map(|k| k.functions.iter()).filter(|f| f.x.attrs.infer) {
-        vir::infer::validate_imported_summary_with_context(f, &datatypes, &functions)?;
+        vir::infer::validate_imported_summary_with_context(f, &datatypes, &functions)
+            .map_err(|e| vir::messages::error_bare(format!("inferred interface {}: {}",
+                vir::ast_util::fun_as_friendly_rust_name(&f.x.name), e.note)))?;
     }
     Ok(ImportOutput {
         vir_crates,

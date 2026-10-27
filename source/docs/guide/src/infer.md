@@ -59,8 +59,9 @@ wrapper results compose with other inferred functions and imported contracts.
 The type definition must be available and transparent, with no type parameters,
 destructor, user-defined type invariant, proxy or tracked/ghost field. Its payload
 must be a supported Boolean or machine integer. Nested/multiple-field wrappers,
-returned wrapper references, mutable receivers and sound-mode wrapper inference
-remain unsupported. Operator trait implementations remain unsupported as well:
+returned wrapper references and sound-mode value projection remain unsupported.
+Mutable unit-returning methods can use the bounded sound record-state path below.
+Operator trait implementations remain unsupported as well:
 Verus inherits their preconditions from the trait, so attaching an implementation-
 specific inferred `requires` would be invalid. This support assigns no assumed
 semantics to an overloaded operator.
@@ -203,6 +204,95 @@ Loop annotations, state contracts and the transition's sequence-equality asserti
 The checked reference/equivalence definitions are experiment-only evidence.
 Reproduce it with `source/tools/eval_verus_infer_alephbft_counting.py` as documented
 in the [experiment README](../../../tools/infer_alephbft/README.md).
+
+## Bounded mutable records
+
+Explicit sound mode also supports loop-free updates to one exclusively borrowed,
+transparent record. Inference tracks each field through branches and early unit
+returns, deriving guarded safety requirements and a final relation for every
+field. For vector fields the relation describes the complete sequence; unchanged
+fields and slots remain available to callers without handwritten frame clauses.
+
+```rust
+use vstd::prelude::*;
+verus! {
+pub struct Pool<T: Copy> {
+    pub slots: Vec<Option<T>>,
+    pub used: usize,
+    pub epoch: u32,
+}
+impl<T: Copy> Pool<T> {
+    pub closed spec fn valid(&self) -> bool {
+        self.used == self.slots@.count_prefix(
+            |slot: Option<T>| slot.is_some(), self.slots@.len())
+    }
+
+    #[verifier::infer(sound)]
+    pub fn insert(&mut self, i: usize, value: T) {
+        if i >= self.slots.len() { return; }
+        let empty = match self.slots[i] { None => true, Some(_) => false };
+        if empty { self.slots[i] = Some(value); self.used += 1; }
+    }
+
+    pub fn check_insert(&mut self, i: usize, value: T)
+        requires old(self).valid(),
+        ensures final(self).valid(), final(self).epoch == old(self).epoch,
+    { self.insert(i, value); }
+}
+}
+```
+
+With `--infer-goals`, the ordinary caller proves both the counting invariant and
+the unchanged epoch through the inferred contract. Its arguments are unrestricted:
+every state satisfying `valid()` must establish the callee's safety requirements.
+This checks the requested input domain as well as preservation. The invariant is
+an explicit developer goal, not an assumption used by synthesis. Additional input
+restrictions cannot silently replace that goal. No new expected-domain attribute
+or mixed handwritten/inferred-contract syntax is introduced; this uses an
+ordinary verification harness.
+
+The initial subset permits up to eight executable fields, two `Copy` type
+parameters and eight parameters including the one mutable record. Values may be
+machine integers, Booleans, opaque Copy parameters, tuples of up to four elements,
+and bounded nested `Option`/tuple combinations (depth four). Vector fields require
+such Copy elements and the default allocator. The type definition must be
+available and transparent, with one variant, no custom destructor, proxy,
+tracked/ghost fields or user-defined type invariant. Supplied spec predicates
+such as `valid()` are ordinary functions and remain supported.
+
+Bodies support immutable Copy locals, pure `Option`/tuple matches with at most
+four arms, scalar assignments, checked add/subtract/multiply, comparisons,
+integer casts, direct vector length/index/slot replacement and closed primitive
+`From` widenings. Inference composes these operations directly; extracted vector
+wrappers are unnecessary. Reads after writes use the updated symbolic field.
+Aliases, another reference parameter, mutable locals, whole-vector replacement,
+arbitrary calls, loops, division/remainder, general traits, nested record fields,
+returned references and non-unit results remain unsupported by this path.
+
+`u32::from(round)` and the other 34 approved primitive widenings reuse existing
+vstd conversion extension specifications. Recognition checks the canonical core
+trait, concrete primitive implementation, proxy, argument/result types and
+lossless pair. Ordinary exact scalar helpers may also use them and retain all
+three independent proofs. User-defined `From`, `Into` and arbitrary operator
+implementations do not receive guessed conversion semantics.
+
+Record synthesis visits at most 4,096 source nodes and bounds generated formulas
+at 4,096 nodes. It installs only contract data on the original function body.
+Soundness must be proved before callers or exports can use it. State maximality
+and exactness remain `not_established`, including with a precision budget.
+Record summaries regenerate and reprove on every run
+(`summary_kind = "record_state"`, `metrics.cache_policy = "regenerated_state"`);
+their state expressions never enter the scalar persistent cache. Identities bind
+the original function, visible datatype definitions and model dependencies.
+Imports validate a closed formula language and one final equality per field.
+
+The Aleph record experiment infers the supplied collector's direct `add` body,
+removing its handwritten production contract and all three vector wrappers from
+the preceding experiment. A minimal harness checks only `valid()` preservation;
+an experiment-only regression oracle separately retains the original behavioral
+clauses. The counting equivalence, other state contracts, loop annotations and
+transition equality assertion remain supplied. This is the existing manual
+collector core, not clean main's `NodeMap`/`Unit`/`Hasher` implementation.
 
 ## Demand-driven scalar proof assistance
 
@@ -1124,7 +1214,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 16 and candidate-cache version 21.
+The current inference policy uses metadata schema 17 and candidate-cache version 22.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

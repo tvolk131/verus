@@ -814,6 +814,49 @@ fn counting_assistance_uses_imported_invariants_and_removes_failed_exports() {
     assert!(!crates.vir("counting_app").exists());
 }
 
+#[test]
+fn record_state_summaries_cross_crates_preserve_frames_and_honest_precision() {
+    let crates=InferCrates::new();
+    let base=r#"
+        use vstd::prelude::*;
+        pub struct Pool {pub slots:Vec<bool>,pub used:usize,pub epoch:u8}
+        impl Pool {
+            pub open spec fn valid(&self)->bool {self.used==self.slots@.count_prefix(|b:bool|b,self.slots@.len())}
+            #[verifier::infer_precision_rlimit(1)]
+            #[verifier::infer(sound)] pub fn insert(&mut self,i:usize) {
+                if i<self.slots.len() && !self.slots[i] {self.slots[i]=true;self.used+=1;}
+            }
+        }
+    "#;
+    for _ in 0..2 {
+        let run=crates.build("record_base",base,&[],&["--output-json"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let report=json_inference(&run);let f=&report["functions"][0];
+        assert_eq!(f["summary_kind"],"record_state");
+        assert_eq!(f["metrics"]["cache_policy"],"regenerated_state");
+        assert_eq!(f["metrics"]["cache"],"miss");
+        assert_eq!(f["proofs"]["soundness"]["status"],"proved");
+        for p in ["maximality","exactness"] {
+            assert_eq!(f["proofs"][p]["status"],"not_established");
+            assert_eq!(f["proofs"][p]["reason"],"state_precision_not_supported");
+        }
+    }
+    let caller=r#"
+        use vstd::prelude::*;
+        pub fn check(s:&mut record_base::Pool,i:usize)
+            requires old(s).valid(),
+            ensures final(s).valid(),final(s).epoch==old(s).epoch,
+        {s.insert(i);}
+    "#;
+    let run=crates.build("record_app",caller,&["record_base"],&["--infer-goals"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let wrong=caller.replace("final(s).epoch==old(s).epoch","final(s).used==old(s).used");
+    let run=crates.build("record_app",&wrong,&["record_base"],&["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    assert!(!crates.vir("record_app").exists());
+}
+
 impl InferCrates {
     fn new() -> Self {
         let executable = std::env::current_exe().unwrap();

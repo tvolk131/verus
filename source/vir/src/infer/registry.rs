@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v21:collection-templates:4096";
+const VERSION: &str = "verus-infer-v22:record-effects:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -233,6 +233,7 @@ pub struct Registry {
     directory: Option<PathBuf>,
     entries: HashMap<String, Candidate>,
     originals: HashMap<Fun, Function>,
+    datatypes: Vec<Datatype>,
     pub hits: usize,
     pub misses: usize,
     pub generated: Vec<GeneratedCandidate>,
@@ -249,6 +250,7 @@ impl Registry {
             directory,
             entries: HashMap::new(),
             originals: HashMap::new(),
+            datatypes: vec![],
             hits: 0,
             misses: 0,
             generated: Vec::new(),
@@ -301,7 +303,8 @@ impl Registry {
             candidates.insert(f.x.name.clone(), f.clone());
         }
         for f in imported.iter().filter(|f| f.x.attrs.infer) {
-            if collections::kind(f).is_some() { collections::validate_summary(f, &all)?; }
+            if records::candidate(f) { records::validate_summary(f,&all,&self.datatypes)?; }
+            else if collections::kind(f).is_some() { collections::validate_summary(f, &all)?; }
             else { validate_imported_summary(f)?; }
             let key: String = Sha256::digest(format!("{VERSION}:import:{f:?}"))
                 .iter()
@@ -316,6 +319,15 @@ impl Registry {
             }
             let f = &all[&name];
             let start = std::time::Instant::now();
+            if records::candidate(f) {
+                let mut dependencies: Vec<_> = keys.values().cloned().collect(); dependencies.sort();
+                dependencies.push(format!("{:?}",self.datatypes));
+                let key=candidate_key(self.originals.get(&name).unwrap_or(f),&dependencies,&self.configuration);
+                let inferred=records::infer(f,&all,&self.datatypes)?.install_lifted(f,&key)?;
+                self.misses+=1;
+                self.generated.push(GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros()));
+                keys.insert(name.clone(),key); candidates.insert(name,inferred); continue;
+            }
             if collections::kind(f).is_some() {
                 let mut dependencies: Vec<_> = all.values()
                     .filter(|f| collections::model(f).is_some())
@@ -426,6 +438,7 @@ impl Registry {
         datatypes: &[Datatype],
     ) -> Result<Vec<Function>, VirErr> {
         let wrappers = newtypes::Newtypes::new(datatypes);
+        self.datatypes=datatypes.to_vec();
         let configuration = self.configuration.clone();
         self.configuration.push_str(&wrappers.fingerprint());
         self.originals = functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
@@ -458,6 +471,7 @@ impl Registry {
         })();
         self.configuration = configuration;
         self.originals.clear();
+        self.datatypes.clear();
         if result.is_err() {
             self.generated.clear();
         }

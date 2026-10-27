@@ -309,6 +309,7 @@ fn validate_root(
                     ExprX::Logical(..) => {}
                     ExprX::Binary(op, ..) if source_binary(*op).is_some() => {}
                     ExprX::Binary(..) if arithmetic::negative_literal(e).is_some() => {}
+                    ExprX::Call { .. } if widening::call(e, callees).is_some() => {}
                     ExprX::Call { .. }
                         if !f.x.attrs.infer_allow_approx
                             && models::array_call(e, callees)?.is_some() => {}

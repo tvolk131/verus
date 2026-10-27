@@ -279,7 +279,7 @@ fn returned_call(body: &Expr, success: &Typ) -> Option<Expr> {
 
 /// The closed primitive From implementations present in vstd's convert models.
 /// Pointer-sized destinations admit only widths safe on both supported models.
-fn lossless_error_conversion(from: &Typ, to: &Typ) -> bool {
+pub(super) fn lossless_error_conversion(from: &Typ, to: &Typ) -> bool {
     matches!((&**from, &**to),
         (TypX::Int(IntRange::U(a)), TypX::Int(IntRange::U(b))) if a < b && matches!(a,8|16|32|64) && matches!(b,16|32|64|128))
         || matches!((&**from, &**to),

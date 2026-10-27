@@ -29,10 +29,12 @@ mod models;
 mod newtypes;
 mod propagation;
 mod registry;
+mod records;
 mod report;
 mod simplify;
 mod slices;
 mod summary;
+mod widening;
 
 pub use report::{GeneratedCandidate, GenerationReport};
 
@@ -42,8 +44,10 @@ pub use counting_goals::prepare as prepare_counting_goals;
 
 pub fn is_state_summary(function: &Function) -> bool {
     function.x.attrs.infer && function.x.attrs.infer_allow_approx
-        && collections::kind(function) == Some(collections::Kind::Write)
+        && (collections::kind(function) == Some(collections::Kind::Write) || records::candidate(function))
 }
+
+pub fn is_record_summary(function: &Function) -> bool { function.x.attrs.infer && records::candidate(function) }
 
 pub fn is_collection_summary(function: &Function) -> bool {
     function.x.attrs.infer && collections::kind(function).is_some()
@@ -219,6 +223,12 @@ impl Engine<'_> {
         self.spend(&expr.span)?;
         let span = &expr.span;
         let pure = |value| Ok(Summary { safe: boolean(span, true), value: Some(value) });
+        if let Some(arg) = widening::call(expr, self.callees) {
+            let arg = self.expr(arg)?;
+            let TypX::Int(range) = &*expr.typ else { unreachable!() };
+            return Ok(Summary { safe: arg.safe.clone(), value: Some(summary::unary(span,
+                UnaryOp::Clip { range: *range, truncate: true }, value(&arg, span)?)?) });
+        }
         if let Some(n) = arithmetic::negative_literal(expr) {
             return pure(term(span, &int_typ(), ExprX::Const(Constant::Int(n)), 1)?);
         }
@@ -605,6 +615,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
+                if widening::call(e, all).is_some() { return Ok(()); }
                 let range = slices::range_call(e, all)?;
                 let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
                 if let ExprX::Call {
@@ -685,7 +696,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    collections::model(function).is_some()
+    widening::model(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -700,7 +711,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
         available.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
-        if collections::kind(f).is_some() {
+        if collections::kind(f).is_some() || records::candidate(f) {
             for model in available.values().filter(|f| collections::model(f).is_some()) {
                 used.insert(model.x.name.clone(), model.clone());
             }
@@ -724,6 +735,11 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                 if let ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } = &e.x {
                     if let Some(callee) = available.get(name).filter(|f| is_approved_model(f)) {
                         used.insert(name.clone(), callee.clone());
+                    }
+                }
+                if let ExprX::Call { target: CallTarget::Fun(CallTargetKind::DynamicResolved { resolved, .. }, ..), .. } = &e.x {
+                    if let Some(callee) = available.get(resolved).filter(|f| widening::model(f)) {
+                        used.insert(resolved.clone(), callee.clone());
                     }
                 }
                 if let Some(name) = arithmetic::division_dependency(e) {
@@ -794,7 +810,9 @@ pub fn validate_imported_summary_with_context(
     functions: &[Function],
 ) -> Result<(), VirErr> {
     let projected = newtypes::Newtypes::new(datatypes).project(function)?;
-    if collections::kind(&projected).is_some() {
+    if records::candidate(&projected) {
+        records::validate_summary(&projected, &functions.iter().map(|f|(f.x.name.clone(),f.clone())).collect(), datatypes)
+    } else if collections::kind(&projected).is_some() {
         collections::validate_summary(&projected,
             &functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect())
     } else { validate_imported_summary(&projected) }
@@ -950,7 +968,7 @@ pub fn format_contract(function: &Function) -> String {
 /// Separate the checked predicates for structured presentation. Arithmetic is
 /// mathematical, with explicit machine casts and Rust signed division/remainder.
 pub fn format_contract_parts(function: &Function) -> (String, String) {
-    if collections::kind(function).is_some() {
+    if collections::kind(function).is_some() || records::candidate(function) {
         let result_name = VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal);
         let result = &function.x.inner_ret.x.name;
         let post = crate::ast_visitor::map_expr_place_visitor(&function.x.ensure.0[0],
@@ -1047,14 +1065,14 @@ fn format_expr(e: &Expr) -> String {
             if fields.is_empty() {
                 if variant.as_str() == "tuple%0" { "()".into() } else { variant.to_string() }
             } else {
-                format!("{}({})", variant, format_expr(&fields[0].a))
+                format!("{}({})", variant, fields.iter().map(|f| format_expr(&f.a)).collect::<Vec<_>>().join(", "))
             }
         }
         ExprX::UnaryOpr(UnaryOpr::IsVariant { variant, .. }, a) => {
             format!("is_{}({})", variant, format_expr(a))
         }
         ExprX::UnaryOpr(UnaryOpr::Field(op), a) => {
-            format!("({})->{}_0", format_expr(a), op.variant)
+            format!("({})->{}_{}", format_expr(a), op.variant, op.field)
         }
         ExprX::Const(Constant::Bool(b)) => b.to_string(),
         ExprX::Const(Constant::Int(i)) => i.to_string(),

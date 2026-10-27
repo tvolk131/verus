@@ -32,7 +32,7 @@ fn seq(t: Typ) -> Typ {
         Arc::new(vec![]),
     ))
 }
-fn vec_args(t: &Typ) -> Option<&Typs> {
+pub(super) fn vec_args(t: &Typ) -> Option<&Typs> {
     match &**t {
         TypX::Datatype(Dt::Path(p), args, _)
             if models::path_is(p, CrateId::Alloc, &["vec", "Vec"]) && args.len() == 2 =>
