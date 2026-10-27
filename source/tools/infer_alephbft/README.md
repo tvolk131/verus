@@ -203,7 +203,67 @@ and the isolated clone restored to its passing inferred variant. Tools, model
 artifacts, input collector, runner/support code and fixtures are fingerprinted;
 changes during evaluation abort the run. Timings are not a benchmark.
 
-The next reduction target is bounded, invariant-directed selection of the checked
+The counting-assistance checkpoint below implements bounded selection of checked
 sequence/counting lemmas. General mutable records, generic helper composition and
 state-aware precision checking remain separate designs. Operator-trait inference
 also needs a design through Verus's inherited/extension specifications.
+
+## Supplied counting-invariant assistance
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_counting.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-counting \
+  --native-tests --native-target /tmp/infer-aleph-counting-native
+```
+
+This follows the collection experiment on the same supplied manually verified
+collector. It keeps the state contracts, predicate and loop annotations, while
+the count definition delegates to the reusable `Seq::count_prefix` recurrence.
+An experiment-only copy of the original recursive count and a checked
+`library_count_agrees` proof establish that the migration preserves meaning for
+every sequence, round and valid prefix. The original definition remains available
+as independent reference evidence, not an assumption.
+
+The assisted variant removes:
+
+- The counting proof block in `Collector::add` and its two lemma calls.
+- The constructor and round-transition calls to `count_zero`.
+- All three application-specific recursive counting proof definitions:
+  `count_bound`, `count_update` and `count_zero`.
+
+The existing sequence-equality assertion in `next`, both loops' annotations,
+state contracts and invariant clauses remain supplied. The shared generic
+library supplies four checked lemmas: count bounds, slot-update accounting, zero
+counts and the implication from a full count to all slots matching. The full-count
+fact lets a known nonmatching slot establish room for a counter increment.
+
+`--infer-goals` follows supplied count contracts/assertions through bounded spec
+definitions, then enables that fixed theorem catalog through scoped broadcasts.
+Verus handles conditional theorem instantiation and checks every original
+postcondition and safety assertion. This adds no axiom, external-body assumption,
+generated executable operation or inferred protocol invariant. The three vector
+helpers still receive their original inference checks; the state summary still
+does not claim maximality/exactness.
+
+Eleven formal scenarios compare the original manual proof, generic-library manual
+proof, unassisted failure, assisted/warm success, wrong slot/round/counter,
+missing accounting invariant, missing constructor invariant and a changed count
+definition. The equivalence check must reject a changed counting predicate.
+All five helper contracts must remain successfully checked in semantic controls.
+The missing-loop-invariant case retains termination evidence, so it reaches a
+proof failure instead of an unsupported-source diagnostic. Four native runs
+execute the supplied three tests against original and assisted bodies and detect
+wrong-slot/wrong-round mutations.
+
+Outputs include `results.json`, `summary.md`, raw diagnostics, per-case formal and
+native snapshots/hashes, `counting-assistance.patch` and the passing assisted
+clone. Inputs, tools, model artifacts and runner/support files are fingerprinted.
+Warm scalar candidates are reused and rechecked; collection templates regenerate
+and recheck. Discovery and solver work are bounded; timings are not a benchmark.
+
+This is a proof-effort reduction on the supplied manual core, not a proof of the
+clean-main generic collector. Reusable library lemmas replace application
+induction; arbitrary induction and invariant discovery remain unsupported.
+Further work includes general record mutation, expected-domain audits, collection
+loop annotations and trait/operator specifications.
