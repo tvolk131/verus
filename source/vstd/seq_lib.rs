@@ -18,6 +18,82 @@ verus! {
 broadcast use group_seq_lemmas;
 
 impl<A> Seq<A> {
+    /// Number of elements satisfying `pred` in the first `len` positions.
+    /// This prefix form supports incremental accounting and loop invariants.
+    pub open spec fn count_prefix(self, pred: spec_fn(A) -> bool, len: nat) -> nat
+        recommends
+            len <= self.len(),
+        decreases len,
+    {
+        if len == 0 {
+            0
+        } else {
+            self.count_prefix(pred, (len - 1) as nat)
+                + if pred(self[len - 1]) { 1nat } else { 0nat }
+        }
+    }
+
+    pub broadcast proof fn lemma_count_prefix_bound(self, pred: spec_fn(A) -> bool, len: nat)
+        requires
+            len <= self.len(),
+        ensures
+            #[trigger] self.count_prefix(pred, len) <= len,
+        decreases len,
+    {
+        if len > 0 {
+            self.lemma_count_prefix_bound(pred, (len - 1) as nat);
+        }
+    }
+
+    /// Replacing a slot changes the count only by that slot's contribution.
+    pub broadcast proof fn lemma_count_prefix_update(
+        self, pred: spec_fn(A) -> bool, index: int, value: A, len: nat,
+    )
+        requires
+            0 <= index < self.len(),
+            len <= self.len(),
+        ensures
+            #[trigger] self.update(index, value).count_prefix(pred, len) as int
+                == self.count_prefix(pred, len) as int + if index < len {
+                    (if pred(value) { 1int } else { 0int })
+                        - (if pred(self[index]) { 1int } else { 0int })
+                } else { 0int },
+        decreases len,
+    {
+        if len > 0 {
+            self.lemma_count_prefix_update(pred, index, value, (len - 1) as nat);
+        }
+    }
+
+    pub broadcast proof fn lemma_count_prefix_zero(self, pred: spec_fn(A) -> bool, len: nat)
+        requires
+            len <= self.len(),
+            forall|i: int| 0 <= i < len ==> !pred(#[trigger] self[i]),
+        ensures
+            #[trigger] self.count_prefix(pred, len) == 0,
+        decreases len,
+    {
+        if len > 0 {
+            self.lemma_count_prefix_zero(pred, (len - 1) as nat);
+        }
+    }
+
+    /// A full count means every slot in the prefix satisfies the predicate.
+    /// In particular, a known nonmatching slot leaves room for an increment.
+    pub broadcast proof fn lemma_count_prefix_full(self, pred: spec_fn(A) -> bool, len: nat)
+        requires
+            len <= self.len(),
+        ensures
+            #[trigger] self.count_prefix(pred, len) == len ==>
+                forall|i: int| 0 <= i < len ==> pred(#[trigger] self[i]),
+        decreases len,
+    {
+        if len > 0 {
+            self.lemma_count_prefix_bound(pred, (len - 1) as nat);
+            self.lemma_count_prefix_full(pred, (len - 1) as nat);
+        }
+    }
+
     /// Applies the function `f` to each element of the sequence, and returns
     /// the resulting sequence.
     /// The `int` parameter of `f` is the index of the element being mapped.
