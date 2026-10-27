@@ -25,6 +25,59 @@ it explicitly. Opt into sound interval summaries with
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
 
+## Scalar wrappers and inherent methods
+
+Exact inference also supports transparent, nongeneric datatypes with one variant
+and one executable scalar field, including tuple and named-field structs:
+
+```rust
+use vstd::prelude::*;
+
+verus! {
+pub struct NodeCount(pub usize);
+
+impl NodeCount {
+    #[verifier::infer]
+    pub fn consensus_threshold(&self) -> NodeCount {
+        NodeCount((self.0 / 3) * 2 + ((self.0 % 3) * 2) / 3 + 1)
+    }
+}
+
+fn threshold_property(n: NodeCount) -> (q: NodeCount)
+    ensures q.0 as int == (2 * n.0 as int) / 3 + 1,
+{ n.consensus_threshold() }
+}
+```
+
+The caller has no input restriction. The decomposed calculation avoids the
+overflow in `n * 2 / 3 + 1`; inference does not repair that original expression.
+If the multiplication is retained, its safety restriction is retained too.
+Native `#[verus_infer]` methods can be used inside an impl annotated with
+`#[verus_verify]`. Immutable wrapper locals, shared wrapper inputs and owned
+wrapper results compose with other inferred functions and imported contracts.
+
+The type definition must be available and transparent, with no type parameters,
+destructor, user-defined type invariant, proxy or tracked/ghost field. Its payload
+must be a supported Boolean or machine integer. Nested/multiple-field wrappers,
+returned wrapper references, mutable receivers and sound-mode wrapper inference
+remain unsupported. Operator trait implementations remain unsupported as well:
+Verus inherits their preconditions from the trait, so attaching an implementation-
+specific inferred `requires` would be invalid. This support assigns no assumed
+semantics to an overloaded operator.
+
+Candidate generation projects eligible wrappers to scalars and lifts the formulas
+back to the original field/constructor types. The original bodies and signatures
+receive the independent soundness, maximality and exactness checks. Projected
+functions never replace executable code. Type definitions participate in cache
+provenance and exported-contract fingerprints; warm candidates still get fresh
+proofs.
+
+The [AlephBFT parent-selection experiment](../../../tools/infer_alephbft/README.md)
+compares a handwritten threshold contract with this inference path, supplies
+native boundary/state-sequence probes, and records the remaining collector proof
+requirements. Its formal collector is the existing manually verified production
+core, not the generic collector from clean main.
+
 ## Demand-driven scalar proof assistance
 
 The experimental `--infer-goals` command-line flag asks an additional bounded
@@ -408,7 +461,8 @@ optional precision checks can still report that exact output is not established.
 
 Exact mode additionally supports core `Option<T>` and `Result<T, E>` as inputs,
 locals, and return values. Each payload must be a supported scalar or `()`;
-nested enums and user-defined enums are not supported. Constructors and simple
+nested enums and general user-defined enums are not supported. The single-variant
+scalar-wrapper case is described above. Constructors and simple
 exhaustive `match` expressions may use by-value bindings, scalar literal
 patterns, unit patterns, and wildcards. Arms retain Rust's first-match priority,
 and only the selected arm's operations contribute safety conditions. Match
@@ -944,7 +998,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 14 and candidate-cache version 19.
+The current inference policy uses metadata schema 15 and candidate-cache version 20.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

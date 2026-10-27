@@ -65,6 +65,18 @@ impl Contract {
 
     pub(super) fn install(self, original: &Function, provenance: &str) -> Result<Function, VirErr> {
         let (pre, post) = simplify::contract(original, &self.pre, &self.post)?;
+        Self::new(pre, post)?.install_lifted(original, provenance)
+    }
+
+    /// Scalar formulas have already been simplified before lifting. Source
+    /// wrapper constructors/projections need no second scalar simplification.
+    /// This shares the same body-preservation and evidence-binding boundary.
+    pub(super) fn install_lifted(
+        self,
+        original: &Function,
+        provenance: &str,
+    ) -> Result<Function, VirErr> {
+        let Self { pre, post } = self;
         let body = loops::annotate(original)?;
         let nonlinear = original.x.attrs.nonlinear
             || loops::recognize(original)?.is_some_and(|plan| plan.nonlinear);

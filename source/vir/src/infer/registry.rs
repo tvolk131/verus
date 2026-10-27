@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v19:practical-precision:4096";
+const VERSION: &str = "verus-infer-v20:scalar-newtypes:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -232,6 +232,7 @@ pub struct Registry {
     configuration: String,
     directory: Option<PathBuf>,
     entries: HashMap<String, Candidate>,
+    originals: HashMap<Fun, Function>,
     pub hits: usize,
     pub misses: usize,
     pub generated: Vec<GeneratedCandidate>,
@@ -247,6 +248,7 @@ impl Registry {
             configuration: String::new(),
             directory,
             entries: HashMap::new(),
+            originals: HashMap::new(),
             hits: 0,
             misses: 0,
             generated: Vec::new(),
@@ -349,7 +351,11 @@ impl Registry {
             })?;
             // Includes the entire typed function (body, signature, attributes,
             // safety policy), plus callee/model keys in deterministic traversal order.
-            let key = candidate_key(f, &dependencies, &self.configuration);
+            let key = candidate_key(
+                self.originals.get(&name).unwrap_or(f),
+                &dependencies,
+                &self.configuration,
+            );
             let hit = self
                 .read(&key)
                 .filter(|c| c.version == VERSION && c.key == key && c.dependencies == dependencies)
@@ -395,6 +401,51 @@ impl Registry {
             candidates.insert(name, inferred);
         }
         Ok(functions.iter().map(|f| candidates.get(&f.x.name).unwrap_or(f).clone()).collect())
+    }
+
+    pub fn infer_with_datatypes(
+        &mut self,
+        functions: &[Function],
+        imported: &[Function],
+        datatypes: &[Datatype],
+    ) -> Result<Vec<Function>, VirErr> {
+        let wrappers = newtypes::Newtypes::new(datatypes);
+        let configuration = self.configuration.clone();
+        self.configuration.push_str(&wrappers.fingerprint());
+        self.originals = functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
+        let result = (|| {
+            let projected =
+                functions.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
+            let imports = imported.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
+            let inferred = self.infer_with_imports(&projected, &imports)?;
+            let lifted = functions
+                .iter()
+                .zip(projected.iter())
+                .zip(inferred.iter())
+                .map(|((original, projection), f)| {
+                    if Arc::ptr_eq(original, projection) {
+                        return Ok(f.clone());
+                    }
+                    wrappers.lift(original, f)?.install_lifted(
+                        original,
+                        f.x.attrs.infer_candidate_id.as_ref().unwrap(),
+                    )
+                })
+                .collect::<Result<Vec<_>, VirErr>>()?;
+            let by_name: HashMap<_, _> = lifted.iter().map(|f| (&f.x.name, f)).collect();
+            for row in &mut self.generated {
+                *row = GeneratedCandidate::new(
+                    by_name[&row.function.x.name], row.cache_hit, row.elapsed_micros,
+                );
+            }
+            Ok(lifted)
+        })();
+        self.configuration = configuration;
+        self.originals.clear();
+        if result.is_err() {
+            self.generated.clear();
+        }
+        result
     }
 }
 

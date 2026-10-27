@@ -32,6 +32,12 @@ Implemented and covered by regression tests:
 - [x] Acyclic composition of inferred functions, including forward references,
   private helpers, shared dependencies, and explicit caller properties derived
   from contracts without inlining implementations.
+- [x] Exact scalar newtypes and inherent methods: transparent nongeneric,
+  single-variant/single-field scalar types, shared inputs and owned results.
+  Candidate-only scalar projection leaves original executable bodies intact;
+  type definitions bind caches and exported contracts. An AlephBFT quorum/parent
+  comparison replaces one five-clause threshold contract, confirms two existing
+  overflow boundaries, and retains the manual collector's state/counting proofs.
 - [x] Initial demand-driven scalar proof strategy behind `--infer-goals`:
   explicit ordinary caller assertions can use bounded exact-summary substitution
   and checked bit-vector theorems, without eager contract enrichment. A pinned,
@@ -162,6 +168,8 @@ Still planned or outside the implemented subset:
   the two locals in recognized counted-loop families.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
+- [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
+  and operator-trait inference through Verus's inherited/extension specifications.
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
   search, signed counters, and recursive summaries.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
@@ -240,11 +248,24 @@ APIs and research directions.
    `common_vote` body with production and records manual, baseline, assisted and
    mutation outcomes. Canonical remainder-based properties already pass; the
    measured benefit is a low-bit parity formulation, not stateful agreement.
-6. **Next: broader goal-directed usability or a broader Rust capability.** Add
+6. **Quorum/newtype checkpoint implemented.** The source-connected parent
+   experiment preserves the `NodeCount` API while separately applying the real
+   overflow-safe threshold correction. Native bounded exploration checks the
+   clean-main collector; formal comparison imports the existing manually verified
+   collector core. Inference replaces the threshold contract and an experiment
+   adapter contract, not the collector's invariant or induction proofs. Removing
+   the update lemma call or constructor invariant still fails. Native mutation
+   controls detect duplicate/stale counts, future slots and missing own parents.
+7. **Next: collection/state support and operator specifications.** The collector
+   inference probe stops at unsupported `Vec::len` consumption; generic mutable
+   receivers, state relations, frames and counting induction also remain outside
+   inference. Concrete operator implementations cannot introduce inferred
+   preconditions independently of their inherited trait contracts. Address these
+   boundaries with checked models/specifications before promising a clean-main
+   collector proof from one supplied invariant. Goal-directed usability can add
    ordinary-proof-first retries, explicit query/strategy controls, richer proof
    contexts and postcondition/implicit-safety goals based on further real cases.
-   AlephBFT quorum wrappers and stateful collectors require datatype, trait and
-   mutation support in addition to proof search. Slice traversal loops, richer
+   Slice traversal loops, richer
    enum payloads and returned views remain separate designs. Formal acceptance/
    precision verification remains the independent assurance workstream below.
 

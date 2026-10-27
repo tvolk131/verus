@@ -13,8 +13,8 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 14;
-const INFER_POLICY: &str = "candidate-bound-evidence-v14";
+const INFER_SCHEMA: u32 = 15;
+const INFER_POLICY: &str = "candidate-bound-evidence-v15";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -60,7 +60,7 @@ fn producer() -> String {
 
 fn summaries(krate: &Krate) -> Result<String, VirErr> {
     let functions: Vec<_> = krate.functions.iter().filter(|f| f.x.attrs.infer).collect();
-    bincode_next::serde::encode_to_vec((&functions, &krate.arch), bincode_next::config::legacy())
+    bincode_next::serde::encode_to_vec((&functions, &krate.datatypes, &krate.arch), bincode_next::config::legacy())
         .map(digest)
         .map_err(|_| crate::util::error("failed to fingerprint inferred contracts"))
 }
@@ -167,9 +167,6 @@ pub(crate) fn import_crates(
             {
                 return Err(inference_error(file_path, "inferred contract fingerprint mismatch"));
             }
-            for f in krate.functions.iter().filter(|f| f.x.attrs.infer) {
-                vir::infer::validate_imported_summary(f)?;
-            }
             let fingerprint = digest(serde_json::to_vec(&certificate).unwrap());
             if let Some(old) = fingerprints.insert(metadata.crate_id, fingerprint.clone()) {
                 if old != fingerprint {
@@ -207,6 +204,10 @@ pub(crate) fn import_crates(
         .into_iter()
         .map(|(crate_id, fingerprint)| InferenceDependency { crate_id, fingerprint })
         .collect();
+    let datatypes: Vec<_> = vir_crates.iter().flat_map(|k| k.datatypes.iter()).cloned().collect();
+    for f in vir_crates.iter().flat_map(|k| k.functions.iter()).filter(|f| f.x.attrs.infer) {
+        vir::infer::validate_imported_summary_with_datatypes(f, &datatypes)?;
+    }
     Ok(ImportOutput {
         vir_crates,
         metadatas,

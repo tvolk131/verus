@@ -512,9 +512,16 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         let inference_arch =
             vir::ast_simplify::krate_merge_arch(&Arc::new(cratex.clone()), &other_vir_crates)
                 .map_err(|e| self.emit_error(e))?;
-        cratex.functions = vir::infer::infer_functions_with_report(
+        let datatypes: Vec<_> = cratex
+            .datatypes
+            .iter()
+            .chain(other_vir_crates.iter().flat_map(|k| k.datatypes.iter()))
+            .cloned()
+            .collect();
+        cratex.functions = vir::infer::infer_functions_with_datatypes(
             &cratex.functions,
             &imported,
+            &datatypes,
             &format!("{:?}:{:?}:{inference_arch:?}", self.args, self.inference_model_fingerprints),
             &mut self.inference_generation,
         )

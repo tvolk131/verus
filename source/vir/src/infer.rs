@@ -24,6 +24,7 @@ mod goals;
 mod integer_models;
 mod loops;
 mod models;
+mod newtypes;
 mod propagation;
 mod registry;
 mod report;
@@ -737,6 +738,16 @@ pub fn infer_functions_with_report(
     configuration: &str,
     report: &mut GenerationReport,
 ) -> Result<Vec<Function>, VirErr> {
+    infer_functions_with_datatypes(functions, imported, &[], configuration, report)
+}
+
+pub fn infer_functions_with_datatypes(
+    functions: &[Function],
+    imported: &[Function],
+    datatypes: &[Datatype],
+    configuration: &str,
+    report: &mut GenerationReport,
+) -> Result<Vec<Function>, VirErr> {
     *report = GenerationReport::default();
     report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
     if !functions.iter().any(|f| f.x.attrs.infer) {
@@ -744,11 +755,18 @@ pub fn infer_functions_with_report(
     }
     let start = std::time::Instant::now();
     let mut registry = registry::Registry::from_environment(configuration);
-    let result = registry.infer_with_imports(functions, imported);
+    let result = registry.infer_with_datatypes(functions, imported, datatypes);
     report.elapsed_micros = start.elapsed().as_micros();
     report.candidates = registry.generated;
     report.failure = result.as_ref().err().map(|e| e.note.clone());
     result
+}
+
+pub fn validate_imported_summary_with_datatypes(
+    function: &Function,
+    datatypes: &[Datatype],
+) -> Result<(), VirErr> {
+    validate_imported_summary(&newtypes::Newtypes::new(datatypes).project(function)?)
 }
 
 /// Validate the restricted summary shape on the import boundary. Proof

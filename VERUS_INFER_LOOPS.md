@@ -57,9 +57,9 @@ Literal-step loops do not require that selection. This is a proof setting, not a
 assumption, helper contract, or executable rewrite. Installation preserves other
 function fields and attributes. Candidate identity version 3 binds the original
 function, installed proof annotations, actual contract, actual nonlinear-prover
-setting, configuration, and dependency provenance. Cache version 19 stores only
+setting, configuration, and dependency provenance. Cache version 20 stores only
 typed formulas; annotations and prover selection are regenerated from source on
-every hit. Metadata schema 14 requires inferred dependents to be rebuilt.
+every hit. Metadata schema 15 requires inferred dependents to be rebuilt.
 
 ## Three independent checks
 

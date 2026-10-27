@@ -605,6 +605,81 @@ struct InferCrates {
     directory: tempfile::TempDir,
     profile: std::path::PathBuf,
 }
+
+#[test]
+fn scalar_newtypes_cross_crate_cache_reproof_and_failed_export() {
+    let crates = InferCrates::new();
+    let base = r#"
+        pub struct Count { pub value: u8 }
+        impl Count {
+            #[verifier::infer]
+            pub fn increment(&self) -> Count { Count { value: self.value + 1 } }
+        }
+    "#;
+    let middle = r#"
+        #[verifier::infer]
+        pub fn twice(x: &wrapper_base::Count) -> wrapper_base::Count {
+            x.increment().increment()
+        }
+    "#;
+    let app = r#"
+        pub fn property(x: wrapper_base::Count) -> (r: wrapper_base::Count)
+            requires x.value <= 253,
+            ensures r.value as int == x.value as int + 2,
+        { wrapper_middle::twice(&x) }
+    "#;
+    for expected_cache in ["miss", "hit"] {
+        let run = crates.build("wrapper_base", base, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"][0]["metrics"]["cache"], expected_cache);
+        assert_eq!(report["functions"][0]["required_checks_passed"], true);
+    }
+    let files: Vec<_> = std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap().collect();
+    assert_eq!(files.len(), 1);
+    let base_cache = files.into_iter().next().unwrap().unwrap().path();
+    for expected_cache in ["miss", "hit"] {
+        let run = crates.build("wrapper_middle", middle, &["wrapper_base"], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache"], expected_cache);
+        assert_eq!(f["required_checks_passed"], true);
+        assert_ne!(f["result_type"], "u8");
+        crates.succeeds("wrapper_app", app, &["wrapper_base", "wrapper_middle"]);
+    }
+    // A cache entry is only a proposal: dropping the overflow condition must
+    // fail against the original wrapper body and remove its old certificate.
+    let path = base_cache;
+    let mut candidate: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+    candidate["pre"] = serde_json::json!({"Bool": true});
+    std::fs::write(path, serde_json::to_vec(&candidate).unwrap()).unwrap();
+    let run = crates.build("wrapper_base", base, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    assert_eq!(report["functions"][0]["metrics"]["cache"], "hit");
+    assert_eq!(report["functions"][0]["proofs"]["soundness"]["status"], "not_proved");
+    assert!(!crates.vir("wrapper_base").exists());
+}
+
+#[test]
+fn scalar_newtype_definition_changes_invalidate_candidate_cache() {
+    let crates = InferCrates::new();
+    let source = "pub struct Count { pub value:u8 } #[verifier::infer] pub fn identity(x:Count)->Count{x}";
+    for (body, expected_cache) in [(source.to_owned(), "miss"), (source.to_owned(), "hit"),
+        (source.replace("value", "other"), "miss")] {
+        let run = crates.build("wrapper_layout", &body, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"][0]["metrics"]["cache"], expected_cache);
+        assert_eq!(report["functions"][0]["required_checks_passed"], true);
+    }
+    let unsupported = source.replace("pub value:u8", "pub value:u8, pub extra:u8");
+    let run = crates.build("wrapper_layout", &unsupported, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("parameters and return values"));
+    assert!(!crates.vir("wrapper_layout").exists());
+}
 #[test]
 fn goal_assistance_uses_checked_imports_and_failed_goals_remove_stale_exports() {
     let crates = InferCrates::new();

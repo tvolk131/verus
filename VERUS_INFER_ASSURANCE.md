@@ -650,6 +650,45 @@ scenarios across three repetitions and 5/5 debug scenarios. These counts are
 selected regression evidence, not a
 formal proof or an estimate of arbitrary Rust coverage.
 
+## Scalar newtype projection and the parent-selection checkpoint
+
+Exact inference now admits available transparent, nongeneric datatypes with one
+variant and one executable scalar field, excluding destructors, proxies and
+user-defined type invariants. Candidate analysis projects their constructors,
+field reads and immutable/shared inputs to scalars. Only lifted, source-typed
+formulas are installed on original functions; original bodies, signatures,
+function kinds and other noncontract fields remain. Scalar-only functions keep
+their existing analysis/installation path. The installer binds actual lifted
+formulas and original bodies to candidate identity, and all three ordinary
+proof obligations are still required. Projection/lifting is untrusted synthesis;
+the unchanged precision construction and publication plumbing remain part of
+the verification boundary.
+
+Cache version 20 stores scalar formula proposals, not executable projections or
+proof outcomes. Keys bind original typed functions, available scalar-wrapper
+definitions and transitive dependencies. Imported contracts are validated after
+all imported datatype definitions are available. Metadata schema 15 fingerprints
+exported datatype definitions as well as inferred functions and architecture;
+dependency fingerprints cover imported definitions. Old interfaces require a
+rebuild. Compiler tests cover named/tuple wrappers, shared inputs, signed/Boolean
+payloads, full-input quorum callers, unsafe calls, cross-crate composition,
+cold/warm proof checks, definition changes, poisoned safety predicates and stale
+export removal. Unsupported trait inference reports a diagnostic instead of
+installing an invalid implementation-specific precondition.
+
+The AlephBFT parent experiment keeps two source origins explicit. Native probes
+execute clean-main production types/operators/collector at the pinned revision
+in an isolated clone. A separately recorded runtime correction preserves the
+NodeCount API and avoids threshold multiplication overflow. Formal comparison
+imports the existing manually verified production collector from the input
+working tree through an ordinarily verified scalar adapter. It does not verify
+the clean-main generic collector or synthesize its state invariant. Existing
+counting induction, frame contracts and loop annotations remain. Removing the
+update hint or constructor invariant produces proof failures; missing model/type
+support is separately classified. Bounded native exploration and mutation tests
+provide concrete runtime evidence, not universal state-space coverage or a
+new distributed-protocol theorem.
+
 Cargo edit measurements observe broad candidate invalidation, including an
 independent function, after changing the source. Such source-span/build-provenance
 sensitivity is a cache-efficiency follow-up; it does not reuse failed evidence or
