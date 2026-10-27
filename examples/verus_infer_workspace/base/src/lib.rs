@@ -95,3 +95,18 @@ pub fn counted_debit(x: u64, n: u64, step: u64) -> u64 {
     while remaining > 0 { result -= step; remaining -= 1; }
     result
 }
+
+#[verus_infer]
+pub fn payload_pair(input: Option<u8>) -> [u8; 2] {
+    let Some(value) = input else { return [0, 0]; };
+    [value, value + 1]
+}
+
+#[verus_infer]
+pub fn widened_index(input: Result<u8, u8>) -> Result<u8, u16> { Ok(input?) }
+
+#[verus_infer]
+pub fn window_read(values: &[u8], start: usize, end: usize, index: usize) -> u8 {
+    let window = &values[start..end];
+    window[index]
+}

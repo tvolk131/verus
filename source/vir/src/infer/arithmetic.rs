@@ -59,6 +59,7 @@ pub(super) fn exact_range(range: IntRange) -> bool {
 pub(super) fn arch_bits(span: &Span) -> Term {
     let zero = number(span, 0.into());
     Term {
+        view: None,
         expr: SpannedTyped::new(
             span,
             &int_typ(),
@@ -74,6 +75,7 @@ pub(super) fn arch_bits(span: &Span) -> Term {
 pub(super) fn arch_bound(span: &Span, kind: IntegerTypeBoundKind) -> Term {
     let bits = arch_bits(span);
     Term {
+        view: None,
         expr: SpannedTyped::new(
             span,
             &int_typ(),
@@ -169,7 +171,11 @@ pub(super) fn minimum(span: &Span, range: IntRange) -> Result<Term, VirErr> {
 }
 
 fn number(span: &Span, n: BigInt) -> Term {
-    Term { expr: SpannedTyped::new(span, &int_typ(), ExprX::Const(Constant::Int(n))), size: 1 }
+    Term {
+        view: None,
+        expr: SpannedTyped::new(span, &int_typ(), ExprX::Const(Constant::Int(n))),
+        size: 1,
+    }
 }
 
 pub(super) fn in_range(span: &Span, value: Term, range: IntRange) -> Result<Term, VirErr> {
@@ -401,7 +407,7 @@ mod tests {
         for range in [IntRange::I(0), IntRange::I(7), IntRange::I(256), IntRange::ISize] {
             assert!(bounds(range).is_none());
         }
-        let term = |e: Expr| Term { expr: e, size: 1 };
+        let term = |e: Expr| Term { view: None, expr: e, size: 1 };
         let invalid = [
             ArithOp::TruncatingDiv(Div0Behavior::Error, SignedDivEdgeCaseBehavior::Allow),
             ArithOp::TruncatingMod(
@@ -473,6 +479,7 @@ mod checked_tests {
             let signed = model.new_x(f);
             assert!(enums::checked(&signed).is_some());
             let arg = |index: usize| Term {
+                view: None,
                 expr: SpannedTyped::new(
                     &span(),
                     &signed.x.params[index].x.typ,

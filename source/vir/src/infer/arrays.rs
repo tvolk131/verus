@@ -128,3 +128,61 @@ impl Engine<'_> {
         Ok(Summary { safe, value: Some(slices::index(span, a, i)?) })
     }
 }
+
+/// Existing vstd axiom defining equality over every element of a fixed array.
+/// This is an implicit trusted dependency of array-valued inferred interfaces.
+pub(super) fn equality_model(function: &Function) -> bool {
+    let f = &function.x;
+    let p = &f.name.path;
+    if p.krate != CrateId::Vstd
+        || p.segments.iter().map(|s| s.as_str()).collect::<Vec<_>>()
+            != ["array", "axiom_array_ext_equal"]
+        || f.mode != Mode::Proof
+        || !matches!(f.kind, FunctionKind::Static)
+        || !matches!(f.item_kind, ItemKind::Function)
+        || f.proxy.is_some()
+        || f.body.is_some()
+        || !f.attrs.broadcast_forall
+        || f.attrs.infer
+        || f.attrs.is_unsafe
+        || f.attrs.is_async
+        || !f.require.is_empty()
+        || f.typ_params.len() != 2
+        || f.params.len() != 2
+        || f.ensure.0.len() != 1
+        || !matches!(&*f.ensure.0[0].typ, TypX::Bool)
+        || !f.ensure.1.is_empty()
+        || !enums::unit(&f.inner_ret.x.typ)
+        || !enums::unit(&f.outer_ret.x.typ)
+    {
+        return false;
+    }
+    let t = Arc::new(TypX::TypParam(f.typ_params[0].clone()));
+    let n = Arc::new(TypX::TypParam(f.typ_params[1].clone()));
+    let array = Arc::new(TypX::Primitive(Primitive::Array, Arc::new(vec![t.clone(), n.clone()])));
+    let mut sized = 0;
+    let mut constant = 0;
+    for bound in f.typ_bounds.iter() {
+        match &**bound {
+            GenericBoundX::Trait(TraitId::Sizedness(Sizedness::Sized), args)
+                if args.len() == 1 && crate::ast_util::types_equal(&args[0], &t) =>
+            {
+                sized += 1
+            }
+            GenericBoundX::ConstTyp(actual, typ)
+                if crate::ast_util::types_equal(actual, &n)
+                    && matches!(&**typ, TypX::Int(IntRange::USize)) =>
+            {
+                constant += 1
+            }
+            _ => return false,
+        }
+    }
+    sized == 1
+        && constant == 1
+        && f.params.iter().all(|p| {
+            p.x.mode == Mode::Spec
+                && !p.x.user_mut
+                && crate::ast_util::types_equal(&p.x.typ, &array)
+        })
+}

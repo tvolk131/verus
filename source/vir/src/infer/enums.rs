@@ -165,7 +165,7 @@ pub(super) fn field(span: &Span, value: Term, variant: &Ident) -> Result<Term, V
         .ok_or_else(|| unsupported(span, "variant has no scalar payload"))?;
     if let ExprX::Ctor(_, actual, fields, None) = &value.expr.x {
         if actual == variant {
-            return Ok(Term { expr: fields[0].a.clone(), size: value.size - 1 });
+            return Ok(Term { view: None, expr: fields[0].a.clone(), size: value.size - 1 });
         }
     }
     let TypX::Datatype(dt, ..) = &*value.expr.typ else { unreachable!() };
@@ -203,18 +203,47 @@ pub(super) fn validate_match(place: &Place, arms: &Arms, irrefutable: bool) -> R
         return Err(unsupported(&place.span, "unsupported or nonexhaustive match"));
     }
     let name = VarIdent(Arc::new("__infer_match_check".into()), VarIdentDisambiguate::AirLocal);
-    let selected =
-        Term { expr: SpannedTyped::new(&place.span, &place.typ, ExprX::Var(name)), size: 1 };
+    let selected = Term {
+        view: None,
+        expr: SpannedTyped::new(&place.span, &place.typ, ExprX::Var(name)),
+        size: 1,
+    };
     let empty = HashMap::new();
     let mut engine =
         Engine { callees: &empty, locals: HashMap::new(), remaining: FORMULA_BUDGET, exits: None };
     for arm in arms.iter() {
-        if !matches!(arm.x.guard.x, ExprX::Const(Constant::Bool(true))) {
-            return Err(unsupported(&arm.x.guard.span, "match guards"));
+        if !matches!(arm.x.guard.x, ExprX::Const(Constant::Bool(true)))
+            && crate::patterns::pattern_has_or(&arm.x.pattern)
+        {
+            return Err(unsupported(
+                &arm.x.pattern.span,
+                "combining an or-pattern with a match guard is not yet supported by Verus",
+            ));
+        }
+        if !matches!(&*arm.x.guard.typ, TypX::Bool) {
+            return Err(unsupported(&arm.x.guard.span, "nonboolean match guard"));
         }
         engine.bind_pattern(&arm.x.pattern, selected.clone())?;
     }
     Ok(())
+}
+pub(super) fn validate_pattern(pattern: &Pattern) -> Result<(), VirErr> {
+    let value = Term {
+        view: None,
+        expr: SpannedTyped::new(
+            &pattern.span,
+            &pattern.typ,
+            ExprX::Var(VarIdent(
+                Arc::new("__infer_pattern".into()),
+                VarIdentDisambiguate::AirLocal,
+            )),
+        ),
+        size: 1,
+    };
+    let callees = HashMap::new();
+    Engine { callees: &callees, locals: HashMap::new(), remaining: FORMULA_BUDGET, exits: None }
+        .bind_pattern(pattern, value)
+        .map(|_| ())
 }
 pub(super) fn valid_field(op: &FieldOpr, base: &Typ) -> bool {
     op.check == VariantCheck::None
@@ -225,14 +254,44 @@ pub(super) fn valid_field(op: &FieldOpr, base: &Typ) -> bool {
 }
 
 impl Engine<'_> {
-    fn bind_pattern(&mut self, pattern: &Pattern, value: Term) -> Result<Term, VirErr> {
+    pub(super) fn bind_pattern(&mut self, pattern: &Pattern, value: Term) -> Result<Term, VirErr> {
         self.spend(&pattern.span)?;
+        if !compatible(&pattern.typ, &value.expr.typ)
+            && !slices::substitutes(&value.expr.typ, &pattern.typ)
+        {
+            return Err(unsupported(&pattern.span, "pattern type mismatch"));
+        }
         let span = &pattern.span;
         match &pattern.x {
             PatternX::Wildcard => Ok(boolean(span, true)),
-            PatternX::Var(binding) if eligibility::immutable_binding(binding) => {
+            PatternX::Var(binding)
+                if eligibility::immutable_binding(binding)
+                    && crate::ast_util::types_equal(&binding.typ, &pattern.typ) =>
+            {
                 self.locals.insert(binding.name.clone(), value);
                 Ok(boolean(span, true))
+            }
+            PatternX::Or(a, b) if supported(&pattern.typ) => {
+                let saved = self.locals.clone();
+                let left = self.bind_pattern(a, value.clone())?;
+                let left_locals = self.locals.clone();
+                self.locals = saved;
+                let right = self.bind_pattern(b, value)?;
+                if left_locals.len() != self.locals.len()
+                    || left_locals.keys().any(|v| !self.locals.contains_key(v))
+                {
+                    return Err(unsupported(span, "or-pattern binding sets differ"));
+                }
+                for (name, a) in left_locals {
+                    let b = self.locals.get(&name).unwrap().clone();
+                    let value = if Arc::ptr_eq(&a.expr, &b.expr) {
+                        a
+                    } else {
+                        summary::conditional(span, left.clone(), a, b)?
+                    };
+                    self.locals.insert(name, value);
+                }
+                logical(span, LogicalOp::Or, left, right)
             }
             PatternX::Constructor(dt, variant, fields) if supported(&pattern.typ) => {
                 if !matches!(&*value.expr.typ, TypX::Datatype(actual, ..) if actual == dt) {
@@ -296,23 +355,22 @@ impl Engine<'_> {
         let saved = self.locals.clone();
         let unit_result = self.exits.is_some() && unit(result_type);
         let entry = self.exits.as_ref().map(|e| (e.active.clone(), e.values.len()));
-        let mut remaining = boolean(span, true);
+        let mut remaining =
+            entry.as_ref().map(|e| e.0.clone()).unwrap_or_else(|| boolean(span, true));
         let mut alive = boolean(span, false);
         let mut branches = Vec::new();
-        for (index, arm) in arms.iter().enumerate() {
+        for arm in arms.iter() {
             self.locals = saved.clone();
-            if !matches!(arm.x.guard.x, ExprX::Const(Constant::Bool(true))) {
-                return Err(unsupported(&arm.x.guard.span, "match guards"));
+            let pattern = self.bind_pattern(&arm.x.pattern, selected.clone())?;
+            if let Some(exits) = &mut self.exits {
+                exits.active = logical(span, LogicalOp::And, remaining.clone(), pattern.clone())?;
             }
-            let test = self.bind_pattern(&arm.x.pattern, selected.clone())?;
-            if let Some((entry, _)) = &entry {
-                let selected = if index + 1 == arms.len() {
-                    remaining.clone()
-                } else {
-                    logical(span, LogicalOp::And, remaining.clone(), test.clone())?
-                };
-                self.exits.as_mut().unwrap().active =
-                    logical(span, LogicalOp::And, entry.clone(), selected)?;
+            let guard = self.expr(&arm.x.guard)?;
+            let condition = super::value(&guard, span)?;
+            let guard_live = self.exits.as_ref().map(|e| e.active.clone());
+            if let Some(exits) = &mut self.exits {
+                exits.active =
+                    logical(span, LogicalOp::And, guard_live.clone().unwrap(), condition.clone())?;
             }
             let mut body = self.expr(&arm.x.body)?;
             if unit_result {
@@ -320,24 +378,42 @@ impl Engine<'_> {
             }
             if let Some(exits) = &self.exits {
                 alive = logical(span, LogicalOp::Or, alive, exits.active.clone())?;
-                remaining =
-                    logical(span, LogicalOp::And, remaining, exits::not(span, test.clone())?)?;
+                // A returning guard cannot fall through to a later arm.
+                remaining = logical(
+                    span,
+                    LogicalOp::Or,
+                    logical(span, LogicalOp::And, remaining, exits::not(span, pattern.clone())?)?,
+                    logical(
+                        span,
+                        LogicalOp::And,
+                        guard_live.unwrap(),
+                        exits::not(span, condition.clone())?,
+                    )?,
+                )?;
             }
-            branches.push((test, body));
+            let guard_safe = conditional(span, pattern.clone(), guard.safe, boolean(span, true))?;
+            let test = logical(span, LogicalOp::And, pattern, condition)?;
+            branches.push((test, guard_safe, body));
         }
         self.locals = saved;
         if let Some((entry, count)) = entry {
             let exits = self.exits.as_mut().unwrap();
             exits.active = if exits.values.len() == count { entry } else { alive };
         }
-        // rustc has checked exhaustiveness. Match the verifier's lowering:
-        // earlier arms take priority and the final arm is unconditional.
-        let (_, mut summary) = branches.pop().unwrap();
-        while let Some((test, branch)) = branches.pop() {
+        // rustc checks exhaustiveness; its final unguarded arm is unconditional
+        // on the remaining paths. Guard safety still precedes arm selection.
+        let (_, guard_safe, mut summary) = branches.pop().unwrap();
+        summary.safe = logical(span, LogicalOp::And, guard_safe, summary.safe)?;
+        while let Some((test, guard_safe, branch)) = branches.pop() {
             summary = Summary {
-                safe: conditional(span, test.clone(), branch.safe, summary.safe)?,
+                safe: logical(
+                    span,
+                    LogicalOp::And,
+                    guard_safe,
+                    conditional(span, test.clone(), branch.safe, summary.safe)?,
+                )?,
                 value: match (branch.value, summary.value) {
-                    (Some(a), Some(b)) => Some(conditional(span, test, a, b)?),
+                    (Some(a), Some(b)) => Some(summary::conditional(span, test, a, b)?),
                     (None, None) => None,
                     _ => return Err(unsupported(span, "match result shapes differ")),
                 },
@@ -348,5 +424,43 @@ impl Engine<'_> {
             summary.value = Some(exits::unit_value(span)?);
         }
         Ok(summary)
+    }
+
+    pub(super) fn declaration(
+        &mut self,
+        span: &Span,
+        pattern: &Pattern,
+        init: &Place,
+        els: Option<&Expr>,
+    ) -> Result<Summary, VirErr> {
+        let initial = self.place(init)?;
+        let saved = self.locals.clone();
+        let matched = self.bind_pattern(pattern, super::value(&initial, span)?)?;
+        let Some(els) = els else {
+            return Ok(initial);
+        };
+        let bindings = self.locals.clone();
+        self.locals = saved;
+        let active = self
+            .exits
+            .as_ref()
+            .ok_or_else(|| unsupported(span, "let-else requires a diverging else branch"))?
+            .active
+            .clone();
+        self.exits.as_mut().unwrap().active =
+            logical(span, LogicalOp::And, active.clone(), exits::not(span, matched.clone())?)?;
+        let otherwise = self.expr(els)?;
+        self.locals = bindings;
+        self.exits.as_mut().unwrap().active =
+            logical(span, LogicalOp::And, active, matched.clone())?;
+        Ok(Summary {
+            safe: logical(
+                span,
+                LogicalOp::And,
+                initial.safe,
+                conditional(span, matched, boolean(span, true), otherwise.safe)?,
+            )?,
+            value: initial.value,
+        })
     }
 }

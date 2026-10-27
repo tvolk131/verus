@@ -58,12 +58,12 @@ Implemented and covered by regression tests:
 - [x] Exact immutable flat arrays of up to 64 scalar elements: by-value inputs,
   element-list literals, local copies, branches, index-safety preconditions,
   scalar/enum results, cached cross-crate summaries, and a Cargo pricing example.
-  `usize` arithmetic and scalar results are also supported; array returns remain excluded.
+  `usize` arithmetic and scalar results are also supported; owned scalar array returns are supported.
 - [x] Exact early returns in blocks, branches, matches, and supported expressions,
   preserving reachability and operand evaluation order. Return summaries retain
   all three checks, source eligibility, and cached cross-crate composition.
 - [x] Exact `?` propagation for flat core `Option`/`Result` with scalar/unit
-  payloads and identical `Result` error types, including nested expressions,
+  payloads and identical or approved losslessly widened integer error types, including nested expressions,
   checked arithmetic, cached summaries, and cross-crate composition.
 - [x] Shared `&[T; N]` array inputs and immutable local borrows, `.len()` guards,
   and `[value; N]` repetitions. Approved generic array models remain limited
@@ -107,7 +107,16 @@ Implemented and covered by regression tests:
   remain conservative. Typed summaries, caches, imports, and model fingerprints
   preserve the existing independent proof requirements. The assurance document
   audits 36 added trusted numeric specifications.
-- [x] Reproducible 36-case evaluation baseline, including expected failures,
+- [x] Exact `let-else`, guarded matches, and or-patterns over the supported flat
+  values, preserving first-match order, binding scope, and early-exit safety.
+  Verus's existing restriction on combining a guard with an or-pattern remains.
+- [x] All 35 existing vstd lossless primitive error conversions through `?`.
+- [x] Owned fixed scalar array outputs of lengths 0..=64, exact whole-array
+  equality, and same/cross-crate composition with arbitrary-output checks.
+- [x] Local shared subslices with exclusive/open ranges, nested views, lengths,
+  indexing, and inferred-callee substitution. Existing standard Index bounds
+  are checked ordinarily and instantiated in maximality queries.
+- [x] Reproducible 40-case evaluation baseline, including expected failures,
   cold/warm reproving, incremental dependency invalidation, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
@@ -125,11 +134,13 @@ Still planned or outside the implemented subset:
   saturating methods, and explicit wrapping shifts; the current batch covers
   bitwise operators, normal shifts, wrapping/saturating add/subtract/multiply,
   checked negation, and mixed-sign checked add/subtract.
-- [ ] General user-defined or nested enums, broader payloads, richer patterns,
-  `let-else`, converting `Result` errors with `?`, custom `Try` implementations,
-  and enum abstractions in sound mode.
-- [ ] Broader array syntax, array/slice-valued interfaces, subslices, and richer
-  slice element types; shared scalar slice reads and length properties are implemented.
+- [ ] General user-defined or nested enums, broader payloads, reference/@/range
+  patterns, user-defined error conversions and `Try` implementations, and enum
+  abstractions in sound mode. Guards combined with or-patterns need Verus support.
+- [ ] Broader array syntax/patterns, enum array payloads, returned slice
+  references, direct fixed-array slicing, stored/inclusive ranges, conditional
+  local views, and richer slice element types. Owned array outputs and local
+  exclusive/open shared subslices are implemented.
 - [ ] General mutation, state relations, and frame-condition inference beyond
   the two locals in recognized counted-loop families.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
@@ -153,7 +164,7 @@ Still planned or outside the implemented subset:
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Conditional properties use ordinary caller proofs; automatic demand-driven strengthening remains future work. |
-| Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, immutable arrays, and shared scalar slices are implemented. Broader collections and frame conditions remain. |
+| Phase 3: partial inference and collections | Partial: scalar intervals include 32/64-bit platform types; exact flat enums, richer control flow, fixed-array outputs, and shared slice views are implemented. Broader collections and frame conditions remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
 
@@ -170,9 +181,10 @@ transformations remains separately scoped work.
 ## Proposed next milestones
 
 The implementation checklist above records completed work and the full backlog.
-The current checkpoint includes exact and sound platform-sized integers, checked
-platform methods, unsigned stepped/countdown loops, architecture-bound
-caches/imports, and updated examples. The guide is the source of supported syntax; the original
+The current checkpoint includes exact and sound platform integers, explicit
+integer policies, unsigned stepped/countdown loops, richer flat control flow,
+primitive error widening, owned array outputs, and local shared subslices.
+Caches/imports preserve architecture and trusted-model fingerprints. The guide is the source of supported syntax; the original
 phases later in this RFC retain their proposed design, including unimplemented
 APIs and research directions.
 
@@ -189,11 +201,12 @@ APIs and research directions.
    proof settings. Signed accumulators/counters, arbitrary counter steps,
    multiple/nested loops, and slice traversal/search remain separate designs.
    See [the loop design](VERUS_INFER_LOOPS.md).
-3. **Next: Rust ergonomics and collections.** Prioritize `let-else`, richer flat
-   patterns, converting `Result` errors, array-valued interfaces, and subslices
-   as separate bounded extensions. Nested/user-defined enums, mutation, frame
-   conditions, and generic specialization remain larger projects.
-4. **Precision and practical evaluation.** Improve branch/cast precision,
+3. **Rust coverage batch implemented.** Exact `let-else`, guards/or-patterns,
+   lossless primitive error propagation, owned fixed-array outputs, and local
+   shared subslices compose through caches and imported interfaces. Broader enum
+   payloads, user conversions, returned references and mutation remain separate
+   designs; the guide records the remaining syntax limits.
+4. **Next: precision and practical evaluation.** Improve branch/cast precision,
    division/range proof automation, and readable contract simplification.
    Broaden real-world cases and measure repeated timings, memory, and Cargo
    incremental verification. Dedicated property queries, demand-driven

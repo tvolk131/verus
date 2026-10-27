@@ -142,6 +142,7 @@ fn model_term(f: &Function) -> Term {
         f.x.params
             .iter()
             .map(|p| Term {
+                view: None,
                 expr: SpannedTyped::new(&span(), &p.x.typ, ExprX::Var(p.x.name.clone())),
                 size: 1,
             })
@@ -240,8 +241,8 @@ fn exhaustive_checked_negation_and_mixed_sign_candidates_match_rust() {
 #[test]
 fn malformed_bitwise_widths_policies_and_operand_types_are_rejected() {
     let span = span();
-    let a = Term { expr: var("x", IntRange::U(8)), size: 1 };
-    let b = Term { expr: var("y", IntRange::U(8)), size: 1 };
+    let a = Term { view: None, expr: var("x", IntRange::U(8)), size: 1 };
+    let b = Term { view: None, expr: var("y", IntRange::U(8)), size: 1 };
     for bad in [
         BinaryOp::Bitwise(
             BitwiseOp::Shl(IntegerTypeBitwidth::Width(16), false),

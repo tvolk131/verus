@@ -59,6 +59,7 @@ const FORMULA_BUDGET: usize = 4096;
 
 #[derive(Clone)]
 struct Term {
+    view: Option<Box<slices::View>>,
     expr: Expr,
     size: usize,
 }
@@ -72,11 +73,12 @@ fn term(span: &Span, typ: &Typ, x: ExprX, size: usize) -> Result<Term, VirErr> {
     if size > FORMULA_BUDGET {
         return Err(error(span, "Verus Infer incomplete: expanded formula budget exceeded"));
     }
-    Ok(Term { expr: SpannedTyped::new(span, typ, x), size })
+    Ok(Term { view: None, expr: SpannedTyped::new(span, typ, x), size })
 }
 
 fn boolean(span: &Span, value: bool) -> Term {
     Term {
+        view: None,
         expr: SpannedTyped::new(span, &bool_typ(), ExprX::Const(Constant::Bool(value))),
         size: 1,
     }
@@ -193,6 +195,9 @@ impl Engine<'_> {
         let pure = |value| Ok(Summary { safe: boolean(span, true), value: Some(value) });
         if let Some(n) = arithmetic::negative_literal(expr) {
             return pure(term(span, &int_typ(), ExprX::Const(Constant::Int(n)), 1)?);
+        }
+        if let Some(range) = slices::range_call(expr, self.callees)? {
+            return self.subslice(expr, range);
         }
         match &expr.x {
             _ if arithmetic::arch_constant(expr).is_some() => {
@@ -425,22 +430,11 @@ impl Engine<'_> {
                     self.spend(&stmt.span)?;
                     let summary = match &stmt.x {
                         StmtX::Expr(expr) => self.expr(expr)?,
-                        StmtX::Decl { pattern, mode, init: Some(init), els: None, .. } => {
+                        StmtX::Decl { pattern, mode, init: Some(init), els, .. } => {
                             if !matches!(mode, None | Some((Mode::Exec, _))) {
                                 return Err(unsupported(&stmt.span, "ghost or tracked locals"));
                             }
-                            let PatternX::Var(binding) = &pattern.x else {
-                                return Err(unsupported(&pattern.span, "destructuring bindings"));
-                            };
-                            if !eligibility::immutable_binding(binding) {
-                                return Err(unsupported(
-                                    &pattern.span,
-                                    "mutable or nonscalar locals",
-                                ));
-                            }
-                            let summary = self.place(init)?;
-                            self.locals.insert(binding.name.clone(), value(&summary, &stmt.span)?);
-                            summary
+                            self.declaration(&stmt.span, pattern, init, els.as_ref())?
                         }
                         _ => {
                             return Err(unsupported(
@@ -472,11 +466,9 @@ impl Engine<'_> {
                 if let Some(model) = models::array_call(expr, self.callees)? {
                     return self.array_model_call(expr, model);
                 }
-                if self
-                    .callees
-                    .get(name)
-                    .is_some_and(|f| arithmetic::division_model(f) || slices::model(f))
-                {
+                if self.callees.get(name).is_some_and(|f| {
+                    arithmetic::division_model(f) || slices::model(f) || arrays::equality_model(f)
+                }) {
                     return Err(unsupported(
                         span,
                         "signed division models are implicit dependencies, not executable callees",
@@ -587,6 +579,8 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
+                let range = slices::range_call(e, all)?;
+                let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
                 if let ExprX::Call {
                     target: CallTarget::Fun(CallTargetKind::Static, name, typs, impls, _),
                     post_args: None,
@@ -597,7 +591,10 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
                         unsupported(&e.span, "calls require an acyclic same-crate inferred callee or certified imported summary")
                     })?;
-                    if arithmetic::division_model(callee) || slices::model(callee) {
+                    if arithmetic::division_model(callee)
+                        || slices::model(callee)
+                        || arrays::equality_model(callee)
+                    {
                         return Err(unsupported(
                             &e.span,
                             "signed division models are implicit dependencies, not executable callees",
@@ -648,6 +645,14 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
     Ok(order)
 }
 
+pub(crate) fn is_subslice_maximality_model(
+    function: &Function,
+    resolved: &Function,
+    typs: &Typs,
+) -> bool {
+    slices::maximality_model(function, resolved, typs)
+}
+
 pub fn is_checked_arithmetic(function: &Function) -> bool {
     enums::checked(function).is_some()
 }
@@ -658,6 +663,8 @@ pub fn is_approved_model(function: &Function) -> bool {
         || propagation::model(function).is_some()
         || arithmetic::division_model(function)
         || slices::model(function)
+        || slices::range_model(function)
+        || arrays::equality_model(function)
 }
 
 pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]) -> Vec<Function> {
@@ -665,8 +672,22 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
         available.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
+        if arrays::shape(&f.x.inner_ret.x.typ).is_some() {
+            for model in available.values().filter(|f| arrays::equality_model(f)) {
+                used.insert(model.x.name.clone(), model.clone());
+            }
+        }
         if let Some(body) = &f.x.body {
             crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+                if let Ok(Some(range)) = slices::range_call(e, &available) {
+                    if let ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } =
+                        &range.helper.x
+                    {
+                        if let Some(model) = available.get(name) {
+                            used.insert(name.clone(), model.clone());
+                        }
+                    }
+                }
                 if let ExprX::Call { target: CallTarget::Fun(_, name, ..), .. } = &e.x {
                     if let Some(callee) = available.get(name).filter(|f| is_approved_model(f)) {
                         used.insert(name.clone(), callee.clone());
@@ -758,6 +779,7 @@ pub fn validate_imported_summary(function: &Function) -> Result<(), VirErr> {
             (
                 p.x.name.clone(),
                 Term {
+                    view: None,
                     expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
                     size: 1,
                 },
@@ -832,6 +854,7 @@ fn infer_exact_with_callees(
             (
                 p.x.name.clone(),
                 Term {
+                    view: None,
                     expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
                     size: 1,
                 },
@@ -847,6 +870,9 @@ fn infer_exact_with_callees(
     let summary = engine.expr(body)?;
     let summary = engine.finish_exits(span, summary)?;
     let out = value(&summary, span)?;
+    if out.view.is_some() {
+        return Err(unsupported(span, "returning borrowed slice views"));
+    }
     let result =
         SpannedTyped::new(span, &f.inner_ret.x.typ, ExprX::Var(f.inner_ret.x.name.clone()));
     let ensures = SpannedTyped::new(
@@ -871,6 +897,7 @@ pub fn format_contract(function: &Function) -> String {
 pub fn format_contract_parts(function: &Function) -> (String, String) {
     if function.x.attrs.infer_allow_approx {
         let result = Term {
+            view: None,
             expr: SpannedTyped::new(
                 &function.span,
                 &function.x.inner_ret.x.typ,
@@ -1032,3 +1059,6 @@ mod integer_tests;
 mod platform_tests;
 #[cfg(test)]
 pub(crate) mod tests;
+
+#[cfg(test)]
+mod coverage_tests;

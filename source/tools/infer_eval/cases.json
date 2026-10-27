@@ -36,6 +36,10 @@
     {"name": "soundness_timeout", "source": "soundness_timeout.rs", "features": ["required_soundness_timeout"], "expected_status": "required_proof_incomplete"},
     {"name": "syntax_error", "source": "syntax_error.rs", "features": ["frontend_failure"], "expected_status": "verification_failed"},
     {"name": "loop_step_unsafe_caller", "source": "loop_step_unsafe_caller.rs", "features": ["counted_loops", "parameter_steps", "countdown", "precondition_enforcement"], "expected_status": "caller_proof_failed", "expected_loop_functions": 1},
-    {"name": "loop_step_precision_timeout", "source": "loop_step_precision_timeout.rs", "features": ["counted_loops", "parameter_steps", "required_precision_timeout"], "expected_status": "required_proof_incomplete", "expected_loop_functions": 1}
+    {"name": "loop_step_precision_timeout", "source": "loop_step_precision_timeout.rs", "features": ["counted_loops", "parameter_steps", "required_precision_timeout"], "expected_status": "required_proof_incomplete", "expected_loop_functions": 1},
+    {"name": "rust_coverage", "source": "../../../examples/verus_infer_coverage.rs", "features": ["let_else", "match_guards", "or_patterns", "primitive_error_conversion", "array_outputs", "subslice_views", "composition"], "expected_status": "verified"},
+    {"name": "subslice_unsafe_caller", "source": "subslice_unsafe_caller.rs", "features": ["subslice_views", "precondition_enforcement"], "expected_status": "caller_proof_failed"},
+    {"name": "array_output_wrong_property", "source": "array_output_wrong_property.rs", "features": ["array_outputs", "caller_properties"], "expected_status": "caller_proof_failed"},
+    {"name": "coverage_precision_timeout", "source": "coverage_precision_timeout.rs", "features": ["array_outputs", "required_precision_timeout"], "expected_status": "required_proof_incomplete"}
   ]
 }

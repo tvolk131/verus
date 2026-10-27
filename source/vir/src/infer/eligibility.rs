@@ -172,14 +172,16 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
             "combining inference with handwritten contracts or decreases clauses",
         ));
     }
-    if !enums::supported(&f.inner_ret.x.typ)
+    if !(enums::supported(&f.inner_ret.x.typ)
+        || matches!(&*f.inner_ret.x.typ, TypX::Primitive(Primitive::Array, _))
+            && arrays::shape(&f.inner_ret.x.typ).is_some())
         || f.params
             .iter()
             .any(|p| !value_type(&p.x.typ, false) || p.x.mode != Mode::Exec || p.x.user_mut)
     {
         return Err(unsupported(
             span,
-            "parameters and return values must be bool, usize/isize, fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (array returns are unsupported; slice returns are also unsupported)",
+            "parameters and return values must be bool, usize/isize, fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (owned fixed scalar arrays may also be returned; slice returns are also unsupported)",
         ));
     }
     if !value_type(&f.inner_ret.x.typ, f.attrs.infer_allow_approx)
@@ -217,6 +219,19 @@ fn validate_root(
         &mut |_, e| {
             let checked = (|| {
                 if !f.x.attrs.infer_allow_approx {
+                    if let Some(range) = slices::range_call(e, callees)? {
+                        crate::ast_visitor::expr_visitor_check(e, &mut |_, _| {
+                            *remaining = remaining
+                                .checked_sub(1)
+                                .ok_or_else(|| unsupported(&e.span, "analysis budget exceeded"))?;
+                            Ok::<_, VirErr>(())
+                        })?;
+                        validate_root(&range.base, f, callees, remaining)?;
+                        for (_, field) in range.fields {
+                            validate_root(&field, f, callees, remaining)?;
+                        }
+                        return Ok(true);
+                    }
                     if let Some(p) = propagation::recognize(e, callees, &f.x.inner_ret.x.typ)? {
                         // Charge all lowered scaffolding, but validate the operand through
                         // the ordinary source gate. No generated internal type is generally eligible.
@@ -251,7 +266,8 @@ fn validate_root(
                         {
                             return Err(unsupported(&e.span, "unsupported enum fields"));
                         }
-                        let field = fields.first().map(|f| Term { expr: f.a.clone(), size: 1 });
+                        let field =
+                            fields.first().map(|f| Term { view: None, expr: f.a.clone(), size: 1 });
                         enums::ctor(&e.span, &e.typ, variant, field)?;
                     }
                     ExprX::Match(place, arms, irrefutable) if !f.x.attrs.infer_allow_approx => {
@@ -323,17 +339,40 @@ fn validate_root(
                                 StmtX::Expr(_) => {}
                                 StmtX::Decl {
                                     pattern,
-                                    mode: None | Some((Mode::Exec, _)),
+                                    mode: None | Some((Mode::Exec, DeclProph::Default)),
                                     init: Some(_),
-                                    els: None,
-                                    ..
+                                    els,
+                                    assert_irrefutable: false,
                                 } => {
-                                    if !matches!(&pattern.x, PatternX::Var(b) if immutable_binding(b))
-                                    {
-                                        return Err(unsupported(
-                                            &s.span,
-                                            "mutable or nonscalar locals",
-                                        ));
+                                    if f.x.attrs.infer_allow_approx {
+                                        if els.is_some()
+                                            || !matches!(&pattern.x, PatternX::Var(b) if immutable_binding(b))
+                                        {
+                                            return Err(unsupported(
+                                                &s.span,
+                                                "rich patterns and let-else require exact mode",
+                                            ));
+                                        }
+                                    } else {
+                                        if matches!(&pattern.x,PatternX::Var(b) if !immutable_binding(b))
+                                        {
+                                            return Err(unsupported(
+                                                &s.span,
+                                                "mutable or nonscalar locals",
+                                            ));
+                                        }
+                                        if els.is_none()
+                                            && !matches!(
+                                                &pattern.x,
+                                                PatternX::Var(_) | PatternX::Wildcard
+                                            )
+                                        {
+                                            return Err(unsupported(
+                                                &s.span,
+                                                "refutable binding requires let-else",
+                                            ));
+                                        }
+                                        enums::validate_pattern(pattern)?;
                                     }
                                 }
                                 _ => {

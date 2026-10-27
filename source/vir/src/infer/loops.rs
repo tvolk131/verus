@@ -217,6 +217,7 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
             used.insert(param.x.name.clone());
             (
                 Term {
+                    view: None,
                     expr: SpannedTyped::new(&operand.span, &typ, ExprX::Var(param.x.name.clone())),
                     size: 1,
                 },
@@ -253,7 +254,11 @@ pub(super) fn recognize(function: &Function) -> Result<Option<CountedLoop>, VirE
 
 impl CountedLoop {
     fn variable(&self, span: &Span, name: &VarIdent) -> Term {
-        Term { expr: SpannedTyped::new(span, &self.typ, ExprX::Var(name.clone())), size: 1 }
+        Term {
+            view: None,
+            expr: SpannedTyped::new(span, &self.typ, ExprX::Var(name.clone())),
+            size: 1,
+        }
     }
     fn product(&self, span: &Span, count: Term) -> Result<Term, VirErr> {
         if matches!(&self.step.expr.x,ExprX::Const(Constant::Int(n)) if n==&BigInt::from(1)) {

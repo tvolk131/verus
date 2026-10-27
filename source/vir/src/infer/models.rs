@@ -160,10 +160,7 @@ pub(super) fn array_call(
             }
         }
         ArrayModel::Len => {
-            if typs.len() != 1
-                || !arrays::index_type(&expr.typ)
-                || !is_slice(&args[0].typ)
-            {
+            if typs.len() != 1 || !arrays::index_type(&expr.typ) || !is_slice(&args[0].typ) {
                 return Err(invalid());
             }
         }

@@ -223,7 +223,7 @@ fn summarize(body: &Expr) -> Summary {
     for name in ["x", "y"] {
         let expr = input(name);
         let ExprX::Var(v) = &expr.x else { unreachable!() };
-        locals.insert(v.clone(), Term { expr: expr.clone(), size: 1 });
+        locals.insert(v.clone(), Term { view: None, expr: expr.clone(), size: 1 });
     }
     Engine { callees: &HashMap::new(), locals, remaining: FORMULA_BUDGET, exits: None }
         .expr(body)
@@ -484,7 +484,7 @@ fn interval_contracts_cover_every_safe_u8_result() {
         let inferred = infer_function(&f.new_x(x)).unwrap();
         let replace_result = HashMap::from([(
             inferred.x.inner_ret.x.name.clone(),
-            Term { expr: input("x"), size: 1 },
+            Term { view: None, expr: input("x"), size: 1 },
         )]);
         let post = instantiate(&inferred.x.ensure.0[0], &replace_result).unwrap().expr;
         for x in 0..=255u8 {
@@ -570,8 +570,8 @@ fn exhaustive_checked_u8_enum_summaries_match_rust() {
         let output = enums::checked_value(
             &span(),
             &model,
-            Term { expr: input("x"), size: 1 },
-            Term { expr: input("y"), size: 1 },
+            Term { view: None, expr: input("x"), size: 1 },
+            Term { view: None, expr: input("y"), size: 1 },
         )
         .unwrap();
         for x in 0..=255u8 {
@@ -658,7 +658,7 @@ fn imported_summaries_reject_unsupported_operators_and_inconsistent_types() {
 fn summary_traversal_is_bounded_even_when_every_branch_simplifies() {
     let mut expr = input("x");
     let ExprX::Var(name) = &expr.x else { unreachable!() };
-    let vars = HashMap::from([(name.clone(), Term { expr: expr.clone(), size: 1 })]);
+    let vars = HashMap::from([(name.clone(), Term { view: None, expr: expr.clone(), size: 1 })]);
     for _ in 0..13 {
         expr = SpannedTyped::new(
             &span(),
@@ -708,7 +708,10 @@ fn exhaustive_array_bounds_and_overflow_match_concrete_rust() {
     let literal = arrays::literal(
         &span(),
         &typ,
-        vec![Term { expr: input("x"), size: 1 }, Term { expr: input("y"), size: 1 }],
+        vec![
+            Term { view: None, expr: input("x"), size: 1 },
+            Term { view: None, expr: input("y"), size: 1 },
+        ],
     )
     .unwrap();
     let body = binary(
@@ -718,6 +721,7 @@ fn exhaustive_array_bounds_and_overflow_match_concrete_rust() {
     );
     for index in 0..4usize {
         let index_value = Term {
+            view: None,
             expr: SpannedTyped::new(&span(), &int_typ(), ExprX::Const(Constant::Int(index.into()))),
             size: 1,
         };
@@ -728,7 +732,7 @@ fn exhaustive_array_bounds_and_overflow_match_concrete_rust() {
         // The first element is also used as a scalar addend; give that read a
         // distinct local name so the array parameter remains an array.
         let addend_name = VarIdent(Arc::new("addend".into()), VarIdentDisambiguate::AirLocal);
-        locals.insert(addend_name.clone(), Term { expr: input("x"), size: 1 });
+        locals.insert(addend_name.clone(), Term { view: None, expr: input("x"), size: 1 });
         let ExprX::Binary(op, a, _) = &body.x else { unreachable!() };
         let body = binary(
             *op,

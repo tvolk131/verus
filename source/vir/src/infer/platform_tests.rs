@@ -131,6 +131,7 @@ fn checked_platform_models_match_rust_for_all_seven_operations_at_both_widths() 
         for (operation, name) in names.iter().enumerate() {
             let f = platform_model(name, signed);
             let arg = |index: usize| Term {
+                view: None,
                 expr: SpannedTyped::new(
                     &span(),
                     &f.x.params[index].x.typ,

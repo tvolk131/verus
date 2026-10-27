@@ -139,8 +139,28 @@ fn precision_check_body(
             let substitutions = HashMap::from([(dest.clone(), other.clone())]);
             let relation = crate::sst_util::sst_conjoin(span, &original.post_condition.ens_exps);
             let relation = crate::sst_util::subst_exp(&HashMap::new(), &substitutions, &relation);
-            let equals_actual =
-                SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, other, actual));
+            // Rust fixed arrays are values determined by every element. Ordinary
+            // ensures lowering already uses Verus's extensional equality for
+            // these arrays; use the same whole-value equality for arbitrary y.
+            // Opaque SMT array identity would distinguish even empty arrays.
+            let equality =
+                if matches!(&**typ, crate::ast::TypX::Primitive(crate::ast::Primitive::Array, _)) {
+                    let boxed = |value: Exp| {
+                        SpannedTyped::new(
+                            span,
+                            &Arc::new(crate::ast::TypX::Boxed(typ.clone())),
+                            ExpX::UnaryOpr(crate::ast::UnaryOpr::Box(typ.clone()), value),
+                        )
+                    };
+                    ExpX::BinaryOpr(
+                        crate::ast::BinaryOpr::ExtEq(false, typ.clone()),
+                        boxed(other),
+                        boxed(actual),
+                    )
+                } else {
+                    ExpX::Binary(BinaryOp::Eq, other, actual)
+                };
+            let equals_actual = SpannedTyped::new(span, &bool_typ(), equality);
             post.ens_exps = Arc::new(vec![SpannedTyped::new(
                 span,
                 &bool_typ(),

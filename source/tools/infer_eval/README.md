@@ -13,17 +13,17 @@ persistent temporary directory and prints its location. `--case signed` selects
 one case; repeat the option to select several. `--timeout` bounds each compiler
 process and defaults to 180 seconds. No packages or network access are needed.
 
-The manifest contains 36 curated cases: eighteen positive examples and eighteen
+The manifest contains 40 curated cases: nineteen positive examples and twenty-one
 expected failures. They exercise unsigned and signed arithmetic, casts, arrays,
-checked arithmetic, `Option`/`Result`, early returns and `?`, exact and sound
-composition, shared dynamic slices, counted-loop invariants/termination, constant/parameter steps, subtraction and
-countdown counters, symbolic `usize`
-bounds, bitwise/shifts, wrapping/saturation, mixed-sign checks and negation,
+checked arithmetic, `Option`/`Result`, early returns, `let-else`, guards/or-patterns,
+widened `?` errors, fixed-array outputs, shared subslices, exact and sound
+composition, counted-loop invariants/termination, constant/parameter steps,
+subtraction/countdown counters, symbolic `usize` bounds, bitwise/shifts, wrapping/saturation, mixed-sign checks and negation,
 `isize` arithmetic and checked methods, architecture-specific interval
 summaries, 32/64-bit casts, caller
 properties, call-graph depth, unsupported loops/mutable slices,
 analysis budgets, required solver limits, and frontend errors. Depth cases
-generate deterministic chains of four and sixteen functions. The ten existing
+generate deterministic chains of four and sixteen functions. The eleven
 standalone examples are shared with the documentation.
 
 The explicit 32/64-bit cast and platform-integer probes use `--no-erasure-check` to inspect the

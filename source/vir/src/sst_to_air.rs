@@ -1898,11 +1898,24 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                 let error = error(&stm.span, description);
                 let filter = Some(fun_to_air_ident(&ctx.name_ctxt, &func.x.name));
                 if matches!(state.post_condition_info.kind, PostConditionKind::InferMaximality) {
-                    // Callee maximality has already been proved by the publication
-                    // barrier: successful execution is equivalent to its requires.
-                    assert!(
-                        func.x.attrs.infer && !func.x.attrs.infer_allow_approx && typs.is_empty()
-                    );
+                    // Inferred callees have independently proved maximality.
+                    // Closed standard subslice calls use the existing Index
+                    // models' exact bounds requirements for successful execution.
+                    // Ordinary verification still asserts these requirements.
+                    let inferred =
+                        func.x.attrs.infer && !func.x.attrs.infer_allow_approx && typs.is_empty();
+                    let subslice = resolved_fun
+                        .as_ref()
+                        .and_then(|f| ctx.func_map.get(f))
+                        .is_some_and(|resolved| {
+                            crate::infer::is_subslice_maximality_model(func, resolved, typs)
+                        });
+                    if !inferred && !subslice {
+                        return Err(crate::messages::error(
+                            &stm.span,
+                            "Verus Infer incomplete: unsupported callee requirement in maximality check",
+                        ));
+                    }
                     // Requires predicates contain diagnostic axiom labels that
                     // are enabled by *asserting* a precondition. Assuming that
                     // predicate alone does not enable those labels. Instantiate
@@ -1915,9 +1928,11 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         .zip(args.iter())
                         .map(|(p, a)| (p.x.name.clone(), a.clone()))
                         .collect();
+                    let type_substitutions =
+                        func.x.typ_params.iter().cloned().zip(typs.iter().cloned()).collect();
                     for condition in callee.x.decl.reqs.iter() {
                         let condition = crate::sst_util::subst_exp(
-                            &std::collections::HashMap::new(),
+                            &type_substitutions,
                             &substitutions,
                             condition,
                         );

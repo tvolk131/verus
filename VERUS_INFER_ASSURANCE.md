@@ -92,8 +92,8 @@ The dependency-free production policy is in
 `source/vir/src/infer_proof/policy.rs`; its compiler-facing evidence adapter is
 `source/vir/src/infer_proof.rs`. The source mutation runner is
 `source/tools/test_infer_assurance_mutations.py`. It tests nine acceptance-core
-mutations, four precision-check mutations, and five counted-loop boundary
-mutations in temporary copies. Baselines
+mutations, four precision-check mutations, five counted-loop boundary mutations,
+two guarded-pattern mutations, and two local-view mutations in temporary copies. Baselines
 must pass; each mutant must run tests and fail them. Compilation failures and
 empty test runs do not count as detected mutations. This tests selected failure
 mechanisms, not all possible defects in the pipeline.
@@ -146,9 +146,14 @@ and `ControlFlow` types are not generally eligible source values. Operands still
 pass ordinary source eligibility, including checks for proof assumptions.
 Generic helpers outside this complete lowering are rejected.
 
-`Result` propagation requires identical scalar/unit error types and the core
-conversion implementation. Rust's blanket `From<T> for T` returns its input;
-the existing trusted `spec_from_blanket_identity` axiom models that identity.
+`Result` propagation admits identical scalar/unit error types and a closed set
+of 35 lossless primitive integer widenings. Recognition checks the concrete core
+conversion implementation and types. Rust's blanket `From<T> for T` returns its
+input; the existing trusted `spec_from_blanket_identity` axiom models identity.
+For widening, existing `FromSpecImpl` declarations in `std_specs/convert.rs`
+characterize the cast; the residual specification connects the returned error to
+that conversion through `call_ensures`. Arbitrary user-defined `From` and `Try`
+implementations remain ineligible.
 The generic Result residual specification has no `no_unwind` clause, so this
 feature does not add or export that guarantee. A `no_unwind` inferred wrapper
 propagating an arbitrary Result input fails ordinary verification with that
@@ -433,3 +438,81 @@ coverage checks all supported widths and architecture tests exercise both pointe
 models. Wrong but well-typed cache formulas must fail fresh ordinary or maximality
 proofs and suppress caller use and export. Source bodies and the precision/evidence
 acceptance machinery retain the existing preservation and publication checks.
+
+
+## Rust control flow and immutable data transformations
+
+This extension implements exact `let-else`, guarded matches, or-patterns,
+primitive integer error widening, owned scalar array outputs, and local shared
+slice views. Cache version 18 and metadata schema 13 require inferred libraries
+and their dependents to be rebuilt. Candidate identity version 3 is retained;
+no serialized VIR fields change. New local view metadata exists only during
+candidate generation and never enters installed formulas or exported bodies.
+
+Pattern synthesis evaluates an initializer or match scrutinee once, restores
+bindings between arms, preserves first-match order, and joins alternative
+bindings under their actual pattern tests. Guards run only after matching and
+failed earlier arms. A returning guard cannot fall through; a returning else
+branch cannot execute continuation code. Independent concrete checked execution
+covers both variant directions and all `u8` values. Unsupported code and proof
+assumptions are rejected by whole-source traversal even on unreachable paths.
+Verus's existing prohibition on combining an or-pattern and guard is preserved.
+
+Owned arrays retain the existing 0..=64 scalar-element bound. Contracts describe
+whole array values, and precision queries still quantify over arbitrary valid
+outputs. Ordinary ensures lowering uses extensional array equality; the
+arbitrary-output comparison now uses that same equality with the normal boxed
+SST encoding, instead of opaque SMT function identity. This includes empty
+arrays. The existing `vstd::array::axiom_array_ext_equal` characterizes equality
+over every element. Its canonical declaration and containing artifact are
+recorded as an implicit trusted dependency of array-valued interfaces. No new
+array axiom, external-body declaration, or stronger standard specification is
+introduced. Independent SST fault injection rejects weak and wrong array
+relations; compiler matrices cover all scalar types, lengths 0/1/2/64, and both
+pointer widths.
+
+Local views store a base, start, and end during synthesis. Lengths reduce to
+`end - start`, and indexing recursively adds offsets to reads of original
+inputs. Callee substitution uses the same typed builders, so views cannot escape
+through a scalar operator, cached formula, or returned reference. Range operands
+are evaluated in their source order; bounds and subsequent reads remain guarded
+by actual reachability. Exhaustive small-array comparisons cover empty, reversed,
+out-of-range, nested, and indexed views.
+
+Source recognition validates the complete concrete `[T] as Index<I>` lowering:
+canonical core/vstd identities, generic signature and bounds, resolved trait
+identity, concrete scalar element/range types, implementation paths, constructor
+fields, and call attributes. Only exclusive/open ranges over shared slices are
+admitted. It does not authorize arbitrary Index implementations or range values.
+The existing standard Index/range/sequence models are trusted in Verus; their
+containing vstd artifact is fingerprinted. Source proofs still assert their
+ordinary requirements. In maximality queries, only the validated canonical
+shared-range calls may use their existing exact bounds requirements as
+successful-execution constraints. Both generic types and actual values are
+substituted in lowered requirements. Other uninferred callee requirements are
+rejected. This expands reliance on these existing standard models to maximality;
+it does not formally prove their correspondence with Rust implementations.
+
+The existing Result residual specification still has no `no_unwind` guarantee.
+Primitive widening does not strengthen it or introduce a new axiom. As with
+identity propagation, ordinary verification cannot derive an unconditional
+`no_unwind` promise from that model. Conversion assumptions and supporting
+specifications are covered by the residual model's complete vstd artifact hash.
+
+Cross-feature compiler tests combine arrays, patterns, widening, and views
+through fresh/warm caches and three crates at both pointer widths. Poisoned
+array elements and permissive/restrictive bounds must fail their independent
+proofs and remove stale exports. Malformed recipes are discarded and re-inferred.
+Precision timeouts must block callers and publication even after ordinary
+soundness passes. The runnable example, Cargo workspace and evaluation corpus
+exercise these same production paths. This regression evidence supplements the
+formal acceptance/precision targets above; it is not a formal implementation proof.
+
+The completed Rust coverage checkpoint passed 512 targeted Rust tests, with two
+pre-existing loop tests still ignored; debug/release builds; compiled native
+example runs; and debug/release three-crate Cargo verification. Conversion and
+array matrices prove all three obligations for 87 functions at each pointer
+width in both profiles. All 81 runs across the 40-case evaluation corpus passed
+in each profile, and all 22 deliberate mutations were detected after their
+baselines passed. The corpus includes expected failures and incomplete proofs;
+these counts describe selected regression coverage, not general Rust coverage.

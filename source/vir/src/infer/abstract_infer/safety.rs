@@ -44,7 +44,11 @@ impl Bound {
         };
         let mut out = if n.is_zero() { None } else { Some(literal(span, n.clone())?) };
         for (name, (typ, coefficient)) in vars {
-            let v = Term { expr: SpannedTyped::new(span, typ, ExprX::Var(name.clone())), size: 1 };
+            let v = Term {
+                view: None,
+                expr: SpannedTyped::new(span, typ, ExprX::Var(name.clone())),
+                size: 1,
+            };
             let v = if coefficient == &BigInt::one() {
                 v
             } else {
@@ -1081,6 +1085,7 @@ pub(super) fn infer(
             Value::Bool(Predicate::exact(
                 &p.span,
                 Term {
+                    view: None,
                     expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
                     size: 1,
                 },

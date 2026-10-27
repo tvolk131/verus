@@ -371,6 +371,7 @@ impl Interpreter<'_> {
                         .params
                         .iter()
                         .map(|p| Term {
+                            view: None,
                             expr: SpannedTyped::new(
                                 &p.span,
                                 &p.x.typ,
@@ -477,6 +478,7 @@ pub(super) fn infer(
             (
                 p.x.name.clone(),
                 Term {
+                    view: None,
                     expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
                     size: 1,
                 },
@@ -601,6 +603,7 @@ pub(super) fn validate_summary(function: &Function) -> Result<(), VirErr> {
             (
                 p.x.name.clone(),
                 Term {
+                    view: None,
                     expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
                     size: 1,
                 },

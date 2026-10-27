@@ -8,6 +8,9 @@ pub(super) fn unary(span: &Span, op: UnaryOp, a: Term) -> Result<Term, VirErr> {
     if op == UnaryOp::Length(ArrayKind::Slice) {
         return slices::length(span, a);
     }
+    if a.view.is_some() {
+        return Err(unsupported(span, "slice view used as a scalar"));
+    }
     let typ = match op {
         UnaryOp::BitNot(_) if bitwise::unary_valid(op, &a.expr.typ) => a.expr.typ.clone(),
         UnaryOp::Not if matches!(&*a.expr.typ, TypX::Bool) => bool_typ(),
@@ -30,6 +33,9 @@ pub(super) fn binary(span: &Span, op: BinaryOp, a: Term, b: Term) -> Result<Term
     }
     if matches!(op, BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow)) {
         return arrays::index(span, a, b);
+    }
+    if a.view.is_some() || b.view.is_some() {
+        return Err(unsupported(span, "slice view used as a scalar"));
     }
     let typ = match op {
         BinaryOp::Bitwise(bit, BitshiftBehavior::Allow)
@@ -70,6 +76,9 @@ pub(super) fn logical(span: &Span, op: LogicalOp, a: Term, b: Term) -> Result<Te
 }
 
 pub(super) fn conditional(span: &Span, c: Term, a: Term, b: Term) -> Result<Term, VirErr> {
+    if a.view.is_some() || b.view.is_some() {
+        return Err(unsupported(span, "conditional slice views"));
+    }
     if !matches!(&*c.expr.typ, TypX::Bool) || !enums::compatible(&a.expr.typ, &b.expr.typ) {
         return Err(unsupported(span, "invalid summary conditional"));
     }

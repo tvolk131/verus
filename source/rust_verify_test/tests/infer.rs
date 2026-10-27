@@ -1251,10 +1251,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] match_guards_are_explicitly_unsupported code! {
+    #[test] match_guards_are_supported code! {
         use vstd::prelude::*;
         #[verus_infer] fn f(x: Option<u8>) -> u8 { match x { Some(v) if v > 0 => v, _ => 0 } }
-    } => Err(e) => assert_vir_error_msg(e, "match guards")
+        verus! {fn caller(){let r=f(Some(7));assert(r==7);let r=f(None);assert(r==0);}}
+    } => Ok(())
 }
 
 test_verify_one_file! {
@@ -1580,10 +1581,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] array_return_values_are_explicitly_unsupported code! {
+    #[test] array_return_values_are_supported code! {
         use vstd::prelude::*;
         #[verus_infer] fn identity(values: [u8; 2]) -> [u8; 2] { values }
-    } => Err(e) => assert_vir_error_msg(e, "array returns are unsupported")
+        verus! {fn caller(){let r=identity([1,255]);assert(r[0]==1 && r[1]==255);}}
+    } => Ok(())
 }
 
 test_verify_one_file! {
@@ -2081,10 +2083,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] question_mark_rejects_error_conversions code! {
+    #[test] question_mark_supports_lossless_error_conversions code! {
         use vstd::prelude::*;
         #[verus_infer] fn convert(input: Result<u8, u8>) -> Result<u8, u16> { Ok(input?) }
-    } => Err(e) => assert_vir_error_msg(e, "requires identical Result error types")
+        verus! {fn caller(){let r=convert(Err(255));assert(r==Err(255u16));let r=convert(Ok(7));assert(r==Ok(7));}}
+    } => Ok(())
 }
 
 test_verify_one_file! {
@@ -3324,10 +3327,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] slices_reslicing_and_generic_methods_remain_unsupported code! {
+    #[test] slices_reslicing_is_supported code! {
         use vstd::prelude::*;
         #[verus_infer] fn subslice(xs:&[u8],i:usize)->u8 {let part=&xs[i..];part[0]}
-    } => Err(e) => assert_vir_error_msg(e,"Verus Infer unsupported")
+        verus!{fn caller(){let r=subslice(&[1,7,255],2);assert(r==255);}}
+    } => Ok(())
 }
 
 test_verify_one_file! {
@@ -4522,4 +4526,319 @@ fn counted_step_families_reject_unsafe_calls_and_unsupported_source_shapes() {
         );
         assert!(!run.status.success(), "{}", source);
     }
+}
+test_verify_one_file! {
+    #[test] coverage_control_flow_patterns_and_array_outputs code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn optional(x:Option<u8>)->[u8;2]{let Some(v)=x else{return [0,1];};[v,v+1]}
+        #[verus_infer] fn pattern(x:Result<u8,u8>)->u8{match x{Ok(0|1)=>0,Ok(v)|Err(v)=>v}}
+        #[verus_infer] fn guards(x:Option<u8>,d:u8)->u8{match x{Some(v) if d!=0 && v/d>0=>v/d,Some(v) if v<255=>v+1,_=>0}}
+        #[verus_infer] fn guard_exit(x:Option<u8>,d:u8)->u8{match x{Some(v) if {if d==0{return v;}v/d>0}=>v/d,_=>0}}
+        #[verus_infer] fn error(x:Result<u8,i8>)->Result<u8,i128>{let v=x?;Ok(v+1)}
+        #[verus_infer] fn arithmetic_guard(x:Option<u8>,y:u8)->u8{match x{Some(v) if v+y>0=>v,_=>0}}
+        #[verus_infer] fn arrays(x:u8,b:bool)->[u8;2]{if b{return [x,0];}[x,x+1]}
+        #[verus_infer] fn copied(x:[u8;2])->[u8;2]{let y=x; y}
+        #[verus_infer] fn empty(x:u8)->[u8;0]{[x+1;0]}
+        #[verus_infer] fn full(x:u8)->[u8;64]{[x;64]}
+        verus!{fn caller(){
+            let r=optional(None);assert(r[0]==0 && r[1]==1);
+            let r=optional(Some(254));assert(r[1]==255);
+            let r=pattern(Err(255));assert(r==255);
+            let r=guards(Some(254),0);assert(r==255);
+            let r=guard_exit(Some(255),0);assert(r==255);
+            let r=guard_exit(None,0);assert(r==0);
+            let r=error(Err(-128));assert(r==Err(-128i128));
+            let r=arithmetic_guard(None,255);assert(r==0);
+            let r=arrays(255,true);assert(r[0]==255 && r[1]==0);
+            let r=copied([255,7]);assert(r[0]==255 && r[1]==7);
+            let r=empty(254);assert(r.len()==0);
+            let r=full(255);assert(r[0]==255 && r[63]==255);
+        }}
+    } => Ok(())
+}
+
+test_verify_one_file! {
+    #[test] coverage_shared_subslices_and_array_composition code! {
+        use vstd::prelude::*;
+        #[verus_infer] fn at(s:&[u8],i:usize)->u8{s[i]}
+        #[verus_infer] fn pair(x:u8)->[u8;2]{[x,x+1]}
+        #[verus_infer] fn offset(s:&[u8],a:usize,b:usize,i:usize)->u8{let t=&s[a..b];at(t,i)}
+        #[verus_infer] fn open(s:&[u8],a:usize,b:usize)->usize{let t=&s[a..];let u=&t[..b];let v=&u[..];v.len()}
+        #[verus_infer] fn nested(s:&[u8],a:usize,b:usize,c:usize,i:usize)->u8{let t=&s[a..b];let u=&t[c..];at(u,i)}
+        #[verus_infer] fn build_read(x:u8)->u8{let a=pair(x);let s=&a;at(s,1)}
+        #[verus_infer] fn from_ref(a:&[u8;2])->[u8;2]{*a}
+        #[verus_infer] fn coerced_local(x:u8)->u8{let a=pair(x);let s:&[u8]=&a;let w=&s[1..];at(w,0)}
+        #[verus_infer] fn combined(s:&[u8],bounds:Option<u8>)->[u8;2]{let Some(a)=bounds else{return [0,0];};let tail=&s[a as usize..];let n=tail.len();if n==0{return [0,0];}[at(tail,0),n as u8]}
+        verus!{fn caller(){
+            let r=offset(&[1,3,7,255],1,4,2);assert(r==255);
+            let r=open(&[1,3,7],3,0);assert(r==0);
+            let r=nested(&[1,3,7,255],1,4,1,1);assert(r==255);
+            let r=build_read(254);assert(r==255);
+            let a=from_ref(&[1,255]);assert(a[0]==1 && a[1]==255);
+            let r=coerced_local(254);assert(r==255);
+            let r=combined(&[3,7,255],Some(1));assert(r[0]==7 && r[1]==2);
+            let r=combined(&[],None);assert(r[0]==0 && r[1]==0);
+        }}
+    } => Ok(())
+}
+
+#[test]
+fn coverage_primitive_error_conversion_matrix_and_pointer_models() {
+    let crates = InferCrates::new();
+    let mut body = String::from("use vstd::prelude::*;");
+    let mut caller = String::from("fn caller(){");
+    let mut count = 0;
+    let conversions = [
+        ("u8", vec!["u16", "u32", "u64", "u128", "usize", "i16", "i32", "i64", "i128", "isize"]),
+        ("u16", vec!["u32", "u64", "u128", "usize", "i32", "i64", "i128"]),
+        ("u32", vec!["u64", "u128", "i64", "i128"]),
+        ("u64", vec!["u128", "i128"]),
+        ("i8", vec!["i16", "i32", "i64", "i128", "isize"]),
+        ("i16", vec!["i32", "i64", "i128", "isize"]),
+        ("i32", vec!["i64", "i128"]),
+        ("i64", vec!["i128"]),
+    ];
+    for (from, tos) in conversions {
+        for to in tos {
+            let name = format!("convert_{from}_{to}");
+            body.push_str(&format!(
+                "#[verifier::infer] fn {name}(x:Result<u8,{from}>)->Result<u8,{to}>{{Ok(x?)}}"
+            ));
+            caller.push_str(&format!("let r={name}(Err({from}::MIN));assert(r==Err({from}::MIN as {to}));let r={name}(Err({from}::MAX));assert(r==Err({from}::MAX as {to}));let r={name}(Ok(255));assert(r==Ok(255));"));
+            count += 1;
+        }
+    }
+    body.push_str(&caller);
+    body.push('}');
+    for bytes in [4, 8] {
+        let run = crates.verify(
+            "coverage_conversions",
+            &format!("global size_of usize == {bytes};{body}"),
+            &[],
+            &["--output-json", "--num-threads", "4"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(), count);
+        for f in report["functions"].as_array().unwrap() {
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+            }
+        }
+    }
+}
+
+#[test]
+fn coverage_unsafe_control_flow_arrays_and_slice_ranges_are_rejected() {
+    let crates = InferCrates::new();
+    for (source, call) in [
+        (
+            "#[verifier::infer] fn op(x:Option<u8>)->u8{let Some(v)=x else{return 0;};v+1}",
+            "op(Some(255))",
+        ),
+        (
+            "#[verifier::infer] fn op(x:Option<u8>,y:u8)->u8{match x{Some(v) if v+y>0=>v,_=>0}}",
+            "op(Some(255),1)",
+        ),
+        ("#[verifier::infer] fn op(x:u8)->[u8;2]{[x,x+1]}", "op(255)"),
+        ("#[verifier::infer] fn op(x:u8)->[u8;0]{[x+1;0]}", "op(255)"),
+        (
+            "#[verifier::infer] fn op(s:&[u8],a:usize,b:usize)->usize{let t=&s[a..b];t.len()}",
+            "op(&[1,2],2,1)",
+        ),
+        (
+            "#[verifier::infer] fn op(s:&[u8],a:usize,b:usize)->usize{let t=&s[a..b];t.len()}",
+            "op(&[1,2],0,3)",
+        ),
+        (
+            "#[verifier::infer] fn op(s:&[u8],a:usize,i:usize)->u8{let t=&s[a..];t[i]}",
+            "op(&[1,2],2,0)",
+        ),
+    ] {
+        let body = format!("use vstd::prelude::*;{source} fn caller(){{let _={call};}}");
+        let run = crates.verify("coverage_unsafe", &body, &[], &[]);
+        assert!(!run.status.success(), "{}", body);
+        assert!(
+            String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+    }
+}
+const COVERAGE_BASE: &str = r#"
+use vstd::prelude::*;
+#[verifier::infer] pub fn pair(x:u8)->[u8;2]{[x,x+1]}
+#[verifier::infer] pub fn selected(x:Option<u8>)->[u8;2]{let Some(v)=x else{return [0,0];};pair(v)}
+#[verifier::infer] pub fn widened(x:Result<u8,u8>)->Result<u8,u16>{Ok(x?)}
+#[verifier::infer] pub fn window(s:&[u8],start:usize,end:usize,i:usize)->u8{let w=&s[start..end];w[i]}
+"#;
+
+#[test]
+fn coverage_cache_cross_crate_and_pointer_models_preserve_all_guarantees() {
+    let crates = InferCrates::new();
+    for cache in ["miss", "hit"] {
+        let run = crates.build("coverage_base", COVERAGE_BASE, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for f in json_inference(&run)["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][proof]["status"], "proved", "{f}");
+            }
+        }
+    }
+    crates.succeeds("coverage_middle",r#"use vstd::prelude::*;
+        #[verifier::infer] pub fn chosen(x:Option<u8>)->[u8;2]{coverage_base::selected(x)}
+        #[verifier::infer] pub fn read(s:&[u8],input:Result<u8,u8>)->Result<u8,u16>{let i=coverage_base::widened(input)?;Ok(coverage_base::window(s,i as usize,s.len(),0))}
+        #[verifier::infer] pub fn early(input:Result<u8,u8>)->[u8;2]{match input{Ok(v) if v<255=>coverage_base::pair(v),Ok(v)|Err(v)=>[v,0]}}
+    "#,&["coverage_base"]);
+    for bytes in [4, 8] {
+        let body = format!(
+            r#"use vstd::prelude::*;global size_of usize == {bytes};
+            #[verifier::infer] pub fn top(x:Option<u8>)->[u8;2]{{coverage_middle::chosen(x)}}
+            fn caller(){{let a=top(Some(254));assert(a[0]==254 && a[1]==255);let a=top(None);assert(a[0]==0 && a[1]==0);
+            let r=coverage_middle::read(&[1,7,255],Ok(2));assert(r==Ok(255));let r=coverage_middle::read(&[],Err(255));assert(r==Err(255u16));
+            let a=coverage_middle::early(Ok(255));assert(a[0]==255 && a[1]==0);}}
+        "#
+        );
+        let run = crates.verify("coverage_app", &body, &["coverage_base", "coverage_middle"], &[]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    }
+}
+
+#[test]
+fn coverage_poisoned_array_and_range_candidates_never_publish() {
+    for kind in ["permissive", "restrictive", "wrong_array", "malformed_array"] {
+        let crates = InferCrates::new();
+        let body = "use vstd::prelude::*;#[verifier::infer] pub fn window(s:&[u8],start:usize,end:usize)->[u8;2]{let w=&s[start..end];[w[0],w[1]]}fn caller(){let _=window(&[1,2],0,2);}";
+        assert!(crates.build("coverage_poison", body, &[], &["--output-json"]).status.success());
+        for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+            let path = file.unwrap().path();
+            let mut c: serde_json::Value =
+                serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+            match kind {
+                "permissive" => c["pre"] = serde_json::json!({"Bool":true}),
+                "restrictive" => c["pre"] = serde_json::json!({"Bool":false}),
+                "wrong_array" => {
+                    c["post"]["Binary"][2]["Array"][2][1] =
+                        serde_json::to_value(vir::ast::Constant::Int(0.into())).unwrap()
+                }
+                _ => c["post"]["Binary"][2]["Array"][1] = serde_json::json!(65),
+            }
+            std::fs::write(path, serde_json::to_vec(&c).unwrap()).unwrap();
+        }
+        let run = crates.build("coverage_poison", body, &[], &["--output-json"]);
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        if kind == "malformed_array" {
+            assert!(run.status.success());
+            assert_eq!(f["metrics"]["cache"], "miss");
+            continue;
+        }
+        assert!(!run.status.success(), "{}", kind);
+        assert_eq!(f["metrics"]["cache"], "hit");
+        assert_eq!(f["available_to_same_crate_callers"], false);
+        assert_eq!(f["exported"], false);
+        assert_eq!(
+            f["proofs"][if kind == "restrictive" { "maximality" } else { "soundness" }]["status"],
+            "not_proved",
+            "{f}"
+        );
+        assert!(!crates.vir("coverage_poison").exists());
+    }
+}
+
+#[test]
+fn coverage_source_effects_and_unsupported_interfaces_are_rejected() {
+    let crates = InferCrates::new();
+    for source in [
+        "#[verifier::infer] fn op(input:Option<u8>)->u8{let Some(v)=input else{assume(false);return 0;};v}",
+        "#[verifier::infer] fn op(input:Option<u8>)->u8{match input{Some(v) if {assume(false);true}=>v,_=>0}}",
+        "#[verifier::infer] fn op(s:&[u8])->usize{let w=&s[{assume(false);0}..];w.len()}",
+        "#[verifier::infer] fn op(s:&[u8])->&[u8]{let w=&s[..];w}",
+        "#[verifier::infer] fn op(x:u8)->[u8;65]{[x;65]}",
+        "#[verifier::infer] fn op(x:Option<u8>)->Option<[u8;2]>{Some([0,1])}",
+        "#[verifier::infer] fn op(s:&[u8],i:usize)->usize{let w=&s[..=i];w.len()}",
+    ] {
+        let run =
+            crates.verify("coverage_source", &format!("use vstd::prelude::*;{source}"), &[], &[]);
+        assert!(!run.status.success(), "{}", source);
+        assert!(
+            String::from_utf8_lossy(&run.stderr).contains("unsupported"),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+    }
+}
+#[test]
+fn coverage_array_outputs_all_scalar_types_lengths_and_pointer_models() {
+    let crates = InferCrates::new();
+    let mut body = String::from("use vstd::prelude::*;");
+    let mut caller = String::from("fn caller(){");
+    for typ in [
+        "bool", "u8", "u16", "u32", "u64", "u128", "usize", "i8", "i16", "i32", "i64", "i128",
+        "isize",
+    ] {
+        for n in [0, 1, 2, 64] {
+            let name = format!("array_{typ}_{n}");
+            body.push_str(&format!(
+                "#[verifier::infer] pub fn {name}(value:{typ})->[{typ};{n}]{{[value;{n}]}}"
+            ));
+            for v in if typ == "bool" {
+                vec!["false".into(), "true".into()]
+            } else {
+                vec![format!("{typ}::MIN"), format!("{typ}::MAX")]
+            } {
+                caller.push_str(&format!("let a={name}({v});assert(a.len()=={n});"));
+                if n > 0 {
+                    caller.push_str(&format!("assert(a[0]=={v} && a[{}]=={v});", n - 1));
+                }
+            }
+        }
+    }
+    body.push_str(&caller);
+    body.push('}');
+    for bytes in [4, 8] {
+        let run = crates.verify(
+            "coverage_arrays",
+            &format!("global size_of usize == {bytes};{body}"),
+            &[],
+            &["--output-json", "--num-threads", "4"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 52);
+        assert!(
+            report["trusted_models"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|m| m["function"].as_str().unwrap().ends_with("axiom_array_ext_equal"))
+        );
+        for f in report["functions"].as_array().unwrap() {
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+            }
+        }
+    }
+}
+
+#[test]
+fn coverage_incomplete_array_proofs_remove_stale_exports_and_block_callers() {
+    let crates = InferCrates::new();
+    let function = "#[verifier::infer] pub fn array(value:u8)->[u8;2]{[value,value+1]}";
+    assert!(crates.build("coverage_timeout", function, &[], &["--output-json"]).status.success());
+    assert!(crates.vir("coverage_timeout").exists());
+    let body = format!(
+        "#[verifier::infer_precision_rlimit(0.000001)]{function} fn caller(){{assert(false);}}"
+    );
+    let run = crates.build("coverage_timeout", &body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    assert_eq!(report["status"], "required_proof_incomplete");
+    let f = &report["functions"][0];
+    assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+    assert_eq!(f["available_to_same_crate_callers"], false);
+    assert_eq!(f["exported"], false);
+    assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    assert!(!crates.vir("coverage_timeout").exists());
 }

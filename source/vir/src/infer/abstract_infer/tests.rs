@@ -37,7 +37,10 @@ fn result_relation(f: &Function) -> Expr {
     );
     instantiate(
         &f.x.ensure.0[0],
-        &HashMap::from([(f.x.inner_ret.x.name.clone(), Term { expr: result, size: 1 })]),
+        &HashMap::from([(
+            f.x.inner_ret.x.name.clone(),
+            Term { view: None, expr: result, size: 1 },
+        )]),
     )
     .unwrap()
     .expr

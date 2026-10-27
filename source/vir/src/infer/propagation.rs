@@ -168,7 +168,7 @@ pub(super) fn model(function: &Function) -> Option<Model> {
     match operation {
         // The existing generic Result model permits arbitrary From conversions
         // and has no no_unwind clause. We do not strengthen it. Recognition of
-        // a concrete use below restricts it to Rust's blanket identity conversion.
+        // a concrete use below restricts it to identity or approved primitive widening.
         Model::Residual(Carrier::Result) if f.unwind_spec.is_none() => {}
         Model::Residual(Carrier::Result) => return None,
         _ if matches!(f.unwind_spec, Some(UnwindSpec::NoUnwind)) => {}
@@ -281,6 +281,23 @@ fn returned_call(body: &Expr, success: &Typ) -> Option<Expr> {
     Some(empty_blocks(call)?.clone())
 }
 
+/// The closed primitive From implementations present in vstd's convert models.
+/// Pointer-sized destinations admit only widths safe on both supported models.
+fn lossless_error_conversion(from: &Typ, to: &Typ) -> bool {
+    matches!((&**from, &**to),
+        (TypX::Int(IntRange::U(a)), TypX::Int(IntRange::U(b))) if a < b && matches!(a,8|16|32|64) && matches!(b,16|32|64|128))
+        || matches!((&**from, &**to),
+        (TypX::Int(IntRange::I(a)), TypX::Int(IntRange::I(b))) if a < b && matches!(a,8|16|32|64) && matches!(b,16|32|64|128))
+        || matches!((&**from, &**to),
+        (TypX::Int(IntRange::U(a)), TypX::Int(IntRange::I(b))) if a < b && matches!(a,8|16|32|64) && matches!(b,16|32|64|128))
+        || matches!(
+            (&**from, &**to),
+            (TypX::Int(IntRange::U(8 | 16)), TypX::Int(IntRange::USize))
+                | (TypX::Int(IntRange::U(8)), TypX::Int(IntRange::ISize))
+                | (TypX::Int(IntRange::I(8 | 16)), TypX::Int(IntRange::ISize))
+        )
+}
+
 /// Validate the complete lowered operation, including both arms and bindings.
 /// No proof statements, extra calls, guards or assignments may hide in it.
 pub(super) fn recognize(
@@ -336,16 +353,19 @@ pub(super) fn recognize(
         }
         Carrier::Result if ctyps.len() == 3 => {
             if !crate::ast_util::types_equal(&ctyps[1], &typs[1])
-                || !crate::ast_util::types_equal(&ctyps[1], &ctyps[2])
+                || !(crate::ast_util::types_equal(&ctyps[1], &ctyps[2])
+                    || lossless_error_conversion(&ctyps[1], &ctyps[2]))
             {
                 return Err(unsupported(
                     &e.span,
-                    "? currently requires identical Result error types",
+                    "? requires identical error types or an approved lossless primitive integer conversion",
                 ));
             }
             if cimpls.len() != 1
                 || !matches!(&cimpls[0], ImplPath::TraitImplPath(p)
-                if p.krate == CrateId::Core && p.segments.len() == 2 && p.segments[0].as_str() == "convert" && p.segments[1].starts_with("impl"))
+                if p.krate == CrateId::Core && !p.segments.is_empty() && p.segments[0].as_str() == "convert" &&
+                    (if crate::ast_util::types_equal(&ctyps[1], &ctyps[2]) {p.segments.len()==2} else {p.segments.len()==3 && p.segments[1].as_str()=="num"})
+                    && p.segments.last().is_some_and(|s|s.starts_with("impl")))
                 || !crate::ast_util::types_equal(
                     result,
                     &carrier(kind, vec![ctyps[0].clone(), ctyps[2].clone()]),
@@ -378,6 +398,14 @@ pub(super) fn visit_calls(
         &mut crate::ast_visitor::VisitorScopeMap::new(),
         &mut |_, e| {
             let checked = (|| {
+                if let Some(range) = slices::range_call(e, functions)? {
+                    callback(&range.helper, true)?;
+                    visit_calls(&range.base, result, functions, callback)?;
+                    for (_, field) in range.fields {
+                        visit_calls(&field, result, functions, callback)?;
+                    }
+                    return Ok(true);
+                }
                 if let Some(p) = recognize(e, functions, result)? {
                     callback(&p.branch, true)?;
                     callback(&p.residual, true)?;
@@ -655,7 +683,7 @@ mod tests {
                 &span(),
                 &result,
                 &Arc::new(if kind == Carrier::Option { "Some" } else { "Ok" }.into()),
-                Some(Term { expr: input("x"), size: 1 }),
+                Some(Term { view: None, expr: input("x"), size: 1 }),
             )
             .unwrap()
             .expr;
@@ -727,7 +755,7 @@ mod tests {
                 if kind == Carrier::Option {
                     None
                 } else {
-                    Some(Term { expr: input("y"), size: 1 })
+                    Some(Term { view: None, expr: input("y"), size: 1 })
                 },
             )
             .unwrap()
@@ -736,7 +764,7 @@ mod tests {
                 &span(),
                 &result,
                 &success,
-                Some(Term { expr: binary(sub, input("x"), input("y")), size: 1 }),
+                Some(Term { view: None, expr: binary(sub, input("x"), input("y")), size: 1 }),
             )
             .unwrap()
             .expr;
@@ -757,10 +785,14 @@ mod tests {
                 } else {
                     binary(add, propagate, other)
                 };
-                let body =
-                    enums::ctor(&span(), &result, &success, Some(Term { expr: sum, size: 1 }))
-                        .unwrap()
-                        .expr;
+                let body = enums::ctor(
+                    &span(),
+                    &result,
+                    &success,
+                    Some(Term { view: None, expr: sum, size: 1 }),
+                )
+                .unwrap()
+                .expr;
                 let original = function("propagation", body);
                 let mut f = original.x.clone();
                 let mut ret = f.inner_ret.x.clone();
@@ -818,4 +850,56 @@ mod tests {
             }
         }
     }
+}
+
+#[test]
+fn lossless_primitive_errors_exclude_sign_changes_and_narrowing() {
+    let typ = |range| Arc::new(TypX::Int(range));
+    for from in [
+        IntRange::U(8),
+        IntRange::U(16),
+        IntRange::U(32),
+        IntRange::U(64),
+        IntRange::U(128),
+        IntRange::USize,
+        IntRange::I(8),
+        IntRange::I(16),
+        IntRange::I(32),
+        IntRange::I(64),
+        IntRange::I(128),
+        IntRange::ISize,
+    ] {
+        for to in [
+            IntRange::U(8),
+            IntRange::U(16),
+            IntRange::U(32),
+            IntRange::U(64),
+            IntRange::U(128),
+            IntRange::USize,
+            IntRange::I(8),
+            IntRange::I(16),
+            IntRange::I(32),
+            IntRange::I(64),
+            IntRange::I(128),
+            IntRange::ISize,
+        ] {
+            if lossless_error_conversion(&typ(from), &typ(to)) {
+                for bits in [32, 64] {
+                    let limits = |r| match r {
+                        IntRange::U(n) => (false, n),
+                        IntRange::I(n) => (true, n),
+                        IntRange::USize => (false, bits),
+                        IntRange::ISize => (true, bits),
+                        _ => panic!(),
+                    };
+                    let (signed_a, a) = limits(from);
+                    let (signed_b, b) = limits(to);
+                    assert!((signed_a == signed_b && a <= b) || (!signed_a && signed_b && a < b));
+                }
+            }
+        }
+    }
+    assert!(!lossless_error_conversion(&bool_typ(), &typ(IntRange::U(8))));
+    assert!(!lossless_error_conversion(&typ(IntRange::I(8)), &typ(IntRange::U(16))));
+    assert!(!lossless_error_conversion(&typ(IntRange::U(16)), &typ(IntRange::U(8))));
 }

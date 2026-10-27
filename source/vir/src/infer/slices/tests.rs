@@ -158,7 +158,7 @@ fn slice_builders_reject_mutability_and_wrong_element_types() {
     assert!(element(&slice(valid.clone())).is_none());
     assert!(!substitutes(&valid, &arrays::typ(unsigned.clone(), 2).unwrap()));
     assert!(substitutes(&arrays::typ(unsigned, 2).unwrap(), &valid));
-    let value = Term { expr: input("x"), size: 1 };
+    let value = Term { view: None, expr: input("x"), size: 1 };
     assert!(length(&span(), value.clone()).is_err());
     assert!(index(&span(), value.clone(), value).is_err());
 }

@@ -120,6 +120,31 @@ def precision_tests(directory, env):
             should_pass=name == "baseline")
         print(f"Loop {'passed' if name == 'baseline' else 'detected'}: {name}", flush=True)
 
+    path.write_text(source)
+    # Exercise guarded pattern choice and local slice views independently of
+    # synthesis caches and the compiler. Each reference uses concrete Rust.
+    groups = [
+        ("Patterns", "vir/src/infer/enums.rs", [
+            ("match guard ignored", "let test = logical(span, LogicalOp::And, pattern, condition)?;", "let test = logical(span, LogicalOp::And, pattern, boolean(span, true))?;"),
+            ("or-pattern binding priority reversed", "summary::conditional(span, left.clone(), a, b)?", "summary::conditional(span, left.clone(), b, a)?"),
+        ]),
+        ("Views", "vir/src/infer/slices.rs", [
+            ("subslice length reversed", "view.end,\n            view.start,", "view.start,\n            view.end,"),
+            ("subslice index offset subtracted", "BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Allow)),\n            view.start,", "BinaryOp::Arith(ArithOp::Sub(OverflowBehavior::Allow)),\n            view.start,"),
+        ]),
+    ]
+    for group, relative, mutations in groups:
+        path = workspace / relative
+        source = path.read_text()
+        for name, contents in [("baseline", source)] + [
+            (name, change(source, before, after)) for name, before, after in mutations
+        ]:
+            path.write_text(contents)
+            run(["cargo", "test", "-p", "vir", "infer::coverage_tests"], workspace, env,
+                should_pass=name == "baseline")
+            print(f"{group} {'passed' if name == 'baseline' else 'detected'}: {name}", flush=True)
+        path.write_text(source)
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

@@ -140,3 +140,15 @@ verus! {
         ensures result as int == x as int - n as int * step as int,
     { infer_middle::debited(x, n, step) }
 }
+
+verus! {
+    pub fn payload_pair_property(value: u8) -> (result: [u8; 2])
+        requires value < 255,
+        ensures result[0] == value, result[1] as int == value as int + 1,
+    { infer_middle::payload_pair(Some(value)) }
+
+    pub fn widened_error_property(error: u8) {
+        let result = infer_middle::selected_read(&[], Err(error));
+        assert(result == Err(error as u16));
+    }
+}

@@ -81,3 +81,12 @@ pub fn credited_twice(x: u64, n: u64, step: u64) -> u64 {
 pub fn debited(x: u64, n: u64, step: u64) -> u64 {
     infer_base::counted_debit(x, n, step)
 }
+
+#[verus_infer]
+pub fn payload_pair(input: Option<u8>) -> [u8; 2] { infer_base::payload_pair(input) }
+
+#[verus_infer]
+pub fn selected_read(values: &[u8], input: Result<u8, u8>) -> Result<u8, u16> {
+    let index = infer_base::widened_index(input)?;
+    Ok(infer_base::window_read(values, index as usize, values.len(), 0))
+}

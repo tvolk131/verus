@@ -192,6 +192,16 @@ fn verifies_using(ctx: &Ctx, pars: &Pars, check: &FuncCheckSst, nonlinear: bool)
             ValidityResult::Valid(_)
         ));
     }
+    if ctx.used_builtins.uses_array {
+        for cmd in
+            crate::datatype_to_air::datatypes_and_primitives_to_air(ctx, &Arc::new(vec![])).iter()
+        {
+            assert!(matches!(
+                solver.command(&*interface, &Silent, cmd, Default::default()),
+                ValidityResult::Valid(_)
+            ));
+        }
+    }
     let commands = crate::sst_to_air::body_stm_to_air(
         ctx,
         &span(),
@@ -613,6 +623,110 @@ fn counted_step_families_check_all_obligations_and_reject_faults() {
                 assert!(!valid(&wrong));
                 assert!(!valid(&precision(&wrong, PrecisionCheck::Exactness)));
             }
+        }
+    }
+}
+
+#[test]
+fn array_precision_checks_arbitrary_whole_values_including_empty_arrays() {
+    for length in [0, 1, 2] {
+        let (mut ctx, pars, mut check) = fixture();
+        ctx.used_builtins.uses_array = true;
+        let scalar = pars[0].x.typ.clone();
+        let typ = Arc::new(TypX::Primitive(
+            Primitive::Array,
+            Arc::new(vec![scalar.clone(), Arc::new(TypX::ConstInt(length.into()))]),
+        ));
+        let read = |n| SpannedTyped::new(&span(), &typ, ExpX::Var(var(n)));
+        let boxed = |e: Exp| {
+            SpannedTyped::new(
+                &span(),
+                &Arc::new(TypX::Boxed(typ.clone())),
+                ExpX::UnaryOpr(UnaryOpr::Box(typ.clone()), e),
+            )
+        };
+        let literal = |wrong| {
+            let xs = (0..length)
+                .map(|i| {
+                    if i == 0 {
+                        SpannedTyped::new(&span(), &scalar, ExpX::Var(var("x")))
+                    } else {
+                        integer(if wrong { 1 } else { 0 })
+                    }
+                })
+                .collect();
+            let literal = SpannedTyped::new(
+                &span(),
+                &Arc::new(TypX::Boxed(typ.clone())),
+                ExpX::ArrayLiteral(Arc::new(xs)),
+            );
+            SpannedTyped::new(&span(), &typ, ExpX::UnaryOpr(UnaryOpr::Unbox(typ.clone()), literal))
+        };
+        let relation = |output| {
+            SpannedTyped::new(
+                &span(),
+                &bool_typ(),
+                ExpX::BinaryOpr(
+                    BinaryOpr::ExtEq(false, typ.clone()),
+                    boxed(read("result")),
+                    boxed(output),
+                ),
+            )
+        };
+        check.reqs = Arc::new(vec![]);
+        check.local_decls = Arc::new(vec![
+            Arc::new(LocalDeclX {
+                ident: var("x"),
+                typ: scalar.clone(),
+                kind: LocalDeclKind::Param { mutable: false },
+            }),
+            Arc::new(LocalDeclX {
+                ident: var("result"),
+                typ: typ.clone(),
+                kind: LocalDeclKind::Return,
+            }),
+        ]);
+        check.body = Spanned::new(
+            span(),
+            StmX::Return {
+                assert_id: None,
+                base_error: error(&span(), "array postcondition"),
+                ret_exp: Some(literal(false)),
+                inside_body: false,
+            },
+        );
+        Arc::make_mut(&mut check.post_condition).ens_exps =
+            Arc::new(vec![relation(literal(false))]);
+        assert!(verifies(&ctx, &pars, &check));
+        for kind in [PrecisionCheck::Maximality, PrecisionCheck::Exactness] {
+            assert!(
+                verifies(&ctx, &pars, &precision_check_body(&span(), &typ, &check, kind).unwrap()),
+                "{length} {kind:?}"
+            );
+        }
+        let mut weak = check.clone();
+        Arc::make_mut(&mut weak.post_condition).ens_exps = Arc::new(vec![SpannedTyped::new(
+            &span(),
+            &bool_typ(),
+            ExpX::Const(Constant::Bool(true)),
+        )]);
+        assert!(verifies(&ctx, &pars, &weak));
+        let exact = precision_check_body(&span(), &typ, &weak, PrecisionCheck::Exactness).unwrap();
+        // This minimal backend fixture omits vstd's array-extensionality axiom.
+        // The compiler matrix separately proves the empty-array case using it.
+        if length > 0 {
+            assert!(!verifies(&ctx, &pars, &exact), "weak relation for {length}");
+        }
+        if length == 2 {
+            let mut wrong = check.clone();
+            Arc::make_mut(&mut wrong.post_condition).ens_exps =
+                Arc::new(vec![relation(literal(true))]);
+            assert!(!verifies(&ctx, &pars, &wrong));
+            assert!(!verifies(
+                &ctx,
+                &pars,
+                &precision_check_body(&span(), &typ, &wrong, PrecisionCheck::Exactness).unwrap()
+            ));
         }
     }
 }

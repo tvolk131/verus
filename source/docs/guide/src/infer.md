@@ -330,7 +330,11 @@ nested enums and user-defined enums are not supported. Constructors and simple
 exhaustive `match` expressions may use by-value bindings, scalar literal
 patterns, unit patterns, and wildcards. Arms retain Rust's first-match priority,
 and only the selected arm's operations contribute safety conditions. Match
-guards, or-patterns, reference patterns, and mutable bindings are unsupported.
+guards and or-patterns are supported. Guards execute only after their pattern
+matches and earlier arms fail; their arithmetic and inferred calls retain safety
+requirements. Or-pattern alternatives must bind the same immutable by-value
+names and types. Verus currently rejects combining an or-pattern with a guard in
+one arm. Reference patterns and mutable bindings remain unsupported.
 Enum expressions currently require exact mode; sound interval inference remains
 scalar-only.
 
@@ -400,8 +404,22 @@ branches. Guarded return values and the continuing path are synthesized as pure
 conditional formulas; the original executable and its return checks stay intact.
 All three independent proof obligations are still mandatory. Eligibility checks
 still inspect the whole source, so an early return cannot hide unsupported
-syntax or proof assumptions. Early returns currently require exact mode;
-`let-else` remains unsupported.
+syntax or proof assumptions. Early returns and richer patterns currently require exact mode.
+`let-else` supports the same flat patterns, with a returning else branch:
+
+```rust
+#[verus_infer]
+fn bump(input: Option<u8>) -> Option<u8> {
+    let Some(value) = input else { return None; };
+    Some(value + 1)
+}
+```
+
+The initializer is evaluated once. Failed matching executes only the else
+branch; successful matching introduces bindings for the continuing block. The
+example requires `value < 255` only for `Some(value)`. Safety operations in the
+else branch also remain enforced. Unsupported code is rejected even on a path
+that always returns or a pattern that never matches.
 
 Exact mode also supports `?` on the supported flat `Option` and `Result` types:
 
@@ -424,15 +442,27 @@ that addition fit in `u8` only when the input is `Ok`. The operand is evaluated
 once, before deciding whether to exit; operations evaluated before `?` retain
 their safety conditions. Nested propagation, branches, early returns, and
 acyclic inferred calls compose normally, including through caches and crates.
-Result error types must be identical. Success payload types may change between
-the operand and the enclosing function. Arbitrary `From` conversions, custom
-`Try`, try blocks, nested enums, and sound-mode enum inference remain unsupported.
+Result errors may retain their type or use the existing lossless primitive
+integer `From` conversions. For example, `Result<u8, u8>` can propagate into
+`Result<u8, u16>` without restricting error values. The closed set is:
+
+- Unsigned widening `u8/u16/u32/u64` to larger fixed unsigned types.
+- Signed widening `i8/i16/i32/i64` to larger fixed signed types.
+- Unsigned to strictly wider fixed signed types.
+- `u8/u16` to `usize`, `u8` to `isize`, and `i8/i16` to `isize`.
+
+These are 35 concrete conversions backed by the existing vstd models, valid
+under both pointer widths. Success payload types may change between the operand
+and enclosing function. Arbitrary user-defined `From`, narrowing conversions,
+custom `Try`, try blocks, nested enums, and sound-mode enum inference remain
+unsupported.
 
 Propagation uses existing vstd `branch` and `from_residual` specifications.
 Its internal `ControlFlow` and `Infallible` values are recognized only inside the
 complete lowering; their presence does not permit general generic calls or proof
 statements. Result's identity conversion relies on Rust's existing blanket
-`From<T> for T` semantics and vstd's trusted identity axiom. Its generic residual
+`From<T> for T` semantics and vstd's trusted identity axiom for unchanged error
+types, or existing primitive `FromSpecImpl` specifications for approved widening. Its generic residual
 model has no `no_unwind` clause; inference preserves that limitation. In
 particular, a wrapper that can propagate an `Err` cannot establish `no_unwind`
 from this model. No new axioms or stronger standard specifications were added for `?`.
@@ -441,9 +471,14 @@ Exact mode also supports immutable, flat fixed-size arrays `[T; N]` with
 `0 <= N <= 64`, where `T` is `bool`, `usize`, `isize`, or a supported fixed-width unsigned/signed integer.
 Arrays may be passed by value or through `&[T; N]`, copied or borrowed into
 immutable locals, selected by branches, or constructed with element-list
-literals such as `[x, x + 1]` and repetition literals such as `[x; 4]`. Functions return
-the previously supported scalar or enum values; array return values and array
-payloads inside enums are not supported.
+literals such as `[x, x + 1]` and repetition literals such as `[x; 4]`. Owned
+fixed scalar arrays may also be returned and composed across inferred calls,
+caches, and crate interfaces. Array payloads inside enums remain unsupported.
+Array results are described as whole values. Exactness quantifies over an
+arbitrary valid array and compares all elements using Verus's existing
+extensional equality, including lengths zero and 64. The existing vstd
+`axiom_array_ext_equal` and its containing artifact are recorded as a trusted
+model dependency; no new equality axiom is introduced.
 
 ```rust
 #[verus_infer]
@@ -478,7 +513,7 @@ Verus's existing immutable value representation. Length, array-to-slice coercion
 and repetition use a closed allowlist of existing core/vstd models, specialized
 only to supported scalar elements and fixed lengths. The two pure vstd array
 helpers additionally declare `no_unwind`, and inference requires this guarantee
-on all approved array models. There are no new array axioms.
+on approved executable array models. There are no new array axioms.
 
 This array subset excludes nested arrays, mutable references, reference-valued
 elements, array patterns, and mutation. Shared dynamic slices are supported as
@@ -531,9 +566,29 @@ same closed identity/signature checks as before. No slice axioms or stronger
 library specifications were added. Cached candidates are retyped and reproved;
 cross-crate interfaces and JSON reports preserve all three exact-mode guarantees.
 
-This milestone excludes mutable slices, slice/array returns, nested or
-reference-valued elements, subslice/range operations, generic slice methods,
-slice traversal loops, and sound-mode slice inference. Conditional coercions
+Local immutable subslices support `&s[start..end]`, `&s[start..]`, `&s[..end]`,
+and `&s[..]` for shared scalar slice inputs and aliases. Inferred conditions
+include `start <= end <= s.len()` and any subsequent index bound relative to
+the view. Empty views are valid; reading one still requires a valid index.
+Nested views and passing views to inferred slice callees are supported. View
+lengths reduce to `end - start`; reads reduce to the original base plus the
+accumulated offset. Range operands retain Rust's evaluation order and all
+preceding safety checks. Views are local synthesis data and cannot occur in
+installed contracts or cached formulas. Each contract refers to original inputs.
+
+Subslice calls recognize the complete concrete core `Index` lowering for these
+four ranges. Ordinary Verus checks its existing standard preconditions. In
+maximality queries, only validated canonical shared-range calls may use their
+existing exact bounds requirements to select successful executions; generic
+types and actual arguments are instantiated. This extends the prior inferred
+callee path without bypassing ordinary checks. Their vstd artifact is
+fingerprinted, including range, indexing, and sequence specifications.
+
+This subset excludes mutable slices, returned slice references, direct slicing
+of fixed arrays, inclusive ranges, stored range objects, reference-valued
+elements, general generic slice methods, slice traversal loops, and sound-mode
+slice inference. Conditional selection involving a newly constructed local view
+is also unsupported. Conditional coercions
 mixing arrays of different fixed lengths, or mixing an array term and a dynamic
 slice term, report an unsupported conditional; selection between dynamic slice
 inputs is supported even when their runtime lengths differ.
@@ -541,7 +596,9 @@ inputs is supported even when their runtime lengths differ.
 `examples/verus_infer_slices.rs` proves lookup and pricing properties, composes
 checked arithmetic and `?`, and runs empty, invalid-index, overflow, signed-edge,
 and 300-element cases. The three-crate Cargo workspace also composes a slice
-lookup and charge through exported interfaces.
+lookup and charge through exported interfaces. The broader
+`examples/verus_infer_coverage.rs` combines richer patterns, widened errors,
+array outputs, and subslices, with a three-crate Cargo example as well.
 
 ## Counted numeric loops
 
@@ -769,7 +826,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 12 and candidate-cache version 17.
+The current inference policy uses metadata schema 13 and candidate-cache version 18.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved
