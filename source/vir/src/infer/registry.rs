@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v23:record-precision:4096";
+const VERSION: &str = "verus-infer-v24:record-composition:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -323,9 +323,9 @@ impl Registry {
                 let mut dependencies: Vec<_> = keys.values().cloned().collect(); dependencies.sort();
                 dependencies.push(format!("{:?}",self.datatypes));
                 let key=candidate_key(self.originals.get(&name).unwrap_or(f),&dependencies,&self.configuration);
-                let inferred=records::infer(f,&all,&self.datatypes)?.install_lifted(f,&key)?;
+                let inferred=records::infer(f,&candidates,&self.datatypes)?.install_lifted(f,&key)?;
                 self.misses+=1;
-                self.generated.push(GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros()));
+                let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
                 keys.insert(name.clone(),key); candidates.insert(name,inferred); continue;
             }
             if collections::kind(f).is_some() {
@@ -463,9 +463,11 @@ impl Registry {
                 .collect::<Result<Vec<_>, VirErr>>()?;
             let by_name: HashMap<_, _> = lifted.iter().map(|f| (&f.x.name, f)).collect();
             for row in &mut self.generated {
+                let record_template=row.record_template;
                 *row = GeneratedCandidate::new(
                     by_name[&row.function.x.name], row.cache_hit, row.elapsed_micros,
                 );
+                row.record_template=record_template;
             }
             Ok(lifted)
         })();

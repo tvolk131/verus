@@ -203,8 +203,9 @@ artifacts, input collector, runner/support code and fixtures are fingerprinted;
 changes during evaluation abort the run. Timings are not a benchmark.
 
 The counting-assistance checkpoint below implements bounded selection of checked
-sequence/counting lemmas. Broader mutable records, generic helper composition and
-standalone-vector state precision remain separate designs. Operator-trait inference
+sequence/counting lemmas. Later checkpoints implement bounded record and generic
+wrapper composition. Broader opaque mutation and standalone-vector state precision
+remain open. Operator-trait inference
 also needs a design through Verus's inherited/extension specifications.
 
 ## Supplied counting-invariant assistance
@@ -328,3 +329,54 @@ Tools, model artifacts, supplied source and runner/support files are fingerprint
 The record summary regenerates/reproves on warm runs; scalar candidates reuse
 only proposals and repeat all required proofs. State maximality/exactness remain
 independently checked on every run. Timings are not a benchmark.
+
+## Transparent NodeMap composition
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_wrappers.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-wrappers \
+  --native-tests --native-target /tmp/infer-aleph-wrappers-native
+```
+
+The wrapper checkpoint extracts `NodeMap` and three methods from the pinned
+original `crypto/src/node.rs`. `get` and `insert` keep their original signatures,
+unrestricted generic payload and executable bodies. `size` explicitly changes
+`self.0.len().into()` to `NodeCount(self.0.len())`: derived conversion inference
+is still unsupported. Native differential tests compare the adapted API with
+all three pinned method bodies, including the original conversion. Unrelated
+codec/iterator/clone implementations are outside this formal target.
+
+The supplied collector core now stores `NodeMap<(T, u16)>`. Its inferred update
+calls `size`, borrowed `get` and mutable `insert`; it consumes shared tuple
+patterns and retains ordinary primitive widening and guarded counter arithmetic.
+The compiler composes the helpers' checked domains and effects, tracks nested
+field frames, and independently checks the complete modeled final state.
+All six inferred functions (two scalar helpers, two read-only queries and two
+state updates) must pass all three exact obligations in every semantic control.
+Record/query templates regenerate and reprove on warm runs; scalar proposals may
+hit their cache and still receive fresh proofs.
+
+This is an explicit storage adaptation of the supplied manual core, not the
+clean-main generic `UnitsCollector<H>`/`Unit`/`Hasher` implementation. Other methods
+retain their contracts, loop annotations and direct access to the underlying
+vector. The existing counting equivalence, minimal whole-valid-domain harness and
+separate behavioral regression oracle remain. The extracted API lives in the
+harness parent module so private storage is transparent to the collector;
+automatic opaque views across the original crate boundary are not established.
+NodeIndex/NodeCount representations are retained, while unused native derives
+are excluded from the proof harness as in the earlier experiments.
+
+Twelve formal scenarios compare unassisted failure, inferred/warm success,
+wrong lookup/insertion/length, wrong round/counter, duplicate counting, changed
+frames, missing accounting and an added overflow restriction. Domain controls
+must fail the minimal invariant harness itself, not just its behavioral oracle.
+Seven native runs exercise the original and wrapped supplied tests, lookup/insert
+and overflow mutations, the API comparison and a wrong-size mutation of that
+comparison. These are universal checks of the supplied properties and deliberate
+mutation controls, not claims of newly discovered production bugs.
+
+Outputs include raw diagnostics, `results.json`, source snapshots/hashes, the
+pinned original node source, a reviewable storage/inference patch, native lockfile
+and an isolated clone restored to its passing variant. Tool/model/support inputs
+are fingerprinted; timings are observations rather than a benchmark.

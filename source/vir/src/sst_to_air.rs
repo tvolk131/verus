@@ -1903,7 +1903,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     // models' exact bounds requirements for successful execution.
                     // Ordinary verification still asserts these requirements.
                     let inferred =
-                        func.x.attrs.infer && !func.x.attrs.infer_allow_approx && typs.is_empty();
+                        func.x.attrs.infer && !func.x.attrs.infer_allow_approx
+                            && (typs.is_empty() || crate::infer::is_record_callee(func, typs));
                     let subslice = resolved_fun
                         .as_ref()
                         .and_then(|f| ctx.func_map.get(f))

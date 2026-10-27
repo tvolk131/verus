@@ -1,143 +1,22 @@
-//! Bounded symbolic effects for one exclusively borrowed, transparent record.
+//! Bounded symbolic effects and queries for one borrowed transparent record.
 //! Candidates describe every field, and are checked against the original body.
 //! No invariant is assumed or discovered by this untrusted synthesizer.
 use super::*;
 use collections::Model;
 
-pub(super) fn candidate(f: &Function) -> bool {
-    f.x.params.first().is_some_and(|p| {
-        matches!(&*p.x.typ, TypX::MutRef(t)
-        if matches!(&**t, TypX::Datatype(Dt::Path(path), ..)
-            if !models::path_is(path, CrateId::Alloc, &["vec", "Vec"])))
-    }) && enums::unit(&f.x.inner_ret.x.typ)
-}
+mod calls;
+mod shape;
+use shape::{Field, Shape, shape, value_type};
 
 fn same(a: &Typ, b: &Typ) -> bool {
     crate::ast_util::types_equal(a, b)
 }
-fn copy_type(t: &Typ, params: &[Ident], depth: usize) -> bool {
-    if depth == 0 {
-        return false;
-    }
-    if scalar(t) {
-        return true;
-    }
-    match &**t {
-        TypX::TypParam(p) => params.contains(p),
-        TypX::Datatype(Dt::Tuple(n), ts, _) if *n <= 4 && ts.len() == *n => {
-            ts.iter().all(|t| copy_type(t, params, depth - 1))
-        }
-        TypX::Datatype(Dt::Path(p), ts, _)
-            if models::path_is(p, CrateId::Core, &["option", "Option"]) && ts.len() == 1 =>
-        {
-            copy_type(&ts[0], params, depth - 1)
-        }
-        _ => false,
-    }
-}
 
-fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool {
-    params.iter().all(|p| {
-        let t = Arc::new(TypX::TypParam(p.clone()));
-        let (mut sized, mut copy) = (0, 0);
-        for b in bounds.iter() {
-            match &**b {
-                GenericBoundX::Trait(TraitId::Sizedness(Sizedness::Sized), ts)
-                    if ts.len() == 1 && same(&ts[0], &t) =>
-                {
-                    sized += 1
-                }
-                GenericBoundX::Trait(TraitId::Path(path), ts)
-                    if ts.len() == 1
-                        && same(&ts[0], &t)
-                        && models::path_is(path, CrateId::Core, &["marker", "Copy"]) =>
-                {
-                    copy += 1
-                }
-                _ => {}
-            }
-        }
-        sized == 1 && copy == 1
-    }) && bounds.len() == params.len() * 2
+pub(super) fn mutable(f: &Function) -> bool {
+    f.x.params.first().is_some_and(|p| matches!(&*p.x.typ, TypX::MutRef(_)))
 }
-
-#[derive(Clone)]
-struct Field {
-    op: FieldOpr,
-    typ: Typ,
-    element: Option<Typ>,
-}
-struct Shape {
-    typ: Typ,
-    fields: Vec<Field>,
-}
-
-fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirErr> {
-    let bad = || {
-        unsupported(
-            &f.span,
-            "record state requires one mutable transparent record, Copy payloads, scalar/Vec fields, and unit return",
-        )
-    };
-    if !candidate(f) {
-        return Err(bad());
-    }
-    let TypX::MutRef(typ) = &*f.x.params[0].x.typ else { return Err(bad()) };
-    let TypX::Datatype(dt, args, _) = &**typ else { return Err(bad()) };
-    let d = datatypes.iter().find(|d| &d.x.name == dt).ok_or_else(bad)?;
-    if d.x.mode != Mode::Exec
-        || d.x.proxy.is_some()
-        || d.x.destructor
-        || d.x.user_defined_invariant_fn.is_some()
-        || d.x.variants.len() != 1
-        || !matches!(&d.x.transparency, DatatypeTransparency::WhenVisible(vis)
-            if crate::ast_util::is_visible_to_opt(vis, &f.x.owning_module))
-        || d.x.variants[0].fields.is_empty()
-        || d.x.variants[0].fields.len() > 8
-        || args.len() != d.x.typ_params.len()
-        || f.x.typ_params.len() > 2
-        || !bounds(&f.x.typ_bounds, &f.x.typ_params)
-    {
-        return Err(bad());
-    }
-    let substitutions =
-        d.x.typ_params.iter().zip(args.iter()).map(|(p, t)| (p.0.clone(), t.clone())).collect();
-    let mut fields = Vec::new();
-    for field in d.x.variants[0].fields.iter() {
-        if field.a.1 != Mode::Exec {
-            return Err(bad());
-        }
-        let typ = crate::sst_util::subst_typ(&substitutions, &field.a.0);
-        let element = collections::vec_args(&typ).map(|ts| ts[0].clone());
-        if let Some(element) = &element {
-            let ts = collections::vec_args(&typ).unwrap();
-            if !matches!(&*ts[1], TypX::Datatype(Dt::Path(p), xs, _) if xs.is_empty()
-                && models::path_is(p, CrateId::Alloc, &["alloc", "Global"]))
-                || !copy_type(element, &f.x.typ_params, 4)
-            {
-                return Err(bad());
-            }
-        } else if !copy_type(&typ, &f.x.typ_params, 4) {
-            return Err(bad());
-        }
-        fields.push(Field {
-            op: FieldOpr {
-                datatype: dt.clone(),
-                variant: d.x.variants[0].name.clone(),
-                field: field.name.clone(),
-                get_variant: false,
-                check: VariantCheck::None,
-            },
-            typ,
-            element,
-        });
-    }
-    if f.x.params.len() > 8
-        || f.x.params.iter().skip(1).any(|p| !copy_type(&p.x.typ, &f.x.typ_params, 4))
-    {
-        return Err(bad());
-    }
-    Ok(Shape { typ: typ.clone(), fields })
+pub(super) fn candidate(f: &Function) -> bool {
+    shape::candidate(f)
 }
 
 fn validate_signature(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirErr> {
@@ -189,6 +68,24 @@ fn coerce(span: &Span, value: Term, typ: &Typ) -> Result<Term, VirErr> {
     if same(&value.expr.typ, typ) {
         return Ok(value);
     }
+    let unwrap = |t: &Typ| {
+        let mut t = t.clone();
+        while let TypX::Decorate(TypDecoration::Ref, None, inner) = &*t {
+            t = inner.clone();
+        }
+        t
+    };
+    if same(&unwrap(&value.expr.typ), &unwrap(typ)) {
+        let p = SpannedTyped::new(span, &value.expr.typ, PlaceX::Temporary(value.expr.clone()));
+        return atom(SpannedTyped::new(
+            span,
+            typ,
+            ExprX::ReadPlace(
+                p,
+                UnfinalizedReadKind { preliminary_kind: ReadKind::Spec, id: u64::MAX },
+            ),
+        ));
+    }
     if let TypX::Int(r) = &**typ {
         if scalar(typ) && eligibility::integer(&value.expr.typ) {
             return summary::unary(span, UnaryOp::Clip { range: *r, truncate: true }, value);
@@ -206,27 +103,33 @@ fn equal(span: &Span, a: Term, b: Term) -> Result<Term, VirErr> {
 }
 fn field_value(f: &Function, shape: &Shape, field: &Field, future: bool) -> Result<Term, VirErr> {
     let span = &f.span;
-    let root =
+    let mut value =
         SpannedTyped::new(span, &f.x.params[0].x.typ, ExprX::Var(f.x.params[0].x.name.clone()));
-    let root =
-        if future { root } else { SpannedTyped::new(span, &root.typ, ExprX::Old(root.clone())) };
-    let root = SpannedTyped::new(
-        span,
-        &shape.typ,
-        ExprX::Unary(
-            if future {
-                UnaryOp::MutRefFuture(MutRefFutureSourceName::Final)
-            } else {
-                UnaryOp::MutRefCurrent
-            },
-            root,
-        ),
-    );
-    atom(SpannedTyped::new(
-        span,
-        &field.typ,
-        ExprX::UnaryOpr(UnaryOpr::Field(field.op.clone()), root),
-    ))
+    if mutable(f) {
+        if !future {
+            value = SpannedTyped::new(span, &value.typ, ExprX::Old(value.clone()));
+        }
+        value = SpannedTyped::new(
+            span,
+            &shape.typ,
+            ExprX::Unary(
+                if future {
+                    UnaryOp::MutRefFuture(MutRefFutureSourceName::Final)
+                } else {
+                    UnaryOp::MutRefCurrent
+                },
+                value,
+            ),
+        );
+    }
+    for step in &field.path {
+        value = SpannedTyped::new(
+            span,
+            &step.typ,
+            ExprX::UnaryOpr(UnaryOpr::Field(step.op.clone()), value),
+        );
+    }
+    atom(value)
 }
 
 #[derive(Clone)]
@@ -239,6 +142,7 @@ struct Interpreter<'a> {
     function: &'a Function,
     shape: Shape,
     all: &'a HashMap<Fun, Function>,
+    datatypes: &'a [Datatype],
     requirements: Vec<Term>,
     remaining: usize,
 }
@@ -260,16 +164,31 @@ impl Interpreter<'_> {
         )?);
         Ok(())
     }
-    fn root(&self, p: &Place) -> bool {
-        matches!(&p.x, PlaceX::DerefMut(p) if matches!(&p.x, PlaceX::Local(n) if n == &self.function.x.params[0].x.name))
+    fn path(&self, p: &Place) -> Option<Vec<FieldOpr>> {
+        match &p.x {
+            PlaceX::Local(n)
+                if !mutable(self.function) && n == &self.function.x.params[0].x.name =>
+            {
+                Some(vec![])
+            }
+            PlaceX::DerefMut(base)
+                if mutable(self.function)
+                    && matches!(&base.x,PlaceX::Local(n) if n==&self.function.x.params[0].x.name) =>
+            {
+                Some(vec![])
+            }
+            PlaceX::Field(op, base) if op.check == VariantCheck::None && !op.get_variant => {
+                let mut path = self.path(base)?;
+                path.push(op.clone());
+                Some(path)
+            }
+            _ => None,
+        }
     }
     fn field(&self, p: &Place) -> Option<usize> {
-        let PlaceX::Field(op, base) = &p.x else { return None };
-        if !self.root(base) || op.check != VariantCheck::None || op.get_variant {
-            return None;
-        }
+        let path = self.path(p)?;
         self.shape.fields.iter().position(|f| {
-            f.op.datatype == op.datatype && f.op.variant == op.variant && f.op.field == op.field
+            shape::same_path(&path, &f.path.iter().map(|p| p.op.clone()).collect::<Vec<_>>())
         })
     }
     fn vector(&self, e: &Expr) -> Option<usize> {
@@ -433,7 +352,8 @@ impl Interpreter<'_> {
         }
     }
     fn project(&self, span: &Span, value: Term, op: &FieldOpr) -> Result<Term, VirErr> {
-        let fields = constructor_fields(span, &value.expr.typ, &op.datatype, &op.variant)?;
+        let fields =
+            constructor_fields(span, &value.expr.typ, &op.datatype, &op.variant, self.datatypes)?;
         let typ = fields
             .into_iter()
             .find(|(n, _)| n == &op.field)
@@ -445,16 +365,18 @@ impl Interpreter<'_> {
         self.spend(&p.span)?;
         match &p.x {
             PatternX::Wildcard => Ok(boolean(&p.span, true)),
+            PatternX::ImmutRef(inner) => self.pattern(s, inner, value),
             PatternX::Var(b)
-                if b.by_ref == ByRef::No
+                if matches!(b.by_ref, ByRef::No | ByRef::ImmutRef)
                     && b.user_mut != Some(true)
-                    && copy_type(&b.typ, &self.function.x.typ_params, 4) =>
+                    && value_type(&b.typ, &self.function.x.typ_params, self.datatypes, 4) =>
             {
                 s.locals.insert(b.name.clone(), coerce(&p.span, value, &b.typ)?);
                 Ok(boolean(&p.span, true))
             }
             PatternX::Constructor(dt, variant, fields) => {
-                let expected = constructor_fields(&p.span, &value.expr.typ, dt, variant)?;
+                let expected =
+                    constructor_fields(&p.span, &value.expr.typ, dt, variant, self.datatypes)?;
                 let mut condition = if matches!(dt, Dt::Tuple(_)) {
                     boolean(&p.span, true)
                 } else {
@@ -498,6 +420,81 @@ impl Interpreter<'_> {
             let arg = self.readonly(s, arg)?;
             return coerce(span, arg, &e.typ);
         }
+        if let ExprX::Call {
+            target: CallTarget::Fun(CallTargetKind::Static, name, types, ..),
+            args,
+            post_args: None,
+            body: None,
+        } = &e.x
+        {
+            if let Some(callee) =
+                self.all.get(name).filter(|f| candidate(f) && f.x.attrs.infer).cloned()
+            {
+                return self.helper_call(s, e, &callee, types, args);
+            }
+            if self.all.get(name).is_some_and(record_models::as_ref) {
+                if args.len() != 1 || types.len() != 1 {
+                    return Err(unsupported(span, "Option as_ref shape"));
+                }
+                let value = self.readonly(s, &args[0])?;
+                let variant: Ident = Arc::new("Some".into());
+                let op = FieldOpr {
+                    datatype: match &*value.expr.typ {
+                        TypX::Datatype(dt, ..) => dt.clone(),
+                        _ => return Err(unsupported(span, "Option as_ref input")),
+                    },
+                    variant: variant.clone(),
+                    field: crate::def::positional_field_ident(0),
+                    get_variant: false,
+                    check: VariantCheck::None,
+                };
+                let payload = self.project(span, value.clone(), &op)?;
+                let borrow = SpannedTyped::new(
+                    span,
+                    &models::reference(payload.expr.typ.clone()),
+                    ExprX::ReadPlace(
+                        SpannedTyped::new(
+                            span,
+                            &payload.expr.typ,
+                            PlaceX::Temporary(payload.expr.clone()),
+                        ),
+                        UnfinalizedReadKind { preliminary_kind: ReadKind::Spec, id: u64::MAX },
+                    ),
+                );
+                let some = atom(SpannedTyped::new(
+                    span,
+                    &e.typ,
+                    ExprX::Ctor(
+                        op.datatype.clone(),
+                        variant.clone(),
+                        Arc::new(vec![Arc::new(air::ast::BinderX {
+                            name: op.field.clone(),
+                            a: borrow,
+                        })]),
+                        None,
+                    ),
+                ))?;
+                let none = atom(SpannedTyped::new(
+                    span,
+                    &e.typ,
+                    ExprX::Ctor(
+                        op.datatype.clone(),
+                        Arc::new("None".into()),
+                        Arc::new(vec![]),
+                        None,
+                    ),
+                ))?;
+                let test = atom(SpannedTyped::new(
+                    span,
+                    &bool_typ(),
+                    ExprX::UnaryOpr(
+                        UnaryOpr::IsVariant { datatype: op.datatype.clone(), variant },
+                        value.expr,
+                    ),
+                ))?;
+                return conditional(span, test, some, none);
+            }
+        }
         match &e.x {
             ExprX::Const(Constant::Bool(_) | Constant::Int(_)) => atom(e.clone()),
             ExprX::Var(n) => {
@@ -511,16 +508,16 @@ impl Interpreter<'_> {
                 if let Some(e) = e {
                     let v = self.expr(s, e)?;
                     if !enums::unit(&v.expr.typ) {
-                        return Err(unsupported(span, "record methods return unit"));
+                        return Err(unsupported(span, "non-unit early returns in record queries"));
                     }
                 }
                 s.active = boolean(span, false);
                 exits::unit_value(span)
             }
             ExprX::Ctor(dt, variant, fields, None)
-                if copy_type(&e.typ, &self.function.x.typ_params, 4) =>
+                if value_type(&e.typ, &self.function.x.typ_params, self.datatypes, 4) =>
             {
-                let expected = constructor_fields(span, &e.typ, dt, variant)?;
+                let expected = constructor_fields(span, &e.typ, dt, variant, self.datatypes)?;
                 if expected.len() != fields.len() {
                     return Err(unsupported(span, "record value constructor"));
                 }
@@ -631,7 +628,12 @@ impl Interpreter<'_> {
                             };
                             if binding.by_ref != ByRef::No
                                 || binding.user_mut == Some(true)
-                                || !copy_type(&binding.typ, &self.function.x.typ_params, 4)
+                                || !value_type(
+                                    &binding.typ,
+                                    &self.function.x.typ_params,
+                                    self.datatypes,
+                                    4,
+                                )
                             {
                                 return Err(unsupported(
                                     &stmt.span,
@@ -733,6 +735,41 @@ impl Interpreter<'_> {
                     };
                     let value = coerce(span, value, &self.shape.fields[i].typ)?;
                     s.fields[i] = conditional(span, s.active.clone(), value, s.fields[i].clone())?;
+                } else if let Some(prefix) = self.path(place) {
+                    if op.is_some() {
+                        return Err(unsupported(span, "compound nested-record assignment"));
+                    }
+                    let indices: Vec<_> = self
+                        .shape
+                        .fields
+                        .iter()
+                        .enumerate()
+                        .filter(|(_, f)| {
+                            f.path.len() > prefix.len()
+                                && shape::same_path(
+                                    &prefix,
+                                    &f.path[..prefix.len()]
+                                        .iter()
+                                        .map(|p| p.op.clone())
+                                        .collect::<Vec<_>>(),
+                                )
+                        })
+                        .map(|(i, _)| i)
+                        .collect();
+                    if indices.is_empty() {
+                        return Err(unsupported(span, "nested-record assignment target"));
+                    }
+                    for i in indices {
+                        if self.shape.fields[i].element.is_some() {
+                            return Err(unsupported(span, "whole-vector replacement"));
+                        }
+                        let mut leaf = value.clone();
+                        for step in &self.shape.fields[i].path[prefix.len()..] {
+                            leaf = self.project(span, leaf, &step.op)?;
+                        }
+                        s.fields[i] =
+                            conditional(span, s.active.clone(), leaf, s.fields[i].clone())?;
+                    }
                 } else {
                     if op.is_some() {
                         return Err(unsupported(span, "compound vector-slot assignment"));
@@ -798,6 +835,15 @@ impl Interpreter<'_> {
         a: Term,
         b: Term,
     ) -> Result<Term, VirErr> {
+        let normalize = |v: Term| -> Result<Term, VirErr> {
+            let mut typ = v.expr.typ.clone();
+            while let TypX::Decorate(TypDecoration::Ref, None, t) = &*typ {
+                typ = t.clone();
+            }
+            coerce(span, v, &typ)
+        };
+        let a = normalize(a)?;
+        let b = normalize(b)?;
         if matches!(op, BinaryOp::Eq(_) | BinaryOp::Ne)
             && (same(&a.expr.typ, &b.expr.typ)
                 || eligibility::integer(&a.expr.typ) && eligibility::integer(&b.expr.typ))
@@ -822,8 +868,13 @@ fn constructor_fields(
     typ: &Typ,
     dt: &Dt,
     variant: &Ident,
+    datatypes: &[Datatype],
 ) -> Result<Vec<(Ident, Typ)>, VirErr> {
     let invalid = || unsupported(span, "record value constructor outside tuples and Option");
+    let mut typ = typ;
+    while let TypX::Decorate(TypDecoration::Ref, None, inner) = &**typ {
+        typ = inner;
+    }
     let TypX::Datatype(actual, args, _) = &**typ else { return Err(invalid()) };
     if actual != dt {
         return Err(invalid());
@@ -847,7 +898,10 @@ fn constructor_fields(
                 _ => Err(invalid()),
             }
         }
-        _ => Err(invalid()),
+        _ => shape::fields(typ, datatypes)
+            .filter(|fs| fs.iter().all(|(op, _)| &op.datatype == dt && &op.variant == variant))
+            .map(|fs| fs.into_iter().map(|(op, t)| (op.field, t)).collect())
+            .ok_or_else(invalid),
     }
 }
 
@@ -857,8 +911,14 @@ pub(super) fn infer(
     datatypes: &[Datatype],
 ) -> Result<Contract, VirErr> {
     let shape = validate_signature(f, datatypes)?;
-    let mut engine =
-        Interpreter { function: f, shape, all, requirements: vec![], remaining: FORMULA_BUDGET };
+    let mut engine = Interpreter {
+        function: f,
+        shape,
+        all,
+        datatypes,
+        requirements: vec![],
+        remaining: FORMULA_BUDGET,
+    };
     let mut fields = Vec::new();
     for (i, field) in engine.shape.fields.iter().enumerate() {
         fields.push(if field.element.is_some() {
@@ -879,7 +939,7 @@ pub(super) fn infer(
             })
             .collect::<Result<_, VirErr>>()?;
     let mut state = State { fields, locals, active: boolean(&f.span, true) };
-    engine.expr(
+    let result = engine.expr(
         &mut state,
         f.x.body.as_ref().ok_or_else(|| unsupported(&f.span, "missing record body"))?,
     )?;
@@ -888,7 +948,15 @@ pub(super) fn infer(
         pre = logical(&f.span, LogicalOp::And, pre, p.clone())?;
     }
     let mut post = boolean(&f.span, true);
-    for (i, field) in engine.shape.fields.iter().enumerate() {
+    if !mutable(f) {
+        let output = atom(SpannedTyped::new(
+            &f.span,
+            &f.x.inner_ret.x.typ,
+            ExprX::Var(f.x.inner_ret.x.name.clone()),
+        ))?;
+        post = equal(&f.span, output, coerce(&f.span, result, &f.x.inner_ret.x.typ)?)?;
+    }
+    for (i, field) in engine.shape.fields.iter().enumerate().filter(|_| mutable(f)) {
         let after = if field.element.is_some() {
             engine.view(i, true)?
         } else {
@@ -928,7 +996,8 @@ pub(super) fn validate_summary(
     signature.require = Arc::new(vec![]);
     signature.ensure = (Arc::new(vec![]), Arc::new(vec![]));
     let shape = validate_signature(&f.new_x(signature), datatypes)?;
-    let engine = Interpreter { function: f, shape, all, requirements: vec![], remaining: 0 };
+    let engine =
+        Interpreter { function: f, shape, all, datatypes, requirements: vec![], remaining: 0 };
     fn clauses(e: &Expr, out: &mut Vec<Expr>) {
         if let ExprX::Logical(LogicalOp::And, a, b) = &e.x {
             clauses(a, out);
@@ -955,17 +1024,23 @@ pub(super) fn validate_summary(
                     op.check == VariantCheck::None
                         && !op.get_variant
                         && (engine.shape.fields.iter().any(|field| {
-                            field.op.datatype == op.datatype
-                                && field.op.variant == op.variant
-                                && field.op.field == op.field
-                                && same(&field.typ, &e.typ)
-                        }) || constructor_fields(&f.span, &a.typ, &op.datatype, &op.variant)
-                            .is_ok_and(|fs| {
-                                fs.iter().any(|(n, t)| n == &op.field && same(t, &e.typ))
-                            }))
+                            field.path.iter().any(|p| {
+                                p.op.datatype == op.datatype
+                                    && p.op.variant == op.variant
+                                    && p.op.field == op.field
+                                    && same(&p.typ, &e.typ)
+                            })
+                        }) || constructor_fields(
+                            &f.span,
+                            &a.typ,
+                            &op.datatype,
+                            &op.variant,
+                            datatypes,
+                        )
+                        .is_ok_and(|fs| fs.iter().any(|(n, t)| n == &op.field && same(t, &e.typ))))
                 }
                 ExprX::UnaryOpr(UnaryOpr::IsVariant { datatype, variant }, a) => {
-                    constructor_fields(&f.span, &a.typ, datatype, variant).is_ok()
+                    constructor_fields(&f.span, &a.typ, datatype, variant, datatypes).is_ok()
                 }
                 ExprX::ReadPlace(p, k) => {
                     matches!(k.preliminary_kind, ReadKind::Spec)
@@ -1006,8 +1081,8 @@ pub(super) fn validate_summary(
                     )
                 ),
                 ExprX::Ctor(dt, v, fields, None) => {
-                    copy_type(&e.typ, &f.x.typ_params, 4)
-                        && constructor_fields(&f.span, &e.typ, dt, v)
+                    value_type(&e.typ, &f.x.typ_params, datatypes, 4)
+                        && constructor_fields(&f.span, &e.typ, dt, v, datatypes)
                             .is_ok_and(|fs| fs.len() == fields.len())
                 }
                 ExprX::Binary(op, _, _) => matches!(
@@ -1032,6 +1107,16 @@ pub(super) fn validate_summary(
         })
     };
     validate_value(&f.x.require[0])?;
+    if !mutable(f) {
+        let ExprX::Binary(BinaryOp::Eq(Mode::Spec), lhs, rhs) = &f.x.ensure.0[0].x else {
+            return Err(invalid());
+        };
+        if !matches!(&lhs.x,ExprX::Var(n) if n==&f.x.inner_ret.x.name) || !same(&lhs.typ, &rhs.typ)
+        {
+            return Err(invalid());
+        }
+        return validate_value(rhs);
+    }
     let mut posts = Vec::new();
     clauses(&f.x.ensure.0[0], &mut posts);
     if posts.len() != engine.shape.fields.len() {
@@ -1049,7 +1134,10 @@ pub(super) fn validate_summary(
         if format!("{:?}", expected.expr) != format!("{lhs:?}") {
             return Err(unsupported(
                 &f.span,
-                &format!("invalid imported record frame for {}", field.op.field),
+                &format!(
+                    "invalid imported record frame for {:?}",
+                    field.path.iter().map(|p| &p.op.field).collect::<Vec<_>>()
+                ),
             ));
         }
         validate_value(rhs)?;

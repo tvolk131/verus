@@ -247,6 +247,10 @@ fn correct_candidate_passes_all_checks() {
 /// An independent transition oracle: a u8 increment and an unchanged Boolean.
 /// No candidate or transition formula is obtained from the record synthesizer.
 fn record_fixture() -> (Ctx, Pars, FuncCheckSst) {
+    record_fixture_nested(false)
+}
+
+fn record_fixture_nested(nested: bool) -> (Ctx, Pars, FuncCheckSst) {
     let name = Dt::Path(Arc::new(PathX {
         krate: CrateId::Id(Arc::new("infer_test".into()), 1),
         segments: Arc::new(vec![Arc::new("Counter".into())]),
@@ -284,8 +288,32 @@ fn record_fixture() -> (Ctx, Pars, FuncCheckSst) {
             destructor: false,
         },
     );
-    let (ctx, _, mut check) = fixture_with_datatypes(vec![datatype]);
-    let record_typ = Arc::new(TypX::Datatype(name.clone(), Arc::new(vec![]), Arc::new(vec![])));
+    let leaf_typ = Arc::new(TypX::Datatype(name.clone(), Arc::new(vec![]), Arc::new(vec![])));
+    let mut ds = vec![datatype.clone()];
+    let record_typ = if nested {
+        let holder_name = Dt::Path(Arc::new(PathX {
+            krate: match &name {
+                Dt::Path(p) => p.krate.clone(),
+                _ => unreachable!(),
+            },
+            segments: Arc::new(vec![Arc::new("Holder".into())]),
+        }));
+        let mut holder = datatype.x.clone();
+        holder.name = holder_name.clone();
+        holder.variants = Arc::new(vec![Variant {
+            name: Arc::new("Holder".into()),
+            ctor_style: CtorPrintStyle::Braces,
+            fields: Arc::new(vec![Arc::new(air::ast::BinderX {
+                name: Arc::new("inner".into()),
+                a: (leaf_typ.clone(), Mode::Exec, Visibility { restricted_to: None }),
+            })]),
+        }]);
+        ds.push(Spanned::new(span(), holder));
+        Arc::new(TypX::Datatype(holder_name, Arc::new(vec![]), Arc::new(vec![])))
+    } else {
+        leaf_typ.clone()
+    };
+    let (ctx, _, mut check) = fixture_with_datatypes(ds);
     let root_typ = Arc::new(TypX::MutRef(record_typ.clone()));
     let root = SpannedTyped::new(&span(), &root_typ, ExpX::VarAt(var("state"), VarAt::Pre));
     let initial =
@@ -295,6 +323,29 @@ fn record_fixture() -> (Ctx, Pars, FuncCheckSst) {
         &record_typ,
         ExpX::Unary(UnaryOp::MutRefFuture(MutRefFutureSourceName::Final), root),
     );
+    let descend = |r: Exp| {
+        if nested {
+            let TypX::Datatype(dt, ..) = &*record_typ else { unreachable!() };
+            SpannedTyped::new(
+                &span(),
+                &leaf_typ,
+                ExpX::UnaryOpr(
+                    UnaryOpr::Field(FieldOpr {
+                        datatype: dt.clone(),
+                        variant: Arc::new("Holder".into()),
+                        field: Arc::new("inner".into()),
+                        get_variant: false,
+                        check: VariantCheck::None,
+                    }),
+                    r,
+                ),
+            )
+        } else {
+            r
+        }
+    };
+    let initial = descend(initial);
+    let final_state = descend(final_state);
     let select = |r: Exp, field: &str, typ: &Typ| {
         SpannedTyped::new(
             &span(),
@@ -422,6 +473,32 @@ fn record_precision_rejects_loose_missing_wrong_and_restrictive_candidates() {
     assert!(state::exactness_body(&ctx, &span(), &pars, &precision).is_err());
     assert_eq!(before, format!("{:?}", unsafe_candidate));
     assert!(!verifies(&ctx, &pars, &unsafe_candidate));
+}
+
+#[test]
+fn nested_record_exactness_checks_changed_and_unchanged_leaves_independently() {
+    let (ctx, pars, check) = record_fixture_nested(true);
+    assert!(verifies(&ctx, &pars, &check));
+    assert!(verifies(&ctx, &pars, &state::exactness_body(&ctx, &span(), &pars, &check).unwrap()));
+    for omitted in 0..2 {
+        let mut loose = check.clone();
+        Arc::make_mut(&mut loose.post_condition).ens_exps = Arc::new(
+            check
+                .post_condition
+                .ens_exps
+                .iter()
+                .enumerate()
+                .filter(|(i, _)| *i != omitted)
+                .map(|(_, e)| e.clone())
+                .collect(),
+        );
+        assert!(verifies(&ctx, &pars, &loose));
+        assert!(!verifies(
+            &ctx,
+            &pars,
+            &state::exactness_body(&ctx, &span(), &pars, &loose).unwrap()
+        ));
+    }
 }
 
 #[test]

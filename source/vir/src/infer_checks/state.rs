@@ -55,66 +55,8 @@ pub(super) fn exactness_body(
         record_typ,
         ExpX::Unary(UnaryOp::MutRefFuture(MutRefFutureSourceName::Final), input),
     );
-    let substitutions = datatype
-        .x
-        .typ_params
-        .iter()
-        .zip(type_args.iter())
-        .map(|(p, t)| (p.0.clone(), t.clone()))
-        .collect();
-    let mut equalities = Vec::new();
-    for field in datatype.x.variants[0].fields.iter() {
-        if field.a.1 != Mode::Exec {
-            return Err(unsupported());
-        }
-        // The datatype table has already passed through Poly. Recover the
-        // logical field type before constructing a new expression to encode.
-        let typ = crate::sst_util::subst_typ(&substitutions, &field.a.0);
-        let typ = if let TypX::Boxed(t) = &*typ { t.clone() } else { typ };
-        let op = UnaryOpr::Field(FieldOpr {
-            datatype: dt.clone(),
-            variant: datatype.x.variants[0].name.clone(),
-            field: field.name.clone(),
-            get_variant: false,
-            check: VariantCheck::None,
-        });
-        let observe = |record: Exp| -> Result<Exp, VirErr> {
-            let value = SpannedTyped::new(span, &typ, ExpX::UnaryOpr(op.clone(), record));
-            if let Some(args) = crate::infer::record_vec_args(&typ) {
-                let view = crate::infer::record_vec_view(&ctx.func_map).ok_or_else(unsupported)?;
-                let ts = view.x.typ_params.iter().cloned().zip(args.iter().cloned()).collect();
-                let ret = crate::sst_util::subst_typ(&ts, &view.x.inner_ret.x.typ);
-                let crate::ast::FunctionKind::TraitMethodImpl { method, trait_typ_args, .. } =
-                    &view.x.kind
-                else {
-                    return Err(unsupported());
-                };
-                let trait_args = Arc::new(
-                    trait_typ_args.iter().map(|t| crate::sst_util::subst_typ(&ts, t)).collect(),
-                );
-                Ok(SpannedTyped::new(
-                    span,
-                    &ret,
-                    ExpX::Call(
-                        CallFun::Fun(method.clone(), Some((view.x.name.clone(), args.clone()))),
-                        trait_args,
-                        Arc::new(vec![value]),
-                    ),
-                ))
-            } else {
-                Ok(value)
-            }
-        };
-        let a = observe(other.clone())?;
-        let b = observe(actual.clone())?;
-        // Sequences are determined by their elements, not an opaque SMT identity.
-        let equality = if crate::infer::record_vec_args(&typ).is_some() {
-            ExpX::BinaryOpr(BinaryOpr::ExtEq(false, a.typ.clone()), a, b)
-        } else {
-            ExpX::Binary(BinaryOp::Eq, a, b)
-        };
-        equalities.push(SpannedTyped::new(span, &bool_typ(), equality));
-    }
+    let mut equalities = vec![];
+    observations(ctx, span, record_typ, other.clone(), actual, 5, &mut equalities)?;
     let equals_actual = crate::sst_util::sst_conjoin(span, &Arc::new(equalities));
     let vars = [(root.x.name.clone(), root.x.typ.clone()), (name.clone(), record_typ.clone())];
     let equals_actual =
@@ -156,4 +98,83 @@ pub(super) fn exactness_body(
         kind: LocalDeclKind::Assert,
     }));
     Ok(check)
+}
+
+// Derive all observations independently from the datatype definitions. Nested
+// records are traversed; no list of candidate equations is used as a frame.
+fn observations(
+    ctx: &Ctx,
+    span: &Span,
+    typ: &Typ,
+    a: Exp,
+    b: Exp,
+    depth: usize,
+    out: &mut Vec<Exp>,
+) -> Result<(), VirErr> {
+    let bad = || error(span, "Verus Infer incomplete: unsupported nested record precision shape");
+    if depth == 0 || out.len() >= 16 {
+        return Err(bad());
+    }
+    if let Some(args) = crate::infer::record_vec_args(typ) {
+        let view = crate::infer::record_vec_view(&ctx.func_map).ok_or_else(bad)?;
+        let ts = view.x.typ_params.iter().cloned().zip(args.iter().cloned()).collect();
+        let ret = crate::sst_util::subst_typ(&ts, &view.x.inner_ret.x.typ);
+        let crate::ast::FunctionKind::TraitMethodImpl { method, trait_typ_args, .. } = &view.x.kind
+        else {
+            return Err(bad());
+        };
+        let trait_args: crate::ast::Typs =
+            Arc::new(trait_typ_args.iter().map(|t| crate::sst_util::subst_typ(&ts, t)).collect());
+        let observe = |v: Exp| {
+            SpannedTyped::new(
+                span,
+                &ret,
+                ExpX::Call(
+                    CallFun::Fun(method.clone(), Some((view.x.name.clone(), args.clone()))),
+                    trait_args.clone(),
+                    Arc::new(vec![v]),
+                ),
+            )
+        };
+        out.push(SpannedTyped::new(
+            span,
+            &bool_typ(),
+            ExpX::BinaryOpr(BinaryOpr::ExtEq(false, ret.clone()), observe(a), observe(b)),
+        ));
+        return Ok(());
+    }
+    let nested = matches!(&**typ,TypX::Datatype(crate::ast::Dt::Path(p),..) if !(p.krate==crate::ast::CrateId::Core && p.segments.iter().map(|s|s.as_str()).eq(["option","Option"])));
+    if nested {
+        let TypX::Datatype(dt, args, _) = &**typ else { unreachable!() };
+        let d = ctx.datatype_map.get(dt).ok_or_else(bad)?;
+        if d.x.variants.len() != 1
+            || d.x.variants[0].fields.is_empty()
+            || d.x.variants[0].fields.len() > 8
+            || d.x.typ_params.len() != args.len()
+        {
+            return Err(bad());
+        }
+        let ts =
+            d.x.typ_params.iter().zip(args.iter()).map(|(p, t)| (p.0.clone(), t.clone())).collect();
+        for field in d.x.variants[0].fields.iter() {
+            if field.a.1 != Mode::Exec {
+                return Err(bad());
+            }
+            let t = crate::sst_util::subst_typ(&ts, &field.a.0);
+            let t = if let TypX::Boxed(t) = &*t { t.clone() } else { t };
+            let op = UnaryOpr::Field(FieldOpr {
+                datatype: dt.clone(),
+                variant: d.x.variants[0].name.clone(),
+                field: field.name.clone(),
+                get_variant: false,
+                check: VariantCheck::None,
+            });
+            let a = SpannedTyped::new(span, &t, ExpX::UnaryOpr(op.clone(), a.clone()));
+            let b = SpannedTyped::new(span, &t, ExpX::UnaryOpr(op, b.clone()));
+            observations(ctx, span, &t, a, b, depth - 1, out)?;
+        }
+    } else {
+        out.push(SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, a, b)));
+    }
+    Ok(())
 }

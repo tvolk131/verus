@@ -64,6 +64,13 @@ Implemented and covered by regression tests:
   harnesses check the whole valid domain, invariant preservation and the original
   behavior. Independent original-body queries certify maximal input safety and
   exact modeled final state. No vector wrappers or assumed invariants are required.
+- [x] Bounded transparent wrapper and helper composition: nested scalar/vector
+  leaves, scalar wrapper values, generic static inferred receiver calls and shared
+  `Option<&T>` lookups. Unconstrained sized payloads can move into a slot without
+  adding a Copy bound. All exact obligations remain required. Aleph's pinned
+  NodeMap lookup/insert bodies and a documented constructor-spelled size variant
+  compose with the supplied collector invariant. Opaque collection views and
+  derived conversion/operator inference remain open.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -186,7 +193,7 @@ Still planned or outside the implemented subset:
   exclusive/open shared subslices are implemented.
 - [ ] General mutation, state relations, and frame-condition inference beyond
   the bounded vector/record subset and counted-loop locals. Standalone-vector
-  precision checks, nested records, mutable helper composition and counting
+  precision checks, opaque/deeper records, broader mutable helper composition and counting
   lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
@@ -216,7 +223,7 @@ Still planned or outside the implemented subset:
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Opt-in goal assistance handles selected scalar assertions and supplied counting invariants; general queries, automatic retries and contract strengthening remain future work. |
-| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec views and bounded exact record-state composition are implemented. General heap mutation and standalone-vector state precision remain. |
+| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec views, bounded exact record-state composition and transparent generic wrappers are implemented. General heap mutation and standalone-vector state precision remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
 
@@ -303,20 +310,22 @@ APIs and research directions.
    final state in default exact mode. Mutation tests distinguish precise candidate
    behavior from requested-domain coverage and invariant preservation.
    This does not establish clean-main collector or arbitrary record inference.
-10. **Next: production abstractions, collection loops and richer composition.**
-   Nested records/newtype fields, generic mutable helper composition, `NodeMap`
-   views and `Unit`/`Hasher` trait specifications remain open, along with vector
-   construction/copy loop annotations, a dedicated expected-domain interface and
-   standalone-vector state precision checking.
-   Concrete operator implementations cannot introduce inferred
-   preconditions independently of their inherited trait contracts. Address these
-   boundaries with checked models/specifications before promising a clean-main
-   collector proof from one supplied invariant. Goal-directed usability can add
-   ordinary-proof-first retries, explicit query/strategy controls, richer proof
-   contexts and postcondition/implicit-safety goals based on further real cases.
-   Slice traversal loops, richer
-   enum payloads and returned views remain separate designs. Formal acceptance/
-   precision verification remains the independent assurance workstream below.
+10. **Transparent wrapper composition checkpoint implemented.** Acyclic generic
+    receiver calls compose checked domains and final-state equations over nested
+    records. Read-only queries include bounded borrowed lookups; exactness walks
+    the full nested datatype independently. A source-connected NodeMap experiment
+    retains the original get/insert bodies, records one size-expression adaptation
+    and verifies the supplied collector through those APIs. Private storage is
+    transparent in the harness module; this does not establish opaque cross-crate
+    views or the clean-main generic Unit/Hasher implementation.
+11. **Next: opaque abstractions and the collector lifecycle.** Checked abstract
+    collection views across private crate/module boundaries, associated-type and
+    Unit/Hasher trait specifications, inherited operator/conversion contracts,
+    collection construction/copy loops and richer mutable return values remain.
+    Broader query control, ordinary-proof-first retries, application invariant
+    discovery and a dedicated expected-domain interface remain separate work.
+    The existing supplied invariant, loop annotations and regression oracle are
+    still visible inputs; do not count their desired semantics as inferred.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,

@@ -889,6 +889,68 @@ fn record_precision_timeouts_block_exact_publication_but_remain_optional_in_soun
 }
 
 #[test]
+fn generic_wrapper_interfaces_reprove_queries_updates_and_composed_callers() {
+    let crates=InferCrates::new();
+    let base=r#"
+        use vstd::prelude::*;
+        pub struct Slots<T>(pub Vec<Option<T>>);
+        impl<T> Slots<T>{
+            #[verifier::infer] pub fn len(&self)->usize{self.0.len()}
+            #[verifier::infer] pub fn get(&self,i:usize)->Option<&T>{self.0[i].as_ref()}
+            #[verifier::infer] pub fn put(&mut self,i:usize,v:T){self.0[i]=Some(v);}
+        }
+    "#;
+    for _ in 0..2 {
+        let run=crates.build("wrapper_base",base,&[],&["--output-json"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let report=json_inference(&run);let fs=report["functions"].as_array().unwrap();
+        assert_eq!(fs.len(),3);
+        for f in fs {
+            assert!(matches!(f["summary_kind"].as_str(),Some("record_view"|"record_state")),"{}",f);
+            assert_eq!(f["metrics"]["cache_policy"],"regenerated_state");
+            assert_eq!(f["metrics"]["cache"],"miss");
+            for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}
+        }
+    }
+    let caller=r#"
+        use vstd::prelude::*;
+        pub struct Outer<T>{pub map:wrapper_base::Slots<T>,pub used:usize,pub stable:u8}
+        impl<T:Copy> Outer<T>{
+            pub open spec fn valid(&self)->bool{self.used==self.map.0@.count_prefix(|s:Option<T>|s.is_some(),self.map.0@.len())}
+            #[verifier::infer] pub fn add(&mut self,i:usize,v:T){
+                if i>=self.map.len(){return;}
+                let empty=match self.map.get(i){None=>true,Some(_)=>false};
+                if empty{self.map.put(i,v);self.used+=1;}
+            }
+        }
+        pub fn check<T:Copy>(s:&mut Outer<T>,i:usize,v:T)
+            requires old(s).valid(), ensures final(s).valid(),final(s).stable==old(s).stable,
+        {s.add(i,v);}
+    "#;
+    for _ in 0..2 {
+        let run=crates.build("wrapper_app",caller,&["wrapper_base"],&["--infer-goals","--output-json"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        assert_eq!(json_inference(&run)["functions"][0]["proofs"]["exactness"]["status"],"proved");
+    }
+    let wrong=base.replace("self.0[i].as_ref()","self.0[0].as_ref()");
+    let run=crates.build("wrapper_base",&wrong,&[],&["--output-json"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("wrapper_app",caller,&["wrapper_base"],&["--infer-goals","--output-json"]);
+    assert!(!run.status.success());
+    let report=json_inference(&run);
+    assert_eq!(report["status"],"caller_proof_failed");
+    for p in ["soundness","maximality","exactness"]{assert_eq!(report["functions"][0]["proofs"][p]["status"],"proved");}
+    assert!(!crates.vir("wrapper_app").exists());
+    // A precision failure in a generic helper cannot publish or start callers.
+    let limited=base.replace("#[verifier::infer] pub fn put", "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer] pub fn put");
+    let run=crates.build("wrapper_base",&format!("{limited} fn blocked(){{assert(false);}}"),&[],&["--output-json"]);
+    assert!(!run.status.success());
+    assert_eq!(json_inference(&run)["status"],"required_proof_incomplete");
+    assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    assert!(!crates.vir("wrapper_base").exists());
+}
+
+#[test]
 fn record_precision_covers_all_integer_widths_and_both_pointer_models() {
     let crates = InferCrates::new();
     let mut source = String::new();

@@ -252,23 +252,45 @@ restrictions cannot silently replace that goal. No new expected-domain attribute
 or mixed handwritten/inferred-contract syntax is introduced; this uses an
 ordinary verification harness.
 
-The initial subset permits up to eight executable fields, two `Copy` type
-parameters and eight parameters including the one mutable record. Values may be
-machine integers, Booleans, opaque Copy parameters, tuples of up to four elements,
-and bounded nested `Option`/tuple combinations (depth four). Vector fields require
-such Copy elements and the default allocator. The type definition must be
-available and transparent in the inferred function's module, with one variant, no custom destructor, proxy,
-tracked/ghost fields or user-defined type invariant. Supplied spec predicates
-such as `valid()` are ordinary functions and remain supported.
+The subset permits up to eight fields per record, four field-projection levels,
+sixteen scalar/vector leaves, two type parameters and eight function parameters.
+Records must be available and transparent in the inferred function's module,
+with one variant, no custom destructor, proxy, tracked/ghost fields or user-defined
+type invariant. Nested transparent records and scalar newtype fields are supported.
+Payloads may be machine integers, Booleans, opaque generic values, tuples of up to
+four elements, and bounded `Option`/tuple/value-record combinations (depth four).
+Type parameters require `Sized`, optionally `Copy`; arbitrary trait bounds remain
+unsupported. Vector fields use the default allocator. Normal Rust/Verus ownership,
+borrowing and drop rules still apply: candidate generation does not insert copies
+or invent a `Copy` bound for moved generic payloads.
 
-Bodies support immutable Copy locals, pure `Option`/tuple matches with at most
-four arms, scalar assignments, checked add/subtract/multiply, comparisons,
-integer casts, direct vector length/index/slot replacement and closed primitive
-`From` widenings. Inference composes these operations directly; extracted vector
-wrappers are unnecessary. Reads after writes use the updated symbolic field.
-Aliases, another reference parameter, mutable locals, whole-vector replacement,
-arbitrary calls, loops, division/remainder, general traits, nested record fields,
-returned references and non-unit results remain unsupported by this path.
+Bodies support immutable locals, pure `Option`/tuple matches with at most four
+arms, scalar assignments, checked add/subtract/multiply, comparisons, integer
+casts, direct vector operations and closed primitive `From` widenings. Assigning
+an entire scalar/value record updates all its leaves. Reads after writes use the
+updated state, including through helper calls. Supplied predicates such as
+`valid()` remain ordinary spec functions; inference does not assume them.
+
+One mutable receiver with unit return may call acyclic, static inferred methods
+on that receiver or a direct nested field. Their checked safety conditions and
+complete final-state relations are instantiated at the call site, including
+unchanged leaves. Generic type substitutions are simultaneous and bounded;
+exact callers require exact-mode inferred callees. The verifier still checks the
+original call and body. Compiler-generated borrow-resolution scaffolding is
+preserved and inspected for dependencies; source proof code remains forbidden.
+
+Read-only receiver methods can infer value results and bounded `Option<&T>`
+lookups, including shared tuple patterns and `Option::as_ref` through its existing
+vstd specification. These use return-value exactness and report
+`summary_kind = "record_view"`. Returned references are characterized by their
+logical values; lifetimes/ownership use the original Rust/Verus checks. This does
+not establish pointer-address identity. Unit-valued queries and non-unit early
+returns are currently unsupported. Mutable methods still require unit return.
+
+Aliases, additional reference parameters, mutable locals, whole-vector
+replacement, loops, division/remainder and general trait/operator calls remain
+unsupported by this path. In particular, arbitrary `Into` and derived operator
+implementations are not interpreted as constructors or arithmetic.
 
 `u32::from(round)` and the other 34 approved primitive widenings reuse existing
 vstd conversion extension specifications. Recognition checks the canonical core
@@ -306,7 +328,8 @@ Record summaries regenerate and reprove on every run
 (`summary_kind = "record_state"`, `metrics.cache_policy = "regenerated_state"`);
 their state expressions never enter the scalar persistent cache. Identities bind
 the original function, visible datatype definitions and model dependencies.
-Imports validate a closed formula language and one final equality per field.
+Imports validate a closed formula language, complete leaf coverage for updates,
+and a typed result equation for read-only queries.
 
 The Aleph record experiment infers the supplied collector's direct `add` body,
 removing its handwritten production contract and all three vector wrappers from
@@ -315,6 +338,34 @@ an experiment-only regression oracle separately retains the original behavioral
 clauses. The counting equivalence, other state contracts, loop annotations and
 transition equality assertion remain supplied. This is the existing manual
 collector core, not clean main's `NodeMap`/`Unit`/`Hasher` implementation.
+
+### Transparent wrapper composition
+
+The [wrapper example](../../../../examples/verus_infer_wrappers.rs) defines a
+`SlotTable<T>` with inferred length, borrowed lookup and insertion methods, then
+uses those methods from a containing registry:
+
+```rust
+#[verus_infer]
+pub fn insert_if_empty(&mut self, i: SlotIndex, value: T) {
+    if i.0 >= self.entries.len() { return; }
+    let empty = match self.entries.get(i) { None => true, Some(_) => false };
+    if empty { self.entries.insert(i, value); self.occupied += 1; }
+}
+```
+
+An ordinary caller supplies the counting invariant and proves its preservation
+with `--infer-goals`. No application-specific container name is recognized by the
+compiler. Transparent interfaces also compose across crates, with regenerated
+summaries and fresh proofs. Private storage hidden from the caller's module needs
+an abstract collection view mechanism; automatic opaque-view synthesis is not
+implemented.
+
+The Aleph wrapper experiment checks the pinned `NodeMap::get` and `insert` bodies
+unchanged and an explicitly constructor-adapted `size()` method. The supplied
+collector core uses these helpers under its existing invariant. API extraction,
+module placement and the `Into` adaptation are recorded separately from proof
+annotation removal; this is not a proof of the clean-main `Unit`/`Hasher` collector.
 
 ## Demand-driven scalar proof assistance
 
@@ -1122,7 +1173,7 @@ enumerating paths. It bounds both source traversal and expanded formula size at
 limit is reported as incomplete, separately from a counterexample or unsupported
 syntax.
 
-Static, nongeneric calls to other inferred functions in the same crate or to
+For scalar inference, static, nongeneric calls to other inferred functions in the same crate or to
 certified inferred dependency interfaces are supported, including forward
 references, shared helpers, conditional calls, and
 short-circuit guards. Dependencies must form an acyclic graph. Callee summaries
@@ -1236,7 +1287,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 18 and candidate-cache version 23.
+The current inference policy uses metadata schema 19 and candidate-cache version 24.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

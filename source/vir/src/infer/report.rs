@@ -5,6 +5,8 @@ use super::*;
 pub struct GeneratedCandidate {
     pub function: Function,
     pub cache_hit: bool,
+    /// Reporting only: regenerated record/query templates, never a proof input.
+    pub record_template: bool,
     pub elapsed_micros: u128,
     pub requires_nodes: usize,
     pub ensures_nodes: usize,
@@ -45,6 +47,7 @@ impl GeneratedCandidate {
         Self {
             function: function.clone(),
             cache_hit,
+            record_template: false,
             elapsed_micros,
             requires_nodes: nodes(&function.x.require),
             ensures_nodes: nodes(&function.x.ensure.0),

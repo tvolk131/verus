@@ -869,3 +869,70 @@ and five native runs; earlier parents, counting, collection and common-vote
 experiments pass 11, 11, 11 and nine formal scenarios respectively. Experiment
 artifacts preserve source hashes, raw diagnostics and actual proof outcomes;
 the supplied manual collector remains distinct from the clean-main generic API.
+
+
+## Transparent wrapper calls and bounded borrowed queries
+
+The composition checkpoint extends record observation paths to four projections
+and at most sixteen leaves, with up to eight fields per datatype. Eligibility
+checks every traversed datatype for availability, transparency at the function's
+module, executable fields and absence of custom invariants/destructors/proxies.
+Scalar/value-record assignments cover every affected leaf. The independent SST
+exactness checker traverses the datatype definitions recursively rather than
+using candidate clause coverage as its frame. Fault injection removes changed
+and unchanged nested leaves and must fail output exactness.
+
+Static acyclic inferred methods may borrow the current root or a direct nested
+record, with bounded value arguments and up to two type parameters. Candidate
+composition consumes the callee's candidate-bound precondition and complete
+relation. It substitutes initial observations from a single snapshot of the
+current symbolic state, computes every new leaf before applying updates and
+retains unaffected siblings. Generic substitutions replace parameters once;
+callee T -> (caller T, u16) must not substitute that caller T again in enclosing
+Option/reference types. Formula and source budgets still apply after expansion.
+Source bodies, calls and borrow-resolution operations are retained unchanged.
+
+Exact callers require exact-mode callees. The publication ordering examines all
+calls in resolution-expanded bodies, including compiler-generated post-argument
+scaffolding, while source eligibility continues rejecting embedded proof code.
+The original verifier checks each call. Maximality assumes only the already
+checked exact callee requirements at correctly instantiated types; it does not
+assume the caller's proposed domain. Imported interfaces and failed/incomplete
+callee obligations retain the common publication barrier.
+
+Read-only queries produce typed value equations, including Option<&T>. The only
+new library recognition is canonical core Option::as_ref with its existing vstd
+proxy, typed signature, bounds and unwind policy. No new trusted specification,
+external body, unchecked proof call or executable copy is introduced. Generic
+payloads may move without a Copy bound; ordinary Rust/Verus ownership and existing
+Drop/unwind contracts govern those operations. Shared references are interpreted
+by the existing Verus value model; exactness does not establish pointer addresses.
+
+Cache version 24 and metadata schema 19 cover the new closed summary forms.
+Record updates and queries regenerate and reprove, including on warm runs.
+Their report-only template flag preserves honest cache/kind labels without
+changing proof evidence. Import checks validate complete mutable leaf equations
+or a single typed read-only result equation. Cross-crate tests reprove nested
+callers after a certified lookup changes behavior and remove stale dependent
+exports; precision exhaustion in a generic helper blocks publication and callers.
+
+Aleph's extracted NodeMap lookup and insertion retain their original bodies and
+unrestricted generic signatures. Its size probe explicitly replaces derived Into
+syntax with a NodeCount constructor; this is an adaptation, not inferred trait
+semantics. The supplied collector's storage is wrapped and its update uses the
+checked API under the same invariant and separate behavioral oracle. The API is
+placed in the harness parent module to make private storage transparent. Those
+module/storage adaptations, retained loop annotations and specification evidence
+remain explicit; opaque views and a clean-main Unit/Hasher proof are still open.
+Native checks compare the adapted API against the original pinned method bodies,
+including the original size conversion. Semantic mutations require successful
+exact checks for all helpers and the composed update before rejecting caller goals.
+
+Checkpoint validation passes 399 targeted Rust tests, 38 evaluation-tool Python
+tests and the standalone wrapper example. Aleph's wrapper suite passes twelve
+formal scenarios and seven native runs; prior record, parent, counting, collection
+and common-vote suites pass 13, 11, 11, 11 and nine formal scenarios respectively.
+The assembled tool/library bundle was rebuilt after missing artifacts prevented
+one sweep from starting; those setup failures were not counted as semantic
+outcomes. Its standard library then verified 2,107 obligations with zero errors,
+and the full guarded experiment sweep was rerun successfully.

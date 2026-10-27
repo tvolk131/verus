@@ -30,6 +30,7 @@ mod newtypes;
 mod propagation;
 mod registry;
 mod records;
+mod record_models;
 mod report;
 mod simplify;
 mod slices;
@@ -45,10 +46,12 @@ pub use counting_goals::prepare as prepare_counting_goals;
 pub fn is_state_summary(function: &Function) -> bool {
     function.x.attrs.infer
         && (collections::kind(function) == Some(collections::Kind::Write)
-            || records::candidate(function))
+            || records::candidate(function) && records::mutable(function))
 }
 
-pub fn is_record_summary(function: &Function) -> bool { function.x.attrs.infer && records::candidate(function) }
+pub fn is_record_summary(function: &Function) -> bool { function.x.attrs.infer && records::candidate(function) && records::mutable(function) }
+
+pub(crate) fn is_record_callee(f:&Function,typs:&Typs)->bool {records::candidate(f) && f.x.typ_params.len()==typs.len()}
 
 pub fn is_collection_summary(function: &Function) -> bool {
     function.x.attrs.infer && collections::kind(function).is_some()
@@ -637,11 +640,14 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
                 if let ExprX::Call {
                     target: CallTarget::Fun(CallTargetKind::Static, name, typs, impls, _),
-                    post_args: None,
-                    body: None,
+                    post_args,
+                    body,
                     ..
                 } = &e.x
                 {
+                    if source && (post_args.is_some() || body.is_some()) {
+                        return Err(unsupported(&e.span,"source calls cannot contain embedded verification code"));
+                    }
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
                         unsupported(&e.span, "calls require an acyclic same-crate inferred callee or certified imported summary")
                     })?;
@@ -664,6 +670,8 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         && !helper
                         && models::array_call(e, all)?.is_none()
                         && !collections::source_call(e, all)
+                        && !record_models::as_ref(callee)
+                        && !(records::candidate(f) && records::candidate(callee))
                         && (!typs.is_empty() || !impls.is_empty())
                     {
                         return Err(unsupported(&e.span, "generic calls"));
@@ -713,7 +721,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    widening::model(function) || collections::model(function).is_some()
+    widening::model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
