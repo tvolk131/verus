@@ -123,13 +123,7 @@ pub(super) fn recognize(function: &Function) -> Option<Model> {
         _ => return None,
     };
     let proxy = &f.proxy.as_ref()?.x;
-    if proxy.krate != CrateId::Vstd
-        || proxy.segments.len() != 4
-        || proxy.segments[0].as_str() != "std_specs"
-        || proxy.segments[1].as_str() != "num"
-        || proxy.segments[2].as_str() != module
-        || !proxy.segments[3].starts_with("_verus_external_fn_specification_")
-    {
+    if !models::spec_proxy(proxy, &["std_specs", "num", &module], "") {
         return None;
     }
     Some(Model { operation, policy, range: *range })

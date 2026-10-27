@@ -116,8 +116,19 @@ Implemented and covered by regression tests:
 - [x] Local shared subslices with exclusive/open ranges, nested views, lengths,
   indexing, and inferred-callee substitution. Existing standard Index bounds
   are checked ordinarily and instantiated in maximality queries.
-- [x] Reproducible 40-case evaluation baseline, including expected failures,
-  cold/warm reproving, incremental dependency invalidation, and call-graph depth.
+- [x] Branch-sensitive sound ranges through immutable copies and Boolean locals,
+  bounded masks/shifts, one-cycle wrapping casts, and useful wrapping/saturating
+  cases. Auxiliary scalar lemmas use Verus's checked bit-vector prover; no new
+  axioms or standard specifications are added.
+- [x] Bounded simplification of the actual installed/verified contracts: typed
+  bounds, Boolean redundancy, repeated affine arithmetic, and local-view bounds.
+  Exact contracts retain independent soundness/maximality/exactness checks.
+- [x] Fifteen representative parsing, indexing and pricing application kernels,
+  with successful and failed caller properties and explicit unsupported/resource
+  limits. These are examples within the implemented subset, not general Rust coverage.
+- [x] Reproducible 47-case evaluation, including expected failures,
+  repeated isolated cold/warm pairs, waited-child memory observations, artifact
+  stability checks, Cargo body/contract edits, and call-graph depth.
   See [the corpus runner](source/tools/infer_eval/README.md).
 
 - [x] Assurance consolidation: formula-only candidate caches, one installer
@@ -150,14 +161,16 @@ Still planned or outside the implemented subset:
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
-- [ ] Further readable contract simplification, dedicated contract-query APIs,
-  and IDE presentation and suggestions.
+- [ ] Further relational simplification, dedicated contract-query APIs,
+  demand-driven strengthening, and IDE presentation and suggestions.
 - [ ] Richer abstract domains and refinement, including relational properties
-  beyond the current scalar intervals and Boolean summaries, broader branch
-  refinement, and more precise ranges for wrapping casts.
-- [ ] Broader real-world coverage and precision suites, statistical performance
-  repetitions, peak-memory profiling, and Cargo incremental-build timing beyond
-  the implemented curated evaluation baseline.
+  beyond scalar intervals and Boolean summaries, disjunctive/relational branch
+  refinement, and wrapping-cast ranges spanning more than one modular cycle.
+- [ ] Investigate broad candidate-cache invalidation after Cargo body edits,
+  including independent functions, without weakening provenance or fresh proofs.
+- [ ] Broader external application suites, simultaneous process-tree peak-memory
+  profiling, and performance studies beyond the implemented repeated curated
+  corpus and controlled three-crate Cargo edit scenarios.
 
 | Roadmap phase | Current state |
 | --- | --- |
@@ -206,11 +219,18 @@ APIs and research directions.
    shared subslices compose through caches and imported interfaces. Broader enum
    payloads, user conversions, returned references and mutation remain separate
    designs; the guide records the remaining syntax limits.
-4. **Next: precision and practical evaluation.** Improve branch/cast precision,
-   division/range proof automation, and readable contract simplification.
-   Broaden real-world cases and measure repeated timings, memory, and Cargo
-   incremental verification. Dedicated property queries, demand-driven
-   strengthening, and IDE presentation remain future work.
+4. **Precision and practical evaluation implemented.** Branch/copy refinement,
+   bounded bitwise and cast ranges, checked proof automation, and bounded
+   simplification improve actual verified contracts. Fifteen application kernels
+   cover parsing, indexing and pricing. Repeated cold/warm timings, honestly
+   scoped memory observations, build-stability checks and Cargo incremental
+   verification now have reproducible runners.
+5. **Next: property-directed usability or a broader capability.** Dedicated
+   property queries and demand-driven strengthening could recover useful facts
+   lost by scalar intervals. Alternatively, choose a separate design for slice
+   traversal loops, richer enum payloads, returned views, or mutation. None is
+   implicitly included in the completed batch. Formal acceptance/precision
+   verification remains the independent assurance workstream below.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,

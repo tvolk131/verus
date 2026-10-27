@@ -99,13 +99,9 @@ pub(super) fn bound(span: &Span, base: Term, index: Term) -> Result<Term, VirErr
     logical(span, LogicalOp::And, lower, upper)
 }
 
+use super::models::reference;
 fn core_path(path: &Path, parts: &[&str]) -> bool {
-    path.krate == CrateId::Core
-        && path.segments.len() == parts.len()
-        && path.segments.iter().zip(parts).all(|(a, b)| a.as_str() == *b)
-}
-fn reference(typ: Typ) -> Typ {
-    Arc::new(TypX::Decorate(TypDecoration::Ref, None, typ))
+    models::path_is(path, CrateId::Core, parts)
 }
 
 /// Canonical `[T] as Index<I>` declaration. Only a complete concrete range call
@@ -120,12 +116,7 @@ pub(super) fn range_model(function: &Function) -> bool {
         || p.segments[1].as_str() != "index"
         || !p.segments[2].starts_with("impl")
         || p.segments[3].as_str() != "index"
-        || proxy.x.krate != CrateId::Vstd
-        || proxy.x.segments.len() != 3
-        || proxy.x.segments[0].as_str() != "std_specs"
-        || proxy.x.segments[1].as_str() != "slice"
-        || !proxy.x.segments[2].starts_with("_verus_external_fn_specification_")
-        || !proxy.x.segments[2].ends_with("_index")
+        || !models::spec_proxy(&proxy.x, &["std_specs", "slice"], "_index")
         || f.mode != Mode::Exec
         || !matches!(f.item_kind, ItemKind::Function)
         || f.body.is_some()

@@ -9,16 +9,26 @@ pub(super) enum ArrayModel {
     Len,
 }
 
-fn path_is(path: &Path, krate: CrateId, segments: &[&str]) -> bool {
+pub(super) fn path_is(path: &Path, krate: CrateId, segments: &[&str]) -> bool {
     path.krate == krate
         && path.segments.len() == segments.len()
         && path.segments.iter().zip(segments).all(|(a, b)| a.as_str() == *b)
 }
-fn reference(t: Typ) -> Typ {
+pub(super) fn reference(t: Typ) -> Typ {
     Arc::new(TypX::Decorate(TypDecoration::Ref, None, t))
 }
-fn primitive(p: Primitive, args: Vec<Typ>) -> Typ {
+pub(super) fn primitive(p: Primitive, args: Vec<Typ>) -> Typ {
     Arc::new(TypX::Primitive(p, Arc::new(args)))
+}
+
+/// Shared exact proxy identity check; signature/policy gates remain model-specific.
+pub(super) fn spec_proxy(path: &Path, modules: &[&str], suffix: &str) -> bool {
+    path.krate == CrateId::Vstd
+        && path.segments.len() == modules.len() + 1
+        && path.segments.iter().zip(modules).all(|(a, b)| a.as_str() == *b)
+        && path.segments.last().is_some_and(|s| {
+            s.starts_with("_verus_external_fn_specification_") && s.ends_with(suffix)
+        })
 }
 
 pub(super) fn array_model(function: &Function) -> Option<ArrayModel> {
@@ -50,11 +60,7 @@ pub(super) fn array_model(function: &Function) -> Option<ArrayModel> {
             || p.segments[0].as_str() != "slice"
             || !p.segments[1].starts_with("impl")
             || p.segments[2].as_str() != "len"
-            || proxy.krate != CrateId::Vstd
-            || proxy.segments.len() != 2
-            || proxy.segments[0].as_str() != "slice"
-            || !proxy.segments[1].starts_with("_verus_external_fn_specification_")
-            || !proxy.segments[1].ends_with("_len")
+            || !spec_proxy(proxy, &["slice"], "_len")
         {
             return None;
         }

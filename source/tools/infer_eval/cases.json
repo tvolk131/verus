@@ -40,6 +40,13 @@
     {"name": "rust_coverage", "source": "../../../examples/verus_infer_coverage.rs", "features": ["let_else", "match_guards", "or_patterns", "primitive_error_conversion", "array_outputs", "subslice_views", "composition"], "expected_status": "verified"},
     {"name": "subslice_unsafe_caller", "source": "subslice_unsafe_caller.rs", "features": ["subslice_views", "precondition_enforcement"], "expected_status": "caller_proof_failed"},
     {"name": "array_output_wrong_property", "source": "array_output_wrong_property.rs", "features": ["array_outputs", "caller_properties"], "expected_status": "caller_proof_failed"},
-    {"name": "coverage_precision_timeout", "source": "coverage_precision_timeout.rs", "features": ["array_outputs", "required_precision_timeout"], "expected_status": "required_proof_incomplete"}
+    {"name": "coverage_precision_timeout", "source": "coverage_precision_timeout.rs", "features": ["array_outputs", "required_precision_timeout"], "expected_status": "required_proof_incomplete"},
+    {"name": "applications", "source": "../../../examples/verus_infer_applications.rs", "features": ["application_kernels", "parsing", "pricing", "checked_purchase", "subslice_views", "branch_refinement", "bounded_bitwise", "caller_properties"], "expected_status": "verified"},
+    {"name": "application_wrong_property", "source": "application_wrong_property.rs", "features": ["application_kernels", "bounded_bitwise", "caller_properties"], "expected_status": "caller_proof_failed"},
+    {"name": "application_unsafe_window", "source": "application_unsafe_window.rs", "features": ["application_kernels", "subslice_views", "precondition_enforcement"], "expected_status": "caller_proof_failed"},
+    {"name": "application_iterator_unsupported", "source": "application_iterator_unsupported.rs", "features": ["application_kernels", "unsupported_iterator", "frontend_failure"], "expected_status": "verification_failed", "expected_diagnostic": "is not supported"},
+    {"name": "application_bitvector_timeout", "source": "application_bitvector_timeout.rs", "features": ["application_kernels", "bounded_bitwise", "required_soundness_timeout"], "expected_status": "required_proof_incomplete"},
+    {"name": "precision_32", "source": "precision_32.rs", "verifier_args": ["--no-erasure-check"], "features": ["bounded_bitwise", "branch_refinement", "32_bit_architecture"], "expected_status": "verified"},
+    {"name": "precision_64", "source": "precision_64.rs", "verifier_args": ["--no-erasure-check"], "features": ["bounded_bitwise", "branch_refinement", "64_bit_architecture"], "expected_status": "verified"}
   ]
 }

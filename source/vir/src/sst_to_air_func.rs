@@ -979,6 +979,15 @@ pub fn func_sst_to_air(
     function: &FunctionSst,
     func_check_sst: &FuncCheckSst,
 ) -> Result<Arc<Vec<CommandsWithContext>>, VirErr> {
+    // Add checked auxiliary lemmas only after the independent precision body
+    // transformations. They must never become unchecked maximality assumptions.
+    let decorated;
+    let func_check_sst = if function.x.attrs.infer {
+        decorated = crate::infer::bitvector_hints(func_check_sst, &ctx.func_map)?;
+        &decorated
+    } else {
+        func_check_sst
+    };
     let commands = crate::sst_to_air::body_stm_to_air(
         ctx,
         &function.span,

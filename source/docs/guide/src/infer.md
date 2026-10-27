@@ -59,8 +59,9 @@ inference export. Exact mode continues to require all three proofs and never
 silently falls back.
 
 The first abstract domain tracks integer intervals and known/unknown Boolean
-values. It handles the same supported scalar expressions, joins branch ranges,
-and composes inferred interfaces. When exact symbolic safety extraction fits
+values. It handles the supported scalar expressions, refines ranges in reachable
+branches and short-circuit expressions, follows immutable copies and Boolean
+local guards, joins branch outputs, and composes inferred interfaces. When exact symbolic safety extraction fits
 the budget and uses only exact-mode callees, sound mode retains that safety
 predicate and widens the output relation to a range. If symbolic expansion
 exceeds its budget, or a sound-mode callee prevents exact substitution, a
@@ -91,9 +92,10 @@ relationships unless they are present in the published contract.
 Intervals use mathematical integer bounds for arithmetic and join branch
 ranges. Signed division accounts for both negative and positive nonzero
 divisors, including intervals spanning zero. Safety still excludes zero and
-`(MIN, -1)` through the ordinary executable checks. Casts retain an input range
-that fits the destination; when wrapping is possible, analysis conservatively
-uses the full destination range. Signed `MIN` literals are recognized before
+`(MIN, -1)` through the ordinary executable checks. Casts retain a tight interval
+when its endpoints remain in one destination modular cycle, including wrapping
+intervals such as `128..=130` cast to `i8`, which gives `-128..=-126`.
+An interval crossing a modular boundary widens to the full destination range. Signed `MIN` literals are recognized before
 their special compiler lowering is analyzed. Enum values, arrays, and early
 returns still require exact mode.
 
@@ -189,8 +191,13 @@ types, requested `mode`, actual `candidate_id`, separate `contract.requires` and
 `contract.ensures` strings, and three `proofs` entries. These predicates come
 from the actual installed candidate. They use mathematical integer arithmetic,
 explicit machine casts, and `rust_div`/`rust_rem` for signed truncating arithmetic.
-`result` names the return value. No separate simplified predicate is substituted
-for the checked formula.
+`result` names the return value. Bounded simplification happens before installation:
+redundant typed bounds and Boolean conditions can disappear, affine terms can
+cancel, and simple local-view bounds can reduce to a direct index bound. The
+simplified formulas themselves receive all required fresh proofs. For example,
+`(x + 1) - x` on `u8` has `requires x <= 254; ensures result == 1`; cancellation
+retains the prior addition's safety condition. There is no separate display-only
+predicate substituted for the checked formula.
 
 | Proof status | Meaning |
 | --- | --- |
@@ -684,9 +691,17 @@ mathematical result to the receiver's `MIN..=MAX`. Their total semantics admit
 all inputs, while preserving safety checks of argument expressions. They do not
 change the overflow policy of ordinary `+`, `-`, or `*`.
 
-Sound scalar mode supports these operations with conservative intervals. Bitwise
-and shift transfers can return the full destination range; wrapping and saturation
-are analyzed through their scalar model formulas and may also widen to that range.
+Sound scalar mode uses bounded numeric transfers: `x & 15` has range `0..=15`,
+and `(x & 15) >> 1` has range `0..=7`, across signed/unsigned supported widths.
+Branch guards can tighten shift operands. Wrapping casts and wrapping/saturating
+methods retain useful ranges when the input bounds allow it; otherwise they widen.
+Verus checks auxiliary conditional range lemmas with its existing bit-vector
+prover and uses that identical theorem in the ordinary proof. Operand ranges and
+finite type bounds are premises: the ordinary proof must establish them before
+using the result. These hints add no axiom and change no executable expression.
+Auxiliary failures/timeouts belong to the function's obligation and cannot be
+hidden by another successful subquery. Bounded automation may still fail to prove
+a valid candidate; it never converts missing evidence into a verified contract.
 Compositional safety retains shift-amount checks and guarded arithmetic. Lost
 relations or insufficient range information can still produce an incomplete result.
 Optional precision failures retain honest labels and never replace soundness.
@@ -702,6 +717,34 @@ This batch does not add rotate/count methods, wrapping/saturating mixed-sign
 methods, explicit wrapping shifts, or general user-defined integer models.
 `examples/verus_infer_integer_ops.rs` verifies caller properties and runs wrapping,
 saturation, bitwise, shift, and checked-result boundary examples.
+
+## Application kernels and evaluation
+
+`examples/verus_infer_applications.rs` contains fifteen pure Rust kernels for
+big-endian parsing, protocol fields, slice windows, checked purchases, price
+pairs, capped fees, and signed wire codes. It includes ordinary caller proofs
+and a native boundary runner. The corpus adds wrong caller properties, invalid
+windows, an unsupported iterator checksum, and an intentionally incomplete
+bit-vector proof. These examples measure selected functionality within the
+supported subset.
+
+From the repository root, after completing the build:
+
+```sh
+python3 source/tools/eval_verus_infer.py --case applications \
+  --repetitions 3 --memory --output-dir /tmp/infer-app-eval
+python3 source/tools/eval_verus_infer_cargo.py \
+  --repetitions 3 --memory --output-dir /tmp/infer-cargo-eval
+```
+
+The first runner always rechecks proofs, including warm candidate hits. A
+no-edit Cargo run may skip verification through Cargo's normal incremental
+build cache; the Cargo report distinguishes that from fresh proof work. Its
+contract edit must reject a stale caller and pass after its property is updated.
+Both runners detect changed/missing compiler or model artifacts and abort rather
+than mixing builds. Memory is the OS waited-child maximum RSS, measured in a
+fresh worker, not a simultaneous process-tree peak. See
+`source/tools/infer_eval/README.md` for the measurement definitions and limits.
 
 ## Analysis budgets and other restrictions
 
@@ -826,7 +869,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 13 and candidate-cache version 18.
+The current inference policy uses metadata schema 14 and candidate-cache version 19.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

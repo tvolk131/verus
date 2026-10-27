@@ -3,6 +3,8 @@
 use super::*;
 use num_traits::{Signed, Zero};
 
+pub(super) mod numeric;
+mod refinement;
 mod safety;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -112,6 +114,8 @@ fn remainder(a: &BigInt, b: &BigInt, c: &BigInt, d: &BigInt, truncating: bool) -
 }
 
 struct Interpreter<'a> {
+    aliases: HashMap<VarIdent, VarIdent>,
+    definitions: HashMap<VarIdent, Expr>,
     locals: HashMap<VarIdent, Range>,
     callees: &'a HashMap<Fun, Function>,
     remaining: usize,
@@ -157,10 +161,16 @@ impl Interpreter<'_> {
                 .ok_or_else(|| unsupported(&e.span, "unknown interval variable"))?,
             ExprX::ReadPlace(p, _) => self.place(p)?,
             ExprX::NeverToAny(inner) => self.expr(inner)?,
-            ExprX::Unary(UnaryOp::BitNot(_), a) => {
-                self.expr(a)?;
-                unknown()?
-            }
+            ExprX::Unary(UnaryOp::BitNot(_), a) => match self.expr(a)? {
+                Range::Int(a, b) => match &*e.typ {
+                    TypX::Int(r @ (IntRange::U(_) | IntRange::USize)) => {
+                        let (_, max) = arithmetic::bounds_at(*r, self.word_bits).unwrap();
+                        Range::Int(&max - b, max - a)
+                    }
+                    _ => Range::Int(-b - 1, -a - 1),
+                },
+                _ => unknown()?,
+            },
             ExprX::Unary(UnaryOp::Not, a) => match self.expr(a)? {
                 Range::Bool(b) => Range::Bool(b.map(|b| !b)),
                 _ => return Err(unsupported(&e.span, "nonboolean interval negation")),
@@ -171,17 +181,23 @@ impl Interpreter<'_> {
                     return unknown();
                 };
                 match value {
-                    Range::Int(a, b) if a >= min && b <= max => Range::Int(a, b),
-                    // A wrapping cast can cross the destination's signed boundary.
-                    // Intersecting the input would drop valid wrapped results.
+                    Range::Int(a, b) => numeric::clip(a, b, min, max),
                     _ => Range::Int(min, max),
                 }
             }
-            ExprX::Logical(op, a, b) => {
-                let Range::Bool(a) = self.expr(a)? else {
-                    return unknown();
+            ExprX::Logical(op, left, right) => {
+                let Range::Bool(a) = self.expr(left)? else { return unknown() };
+                let executes = *op != LogicalOp::Or;
+                let skipped = match op {
+                    LogicalOp::And => Some(false),
+                    LogicalOp::Or | LogicalOp::Implies => Some(true),
                 };
-                let Range::Bool(b) = self.expr(b)? else {
+                if a == Some(!executes) {
+                    return Ok(Range::Bool(skipped));
+                }
+                let Range::Bool(b) =
+                    self.branch(left, executes, right)?.unwrap_or(Range::Bool(skipped))
+                else {
                     return unknown();
                 };
                 Range::Bool(match op {
@@ -213,6 +229,11 @@ impl Interpreter<'_> {
                         }
                     }
                 })
+            }
+            ExprX::Binary(BinaryOp::Bitwise(op, _), a, b) => {
+                let a = self.expr(a)?;
+                let b = self.expr(b)?;
+                numeric::bitwise(*op, a, b, &e.typ, self.word_bits)
             }
             ExprX::Binary(op, a, b) => {
                 let a = self.expr(a)?;
@@ -308,13 +329,28 @@ impl Interpreter<'_> {
                 self.expr(a)?;
                 Range::Unit
             }
-            ExprX::If(c, a, Some(b)) => match self.expr(c)? {
-                Range::Bool(Some(true)) => self.expr(a)?,
-                Range::Bool(Some(false)) => self.expr(b)?,
-                _ => self.expr(a)?.join(self.expr(b)?),
-            },
+            ExprX::If(c, a, Some(b)) => {
+                let condition = self.expr(c)?;
+                let left = if condition == Range::Bool(Some(false)) {
+                    None
+                } else {
+                    self.branch(c, true, a)?
+                };
+                let right = if condition == Range::Bool(Some(true)) {
+                    None
+                } else {
+                    self.branch(c, false, b)?
+                };
+                match (left, right) {
+                    (Some(a), Some(b)) => a.join(b),
+                    (Some(a), None) | (None, Some(a)) => a,
+                    _ => unknown()?,
+                }
+            }
             ExprX::Block(stmts, tail) => {
                 let saved = self.locals.clone();
+                let aliases = self.aliases.clone();
+                let definitions = self.definitions.clone();
                 for stmt in stmts.iter() {
                     self.spend(&stmt.span)?;
                     match &stmt.x {
@@ -326,6 +362,21 @@ impl Interpreter<'_> {
                                 return Err(unsupported(&stmt.span, "interval destructuring"));
                             };
                             let value = self.place(init)?;
+                            let origin = match &init.x {
+                                PlaceX::Local(n) => Some(n),
+                                PlaceX::Temporary(e) => refinement::local(e),
+                                _ => None,
+                            };
+                            if let Some(origin) = origin {
+                                self.aliases.insert(
+                                    binding.name.clone(),
+                                    self.aliases.get(origin).unwrap_or(origin).clone(),
+                                );
+                            } else if let PlaceX::Temporary(e) = &init.x {
+                                if matches!(&*e.typ, TypX::Bool) {
+                                    self.definitions.insert(binding.name.clone(), e.clone());
+                                }
+                            }
                             self.locals.insert(binding.name.clone(), value);
                         }
                         _ => return Err(unsupported(&stmt.span, "interval statement")),
@@ -336,6 +387,8 @@ impl Interpreter<'_> {
                     None => Range::Unit,
                 };
                 self.locals = saved;
+                self.aliases = aliases;
+                self.definitions = definitions;
                 value
             }
             ExprX::Call {
@@ -382,6 +435,8 @@ impl Interpreter<'_> {
                         .collect();
                     let formula = integer_models::value(&e.span, &callee, terms)?;
                     let mut child = Interpreter {
+                        aliases: HashMap::new(),
+                        definitions: HashMap::new(),
                         locals,
                         callees: self.callees,
                         remaining: self.remaining,
@@ -398,6 +453,8 @@ impl Interpreter<'_> {
                         return Err(unsupported(&e.span, "invalid exact callee summary"));
                     };
                     let mut child = Interpreter {
+                        aliases: HashMap::new(),
+                        definitions: HashMap::new(),
                         locals,
                         callees: self.callees,
                         remaining: self.remaining,
@@ -521,10 +578,75 @@ fn infer_on_arch(
         .body
         .as_ref()
         .ok_or_else(|| unsupported(&function.span, "missing interval body"))?;
-    let output = Interpreter { locals, callees, remaining: FORMULA_BUDGET, word_bits }
-        .expr(body)?
-        .restrict(&function.x.inner_ret.x.typ, word_bits);
+    let output = Interpreter {
+        aliases: HashMap::new(),
+        definitions: HashMap::new(),
+        locals,
+        callees,
+        remaining: FORMULA_BUDGET,
+        word_bits,
+    }
+    .expr(body)?
+    .restrict(&function.x.inner_ret.x.typ, word_bits);
     Contract::new(pre, postcondition(function, output))
+}
+
+pub(super) fn call_range(
+    function: &Function,
+    inputs: Vec<Range>,
+    callees: &HashMap<Fun, Function>,
+    word_bits: u32,
+) -> Option<Range> {
+    if function.x.params.len() != inputs.len() {
+        return None;
+    }
+    if function.x.attrs.infer_allow_approx {
+        return range_from_summary(function, word_bits).ok();
+    }
+    let formula = call_formula(function)?;
+    Interpreter {
+        aliases: HashMap::new(),
+        definitions: HashMap::new(),
+        locals: function.x.params.iter().zip(inputs).map(|(p, r)| (p.x.name.clone(), r)).collect(),
+        callees,
+        remaining: FORMULA_BUDGET,
+        word_bits,
+    }
+    .expr(&formula)
+    .ok()
+}
+
+pub(super) fn call_formula(function: &Function) -> Option<Expr> {
+    if function.x.attrs.infer_allow_approx {
+        return None;
+    }
+    Some({
+        if integer_models::recognize(function).is_some() {
+            integer_models::value(
+                &function.span,
+                function,
+                function
+                    .x
+                    .params
+                    .iter()
+                    .map(|p| Term {
+                        view: None,
+                        size: 1,
+                        expr: SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())),
+                    })
+                    .collect(),
+            )
+            .ok()?
+            .expr
+        } else if function.x.attrs.infer {
+            let ExprX::Binary(BinaryOp::Eq(_), _, value) = &function.x.ensure.0.first()?.x else {
+                return None;
+            };
+            value.clone()
+        } else {
+            return None;
+        }
+    })
 }
 
 pub(super) fn range_from_summary(function: &Function, word_bits: u32) -> Result<Range, VirErr> {

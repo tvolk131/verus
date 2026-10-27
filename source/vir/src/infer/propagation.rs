@@ -15,11 +15,7 @@ pub(super) enum Model {
     Residual(Carrier),
 }
 
-fn path_is(path: &Path, krate: CrateId, parts: &[&str]) -> bool {
-    path.krate == krate
-        && path.segments.len() == parts.len()
-        && path.segments.iter().zip(parts).all(|(a, b)| a.as_str() == *b)
-}
+use super::models::path_is;
 
 fn datatype(parts: &[&str], args: Vec<Typ>) -> Typ {
     Arc::new(TypX::Datatype(

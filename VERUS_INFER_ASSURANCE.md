@@ -516,3 +516,91 @@ width in both profiles. All 81 runs across the 40-case evaluation corpus passed
 in each profile, and all 22 deliberate mutations were detected after their
 baselines passed. The corpus includes expected failures and incomplete proofs;
 these counts describe selected regression coverage, not general Rust coverage.
+
+## Precision, simplification and application evaluation
+
+The practical-precision milestone uses candidate cache version 19 and inferred
+metadata schema 14. Candidate identity version 3 still binds the actual installed
+formulas, original executable, proof settings and dependency provenance. This
+milestone adds no serialized VIR fields, trusted specifications, axioms or source
+proof statements. Its cache/interface policy requires rebuilding inferred crates.
+
+Path refinement, immutable-copy/Boolean facts, modular cast intervals and bounded
+bitwise transfers are untrusted proposals. Both pointer widths are analyzed
+explicitly. Simplification runs after executable safety extraction and before
+contract installation. It uses typed structural comparisons, bounded affine
+normalization and pure Boolean reductions; it does not rewrite source operations.
+The simplified candidate receives the same independent proofs. A wrong reduction
+must fail soundness, maximality or arbitrary-output exactness in exact mode.
+Sound mode still claims only the independently proved guarantees and can remain
+restrictive or imprecise. Unit comparisons cover concrete small-width arithmetic,
+cast cycles, masks, shifts and preservation of earlier overflow checks.
+
+Ordinary integer SMT encoding does not automatically establish all bitwise or
+truncating-cast range facts. An SST-only pass therefore proposes bounded pure
+conditional lemmas, checks them with the existing bit-vector backend, and uses
+that identical complete theorem in the ordinary query. Guessed operand intervals,
+valid shift counts, explicit finite-type bounds for every free variable and the
+selected architecture are premises. A guessed local/callee range is never added
+as an unchecked fact. Unsupported expressions or exhausted hint budgets are
+skipped; the ordinary proof must still establish the proposed contract.
+
+Hints are inserted after the independent precision transformation, so maximality
+cannot turn a hint assertion into an unchecked assumption. The proof-check and
+proof-use nodes share the same immutable expression allocation. A production
+pair gate rejects an absent/empty auxiliary check, extra auxiliary assumptions,
+or a disconnected used theorem. Preexisting bit-vector proof statements in an
+inferred SST body are rejected. Each auxiliary query belongs to its function and
+obligation and participates in the existing all-subqueries outcome aggregation;
+failure, timeout or missing required evidence prevents publication. The ordinary
+query retains every original safety assertion and executable assignment/call.
+
+Generating these hints is untrusted, but the coupling of checked theorems to
+normal-query facts, BV/integer translation correspondence and complete outcome
+aggregation are part of the verification boundary. This is an additional proof
+construction path to safeguard, not a claim that all new code is outside the
+trusted implementation. Check/use fault injection and source mutation tests
+cover missing auxiliary checks, disconnected facts and identity-gate bypasses.
+Compiler tests poison a valid mask interval, force resource exhaustion, check
+all supported integer types at both pointer widths with fresh/warm candidates,
+and confirm caller/export suppression. Existing acceptance tests exercise a
+failed subquery followed by success and every receipt ordering.
+
+Canonical path/reference/proxy helpers are shared across numeric, array, slice
+and residual model validators. The helper consolidation retains each model's
+existing module, signature, arity, generic, mode and non-unwinding restrictions;
+it does not authorize additional models.
+
+The fifteen application kernels and their caller proofs supplement synthetic
+feature tests. The 47-case corpus includes successful examples, incorrect caller
+properties, unsupported code and intentionally incomplete proofs. Repetition
+caches are isolated, warm candidates get fresh proofs, and failed harness runs
+are excluded from timing statistics. Cargo's no-edit reuse is reported separately
+from actual verification. Body-only edits preserve displayed contracts; a
+semantic contract edit rejects the old caller, removes its stale interface, and
+passes after the caller is updated. Compiler/model artifact hashes are checked
+before and after each invocation, with persistent failure reports on instability.
+These are observed-boundary checks, not continuous monitoring or an authenticated
+build guarantee. Memory reports the OS waited-child maximum RSS; simultaneous
+process-tree peak memory remains future profiling work. Neither measurements nor
+mutation detection formally prove this implementation or establish coverage of
+arbitrary Rust applications.
+
+
+The practical-precision checkpoint passed 523 distinct targeted Rust tests (with
+2 existing loop tests ignored), both debug/release builds, 11 focused precision
+regressions in each profile, the debug three-crate Cargo regression, and native
+application execution in both profiles. All 95 runs of the 47-case corpus passed
+in each profile. Eight evaluator tests cover repetitions, malformed reports,
+measured memory, timeouts, statistics and artifact replacement; all 25 deliberate
+source mutations were detected after passing baselines. Repeated release kernel
+runs passed 18/18 samples. The controlled Cargo edits passed 15/15 release
+scenarios across three repetitions and 5/5 debug scenarios. These counts are
+selected regression evidence, not a
+formal proof or an estimate of arbitrary Rust coverage.
+
+Cargo edit measurements observe broad candidate invalidation, including an
+independent function, after changing the source. Such source-span/build-provenance
+sensitivity is a cache-efficiency follow-up; it does not reuse failed evidence or
+weaken proof requirements. The runner records these hits/misses instead of
+assuming that a body-only edit must preserve cache identities.

@@ -356,3 +356,197 @@ fn composed_safety_domains_cover_all_outputs_permitted_by_signed_and_unsigned_ca
         }
     }
 }
+
+#[test]
+fn branch_and_copy_refinement_tightens_ranges_without_restricting_inputs() {
+    use crate::def::Spanned;
+    let r = IntRange::U(8);
+    let typ = Arc::new(TypX::Int(r));
+    let number = |n: i32| SpannedTyped::new(&span(), &typ, ExprX::Const(Constant::Int(n.into())));
+    let compare = |op, a, b| {
+        SpannedTyped::new(&span(), &bool_typ(), ExprX::Binary(BinaryOp::Inequality(op), a, b))
+    };
+    let select = |c, a, b| SpannedTyped::new(&span(), &typ, ExprX::If(c, a, Some(b)));
+    let basic = select(
+        compare(InequalityOp::Lt, variable("x", r), number(10)),
+        variable("x", r),
+        number(0),
+    );
+    let name = |s: &str| VarIdent(Arc::new(s.into()), VarIdentDisambiguate::AirLocal);
+    let decl = |n: &str, t: &Typ, init: Place| {
+        Spanned::new(
+            span(),
+            StmtX::Decl {
+                pattern: SpannedTyped::new(
+                    &span(),
+                    t,
+                    PatternX::Var(PatternBinding {
+                        name: name(n),
+                        typ: t.clone(),
+                        by_ref: ByRef::No,
+                        user_mut: Some(false),
+                        copy: true,
+                    }),
+                ),
+                mode: Some((Mode::Exec, DeclProph::Default)),
+                init: Some(init),
+                els: None,
+                assert_irrefutable: false,
+            },
+        )
+    };
+    let alias = SpannedTyped::new(
+        &span(),
+        &typ,
+        ExprX::Block(
+            Arc::new(vec![
+                decl("copy", &typ, SpannedTyped::new(&span(), &typ, PlaceX::Local(name("x")))),
+                decl(
+                    "small",
+                    &bool_typ(),
+                    SpannedTyped::new(
+                        &span(),
+                        &bool_typ(),
+                        PlaceX::Temporary(compare(
+                            InequalityOp::Lt,
+                            variable("copy", r),
+                            number(10),
+                        )),
+                    ),
+                ),
+            ]),
+            Some(select(
+                SpannedTyped::new(&span(), &bool_typ(), ExprX::Var(name("small"))),
+                variable("x", r),
+                number(0),
+            )),
+        ),
+    );
+    let relative = select(
+        compare(InequalityOp::Lt, variable("x", r), variable("y", r)),
+        variable("x", r),
+        number(0),
+    );
+    for (body, expected_max) in [(basic, 9), (alias, 9), (relative, 254)] {
+        let f = sound_function(body, r);
+        let inferred = infer_function(&f).unwrap();
+        assert_eq!(
+            range_from_summary(&inferred, 32).unwrap(),
+            Range::Int(0.into(), expected_max.into())
+        );
+        assert_eq!(
+            range_from_summary(&inferred, 64).unwrap(),
+            Range::Int(0.into(), expected_max.into())
+        );
+        for x in 0..=255 {
+            for y in [0, 1, 9, 10, 254, 255] {
+                assert_eq!(evaluate_integer(&inferred.x.require[0], x, y), Value::Bool(true));
+            }
+        }
+    }
+}
+
+#[test]
+fn modular_cast_intervals_cover_concrete_wrapping_across_boundaries() {
+    for signed in [false, true] {
+        let (lo, hi) = if signed { (-128, 127) } else { (0, 255) };
+        for a in -520..=520i32 {
+            for width in [0, 1, 2, 7, 127, 255, 256, 257] {
+                let b = a + width;
+                let Range::Int(min, max) = numeric::clip(a.into(), b.into(), lo.into(), hi.into())
+                else {
+                    panic!()
+                };
+                let xs: Vec<i32> =
+                    (a..=b).map(|n| if signed { n as i8 as i32 } else { n as u8 as i32 }).collect();
+                assert!(BigInt::from(*xs.iter().min().unwrap()) >= min);
+                assert!(BigInt::from(*xs.iter().max().unwrap()) <= max);
+            }
+        }
+    }
+}
+
+#[test]
+fn bitwise_intervals_cover_small_signed_and_unsigned_execution() {
+    let intervals =
+        [(-128, 127), (-128, -1), (-8, -1), (0, 255), (0, 15), (3, 7), (15, 15), (0, 0)];
+    for signed in [false, true] {
+        let typ = Arc::new(TypX::Int(if signed { IntRange::I(8) } else { IntRange::U(8) }));
+        for (a, b) in intervals {
+            if !signed && a < 0 || signed && b > 127 {
+                continue;
+            }
+            for (c, d) in intervals {
+                if !signed && c < 0 || signed && d > 127 {
+                    continue;
+                }
+                for op in [BitwiseOp::BitAnd, BitwiseOp::BitOr, BitwiseOp::BitXor] {
+                    let Range::Int(lo, hi) = numeric::bitwise(
+                        op,
+                        Range::Int(a.into(), b.into()),
+                        Range::Int(c.into(), d.into()),
+                        &typ,
+                        64,
+                    ) else {
+                        panic!()
+                    };
+                    for x in a..=b {
+                        for y in c..=d {
+                            let v = match op {
+                                BitwiseOp::BitAnd => x & y,
+                                BitwiseOp::BitOr => x | y,
+                                _ => x ^ y,
+                            };
+                            assert!(
+                                BigInt::from(v) >= lo && BigInt::from(v) <= hi,
+                                "{signed} {op:?} {x} {y}"
+                            );
+                        }
+                    }
+                }
+            }
+            for (c, d) in [(0, 0), (1, 3), (0, 7), (7, 7)] {
+                for op in [BitwiseOp::Shr, BitwiseOp::Shl(IntegerTypeBitwidth::Width(8), signed)] {
+                    let Range::Int(lo, hi) = numeric::bitwise(
+                        op,
+                        Range::Int(a.into(), b.into()),
+                        Range::Int(c.into(), d.into()),
+                        &typ,
+                        64,
+                    ) else {
+                        panic!()
+                    };
+                    for x in a..=b {
+                        for n in c..=d {
+                            let v = if signed {
+                                if op == BitwiseOp::Shr {
+                                    ((x as i8) >> n) as i32
+                                } else {
+                                    (x as i8).wrapping_shl(n as u32) as i32
+                                }
+                            } else if op == BitwiseOp::Shr {
+                                ((x as u8) >> n) as i32
+                            } else {
+                                (x as u8).wrapping_shl(n as u32) as i32
+                            };
+                            assert!(
+                                BigInt::from(v) >= lo && BigInt::from(v) <= hi,
+                                "{signed} {op:?} {x} {n}"
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+    assert_eq!(
+        numeric::bitwise(
+            BitwiseOp::BitAnd,
+            Range::Int(0.into(), 255.into()),
+            Range::Int(15.into(), 15.into()),
+            &Arc::new(TypX::Int(IntRange::U(8))),
+            64
+        ),
+        Range::Int(0.into(), 15.into())
+    );
+}

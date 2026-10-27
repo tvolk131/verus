@@ -64,6 +64,7 @@ impl Contract {
     }
 
     pub(super) fn install(self, original: &Function, provenance: &str) -> Result<Function, VirErr> {
+        let (pre, post) = simplify::contract(original, &self.pre, &self.post)?;
         let body = loops::annotate(original)?;
         let nonlinear = original.x.attrs.nonlinear
             || loops::recognize(original)?.is_some_and(|plan| plan.nonlinear);
@@ -71,12 +72,12 @@ impl Contract {
         // (including cache contents), configuration and transitive dependencies.
         let id = Sha256::digest(format!(
             "verus-infer-candidate-v3:{original:?}:{:?}:{:?}:{body:?}:{nonlinear}:{provenance}",
-            self.pre, self.post,
+            pre, post,
         ));
         let mut f = original.x.clone();
         f.body = body;
-        f.require = Arc::new(vec![self.pre]);
-        f.ensure = (Arc::new(vec![self.post]), Arc::new(vec![]));
+        f.require = Arc::new(vec![pre]);
+        f.ensure = (Arc::new(vec![post]), Arc::new(vec![]));
         let attrs = Arc::make_mut(&mut f.attrs);
         attrs.spinoff_prover = true;
         attrs.nonlinear = nonlinear;

@@ -145,6 +145,22 @@ def precision_tests(directory, env):
             print(f"{group} {'passed' if name == 'baseline' else 'detected'}: {name}", flush=True)
         path.write_text(source)
 
+    path = workspace / "vir/src/infer/bitvector_hints.rs"
+    source = path.read_text()
+    mutations = [
+        ("missing auxiliary theorem", "ensures: Arc::new(vec![fact.clone()])", "ensures: Arc::new(vec![])"),
+        ("disconnected assumed theorem", "StmX::Assume(fact)", "StmX::Assume(fact.new_x(ExpX::Const(Constant::Bool(false))))"),
+        ("check/use identity bypassed", "&& Arc::ptr_eq(&ensures[0], used)", "&& true"),
+    ]
+    for name, contents in [("baseline", source)] + [
+        (name, change(source, before, after)) for name, before, after in mutations
+    ]:
+        path.write_text(contents)
+        run(["cargo", "test", "-p", "vir", "infer::bitvector_hints::tests"], workspace, env,
+            should_pass=name == "baseline")
+        print(f"Bit-vector hints {'passed' if name == 'baseline' else 'detected'}: {name}", flush=True)
+    path.write_text(source)
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

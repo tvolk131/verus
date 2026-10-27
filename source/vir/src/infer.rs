@@ -14,6 +14,7 @@ use std::sync::Arc;
 mod abstract_infer;
 mod arithmetic;
 mod arrays;
+mod bitvector_hints;
 mod bitwise;
 mod contract;
 mod eligibility;
@@ -25,10 +26,13 @@ mod models;
 mod propagation;
 mod registry;
 mod report;
+mod simplify;
 mod slices;
 mod summary;
 
 pub use report::{GeneratedCandidate, GenerationReport};
+
+pub(crate) use bitvector_hints::decorate as bitvector_hints;
 
 use contract::Contract;
 use eligibility::{scalar, validate_body, validate_signature};

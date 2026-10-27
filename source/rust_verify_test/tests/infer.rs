@@ -3065,7 +3065,7 @@ fn structured_report_cold_and_warm_candidates_have_fresh_proofs() {
         assert_eq!(f["metrics"]["cache"], cache);
         assert_eq!(f["required_checks_passed"], true);
         assert_eq!(f["exported"], true);
-        assert!(f["contract"]["requires"].as_str().unwrap().contains("255"));
+        assert_eq!(f["contract"]["requires"], "(x <= 254)");
         assert_eq!(f["contract"]["ensures"], "result == (x + 1)");
         for obligation in ["soundness", "maximality", "exactness"] {
             assert_eq!(f["proofs"][obligation]["status"], "proved");
@@ -4841,4 +4841,136 @@ fn coverage_incomplete_array_proofs_remove_stale_exports_and_block_callers() {
     assert_eq!(f["exported"], false);
     assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
     assert!(!crates.vir("coverage_timeout").exists());
+}
+
+
+#[test]
+fn precision_ranges_all_integer_types_and_pointer_models_are_freshly_proved() {
+    let crates = InferCrates::new();
+    let mut body = String::from("use vstd::prelude::*;");
+    let mut caller = String::from("fn caller(){");
+    for typ in [
+        "u8", "u16", "u32", "u64", "u128", "usize", "i8", "i16", "i32", "i64", "i128", "isize",
+    ] {
+        body.push_str(&format!(
+            "#[verifier::infer(sound)] pub fn mask_{typ}(x:{typ})->{typ}{{(x&15)>>1}}"
+        ));
+        body.push_str(&format!("#[verifier::infer(sound)] pub fn branch_{typ}(x:{typ})->{typ}{{let copy=x;let small=copy>=0 && copy<16;if small{{x>>1}}else{{0}}}}"));
+        caller.push_str(&format!("let r=mask_{typ}({typ}::MAX);assert(0<=r && r<=7);let r=branch_{typ}({typ}::MIN);assert(0<=r && r<=7);"));
+    }
+    body.push_str(&caller);
+    body.push('}');
+    for bytes in [4, 8] {
+        for cache in ["miss", "hit"] {
+            let run = crates.verify(
+                &format!("precision_matrix_{bytes}"),
+                &format!("global size_of usize == {bytes};{body}"),
+                &[],
+                &["--output-json", "--num-threads", "4"],
+            );
+            assert!(
+                run.status.success(),
+                "{}",
+                String::from_utf8_lossy(&run.stderr)
+            );
+            let report = json_inference(&run);
+            assert_eq!(report["functions"].as_array().unwrap().len(), 24);
+            for f in report["functions"].as_array().unwrap() {
+                assert_eq!(f["metrics"]["cache"], cache, "{f}");
+                assert_eq!(f["proofs"]["soundness"]["status"], "proved", "{f}");
+                assert_eq!(f["mode"], "sound");
+            }
+        }
+    }
+}
+
+#[test]
+fn precision_truncation_arithmetic_aliases_and_contract_simplification() {
+    let crates = InferCrates::new();
+    let body = r#"use vstd::prelude::*;
+    #[verifier::infer(sound)] pub fn code(x:i16)->i8{if x>=128 && x<=130{x as i8}else{-128}}
+    #[verifier::infer(sound)] pub fn wrap(x:u8)->u8{if x>250{x.wrapping_add(10)}else{0}}
+    #[verifier::infer(sound)] pub fn shift(n:i16)->u8{1u8<<n}
+    #[verifier::infer(sound)] pub fn sat(x:u8)->u8{if x<10{x.saturating_add(1)}else{0}}
+    #[verifier::infer] pub fn cancel(x:u8)->u8{(x+1)-x}
+    #[verifier::infer] pub fn zero(x:u8)->u8{x-x}
+    #[verifier::infer] pub fn window(s:&[u8],i:usize)->u8{let w=&s[i..];w[0]}
+    fn caller(x:u8){let r=shift(7);assert(1<=r && r<=128);let r=wrap(x);assert(r<=9);let r=sat(x);assert(r<=10);let r=code(130);assert(-128<=r && r<=-126);let r=cancel(254);assert(r==1);}
+    "#;
+    for cache in ["miss", "hit"] {
+        let run = crates.build("precision_arithmetic", body, &[], &["--output-json"]);
+        assert!(
+            run.status.success(),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+        let report = json_inference(&run);
+        for f in report["functions"].as_array().unwrap() {
+            assert_eq!(f["metrics"]["cache"], cache);
+            let name = f["function"].as_str().unwrap();
+            if name.ends_with("::cancel") {
+                assert_eq!(f["contract"]["requires"], "(x <= 254)");
+                assert_eq!(f["contract"]["ensures"], "result == 1");
+            }
+            if name.ends_with("::zero") {
+                assert_eq!(f["contract"]["requires"], "true");
+                assert_eq!(f["contract"]["ensures"], "result == 0");
+            }
+            if name.ends_with("::window") {
+                assert_eq!(f["contract"]["requires"], "(i < (s).len())");
+            }
+        }
+    }
+    let unsafe_body = body.replace("let r=cancel(254)", "let r=cancel(255)");
+    let run = crates.verify("precision_unsafe", &unsafe_body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
+}
+
+#[test]
+fn precision_poisoned_mask_bounds_cannot_borrow_checked_hint_evidence() {
+    let crates = InferCrates::new();
+    let body = "use vstd::prelude::*;#[verifier::infer(sound)] pub fn masked(x:u8)->u8{x&15}fn caller(){let _=masked(255);}";
+    let run = crates.build("precision_mask_poison", body, &[], &["--output-json"]);
+    assert!(
+        run.status.success(),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
+        let path = file.unwrap().path();
+        let mut c: serde_json::Value =
+            serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        c["post"]["Logical"][2]["Binary"][2] =
+            serde_json::to_value(vir::ast::Constant::Int(14.into())).unwrap();
+        std::fs::write(path, serde_json::to_vec(&c).unwrap()).unwrap();
+    }
+    let run = crates.build("precision_mask_poison", body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    let f = &report["functions"][0];
+    assert_eq!(f["metrics"]["cache"], "hit");
+    assert_eq!(f["proofs"]["soundness"]["status"], "not_proved");
+    assert_eq!(f["available_to_same_crate_callers"], false);
+    assert!(!crates.vir("precision_mask_poison").exists());
+}
+
+#[test]
+fn precision_bitvector_resource_limits_never_publish_or_start_callers() {
+    let crates = InferCrates::new();
+    let body = "use vstd::prelude::*;#[verifier::infer(sound)]#[verifier::rlimit(0.000001)]pub fn masked(x:u128)->u128{x&15}fn caller(){assert(false);}";
+    let run = crates.build("precision_hint_timeout", body, &[], &["--output-json"]);
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    assert_eq!(report["status"], "required_proof_incomplete");
+    assert_eq!(
+        report["functions"][0]["proofs"]["soundness"]["status"],
+        "incomplete"
+    );
+    assert_eq!(
+        report["functions"][0]["available_to_same_crate_callers"],
+        false
+    );
+    assert!(!crates.vir("precision_hint_timeout").exists());
+    assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
 }
