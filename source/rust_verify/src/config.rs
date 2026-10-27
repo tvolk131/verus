@@ -480,7 +480,7 @@ pub fn parse_args_with_imports(
     );
     opts.optflag("", OPT_NO_EXTERNAL_BY_DEFAULT, "(deprecated) Verify all items, even those declared outside the verus! macro, and even if they aren't marked #[verifier::verify]");
     opts.optflag("", OPT_NO_VERIFY, "Do not run verification");
-    opts.optflag("", OPT_INFER_GOALS, "Experimental checked, goal-directed bit-vector proofs for scalar assertions using exact inferred contracts");
+    opts.optflag("", OPT_INFER_GOALS, "Experimental checked assistance for scalar assertions and supplied counting invariants");
     opts.optflag("", OPT_BUILD_SST, "Always build SST even if no-verify is set");
     opts.optflag("", OPT_NO_LIFETIME, "Do not run lifetime checking on proofs");
     opts.optflag("", OPT_NO_TRAIT_CONFLICTS, "Do not run trait conflict checking");

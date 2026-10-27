@@ -50,6 +50,12 @@ Implemented and covered by regression tests:
   source-connected AlephBFT `common_vote` pilot compares manual/baseline/assisted
   proofs and semantic mutations. This bridges equivalent parity representations;
   it does not reproduce the existing stateful/distributed verification effort.
+- [x] Supplied counting-invariant assistance behind `--infer-goals`: bounded
+  contract/assertion discovery enables four checked generic prefix-count lemmas
+  through scoped broadcasts. Aleph's update method verifies without its counting
+  proof block; a checked equivalence preserves the original count definition's
+  meaning. Invariants, loop annotations and the transition's sequence-equality
+  assertion remain supplied.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -173,7 +179,7 @@ Still planned or outside the implemented subset:
 - [ ] General mutation, state relations, and frame-condition inference beyond
   the bounded single-slot vector templates and counted-loop locals. State-aware
   maximality/exactness checks, generic mutable records, and automatic counting
-  lemma selection remain open.
+  lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
 - [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
@@ -186,7 +192,8 @@ Still planned or outside the implemented subset:
 - [ ] Further relational simplification, dedicated contract-query APIs,
   ordinary-proof-first goal retries, broader demand-driven strengthening, and
   IDE presentation and suggestions. The initial `--infer-goals` strategy is
-  restricted to explicit scalar assertions and a checked bit-vector tactic.
+  includes explicit scalar assertions and a checked bit-vector tactic, plus
+  supplied count contracts/assertions and scoped counting theorem selection.
 - [ ] Richer abstract domains and refinement, including relational properties
   beyond scalar intervals and Boolean summaries, disjunctive/relational branch
   refinement, and wrapping-cast ranges spanning more than one modular cycle.
@@ -200,7 +207,7 @@ Still planned or outside the implemented subset:
 | --- | --- |
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
-| Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Initial opt-in goal assistance handles selected explicit scalar assertions; general queries, automatic retries and contract strengthening remain future work. |
+| Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Opt-in goal assistance handles selected scalar assertions and supplied counting invariants; general queries, automatic retries and contract strengthening remain future work. |
 | Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec length/read and sound single-slot state summaries are implemented. General mutation and state precision remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
@@ -270,10 +277,17 @@ APIs and research directions.
    invariant composes with that relation through checked sequence lemmas.
    The AlephBFT experiment extracts three operations from the existing manual
    collector; it replaces experiment wrapper contracts and removes no existing
-   collector proof annotations. Counting induction and lemma calls remain manual.
-8. **Next: invariant-directed composition and operator specifications.** Connect
-   a supplied invariant and inferred effects to bounded selection of checked
-   update/counting lemmas. General mutable records, state-aware precision,
+   collector proof annotations in that initial comparison.
+8. **Counting-invariant composition checkpoint implemented.** Reusable checked
+   prefix-count proofs cover bounds, updates, zero and full counts. Bounded
+   discovery of supplied count contracts/assertions enables those theorems through
+   ordinary scoped broadcasts. The Aleph follow-up removes its update proof block
+   and all three bespoke counting proof definitions, including initialization
+   zero-count calls. A checked reference equivalence
+   validates the specification migration. State contracts and loop
+   annotations remain explicit; whole-collector inference is not established.
+9. **Next: record mutation, expected-domain checks and operator specifications.**
+   Broader mutable records, state-aware precision,
    generic helper composition and whole-collector inference remain open.
    Concrete operator implementations cannot introduce inferred
    preconditions independently of their inherited trait contracts. Address these

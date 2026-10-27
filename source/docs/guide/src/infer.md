@@ -130,11 +130,79 @@ are reverified on every run (`metrics.cache_policy = "regenerated_template"`),
 including warm runs; their formulas do not enter the scalar candidate cache.
 Ordinary callers can use certified collection summaries across crate boundaries.
 
-The AlephBFT collection experiment extracts these three operations from the
+The initial AlephBFT collection experiment extracts these three operations from the
 existing manually verified collector. Its counting invariant, induction lemmas,
-loop annotations and proof calls remain explicit. This demonstrates composition
-with inferred state effects; it does not yet automate selection of those lemmas
-or inference of the whole collector method.
+loop annotations and proof calls remain explicit in that comparison. The
+counting-assistance checkpoint below removes the update proof block by reusing
+generic library lemmas. Whole-collector inference remains unsupported.
+
+## Supplied counting invariants
+
+`Seq::count_prefix(predicate, n)` counts matching elements in a valid prefix.
+The library provides four checked broadcast proofs: an upper bound of `n`, the
+change caused by a slot update, zero when no slot matches, and the fact that a
+full count means every slot matches. The last fact also proves there is room to
+increment a counter when a known slot does not yet match.
+
+With `--infer-goals`, ordinary function contracts and explicit assertions can
+select this small theorem catalog automatically. For example, this supplied
+accounting invariant needs no application-specific counting proof block:
+
+```rust
+use vstd::prelude::*;
+
+verus! {
+#[verifier::infer(sound)]
+fn replace<T: Copy>(v: &mut Vec<T>, i: usize, value: T) { v[i] = value; }
+
+pub open spec fn used(s: Seq<bool>) -> nat {
+    s.count_prefix(|occupied: bool| occupied, s.len())
+}
+
+fn occupy(v: &mut Vec<bool>, total: &mut usize, i: usize)
+    requires
+        i < old(v)@.len(), !old(v)@[i as int],
+        *old(total) == used(old(v)@),
+    ensures *final(total) == used(final(v)@),
+{
+    let n = v.len();
+    replace(v, i, true);
+    *total += 1;
+}
+}
+```
+
+The length observation exposes the vector's `usize` length bound; no separate
+counter-overflow assumption is needed. Real code often already reads the length
+for its bounds guard, as Aleph does. The invariant and predicate remain supplied
+by the developer. Incorrect updates, missing accounting assumptions and attempts
+to count an already occupied slot still fail ordinary verification.
+
+Selection follows at most 32 spec-function definitions and visits at most 4,096
+source nodes per function, looking for the canonical count operation. It enables
+only the four named library theorems in the function's existing body, using
+Verus's scoped `broadcast use` mechanism. The SMT solver instantiates their
+conditional conclusions as needed. There is no new axiom, assumed assertion,
+rewritten goal or generated executable operation. Inferred definitions and vstd
+itself are excluded from this decoration; their proof obligations are unchanged.
+Missing models or exhausted discovery budgets leave ordinary verification in
+charge. This is bounded theorem selection, not arbitrary induction or a general
+ordinary-proof-first retry planner.
+
+The JSON report's `goal_assistance` entries show the selected strategy and lemmas;
+selection is not a proof receipt. Goal-assisted exports still wait for complete
+ordinary verification, including when the invariant and mutator are imported.
+No inferred precondition, contract precision claim or candidate cache format is
+changed by this strategy.
+
+The Aleph counting runner removes the `add` proof block, all three application
+counting proof definitions and four calls across `add`/`new`/`next`.
+Its count delegates to this library recurrence,
+and a separate checked equivalence compares it with the original recursive count.
+Loop annotations, state contracts and the transition's sequence-equality assertion remain.
+The checked reference/equivalence definitions are experiment-only evidence.
+Reproduce it with `source/tools/eval_verus_infer_alephbft_counting.py` as documented
+in the [experiment README](../../../tools/infer_alephbft/README.md).
 
 ## Demand-driven scalar proof assistance
 

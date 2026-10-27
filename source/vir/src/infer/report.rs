@@ -17,6 +17,8 @@ pub struct GenerationReport {
     pub candidates: Vec<GeneratedCandidate>,
     pub elapsed_micros: u128,
     pub failure: Option<String>,
+    /// Scoped lemma selections are observations, never proof receipts.
+    pub goal_lemmas: Vec<(Fun, Vec<Fun>)>,
 }
 
 impl GeneratedCandidate {

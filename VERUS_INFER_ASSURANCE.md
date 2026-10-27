@@ -724,6 +724,44 @@ uses the same approach in the supplied manual collector and distinguishes its
 source from clean main. This checkpoint does not synthesize invariants, prove
 induction automatically, or infer general record/collection mutation.
 
+## Supplied counting-invariant assistance
+
+`Seq::count_prefix` and four generic broadcast lemmas are ordinary vstd
+specification/proof code. Full vstd verification checks their recursion,
+termination, bounds, update accounting, zero and full-count implications. They
+introduce no axiom or external-body declaration. A full count implies all prefix
+elements match; together with a known nonmatching slot and the vector length
+bound this can establish counter-increment safety without an extra assumption.
+
+The `--infer-goals` catalog validates canonical vstd identities, generic types,
+modes, broadcast attributes and signatures. Discovery starts from supplied
+contracts or explicit assertions, follows at most 32 spec definitions and visits
+at most 4,096 source nodes per function. Selection inserts four scoped broadcast
+activations into the existing body block. Original executable statements, block
+identity, child expressions, goals, contracts and safety assertions remain.
+Oversized/unavailable context produces no selection. Inferred functions and vstd
+itself are excluded, including while proving the catalog's own lemmas.
+
+This reuses Verus's existing conditional theorem instantiation and trusted-library
+boundary. Library proof results are not independently replayed by consumers.
+Selection is not evidence: `goal_assistance` is observational JSON, and the
+existing complete-proof/export barrier still decides acceptance. No new query
+kind, precision claim, serialized AST field or cached proof outcome is added.
+Source/model artifact fingerprints already invalidate candidates after a vstd
+change; the scalar candidate-cache and interface policy versions stay unchanged.
+
+Tests cover an occupied-slot invariant, captured predicates, prefix-external
+updates, zero/full counts, false goals, duplicate occupancy, missing invariants,
+wrong updates, scoped source preservation, catalog/budget gates, cross-crate
+invariant consumption and failed-export cleanup. Aleph's source-connected
+comparison removes its update proof block, all three counting proof definitions
+and four counting calls across update/initialization/transition methods.
+A separate checked equivalence preserves the original count specification's
+meaning; changing that definition must fail. Its reference count and equivalence
+proof are experiment-only, while state contracts, loop annotations and the
+transition's sequence-equality assertion remain supplied. These checks do not establish
+general invariant discovery, arbitrary proof search or new protocol properties.
+
 Cargo edit measurements observe broad candidate invalidation, including an
 independent function, after changing the source. Such source-span/build-provenance
 sensitivity is a cache-efficiency follow-up; it does not reuse failed evidence or

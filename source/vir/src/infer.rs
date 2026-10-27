@@ -18,6 +18,7 @@ mod bitvector_hints;
 mod bitwise;
 mod collections;
 mod contract;
+mod counting_goals;
 mod eligibility;
 mod enums;
 mod exits;
@@ -37,6 +38,7 @@ pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
+pub use counting_goals::prepare as prepare_counting_goals;
 
 pub fn is_state_summary(function: &Function) -> bool {
     function.x.attrs.infer && function.x.attrs.infer_allow_approx

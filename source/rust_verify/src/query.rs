@@ -527,6 +527,13 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         )
         .map_err(|e| self.emit_error(e))?;
 
+        if self.args.infer_goals {
+            let available: Vec<_> = other_vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
+            cratex.functions = vir::infer::prepare_counting_goals(
+                &cratex.functions, &available, &mut self.inference_generation,
+            );
+        }
+
         vir::traits::set_krate_dyn_compatibility(&other_vir_crates, &mut cratex);
         let krate = Arc::new(cratex);
 

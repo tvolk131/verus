@@ -140,6 +140,10 @@ impl Verifier {
             "requested_functions": generation.requested,
             "generated_functions": functions.len(),
             "generation_failure": generation.failure,
+            "goal_assistance": generation.goal_lemmas.iter().map(|(function, lemmas)| json!({
+                "function": name(function), "strategy": "counting_broadcast",
+                "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
+            })).collect::<Vec<_>>(),
             "failed_functions": failed_functions,
             "functions": functions,
             "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",

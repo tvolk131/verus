@@ -781,6 +781,39 @@ fn goal_assistance_uses_checked_imports_and_failed_goals_remove_stale_exports() 
     assert!(!crates.vir("goals_consumer").exists());
 }
 
+#[test]
+fn counting_assistance_uses_imported_invariants_and_removes_failed_exports() {
+    let crates = InferCrates::new();
+    let base = r#"
+        use vstd::prelude::*;
+        pub open spec fn used(s:Seq<bool>)->nat {s.count_prefix(|b:bool|b,s.len())}
+        #[verifier::infer(sound)] pub fn replace(v:&mut Vec<bool>,i:usize,value:bool){v[i]=value;}
+    "#;
+    crates.succeeds("counting_base", base, &[]);
+    let caller = r#"
+        use vstd::prelude::*;
+        pub fn occupy(v:&mut Vec<bool>,total:&mut usize,i:usize)
+            requires i<old(v)@.len(),!old(v)@[i as int],*old(total)==counting_base::used(old(v)@),
+            ensures *final(total)==counting_base::used(final(v)@),
+        {let n=v.len(); counting_base::replace(v,i,true); *total+=1;}
+    "#;
+    let plain = crates.build("counting_app", caller, &["counting_base"], &[]);
+    assert!(!plain.status.success());
+    assert!(String::from_utf8_lossy(&plain.stderr).contains("possible arithmetic"));
+    let run = crates.build("counting_app", caller, &["counting_base"], &["--infer-goals", "--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let report = json_inference(&run);
+    assert_eq!(report["goal_assistance"].as_array().unwrap().len(), 1);
+    assert_eq!(report["goal_assistance"][0]["strategy"], "counting_broadcast");
+    assert_eq!(report["goal_assistance"][0]["lemmas"].as_array().unwrap().len(), 4);
+    assert!(std::fs::read(crates.vir("counting_app")).unwrap().ends_with(b"VRINFER1"));
+    let run = crates.build("counting_app", &caller.replace("*total+=1", "*total+=2"),
+        &["counting_base"], &["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    assert!(!crates.vir("counting_app").exists());
+}
+
 impl InferCrates {
     fn new() -> Self {
         let executable = std::env::current_exe().unwrap();
