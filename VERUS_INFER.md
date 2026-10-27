@@ -69,8 +69,16 @@ Implemented and covered by regression tests:
   `Option<&T>` lookups. Unconstrained sized payloads can move into a slot without
   adding a Copy bound. All exact obligations remain required. Aleph's pinned
   NodeMap lookup/insert bodies and a documented constructor-spelled size variant
-  compose with the supplied collector invariant. Opaque collection views and
-  derived conversion/operator inference remain open.
+  compose with the supplied collector invariant. Derived conversion/operator
+  inference remains open.
+- [x] Supplied direct sequence views for private wrappers around a sole vector
+  field. Inferred length/read/update contracts compose across modules and compiled
+  crate boundaries without exposing private fields or closed view definitions.
+  Compiler-only structural evidence preserves independent exact observations and
+  is bound to exported metadata. Aleph's extracted NodeMap API now composes with
+  the supplied collector update from a separate crate. The view and a checked
+  size observation in each ghost-only caller are supplied; arbitrary abstraction
+  discovery, richer representation laws and Unit/Hasher traits remain open.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -193,7 +201,8 @@ Still planned or outside the implemented subset:
   exclusive/open shared subslices are implemented.
 - [ ] General mutation, state relations, and frame-condition inference beyond
   the bounded vector/record subset and counted-loop locals. Standalone-vector
-  precision checks, opaque/deeper records, broader mutable helper composition and counting
+  precision checks, opaque records beyond direct vector views, deeper records,
+  broader mutable helper composition and counting
   lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
   mixed handwritten-and-inferred contracts, and generic/trait specialization.
@@ -318,10 +327,20 @@ APIs and research directions.
     and verifies the supplied collector through those APIs. Private storage is
     transparent in the harness module; this does not establish opaque cross-crate
     views or the clean-main generic Unit/Hasher implementation.
-11. **Next: opaque abstractions and the collector lifecycle.** Checked abstract
-    collection views across private crate/module boundaries, associated-type and
-    Unit/Hasher trait specifications, inherited operator/conversion contracts,
+11. **Direct private sequence-view checkpoint implemented.** A supplied canonical
+    View implementation must directly project the wrapper's sole Vec field.
+    Inferred APIs compose across module and compiled crate boundaries; independent
+    precision checks use certified structural observations after private fields
+    are pruned. Aleph's separate API crate preserves private NodeMap storage and
+    the original get/insert bodies. Its supplied update core retains the invariant,
+    count equivalence and behavior oracle; ghost-only callers observe size to
+    expose the hidden length bound. This checkpoint excludes lifecycle methods
+    and the clean-main generic Unit/Hasher collector.
+12. **Next: trait boundaries, richer abstractions and the collector lifecycle.**
+    Associated-type and Unit/Hasher trait specifications, inherited operator/conversion contracts,
     collection construction/copy loops and richer mutable return values remain.
+    More general supplied views, representation-lemma selection and automatic
+    abstraction discovery are separate extensions beyond direct projections.
     Broader query control, ordinary-proof-first retries, application invariant
     discovery and a dedicated expected-domain interface remain separate work.
     The existing supplied invariant, loop annotations and regression oracle are

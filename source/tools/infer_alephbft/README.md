@@ -380,3 +380,45 @@ Outputs include raw diagnostics, `results.json`, source snapshots/hashes, the
 pinned original node source, a reviewable storage/inference patch, native lockfile
 and an isolated clone restored to its passing variant. Tool/model/support inputs
 are fingerprinted; timings are observations rather than a benchmark.
+
+## Private NodeMap API across a compiled crate boundary
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_private.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-private
+```
+
+This checkpoint compiles the extracted NodeMap API into a separate crate with
+private vector storage. A supplied **closed direct sequence view** defines its
+mathematical contents. Inferred size/get/insert contracts use that view; the
+collector cannot access the private field or unfold the definition. Lookup and
+insertion retain their pinned original signatures/bodies. The previously documented
+NodeCount constructor adaptation and overflow-safe threshold correction remain.
+Unused native derives are excluded from the formal API as in earlier probes.
+
+The consumer verifies only the supplied collector's update and its state specs,
+checked counting equivalence, minimal valid-domain harness and separate behavior
+oracle. Constructor, round-transition and selection methods are **excluded** from
+this formal target; their earlier manually specified checks remain in the other
+runners. This does not prove clean-main generic Unit/Hasher code or whole-crate
+Aleph correctness. No new runtime algorithm change is introduced by this checkpoint.
+
+Both ghost-only caller harnesses observe the existing checked size query before
+the update. This exposes the vector length bound hidden by the closed view, without
+adding an input restriction. The view and this observation are supplied guidance;
+automatic abstraction and representation-lemma discovery remain future work.
+
+Nine cases each build/check a provider and consumer, giving eighteen formal runs.
+They cover inferred/warm success, wrong lookup/insertion/size, duplicate accounting,
+changed frames, an additional overflow restriction and an explicitly unsupported
+lossy view. All four provider functions and both consumer functions must pass
+every exact obligation in semantic controls. Domain controls must reject the
+minimal invariant harness. The lossy provider remains precisely verified about
+its concrete storage, but does not qualify for private-view composition.
+
+Outputs include source snapshots/hashes, immutable tool fingerprints, compiler
+commands, reports/diagnostics, the original node source, a reviewable update-scope
+patch and summary. Final sources and compiled interfaces use the passing variant.
+This runner adds no native behavioral claim; the preceding wrapper runner retains
+its seven native comparisons of these same executable API/update bodies.

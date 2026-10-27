@@ -951,6 +951,101 @@ fn generic_wrapper_interfaces_reprove_queries_updates_and_composed_callers() {
 }
 
 #[test]
+fn private_sequence_view_interfaces_compose_without_exporting_the_definition() {
+    let crates=InferCrates::new();
+    let base=r#"
+        use vstd::prelude::*;
+        pub struct Slots<T>(Vec<Option<T>>);
+        impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+        impl<T> Slots<T>{
+            #[verifier::infer] pub fn len(&self)->usize{self.0.len()}
+            #[verifier::infer] pub fn get(&self,i:usize)->Option<&T>{self.0[i].as_ref()}
+            #[verifier::infer] pub fn put(&mut self,i:usize,v:T){self.0[i]=Some(v);}
+        }
+    "#;
+    let caller=r#"
+        use vstd::prelude::*;
+        pub struct Outer<T>{pub map:private_base::Slots<T>,pub sibling:private_base::Slots<T>,pub used:usize,pub stable:u8}
+        impl<T:Copy> Outer<T>{
+            pub open spec fn valid(&self)->bool{self.used==self.map@.count_prefix(|s:Option<T>|s.is_some(),self.map@.len())}
+            #[verifier::infer] pub fn add(&mut self,i:usize,v:T){
+                if i>=self.map.len(){return;}
+                let empty=match self.map.get(i){None=>true,Some(_)=>false};
+                if empty{self.map.put(i,v);self.used+=1;}
+            }
+        }
+        pub fn check<T:Copy>(s:&mut Outer<T>,i:usize,v:T)
+            requires old(s).valid(), ensures final(s).valid(),final(s).stable==old(s).stable,final(s).sibling@==old(s).sibling@,
+        {let _=s.map.len();s.add(i,v);}
+    "#;
+    for _ in 0..2 {
+        let run=crates.build("private_base",base,&[],&["--output-json"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        for f in json_inference(&run)["functions"].as_array().unwrap(){for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}}
+        let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        for p in ["soundness","maximality","exactness"]{assert_eq!(json_inference(&run)["functions"][0]["proofs"][p]["status"],"proved");}
+    }
+    // The closed body supplies no automatic representation facts to clients.
+    // Calling the checked len query above is what exposes this bound.
+    let hidden=r#"use vstd::prelude::*; pub fn hidden(s:&private_base::Slots<u8>){ assert(s@.len()<=usize::MAX); }"#;
+    let run=crates.build("private_hidden",hidden,&["private_base"],&[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
+    let raw="use vstd::prelude::*;pub fn raw(s:&private_base::Slots<u8>){let _=&s.0;}";
+    let run=crates.build("private_field",raw,&["private_base"],&[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("is private"),"{}",String::from_utf8_lossy(&run.stderr));
+    // A precisely certified wrong helper must still fail application intent.
+    let wrong=base.replace("self.0[i]=Some(v)","self.0[0]=Some(v)");
+    let run=crates.build("private_base",&wrong,&[],&["--output-json"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
+    assert!(!run.status.success());
+    assert_eq!(json_inference(&run)["status"],"caller_proof_failed");
+    assert!(!crates.vir("private_app").exists());
+    // Changing the supplied view to a lossy one removes structural eligibility.
+    let lossy=base.replace("{self.0@}","{self.0@.take(0)}");
+    let run=crates.build("private_base",&lossy,&[],&["--output-json"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("visible transparent record fields"));
+    assert!(!crates.vir("private_app").exists());
+    // The view evidence must not survive removal of the inference certificate.
+    let run=crates.build("private_base",base,&[],&[]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let mut bytes=std::fs::read(crates.vir("private_base")).unwrap();
+    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    bytes.truncate(start);std::fs::write(crates.vir("private_base"),bytes).unwrap();
+    let run=crates.build("private_app",caller,&["private_base"],&[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+}
+
+#[test]
+fn private_sequence_view_evidence_requires_metadata_even_without_public_inferred_methods() {
+    let crates=InferCrates::new();
+    let base=r#"use vstd::prelude::*;
+      pub struct Buffer(Vec<u8>);
+      impl View for Buffer{type V=Seq<u8>;closed spec fn view(&self)->Seq<u8>{self.0@}}
+      impl Buffer{#[verifier::infer] fn put(&mut self,i:usize,v:u8){self.0[i]=v;}}
+    "#;
+    let run=crates.build("view_only",base,&[],&["--output-json"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let caller="use vstd::prelude::*;pub fn unchanged(s:&view_only::Buffer) ensures s@==s@, {}";
+    let run=crates.build("view_client",caller,&["view_only"],&["--infer-goals"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let mut bytes=std::fs::read(crates.vir("view_only")).unwrap();
+    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    bytes.truncate(start);std::fs::write(crates.vir("view_only"),bytes).unwrap();
+    let run=crates.build("view_client",caller,&["view_only"],&["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(!crates.vir("view_client").exists());
+}
+
+#[test]
 fn record_precision_covers_all_integer_widths_and_both_pointer_models() {
     let crates = InferCrates::new();
     let mut source = String::new();

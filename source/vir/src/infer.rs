@@ -31,6 +31,18 @@ mod propagation;
 mod registry;
 mod records;
 mod record_models;
+mod sequence_views;
+
+/// Internal structural evidence, not a trusted standard-library model.
+pub fn is_inferred_sequence_view(f: &Function) -> bool { f.x.attrs.infer_sequence_view }
+
+pub fn validate_inferred_sequence_views(functions: &[Function], datatypes: &[Datatype]) -> Result<(),VirErr> {
+    sequence_views::validate_imports(functions,datatypes)
+}
+
+pub(crate) fn record_sequence_view(typ: &Typ, functions: &HashMap<Fun, Function>) -> Option<Function> {
+    sequence_views::observation(typ, functions)
+}
 mod report;
 mod simplify;
 mod slices;
@@ -1074,6 +1086,9 @@ fn format_expr(e: &Expr) -> String {
         }
         ExprX::Unary(UnaryOp::Clip { range: IntRange::USize, .. }, a) => {
             format!("({} as usize)", format_expr(a))
+        }
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::Int, .. }, a) => {
+            format!("({} as int)", format_expr(a))
         }
         ExprX::ArrayLiteral(elements) => {
             format!("[{}]", elements.iter().map(format_expr).collect::<Vec<_>>().join(", "))

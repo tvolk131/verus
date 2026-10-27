@@ -255,6 +255,7 @@ ordinary verification harness.
 The subset permits up to eight fields per record, four field-projection levels,
 sixteen scalar/vector leaves, two type parameters and eight function parameters.
 Records must be available and transparent in the inferred function's module,
+or have the certified direct sequence view described below,
 with one variant, no custom destructor, proxy, tracked/ghost fields or user-defined
 type invariant. Nested transparent records and scalar newtype fields are supported.
 Payloads may be machine integers, Booleans, opaque generic values, tuples of up to
@@ -357,15 +358,67 @@ pub fn insert_if_empty(&mut self, i: SlotIndex, value: T) {
 An ordinary caller supplies the counting invariant and proves its preservation
 with `--infer-goals`. No application-specific container name is recognized by the
 compiler. Transparent interfaces also compose across crates, with regenerated
-summaries and fresh proofs. Private storage hidden from the caller's module needs
-an abstract collection view mechanism; automatic opaque-view synthesis is not
-implemented.
+summaries and fresh proofs. Private storage can instead use the supplied direct
+sequence views below. Automatic discovery of arbitrary views is not implemented.
 
 The Aleph wrapper experiment checks the pinned `NodeMap::get` and `insert` bodies
 unchanged and an explicitly constructor-adapted `size()` method. The supplied
 collector core uses these helpers under its existing invariant. API extraction,
 module placement and the `Into` adaptation are recorded separately from proof
 annotation removal; this is not a proof of the clean-main `Unit`/`Hasher` collector.
+
+### Private vector wrappers with supplied views
+
+The [private-view example](../../../../examples/verus_infer_private_views.rs)
+retains collection privacy. Supply an ordinary Verus view inside the defining
+module, then annotate the supported executable methods as usual:
+
+```rust
+pub struct Slots<T>(Vec<Option<T>>);
+impl<T> View for Slots<T> {
+    type V = Seq<Option<T>>;
+    closed spec fn view(&self) -> Self::V { self.0@ }
+}
+```
+
+Inference recognizes only the canonical `vstd::view::View` implementation whose
+body directly projects the type's **sole executable vector field** through the
+existing Vec view. Named and tuple fields, ordinary scalar elements and the
+existing bounded generic payloads are supported. The wrapper retains the record
+restrictions on destructors, invariants, fields and generic bounds. A projection
+with filtering, slicing, transformation, extra statements or additional fields
+does not qualify. The compiler does not invent a view or assume its completeness.
+
+The inferred contracts use `self@`, preserving private fields and the closed view
+definition across modules and compiled crate interfaces. Shared length/lookup
+queries and unit-returning slot updates compose with enclosing inferred records,
+including unchanged sibling collections. No source program operation is inserted.
+Default exact mode still requires soundness, maximal input safety and exact
+modeled final state. A structurally certified direct view re-expresses the same
+whole-vector-content observation used by the independent precision checker;
+it cannot discard other modeled fields. Capacity and addresses remain outside
+that observation, as with existing vector inference.
+
+A closed view also hides facts such as the physical vector length bound. The
+example's ordinary caller uses `let _ = r.entries.len();` before the update to
+obtain that bound from the checked query contract. It adds no input restriction.
+Automatic selection of representation lemmas remains future work. Integer length
+equations remain mathematical through scalar wrapper returns, so a checked
+`NodeCount`-valued size query can serve the same purpose.
+
+Compiler-only direct-view evidence is fingerprinted with inferred interfaces and
+the datatype, validated on import and published only after complete verification.
+Closed bodies remain unavailable to clients. View/state templates regenerate and
+receive fresh proofs; this introduces no new trusted library model or axiom.
+
+The private Aleph checkpoint builds an extracted `NodeMap` API in a separate
+crate and checks the supplied collector's update through it. It retains original
+get/insert bodies, the documented size-constructor adaptation, supplied invariant,
+checked counting equivalence and separate behavior oracle. Size observations are
+explicit in the ghost-only callers. Construction, transition and selection methods
+are excluded from this checkpoint; the earlier experiments cover their manually
+specified supplied-core versions. This does not establish clean-main `Unit`/`Hasher`
+trait inference or automatic abstract-view discovery.
 
 ## Demand-driven scalar proof assistance
 
@@ -1287,7 +1340,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 19 and candidate-cache version 24.
+The current inference policy uses metadata schema 20 and candidate-cache version 25.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

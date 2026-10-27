@@ -28,6 +28,93 @@ fn check<T:Copy>(r:&mut Registry<T>,k:Key,v:T)
 }
 "#;
 
+const PRIVATE_WRAPPERS: &str = r#"use vstd::prelude::*;
+verus! {
+pub mod storage {
+ use vstd::prelude::*;
+ pub struct Slots<T>(Vec<Option<T>>);
+ impl<T> View for Slots<T> {
+  type V=Seq<Option<T>>;
+  closed spec fn view(&self)->Self::V{self.0@}
+ }
+ impl<T> Slots<T> {
+  #[verifier::infer] pub fn len(&self)->usize{self.0.len()}
+  #[verifier::infer] pub fn get(&self,i:usize)->Option<&T>{self.0[i].as_ref()}
+  #[verifier::infer] pub fn put(&mut self,i:usize,v:T){self.0[i]=Some(v);}
+ }
+}
+pub struct Registry<T>{pub slots:storage::Slots<T>,pub used:usize,pub stable:bool}
+impl<T:Copy> Registry<T> {
+ #[verifier::infer] pub fn add(&mut self,i:usize,v:T){
+  if i>=self.slots.len(){return;}
+  let empty=match self.slots.get(i){None=>true,Some(_)=>false};
+  if empty{self.slots.put(i,v);self.used+=1;}
+ }
+}
+fn check<T:Copy>(r:&mut Registry<T>,i:usize,v:T)
+ requires old(r).used==old(r).slots@.count_prefix(|s:Option<T>|s.is_some(),old(r).slots@.len()),
+ ensures final(r).used==final(r).slots@.count_prefix(|s:Option<T>|s.is_some(),final(r).slots@.len()),final(r).stable==old(r).stable,
+{let _=r.slots.len();r.add(i,v);}
+}
+"#;
+
+#[test]
+fn private_sequence_views_preserve_accounting_across_modules() {
+ let result=verify_one_file("private",PRIVATE_WRAPPERS.to_owned(),&["vstd","--infer-goals"]);
+ assert!(result.is_ok(),"{:?}",result);
+}
+
+#[test]
+fn private_view_helper_mutation_still_needs_to_satisfy_the_goal() {
+ rejected("private_wrong_slot",PRIVATE_WRAPPERS.replace("self.0[i]=Some(v)","self.0[0]=Some(v)"));
+}
+
+#[test]
+fn private_views_reject_an_extra_overflow_restriction_on_valid_inputs() {
+ rejected("private_domain",PRIVATE_WRAPPERS.replace("  if i>=self.slots.len()", "  let extra=i+1; if i>=self.slots.len()"));
+}
+
+#[test]
+fn private_views_preserve_unchanged_sibling_fields() {
+ rejected("private_frame",PRIVATE_WRAPPERS.replace("self.used+=1;", "self.used+=1;self.stable=false;"));
+}
+
+#[test]
+fn lossy_sequence_views_do_not_qualify_as_complete_state() {
+ let source=PRIVATE_WRAPPERS.replace("{self.0@}","{self.0@.take(0)}");
+ let e=verify_one_file("lossy",source,&["vstd","--infer-goals"]).unwrap_err();
+ assert_vir_error_msg(e,"visible transparent record fields");
+}
+
+#[test]
+fn sequence_views_cannot_hide_additional_state_fields() {
+ let source=PRIVATE_WRAPPERS.replace("Slots<T>(Vec<Option<T>>)","Slots<T>(Vec<Option<T>>,u8)");
+ let e=verify_one_file("hidden",source,&["vstd","--infer-goals"]).unwrap_err();
+ assert_vir_error_msg(e,"visible transparent record fields");
+}
+
+test_verify_one_file_with_options! {
+ #[test] private_named_vector_wrapper_moves_noncopy_values_and_preserves_frames ["vstd"] => verus_code! {
+  use vstd::prelude::*;
+  pub struct Payload(pub u64);
+  mod buffer {
+   use vstd::prelude::*;
+   pub struct Buffer<T>{data:Vec<T>}
+   impl<T> View for Buffer<T>{type V=Seq<T>;closed spec fn view(&self)->Seq<T>{self.data@}}
+   impl<T> Buffer<T>{#[verifier::infer] pub fn replace(&mut self,i:usize,v:T){self.data[i]=v;}}
+  }
+  pub struct Outer<T>{pub buffer:buffer::Buffer<T>,pub sibling:buffer::Buffer<T>,pub stable:u8}
+  impl<T> Outer<T>{
+   #[verifier::infer] pub fn twice(&mut self,i:usize,j:usize,a:T,b:T){self.buffer.replace(i,a);self.buffer.replace(j,b);}
+  }
+  fn check(s:&mut Outer<Payload>,i:usize,j:usize)
+   requires i<old(s).buffer@.len(),j<old(s).buffer@.len(),
+   ensures final(s).buffer@==old(s).buffer@.update(i as int,Payload(1)).update(j as int,Payload(2)),
+    final(s).sibling@==old(s).sibling@,final(s).stable==old(s).stable,
+  {s.twice(i,j,Payload(1),Payload(2));}
+ } => Ok(())
+}
+
 #[test]
 fn nested_wrapper_calls_prove_accounting_and_all_exact_obligations() {
     let result = verify_one_file("nested", WRAPPERS.to_owned(), &["vstd", "--infer-goals"]);

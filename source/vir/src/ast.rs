@@ -1540,6 +1540,9 @@ pub struct FunctionAttrsX {
     pub infer_precision_rlimit: Option<f32>,
     /// Installed candidate identity; never accepted as a source-level attribute.
     pub infer_candidate_id: Option<String>,
+    /// Compiler-validated direct View projection of a sole Vec field. Never a
+    /// source attribute; exported only behind the inference publication barrier.
+    pub infer_sequence_view: bool,
     /// Erasure and lifetime checking based on ghost blocks
     pub uses_ghost_blocks: bool,
     /// Inline spec function for SMT

@@ -96,6 +96,9 @@ impl Interpreter<'_> {
                     };
                     if args.len() == 1 {
                         if let Some(i) = field(&args[0]) {
+                            if self.all.get(name).is_some_and(|f|f.x.attrs.infer_sequence_view) {
+                                return Ok(before.fields[indices[i]].expr.clone());
+                            }
                             match self.all.get(name).and_then(collections::model) {
                                 Some(Model::View) => {
                                     return Ok(before.fields[indices[i]].expr.clone());
@@ -194,7 +197,7 @@ impl Interpreter<'_> {
             callee.x.inner_ret.new_x(x)
         };
         let signature = callee.new_x(instantiated);
-        let shape = shape(&signature, self.datatypes)?;
+        let shape = shape(&signature, self.datatypes, self.all)?;
         let mut indices = vec![];
         for field in &shape.fields {
             let mut path = prefix.clone();

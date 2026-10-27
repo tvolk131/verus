@@ -936,3 +936,64 @@ The assembled tool/library bundle was rebuilt after missing artifacts prevented
 one sweep from starting; those setup failures were not counted as semantic
 outcomes. Its standard library then verified 2,107 obligations with zero errors,
 and the full guarded experiment sweep was rerun successfully.
+
+## Certified direct sequence views across private boundaries
+
+The direct-view checkpoint recognizes a supplied canonical vstd View trait
+implementation with one shared spec parameter. Its type must have exactly one
+executable field, a default-allocator Vec, and satisfy the existing bounded record
+restrictions. The spec body must consist only of the direct canonical Vec view
+call on that field, optionally surrounded by empty blocks. Slices, filters,
+additional statements/fields, custom invariants/destructors and external-body
+definitions do not receive structural evidence. No view is inferred from names.
+
+The compiler installs `infer_sequence_view` internally after inspecting local
+definitions. There is no source attribute for this marker. The record generator
+may then express the same full-vector-content equations through the public view.
+Integer result/constructor equations preserve mathematical values instead of
+introducing implicit modular casts; source casts retain their original semantics,
+and original-body proofs still establish the range and exact result.
+
+Independent SST precision selection consults structural view evidence, never the
+candidate equations. Normal module pruning removes private datatype fields; the
+evidence retains which direct sequence observation represents that entire sole
+vector field. Thus an unmodified sibling remains an independent observation, and
+a view cannot silently hide another modeled field. This preserves the existing
+extensional content model, not allocation addresses or capacity. Maximality and
+soundness continue using original executable calls, borrow constraints and the
+same proof/publication ordering.
+
+Metadata schema 20 fingerprints marked view declarations, inferred contracts,
+datatype definitions and architecture. Import requires the certificate even when
+all inferred executable methods were private and only public view evidence remains.
+It validates the view signature/shape and any retained public definition. Closed
+definitions remain stripped, and clients cannot reveal them. Publication requires
+full successful local verification. Cache version 25 includes direct-view evidence
+in dependencies; templates regenerate and all required proofs run freshly.
+This adds acceptance/observation code requiring the same engineering safeguards
+as existing inference, but adds no axiom or trusted standard-library model. The
+structural checker and its evidence transport are not themselves formally proven.
+
+Ordinary caller goals may need a checked length/size observation to expose the
+representation's length bound hidden by a closed view. The examples and private
+Aleph harness state that step explicitly; no new input-domain assumption replaces
+it. General representation-lemma discovery is not implemented.
+
+Regressions cover private tuple/named wrappers, unconstrained moved payloads,
+multiple updates, untouched sibling collections, application and domain mutations,
+lossy views, hidden extra state, closed-body privacy and metadata removal including
+view-only exports. The separate-crate Aleph experiment preserves original NodeMap
+lookup/insert bodies, records the existing size adaptation, retains the supplied
+invariant/count equivalence/oracle, and excludes other lifecycle methods from its
+formal scope. Its controls distinguish successful exact helper certification from
+failed application goals and unsupported abstract views.
+
+Checkpoint validation passes 408 targeted Rust tests (100 VIR inference/precision
+tests and 308 integration tests), 42 inference-tool Python tests and the private-view
+example (13 verified obligations). The guarded Aleph sweep matches all 85 expected
+formal scenarios, including eighteen separate provider/consumer runs for private
+views, and all seven native wrapper controls. The standard library was rebuilt
+for the changed VIR layout and verified 2,107 obligations with zero errors. Final
+privacy checks require an actual failed assertion for a hidden representation fact
+and an explicit private-field access diagnostic, rather than accepting unrelated
+frontend errors as evidence.

@@ -12,7 +12,7 @@ pub(super) fn candidate(f: &Function) -> bool {
         if !models::path_is(p,CrateId::Alloc,&["vec","Vec"]) && !models::path_is(p,CrateId::Core,&["option","Option"])))
         && (!mutable(f) || enums::unit(&f.x.inner_ret.x.typ))
 }
-pub(super) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<(FieldOpr, Typ)>> {
+pub(in crate::infer) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<(FieldOpr, Typ)>> {
     let TypX::Datatype(dt, args, _) = &**typ else { return None };
     let d = datatypes.iter().find(|d| &d.x.name == dt)?;
     if d.x.mode != Mode::Exec
@@ -47,7 +47,7 @@ pub(super) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<(FieldOpr,
         })
         .collect()
 }
-pub(super) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datatype], depth: usize) -> bool {
+pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datatype], depth: usize) -> bool {
     if depth == 0 {
         return false;
     }
@@ -69,7 +69,7 @@ pub(super) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datatype], dept
             .is_some_and(|fs| fs.iter().all(|(_, t)| value_type(t, params, datatypes, depth - 1))),
     }
 }
-fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool {
+pub(in crate::infer) fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool {
     let mut recognized = 0;
     for p in params {
         let t = Arc::new(TypX::TypParam(p.clone()));
@@ -108,12 +108,13 @@ pub(super) struct Field {
     pub path: Vec<Projection>,
     pub typ: Typ,
     pub element: Option<Typ>,
+    pub view: Option<sequence_views::SequenceView>,
 }
 pub(super) struct Shape {
     pub typ: Typ,
     pub fields: Vec<Field>,
 }
-pub(super) fn same_path(a: &[FieldOpr], b: &[FieldOpr]) -> bool {
+pub(in crate::infer) fn same_path(a: &[FieldOpr], b: &[FieldOpr]) -> bool {
     a.len() == b.len()
         && a.iter().zip(b).all(|(a, b)| {
             a.datatype == b.datatype
@@ -123,7 +124,7 @@ pub(super) fn same_path(a: &[FieldOpr], b: &[FieldOpr]) -> bool {
                 && a.get_variant == b.get_variant
         })
 }
-pub(super) fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirErr> {
+pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Function>) -> Result<Shape, VirErr> {
     let bad = || {
         unsupported(
             &f.span,
@@ -152,11 +153,12 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirEr
         path: Vec<Projection>,
         out: &mut Vec<Field>,
         depth: usize,
+        all: &HashMap<Fun, Function>,
     ) -> Result<(), VirErr> {
         let bad = || {
             unsupported(
                 &f.span,
-                "record state requires visible transparent record fields, bounded depth and at most sixteen leaves",
+                "record state requires visible transparent record fields or a certified direct sequence view, bounded depth and at most sixteen leaves",
             )
         };
         if depth == 0 || out.len() >= 16 {
@@ -169,7 +171,11 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirEr
             {
                 return Err(bad());
             }
-            out.push(Field { path, typ: t.clone(), element: Some(ts[0].clone()) });
+            out.push(Field { path, typ: t.clone(), element: Some(ts[0].clone()), view: None });
+            return Ok(());
+        }
+        if let Some(view) = sequence_views::find(t, all, ds) {
+            out.push(Field { path, typ: t.clone(), element: Some(view.element.clone()), view: Some(view) });
             return Ok(());
         }
         // Ordinary scalar/Option/tuple payloads remain leaves; transparent
@@ -181,7 +187,7 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirEr
             if !value_type(t, &f.x.typ_params, ds, 4) {
                 return Err(bad());
             }
-            out.push(Field { path, typ: t.clone(), element: None });
+            out.push(Field { path, typ: t.clone(), element: None, view: None });
             return Ok(());
         }
         let TypX::Datatype(dt, ..) = &**t else { return Err(bad()) };
@@ -193,11 +199,11 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirEr
         for (op, typ) in fields(t, ds).ok_or_else(bad)? {
             let mut path = path.clone();
             path.push(Projection { op, typ: typ.clone() });
-            walk(f, &typ, ds, path, out, depth - 1)?;
+            walk(f, &typ, ds, path, out, depth - 1, all)?;
         }
         Ok(())
     }
     let mut leaves = vec![];
-    walk(f, typ, datatypes, vec![], &mut leaves, 5)?;
+    walk(f, typ, datatypes, vec![], &mut leaves, 5, all)?;
     Ok(Shape { typ: typ.clone(), fields: leaves })
 }

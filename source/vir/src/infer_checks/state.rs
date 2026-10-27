@@ -115,6 +115,20 @@ fn observations(
     if depth == 0 || out.len() >= 16 {
         return Err(bad());
     }
+    // Independently selected structural evidence: this wrapper has exactly one
+    // Vec field and its supplied View is the direct projection of that field.
+    // Re-express the existing vector-content observation without exposing a
+    // private field in the client. Never derive this choice from the candidate.
+    if let Some(view) = crate::infer::record_sequence_view(typ, &ctx.func_map) {
+        let TypX::Datatype(_, args, _) = &**typ else { return Err(bad()) };
+        let ts=view.x.typ_params.iter().cloned().zip(args.iter().cloned()).collect();
+        let ret=crate::sst_util::subst_typ(&ts,&view.x.inner_ret.x.typ);
+        let crate::ast::FunctionKind::TraitMethodImpl{method,trait_typ_args,..}=&view.x.kind else {return Err(bad())};
+        let trait_args: crate::ast::Typs=Arc::new(trait_typ_args.iter().map(|t|crate::sst_util::subst_typ(&ts,t)).collect());
+        let observe=|v:Exp|SpannedTyped::new(span,&ret,ExpX::Call(CallFun::Fun(method.clone(),Some((view.x.name.clone(),args.clone()))),trait_args.clone(),Arc::new(vec![v])));
+        out.push(SpannedTyped::new(span,&bool_typ(),ExpX::BinaryOpr(BinaryOpr::ExtEq(false,ret.clone()),observe(a),observe(b))));
+        return Ok(());
+    }
     if let Some(args) = crate::infer::record_vec_args(typ) {
         let view = crate::infer::record_vec_view(&ctx.func_map).ok_or_else(bad)?;
         let ts = view.x.typ_params.iter().cloned().zip(args.iter().cloned()).collect();

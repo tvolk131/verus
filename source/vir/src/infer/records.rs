@@ -5,7 +5,7 @@ use super::*;
 use collections::Model;
 
 mod calls;
-mod shape;
+pub(super) mod shape;
 use shape::{Field, Shape, shape, value_type};
 
 fn same(a: &Typ, b: &Typ) -> bool {
@@ -19,8 +19,8 @@ pub(super) fn candidate(f: &Function) -> bool {
     shape::candidate(f)
 }
 
-fn validate_signature(f: &Function, datatypes: &[Datatype]) -> Result<Shape, VirErr> {
-    let shape = shape(f, datatypes)?;
+fn validate_signature(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun,Function>) -> Result<Shape, VirErr> {
+    let shape = shape(f, datatypes, all)?;
     let x = &f.x;
     if x.mode != Mode::Exec
         || !matches!(x.kind, FunctionKind::Static)
@@ -52,7 +52,7 @@ fn validate_signature(f: &Function, datatypes: &[Datatype]) -> Result<Shape, Vir
     Ok(shape)
 }
 
-fn atom(e: Expr) -> Result<Term, VirErr> {
+pub(super) fn atom(e: Expr) -> Result<Term, VirErr> {
     let mut size = 0;
     crate::ast_visitor::expr_visitor_walk(&e, &mut |_| {
         size += 1;
@@ -188,7 +188,9 @@ impl Interpreter<'_> {
     fn field(&self, p: &Place) -> Option<usize> {
         let path = self.path(p)?;
         self.shape.fields.iter().position(|f| {
-            shape::same_path(&path, &f.path.iter().map(|p| p.op.clone()).collect::<Vec<_>>())
+            let mut physical=f.path.iter().map(|p|p.op.clone()).collect::<Vec<_>>();
+            if let Some(v)=&f.view { physical.push(v.storage.clone()); }
+            shape::same_path(&path, &physical)
         })
     }
     fn vector(&self, e: &Expr) -> Option<usize> {
@@ -297,6 +299,7 @@ impl Interpreter<'_> {
     fn view(&self, field: usize, future: bool) -> Result<Term, VirErr> {
         let f = &self.shape.fields[field];
         let value = field_value(self.function, &self.shape, f, future)?;
+        if let Some(v)=&f.view { return sequence_views::call(v,value.expr); }
         self.model_call(
             &self.function.span,
             Model::View,
@@ -306,6 +309,10 @@ impl Interpreter<'_> {
     }
     fn len(&self, field: usize) -> Result<Term, VirErr> {
         let f = &self.shape.fields[field];
+        if f.view.is_some() {
+            let len=self.model_call(&self.function.span,Model::SeqLen,vec![f.element.clone().unwrap()],vec![self.view(field,false)?])?;
+            return term(&self.function.span,&int_typ(),ExprX::Unary(UnaryOp::Clip{range:IntRange::Int,truncate:false},len.expr),1+len.size);
+        }
         self.model_call(
             &self.function.span,
             Model::SpecLen,
@@ -530,7 +537,13 @@ impl Interpreter<'_> {
                         .map(|(_, t)| t)
                         .ok_or_else(|| unsupported(span, "record constructor field"))?;
                     let v = self.readonly(s, &field.a)?;
-                    let v = coerce(span, v, typ)?;
+                    // Keep mathematical integer equations through value
+                    // wrappers. The source body's checked arithmetic/return
+                    // types establish the range; a modular cast would erase
+                    // useful bounds when a collection view is closed.
+                    let v = if eligibility::integer(typ) && eligibility::integer(&v.expr.typ) {
+                        v
+                    } else { coerce(span, v, typ)? };
                     size += v.size;
                     values
                         .push(Arc::new(air::ast::BinderX { name: field.name.clone(), a: v.expr }));
@@ -910,7 +923,7 @@ pub(super) fn infer(
     all: &HashMap<Fun, Function>,
     datatypes: &[Datatype],
 ) -> Result<Contract, VirErr> {
-    let shape = validate_signature(f, datatypes)?;
+    let shape = validate_signature(f, datatypes, all)?;
     let mut engine = Interpreter {
         function: f,
         shape,
@@ -954,7 +967,8 @@ pub(super) fn infer(
             &f.x.inner_ret.x.typ,
             ExprX::Var(f.x.inner_ret.x.name.clone()),
         ))?;
-        post = equal(&f.span, output, coerce(&f.span, result, &f.x.inner_ret.x.typ)?)?;
+        let result=if eligibility::integer(&f.x.inner_ret.x.typ) && eligibility::integer(&result.expr.typ) {result} else {coerce(&f.span,result,&f.x.inner_ret.x.typ)?};
+        post = equal(&f.span, output, result)?;
     }
     for (i, field) in engine.shape.fields.iter().enumerate().filter(|_| mutable(f)) {
         let after = if field.element.is_some() {
@@ -995,7 +1009,7 @@ pub(super) fn validate_summary(
     let mut signature = f.x.clone();
     signature.require = Arc::new(vec![]);
     signature.ensure = (Arc::new(vec![]), Arc::new(vec![]));
-    let shape = validate_signature(&f.new_x(signature), datatypes)?;
+    let shape = validate_signature(&f.new_x(signature), datatypes, all)?;
     let engine =
         Interpreter { function: f, shape, all, datatypes, requirements: vec![], remaining: 0 };
     fn clauses(e: &Expr, out: &mut Vec<Expr>) {
@@ -1063,7 +1077,7 @@ pub(super) fn validate_summary(
                     ..
                 } => {
                     models::path_is(&name.path, CrateId::Vstd, &["view", "View", "view"])
-                        && all.get(resolved).and_then(collections::model) == Some(Model::View)
+                        && all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f) == Some(Model::View))
                 }
                 ExprX::Call {
                     target: CallTarget::Fun(CallTargetKind::Static, name, ..),
@@ -1111,7 +1125,7 @@ pub(super) fn validate_summary(
         let ExprX::Binary(BinaryOp::Eq(Mode::Spec), lhs, rhs) = &f.x.ensure.0[0].x else {
             return Err(invalid());
         };
-        if !matches!(&lhs.x,ExprX::Var(n) if n==&f.x.inner_ret.x.name) || !same(&lhs.typ, &rhs.typ)
+        if !matches!(&lhs.x,ExprX::Var(n) if n==&f.x.inner_ret.x.name) || !(same(&lhs.typ, &rhs.typ) || eligibility::integer(&lhs.typ)&&eligibility::integer(&rhs.typ))
         {
             return Err(invalid());
         }

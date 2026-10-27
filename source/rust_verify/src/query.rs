@@ -506,7 +506,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         let imported: Vec<_> = other_vir_crates
             .iter()
             .flat_map(|k| k.functions.iter())
-            .filter(|f| f.x.attrs.infer || vir::infer::is_approved_model(f))
+            .filter(|f| f.x.attrs.infer || vir::infer::is_inferred_sequence_view(f) || vir::infer::is_approved_model(f))
             .cloned()
             .collect();
         let inference_arch =

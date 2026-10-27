@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v24:record-composition:4096";
+const VERSION: &str = "verus-infer-v25:direct-sequence-views:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -290,10 +290,15 @@ impl Registry {
     ) -> Result<Vec<Function>, VirErr> {
         let mut combined = functions.to_vec();
         combined
-            .extend(imported.iter().filter(|f| f.x.attrs.infer || is_approved_model(f)).cloned());
+            .extend(imported.iter().filter(|f| f.x.attrs.infer || f.x.attrs.infer_sequence_view || is_approved_model(f)).cloned());
         let all: HashMap<_, _> = combined.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
         let mut candidates = HashMap::new();
         let mut keys: HashMap<Fun, String> = HashMap::new();
+        for f in combined.iter().filter(|f|f.x.attrs.infer_sequence_view) {
+            let key=Sha256::digest(format!("{VERSION}:direct-sequence-view:{f:?}")).iter().map(|b|format!("{b:02x}")).collect();
+            keys.insert(f.x.name.clone(),key);
+            candidates.insert(f.x.name.clone(),f.clone());
+        }
         for f in imported.iter().filter(|f| is_approved_model(f)) {
             let key: String = Sha256::digest(format!("{VERSION}:trusted-model:{f:?}"))
                 .iter()
@@ -437,6 +442,8 @@ impl Registry {
         imported: &[Function],
         datatypes: &[Datatype],
     ) -> Result<Vec<Function>, VirErr> {
+        let prepared=sequence_views::prepare(functions,imported,datatypes);
+        let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
         self.datatypes=datatypes.to_vec();
         let configuration = self.configuration.clone();
