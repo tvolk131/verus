@@ -2877,6 +2877,14 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
+        if pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| f.x.attrs.infer) {
+            crate::import_export::invalidate_local_inference_export(
+                &self.args,
+                &self.export_vir_path_via_cargo,
+            )
+            .map_err(map_err_diagnostics)?;
+        }
+
         let time1 = Instant::now();
 
         self.current_crate_modules = Some(pre_crate.krate_without_funs.modules.clone());

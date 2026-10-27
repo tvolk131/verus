@@ -607,6 +607,29 @@ struct InferCrates {
 }
 
 #[test]
+fn private_inferred_helpers_mark_exports_and_remove_stale_ordinary_outputs() {
+    let crates = InferCrates::new();
+    let source = "#[verifier::infer] fn helper(x:u8)->u8{x+1} pub fn property(x:u8)->(r:u8) requires x<255, ensures r as int==x as int+1, {helper(x)}";
+    crates.succeeds("private_only", source, &[]);
+    assert!(std::fs::read(crates.vir("private_only")).unwrap().ends_with(b"VRINFER1"));
+    let run = crates.build("private_only", &source.replace("x as int+1", "x as int+2"), &[], &[]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("private_only").exists());
+    crates.succeeds("private_only", source, &[]);
+    let run = crates.build("private_only", "pub fn broken( {", &[], &[]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("private_only").exists());
+    // Upgrade an unmarked ordinary artifact, then fail during generation.
+    crates.succeeds("private_only", "pub fn property(x:u8)->u8{x}", &[]);
+    assert!(!std::fs::read(crates.vir("private_only")).unwrap().ends_with(b"VRINFER1"));
+    let unsupported = "#[verifier::infer] fn helper(x:u8)->u8{loop{}} pub fn property(x:u8)->u8{helper(x)}";
+    let run = crates.build("private_only", unsupported, &[], &[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("Verus Infer unsupported"));
+    assert!(!crates.vir("private_only").exists());
+}
+
+#[test]
 fn scalar_newtypes_cross_crate_cache_reproof_and_failed_export() {
     let crates = InferCrates::new();
     let base = r#"

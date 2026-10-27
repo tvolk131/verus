@@ -228,6 +228,16 @@ pub(crate) fn invalidate_inferred_export(
     args: &Args,
     via_cargo: &Option<PathBuf>,
 ) -> Result<(), VirErr> {
+    invalidate_export(args, via_cargo, false)
+}
+
+/// Once local inference is known, invalidate even an older ordinary export.
+/// Private inferred helpers can leave no inferred function in the public API.
+pub(crate) fn invalidate_local_inference_export(args: &Args, via_cargo: &Option<PathBuf>) -> Result<(), VirErr> {
+    invalidate_export(args, via_cargo, true)
+}
+
+fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>, local_inference: bool) -> Result<(), VirErr> {
     let Some(path) = export_path(args, via_cargo) else {
         return Ok(());
     };
@@ -236,10 +246,10 @@ pub(crate) fn invalidate_inferred_export(
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(()),
         Err(e) => return Err(io_vir_err("open previous inference export".into(), e)),
     };
-    if args.infer_goals {
+    if args.infer_goals || local_inference {
         drop(file);
         std::fs::remove_file(&path)
-            .map_err(|e| io_vir_err("invalidate previous goal-assisted export".into(), e))?;
+            .map_err(|e| io_vir_err("invalidate previous inference-aware export".into(), e))?;
         return Ok(());
     }
     if file.metadata().map_err(|e| io_vir_err("stat previous inference export".into(), e))?.len()
@@ -291,7 +301,9 @@ pub(crate) fn export_crate(
         *func = func.new_x(functionx);
     }
     let krate = Arc::new(kratex);
-    let inference = if krate.functions.iter().any(|f| f.x.attrs.infer) {
+    // Keep the inference-aware marker even if private-helper pruning leaves
+    // no inferred public functions. Later early failures must remove this API.
+    let inference = if verified_inference.is_some() {
         let (dependencies, verified, models) = verified_inference.unwrap();
         let mut proofs = Vec::new();
         for function in krate.functions.iter().filter(|f| f.x.attrs.infer) {

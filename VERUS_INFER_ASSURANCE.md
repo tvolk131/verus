@@ -36,7 +36,11 @@ backlog and proposed milestone order are maintained in
 - Inferred functions are checked in dependency order before dependent callers.
   Full-crate verification is required for local inferred definitions. Exports
   are withheld on failure, and previous inferred exports are invalidated during
-  a rebuild.
+  a rebuild. This includes crates whose inferred helpers are all private: their
+  successful exports retain an inference-aware marker after public-API pruning.
+  Early rebuild failures remove marked artifacts. Once local inference is known,
+  generation failures also remove an older unmarked ordinary artifact; a legacy
+  unmarked artifact cannot be identified as inference-aware before that point.
 - Imports validate per-function guarantees, contract fingerprints, dependency
   fingerprints, and standard-model fingerprints. Imported bodies are not
   reverified. This retains Verus's existing trusted-library model; the new
