@@ -1543,6 +1543,10 @@ pub struct FunctionAttrsX {
     /// Compiler-validated direct View projection of a sole Vec field. Never a
     /// source attribute; exported only behind the inference publication barrier.
     pub infer_sequence_view: bool,
+    /// Compiler-validated exact trait getter and its specification observation.
+    /// Never accepted as source attributes; imports require inference metadata.
+    pub infer_trait_getter: bool,
+    pub infer_trait_observation: bool,
     /// Erasure and lifetime checking based on ghost blocks
     pub uses_ghost_blocks: bool,
     /// Inline spec function for SMT

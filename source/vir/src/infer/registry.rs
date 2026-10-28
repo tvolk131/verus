@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v25:direct-sequence-views:4096";
+const VERSION: &str = "verus-infer-v26:exact-trait-getters:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -290,12 +290,12 @@ impl Registry {
     ) -> Result<Vec<Function>, VirErr> {
         let mut combined = functions.to_vec();
         combined
-            .extend(imported.iter().filter(|f| f.x.attrs.infer || f.x.attrs.infer_sequence_view || is_approved_model(f)).cloned());
+            .extend(imported.iter().filter(|f| f.x.attrs.infer || is_inference_contract(f) || is_approved_model(f)).cloned());
         let all: HashMap<_, _> = combined.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
         let mut candidates = HashMap::new();
         let mut keys: HashMap<Fun, String> = HashMap::new();
-        for f in combined.iter().filter(|f|f.x.attrs.infer_sequence_view) {
-            let key=Sha256::digest(format!("{VERSION}:direct-sequence-view:{f:?}")).iter().map(|b|format!("{b:02x}")).collect();
+        for f in combined.iter().filter(|f|is_inference_contract(f)) {
+            let key=Sha256::digest(format!("{VERSION}:checked-contract:{f:?}")).iter().map(|b|format!("{b:02x}")).collect();
             keys.insert(f.x.name.clone(),key);
             candidates.insert(f.x.name.clone(),f.clone());
         }
@@ -442,7 +442,8 @@ impl Registry {
         imported: &[Function],
         datatypes: &[Datatype],
     ) -> Result<Vec<Function>, VirErr> {
-        let prepared=sequence_views::prepare(functions,imported,datatypes);
+        let trait_contracts=trait_getters::prepare(functions,imported);
+        let prepared=sequence_views::prepare(&trait_contracts,imported,datatypes);
         let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
         self.datatypes=datatypes.to_vec();

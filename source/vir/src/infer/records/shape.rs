@@ -47,6 +47,17 @@ pub(in crate::infer) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<
         })
         .collect()
 }
+fn associated_type(t:&Typ,params:&[Ident],depth:usize)->bool {
+    if depth==0{return false;}
+    match &**t {
+        TypX::TypParam(p)=>params.contains(p),
+        TypX::Projection{trait_typ_args,..}=>!trait_typ_args.is_empty() && trait_typ_args.len()<=4
+            && trait_typ_args.iter().all(|t|associated_type(t,params,depth-1)),
+        TypX::Datatype(_,args,_)=>args.len()<=4 && args.iter().all(|t|associated_type(t,params,depth-1)),
+        _=>scalar(t),
+    }
+}
+
 pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datatype], depth: usize) -> bool {
     if depth == 0 {
         return false;
@@ -56,6 +67,9 @@ pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datat
     }
     match &**t {
         TypX::TypParam(p) => params.contains(p),
+        // Associated-type syntax is bounded separately from runtime payload
+        // nesting: Option<&(H::Hash,u16)> has the same value shape as (T,u16).
+        TypX::Projection{..} => associated_type(t,params,4),
         TypX::Datatype(Dt::Tuple(n), ts, _) if *n <= 4 && ts.len() == *n => {
             ts.iter().all(|t| value_type(t, params, datatypes, depth - 1))
         }
@@ -98,6 +112,16 @@ pub(in crate::infer) fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool
     }
     recognized == bounds.len()
 }
+
+fn record_bounds(bounds:&GenericBounds,params:&[Ident]) -> bool {
+    bounds.len()<=24 && params.iter().all(|p|bounds.iter().filter(|b|
+        matches!(&***b,GenericBoundX::Trait(TraitId::Sizedness(Sizedness::Sized),ts) if ts.len()==1 && matches!(&*ts[0],TypX::TypParam(n) if n==p))).count()==1)
+        && bounds.iter().all(|b|match &**b {
+            GenericBoundX::Trait(_,ts)=>!ts.is_empty() && ts.len()<=4 && ts.iter().all(|t|associated_type(t,params,4)),
+            GenericBoundX::TypEquality(_,ts,_,t)=>!ts.is_empty() && ts.len()<=4 && ts.iter().all(|t|associated_type(t,params,4)) && associated_type(t,params,4),
+            _=>false,
+        })
+}
 #[derive(Clone)]
 pub(super) struct Projection {
     pub op: FieldOpr,
@@ -137,9 +161,10 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
     }
     if f.x.params.len() > 8
         || f.x.typ_params.len() > 2
-        || !bounds(&f.x.typ_bounds, &f.x.typ_params)
+        || !record_bounds(&f.x.typ_bounds, &f.x.typ_params)
         || f.x.params.iter().skip(1).any(|p| {
-            matches!(&*p.x.typ, TypX::MutRef(_) | TypX::Decorate(TypDecoration::Ref, ..))
+            matches!(&*p.x.typ, TypX::MutRef(_))
+                || trait_getters::shared(&p.x.typ).is_some_and(|t|!matches!(&**t,TypX::TypParam(_)|TypX::Projection{..}))
                 || !value_type(&p.x.typ, &f.x.typ_params, datatypes, 4)
         })
         || !value_type(&f.x.inner_ret.x.typ, &f.x.typ_params, datatypes, 4)
@@ -181,7 +206,7 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
         // Ordinary scalar/Option/tuple payloads remain leaves; transparent
         // application records are traversed, including scalar newtype fields.
         if scalar(t)
-            || matches!(&**t, TypX::TypParam(_) | TypX::Datatype(Dt::Tuple(_), ..))
+            || matches!(&**t, TypX::TypParam(_) | TypX::Projection{..} | TypX::Datatype(Dt::Tuple(_), ..))
             || matches!(&**t,TypX::Datatype(Dt::Path(p),.. ) if models::path_is(p,CrateId::Core,&["option","Option"]))
         {
             if !value_type(t, &f.x.typ_params, ds, 4) {

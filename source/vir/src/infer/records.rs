@@ -64,7 +64,7 @@ pub(super) fn atom(e: Expr) -> Result<Term, VirErr> {
     });
     term(&e.span, &e.typ, e.x.clone(), size)
 }
-fn coerce(span: &Span, value: Term, typ: &Typ) -> Result<Term, VirErr> {
+pub(super) fn coerce(span: &Span, value: Term, typ: &Typ) -> Result<Term, VirErr> {
     if same(&value.expr.typ, typ) {
         return Ok(value);
     }
@@ -423,6 +423,10 @@ impl Interpreter<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Term, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
+        if let Some((_getter,spec,types,receiver))=trait_getters::source_call(e,self.all) {
+            let receiver=self.readonly(s,&receiver)?;
+            return trait_getters::instantiate(&spec,&types,receiver,&self.function.x.typ_bounds);
+        }
         if let Some(arg) = widening::call(e, self.all) {
             let arg = self.readonly(s, arg)?;
             return coerce(span, arg, &e.typ);
@@ -1078,6 +1082,10 @@ pub(super) fn validate_summary(
                 } => {
                     models::path_is(&name.path, CrateId::Vstd, &["view", "View", "view"])
                         && all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f) == Some(Model::View))
+                }
+                ExprX::Call{target:CallTarget::Fun(CallTargetKind::Dynamic,name,types,impls,_),args,post_args:None,body:None}=>{
+                    types.len()==1 && args.len()==1 && impls.is_empty()
+                        && all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f))
                 }
                 ExprX::Call {
                     target: CallTarget::Fun(CallTargetKind::Static, name, ..),

@@ -1046,6 +1046,99 @@ fn private_sequence_view_evidence_requires_metadata_even_without_public_inferred
 }
 
 #[test]
+fn certified_trait_getters_cross_crates_bind_models_and_reject_failed_providers() {
+    let crates=InferCrates::new();
+    let base=r#"use vstd::prelude::*;
+      pub trait Family{type Id:Copy;}
+      pub trait Event{
+       type Family:Family;
+       spec fn key_value(&self)->usize;
+       spec fn payload_value(&self)-><Self::Family as Family>::Id;
+       fn key(&self)->(r:usize) ensures r==self.key_value();
+       fn payload(&self)->(r:<Self::Family as Family>::Id) ensures r==self.payload_value();
+      }
+      pub struct F;impl Family for F{type Id=u64;}
+      pub struct Message{pub key:usize,pub payload:u64}
+      impl Event for Message{
+       type Family=F;
+       open spec fn key_value(&self)->usize{self.key}
+       open spec fn payload_value(&self)->u64{self.payload}
+       fn key(&self)->usize{self.key}
+       fn payload(&self)->u64{self.payload}
+      }
+    "#;
+    let consumer=r#"use vstd::prelude::*;use getter_base::{Family,Event};
+      pub struct Table<F:Family>{pub slots:Vec<Option<F::Id>>,pub used:usize}
+      impl<F:Family> Table<F>{
+       pub open spec fn valid(&self)->bool{self.used==self.slots@.count_prefix(|s:Option<F::Id>|s.is_some(),self.slots@.len())}
+       #[verifier::infer] pub fn add<U:Event<Family=F>>(&mut self,u:&U){
+        let i=u.key();if i>=self.slots.len(){return;}
+        let empty=match self.slots[i]{None=>true,Some(_)=>false};
+        if empty{self.slots[i]=Some(u.payload());self.used+=1;}
+       }
+      }
+      pub fn invariant<F:Family,U:Event<Family=F>>(t:&mut Table<F>,u:&U)
+       requires old(t).valid(),ensures final(t).valid(),{t.add(u);}
+    "#;
+    let app=r#"use vstd::prelude::*;
+      pub fn apply(t:&mut getter_consumer::Table<getter_base::F>,m:&getter_base::Message)
+       requires old(t).valid(),m.key<old(t).slots@.len(),old(t).slots@[m.key as int].is_none(),
+       ensures final(t).slots@[m.key as int]==Some(m.payload),
+      {t.add(m);}
+    "#;
+    for _ in 0..2 {
+        let run=crates.build("getter_base",base,&[],&["--infer-goals","--output-json","--no-cheating"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals","--output-json","--no-cheating"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        for p in ["soundness","maximality","exactness"]{assert_eq!(json_inference(&run)["functions"][0]["proofs"][p]["status"],"proved");}
+        let run=crates.build("getter_app",app,&["getter_base","getter_consumer"],&["--infer-goals","--no-cheating"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    }
+    // Changing the observation together with its implementation is a legitimate
+    // new API. The old consumer certificate must not survive that change.
+    let changed=base.replace("fn key_value(&self)->usize{self.key}","fn key_value(&self)->usize{0}")
+        .replace("fn key(&self)->usize{self.key}","fn key(&self)->usize{0}");
+    let run=crates.build("getter_base",&changed,&[],&["--infer-goals","--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("getter_app","use vstd::prelude::*;pub fn import_only(){}",&["getter_base","getter_consumer"],&["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("stale or missing inferred dependency fingerprint"),"{}",String::from_utf8_lossy(&run.stderr));
+    assert!(!crates.vir("getter_app").exists());
+    let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals","--output-json"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("getter_app",app,&["getter_base","getter_consumer"],&["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    // A wrong implementation cannot publish its otherwise well-shaped contract.
+    let bad=base.replace("fn key(&self)->usize{self.key}","fn key(&self)->usize{0}");
+    let run=crates.build("getter_base",&bad,&[],&["--infer-goals"]);
+    assert!(!run.status.success());assert!(!crates.vir("getter_base").exists());
+    // A contracts-only provider must also reject verification bypasses/filters.
+    for options in [&["--infer-goals","--no-verify"][..],&["--infer-goals","--verify-root"][..]]{
+        let run=crates.build("getter_base",base,&[],options);
+        assert!(!run.status.success());
+        assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"));
+        assert!(!crates.vir("getter_base").exists());
+    }
+    let run=crates.build("getter_base",base,&[],&["--infer-goals"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let mut bytes=std::fs::read(crates.vir("getter_base")).unwrap();
+    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    bytes.truncate(start);std::fs::write(crates.vir("getter_base"),bytes).unwrap();
+    let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    // Ordinary legacy interfaces cannot supply compiler-certified getter facts.
+    let run=crates.build("getter_base",base,&[],&[]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("trait inference requires a certified precondition-free getter"));
+    assert!(!crates.vir("getter_consumer").exists());
+}
+
+#[test]
 fn record_precision_covers_all_integer_widths_and_both_pointer_models() {
     let crates = InferCrates::new();
     let mut source = String::new();

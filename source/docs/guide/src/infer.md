@@ -260,8 +260,10 @@ with one variant, no custom destructor, proxy, tracked/ghost fields or user-defi
 type invariant. Nested transparent records and scalar newtype fields are supported.
 Payloads may be machine integers, Booleans, opaque generic values, tuples of up to
 four elements, and bounded `Option`/tuple/value-record combinations (depth four).
-Type parameters require `Sized`, optionally `Copy`; arbitrary trait bounds remain
-unsupported. Vector fields use the default allocator. Normal Rust/Verus ownership,
+Type parameters require `Sized`. Bounded trait and associated-type equality
+constraints may be retained, and associated values remain opaque; this does not
+interpret arbitrary trait operations. The getter profile below supports selected
+generic calls. Vector fields use the default allocator. Normal Rust/Verus ownership,
 borrowing and drop rules still apply: candidate generation does not insert copies
 or invent a `Copy` bound for moved generic payloads.
 
@@ -288,7 +290,7 @@ logical values; lifetimes/ownership use the original Rust/Verus checks. This doe
 not establish pointer-address identity. Unit-valued queries and non-unit early
 returns are currently unsupported. Mutable methods still require unit return.
 
-Aliases, additional reference parameters, mutable locals, whole-vector
+Aliases, additional mutable/structured reference parameters, mutable locals, whole-vector
 replacement, loops, division/remainder and general trait/operator calls remain
 unsupported by this path. In particular, arbitrary `Into` and derived operator
 implementations are not interpreted as constructors or arithmetic.
@@ -419,6 +421,71 @@ explicit in the ghost-only callers. Construction, transition and selection metho
 are excluded from this checkpoint; the earlier experiments cover their manually
 specified supplied-core versions. This does not establish clean-main `Unit`/`Hasher`
 trait inference or automatic abstract-view discovery.
+
+### Verified trait getter contracts and associated types
+
+The [trait example](../../../../examples/verus_infer_traits.rs) uses supplied
+ordinary Verus contracts to describe getters, then infers a generic record update:
+
+```rust
+pub trait Event {
+    type Payload: Copy;
+    spec fn slot_value(&self) -> usize;
+    spec fn payload_value(&self) -> Self::Payload;
+    fn slot(&self) -> (result: usize)
+        ensures result == self.slot_value();
+    fn payload(&self) -> (result: Self::Payload)
+        ensures result == self.payload_value();
+}
+```
+
+The supported profile is a public trait method with exactly one shared receiver,
+no value arguments, no precondition and one exact postcondition equating the result
+to a same-trait specification observation of that receiver. Observation and return
+types must match. The observation has no recommendations, prophetic dependency or
+explicit borrowed/unit result. External specification proxies, method/trait type
+arguments beyond Self, trait objects, weaker relations and precondition-bearing
+contracts are outside this profile. A default executable getter body may be present;
+ordinary Verus verifies that body and every local implementation against the
+supplied contract. Inference does not infer the contract or inline the body.
+
+Supported record methods can accept shared generic inputs and call these getters.
+Opaque associated values compose through tuples, vector slots and private direct
+sequence views. Explicit associated-type equalities are normalized with at most
+eight rewrite steps; projection syntax has a separate depth-four budget so
+`Option<&(H::Hash, u16)>` retains the existing payload-depth limit. Record signatures
+allow at most 24 bounded trait/equality constraints and four trait type arguments
+per constraint; the existing two type-parameter limit remains. No semantics for
+hashing, conversions, operators or arbitrary traits is guessed from their names.
+
+Default exact mode retains all three original-body checks. A getter with no
+precondition introduces no additional safety-domain restriction, and its singleton
+result equation supplies the proposed value. The verifier still checks the original
+call and its enclosing state update. Application invariants and desired behavior
+remain explicit goals.
+
+Across crates, the getter provider must publish a certified interface. Providers
+with local inferred functions do this automatically. A provider containing only
+ordinary getter contracts can use `--infer-goals`; that enables recognition and the
+full-verification publication barrier without requiring an inferred executable.
+No-verify and function/module filters are rejected for these interfaces. Ordinary
+legacy trait interfaces cannot silently stand in for certified getter contracts.
+
+The certificate binds the entire exported API, including ordinary specification
+implementations, trait definitions, associated-type implementations and architecture.
+Provider model artifacts are conservatively fingerprinted even without local
+inferred functions. Normal Verus library/external-specification assumptions remain.
+There is no new axiom or external body, and these contracts are not classified as
+trusted standard-library models.
+
+The Aleph trait checkpoint retains pinned creator/round default bodies and coordinate
+getter bodies in an explicit **reduced Unit/Hasher adapter**. Supplied observations,
+getter contracts and a closed coordinate-parts definition support ordinary provider
+verification. A supplied `Collector<H>` core stores `H::Hash`; inferred `add_unit`
+reads the three getters and calls the checked direct update. A minimal invariant
+goal and a separate unit-behavior oracle check the result. This does not verify the
+full original traits, cached FullUnit hashing, unrelated native bounds or the
+clean-main collector's operator/lifecycle code.
 
 ## Demand-driven scalar proof assistance
 
@@ -1340,7 +1407,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 20 and candidate-cache version 25.
+The current inference policy uses metadata schema 21 and candidate-cache version 26.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved

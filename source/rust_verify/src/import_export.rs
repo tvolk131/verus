@@ -13,8 +13,8 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 20;
-const INFER_POLICY: &str = "candidate-bound-evidence-v20";
+const INFER_SCHEMA: u32 = 21;
+const INFER_POLICY: &str = "candidate-bound-evidence-v21";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -59,8 +59,9 @@ fn producer() -> String {
 }
 
 fn summaries(krate: &Krate) -> Result<String, VirErr> {
-    let functions: Vec<_> = krate.functions.iter().filter(|f| f.x.attrs.infer || f.x.attrs.infer_sequence_view).collect();
-    bincode_next::serde::encode_to_vec((&functions, &krate.datatypes, &krate.arch), bincode_next::config::legacy())
+    // Trait observations may resolve to ordinary spec implementations or helper
+    // definitions. Bind the entire exported API, not only marked declarations.
+    bincode_next::serde::encode_to_vec(krate, bincode_next::config::legacy())
         .map(digest)
         .map_err(|_| crate::util::error("failed to fingerprint inferred contracts"))
 }
@@ -123,7 +124,7 @@ pub(crate) fn import_crates(
                 );
             }
         }
-        if krate.functions.iter().any(|f| f.x.attrs.infer || f.x.attrs.infer_sequence_view) {
+        if krate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
             let mut trailer = Vec::new();
             file.by_ref()
                 .take(MAX_INFER_METADATA + 1)
@@ -288,7 +289,7 @@ pub(crate) fn export_crate(
     let Some(file_path) = export_path(args, export_vir_path_via_cargo) else {
         return Ok(());
     };
-    if vir_crate.functions.iter().any(|f| f.x.attrs.infer || f.x.attrs.infer_sequence_view) && verified_inference.is_none() {
+    if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) && verified_inference.is_none() {
         return Err(crate::util::error("Verus Infer: cannot export unverified inferred contracts"));
     }
     let mut kratex = (*vir_crate).clone();

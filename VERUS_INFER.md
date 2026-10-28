@@ -78,7 +78,16 @@ Implemented and covered by regression tests:
   is bound to exported metadata. Aleph's extracted NodeMap API now composes with
   the supplied collector update from a separate crate. The view and a checked
   size observation in each ghost-only caller are supplied; arbitrary abstraction
-  discovery, richer representation laws and Unit/Hasher traits remain open.
+  discovery, richer representation laws and full Unit/Hasher trait support remain open.
+- [x] Bounded consumption of verified trait getter contracts in record inference:
+  one shared receiver, no precondition and an exact result/observation equation.
+  Shared generic inputs and opaque associated types/equalities compose through
+  private collection views while retaining all exact checks. Contracts-only
+  providers can certify full verified APIs with `--infer-goals`; failed/default
+  implementations, verification bypasses and stale dependencies block publication.
+  Aleph's reduced Unit/Hasher adapter retains pinned creator/round default bodies
+  and drives an inferred generic unit-to-update bridge. Full original traits,
+  cached hashing, operators and collector lifecycle remain outside that experiment.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -205,7 +214,8 @@ Still planned or outside the implemented subset:
   broader mutable helper composition and counting
   lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
-  mixed handwritten-and-inferred contracts, and generic/trait specialization.
+  beyond the exact precondition-free trait getter profile; mixed handwritten-and-inferred
+  contracts, and broader generic/trait specialization.
 - [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
   and operator-trait inference through Verus's inherited/extension specifications.
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
@@ -336,8 +346,18 @@ APIs and research directions.
     count equivalence and behavior oracle; ghost-only callers observe size to
     expose the hidden length bound. This checkpoint excludes lifecycle methods
     and the clean-main generic Unit/Hasher collector.
-12. **Next: trait boundaries, richer abstractions and the collector lifecycle.**
-    Associated-type and Unit/Hasher trait specifications, inherited operator/conversion contracts,
+12. **Bounded trait getter checkpoint implemented.** Supplied exact observation
+    equations describe precondition-free shared trait getters. Generic record
+    updates retain trait constraints, normalize bounded associated equalities and
+    preserve associated values through private sequence views. Certified trait-only
+    providers require full verification and bind their whole exported API/model
+    dependencies. A reduced Aleph Unit/Hasher interface retains original default
+    creator/round bodies and coordinate getter bodies, while an inferred generic
+    add_unit bridge consumes them. The supplied invariant and a separate behavior
+    oracle remain explicit, including a wrong-slot control preserving the invariant
+    while failing intent. This is not the full original traits or clean-main collector.
+13. **Next: broader trait boundaries, richer abstractions and collector lifecycle.**
+    General trait contracts, external trait proxies, inherited operator/conversion contracts,
     collection construction/copy loops and richer mutable return values remain.
     More general supplied views, representation-lemma selection and automatic
     abstraction discovery are separate extensions beyond direct projections.

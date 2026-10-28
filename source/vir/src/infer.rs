@@ -32,12 +32,22 @@ mod registry;
 mod records;
 mod record_models;
 mod sequence_views;
+mod trait_getters;
+
+pub fn is_inference_contract(f: &Function) -> bool {
+    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation
+}
+
+pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
+    trait_getters::prepare(functions, imported)
+}
 
 /// Internal structural evidence, not a trusted standard-library model.
 pub fn is_inferred_sequence_view(f: &Function) -> bool { f.x.attrs.infer_sequence_view }
 
 pub fn validate_inferred_sequence_views(functions: &[Function], datatypes: &[Datatype]) -> Result<(),VirErr> {
-    sequence_views::validate_imports(functions,datatypes)
+    sequence_views::validate_imports(functions,datatypes)?;
+    trait_getters::validate(functions)
 }
 
 pub(crate) fn record_sequence_view(typ: &Typ, functions: &HashMap<Fun, Function>) -> Option<Function> {
@@ -647,6 +657,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
+                if records::candidate(f) && trait_getters::source_call(e,all).is_some() {return Ok(());}
                 if widening::call(e, all).is_some() { return Ok(()); }
                 let range = slices::range_call(e, all)?;
                 let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
@@ -692,6 +703,9 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         visit(callee, all, source, active, done, order)?;
                     }
                 } else if matches!(e.x, ExprX::Call { .. }) {
+                    if matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::Dynamic,..),..}) {
+                        return Err(unsupported(&e.span,"trait inference requires a certified precondition-free getter with one exact observation equation"));
+                    }
                     return Err(unsupported(
                         &e.span,
                         "only static, nongeneric inferred calls are supported",

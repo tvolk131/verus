@@ -997,3 +997,59 @@ for the changed VIR layout and verified 2,107 obligations with zero errors. Fina
 privacy checks require an actual failed assertion for a hidden representation fact
 and an explicit private-field access diagnostic, rather than accepting unrelated
 frontend errors as evidence.
+
+## Exact ordinary trait getter contracts
+
+The bounded trait profile consumes an authored `result == observation(self)`
+equation from a public trait declaration. Both signatures have one shared receiver
+and only the implicit Self type parameter. Explicit preconditions, recommendations,
+prophetic queries, external proxies/bodies, reference/unit observations and weaker
+or additional postconditions are rejected. Default executable bodies are permitted
+and verified through ordinary Verus rules, as are implementations. The profile
+does not infer trait intent, inspect an implementation to guess a generic result,
+or introduce a trusted standard-library model.
+
+The untrusted record generator substitutes the matching specification call for a
+getter result, with original shared inputs and bounded type substitutions. Associated
+values remain opaque. Only explicit type-equality bounds are normalized; trait/name
+identity is preserved, cycles fail within eight rewrites, and runtime payload depth
+is separate from the four-level projection-syntax bound. Generic constraints remain
+in the original body's proof context. Candidate installation does not change calls,
+borrows, drops or executable bodies. No arbitrary precondition is assumed as a
+maximal safe domain: eligible getters have none. Soundness, maximality and final-state
+exactness still run on the original enclosing executable through the existing backend.
+
+Getter/observation markers are compiler-only attributes. They are checked again on
+import, included in dependency keys and never accepted as source annotations.
+Metadata schema 21 fingerprints the entire exported VIR API, including ordinary
+spec implementations and associated-type/trait definitions. This closes the gap
+where a generic observation could resolve to an unmarked ordinary spec definition.
+Providers with no local inferred executable can opt into certification via
+`--infer-goals`; no-verify and function/module filters are rejected when marked
+contracts exist, and the existing post-verification export barrier waits for all
+ordinary implementation/default-body obligations. Approved model artifacts are
+conservatively bound for these providers too. Existing Verus library and explicit
+trusted-specification assumptions remain; these metadata files are not signed proof
+objects. Cache version 26 regenerates state templates and rechecks every obligation.
+
+Regressions cover unrelated traits, concrete correct/incorrect implementations,
+nested associated equalities, cross-trait name collisions, cyclic equality budgets,
+private borrowed tuple lookups, weak/precondition-bearing/recommended/borrowed
+profiles, three-crate interface changes, stale exports, missing metadata, legacy
+uncertified interfaces and verification filters. Aleph's experiment uses an explicit
+reduced Unit/Hasher interface, original creator/round default and coordinate getter
+bodies, supplied coordinate/getter specs and a generic bridge to the supplied
+collector core. A wrong adapter slot must preserve the minimal invariant while
+failing its independent behavior oracle. Other controls check failed provider bodies,
+unsupported weak contracts, duplicate accounting, frames and valid-domain coverage.
+The structural/profile checker and metadata handling remain engineering components
+whose own formal verification is still separately scoped.
+
+Checkpoint validation passes 421 targeted Rust tests (103 VIR inference/precision
+tests and 318 integration tests), 48 inference-tool Python tests and the standalone
+trait example (four verified obligations). All 101 guarded Aleph scenarios match
+their expected outcomes, including sixteen provider/consumer runs for the reduced
+trait adapter and the previous eighty-five scenarios. The seven native wrapper
+controls also pass. The rebuilt verifier's standard library verifies 2,107
+obligations with zero errors. No new native behavior or production-bug discovery
+is claimed for the reduced trait adapter.

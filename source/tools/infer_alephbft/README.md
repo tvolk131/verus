@@ -422,3 +422,46 @@ commands, reports/diagnostics, the original node source, a reviewable update-sco
 patch and summary. Final sources and compiled interfaces use the passing variant.
 This runner adds no native behavioral claim; the preceding wrapper runner retains
 its seven native comparisons of these same executable API/update bodies.
+
+## Generic trait getters and associated hash payloads
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_traits.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-traits
+```
+
+This checkpoint extracts the pinned Unit creator/round default bodies and UnitCoord
+creator/round bodies unchanged. It builds an explicit **reduced interface adapter**:
+`Hasher::Hash: Copy`, `Unit::Hasher`, and the hash/coord/creator/round interface, with
+supplied logical observation functions and ordinary contracts. A supplied closed
+coordinate-parts definition keeps coordinate fields private. A deterministic ProbeUnit
+implementation checks these contracts; it is not Aleph's cached FullUnit implementation.
+Unrelated control-hash/session methods, marker/codec bounds and the hashing algorithm
+are omitted and recorded in the report. This does not verify the full original traits.
+
+The separate provider also retains the earlier private NodeMap API and its recorded
+size adaptation/threshold correction. Its getter declarations and ordinary bodies
+must pass full verification before export. The consumer adapts the supplied core to
+`Collector<H: Hasher>` storing `H::Hash`. The original direct update body remains;
+a new inferred `add_unit<U: Unit<Hasher = H>>` reads creator/hash/round and calls it.
+No implementation name or Aleph trait name is recognized by compiler inference.
+
+The supplied invariant/count equivalence and old direct-value behavior oracle remain.
+A new unit invariant harness supplies no unit-domain restriction, and a separate unit
+behavior oracle expresses the old behavior using supplied observation functions.
+Both observe the checked size query to expose its closed-view length bound. The
+wrong-slot adapter control must preserve the invariant while failing behavior.
+Constructor/transition/selection methods and the original collector's NodeCount
+operator interface remain outside this formal target.
+
+Nine cases produce sixteen formal provider/consumer runs: two faulty providers stop
+before consumer verification; the remaining cases cover a weak getter contract,
+wrong adapter slot, duplicate counting, changed frame, an added unit-input overflow
+restriction and inferred/warm success. Semantic consumer controls require all three
+inferred functions to retain every exact proof; providers retain their four checked
+inferred API functions. Ordinary provider failures must leave no interface, weak
+contracts must produce an unsupported diagnostic, and overflow must fail the new
+minimal unit harness. Sources, commands, raw diagnostics, hashes, original units/types,
+scope adaptations, patch and summary are saved. This runner adds no native behavioral
+claim or newly discovered production-bug claim; prior native wrapper controls remain.
