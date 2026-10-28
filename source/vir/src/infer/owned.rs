@@ -622,6 +622,16 @@ impl Engine<'_> {
                         none,
                     )?));
                 }
+                if cloning::call(e, self.all) {
+                    let v = self.expr(s, &args[0])?;
+                    if !matches!(v.node, Node::Seq(_)) {
+                        return Err(unsupported(
+                            span,
+                            "native Clone inference requires a certified sequence view",
+                        ));
+                    }
+                    return Ok(Val { typ: e.typ.clone(), node: v.node });
+                }
                 if let Some(m) = model_call(e, self.all) {
                     return self.collection(s, e, m, args);
                 }

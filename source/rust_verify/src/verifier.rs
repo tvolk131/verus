@@ -2942,7 +2942,7 @@ impl Verifier {
             crate_id: spans.local_crate.as_u64(),
             original_files: spans.local_files.clone(),
         };
-        if self.args.infer_goals || local_crate.functions.iter().any(|f| f.x.attrs.infer) {
+        if self.args.infer_goals || local_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
             // Inferred and goal-assisted APIs must wait for their complete
             // proofs, including every generated auxiliary query.
             self.pending_inference_export = Some((crate_metadata, local_crate.clone()));
@@ -2960,7 +2960,7 @@ impl Verifier {
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
         let mut models: std::collections::BTreeMap<_, _> =
             self.inference_trusted_models.iter().cloned().collect();
-        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || vir::infer::is_wrapper_trait(f) || vir::infer::is_owned_summary(f)) {
+        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || f.x.attrs.infer_clone_contract || vir::infer::is_wrapper_trait(f) || vir::infer::is_owned_summary(f)) {
             // Ordinary implementation proofs can use library models even when
             // this provider contains no inferred executable. Bind their model
             // artifacts conservatively before certifying the trait interface.

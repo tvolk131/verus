@@ -13,8 +13,8 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 24;
-const INFER_POLICY: &str = "candidate-bound-evidence-v24";
+const INFER_SCHEMA: u32 = 25;
+const INFER_POLICY: &str = "candidate-bound-evidence-v25";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]

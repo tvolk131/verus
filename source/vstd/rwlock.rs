@@ -708,4 +708,27 @@ impl<V, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
     }
 }
 
+impl<V: Copy, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
+    /// Read a copied value and release the read handle before returning.
+    /// The configured predicate holds for the observed value; concurrent
+    /// writers may change the stored value after the handle is released.
+    pub fn read_copy(&self) -> (value: V)
+        ensures self.inv(value),
+    {
+        let handle = self.acquire_read();
+        let value = *handle.borrow();
+        handle.release_read();
+        value
+    }
+
+    /// Replace the value and release the write handle. Every write must satisfy
+    /// the predicate chosen at construction. No persistent snapshot is promised.
+    pub fn replace(&self, value: V)
+        requires self.inv(value),
+    {
+        let (_, handle) = self.acquire_write();
+        handle.release_write(value);
+    }
+}
+
 } // verus!

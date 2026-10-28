@@ -206,6 +206,20 @@ pub closed spec fn spec_u64_to_le_bytes(x: u64) -> Seq<u8> {
     ]
 }
 
+/// Native-endian representation on the compilation target. The vstd artifact
+/// records the target's endian choice; this is not a portable wire encoding.
+pub open spec fn spec_u64_to_ne_bytes(x: u64) -> Seq<u8> {
+    if cfg!(target_endian = "little") {
+        spec_u64_to_le_bytes(x)
+    } else {
+        spec_u64_to_le_bytes(x).reverse()
+    }
+}
+
+pub assume_specification[ u64::to_ne_bytes ](x: u64) -> (result: [u8; 8])
+    ensures result@ == spec_u64_to_ne_bytes(x),
+;
+
 // `spec_u64_to_le_bytes_open` is equivalent to `spec_u64_to_le_bytes` but
 // marked open, specifically for callers that need to know the internal
 // details of little-endian encoding.  It's not recommended to use this

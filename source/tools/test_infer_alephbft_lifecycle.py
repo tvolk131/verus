@@ -43,15 +43,16 @@ class LifecycleExperimentTests(unittest.TestCase):
         self.assertIn('pub fn check_next(',generated)
         self.assertIn('pub fn check_lifecycle(',generated)
 
-    def test_private_constructor_is_original_but_copy_adapter_is_explicit(self):
+    def test_private_constructor_and_native_derive_replace_the_copy_adapter(self):
         node=NODE.replace('\n}', '''
  pub fn with_size(len:NodeCount)->Self where T:Clone {let v=vec![None;len.into()];NodeMap(v)}
 }''',1)
         generated=lifecycle_api(node,'// supplied threshold',UNITS)
         self.assertEqual(item(node,'pub fn with_size(')[2],item(generated,'pub fn with_size(')[2])
-        self.assertIn('pub fn copy_contents(&self)',generated)
-        self.assertIn('candidates.push(self.0[index]);',generated)
-        self.assertIn('not the original generic Clone derive',generated)
+        self.assertNotIn('copy_contents',generated)
+        self.assertIn('#[derive(Clone)]',generated)
+        self.assertIn('verus_verify(clone_via_view)',generated)
+        self.assertIn('type Hash: Copy + vstd::std_specs::clone::CloneIdentity',generated)
         self.assertNotIn('external_body',generated)
 
     def test_mutations_are_unique_and_scoped(self):

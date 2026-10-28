@@ -23,7 +23,7 @@ use rustc_hir::{
 use rustc_middle::ty::{
     AdtDef, AliasTermKind, AliasTyKind, BoundRegion, BoundRegionKind, BoundVar, Clause, ClauseKind,
     ConstKind, GenericArg, GenericArgKind, GenericArgsRef, IsRigid, Region, RegionExt, RegionKind,
-    TyCtxt, TyKind, TypingEnv, ValTreeKind, Value,
+    TyCtxt, TyKind, TypeVisitableExt, TypingEnv, ValTreeKind, Value,
 };
 use rustc_mir_build_verus::verus::BodyErasure;
 use rustc_span::Span;
@@ -227,6 +227,7 @@ fn handle_autospec<'tcx>(
                     infer_sequence_view: false,
                     infer_trait_getter: false,
                     infer_owned: false,
+                    infer_clone_contract: false,
                     infer_trait_observation: false,
                     uses_ghost_blocks: vattrs.verus_macro,
                     inline: false,
@@ -807,7 +808,21 @@ fn compare_external_ty<'tcx>(
                 rustc_middle::ty::TyKind::Array(ty1, const1),
                 rustc_middle::ty::TyKind::Array(ty2, const2),
             ) => {
-                const1 == const2
+                (const1 == const2 || {
+                    // Closed array lengths in standard-library signatures can
+                    // retain anonymous const identities (e.g. u64::to_ne_bytes).
+                    // Accept only equality proved by Rust's const evaluator.
+                    let evaluate = |c: &rustc_middle::ty::Const<'tcx>| {
+                        if c.has_non_region_param() || c.has_bound_vars() {
+                            return None;
+                        }
+                        tcx.try_normalize_erasing_regions(
+                            TypingEnv::fully_monomorphized(),
+                            rustc_middle::ty::Unnormalized::new_wip(*c),
+                        ).ok()?.try_to_target_usize(tcx)
+                    };
+                    matches!((evaluate(const1), evaluate(const2)), (Some(a), Some(b)) if a == b)
+                })
                     && compare_external_ty(tcx, verus_items, &ty1, &ty2, external_trait_from_to)
             }
             (
@@ -1485,6 +1500,7 @@ fn make_attributes<'tcx>(
         infer_sequence_view: false,
         infer_trait_getter: false,
         infer_owned: false,
+        infer_clone_contract: false,
         infer_trait_observation: false,
         uses_ghost_blocks,
         inline: vattrs.inline,
@@ -2265,6 +2281,7 @@ pub(crate) fn check_item_fn<'tcx>(
         returns: pre_header.returns && !is_external_const,
     };
 
+    crate::tuple_clone::adjust_stub(&mut func)?;
     if vattrs.external_fn_specification {
         func = fix_external_fn_specification_trait_method_decl_typs_stub(sig.span, func)?;
     }
@@ -2566,6 +2583,7 @@ pub(crate) fn finish_function<'tcx>(
     }
 
     let function = Spanned::new(function.span.clone(), functionx);
+    crate::tuple_clone::validate_full(&function)?;
     let function = if let Some((from_path, to_path, to_spec_path)) = &external_trait_from_to {
         vir::traits::rewrite_external_function(from_path, to_path, to_spec_path, &function)
     } else {

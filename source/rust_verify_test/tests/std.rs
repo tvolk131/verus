@@ -608,14 +608,14 @@ test_verify_one_file_with_options! {
 }
 
 test_verify_one_file! {
-    #[test] tuple_clone_not_supported verus_code! {
+    #[test] tuple_clone verus_code! {
         use vstd::*;
 
         fn stuff(a: (u8, u8)) {
             let b = a.clone();
-            assert(a == b); // FAILS
+            assert(a == b);
         }
-    } => Err(err) => assert_vir_error_msg(err, "The verifier does not yet support the following Rust feature: built-in instance")
+    } => Ok(())
 }
 
 test_verify_one_file_with_options! {

@@ -189,9 +189,16 @@ pub(super) fn find(
 /// before pruning; the candidate relation never supplies this evidence.
 pub(super) fn observation(typ: &Typ, all: &HashMap<Fun, Function>) -> Option<Function> {
     let TypX::Datatype(dt, args, _) = &**typ else { return None };
+    // Normalize shared-reference decorations when matching the logical wrapper.
+    // Only a previously certified marker can supply this observation.
+    let observed_receiver = |f: &Function| {
+        let mut t = f.x.params.first()?.x.typ.clone();
+        while let TypX::Decorate(TypDecoration::Ref, None, inner) = &*t { t = inner.clone(); }
+        match &*t { TypX::Datatype(actual,_,_) => Some(actual.clone()), _ => None }
+    };
     let mut views=all.values().filter(|f|f.x.attrs.infer_sequence_view && f.x.mode==Mode::Spec
         && f.x.typ_params.len()==args.len()
-        && matches!(receiver(f).map(|t|&**t),Some(TypX::Datatype(actual,_,_)) if actual==dt)
+        && observed_receiver(f).as_ref() == Some(dt)
         && matches!(&f.x.kind,FunctionKind::TraitMethodImpl{method,..} if models::path_is(&method.path,CrateId::Vstd,&["view","View","view"])));
     let view = views.next()?.clone();
     views.next().is_none().then_some(view)

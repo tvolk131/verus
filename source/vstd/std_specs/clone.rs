@@ -71,3 +71,91 @@ pub assume_specification<T>[ <Ghost<T> as Clone>::clone ](b: &Ghost<T>) -> (res:
 ;
 
 } // verus!
+
+// Verified models for Rust's builtin tuple Clone shim. `cloned` permits the
+// compiler's copy optimization without assuming arbitrary Clone is identity.
+macro_rules! tuple_clone_model {
+    ($diagnostic:literal, $name:ident, $($t:ident $i:tt),+) => {
+        verus! {
+            #[rustc_diagnostic_item = $diagnostic]
+            pub fn $name<$($t: Clone),+>(value: &($($t,)+)) -> (result: ($($t,)+))
+                ensures $(cloned(value.$i, result.$i),)+
+            { ($(value.$i.clone(),)+) }
+        }
+    };
+}
+tuple_clone_model!("verus::vstd::std_specs::clone::tuple_clone_1", tuple_clone_1, A 0);
+tuple_clone_model!("verus::vstd::std_specs::clone::tuple_clone_2", tuple_clone_2, A 0, B 1);
+tuple_clone_model!("verus::vstd::std_specs::clone::tuple_clone_3", tuple_clone_3, A 0, B 1, C 2);
+tuple_clone_model!("verus::vstd::std_specs::clone::tuple_clone_4", tuple_clone_4, A 0, B 1, C 2, D 3);
+
+verus! {
+/// An explicit, checked value law. `Copy` by itself does not supply this law.
+/// Implementations prove it against the actual Clone contract, including the
+/// reflexive closure used by standard container specifications.
+pub trait CloneIdentity: Clone {
+    proof fn lemma_clone_identity(a: Self, b: Self)
+        requires cloned(a, b),
+        ensures a == b;
+}
+
+pub broadcast proof fn lemma_cloned_identity<T: CloneIdentity>(a: T, b: T)
+    requires #[trigger] cloned(a, b),
+    ensures a == b,
+{ T::lemma_clone_identity(a, b); }
+
+impl<T: CloneIdentity> CloneIdentity for Option<T> {
+    proof fn lemma_clone_identity(a: Self, b: Self)
+        ensures a == b,
+    {
+        if a != b {
+            match a {
+                None => {},
+                Some(x) => { T::lemma_clone_identity(x, b.unwrap()); },
+            }
+        }
+    }
+}
+
+impl<T: CloneIdentity, const N: usize> CloneIdentity for [T; N] {
+    proof fn lemma_clone_identity(a: Self, b: Self)
+        ensures a == b,
+    {
+        broadcast use crate::array::group_array_axioms;
+        broadcast use crate::seq::axiom_seq_ext_equal;
+        if a != b {
+            assert forall|i:int| 0 <= i < N implies a@[i] == b@[i] by {
+                T::lemma_clone_identity(a@[i], b@[i]);
+            }
+            assert(a@ =~= b@);
+        }
+    }
+}
+}
+
+macro_rules! identity_scalar {
+    ($($t:ty),*) => {verus!{$(
+        impl CloneIdentity for $t {
+            proof fn lemma_clone_identity(a: Self,b: Self)
+                ensures a==b,
+            {}
+        }
+    )*}};
+}
+identity_scalar!(bool, char, u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize);
+
+macro_rules! identity_tuple {
+    ($($t:ident $i:tt),+) => {verus!{
+        impl<$($t: CloneIdentity),+> CloneIdentity for ($($t,)+) {
+            proof fn lemma_clone_identity(a: Self,b: Self)
+                ensures a==b,
+            {
+                if a!=b { $($t::lemma_clone_identity(a.$i,b.$i);)+ }
+            }
+        }
+    }};
+}
+identity_tuple!(A 0);
+identity_tuple!(A 0, B 1);
+identity_tuple!(A 0, B 1, C 2);
+identity_tuple!(A 0, B 1, C 2, D 3);

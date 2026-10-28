@@ -15,6 +15,7 @@ mod atomic_ghost;
 mod attr_block_trait;
 mod attr_rewrite;
 mod infer_wrapper;
+mod infer_clone;
 mod calc_macro;
 mod contrib;
 mod enum_synthesize;
@@ -431,6 +432,16 @@ pub fn verus_verify(
     args: proc_macro::TokenStream,
     input: proc_macro::TokenStream,
 ) -> proc_macro::TokenStream {
+    if args.to_string() == "clone_via_view" {
+        if cfg_erase().erase_all() {
+            return input;
+        }
+        let item = syn::parse_macro_input!(input as syn::ItemStruct);
+        let vstd = syntax::Vstd(proc_macro2::Span::call_site());
+        return infer_clone::expand(item, quote::quote!(#vstd))
+            .unwrap_or_else(|e| e.to_compile_error())
+            .into();
+    }
     attr_rewrite::rewrite_verus_attribute(&cfg_erase(), args, input)
 }
 

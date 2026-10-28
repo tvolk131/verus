@@ -363,6 +363,7 @@ pub(crate) enum SetItem {
 
 #[derive(PartialEq, Eq, Debug, Clone, Hash)]
 pub(crate) enum VstdItem {
+    TupleClone(usize),
     SeqFn(vir::interpreter::SeqFn),
     SetItem(SetItem),
     ISetItem(SetItem),
@@ -679,6 +680,10 @@ fn verus_items_map() -> Vec<(&'static str, VerusItem)> {
         ("verus::vstd::atomic::try_open_atomic_update_begin",   VerusItem::OpenAtomicUpdate(OpenAtomicUpdateItem::TryOpenAtomicUpdateBegin)),
         ("verus::vstd::atomic::try_open_atomic_update_end",     VerusItem::OpenAtomicUpdate(OpenAtomicUpdateItem::TryOpenAtomicUpdateEnd)),
 
+        ("verus::vstd::std_specs::clone::tuple_clone_1", VerusItem::Vstd(VstdItem::TupleClone(1), None)),
+        ("verus::vstd::std_specs::clone::tuple_clone_2", VerusItem::Vstd(VstdItem::TupleClone(2), None)),
+        ("verus::vstd::std_specs::clone::tuple_clone_3", VerusItem::Vstd(VstdItem::TupleClone(3), None)),
+        ("verus::vstd::std_specs::clone::tuple_clone_4", VerusItem::Vstd(VstdItem::TupleClone(4), None)),
         ("verus::vstd::seq::Seq::empty",       VerusItem::Vstd(VstdItem::SeqFn(vir::interpreter::SeqFn::Empty   ), Some(Arc::new("seq::Seq::empty"      .to_owned())))),
         ("verus::vstd::seq::Seq::new",         VerusItem::Vstd(VstdItem::SeqFn(vir::interpreter::SeqFn::New     ), Some(Arc::new("seq::Seq::new"        .to_owned())))),
         ("verus::vstd::seq::Seq::push",        VerusItem::Vstd(VstdItem::SeqFn(vir::interpreter::SeqFn::Push    ), Some(Arc::new("seq::Seq::push"       .to_owned())))),

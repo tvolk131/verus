@@ -278,7 +278,17 @@ fn fn_call_or_assoc_const_to_vir<'tcx>(
                 vir::ast::CallTargetKind::Dynamic
             }
             ResolutionResult::Builtin(b) => {
-                unsupported_err!(expr.span, format!("built-in instance {:?}", b));
+                if let Some((helper, helper_args)) = crate::tuple_clone::helper(tcx, f, node_substs) {
+                    let fun = Arc::new(FunX { path: bctx.ctxt.def_id_to_vir_path(helper) });
+                    let typs = mk_typ_args(bctx, helper_args, helper, expr.span)?;
+                    let impl_paths = get_impl_paths(bctx, helper, helper_args, None, const_var, expr.span)?;
+                    record_name = fun.clone();
+                    vir::ast::CallTargetKind::DynamicResolved {
+                        resolved: fun, typs, impl_paths, is_trait_default: false,
+                    }
+                } else {
+                    unsupported_err!(expr.span, format!("built-in instance {:?}", b));
+                }
             }
             ResolutionResult::Unresolved => {
                 // Method is generic

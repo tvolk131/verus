@@ -522,16 +522,19 @@ application's count/round meanings.
 The private variant uses a separately compiled NodeMap provider. It retains the
 pinned `size`, `get`, `insert` and **`with_size`** bodies, including native `.into()`
 syntax. A checked `From<NodeCount> for usize` adapter supports the constructor.
-An explicit `NodeMap<T: Copy>::copy_contents` method uses an ordinary indexed Copy
-loop, with inferred invariants and termination. The supplied collector's factories
-delegate to these APIs and return an owned record or `Option<Self>`. No private
-field is exposed in the consumer. This verifies the explicit copy adapter, not
-Aleph's native generic Clone derive: Copy alone does not establish Clone equality.
+NodeMap retains Rust's native `#[derive(Clone)]`, with
+`#[verus_verify(clone_via_view)]` before the derive. Its real body must prove the
+generated public relational view contract. The supplied collector's `next` now
+calls `.clone()`; there is no `copy_contents` adapter. The formal Hasher interface
+explicitly requires `Hash: CloneIdentity`, and its checked broadcast law proves
+value preservation for the `(Hash, Round)` payload. Copy alone does not establish
+Clone equality. No private field is exposed in the consumer.
 
 Five direct cases and six private cases yield **17 provider/consumer runs**. Direct
-runs have five exact candidates; private providers have nine and consumers five.
-Each stage must contain exactly two `owned_value` candidates with all three proof
-obligations proved. Cold/warm positives bracket semantic controls: wrong initial
+runs have five exact candidates; private providers have eight and consumers five.
+Providers contain one `owned_value` candidate, and consumers two; all require all
+three proofs. The native derive separately receives ordinary body verification.
+Cold/warm positives bracket semantic controls: wrong initial
 round, wrong advance, missed counter reset, premature terminal round and an
 unnecessary constructor overflow restriction. Those controls require a named
 new/next application goal to fail while all inference checks pass; frontend and
@@ -541,8 +544,8 @@ hashes, JSON reports and the explicit adapter patch are retained in the output.
 The original source checkout stays untouched. The corrected threshold, supplied
 counting equivalence/invariant/behavior oracles, reduced Unit/Hasher interface,
 explicit wrapper adapters and widened u32/Option terminal policy remain visible.
-This does not prove the full clean-main collector, native derives or cached FullUnit
-hashing, and does not claim a new production bug discovery. The existing original
+This does not prove the full clean-main collector or arbitrary Clone semantics,
+and does not claim a new production bug discovery. The existing original
 u16 round-overflow issue remains distinct from this adapted terminal policy.
 
 ## Borrowed parent-selection queries
@@ -563,8 +566,59 @@ explicit bounds guard, so this is not a claim about its unrestricted input domai
 
 Five direct and five private consumer cases, plus one private provider, yield
 11 expected formal outcomes. Every consumer has six exact inferred functions,
-including three structured values; the provider retains nine. Wrong error,
+including three structured values; the provider retains eight. Wrong error,
 overpermissive own-parent selection and removed-index-guard controls must fail
 the named selection goal while every candidate retains all three proofs. Warm
-positives follow the controls. Existing invariant, count, round, trait and Copy
-adapters remain; native Clone and cached FullUnit are separate integration stages.
+positives follow the controls. Existing invariant, count, round and trait adapters
+remain. Native Clone replaces the former Copy adapter. Cached FullUnit is covered
+by the separate implementation checkpoint below.
+
+## Native Unit and Hasher bodies
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_units.py \
+  --alephbft /path/to/AlephBFT --output /tmp/infer-aleph-units \
+  --native-tests --native-target /tmp/aleph-native-target
+```
+
+The runner extracts pinned source bodies for Hasher64::hash, UnitCoord methods,
+PreUnit construction/getters, ControlHash getters, FullUnit construction/clone,
+all four FullUnit Unit methods, and Unit's creator/round defaults. Native record
+Clone derives are retained and proved against supplied public view relations.
+The actual Hasher64 body verifies against vstd's existing DefaultHasher model
+and a u64 native-endian byte model. No collision-resistance property is asserted.
+
+The formal implementation has two explicit library boundaries/adaptations:
+
+- A separately compiled **trusted codec model** maps the immutable view to opaque
+  deterministic SCALE bytes, skipping the cache. FullUnit's encode bridge uses
+  that model; its using_encoded default body is checked. The SCALE algorithm and
+  generated Encode implementation are not formally verified. Model source and
+  compiled artifact hashes are recorded and guarded throughout the run.
+- Parking_lot is replaced by vstd's verified RwLock. A fixed ghost predicate permits
+  None or Some of the canonical hash. Copied reads release their handle, and writes
+  require that predicate. Native `*read()` becomes `read_copy()`, write assignment
+  becomes `replace()`, and clone's try_read-and_then becomes a **blocking** copied
+  read. Ghost constructor arguments and explicit type-invariant proofs are added.
+  This establishes functional correctness of the adapted body; it does not prove
+  parking_lot's RAII/Drop implementation or preserve nonblocking clone behavior.
+
+Native marker/codec bounds remain reduced. Hash and Data require a checked
+CloneIdentity law; Data additionally requires Copy. The concrete caller uses the
+actual mock types `[u8;8]` for Hash and `u32` for Data. Application invariants,
+count equivalence and the supplied collector's widened-round policy remain inputs.
+
+Seven formal provider/consumer outcomes include cold/warm positives and semantic
+rejections for a permissive cache invariant, hashing the wrong input, and a wrong
+session getter. All eight provider candidates and five consumer candidates must
+retain all three inference proofs even in the negative cases. Failed providers
+must not export an interface. Ordinary goals prove repeated-hash equality,
+clone/hash consistency and concrete FullUnit use by the supplied collector.
+
+With `--native-tests`, four real Aleph tests exercise codec/hash behavior,
+cold/warm caches, cloning, and try_read while a writer holds the lock. Removing
+the cloned payload must fail a runtime test; restoring it must pass. These are
+runtime evidence for the native library paths, separate from the adapted proof.
+The source checkout is never edited. This checkpoint does not verify the whole
+Aleph crate, arbitrary Data/Clone implementations, the clean-main collector, or
+distributed protocol properties.

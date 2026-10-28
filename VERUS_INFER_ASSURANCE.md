@@ -141,6 +141,63 @@ zero-length repetition. Inference regressions retain operand-overflow checks.
 The `no_unwind` integration test checks use of the trusted model; it is not an
 independent proof of those declarations.
 
+## Native Clone and implementation-model checkpoint
+
+Native derived Clone through a supplied direct view introduces a proposed ordinary
+postcondition, not an axiom. Rust's original derive body remains executable and
+must prove it. A generated public spec relation avoids exposing private fields.
+An exact inferred caller may propose contents equality only as a candidate; its
+three independent obligations remain mandatory. `CloneIdentity` is an explicit
+proof trait whose implementations establish identity from vstd's reflexive
+`cloned` relation. Copy is never interpreted as a Clone identity law. Negative
+tests cover insufficient Copy bounds, nonidentity component clones, false supplied
+relations, malformed helper signatures and dishonest value-law implementations.
+
+Rust's builtin tuple Clone instances (arity 1–4) map to bounded vstd models with
+one `cloned` clause per field. The helper bodies themselves verify by fieldwise
+cloning. Frontend validation restricts their signatures, generic bounds and exact
+weak contract shapes, preventing a stronger helper specification from silently
+describing the builtin shim. The mapping remains part of the trusted compiler
+translation. The pinned Rust 1.99.1 compiler's `rustc_mir_transform/src/shim.rs`
+implements tuple Clone through `build_clone_shim`, `tuple_like_shim` and field
+clone calls. The reflexive relation also permits copy specializations. Custom
+nonidentity Clone and function-pointer regressions exercise the weak relation.
+
+Native-Clone-only providers also require full-crate verification and delayed
+certified export. Certificates bind the whole exported API and the vstd artifact,
+including tuple relations and CloneIdentity laws. Tests reject partial/no-verify,
+false relations, unrelated failed goals and missing proof metadata. Opaque boxed
+returns use independently certified view observations after SST representation
+lowering; they do not fall back to private object identity.
+
+This checkpoint uses metadata schema 25 and candidate cache version 30. Rebuild
+vstd and dependent `.vir` artifacts. Templates never store proof outcomes.
+
+The u64 `to_ne_bytes` specification is a new trusted standard-library declaration,
+expressed using the existing little-endian byte model and reversal for big-endian
+targets. It records the compile target's endian choice in the vstd artifact; it
+does not assert a platform-independent encoding. External-signature checking
+accepts differing closed array-length expressions only when Rust's const
+normalizer evaluates both to the same usize. Unequal lengths remain rejected.
+
+The new RwLock `read_copy` and `replace` methods are ordinary verified bodies:
+they acquire and explicitly release handles, and preserve the predicate configured
+at lock construction. Reads promise predicate membership for the observed value,
+not a stable snapshot after release. No lock assumption or Drop contract is added.
+
+The source-connected Aleph Unit experiment isolates SCALE in a separately
+compiled trusted codec model. The target implementation and concrete collector
+caller verify with `--no-cheating`; the codec model deliberately declares
+deterministic encoding of a supplied complete immutable view and omission of
+the cache. Its source/artifact hashes are recorded and guarded. Neither SCALE's
+algorithm nor that bridge's correspondence to the native derive is formally
+proved. Native runtime tests exercise the real codec/hash/cache implementation.
+Parking_lot operations are explicitly adapted to the verified RwLock operations;
+in particular nonblocking clone becomes a blocking read. This is not native
+RAII/Drop verification or a proof of nonblocking equivalence. Permissive cache,
+wrong hasher input, wrong session, and dropped-clone-payload controls must fail
+semantically, and failed formal providers must not export certified interfaces.
+
 ## Propagation-model audit
 
 `?` uses the existing `Option`/`Result` `branch` and `from_residual` specifications

@@ -605,9 +605,9 @@ immutable locals, field projections, branches, early value returns, checked
 scalar arithmetic and exact inferred helpers. Repeat initialization accepts
 primitive identity-clone values or `None`. A generic `T: Copy` bound does **not**
 justify equating arbitrary `Clone` results: a custom Clone can differ from a
-Copy. Use the explicit indexed copy loop above for opaque Copy payloads. Even a
-structurally plausible clone candidate is withheld if vstd cannot prove its
-contents equation, as can happen with tuple clone models.
+Copy. An explicit indexed copy loop remains useful for opaque Copy payloads.
+Alternatively, a checked `CloneIdentity` bound supplies the needed law, as below.
+A clone candidate is withheld unless ordinary Verus proves its contents equation.
 
 One loop is supported per function, in either of these forms:
 
@@ -651,11 +651,58 @@ The [Aleph lifecycle runner](../../../tools/eval_verus_infer_alephbft_lifecycle.
 removes supplied constructor/advance contracts, loop annotations and local proof
 blocks from the supplied Vec core, preserving executable bodies. A separate crate
 variant retains original NodeMap API bodies including `with_size`, and supplies
-an explicit checked Copy adapter. Ordinary goals prove construction → add → next →
+native derived Clone through a checked public view relation. Ordinary goals prove construction → add → next →
 add invariant preservation and the original new/next behavior. The application
 invariant, count-equivalence proof, reduced Unit/Hasher adapter, threshold correction
 and widened-round/Option terminal policy remain supplied. This does not verify
-native generic Clone derives, the full clean-main collector, or cached hashing.
+arbitrary generic Clone equality or the full clean-main collector. The separate
+Unit implementation checkpoint below covers cached hashing with explicit library
+boundaries and a verified-lock adaptation.
+
+## Native derived Clone through a supplied view
+
+For a sole-Vec wrapper with a supplied direct sequence View, place
+`#[verus_verify(clone_via_view)]` **before** `#[derive(Clone)]`. Rust's native derive
+is retained. The adapter generates a public spec relation saying that lengths are
+equal and corresponding elements satisfy vstd's reflexive `cloned` relation.
+Ordinary Verus verifies the actual derive body against that relation; the derive
+itself is not an inferred function with three precision claims.
+
+An inferred `.clone()` caller can propose complete logical contents equality.
+That candidate still needs soundness, safe-domain maximality and output exactness.
+For generic payloads, use `vstd::std_specs::clone::CloneIdentity` and enable its
+checked broadcast lemma `lemma_cloned_identity` where the caller is proved. The
+trait proves `cloned(a,b) ==> a == b`; vstd verifies implementations for primitive
+integers/bool/char, Option, arrays and tuples of arity one through four. Copy alone
+does not establish this law. Custom Clone implementations can change their value.
+The tuple Clone model deliberately permits cloning or copying each component.
+
+The [native Clone example](../../../../examples/verus_infer_clone.rs) demonstrates
+the declarations and a generic exact caller. Current source limits are one unnamed
+Vec field and at most two type parameters, with no lifetime or const parameters.
+The supplied View must be the checked direct projection. Complete logical contents
+are observed; capacity, allocation identity and arbitrary representation laws are
+outside the claim. Imported providers, including providers with no inferred
+functions of their own, must pass full-crate verification before export.
+
+## Source-connected Unit implementations
+
+The [Aleph Unit runner](../../../tools/eval_verus_infer_alephbft_units.py) checks
+the native Hasher64 hash body against existing DefaultHasher models and a
+target-endian u64 byte model. It also checks native UnitCoord/PreUnit/ControlHash
+methods and Clone derives, FullUnit construction/clone, all four Unit methods,
+and the original creator/round defaults. Ordinary goals establish repeated-hash
+equality and clone/hash consistency, and instantiate the supplied collector with
+`FullUnit<Hasher64,u32>`.
+
+Two boundaries remain explicit. A separate trusted codec model says that SCALE
+encoding depends deterministically on the immutable fields and skips the cache;
+the codec algorithm and derive are not proved. Parking_lot read/write/try_read
+expressions are adapted to vstd's verified RwLock copied read/replace operations,
+with a fixed per-lock predicate and ghost/type-invariant annotations. In particular,
+clone's nonblocking try_read becomes a blocking copied read. This is a functional
+proof of the adapted implementation, not RAII/Drop or nonblocking equivalence.
+Native runtime tests separately exercise the original lock and codec paths.
 
 ## Borrowed collection queries inside Result
 

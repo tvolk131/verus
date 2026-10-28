@@ -179,6 +179,13 @@ fn observations(
     if depth == 0 || out.len() >= 16 {
         return Err(bad());
     }
+    // Opaque imported datatypes have a boxed SST return type. Boxing changes
+    // the solver representation, not the independent logical observation.
+    if let TypX::Boxed(t) = &**typ {
+        return observations(ctx, span, t,
+            crate::poly::coerce_exp_to_native(ctx, &a),
+            crate::poly::coerce_exp_to_native(ctx, &b), depth - 1, out);
+    }
     if let TypX::Decorate(crate::ast::TypDecoration::Ref, None, t) = &**typ {
         return observations(ctx, span, t, a, b, depth - 1, out);
     }

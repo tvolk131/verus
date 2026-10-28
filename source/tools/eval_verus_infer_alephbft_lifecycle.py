@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Infer construction and round advancement for the supplied Aleph collector.
 
-The direct Vec core retains executable new/next bodies. A separate private-API
-variant retains NodeMap::with_size and uses an explicit verified Copy loop;
-that adapter does not claim the native generic Clone implementation is equal.
+The direct Vec core retains executable new/next bodies. The private-API variant
+retains NodeMap::with_size and native derived Clone. A checked CloneIdentity
+law is an explicit formal-interface requirement for its Hash payload.
 """
 import argparse
 import difflib
@@ -81,6 +81,11 @@ def trace_harness(private):
 
 def lifecycle_api(node, shared, units):
     source = wrapper_api(private_api(node, shared) + getter_adapter(units), node)
+    marker = '#[cfg_attr(not(verus_keep_ghost), derive(Clone, Eq, PartialEq, Debug))]'
+    if source.count(marker) != 1: raise ValueError('NodeMap derive marker changed')
+    source = source.replace(marker, '#[cfg_attr(verus_keep_ghost, verus_verify(clone_via_view))]\n#[derive(Clone)]')
+    source = source.replace('pub trait Hasher { type Hash: Copy; }',
+        'pub trait Hasher { type Hash: Copy + vstd::std_specs::clone::CloneIdentity; }')
     _, _, method = item(node, 'pub fn with_size(')
     source += '''
 #[cfg_attr(verus_keep_ghost, verus_infer)]
@@ -89,20 +94,6 @@ impl From<NodeCount> for usize { fn from(value: NodeCount) -> Self { value.0 } }
 impl<T> NodeMap<T> {
     #[cfg_attr(verus_keep_ghost, verus_infer)]
     METHOD
-}
-// Explicit logical-value copy adapter; not the original generic Clone derive.
-#[cfg_attr(verus_keep_ghost, verus_verify)]
-impl<T: Copy> NodeMap<T> {
-    #[cfg_attr(verus_keep_ghost, verus_infer)]
-    pub fn copy_contents(&self) -> Self {
-        let mut candidates = Vec::with_capacity(self.0.len());
-        let mut index = 0usize;
-        while index < self.0.len() {
-            candidates.push(self.0[index]);
-            index += 1;
-        }
-        NodeMap(candidates)
-    }
 }
 '''.replace('METHOD', method)
     if item(source, 'pub fn with_size(')[2] != method: raise ValueError('original constructor changed')
@@ -120,7 +111,7 @@ def private_core(original):
     #[cfg_attr(verus_keep_ghost, verus_infer)]
     pub fn next(&self) -> Option<Self> {
         if self.for_round == u32::from(u16::MAX) + 1 { return None; }
-        let candidates = self.candidates.copy_contents();
+        let candidates = self.candidates.clone();
         Some(Collector { candidates, for_round: self.for_round + 1, direct_parents: NodeCount(0) })
     }
     #[cfg(verus_keep_ghost)]
@@ -144,7 +135,8 @@ def private_core(original):
     pub fn check_next(&self) -> Option<Self> { self.next() }
 '''
     start, end, _ = item(source, 'pub fn check_unit_behavior')
-    return source[:end] + methods + trace_harness(True) + source[end:]
+    return (source[:end] + methods + trace_harness(True) + source[end:]
+        + '\n#[cfg(verus_keep_ghost)]\nverus! { broadcast use vstd::std_specs::clone::lemma_cloned_identity; }\n')
 
 
 def mutate(source, name, old, new):
@@ -153,10 +145,10 @@ def mutate(source, name, old, new):
     return source[:start]+method.replace(old,new,1)+source[end:]
 
 
-def validate_stage(run,expected,count,goal=None):
+def validate_stage(run,expected,count,goal=None,owned_count=2):
     data=validate(run,expected,count)
     kinds=[f['summary_kind'] for f in data['verus-infer']['functions']]
-    if kinds.count('owned_value')!=2: raise ValueError('missing exact owned summaries')
+    if kinds.count('owned_value')!=owned_count: raise ValueError('missing exact owned summaries')
     if goal:
         names=data['verus-infer'].get('failed_functions',[])
         if not any(n.endswith('::'+goal) for n in names):
@@ -190,9 +182,10 @@ def main():
         direct=direct_core(original); api=lifecycle_api(node,shared,units); private=private_core(original)
         result['source']=dict(**origin,collector=str(supplied),collector_sha256=digest(supplied),
             direct='supplied Vec core new/next executable bodies; contracts, loop annotations and local proof blocks removed',
-            private='original NodeMap size/get/insert/with_size bodies; explicit Copy-loop helper; supplied core factories delegate to those APIs',
+            private='original NodeMap size/get/insert/with_size bodies and native derived Clone; supplied core factories delegate to those APIs',
+            clone_law='Hash: CloneIdentity and its checked broadcast lemma; Copy alone is insufficient',
             retained='supplied invariant/count equivalence/behavior oracles, threshold correction, widened u32 round and Option terminal policy, reduced Unit/Hasher interface',
-            not_claimed='full clean-main collector, native derives, generic Clone equality, cached FullUnit hashing, new production bug discovery')
+            not_claimed='full clean-main collector, arbitrary generic Clone equality, cached FullUnit hashing, new production bug discovery')
         properties=(FIXTURES/'parents_properties.rs').read_text().replace('// BRIDGE_ATTRIBUTE','#[verus_infer]')
         private_properties=properties
         start=private_properties.index('#[path = "../crypto/src/node_count_value.rs"]'); end=private_properties.index('// The existing shared collector')
@@ -203,7 +196,7 @@ def main():
             for path in source: (snapshot/path.name).write_text(path.read_text())
             guard.check(); run=measured(command,env,60,ROOT); guard.check()
             (output/f'{case}-{stage}.stdout.json').write_text(run['stdout']);(output/f'{case}-{stage}.stderr.txt').write_text(run['stderr'])
-            data=validate_stage(run,expected,count,goal)
+            data=validate_stage(run,expected,count,goal,1 if stage=='provider' else 2)
             result['runs'].append(dict(case=case,stage=stage,command=command,verification=data['verification-results'],report=data['verus-infer'],wall_micros=run['wall_micros']))
             save(); print(f'{case}/{stage}: expected outcome',flush=True)
         state=directory/'lifecycle_state.rs'; props=directory/'lifecycle_properties.rs'; apifile=directory/'lifecycle_api.rs'
@@ -224,7 +217,7 @@ def main():
             ('private-warm',private,True,None)]
         for case,variant,expected,goal in private_cases:
             apifile.write_text(api); state.write_text(variant); props.write_text(private_properties.replace('"collector_state.rs"','"lifecycle_state.rs"'))
-            run(case,'provider',[apifile],[str(verus),str(apifile),'--crate-type=lib','--crate-name=lifecycle_api','--export',str(interface),'--compile','-o',str(lib),'--infer-goals','--no-cheating','--output-json'],9)
+            run(case,'provider',[apifile],[str(verus),str(apifile),'--crate-type=lib','--crate-name=lifecycle_api','--export',str(interface),'--compile','-o',str(lib),'--infer-goals','--no-cheating','--output-json'],8)
             run(case,'consumer',[state,props],[str(verus),str(props),'--crate-type=lib','--extern',f'lifecycle_api={lib}','--import',f'lifecycle_api={interface}','--infer-goals','--no-cheating','--output-json'],5,expected,goal)
         (output/'lifecycle.patch').write_text(''.join(difflib.unified_diff(original.splitlines(keepends=True),private.splitlines(keepends=True),fromfile='a/supplied_state.rs',tofile='b/private_lifecycle.rs')))
         result['success']=True

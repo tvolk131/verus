@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v29:borrowed-selection-results:4096";
+const VERSION: &str = "verus-infer-v30:checked-native-clone:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -469,6 +469,7 @@ impl Registry {
     ) -> Result<Vec<Function>, VirErr> {
         let trait_contracts=trait_getters::prepare(functions,imported);
         let prepared=sequence_views::prepare(&trait_contracts,imported,datatypes);
+        let prepared=cloning::prepare(&prepared,imported,datatypes);
         let prepared=owned::prepare(&prepared,datatypes);
         let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);

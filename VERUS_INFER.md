@@ -104,7 +104,7 @@ Implemented and covered by regression tests:
   bodies; return exactness independently enumerates the modeled output. Aleph's
   supplied Vec core now infers `new`/`next` without method contracts, loop invariants
   or local proof blocks. A separate private-API lifecycle retains NodeMap's original
-  `with_size` body and uses an explicit checked Copy adapter. Application invariants,
+  `with_size` body and native derived Clone. Application invariants,
   count equivalence, reduced traits and widened-round/terminal policy remain supplied.
 - [x] Bounded borrowed collection queries inside `Result`: early success/error
   returns, Option/tuple matching, canonical primitive widenings of borrowed values,
@@ -112,8 +112,21 @@ Implemented and covered by regression tests:
   compose across private crate interfaces. The supplied Aleph selection method now
   infers its contract and ordinary goals check readiness, contents and both error
   policies. Vec replaces the supplied slice borrow; private API spellings and
-  checked size/lookup observations remain explicit. Native cloning and the cached
-  FullUnit implementation are separate integration work.
+  checked size/lookup observations remain explicit.
+- [x] Checked native derived Clone contracts through supplied direct sequence views.
+  `#[verus_verify(clone_via_view)]` retains and verifies Rust's derive body against
+  a public relational view contract. Bounded tuple Clone models and an explicit
+  verified `CloneIdentity` law let exact clone callers compose across crate
+  interfaces. Copy alone never supplies identity. Aleph's lifecycle now uses
+  `.clone()` and no `copy_contents` adapter. Native-Clone-only providers require
+  complete verification and certified exports.
+- [x] Source-connected Unit/Hasher implementation checkpoint: the native Hasher64
+  body, record Clone derives, FullUnit construction/clone and all four Unit methods
+  verify with explicit contracts. Repeated hash and clone/hash consistency compose
+  into a concrete supplied-core collector caller. This checkpoint replaces
+  parking_lot guard operations with vstd's verified lock operations and separately
+  models SCALE encoding; it does not verify native RAII/Drop or the codec algorithm.
+  Generic Data/Hash clone laws and application invariants remain supplied.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -400,13 +413,23 @@ APIs and research directions.
     candidate. Ordinary goals check construction, update, advance and another update
     in the supplied Aleph core. Wrong rounds/reset/termination and restrictive-domain
     controls separate exact code descriptions from intended behavior. Generic Clone
-    equality is not assumed; the private adapter uses an explicit Copy loop.
+    equality is not assumed. The subsequent native Clone checkpoint removes the
+    explicit Copy loop using checked relational clone contracts and value laws.
 15. **Borrowed selection-query checkpoint implemented.** Complete Result relations
     describe returned collection views and nullary error enums in exact mode.
     Independent precision includes the tag and both guarded payloads. Original
     branch order and bounds policy remain in the supplied Aleph query; caller goals
     reject changed error policies, own-parent acceptance and unguarded indices.
-16. **Next: native cloning, real unit implementations and richer abstractions.** General trait contracts,
+16. **Native Clone and Unit implementation checkpoint implemented.** A supplied
+    direct sequence view supports ordinary checked native derives and exact inferred
+    callers, including private imported returns. An explicit checked CloneIdentity
+    law supports primitive, Option, array and bounded tuple payloads. Aleph's native
+    Hasher64 and FullUnit method bodies are now source-connected formal targets,
+    with a separately declared codec model and explicit verified-lock adaptation.
+    Runtime tests exercise the original parking_lot cold/warm/contended clone paths.
+    Native lock/Drop verification, SCALE derivation and general Data clone semantics
+    remain open; do not describe the adapted proof as unchanged native verification.
+17. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

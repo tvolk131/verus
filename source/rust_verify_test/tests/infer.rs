@@ -5768,3 +5768,54 @@ fn borrowed_result_summaries_cross_private_crate_boundaries() {
     assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
     assert!(!crates.vir("selection_consumer").exists());
 }
+
+#[test]
+fn native_clone_only_providers_require_complete_checked_exports() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
+#[verus_verify(clone_via_view)] #[derive(Clone)] pub struct Slots<T>(Vec<Option<T>>);
+verus!{impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}}
+"#;
+    let consumer = r#"use vstd::prelude::*;
+use vstd::std_specs::clone::{CloneIdentity,lemma_cloned_identity};
+verus!{broadcast use lemma_cloned_identity;}
+#[verus_infer] pub fn copy<T:Copy+CloneIdentity>(v:&native_clone_provider::Slots<(T,u16)>)->native_clone_provider::Slots<(T,u16)>{v.clone()}
+verus!{pub fn goal(v:&native_clone_provider::Slots<(u64,u16)>)->(r:native_clone_provider::Slots<(u64,u16)>) ensures r@==v@,{copy(v)}}
+"#;
+    for _ in 0..2 {
+        for (name, source, deps) in [
+            ("native_clone_provider", provider, vec![]),
+            ("native_clone_consumer", consumer, vec!["native_clone_provider"]),
+        ] {
+            let run=crates.build_source(name,source,&deps,&["--no-cheating","--output-json"],true);
+            assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+            assert!(crates.vir(name).exists());
+        }
+    }
+    for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","clone"]] {
+        let run=crates.build_source("native_clone_provider",provider,&[],&opts,true);
+        assert!(!run.status.success());
+        assert!(!crates.vir("native_clone_provider").exists());
+        assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"));
+    }
+    let broken=format!("{provider} verus!{{pub fn false_goal(){{assert(false);}}}}");
+    let run=crates.build_source("native_clone_provider",&broken,&[],&[],true);
+    assert!(!run.status.success());
+    assert!(!crates.vir("native_clone_provider").exists());
+    let false_relation=provider.replace("#[verus_verify(clone_via_view)]","#[verus_verify]").to_owned()
+        + "verus!{impl<T:Clone> Slots<T>{pub open spec fn __verus_clone_relation(&self,r:Self)->bool{false}}}";
+    let run=crates.build_source("native_clone_provider",&false_relation,&[],&[],true);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    assert!(!crates.vir("native_clone_provider").exists());
+    let run=crates.build_source("native_clone_provider",provider,&[],&[],true);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let mut bytes=std::fs::read(crates.vir("native_clone_provider")).unwrap();
+    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    bytes.truncate(start);
+    std::fs::write(crates.vir("native_clone_provider"),bytes).unwrap();
+    let run=crates.build_source("native_clone_consumer",consumer,&["native_clone_provider"],&[],true);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(!crates.vir("native_clone_consumer").exists());
+}

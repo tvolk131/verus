@@ -35,6 +35,7 @@ mod sequence_views;
 mod trait_getters;
 mod wrapper_traits;
 mod owned;
+mod cloning;
 
 pub fn is_owned_summary(f:&Function)->bool{f.x.attrs.infer && f.x.attrs.infer_owned}
 
@@ -45,7 +46,7 @@ pub fn is_wrapper_trait(f: &Function) -> bool {
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
-    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation
+    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
 }
 
 pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
@@ -57,6 +58,7 @@ pub fn is_inferred_sequence_view(f: &Function) -> bool { f.x.attrs.infer_sequenc
 
 pub fn validate_inferred_sequence_views(functions: &[Function], datatypes: &[Datatype]) -> Result<(),VirErr> {
     sequence_views::validate_imports(functions,datatypes)?;
+    cloning::validate(functions,datatypes)?;
     trait_getters::validate(functions)
 }
 
@@ -680,6 +682,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 let e = plain.as_ref().unwrap_or(e);
                 let rewritten = wrapper_traits::source_call(e, all);
                 let e = rewritten.as_ref().unwrap_or(e);
+                if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
                 if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
                     if all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f)==Some(collections::Model::View))){return Ok(());}
@@ -774,7 +777,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -871,6 +874,12 @@ pub fn infer_functions_with_datatypes(
     *report = GenerationReport::default();
     report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
     if !functions.iter().any(|f| f.x.attrs.infer) {
+        // A Clone provider may contain only an ordinary derived implementation.
+        // Its direct-view evidence still needs certification and export gating.
+        if functions.iter().any(|f| f.x.name.path.last_segment().as_str() == "__verus_clone_relation") {
+            let prepared = sequence_views::prepare(functions, imported, datatypes);
+            return Ok(cloning::prepare(&prepared, imported, datatypes));
+        }
         return Ok(functions.to_vec());
     }
     let start = std::time::Instant::now();

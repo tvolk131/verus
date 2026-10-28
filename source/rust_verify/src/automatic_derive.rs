@@ -63,7 +63,7 @@ pub fn is_automatically_derived(attrs: &[rustc_hir::Attribute]) -> bool {
 pub fn modify_derived_item<'tcx>(
     ctxt: &Context<'tcx>,
     id: rustc_span::def_id::DefId,
-    inputs: &Vec<rustc_middle::ty::Ty>,
+    inputs: &Vec<rustc_middle::ty::Ty<'tcx>>,
     span: Span,
     action: AutomaticDeriveAction,
     function: &mut FunctionX,
@@ -84,7 +84,7 @@ pub fn modify_derived_item<'tcx>(
 fn clone_add_post_condition<'tcx>(
     ctxt: &Context<'tcx>,
     mut id: rustc_span::def_id::DefId,
-    inputs: &Vec<rustc_middle::ty::Ty>,
+    inputs: &Vec<rustc_middle::ty::Ty<'tcx>>,
     span: Span,
     functionx: &mut FunctionX,
 ) -> Result<(), VirErr> {
@@ -121,6 +121,16 @@ fn clone_add_post_condition<'tcx>(
     let Some(body) = &functionx.body else {
         return Ok(());
     };
+
+    // The opt-in source adapter supplies a public view relation. Adding this
+    // proposed postcondition is untrusted: the actual native derive body is
+    // still checked normally, including each field's library clone contract.
+    if !ctxt.no_vstd && functionx.ensure.0.is_empty() {
+        if let Some(post) = view_clone_post(ctxt, inputs, functionx) {
+            functionx.ensure.0 = Arc::new(vec![cleanup_span_ids(ctxt, span, &post)]);
+            return Ok(());
+        }
+    }
 
     let uses_copy;
     let self_var;
@@ -178,6 +188,78 @@ fn clone_add_post_condition<'tcx>(
     }
 
     Ok(())
+}
+
+fn view_clone_post<'tcx>(
+    ctxt: &Context<'tcx>,
+    inputs: &[rustc_middle::ty::Ty<'tcx>],
+    f: &FunctionX,
+) -> Option<Expr> {
+    use vir::ast::*;
+    let rustc_middle::ty::TyKind::Ref(_, typ, _) = inputs.first()?.kind() else { return None };
+    let rustc_middle::ty::TyKind::Adt(adt, _) = typ.kind() else { return None };
+    let mut methods = ctxt
+        .tcx
+        .inherent_impls(adt.did())
+        .iter()
+        .flat_map(|id| ctxt.tcx.associated_items(*id).in_definition_order())
+        .filter(|m| {
+            m.tag() == rustc_middle::ty::AssocTag::Fn
+                && m.name().as_str() == "__verus_clone_relation"
+        });
+    let method = methods.next()?;
+    if methods.next().is_some() || f.params.len() != 1 {
+        return None;
+    }
+    let TypX::Datatype(_, args, _) = &*f.inner_ret.x.typ else { return None };
+    let sig = ctxt.tcx.fn_sig(method.def_id).skip_binder().skip_binder();
+    #[allow(deprecated)]
+    let mode = crate::attributes::get_mode(Mode::Exec, ctxt.tcx.get_all_attrs(method.def_id));
+    let receiver_matches = sig.inputs().first().is_some_and(|input| {
+        matches!(input.kind(), rustc_middle::ty::TyKind::Ref(_, target, rustc_hir::Mutability::Not)
+            if ctxt.tcx.erase_and_anonymize_regions(*target) == ctxt.tcx.erase_and_anonymize_regions(*typ))
+    });
+    if mode != Mode::Spec
+        || sig.inputs().len() != 2
+        || !sig.output().is_bool()
+        || !receiver_matches
+        || ctxt.tcx.erase_and_anonymize_regions(sig.inputs()[1])
+            != ctxt.tcx.erase_and_anonymize_regions(*typ)
+        || ctxt.tcx.generics_of(method.def_id).count() != args.len()
+    {
+        return None;
+    }
+
+    let source = SpannedTyped::new(
+        &f.params[0].span,
+        &f.params[0].x.typ,
+        ExprX::Var(f.params[0].x.name.clone()),
+    );
+    let result = SpannedTyped::new(
+        &f.inner_ret.span,
+        &f.inner_ret.x.typ,
+        ExprX::Var(f.inner_ret.x.name.clone()),
+    );
+    Some(SpannedTyped::new(
+        &f.inner_ret.span,
+        &vir::ast_util::bool_typ(),
+        ExprX::Call {
+            target: CallTarget::Fun(
+                CallTargetKind::Static,
+                Arc::new(FunX { path: ctxt.def_id_to_vir_path(method.def_id) }),
+                args.clone(),
+                Arc::new(vec![]),
+                CallTargetAttrs {
+                    autospec: AutospecUsage::Final,
+                    const_var: false,
+                    assume_external_allowed: false,
+                },
+            ),
+            args: Arc::new(vec![source, result]),
+            post_args: None,
+            body: None,
+        },
+    ))
 }
 
 /// Give each node a unique ID. This inserts 'None' for every var into the local_hir_vir_ids

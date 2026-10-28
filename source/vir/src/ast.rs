@@ -1549,6 +1549,8 @@ pub struct FunctionAttrsX {
     pub infer_trait_observation: bool,
     /// Compiler-selected collection-bearing owned result; never a source flag.
     pub infer_owned: bool,
+    /// Ordinary checked native Clone and its public logical view relation.
+    pub infer_clone_contract: bool,
     /// Erasure and lifetime checking based on ghost blocks
     pub uses_ghost_blocks: bool,
     /// Inline spec function for SMT

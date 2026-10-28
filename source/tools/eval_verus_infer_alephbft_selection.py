@@ -104,7 +104,7 @@ def main():
             prefix='private' if private_flag else 'direct'
             if private_flag:
                 apifile.write_text(api)
-                run(prefix,'provider',[str(verus),str(apifile),'--crate-name=selection_api','--crate-type=lib','--export',str(interface),'--compile','-o',str(lib),'--infer-goals','--no-cheating','--output-json'],9)
+                run(prefix,'provider',[str(verus),str(apifile),'--crate-name=selection_api','--crate-type=lib','--export',str(interface),'--compile','-o',str(lib),'--infer-goals','--no-cheating','--output-json'],8)
             cases=[('positive',positive,True),('wrong-error',mutate(positive,'prospective_parents','SelectionError::NotEnoughParents','SelectionError::MissingOwnParent'),False),('missing-own-parent',mutate(positive,'prospective_parents','== self.for_round','<= self.for_round'),False),('unsafe-index',without_index_guard(positive),False),('warm',positive,True)]
             for name,variant,expected in cases:
                 state.write_text(variant);props.write_text(prop)

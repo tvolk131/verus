@@ -649,6 +649,17 @@ pub(crate) fn get_impl_paths_for_clauses<'tcx>(
                                 // TODO: closure: Clone
                                 match trait_args.into_type_list(tcx)[0].kind() {
                                     TyKind::Tuple(ts) => {
+                                        if (1..=4).contains(&ts.len()) {
+                                            let path = Arc::new(vir::ast::PathX {
+                                                krate: vir::ast::CrateId::Vstd,
+                                                segments: Arc::new(vec![
+                                                    Arc::new("std_specs".into()), Arc::new("clone".into()),
+                                                    Arc::new(format!("tuple_clone_{}", ts.len())),
+                                                    Arc::new("builtin_impl".into()),
+                                                ]),
+                                            });
+                                            impl_paths.push(ImplPath::TraitImplPath(path));
+                                        }
                                         // Turn (t1, ..., tn): Clone
                                         // into t1: Clone, ..., tn: Clone
                                         for ty in ts.iter() {
@@ -1425,7 +1436,13 @@ pub(crate) fn mid_ty_to_vir_ghost<'tcx>(
                         ..
                     } => None,
                     ResolutionResult::Builtin(b) => {
-                        unsupported_err!(span, format!("built-in instance {:?}", b));
+                        if let Some((helper, _)) = crate::tuple_clone::helper(tcx, *def_id, args) {
+                            Some(Arc::new(vir::ast::FunX {
+                                path: def_id_to_vir_path(tcx, verus_items, helper, None::<&mut HashMap<_, _>>),
+                            }))
+                        } else {
+                            unsupported_err!(span, format!("built-in instance {:?}", b));
+                        }
                     }
                 }
             };
