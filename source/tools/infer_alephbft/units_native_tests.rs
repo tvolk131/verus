@@ -13,7 +13,7 @@
             assert_eq!(*warm.hash.read(), Some(expected));
             assert_eq!(warm.encode(), unit.encode());
             // Native try_read must fail promptly while a writer holds the lock.
-            // The formal verified-lock adaptation uses a blocking read instead.
+            // The formal lock adaptation also makes a finite read attempt.
             let write_guard = unit.hash.write();
             let contended = unit.clone();
             assert!(contended.hash.read().is_none());
@@ -21,6 +21,24 @@
             assert_eq!(contended.encode(), unit.encode());
             assert_eq!(contended.hash(), expected);
         }
+    }
+
+    #[test]
+    fn infer_noncopy_payload_preserves_encoding_and_hash() {
+        let units = random_full_parent_units_up_to(0, NodeCount(4), 43);
+        let unit = FullUnit::<Hasher64, Vec<u8>>::new(
+            units[0][0].as_pre_unit().clone(), Some(vec![1, 2, 3, 255]), 43);
+        let expected = unit.using_encoded(Hasher64::hash);
+        let copied = unit.clone();
+        assert_eq!(copied.data(), unit.data());
+        assert_eq!(copied.encode(), unit.encode());
+        assert_eq!(copied.hash(), expected);
+        let write_guard = unit.hash.write();
+        let contended = unit.clone();
+        assert!(contended.hash.read().is_none());
+        drop(write_guard);
+        assert_eq!(contended.data(), unit.data());
+        assert_eq!(contended.hash(), expected);
     }
 
     #[test]

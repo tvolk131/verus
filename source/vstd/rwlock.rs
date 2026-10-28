@@ -611,87 +611,91 @@ impl<V, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
         }
     }
 
-    /// Acquires a shared read-lock. To release it, use [`ReadHandle::release_read`].
-    ///
-    /// **Warning:** The lock is _NOT_ released automatically when the handle
-    /// is dropped. You must call [`ReadHandle::release_read`].
-    /// Verus does not check that lock is released.
-    #[verifier::exec_allows_no_decreases_clause]
-    pub fn acquire_read(&self) -> (read_handle: ReadHandle<'_, V, Pred>)
-        ensures
-            read_handle.rwlock() == *self,
-            self.inv(read_handle.view()),
+    /// Attempts a shared read-lock once, without waiting for another holder.
+    /// On success, release the returned handle with `release_read`.
+    pub fn try_acquire_read(&self) -> (result: Option<ReadHandle<'_, V, Pred>>)
+        ensures result.is_some() ==> result.unwrap().rwlock() == *self
+            && self.inv(result.unwrap().view()),
     {
-        proof {
-            use_type_invariant(self);
-        }
-        loop
-            invariant
-                self.wf(),
-        {
-            let val = atomic_with_ghost!(&self.rc => load(); ghost g => { });
+        proof { use_type_invariant(self); }
+        let val = atomic_with_ghost!(&self.rc => load(); ghost g => { });
 
-            let tracked mut token: Option<
-                RwLockToks::pending_reader<(Pred, CellId), un::PointsTo<V>, InternalPred<V, Pred>>,
-            > = Option::None;
+        let tracked mut token: Option<
+            RwLockToks::pending_reader<(Pred, CellId), un::PointsTo<V>, InternalPred<V, Pred>>,
+        > = Option::None;
 
-            if val < usize::MAX {
-                let result =
-                    atomic_with_ghost!(
-                    &self.rc => compare_exchange(val, val + 1);
-                    returning res;
-                    ghost g =>
-                {
-                    if res is Ok {
-                        token = Option::Some(self.inst.borrow().acquire_read_start(&mut g));
-                    }
-                });
+        if val < usize::MAX {
+            let result =
+                atomic_with_ghost!(
+                &self.rc => compare_exchange(val, val + 1);
+                returning res;
+                ghost g =>
+            {
+                if res is Ok {
+                    token = Option::Some(self.inst.borrow().acquire_read_start(&mut g));
+                }
+            });
 
-                match result {
-                    Result::Ok(_) => {
-                        let tracked mut handle_opt: Option<
-                            RwLockToks::reader<
-                                (Pred, CellId),
-                                un::PointsTo<V>,
-                                InternalPred<V, Pred>,
-                            >,
-                        > = None;
+            match result {
+                Result::Ok(_) => {
+                    let tracked mut handle_opt: Option<
+                        RwLockToks::reader<
+                            (Pred, CellId),
+                            un::PointsTo<V>,
+                            InternalPred<V, Pred>,
+                        >,
+                    > = None;
 
-                        let result =
+                    let result =
+                        atomic_with_ghost!(
+                        &self.exc => load();
+                        returning res;
+                        ghost g =>
+                    {
+                        if res == false {
+                            let tracked tok = match token { Option::Some(t) => t, Option::None => proof_from_false() };
+                            let tracked x = self.inst.borrow().acquire_read_end(&g, tok);
+                            token = None;
+                            let tracked (_, Tracked(exc_handle)) = x;
+                            handle_opt = Some(exc_handle);
+                        }
+                    });
+
+                    if result == false {
+                        let tracked handle = match handle_opt {
+                            Option::Some(t) => t,
+                            Option::None => proof_from_false(),
+                        };
+                        let read_handle = ReadHandle { handle: Tracked(handle), rwlock: self };
+                        return Some(read_handle);
+                    } else {
+                        let _ =
                             atomic_with_ghost!(
-                            &self.exc => load();
-                            returning res;
+                            &self.rc => fetch_sub(1);
                             ghost g =>
                         {
-                            if res == false {
-                                let tracked tok = match token { Option::Some(t) => t, Option::None => proof_from_false() };
-                                let tracked x = self.inst.borrow().acquire_read_end(&g, tok);
-                                token = None;
-                                let tracked (_, Tracked(exc_handle)) = x;
-                                handle_opt = Some(exc_handle);
-                            }
+                            let tracked tok = match token { Option::Some(t) => t, Option::None => proof_from_false() };
+                            self.inst.borrow().acquire_read_abandon(&mut g, tok);
                         });
+                    }
+                },
+                _ => {},
+            }
+        }
+        None
+    }
 
-                        if result == false {
-                            let tracked handle = match handle_opt {
-                                Option::Some(t) => t,
-                                Option::None => proof_from_false(),
-                            };
-                            let read_handle = ReadHandle { handle: Tracked(handle), rwlock: self };
-                            return read_handle;
-                        } else {
-                            let _ =
-                                atomic_with_ghost!(
-                                &self.rc => fetch_sub(1);
-                                ghost g =>
-                            {
-                                let tracked tok = match token { Option::Some(t) => t, Option::None => proof_from_false() };
-                                self.inst.borrow().acquire_read_abandon(&mut g, tok);
-                            });
-                        }
-                    },
-                    _ => {},
-                }
+    /// Acquires a shared read-lock. To release it, use [`ReadHandle::release_read`].
+    ///
+    /// The handle does not release its lock automatically when dropped.
+    #[verifier::exec_allows_no_decreases_clause]
+    pub fn acquire_read(&self) -> (read_handle: ReadHandle<'_, V, Pred>)
+        ensures read_handle.rwlock() == *self, self.inv(read_handle.view()),
+    {
+        loop {
+            match self.try_acquire_read() {
+                Some(handle) => return handle,
+                None => {},
             }
         }
     }
@@ -719,6 +723,31 @@ impl<V: Copy, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
         let value = *handle.borrow();
         handle.release_read();
         value
+    }
+
+    /// Attempt one copied read and release a successful handle before returning.
+    pub fn try_read_copy(&self) -> (result: Option<V>)
+        ensures result.is_some() ==> self.inv(result.unwrap()),
+    {
+        match self.try_acquire_read() {
+            Some(handle) => {
+                let value = *handle.borrow();
+                handle.release_read();
+                Some(value)
+            },
+            None => None,
+        }
+    }
+
+    /// Use a predicate-compatible fallback when the read attempt fails.
+    pub fn try_read_or(&self, fallback: V) -> (value: V)
+        requires self.inv(fallback),
+        ensures self.inv(value),
+    {
+        match self.try_read_copy() {
+            Some(value) => value,
+            None => fallback,
+        }
     }
 
     /// Replace the value and release the write handle. Every write must satisfy

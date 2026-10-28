@@ -598,14 +598,18 @@ The formal implementation has two explicit library boundaries/adaptations:
 - Parking_lot is replaced by vstd's verified RwLock. A fixed ghost predicate permits
   None or Some of the canonical hash. Copied reads release their handle, and writes
   require that predicate. Native `*read()` becomes `read_copy()`, write assignment
-  becomes `replace()`, and clone's try_read-and_then becomes a **blocking** copied
-  read. Ghost constructor arguments and explicit type-invariant proofs are added.
+  becomes `replace()`, and clone's try_read-and_then becomes `try_read_or(None)`.
+  This makes one finite atomic read attempt, returning the allowed fallback on
+  failure and releasing successful handles. Ghost constructor arguments and
+  explicit type-invariant proofs are added.
   This establishes functional correctness of the adapted body; it does not prove
-  parking_lot's RAII/Drop implementation or preserve nonblocking clone behavior.
+  parking_lot's RAII/Drop implementation or prove equivalence of its lock protocol.
 
-Native marker/codec bounds remain reduced. Hash and Data require a checked
-CloneIdentity law; Data additionally requires Copy. The concrete caller uses the
-actual mock types `[u8;8]` for Hash and `u32` for Data. Application invariants,
+Native marker/codec bounds remain reduced. Hash requires checked CloneIdentity;
+Data requires checked CloneView and has no Copy bound. The model uses the data's
+deep view, which must preserve every encoded distinction; CloneView alone does
+not prove that model-completeness condition. Concrete callers cover the actual
+mock types `[u8;8]` / `u32` and non-Copy `Vec<u8>` data. Application invariants,
 count equivalence and the supplied collector's widened-round policy remain inputs.
 
 Seven formal provider/consumer outcomes include cold/warm positives and semantic
@@ -615,8 +619,8 @@ retain all three inference proofs even in the negative cases. Failed providers
 must not export an interface. Ordinary goals prove repeated-hash equality,
 clone/hash consistency and concrete FullUnit use by the supplied collector.
 
-With `--native-tests`, four real Aleph tests exercise codec/hash behavior,
-cold/warm caches, cloning, and try_read while a writer holds the lock. Removing
+With `--native-tests`, five real Aleph tests exercise codec/hash behavior,
+cold/warm caches, non-Copy payloads, cloning, and try_read while a writer holds the lock. Removing
 the cloned payload must fail a runtime test; restoring it must pass. These are
 runtime evidence for the native library paths, separate from the adapted proof.
 The source checkout is never edited. This checkpoint does not verify the whole

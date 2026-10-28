@@ -52,22 +52,22 @@ def real_units(units, control, hasher):
     pre_methods=[]
     for name,typ,post in [('new','Self','result@ == (creator, round, control_hash@)'),
         ('n_members','NodeCount','result.0 == self@.2.0.len()'),
-        ('creator','NodeIndex','result == self@.0'),('round','Round','result == self@.1'),
+        ('creator','NodeIndex','result == self@.0'),('round','Round','result.deep_view() == self@.1'),
         ('control_hash','&ControlHash<H>','result@ == self@.2')]:
         pre_methods.append(method(pre,'pub(crate) fn '+name+'(',typ,post))
     source=source.replace('// PREUNIT_METHODS','\n'.join(pre_methods))
     full=item(units,'impl<H: Hasher, D: Data> FullUnit<H, D>')[2]
-    methods=[method(full,'pub(crate) fn new(','Self','result@ == (pre_unit@, data, session_id)',
-        prefix='\nlet ghost expected = H::digest(encoded_fields::<UnitView<H,D>>((pre_unit@,data,session_id)));\n',
+    methods=[method(full,'pub(crate) fn new(','Self','result@ == (pre_unit@, data.deep_view(), session_id)',
+        prefix='\nlet ghost expected = H::digest(encoded_fields::<UnitView<H,D>>((pre_unit@,data.deep_view(),session_id)));\n',
         replacements=[('RwLock::new(None)','RwLock::new(None, Ghost(CachePredicate { expected }))')])]
     for name,typ,post in [('as_pre_unit','&PreUnit<H>','result@ == self@.0'),
-        ('data','&Option<D>','result == self@.1')]:
+        ('data','&Option<D>','result.deep_view() == self@.1')]:
         methods.append(method(full,'pub(crate) fn '+name+'(',typ,post))
     source=source.replace('// FULLUNIT_METHODS','\n'.join(methods))
     clone=item(units,'impl<H: Hasher, D: Data> Clone for FullUnit<H, D>')[2]
     source=source.replace('// CLONE_BODY',method(clone,'fn clone(','Self','result@ == self@',
         prefix='\nproof { use_type_invariant(self); }\n',replacements=[
-            ('self.hash.try_read().and_then(|guard| *guard)','self.hash.read_copy()'),
+            ('self.hash.try_read().and_then(|guard| *guard)','self.hash.try_read_or(None)'),
             ('RwLock::new(hash)','RwLock::new(hash, Ghost(self.hash.pred()))')]))
     trait=item(units,'pub trait Unit:')[2]
     source=source.replace('// DEFAULT_METHODS','\n'.join(method(trait,'fn '+n+'(',t,'result == self.'+n+'_value()')
@@ -143,10 +143,10 @@ fn check_real_full_unit(
         statefile.write_text(state);props.write_text(properties)
         result['source']=dict(**origin,collector=str(supplied),collector_sha256=digest(supplied),
             bodies='pinned Hasher64 hash; UnitCoord/PreUnit/ControlHash getters and constructors; FullUnit construction, clone and all four Unit implementations; creator/round defaults',
-            lock_adaptation='parking_lot RwLock replaced by verified vstd RwLock: read -> read_copy; write assignment -> replace; try_read-and_then in clone -> blocking read_copy; ghost predicate fixed at construction; explicit type-invariant proofs',
+            lock_adaptation='parking_lot RwLock replaced by verified vstd RwLock: read -> read_copy; write assignment -> replace; try_read-and_then in clone -> finite try_read_or(None); ghost predicate fixed at construction; explicit type-invariant proofs',
             codec_boundary='opaque deterministic SCALE encoding of immutable fields; cache skipped; encode modeled externally; using_encoded default body checked',
-            bounds='reduced native marker/codec bounds; Hash and Data require checked CloneIdentity; Data additionally Copy (native mock Data=u32)',
-            not_claimed='parking_lot RAII/Drop verification, nonblocking clone equivalence, SCALE algorithm proof, arbitrary Data clone behavior, collision resistance, whole Aleph crate or distributed protocol correctness')
+            bounds='reduced native marker/codec bounds; Hash requires checked CloneIdentity; Data requires checked CloneView, without Copy (native mock Data=u32; non-Copy Vec<u8> proof/native caller)',
+            not_claimed='parking_lot RAII/Drop verification, native parking_lot equivalence, SCALE algorithm proof, arbitrary unchecked Data clone behavior, collision resistance, whole Aleph crate or distributed protocol correctness')
         env=dict(os.environ,VERUS_Z3_PATH=str(z3),RUST_MIN_STACK='20971520',VERUS_INFER_CACHE=str(output/'candidate-cache'))
         # Compile the declared library boundary separately. The actual Unit and
         # hashing proof target below has no local external bodies or assumptions.

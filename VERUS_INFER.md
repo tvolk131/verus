@@ -134,6 +134,12 @@ Implemented and covered by regression tests:
   selection of an ordinary proved view-length companion removes manual hidden
   length observations from private collection callers. Application invariants and
   goals remain supplied; round/index safety requirements are exposed, not repaired.
+- [x] Checked native `CloneView` laws for non-Copy values: primitive, Option, Vec,
+  and String implementations preserve their supplied deep view. Aleph's FullUnit
+  proof accepts non-Copy Vec<u8> data and checks clone/encoding/hash consistency.
+  A verified finite RwLock try-read removes the blocking clone adaptation.
+  The explicit codec boundary still requires an encoding-complete payload view;
+  the law does not infer the intended abstraction or verify native parking_lot.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -444,7 +450,14 @@ APIs and research directions.
     effectful record matches infer all three properties. A checked private-view
     length lemma is selected on demand. Missing round/node bounds and changed
     counter/reset/error behavior fail caller proofs despite exact inference.
-18. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+18. **Non-Copy payload/finite read checkpoint implemented.** Checked CloneView laws
+    preserve supplied deep views for native Clone without requiring Copy or object
+    identity. A generic FullUnit proof and concrete Vec<u8> caller check payload,
+    model encoding and hash observations. RwLock::try_acquire_read makes one finite
+    atomic attempt; copied/fallback helpers release successful handles and preserve
+    the configured predicate. Native clone now uses try_read_or(None). Parking_lot
+    API substitution and the encoding-completeness assumption remain explicit.
+19. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

@@ -3,12 +3,12 @@
 // verified lock with explicit release, rather than parking_lot's RAII guards.
 use std::{collections::hash_map::DefaultHasher, hash::Hasher as StdHasher};
 use vstd::std_specs::hash::DefaultHasherAdditionalSpecFns;
-use vstd::std_specs::clone::{CloneIdentity, lemma_cloned_identity};
+use vstd::std_specs::clone::{CloneIdentity, CloneView, lemma_cloned_identity, lemma_cloned_view};
 use vstd::rwlock::{RwLock, RwLockPredicate};
 use codec_model::encoded_fields;
 
 verus! {
-broadcast use {lemma_cloned_identity, vstd::array::group_array_axioms, vstd::seq::group_seq_axioms};
+broadcast use {lemma_cloned_identity, lemma_cloned_view, vstd::array::group_array_axioms, vstd::seq::group_seq_axioms};
 pub type Round = u16;
 pub type SessionId = u64;
 pub trait Hasher: Clone {
@@ -60,22 +60,22 @@ impl<H: Hasher> PreUnit<H> {
     // PREUNIT_METHODS
 }
 
-pub type UnitView<H, D> = (PreView<H>, Option<D>, SessionId);
+pub type UnitView<H, D> = (PreView<H>, Option<<D as DeepView>::V>, SessionId);
 pub ghost struct CachePredicate<H: Hasher> { pub expected: H::Hash }
 impl<H: Hasher> RwLockPredicate<Option<H::Hash>> for CachePredicate<H> {
     open spec fn inv(self, value: Option<H::Hash>) -> bool {
         value.is_none() || value.unwrap() == self.expected
     }
 }
-pub struct FullUnit<H: Hasher, D: Copy + CloneIdentity> {
+pub struct FullUnit<H: Hasher, D: CloneView> {
     pre_unit: PreUnit<H>, data: Option<D>, session_id: SessionId,
     hash: RwLock<Option<H::Hash>, CachePredicate<H>>,
 }
-impl<H: Hasher, D: Copy + CloneIdentity> View for FullUnit<H, D> {
+impl<H: Hasher, D: CloneView> View for FullUnit<H, D> {
     type V = UnitView<H, D>;
-    closed spec fn view(&self) -> Self::V { (self.pre_unit@, self.data, self.session_id) }
+    closed spec fn view(&self) -> Self::V { (self.pre_unit@, self.data.deep_view(), self.session_id) }
 }
-impl<H: Hasher, D: Copy + CloneIdentity> FullUnit<H, D> {
+impl<H: Hasher, D: CloneView> FullUnit<H, D> {
     #[verifier::type_invariant]
     closed spec fn cache_valid(&self) -> bool {
         self.hash.pred().expected == H::digest(encoded_fields::<UnitView<H, D>>(self@))
@@ -91,7 +91,7 @@ impl<H: Hasher, D: Copy + CloneIdentity> FullUnit<H, D> {
     { f(&self.encode()) }
     // FULLUNIT_METHODS
 }
-impl<H: Hasher, D: Copy + CloneIdentity> Clone for FullUnit<H, D> {
+impl<H: Hasher, D: CloneView> Clone for FullUnit<H, D> {
     // CLONE_BODY
 }
 
@@ -109,7 +109,7 @@ pub trait Unit: Clone {
     fn session_id(&self) -> (result: SessionId) ensures result == self.session_value();
     // DEFAULT_METHODS
 }
-impl<H: Hasher, D: Copy + CloneIdentity> Unit for FullUnit<H, D> {
+impl<H: Hasher, D: CloneView> Unit for FullUnit<H, D> {
     type Hasher = H;
     closed spec fn creator_value(&self) -> NodeIndex { self.pre_unit.coord.creator }
     closed spec fn round_value(&self) -> Round { self.pre_unit.coord.round }
@@ -119,14 +119,28 @@ impl<H: Hasher, D: Copy + CloneIdentity> Unit for FullUnit<H, D> {
     // UNIT_METHODS
 }
 
-pub fn check_repeated_hash<H: Hasher, D: Copy + CloneIdentity>(unit: &FullUnit<H, D>) {
+pub fn check_repeated_hash<H: Hasher, D: CloneView>(unit: &FullUnit<H, D>) {
     let first = Unit::hash(unit);
     let second = Unit::hash(unit);
     assert(first == second);
 }
-pub fn check_clone_observations<H: Hasher, D: Copy + CloneIdentity>(unit: &FullUnit<H, D>) {
+pub fn check_clone_observations<H: Hasher, D: CloneView>(unit: &FullUnit<H, D>) {
     let copied = unit.clone();
     assert(copied@ == unit@);
+    let copied_hash = Unit::hash(&copied);
+    let original_hash = Unit::hash(unit);
+    assert(copied_hash == original_hash);
+}
+
+pub fn check_noncopy_data(unit: &FullUnit<Hasher64, Vec<u8>>) {
+    let copied = unit.clone();
+    assert(copied@ == unit@);
+    let data = copied.data();
+    let original_data = unit.data();
+    assert(data.deep_view() == original_data.deep_view());
+    let copied_bytes = copied.encode();
+    let original_bytes = unit.encode();
+    assert(copied_bytes@ == original_bytes@);
     let copied_hash = Unit::hash(&copied);
     let original_hash = Unit::hash(unit);
     assert(copied_hash == original_hash);

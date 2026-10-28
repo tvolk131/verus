@@ -104,6 +104,56 @@ pub broadcast proof fn lemma_cloned_identity<T: CloneIdentity>(a: T, b: T)
     ensures a == b,
 { T::lemma_clone_identity(a, b); }
 
+/// A checked law about native `Clone`, expressed in the application's deep view.
+/// Unlike `CloneIdentity`, this permits distinct allocated representations.
+pub trait CloneView: Clone + DeepView {
+    proof fn lemma_clone_view(a: Self, b: Self)
+        requires cloned(a, b),
+        ensures a.deep_view() == b.deep_view();
+}
+
+pub broadcast proof fn lemma_cloned_view<T: CloneView>(a: T, b: T)
+    requires #[trigger] cloned(a, b),
+    ensures a.deep_view() == b.deep_view(),
+{ T::lemma_clone_view(a, b); }
+
+impl<T: CloneView> CloneView for Option<T> {
+    proof fn lemma_clone_view(a: Self, b: Self)
+        ensures a.deep_view() == b.deep_view(),
+    {
+        if a != b {
+            match a {
+                None => {},
+                Some(x) => { T::lemma_clone_view(x, b.unwrap()); },
+            }
+        }
+    }
+}
+
+#[cfg(feature = "alloc")]
+impl<T: CloneView> CloneView for alloc::vec::Vec<T> {
+    proof fn lemma_clone_view(a: Self, b: Self)
+        ensures a.deep_view() == b.deep_view(),
+    {
+        broadcast use {crate::std_specs::vec::group_vec_axioms, crate::seq::group_seq_axioms};
+        if a != b {
+            assert forall|i: int| 0 <= i < a@.len() implies
+                a@[i].deep_view() == b@[i].deep_view() by {
+                T::lemma_clone_view(a@[i], b@[i]);
+            }
+            assert(a.deep_view() =~= b.deep_view());
+            crate::std_specs::vec::vec_clone_deep_view_proof(a, b);
+        }
+    }
+}
+
+#[cfg(feature = "alloc")]
+impl CloneView for alloc::string::String {
+    proof fn lemma_clone_view(a: Self, b: Self)
+        ensures a.deep_view() == b.deep_view(),
+    {}
+}
+
 impl<T: CloneIdentity> CloneIdentity for Option<T> {
     proof fn lemma_clone_identity(a: Self, b: Self)
         ensures a == b,
@@ -139,6 +189,11 @@ macro_rules! identity_scalar {
             proof fn lemma_clone_identity(a: Self,b: Self)
                 ensures a==b,
             {}
+        }
+        impl CloneView for $t {
+            proof fn lemma_clone_view(a: Self,b: Self)
+                ensures a.deep_view()==b.deep_view(),
+            { Self::lemma_clone_identity(a,b); }
         }
     )*}};
 }

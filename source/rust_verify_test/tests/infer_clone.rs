@@ -113,3 +113,49 @@ fn unsupported_tuple_arity_has_an_explicit_diagnostic() {
     let e = verify_one_file("tuple_arity", s.into(), &["vstd"]).unwrap_err();
     assert!(e.errors.iter().any(|d| d.message.contains("built-in instance")), "{:?}", e);
 }
+
+#[test]
+fn native_clone_preserves_checked_deep_views_without_copy() {
+    let source = r#"use vstd::prelude::*;
+use vstd::std_specs::clone::{CloneView,lemma_cloned_view};
+verus!{
+ broadcast use lemma_cloned_view;
+ pub struct Value { pub number:u8, pub representation:bool }
+ impl DeepView for Value {type V=u8;open spec fn deep_view(&self)->u8{self.number}}
+ impl Clone for Value {
+  fn clone(&self)->(r:Self) ensures r.number==self.number,r.representation==!self.representation,
+  {Value{number:self.number,representation:!self.representation}}
+ }
+ impl CloneView for Value {
+  proof fn lemma_clone_view(a:Self,b:Self) ensures a.deep_view()==b.deep_view(),{}
+ }
+ fn generic<T:CloneView>(v:&Option<Vec<T>>)->(r:Option<Vec<T>>)
+  ensures r.deep_view()==v.deep_view(),{v.clone()}
+ fn concrete(v:&Option<Vec<Value>>){let r=generic(v);assert(r.deep_view()==v.deep_view());}
+ fn string(v:&String)->(r:String) ensures r.deep_view()==v.deep_view(),{v.clone()}
+}"#;
+    verify_one_file("clone_view_without_copy",source.into(),&["vstd","--no-cheating"]).unwrap();
+}
+
+#[test]
+fn native_clone_view_law_rejects_changed_abstract_values() {
+    let source = r#"use vstd::prelude::*;use vstd::std_specs::clone::CloneView;verus!{
+ pub struct Value{pub number:u8}
+ impl DeepView for Value{type V=u8;open spec fn deep_view(&self)->u8{self.number}}
+ impl Clone for Value{fn clone(&self)->(r:Self) ensures r.number==0,{Value{number:0}}}
+ impl CloneView for Value{proof fn lemma_clone_view(a:Self,b:Self)
+  ensures a.deep_view()==b.deep_view(),{}}
+}"#;
+    let e=verify_one_file("dishonest_clone_view",source.into(),&["vstd","--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d|d.message.contains("postcondition not satisfied")),"{e:?}");
+}
+
+#[test]
+fn plain_clone_does_not_supply_a_deep_view_preservation_law() {
+    let source = r#"use vstd::prelude::*;verus!{
+ fn wrong<T:Clone+DeepView>(v:&Vec<T>)->(r:Vec<T>)
+  ensures r.deep_view()==v.deep_view(),{v.clone()}
+}"#;
+    let e=verify_one_file("plain_clone_no_view_law",source.into(),&["vstd","--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d|d.message.contains("postcondition not satisfied")),"{e:?}");
+}

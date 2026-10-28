@@ -222,11 +222,40 @@ deterministic encoding of a supplied complete immutable view and omission of
 the cache. Its source/artifact hashes are recorded and guarded. Neither SCALE's
 algorithm nor that bridge's correspondence to the native derive is formally
 proved. Native runtime tests exercise the real codec/hash/cache implementation.
-Parking_lot operations are explicitly adapted to the verified RwLock operations;
-in particular nonblocking clone becomes a blocking read. This is not native
-RAII/Drop verification or a proof of nonblocking equivalence. Permissive cache,
+Parking_lot operations are explicitly adapted to the verified RwLock operations.
+The original checkpoint substituted a blocking read for nonblocking clone; the
+subsequent finite-read implementation below removes that substitution. This is
+not native RAII/Drop verification or a proof of parking_lot equivalence. Permissive cache,
 wrong hasher input, wrong session, and dropped-clone-payload controls must fail
 semantically, and failed formal providers must not export certified interfaces.
+
+The non-Copy checkpoint adds the ordinary proof trait `CloneView`, separate from
+CloneIdentity. Implementations prove equality of their DeepView from the native
+reflexive cloned relation. Primitive, Option, Vec and String implementations verify;
+the Vec proof composes checked element laws and existing clone/sequence models.
+An abstractly unchanged value may have a different representation. Tests accept
+that case and reject dishonest laws or an attempted law from plain Clone alone.
+No Clone identity or view-preservation axiom is added.
+
+The FullUnit interface now uses Option<D::V> with D:CloneView and no Copy bound.
+Generic and concrete Vec<u8> goals prove clone/encoding/hash consistency. The
+trusted codec bridge must factor through an **encoding-complete** deep view:
+CloneView by itself does not establish that arbitrary application abstractions
+retain all encoded data. This remains a declared model boundary.
+
+RwLock::try_acquire_read extracts one iteration of the verified read protocol:
+it returns None after failed contention/CAS/capacity checks, and abandons any
+pending reader token before failure. It has no loop or termination suppression.
+Blocking acquire_read retries that checked operation. try_read_copy releases
+successful handles; try_read_or requires a predicate-compatible fallback. No
+new lock axiom is added, and the contract does not promise success, fairness or
+a stable snapshot. Formal fallback/false-success controls and an erased runtime
+test cover writer contention, successful reads and balanced failure/release paths.
+
+Validation: vstd **2,155 verified / 0 errors**; **11 Clone integration tests** and
+**3 try-read integration tests** passed. The Unit runner passed its **7 formal
+outcomes** and **3 native runs**, including the non-Copy Vec payload and contended
+clone cases. The native wrong-clone control still fails and restoration passes.
 
 ## Propagation-model audit
 
