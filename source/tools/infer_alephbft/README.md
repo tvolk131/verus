@@ -650,3 +650,32 @@ requirements fail named caller goals while all four inferred candidates retain
 their three proof receipts. The optional native run executes the 15 original
 collector tests. The input checkout is never edited. The known u16 round overflow
 is exposed as a safety requirement, not repaired or newly discovered here.
+
+## Bounded parent collection queries
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_native_collector.py \
+  --alephbft /path/to/AlephBFT --output /tmp/infer-parent-queries \
+  --parent-queries --native-tests --native-target /tmp/aleph-native-target
+```
+
+This separate mode uses ordinary checked `vstd::iter` adapters for sparse
+traversal, counting in a round range, first-match future-round search, and
+index-preserving parent-round projection. `ParentQueries` supplies exact equations
+for its scalar-parameterized queries; ordinary Verus proves their implementations
+and callback contracts. A generic record validator infers a complete Result policy
+for quorum and future-round checks with all three precision receipts.
+
+Nine formal outcomes include cold/warm composition, checked callback/projection
+rejections, and precise-but-wrong threshold/error policies or missing round bounds.
+Failed providers must not export interfaces. Cold and warm compiled consumers each
+run the same 1,530-case corpus. Eleven native ControlHash tests include a matching
+indexed-reference corpus over the original native pipelines. Completion markers
+ensure the compiled consumer actually executes its runtime entrypoint.
+
+This mode **adapts** native enumerate/filter_map/filter/count chains to checked
+finite implementations and reduces stage errors to u16 payloads. It does not
+infer the untouched native iterator chains, the full ControlHash validator/error
+enum, or construction-loop invariants. The supplied model equations, callback
+contracts and ordinary collection proofs are inputs. Those remaining frontend and
+inference extensions are recorded in VERUS_INFER.md.

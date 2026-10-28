@@ -54,12 +54,15 @@ fn heap_known(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype], depth: usi
             || records::shape::fields(base(t), ds)
                 .is_some_and(|fs| fs.iter().any(|(_, t)| heap_known(t, all, ds, depth - 1))))
 }
+fn result_query(f:&Function)->bool {
+    records::candidate(f) && !records::mutable(f) && sums::result(&f.x.inner_ret.x.typ).is_some()
+}
 pub(super) fn prepare(fs: &[Function], ds: &[Datatype]) -> Vec<Function> {
     fs.iter()
         .map(|f| {
             let mut x = f.x.clone();
             Arc::make_mut(&mut x.attrs).infer_owned =
-                x.attrs.infer && heap(&x.inner_ret.x.typ, ds, 5);
+                x.attrs.infer && (heap(&x.inner_ret.x.typ, ds, 5) || result_query(f));
             f.new_x(x)
         })
         .collect()
@@ -363,6 +366,10 @@ impl Engine<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Val, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
+        if let Some((_query,spec,types,args))=trait_getters::source_call(e,self.all) {
+            let args=args.iter().map(|a|self.expr(s,a)?.scalar(&a.span)).collect::<Result<Vec<_>,_>>()?;
+            return Ok(Val::atom(trait_getters::instantiate(&spec,&types,args,&self.f.x.typ_bounds)?));
+        }
         if let Some(t) = arithmetic::arch_constant(e) {
             return Ok(Val::atom(t));
         }
@@ -1292,7 +1299,7 @@ fn validate_signature(
         || !x.decrease.is_empty()
         || x.decrease_by.is_some()
         || x.decrease_when.is_some()
-        || !heap_known(&x.inner_ret.x.typ, all, ds, 5)
+        || !(heap_known(&x.inner_ret.x.typ, all, ds, 5) || result_query(f))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {
         return Err(unsupported(
@@ -1445,6 +1452,13 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
                     }
                 }
                 place(p)
+            }
+            ExprX::Call {
+                target: CallTarget::Fun(CallTargetKind::Dynamic,n,types,impls,_),
+                args,post_args:None,body:None,
+            } if types.len()==1 && impls.is_empty() => {
+                all.get(n).is_some_and(|f|f.x.attrs.infer_trait_observation
+                    && args.len()==f.x.params.len() && trait_getters::observation(f))
             }
             ExprX::Call {
                 target: CallTarget::Fun(kind, n, ..),

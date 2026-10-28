@@ -32,6 +32,72 @@ fn check<F:Family,U:Event<Family=F>>(t:&mut Table<F>,u:&U)
 }
 "#;
 
+const QUERIES: &str = r#"use vstd::prelude::*;verus!{
+pub trait Queries {
+ spec fn in_range_value(&self,lo:u16,hi:u16)->usize;
+ spec fn after_value(&self,round:u16)->bool;
+ fn in_range(&self,lo:u16,hi:u16)->(r:usize) ensures r==self.in_range_value(lo,hi);
+ fn after(&self,round:u16)->(r:bool) ensures r==self.after_value(round);
+}
+pub struct Validator<Q:Queries>{pub query:Q,pub minimum:usize}
+impl<Q:Queries> Validator<Q>{
+ #[verifier::infer] pub fn enough(&self,round:u16)->bool{
+  let previous=round-1;
+  self.query.in_range(previous,previous)>=self.minimum && !self.query.after(previous)
+ }
+}
+fn check<Q:Queries>(v:&Validator<Q>,round:u16)->(r:bool)
+ requires round>0,
+ ensures r==(v.query.in_range_value((round-1) as u16,(round-1) as u16)>=v.minimum
+  && !v.query.after_value((round-1) as u16)),
+{v.enough(round)}
+}"#;
+
+#[test]
+fn scalar_parameterized_trait_queries_keep_argument_order_and_exactness(){
+ let d=verify_one_file("parameterized_queries",QUERIES.into(),&["vstd","--no-cheating"]).unwrap();
+ for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"]{
+  assert_eq!(d.notes.iter().filter(|n|n.message.contains(p)).count(),1,"{:?}",d);
+ }
+}
+
+#[test]
+fn query_equations_cannot_permute_or_change_arguments(){
+ for (name,args) in [("swapped","hi,lo"),("changed","lo,lo")]{
+  let source=QUERIES.replace("r==self.in_range_value(lo,hi)",&format!("r==self.in_range_value({args})"));
+  unsupported(name,source);
+ }
+}
+
+#[test]
+fn query_arguments_are_evaluated_with_their_original_safety_checks(){
+ let e=verify_one_file("query_zero_round",QUERIES.replace("requires round>0,",""),&["vstd","--no-cheating"]).unwrap_err();
+ assert!(e.errors.iter().any(|d|d.message.contains("precondition not satisfied")),"{:?}",e);
+ for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"]{
+  assert!(e.notes.iter().any(|n|n.message.contains(p)),"{:?}",e);
+ }
+}
+
+#[test]
+fn parameterized_queries_compose_into_exact_result_policies(){
+ let source=format!(r#"{QUERIES} verus!{{
+ impl<Q:Queries> Validator<Q>{{
+  #[verifier::infer] fn validate(&self,round:u16)->Result<(),u16>{{
+   let previous=round-1;
+   if self.query.in_range(previous,previous)<self.minimum{{return Err(previous);}}
+   if self.query.after(previous){{return Err(round);}}
+   Ok(())
+  }}
+ }}
+ fn policy<Q:Queries>(v:&Validator<Q>,round:u16)->(r:Result<(),u16>)
+  requires round>0,
+  ensures r.is_ok()==(v.query.in_range_value((round-1) as u16,(round-1) as u16)>=v.minimum
+   && !v.query.after_value((round-1) as u16)),
+ {{v.validate(round)}}
+ }}"#);
+ verify_one_file("queries_result_policy",source,&["vstd","--no-cheating"]).unwrap();
+}
+
 #[test]
 fn generic_trait_getters_and_nested_associated_types_preserve_accounting() {
  let r=verify_one_file("traits",TRAITS.to_owned(),&["vstd","--infer-goals"]);

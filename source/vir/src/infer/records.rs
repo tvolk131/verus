@@ -440,9 +440,9 @@ impl Interpreter<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Term, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
-        if let Some((_getter,spec,types,receiver))=trait_getters::source_call(e,self.all) {
-            let receiver=self.readonly(s,&receiver)?;
-            return trait_getters::instantiate(&spec,&types,receiver,&self.function.x.typ_bounds);
+        if let Some((_getter,spec,types,args))=trait_getters::source_call(e,self.all) {
+            let args=args.iter().map(|a|self.readonly(s,a)).collect::<Result<Vec<_>,_>>()?;
+            return trait_getters::instantiate(&spec,&types,args,&self.function.x.typ_bounds);
         }
         if let Some(arg) = widening::call(e, self.all) {
             let arg = self.readonly(s, arg)?;
@@ -1136,8 +1136,8 @@ pub(super) fn validate_summary(
                         && all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f) == Some(Model::View))
                 }
                 ExprX::Call{target:CallTarget::Fun(CallTargetKind::Dynamic,name,types,impls,_),args,post_args:None,body:None}=>{
-                    types.len()==1 && args.len()==1 && impls.is_empty()
-                        && all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f))
+                    types.len()==1 && impls.is_empty()
+                        && all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && args.len()==f.x.params.len() && trait_getters::observation(f))
                 }
                 ExprX::Call {
                     target: CallTarget::Fun(CallTargetKind::Static, name, ..),

@@ -257,6 +257,58 @@ Validation: vstd **2,155 verified / 0 errors**; **11 Clone integration tests** a
 outcomes** and **3 native runs**, including the non-Copy Vec payload and contended
 clone cases. The native wrong-clone control still fails and restoration passes.
 
+## Bounded finite collection queries
+
+The collection-query checkpoint uses metadata schema **27** and candidate cache
+version **32**. Rebuild providers and dependent interfaces. Public precondition-free
+trait observations may now receive the shared receiver and up to two scalar
+arguments. Certification requires identical arity/types and unchanged positional
+arguments in the single result equation. Changed or permuted arguments are rejected.
+Source argument arithmetic is evaluated with its original safety checks, and each
+dynamic observation remains tied to the checked trait implementation and complete
+provider certificate. This is composition of supplied meanings, not inferred
+application semantics or a name-based library model.
+
+Read-only record Result queries without a collection payload use the existing
+structured-value checker. It observes the complete tag and both guarded payloads;
+unit success and scalar errors remain exact. The actual method body receives
+ordinary soundness and independent maximality/exactness checks. Wrong error and
+threshold controls remain precisely inferred but fail ordinary application goals.
+
+`vstd::iter` adds ordinary checked implementations of sparse slice traversal,
+finite count, filtered count, first-match search, collection, and sparse mapping.
+No Iterator::count/filter_map axiom or external body is added. Generic consumers
+call next directly, using its existing Iterator contract. A **nonprophetic** metric
+proves termination; prophetic remaining sequences describe contents and counting
+bounds only. Predicates are supplied and connected to executable callbacks by
+ordinary checked contracts. Search returns an earliest witness or complete absence.
+Sparse traversal preserves indices and mapping preserves holes. Allocation and
+standard-library assumptions remain the existing Verus models.
+
+The Aleph query experiment deliberately adapts the native iterator chains to these
+checked APIs and uses a reduced Result<(),u16> policy for the quorum/future-round
+stage. The full native ControlHash validator, payload error enums, original
+enumerate/filter_map/count chains and construction-loop inference are not proved
+by this adapter. Those are explicit next steps. Application observations and
+callback specifications remain visible inputs. Provider callback/projection
+mutations must fail verification and remove exports; changed consumer policies
+retain exact candidates but fail caller goals. Native and adapted corpora exercise
+the same 1,530 cases; runtime completion markers prevent empty binaries from
+counting as evidence. Runtime-only entrypoints use verus_keep_ghost_body rather
+than verus_keep_ghost because the compiled library retains ghost stubs.
+
+Final checkpoint validation (2026-10-28): release compiler/macros rebuilt;
+vstd **2,171 verified / 0 errors**, and an isolated no_std/no_alloc vstd build
+**1,981 verified / 0 errors**. **615 Rust tests** passed: 378 inference integration
+tests, 6 finite-iterator/try-read tests, 118 standard/iterator/native-model tests,
+107 VIR tests, 5 macro tests and the tuple-shim validator. **64 Python checks**
+passed. All Aleph runners passed **174 expected formal outcomes** and **14 native
+experiment runs**; the two adapted query runs each completed all 1,530 cases.
+The finite-read example separately verified, compiled and emitted its runtime
+completion marker after contention/release checks. Expected negative controls
+are included in outcome counts; they are semantic rejections, not successful
+proofs of the deliberately wrong implementations.
+
 ## Propagation-model audit
 
 `?` uses the existing `Option`/`Result` `branch` and `from_residual` specifications

@@ -140,6 +140,12 @@ Implemented and covered by regression tests:
   A verified finite RwLock try-read removes the blocking clone adaptation.
   The explicit codec boundary still requires an encoding-complete payload view;
   the law does not infer the intended abstraction or verify native parking_lot.
+- [x] Checked finite sparse iteration, counting, filtered counting, first-match
+  search, collection and index-preserving mapping, with no new iterator axioms.
+  Exact inference composes supplied trait queries with up to two scalar arguments,
+  including complete Result policies for read-only record queries. A bounded
+  Aleph experiment checks round projection, parent counts and future-round checks
+  behind explicit adapters; untouched native iterator-chain inference remains open.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -266,13 +272,17 @@ Still planned or outside the implemented subset:
   broader mutable helper composition and counting
   lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
-  beyond the exact precondition-free trait getter profile; mixed handwritten-and-inferred
+  beyond exact precondition-free trait queries with a shared receiver and up to two
+  scalar arguments; mixed handwritten-and-inferred
   contracts, and broader generic/trait specialization.
 - [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
   and operator-trait inference beyond concrete From/AddAssign through Verus's
   inherited/extension specifications, including derived implementations.
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
   search, signed counters, and recursive summaries.
+  Checked finite iterator implementations are available as explicit library APIs;
+  synthesis of native enumerate/filter_map chains, arbitrary closures/iterator
+  loops, and complete ControlHash validation with payload error enums remains open.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
@@ -457,7 +467,15 @@ APIs and research directions.
     atomic attempt; copied/fallback helpers release successful handles and preserve
     the configured predicate. Native clone now uses try_read_or(None). Parking_lot
     API substitution and the encoding-completeness assumption remain explicit.
-19. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+19. **Bounded collection-query checkpoint implemented.** Ordinary verified sparse
+    traversal and finite count/filter/search/collect/map APIs connect supplied
+    collection meanings to exact parameterized trait-query inference. The separate
+    Aleph validation stage proves quorum/future-round success and error policies.
+    Source callbacks, model predicates and projection are checked; native and
+    adapted runtime corpora cover the same 1,530 cases. Original iterator-chain
+    synthesis, complete native ControlHash error payloads and inference of its
+    construction loop remain future work, not claims of the adapted proof.
+20. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

@@ -55,6 +55,7 @@ pub mod imap_lib;
 pub mod invariant;
 pub mod iset;
 pub mod iset_lib;
+pub mod iter;
 #[cfg(verus_keep_ghost)]
 pub mod laws_cmp;
 #[cfg(verus_keep_ghost)]

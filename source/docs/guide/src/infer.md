@@ -476,7 +476,11 @@ that observation, as with existing vector inference.
 A closed view also hides facts such as the physical vector length bound. The
 example's ordinary caller uses `let _ = r.entries.len();` before the update to
 obtain that bound from the checked query contract. It adds no input restriction.
-Automatic selection of representation lemmas remains future work. Integer length
+With `clone_via_view`, a companion length theorem is now generated and proved from
+the supplied view. `--infer-goals` can select it when caller goals or called
+preconditions observe that private view, removing this manual observation. A false
+view bound fails the ordinary proof; no bound is assumed. Other representation
+lemmas remain future work. Integer length
 equations remain mathematical through scalar wrapper returns, so a checked
 `NodeCount`-valued size query can serve the same purpose.
 
@@ -494,7 +498,7 @@ are excluded from this checkpoint; the earlier experiments cover their manually
 specified supplied-core versions. This does not establish clean-main `Unit`/`Hasher`
 trait inference or automatic abstract-view discovery.
 
-### Verified trait getter contracts and associated types
+### Verified trait query contracts and associated types
 
 The [trait example](../../../../examples/verus_infer_traits.rs) uses supplied
 ordinary Verus contracts to describe getters, then infers a generic record update:
@@ -511,9 +515,12 @@ pub trait Event {
 }
 ```
 
-The supported profile is a public trait method with exactly one shared receiver,
-no value arguments, no precondition and one exact postcondition equating the result
-to a same-trait specification observation of that receiver. Observation and return
+The supported profile is a public trait method with one shared receiver, up to two
+boolean or machine-integer value arguments, no precondition and one exact
+postcondition equating the result to a same-trait specification observation.
+The observation receives the receiver and every argument unchanged, in the same
+order and with matching types. For example, `count_in(round: u16)` can ensure
+`result == self.count_in_value(round)`. Observation and return
 types must match. The observation has no recommendations, prophetic dependency or
 explicit borrowed/unit result. External specification proxies, method/trait type
 arguments beyond Self, trait objects, weaker relations and precondition-bearing
@@ -699,10 +706,43 @@ Two boundaries remain explicit. A separate trusted codec model says that SCALE
 encoding depends deterministically on the immutable fields and skips the cache;
 the codec algorithm and derive are not proved. Parking_lot read/write/try_read
 expressions are adapted to vstd's verified RwLock copied read/replace operations,
-with a fixed per-lock predicate and ghost/type-invariant annotations. In particular,
-clone's nonblocking try_read becomes a blocking copied read. This is a functional
-proof of the adapted implementation, not RAII/Drop or nonblocking equivalence.
+with a fixed per-lock predicate and ghost/type-invariant annotations. Clone now
+uses `try_read_or(None)`: one verified finite attempt, followed by a compatible
+fallback on failure. This is a functional proof of the adapted implementation;
+parking_lot's protocol and RAII/Drop implementation remain outside the proof.
 Native runtime tests separately exercise the original lock and codec paths.
+
+The checked `CloneView` proof trait in `vstd::std_specs::clone` supports native
+Clone preservation of DeepView without requiring Copy or object equality. Primitive,
+Option, Vec and String laws verify, and `lemma_cloned_view` exposes them to callers.
+FullUnit accepts such data and has a concrete `Vec<u8>` proof/runtime case. The
+trusted codec model must still retain every encoded distinction in that deep view;
+CloneView alone does not establish encoding completeness.
+
+## Checked finite collection queries
+
+`vstd::iter` provides ordinary verified implementations of `SparseIter` for
+`&[Option<T>]`, `count`, `count_where`, `find`, `collect`, and `map_sparse`.
+Sparse traversal returns occupied entries with their original indices; mapping
+preserves empty positions. Count/search predicates have checked executable callback
+contracts connecting them to supplied mathematical predicates. Generic iteration
+requires the existing iterator laws and a nonprophetic termination metric. Counting
+and collection also require a machine-length bound. The implementations call
+`next` directly and add no axiom about overridable `count` or `try_fold` methods.
+
+These library bodies have explicit contracts and loop invariants. Inference can
+compose a checked collection query through the parameterized trait-query interface
+above. Read-only record methods returning bounded `Result` values retain complete
+tag/payload exactness, including scalar error policies. This does not infer arbitrary
+iterator loops or synthesize callback meanings.
+
+The [bounded Aleph query model](../../../tools/infer_alephbft/parent_query_models.rs)
+uses these helpers for parent round projection, counting in a round range, and
+finding future-round parents. A separate inferred validator composes quorum and
+future-round checks. The native enumerate/filter_map/filter/count chains are
+explicitly adapted; the complete native ControlHash validator and its payload error
+enum remain follow-ups. The experiment retains supplied meanings and checks both
+formal negative controls and native/adapted runtime corpora.
 
 ## Borrowed collection queries inside Result
 

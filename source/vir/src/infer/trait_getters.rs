@@ -1,7 +1,7 @@
-//! Bounded composition of ordinary exact trait getter contracts.
+//! Bounded composition of ordinary exact trait query contracts.
 //!
 //! No name-based model or new axiom: a shared, precondition-free method must
-//! ensure result == one same-trait specification observation of its receiver.
+//! ensure result == one same-trait observation with the same scalar arguments.
 //! Normal Verus checks every implementation/default body. Marked declarations
 //! are published only after full verification and bound to inference metadata.
 use super::*;
@@ -24,14 +24,14 @@ fn header(f: &Function, mode: Mode) -> Option<Path> {
         || x.attrs.prophecy_dependent
         || x.proxy.is_some()
         || x.typ_params.len() != 1
-        || x.params.len() != 1
-        || x.params[0].x.mode != mode
+        || !(1..=3).contains(&x.params.len())
+        || x.params.iter().any(|p| p.x.mode != mode || p.x.user_mut)
+        || x.params.iter().skip(1).any(|p| !eligibility::scalar(&p.x.typ))
         || x.inner_ret.x.mode != mode
         || x.outer_ret.x.mode != mode
         || !matches!(x.item_kind, ItemKind::Function)
         || x.attrs.exec_assume_termination
         || x.attrs.exec_allows_no_decreases_clause
-        || x.params[0].x.user_mut
         || !x.visibility.is_public()
         || !x.require.is_empty()
         || !x.ensure.1.is_empty()
@@ -87,10 +87,17 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
     let spec = all.get(name)?;
     if header(spec, Mode::Spec)? != path
         || !observation(spec)
-        || args.len() != 1
+        || args.len() != f.x.params.len()
+        || spec.x.params.len() != f.x.params.len()
         || types.len() != 1
         || !impls.is_empty()
-        || !local(&args[0], &f.x.params[0].x.name)
+        || !args.iter().zip(f.x.params.iter()).all(|(a, p)| local(a, &p.x.name))
+        || !spec
+            .x
+            .params
+            .iter()
+            .zip(f.x.params.iter())
+            .all(|(a, b)| crate::ast_util::types_equal(&a.x.typ, &b.x.typ))
         || !matches!(&*types[0],TypX::TypParam(n) if n==&f.x.typ_params[0])
         || !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, &rhs.typ)
     {
@@ -137,7 +144,7 @@ pub(super) fn validate(functions: &[Function]) -> Result<(), VirErr> {
 pub(super) fn source_call(
     e: &Expr,
     all: &HashMap<Fun, Function>,
-) -> Option<(Function, Function, Typs, Expr)> {
+) -> Option<(Function, Function, Typs, Exprs)> {
     let ExprX::Call {
         target: CallTarget::Fun(CallTargetKind::Dynamic, name, types, impls, _),
         args,
@@ -148,14 +155,18 @@ pub(super) fn source_call(
         return None;
     };
     let f = all.get(name)?;
-    if !f.x.attrs.infer_trait_getter || types.len() != 1 || args.len() != 1 || !impls.is_empty() {
+    if !f.x.attrs.infer_trait_getter
+        || types.len() != 1
+        || args.len() != f.x.params.len()
+        || !impls.is_empty()
+    {
         return None;
     }
     let spec = relation(f, all)?;
     if !spec.x.attrs.infer_trait_observation {
         return None;
     }
-    Some((f.clone(), spec, types.clone(), args[0].clone()))
+    Some((f.clone(), spec, types.clone(), args.clone()))
 }
 
 /// Preserve associated types as opaque values. Only explicit associated-type
@@ -201,16 +212,28 @@ pub(super) fn normalize(t: &Typ, bounds: &GenericBounds) -> Result<Typ, VirErr> 
 pub(super) fn instantiate(
     spec: &Function,
     types: &Typs,
-    receiver: Term,
+    arguments: Vec<Term>,
     bounds: &GenericBounds,
 ) -> Result<Term, VirErr> {
-    let span = &receiver.expr.span;
+    let Some(receiver) = arguments.first() else {
+        return Err(unsupported(&spec.span, "missing query receiver"));
+    };
+    let span = receiver.expr.span.clone();
     let ts = spec.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
     let ret = normalize(&crate::sst_util::subst_typ(&ts, &spec.x.inner_ret.x.typ), bounds)?;
-    let param = normalize(&crate::sst_util::subst_typ(&ts, &spec.x.params[0].x.typ), bounds)?;
-    let receiver = records::coerce(span, receiver.clone(), &param)?;
+    if arguments.len() != spec.x.params.len() {
+        return Err(unsupported(&span, "trait query arity"));
+    }
+    let args = arguments
+        .into_iter()
+        .zip(spec.x.params.iter())
+        .map(|(arg, param)| {
+            let typ = normalize(&crate::sst_util::subst_typ(&ts, &param.x.typ), bounds)?;
+            Ok(records::coerce(&span, arg, &typ)?.expr)
+        })
+        .collect::<Result<Vec<_>, VirErr>>()?;
     records::atom(SpannedTyped::new(
-        span,
+        &span,
         &ret,
         ExprX::Call {
             target: CallTarget::Fun(
@@ -224,7 +247,7 @@ pub(super) fn instantiate(
                     assume_external_allowed: false,
                 },
             ),
-            args: Arc::new(vec![receiver.expr]),
+            args: Arc::new(args),
             post_args: None,
             body: None,
         },
