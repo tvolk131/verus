@@ -1203,3 +1203,39 @@ wrapper native target passed its seven tests. The new owned-value example had
 **11 verified / 0 errors**, compiled, and passed its native construction/copy/fill/
 terminal checks. Expected semantic rejections are included in the outcome counts;
 they are not successful proofs of those deliberately incorrect implementations.
+
+## Borrowed Result selection queries
+
+Candidate version 29 and metadata schema 24 bind the expanded closed language.
+The structured interpreter represents Result tags and both guarded payloads,
+including scalar values and bounded nullary error enums. Shared collection results
+use complete sequence observations. Immutable Option/tuple matching and early
+value returns preserve branch order and guard every proposed safety condition.
+The existing canonical Option::as_ref and primitive From models are reused; shared
+reference decorations left after source dereference are normalized only after
+Rust's original type/borrow checking and model signature checks.
+
+The independent precision traversal enumerates the Result tag and both guarded
+payloads from the declared type. A direct SST/Z3 fault test bypasses synthesis:
+removing the tag, success payload or error payload is sound but cannot pass
+exactness. Wrong application errors/contents and missing bounds remain separate
+ordinary caller failures despite exact candidates. Imports validate the full
+relation/guards and pure model language; warm cross-private-crate queries reprove
+all required checks, and changed error policies invalidate downstream publication.
+No new library assumptions or external bodies are introduced by this checkpoint.
+
+The supplied Aleph query now infers its contract. Its direct version substitutes
+a Vec borrow for a slice; the private version spells storage operations through
+NodeMap, projects the wrapper counter and widens the borrowed round. Branch order
+and explicit bounds-error policy are retained. The private ghost-only caller
+observes size and conditional get so their checked facts about hidden contents
+and payload types are available. Application invariants, counting equivalence,
+Copy adapter and reduced Unit/Hasher interface remain explicit inputs. Native
+Clone and FullUnit/cache integration are subsequent stages, not claimed here.
+
+Selection checkpoint validation (2026-10-28): 355 integration tests across eleven
+inference targets and 107 backend tests passed. The 61 inference-tool Python
+checks passed. The direct/private Aleph selection runner passed all 11 expected
+formal outcomes; its negative cases retained all three exact checks. The selection
+example verified 5 obligations, compiled and passed its native success/error/index
+checks. Broader Clone/cache work continues as a separate cohesive change.

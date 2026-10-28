@@ -106,6 +106,14 @@ Implemented and covered by regression tests:
   or local proof blocks. A separate private-API lifecycle retains NodeMap's original
   `with_size` body and uses an explicit checked Copy adapter. Application invariants,
   count equivalence, reduced traits and widened-round/terminal policy remain supplied.
+- [x] Bounded borrowed collection queries inside `Result`: early success/error
+  returns, Option/tuple matching, canonical primitive widenings of borrowed values,
+  complete error tags/payloads and returned collection views. Exact helper summaries
+  compose across private crate interfaces. The supplied Aleph selection method now
+  infers its contract and ordinary goals check readiness, contents and both error
+  policies. Vec replaces the supplied slice borrow; private API spellings and
+  checked size/lookup observations remain explicit. Native cloning and the cached
+  FullUnit implementation are separate integration work.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -393,7 +401,12 @@ APIs and research directions.
     in the supplied Aleph core. Wrong rounds/reset/termination and restrictive-domain
     controls separate exact code descriptions from intended behavior. Generic Clone
     equality is not assumed; the private adapter uses an explicit Copy loop.
-15. **Next: richer abstractions and broader source coverage.** General trait contracts,
+15. **Borrowed selection-query checkpoint implemented.** Complete Result relations
+    describe returned collection views and nullary error enums in exact mode.
+    Independent precision includes the tag and both guarded payloads. Original
+    branch order and bounds policy remain in the supplied Aleph query; caller goals
+    reject changed error policies, own-parent acceptance and unguarded indices.
+16. **Next: native cloning, real unit implementations and richer abstractions.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

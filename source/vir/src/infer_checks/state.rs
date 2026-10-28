@@ -179,6 +179,66 @@ fn observations(
     if depth == 0 || out.len() >= 16 {
         return Err(bad());
     }
+    if let TypX::Decorate(crate::ast::TypDecoration::Ref, None, t) = &**typ {
+        return observations(ctx, span, t, a, b, depth - 1, out);
+    }
+    if let TypX::Datatype(dt @ crate::ast::Dt::Path(p), args, _) = &**typ {
+        if p.krate == crate::ast::CrateId::Core
+            && p.segments.iter().map(|s| s.as_str()).eq(["result", "Result"])
+            && args.len() == 2
+        {
+            let tag = |v: Exp| {
+                SpannedTyped::new(
+                    span,
+                    &bool_typ(),
+                    ExpX::UnaryOpr(
+                        UnaryOpr::IsVariant {
+                            datatype: dt.clone(),
+                            variant: Arc::new("Ok".into()),
+                        },
+                        v,
+                    ),
+                )
+            };
+            out.push(SpannedTyped::new(
+                span,
+                &bool_typ(),
+                ExpX::Binary(BinaryOp::Eq, tag(a.clone()), tag(b.clone())),
+            ));
+            for (i, variant) in ["Ok", "Err"].iter().enumerate() {
+                let op = UnaryOpr::Field(FieldOpr {
+                    datatype: dt.clone(),
+                    variant: Arc::new((*variant).into()),
+                    field: crate::def::positional_field_ident(0),
+                    get_variant: false,
+                    check: VariantCheck::None,
+                });
+                let mut payload = vec![];
+                observations(
+                    ctx,
+                    span,
+                    &args[i],
+                    SpannedTyped::new(span, &args[i], ExpX::UnaryOpr(op.clone(), a.clone())),
+                    SpannedTyped::new(span, &args[i], ExpX::UnaryOpr(op, b.clone())),
+                    depth - 1,
+                    &mut payload,
+                )?;
+                let guard = if i == 0 {
+                    tag(a.clone())
+                } else {
+                    SpannedTyped::new(span, &bool_typ(), ExpX::Unary(UnaryOp::Not, tag(a.clone())))
+                };
+                for eq in payload {
+                    out.push(SpannedTyped::new(
+                        span,
+                        &bool_typ(),
+                        ExpX::Binary(BinaryOp::Implies, guard.clone(), eq),
+                    ));
+                }
+            }
+            return Ok(());
+        }
+    }
     // Independently selected structural evidence: this wrapper has exactly one
     // Vec field and its supplied View is the direct projection of that field.
     // Re-express the existing vector-content observation without exposing a
@@ -293,6 +353,14 @@ fn observations(
     if nested {
         let TypX::Datatype(dt, args, _) = &**typ else { unreachable!() };
         let d = ctx.datatype_map.get(dt).ok_or_else(bad)?;
+        if !d.x.variants.is_empty()
+            && d.x.variants.len() <= 4
+            && d.x.variants.iter().all(|v| v.fields.is_empty())
+            && d.x.typ_params.is_empty()
+        {
+            out.push(SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, a, b)));
+            return Ok(());
+        }
         if d.x.variants.len() != 1
             || d.x.variants[0].fields.is_empty()
             || d.x.variants[0].fields.len() > 8

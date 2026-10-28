@@ -544,3 +544,27 @@ explicit wrapper adapters and widened u32/Option terminal policy remain visible.
 This does not prove the full clean-main collector, native derives or cached FullUnit
 hashing, and does not claim a new production bug discovery. The existing original
 u16 round-overflow issue remains distinct from this adapted terminal policy.
+
+## Borrowed parent-selection queries
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_selection.py \
+  --alephbft /path/to/AlephBFT --output /tmp/infer-aleph-selection
+```
+
+This adds inferred prospective_parents to the preceding supplied-core lifecycle.
+Ordinary goals check readiness iff success, complete returned contents, and the
+specific NotEnoughParents/MissingOwnParent error policies. Direct queries borrow
+the Vec rather than a slice; private queries borrow NodeMap and use its checked
+size/get API. Their branch order and explicit out-of-range error policy are
+retained. Ghost-only private callers observe size and conditional get to expose
+checked representation/type facts. The original clean-main query lacks that
+explicit bounds guard, so this is not a claim about its unrestricted input domain.
+
+Five direct and five private consumer cases, plus one private provider, yield
+11 expected formal outcomes. Every consumer has six exact inferred functions,
+including three structured values; the provider retains nine. Wrong error,
+overpermissive own-parent selection and removed-index-guard controls must fail
+the named selection goal while every candidate retains all three proofs. Warm
+positives follow the controls. Existing invariant, count, round, trait and Copy
+adapters remain; native Clone and cached FullUnit are separate integration stages.

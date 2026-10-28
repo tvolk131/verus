@@ -1188,3 +1188,187 @@ fn owned_return_exactness_rejects_missing_loose_and_wrong_fields_independently()
     assert_eq!(before, format!("{check:?}"));
     assert!(state::returned_body(&ctx, &span(), &typ, &exact(&check)).is_err());
 }
+
+#[test]
+fn result_precision_requires_tag_and_both_guarded_payloads() {
+    let (template, _, _) = record_fixture();
+    let mut datatype = template.datatype_map.values().next().unwrap().x.clone();
+    let dt = Dt::Path(Arc::new(PathX {
+        krate: CrateId::Core,
+        segments: Arc::new(vec![Arc::new("result".into()), Arc::new("Result".into())]),
+    }));
+    datatype.name = dt.clone();
+    datatype.typ_params = Arc::new(vec![
+        (Arc::new("T".into()), AcceptRecursiveType::Accept),
+        (Arc::new("E".into()), AcceptRecursiveType::Accept),
+    ]);
+    datatype.variants = Arc::new(
+        [("Ok", "T"), ("Err", "E")]
+            .into_iter()
+            .map(|(variant, param)| Variant {
+                name: Arc::new(variant.into()),
+                ctor_style: CtorPrintStyle::Tuple,
+                fields: Arc::new(vec![Arc::new(air::ast::BinderX {
+                    name: crate::def::positional_field_ident(0),
+                    a: (
+                        Arc::new(TypX::TypParam(Arc::new(param.into()))),
+                        Mode::Exec,
+                        Visibility {
+                            restricted_to: None,
+                        },
+                    ),
+                })]),
+            })
+            .collect(),
+    );
+    let (ctx, _, mut check) = fixture_with_datatypes(vec![Spanned::new(span(), datatype)]);
+    let byte = Arc::new(TypX::Int(IntRange::U(8)));
+    let result = Arc::new(TypX::Datatype(
+        dt.clone(),
+        Arc::new(vec![byte.clone(), byte.clone()]),
+        Arc::new(vec![]),
+    ));
+    let flag = SpannedTyped::new(&span(), &bool_typ(), ExpX::Var(var("flag")));
+    let x = SpannedTyped::new(&span(), &byte, ExpX::Var(var("x")));
+    let vars = [
+        (var("flag"), bool_typ()),
+        (var("x"), byte.clone()),
+        (var("result"), result.clone()),
+    ];
+    let encode = |e: Exp| crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx, &e, &vars);
+    let output = SpannedTyped::new(&span(), &result, ExpX::Var(var("result")));
+    let tag = SpannedTyped::new(
+        &span(),
+        &bool_typ(),
+        ExpX::UnaryOpr(
+            UnaryOpr::IsVariant {
+                datatype: dt.clone(),
+                variant: Arc::new("Ok".into()),
+            },
+            output.clone(),
+        ),
+    );
+    let field = |variant: &str| {
+        SpannedTyped::new(
+            &span(),
+            &byte,
+            ExpX::UnaryOpr(
+                UnaryOpr::Field(FieldOpr {
+                    datatype: dt.clone(),
+                    variant: Arc::new(variant.into()),
+                    field: crate::def::positional_field_ident(0),
+                    get_variant: false,
+                    check: VariantCheck::None,
+                }),
+                output.clone(),
+            ),
+        )
+    };
+    let clauses = vec![
+        encode(binary(crate::sst::BinaryOp::Eq, tag.clone(), flag.clone())),
+        encode(binary(
+            crate::sst::BinaryOp::Implies,
+            tag.clone(),
+            binary(crate::sst::BinaryOp::Eq, field("Ok"), x.clone()),
+        )),
+        encode(binary(
+            crate::sst::BinaryOp::Implies,
+            SpannedTyped::new(&span(), &bool_typ(), ExpX::Unary(UnaryOp::Not, tag)),
+            binary(crate::sst::BinaryOp::Eq, field("Err"), integer(7)),
+        )),
+    ];
+    let ctor = |variant: &str, value: Exp| {
+        SpannedTyped::new(
+            &span(),
+            &result,
+            ExpX::Ctor(
+                dt.clone(),
+                Arc::new(variant.into()),
+                Arc::new(vec![Arc::new(air::ast::BinderX {
+                    name: crate::def::positional_field_ident(0),
+                    a: value,
+                })]),
+            ),
+        )
+    };
+    let ret = SpannedTyped::new(
+        &span(),
+        &result,
+        ExpX::If(
+            flag.clone(),
+            ctor("Ok", x.clone()),
+            ctor(
+                "Err",
+                SpannedTyped::new(&span(), &byte, ExpX::Const(Constant::Int(7.into()))),
+            ),
+        ),
+    );
+    check.reqs = Arc::new(vec![]);
+    check.local_decls = Arc::new(
+        vars.iter()
+            .map(|(ident, typ)| {
+                Arc::new(LocalDeclX {
+                    ident: ident.clone(),
+                    typ: typ.clone(),
+                    kind: if ident == &var("result") {
+                        LocalDeclKind::Return
+                    } else {
+                        LocalDeclKind::Param { mutable: false }
+                    },
+                })
+            })
+            .collect(),
+    );
+    check.body = Spanned::new(
+        span(),
+        StmX::Block(Arc::new(vec![Spanned::new(
+            span(),
+            StmX::Return {
+                assert_id: None,
+                base_error: error(&span(), "postcondition"),
+                ret_exp: Some(encode(ret)),
+                inside_body: false,
+            },
+        )])),
+    );
+    check.post_condition = Arc::new(PostConditionSst {
+        dest: Some(var("result")),
+        ens_exps: Arc::new(clauses.clone()),
+        ens_spec_precondition_stms: Arc::new(vec![]),
+        kind: PostConditionKind::Ensures,
+    });
+    let pars = Arc::new(
+        vars[..2]
+            .iter()
+            .map(|(name, typ)| {
+                Spanned::new(
+                    span(),
+                    ParX {
+                        name: name.clone(),
+                        typ: typ.clone(),
+                        mode: Mode::Exec,
+                    },
+                )
+            })
+            .collect(),
+    );
+    let exact = |c: &FuncCheckSst| state::returned_body(&ctx, &span(), &result, c).unwrap();
+    assert!(verifies(&ctx, &pars, &check));
+    assert!(verifies(&ctx, &pars, &exact(&check)));
+    for missing in 0..3 {
+        let mut weak = check.clone();
+        Arc::make_mut(&mut weak.post_condition).ens_exps = Arc::new(
+            clauses
+                .iter()
+                .enumerate()
+                .filter(|(i, _)| *i != missing)
+                .map(|(_, e)| e.clone())
+                .collect(),
+        );
+        assert!(verifies(&ctx, &pars, &weak));
+        assert!(
+            !verifies(&ctx, &pars, &exact(&weak)),
+            "missing clause {missing}"
+        );
+    }
+}

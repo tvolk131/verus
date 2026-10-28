@@ -4,6 +4,7 @@ use super::*;
 use records::{atom, coerce};
 mod loops;
 mod models;
+mod sums;
 use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
@@ -38,6 +39,7 @@ fn heap(t: &Typ, ds: &[Datatype], depth: usize) -> bool {
     }
     collections::vec_args(base(t)).is_some()
         || option(t).is_some_and(|t| heap(t, ds, depth - 1))
+        || sums::result(t).is_some_and(|(a, b)| heap(a, ds, depth - 1) || heap(b, ds, depth - 1))
         || records::shape::fields(base(t), ds)
             .is_some_and(|fs| fs.iter().any(|(_, t)| heap(t, ds, depth - 1)))
 }
@@ -46,6 +48,9 @@ fn heap_known(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype], depth: usi
         && (collections::vec_args(base(t)).is_some()
             || sequence_views::find(base(t), all, ds).is_some()
             || option(t).is_some_and(|t| heap_known(t, all, ds, depth - 1))
+            || sums::result(t).is_some_and(|(a, b)| {
+                heap_known(a, all, ds, depth - 1) || heap_known(b, all, ds, depth - 1)
+            })
             || records::shape::fields(base(t), ds)
                 .is_some_and(|fs| fs.iter().any(|(_, t)| heap_known(t, all, ds, depth - 1))))
 }
@@ -70,6 +75,7 @@ enum Node {
     Seq(Term),
     Fields(Vec<(FieldOpr, Val)>),
     Option(Term, Option<Box<Val>>),
+    Result(Term, Option<Box<Val>>, Option<Box<Val>>),
 }
 impl Val {
     fn atom(t: Term) -> Self {
@@ -234,6 +240,16 @@ impl Engine<'_> {
                     self.layout(field_expr(&e, &option_field(&typ), payload), depth - 1)?,
                 )),
             )
+        } else if let Some((ok, err)) = sums::result(&typ) {
+            Node::Result(
+                atom(sums::tag(&e, "Ok"))?,
+                Some(Box::new(
+                    self.layout(field_expr(&e, &sums::field(&typ, "Ok"), ok), depth - 1)?,
+                )),
+                Some(Box::new(
+                    self.layout(field_expr(&e, &sums::field(&typ, "Err"), err), depth - 1)?,
+                )),
+            )
         } else if let Some(fields) = records::shape::fields(&typ, self.ds) {
             Node::Fields(
                 fields
@@ -244,7 +260,9 @@ impl Engine<'_> {
                     .collect::<Result<_, VirErr>>()?,
             )
         } else {
-            if !records::shape::value_type(&e.typ, &self.f.x.typ_params, self.ds, 5) {
+            if !records::shape::value_type(&e.typ, &self.f.x.typ_params, self.ds, 5)
+                && !sums::flat_enum(&typ, self.ds)
+            {
                 return Err(unsupported(&e.span, "unsupported owned input/output leaf"));
             }
             Node::Atom(atom(e)?)
@@ -361,6 +379,15 @@ impl Engine<'_> {
                 let v = self.expr(s, a)?;
                 self.field(v, op, span)
             }
+            ExprX::UnaryOpr(op @ UnaryOpr::IsVariant { .. }, a) => {
+                let value = self.expr(s, a)?.scalar(span)?;
+                Ok(Val::atom(term(
+                    span,
+                    &bool_typ(),
+                    ExprX::UnaryOpr(op.clone(), value.expr),
+                    value.size + 1,
+                )?))
+            }
             ExprX::Unary(op @ UnaryOp::Clip { .. }, a) => {
                 let a = self.expr(s, a)?.scalar(span)?;
                 Ok(Val::atom(summary::unary(span, *op, a)?))
@@ -387,6 +414,24 @@ impl Engine<'_> {
                 Ok(Val::atom(logical(span, *op, a, b)?))
             }
             ExprX::Ctor(dt, variant, fs, None) => {
+                if sums::result(&e.typ).is_some() {
+                    if fs.len() != 1 || !matches!(variant.as_str(), "Ok" | "Err") {
+                        return Err(unsupported(span, "Result constructor shape"));
+                    }
+                    let value = Some(Box::new(self.expr(s, &fs[0].a)?));
+                    return Ok(Val {
+                        typ: e.typ.clone(),
+                        node: if variant.as_str() == "Ok" {
+                            Node::Result(boolean(span, true), value, None)
+                        } else {
+                            Node::Result(boolean(span, false), None, value)
+                        },
+                    });
+                }
+                if sums::flat_enum(&e.typ, self.ds) && fs.is_empty() {
+                    return Ok(Val::atom(atom(e.clone())?));
+                }
+
                 if let Some(payload) =
                     option(&e.typ).filter(|t| heap_known(t, self.all, self.ds, 5))
                 {
@@ -515,6 +560,7 @@ impl Engine<'_> {
                 s.active = boolean(span, false);
                 Ok(Val::atom(exits::unit_value(span)?))
             }
+            ExprX::Match(value, arms, _) => self.match_expr(s, e, value, arms),
             ExprX::NeverToAny(e) => self.expr(s, e),
             ExprX::Loop { .. } => self.loop_expr(s, e),
             ExprX::Call {
@@ -523,6 +569,59 @@ impl Engine<'_> {
                 post_args: None,
                 body: None,
             } => {
+                if self.all.get(name).and_then(collections::model)
+                    == Some(collections::Model::SeqIndex)
+                {
+                    let values =
+                        args.iter().map(|a| self.formula(s, a)).collect::<Result<Vec<_>, _>>()?;
+                    return Ok(Val::atom(self.standard(
+                        span,
+                        collections::Model::SeqIndex,
+                        (**types).clone(),
+                        values,
+                    )?));
+                }
+                if self.all.get(name).is_some_and(record_models::as_ref) && args.len() == 1 {
+                    let value = self.expr(s, &args[0])?.scalar(span)?;
+                    let typ = base(&value.expr.typ).clone();
+                    let value = coerce(span, value, &typ)?;
+                    let payload = option(&typ)
+                        .ok_or_else(|| unsupported(span, "borrowed Option model input"))?;
+                    let target = option(&e.typ)
+                        .ok_or_else(|| unsupported(span, "borrowed Option model output"))?;
+                    let field = coerce(
+                        span,
+                        atom(field_expr(&value.expr, &option_field(&typ), payload))?,
+                        target,
+                    )?;
+                    let TypX::Datatype(dt, ..) = &*e.typ else { unreachable!() };
+                    let some = term(
+                        span,
+                        &e.typ,
+                        ExprX::Ctor(
+                            dt.clone(),
+                            Arc::new("Some".into()),
+                            Arc::new(vec![Arc::new(air::ast::BinderX {
+                                name: crate::def::positional_field_ident(0),
+                                a: field.expr,
+                            })]),
+                            None,
+                        ),
+                        field.size + 1,
+                    )?;
+                    let none = term(
+                        span,
+                        &e.typ,
+                        ExprX::Ctor(dt.clone(), Arc::new("None".into()), Arc::new(vec![]), None),
+                        1,
+                    )?;
+                    return Ok(Val::atom(conditional(
+                        span,
+                        atom(tag_expr(&value.expr))?,
+                        some,
+                        none,
+                    )?));
+                }
                 if let Some(m) = model_call(e, self.all) {
                     return self.collection(s, e, m, args);
                 }
@@ -845,6 +944,7 @@ impl Engine<'_> {
                 }
                 Ok(p)
             }
+            Node::Result(ok, a, b) => self.result_post(ok, a.as_deref(), b.as_deref(), out),
             Node::Option(some, payload) => {
                 let tag = tag_expr(out);
                 let mut p = records::equal(span, atom(tag.clone())?, some.clone())?;
@@ -901,6 +1001,9 @@ impl Engine<'_> {
                     })
                     .collect::<Result<_, VirErr>>()?,
             ),
+            Node::Result(_, a, b) => {
+                self.result_decode(s, out, a.as_deref(), b.as_deref(), clauses)?
+            }
             Node::Option(_, payload) => {
                 let tag = tag_expr(out);
                 let rhs = find_rhs(&tag, clauses)?;
@@ -997,6 +1100,15 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
                 })
                 .collect::<Result<_, VirErr>>()?,
         ),
+        (Node::Result(at, aa, ab), Node::Result(bt, ba, bb)) => {
+            let merge = |a: Option<Box<Val>>, b: Option<Box<Val>>| -> Result<_, VirErr> {
+                Ok(match (a, b) {
+                    (Some(a), Some(b)) => Some(Box::new(choose(s, c.clone(), *a, *b)?)),
+                    (a, None) | (None, a) => a,
+                })
+            };
+            Node::Result(conditional(s, c.clone(), at, bt)?, merge(aa, ba)?, merge(ab, bb)?)
+        }
         (Node::Option(at, ap), Node::Option(bt, bp)) => Node::Option(
             conditional(s, c.clone(), at, bt)?,
             match (ap, bp) {
@@ -1199,6 +1311,14 @@ fn validate_signature(
                 }
                 *left -= 1;
                 return consume(payload, all, ds, depth - 1, left);
+            }
+            if let Some((a, b)) = sums::result(t) {
+                if *left == 0 {
+                    return false;
+                }
+                *left -= 1;
+                return consume(a, all, ds, depth - 1, left)
+                    && consume(b, all, ds, depth - 1, left);
             }
             if let Some(fs) = records::shape::fields(t, ds) {
                 return fs.iter().all(|(_, t)| consume(t, all, ds, depth - 1, left));

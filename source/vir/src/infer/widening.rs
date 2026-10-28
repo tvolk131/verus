@@ -81,9 +81,13 @@ pub(super) fn call<'a>(e: &'a Expr, all: &HashMap<Fun, Function>) -> Option<&'a 
         }
         _ => return None,
     };
-    (crate::ast_util::types_equal(&args[0].typ, &f.x.params[0].x.typ)
+    let mut argument = &args[0].typ;
+    while let TypX::Decorate(TypDecoration::Ref, None, inner) = &**argument {
+        argument = inner;
+    }
+    (crate::ast_util::types_equal(argument, &f.x.params[0].x.typ)
         && crate::ast_util::types_equal(&e.typ, &f.x.inner_ret.x.typ)
         && crate::ast_util::types_equal(&typs[0], &e.typ)
-        && crate::ast_util::types_equal(&typs[1], &args[0].typ))
+        && crate::ast_util::types_equal(&typs[1], argument))
     .then_some(&args[0])
 }

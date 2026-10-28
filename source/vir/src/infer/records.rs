@@ -87,7 +87,9 @@ pub(super) fn coerce(span: &Span, value: Term, typ: &Typ) -> Result<Term, VirErr
         ));
     }
     if let TypX::Int(r) = &**typ {
-        if scalar(typ) && eligibility::integer(&value.expr.typ) {
+        if scalar(typ) && eligibility::integer(&unwrap(&value.expr.typ)) {
+            let source=unwrap(&value.expr.typ);
+            let value=if same(&source,&value.expr.typ){value}else{coerce(span,value,&source)?};
             return summary::unary(span, UnaryOp::Clip { range: *r, truncate: true }, value);
         }
     }

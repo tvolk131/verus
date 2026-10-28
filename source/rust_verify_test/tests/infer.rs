@@ -5715,3 +5715,56 @@ fn owned_private_factories_and_copy_loops_cross_crates_with_exact_evidence() {
     assert!(!run.status.success());
     assert!(!crates.vir("owned_provider").exists());
 }
+
+#[test]
+fn borrowed_result_summaries_cross_private_crate_boundaries() {
+    let crates = InferCrates::new();
+    let provider = r#"
+ use vstd::prelude::*;
+ pub struct Slots<T>(Vec<Option<T>>);
+ impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+ pub struct Table<T>{pub slots:Slots<T>,pub ready:bool}
+ impl<T> Table<T>{
+  #[verifier::infer] pub fn query(&self)->Result<&Slots<T>,u8>{
+   if self.ready{Ok(&self.slots)}else{Err(1)}
+  }
+ }
+"#;
+    let consumer = r#"
+ use vstd::prelude::*;
+ #[verifier::infer] pub fn forward<T>(s:&selection_provider::Table<T>)->Result<&selection_provider::Slots<T>,u8>{s.query()}
+ pub fn check<T>(s:&selection_provider::Table<T>)->(r:Result<&selection_provider::Slots<T>,u8>)
+  ensures r.is_ok()==s.ready,r.is_ok() ==> r.unwrap()@==s.slots@,!s.ready ==> r==Err::<&selection_provider::Slots<T>,u8>(1),{forward(s)}
+"#;
+    for _ in 0..2 {
+        for (name, source, deps) in [
+            ("selection_provider", provider, vec![]),
+            ("selection_consumer", consumer, vec!["selection_provider"]),
+        ] {
+            let run = crates.build(name, source, &deps, &["--no-cheating", "--output-json"]);
+            assert!(
+                run.status.success(),
+                "{}",
+                String::from_utf8_lossy(&run.stderr)
+            );
+            let report = json_inference(&run);
+            let fs = report["functions"].as_array().unwrap();
+            assert_eq!(fs.len(), 1);
+            assert_eq!(fs[0]["summary_kind"], "owned_value");
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(fs[0]["proofs"][p]["status"], "proved");
+            }
+        }
+    }
+    let changed = provider.replace("Err(1)", "Err(2)");
+    crates.succeeds("selection_provider", &changed, &[]);
+    let run = crates.build(
+        "selection_consumer",
+        consumer,
+        &["selection_provider"],
+        &["--output-json"],
+    );
+    assert!(!run.status.success());
+    assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
+    assert!(!crates.vir("selection_consumer").exists());
+}

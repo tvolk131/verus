@@ -657,6 +657,40 @@ invariant, count-equivalence proof, reduced Unit/Hasher adapter, threshold corre
 and widened-round/Option terminal policy remain supplied. This does not verify
 native generic Clone derives, the full clean-main collector, or cached hashing.
 
+## Borrowed collection queries inside Result
+
+The structured-value path also supports `Result<&Vec<T>, E>` and
+`Result<&Wrapper<T>, E>` with a certified private direct sequence view. Error
+values may be ordinary supported scalar/value leaves or a local, nongeneric enum
+with up to four nullary variants. A query can use early value returns and up to
+four guarded Option/tuple match arms. Immutable shared payloads support the
+existing Option::as_ref and primitive From widening models. General error payloads,
+mutable references, arbitrary aliases and returned slice unsizing remain outside
+this profile.
+
+The [selection example](../../../../examples/verus_infer_selection.rs) infers a
+quorum/own-parent query and proves separate success, contents and error goals.
+No application invariant or intended policy is assumed. Returned references are
+compared by complete logical contents, not allocation or address identity;
+ordinary Rust/Verus lifetime checking still checks the executable. Reports retain
+the `owned_value` structured-summary classification for these borrowed results.
+
+Exactness independently observes the Result tag and both guarded payloads,
+including the precise error variant. Imported summaries must reconstruct the same
+complete shape. Safe-domain maximality uses the original body: removing a bounds
+check can produce a necessary input restriction that an unrestricted caller goal
+rejects. Canonical primitive widening recognizes the shared-reference decorations
+retained by VIR after Rust has checked the original dereference.
+
+The Aleph selection runner removes the supplied method contract and checks
+readiness, returned contents, and both error policies in ordinary wrappers. It
+preserves the supplied core's branch order and explicit out-of-range error policy.
+It returns a Vec borrow rather than the supplied slice borrow. The private variant
+uses NodeMap's checked APIs; its ghost-only caller observes size and conditionally
+get to expose their checked representation/type facts. The invariant/counting
+model, Copy helper, reduced Unit/Hasher adapter and round policy remain supplied.
+This checkpoint does not yet verify the unchanged native collector or cached hash.
+
 ## Demand-driven scalar proof assistance
 
 The experimental `--infer-goals` command-line flag asks an additional bounded
