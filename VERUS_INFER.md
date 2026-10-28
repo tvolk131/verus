@@ -146,6 +146,13 @@ Implemented and covered by regression tests:
   including complete Result policies for read-only record queries. A bounded
   Aleph experiment checks round projection, parent counts and future-round checks
   behind explicit adapters; untouched native iterator-chain inference remains open.
+- [x] Bounded data-bearing value enums, including generic/associated hash payloads,
+  compose through exact Result and identity `?` propagation. Independent precision
+  checks observe every tag and guarded payload. Literal-message runtime assertions
+  retain their failure domain. Ordinary checked concrete scalar queries compose
+  with immutable private collection receivers. Aleph's original noninitial
+  assertion/lookup/propagation sequence now infers exact typed errors and first-error
+  priority; two collection pipelines still use explicit checked adapters.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -282,7 +289,9 @@ Still planned or outside the implemented subset:
   search, signed counters, and recursive summaries.
   Checked finite iterator implementations are available as explicit library APIs;
   synthesis of native enumerate/filter_map chains, arbitrary closures/iterator
-  loops, and complete ControlHash validation with payload error enums remains open.
+  loops, and complete ControlHash validation (including initial-round encoding/hash
+  checks) remains open. Noninitial typed errors and propagation now verify with
+  explicit collection-query adapters.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
@@ -475,7 +484,17 @@ APIs and research directions.
     adapted runtime corpora cover the same 1,530 cases. Original iterator-chain
     synthesis, complete native ControlHash error payloads and inference of its
     construction loop remain future work, not claims of the adapted proof.
-20. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+20. **Typed validation checkpoint implemented.** Bounded value enums support up
+    to eight variants, four fields per variant and sixteen observations per value.
+    Exact Result propagation preserves error payloads and short-circuit domains.
+    Aleph's six-variant Error<H>, original own-parent lookup, runtime assertion,
+    member count and noninitial `?` orchestration now verify. Ordinary supplied
+    goals check success, exact errors and their priority. Native and adapted
+    runtime corpora cover the same 7,704 cases, including terminal u16 values,
+    with a separate zero-round panic check. Two collection pipelines remain
+    adapted; initial-round hash validation and original iterator-chain inference
+    remain open.
+21. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

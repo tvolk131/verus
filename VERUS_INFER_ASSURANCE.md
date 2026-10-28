@@ -287,9 +287,10 @@ standard-library assumptions remain the existing Verus models.
 
 The Aleph query experiment deliberately adapts the native iterator chains to these
 checked APIs and uses a reduced Result<(),u16> policy for the quorum/future-round
-stage. The full native ControlHash validator, payload error enums, original
-enumerate/filter_map/count chains and construction-loop inference are not proved
-by this adapter. Those are explicit next steps. Application observations and
+stage. This earlier adapter does not establish the full native ControlHash
+validator, payload error enums, original enumerate/filter_map/count chains or
+construction-loop inference. The typed-validation checkpoint below advances
+noninitial errors and propagation. Application observations and
 callback specifications remain visible inputs. Provider callback/projection
 mutations must fail verification and remove exports; changed consumer policies
 retain exact candidates but fail caller goals. Native and adapted corpora exercise
@@ -297,7 +298,7 @@ the same 1,530 cases; runtime completion markers prevent empty binaries from
 counting as evidence. Runtime-only entrypoints use verus_keep_ghost_body rather
 than verus_keep_ghost because the compiled library retains ghost stubs.
 
-Final checkpoint validation (2026-10-28): release compiler/macros rebuilt;
+Collection-query checkpoint validation (2026-10-28): release compiler/macros rebuilt;
 vstd **2,171 verified / 0 errors**, and an isolated no_std/no_alloc vstd build
 **1,981 verified / 0 errors**. **615 Rust tests** passed: 378 inference integration
 tests, 6 finite-iterator/try-read tests, 118 standard/iterator/native-model tests,
@@ -308,6 +309,77 @@ The finite-read example separately verified, compiled and emitted its runtime
 completion marker after contention/release checks. Expected negative controls
 are included in outcome counts; they are semantic rejections, not successful
 proofs of the deliberately wrong implementations.
+
+## Data-bearing errors and native validation ordering
+
+The typed-validation checkpoint uses metadata schema **28** and candidate cache
+version **33**. Rebuild providers and dependent interfaces. Bounded executable
+value enums admit two to eight variants, at most four fields per variant, two
+type parameters, bounded value nesting and at most sixteen observations. Generic
+and associated payload values retain their existing opaque value semantics.
+Known heap and recursive payload shapes are excluded. Independent precision
+construction enumerates every variant tag and every field under its own tag;
+it does not take the candidate's equations as its observation list. A direct
+checker fault test rejects missing tags and missing guarded payloads.
+
+Result `?` recognition still checks the complete compiler lowering, including
+the residual conversion and early return. This extension accepts bounded value
+payloads with identity error conversion, alongside the existing primitive
+lossless conversions; it does not accept arbitrary From implementations. Error
+exits retain their original reachability, so an earlier Err bypasses later
+overflow requirements. Complete constructor values and enum matches compose
+through checked imported summaries. Candidate-only tag simplification and removal
+of duplicated match tests keep Aleph's chain inside the unchanged 4,096-node
+formula budget. Original executable bodies remain authoritative for all proofs.
+
+Ordinary nongeneric shared-receiver scalar queries can supply the exact equation
+`result == observation(receiver, scalar_args...)`, with up to two scalar args.
+They require no preconditions, unchanged positional arguments, matching types,
+ordinary verified bodies and full provider certification. Immutable original
+objects are tracked separately from their sequence views for these observations;
+mutable locals and newly constructed collections cannot reuse an old object's
+identity. A private direct View remains supplied. Cold/warm cross-crate tests
+exercise composition, false query implementations and failed-provider export
+gates. Closed observations remain opaque outside their defining module.
+
+Literal-message Rust assertions are recognized only through the complete
+canonical panic_fmt(from_str(literal)) capsule. Both the candidate builder and
+the independent maximality transformer recognize the existing core model's
+requires-false contract. No panic or formatting axiom is added. Normal soundness
+must prove the failing branch unreachable under the inferred safety predicate.
+Dynamic formatting and proof-only assertions remain outside this profile.
+
+`eval_verus_infer_alephbft_validation.py` retains the pinned six-variant Error<H>
+declaration, own-parent lookup, n_members body, runtime assertion and three-stage
+noninitial `?` ordering. Only the filtered-count and future-parent pipelines are
+replaced with explicit ordinary checked collection queries. Supplied goals prove
+success equivalence and the complete first-error policy, including exact payloads.
+Wrong payload/tag/priority, ignored errors, a wrong query callback and missing
+round/index bounds fail ordinary proofs while inferred candidates retain all
+three proved properties. Failed providers must remove their exported interface.
+The same 7,704-case corpus executes against adapted and untouched native methods;
+an explicit marker and a separate caught zero-round panic prevent empty-runtime
+or ghost-only runs from counting as evidence.
+
+This does not verify the initial-round encoding/hash checks, the complete native
+ControlHash API or native iterator chains. In particular, the isolated native
+future-parent leaf can return Ok at round zero on an empty collection, whereas
+the adapter eagerly computes round - 1. The complete noninitial path asserts a
+positive round before this call, so its checked scope agrees. Native enumerate,
+filter_map and count need separate contracts and overflow/termination treatment;
+arbitrary Iterator implementations can override these methods. Do not introduce
+a blanket count equation based only on next. Those implementation adapters remain
+the next collection milestone, rather than enlarging the trusted model set here.
+
+Typed-validation checkpoint validation (2026-10-28): **627 targeted Rust tests**
+passed (389 inference integration, 6 finite-iterator/try-read, 118 standard/native
+model, 108 VIR, 5 macro unit and 1 tuple-shim checks), plus **66 Python checks**.
+All Aleph experiments passed **184 expected formal outcomes** and **16 native
+experiment runs**, including the two 7,704-case typed-validation corpora. The
+library rebuild passed **2,171 verified / 0 errors** and the isolated no_std/no_alloc
+build passed **1,981 verified / 0 errors**. Plain cargo macro doctests retain the
+pre-existing 23 failures from Verus snippets and partial code examples under
+rustdoc; the five applicable macro unit tests pass with --lib.
 
 ## Propagation-model audit
 

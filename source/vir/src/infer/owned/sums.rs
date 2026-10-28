@@ -25,6 +25,13 @@ pub(super) fn flat_enum(t: &Typ, ds: &[Datatype]) -> bool {
                 && d.x.variants.iter().all(|v| v.fields.is_empty())
         })
 }
+pub(super) fn has_value_enum(t:&Typ,ds:&[Datatype],depth:usize)->bool {
+    if depth==0{return false;}
+    let t=base(t);
+    records::shape::variants(t,ds).is_some()
+        || option(t).is_some_and(|t|has_value_enum(t,ds,depth-1))
+        || result(t).is_some_and(|(a,b)|has_value_enum(a,ds,depth-1)||has_value_enum(b,ds,depth-1))
+}
 pub(super) fn tag(e: &Expr, v: &str) -> Expr {
     let TypX::Datatype(dt, ..) = &*e.typ else { unreachable!() };
     SpannedTyped::new(
@@ -47,6 +54,32 @@ pub(super) fn field(t: &Typ, v: &str) -> FieldOpr {
     }
 }
 impl Engine<'_> {
+    pub(super) fn propagate(&mut self,s:&mut State,e:&Expr,p:propagation::Propagation)->Result<Val,VirErr> {
+        if p.kind!=propagation::Carrier::Result {
+            return Err(unsupported(&e.span,"structured propagation currently requires Result value payloads"));
+        }
+        let (ok_typ,err_typ)=result(&p.operand.typ).ok_or_else(||unsupported(&e.span,"Result propagation input"))?;
+        let (_,target_err)=result(&p.return_type).ok_or_else(||unsupported(&e.span,"Result propagation output"))?;
+        if !records::shape::value_type(ok_typ,&self.f.x.typ_params,self.ds,5)
+            || !records::shape::value_type(err_typ,&self.f.x.typ_params,self.ds,5)
+            || !records::shape::value_type(target_err,&self.f.x.typ_params,self.ds,5) {
+            return Err(unsupported(&e.span,"structured ? requires bounded value payloads"));
+        }
+        let input=self.expr(s,&p.operand)?;
+        let Node::Result(ok,a,b)=&input.node else{return Err(unsupported(&e.span,"Result propagation layout"));};
+        // Only the selected constructor's payload matters. For an absent branch,
+        // use its ordinary datatype projection, guarded by an impossible tag.
+        let payload=|variant:&str,t:&Typ,v:&Option<Box<Val>>|->Result<Val,VirErr>{
+            match v {Some(v)=>Ok((**v).clone()),None=>self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,variant),t),5)}
+        };
+        let a=payload("Ok",ok_typ,a)?;
+        let b=payload("Err",err_typ,b)?;
+        let error=Val::atom(coerce(&e.span,b.scalar(&e.span)?,target_err)?);
+        let failed=logical(&e.span,LogicalOp::And,s.active.clone(),exits::not(&e.span,ok.clone())?)?;
+        self.exits.push((failed,Val{typ:p.return_type,node:Node::Result(boolean(&e.span,false),None,Some(Box::new(error)))}));
+        s.active=logical(&e.span,LogicalOp::And,s.active.clone(),ok.clone())?;
+        Ok(a)
+    }
     pub(super) fn result_post(
         &self,
         ok: &Term,
@@ -126,6 +159,9 @@ impl Engine<'_> {
         match &p.x {
             PatternX::Wildcard => Ok(boolean(span, true)),
             PatternX::ImmutRef(p) => self.pattern(s, p, value),
+            PatternX::Expr(e) if matches!(e.x,ExprX::Const(Constant::Int(_)|Constant::Bool(_))) => {
+                records::equal(span,value.scalar(span)?,self.expr(s,e)?.scalar(span)?)
+            }
             PatternX::Var(b)
                 if matches!(b.by_ref, ByRef::No | ByRef::ImmutRef) && b.user_mut != Some(true) =>
             {
@@ -149,7 +185,7 @@ impl Engine<'_> {
                 let mut cond = if matches!(dt, Dt::Tuple(_)) {
                     boolean(span, true)
                 } else {
-                    atom(tag(&v.expr, variant))?
+                    variant_test(span, v.clone(), dt, variant)?
                 };
                 for f in fs.iter() {
                     let op = FieldOpr {
@@ -174,7 +210,7 @@ impl Engine<'_> {
         p: &Place,
         arms: &Arms,
     ) -> Result<Val, VirErr> {
-        if arms.is_empty() || arms.len() > 4 {
+        if arms.is_empty() || arms.len() > 8 {
             return Err(unsupported(&e.span, "query match arm budget"));
         }
         let value = self.place(s, p)?;
@@ -191,8 +227,10 @@ impl Engine<'_> {
                 logical(&e.span, LogicalOp::And, exits::not(&e.span, seen.clone())?, test.clone())?,
             )?;
             let guard = self.expr(&mut branch, &arm.x.guard)?.scalar(&e.span)?;
-            let test = logical(&e.span, LogicalOp::And, test, guard)?;
-            branch.active = logical(&e.span, LogicalOp::And, branch.active, test.clone())?;
+            let test = logical(&e.span, LogicalOp::And, test, guard.clone())?;
+            // The pattern is already in branch.active. Only the evaluated
+            // guard is new; repeating the full test multiplies helper formulas.
+            branch.active = logical(&e.span, LogicalOp::And, branch.active, guard)?;
             let out = self.expr(&mut branch, &arm.x.body)?;
             active = logical(&e.span, LogicalOp::Or, active, branch.active)?;
             seen = logical(&e.span, LogicalOp::Or, seen, test.clone())?;

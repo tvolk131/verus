@@ -679,3 +679,39 @@ infer the untouched native iterator chains, the full ControlHash validator/error
 enum, or construction-loop invariants. The supplied model equations, callback
 contracts and ordinary collection proofs are inputs. Those remaining frontend and
 inference extensions are recorded in VERUS_INFER.md.
+
+## Typed noninitial validation
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_validation.py \
+  --alephbft /path/to/AlephBFT --output /tmp/infer-typed-validation \
+  --native-tests --native-target /tmp/aleph-native-target
+```
+
+This experiment uses Aleph's original six-variant `Error<H>` declaration and
+infers the original own-parent lookup, member-count wrapper and noninitial
+validation body, including its runtime assertion and three `?` calls. The two
+count/search pipelines use explicit checked collection queries. Fifteen inferred
+methods receive soundness, safe-domain maximality and output exactness proofs.
+Supplied ordinary goals check acceptance and the complete first-error policy:
+missing own parent, wrong own round, insufficient previous-round quorum, then
+future parent. Error payloads retain the actual creator index or round.
+
+Ten formal outcomes include cold/warm runs, a compiled runtime build, wrong error
+payload/tag/priority, ignored propagation, a false query callback and removed
+round/index requirements. Each negative control must reach a semantic proof
+failure, retain the fifteen exact inference receipts and remove its interface.
+Both the adapted target and untouched native noninitial methods run the same
+7,704 cases across masks, creators, round patterns and u16::MAX. A separate caught
+zero-round panic checks that the original assertion is still executable. Native
+tests run in an isolated pinned checkout, alongside the ten original ControlHash
+tests; the input checkout is not edited.
+
+The error declaration itself covers all six variants, but this experiment proves
+the four noninitial errors. Initial-round parent-count/hash checks, encoding
+completeness and native iterator-pipeline inference remain separate work. The
+query adapter eagerly computes round - 1, so its isolated future-parent leaf has
+a narrower zero-round domain than the native empty-collection leaf. The complete
+noninitial path's original positive-round assertion makes this difference
+irrelevant to its verified scope. Codec, lock, application policy and collection
+view boundaries remain the explicit supplied inputs described above.

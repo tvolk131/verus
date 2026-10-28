@@ -47,6 +47,23 @@ pub(in crate::infer) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<
         })
         .collect()
 }
+/// A bounded value enum. Payload eligibility is checked recursively by value_type,
+/// so this descriptor never grants a heap/reference abstraction by itself.
+pub(in crate::infer) fn variants(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<(Ident, Vec<(Ident, Typ)>)>> {
+    let TypX::Datatype(dt,args,_)=&**typ else{return None;};
+    // Core Option/Result retain their dedicated layouts. In particular, do not
+    // admit compiler-internal ControlFlow/Infallible through this value profile.
+    if !matches!(dt,Dt::Path(p) if matches!(p.krate,CrateId::Id(..))){return None;}
+    let d=datatypes.iter().find(|d|&d.x.name==dt)?;
+    if d.x.mode!=Mode::Exec || d.x.proxy.is_some() || d.x.destructor
+        || d.x.user_defined_invariant_fn.is_some() || !(2..=8).contains(&d.x.variants.len())
+        || d.x.typ_params.len()>2 || d.x.typ_params.len()!=args.len()
+        || d.x.variants.iter().any(|v|v.fields.len()>4 || v.fields.iter().any(|f|f.a.1!=Mode::Exec))
+    {return None;}
+    let ts=d.x.typ_params.iter().zip(args.iter()).map(|(p,t)|(p.0.clone(),t.clone())).collect();
+    Some(d.x.variants.iter().map(|v|(v.name.clone(),v.fields.iter().map(|f|
+        (f.name.clone(),crate::sst_util::subst_typ(&ts,&f.a.0))).collect())).collect())
+}
 fn associated_type(t:&Typ,params:&[Ident],depth:usize)->bool {
     if depth==0{return false;}
     match &**t {
@@ -80,7 +97,9 @@ pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datat
         }
         TypX::Decorate(TypDecoration::Ref, None, t) => value_type(t, params, datatypes, depth - 1),
         _ => fields(t, datatypes)
-            .is_some_and(|fs| fs.iter().all(|(_, t)| value_type(t, params, datatypes, depth - 1))),
+            .is_some_and(|fs| fs.iter().all(|(_, t)| value_type(t, params, datatypes, depth - 1)))
+            || variants(t,datatypes).is_some_and(|vs|vs.iter().all(|(_,fs)|
+                fs.iter().all(|(_,t)|value_type(t,params,datatypes,depth-1)))),
     }
 }
 pub(in crate::infer) fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool {

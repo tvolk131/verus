@@ -1994,10 +1994,11 @@ test_verify_one_file! {
 
 test_verify_one_file! {
     #[test] user_enum_named_option_is_not_core_option verus_code! {
-        enum Option { Some(u8), None }
+        enum Option { Some(u8), None, Other }
         #[verifier::infer]
-        fn f(x: u8) -> Option { Option::Some(x) }
-    } => Err(e) => assert_vir_error_msg(e, "parameters and return values must be")
+        fn f(x: u8) -> Option { if x==0 {Option::Other}else{Option::Some(x)} }
+        fn goal()->(r:Option) ensures r==Option::Other,{f(0)}
+    } => Ok(())
 }
 
 #[test]
@@ -5863,4 +5864,72 @@ verus!{impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self
     let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--infer-goals","--output-json"],true);
     assert!(!run.status.success());
     assert!(json_inference(&run)["goal_assistance"].as_array().unwrap().is_empty());
+}
+
+#[test]
+fn generic_error_values_and_propagation_cross_certified_crate_boundaries() {
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+pub enum Error<T:Copy>{Pair(T,u16),Other}
+#[verifier::infer] pub fn leaf<T:Copy>(fail:bool,value:T,round:u16)->Result<(),Error<T>>{
+ if fail{return Err(Error::Pair(value,round));}Ok(())
+}"#;
+    let consumer=r#"use vstd::prelude::*;
+#[verifier::infer] pub fn bridge<T:Copy>(fail:bool,value:T,round:u16)->Result<u16,error_provider::Error<T>>{
+ error_provider::leaf(fail,value,round)?;Ok(round+1)
+}
+
+pub fn goal(value:u64)->(result:Result<u16,error_provider::Error<u64>>)
+ ensures result==Err::<u16,error_provider::Error<u64>>(error_provider::Error::Pair(value,u16::MAX)),
+{bridge(true,value,u16::MAX)}
+"#;
+    for _ in 0..2 {
+        for (name,body,deps) in [("error_provider",provider,vec![]),("error_consumer",consumer,vec!["error_provider"])] {
+            let run=crates.build(name,body,&deps,&["--no-cheating","--output-json"]);
+            assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+            let report=json_inference(&run);
+            let fs=report["functions"].as_array().unwrap();assert_eq!(fs.len(),1);
+            for check in ["soundness","maximality","exactness"]{assert_eq!(fs[0]["proofs"][check]["status"],"proved");}
+        }
+    }
+    let changed=provider.replace("Err(Error::Pair(value,round))","Err(Error::Other)");
+    let run=crates.build("error_provider",&changed,&[],&["--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("error_consumer",consumer,&["error_provider"],&["--no-cheating","--output-json"]);
+    assert!(!run.status.success());assert!(!crates.vir("error_consumer").exists());
+    assert_eq!(json_inference(&run)["status"],"caller_proof_failed");
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+}
+
+#[test]
+fn ordinary_static_queries_require_checked_exports_and_compose_across_private_views(){
+ let crates=InferCrates::new();
+ let provider=r#"use vstd::prelude::*;
+ pub struct Slots<T>(Vec<T>);
+ impl<T> View for Slots<T>{type V=Seq<T>;closed spec fn view(&self)->Self::V{self.0@}}
+ impl Slots<u8>{
+  pub closed spec fn length_value(&self)->usize{self.0@.len() as usize}
+  pub fn length_checked(&self)->(r:usize) ensures r==self.length_value(),{self.0.len()}
+ }
+ "#;
+ let consumer=r#"use vstd::prelude::*;pub struct State{pub slots:query_provider::Slots<u8>}
+ pub enum Error{First,Second}
+ #[verifier::infer]pub fn query(s:&State,n:usize)->Result<usize,Error>{Ok(s.slots.length_checked()+n)}
+ pub fn goal(s:&State)->(r:Result<usize,Error>) ensures r==Ok::<usize,Error>(s.slots.length_value()),{query(s,0)}
+ "#;
+ for _ in 0..2{
+  let r=crates.build("query_provider",provider,&[],&["--infer-goals","--no-cheating","--output-json"]);
+  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+  assert!(json_inference(&r)["functions"].as_array().unwrap().is_empty());
+  let r=crates.build("query_consumer",consumer,&["query_provider"],&["--no-cheating","--output-json"]);
+  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+  assert_eq!(json_inference(&r)["functions"][0]["proofs"]["exactness"]["status"],"proved");
+ }
+ let r=crates.build("query_provider",provider,&[],&["--infer-goals","--no-verify"]);
+ assert!(!r.status.success());assert!(!crates.vir("query_provider").exists());
+ assert!(String::from_utf8_lossy(&r.stderr).contains("requires full-crate verification"));
+ let broken=provider.replace("{self.0.len()}","{0}");
+ let r=crates.build("query_provider",&broken,&[],&["--infer-goals","--no-cheating"]);
+ assert!(!r.status.success());assert!(!crates.vir("query_provider").exists());
+ assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }

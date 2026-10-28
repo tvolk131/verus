@@ -28,6 +28,7 @@ mod loops;
 mod models;
 mod newtypes;
 mod propagation;
+mod panics;
 mod registry;
 mod records;
 mod record_models;
@@ -43,6 +44,12 @@ pub fn is_owned_summary(f:&Function)->bool{f.x.attrs.infer && f.x.attrs.infer_ow
 /// equivalent to the ordinary inherited trait precondition.
 pub fn is_wrapper_trait(f: &Function) -> bool {
     wrapper_traits::kind(f).is_some()
+}
+
+/// Independently recognize the existing core panic model's empty successful
+/// domain. Ordinary soundness still checks its requires-false obligation.
+pub fn is_panic_maximality_model(f:&Function,types:&Typs)->bool {
+    types.is_empty() && panics::model(f)==Some(panics::Model::Panic)
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
@@ -705,6 +712,9 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
                         unsupported(&e.span, "calls require an acyclic same-crate inferred callee or certified imported summary")
                     })?;
+                    if source && panics::model(callee).is_some() && !helper {
+                        return Err(unsupported(&e.span,"panic helpers require a complete literal-message panic"));
+                    }
                     if arithmetic::division_model(callee)
                         || slices::model(callee)
                         || arrays::equality_model(callee)
@@ -779,7 +789,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -876,9 +886,10 @@ pub fn infer_functions_with_datatypes(
     *report = GenerationReport::default();
     report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
     if !functions.iter().any(|f| f.x.attrs.infer) {
-        // A Clone provider may contain only an ordinary derived implementation.
-        // Its direct-view evidence still needs certification and export gating.
-        if functions.iter().any(|f| f.x.name.path.last_segment().as_str() == "__verus_clone_relation") {
+        // An ordinary Clone or checked-query provider may have no inference
+        // targets. Its direct-view evidence still needs certification and export gating.
+        if functions.iter().any(|f| f.x.name.path.last_segment().as_str() == "__verus_clone_relation"
+            || f.x.attrs.infer_trait_getter) {
             let prepared = sequence_views::prepare(functions, imported, datatypes);
             return Ok(cloning::prepare(&prepared, imported, datatypes));
         }

@@ -1191,11 +1191,21 @@ fn owned_return_exactness_rejects_missing_loose_and_wrong_fields_independently()
 
 #[test]
 fn result_precision_requires_tag_and_both_guarded_payloads() {
+    tagged_value_precision(false);
+}
+
+#[test]
+fn custom_error_precision_requires_each_tag_and_guarded_payload() {
+    tagged_value_precision(true);
+}
+
+fn tagged_value_precision(custom:bool) {
     let (template, _, _) = record_fixture();
     let mut datatype = template.datatype_map.values().next().unwrap().x.clone();
     let dt = Dt::Path(Arc::new(PathX {
         krate: CrateId::Core,
-        segments: Arc::new(vec![Arc::new("result".into()), Arc::new("Result".into())]),
+        segments: Arc::new(if custom{vec![Arc::new("application".into()),Arc::new("Error".into())]}
+            else{vec![Arc::new("result".into()), Arc::new("Result".into())]}),
     }));
     datatype.name = dt.clone();
     datatype.typ_params = Arc::new(vec![

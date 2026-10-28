@@ -56,16 +56,12 @@ fn borrowed_output_includes_all_selected_contents() {
     assert!(e.notes.iter().any(|d| d.message.contains("output exactness: PROVED")), "{e:?}");
 }
 #[test]
-fn general_error_payloads_remain_explicitly_unsupported() {
+fn bounded_error_payloads_compose_with_borrowed_collection_results() {
     let s = r#"use vstd::prelude::*;verus!{
  enum Error{Bad(u64),Other}
  #[verifier::infer] fn query(v:&Vec<u8>)->Result<&Vec<u8>,Error>{Ok(v)}
 }"#;
-    let e = verify_one_file("error_payload", s.into(), &["vstd", "--no-cheating"]).unwrap_err();
-    assert!(
-        e.errors.iter().any(|d| d.message.contains("unsupported owned input/output leaf")),
-        "{e:?}"
-    );
+    verify_one_file("error_payload", s.into(), &["vstd", "--no-cheating"]).unwrap();
 }
 
 #[test]

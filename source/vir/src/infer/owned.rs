@@ -62,7 +62,9 @@ pub(super) fn prepare(fs: &[Function], ds: &[Datatype]) -> Vec<Function> {
         .map(|f| {
             let mut x = f.x.clone();
             Arc::make_mut(&mut x.attrs).infer_owned =
-                x.attrs.infer && (heap(&x.inner_ret.x.typ, ds, 5) || result_query(f));
+                x.attrs.infer && (heap(&x.inner_ret.x.typ, ds, 5) || result_query(f)
+                    || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
+                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)));
             f.new_x(x)
         })
         .collect()
@@ -85,16 +87,37 @@ impl Val {
         Self { typ: t.expr.typ.clone(), node: Node::Atom(t) }
     }
     fn scalar(&self, span: &Span) -> Result<Term, VirErr> {
-        if let Node::Atom(t) = &self.node {
-            Ok(t.clone())
-        } else {
-            Err(unsupported(span, "owned scalar expression"))
+        match &self.node {
+            Node::Atom(t)=>Ok(t.clone()),
+            Node::Fields(fs) => {
+                let (op,_)=fs.first().ok_or_else(||unsupported(span,"empty value record"))?;
+                let fields=fs.iter().map(|(p,v)|Ok(Arc::new(air::ast::BinderX{
+                    name:p.field.clone(),a:v.scalar(span)?.expr,
+                }))).collect::<Result<Vec<_>,VirErr>>()?;
+                atom(SpannedTyped::new(span,&self.typ,ExprX::Ctor(op.datatype.clone(),op.variant.clone(),Arc::new(fields),None)))
+            }
+            Node::Result(ok,a,b)=>{
+                let ctor=|variant:&str,v:&Val|->Result<Term,VirErr>{
+                    let TypX::Datatype(dt,..)=&*self.typ else{return Err(unsupported(span,"Result value type"));};
+                    let value=v.scalar(span)?;
+                    term(span,&self.typ,ExprX::Ctor(dt.clone(),Arc::new(variant.into()),Arc::new(vec![Arc::new(air::ast::BinderX{
+                        name:crate::def::positional_field_ident(0),a:value.expr,
+                    })]),None),value.size+1)
+                };
+                if is_bool(ok,true){return ctor("Ok",a.as_ref().ok_or_else(||unsupported(span,"missing success value"))?);}
+                if is_bool(ok,false){return ctor("Err",b.as_ref().ok_or_else(||unsupported(span,"missing error value"))?);}
+                conditional(span,ok.clone(),ctor("Ok",a.as_ref().ok_or_else(||unsupported(span,"missing success value"))?)?,ctor("Err",b.as_ref().ok_or_else(||unsupported(span,"missing error value"))?)?)
+            }
+            _=>Err(unsupported(span, "owned scalar expression")),
         }
     }
 }
 #[derive(Clone)]
 struct State {
     locals: HashMap<VarIdent, Val>,
+    // Original immutable objects are separate from their logical sequence views.
+    // An opaque checked query may observe the object, not just its contents.
+    objects: HashMap<VarIdent, Term>,
     active: Term,
 }
 struct Engine<'a> {
@@ -107,6 +130,27 @@ struct Engine<'a> {
     remaining: usize,
 }
 impl Engine<'_> {
+    fn object(&self,s:&State,e:&Expr)->Result<Term,VirErr>{
+        fn place(s:&State,p:&Place,depth:usize)->Result<Term,VirErr>{
+            if depth==0{return Err(unsupported(&p.span,"query receiver projection depth"));}
+            match &p.x {
+                PlaceX::Local(n)=>s.objects.get(n).cloned().ok_or_else(||unsupported(&p.span,"query receiver needs an original immutable object")),
+                PlaceX::Temporary(e)=>expr(s,e,depth-1),
+                PlaceX::Field(op,base)=>{let v=place(s,base,depth-1)?;term(&p.span,&p.typ,ExprX::UnaryOpr(UnaryOpr::Field(op.clone()),v.expr),v.size+1)},
+                _=>Err(unsupported(&p.span,"query receiver projection")),
+            }
+        }
+        fn expr(s:&State,e:&Expr,depth:usize)->Result<Term,VirErr>{
+            if depth==0{return Err(unsupported(&e.span,"query receiver projection depth"));}
+            match &e.x {
+                ExprX::Var(n)=>s.objects.get(n).cloned().ok_or_else(||unsupported(&e.span,"query receiver needs an original immutable object")),
+                ExprX::ReadPlace(p,_)=>place(s,p,depth-1),
+                ExprX::UnaryOpr(UnaryOpr::Field(op),a)=>{let v=expr(s,a,depth-1)?;term(&e.span,&e.typ,ExprX::UnaryOpr(UnaryOpr::Field(op.clone()),v.expr),v.size+1)},
+                _=>Err(unsupported(&e.span,"query receiver must borrow an original immutable object")),
+            }
+        }
+        expr(s,e,8)
+    }
     fn spend(&mut self, s: &Span) -> Result<(), VirErr> {
         self.remaining = self
             .remaining
@@ -366,9 +410,20 @@ impl Engine<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Val, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
+        if panics::literal(e,self.all).is_some() {
+            self.require(s,boolean(span,false))?;
+            s.active=boolean(span,false);
+            return Ok(Val::atom(exits::unit_value(span)?));
+        }
         if let Some((_query,spec,types,args))=trait_getters::source_call(e,self.all) {
-            let args=args.iter().map(|a|self.expr(s,a)?.scalar(&a.span)).collect::<Result<Vec<_>,_>>()?;
+            let args=args.iter().enumerate().map(|(i,a)|{
+                if i==0 {if let Ok(v)=self.object(s,a){return Ok(v);}}
+                self.expr(s,a)?.scalar(&a.span)
+            }).collect::<Result<Vec<_>,_>>()?;
             return Ok(Val::atom(trait_getters::instantiate(&spec,&types,args,&self.f.x.typ_bounds)?));
+        }
+        if let Some(p)=propagation::recognize(e,self.all,&self.f.x.inner_ret.x.typ)? {
+            return self.propagate(s,e,p);
         }
         if let Some(t) = arithmetic::arch_constant(e) {
             return Ok(Val::atom(t));
@@ -388,12 +443,8 @@ impl Engine<'_> {
             }
             ExprX::UnaryOpr(op @ UnaryOpr::IsVariant { .. }, a) => {
                 let value = self.expr(s, a)?.scalar(span)?;
-                Ok(Val::atom(term(
-                    span,
-                    &bool_typ(),
-                    ExprX::UnaryOpr(op.clone(), value.expr),
-                    value.size + 1,
-                )?))
+                let UnaryOpr::IsVariant { datatype, variant } = op else { unreachable!() };
+                Ok(Val::atom(variant_test(span, value, datatype, variant)?))
             }
             ExprX::Unary(op @ UnaryOp::Clip { .. }, a) => {
                 let a = self.expr(s, a)?.scalar(span)?;
@@ -526,6 +577,11 @@ impl Engine<'_> {
                                         && !same(&b.typ, &Arc::new(TypX::Int(IntRange::USize)))
                                     {
                                         return Err(unsupported(span, "owned mutable local"));
+                                    }
+                                    if b.user_mut!=Some(true) {
+                                        if let Ok(origin)=self.object(s,&crate::ast_util::place_to_spec_expr(init)) {
+                                            s.objects.insert(b.name.clone(),origin);
+                                        }
                                     }
                                     s.locals.insert(b.name.clone(), v);
                                 }
@@ -810,9 +866,10 @@ impl Engine<'_> {
                 &|_, _, p| Ok(p.clone()),
             )
         };
-        let mut local = State { locals: HashMap::new(), active: s.active.clone() };
+        let mut local = State { locals: HashMap::new(), objects:HashMap::new(), active: s.active.clone() };
         for (p, a) in f.x.params.iter().zip(args.iter()) {
             local.locals.insert(p.x.name.clone(), self.expr(s, a)?);
+            if let Ok(origin)=self.object(s,a){local.objects.insert(p.x.name.clone(),origin);}
         }
         let pre = self.formula(&mut local, &subst(&f.x.require[0])?)?;
         self.require(s, pre)?;
@@ -848,6 +905,10 @@ impl Engine<'_> {
             } else {
                 name
             };
+            if let Some(spec)=self.all.get(name).filter(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)) {
+                let values=args.iter().enumerate().map(|(i,a)|if i==0{self.object(s,a)}else{self.formula(s,a)}).collect::<Result<Vec<_>,_>>()?;
+                return trait_getters::instantiate(spec,types,values,&self.f.x.typ_bounds);
+            }
             if self.all.get(resolved).is_some_and(|f| f.x.attrs.infer_sequence_view)
                 || self.all.get(resolved).and_then(collections::model)
                     == Some(collections::Model::View)
@@ -885,6 +946,7 @@ impl Engine<'_> {
             }
         }
         match &e.x {
+            ExprX::Ctor(..) => self.formula_value(s, e)?.scalar(&e.span),
             ExprX::Logical(op, a, b) => {
                 let a = self.formula(s, a)?;
                 let b = self.formula(s, b)?;
@@ -893,6 +955,10 @@ impl Engine<'_> {
             ExprX::Binary(op, a, b) => {
                 let a = self.formula(s, a)?;
                 let b = self.formula(s, b)?;
+                // Borrowed value payloads use the same logical value as their
+                // copied scalar. Substitution must retain this normalization.
+                let a = coerce(&e.span, a.clone(), base(&a.expr.typ))?;
+                let b = coerce(&e.span, b.clone(), base(&b.expr.typ))?;
                 summary::binary(&e.span, *op, a, b)
             }
             ExprX::If(c, a, Some(b)) => {
@@ -1077,6 +1143,26 @@ fn tag_expr(e: &Expr) -> Expr {
         ),
     )
 }
+// Push tag observations through complete value conditionals. In particular,
+// is_Some(if c { Some(x) } else { None }) is just c. Keep this in the
+// untrusted candidate builder; original-body precision proofs remain unchanged.
+fn variant_test(s: &Span, value: Term, datatype: &Dt, variant: &Ident) -> Result<Term, VirErr> {
+    match &value.expr.x {
+        ExprX::Ctor(dt, actual, _, None) if dt == datatype => Ok(boolean(s, actual == variant)),
+        ExprX::If(c, a, Some(b)) => {
+            let c = atom(c.clone())?;
+            let a = variant_test(s, atom(a.clone())?, datatype, variant)?;
+            let b = variant_test(s, atom(b.clone())?, datatype, variant)?;
+            if is_bool(&a, true) && is_bool(&b, false) { return Ok(c); }
+            if is_bool(&a, false) && is_bool(&b, true) { return exits::not(s, c); }
+            if is_bool(&a, false) && is_bool(&b, false) { return Ok(a); }
+            conditional(s, c, a, b)
+        }
+        _ => term(s, &bool_typ(), ExprX::UnaryOpr(UnaryOpr::IsVariant {
+            datatype: datatype.clone(), variant: variant.clone(),
+        }, value.expr), value.size + 1),
+    }
+}
 fn element(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype]) -> Result<Typ, VirErr> {
     if let Some(ts) = collections::vec_args(base(t)) {
         return Ok(ts[0].clone());
@@ -1231,8 +1317,9 @@ pub(super) fn infer(
         plans: vec![],
         remaining: FORMULA_BUDGET,
     };
-    let mut s = State { locals: HashMap::new(), active: boolean(&f.span, true) };
+    let mut s = State { locals: HashMap::new(), objects:HashMap::new(), active: boolean(&f.span, true) };
     for p in f.x.params.iter() {
+        s.objects.insert(p.x.name.clone(),atom(SpannedTyped::new(&p.span,&p.x.typ,ExprX::Var(p.x.name.clone())))?);
         s.locals.insert(
             p.x.name.clone(),
             eng.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 5)?,
@@ -1299,7 +1386,9 @@ fn validate_signature(
         || !x.decrease.is_empty()
         || x.decrease_by.is_some()
         || x.decrease_when.is_some()
-        || !(heap_known(&x.inner_ret.x.typ, all, ds, 5) || result_query(f))
+        || !(heap_known(&x.inner_ret.x.typ, all, ds, 5) || result_query(f)
+            || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
+            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {
         return Err(unsupported(
@@ -1336,6 +1425,13 @@ fn validate_signature(
                 *left -= 1;
                 return consume(a, all, ds, depth - 1, left)
                     && consume(b, all, ds, depth - 1, left);
+            }
+            if let Some(vs)=records::shape::variants(t,ds) {
+                for (_,fs) in vs {
+                    if *left==0{return false;} *left-=1;
+                    if !fs.iter().all(|(_,t)|consume(t,all,ds,depth-1,left)){return false;}
+                }
+                return true;
             }
             if let Some(fs) = records::shape::fields(t, ds) {
                 return fs.iter().all(|(_, t)| consume(t, all, ds, depth - 1, left));
@@ -1393,8 +1489,9 @@ pub(super) fn validate_summary(
         plans: vec![],
         remaining: FORMULA_BUDGET,
     };
-    let mut s = State { locals: HashMap::new(), active: boolean(&f.span, true) };
+    let mut s = State { locals: HashMap::new(), objects:HashMap::new(), active: boolean(&f.span, true) };
     for p in f.x.params.iter() {
+        s.objects.insert(p.x.name.clone(),atom(SpannedTyped::new(&p.span,&p.x.typ,ExprX::Var(p.x.name.clone())))?);
         s.locals.insert(
             p.x.name.clone(),
             e.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 5)?,
@@ -1475,7 +1572,8 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
                     f.x.mode == Mode::Spec
                         && (collections::model(f).is_some()
                             || model(f).is_some()
-                            || f.x.attrs.infer_sequence_view)
+                            || f.x.attrs.infer_sequence_view
+                            || f.x.attrs.infer_trait_observation && trait_getters::observation(f))
                 })
             }
             _ => false,

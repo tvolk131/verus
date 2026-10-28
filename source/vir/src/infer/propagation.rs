@@ -177,8 +177,8 @@ pub(super) struct Propagation {
     pub operand: Expr,
     pub branch: Expr,
     pub residual: Expr,
-    kind: Carrier,
-    return_type: Typ,
+    pub kind: Carrier,
+    pub return_type: Typ,
 }
 
 fn static_call(e: &Expr) -> Option<(&Fun, &Typs, &ImplPaths, &Exprs)> {
@@ -310,8 +310,11 @@ pub(super) fn recognize(
         || !impls.is_empty()
         || args.len() != 1
         || typs.len() != if kind == Carrier::Option { 1 } else { 2 }
-        || !enums::supported(&args[0].typ)
-        || !enums::supported(result)
+        // Payload eligibility belongs to the enclosing interpreter/signature.
+        // This recognizer certifies only the complete canonical lowering.
+        || !matches!(&**result,TypX::Datatype(Dt::Path(p),ts,_)
+            if path_is(p,CrateId::Core,match kind{Carrier::Option=>&["option","Option"],Carrier::Result=>&["result","Result"]})
+                && ts.len()==if kind==Carrier::Option{1}else{2})
         || !crate::ast_util::types_equal(&args[0].typ, &carrier(kind, typs.as_ref().clone()))
         || !crate::ast_util::types_equal(&e.typ, &typs[0])
     {
@@ -394,6 +397,10 @@ pub(super) fn visit_calls(
         &mut crate::ast_visitor::VisitorScopeMap::new(),
         &mut |_, e| {
             let checked = (|| {
+                if let Some(calls)=panics::literal(e,functions) {
+                    for call in calls {callback(&call,true)?;}
+                    return Ok(true);
+                }
                 if let Some(range) = slices::range_call(e, functions)? {
                     callback(&range.helper, true)?;
                     visit_calls(&range.base, result, functions, callback)?;

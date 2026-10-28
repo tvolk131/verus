@@ -6,6 +6,9 @@
 //! are published only after full verification and bound to inference metadata.
 use super::*;
 
+#[derive(PartialEq,Eq)]
+enum Owner { Trait(Path), Static }
+
 pub(super) fn shared(t: &Typ) -> Option<&Typ> {
     match &**t {
         TypX::Decorate(TypDecoration::Ref, None, t) => Some(t),
@@ -13,9 +16,16 @@ pub(super) fn shared(t: &Typ) -> Option<&Typ> {
     }
 }
 
-fn header(f: &Function, mode: Mode) -> Option<Path> {
+fn header(f: &Function, mode: Mode) -> Option<Owner> {
     let x = &f.x;
-    let FunctionKind::TraitMethodDecl { trait_path, .. } = &x.kind else { return None };
+    let owner=match &x.kind {
+        FunctionKind::TraitMethodDecl{trait_path,..} if x.typ_params.len()==1
+            && matches!(x.params.first().and_then(|p|shared(&p.x.typ)).map(|t|&**t),Some(TypX::TypParam(n)) if n==&x.typ_params[0])=>Owner::Trait(trait_path.clone()),
+        FunctionKind::Static if x.typ_params.is_empty() && x.typ_bounds.is_empty()
+            && eligibility::scalar(&x.inner_ret.x.typ)
+            && matches!(x.params.first().and_then(|p|shared(&p.x.typ)).map(|t|&**t),Some(TypX::Datatype(..)))=>Owner::Static,
+        _=>return None,
+    };
     if x.mode != mode
         || x.attrs.infer
         || x.attrs.is_external_body
@@ -23,7 +33,6 @@ fn header(f: &Function, mode: Mode) -> Option<Path> {
         || x.attrs.is_async
         || x.attrs.prophecy_dependent
         || x.proxy.is_some()
-        || x.typ_params.len() != 1
         || !(1..=3).contains(&x.params.len())
         || x.params.iter().any(|p| p.x.mode != mode || p.x.user_mut)
         || x.params.iter().skip(1).any(|p| !eligibility::scalar(&p.x.typ))
@@ -37,11 +46,10 @@ fn header(f: &Function, mode: Mode) -> Option<Path> {
         || !x.ensure.1.is_empty()
         || x.returns.is_some()
         || !crate::ast_util::types_equal(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
-        || !matches!(shared(&x.params[0].x.typ).map(|t|&**t),Some(TypX::TypParam(n)) if n==&x.typ_params[0])
     {
         return None;
     }
-    Some(trait_path.clone())
+    Some(owner)
 }
 
 fn local(e: &Expr, name: &VarIdent) -> bool {
@@ -67,7 +75,7 @@ pub(super) fn observation(f: &Function) -> bool {
 }
 
 pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Function> {
-    let path = header(f, Mode::Exec)?;
+    let owner = header(f, Mode::Exec)?;
     if f.x.ensure.0.len() != 1 {
         return None;
     }
@@ -76,7 +84,7 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
         return None;
     }
     let ExprX::Call {
-        target: CallTarget::Fun(CallTargetKind::Dynamic, name, types, impls, _),
+        target: CallTarget::Fun(kind, name, types, impls, _),
         args,
         post_args: None,
         body: None,
@@ -85,11 +93,11 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
         return None;
     };
     let spec = all.get(name)?;
-    if header(spec, Mode::Spec)? != path
+    if header(spec, Mode::Spec)? != owner
         || !observation(spec)
         || args.len() != f.x.params.len()
         || spec.x.params.len() != f.x.params.len()
-        || types.len() != 1
+        || types.len() != f.x.typ_params.len()
         || !impls.is_empty()
         || !args.iter().zip(f.x.params.iter()).all(|(a, p)| local(a, &p.x.name))
         || !spec
@@ -98,7 +106,10 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
             .iter()
             .zip(f.x.params.iter())
             .all(|(a, b)| crate::ast_util::types_equal(&a.x.typ, &b.x.typ))
-        || !matches!(&*types[0],TypX::TypParam(n) if n==&f.x.typ_params[0])
+        || !(match owner {
+            Owner::Trait(_)=>matches!(kind,CallTargetKind::Dynamic) && matches!(&*types[0],TypX::TypParam(n) if n==&f.x.typ_params[0]),
+            Owner::Static=>matches!(kind,CallTargetKind::Static),
+        })
         || !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, &rhs.typ)
     {
         return None;
@@ -146,7 +157,7 @@ pub(super) fn source_call(
     all: &HashMap<Fun, Function>,
 ) -> Option<(Function, Function, Typs, Exprs)> {
     let ExprX::Call {
-        target: CallTarget::Fun(CallTargetKind::Dynamic, name, types, impls, _),
+        target: CallTarget::Fun(kind, name, types, impls, _),
         args,
         post_args: None,
         body: None,
@@ -156,12 +167,16 @@ pub(super) fn source_call(
     };
     let f = all.get(name)?;
     if !f.x.attrs.infer_trait_getter
-        || types.len() != 1
+        || types.len() != f.x.typ_params.len()
         || args.len() != f.x.params.len()
         || !impls.is_empty()
     {
         return None;
     }
+    if !(match header(f,Mode::Exec)? {
+        Owner::Trait(_)=>matches!(kind,CallTargetKind::Dynamic),
+        Owner::Static=>matches!(kind,CallTargetKind::Static),
+    }){return None;}
     let spec = relation(f, all)?;
     if !spec.x.attrs.infer_trait_observation {
         return None;
@@ -237,7 +252,7 @@ pub(super) fn instantiate(
         &ret,
         ExprX::Call {
             target: CallTarget::Fun(
-                CallTargetKind::Dynamic,
+                if matches!(spec.x.kind,FunctionKind::Static){CallTargetKind::Static}else{CallTargetKind::Dynamic},
                 spec.x.name.clone(),
                 types.clone(),
                 Arc::new(vec![]),

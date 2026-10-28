@@ -967,9 +967,14 @@ pub(super) fn constructor_fields(
                 _ => Err(invalid()),
             }
         }
+        Dt::Path(p) if models::path_is(p,CrateId::Core,&["result","Result"]) && args.len()==2 => {
+            let i=match variant.as_str(){"Ok"=>0,"Err"=>1,_=>return Err(invalid())};
+            Ok(vec![(crate::def::positional_field_ident(0),args[i].clone())])
+        }
         _ => shape::fields(typ, datatypes)
             .filter(|fs| fs.iter().all(|(op, _)| &op.datatype == dt && &op.variant == variant))
             .map(|fs| fs.into_iter().map(|(op, t)| (op.field, t)).collect())
+            .or_else(||shape::variants(typ,datatypes)?.into_iter().find(|(v,_)|v==variant).map(|(_,fs)|fs))
             .ok_or_else(invalid),
     }
 }
@@ -1144,7 +1149,7 @@ pub(super) fn validate_summary(
                     post_args: None,
                     body: None,
                     ..
-                } => matches!(
+                } => all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)) || matches!(
                     all.get(name).and_then(collections::model),
                     Some(
                         Model::View

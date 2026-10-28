@@ -360,6 +360,30 @@ fn observations(
     if nested {
         let TypX::Datatype(dt, args, _) = &**typ else { unreachable!() };
         let d = ctx.datatype_map.get(dt).ok_or_else(bad)?;
+        // Enumerate every tag and every guarded payload from the datatype,
+        // independently of the candidate's equations or selected constructor.
+        if (2..=8).contains(&d.x.variants.len()) && d.x.typ_params.len()==args.len()
+            && d.x.variants.iter().all(|v|v.fields.len()<=4 && v.fields.iter().all(|f|f.a.1==Mode::Exec))
+        {
+            let ts=d.x.typ_params.iter().zip(args.iter()).map(|(p,t)|(p.0.clone(),t.clone())).collect();
+            for variant in d.x.variants.iter() {
+                let tag=|v:Exp|SpannedTyped::new(span,&bool_typ(),ExpX::UnaryOpr(
+                    UnaryOpr::IsVariant{datatype:dt.clone(),variant:variant.name.clone()},v));
+                out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,tag(a.clone()),tag(b.clone()))));
+                for f in variant.fields.iter() {
+                    let t=crate::sst_util::subst_typ(&ts,&f.a.0);
+                    let t=if let TypX::Boxed(t)=&*t {t.clone()}else{t};
+                    let op=UnaryOpr::Field(FieldOpr{datatype:dt.clone(),variant:variant.name.clone(),field:f.name.clone(),get_variant:false,check:VariantCheck::None});
+                    let mut payload=vec![];
+                    observations(ctx,span,&t,SpannedTyped::new(span,&t,ExpX::UnaryOpr(op.clone(),a.clone())),
+                        SpannedTyped::new(span,&t,ExpX::UnaryOpr(op,b.clone())),depth-1,&mut payload)?;
+                    if out.len()+payload.len()>16{return Err(bad());}
+                    for eq in payload {out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Implies,tag(a.clone()),eq)));}
+                }
+                if out.len()>16{return Err(bad());}
+            }
+            return Ok(());
+        }
         if !d.x.variants.is_empty()
             && d.x.variants.len() <= 4
             && d.x.variants.iter().all(|v| v.fields.is_empty())
