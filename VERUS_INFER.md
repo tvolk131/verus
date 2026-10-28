@@ -145,14 +145,14 @@ Implemented and covered by regression tests:
   Exact inference composes supplied trait queries with up to two scalar arguments,
   including complete Result policies for read-only record queries. A bounded
   Aleph experiment checks round projection, parent counts and future-round checks
-  behind explicit adapters; untouched native iterator-chain inference remains open.
+  behind explicit adapters; the newer native query profile below removes those adapters.
 - [x] Bounded data-bearing value enums, including generic/associated hash payloads,
   compose through exact Result and identity `?` propagation. Independent precision
   checks observe every tag and guarded payload. Literal-message runtime assertions
   retain their failure domain. Ordinary checked concrete scalar queries compose
   with immutable private collection receivers. Aleph's original noninitial
   assertion/lookup/propagation sequence now infers exact typed errors and first-error
-  priority; two collection pipelines still use explicit checked adapters.
+  priority; the newer native query profile below removes the two collection adapters.
 - [x] Bounded native finite iterator queries through supplied checked factory views:
   `count`, pure scalar/field `filter(...).count()` and temporary-iterator `any(...)`.
   Callback precision is checked independently against original executable bodies.
@@ -162,6 +162,15 @@ Implemented and covered by regression tests:
   trusted Rust-library model. Aleph's original noninitial validation now infers
   all typed errors with both count/search implementation adapters removed; views,
   factory proofs, policy and goals remain supplied.
+- [x] Total native construction folds over supplied finite iterator factories:
+  one local sequence accumulator, exact inferred mutable-view updates, generated
+  prefix/length/readiness invariants and the unchanged native loop. The initial
+  profile requires `true` as its safe domain and rejects unsafe inputs rather than
+  restricting them. Ordinary complete-view mutations also compose without a loop.
+  Checked generic value queries support associated hash results. Aleph's original
+  ControlHash::new now infers its complete fold/hash relation and a supplied caller
+  connects it to typed noninitial validation. Partial-domain/arbitrary iterator
+  loops and initial-round validation remain open.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -511,7 +520,16 @@ APIs and research directions.
     standard-library specifications are an explicit added trusted boundary; the
     library implementation itself is not verified. Construction-loop inference and
     initial-round hash validation remain separate work.
-22. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+22. **Native construction checkpoint implemented.** Exact total folds compose
+    inferred mutable collection summaries without rewriting the original loop.
+    Generated proof nodes retain separate compiler identities and Spec-mode
+    constructor metadata; executable borrow/type-invariant checks stay intact.
+    Aleph's original ControlHash::new and create_control_hash body are connected
+    to the complete typed noninitial validator. The original loop's summary is
+    inferred; collection/factory meanings, a checked hash query, codec boundary
+    and application goals remain supplied. Native constructors exercise the real
+    codec/hasher separately from the proof-only encoding model.
+23. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

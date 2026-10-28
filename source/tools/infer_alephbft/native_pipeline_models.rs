@@ -22,6 +22,9 @@ impl<T> NodeMap<T> {
     pub fn iter<'a>(&'a self) -> (result: impl Iterator<Item = (NodeIndex, &'a T)> + 'a)
         ensures
             finite_native_view(result, self.entries_value()),
+            forall|i: int|
+                0 <= i < self.entries_value().len() ==> #[trigger] self.entries_value()[i].0.0
+                    < self@.len(),
     {
         let values = self.0.as_slice();
         let indexed = values.iter().enumerate();
@@ -52,6 +55,15 @@ impl<T> NodeMap<T> {
                     },
             );
             assert(filter_map_outputs(result).is_prefix_of(full));
+            assert forall|k: int|
+                0 <= k < self.entries_value().len() implies #[trigger] self.entries_value()[k].0.0
+                < self@.len() by {
+                flatten_options_witness(full, k);
+                let i = choose|i: int|
+                    0 <= i < full.len() && full[i] == Some(flatten_options(full)[k]);
+                assert(full[i].unwrap().0.0 == i);
+            }
+
             flatten_options_prefix(filter_map_outputs(result), full);
             assert(result.will_return_none() ==> filter_map_outputs(result) =~= full);
         }

@@ -314,7 +314,54 @@ pub broadcast axiom fn filter_map_count_supported<I: Iterator, F>(iter: FilterMa
         #[trigger] native_count_supported(iter),
 ;
 
+/// Every flattened element comes from a present original slot.
+pub broadcast proof fn flatten_options_witness<T>(values: Seq<Option<T>>, index: int)
+    requires
+        0 <= index < flatten_options(values).len(),
+    ensures
+        ({
+            let value = #[trigger] flatten_options(values)[index];
+            exists|i: int| 0 <= i < values.len() && #[trigger] values[i] == Some(value)
+        }),
+{
+    broadcast use {crate::seq::group_seq_lemmas, crate::seq_lib::group_filter_ensures};
+
+    let present = values.filter(|v: Option<T>| v.is_some());
+    assert(present[index].is_some());
+    assert(present.contains(present[index]));
+    values.lemma_filter_contains_rev(|v: Option<T>| v.is_some(), present[index]);
+    assert(values.contains(present[index]));
+    let i = choose|i: int| 0 <= i < values.len() && values[i] == present[index];
+    assert(values[i] == Some(flatten_options(values)[index]));
+}
+
+/// Checked induction step used by generated total native fold invariants.
+pub broadcast proof fn fold_prefix_step<A, B>(
+    values: Seq<A>,
+    initial: B,
+    f: spec_fn(B, A) -> B,
+    index: int,
+)
+    requires
+        0 <= index < values.len(),
+    ensures
+        values.take(index + 1).fold_left(initial, f) == f(
+            #[trigger] values.take(index).fold_left(initial, f),
+            values[index],
+        ),
+{
+    broadcast use crate::seq::group_seq_lemmas;
+
+    let prefix = values.take(index);
+    assert(values.take(index + 1) =~= prefix.push(values[index]));
+    assert(prefix.push(values[index]).drop_last() =~= prefix);
+    assert(prefix.push(values[index]).last() == values[index]);
+    reveal(Seq::fold_left);
+}
+
 pub broadcast group group_native_adapter_axioms {
+    fold_prefix_step,
+    flatten_options_witness,
     slice_count_post,
     map_count_post,
     enumerate_count_post,

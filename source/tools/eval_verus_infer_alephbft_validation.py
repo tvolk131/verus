@@ -13,7 +13,7 @@ from pathlib import Path
 from eval_verus_infer_alephbft import REVISION, git
 from eval_verus_infer_alephbft_parents import item, FIXTURES, ROOT, NODE, CORRECTED, prepare, validate_native
 from eval_verus_infer_alephbft_traits import UNITS
-from eval_verus_infer_alephbft_units import real_api, CONTROL, HASHER, CODEC_MODEL
+from eval_verus_infer_alephbft_units import real_api, method, CONTROL, HASHER, CODEC_MODEL
 from eval_verus_infer_alephbft_native_collector import COMPARISONS, QUERY_MODELS
 from eval_verus_infer_alephbft_private import validate
 from infer_eval_support import ArtifactGuard, host_info, measured, tool_artifacts
@@ -36,6 +36,43 @@ def native_models(node, control):
         if re.sub(r'\s+', '', actual) != re.sub(r'\s+', '', body):
             raise ValueError('native iterator factory changed: '+marker)
     return (FIXTURES/'native_pipeline_models.rs').read_text()
+
+
+def construction_api(control):
+    implementation=item(control,'impl<H: Hasher> ControlHash<H>')[2]
+    constructor=item(implementation,'pub fn new(')[2]
+    helper=method(implementation,'pub fn create_control_hash(','H::Hash',
+        'result == Self::construction_hash(parent_map)')
+    return (FIXTURES/'native_construction_models.rs').read_text().replace(
+        '// ORIGINAL_HASH_HELPER',helper).replace('// ORIGINAL_CONSTRUCTOR',
+        '#[verifier::infer]\n'+constructor)
+
+
+def native_construction_runtime(runtime):
+    old = 'let control = ControlHash::<Hasher64> { parents, combined_hash: [0; 8] };'
+    new = """let mut hashes = NodeMap::with_size(NodeCount(size));
+                for index in 0..size {
+                    if let Some(&round) = parents.get(NodeIndex(index)) {
+                        hashes.insert(NodeIndex(index), ([index as u8; 8], round));
+                    }
+                }
+                let control = ControlHash::<Hasher64>::new(&hashes);
+                for index in 0..size {
+                    assert_eq!(control.parents.get(NodeIndex(index)).copied(), parents.get(NodeIndex(index)).copied());
+                }
+                assert_eq!(control.combined_hash, ControlHash::<Hasher64>::create_control_hash(&hashes));
+                constructed += 1;"""
+    if runtime.count(old)!=1:
+        raise ValueError('constructor corpus state site changed')
+    runtime=runtime.replace('    let mut cases = 0;', '    let mut cases = 0;\n    let mut constructed = 0;').replace(old,new)
+    extra="""    assert_eq!(constructed, 378);
+    let empty_input = NodeMap::with_size(NodeCount(0));
+    let constructed_empty = ControlHash::<Hasher64>::new(&empty_input);
+    assert_eq!(constructed_empty.parents.size().0, 0);
+    assert!(constructed_empty.check_if_parents_greater_than_previous_round(0).is_ok());
+    println!("NATIVE_CONSTRUCTORS=378;EMPTY=1");
+"""
+    return runtime.replace('    println!("INFER_VALIDATION_CASES=',extra+'    println!("INFER_VALIDATION_CASES=')
 
 
 def validation_api(control, native_pipelines=False):
@@ -92,8 +129,12 @@ def main():
     parser.add_argument('--z3', type=Path, default=ROOT/'source/z3')
     parser.add_argument('--native-tests', action='store_true')
     parser.add_argument('--native-pipelines', action='store_true')
+    parser.add_argument('--native-construction', action='store_true')
     parser.add_argument('--native-target', type=Path)
     args = parser.parse_args()
+    if args.native_construction:
+        args.native_pipelines = True
+    inferred_count = 16 if args.native_construction else 15
     output = args.output.resolve()
     if output.exists() and any(output.iterdir()):
         parser.error('output must be new or empty')
@@ -117,6 +158,8 @@ def main():
         if args.native_pipelines:
             api = api.replace('vstd::seq::group_seq_axioms};',
                 'vstd::seq::group_seq_axioms,vstd::seq::group_seq_lemmas,vstd::std_specs::iter::group_iter_axioms,vstd::std_specs::iter_adapters::group_native_adapter_axioms};')
+        if args.native_construction:
+            api += construction_api(control)
         result['source'] = dict(**origin,
             bodies='original six-variant Error<H>, own-parent lookup, n_members, runtime assertion and three-stage ? orchestration',
             adaptations='two iterator pipelines replaced by ordinary checked finite collection queries; positive-round validation scope',
@@ -130,6 +173,12 @@ def main():
                 supplied='direct collection/iterator views, checked factory proofs, eligible policy, exact typed-error goals, state constructor',
                 boundaries='new explicit native Rust-library count/enumerate/filter_map models; existing SCALE codec and verified lock; corrected quorum; original u16 rounds',
                 not_claimed='automatic iterator-factory or arbitrary-loop inference, ControlHash::new, initial-round hash validation, full crate/protocol correctness')
+        if args.native_construction:
+            result['source'].update(
+                construction='original ControlHash::new body and native for loop infer an exact unrestricted-domain fold summary; original create_control_hash is an ordinary checked generic value query',
+                construction_goals='supplied exact fold/hash goals and constructed-value-to-typed-validation caller',
+                construction_runtime='untouched native constructors exercise real SCALE/hasher implementations; proof-target runtime retains direct supplied states because the declared codec bridge is proof-only',
+                not_claimed='automatic factory/view discovery, partial-domain or arbitrary loops, initial-round validation, proof of SCALE bytes or full protocol correctness')
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK='20971520',
                    VERUS_INFER_CACHE=str(output/'candidate-cache'))
         codec_lib, codec_vir = directory/'libcodec_model.rlib', directory/'codec_model.vir'
@@ -169,6 +218,9 @@ def main():
         if args.native_pipelines:
             cases = [row for row in cases if row[0] != 'wrong-query-callback']
             cases.insert(-1, ('wrong-query-callback', api.replace('parent.round == round - 1', 'parent.round < round - 1'), False))
+        if args.native_construction:
+            cases.insert(-1, ('wrong-construction-round', api.replace('insert(parent_index, *parent_round)', 'insert(parent_index, 0)'), False))
+            cases.insert(-1, ('wrong-construction-hash', api.replace('parent_map.using_encoded(H::hash)', 'H::hash(&[])'), False))
         for case, text, expected in cases:
             if not expected and text == api:
                 raise ValueError('ineffective mutation: '+case)
@@ -179,7 +231,7 @@ def main():
             guard.check(); codec_guard.check()
             (output/(case+'.stdout.json')).write_text(run['stdout'])
             (output/(case+'.stderr.txt')).write_text(run['stderr'])
-            data = validate(run, expected, 15)
+            data = validate(run, expected, inferred_count)
             if not expected:
                 if interface.exists():
                     raise ValueError('failed provider published interface')
@@ -212,7 +264,7 @@ def main():
         guard.check(); codec_guard.check()
         (output/'runtime.stdout.json').write_text(run['stdout'])
         (output/'runtime.stderr.txt').write_text(run['stderr'])
-        data = validate(run, True, 15)
+        data = validate(run, True, inferred_count)
         result['runs'].append(dict(case='runtime-build', verification=data['verification-results'],
             report=data['verus-infer'], wall_micros=run['wall_micros']))
         run = measured([str(directory/'validation-runtime')], env, 30, ROOT)
@@ -222,7 +274,10 @@ def main():
         result['native'].append(dict(case='adapted-runtime', returncode=run['returncode'], wall_micros=run['wall_micros']))
         if args.native_tests:
             end = control.rfind('}')
-            (checkout/CONTROL).write_text(control[:end]+runtime+
+            native_runtime = runtime
+            if args.native_construction:
+                native_runtime = native_construction_runtime(runtime)
+            (checkout/CONTROL).write_text(control[:end]+native_runtime+
                 '\n#[test] fn inferred_validation_corpus(){validation_corpus();}\n'+control[end:])
             native_env = dict(os.environ)
             native_env.pop('RUSTUP_TOOLCHAIN', None)
@@ -236,6 +291,8 @@ def main():
             validate_native(run, True, 'native-validation')
             if 'INFER_VALIDATION_CASES=7704;ZERO_ROUND_PANIC=1' not in run['stdout']:
                 raise ValueError('untouched native corpus did not complete')
+            if args.native_construction and 'NATIVE_CONSTRUCTORS=378;EMPTY=1' not in run['stdout']:
+                raise ValueError('native constructor corpus did not execute')
             result['native'].append(dict(case='untouched-native', returncode=run['returncode'], wall_micros=run['wall_micros']))
         result['success'] = True
     except Exception as error:

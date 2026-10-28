@@ -1,7 +1,7 @@
 """Keep native error payloads, assertion, and propagation source-connected."""
 import unittest
 
-from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models
+from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, RUNTIME
 from eval_verus_infer_alephbft_parents import item
 
 
@@ -61,6 +61,26 @@ class ValidationSourceTests(unittest.TestCase):
             native_models(node.replace('NodeIndex(idx)', 'NodeIndex(0)'), control)
         with self.assertRaises(ValueError):
             native_models(node, control.replace('new(round,', 'new(0,'))
+
+    def test_native_constructor_and_hash_bodies_are_preserved(self):
+        original = SOURCE.replace('pub fn n_members', '''pub fn new(parents_with_rounds_and_hashes: &NodeMap<(H::Hash, Round)>) -> Self {
+            let mut parents_with_rounds = NodeMap::with_size(parents_with_rounds_and_hashes.size());
+            for (parent_index, (_, parent_round)) in parents_with_rounds_and_hashes.iter() {
+                parents_with_rounds.insert(parent_index, *parent_round);
+            }
+            ControlHash { parents: parents_with_rounds, combined_hash: Self::create_control_hash(parents_with_rounds_and_hashes) }
+        }
+        pub fn create_control_hash(parent_map: &NodeMap<(H::Hash, Round)>) -> H::Hash { parent_map.using_encoded(H::hash) }
+        pub fn n_members''')
+        generated = construction_api(original)
+        self.assertIn(item(original, 'pub fn new(')[2], generated)
+        self.assertEqual(item(original, 'pub fn create_control_hash(')[2].split('{', 1)[1],
+            item(generated, 'pub fn create_control_hash(')[2].split('{', 1)[1])
+        native = native_construction_runtime(RUNTIME.read_text())
+        self.assertIn('ControlHash::<Hasher64>::new(&hashes)', native)
+        self.assertIn('NATIVE_CONSTRUCTORS=378;EMPTY=1', native)
+        with self.assertRaises(ValueError):
+            native_construction_runtime('fn changed_corpus() {}')
 
     def test_changed_native_pipeline_is_not_silently_adapted(self):
         for old, new in [('parent.round == round - 1', 'parent.round < round - 1'),

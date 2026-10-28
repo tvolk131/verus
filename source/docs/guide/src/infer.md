@@ -774,6 +774,54 @@ The separate checked `vstd::iter` implementations below still add no iterator
 axioms. See the [native factory example](../../../tools/infer_alephbft/native_pipeline_models.rs)
 and its [source-connected Aleph experiment](../../../tools/infer_alephbft/README.md).
 
+## Total native construction loops
+
+A bounded owned constructor can now use one native `for` loop over a supplied
+finite factory. The loop updates one local collection through an already inferred
+mutable method whose contract describes the complete sequence view. For example,
+a `Slots<T>` collection with inferred `with_size`, `size` and `insert` methods and
+a checked native `iter` factory can use:
+
+```rust
+#[verus_infer]
+fn copied<T: Copy>(source: &Slots<T>) -> Slots<T> {
+    let mut out = Slots::with_size(source.size());
+    for (index, value) in source.iter() {
+        out.insert(index, *value);
+    }
+    out
+}
+```
+
+Inference composes the checked mutation equation and proposes a sequence fold over
+the supplied full iterator view. Generated invariants relate the accumulator to
+the visited prefix, preserve its length, and establish readiness for each update.
+The original native loop and update calls remain unchanged. Existing iterator
+scaffolding, invariant checks and decreasing measures are retained.
+
+This first loop profile requires an **unrestricted input domain**. It always
+proposes `requires true`; Verus must prove the original body safe and terminating
+for every input of its Rust types. A partial callback or unsafe index shift causes
+verification to fail rather than producing a restrictive domain. Maximality is
+trivial for `true`, and its independent query retains the original safety checks.
+Output exactness still compares arbitrary complete output views with the actual
+return value. Partial-domain folds, early exits, nested loops, multiple mutable
+accumulators and arbitrary iterator loops remain unsupported.
+
+Complete inferred sequence-view mutations also compose into owned constructors
+without loops, with their ordinary exact safety requirements. This profile
+currently requires a local receiver, unit return, value arguments and one full
+final-view equation on a direct single-vector wrapper. Generic precondition-free
+ordinary exact queries may return a type parameter or associated value type;
+these retain supplied meanings and require full provider verification.
+
+Aleph's original `ControlHash::new` now infers its fold and combined-hash equations.
+Its original `create_control_hash` body is an ordinary checked generic query through
+the existing declared codec model. A supplied caller connects the newly constructed
+value to the original noninitial validator and its exact typed error policy. The
+fold is a precise implementation equation; choosing or proving a simpler
+application abstraction remains separate from synthesis.
+
 ## Checked finite collection queries
 
 `vstd::iter` provides ordinary verified implementations of `SparseIter` for

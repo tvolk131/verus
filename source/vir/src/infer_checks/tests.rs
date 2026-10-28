@@ -1414,3 +1414,45 @@ fn callback_precision_is_independent_of_its_candidate_and_outer_preconditions() 
         assert_eq!(verifies(&ctx, &pars, &precision), expected);
     }
 }
+
+
+#[test]
+fn total_native_loop_precision_rechecks_safety_and_rejects_restrictive_domains() {
+    let (ctx, pars, mut check) = counted_loop_fixture();
+    let yes = SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(true)));
+    check.reqs = Arc::new(vec![yes.clone()]);
+    check.body = crate::sst_visitor::map_stm_visitor(&check.body, &mut |stm| {
+        let mut out = stm.clone();
+        if let StmX::Loop { is_for_loop, invs, .. } = &mut Arc::make_mut(&mut out).x {
+            *is_for_loop = true;
+            Arc::make_mut(invs).push(LoopInv { at_entry: true, at_exit: true, inv: yes.clone() });
+        }
+        Ok(out)
+    })
+    .unwrap();
+    assert!(validate_query_kind(&check, None, &span()).is_ok());
+    // This original body can overflow. P=true must fail ordinary verification,
+    // and the native-loop maximality path must retain those safety checks.
+    assert!(!verifies(&ctx, &pars, &check));
+    let maximal =
+        precision_check_body(&span(), &pars[0].x.typ, &check, PrecisionCheck::Maximality).unwrap();
+    assert!(!verifies(&ctx, &pars, &maximal));
+    let mut restrictive = check.clone();
+    restrictive.reqs =
+        Arc::new(vec![SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(false)))]);
+    assert!(validate_query_kind(&restrictive, None, &span()).is_err());
+    assert!(
+        precision_check_body(&span(), &pars[0].x.typ, &restrictive, PrecisionCheck::Maximality)
+            .is_err()
+    );
+    let missing = crate::sst_visitor::map_stm_visitor(&check.body, &mut |stm| {
+        let mut out = stm.clone();
+        if let StmX::Loop { decrease, .. } = &mut Arc::make_mut(&mut out).x {
+            *decrease = Arc::new(vec![]);
+        }
+        Ok(out)
+    })
+    .unwrap();
+    check.body = missing;
+    assert!(validate_query_kind(&check, None, &span()).is_err());
+}

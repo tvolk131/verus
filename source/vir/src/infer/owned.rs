@@ -6,6 +6,8 @@ mod loops;
 mod models;
 mod sums;
 mod callbacks;
+mod native_for;
+mod mutations;
 use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
@@ -34,16 +36,6 @@ fn sequence_type(t: Typ) -> Typ {
         Arc::new(vec![]),
     ))
 }
-fn heap(t: &Typ, ds: &[Datatype], depth: usize) -> bool {
-    if depth == 0 {
-        return false;
-    }
-    collections::vec_args(base(t)).is_some()
-        || option(t).is_some_and(|t| heap(t, ds, depth - 1))
-        || sums::result(t).is_some_and(|(a, b)| heap(a, ds, depth - 1) || heap(b, ds, depth - 1))
-        || records::shape::fields(base(t), ds)
-            .is_some_and(|fs| fs.iter().any(|(_, t)| heap(t, ds, depth - 1)))
-}
 fn heap_known(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype], depth: usize) -> bool {
     depth > 0
         && (collections::vec_args(base(t)).is_some()
@@ -64,7 +56,7 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
         .map(|f| {
             let mut x = f.x.clone();
             Arc::make_mut(&mut x.attrs).infer_owned =
-                x.attrs.infer && (heap(&x.inner_ret.x.typ, ds, 5) || result_query(f)
+                x.attrs.infer && (heap_known(&x.inner_ret.x.typ, &all, ds, 5) || result_query(f)
                     || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
                     || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all));
             f.new_x(x)
@@ -415,6 +407,7 @@ impl Engine<'_> {
     }
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Val, VirErr> {
         self.spend(&e.span)?;
+        if let Some(source)=native_for::source(e){return self.native_for(s,&source);}
         let span = &e.span;
         if let Some((spec,types,args))=iterators::source_call(e,self.all) {
             let values=args.iter().enumerate().map(|(i,a)|{
@@ -879,6 +872,7 @@ impl Engine<'_> {
         if f.x.attrs.infer_allow_approx || f.x.require.len() != 1 || f.x.ensure.0.len() != 1 {
             return Err(unsupported(&e.span, "owned helpers require exact summaries"));
         }
+        if records::mutable(f){return self.mutable_sequence_helper(s,e,f,types,args);}
         let ts: HashMap<Ident, Typ> =
             f.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
         let subst = |expr: &Expr| {
@@ -952,7 +946,7 @@ impl Engine<'_> {
                     return Ok(t);
                 }
             }
-            if let Some(m @ (collections::Model::SeqLen|collections::Model::SeqIndex))=self.all.get(name).and_then(collections::model) {
+            if let Some(m @ (collections::Model::SeqLen|collections::Model::SeqIndex|collections::Model::SeqUpdate))=self.all.get(name).and_then(collections::model) {
                 let values=args.iter().map(|a|self.formula(s,a)).collect::<Result<Vec<_>,_>>()?;
                 return self.standard(&e.span,m,(**types).clone(),values);
             }
@@ -966,7 +960,7 @@ impl Engine<'_> {
                 let v = self.formula(s, body)?;
                 return self.repeat(&e.span, n, v);
             }
-            if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush | Model::SeqFilter)) =
+            if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush | Model::SeqFilter | Model::SeqFold)) =
                 self.all.get(name).and_then(model)
             {
                 let values =
@@ -1314,6 +1308,9 @@ fn skeleton(e: &Expr) -> String {
 }
 /// Reject user loop proofs before dependency traversal reaches their spec calls.
 pub(super) fn validate_source(f: &Function) -> Result<(), VirErr> {
+    let native=native_for::sources(f);
+    if native.len()>1{return Err(unsupported(&f.span,"one native for-loop per owned constructor"));}
+
     if let Some(body) = &f.x.body {
         crate::ast_visitor::expr_visitor_check(body, &mut |_, e| {
             if let ExprX::Loop {
@@ -1325,11 +1322,9 @@ pub(super) fn validate_source(f: &Function) -> Result<(), VirErr> {
                 ..
             } = &e.x
             {
-                if !invs.is_empty()
-                    || !decrease.is_empty()
-                    || *assume_termination
-                    || *is_for_loop
-                    || *atomic_call
+                let native_loop=*is_for_loop && native.iter().any(|s|s.loop_expr.span.id==e.span.id);
+                if !native_loop && (!invs.is_empty() || !decrease.is_empty() || *is_for_loop)
+                    || *assume_termination || *atomic_call
                 {
                     return Err(unsupported(
                         &e.span,
@@ -1337,11 +1332,15 @@ pub(super) fn validate_source(f: &Function) -> Result<(), VirErr> {
                     ));
                 }
             }
+            if !native.is_empty() && matches!(&e.x,ExprX::AssertAssume{is_assume:true,..}) {
+                return Err(unsupported(&e.span,"native for inference rejects assumptions"));
+            }
             Ok(())
         })?;
     }
     Ok(())
 }
+pub(crate) fn native_scaffold_call(f:&Function,e:&Expr,all:&HashMap<Fun,Function>)->bool{native_for::scaffold_call(f,e,all)}
 
 pub(super) fn infer(
     f: &Function,
@@ -1385,6 +1384,7 @@ pub(super) fn infer(
     for p in &eng.requirements {
         pre = logical(&f.span, LogicalOp::And, pre, p.clone())?;
     }
+    if !native_for::sources(f).is_empty(){pre=boolean(&f.span,true);}
     let out =
         SpannedTyped::new(&f.span, &f.x.inner_ret.x.typ, ExprX::Var(f.x.inner_ret.x.name.clone()));
     let post = eng.post(&result, &out)?;

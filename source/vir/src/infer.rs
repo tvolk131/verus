@@ -703,6 +703,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 if !source && matches!(&e.x,ExprX::Call{target:CallTarget::BuiltinSpecFun(..)|CallTarget::FnSpec(_),..}) {return Ok(());}
                 let rewritten = wrapper_traits::source_call(e, all);
                 let e = rewritten.as_ref().unwrap_or(e);
+                if is_owned_summary(f) && owned::native_scaffold_call(f,e,all){return Ok(());}
                 if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
                 if is_owned_summary(f) && (iterators::source_call(e,all).is_some() || iterators::operation(e,all).is_some()){return Ok(());}
@@ -723,7 +724,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         return Err(unsupported(&e.span,"source calls cannot contain embedded verification code"));
                     }
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
-                        unsupported(&e.span, "calls require an acyclic same-crate inferred callee or certified imported summary")
+                        unsupported(&e.span, &format!("calls require an acyclic same-crate inferred callee or certified imported summary: {name:?}"))
                     })?;
                     if source && panics::model(callee).is_some() && !helper {
                         return Err(unsupported(&e.span,"panic helpers require a complete literal-message panic"));
@@ -749,7 +750,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         && !collections::source_call(e, all)
                         && !record_models::as_ref(callee)
                         && !(records::candidate(f) && records::candidate(callee))
-                        && !(is_owned_summary(f) && (is_owned_summary(callee)||callee.x.typ_params.is_empty()))
+                        && !(is_owned_summary(f) && (is_owned_summary(callee)||records::mutable(callee)||callee.x.typ_params.is_empty()))
                         && (!typs.is_empty() || !impls.is_empty())
                     {
                         return Err(unsupported(&e.span, "generic calls"));
@@ -1142,6 +1143,9 @@ pub fn format_loop_proofs(function: &Function) -> Vec<serde_json::Value> {
 
 fn format_expr(e: &Expr) -> String {
     match &e.x {
+        ExprX::UnaryOpr(UnaryOpr::CustomErr(_) | UnaryOpr::AutoDecreases | UnaryOpr::AutoLoopEnsures | UnaryOpr::ProofNote(_),inner)=>format_expr(inner),
+        ExprX::Unary(UnaryOp::CoerceMode{..},inner)=>format!("({})@",format_expr(inner)),
+
         ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax), _)
             if arithmetic::arch_constant(e).is_some() =>
         {

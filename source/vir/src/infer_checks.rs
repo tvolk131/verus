@@ -31,6 +31,33 @@ pub fn validate_query_kind(
     // SST-to-AIR loop lowering. Never accept a loop with those checks disabled.
     crate::sst_visitor::map_stm_visitor(&check.body, &mut |stm| {
         if let StmX::Loop { loop_isolation, cond, invs, decrease, is_for_loop, .. } = &stm.x {
+            if *is_for_loop {
+                let is_true =
+                    |e: &Exp| matches!(&e.x, ExpX::Const(crate::ast::Constant::Bool(true)));
+                let total = match precision {
+                    None => check.reqs.len() == 1 && is_true(&check.reqs[0]),
+                    Some(PrecisionCheck::Maximality) => {
+                        check.reqs.is_empty()
+                            && check.post_condition.ens_exps.len() == 1
+                            && is_true(&check.post_condition.ens_exps[0])
+                    }
+                    Some(PrecisionCheck::Exactness) => {
+                        check.reqs.len() == 2
+                            && is_true(&check.reqs[0])
+                            && matches!(
+                                &check.reqs[1].x,
+                                ExpX::UnaryOpr(crate::ast::UnaryOpr::HasType(_), _)
+                            )
+                    }
+                };
+                if cond.is_some() || decrease.len() != 1 || invs.len() < 3 || !total {
+                    return Err(error(
+                        &stm.span,
+                        "Verus Infer: native for-loop precision requires an unrestricted domain and checked annotations",
+                    ));
+                }
+                return Ok(stm.clone());
+            }
             if *loop_isolation
                 || *is_for_loop
                 || cond.is_some()
@@ -74,8 +101,10 @@ pub fn precision_check(
     original: &FuncCheckSst,
     kind: PrecisionCheck,
 ) -> Result<FuncCheckSst, VirErr> {
-    if crate::infer::is_owned_summary(&ctx.func_map[&function.x.name]) && matches!(kind,PrecisionCheck::Exactness){
-        return state::returned(ctx,function,original);
+    if crate::infer::is_owned_summary(&ctx.func_map[&function.x.name])
+        && matches!(kind, PrecisionCheck::Exactness)
+    {
+        return state::returned(ctx, function, original);
     }
     if function.x.pars.iter().any(|p| matches!(&*p.x.typ, crate::ast::TypX::MutRef(_))) {
         if !crate::infer::is_record_summary(&ctx.func_map[&function.x.name]) {
@@ -97,7 +126,11 @@ pub fn precision_check(
             entry_requirements(&function.x.pars, &original.reqs);
         if crate::infer::is_wrapper_trait(&ctx.func_map[&function.x.name]) {
             check = trait_boundary(
-                &function.span, &function.x.pars, &function.x.decl.reqs, original, check,
+                &function.span,
+                &function.x.pars,
+                &function.x.decl.reqs,
+                original,
+                check,
             );
         }
     }
@@ -109,21 +142,36 @@ pub fn precision_check(
 /// equals the candidate domain used by inferred callers. The assertion is added
 /// AFTER the original safety assertions have been converted to assumptions.
 fn trait_boundary(
-    span: &Span, pars: &Pars, proposed: &Exps, original: &FuncCheckSst,
+    span: &Span,
+    pars: &Pars,
+    proposed: &Exps,
+    original: &FuncCheckSst,
     mut check: FuncCheckSst,
 ) -> FuncCheckSst {
     let proposed = entry_requirements(pars, proposed);
     let inherited = entry_requirements(pars, &original.reqs);
-    let relation = SpannedTyped::new(span, &bool_typ(), ExpX::Binary(
-        BinaryOp::Eq, crate::sst_util::sst_conjoin(span, &proposed),
-        crate::sst_util::sst_conjoin(span, &inherited),
-    ));
-    let assertion = crate::def::Spanned::new(span.clone(), StmX::Assert(None, Some(error(
-        span, "Verus Infer: inherited trait precondition must equal the inferred safe domain",
-    )), relation));
-    check.body = crate::def::Spanned::new(
-        span.clone(), StmX::Block(Arc::new(vec![assertion, check.body])),
+    let relation = SpannedTyped::new(
+        span,
+        &bool_typ(),
+        ExpX::Binary(
+            BinaryOp::Eq,
+            crate::sst_util::sst_conjoin(span, &proposed),
+            crate::sst_util::sst_conjoin(span, &inherited),
+        ),
     );
+    let assertion = crate::def::Spanned::new(
+        span.clone(),
+        StmX::Assert(
+            None,
+            Some(error(
+                span,
+                "Verus Infer: inherited trait precondition must equal the inferred safe domain",
+            )),
+            relation,
+        ),
+    );
+    check.body =
+        crate::def::Spanned::new(span.clone(), StmX::Block(Arc::new(vec![assertion, check.body])));
     Arc::make_mut(&mut check.post_condition).ens_exps = proposed;
     check
 }
@@ -153,8 +201,22 @@ fn precision_check_body(
             check.reqs = Arc::new(vec![]);
             post.ens_exps = original.reqs.clone();
             post.kind = PostConditionKind::InferMaximality;
-            check.body =
-                crate::sst_visitor::map_stm_visitor(&original.body, &mut |stm| match &stm.x {
+            let mut native_for = false;
+            crate::sst_visitor::map_stm_visitor(&original.body, &mut |s| {
+                native_for |= matches!(&s.x, StmX::Loop { is_for_loop: true, .. });
+                Ok(s.clone())
+            })?;
+            if native_for {
+                // Total native folds have P=true, independently gated above.
+                // Recheck the unchanged ordinary safety/termination obligations;
+                // there is no need to assume any successful-execution checks.
+                check.body = original.body.clone();
+                check.post_condition = Arc::new(post);
+                return Ok(check);
+            }
+            check.body = crate::sst_visitor::map_stm_visitor(
+                &original.body,
+                &mut |stm| match &stm.x {
                     StmX::Assert(_, _, condition) => {
                         Ok(Spanned::new(stm.span.clone(), StmX::Assume(condition.clone())))
                     }
@@ -199,7 +261,8 @@ fn precision_check_body(
                         &stm.span,
                         "Verus Infer incomplete: unexpected control flow in precision checker",
                     )),
-                })?;
+                },
+            )?;
         }
         PrecisionCheck::Exactness => {
             // For an arbitrary result y, prove Q(inputs,y) iff y is the observed

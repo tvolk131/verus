@@ -6,8 +6,11 @@
 //! are published only after full verification and bound to inference metadata.
 use super::*;
 
-#[derive(PartialEq,Eq)]
-enum Owner { Trait(Path), Static }
+#[derive(PartialEq, Eq)]
+enum Owner {
+    Trait(Path),
+    Static,
+}
 
 pub(super) fn shared(t: &Typ) -> Option<&Typ> {
     match &**t {
@@ -18,13 +21,29 @@ pub(super) fn shared(t: &Typ) -> Option<&Typ> {
 
 fn header(f: &Function, mode: Mode) -> Option<Owner> {
     let x = &f.x;
-    let owner=match &x.kind {
-        FunctionKind::TraitMethodDecl{trait_path,..} if x.typ_params.len()==1
-            && matches!(x.params.first().and_then(|p|shared(&p.x.typ)).map(|t|&**t),Some(TypX::TypParam(n)) if n==&x.typ_params[0])=>Owner::Trait(trait_path.clone()),
-        FunctionKind::Static if x.typ_params.is_empty() && x.typ_bounds.is_empty()
-            && eligibility::scalar(&x.inner_ret.x.typ)
-            && matches!(x.params.first().and_then(|p|shared(&p.x.typ)).map(|t|&**t),Some(TypX::Datatype(..)))=>Owner::Static,
-        _=>return None,
+    let owner = match &x.kind {
+        FunctionKind::TraitMethodDecl { trait_path, .. }
+            if x.typ_params.len() == 1
+                && matches!(x.params.first().and_then(|p|shared(&p.x.typ)).map(|t|&**t),Some(TypX::TypParam(n)) if n==&x.typ_params[0]) =>
+        {
+            Owner::Trait(trait_path.clone())
+        }
+        FunctionKind::Static
+            if x.typ_params.len() <= 2
+                && x.typ_bounds.len() <= 24
+                && (eligibility::scalar(&x.inner_ret.x.typ)
+                    || matches!(
+                        &*x.inner_ret.x.typ,
+                        TypX::TypParam(_) | TypX::Projection { .. }
+                    ))
+                && matches!(
+                    x.params.first().and_then(|p| shared(&p.x.typ)).map(|t| &**t),
+                    Some(TypX::Datatype(..))
+                ) =>
+        {
+            Owner::Static
+        }
+        _ => return None,
     };
     if x.mode != mode
         || x.attrs.infer
@@ -98,6 +117,11 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
         || args.len() != f.x.params.len()
         || spec.x.params.len() != f.x.params.len()
         || types.len() != f.x.typ_params.len()
+        || spec.x.typ_params != f.x.typ_params
+        || !types
+            .iter()
+            .zip(f.x.typ_params.iter())
+            .all(|(t, p)| matches!(&**t,TypX::TypParam(n) if n==p))
         || !impls.is_empty()
         || !args.iter().zip(f.x.params.iter()).all(|(a, p)| local(a, &p.x.name))
         || !spec
@@ -107,8 +131,11 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
             .zip(f.x.params.iter())
             .all(|(a, b)| crate::ast_util::types_equal(&a.x.typ, &b.x.typ))
         || !(match owner {
-            Owner::Trait(_)=>matches!(kind,CallTargetKind::Dynamic) && matches!(&*types[0],TypX::TypParam(n) if n==&f.x.typ_params[0]),
-            Owner::Static=>matches!(kind,CallTargetKind::Static),
+            Owner::Trait(_) => {
+                matches!(kind, CallTargetKind::Dynamic)
+                    && matches!(&*types[0],TypX::TypParam(n) if n==&f.x.typ_params[0])
+            }
+            Owner::Static => matches!(kind, CallTargetKind::Static),
         })
         || !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, &rhs.typ)
     {
@@ -173,10 +200,12 @@ pub(super) fn source_call(
     {
         return None;
     }
-    if !(match header(f,Mode::Exec)? {
-        Owner::Trait(_)=>matches!(kind,CallTargetKind::Dynamic),
-        Owner::Static=>matches!(kind,CallTargetKind::Static),
-    }){return None;}
+    if !(match header(f, Mode::Exec)? {
+        Owner::Trait(_) => matches!(kind, CallTargetKind::Dynamic),
+        Owner::Static => matches!(kind, CallTargetKind::Static),
+    }) {
+        return None;
+    }
     let spec = relation(f, all)?;
     if !spec.x.attrs.infer_trait_observation {
         return None;
@@ -252,7 +281,11 @@ pub(super) fn instantiate(
         &ret,
         ExprX::Call {
             target: CallTarget::Fun(
-                if matches!(spec.x.kind,FunctionKind::Static){CallTargetKind::Static}else{CallTargetKind::Dynamic},
+                if matches!(spec.x.kind, FunctionKind::Static) {
+                    CallTargetKind::Static
+                } else {
+                    CallTargetKind::Dynamic
+                },
                 spec.x.name.clone(),
                 types.clone(),
                 Arc::new(vec![]),

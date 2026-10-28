@@ -1519,3 +1519,55 @@ Two core verifier fixes retain a constructed generic closure's Rust type-validit
 fact and preserve iterator-law state across generated for-loop invariants. Neither
 changes source executable code. These facts are needed to use existing standard
 iterator contracts under generic and opaque iterator types.
+
+
+### Total native construction fold checkpoint (October 28, 2026)
+
+This bounded profile composes a checked complete sequence-view mutation into one
+local owned accumulator and summarizes the original native for loop with a fold.
+Only pure proof invariants are added. The decoration gate compares the complete
+original body after removing the three generated invariants and restoring its
+original isolation setting. Original iterator invariants, measures, patterns and
+runtime statements must match exactly.
+
+The profile always proposes an unrestricted domain. The precision-query gate
+rejects a restricted native-loop candidate, missing loop annotations or missing
+decreasing measures. Its maximality query retains original safety checks and
+callee requirement assertions; it does not erase them as successful-execution
+assumptions. Ordinary soundness still proves each original write safe, invariants
+initialized/preserved, and the loop terminating. The independent arbitrary-output
+query checks the complete returned view. Backend fault injection confirms that an
+unsafe body fails both ordinary verification and this maximality path. A shifted
+index fails semantic verification and exports no contract.
+
+Generated proof nodes use separate AstIds, so they cannot receive an original
+runtime node's borrow-resolution assumptions. The resolution pass extends
+constructor-mode metadata only within loop specifications, where constructors
+have Spec mode. Existing executable constructor checks and borrow-resolution data
+are preserved. A unit regression checks this separation. The source body and its
+runtime erasure are not rewritten.
+
+Mutation composition accepts a direct single-vector wrapper and exactly one
+complete final-view equation, a local mutable receiver, unit return, and value
+arguments. Its original inferred helper requires all three proofs. The query
+interface additionally accepts bounded generic type/associated-value results,
+with unchanged type arguments and input arguments and full provider verification.
+No new mutation axiom or application-name rule is introduced.
+
+Aleph's construction comparison has sixteen exact inferred methods and twelve
+formal outcomes. Wrong projected rounds and a wrong hash input reach ordinary
+semantic proof failures; the latter also checks that a failing ordinary query
+implementation blocks publication. The real native constructor/codec/hasher runs
+378 maps and an empty map, then the same 7,704 typed validation cases. The proof
+runtime uses supplied states because the declared codec bridge is proof-only.
+Initial-round validation, arbitrary/partial-domain folds, codec implementation
+verification and automatic abstraction discovery remain outside this checkpoint.
+
+
+Validation for these checkpoints: 615 Rust unit/integration tests and 68 Python
+tests pass. Standard vstd verifies 2,177 obligations with zero errors; no_std/no_alloc
+verifies 1,987 with zero errors. The native-construction experiment records twelve
+expected formal outcomes, sixteen complete exact contracts, both 7,704-case runtime
+corpora and 378 native constructed maps plus an empty map. `cargo test -p vir --lib`
+passes all 111 unit tests. The broader command's existing instructional pseudocode
+doctests do not compile and were not counted as passing tests.

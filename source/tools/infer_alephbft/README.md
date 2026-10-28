@@ -708,8 +708,8 @@ tests run in an isolated pinned checkout, alongside the ten original ControlHash
 tests; the input checkout is not edited.
 
 The error declaration itself covers all six variants, but this experiment proves
-the four noninitial errors. Initial-round parent-count/hash checks, encoding
-completeness and native iterator-pipeline inference remain separate work. The
+the four noninitial errors. The optional modes below cover native pipelines and
+construction; initial-round checks and encoding-completeness proofs remain separate. The
 query adapter eagerly computes round - 1, so its isolated future-parent leaf has
 a narrower zero-round domain than the native empty-collection leaf. The complete
 noninitial path's original positive-round assertion makes this difference
@@ -742,5 +742,42 @@ precompiled Rust core. The older checked `vstd::iter` consumer experiment remain
 available and retains its previous trust boundary.
 
 Factory/view meanings, codec/lock boundaries, corrected quorum arithmetic,
-application policy and caller goals remain supplied. Original ControlHash::new
-loop inference and initial-round hash validation are the next separate steps.
+application policy and caller goals remain supplied. The construction mode below
+also covers original ControlHash::new loop inference; initial-round validation remains open.
+
+
+## Native ControlHash construction and typed validation
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_validation.py \
+  --alephbft /path/to/AlephBFT --output /tmp/infer-native-construction \
+  --native-construction --native-tests --native-target /tmp/aleph-native-target
+```
+
+This mode implies `--native-pipelines` and keeps the original `ControlHash::new`
+body, including its native sparse iterator loop and original update calls. It
+infers an exact unrestricted-domain fold/hash summary. The original
+`create_control_hash` body has an ordinary supplied hash-observation contract;
+the NodeMap codec bridge uses the existing explicit encoded-view model. No new
+codec or hash algorithm is assumed beyond that existing boundary.
+
+Sixteen inferred methods receive all three required proofs. Supplied caller goals
+check the complete constructed view and connect it to the original noninitial
+validator's exact errors and acceptance policy. Twelve formal outcomes include
+cold/warm verification, a runtime build, the earlier semantic controls, a wrong
+projected round and a wrong hash input. The changed implementations can retain
+valid exact inferred contracts while failing the intended ordinary caller goals;
+failed providers publish no interface.
+
+The proof-only codec bridge has no executable implementation. The formal runtime
+corpus therefore retains supplied states. The separate untouched native corpus
+uses Aleph's actual constructor, SCALE implementation and hasher for 378 maps plus
+an empty map, checks every projected round and the combined hash, and runs the
+same 7,704 typed-validation cases. Both preserve the zero-round search probes.
+
+Loop invariants and the fold are synthesized. Collection and iterator meanings,
+factory proofs and index bounds, the hash query, codec boundary, caller policy and
+goals remain supplied. The first native-loop profile handles total one-accumulator
+folds; partial domains, early exits and arbitrary iterator loops remain open.
+Initial-round hash validation and proving the codec implementation itself remain
+separate work.

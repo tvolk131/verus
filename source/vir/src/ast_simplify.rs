@@ -1227,7 +1227,6 @@ fn add_fndef_axioms_to_function(
     }
 
     let mut functionx = function.x.clone();
-    state.infer_callback = functionx.attrs.infer && functionx.attrs.infer_owned;
     assert!(functionx.fndef_axioms.is_none());
     functionx.fndef_axioms = Some(Arc::new(fndef_axioms));
     Ok((Spanned::new(function.span.clone(), functionx), trait_impls_out, assoc_type_impl))
@@ -1337,7 +1336,6 @@ fn simplify_function(
         &|_, _, pat| Ok(pat.clone()),
     )?;
     let mut functionx = function.x.clone();
-    state.infer_callback = functionx.attrs.infer && functionx.attrs.infer_owned;
     assert!(functionx.params.len() == param_names.len());
     functionx.params = Arc::new(
         functionx

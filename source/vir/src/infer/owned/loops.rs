@@ -309,6 +309,7 @@ pub(super) fn annotate(f: &Function, plans: &[Plan]) -> Result<Expr, VirErr> {
 }
 pub(crate) fn validate_decoration(f: &Function, body: &Expr) -> Result<(), VirErr> {
     let mut flags = HashMap::new();
+    let native=native_for::sources(f).into_iter().map(|s|(s.loop_expr.span.id,s)).collect::<HashMap<_,_>>();
     crate::ast_visitor::expr_visitor_check(f.x.body.as_ref().unwrap(), &mut |_, e| {
         if let ExprX::Loop {
             loop_isolation,
@@ -320,11 +321,8 @@ pub(crate) fn validate_decoration(f: &Function, body: &Expr) -> Result<(), VirEr
             ..
         } = &e.x
         {
-            if !invs.is_empty()
-                || !decrease.is_empty()
-                || *assume_termination
-                || *is_for_loop
-                || *atomic_call
+            if (!native.contains_key(&e.span.id) && (!invs.is_empty() || !decrease.is_empty() || *is_for_loop))
+                || *assume_termination || *atomic_call
             {
                 return Err(unsupported(
                     &e.span,
@@ -349,8 +347,22 @@ pub(crate) fn validate_decoration(f: &Function, body: &Expr) -> Result<(), VirEr
             ..
         } = &e.x
         {
-            if invs.len() != 2 || decrease.len() != 1 {
+            let native_source=native.get(&e.span.id);
+            let expected=native_source.map(|s|if let ExprX::Loop{invs,..}=&s.loop_expr.x{invs.len()+3}else{0}).unwrap_or(2);
+            if invs.len() != expected || decrease.len() != 1 {
                 return Err(unsupported(&e.span, "owned loop decoration shape"));
+            }
+            if native_source.is_some() {
+                for inv in invs.iter().take(3){native_for::pure(&inv.inv)?;}
+                let ExprX::Loop{invs:original,decrease:original_decrease,..}=&native_source.unwrap().loop_expr.x else{unreachable!()};
+                if serde_json::to_vec(&invs[3..]).ok()!=serde_json::to_vec(original).ok() || serde_json::to_vec(decrease).ok()!=serde_json::to_vec(original_decrease).ok(){
+                    return Err(unsupported(&e.span,"native fold changed original iterator proof annotations"));
+                }
+                return Ok(e.new_x(ExprX::Loop{
+                    loop_isolation:*flags.get(&e.span.id).unwrap(),allow_complex_invariants:*allow_complex_invariants,is_for_loop:*is_for_loop,
+                    assume_termination:*assume_termination,label:label.clone(),cond:cond.clone(),body:body.clone(),atomic_call:*atomic_call,
+                    invs:original.clone(),decrease:original_decrease.clone(),
+                }));
             }
             for inv in invs.iter() {
                 if inv.kind != LoopInvariantKind::InvariantAndEnsures

@@ -297,6 +297,35 @@ pub struct ResolutionInfo {
     pub(crate) dual_mode: bool,
 }
 
+impl ResolutionInfo {
+    /// Inference adds only checked pure loop specifications after mode analysis.
+    /// Constructors there have Spec mode, like handwritten invariant terms.
+    /// Keep executable constructor checks and all borrow-resolution data intact.
+    fn with_inferred_loop_specs(&self, body: &Expr) -> Self {
+        let mut ctor_needs_check = self.typ_inv_info.ctor_needs_check.clone();
+        crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+            if let ExprX::Loop { invs, decrease, .. } = &e.x {
+                for spec in invs.iter().map(|i| &i.inv).chain(decrease.iter()) {
+                    crate::ast_visitor::expr_visitor_walk(spec, &mut |e| {
+                        if matches!(&e.x, ExprX::Ctor(..)) {
+                            ctor_needs_check.entry(e.span.id).or_insert(false);
+                        }
+                        crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+                    });
+                }
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+        Self {
+            read_kind_finals: self.read_kind_finals.clone(),
+            typ_inv_info: crate::modes::TypeInvInfo { ctor_needs_check },
+            var_modes: self.var_modes.clone(),
+            temporary_modes: self.temporary_modes.clone(),
+            dual_mode: self.dual_mode,
+        }
+    }
+}
+
 pub fn krate_infer_resolution(
     krate: &Krate,
     infos: &HashMap<Fun, Arc<ResolutionInfo>>,
@@ -321,6 +350,9 @@ pub fn krate_infer_resolution(
     let mut errors = vec![];
     for function in &mut Arc::make_mut(&mut krate).functions {
         if let Some(res_info) = infos.get(&function.x.name) {
+            let inferred_info = (function.x.attrs.infer && function.x.attrs.infer_owned)
+                .then(|| res_info.with_inferred_loop_specs(function.x.body.as_ref().unwrap()));
+            let res_info = inferred_info.as_ref().unwrap_or(res_info);
             let new_body = infer_resolution(
                 &function.x.params,
                 &function.x.body.as_ref().unwrap(),
@@ -4206,4 +4238,86 @@ fn add_decls_for_temps(
         }
     }
     SpannedTyped::new(&expr.span, &expr.typ, ExprX::Block(Arc::new(stmts), Some(expr.clone())))
+}
+
+#[cfg(test)]
+mod inferred_spec_tests {
+    use super::*;
+    use crate::ast::{BinaryOp, CrateId, LoopInvariant, LoopInvariantKind, PathX};
+    #[test]
+    fn loop_spec_metadata_does_not_weaken_executable_constructor_checks() {
+        let span = |id| crate::messages::Span {
+            raw_span: Arc::new(()),
+            id,
+            data: vec![],
+            as_string: "generated loop specification".into(),
+        };
+        let typ = Arc::new(TypX::Datatype(
+            Dt::Path(Arc::new(PathX {
+                krate: CrateId::Core,
+                segments: Arc::new(vec![Arc::new("option".into()), Arc::new("Option".into())]),
+            })),
+            Arc::new(vec![crate::ast_util::bool_typ()]),
+            Arc::new(vec![]),
+        ));
+        let ctor = |id| {
+            SpannedTyped::new(
+                &span(id),
+                &typ,
+                ExprX::Ctor(
+                    if let TypX::Datatype(dt, ..) = &*typ { dt.clone() } else { unreachable!() },
+                    Arc::new("None".into()),
+                    Arc::new(vec![]),
+                    None,
+                ),
+            )
+        };
+        let invariant = SpannedTyped::new(
+            &span(12),
+            &crate::ast_util::bool_typ(),
+            ExprX::Binary(BinaryOp::Eq(Mode::Spec), ctor(10), ctor(11)),
+        );
+        let body = SpannedTyped::new(
+            &span(1),
+            &crate::ast_util::unit_typ(),
+            ExprX::Loop {
+                loop_isolation: false,
+                allow_complex_invariants: false,
+                is_for_loop: true,
+                assume_termination: false,
+                label: Label { id: 0, name: None },
+                cond: None,
+                body: SpannedTyped::new(
+                    &span(23),
+                    &crate::ast_util::unit_typ(),
+                    ExprX::Block(
+                        Arc::new(vec![Spanned::new(span(24), StmtX::Expr(ctor(20)))]),
+                        None,
+                    ),
+                ),
+                atomic_call: false,
+                invs: Arc::new(vec![LoopInvariant {
+                    kind: LoopInvariantKind::InvariantAndEnsures,
+                    inv: invariant,
+                }]),
+                decrease: Arc::new(vec![]),
+            },
+        );
+        let info = ResolutionInfo {
+            read_kind_finals: HashMap::new(),
+            typ_inv_info: crate::modes::TypeInvInfo {
+                ctor_needs_check: HashMap::from([(20, true), (21, true)]),
+            },
+            var_modes: HashMap::new(),
+            temporary_modes: HashMap::from([(22, Mode::Exec)]),
+            dual_mode: false,
+        };
+        let extended = info.with_inferred_loop_specs(&body);
+        assert_eq!(extended.typ_inv_info.ctor_needs_check.get(&10), Some(&false));
+        assert_eq!(extended.typ_inv_info.ctor_needs_check.get(&11), Some(&false));
+        assert_eq!(extended.typ_inv_info.ctor_needs_check.get(&20), Some(&true));
+        assert_eq!(extended.typ_inv_info.ctor_needs_check.get(&21), Some(&true));
+        assert_eq!(extended.temporary_modes.get(&22), Some(&Mode::Exec));
+        assert!(!info.typ_inv_info.ctor_needs_check.contains_key(&10));
+    }
 }

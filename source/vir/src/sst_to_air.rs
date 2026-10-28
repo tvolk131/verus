@@ -1897,7 +1897,11 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
 
                 let error = error(&stm.span, description);
                 let filter = Some(fun_to_air_ident(&ctx.name_ctxt, &func.x.name));
-                if matches!(state.post_condition_info.kind, PostConditionKind::InferMaximality) {
+                let unrestricted_domain = state.post_condition_info.ens_exprs.len() == 1
+                    && matches!(&*state.post_condition_info.ens_exprs[0].1, ExprX::Const(Constant::Bool(true)));
+                if matches!(state.post_condition_info.kind, PostConditionKind::InferMaximality)
+                    && !unrestricted_domain
+                {
                     // Inferred callees have independently proved maximality.
                     // Closed standard subslice calls use the existing Index
                     // models' exact bounds requirements for successful execution.

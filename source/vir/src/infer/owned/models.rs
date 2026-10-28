@@ -14,6 +14,9 @@ pub(crate) enum Model {
     Take,
     SeqPush,
     SeqFilter,
+    SeqFold,
+    ForSeq,
+    ForIndex,
 }
 
 pub(crate) fn model(f: &Function) -> Option<Model> {
@@ -29,6 +32,24 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
         return None;
     }
     let p = &x.name.path;
+    if x.mode == Mode::Spec
+        && x.typ_params.len() == 1
+        && x.params.len() == 1
+        && p.krate == CrateId::Vstd
+        && p.segments.len() == 4
+        && p.segments[0].as_str() == "std_specs"
+        && p.segments[1].as_str() == "iter"
+        && p.segments[2].starts_with("impl")
+        && matches!(&*x.params[0].x.typ,TypX::Datatype(Dt::Path(path),ts,_) if path_is(path,CrateId::Vstd,&["std_specs","iter","VerusForLoopWrapper"]) && ts.len()==1 && matches!(&*ts[0],TypX::TypParam(n) if n==&x.typ_params[0]))
+    {
+        if p.last_segment().as_str() == "seq" && iterators::sequence(&x.inner_ret.x.typ).is_some() {
+            return Some(Model::ForSeq);
+        }
+        if p.last_segment().as_str() == "index" && same(&x.inner_ret.x.typ, &int_typ()) {
+            return Some(Model::ForIndex);
+        }
+    }
+
     let spec = if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "empty"]) {
         Some(Model::Empty)
     } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "new"]) {
@@ -43,15 +64,29 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
         Some(Model::Take)
     } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "push"]) {
         Some(Model::SeqPush)
-    } else if models::path_is(p,CrateId::Vstd,&["seq","Seq","filter"])
-        || p.krate==CrateId::Vstd && p.segments.len()==3 && matches!(p.segments[0].as_str(),"seq"|"seq_lib")
-            && p.segments[1].starts_with("impl") && p.segments[2].as_str()=="filter" {
+    } else if p.krate == CrateId::Vstd
+        && p.segments.len() == 3
+        && p.segments[0].as_str() == "seq_lib"
+        && p.segments[1].starts_with("impl")
+        && p.segments[2].as_str() == "fold_left"
+    {
+        Some(Model::SeqFold)
+    } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "filter"])
+        || p.krate == CrateId::Vstd
+            && p.segments.len() == 3
+            && matches!(p.segments[0].as_str(), "seq" | "seq_lib")
+            && p.segments[1].starts_with("impl")
+            && p.segments[2].as_str() == "filter"
+    {
         Some(Model::SeqFilter)
     } else {
         None
     };
     if let Some(k) = spec {
-        if x.mode != Mode::Spec || x.proxy.is_some() || x.typ_params.len() != 1 {
+        if x.mode != Mode::Spec
+            || x.proxy.is_some()
+            || x.typ_params.len() != if k == Model::SeqFold { 2 } else { 1 }
+        {
             return None;
         }
         let t = Arc::new(TypX::TypParam(x.typ_params[0].clone()));
@@ -73,12 +108,23 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
                     && same(&x.params[0].x.typ, &seq)
                     && same(&x.params[1].x.typ, &t)
             }
-            Model::SeqFilter => x.params.len()==2 && same(&x.params[0].x.typ,&seq)
-                && matches!(&*x.params[1].x.typ,TypX::SpecFn(args,ret) if args.len()==1 && same(&args[0],&t) && same(ret,&bool_typ())),
+            Model::SeqFold => {
+                let b = Arc::new(TypX::TypParam(x.typ_params[1].clone()));
+                x.params.len() == 3
+                    && same(&x.params[0].x.typ, &seq)
+                    && same(&x.params[1].x.typ, &b)
+                    && same(&x.inner_ret.x.typ, &b)
+                    && matches!(&*x.params[2].x.typ,TypX::SpecFn(args,ret) if args.len()==2 && same(&args[0],&b) && same(&args[1],&t) && same(ret,&b))
+            }
+            Model::SeqFilter => {
+                x.params.len() == 2
+                    && same(&x.params[0].x.typ, &seq)
+                    && matches!(&*x.params[1].x.typ,TypX::SpecFn(args,ret) if args.len()==1 && same(&args[0],&t) && same(ret,&bool_typ()))
+            }
             _ => false,
         };
         return (valid
-            && same(&x.inner_ret.x.typ, &seq)
+            && (k == Model::SeqFold || same(&x.inner_ret.x.typ, &seq))
             && x.params.iter().all(|p| p.x.mode == Mode::Spec))
         .then_some(k);
     }

@@ -42,6 +42,13 @@ fn native_factory_views_compose_across_cold_and_warm_exports() {
  #[verifier::infer] pub fn future(s:&native_factory::Slots<u16>,round:u16)->bool{
      s.iter().any(|(_,value)|*value>round-1)
  }
+ #[verifier::infer] pub fn partial_filter(s:&native_factory::Slots<u16>,round:u16)->usize{
+     s.iter().filter(|&(_,value)|*value-1>round).count()
+ }
+ pub fn partial_goal(s:&native_factory::Slots<u16>,round:u16)->(r:usize)
+     requires forall|i:int|0<=i<s.entries_value().len() ==> *s.entries_value()[i].1>0,
+     ensures r==s.entries_value().filter(|e:(usize,&u16)|((*e.1 as int-1) as u16)>round).len(),
+ {partial_filter(s,round)}
  pub fn filtered_goal(s:&native_factory::Slots<u16>,round:u16)->(r:usize)
      requires round>0,
      ensures r==s.entries_value().filter(|e:(usize,&u16)|*e.1==round as int-1).len(),
@@ -65,7 +72,7 @@ fn native_factory_views_compose_across_cold_and_warm_exports() {
         );
         assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
         let report = json_inference(&r);
-        assert_eq!(report["functions"].as_array().unwrap().len(), 3);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 4);
         for f in report["functions"].as_array().unwrap() {
             for p in ["soundness", "maximality", "exactness"] {
                 assert_eq!(f["proofs"][p]["status"], "proved");
@@ -113,5 +120,107 @@ fn native_short_circuit_partial_callbacks_fail_closed() {
             "{}",
             String::from_utf8_lossy(&r.stderr)
         );
+    }
+}
+
+fn mutation_provider() -> String {
+    let provider = PROVIDER.replace(
+        "ensures finite_native_view(result,self.entries_value()),",
+        "ensures finite_native_view(result,self.entries_value()), forall|i:int|0<=i<self.entries_value().len() ==> #[trigger] self.entries_value()[i].0<self@.len(),",
+    ).replace("   assert(filter_map_outputs(result).is_prefix_of(full));",r#"
+   assert(filter_map_outputs(result).is_prefix_of(full));
+   assert forall|k:int|0<=k<self.entries_value().len() implies #[trigger] self.entries_value()[k].0<self@.len() by {
+     flatten_options_witness(full,k);
+     let i=choose|i:int|0<=i<full.len() && full[i]==Some(flatten_options(full)[k]);
+     assert(full[i].unwrap().0==i);
+   }
+"#);
+    provider
+        + r#"verus! {
+impl<T:Copy> Slots<T> {
+ #[verifier::infer] pub fn with_size(size:usize)->Self {Self(vec![None;size])}
+ #[verifier::infer] pub fn insert(&mut self,index:usize,value:T){self.0[index]=Some(value);}
+ #[verifier::infer] pub fn size(&self)->usize{self.0.len()}
+}
+}"#
+}
+
+const COPY_CONSUMER: &str = r#"use vstd::prelude::*;use native_mutation::Slots;
+verus! {
+broadcast use {vstd::seq::group_seq_axioms,vstd::seq::group_seq_lemmas,vstd::std_specs::iter_adapters::group_native_adapter_axioms};
+#[verifier::infer] pub fn copied<T:Copy>(source:&Slots<T>)->Slots<T>{
+ let mut out=Slots::with_size(source.size());
+ for (index,value) in source.iter(){out.insert(index,*value);}
+ out
+}
+pub fn goal<T:Copy>(source:&Slots<T>)->(result:Slots<T>)
+ ensures result@==source.entries_value().fold_left(Seq::new(source@.len(),|i:int|None::<T>),|acc:Seq<Option<T>>,entry:(usize,&T)|acc.update(entry.0 as int,Some(*entry.1))),
+{copied(source)}
+}"#;
+
+#[test]
+fn total_native_folds_compose_mutable_summaries_across_cold_and_warm_exports() {
+    let crates = InferCrates::new();
+    for _ in 0..2 {
+        let r = crates.build(
+            "native_mutation",
+            &mutation_provider(),
+            &[],
+            &["--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let r = crates.build(
+            "native_copy",
+            COPY_CONSUMER,
+            &["native_mutation"],
+            &["--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let report = json_inference(&r);
+        let functions = report["functions"].as_array().unwrap();
+        assert_eq!(functions.len(), 1);
+        for proof in ["soundness", "maximality", "exactness"] {
+            assert_eq!(functions[0]["proofs"][proof]["status"], "proved");
+        }
+        assert!(!functions[0]["loop_proofs"].as_array().unwrap().is_empty());
+    }
+    let unsafe_index =
+        COPY_CONSUMER.replace("out.insert(index,*value)", "out.insert(index+1,*value)");
+    let r = crates.build("native_copy", &unsafe_index, &["native_mutation"], &["--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_copy").exists());
+    let error = String::from_utf8_lossy(&r.stderr);
+    assert!(
+        error.contains("invariant not satisfied") || error.contains("precondition not satisfied"),
+        "{}",
+        error
+    );
+    assert!(!error.contains("unsupported") && !error.contains("panicked at"), "{}", error);
+}
+
+#[test]
+fn owned_constructors_compose_complete_mutable_views_without_a_loop() {
+    let crates = InferCrates::new();
+    let r = crates.build("native_mutation", &mutation_provider(), &[], &["--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let consumer = r#"use vstd::prelude::*;use native_mutation::Slots;verus!{
+#[verifier::infer] pub fn one(size:usize,index:usize,value:u16)->Slots<u16>{
+ let mut out=Slots::with_size(size);out.insert(index,value);out
+}
+pub fn goal(size:usize,index:usize,value:u16)->(r:Slots<u16>)
+ requires index<size,
+ ensures r@==Seq::new(size as nat,|i:int|None::<u16>).update(index as int,Some(value)),
+{one(size,index,value)}
+}"#;
+    let r = crates.build(
+        "native_one",
+        consumer,
+        &["native_mutation"],
+        &["--no-cheating", "--output-json"],
+    );
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let report = json_inference(&r);
+    for proof in ["soundness", "maximality", "exactness"] {
+        assert_eq!(report["functions"][0]["proofs"][proof]["status"], "proved");
     }
 }
