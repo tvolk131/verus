@@ -743,7 +743,7 @@ available and retains its previous trust boundary.
 
 Factory/view meanings, codec/lock boundaries, corrected quorum arithmetic,
 application policy and caller goals remain supplied. The construction mode below
-also covers original ControlHash::new loop inference; initial-round validation remains open.
+also covers original ControlHash::new loop inference; full-validation mode below covers initial rounds.
 
 
 ## Native ControlHash construction and typed validation
@@ -779,5 +779,42 @@ Loop invariants and the fold are synthesized. Collection and iterator meanings,
 factory proofs and index bounds, the hash query, codec boundary, caller policy and
 goals remain supplied. The first native-loop profile handles total one-accumulator
 folds; partial domains, early exits and arbitrary iterator loops remain open.
-Initial-round hash validation and proving the codec implementation itself remain
-separate work.
+Use the full-validation mode below for initial-round hash behavior. Proving the
+codec implementation itself remains separate work.
+
+## Complete public validation and demanded constructor facts
+
+Add `--full-validation` to the command above. This implies both native modes and
+adds inference of the unchanged `validate_initial_round` body. Seventeen methods
+receive soundness, maximality and exactness proofs. The unchanged public `validate`
+body is an ordinary top-down proof target with a supplied complete typed-error
+policy and the conditional creator-index safety bound. Its entire expanded inferred
+result equation exceeds the current formula budget; this mode does not claim
+inference of that dispatcher.
+
+Constructor callers now state bounds using the **input map length**, and prove
+length preservation and per-slot round projection without handwritten fold
+induction. `--infer-goals` selects checked fold length, read, sparse projection and
+congruence lemmas only for requested observations. The explicit iterator meaning
+uses the reusable `sparse_entries` vocabulary; its native factory proof remains
+supplied and checked. A no-parent input constructs a value that passes initial
+validation, with no creator-index restriction for round zero.
+
+The original empty-map hash call also remains unchanged. General view-query
+specialization composes its supplied checked hash observation with the inferred
+temporary map. Generic hash comparisons use an explicit checked `PartialEqIdentity`
+bound in the supplied Hasher interface. No mathematical meaning is inferred from
+Rust's `Eq` marker.
+
+Sixteen expected formal outcomes include the initial error count, hash comparison, hash
+payload order and round dispatcher, in addition to construction and noninitial
+controls. The proof-target runtime exercises the public dispatcher on the existing
+7,704 noninitial cases. The untouched native runtime additionally runs 254 initial
+cases, including bad hashes, parent-error priority, empty maps and out-of-range
+creators. Its real constructor, SCALE codec and hasher run as before. The proof-only
+codec bridge remains non-executable, so initial hash execution belongs to that
+separate native corpus.
+
+Views, checked factory proofs, intended application policies, the corrected quorum
+arithmetic and existing codec/lock/native-library boundaries remain supplied. This
+does not verify SCALE bytes, hash security, the whole crate, or protocol correctness.

@@ -79,6 +79,7 @@ pub mod resource;
 pub mod rwlock;
 pub mod seq;
 pub mod seq_lib;
+pub mod seq_update;
 pub mod set;
 pub mod set_lib;
 pub mod shared;

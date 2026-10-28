@@ -170,7 +170,17 @@ Implemented and covered by regression tests:
   Checked generic value queries support associated hash results. Aleph's original
   ControlHash::new now infers its complete fold/hash relation and a supplied caller
   connects it to typed noninitial validation. Partial-domain/arbitrary iterator
-  loops and initial-round validation remain open.
+  loops remain open; the newer checkpoint below covers initial-round validation.
+- [x] Demand-scoped checked observations of indexed-update folds: length, last-write
+  reads, sparse per-slot projection and equivalent step functions. Native update
+  folds use a checked canonical vocabulary; ordinary caller goals select lemmas
+  through `--infer-goals`. Visible unary view-query observations compose with
+  constructed collections. Generic same-type equality proposes identity only when
+  ordinary verification and independent precision checks establish the supplied
+  checked law. Aleph's original initial branch now infers exact errors; an ordinary
+  supplied policy checks its unchanged public dispatcher. Input-map bounds and
+  constructor projection goals need no handwritten fold induction. Fully inferring
+  the complete dispatcher still exceeds the current expansion budget.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -306,10 +316,10 @@ Still planned or outside the implemented subset:
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
   search, signed counters, and recursive summaries.
   Checked finite iterator implementations are available as explicit library APIs;
-  synthesis of native enumerate/filter_map chains, arbitrary closures/iterator
-  loops, and complete ControlHash validation (including initial-round encoding/hash
-  checks) remains open. Noninitial typed errors and propagation now verify with
-  explicit collection-query adapters.
+  synthesis of iterator-factory meanings, arbitrary closures/iterator loops, and
+  full protocol properties remains open. Original ControlHash construction and both
+  validation branches now connect to a supplied complete public-validator policy;
+  codec implementation proofs and fully inferred dispatcher summaries remain open.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
@@ -529,7 +539,15 @@ APIs and research directions.
     inferred; collection/factory meanings, a checked hash query, codec boundary
     and application goals remain supplied. Native constructors exercise the real
     codec/hasher separately from the proof-only encoding model.
-23. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+23. **Demanded fold facts and complete validation checkpoint implemented.** Checked
+    sparse-update observations derive caller length and per-slot projection facts
+    without application-specific induction. Pure view-query specialization handles
+    constructed receivers; checked equality laws support generic hash comparisons.
+    Aleph's original initial branch is inferred and its unchanged public dispatcher
+    is checked against the supplied complete typed-error policy. Factory/view and
+    application meanings remain supplied; larger composed inferred dispatcher
+    equations still exceed the current formula budget.
+24. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

@@ -5,7 +5,7 @@ broadcast use {vstd::std_specs::iter::group_iter_axioms,group_native_adapter_axi
 pub struct Slots<T>(Vec<Option<T>>);
 impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
 impl<T> Slots<T>{
- pub closed spec fn entries_value<'a>(&'a self)->Seq<(usize,&'a T)>{flatten_options(Seq::new(self@.len(),|i:int|match self@[i]{None=>None,Some(v)=>Some((i as usize,&v))}))}
+ pub open spec fn entries_value<'a>(&'a self)->Seq<(usize,&'a T)>{vstd::seq_update::sparse_entries(self@,|i:int|(i as usize,&self@[i].unwrap()))}
  pub fn iter<'a>(&'a self)->(result:impl Iterator<Item=(usize,&'a T)>+'a)
  ensures finite_native_view(result,self.entries_value()),
  {
@@ -18,6 +18,8 @@ impl<T> Slots<T>{
   proof{
    filter_map_postcondition::<_,(usize,&'a T),_>(indexed,f,result);
    let full=Seq::new(values@.len(),|i:int|match values@[i]{None=>None,Some(v)=>Some((i as usize,&v))});
+   vstd::seq_update::lemma_sparse_entries_eq(self@,|i:int|(i as usize,&self@[i].unwrap()),full);
+   assert(self.entries_value()==flatten_options(full));
    assert(filter_map_outputs(result).is_prefix_of(full));
    flatten_options_prefix(filter_map_outputs(result),full);
    assert(result.will_return_none() ==> filter_map_outputs(result) =~= full);
@@ -142,6 +144,9 @@ impl<T:Copy> Slots<T> {
  #[verifier::infer] pub fn insert(&mut self,index:usize,value:T){self.0[index]=Some(value);}
  #[verifier::infer] pub fn size(&self)->usize{self.0.len()}
 }
+pub broadcast proof fn __verus_infer_view_len_bound<T>(s:&Slots<T>)
+ ensures #[trigger] s@.len() <= usize::MAX,
+{vstd::std_specs::vec::axiom_spec_len(&s.0);}
 }"#
 }
 
@@ -154,7 +159,7 @@ broadcast use {vstd::seq::group_seq_axioms,vstd::seq::group_seq_lemmas,vstd::std
  out
 }
 pub fn goal<T:Copy>(source:&Slots<T>)->(result:Slots<T>)
- ensures result@==source.entries_value().fold_left(Seq::new(source@.len(),|i:int|None::<T>),|acc:Seq<Option<T>>,entry:(usize,&T)|acc.update(entry.0 as int,Some(*entry.1))),
+ ensures result@==vstd::seq_update::scatter(source.entries_value(),Seq::new(source@.len(),|i:int|None::<T>),|entry:(usize,&T)|entry.0 as int,|entry:(usize,&T)|Some(*entry.1)),
 {copied(source)}
 }"#;
 
@@ -173,7 +178,7 @@ fn total_native_folds_compose_mutable_summaries_across_cold_and_warm_exports() {
             "native_copy",
             COPY_CONSUMER,
             &["native_mutation"],
-            &["--no-cheating", "--output-json"],
+            &["--infer-goals", "--no-cheating", "--output-json"],
         );
         assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
         let report = json_inference(&r);
@@ -196,6 +201,90 @@ fn total_native_folds_compose_mutable_summaries_across_cold_and_warm_exports() {
         error
     );
     assert!(!error.contains("unsupported") && !error.contains("panicked at"), "{}", error);
+}
+
+#[test]
+fn native_fold_observations_are_demanded_and_checked() {
+    let crates = InferCrates::new();
+    let r = crates.build("native_mutation", &mutation_provider(), &[], &["--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let source = COPY_CONSUMER.replace(
+        "{copied(source)}",
+        r#"{copied(source)}
+pub fn natural_goal<T:Copy>(source:&Slots<T>)->(result:Slots<T>)
+ ensures result@.len()==source@.len(),
+ forall|i:int|0<=i<source@.len() ==> #[trigger] result@[i]==source@[i],
+{copied(source)}
+pub fn unrequested<T:Copy>(source:&Slots<T>){let _=copied(source);}
+"#);
+    for _ in 0..2 {
+        let r = crates.build("native_copy", &source, &["native_mutation"],
+            &["--infer-goals", "--no-cheating", "--output-json"]);
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let report = json_inference(&r);
+        assert!(report["goal_assistance"].as_array().unwrap().iter().any(|row|
+            row["strategy"] == "sequence_fold_observation"));
+        assert!(!report["goal_assistance"].as_array().unwrap().iter().any(|row|
+            row["strategy"] == "sequence_fold_observation" && row["function"].as_str().unwrap().ends_with("unrequested")));
+        for proof in ["soundness", "maximality", "exactness"] {
+            assert_eq!(report["functions"][0]["proofs"][proof]["status"], "proved");
+        }
+    }
+    let r = crates.build("native_copy", &source, &["native_mutation"], &["--no-cheating","--output-json"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_copy").exists());
+    for proof in ["soundness","maximality","exactness"] {
+        assert_eq!(json_inference(&r)["functions"][0]["proofs"][proof]["status"],"proved");
+    }
+    let wrong = source.replace("out.insert(index,*value)", "out.insert(index,None::<T>.unwrap())");
+    let r = crates.build("native_copy", &wrong, &["native_mutation"], &["--infer-goals", "--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_copy").exists());
+    let false_goal = source.replace("result@[i]==source@[i]", "result@[i]!=source@[i]");
+    let r = crates.build("native_copy", &false_goal, &["native_mutation"], &["--infer-goals", "--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_copy").exists());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
+}
+
+#[test]
+fn checked_view_queries_compose_with_constructed_receivers() {
+    let crates = InferCrates::new();
+    let provider = mutation_provider() + r#"verus! {impl<T> Slots<T>{
+ pub open spec fn view_size(&self)->usize{self@.len() as usize}
+ pub fn view_size_checked(&self)->(r:usize) ensures r==self.view_size(),{self.0.len()}
+}}"#;
+    let source = r#"use vstd::prelude::*;use native_mutation::Slots;
+verus! {
+pub struct Made{pub slots:Slots<u8>,pub count:usize}
+#[verifier::infer]pub fn constructed(size:usize)->Made{
+ let slots=Slots::with_size(size);let n=slots.view_size_checked();Made{slots,count:n}
+}
+#[verifier::infer]pub fn temporary(size:usize)->Made{
+ let n=Slots::<u8>::with_size(size).view_size_checked();Made{slots:Slots::with_size(size),count:n}
+}
+pub fn goal(size:usize){let result=constructed(size);assert(result.count==size);
+ let result=temporary(size);assert(result.count==size);}
+}"#;
+    for _ in 0..2 {
+        let r=crates.build("native_mutation", &provider, &[], &["--infer-goals","--no-cheating"]);
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let r=crates.build("view_query", source, &["native_mutation"], &["--no-cheating","--output-json"]);
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        for f in json_inference(&r)["functions"].as_array().unwrap(){
+            for proof in ["soundness","maximality","exactness"] {assert_eq!(f["proofs"][proof]["status"],"proved");}
+        }
+    }
+    let hidden=provider.replace("pub open spec fn view_size", "pub closed spec fn view_size");
+    let r=crates.build("native_mutation", &hidden, &[], &["--infer-goals","--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let r=crates.build("view_query", source, &["native_mutation"], &["--no-cheating"]);
+    assert!(!r.status.success());assert!(!crates.vir("view_query").exists());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("visible observation body"));
+    let wrong=provider.replace("{self.0.len()}","{0}");
+    let r=crates.build("native_mutation", &wrong, &[], &["--infer-goals","--no-cheating"]);
+    assert!(!r.status.success());assert!(!crates.vir("native_mutation").exists());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }
 
 #[test]

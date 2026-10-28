@@ -45,6 +45,13 @@ macro_rules! num_specs {
                 }
             }
 
+            impl super::super::cmp::PartialEqIdentity for $uN {
+                proof fn lemma_eq_identity(a: Self, b: Self)
+                    ensures <Self as super::super::cmp::PartialEqSpec>::obeys_eq_spec(),
+                        <Self as super::super::cmp::PartialEqSpec>::eq_spec(&a, &b) == (a == b),
+                {}
+            }
+
             impl super::super::cmp::PartialOrdSpecImpl for $uN {
                 open spec fn obeys_partial_cmp_spec() -> bool {
                     true
@@ -327,6 +334,13 @@ macro_rules! num_specs {
                 open spec fn eq_spec(&self, other: &$iN) -> bool {
                     *self == *other
                 }
+            }
+
+            impl super::super::cmp::PartialEqIdentity for $iN {
+                proof fn lemma_eq_identity(a: Self, b: Self)
+                    ensures <Self as super::super::cmp::PartialEqSpec>::obeys_eq_spec(),
+                        <Self as super::super::cmp::PartialEqSpec>::eq_spec(&a, &b) == (a == b),
+                {}
             }
 
             impl super::super::cmp::PartialOrdSpecImpl for $iN {

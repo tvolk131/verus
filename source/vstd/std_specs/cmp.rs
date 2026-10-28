@@ -31,6 +31,42 @@ pub trait ExEq: PartialEq + PointeeSized {
     type ExternalTraitSpecificationFor: Eq;
 }
 
+/// An explicit verified law connecting executable equality to value identity.
+/// Rust's `Eq` marker alone does not establish this property.
+pub trait PartialEqIdentity: PartialEq + Sized {
+    proof fn lemma_eq_identity(a: Self, b: Self)
+        ensures <Self as PartialEqSpec>::obeys_eq_spec(), <Self as PartialEqSpec>::eq_spec(&a, &b) == (a == b);
+}
+
+pub broadcast proof fn lemma_eq_identity_values<T: PartialEqIdentity>(a: T, b: T)
+    ensures
+        T::obeys_eq_spec(),
+        #[trigger] a.eq_spec(&b) == (a == b),
+{ T::lemma_eq_identity(a, b); }
+
+pub broadcast proof fn lemma_eq_identity_enabled<T: PartialEqIdentity>()
+    ensures #[trigger] T::obeys_eq_spec(),
+{ T::lemma_eq_identity(arbitrary(), arbitrary()); }
+
+pub broadcast group group_eq_identity {
+    lemma_eq_identity_enabled,
+    lemma_eq_identity_values,
+}
+
+impl<T: PartialEqIdentity, const N: usize> PartialEqIdentity for [T; N] {
+    proof fn lemma_eq_identity(a: Self, b: Self)
+        ensures <Self as PartialEqSpec>::obeys_eq_spec(), <Self as PartialEqSpec>::eq_spec(&a, &b) == (a == b),
+    {
+        broadcast use {crate::array::group_array_axioms, crate::seq::group_seq_axioms};
+        T::lemma_eq_identity(arbitrary(), arbitrary());
+        assert forall|i: int| 0 <= i < N implies
+            #[trigger] a@[i].eq_spec(&b@[i]) == (a@[i] == b@[i]) by {
+            T::lemma_eq_identity(a@[i], b@[i]);
+        }
+        if <Self as PartialEqSpec>::eq_spec(&a, &b) { assert(a =~= b); }
+    }
+}
+
 #[verifier::external_type_specification]
 #[verifier::external_body]
 #[verifier::accept_recursive_types(T)]
@@ -340,6 +376,12 @@ impl PartialEqSpecImpl for bool {
 }
 
 pub assume_specification[ <bool as PartialEq<bool>>::eq ](x: &bool, y: &bool) -> bool;
+
+impl PartialEqIdentity for bool {
+    proof fn lemma_eq_identity(a: Self, b: Self)
+        ensures <Self as PartialEqSpec>::obeys_eq_spec(), <Self as PartialEqSpec>::eq_spec(&a, &b) == (a == b),
+    {}
+}
 
 pub assume_specification[ <bool as PartialEq<bool>>::ne ](x: &bool, y: &bool) -> bool;
 

@@ -15,6 +15,7 @@ pub(crate) enum Model {
     SeqPush,
     SeqFilter,
     SeqFold,
+    Scatter,
     ForSeq,
     ForIndex,
 }
@@ -50,7 +51,9 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
         }
     }
 
-    let spec = if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "empty"]) {
+    let spec = if models::path_is(p, CrateId::Vstd, &["seq_update", "scatter"]) {
+        Some(Model::Scatter)
+    } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "empty"]) {
         Some(Model::Empty)
     } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "new"]) {
         Some(Model::SeqNew)
@@ -85,7 +88,7 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
     if let Some(k) = spec {
         if x.mode != Mode::Spec
             || x.proxy.is_some()
-            || x.typ_params.len() != if k == Model::SeqFold { 2 } else { 1 }
+            || x.typ_params.len() != if matches!(k, Model::SeqFold | Model::Scatter) { 2 } else { 1 }
         {
             return None;
         }
@@ -116,6 +119,18 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
                     && same(&x.inner_ret.x.typ, &b)
                     && matches!(&*x.params[2].x.typ,TypX::SpecFn(args,ret) if args.len()==2 && same(&args[0],&b) && same(&args[1],&t) && same(ret,&b))
             }
+            Model::Scatter => {
+                let b = Arc::new(TypX::TypParam(x.typ_params[1].clone()));
+                let output = sequence_type(b.clone());
+                x.params.len() == 4
+                    && same(&x.params[0].x.typ, &seq)
+                    && same(&x.params[1].x.typ, &output)
+                    && same(&x.inner_ret.x.typ, &output)
+                    && matches!(&*x.params[2].x.typ, TypX::SpecFn(args, ret)
+                        if args.len()==1 && same(&args[0], &t) && same(ret, &int_typ()))
+                    && matches!(&*x.params[3].x.typ, TypX::SpecFn(args, ret)
+                        if args.len()==1 && same(&args[0], &t) && same(ret, &b))
+            }
             Model::SeqFilter => {
                 x.params.len() == 2
                     && same(&x.params[0].x.typ, &seq)
@@ -124,7 +139,7 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
             _ => false,
         };
         return (valid
-            && (k == Model::SeqFold || same(&x.inner_ret.x.typ, &seq))
+            && (matches!(k, Model::SeqFold | Model::Scatter) || same(&x.inner_ret.x.typ, &seq))
             && x.params.iter().all(|p| p.x.mode == Mode::Spec))
         .then_some(k);
     }

@@ -16,7 +16,7 @@ pub(super) fn unary(span: &Span, op: UnaryOp, a: Term) -> Result<Term, VirErr> {
         UnaryOp::Not if matches!(&*a.expr.typ, TypX::Bool) => bool_typ(),
         UnaryOp::Clip {
             range:
-                range @ (IntRange::USize
+                range @ (IntRange::Int | IntRange::USize
                 | IntRange::ISize
                 | IntRange::U(8 | 16 | 32 | 64 | 128)
                 | IntRange::I(8 | 16 | 32 | 64 | 128)),

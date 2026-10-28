@@ -19,6 +19,8 @@ mod bitwise;
 mod collections;
 mod contract;
 mod counting_goals;
+mod equality;
+mod fold_goals;
 mod eligibility;
 mod enums;
 mod exits;
@@ -40,6 +42,13 @@ mod owned;
 mod cloning;
 
 pub fn is_owned_summary(f:&Function)->bool{f.x.attrs.infer && f.x.attrs.infer_owned}
+
+/// Pure vocabulary used only in proposed contracts, never an executable model.
+pub fn is_pure_observation(f: &Function) -> bool {
+    f.x.mode == Mode::Spec && f.x.require.is_empty() && f.x.ensure.0.is_empty()
+        && f.x.ensure.1.is_empty() && !f.x.attrs.prophecy_dependent
+        && !f.x.attrs.is_unsafe && !f.x.attrs.is_async
+}
 
 /// Concrete exact-mode implementations whose proposed domain must be proved
 /// equivalent to the ordinary inherited trait precondition.
@@ -89,6 +98,7 @@ pub use report::{GeneratedCandidate, GenerationReport};
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
 pub use counting_goals::prepare as prepare_counting_goals;
+pub use fold_goals::prepare as prepare_fold_goals;
 mod view_bounds_goals;
 pub use view_bounds_goals::prepare as prepare_view_bound_goals;
 
@@ -707,9 +717,10 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
                 if is_owned_summary(f) && (iterators::source_call(e,all).is_some() || iterators::operation(e,all).is_some()){return Ok(());}
+                if is_owned_summary(f) && equality::source_call(e, all).is_some() { return Ok(()); }
                 if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
                     if all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f)==Some(collections::Model::View))){return Ok(());}
-                if records::candidate(f) && trait_getters::source_call(e,all).is_some() {return Ok(());}
+                if (records::candidate(f) || is_owned_summary(f)) && trait_getters::source_call(e,all).is_some() {return Ok(());}
                 if widening::call(e, all).is_some() { return Ok(()); }
                 let range = slices::range_call(e, all)?;
                 let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
@@ -803,7 +814,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()

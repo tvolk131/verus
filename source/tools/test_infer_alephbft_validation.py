@@ -1,7 +1,7 @@
 """Keep native error payloads, assertion, and propagation source-connected."""
 import unittest
 
-from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, RUNTIME
+from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, full_validation_api, RUNTIME
 from eval_verus_infer_alephbft_parents import item
 
 
@@ -38,6 +38,24 @@ pub fn n_members(&self) -> NodeCount { self.parents.size() }
 
 
 class ValidationSourceTests(unittest.TestCase):
+    def test_full_validation_preserves_both_original_bodies(self):
+        original = SOURCE.replace('pub fn n_members', '''
+        fn validate_initial_round(&self) -> Result<(), Error<H>> {
+            let count = self.parents().count();
+            if count > 0 { return Err(Error::RoundZeroWithSomeParents(NodeCount(count))); }
+            Ok(())
+        }
+        pub fn validate(&self, coord: UnitCoord) -> Result<(), Error<H>> {
+            match coord.round { 0 => self.validate_initial_round(), _ => self.validate_non_initial_round(coord) }
+        }
+        pub fn n_members''')
+        generated = full_validation_api(original)
+        self.assertEqual(item(original, 'fn validate_initial_round(')[2], item(generated, 'fn validate_initial_round(')[2])
+        self.assertEqual(item(original, 'pub fn validate(')[2].split('{', 1)[1],
+            item(generated, 'pub fn validate(')[2].split('{', 1)[1])
+        self.assertIn('coord.parts().0.0 < parents@.len()', generated)
+        self.assertNotIn('construction_rounds(parents).len()', generated)
+
     def test_native_error_lookup_and_orchestration_are_preserved(self):
         adapted = validation_api(SOURCE)
         self.assertIn(item(SOURCE, 'pub enum Error')[2], adapted)

@@ -302,6 +302,58 @@ pub(super) fn instantiate(
     ))
 }
 
+/// Specialize a checked static query whose observation uses its receiver only
+/// through a certified direct sequence view. The observation body supplies the
+/// meaning; no runtime implementation is inlined or rewritten.
+pub(super) fn specialize_view(
+    spec: &Function, types: &Typs, sequence: Term, all: &HashMap<Fun, Function>, caller: &Function,
+) -> Result<Term, VirErr> {
+    if !matches!(header(spec, Mode::Spec), Some(Owner::Static)) || spec.x.params.len() != 1 {
+        return Err(unsupported(&spec.span, "constructed receivers require a static unary view observation"));
+    }
+    if !caller.x.owning_module.as_ref().is_some_and(|m|
+        crate::ast_util::is_body_visible_to(&spec.x.body_visibility, m)) {
+        return Err(unsupported(&spec.span, "constructed receiver needs a visible observation body"));
+    }
+    let body = spec.x.body.as_ref().ok_or_else(|| unsupported(&spec.span, "constructed receiver needs a visible observation body"))?;
+    let ts: HashMap<_, _> = spec.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
+    let receiver = &spec.x.params[0].x.name;
+    let value = crate::ast_visitor::map_expr_visitor_env(body,
+        &mut crate::ast_visitor::VisitorScopeMap::new(), &mut (),
+        &|_, _, e| {
+            if let ExprX::Call { target: CallTarget::Fun(kind, n, ..), args, post_args: None, body: None } = &e.x {
+                let name = match kind { CallTargetKind::DynamicResolved { resolved, .. } => resolved, _ => n };
+                if args.len() == 1 && local(&args[0], receiver)
+                    && (models::path_is(&n.path, CrateId::Vstd, &["view", "View", "view"])
+                        || all.get(name).is_some_and(|f| f.x.attrs.infer_sequence_view
+                            || collections::model(f) == Some(collections::Model::View))) {
+                    return Ok(sequence.expr.clone());
+                }
+            }
+            Ok(e.clone())
+        }, &|_, _, s| Ok(vec![s.clone()]),
+        &|_, t| Ok(crate::sst_util::subst_typ(&ts, t)),
+        &|_, _, p| Ok(p.clone()), &|_, _, p| Ok(p.clone()))?;
+    crate::ast_visitor::expr_visitor_check(&value, &mut |_, e| {
+        if local(e, receiver) { return Err(unsupported(&e.span, "query observation inspects a constructed receiver beyond its view")); }
+        if let ExprX::Call { target: CallTarget::Fun(kind, n, ..), .. } = &e.x {
+            let name = match kind { CallTargetKind::DynamicResolved { resolved, .. } => resolved, _ => n };
+            if !all.get(name).is_some_and(is_pure_observation)
+                && !models::path_is(&n.path, CrateId::Vstd, &["view", "View", "view"]) {
+                return Err(unsupported(&e.span, &format!("view observation needs pure nonprophetic specification vocabulary: {n:?}")));
+            }
+        }
+        Ok(())
+    })?;
+    // Empty spec blocks are syntax, not an additional logical operation.
+    let mut value = value;
+    while let ExprX::Block(ss, Some(tail)) = &value.x {
+        if !ss.is_empty() { break; }
+        value = tail.clone();
+    }
+    records::atom(value)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

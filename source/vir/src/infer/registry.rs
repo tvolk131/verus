@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v36:checked-total-native-folds:4096";
+const VERSION: &str = "verus-infer-v37:checked-fold-observations-and-view-queries:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -292,10 +292,18 @@ impl Registry {
     ) -> Result<Vec<Function>, VirErr> {
         let mut combined = functions.to_vec();
         combined
-            .extend(imported.iter().filter(|f| f.x.attrs.infer || is_inference_contract(f) || is_approved_model(f)).cloned());
+            .extend(imported.iter().filter(|f| f.x.attrs.infer || is_inference_contract(f) || is_approved_model(f)
+                || f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f)).cloned());
         let all: HashMap<_, _> = combined.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
         let mut candidates = HashMap::new();
         let mut keys: HashMap<Fun, String> = HashMap::new();
+        // Pure vocabulary can occur in specialized view-query equations. It
+        // never becomes an executable model; include its definition in keys.
+        for f in combined.iter().filter(|f| f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f)) {
+            let key = Sha256::digest(format!("{VERSION}:spec-vocabulary:{f:?}")).iter().map(|b| format!("{b:02x}")).collect();
+            keys.insert(f.x.name.clone(), key);
+            candidates.insert(f.x.name.clone(), f.clone());
+        }
         for f in combined.iter().filter(|f|is_inference_contract(f)) {
             let key=Sha256::digest(format!("{VERSION}:checked-contract:{f:?}")).iter().map(|b|format!("{b:02x}")).collect();
             keys.insert(f.x.name.clone(),key);

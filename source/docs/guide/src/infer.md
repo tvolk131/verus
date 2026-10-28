@@ -819,8 +819,35 @@ Aleph's original `ControlHash::new` now infers its fold and combined-hash equati
 Its original `create_control_hash` body is an ordinary checked generic query through
 the existing declared codec model. A supplied caller connects the newly constructed
 value to the original noninitial validator and its exact typed error policy. The
-fold is a precise implementation equation; choosing or proving a simpler
-application abstraction remains separate from synthesis.
+fold is a precise implementation equation. Indexed updates independent of the
+accumulator are represented by the checked `vstd::seq_update::scatter` vocabulary.
+Other steps retain a general fold. With `--infer-goals`, ordinary callers requesting
+length, element, or equivalent-fold facts receive scoped checked library lemmas.
+For supplied factory views expressed using `sparse_entries`, the checked sparse
+projection theorem derives the resulting per-slot values, including absent slots.
+No function contract gains eagerly synthesized application facts. General invariant
+or abstraction discovery remains separate from this bounded lemma catalog.
+
+Ordinary exact unary queries can also observe a newly constructed collection when
+their visible specification body uses that receiver only through its certified
+sequence view. The query implementation remains checked against its supplied exact
+contract. Pure nonprophetic specification terms are vocabulary for proposed
+equations; they do not become executable inference models. Hidden observation
+bodies and queries inspecting other representation details are rejected.
+
+Generic same-type `PartialEq::eq`/`ne` calls can propose value-identity comparisons.
+The original call and all three checks must prove that proposal. The explicit
+`vstd::std_specs::cmp::PartialEqIdentity` law, enabled with `group_eq_identity`, is
+verified for booleans, machine integers and arrays of lawful elements. Rust's `Eq`
+marker alone supplies no such proof; unsupported or weaker equality fails closed.
+
+Aleph's full-validation mode infers the original initial-round branch and checks
+the unchanged public dispatcher against a supplied complete error policy. Constructor
+callers state input-map bounds and per-slot projection goals without fold induction.
+The dispatcher is an ordinary top-down proof target: fully expanding its entire
+inferred typed-result equation still exceeds the current formula budget. Collection
+views, factory proofs, equality law, application policy and the codec boundary remain
+explicit supplied inputs.
 
 ## Checked finite collection queries
 

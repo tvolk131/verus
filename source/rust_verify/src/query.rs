@@ -506,7 +506,8 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         let imported: Vec<_> = other_vir_crates
             .iter()
             .flat_map(|k| k.functions.iter())
-            .filter(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f) || vir::infer::is_approved_model(f))
+            .filter(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f) || vir::infer::is_approved_model(f)
+                || f.x.name.path.krate != vir::ast::CrateId::Vstd && vir::infer::is_pure_observation(f))
             .cloned()
             .collect();
         let inference_arch =
@@ -534,6 +535,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 &cratex.functions, &available, &mut self.inference_generation,
             );
             cratex.functions = vir::infer::prepare_view_bound_goals(
+                &cratex.functions, &available, &mut self.inference_generation,
+            );
+            cratex.functions = vir::infer::prepare_fold_goals(
                 &cratex.functions, &available, &mut self.inference_generation,
             );
         }

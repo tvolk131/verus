@@ -58,7 +58,7 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
             Arc::make_mut(&mut x.attrs).infer_owned =
                 x.attrs.infer && (heap_known(&x.inner_ret.x.typ, &all, ds, 5) || result_query(f)
                     || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all));
+                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all));
             f.new_x(x)
         })
         .collect()
@@ -407,6 +407,14 @@ impl Engine<'_> {
     }
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Val, VirErr> {
         self.spend(&e.span)?;
+        if let Some((negate, args)) = equality::source_call(e, self.all) {
+            let a = self.expr(s, &args[0])?.scalar(&e.span)?;
+            let b = self.expr(s, &args[1])?.scalar(&e.span)?;
+            let a = coerce(&e.span, a, &base(&args[0].typ))?;
+            let b = coerce(&e.span, b, &base(&args[1].typ))?;
+            let value = summary::binary(&e.span, BinaryOp::Eq(Mode::Spec), a, b)?;
+            return Ok(Val::atom(if negate { exits::not(&e.span, value)? } else { value }));
+        }
         if let Some(source)=native_for::source(e){return self.native_for(s,&source);}
         let span = &e.span;
         if let Some((spec,types,args))=iterators::source_call(e,self.all) {
@@ -442,6 +450,13 @@ impl Engine<'_> {
             return Ok(Val::atom(exits::unit_value(span)?));
         }
         if let Some((_query,spec,types,args))=trait_getters::source_call(e,self.all) {
+            if self.object(s, &args[0]).is_err() && args.len() == 1 {
+                let value = self.expr(s, &args[0])?;
+                if let Node::Seq(sequence) = value.node {
+                    return Ok(Val::atom(trait_getters::specialize_view(&spec, &types, sequence, self.all, self.f)?));
+                }
+                return Err(unsupported(span, "constructed query receiver requires a direct sequence view"));
+            }
             let args=args.iter().enumerate().map(|(i,a)|{
                 if i==0 {if let Ok(v)=self.object(s,a){return Ok(v);}}
                 self.expr(s,a)?.scalar(&a.span)
@@ -960,12 +975,17 @@ impl Engine<'_> {
                 let v = self.formula(s, body)?;
                 return self.repeat(&e.span, n, v);
             }
-            if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush | Model::SeqFilter | Model::SeqFold)) =
+            if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush | Model::SeqFilter | Model::SeqFold | Model::Scatter)) =
                 self.all.get(name).and_then(model)
             {
                 let values =
                     args.iter().map(|a| self.formula(s, a)).collect::<Result<Vec<_>, _>>()?;
                 return self.lib(&e.span, m, (**types).clone(), values);
+            }
+            if self.all.get(name).is_some_and(is_pure_observation) {
+                let values = args.iter().map(|a| self.formula(s, a).map(|v| v.expr)).collect::<Result<Vec<_>, _>>()?;
+                let ExprX::Call { target, .. } = &e.x else { unreachable!() };
+                return atom(e.new_x(ExprX::Call { target: target.clone(), args: Arc::new(values), post_args: None, body: None }));
             }
         }
         match &e.x {
@@ -1430,7 +1450,7 @@ fn validate_signature(
         || x.decrease_when.is_some()
         || !(heap_known(&x.inner_ret.x.typ, all, ds, 5) || result_query(f)
             || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all)
+            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all) || equality::uses(f,all)
             || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {
@@ -1599,8 +1619,8 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
                 target: CallTarget::Fun(CallTargetKind::Dynamic,n,types,impls,_),
                 args,post_args:None,body:None,
             } if types.len()==1 && impls.is_empty() => {
-                all.get(n).is_some_and(|f|f.x.attrs.infer_trait_observation
-                    && args.len()==f.x.params.len() && trait_getters::observation(f))
+                all.get(n).is_some_and(|f| args.len()==f.x.params.len()
+                    && (is_pure_observation(f) || f.x.attrs.infer_trait_observation && trait_getters::observation(f)))
             }
             ExprX::Call {
                 target: CallTarget::Fun(kind, n, ..),
@@ -1615,7 +1635,7 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
                 };
                 all.get(n).is_some_and(|f| {
                     f.x.mode == Mode::Spec
-                        && (collections::model(f).is_some()
+                        && (is_pure_observation(f) || collections::model(f).is_some()
                             || model(f).is_some()
                             || f.x.attrs.infer_sequence_view
                             || f.x.attrs.infer_trait_observation && trait_getters::observation(f)

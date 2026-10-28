@@ -6,16 +6,10 @@ use vstd::std_specs::iter_adapters::*;
 verus! {
 
 impl<T> NodeMap<T> {
-    pub closed spec fn entries_value<'a>(&'a self) -> Seq<(NodeIndex, &'a T)> {
-        flatten_options(
-            Seq::new(
-                self@.len(),
-                |i: int|
-                    match self@[i] {
-                        None => None,
-                        Some(value) => Some((NodeIndex(i as usize), &value)),
-                    },
-            ),
+    pub open spec fn entries_value<'a>(&'a self) -> Seq<(NodeIndex, &'a T)> {
+        vstd::seq_update::sparse_entries(
+            self@,
+            |i: int| (NodeIndex(i as usize), &self@[i].unwrap()),
         )
     }
 
@@ -54,6 +48,12 @@ impl<T> NodeMap<T> {
                         Some(value) => Some((NodeIndex(i as usize), &value)),
                     },
             );
+            vstd::seq_update::lemma_sparse_entries_eq(
+                self@,
+                |i: int| (NodeIndex(i as usize), &self@[i].unwrap()),
+                full,
+            );
+            assert(self.entries_value() == flatten_options(full));
             assert(filter_map_outputs(result).is_prefix_of(full));
             assert forall|k: int|
                 0 <= k < self.entries_value().len() implies #[trigger] self.entries_value()[k].0.0

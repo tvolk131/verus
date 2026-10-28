@@ -50,7 +50,7 @@ impl<H: Hasher> ControlHash<H> {
     ))
         requires
             coord.parts().1 > 0,
-            coord.parts().0.0 < Self::construction_rounds(parents).len(),
+            coord.parts().0.0 < parents@.len(),
         ensures
             pair.0@ == (Self::construction_rounds(parents), Self::construction_hash(parents)),
             pair.1 == pair.0.expected_non_initial(coord),

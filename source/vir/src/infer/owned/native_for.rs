@@ -280,11 +280,38 @@ impl Engine<'_> {
                     Arc::new(VarBinderX { name: acc.clone(), a: initial_seq.expr.typ.clone() }),
                     Arc::new(VarBinderX { name: entry.clone(), a: item.clone() }),
                 ]),
-                next.expr,
+                next.expr.clone(),
             ),
             next.size + 1,
         )?;
+        // Canonicalize a single indexed update into its checked library vocabulary.
+        // This changes only the proposed equation; the original loop and fold
+        // invariant still prove it. Other steps retain the general fold summary.
+        let mut scatter = None;
+        if let ExprX::Call { target: CallTarget::Fun(_, name, ..), args, post_args: None, body: None } = &next.expr.x {
+            if models::path_is(&name.path, CrateId::Vstd, &["seq", "Seq", "update"])
+                && args.len() == 3 && matches!(&args[0].x, ExprX::Var(n) if n == &acc)
+                && args[1..].iter().all(|e| {
+                    crate::ast_visitor::expr_visitor_check(e, &mut |_, e| {
+                        if matches!(&e.x, ExprX::Var(n) if n == &acc) { Err(()) } else { Ok(()) }
+                    }).is_ok()
+                })
+            {
+                let elem = iterators::sequence(&initial_seq.expr.typ).unwrap().clone();
+                let closure = |body: &Expr| term(span,
+                    &Arc::new(TypX::SpecFn(Arc::new(vec![item.clone()]), body.typ.clone())),
+                    ExprX::Closure(Arc::new(vec![Arc::new(VarBinderX { name: entry.clone(), a: item.clone() })]), body.clone()),
+                    next.size + 1);
+                let index = term(span, &int_typ(), ExprX::Unary(
+                    UnaryOp::Clip { range: IntRange::Int, truncate: false }, args[1].clone()), next.size + 1)?;
+                scatter = Some((elem, closure(&index.expr)?, closure(&args[2])?));
+            }
+        }
         let fold = |engine: &Engine<'_>, seq: Term| {
+            if let Some((elem, index, value)) = &scatter {
+                return engine.lib(span, Model::Scatter, vec![item.clone(), elem.clone()],
+                    vec![seq, initial_seq.clone(), index.clone(), value.clone()]);
+            }
             engine.lib(
                 span,
                 Model::SeqFold,
@@ -353,7 +380,7 @@ impl Engine<'_> {
             vec![item.clone()],
             vec![seq.clone(), i_value.clone()],
         )?;
-        let env = HashMap::from([(acc, actual_seq.clone()), (entry, entry_at)]);
+        let env = HashMap::from([(acc.clone(), actual_seq.clone()), (entry.clone(), entry_at)]);
         let mut req = boolean(span, true);
         for r in requirements {
             let substituted = crate::ast_visitor::map_expr_visitor(&r.expr, &|e| {
@@ -458,7 +485,8 @@ pub(super) fn pure(e: &Expr) -> Result<(), VirErr> {
                 ..
             } => {
                 name.path.krate == CrateId::Vstd
-                    && (models::path_is(&name.path, CrateId::Vstd, &["view", "View", "view"])
+                    && (models::path_is(&name.path, CrateId::Vstd, &["seq_update", "scatter"])
+                        || models::path_is(&name.path, CrateId::Vstd, &["view", "View", "view"])
                         || name.path.segments.len() == 3
                             && matches!(name.path.segments[0].as_str(), "seq" | "seq_lib")
                             && matches!(

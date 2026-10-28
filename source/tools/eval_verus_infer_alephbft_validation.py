@@ -48,6 +48,17 @@ def construction_api(control):
         '#[verifier::infer]\n'+constructor)
 
 
+def full_validation_api(control):
+    # Public validate is the top-down proof target. Its intended policy is
+    # supplied, and ordinary verification connects the two inferred branches.
+    methods = ['#[verifier::infer]\n'+item(control, 'fn validate_initial_round(')[2],
+        method(control, 'pub fn validate(', 'Result<(), Error<H>>',
+            'result == self.expected_validation(unit_coord)').replace('    ensures',
+                '    requires unit_coord.parts().1 == 0 || unit_coord.parts().0.0 < self@.0.len(),\n    ensures', 1)]
+    return (FIXTURES/'full_validation_models.rs').read_text().replace(
+        '// ORIGINAL_FULL_VALIDATION', '\n'.join(methods))
+
+
 def native_construction_runtime(runtime):
     old = 'let control = ControlHash::<Hasher64> { parents, combined_hash: [0; 8] };'
     new = """let mut hashes = NodeMap::with_size(NodeCount(size));
@@ -130,11 +141,14 @@ def main():
     parser.add_argument('--native-tests', action='store_true')
     parser.add_argument('--native-pipelines', action='store_true')
     parser.add_argument('--native-construction', action='store_true')
+    parser.add_argument('--full-validation', action='store_true')
     parser.add_argument('--native-target', type=Path)
     args = parser.parse_args()
+    if args.full_validation:
+        args.native_construction = True
     if args.native_construction:
         args.native_pipelines = True
-    inferred_count = 16 if args.native_construction else 15
+    inferred_count = 17 if args.full_validation else 16 if args.native_construction else 15
     output = args.output.resolve()
     if output.exists() and any(output.iterdir()):
         parser.error('output must be new or empty')
@@ -160,6 +174,12 @@ def main():
                 'vstd::seq::group_seq_axioms,vstd::seq::group_seq_lemmas,vstd::std_specs::iter::group_iter_axioms,vstd::std_specs::iter_adapters::group_native_adapter_axioms};')
         if args.native_construction:
             api += construction_api(control)
+        if args.full_validation:
+            api = api.replace('type Hash: Copy + CloneIdentity;',
+                'type Hash: Copy + CloneIdentity + vstd::std_specs::cmp::PartialEqIdentity;')
+            api = api.replace('vstd::std_specs::iter_adapters::group_native_adapter_axioms};',
+                'vstd::std_specs::iter_adapters::group_native_adapter_axioms,vstd::std_specs::cmp::group_eq_identity};')
+            api += full_validation_api(control)
         result['source'] = dict(**origin,
             bodies='original six-variant Error<H>, own-parent lookup, n_members, runtime assertion and three-stage ? orchestration',
             adaptations='two iterator pipelines replaced by ordinary checked finite collection queries; positive-round validation scope',
@@ -179,6 +199,12 @@ def main():
                 construction_goals='supplied exact fold/hash goals and constructed-value-to-typed-validation caller',
                 construction_runtime='untouched native constructors exercise real SCALE/hasher implementations; proof-target runtime retains direct supplied states because the declared codec bridge is proof-only',
                 not_claimed='automatic factory/view discovery, partial-domain or arbitrary loops, initial-round validation, proof of SCALE bytes or full protocol correctness')
+        if args.full_validation:
+            result['source'].update(
+                validation='original initial branch infers exact typed errors; ordinary public validate checks the supplied complete policy against both inferred branches',
+                construction_goals='input-map length and per-slot round projection; full construction-to-validation caller without supplied fold induction',
+                equality='explicit checked PartialEqIdentity bound on the supplied Hasher interface; no assumption that Rust Eq implies value identity',
+                not_claimed='automatic factory/view or policy discovery, proof of SCALE bytes/hash security, arbitrary loops, full crate/protocol correctness')
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK='20971520',
                    VERUS_INFER_CACHE=str(output/'candidate-cache'))
         codec_lib, codec_vir = directory/'libcodec_model.rlib', directory/'codec_model.vir'
@@ -221,6 +247,18 @@ def main():
         if args.native_construction:
             cases.insert(-1, ('wrong-construction-round', api.replace('insert(parent_index, *parent_round)', 'insert(parent_index, 0)'), False))
             cases.insert(-1, ('wrong-construction-hash', api.replace('parent_map.using_encoded(H::hash)', 'H::hash(&[])'), False))
+        if args.full_validation:
+            cases.insert(-1, ('wrong-initial-payload', api.replace(
+                'Error::RoundZeroWithSomeParents(NodeCount(parents_count))',
+                'Error::RoundZeroWithSomeParents(NodeCount(0))'), False))
+            cases.insert(-1, ('wrong-initial-hash-test', api.replace(
+                'self.combined_hash != recalculated_control_hash',
+                'self.combined_hash == recalculated_control_hash'), False))
+            cases.insert(-1, ('wrong-initial-hash-payload', api.replace(
+                'Error::RoundZeroBadControlHash(\n                self.combined_hash,\n                recalculated_control_hash,',
+                'Error::RoundZeroBadControlHash(\n                recalculated_control_hash,\n                self.combined_hash,'), False))
+            cases.insert(-1, ('wrong-round-dispatch', api.replace(
+                '0 => self.validate_initial_round()', '1 => self.validate_initial_round()'), False))
         for case, text, expected in cases:
             if not expected and text == api:
                 raise ValueError('ineffective mutation: '+case)
@@ -243,6 +281,9 @@ def main():
             save()
             print(case+': expected outcome', flush=True)
         runtime = RUNTIME.read_text()
+        if args.full_validation:
+            runtime = runtime.replace('let result = control.validate_non_initial_round(',
+                'let result = control.validate(')
         if args.native_pipelines:
             extra = '''    assert!(empty.check_if_parents_greater_than_previous_round(0).is_ok());
     let mut populated = ControlHash::<Hasher64> {
@@ -277,6 +318,9 @@ def main():
             native_runtime = runtime
             if args.native_construction:
                 native_runtime = native_construction_runtime(runtime)
+            if args.full_validation:
+                native_runtime += (FIXTURES/'initial_validation_runtime.rs').read_text()
+                native_runtime += '\n#[test] fn full_initial_validation_corpus(){initial_validation_corpus();}\n'
             (checkout/CONTROL).write_text(control[:end]+native_runtime+
                 '\n#[test] fn inferred_validation_corpus(){validation_corpus();}\n'+control[end:])
             native_env = dict(os.environ)
@@ -293,6 +337,8 @@ def main():
                 raise ValueError('untouched native corpus did not complete')
             if args.native_construction and 'NATIVE_CONSTRUCTORS=378;EMPTY=1' not in run['stdout']:
                 raise ValueError('native constructor corpus did not execute')
+            if args.full_validation and 'NATIVE_INITIAL_VALIDATION_CASES=254' not in run['stdout']:
+                raise ValueError('native initial validation corpus did not complete')
             result['native'].append(dict(case='untouched-native', returncode=run['returncode'], wall_micros=run['wall_micros']))
         result['success'] = True
     except Exception as error:

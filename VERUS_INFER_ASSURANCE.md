@@ -1571,3 +1571,59 @@ expected formal outcomes, sixteen complete exact contracts, both 7,704-case runt
 corpora and 378 native constructed maps plus an empty map. `cargo test -p vir --lib`
 passes all 111 unit tests. The broader command's existing instructional pseudocode
 doctests do not compile and were not counted as passing tests.
+
+### Demanded fold observations and full validation checkpoint (October 28, 2026)
+
+Indexed-update steps whose index and value do not depend on the accumulator use
+the ordinary checked `seq_update::scatter` definition. Original runtime loops are
+unchanged; their synthesized prefix invariants and all three original-body checks
+prove this equation. The library proves length, last-write reads, sparse projection,
+empty sparse views and fold congruence by induction. These are proof functions,
+not new axioms. General folds retain the previous representation and restrictions.
+
+With `--infer-goals`, a bounded deterministic traversal of requested contracts and
+assertions selects scoped checked theorems from that catalog. Callee contracts can
+expose a fold equation but cannot create an observation request. No contract is
+strengthened eagerly, no original goal or safety check is replaced, and no theorem
+conclusion is assumed. Budget exhaustion or an unavailable theorem leaves ordinary
+verification responsible for the unchanged goal. Reports identify selected lemmas.
+Private collection view bounds and sparse factory meanings remain supplied checked
+interfaces; the catalog does not discover abstractions or prove arbitrary loops.
+
+An exact unary collection query can specialize its visible observation body with
+a constructed receiver's certified sequence view. Other receiver uses and hidden
+observation bodies are rejected. Its runtime implementation is not inlined or
+rewritten. Pure nonprophetic spec vocabulary is retained and included in candidate
+keys, but never approved as executable source calls. The original query call and
+both precision obligations must prove the proposed specialization. Existing exact
+query provider certification and full-verification publication requirements remain.
+
+Generic same-type eq/ne calls use the existing standard PartialEq specification.
+Logical identity is only a candidate. The checked `PartialEqIdentity` law supplies
+both enabled equality semantics and the per-value identity theorem; Rust's Eq marker
+does not imply either. Library implementations for booleans, integers and arrays are
+verified, including zero-length arrays. A weak generic Eq bound fails semantic proof
+and publishes no interface. No comparison or hash-identity axiom is added.
+
+Aleph now infers the original initial-round branch as well as construction and
+noninitial validation. The original public dispatcher is an ordinary top-down goal
+with a supplied conditional index bound and complete typed-error policy. Fully
+expanding its inferred typed-result equation still exceeds the existing formula
+budget; that budget was not increased. The caller proves input-map size, occupied
+and absent slot projection, and initial acceptance without handwritten fold
+induction. Application intent is supplied, not inferred. Original constructor,
+factory, callback, hash-helper and validation executable operations are retained.
+
+The declared codec model, verified-lock adaptation, corrected quorum arithmetic,
+and existing trusted native iterator models remain explicit boundaries. Formal
+initial hash behavior depends on the declared encoding model; the separate native
+corpus executes the real SCALE codec and hasher. No claim about encoding correctness,
+hash collision resistance, the full production crate or protocol correctness is
+introduced. This checkpoint uses metadata schema/policy 31 and candidate cache 37.
+
+Validation: 515 Rust integration tests, 111 VIR unit tests and 69 Python tests
+pass. Standard vstd verifies 2,204 obligations; no_std/no_alloc verifies 2,014,
+both with zero errors. The final pinned Aleph run records sixteen expected formal
+outcomes, seventeen complete exact contracts, both 7,704-case noninitial runtime
+corpora, 378 native constructed maps plus an empty map, and 254 additional native
+initial-validation cases. Cold/warm runs enable fold assistance in five callers.

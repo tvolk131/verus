@@ -147,6 +147,9 @@ impl Verifier {
             })).chain(generation.view_bound_lemmas.iter().map(|(function, lemmas)| json!({
                 "function": name(function), "strategy": "sequence_view_bound",
                 "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
+            }))).chain(generation.fold_lemmas.iter().map(|(function, lemmas)| json!({
+                "function": name(function), "strategy": "sequence_fold_observation",
+                "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
             }))).collect::<Vec<_>>(),
             "failed_functions": failed_functions,
             "functions": functions,
