@@ -1070,3 +1070,121 @@ fn array_precision_checks_arbitrary_whole_values_including_empty_arrays() {
         }
     }
 }
+
+#[test]
+fn owned_return_exactness_rejects_missing_loose_and_wrong_fields_independently() {
+    let (ctx, _, mut check) = record_fixture();
+    let typ = Arc::new(TypX::Datatype(
+        ctx.datatype_map.keys().next().unwrap().clone(),
+        Arc::new(vec![]),
+        Arc::new(vec![]),
+    ));
+    let input = SpannedTyped::new(&span(), &typ, ExpX::Var(var("input")));
+    let output = SpannedTyped::new(&span(), &typ, ExpX::Var(var("result")));
+    let TypX::Datatype(dt, ..) = &*typ else {
+        unreachable!()
+    };
+    let field = |v: Exp, name: &str, t: &Typ| {
+        SpannedTyped::new(
+            &span(),
+            t,
+            ExpX::UnaryOpr(
+                UnaryOpr::Field(FieldOpr {
+                    datatype: dt.clone(),
+                    variant: Arc::new("Counter".into()),
+                    field: Arc::new(name.into()),
+                    get_variant: false,
+                    check: VariantCheck::None,
+                }),
+                v,
+            ),
+        )
+    };
+    let u8_typ = Arc::new(TypX::Int(IntRange::U(8)));
+    let vars = [(var("input"), typ.clone()), (var("result"), typ.clone())];
+    let encode = |e: Exp| crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx, &e, &vars);
+    let count = encode(binary(
+        crate::sst::BinaryOp::Eq,
+        field(output.clone(), "count", &u8_typ),
+        field(input.clone(), "count", &u8_typ),
+    ));
+    let flag = encode(binary(
+        crate::sst::BinaryOp::Eq,
+        field(output.clone(), "flag", &bool_typ()),
+        field(input.clone(), "flag", &bool_typ()),
+    ));
+    check.reqs = Arc::new(vec![]);
+    check.local_decls = Arc::new(
+        vars.iter()
+            .map(|(ident, typ)| {
+                Arc::new(LocalDeclX {
+                    ident: ident.clone(),
+                    typ: typ.clone(),
+                    kind: if ident == &var("result") {
+                        LocalDeclKind::Return
+                    } else {
+                        LocalDeclKind::Param { mutable: false }
+                    },
+                })
+            })
+            .collect(),
+    );
+    check.body = Spanned::new(
+        span(),
+        StmX::Block(Arc::new(vec![Spanned::new(
+            span(),
+            StmX::Return {
+                assert_id: None,
+                base_error: error(&span(), "postcondition"),
+                ret_exp: Some(input.clone()),
+                inside_body: false,
+            },
+        )])),
+    );
+    check.post_condition = Arc::new(PostConditionSst {
+        dest: Some(var("result")),
+        ens_exps: Arc::new(vec![count.clone(), flag.clone()]),
+        ens_spec_precondition_stms: Arc::new(vec![]),
+        kind: PostConditionKind::Ensures,
+    });
+    let pars = Arc::new(vec![Spanned::new(
+        span(),
+        ParX {
+            name: var("input"),
+            typ: typ.clone(),
+            mode: Mode::Exec,
+        },
+    )]);
+    let exact = |c: &FuncCheckSst| state::returned_body(&ctx, &span(), &typ, c).unwrap();
+    assert!(verifies(&ctx, &pars, &check));
+    assert!(verifies(&ctx, &pars, &exact(&check)));
+    for clauses in [vec![], vec![count], vec![flag]] {
+        let mut weak = check.clone();
+        Arc::make_mut(&mut weak.post_condition).ens_exps = Arc::new(clauses);
+        assert!(verifies(&ctx, &pars, &weak));
+        assert!(!verifies(&ctx, &pars, &exact(&weak)));
+    }
+    let mut loose = check.clone();
+    Arc::make_mut(&mut loose.post_condition).ens_exps = Arc::new(vec![
+        encode(binary(
+            crate::sst::BinaryOp::Inequality(InequalityOp::Le),
+            field(output.clone(), "count", &u8_typ),
+            field(input.clone(), "count", &u8_typ),
+        )),
+        check.post_condition.ens_exps[1].clone(),
+    ]);
+    assert!(verifies(&ctx, &pars, &loose));
+    assert!(!verifies(&ctx, &pars, &exact(&loose)));
+    let mut wrong = check.clone();
+    Arc::make_mut(&mut wrong.post_condition).ens_exps = Arc::new(vec![encode(binary(
+        crate::sst::BinaryOp::Eq,
+        field(output, "count", &u8_typ),
+        integer(0),
+    ))]);
+    assert!(!verifies(&ctx, &pars, &wrong));
+    assert!(!verifies(&ctx, &pars, &exact(&wrong)));
+    let before = format!("{check:?}");
+    let _ = exact(&check);
+    assert_eq!(before, format!("{check:?}"));
+    assert!(state::returned_body(&ctx, &span(), &typ, &exact(&check)).is_err());
+}

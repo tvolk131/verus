@@ -502,3 +502,45 @@ its exact candidates pass, while the collector's application goal fails. The
 earlier getter, slot, accounting, frame and domain controls remain, followed by
 cold/warm positives. Reports distinguish supplied wrapper implementations from
 original method bodies. No new native Aleph execution or production bug is claimed.
+
+## Construction and round advancement
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_lifecycle.py \
+  --alephbft /path/to/AlephBFT \
+  --output /tmp/infer-aleph-lifecycle
+```
+
+This checkpoint infers `new` and `next` in the supplied collector core. The direct
+Vec variant preserves their executable bodies and removes their handwritten
+method contracts, loop annotations and local proof blocks. The former method
+contracts become ordinary `check_new` and `check_next` goals. A further lifecycle
+harness constructs a collector, adds a candidate, advances, adds another candidate
+and proves the invariant still holds. It does not discover that invariant or the
+application's count/round meanings.
+
+The private variant uses a separately compiled NodeMap provider. It retains the
+pinned `size`, `get`, `insert` and **`with_size`** bodies, including native `.into()`
+syntax. A checked `From<NodeCount> for usize` adapter supports the constructor.
+An explicit `NodeMap<T: Copy>::copy_contents` method uses an ordinary indexed Copy
+loop, with inferred invariants and termination. The supplied collector's factories
+delegate to these APIs and return an owned record or `Option<Self>`. No private
+field is exposed in the consumer. This verifies the explicit copy adapter, not
+Aleph's native generic Clone derive: Copy alone does not establish Clone equality.
+
+Five direct cases and six private cases yield **17 provider/consumer runs**. Direct
+runs have five exact candidates; private providers have nine and consumers five.
+Each stage must contain exactly two `owned_value` candidates with all three proof
+obligations proved. Cold/warm positives bracket semantic controls: wrong initial
+round, wrong advance, missed counter reset, premature terminal round and an
+unnecessary constructor overflow restriction. Those controls require a named
+new/next application goal to fail while all inference checks pass; frontend and
+resource failures are not accepted as evidence. Snapshots, commands, artifact
+hashes, JSON reports and the explicit adapter patch are retained in the output.
+
+The original source checkout stays untouched. The corrected threshold, supplied
+counting equivalence/invariant/behavior oracles, reduced Unit/Hasher interface,
+explicit wrapper adapters and widened u32/Option terminal policy remain visible.
+This does not prove the full clean-main collector, native derives or cached FullUnit
+hashing, and does not claim a new production bug discovery. The existing original
+u16 round-overflow issue remains distinct from this adapted terminal policy.

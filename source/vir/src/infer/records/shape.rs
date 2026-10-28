@@ -123,18 +123,18 @@ fn record_bounds(bounds:&GenericBounds,params:&[Ident]) -> bool {
         })
 }
 #[derive(Clone)]
-pub(super) struct Projection {
+pub(in crate::infer) struct Projection {
     pub op: FieldOpr,
     pub typ: Typ,
 }
 #[derive(Clone)]
-pub(super) struct Field {
+pub(in crate::infer) struct Field {
     pub path: Vec<Projection>,
     pub typ: Typ,
     pub element: Option<Typ>,
     pub view: Option<sequence_views::SequenceView>,
 }
-pub(super) struct Shape {
+pub(in crate::infer) struct Shape {
     pub typ: Typ,
     pub fields: Vec<Field>,
 }

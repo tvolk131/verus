@@ -23,7 +23,8 @@ backlog and proposed milestone order are maintained in
 ## Current protections and trust boundary
 
 - Contract installation preserves original executable code. Loop-free bodies
-  retain their original pointer. Counted loops receive only pure proof
+  in the scalar path retain their original pointer; owned-value bodies are checked
+  for structural identity. Numeric and collection loops receive only pure proof
   annotations, with a production source-projection check; ordinary Verus checks
   the proposed contract, invariants, and termination against that code.
 - Exact mode requires soundness, safe-domain maximality, and output exactness.
@@ -1125,3 +1126,80 @@ seven native Aleph wrapper controls pass. The new standalone example verifies 18
 obligations with five exact inferred functions, compiles, and executes its native
 conversion/increment checks. The rebuilt standard library verifies 2,107
 obligations with zero errors.
+
+## Owned collection construction and lifecycle
+
+Candidate-cache version 28 and inference metadata schema 23 cover compiler-only
+owned-value markers, the new closed summary forms and model fingerprints. Owned
+construction templates regenerate every time; they never load proof outcomes or
+owned formulas from the persistent candidate cache.
+
+The untrusted interpreter proposes complete contents equations for vectors and
+certified sole-vector wrappers, every scalar/transparent-record field, and Option
+tags with guarded payload equations. It composes exact helper interfaces rather
+than executing their bodies. Bounded fill and indexed Copy loops receive two pure
+invariants and one decreasing measure. Source validation rejects user annotations
+and termination bypasses before traversing their specification calls. The
+installer restores the actual original executable body, including trait syntax
+that candidate analysis temporarily normalized, and reapplies only checked loop
+annotations. A serialized source-projection comparison rejects changed executable
+steps or proof assumptions; candidate identity binds the installed annotations.
+
+Ordinary verification checks the proposed contract, loop invariant initialization
+and preservation, bounds, overflow and termination. Safe-domain maximality retains
+the existing independent SST transformation. Fill expressions that add partial
+operations inside the repeated body are explicitly unsupported: the current
+transformation cannot recover a necessary first-iteration safety condition at the
+loop exit. Computing checked arithmetic before the loop is supported. Independent
+output exactness traverses the declared returned type rather than the candidate
+clauses, introduces an arbitrary typed output, and checks the relation iff every
+modeled observation equals the actual return. Observations cover full sequence
+contents, all scalar fields, Option tag and the present payload; capacity and
+allocation identity are not observed. No application invariant is assumed.
+
+Imported summaries must reconstruct the same complete output tree, conjunction
+shape and Option guards. Their clauses are limited to pure values and recognized
+specification/view models; executable helper calls, proof blocks and assumptions
+are rejected. The existing proof receipts, full-provider API/model fingerprints,
+verification order, architecture matching and full-crate export gates also apply.
+Generic owned callees enter the existing certified-precondition safety barrier;
+they cannot supply a maximal domain without their independent required proofs.
+
+The new model recognition reuses existing vstd declarations for Vec new/capacity,
+push, repeat and clone, and Seq empty/new/take/push. Canonical identities, arity,
+type arguments, parameter/result types and generic library bounds are checked.
+There are **no new library axioms, external bodies or no-unwind declarations**.
+These ordinary vstd Vec specifications remain trusted Rust-library models.
+Generic Clone is not assumed to preserve value, even for a Copy type. Repeat of
+`None` uses the existing Option clone model; opaque payload copies use an explicit
+Copy loop. Structural primitive/Option/tuple clone candidates still require the
+backend to establish their contents equation; unsupported clone laws fail closed.
+
+Fault injection bypasses synthesis and checks arbitrary owned records against an
+independent executable return: missing siblings, loose relations and wrong fields
+cannot gain output exactness. Additional tests cover source-projection changes,
+assumptions, observation budgets, unsupported loops/clones, all three exact proof
+receipts, warm cross-crate composition through private views, changed providers,
+missing inference metadata and failed-provider/consumer export invalidation.
+The standalone example also compiles and runs natively.
+
+The Aleph lifecycle experiment retains supplied direct Vec new/next executable
+bodies while removing method contracts, loop annotations and local proof blocks.
+Its separate private provider retains NodeMap's original with_size/size/get/insert
+bodies and adds an explicit checked Copy adapter; this does not verify the native
+generic Clone derive. Both variants prove construction/add/advance/add using the
+supplied application invariant and counting model. Semantic controls retain every
+exact proof while wrong initial/advanced rounds, reset and terminal policies fail
+the ordinary behavior goals; an unnecessary executable overflow restriction fails
+the unrestricted construction goal. Reduced traits, wrapper adapters, threshold
+correction and the widened-round/Option terminal design remain explicit inputs.
+
+Validation on 2026-10-27: release compiler build; vstd **2,107 verified / 0 errors**;
+**348 integration tests** across ten inference targets, **106 VIR tests** and
+**2 builtin macro tests** (**456 Rust tests** total); **57 Python checks**.
+The lifecycle runner passed **17 expected formal outcomes** and all nine earlier
+Aleph runners passed their **122 expected outcomes**, for **139** total. The earlier
+wrapper native target passed its seven tests. The new owned-value example had
+**11 verified / 0 errors**, compiled, and passed its native construction/copy/fill/
+terminal checks. Expected semantic rejections are included in the outcome counts;
+they are not successful proofs of those deliberately incorrect implementations.

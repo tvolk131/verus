@@ -96,6 +96,16 @@ Implemented and covered by regression tests:
   identities. Aleph's optional wrapper checkpoint restores the original size body
   and a NodeCount counter in the supplied collector; native derives/full lifecycle
   remain outside its scope.
+- [x] Bounded owned collection construction and round advancement in default exact
+  mode: empty/capacity vectors, repeat initialization, fill and indexed Copy loops,
+  nested collection-bearing record results and `Option<Self>`. Complete logical
+  contents and scalar fields compose through certified private direct views and
+  crate interfaces. Pure loop annotations are checked against unchanged executable
+  bodies; return exactness independently enumerates the modeled output. Aleph's
+  supplied Vec core now infers `new`/`next` without method contracts, loop invariants
+  or local proof blocks. A separate private-API lifecycle retains NodeMap's original
+  `with_size` body and uses an explicit checked Copy adapter. Application invariants,
+  count equivalence, reduced traits and widened-round/terminal policy remain supplied.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -251,7 +261,7 @@ Still planned or outside the implemented subset:
 | Phase 0: integration research | Complete for the prototype's VIR insertion point. |
 | Phase 1: exact arithmetic | Implemented for fixed-width and platform-sized unsigned/signed integers and Booleans; bitwise/shifts, wrapping/saturating arithmetic, and checked variants are implemented; additional numeric methods remain. |
 | Phase 2: modular composition | Implemented within the supported subset, including caches and Cargo imports. Opt-in goal assistance handles selected scalar assertions and supplied counting invariants; general queries, automatic retries and contract strengthening remain future work. |
-| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec views, bounded exact record-state composition and transparent generic wrappers are implemented. General heap mutation and standalone-vector state precision remain. |
+| Phase 3: partial inference and collections | Partial: scalar intervals, exact flat enums/control flow/arrays/slices, generic Vec views, bounded owned construction/copy, exact record-state composition and transparent generic wrappers are implemented. General heap mutation and standalone-vector state precision remain. |
 | Phase 4: loop inference | Exact unsigned constant/parameter-step add/subtract accumulators and ascending/countdown unit counters implemented; signed and collection loops remain. |
 | Phase 5: richer verification | Future work. |
 
@@ -375,14 +385,23 @@ APIs and research directions.
     the supplied collector's counter. Explicit verified trait adapters replace
     native derives; the full original collector and cached FullUnit implementation
     remain unverified by this experiment.
-14. **Next: broader trait boundaries, richer abstractions and collector lifecycle.**
-    General trait contracts, external trait proxies, inherited operator/conversion contracts,
-    collection construction/copy loops and richer mutable return values remain.
+14. **Owned collection lifecycle checkpoint implemented.** Pure vector constructors,
+    bounded fill/Copy loops and collection-bearing owned/Option results compose in
+    exact mode, including across private crate interfaces. An independent checker
+    enumerates every output observation rather than deriving coverage from the
+    candidate. Ordinary goals check construction, update, advance and another update
+    in the supplied Aleph core. Wrong rounds/reset/termination and restrictive-domain
+    controls separate exact code descriptions from intended behavior. Generic Clone
+    equality is not assumed; the private adapter uses an explicit Copy loop.
+15. **Next: richer abstractions and broader source coverage.** General trait contracts,
+    external trait proxies, inherited operator/conversion contracts beyond the checked
+    concrete subset, arbitrary Clone relations, more loop families and richer mutable
+    return values remain.
     More general supplied views, representation-lemma selection and automatic
     abstraction discovery are separate extensions beyond direct projections.
     Broader query control, ordinary-proof-first retries, application invariant
     discovery and a dedicated expected-domain interface remain separate work.
-    The existing supplied invariant, loop annotations and regression oracle are
+    The existing supplied invariant and regression oracle are
     still visible inputs; do not count their desired semantics as inferred.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)

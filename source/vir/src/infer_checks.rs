@@ -74,6 +74,9 @@ pub fn precision_check(
     original: &FuncCheckSst,
     kind: PrecisionCheck,
 ) -> Result<FuncCheckSst, VirErr> {
+    if crate::infer::is_owned_summary(&ctx.func_map[&function.x.name]) && matches!(kind,PrecisionCheck::Exactness){
+        return state::returned(ctx,function,original);
+    }
     if function.x.pars.iter().any(|p| matches!(&*p.x.typ, crate::ast::TypX::MutRef(_))) {
         if !crate::infer::is_record_summary(&ctx.func_map[&function.x.name]) {
             return Err(error(

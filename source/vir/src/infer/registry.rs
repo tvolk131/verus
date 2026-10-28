@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v27:wrapper-trait-boundaries:4096";
+const VERSION: &str = "verus-infer-v28:owned-collection-values:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -310,7 +310,8 @@ impl Registry {
             candidates.insert(f.x.name.clone(), f.clone());
         }
         for f in imported.iter().filter(|f| f.x.attrs.infer) {
-            if records::candidate(f) { records::validate_summary(f,&all,&self.datatypes)?; }
+            if is_owned_summary(f){owned::validate_summary(f,&all,&self.datatypes)?;}
+            else if records::candidate(f) { records::validate_summary(f,&all,&self.datatypes)?; }
             else if collections::kind(f).is_some() { collections::validate_summary(f, &all)?; }
             else { validate_imported_summary(f)?; }
             let key: String = Sha256::digest(format!("{VERSION}:import:{f:?}"))
@@ -326,6 +327,16 @@ impl Registry {
             }
             let f = &all[&name];
             let start = std::time::Instant::now();
+            if is_owned_summary(f){
+                let mut dependencies:Vec<_>=keys.values().cloned().collect();dependencies.sort();dependencies.push(format!("{:?}",self.datatypes));
+                let key=candidate_key(self.originals.get(&name).unwrap_or(f),&dependencies,&self.configuration);
+                let wrappers=newtypes::Newtypes::new(&self.datatypes);
+                let callees=candidates.iter().map(|(n,c)|Ok((n.clone(),if self.projected.contains(n){wrappers.lift(&self.originals[n],c)?.install_lifted(&self.originals[n],&keys[n])?}else{c.clone()}))).collect::<Result<HashMap<_,_>,VirErr>>()?;
+                let (contract,body)=owned::infer(f,&callees,&self.datatypes)?;
+                let inferred=contract.install_owned(f,&key,body)?;
+                self.misses+=1;let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
+                keys.insert(name.clone(),key);candidates.insert(name,inferred);continue;
+            }
             if records::candidate(f) {
                 let mut dependencies: Vec<_> = keys.values().cloned().collect(); dependencies.sort();
                 dependencies.push(format!("{:?}",self.datatypes));
@@ -458,6 +469,7 @@ impl Registry {
     ) -> Result<Vec<Function>, VirErr> {
         let trait_contracts=trait_getters::prepare(functions,imported);
         let prepared=sequence_views::prepare(&trait_contracts,imported,datatypes);
+        let prepared=owned::prepare(&prepared,datatypes);
         let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
@@ -491,6 +503,7 @@ impl Registry {
                 .zip(inferred.iter())
                 .map(|(((original, rewritten), projection), f)| {
                     if !original.x.attrs.infer { return Ok(f.clone()); }
+                    if is_owned_summary(original){return Contract::new(f.x.require[0].clone(),f.x.ensure.0[0].clone())?.install_owned(original,f.x.attrs.infer_candidate_id.as_ref().unwrap(),owned::restore_body(original,f.x.body.as_ref().unwrap())?);}
                     if Arc::ptr_eq(rewritten, projection) {
                         return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
                             .install_lifted(original, f.x.attrs.infer_candidate_id.as_ref().unwrap());

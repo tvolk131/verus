@@ -76,10 +76,18 @@ impl Contract {
         original: &Function,
         provenance: &str,
     ) -> Result<Function, VirErr> {
+        self.install_body(original,provenance,loops::annotate(original)?)
+    }
+
+    pub(super) fn install_owned(self,original:&Function,provenance:&str,body:Expr)->Result<Function,VirErr>{
+        owned::validate_decoration(original,&body)?;
+        self.install_body(original,provenance,Some(body))
+    }
+
+    fn install_body(self,original:&Function,provenance:&str,body:Option<Expr>)->Result<Function,VirErr>{
         let Self { pre, post } = self;
-        let body = loops::annotate(original)?;
         let nonlinear = original.x.attrs.nonlinear
-            || loops::recognize(original)?.is_some_and(|plan| plan.nonlinear);
+            || !original.x.attrs.infer_owned && loops::recognize(original)?.is_some_and(|plan| plan.nonlinear);
         // Bind outcomes to the original typed body, the actual proposed formulas
         // (including cache contents), configuration and transitive dependencies.
         let id = Sha256::digest(format!(

@@ -1547,6 +1547,8 @@ pub struct FunctionAttrsX {
     /// Never accepted as source attributes; imports require inference metadata.
     pub infer_trait_getter: bool,
     pub infer_trait_observation: bool,
+    /// Compiler-selected collection-bearing owned result; never a source flag.
+    pub infer_owned: bool,
     /// Erasure and lifetime checking based on ghost blocks
     pub uses_ghost_blocks: bool,
     /// Inline spec function for SMT

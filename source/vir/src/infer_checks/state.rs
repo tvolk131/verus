@@ -8,6 +8,70 @@ use crate::ast::{
 };
 use crate::context::Ctx;
 
+/// Observe a complete returned value independently of the candidate's clauses.
+pub(super) fn returned(
+    ctx: &Ctx,
+    function: &FunctionSst,
+    original: &FuncCheckSst,
+) -> Result<FuncCheckSst, VirErr> {
+    returned_body(ctx, &function.span, &function.x.inner_ret.x.typ, original)
+}
+
+pub(super) fn returned_body(
+    ctx: &Ctx,
+    span: &Span,
+    typ: &Typ,
+    original: &FuncCheckSst,
+) -> Result<FuncCheckSst, VirErr> {
+    validate_query_kind(original, None, span)?;
+    let name =
+        VarIdent(Arc::new("__verus_infer_owned_output".into()), VarIdentDisambiguate::AirLocal);
+    if original.local_decls.iter().any(|d| d.ident == name) {
+        return Err(error(span, "owned precision variable collision"));
+    }
+    let dest = original
+        .post_condition
+        .dest
+        .as_ref()
+        .ok_or_else(|| error(span, "owned precision return missing"))?;
+    let other = SpannedTyped::new(span, typ, ExpX::Var(name.clone()));
+    let actual = SpannedTyped::new(span, typ, ExpX::Var(dest.clone()));
+    let mut equalities = vec![];
+    observations(ctx, span, typ, other.clone(), actual, 6, &mut equalities)?;
+    let vars = [(name.clone(), typ.clone()), (dest.clone(), typ.clone())];
+    let equals = crate::poly::visit_exp_native_for_pure_exp_with_vars(
+        ctx,
+        &crate::sst_util::sst_conjoin(span, &Arc::new(equalities)),
+        &vars,
+    );
+    let relation = crate::sst_util::sst_conjoin(span, &original.post_condition.ens_exps);
+    let relation = crate::sst_util::subst_exp(
+        &HashMap::new(),
+        &HashMap::from([(dest.clone(), other.clone())]),
+        &relation,
+    );
+    let mut check = original.clone();
+    let post = Arc::make_mut(&mut check.post_condition);
+    post.kind = PostConditionKind::InferExactness;
+    post.ens_spec_precondition_stms = Arc::new(vec![]);
+    post.ens_exps = Arc::new(vec![SpannedTyped::new(
+        span,
+        &bool_typ(),
+        ExpX::Binary(BinaryOp::Eq, relation, equals),
+    )]);
+    Arc::make_mut(&mut check.reqs).push(SpannedTyped::new(
+        span,
+        &bool_typ(),
+        ExpX::UnaryOpr(UnaryOpr::HasType(typ.clone()), other),
+    ));
+    Arc::make_mut(&mut check.local_decls).push(Arc::new(LocalDeclX {
+        ident: name,
+        typ: typ.clone(),
+        kind: LocalDeclKind::Assert,
+    }));
+    Ok(check)
+}
+
 pub(super) fn exactness(
     ctx: &Ctx,
     function: &FunctionSst,
@@ -121,12 +185,30 @@ fn observations(
     // private field in the client. Never derive this choice from the candidate.
     if let Some(view) = crate::infer::record_sequence_view(typ, &ctx.func_map) {
         let TypX::Datatype(_, args, _) = &**typ else { return Err(bad()) };
-        let ts=view.x.typ_params.iter().cloned().zip(args.iter().cloned()).collect();
-        let ret=crate::sst_util::subst_typ(&ts,&view.x.inner_ret.x.typ);
-        let crate::ast::FunctionKind::TraitMethodImpl{method,trait_typ_args,..}=&view.x.kind else {return Err(bad())};
-        let trait_args: crate::ast::Typs=Arc::new(trait_typ_args.iter().map(|t|crate::sst_util::subst_typ(&ts,t)).collect());
-        let observe=|v:Exp|SpannedTyped::new(span,&ret,ExpX::Call(CallFun::Fun(method.clone(),Some((view.x.name.clone(),args.clone()))),trait_args.clone(),Arc::new(vec![v])));
-        out.push(SpannedTyped::new(span,&bool_typ(),ExpX::BinaryOpr(BinaryOpr::ExtEq(false,ret.clone()),observe(a),observe(b))));
+        let ts = view.x.typ_params.iter().cloned().zip(args.iter().cloned()).collect();
+        let ret = crate::sst_util::subst_typ(&ts, &view.x.inner_ret.x.typ);
+        let crate::ast::FunctionKind::TraitMethodImpl { method, trait_typ_args, .. } = &view.x.kind
+        else {
+            return Err(bad());
+        };
+        let trait_args: crate::ast::Typs =
+            Arc::new(trait_typ_args.iter().map(|t| crate::sst_util::subst_typ(&ts, t)).collect());
+        let observe = |v: Exp| {
+            SpannedTyped::new(
+                span,
+                &ret,
+                ExpX::Call(
+                    CallFun::Fun(method.clone(), Some((view.x.name.clone(), args.clone()))),
+                    trait_args.clone(),
+                    Arc::new(vec![v]),
+                ),
+            )
+        };
+        out.push(SpannedTyped::new(
+            span,
+            &bool_typ(),
+            ExpX::BinaryOpr(BinaryOpr::ExtEq(false, ret.clone()), observe(a), observe(b)),
+        ));
         return Ok(());
     }
     if let Some(args) = crate::infer::record_vec_args(typ) {
@@ -156,6 +238,56 @@ fn observations(
             ExpX::BinaryOpr(BinaryOpr::ExtEq(false, ret.clone()), observe(a), observe(b)),
         ));
         return Ok(());
+    }
+    if let TypX::Datatype(dt @ crate::ast::Dt::Path(p), args, _) = &**typ {
+        if p.krate == crate::ast::CrateId::Core
+            && p.segments.iter().map(|s| s.as_str()).eq(["option", "Option"])
+            && args.len() == 1
+        {
+            let tag = |v: Exp| {
+                SpannedTyped::new(
+                    span,
+                    &bool_typ(),
+                    ExpX::UnaryOpr(
+                        UnaryOpr::IsVariant {
+                            datatype: dt.clone(),
+                            variant: Arc::new("Some".into()),
+                        },
+                        v,
+                    ),
+                )
+            };
+            out.push(SpannedTyped::new(
+                span,
+                &bool_typ(),
+                ExpX::Binary(BinaryOp::Eq, tag(a.clone()), tag(b.clone())),
+            ));
+            let op = UnaryOpr::Field(FieldOpr {
+                datatype: dt.clone(),
+                variant: Arc::new("Some".into()),
+                field: crate::def::positional_field_ident(0),
+                get_variant: false,
+                check: VariantCheck::None,
+            });
+            let mut payload = vec![];
+            observations(
+                ctx,
+                span,
+                &args[0],
+                SpannedTyped::new(span, &args[0], ExpX::UnaryOpr(op.clone(), a.clone())),
+                SpannedTyped::new(span, &args[0], ExpX::UnaryOpr(op, b)),
+                depth - 1,
+                &mut payload,
+            )?;
+            for eq in payload {
+                out.push(SpannedTyped::new(
+                    span,
+                    &bool_typ(),
+                    ExpX::Binary(BinaryOp::Implies, tag(a.clone()), eq),
+                ));
+            }
+            return Ok(());
+        }
     }
     let nested = matches!(&**typ,TypX::Datatype(crate::ast::Dt::Path(p),..) if !(p.krate==crate::ast::CrateId::Core && p.segments.iter().map(|s|s.as_str()).eq(["option","Option"])));
     if nested {

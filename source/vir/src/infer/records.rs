@@ -93,7 +93,7 @@ pub(super) fn coerce(span: &Span, value: Term, typ: &Typ) -> Result<Term, VirErr
     }
     Err(unsupported(span, "record value type or reference alias"))
 }
-fn equal(span: &Span, a: Term, b: Term) -> Result<Term, VirErr> {
+pub(super) fn equal(span: &Span, a: Term, b: Term) -> Result<Term, VirErr> {
     term(
         span,
         &bool_typ(),
@@ -153,13 +153,13 @@ struct State {
     locals: HashMap<VarIdent, Term>,
     active: Term,
 }
-struct Interpreter<'a> {
-    function: &'a Function,
-    shape: Shape,
-    all: &'a HashMap<Fun, Function>,
-    datatypes: &'a [Datatype],
-    requirements: Vec<Term>,
-    remaining: usize,
+pub(super) struct Interpreter<'a> {
+    pub(super) function: &'a Function,
+    pub(super) shape: Shape,
+    pub(super) all: &'a HashMap<Fun, Function>,
+    pub(super) datatypes: &'a [Datatype],
+    pub(super) requirements: Vec<Term>,
+    pub(super) remaining: usize,
 }
 
 impl Interpreter<'_> {
@@ -217,7 +217,7 @@ impl Interpreter<'_> {
         self.shape.fields[i].element.as_ref()?;
         Some(i)
     }
-    fn model_call(
+    pub(super) fn model_call(
         &self,
         span: &Span,
         model: Model,
@@ -916,7 +916,7 @@ impl Interpreter<'_> {
     }
 }
 
-fn constructor_fields(
+pub(super) fn constructor_fields(
     span: &Span,
     typ: &Typ,
     dt: &Dt,

@@ -5615,3 +5615,103 @@ fn precision_bitvector_resource_limits_never_publish_or_start_callers() {
     assert!(!crates.vir("precision_hint_timeout").exists());
     assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
 }
+
+#[test]
+fn owned_private_factories_and_copy_loops_cross_crates_with_exact_evidence() {
+    let crates = InferCrates::new();
+    let provider = r#"
+ use vstd::prelude::*;
+ pub struct Slots<T>(Vec<Option<T>>);
+ impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+ impl<T:Clone> Slots<T>{#[verifier::infer] pub fn new(n:usize)->Self{Slots(vec![None;n])}}
+ impl<T:Copy> Slots<T>{
+  #[verifier::infer] pub fn copy_contents(&self)->Self{
+   let mut out=Vec::with_capacity(self.0.len());let mut i=0usize;
+   while i<self.0.len(){out.push(self.0[i]);i+=1;}Slots(out)
+  }
+ }
+"#;
+    let consumer = r#"
+ use vstd::prelude::*;
+ pub struct State<T>{pub slots:owned_provider::Slots<T>,pub epoch:u16,pub used:usize}
+ impl<T:Copy> State<T>{
+  #[verifier::infer] pub fn new(n:usize)->Self{Self{slots:owned_provider::Slots::new(n),epoch:0,used:0}}
+  #[verifier::infer] pub fn next(&self)->Option<Self>{
+   if self.epoch==u16::MAX{return None;}
+   Some(Self{slots:self.slots.copy_contents(),epoch:self.epoch+1,used:0})
+  }
+ }
+ pub fn initial<T:Copy>(n:usize)->(r:State<T>)
+  ensures r.slots@.len()==n,r.epoch==0,r.used==0,forall|i:int|0<=i<n ==> r.slots@[i].is_none(),{State::new(n)}
+ pub fn next<T:Copy>(s:&State<T>)->(r:Option<State<T>>)
+  ensures r.is_none()==(s.epoch==u16::MAX),r.is_some() ==> r.unwrap().slots@==s.slots@,
+   r.is_some() ==> r.unwrap().epoch==s.epoch+1,r.is_some() ==> r.unwrap().used==0,{s.next()}
+"#;
+    let check = |run: &std::process::Output| {
+        assert!(
+            run.status.success(),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+        let report = json_inference(run);
+        let fs = report["functions"].as_array().unwrap();
+        assert_eq!(fs.len(), 2);
+        for f in fs {
+            assert_eq!(f["summary_kind"], "owned_value");
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+            }
+        }
+    };
+    for _ in 0..2 {
+        check(&crates.build(
+            "owned_provider",
+            provider,
+            &[],
+            &["--no-cheating", "--output-json"],
+        ));
+        check(&crates.build(
+            "owned_consumer",
+            consumer,
+            &["owned_provider"],
+            &["--no-cheating", "--output-json"],
+        ));
+    }
+    // Precisely infer a changed implementation; the downstream application goal
+    // must reject its changed initial length even on a warm candidate cache.
+    check(&crates.build(
+        "owned_provider",
+        &provider.replace("vec![None;n]", "vec![None;0]"),
+        &[],
+        &["--output-json"],
+    ));
+    let run = crates.build(
+        "owned_consumer",
+        consumer,
+        &["owned_provider"],
+        &["--output-json"],
+    );
+    assert!(!run.status.success());
+    assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
+    assert!(!crates.vir("owned_consumer").exists());
+    check(&crates.build("owned_provider", provider, &[], &["--output-json"]));
+    // Neither a partial output summary nor an uncertified export is usable.
+    let mut bytes = std::fs::read(crates.vir("owned_provider")).unwrap();
+    let start = bytes
+        .windows(b"{\"schema\":".len())
+        .rposition(|s| s == b"{\"schema\":")
+        .unwrap();
+    bytes.truncate(start);
+    std::fs::write(crates.vir("owned_provider"), bytes).unwrap();
+    let run = crates.build("owned_consumer", consumer, &["owned_provider"], &[]);
+    assert!(!run.status.success());
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("missing or invalid inference proof metadata")
+    );
+    assert!(!crates.vir("owned_consumer").exists());
+    let broken = format!("{provider} pub fn false_goal(){{assert(false);}}");
+    let run = crates.build("owned_provider", &broken, &[], &[]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("owned_provider").exists());
+}

@@ -559,6 +559,104 @@ goal and a separate unit-behavior oracle check the result. This does not verify 
 full original traits, cached FullUnit hashing, unrelated native bounds or the
 clean-main collector's operator/lifecycle code.
 
+## Owned collection construction and round advancement
+
+Default exact mode supports bounded functions that return a `Vec`, a transparent
+record containing vectors, a private sole-vector wrapper with a certified direct
+view, or `Option` of such a value. For example, these methods need no handwritten
+contracts or loop annotations:
+
+```rust
+#[verus_verify]
+pub struct Snapshot<T: Copy> { slots: Vec<Option<T>>, epoch: u16 }
+
+#[verus_verify]
+impl<T: Copy> Snapshot<T> {
+    #[verus_infer]
+    pub fn new(size: usize) -> Self {
+        Self { slots: vec![None; size], epoch: 0 }
+    }
+
+    #[verus_infer]
+    pub fn next(&self) -> Option<Self> {
+        if self.epoch == u16::MAX { return None; }
+        let mut slots = Vec::with_capacity(self.slots.len());
+        let mut index = 0usize;
+        while index < self.slots.len() {
+            slots.push(self.slots[index]);
+            index += 1;
+        }
+        Some(Self { slots, epoch: self.epoch + 1 })
+    }
+}
+```
+
+`new` accepts every `usize` size in the verifier's existing allocation model and
+returns exactly that many `None` slots with epoch zero. `next` has no overflow
+restriction: it returns `None` exactly at the maximum epoch, otherwise preserves
+all slot contents and increments the epoch. Ordinary caller goals can prove
+these facts using the inferred interfaces. The
+[complete example](../../../../examples/verus_infer_owned.rs) also verifies and
+runs natively, including empty construction and the terminal epoch.
+
+The source subset includes `Vec::new`, `Vec::with_capacity`, `vec![value; size]`,
+primitive/structural clones whose equality the existing vstd model can prove,
+immutable locals, field projections, branches, early value returns, checked
+scalar arithmetic and exact inferred helpers. Repeat initialization accepts
+primitive identity-clone values or `None`. A generic `T: Copy` bound does **not**
+justify equating arbitrary `Clone` results: a custom Clone can differ from a
+Copy. Use the explicit indexed copy loop above for opaque Copy payloads. Even a
+structurally plausible clone candidate is withheld if vstd cannot prove its
+contents equation, as can happen with tuple clone models.
+
+One loop is supported per function, in either of these forms:
+
+- Fill an initially empty local vector with the same total, loop-independent
+  value: `while out.len() < size { out.push(value); }`.
+- Copy a vector prefix into an initially empty local vector using a zero-based
+  `usize` counter, `out.push(source[index])`, and `index += 1`.
+
+Inference proposes a length bound, a complete contents/prefix invariant, and a
+strictly decreasing length difference. Ordinary Verus checks their initialization,
+preservation and termination on the original loop. The source-projection gate
+permits only these proof annotations and the loop-isolation setting to change.
+Handwritten loop annotations, extra effects, other indices, multiple/nested loops
+and termination bypasses are rejected. Partial expressions inside a fill loop,
+such as `push(x + 1)`, are currently rejected because the independent maximality
+transform cannot recover their first-iteration necessity. Computing `let value =
+x + 1;` before the loop gives an ordinary checked input-domain restriction.
+
+Results have at most 16 independently observed leaves, type depth five, eight
+fields per transparent record, eight parameters, two type parameters and 24
+bounded constraints. Private wrappers retain the supplied direct-view requirement.
+Shared inputs are supported; mutable-reference parameters and sound mode are
+outside this owned-return profile. Generic helper composition is limited to the
+supported certified summary forms; it does not infer arbitrary trait semantics.
+
+All three proof obligations remain mandatory. Output exactness independently
+traverses the output type and compares every scalar field, complete vector/view
+contents, and Option tag and present payload. Exactness is with respect to these
+logical observations, not vector capacity or allocation identity. No application
+invariant or desired round policy is assumed by synthesis. A wrong initial epoch
+can receive a perfectly exact contract and still fail the developer's separate
+initial-state goal. Adding unnecessary executable overflow can similarly produce
+an exact but unwanted input restriction, caught by an unrestricted caller goal.
+
+Reports classify these summaries as `owned_value`, list loop proof annotations,
+and report fresh soundness, maximality and exactness evidence. Templates regenerate
+on every run. Imported interfaces validate complete observation coverage, guards,
+a closed pure model language and the existing candidate/dependency/model evidence.
+
+The [Aleph lifecycle runner](../../../tools/eval_verus_infer_alephbft_lifecycle.py)
+removes supplied constructor/advance contracts, loop annotations and local proof
+blocks from the supplied Vec core, preserving executable bodies. A separate crate
+variant retains original NodeMap API bodies including `with_size`, and supplies
+an explicit checked Copy adapter. Ordinary goals prove construction → add → next →
+add invariant preservation and the original new/next behavior. The application
+invariant, count-equivalence proof, reduced Unit/Hasher adapter, threshold correction
+and widened-round/Option terminal policy remain supplied. This does not verify
+native generic Clone derives, the full clean-main collector, or cached hashing.
+
 ## Demand-driven scalar proof assistance
 
 The experimental `--infer-goals` command-line flag asks an additional bounded
@@ -1371,7 +1469,7 @@ references, shared helpers, conditional calls, and
 short-circuit guards. Dependencies must form an acyclic graph. Callee summaries
 are substituted without analyzing their executable bodies again.
 
-Unsupported features include general loops (the counted pattern below is supported),
+Unsupported features include general loops (the bounded numeric and collection patterns are supported),
 recursion, converting `Result` errors with `?`, calls to functions
 without inferred contracts other than the approved standard models,
 integer operations outside the allowlist above,
@@ -1536,9 +1634,10 @@ original executable's verifier-generated SST:
 
 These checks rely on the existing Verus/rustc arithmetic and array models and Z3, plus the
 small precision-check transformation as part of the verifier. The supported
-subset excludes general effects and source-level assumptions. Counted loops
-allow only the recognized two-local mutation pattern and checked proof
-decoration described above. Calls use inferred
+subset excludes general effects and source-level assumptions. Numeric and collection
+loops allow only the recognized patterns and checked proof decoration described above.
+Owned collection results use complete logical contents/field observations in the
+arbitrary-output query, independently derived from the output type. Calls use inferred
 summaries or the explicitly approved standard models, including the array helpers
 and fixed-array length lowering. Those methods rely on trusted vstd specifications, just as ordinary Verus
 verification does. The integer-operation batch additionally introduces 36 trusted

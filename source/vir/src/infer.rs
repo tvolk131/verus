@@ -34,6 +34,9 @@ mod record_models;
 mod sequence_views;
 mod trait_getters;
 mod wrapper_traits;
+mod owned;
+
+pub fn is_owned_summary(f:&Function)->bool{f.x.attrs.infer && f.x.attrs.infer_owned}
 
 /// Concrete exact-mode implementations whose proposed domain must be proved
 /// equivalent to the ordinary inherited trait precondition.
@@ -80,7 +83,7 @@ pub fn is_state_summary(function: &Function) -> bool {
 
 pub fn is_record_summary(function: &Function) -> bool { function.x.attrs.infer && records::candidate(function) && records::mutable(function) }
 
-pub(crate) fn is_record_callee(f:&Function,typs:&Typs)->bool {records::candidate(f) && f.x.typ_params.len()==typs.len()}
+pub(crate) fn is_record_callee(f:&Function,typs:&Typs)->bool {(records::candidate(f)||is_owned_summary(f)) && f.x.typ_params.len()==typs.len()}
 
 pub fn is_collection_summary(function: &Function) -> bool {
     function.x.attrs.infer && collections::kind(function).is_some()
@@ -662,6 +665,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         if !active.insert(f.x.name.clone()) {
             return Err(unsupported(&f.span, "recursive inferred call graph"));
         }
+        if source && is_owned_summary(f) { owned::validate_source(f)?; }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
                 // Resolution inserts borrow-expiration scaffolding. Traverse it
@@ -676,6 +680,9 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 let e = plain.as_ref().unwrap_or(e);
                 let rewritten = wrapper_traits::source_call(e, all);
                 let e = rewritten.as_ref().unwrap_or(e);
+                if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
+                if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
+                    if all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f)==Some(collections::Model::View))){return Ok(());}
                 if records::candidate(f) && trait_getters::source_call(e,all).is_some() {return Ok(());}
                 if widening::call(e, all).is_some() { return Ok(()); }
                 let range = slices::range_call(e, all)?;
@@ -714,6 +721,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         && !collections::source_call(e, all)
                         && !record_models::as_ref(callee)
                         && !(records::candidate(f) && records::candidate(callee))
+                        && !(is_owned_summary(f) && (is_owned_summary(callee)||callee.x.typ_params.is_empty()))
                         && (!typs.is_empty() || !impls.is_empty())
                     {
                         return Err(unsupported(&e.span, "generic calls"));
@@ -766,7 +774,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    widening::model(function) || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -781,7 +789,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
         available.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
-        if collections::kind(f).is_some() || records::candidate(f) {
+        if collections::kind(f).is_some() || records::candidate(f) || is_owned_summary(f) {
             for model in available.values().filter(|f| collections::model(f).is_some()) {
                 used.insert(model.x.name.clone(), model.clone());
             }
@@ -808,7 +816,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                     }
                 }
                 if let ExprX::Call { target: CallTarget::Fun(CallTargetKind::DynamicResolved { resolved, .. }, ..), .. } = &e.x {
-                    if let Some(callee) = available.get(resolved).filter(|f| widening::model(f) || wrapper_traits::into_model(f)) {
+                    if let Some(callee) = available.get(resolved).filter(|f| widening::model(f) || wrapper_traits::into_model(f) || owned::model(f).is_some()) {
                         used.insert(resolved.clone(), callee.clone());
                     }
                 }
@@ -880,6 +888,7 @@ pub fn validate_imported_summary_with_context(
     functions: &[Function],
 ) -> Result<(), VirErr> {
     let projected = newtypes::Newtypes::new(datatypes).project(function)?;
+    if is_owned_summary(&projected){return owned::validate_summary(&projected,&functions.iter().map(|f|(f.x.name.clone(),f.clone())).collect(),datatypes);}
     if records::candidate(&projected) {
         records::validate_summary(&projected, &functions.iter().map(|f|(f.x.name.clone(),f.clone())).collect(), datatypes)
     } else if collections::kind(&projected).is_some() {
@@ -1038,7 +1047,7 @@ pub fn format_contract(function: &Function) -> String {
 /// Separate the checked predicates for structured presentation. Arithmetic is
 /// mathematical, with explicit machine casts and Rust signed division/remainder.
 pub fn format_contract_parts(function: &Function) -> (String, String) {
-    if collections::kind(function).is_some() || records::candidate(function) {
+    if collections::kind(function).is_some() || records::candidate(function) || is_owned_summary(function) {
         let result_name = VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal);
         let result = &function.x.inner_ret.x.name;
         let post = crate::ast_visitor::map_expr_place_visitor(&function.x.ensure.0[0],
@@ -1126,6 +1135,7 @@ fn format_expr(e: &Expr) -> String {
         ExprX::ArrayLiteral(elements) => {
             format!("[{}]", elements.iter().map(format_expr).collect::<Vec<_>>().join(", "))
         }
+        ExprX::Closure(params,body)=>format!("|{}| {}",params.iter().map(|p|p.name.0.to_string()).collect::<Vec<_>>().join(", "),format_expr(body)),
         ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => format!("({}).len()", format_expr(a)),
         ExprX::Binary(
             BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Allow),
