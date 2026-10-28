@@ -14,6 +14,7 @@ mod syntax;
 mod atomic_ghost;
 mod attr_block_trait;
 mod attr_rewrite;
+mod infer_wrapper;
 mod calc_macro;
 mod contrib;
 mod enum_synthesize;
@@ -403,11 +404,25 @@ pub fn verus_infer(
     } else {
         quote::quote! { infer }
     };
-    let attribute = if let Some(limit) = precision_rlimit {
+    let attribute = if let Some(limit) = &precision_rlimit {
         quote::quote! { #attribute, infer_precision_rlimit(#limit) }
     } else {
         attribute
     };
+    // Keep the generated spec impl declarations in the stub-erasure pass too:
+    // removing them changes subsequent Rust impl DefPaths in compiled APIs.
+    if !cfg_erase().erase_all() {
+        if let Ok(item) = syn::parse::<syn::ItemImpl>(input.clone()) {
+            if precision == Some(true) || precision_rlimit.is_some() {
+                return syn::Error::new_spanned(
+                    item, "wrapper impl inference requires default exact precision and budget",
+                ).to_compile_error().into();
+            }
+            let vstd = syntax::Vstd(proc_macro2::Span::call_site());
+            return infer_wrapper::expand(item, quote::quote!(#vstd))
+                .unwrap_or_else(|e| e.to_compile_error()).into();
+        }
+    }
     attr_rewrite::rewrite_verus_attribute(&cfg_erase(), attribute.into(), input)
 }
 

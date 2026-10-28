@@ -37,6 +37,13 @@ impl Newtypes {
         format!("{:?}", self.shapes)
     }
 
+    pub(super) fn wrapper(&self, typ: &Typ) -> bool {
+        match &**typ {
+            TypX::MutRef(t) => self.shape(t).is_some(),
+            _ => self.shape(typ).is_some(),
+        }
+    }
+
     fn shape(&self, typ: &Typ) -> Option<&Datatype> {
         match &**typ {
             TypX::Datatype(dt, ts, _) if ts.is_empty() => self.shapes.get(dt),
@@ -82,7 +89,9 @@ impl Newtypes {
         if !f.x.attrs.infer || f.x.attrs.infer_allow_approx || records::candidate(f) && !f.x.params.first().is_some_and(|p|self.shape(&p.x.typ).is_some()) || !self.uses_wrapper(f) {
             return Ok(f.clone());
         }
-        if !matches!(f.x.kind, FunctionKind::Static) {
+        if !matches!(f.x.kind, FunctionKind::Static)
+            && wrapper_traits::kind(f) != Some(wrapper_traits::Kind::From)
+        {
             return Err(unsupported(
                 &f.span,
                 "inference on trait implementations: their preconditions are inherited from the trait; use an inherent method or explicit operator specifications",
@@ -94,6 +103,7 @@ impl Newtypes {
             return Err(unsupported(&f.span, "returning wrapper references"));
         }
         let mut projected = f.x.clone();
+        projected.kind = FunctionKind::Static;
         let param = |p: &Param| {
             let mut x = p.x.clone();
             x.typ = self.typ(&x.typ);

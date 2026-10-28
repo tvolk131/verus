@@ -33,6 +33,13 @@ mod records;
 mod record_models;
 mod sequence_views;
 mod trait_getters;
+mod wrapper_traits;
+
+/// Concrete exact-mode implementations whose proposed domain must be proved
+/// equivalent to the ordinary inherited trait precondition.
+pub fn is_wrapper_trait(f: &Function) -> bool {
+    wrapper_traits::kind(f).is_some()
+}
 
 pub fn is_inference_contract(f: &Function) -> bool {
     f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation
@@ -657,6 +664,18 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
+                // Resolution inserts borrow-expiration scaffolding. Traverse it
+                // normally, but ignore it when resolving this dependency edge.
+                let plain = if !source {
+                    if let ExprX::Call { target, args, .. } = &e.x {
+                        Some(e.new_x(ExprX::Call {
+                            target: target.clone(), args: args.clone(), post_args: None, body: None,
+                        }))
+                    } else { None }
+                } else { None };
+                let e = plain.as_ref().unwrap_or(e);
+                let rewritten = wrapper_traits::source_call(e, all);
+                let e = rewritten.as_ref().unwrap_or(e);
                 if records::candidate(f) && trait_getters::source_call(e,all).is_some() {return Ok(());}
                 if widening::call(e, all).is_some() { return Ok(()); }
                 let range = slices::range_call(e, all)?;
@@ -747,7 +766,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    widening::model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    widening::model(function) || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -789,7 +808,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                     }
                 }
                 if let ExprX::Call { target: CallTarget::Fun(CallTargetKind::DynamicResolved { resolved, .. }, ..), .. } = &e.x {
-                    if let Some(callee) = available.get(resolved).filter(|f| widening::model(f)) {
+                    if let Some(callee) = available.get(resolved).filter(|f| widening::model(f) || wrapper_traits::into_model(f)) {
                         used.insert(resolved.clone(), callee.clone());
                     }
                 }

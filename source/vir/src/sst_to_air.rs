@@ -1904,7 +1904,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     // Ordinary verification still asserts these requirements.
                     let inferred =
                         func.x.attrs.infer && !func.x.attrs.infer_allow_approx
-                            && (typs.is_empty() || crate::infer::is_record_callee(func, typs));
+                            && (typs.is_empty() || crate::infer::is_record_callee(func, typs))
+                        || resolved_fun.as_ref().and_then(|f|ctx.func_map.get(f)).is_some_and(|f|crate::infer::is_wrapper_trait(f));
                     let subslice = resolved_fun
                         .as_ref()
                         .and_then(|f| ctx.func_map.get(f))

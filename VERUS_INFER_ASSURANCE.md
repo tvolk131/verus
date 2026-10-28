@@ -1053,3 +1053,75 @@ trait adapter and the previous eighty-five scenarios. The seven native wrapper
 controls also pass. The rebuilt verifier's standard library verifies 2,107
 obligations with zero errors. No new native behavior or production-bug discovery
 is claimed for the reduced trait adapter.
+
+## Concrete wrapper trait boundaries
+
+Concrete nongeneric From and AddAssign implementations now enter the existing
+scalar-wrapper/record synthesis paths. The compiler recognizes canonical core
+trait and method identities, concrete argument/result types and the exact Rust
+implementation selection. The wrapper must have one supported scalar field,
+without a destructor, user invariant, proxy or type parameters. The original
+executable retains its trait kind and body. Only candidate analysis rewrites a
+resolved call to the selected implementation; installation restores the source
+body and binds that body, signature, formulas and dependencies into its identity.
+Scalar-projected callee formulas are lifted before record composition.
+
+The implementation's stored candidate predicate does not become a new callable
+trait precondition. Well-formedness permits it only on eligible inferred
+implementations with compiler-generated candidate identities. SST declaration
+lowering retains it as proof input without declaring an implementation requires
+predicate. Ordinary body verification continues to use the inherited trait
+requirement. In the maximality query, a new assertion proves inherited-requires
+iff candidate-requires for unrestricted typed entry states. It precedes all
+successful-execution assumptions and is inserted after the original safety
+assertions have been transformed. The query then establishes the proposed
+domain's necessity from the original body. This joins ordinary soundness with
+maximality without silently changing the trait contract or assuming a handwritten
+requirement is maximal. From's inherited requirement is unrestricted, so a partial
+implementation cannot invent a restricted domain. All three outcomes remain
+required; sound mode is outside this profile.
+
+The canonical blanket Into bridge uses the existing vstd specification forwarding
+to From. Recognition checks the core/vstd identities, signature, selected blanket
+implementation and the concrete checked From implementation in its impl paths.
+User Into implementations do not acquire conversion semantics. Resolved wrapper
+callee requirements can constrain successful executions in maximality only after
+the ordinary dependency/publication barrier has certified that callee's exact
+checks, including the new boundary assertion. Existing standard-library model
+assumptions remain; the new feature adds no assumed application model. Approved
+model artifacts are conservatively bound for wrapper providers as well as getter
+providers. Metadata schema 22 and candidate-cache version 27 reject older inference
+policies, and the whole exported VIR API continues to bind ordinary extension
+definitions and their dependencies.
+
+The impl-level native annotation generates ordinary extension definitions for a
+direct constructor/projection conversion or one tuple-field addition assignment.
+The shortcut uses public open definitions and requires a public wrapper/field;
+arbitrary derives and more complex implementations need separate support or
+supplied ordinary models. Generated declarations also remain in stub erasure:
+omitting their spec impls shifts later Rust implementation identities in compiled
+interfaces. A compiled native-provider/consumer/application regression checks this
+alongside the ordinary method-level three-crate path. Stable Rust erases ghost
+definitions, and the example executes unchanged native conversions/increments.
+
+Backend fault injection checks that false, weaker and restrictive trait boundaries
+cannot pass the entry equivalence assertion. Integration controls separate
+ordinary soundness from maximality, reject wrong models and partial conversions,
+check signed/unsigned ranges and primitive rhs inputs, and verify that consistently
+changing operator behavior can pass exact checks while failing application intent.
+Cross-crate controls reject stale dependencies, missing certificates and failed
+provider publication. The new Aleph variant retains original NodeMap size/get/
+insert bodies and uses a NodeCount counter in the supplied generic collector. It
+verifies explicit wrapper adapters, not the native derives or the full original
+collector. Its supplied models/invariant/oracles and the prior source adaptations
+remain recorded. The new compiler recognition and transformation code remains
+within the separately documented engineering assurance/formalization workstream.
+
+Checkpoint validation passes 437 targeted Rust tests (331 integration, 104 VIR
+inference/precision, and two macro tests) and 52 inference-tool Python tests.
+All 122 guarded Aleph formal scenarios match their expected outcomes, including
+21 wrapper-operator provider/consumer runs and the previous 101 scenarios. The
+seven native Aleph wrapper controls pass. The new standalone example verifies 18
+obligations with five exact inferred functions, compiles, and executes its native
+conversion/increment checks. The rebuilt standard library verifies 2,107
+obligations with zero errors.

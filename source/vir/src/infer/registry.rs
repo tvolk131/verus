@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v26:exact-trait-getters:4096";
+const VERSION: &str = "verus-infer-v27:wrapper-trait-boundaries:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -233,6 +233,7 @@ pub struct Registry {
     directory: Option<PathBuf>,
     entries: HashMap<String, Candidate>,
     originals: HashMap<Fun, Function>,
+    projected: std::collections::HashSet<Fun>,
     datatypes: Vec<Datatype>,
     pub hits: usize,
     pub misses: usize,
@@ -250,6 +251,7 @@ impl Registry {
             directory,
             entries: HashMap::new(),
             originals: HashMap::new(),
+            projected: std::collections::HashSet::new(),
             datatypes: vec![],
             hits: 0,
             misses: 0,
@@ -328,7 +330,19 @@ impl Registry {
                 let mut dependencies: Vec<_> = keys.values().cloned().collect(); dependencies.sort();
                 dependencies.push(format!("{:?}",self.datatypes));
                 let key=candidate_key(self.originals.get(&name).unwrap_or(f),&dependencies,&self.configuration);
-                let inferred=records::infer(f,&candidates,&self.datatypes)?.install_lifted(f,&key)?;
+                // Record analysis retains application types. Scalar synthesis
+                // temporarily projects wrappers, so lift checked callee formulas
+                // before composing them into a record/query candidate.
+                let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let record_callees = candidates.iter().map(|(n, c)| {
+                    let c = if self.projected.contains(n) {
+                        wrappers.lift(&self.originals[n], c)?
+                            .install_lifted(&self.originals[n], &keys[n])?
+                    } else { c.clone() };
+                    Ok((n.clone(), c))
+                }).collect::<Result<HashMap<_, _>, VirErr>>()?;
+                let inferred = records::infer(f, &record_callees, &self.datatypes)?
+                    .install_lifted(f, &key)?;
                 self.misses+=1;
                 let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
                 keys.insert(name.clone(),key); candidates.insert(name,inferred); continue;
@@ -446,22 +460,40 @@ impl Registry {
         let prepared=sequence_views::prepare(&trait_contracts,imported,datatypes);
         let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
+        for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
+            let valid = match wrapper_traits::kind(f).unwrap() {
+                wrapper_traits::Kind::From => f.x.params.iter().any(|p| wrappers.wrapper(&p.x.typ))
+                    || wrappers.wrapper(&f.x.inner_ret.x.typ),
+                wrapper_traits::Kind::AddAssign => wrappers.wrapper(&f.x.params[0].x.typ),
+            };
+            if !valid {
+                return Err(unsupported(&f.span, "wrapper trait inference requires a transparent nongeneric single scalar field"));
+            }
+        }
         self.datatypes=datatypes.to_vec();
         let configuration = self.configuration.clone();
         self.configuration.push_str(&wrappers.fingerprint());
-        self.originals = functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
+        self.originals = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
         let result = (|| {
+            let all = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+            let rewritten = functions.iter().map(|f| wrapper_traits::rewrite(f, &all))
+                .collect::<Result<Vec<_>, _>>()?;
             let projected =
-                functions.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
+                rewritten.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
             let imports = imported.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
+            self.projected = rewritten.iter().zip(&projected).chain(imported.iter().zip(&imports))
+                .filter(|(a, b)| !Arc::ptr_eq(a, b)).map(|(a, _)| a.x.name.clone()).collect();
             let inferred = self.infer_with_imports(&projected, &imports)?;
             let lifted = functions
                 .iter()
+                .zip(rewritten.iter())
                 .zip(projected.iter())
                 .zip(inferred.iter())
-                .map(|((original, projection), f)| {
-                    if Arc::ptr_eq(original, projection) {
-                        return Ok(f.clone());
+                .map(|(((original, rewritten), projection), f)| {
+                    if !original.x.attrs.infer { return Ok(f.clone()); }
+                    if Arc::ptr_eq(rewritten, projection) {
+                        return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
+                            .install_lifted(original, f.x.attrs.infer_candidate_id.as_ref().unwrap());
                     }
                     wrappers.lift(original, f)?.install_lifted(
                         original,
@@ -481,6 +513,7 @@ impl Registry {
         })();
         self.configuration = configuration;
         self.originals.clear();
+        self.projected.clear();
         self.datatypes.clear();
         if result.is_err() {
             self.generated.clear();

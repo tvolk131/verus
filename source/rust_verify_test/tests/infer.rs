@@ -1158,6 +1158,95 @@ fn record_precision_covers_all_integer_widths_and_both_pointer_models() {
     }
 }
 
+#[test]
+fn wrapper_trait_certificates_compose_across_crates_and_reject_changed_boundaries() {
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;use vstd::std_specs::{ops::*,convert::*};
+      #[derive(Copy,Clone)] pub struct Count(pub usize);
+      impl From<usize> for Count{#[verifier::infer] fn from(n:usize)->Self{Count(n)}}
+      impl FromSpecImpl<usize> for Count{
+       open spec fn obeys_from_spec()->bool{true}
+       open spec fn from_spec(n:usize)->Self{Count(n)}
+      }
+      impl core::ops::AddAssign for Count{
+       #[verifier::infer] fn add_assign(&mut self,rhs:Self){self.0+=rhs.0;}
+      }
+      impl AddAssignSpecImpl for Count{
+       open spec fn obeys_add_assign_spec()->bool{true}
+       open spec fn add_assign_req(&self,rhs:Self)->bool{self.0 as int+rhs.0 as int<=usize::MAX as int}
+       open spec fn add_assign_spec(&self,rhs:Self)->&Self{&Count((self.0+rhs.0) as usize)}
+      }
+    "#;
+    let consumer=r#"use vstd::prelude::*;use wrapper_base::Count;
+      pub struct State{pub count:Count,pub epoch:u64}
+      impl State{#[verifier::infer] pub fn bump(&mut self){self.count+=Count(1);}}
+      pub struct Slots<T>(Vec<Option<T>>);
+      impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+      impl<T> Slots<T>{#[verifier::infer] pub fn size(&self)->Count{self.0.len().into()}}
+    "#;
+    let app=r#"use vstd::prelude::*;use wrapper_consumer::*;
+      fn update(s:&mut State) requires old(s).count.0<usize::MAX,
+       ensures final(s).count.0==old(s).count.0+1,final(s).epoch==old(s).epoch,{s.bump();}
+      fn length<T>(s:&Slots<T>)->(r:wrapper_base::Count) ensures r.0==s@.len(),{s.size()}
+    "#;
+    for _ in 0..2 {
+        for (name,body,deps) in [("wrapper_base",provider,&[][..]),("wrapper_consumer",consumer,&["wrapper_base"][..]),("wrapper_app",app,&["wrapper_base","wrapper_consumer"][..])] {
+            let run=crates.build(name,body,deps,&["--no-cheating","--output-json"]);
+            assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+            if name!="wrapper_app" {for f in json_inference(&run)["functions"].as_array().unwrap(){
+                for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}
+            }}
+        }
+    }
+    // Native impl attributes introduce specification impls. Compiled erased
+    // declarations must preserve the same implementation identities on import.
+    let native=r#"use vstd::prelude::*;
+      #[verus_verify] #[derive(Copy,Clone)] pub struct Count(pub usize);
+      #[verus_infer] impl From<usize> for Count{fn from(n:usize)->Self{Count(n)}}
+      #[verus_infer] impl core::ops::AddAssign for Count{fn add_assign(&mut self,rhs:Self){self.0+=rhs.0;}}
+    "#;
+    let run=crates.build_source("native_wrapper_base",native,&[],&["--no-cheating"],true);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("native_wrapper_consumer",&consumer.replace("wrapper_base","native_wrapper_base"),&["native_wrapper_base"],&["--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("native_wrapper_app",&app.replace("wrapper_base","native_wrapper_base").replace("wrapper_consumer","native_wrapper_consumer"),&["native_wrapper_base","native_wrapper_consumer"],&["--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    // A legitimate changed operator gets new evidence; old consumers cannot
+    // silently retain the old arithmetic interpretation.
+    let changed=provider.replace("self.0+=rhs.0;","self.0=rhs.0;")
+        .replace("self.0 as int+rhs.0 as int<=usize::MAX as int}","true}")
+        .replace("&Count((self.0+rhs.0) as usize)","&Count(rhs.0)");
+    let run=crates.build("wrapper_base",&changed,&[],&["--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("wrapper_app","use vstd::prelude::*;fn import_only(){}",&["wrapper_base","wrapper_consumer"],&[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("stale or missing inferred dependency fingerprint"),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("wrapper_consumer",consumer,&["wrapper_base"],&["--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build("wrapper_app",app,&["wrapper_base","wrapper_consumer"],&["--no-cheating"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    // A sound but restrictive inherited operator domain fails maximality and
+    // cannot publish an inferred interface.
+    let restrictive=provider.replace("<=usize::MAX as int}","<=usize::MAX as int/2}");
+    let run=crates.build("wrapper_base",&restrictive,&[],&["--output-json","--no-cheating"]);
+    assert!(!run.status.success());assert!(!crates.vir("wrapper_base").exists());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("inherited trait precondition must equal"));
+    let report=json_inference(&run);
+    let op=report["functions"].as_array().unwrap().iter().find(|f|f["function"].as_str().unwrap().ends_with("::add_assign")).unwrap();
+    assert_eq!(op["proofs"]["soundness"]["status"],"proved");
+    assert_eq!(op["required_checks_passed"],false);
+    // Missing proof evidence also rejects a syntactically valid trait interface.
+    let run=crates.build("wrapper_base",provider,&[],&["--no-cheating"]);
+    assert!(run.status.success());
+    let mut bytes=std::fs::read(crates.vir("wrapper_base")).unwrap();
+    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    bytes.truncate(start);std::fs::write(crates.vir("wrapper_base"),bytes).unwrap();
+    let run=crates.build("wrapper_consumer",consumer,&["wrapper_base"],&[]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+}
+
 impl InferCrates {
     fn new() -> Self {
         let executable = std::env::current_exe().unwrap();
@@ -1197,12 +1286,11 @@ impl InferCrates {
         options: &[&str],
         compile: bool,
     ) -> std::process::Output {
+        self.build_source(name,&format!("use verus_builtin::*; use verus_builtin_macros::*; verus! {{ {body} }}"),dependencies,options,compile)
+    }
+    fn build_source(&self,name:&str,body:&str,dependencies:&[&str],options:&[&str],compile:bool)->std::process::Output {
         let source = self.directory.path().join(format!("{name}.rs"));
-        std::fs::write(
-            &source,
-            format!("use verus_builtin::*; use verus_builtin_macros::*; verus! {{ {body} }}"),
-        )
-        .unwrap();
+        std::fs::write(&source,body).unwrap();
         let mut command = std::process::Command::new(
             self.profile.join(format!("rust_verify{}", std::env::consts::EXE_SUFFIX)),
         );

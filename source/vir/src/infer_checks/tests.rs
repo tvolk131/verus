@@ -244,6 +244,28 @@ fn correct_candidate_passes_all_checks() {
     }
 }
 
+#[test]
+fn trait_boundary_equivalence_is_asserted_before_success_assumptions() {
+    let (ctx,pars,original)=fixture();
+    let maximal=precision_check_body(&span(),&pars[0].x.typ,&original,PrecisionCheck::Maximality).unwrap();
+    let valid=trait_boundary(&span(),&pars,&original.reqs,&original,maximal.clone());
+    assert!(verifies(&ctx,&pars,&valid));
+    let x=SpannedTyped::new(&span(),&pars[0].x.typ,ExpX::Var(pars[0].x.name.clone()));
+    let restrictive=Arc::new(vec![binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le),x,integer(100))]);
+    let invalid=trait_boundary(&span(),&pars,&restrictive,&original,maximal.clone());
+    assert!(!verifies(&ctx,&pars,&invalid));
+    // An inherited false precondition would make ordinary soundness vacuous.
+    // The boundary assertion must still fail on unrestricted typed inputs.
+    let mut impossible=original.clone();
+    impossible.reqs=Arc::new(vec![SpannedTyped::new(&span(),&bool_typ(),ExpX::Const(Constant::Bool(false)))]);
+    let invalid=trait_boundary(&span(),&pars,&original.reqs,&impossible,maximal.clone());
+    assert!(!verifies(&ctx,&pars,&invalid));
+    // A weaker inherited domain must not bypass the equivalence check either.
+    impossible.reqs=Arc::new(vec![]);
+    let invalid=trait_boundary(&span(),&pars,&original.reqs,&impossible,maximal);
+    assert!(!verifies(&ctx,&pars,&invalid));
+}
+
 /// An independent transition oracle: a u8 increment and an unchanged Boolean.
 /// No candidate or transition formula is obtained from the record synthesizer.
 fn record_fixture() -> (Ctx, Pars, FuncCheckSst) {

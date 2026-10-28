@@ -1091,7 +1091,8 @@ fn check_function_inner(
                 assert!(trait_typ_args.len() == tr.x.typ_params.len() + 1);
             }
         }
-        if function.x.require.len() > 0 {
+        if function.x.require.len() > 0 && !(crate::infer::is_wrapper_trait(function)
+            && crate::infer_proof::CandidateId::from_function(function).is_ok()) {
             return Err(error(
                 &function.span,
                 "trait method implementation cannot declare requires clauses; these can only be inherited from the trait declaration",

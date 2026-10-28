@@ -24,6 +24,64 @@ API = "verification-infer/trait_node.rs"
 STATE = "verification-infer/trait_collector.rs"
 PROPERTIES = "verification-infer/trait_properties.rs"
 
+WRAPPER_IMPLS = """
+// Explicit verified equivalents of the wrapper's derived conversion/operator.
+#[cfg_attr(verus_keep_ghost, verus_infer)]
+impl From<usize> for NodeCount {
+    fn from(value: usize) -> Self { NodeCount(value) }
+}
+#[cfg_attr(verus_keep_ghost, verus_infer)]
+impl core::ops::AddAssign for NodeCount {
+    fn add_assign(&mut self, rhs: Self) { self.0 += rhs.0; }
+}
+"""
+
+
+def wrapper_api(source, original_node):
+    source = source.replace("NodeCount(self.0.len())", "self.0.len().into()")
+    for name in ("size", "get", "insert"):
+        if item(source, f"pub fn {name}(")[2] != item(original_node, f"pub fn {name}(")[2]:
+            raise ValueError("original NodeMap body changed")
+    return source + WRAPPER_IMPLS
+
+
+def wrapper_collector(source):
+    if source.count("direct_parents: usize,") != 1:
+        raise ValueError("counter declaration changed")
+    source = source.replace("NodeMap, NodeIndex, Hasher, Unit", "NodeMap, NodeIndex, NodeCount, Hasher, Unit")
+    source = source.replace("direct_parents: usize,", "direct_parents: NodeCount,")
+    source = source.replace("self.direct_parents", "self.direct_parents.0")
+    if source.count("self.direct_parents.0 += 1;") != 1:
+        raise ValueError("counter increment changed")
+    return source.replace("self.direct_parents.0 += 1;", "self.direct_parents += NodeCount(1);")
+
+
+def operator_control(source, case):
+    req = "self.0 as int + rhs.0 as int <= usize::MAX as int"
+    body = "self.0 += rhs.0;"
+    output = "(self.0 + rhs.0) as usize"
+    if case == "restrictive-operator": req += " / 2"
+    if case == "weak-operator": req = "true"
+    if case == "wrong-operator-model": output = "self.0"
+    if case == "replacement-operator": req, body, output = "true", "self.0 = rhs.0;", "rhs.0"
+    marker = "#[cfg_attr(verus_keep_ghost, verus_infer)]\nimpl core::ops::AddAssign for NodeCount"
+    start, end, _ = item(source, marker)
+    return source[:start] + """
+#[cfg_attr(verus_keep_ghost, verus_verify)]
+impl core::ops::AddAssign for NodeCount {
+    #[cfg_attr(verus_keep_ghost, verus_infer)]
+    fn add_assign(&mut self, rhs: Self) { BODY }
+}
+#[cfg(verus_keep_ghost)]
+verus! {
+impl vstd::std_specs::ops::AddAssignSpecImpl for NodeCount {
+    open spec fn obeys_add_assign_spec()->bool { true }
+    open spec fn add_assign_req(&self,rhs:Self)->bool { REQ }
+    open spec fn add_assign_spec(&self,rhs:Self)->&Self { &NodeCount(OUTPUT) }
+}
+}
+""".replace("BODY", body).replace("REQ", req).replace("OUTPUT", output) + source[end:]
+
 
 def getter_adapter(units):
     _, _, unit = item(units, "pub trait Unit:")
@@ -149,7 +207,8 @@ def unsupported_getter(run):
 def validate_stage(run, expected, count, stage):
     data = validate(run, expected, count)
     kinds = sorted(f["summary_kind"] for f in data["verus-infer"]["functions"])
-    wanted = ["record_state", "record_view", "record_view", "value"] if stage == "provider" else ["record_state", "record_state", "value"]
+    wanted = (["record_state", "record_state", "record_view", "record_view", "value", "value"] if count == 6 else
+              ["record_state", "record_view", "record_view", "value"]) if stage == "provider" else ["record_state", "record_state", "value"]
     if kinds != wanted: raise ValueError("missing getter/update inference kinds")
     return data
 
@@ -159,6 +218,7 @@ def main():
     parser.add_argument("--alephbft", type=Path, required=True)
     parser.add_argument("--verified-collector", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--wrapper-ops", action="store_true", help="retain the original size conversion and use a NodeCount counter")
     parser.add_argument("--verus", type=Path, default=ROOT / "source/target-verus/release/verus")
     parser.add_argument("--z3", type=Path, default=ROOT / "source/z3")
     args = parser.parse_args(); repo = args.alephbft.resolve(); output = args.output.resolve()
@@ -184,6 +244,9 @@ def main():
         original = supplied.read_text()
         api = private_api(node, shared.replace("(*self * 2) / 3 + NodeCount(1)", CORRECTED)) + getter_adapter(units)
         state = generic_collector(original)
+        if args.wrapper_ops:
+            api = wrapper_api(api, node)
+            state = wrapper_collector(state)
         properties = (FIXTURES / "parents_properties.rs").read_text()
         start = properties.index('#[path = "../crypto/src/node_count_value.rs"]')
         end = properties.index("// The existing shared collector")
@@ -198,26 +261,35 @@ def main():
             omitted="Unit control_hash/session_id and native marker/codec bounds; Hasher hashing algorithm; collector lifecycle",
             new_adapter="Collector<H> stores H::Hash and an inferred add_unit reads Unit getters then calls checked add",
             existing_adaptations="NodeCount size constructor; threshold correction; supplied-core widened round")
+        if args.wrapper_ops:
+            result["source"].update(
+                wrapper_scope="original NodeMap size/get/insert bodies; supplied generic collector with a NodeCount counter and production increment expression",
+                wrapper_models="impl attributes generate checked ordinary extension definitions; explicit trait implementations replace the native derives in this formal adapter",
+                existing_adaptations="threshold correction; supplied-core widened round; reduced Unit/Hasher interface and supplied collector core")
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK="20971520", VERUS_INFER_CACHE=str(output / "candidate-cache"))
         directory = checkout / "verification-infer"; lib = directory / "libaleph_trait_api.rlib"; interface = directory / "aleph_trait_api.vir"
         cases = ("wrong-creator-body", "wrong-hash-implementation", "weak-round-contract", "wrong-adapter-slot", "duplicate-count",
                  "changed-frame", "extra-unit-overflow-domain", "inferred", "inferred-warm")
+        if args.wrapper_ops: cases = ("restrictive-operator", "weak-operator", "wrong-operator-model", "replacement-operator") + cases
         for case in cases:
             current_api = api; current_state = state
+            if case.endswith("-operator") or case == "wrong-operator-model": current_api = operator_control(api, case)
             if case == "wrong-creator-body": current_api = api.replace("self.coord().creator()", "NodeIndex(0)")
             if case == "wrong-hash-implementation": current_api = api.replace("fn hash(&self) -> u64 { self.hash }", "fn hash(&self) -> u64 { 0 }")
             if case == "weak-round-contract": current_api = api.replace("ensures result == self.round_value()", "ensures result <= self.round_value()")
             if case == "wrong-adapter-slot": current_state = current_state.replace("let creator = unit.creator().0;", "let creator = 0usize;")
             if case == "duplicate-count": current_state = add_mutation(state, "*previous_round < round", "*previous_round <= round")
-            if case == "changed-frame": current_state = add_mutation(state, "self.direct_parents += 1;", "self.direct_parents += 1; self.for_round += 1;")
+            if case == "changed-frame":
+                increment = "self.direct_parents += NodeCount(1);" if args.wrapper_ops else "self.direct_parents += 1;"
+                current_state = add_mutation(state, increment, increment + " self.for_round += 1;")
             if case == "extra-unit-overflow-domain": current_state = current_state.replace("        let creator = unit.creator().0;", "        let creator = unit.creator().0;\n        let extra = creator + 1;")
             (checkout / API).write_text(current_api); (checkout / STATE).write_text(current_state)
             snapshot = output / "inputs" / case; snapshot.mkdir(parents=True)
             for p in (API, STATE, PROPERTIES): (snapshot / Path(p).name).write_text((checkout / p).read_text())
             provider = [str(verus), str(checkout / API), "--crate-type=lib", "--crate-name=aleph_trait_api", "--export", str(interface), "--compile", "-o", str(lib), "--infer-goals", "--no-cheating", "--output-json"]
             consumer = [str(verus), str(checkout / PROPERTIES), "--crate-type=lib", "--crate-name=aleph_traits", "--extern", f"aleph_trait_api={lib}", "--import", f"aleph_trait_api={interface}", "--infer-goals", "--no-cheating", "--output-json"]
-            provider_ok = case not in ("wrong-creator-body", "wrong-hash-implementation")
-            stages = [("provider", provider, provider_ok, 4)]
+            provider_ok = case not in ("wrong-creator-body", "wrong-hash-implementation", "restrictive-operator", "weak-operator", "wrong-operator-model")
+            stages = [("provider", provider, provider_ok, 6 if args.wrapper_ops else 4)]
             if provider_ok: stages.append(("consumer", consumer, case in ("inferred", "inferred-warm"), 3))
             for stage, command, expected, count in stages:
                 guard.check(); run = measured(command, env, 60, ROOT); guard.check()
@@ -226,9 +298,20 @@ def main():
                 unsupported = case == "weak-round-contract" and stage == "consumer"
                 if unsupported:
                     data = unsupported_getter(run)
+                elif case in ("restrictive-operator", "weak-operator", "wrong-operator-model"):
+                    data = json.loads(run["stdout"])
+                    expected_message = "postcondition not satisfied" if case == "wrong-operator-model" else "inherited trait precondition must equal"
+                    if run["returncode"] == 0 or data["verification-results"].get("encountered-vir-error") or data["verification-results"].get("success") is not False or expected_message not in run["stderr"] or any(s in run["stderr"].lower() for s in ("panicked at", "resource limit", "timed out")):
+                        raise ValueError("operator boundary was not rejected by verification")
+                    funcs = data.get("verus-infer", {}).get("functions", [])
+                    op = [f for f in funcs if f["function"].endswith("::add_assign")]
+                    if len(funcs) != 6 or len(op) != 1 or op[0]["required_checks_passed"]:
+                        raise ValueError("failed operator received exact certification")
+                    if case == "restrictive-operator" and op[0]["proofs"]["soundness"]["status"] != "proved":
+                        raise ValueError("restrictive control must distinguish soundness from maximality")
                 else: data = validate_stage(run, expected, count, stage)
                 if stage == "provider" and not expected:
-                    if interface.exists() or "postcondition not satisfied" not in run["stderr"]:
+                    if interface.exists() or not any(s in run["stderr"] for s in ("postcondition not satisfied", "inherited trait precondition must equal")):
                         raise ValueError("failed ordinary getter implementation published an interface")
                 if stage == "consumer" and case == "extra-unit-overflow-domain": check_domain(data, run["stderr"])
                 if stage == "consumer" and case == "wrong-adapter-slot":

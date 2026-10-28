@@ -23,7 +23,7 @@ fn validate_signature(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun,Fu
     let shape = shape(f, datatypes, all)?;
     let x = &f.x;
     if x.mode != Mode::Exec
-        || !matches!(x.kind, FunctionKind::Static)
+        || !(matches!(x.kind, FunctionKind::Static) || wrapper_traits::kind(f)==Some(wrapper_traits::Kind::AddAssign))
         || !matches!(x.item_kind, ItemKind::Function)
         || x.inner_ret.x.mode != Mode::Exec
         || x.attrs.is_external_body
@@ -100,6 +100,21 @@ fn equal(span: &Span, a: Term, b: Term) -> Result<Term, VirErr> {
         ExprX::Binary(BinaryOp::Eq(Mode::Spec), a.expr, b.expr),
         1 + a.size + b.size,
     )
+}
+fn substitute_value(e: &Expr, vars: &HashMap<VarIdent, Term>) -> Result<Term, VirErr> {
+    let mut remaining = FORMULA_BUDGET;
+    let expr = crate::ast_visitor::map_expr_visitor_env(
+        e, &mut crate::ast_visitor::VisitorScopeMap::new(), &mut remaining,
+        &|remaining, _, e| {
+            let replacement = if let ExprX::Var(n) = &e.x { vars.get(n) } else { None };
+            *remaining = remaining.checked_sub(replacement.map_or(1, |v| v.size))
+                .ok_or_else(|| unsupported(&e.span, "record scalar helper expansion budget exceeded"))?;
+            Ok(replacement.map_or_else(|| e.clone(), |v| v.expr.clone()))
+        },
+        &|_, _, s| Ok(vec![s.clone()]), &|_, t| Ok(t.clone()),
+        &|_, _, p| Ok(p.clone()), &|_, _, p| Ok(p.clone()),
+    )?;
+    atom(expr)
 }
 fn field_value(f: &Function, shape: &Shape, field: &Field, future: bool) -> Result<Term, VirErr> {
     let span = &f.span;
@@ -442,6 +457,27 @@ impl Interpreter<'_> {
                 self.all.get(name).filter(|f| candidate(f) && f.x.attrs.infer).cloned()
             {
                 return self.helper_call(s, e, &callee, types, args);
+            }
+            if let Some(callee) = self.all.get(name).filter(|f| {
+                f.x.attrs.infer && args.len() == f.x.params.len() && types.is_empty()
+                    && f.x.require.len() == 1 && f.x.ensure.0.len() == 1
+            }).cloned() {
+                crate::infer_proof::CandidateId::from_function(&callee)?;
+                if callee.x.attrs.infer_allow_approx {
+                    return Err(unsupported(span, "record scalar helpers require exact-mode callees"));
+                }
+                let mut vars = HashMap::new();
+                for (p, arg) in callee.x.params.iter().zip(args.iter()) {
+                    vars.insert(p.x.name.clone(), self.readonly(s, arg)?);
+                }
+                self.require(s, span, substitute_value(&callee.x.require[0], &vars)?)?;
+                let ExprX::Binary(BinaryOp::Eq(Mode::Spec), lhs, rhs) = &callee.x.ensure.0[0].x else {
+                    return Err(unsupported(span, "invalid scalar helper relation"));
+                };
+                if !matches!(&lhs.x,ExprX::Var(n) if n==&callee.x.inner_ret.x.name) {
+                    return Err(unsupported(span, "invalid scalar helper result"));
+                }
+                return substitute_value(rhs, &vars);
             }
             if self.all.get(name).is_some_and(record_models::as_ref) {
                 if args.len() != 1 || types.len() != 1 {

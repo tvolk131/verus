@@ -206,7 +206,8 @@ The counting-assistance checkpoint below implements bounded selection of checked
 sequence/counting lemmas. Later checkpoints implement bounded record and generic
 wrapper composition. Broader opaque mutation and standalone-vector state precision
 remain open. Operator-trait inference
-also needs a design through Verus's inherited/extension specifications.
+is implemented for concrete From/AddAssign in the wrapper trait checkpoint below;
+other operator traits remain open.
 
 ## Supplied counting-invariant assistance
 
@@ -342,8 +343,9 @@ python3 source/tools/eval_verus_infer_alephbft_wrappers.py \
 The wrapper checkpoint extracts `NodeMap` and three methods from the pinned
 original `crypto/src/node.rs`. `get` and `insert` keep their original signatures,
 unrestricted generic payload and executable bodies. `size` explicitly changes
-`self.0.len().into()` to `NodeCount(self.0.len())`: derived conversion inference
-is still unsupported. Native differential tests compare the adapted API with
+`self.0.len().into()` to `NodeCount(self.0.len())`: this earlier runner retains
+that adaptation. The later `--wrapper-ops` variant restores the original body
+using an explicit checked From implementation. Native differential tests compare the adapted API with
 all three pinned method bodies, including the original conversion. Unrelated
 codec/iterator/clone implementations are outside this formal target.
 
@@ -465,3 +467,38 @@ contracts must produce an unsupported diagnostic, and overflow must fail the new
 minimal unit harness. Sources, commands, raw diagnostics, hashes, original units/types,
 scope adaptations, patch and summary are saved. This runner adds no native behavioral
 claim or newly discovered production-bug claim; prior native wrapper controls remain.
+
+## Wrapper conversions and counter operators
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_traits.py \
+  --alephbft /path/to/AlephBFT --wrapper-ops \
+  --output /tmp/infer-aleph-wrapper-traits
+```
+
+This variant retains the pinned `NodeMap::size`, `get`, and `insert` bodies
+unchanged, including `self.0.len().into()`. The previous constructor spelling for
+size is removed. The supplied generic collector stores `direct_parents: NodeCount`
+and uses the production increment expression `self.direct_parents += NodeCount(1)`.
+Its logical counter observations explicitly read `.0`.
+
+Two explicit trait implementations supply the formal adapter's `From<usize>` and
+`AddAssign` API. Their impl-level inference attributes generate ordinary vstd
+extension definitions, and their unchanged executable bodies receive all three
+exact checks. This verifies the supplied implementations; it does not verify the
+original derive_more expansion or automatically annotate arbitrary native derives.
+The remaining reduced Unit/Hasher adapter, manual view/invariant/count equivalence,
+behavior oracle, size observations, threshold correction and widened-round
+supplied collector core remain explicit. Other production collector methods and
+cached FullUnit hashing remain outside this target.
+
+Thirteen cases yield twenty-one provider/consumer runs. The provider has six
+inferred functions and each reached consumer has three. Three new provider
+controls reject a restrictive operator requirement, a weak overflow requirement,
+and an incorrect operator model. The restrictive case must pass soundness while
+failing maximality/boundary certification. None may export an interface. A fourth
+control consistently changes the operator implementation and model to replacement:
+its exact candidates pass, while the collector's application goal fails. The
+earlier getter, slot, accounting, frame and domain controls remain, followed by
+cold/warm positives. Reports distinguish supplied wrapper implementations from
+original method bodies. No new native Aleph execution or production bug is claimed.

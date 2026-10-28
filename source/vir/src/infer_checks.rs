@@ -92,8 +92,37 @@ pub fn precision_check(
         // update the parameter's current value; evaluate P against its snapshot.
         Arc::make_mut(&mut check.post_condition).ens_exps =
             entry_requirements(&function.x.pars, &original.reqs);
+        if crate::infer::is_wrapper_trait(&ctx.func_map[&function.x.name]) {
+            check = trait_boundary(
+                &function.span, &function.x.pars, &function.x.decl.reqs, original, check,
+            );
+        }
     }
     Ok(check)
+}
+
+/// The ordinary body query keeps the inherited trait precondition. Before any
+/// successful-execution assumptions in maximality, independently prove that it
+/// equals the candidate domain used by inferred callers. The assertion is added
+/// AFTER the original safety assertions have been converted to assumptions.
+fn trait_boundary(
+    span: &Span, pars: &Pars, proposed: &Exps, original: &FuncCheckSst,
+    mut check: FuncCheckSst,
+) -> FuncCheckSst {
+    let proposed = entry_requirements(pars, proposed);
+    let inherited = entry_requirements(pars, &original.reqs);
+    let relation = SpannedTyped::new(span, &bool_typ(), ExpX::Binary(
+        BinaryOp::Eq, crate::sst_util::sst_conjoin(span, &proposed),
+        crate::sst_util::sst_conjoin(span, &inherited),
+    ));
+    let assertion = crate::def::Spanned::new(span.clone(), StmX::Assert(None, Some(error(
+        span, "Verus Infer: inherited trait precondition must equal the inferred safe domain",
+    )), relation));
+    check.body = crate::def::Spanned::new(
+        span.clone(), StmX::Block(Arc::new(vec![assertion, check.body])),
+    );
+    Arc::make_mut(&mut check.post_condition).ens_exps = proposed;
+    check
 }
 
 fn entry_requirements(pars: &Pars, reqs: &Exps) -> Exps {

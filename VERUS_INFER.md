@@ -88,6 +88,14 @@ Implemented and covered by regression tests:
   Aleph's reduced Unit/Hasher adapter retains pinned creator/round default bodies
   and drives an inferred generic unit-to-update bridge. Full original traits,
   cached hashing, operators and collector lifecycle remain outside that experiment.
+- [x] Concrete scalar-wrapper `From` and `AddAssign` inference with canonical
+  blanket `Into` composition. Ordinary trait verification retains inherited
+  requirements; an independent entry-state equivalence check binds those
+  requirements to the candidate safe domain. Impl attributes generate checked
+  ordinary models for simple public tuple wrappers and preserve erased declaration
+  identities. Aleph's optional wrapper checkpoint restores the original size body
+  and a NodeCount counter in the supplied collector; native derives/full lifecycle
+  remain outside its scope.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -217,7 +225,8 @@ Still planned or outside the implemented subset:
   beyond the exact precondition-free trait getter profile; mixed handwritten-and-inferred
   contracts, and broader generic/trait specialization.
 - [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
-  and operator-trait inference through Verus's inherited/extension specifications.
+  and operator-trait inference beyond concrete From/AddAssign through Verus's
+  inherited/extension specifications, including derived implementations.
 - [ ] Broader loop patterns, generalized invariant discovery, slice traversal,
   search, signed counters, and recursive summaries.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
@@ -356,7 +365,17 @@ APIs and research directions.
     add_unit bridge consumes them. The supplied invariant and a separate behavior
     oracle remain explicit, including a wrong-slot control preserving the invariant
     while failing intent. This is not the full original traits or clean-main collector.
-13. **Next: broader trait boundaries, richer abstractions and collector lifecycle.**
+13. **Wrapper trait boundary checkpoint implemented.** Concrete nongeneric From
+    and AddAssign implementations receive body-derived exact summaries; canonical
+    Into calls reuse the existing standard bridge. Generated ordinary extension
+    models cover simple public tuple wrappers. Maximality asserts inherited/
+    candidate domain equivalence before execution assumptions; false, weak and
+    restrictive operator requirements cannot gain certification. A source-connected
+    Aleph variant retains all three NodeMap method bodies and uses NodeCount for
+    the supplied collector's counter. Explicit verified trait adapters replace
+    native derives; the full original collector and cached FullUnit implementation
+    remain unverified by this experiment.
+14. **Next: broader trait boundaries, richer abstractions and collector lifecycle.**
     General trait contracts, external trait proxies, inherited operator/conversion contracts,
     collection construction/copy loops and richer mutable return values remain.
     More general supplied views, representation-lemma selection and automatic

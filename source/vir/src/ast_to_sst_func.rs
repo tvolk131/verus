@@ -1093,7 +1093,10 @@ pub fn function_to_sst(
 
     let has = FunctionSstHas {
         has_body,
-        has_requires: function.x.require.len() > 0,
+        // Inferred wrapper implementations retain a proposed domain for the
+        // independent trait-boundary check. It is not a new callable requires
+        // predicate: executable calls still inherit the trait declaration.
+        has_requires: function.x.require.len() > 0 && !crate::infer::is_wrapper_trait(function),
         has_ensures: function.x.ensure.0.len() + function.x.ensure.1.len() > 0,
         has_decrease: function.x.decrease.len() > 0,
         has_mask_spec: function.x.mask_spec.is_some(),

@@ -61,10 +61,11 @@ destructor, user-defined type invariant, proxy or tracked/ghost field. Its paylo
 must be a supported Boolean or machine integer. Nested/multiple-field wrappers,
 returned wrapper references and sound-mode value projection remain unsupported.
 Mutable unit-returning methods can use the bounded sound record-state path below.
-Operator trait implementations remain unsupported as well:
-Verus inherits their preconditions from the trait, so attaching an implementation-
-specific inferred `requires` would be invalid. This support assigns no assumed
-semantics to an overloaded operator.
+Concrete `From` and `AddAssign` implementations now have a bounded exact-mode
+path described below. Other operator implementations remain unsupported. Verus
+inherits implementation preconditions from the trait; the wrapper path checks
+that inherited requirement rather than introducing a different callable domain.
+No arithmetic meaning is assigned to an overloaded operator by its name.
 
 Candidate generation projects eligible wrappers to scalars and lifts the formulas
 back to the original field/constructor types. The original bodies and signatures
@@ -72,6 +73,75 @@ receive the independent soundness, maximality and exactness checks. Projected
 functions never replace executable code. Type definitions participate in cache
 provenance and exported-contract fingerprints; warm candidates still get fresh
 proofs.
+
+## Wrapper conversions and assignment operators
+
+The native impl-level attribute handles simple public scalar tuple wrappers:
+
+```rust
+use vstd::prelude::*;
+
+#[verus_verify]
+#[derive(Copy, Clone)]
+pub struct Count(pub usize);
+
+#[verus_infer]
+impl From<usize> for Count {
+    fn from(value: usize) -> Self { Count(value) }
+}
+
+#[verus_infer]
+impl core::ops::AddAssign for Count {
+    fn add_assign(&mut self, rhs: Self) { self.0 += rhs.0; }
+}
+```
+
+The attribute retains the executable method and generates ordinary
+`FromSpecImpl` or `AddAssignSpecImpl` definitions using the existing vstd extension
+traits. The original method receives all three exact-mode checks. No assumed
+contract is generated. Spec impl declarations remain in the stub-erasure pass so
+compiled Rust implementation identities agree with exported Verus interfaces.
+Normal Rust builds erase the annotation and its ghost definitions.
+
+This shortcut accepts a nongeneric single-method impl with a direct conversion
+constructor/projection, or one `self.0 += rhs.0` / `self.0 += rhs` statement. It
+generates public open models, so the wrapper and its field must be publicly
+visible. Only default exact precision/budget is supported on the impl shortcut.
+It does not annotate arbitrary derive-macro output or infer general conversion
+algorithms. The separate method-level `#[verifier::infer]` / `#[verus_infer]` path
+can analyze the existing bounded body subset with supplied ordinary extension
+models; those models must satisfy Verus's normal visibility and verification rules.
+
+Concrete `Count::from(value)` and the canonical core blanket `.into()` through
+that checked `From` implementation compose into scalar and record summaries.
+The Into bridge uses its existing vstd model and binds that dependency; custom
+Into implementations are unsupported. Assignment operators compose into nested
+record effects, preserving all unchanged fields. Implementations must have no
+type parameters/bounds, involve a transparent single-scalar wrapper, and retain
+the existing source-eligibility restrictions. Generic trait dispatch, arbitrary
+external specifications, `TryFrom`, and other arithmetic/comparison operators
+remain separate extensions.
+
+For a trait implementation, ordinary soundness keeps the trait's inherited
+precondition. Maximality additionally proves, on unrestricted typed entry states,
+that this condition equals the candidate safe domain. This equivalence is asserted
+before the original execution's safety conditions become assumptions. A condition
+that permits overflow fails verification; an unnecessarily restrictive or false
+condition fails the boundary/maximality check. A partial `From` implementation
+cannot gain an implementation-specific precondition: From's inherited domain is
+unrestricted. Concrete dependent inference waits for the required proof outcomes.
+
+See [`examples/verus_infer_wrapper_traits.rs`](../../../../examples/verus_infer_wrapper_traits.rs)
+for checked conversions in both directions, `.into()` round trips, nested counter
+updates, ordinary caller goals and an erased native smoke test.
+
+The Aleph `--wrapper-ops` experiment retains the original `NodeMap::size` body
+`self.0.len().into()` and restores a `NodeCount` counter with the production
+`+= NodeCount(1)` expression in the supplied collector. Its explicit verified
+wrapper implementations replace native derives in the formal adapter. It still
+uses the reduced Unit/Hasher interface, supplied view/invariant, corrected
+threshold and supplied widened-round collector core. It does not verify the full
+original collector, native derive implementations or cached FullUnit hashing.
 
 The [AlephBFT parent-selection experiment](../../../tools/infer_alephbft/README.md)
 compares a handwritten threshold contract with this inference path, supplies
@@ -292,15 +362,17 @@ returns are currently unsupported. Mutable methods still require unit return.
 
 Aliases, additional mutable/structured reference parameters, mutable locals, whole-vector
 replacement, loops, division/remainder and general trait/operator calls remain
-unsupported by this path. In particular, arbitrary `Into` and derived operator
-implementations are not interpreted as constructors or arithmetic.
+unsupported by this path. The bounded concrete From/AddAssign path above is an
+exception. Arbitrary `Into` and derived operator implementations are not interpreted
+as constructors or arithmetic.
 
 `u32::from(round)` and the other 34 approved primitive widenings reuse existing
 vstd conversion extension specifications. Recognition checks the canonical core
 trait, concrete primitive implementation, proxy, argument/result types and
 lossless pair. Ordinary exact scalar helpers may also use them and retain all
-three independent proofs. User-defined `From`, `Into` and arbitrary operator
-implementations do not receive guessed conversion semantics.
+three independent proofs. User-defined conversions/operators do not receive
+guessed semantics; supported wrapper implementations instead supply independently
+checked body-derived summaries.
 
 Record synthesis visits at most 4,096 source nodes and bounds generated formulas
 at 4,096 nodes. It installs only contract data on the original function body.
@@ -1407,7 +1479,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 21 and candidate-cache version 26.
+The current inference policy uses metadata schema 22 and candidate-cache version 27.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved
