@@ -47,6 +47,7 @@ struct ClosureDatatype {
 struct State {
     // Counter to generate temporary variables
     next_var: u64,
+    infer_callback: bool,
     // Rename parameters to simplify their names
     rename_vars: HashMap<VarIdent, VarIdent>,
     // Rename parameters to simplify their names
@@ -63,6 +64,7 @@ impl State {
     fn new() -> Self {
         State {
             next_var: 0,
+            infer_callback: false,
             rename_vars: HashMap::new(),
             rename_vars_reverse: HashMap::new(),
             tuple_typs: HashSet::new(),
@@ -666,8 +668,16 @@ fn simplify_one_expr(
                 ExprX::Var(closure_var_ident.clone()),
             );
 
-            let external_spec_expr =
-                exec_closure_spec(state, &expr.span, &closure_var, params, ret, requires, ensures)?;
+            let external_spec_expr = exec_closure_spec(
+                state,
+                &expr.span,
+                &closure_var,
+                params,
+                ret,
+                requires,
+                ensures,
+                state.infer_callback,
+            )?;
             let external_spec = Some((closure_var_ident, external_spec_expr));
 
             Ok(SpannedTyped::new(
@@ -912,6 +922,7 @@ fn exec_closure_spec_requires(
     closure_var: &Expr,
     params: &VarBinders<Typ>,
     requires: &Exprs,
+    inferred_exact: bool,
 ) -> Result<Expr, VirErr> {
     // For requires:
 
@@ -955,7 +966,18 @@ fn exec_closure_spec_requires(
         wrap_in_trigger(&mk_closure_req_call(state, span, params, closure_var, &tuple_var));
 
     let bool_typ = Arc::new(TypX::Bool);
-    let req_quant_body = mk_implies(span, &reqs_body, &closure_req_call);
+    // Generated callback domains have an independent SST maximality check
+    // against the original body, without either this fact or the candidate
+    // precondition in scope. Ordinary handwritten closures retain implication.
+    let req_quant_body = if inferred_exact {
+        SpannedTyped::new(
+            span,
+            &bool_typ,
+            ExprX::Binary(BinaryOp::Eq(Mode::Spec), reqs_body, closure_req_call),
+        )
+    } else {
+        mk_implies(span, &reqs_body, &closure_req_call)
+    };
 
     let forall = Quant { quant: air::ast::Quant::Forall };
     let binders = Arc::new(vec![Arc::new(VarBinderX { name: tuple_ident, a: tuple_typ })]);
@@ -1041,8 +1063,10 @@ fn exec_closure_spec(
     ret: &VarBinder<Typ>,
     requires: &Exprs,
     ensures: &Exprs,
+    inferred_exact: bool,
 ) -> Result<Expr, VirErr> {
-    let req_forall = exec_closure_spec_requires(state, span, closure_var, params, requires)?;
+    let req_forall =
+        exec_closure_spec_requires(state, span, closure_var, params, requires, inferred_exact)?;
 
     if ensures.len() > 0 {
         let ens_forall =
@@ -1162,6 +1186,7 @@ fn add_fndef_axioms_to_function(
             &fndef_singleton,
             &params,
             &function.x.require,
+            false,
         )?;
         fndef_axioms.push(req_forall);
     }
@@ -1202,6 +1227,7 @@ fn add_fndef_axioms_to_function(
     }
 
     let mut functionx = function.x.clone();
+    state.infer_callback = functionx.attrs.infer && functionx.attrs.infer_owned;
     assert!(functionx.fndef_axioms.is_none());
     functionx.fndef_axioms = Some(Arc::new(fndef_axioms));
     Ok((Spanned::new(function.span.clone(), functionx), trait_impls_out, assoc_type_impl))
@@ -1214,6 +1240,7 @@ fn simplify_function(
 ) -> Result<Function, VirErr> {
     state.reset_for_function();
     let mut functionx = function.x.clone();
+    state.infer_callback = functionx.attrs.infer && functionx.attrs.infer_owned;
 
     if let Some(r) = functionx.returns.clone() {
         functionx.returns = None;
@@ -1310,6 +1337,7 @@ fn simplify_function(
         &|_, _, pat| Ok(pat.clone()),
     )?;
     let mut functionx = function.x.clone();
+    state.infer_callback = functionx.attrs.infer && functionx.attrs.infer_owned;
     assert!(functionx.params.len() == param_names.len());
     functionx.params = Arc::new(
         functionx

@@ -1914,7 +1914,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         });
                     let vector_index = crate::infer::is_vec_maximality_model(func, typs);
                     let panic = crate::infer::is_panic_maximality_model(func, typs);
-                    if !inferred && !subslice && !vector_index && !panic {
+                    let native_iterator = crate::infer::is_native_iterator_maximality_model(func, typs);
+                    if !inferred && !subslice && !vector_index && !panic && !native_iterator {
                         return Err(crate::messages::error(
                             &stm.span,
                             "Verus Infer incomplete: unsupported callee requirement in maximality check",
@@ -2428,7 +2429,7 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
             }
             stmts
         }
-        StmX::ClosureInner { body, typ_inv_vars } => {
+        StmX::ClosureInner { body, typ_inv_vars, .. } => {
             let mut stmts = vec![];
             for (x, typ) in typ_inv_vars.iter() {
                 let typ_inv = typ_invariant(ctx, typ, &ident_var(&suffix_local_unique_id(x)));

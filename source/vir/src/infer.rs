@@ -34,6 +34,7 @@ mod records;
 mod record_models;
 mod sequence_views;
 mod trait_getters;
+mod iterators;
 mod wrapper_traits;
 mod owned;
 mod cloning;
@@ -51,13 +52,17 @@ pub fn is_wrapper_trait(f: &Function) -> bool {
 pub fn is_panic_maximality_model(f:&Function,types:&Typs)->bool {
     types.is_empty() && panics::model(f)==Some(panics::Model::Panic)
 }
+pub fn is_native_iterator_maximality_model(f:&Function,types:&Typs)->bool {
+    iterators::model(f).is_some() && types.len()==f.x.typ_params.len()
+}
 
 pub fn is_inference_contract(f: &Function) -> bool {
-    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract || view_bounds_goals::lemma(f).is_some()
+    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
+        || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || view_bounds_goals::lemma(f).is_some()
 }
 
 pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
-    trait_getters::prepare(functions, imported)
+    iterators::prepare(&trait_getters::prepare(functions, imported), imported)
 }
 
 /// Internal structural evidence, not a trusted standard-library model.
@@ -66,7 +71,8 @@ pub fn is_inferred_sequence_view(f: &Function) -> bool { f.x.attrs.infer_sequenc
 pub fn validate_inferred_sequence_views(functions: &[Function], datatypes: &[Datatype]) -> Result<(),VirErr> {
     sequence_views::validate_imports(functions,datatypes)?;
     cloning::validate(functions,datatypes)?;
-    trait_getters::validate(functions)
+    trait_getters::validate(functions)?;
+    iterators::validate(functions)
 }
 
 pub(crate) fn record_sequence_view(typ: &Typ, functions: &HashMap<Fun, Function>) -> Option<Function> {
@@ -689,10 +695,17 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                     } else { None }
                 } else { None };
                 let e = plain.as_ref().unwrap_or(e);
+                // Closure contract scaffolding introduces pure specification
+                // calls after synthesis. They cannot execute inferred helpers;
+                // all executable edges were already checked from source bodies.
+                if !source && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(_,n,..),..}
+                    if all.get(n).is_some_and(|f|f.x.mode==Mode::Spec)) {return Ok(());}
+                if !source && matches!(&e.x,ExprX::Call{target:CallTarget::BuiltinSpecFun(..)|CallTarget::FnSpec(_),..}) {return Ok(());}
                 let rewritten = wrapper_traits::source_call(e, all);
                 let e = rewritten.as_ref().unwrap_or(e);
                 if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
+                if is_owned_summary(f) && (iterators::source_call(e,all).is_some() || iterators::operation(e,all).is_some()){return Ok(());}
                 if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
                     if all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f)==Some(collections::Model::View))){return Ok(());}
                 if records::candidate(f) && trait_getters::source_call(e,all).is_some() {return Ok(());}
@@ -789,7 +802,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -883,13 +896,17 @@ pub fn infer_functions_with_datatypes(
     configuration: &str,
     report: &mut GenerationReport,
 ) -> Result<Vec<Function>, VirErr> {
+    // A supplied finite-view contract is an explicit composition interface even
+    // when its provider contains no synthesized executable or goal assistance.
+    let prepared_factories=iterators::prepare(functions,imported);
+    let functions=prepared_factories.as_slice();
     *report = GenerationReport::default();
     report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
     if !functions.iter().any(|f| f.x.attrs.infer) {
         // An ordinary Clone or checked-query provider may have no inference
         // targets. Its direct-view evidence still needs certification and export gating.
         if functions.iter().any(|f| f.x.name.path.last_segment().as_str() == "__verus_clone_relation"
-            || f.x.attrs.infer_trait_getter) {
+            || f.x.attrs.infer_trait_getter || f.x.attrs.infer_iterator_factory) {
             let prepared = sequence_views::prepare(functions, imported, datatypes);
             return Ok(cloning::prepare(&prepared, imported, datatypes));
         }
@@ -1158,6 +1175,8 @@ fn format_expr(e: &Expr) -> String {
             format!("[{}]", elements.iter().map(format_expr).collect::<Vec<_>>().join(", "))
         }
         ExprX::Closure(params,body)=>format!("|{}| {}",params.iter().map(|p|p.name.0.to_string()).collect::<Vec<_>>().join(", "),format_expr(body)),
+        ExprX::Quant(q,params,body)=>format!("{}|{}| {}",if q.quant==air::ast::Quant::Forall{"forall"}else{"exists"},
+            params.iter().map(|p|p.name.0.to_string()).collect::<Vec<_>>().join(", "),format_expr(body)),
         ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => format!("({}).len()", format_expr(a)),
         ExprX::Binary(
             BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Allow),

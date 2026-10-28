@@ -1547,6 +1547,9 @@ pub struct FunctionAttrsX {
     /// Never accepted as source attributes; imports require inference metadata.
     pub infer_trait_getter: bool,
     pub infer_trait_observation: bool,
+    /// Ordinary checked finite native iterator factory and supplied sequence.
+    pub infer_iterator_factory: bool,
+    pub infer_iterator_observation: bool,
     /// Compiler-selected collection-bearing owned result; never a source flag.
     pub infer_owned: bool,
     /// Ordinary checked native Clone and its public logical view relation.

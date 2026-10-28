@@ -1382,3 +1382,35 @@ fn tagged_value_precision(custom:bool) {
         );
     }
 }
+
+
+#[test]
+fn callback_precision_is_independent_of_its_candidate_and_outer_preconditions() {
+    let (ctx, pars, base) = fixture();
+    let x = SpannedTyped::new(&span(), &pars[0].x.typ, ExpX::Var(pars[0].x.name.clone()));
+    let fits = binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), x.clone(), integer(254));
+    let restrictive = binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), x, integer(100));
+    let boolean = |b| SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(b)));
+    for (pre, actual, excludes_other, expected) in [
+        (fits.clone(), boolean(true), boolean(true), true),
+        (restrictive, boolean(true), boolean(true), false),
+        (fits.clone(), boolean(false), boolean(true), false),
+        (fits.clone(), boolean(true), boolean(false), false),
+    ] {
+        let mut check = base.clone();
+        let safety = Spanned::new(span(), StmX::Assert(None, Some(error(&span(), "callback overflow")), fits.clone()));
+        let mut packet = vec![safety];
+        for goal in [pre, actual, excludes_other] {
+            packet.push(Spanned::new(span(), StmX::Assume(goal)));
+        }
+        let closure = Spanned::new(span(), StmX::ClosureInner {
+            // A faulty assumed precondition must never hide the independent checks.
+            body: Spanned::new(span(), StmX::Assume(boolean(false))),
+            typ_inv_vars: Arc::new(vec![]),
+            precision_body: Some(Spanned::new(span(), StmX::Block(Arc::new(packet)))),
+        });
+        check.body = Spanned::new(span(), StmX::Block(Arc::new(vec![closure, check.body])));
+        let precision = precision_check_body(&span(), &pars[0].x.typ, &check, PrecisionCheck::Maximality).unwrap();
+        assert_eq!(verifies(&ctx, &pars, &precision), expected);
+    }
+}

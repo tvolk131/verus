@@ -2960,7 +2960,7 @@ impl Verifier {
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
         let mut models: std::collections::BTreeMap<_, _> =
             self.inference_trusted_models.iter().cloned().collect();
-        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || f.x.attrs.infer_clone_contract || vir::infer::is_wrapper_trait(f) || vir::infer::is_owned_summary(f)) {
+        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_clone_contract || vir::infer::is_wrapper_trait(f) || vir::infer::is_owned_summary(f)) {
             // Ordinary implementation proofs can use library models even when
             // this provider contains no inferred executable. Bind their model
             // artifacts conservatively before certifying the trait interface.

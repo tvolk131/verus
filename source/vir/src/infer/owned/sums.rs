@@ -153,7 +153,7 @@ impl Engine<'_> {
         let a = values.pop().unwrap();
         Ok(Node::Result(ok, a, b))
     }
-    fn pattern(&mut self, s: &mut State, p: &Pattern, value: Val) -> Result<Term, VirErr> {
+    pub(super) fn pattern(&mut self, s: &mut State, p: &Pattern, value: Val) -> Result<Term, VirErr> {
         self.spend(&p.span)?;
         let span = &p.span;
         match &p.x {

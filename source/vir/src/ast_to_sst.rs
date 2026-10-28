@@ -2154,11 +2154,13 @@ pub(crate) fn expr_to_stm_opt(
             // Emit the internals of the closure (ClosureInner behaves like a dead-end)
             // This includes assuming the requires, asserting the ensures, everything else
 
-            let (inner_stms, typ_inv_vars) =
+            let (inner_stms, typ_inv_vars, precision_body) =
                 exec_closure_body_stms(ctx, state, params, ret, body, requires, ensures)?;
             let block = Spanned::new(expr.span.clone(), StmX::Block(Arc::new(inner_stms)));
-            let clos =
-                Spanned::new(expr.span.clone(), StmX::ClosureInner { body: block, typ_inv_vars });
+            let clos = Spanned::new(
+                expr.span.clone(),
+                StmX::ClosureInner { body: block, typ_inv_vars, precision_body },
+            );
             all_stms.push(clos);
 
             // Create the closure object and assume all the information given in its
@@ -2177,6 +2179,9 @@ pub(crate) fn expr_to_stm_opt(
 
             all_stms.push(Spanned::new(expr.span.clone(), StmX::Assume(cexp)));
 
+            // Generic closure datatypes use Poly rather than a native SMT sort,
+            // so their constructed value needs its Rust type-validity fact.
+            all_stms.push(assume_has_typ(&uid, &expr.typ, &expr.span));
             let v = mk_exp(ExpX::Var(uid));
 
             Ok((all_stms, Maybe::Some(Value::Exp(v))))
@@ -4726,7 +4731,7 @@ fn exec_closure_body_stms(
     body: &Expr,
     requires: &Exprs,
     ensures: &Exprs,
-) -> Result<(Vec<Stm>, Arc<Vec<(UniqueIdent, Typ)>>), VirErr> {
+) -> Result<(Vec<Stm>, Arc<Vec<(UniqueIdent, Typ)>>, Option<Stm>), VirErr> {
     let mut typ_inv_vars = vec![];
 
     state.push_scope();
@@ -4747,9 +4752,23 @@ fn exec_closure_body_stms(
 
     // Assert all the requires
 
+    let infer_callback = ctx
+        .fun
+        .as_ref()
+        .is_some_and(|f| f.current_fun_attrs.infer && f.current_fun_attrs.infer_owned)
+        && !state.checking_spec_preconditions(ctx);
+    let mut callback_pre = vec![];
+    let mut precision_body = None;
     let mut stms = Vec::new();
     for req in requires.iter() {
         let (check_stms, exp) = expr_to_pure_exp_check(ctx, state, req)?;
+        if infer_callback && !check_stms.is_empty() {
+            return Err(error(
+                &req.span,
+                "Verus Infer incomplete: callback contracts require pure scalar conditions",
+            ));
+        }
+        callback_pre.push(exp.clone());
         stms.extend(check_stms);
         let stm = Spanned::new(req.span.clone(), StmX::Assume(exp));
         stms.push(stm);
@@ -4766,6 +4785,12 @@ fn exec_closure_body_stms(
         ens_checks.extend(check_stms);
         ens_exps.push(exp);
     }
+    if infer_callback && !ens_checks.is_empty() {
+        return Err(error(
+            &body.span,
+            "Verus Infer incomplete: callback equations require pure scalar conditions",
+        ));
+    }
 
     let ens_exps = ens_exps.iter().map(|e| exp_with_vars_at_pre_state(e, &param_set)).collect();
     let ens_checks = ens_checks.iter().map(|s| stm_with_vars_at_pre_state(s, &param_set)).collect();
@@ -4780,6 +4805,7 @@ fn exec_closure_body_stms(
     std::mem::swap(&mut state.containing_closure, &mut containing_closure);
 
     let (mut body_stms, exp) = expr_to_stm_opt(ctx, state, body)?;
+    let original_body_stms = body_stms.clone();
     stms.append(&mut body_stms);
 
     std::mem::swap(&mut state.containing_closure, &mut containing_closure);
@@ -4789,6 +4815,42 @@ fn exec_closure_body_stms(
             // Post condition for the return-value expression
 
             let closure_state = containing_closure.as_ref().unwrap();
+            if infer_callback {
+                if callback_pre.len() != 1
+                    || closure_state.ensures.len() != 1
+                    || !types_equal(&e.typ, &bool_typ())
+                {
+                    return Err(error(
+                        &body.span,
+                        "Verus Infer incomplete: independent callbacks require one Boolean result equation",
+                    ));
+                }
+                let relation = &closure_state.ensures[0];
+                let replace = |value: &Exp| {
+                    map_exp_visitor(relation, &mut |term| {
+                        if matches!(&term.x,ExpX::Var(n) if n==&closure_state.dest) {
+                            value.clone()
+                        } else {
+                            term.clone()
+                        }
+                    })
+                };
+                let negated =
+                    SpannedTyped::new(&e.span, &bool_typ(), ExpX::Unary(UnaryOp::Not, e.clone()));
+                let actual = replace(&e);
+                let alternative = replace(&negated);
+                let alternative =
+                    SpannedTyped::new(&e.span, &bool_typ(), ExpX::Unary(UnaryOp::Not, alternative));
+                let mut checks = original_body_stms.clone();
+                // Placeholders survive ordinary SST renaming/coercion. The
+                // independent transformer converts these final three entries
+                // to assertions after converting ORIGINAL safety checks to assumptions.
+                for goal in [callback_pre[0].clone(), actual, alternative] {
+                    checks.push(Spanned::new(body.span.clone(), StmX::Assume(goal)));
+                }
+                precision_body =
+                    Some(Spanned::new(body.span.clone(), StmX::Block(Arc::new(checks))));
+            }
             closure_emit_postconditions(ctx, state, closure_state, &e, &mut stms);
         }
         Maybe::Never => { /* never-return case */ }
@@ -4797,7 +4859,7 @@ fn exec_closure_body_stms(
     std::mem::swap(&mut state.mask, &mut mask);
     state.pop_scope();
 
-    Ok((stms, Arc::new(typ_inv_vars)))
+    Ok((stms, Arc::new(typ_inv_vars), precision_body))
 }
 
 fn closure_emit_postconditions(

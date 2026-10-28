@@ -5933,3 +5933,6 @@ fn ordinary_static_queries_require_checked_exports_and_compose_across_private_vi
  assert!(!r.status.success());assert!(!crates.vir("query_provider").exists());
  assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }
+
+#[path="infer_cases/native_iterators.rs"]
+mod native_iterator_cases;

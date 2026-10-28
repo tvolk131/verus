@@ -715,3 +715,32 @@ a narrower zero-round domain than the native empty-collection leaf. The complete
 noninitial path's original positive-round assertion makes this difference
 irrelevant to its verified scope. Codec, lock, application policy and collection
 view boundaries remain the explicit supplied inputs described above.
+
+
+## Native noninitial collection pipelines
+
+Add `--native-pipelines` to the typed-validation command above. This mode retains
+all four original noninitial method bodies, including the native
+`parents().filter(...).count()` and `parents().any(...)` callbacks. Both collection
+query implementation adapters are removed. The collection/parent iterator
+factories retain their native operations with named locals and supplied ghost
+contracts/proofs; their meanings are not inferred. The runner checks pinned source
+factory bodies before installing that interface.
+
+The same fifteen inferred methods receive all three exact-mode proofs. Cold/warm
+runs, semantic mutations, and the 7,704-case native and proof-target runtime corpora
+check the same typed first-error policy. An additional empty/nonempty zero-round
+future-search probe preserves Rust's lazy behavior; the complete noninitial
+validator still rejects round zero through its original runtime assertion.
+
+This adds an explicit trusted Rust-library model for native enumerate/filter_map
+and implementation-specific count behavior. Native Map/Enumerate count delegates
+to the inner count and does not establish mapper execution or exhaustion;
+Filter/FilterMap count evaluates callbacks and establishes completion on return.
+Only supported native iterator families receive these laws. It is not a proof of
+precompiled Rust core. The older checked `vstd::iter` consumer experiment remains
+available and retains its previous trust boundary.
+
+Factory/view meanings, codec/lock boundaries, corrected quorum arithmetic,
+application policy and caller goals remain supplied. Original ControlHash::new
+loop inference and initial-round hash validation are the next separate steps.

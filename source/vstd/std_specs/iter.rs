@@ -3,6 +3,7 @@ use super::super::seq::{
     group_seq_lemmas, lemma_seq_empty, lemma_seq_subrange_index, lemma_seq_subrange_len,
 };
 use core::iter::{Filter, FromIterator, Iterator, Rev, Skip, Take, Zip};
+use super::iter_adapters::{enumerate_post, filter_map_post, native_count_supported, native_count_post};
 
 // Reduce the boilerplate in the definitions below.  We have to use a macro,
 // since inside of ExIterator, we don't yet know that `self` is an Iterator.
@@ -146,6 +147,8 @@ pub trait ExIterator {
             F: FnMut(Self::Item) -> bool
         requires
             self.obeys_prophetic_iter_laws() ==> forall |k| 0 <= k < self.remaining().len() ==> f.requires((#[trigger] self.remaining()[k], )),
+            self.obeys_prophetic_iter_laws() && self.remaining().len() > 0 ==>
+                f.requires((self.remaining()[0], )),
             // without the laws, `remaining()` says nothing about the items `f` is called on
             !self.obeys_prophetic_iter_laws() ==> forall |x: Self::Item| #[trigger] f.requires((x, )),
         ensures
@@ -157,6 +160,7 @@ pub trait ExIterator {
             // and the predicate was false for all of the original iterator's elements.
             final(self).obeys_prophetic_iter_laws() && !r ==> {
                 &&& final(self).remaining().len() == 0
+                &&& (native_count_supported(*old(self)) ==> old(self).will_return_none())
                 &&& forall |i| 0 <= i < old(self).remaining().len() ==>
                     f.ensures((#[trigger] old(self).remaining()[i],), false)
             },
@@ -182,6 +186,38 @@ pub trait ExIterator {
                 FromIteratorSpec::from_iter_ensures(self.remaining(), self.will_return_none(), collection),
     ;
 
+    fn count(self) -> (result: usize)
+        where Self: Sized,
+        requires
+            native_count_supported(self),
+            self.obeys_prophetic_iter_laws(),
+            self.decrease().is_some(),
+            self.decrease().unwrap() <= usize::MAX as nat,
+        ensures
+            native_count_post(self, result),
+    ;
+
+    fn enumerate(self) -> (r: core::iter::Enumerate<Self>)
+        where Self: Sized,
+        requires
+            native_count_supported(self),
+            self.obeys_prophetic_iter_laws(),
+            self.decrease().is_some(),
+            self.decrease().unwrap() <= usize::MAX as nat,
+        ensures enumerate_post(self, r),
+    ;
+
+    fn filter_map<B, F>(self, f: F) -> (r: core::iter::FilterMap<Self, F>)
+        where Self: Sized, F: FnMut(Self::Item) -> Option<B>,
+        requires
+            native_count_supported(self),
+            self.obeys_prophetic_iter_laws(),
+            self.decrease().is_some(),
+            forall|k: int| 0 <= k < self.remaining().len() ==>
+                f.requires((#[trigger] self.remaining()[k],)),
+        ensures filter_map_post::<Self, B, F>(self, f, r),
+    ;
+
     fn filter<P>(self, predicate: P) -> (r: core::iter::Filter<Self, P>)
         where
             Self: Sized,
@@ -191,6 +227,9 @@ pub trait ExIterator {
             // so it needs a decreases metric to prove termination.
             self.decrease() is Some,
             self.obeys_prophetic_iter_laws() ==> forall |k| 0 <= k < self.remaining().len() ==> predicate.requires((#[trigger] &self.remaining()[k], )),
+            // A redundant first-item instance helps length-only observations.
+            self.obeys_prophetic_iter_laws() && self.remaining().len() > 0 ==>
+                predicate.requires((&self.remaining()[0], )),
             // without the laws, `remaining()` says nothing about the items `predicate` is called on
             !self.obeys_prophetic_iter_laws() ==> forall |x: &Self::Item| #[trigger] predicate.requires((x, )),
         ensures
@@ -515,7 +554,7 @@ pub broadcast axiom fn filter_postcondition<I, F>(i: I, f: F, r: core::iter::Fil
                         && IteratorSpec::remaining(&r)[k] == #[trigger] i.remaining()[j]
                         && f.ensures((&i.remaining()[j],), true)
             &&& IteratorSpec::will_return_none(&r) ==> i.will_return_none() && keep.len() == i.remaining().len()
-            &&& IteratorSpec::decrease(&r) is Some == i.decrease() is Some
+            &&& IteratorSpec::decrease(&r) == i.decrease()
             &&& filter_iter(r) == i
             &&& filter_fun(r) == f
             }
@@ -574,10 +613,11 @@ pub broadcast axiom fn map_postcondition<I, F>(i: I, f: F, r: core::iter::Map<I,
         i.obeys_prophetic_iter_laws(),
         #[trigger] map_post(i, f, r),
     ensures
+        IteratorSpec::obeys_prophetic_iter_laws(&r),
         IteratorSpec::remaining(&r).len() <= i.remaining().len(),
         forall |k| 0 <= k < IteratorSpec::remaining(&r).len() ==> f.ensures((i.remaining()[k],), #[trigger] IteratorSpec::remaining(&r)[k]),
         IteratorSpec::will_return_none(&r) ==> i.will_return_none() && IteratorSpec::remaining(&r).len() == i.remaining().len(),
-        IteratorSpec::decrease(&r) is Some == i.decrease() is Some,
+        IteratorSpec::decrease(&r) == i.decrease(),
         map_iter(r) == i,
         map_fun(r) == f,
 ;
@@ -950,6 +990,7 @@ impl <I: Iterator> VerusForLoopWrapper<I> {
         requires
             old(self).wf(),
         ensures
+            iter_state_preserved!(&old(self).iter, &final(self).iter),
             final(self).seq() == old(self).seq(),
             final(self).index() == old(self).index() + if ret is Some { 1int } else { 0 },
             final(self).snapshot == old(self).snapshot,

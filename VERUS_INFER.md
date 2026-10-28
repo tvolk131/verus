@@ -10,7 +10,7 @@
 
 ---
 
-## Implementation status — October 27, 2026
+## Implementation status — October 28, 2026
 
 The design below includes future work. The current implementation is documented
 in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
@@ -153,6 +153,15 @@ Implemented and covered by regression tests:
   with immutable private collection receivers. Aleph's original noninitial
   assertion/lookup/propagation sequence now infers exact typed errors and first-error
   priority; two collection pipelines still use explicit checked adapters.
+- [x] Bounded native finite iterator queries through supplied checked factory views:
+  `count`, pure scalar/field `filter(...).count()` and temporary-iterator `any(...)`.
+  Callback precision is checked independently against original executable bodies.
+  Empty streams preserve lazy predicate safety. Native count models distinguish
+  callback-skipping Map/Enumerate counts from Filter/FilterMap exhaustion and
+  exclude arbitrary custom Iterator overrides. These APIs explicitly extend the
+  trusted Rust-library model. Aleph's original noninitial validation now infers
+  all typed errors with both count/search implementation adapters removed; views,
+  factory proofs, policy and goals remain supplied.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -494,7 +503,15 @@ APIs and research directions.
     with a separate zero-round panic check. Two collection pipelines remain
     adapted; initial-round hash validation and original iterator-chain inference
     remain open.
-21. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+21. **Native query checkpoint implemented.** Supplied finite iterator views compose
+    through exact inferred native count/filter/search consumers. Independent
+    callback safety/maximality/Boolean-exactness checks protect the outer precision
+    argument. Aleph's original count/search callback bodies and complete noninitial
+    error orchestration verify without query implementation adapters. Native
+    standard-library specifications are an explicit added trusted boundary; the
+    library implementation itself is not verified. Construction-loop inference and
+    initial-round hash validation remain separate work.
+22. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

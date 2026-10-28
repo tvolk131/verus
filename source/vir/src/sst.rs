@@ -311,7 +311,13 @@ pub enum StmX {
     /// Atomic invariant opening for concurrent verification
     OpenInvariant(Stm),
     /// Body of an exec closure, with associated type invariants
-    ClosureInner { body: Stm, typ_inv_vars: Arc<Vec<(UniqueIdent, Typ)>> },
+    ClosureInner {
+        body: Stm,
+        typ_inv_vars: Arc<Vec<(UniqueIdent, Typ)>>,
+        /// Original callback safety statements followed by three check goals.
+        /// Installed by lowering, consumed only by independent precision checks.
+        precision_body: Option<Stm>,
+    },
     /// Raw AIR code injection (for internal use only)
     Air(Arc<String>),
     /// Sequential composition of statements

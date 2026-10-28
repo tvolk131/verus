@@ -13,6 +13,7 @@ pub(crate) enum Model {
     SeqNew,
     Take,
     SeqPush,
+    SeqFilter,
 }
 
 pub(crate) fn model(f: &Function) -> Option<Model> {
@@ -42,6 +43,10 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
         Some(Model::Take)
     } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "push"]) {
         Some(Model::SeqPush)
+    } else if models::path_is(p,CrateId::Vstd,&["seq","Seq","filter"])
+        || p.krate==CrateId::Vstd && p.segments.len()==3 && matches!(p.segments[0].as_str(),"seq"|"seq_lib")
+            && p.segments[1].starts_with("impl") && p.segments[2].as_str()=="filter" {
+        Some(Model::SeqFilter)
     } else {
         None
     };
@@ -68,6 +73,8 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
                     && same(&x.params[0].x.typ, &seq)
                     && same(&x.params[1].x.typ, &t)
             }
+            Model::SeqFilter => x.params.len()==2 && same(&x.params[0].x.typ,&seq)
+                && matches!(&*x.params[1].x.typ,TypX::SpecFn(args,ret) if args.len()==1 && same(&args[0],&t) && same(ret,&bool_typ())),
             _ => false,
         };
         return (valid

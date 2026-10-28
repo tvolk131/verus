@@ -158,6 +158,31 @@ fn precision_check_body(
                     StmX::Assert(_, _, condition) => {
                         Ok(Spanned::new(stm.span.clone(), StmX::Assume(condition.clone())))
                     }
+                    StmX::ClosureInner { typ_inv_vars, precision_body: Some(body), .. } => {
+                        let StmX::Block(entries) = &body.x else {
+                            return Err(error(&stm.span, "Verus Infer incomplete: malformed callback precision packet"));
+                        };
+                        if entries.len() < 3 {
+                            return Err(error(&stm.span, "Verus Infer incomplete: missing callback precision goals"));
+                        }
+                        let mut entries = entries.as_ref().clone();
+                        let start = entries.len() - 3;
+                        for (entry, diagnostic) in entries[start..].iter_mut().zip([
+                            "Verus Infer: callback precondition must include every safe execution",
+                            "Verus Infer: callback equation must hold independently of the caller precondition",
+                            "Verus Infer: callback equation must determine its Boolean output exactly",
+                        ]) {
+                            let StmX::Assume(condition) = &entry.x else {
+                                return Err(error(&stm.span, "Verus Infer incomplete: malformed callback precision goal"));
+                            };
+                            *entry = Spanned::new(entry.span.clone(), StmX::Assert(None,
+                                Some(error(&entry.span, diagnostic)), condition.clone()));
+                        }
+                        Ok(Spanned::new(stm.span.clone(), StmX::ClosureInner {
+                            body: Spanned::new(body.span.clone(), StmX::Block(Arc::new(entries))),
+                            typ_inv_vars: typ_inv_vars.clone(), precision_body: None,
+                        }))
+                    }
                     StmX::Call { .. }
                     | StmX::Assume(_)
                     | StmX::Assign { .. }

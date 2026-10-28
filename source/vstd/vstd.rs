@@ -141,6 +141,7 @@ pub broadcast group group_vstd_default {
     std_specs::fmt::group_fmt_axioms,
     std_specs::manually_drop::group_manually_drop_axioms,
     std_specs::iter::group_iter_axioms,
+    std_specs::iter_adapters::group_native_adapter_axioms,
     //
     // std_specs for alloc (with or without std)
     //

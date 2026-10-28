@@ -719,6 +719,61 @@ FullUnit accepts such data and has a concrete `Vec<u8>` proof/runtime case. The
 trusted codec model must still retain every encoded distinction in that deep view;
 CloneView alone does not establish encoding completeness.
 
+## Native finite iterator queries
+
+Inference can compose a supplied finite native iterator factory with `count`,
+`filter(...).count()`, and temporary-iterator `any(...)`. A library author supplies
+an ordinary closed sequence observation and proves the factory's
+`vstd::std_specs::iter_adapters::finite_native_view(result, observation)` contract.
+The observation records the intended full sequence; the native stream may be a
+prefix until successful exhaustion. Its count relation is separate: Rust's
+`Map::count` can skip the mapper, so counting does not generally prove that the
+mapper ran or that its `next` stream completed.
+
+For a collection with such a checked `iter` factory, these consumers need only
+inference annotations:
+
+```rust
+#[verus_infer]
+fn occupied(slots: &Slots<u16>) -> usize { slots.iter().count() }
+
+#[verus_infer]
+fn matching(slots: &Slots<u16>, round: u16) -> usize {
+    slots.iter().filter(|&(_, value)| *value == round - 1).count()
+}
+
+#[verus_infer]
+fn future(slots: &Slots<u16>, round: u16) -> bool {
+    slots.iter().any(|(_, value)| *value > round - 1)
+}
+```
+
+The inferred output equations use the supplied sequence's length and filtered
+sequence. Callback contracts are synthesized for bounded pure scalar/field
+expressions, including irrefutable tuple/reference patterns and captured scalar
+inputs. The original callbacks remain executable. Ordinary closure verification
+checks soundness; an independent query checks each callback's maximal safe domain
+and both Boolean outputs against its original lowered body, without assuming its
+candidate requirements or the enclosing function's requirements. Generated closure
+requirements are equated with this checked domain; handwritten closures retain
+Verus's existing one-way rule.
+
+A uniform partial predicate such as `round - 1` requires a positive round only
+when the supplied sequence is nonempty. Fully consumed filters also support
+item-dependent scalar safety. Short-circuit `any` currently rejects item-dependent
+partial safety and preceding partial filters: requiring safety for unvisited items
+would be too restrictive for exact mode. Callback mutation, executable helper
+calls, stored mutable iterators, arbitrary iterator methods, factory synthesis and
+general iterator-loop inference remain outside this profile.
+
+These native APIs **extend the trusted Rust-library model** with count,
+enumerate and filter_map specifications. They do not verify precompiled Rust core.
+Count support is restricted to native slice iterators and their supported native
+adapter families; no blanket count law is assumed for custom Iterator overrides.
+The separate checked `vstd::iter` implementations below still add no iterator
+axioms. See the [native factory example](../../../tools/infer_alephbft/native_pipeline_models.rs)
+and its [source-connected Aleph experiment](../../../tools/infer_alephbft/README.md).
+
 ## Checked finite collection queries
 
 `vstd::iter` provides ordinary verified implementations of `SparseIter` for
@@ -739,9 +794,9 @@ iterator loops or synthesize callback meanings.
 The [bounded Aleph query model](../../../tools/infer_alephbft/parent_query_models.rs)
 uses these helpers for parent round projection, counting in a round range, and
 finding future-round parents. A separate inferred validator composes quorum and
-future-round checks. The native enumerate/filter_map/filter/count chains are
-explicitly adapted; the complete native ControlHash validator and its payload error
-enum remain follow-ups. The experiment retains supplied meanings and checks both
+future-round checks. That older comparison adapts the native iterator chains. The newer native-pipeline
+validation mode above removes both count/search implementation adapters and checks
+the original typed noninitial validator. The experiment retains supplied meanings and checks both
 formal negative controls and native/adapted runtime corpora.
 
 ## Borrowed collection queries inside Result

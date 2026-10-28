@@ -1479,3 +1479,43 @@ checks passed. The direct/private Aleph selection runner passed all 11 expected
 formal outcomes; its negative cases retained all three exact checks. The selection
 example verified 5 obligations, compiled and passed its native success/error/index
 checks. Broader Clone/cache work continues as a separate cohesive change.
+
+
+### Native iterator query and callback checkpoint (October 28, 2026)
+
+Native finite iterator views are ordinary verified provider contracts, with full
+crate verification and artifact binding required before export. Candidate-only
+cache/import preparation rechecks their bounded signatures. A supplied view
+connects a lazy native prefix, successful exhaustion and the implementation's
+count relation to a supplied full sequence; it does not invent collection meaning.
+
+Callback synthesis is restricted to pure scalar/field Boolean expressions. Every
+generated callback retains its original executable body. Lowering separately
+records its original safety statements without candidate requirements or
+postconditions. Independent maximality converts those safety checks to
+successful-execution assumptions, then ASSERTS the candidate precondition, the
+actual output equation, and exclusion of the opposite Boolean output. These checks
+run without the enclosing function's precondition. Fault injection rejects a
+restrictive callback domain, a false actual equation and an equation admitting
+both Boolean outputs. Closure requirement equivalence for generated callbacks is
+supported by these independent checks; handwritten closure semantics is unchanged.
+
+Lazy any rejects item-dependent partial callbacks and earlier partial filters.
+Uniform callback safety applies only to a nonempty full sequence. This avoids
+claiming maximality for an all-items safety requirement when native search might
+stop before an unsafe later item. Semantic controls include empty round-zero
+search, where subtraction is never evaluated, and nonempty round-zero search,
+where it panics.
+
+Unlike the earlier checked vstd::iter implementations, this checkpoint ADDS
+trusted native-library models. Native count support is closed over known slice,
+Map, Filter, Enumerate and FilterMap types. Map/Enumerate delegate to inner count;
+Filter/FilterMap count consumes callbacks. Counting therefore does not
+unconditionally imply stream completion. Custom Iterator count/try_fold overrides
+receive no new law. Any's added completion fact is guarded by the native-family
+marker. The precompiled Rust-library implementations are not formally verified.
+
+Two core verifier fixes retain a constructed generic closure's Rust type-validity
+fact and preserve iterator-law state across generated for-loop invariants. Neither
+changes source executable code. These facts are needed to use existing standard
+iterator contracts under generic and opaque iterator types.

@@ -14,6 +14,7 @@ pub mod core;
 pub mod default;
 pub mod fmt;
 pub mod iter;
+pub mod iter_adapters;
 pub mod manually_drop;
 pub mod maybe_uninit;
 pub mod ops;

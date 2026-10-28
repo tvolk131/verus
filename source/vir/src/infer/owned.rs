@@ -5,6 +5,7 @@ use records::{atom, coerce};
 mod loops;
 mod models;
 mod sums;
+mod callbacks;
 use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
@@ -57,14 +58,15 @@ fn heap_known(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype], depth: usi
 fn result_query(f:&Function)->bool {
     records::candidate(f) && !records::mutable(f) && sums::result(&f.x.inner_ret.x.typ).is_some()
 }
-pub(super) fn prepare(fs: &[Function], ds: &[Datatype]) -> Vec<Function> {
+pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -> Vec<Function> {
+    let all=fs.iter().chain(imported).map(|f|(f.x.name.clone(),f.clone())).collect();
     fs.iter()
         .map(|f| {
             let mut x = f.x.clone();
             Arc::make_mut(&mut x.attrs).infer_owned =
                 x.attrs.infer && (heap(&x.inner_ret.x.typ, ds, 5) || result_query(f)
                     || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)));
+                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all));
             f.new_x(x)
         })
         .collect()
@@ -78,6 +80,9 @@ struct Val {
 enum Node {
     Atom(Term),
     Seq(Term),
+    // Whether an earlier lazy filter has a partial callback. A subsequent
+    // short-circuiting consumer needs a more precise safety model in that case.
+    Iterator(Term, bool),
     Fields(Vec<(FieldOpr, Val)>),
     Option(Term, Option<Box<Val>>),
     Result(Term, Option<Box<Val>>, Option<Box<Val>>),
@@ -127,6 +132,7 @@ struct Engine<'a> {
     requirements: Vec<Term>,
     exits: Vec<(Term, Val)>,
     plans: Vec<loops::Plan>,
+    callbacks: Vec<callbacks::Plan>,
     remaining: usize,
 }
 impl Engine<'_> {
@@ -410,6 +416,33 @@ impl Engine<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Val, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
+        if let Some((spec,types,args))=iterators::source_call(e,self.all) {
+            let values=args.iter().enumerate().map(|(i,a)|{
+                if i==0 {self.object(s,a)}else{self.expr(s,a)?.scalar(&a.span)}
+            }).collect::<Result<Vec<_>,_>>()?;
+            let value=trait_getters::instantiate(&spec,&types,values,&self.f.x.typ_bounds)?;
+            return Ok(Val{typ:e.typ.clone(),node:Node::Iterator(value,false)});
+        }
+        if let Some((op,args))=iterators::operation(e,self.all) {
+            let receiver=match &args[0].x {
+                ExprX::BorrowMut(p)|ExprX::TwoPhaseBorrowMut(p)=>{
+                    let PlaceX::Temporary(e)=&p.x else{return Err(unsupported(span,"native search currently consumes a temporary iterator"));};e
+                }
+                _=>&args[0],
+            };
+            let value=self.expr(s,receiver)?;
+            let Node::Iterator(sequence,partial)=value.node else{return Err(unsupported(span,"native consumers require a certified finite iterator factory"));};
+            if op==iterators::Operation::Any && partial {return Err(unsupported(span,"native short-circuit search after a partial filter"));}
+            let (sequence,new_partial)=if op==iterators::Operation::Count{(sequence,false)}else{self.predicate(s,&args[1],sequence,op==iterators::Operation::Any)?};
+            if op==iterators::Operation::Filter{return Ok(Val{typ:e.typ.clone(),node:Node::Iterator(sequence,partial||new_partial)});}
+            let item=iterators::sequence(&sequence.expr.typ).ok_or_else(||unsupported(span,"native iterator observation type"))?.clone();
+            let len=self.standard(span,collections::Model::SeqLen,vec![item],vec![sequence])?;
+            if op==iterators::Operation::Any{
+                let zero=term(span,&int_typ(),ExprX::Const(Constant::Int(0.into())),1)?;
+                return Ok(Val::atom(summary::binary(span,BinaryOp::Inequality(InequalityOp::Lt),zero,len)?));
+            }
+            return Ok(Val::atom(len));
+        }
         if panics::literal(e,self.all).is_some() {
             self.require(s,boolean(span,false))?;
             s.active=boolean(span,false);
@@ -586,7 +619,7 @@ impl Engine<'_> {
                                     s.locals.insert(b.name.clone(), v);
                                 }
                                 PatternX::Wildcard => {}
-                                _ => return Err(unsupported(span, "owned immutable binding")),
+                                _ => {let test=self.pattern(s,pattern,v)?;if !is_bool(&test,true){return Err(unsupported(span,"owned binding must be irrefutable"));}},
                             }
                         }
                         StmtX::Expr(e) => {
@@ -905,7 +938,8 @@ impl Engine<'_> {
             } else {
                 name
             };
-            if let Some(spec)=self.all.get(name).filter(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)) {
+            if let Some(spec)=self.all.get(name).filter(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)
+                || f.x.attrs.infer_iterator_observation && iterators::observation(f)) {
                 let values=args.iter().enumerate().map(|(i,a)|if i==0{self.object(s,a)}else{self.formula(s,a)}).collect::<Result<Vec<_>,_>>()?;
                 return trait_getters::instantiate(spec,types,values,&self.f.x.typ_bounds);
             }
@@ -918,14 +952,9 @@ impl Engine<'_> {
                     return Ok(t);
                 }
             }
-            if self.all.get(name).and_then(collections::model) == Some(collections::Model::SeqLen) {
-                let v = self.formula(s, &args[0])?;
-                return self.standard(
-                    &e.span,
-                    collections::Model::SeqLen,
-                    (**types).clone(),
-                    vec![v],
-                );
+            if let Some(m @ (collections::Model::SeqLen|collections::Model::SeqIndex))=self.all.get(name).and_then(collections::model) {
+                let values=args.iter().map(|a|self.formula(s,a)).collect::<Result<Vec<_>,_>>()?;
+                return self.standard(&e.span,m,(**types).clone(),values);
             }
             if model(self.all.get(name).ok_or_else(|| unsupported(&e.span, "owned summary model"))?)
                 == Some(Model::SeqNew)
@@ -937,7 +966,7 @@ impl Engine<'_> {
                 let v = self.formula(s, body)?;
                 return self.repeat(&e.span, n, v);
             }
-            if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush)) =
+            if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush | Model::SeqFilter)) =
                 self.all.get(name).and_then(model)
             {
                 let values =
@@ -947,6 +976,16 @@ impl Engine<'_> {
         }
         match &e.x {
             ExprX::Ctor(..) => self.formula_value(s, e)?.scalar(&e.span),
+            ExprX::Closure(params,body)|ExprX::Quant(_,params,body)=>{
+                if params.is_empty() || params.len()>2{return Err(unsupported(&e.span,"native summary binder budget"));}
+                let mut local=s.clone();
+                for p in params.iter(){
+                    local.locals.insert(p.name.clone(),self.layout(SpannedTyped::new(&e.span,&p.a,ExprX::Var(p.name.clone())),5)?);
+                }
+                let value=self.formula(&mut local,body)?;
+                let x=match &e.x {ExprX::Closure(..)=>ExprX::Closure(params.clone(),value.expr),ExprX::Quant(q,..)=>ExprX::Quant(*q,params.clone(),value.expr),_=>unreachable!()};
+                term(&e.span,&e.typ,x,value.size+1)
+            }
             ExprX::Logical(op, a, b) => {
                 let a = self.formula(s, a)?;
                 let b = self.formula(s, b)?;
@@ -1015,6 +1054,7 @@ impl Engine<'_> {
         match &v.node {
             Node::Atom(t) => records::equal(span, atom(out.clone())?, t.clone()),
             Node::Seq(t) => records::equal(span, self.observe(out)?, t.clone()),
+            Node::Iterator(..) => Err(unsupported(span,"inferred iterator outputs require a supplied finite view")),
             Node::Fields(fs) => {
                 let mut p = boolean(span, true);
                 for (op, v) in fs {
@@ -1064,6 +1104,7 @@ impl Engine<'_> {
         clauses: &[Expr],
     ) -> Result<Val, VirErr> {
         let node = match &layout.node {
+            Node::Iterator(..) => return Err(unsupported(&out.span,"imported iterator output layout")),
             Node::Atom(_) | Node::Seq(_) => {
                 let lhs = if matches!(layout.node, Node::Seq(_)) {
                     self.observe(out)?.expr
@@ -1314,7 +1355,7 @@ pub(super) fn infer(
         ds,
         requirements: vec![],
         exits: vec![],
-        plans: vec![],
+        plans: vec![], callbacks:vec![],
         remaining: FORMULA_BUDGET,
     };
     let mut s = State { locals: HashMap::new(), objects:HashMap::new(), active: boolean(&f.span, true) };
@@ -1348,6 +1389,7 @@ pub(super) fn infer(
         SpannedTyped::new(&f.span, &f.x.inner_ret.x.typ, ExprX::Var(f.x.inner_ret.x.name.clone()));
     let post = eng.post(&result, &out)?;
     let body = loops::annotate(f, &eng.plans)?;
+    let body = callbacks::annotate(f,&body,&eng.callbacks)?;
     Ok((Contract::new(pre.expr, post.expr)?, body))
 }
 fn validate_signature(
@@ -1388,7 +1430,8 @@ fn validate_signature(
         || x.decrease_when.is_some()
         || !(heap_known(&x.inner_ret.x.typ, all, ds, 5) || result_query(f)
             || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)))
+            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all)
+            || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {
         return Err(unsupported(
@@ -1455,7 +1498,7 @@ fn validate_signature(
         }
     }
     let engine =
-        Engine { f, all, ds, requirements: vec![], exits: vec![], plans: vec![], remaining: 0 };
+        Engine { f, all, ds, requirements: vec![], exits: vec![], plans: vec![], callbacks:vec![], remaining: 0 };
     engine.layout(
         SpannedTyped::new(&f.span, &x.inner_ret.x.typ, ExprX::Var(x.inner_ret.x.name.clone())),
         5,
@@ -1486,7 +1529,7 @@ pub(super) fn validate_summary(
         ds,
         requirements: vec![],
         exits: vec![],
-        plans: vec![],
+        plans: vec![], callbacks:vec![],
         remaining: FORMULA_BUDGET,
     };
     let mut s = State { locals: HashMap::new(), objects:HashMap::new(), active: boolean(&f.span, true) };
@@ -1507,7 +1550,7 @@ pub(super) fn validate_summary(
     )?;
     Ok(())
 }
-pub(super) use loops::validate_decoration;
+pub(crate) fn validate_decoration(f:&Function,body:&Expr)->Result<(),VirErr>{callbacks::validate(f,body)}
 pub(super) fn restore_body(f: &Function, decorated: &Expr) -> Result<Expr, VirErr> {
     let mut plans = vec![];
     crate::ast_visitor::expr_visitor_check(decorated, &mut |_, e| {
@@ -1520,7 +1563,8 @@ pub(super) fn restore_body(f: &Function, decorated: &Expr) -> Result<Expr, VirEr
         }
         Ok::<_, VirErr>(())
     })?;
-    loops::annotate(f, &plans)
+    let body=loops::annotate(f,&plans)?;
+    callbacks::annotate(f,&body,&callbacks::plans(decorated))
 }
 
 fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr> {
@@ -1538,6 +1582,7 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
             | ExprX::Logical(_, _, _)
             | ExprX::Ctor(_, _, _, None)
             | ExprX::Closure(_, _)
+            | ExprX::Quant(_, _, _)
             | ExprX::If(_, _, Some(_)) => true,
             ExprX::ReadPlace(p, _) => {
                 fn place(p: &Place) -> bool {
@@ -1573,7 +1618,8 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
                         && (collections::model(f).is_some()
                             || model(f).is_some()
                             || f.x.attrs.infer_sequence_view
-                            || f.x.attrs.infer_trait_observation && trait_getters::observation(f))
+                            || f.x.attrs.infer_trait_observation && trait_getters::observation(f)
+                            || f.x.attrs.infer_iterator_observation && iterators::observation(f))
                 })
             }
             _ => false,

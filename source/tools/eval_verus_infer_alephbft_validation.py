@@ -7,6 +7,7 @@ source bodies. Count/search pipelines use explicit checked collection queries.
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 
 from eval_verus_infer_alephbft import REVISION, git
@@ -24,13 +25,26 @@ NAMES = ('unit_creator_is_descendant_of_previous_unit',
          'check_if_parents_greater_than_previous_round', 'validate_non_initial_round')
 
 
-def validation_api(control):
+def native_models(node, control):
+    """Fail on native factory drift before installing the checked ghost interface."""
+    expected = [
+        (node, 'pub fn iter(', 'self.0.iter().enumerate().filter_map(|(idx, maybe_value)| Some((NodeIndex(idx), maybe_value.as_ref()?)))'),
+        (control, 'pub fn parents(', 'self.parents.iter().map(|(node_index, &round)| UnitCoord::new(round, node_index))'),
+    ]
+    for source, marker, body in expected:
+        actual = item(source, marker)[2].split('{', 1)[1].rsplit('}', 1)[0]
+        if re.sub(r'\s+', '', actual) != re.sub(r'\s+', '', body):
+            raise ValueError('native iterator factory changed: '+marker)
+    return (FIXTURES/'native_pipeline_models.rs').read_text()
+
+
+def validation_api(control, native_pipelines=False):
     error = item(control, 'pub enum Error')[2]
     implementation = item(control, 'impl<H: Hasher> ControlHash<H>')[2]
     methods = []
     for name in NAMES:
         method = item(implementation, 'fn '+name+'(')[2]
-        if name == 'previous_round_have_enough_parents':
+        if not native_pipelines and name == 'previous_round_have_enough_parents':
             old = '''self
             .parents()
             .filter(|&parent| parent.round == round - 1)
@@ -38,7 +52,7 @@ def validation_api(control):
             if method.count(old) != 1:
                 raise ValueError('native filtered-count pipeline changed')
             method = method.replace(old, 'self.parents.rounds_in_range_checked(round - 1, round - 1)')
-        elif name == 'check_if_parents_greater_than_previous_round':
+        elif not native_pipelines and name == 'check_if_parents_greater_than_previous_round':
             old = '''self
             .parents()
             .any(|unit_coord| unit_coord.round > round - 1)'''
@@ -46,7 +60,20 @@ def validation_api(control):
                 raise ValueError('native future-parent pipeline changed')
             method = method.replace(old, 'self.parents.contains_after_checked(round - 1)')
         methods.append('#[verifier::infer]\n'+method)
-    return MODELS.read_text().replace('// NATIVE_ERROR_ENUM', error).replace(
+    models = MODELS.read_text()
+    if native_pipelines:
+        start = models.index('impl NodeMap<u16>')
+        end = models.index('// NATIVE_ERROR_ENUM')
+        models = models[:start]+models[end:]
+        models = models.replace('self.parents.rounds_in_range((coord.parts().1 - 1) as u16, (coord.parts().1 - 1) as u16)',
+            'self.parents_value().filter(|p:UnitCoord|p.round==coord.parts().1 as int-1).len()')
+        models = models.replace('self.parents.contains_after((coord.parts().1 - 1) as u16)',
+            '(self.parents_value().filter(|p:UnitCoord|p.round>coord.parts().1 as int-1).len()>0)')
+        models = models.replace('self.parents.rounds_in_range((round - 1) as u16, (round - 1) as u16)',
+            'self.parents_value().filter(|p:UnitCoord|p.round==round as int-1).len()')
+        models = models.replace('self.parents.contains_after((round - 1) as u16)',
+            '(self.parents_value().filter(|p:UnitCoord|p.round>round as int-1).len()>0)')
+    return models.replace('// NATIVE_ERROR_ENUM', error).replace(
         '// NATIVE_VALIDATION_METHODS', '\n'.join(methods))
 
 
@@ -64,6 +91,7 @@ def main():
     parser.add_argument('--verus', type=Path, default=ROOT/'source/target-verus/release/verus')
     parser.add_argument('--z3', type=Path, default=ROOT/'source/z3')
     parser.add_argument('--native-tests', action='store_true')
+    parser.add_argument('--native-pipelines', action='store_true')
     parser.add_argument('--native-target', type=Path)
     args = parser.parse_args()
     output = args.output.resolve()
@@ -85,13 +113,23 @@ def main():
             for path in (NODE, UNITS, CONTROL, HASHER)]
         shared = shared.replace('(*self * 2) / 3 + NodeCount(1)', CORRECTED)
         api = infer_member_count(real_api(node, shared, units, control, hasher), control)
-        api += COMPARISONS + QUERY_MODELS.read_text() + validation_api(control)
+        api += COMPARISONS + (native_models(node, control) if args.native_pipelines else QUERY_MODELS.read_text()) + validation_api(control, args.native_pipelines)
+        if args.native_pipelines:
+            api = api.replace('vstd::seq::group_seq_axioms};',
+                'vstd::seq::group_seq_axioms,vstd::seq::group_seq_lemmas,vstd::std_specs::iter::group_iter_axioms,vstd::std_specs::iter_adapters::group_native_adapter_axioms};')
         result['source'] = dict(**origin,
             bodies='original six-variant Error<H>, own-parent lookup, n_members, runtime assertion and three-stage ? orchestration',
             adaptations='two iterator pipelines replaced by ordinary checked finite collection queries; positive-round validation scope',
             supplied='direct collection view, query equations, eligible policy, exact error goals, state constructor',
             boundaries='existing explicit SCALE codec and verified-lock boundaries; corrected quorum arithmetic; round remains u16',
             not_claimed='native iterator-pipeline inference, initial-round hash validation, full crate/protocol correctness; isolated future-parent leaf at round zero')
+        if args.native_pipelines:
+            result['source'].update(
+                bodies='original six-variant Error<H> and all four noninitial validation bodies, including filter/count and any callbacks',
+                adaptations='native iterator factories retain their executable operations with named locals and supplied ghost contracts; no collection-query implementation adapters',
+                supplied='direct collection/iterator views, checked factory proofs, eligible policy, exact typed-error goals, state constructor',
+                boundaries='new explicit native Rust-library count/enumerate/filter_map models; existing SCALE codec and verified lock; corrected quorum; original u16 rounds',
+                not_claimed='automatic iterator-factory or arbitrary-loop inference, ControlHash::new, initial-round hash validation, full crate/protocol correctness')
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK='20971520',
                    VERUS_INFER_CACHE=str(output/'candidate-cache'))
         codec_lib, codec_vir = directory/'libcodec_model.rlib', directory/'codec_model.vir'
@@ -128,6 +166,9 @@ def main():
                 'coord.parts().0.0 < self@.0.len(),'), False),
             ('validation-warm', api, True),
         ]
+        if args.native_pipelines:
+            cases = [row for row in cases if row[0] != 'wrong-query-callback']
+            cases.insert(-1, ('wrong-query-callback', api.replace('parent.round == round - 1', 'parent.round < round - 1'), False))
         for case, text, expected in cases:
             if not expected and text == api:
                 raise ValueError('ineffective mutation: '+case)
@@ -149,8 +190,19 @@ def main():
                 report=data['verus-infer'], wall_micros=run['wall_micros']))
             save()
             print(case+': expected outcome', flush=True)
+        runtime = RUNTIME.read_text()
+        if args.native_pipelines:
+            extra = '''    assert!(empty.check_if_parents_greater_than_previous_round(0).is_ok());
+    let mut populated = ControlHash::<Hasher64> {
+        parents: NodeMap::with_size(NodeCount(1)), combined_hash: [0; 8],
+    };
+    populated.parents.insert(NodeIndex(0), 0);
+    assert!(std::panic::catch_unwind(|| populated.check_if_parents_greater_than_previous_round(0)).is_err());
+    println!("NATIVE_PIPELINE_ZERO_ROUND=2");
+'''
+            runtime = runtime.replace('    println!("INFER_VALIDATION_CASES=', extra+'    println!("INFER_VALIDATION_CASES=')
         runtime_source = api + '\n#[cfg(verus_keep_ghost_body)] fn main() {}\n' + (
-            '#[cfg(not(verus_keep_ghost_body))] mod runtime { use super::*;\n'+RUNTIME.read_text()+
+            '#[cfg(not(verus_keep_ghost_body))] mod runtime { use super::*;\n'+runtime+
             '\npub fn run(){validation_corpus();}}\n#[cfg(not(verus_keep_ghost_body))] fn main(){runtime::run();}\n')
         path.write_text(runtime_source)
         runtime_command = [arg for arg in command if arg != '--crate-type=lib']
@@ -165,12 +217,12 @@ def main():
             report=data['verus-infer'], wall_micros=run['wall_micros']))
         run = measured([str(directory/'validation-runtime')], env, 30, ROOT)
         (output/'runtime.txt').write_text(run['stdout']+run['stderr'])
-        if run['returncode'] or 'INFER_VALIDATION_CASES=7704;ZERO_ROUND_PANIC=1' not in run['stdout']:
+        if run['returncode'] or 'INFER_VALIDATION_CASES=7704;ZERO_ROUND_PANIC=1' not in run['stdout'] or (args.native_pipelines and 'NATIVE_PIPELINE_ZERO_ROUND=2' not in run['stdout']):
             raise ValueError('adapted runtime corpus did not complete')
         result['native'].append(dict(case='adapted-runtime', returncode=run['returncode'], wall_micros=run['wall_micros']))
         if args.native_tests:
             end = control.rfind('}')
-            (checkout/CONTROL).write_text(control[:end]+RUNTIME.read_text()+
+            (checkout/CONTROL).write_text(control[:end]+runtime+
                 '\n#[test] fn inferred_validation_corpus(){validation_corpus();}\n'+control[end:])
             native_env = dict(os.environ)
             native_env.pop('RUSTUP_TOOLCHAIN', None)
