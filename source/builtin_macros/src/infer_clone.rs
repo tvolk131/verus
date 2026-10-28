@@ -41,6 +41,7 @@ pub(crate) fn expand(item: ItemStruct, vstd: TokenStream) -> syn::Result<TokenSt
     }
     let name = &item.ident;
     let (_, types, _) = item.generics.split_for_impl();
+    let (view_params, _, view_where) = item.generics.split_for_impl();
     let mut generics = item.generics.clone();
     for param in generics.type_params_mut() {
         param.bounds.push(syn::parse_quote!(::core::clone::Clone));
@@ -48,6 +49,11 @@ pub(crate) fn expand(item: ItemStruct, vstd: TokenStream) -> syn::Result<TokenSt
     let (params, _, where_clause) = generics.split_for_impl();
     Ok(quote! {#vstd::prelude::verus!{
      #item
+     impl #view_params #name #types #view_where {
+      pub broadcast proof fn __verus_infer_view_len_bound(&self)
+       ensures #[trigger] self@.len() <= ::core::primitive::usize::MAX as int,
+      { #vstd::std_specs::vec::axiom_spec_len(&self.0); }
+     }
      impl #params #name #types #where_clause {
       pub open spec fn __verus_clone_relation(&self,result:Self)->bool{
        result@.len()==self@.len() &&

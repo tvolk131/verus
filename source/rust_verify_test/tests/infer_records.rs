@@ -221,3 +221,51 @@ fn record_expansion_budget_is_enforced() {
     let e = verify_one_file("expansion_budget", source, &["vstd"]).unwrap_err();
     assert!(e.errors.iter().any(|e| e.message.contains("expanded formula budget")), "{:?}", e);
 }
+
+#[test]
+fn guarded_match_effects_preserve_order_frames_and_early_returns() {
+    let source=r#"use vstd::prelude::*;verus!{
+ pub struct State{pub value:u16,pub epoch:u16}
+ impl State{
+  #[verifier::infer] fn choose(&mut self,input:Option<bool>){
+   match input{
+    Some(x) if x=>{self.value=1;return;},
+    Some(_)=>{self.value=2;},
+    None=>{},
+   }
+   self.value=3;
+  }
+  #[verifier::infer] fn ordered(&mut self,input:Option<u8>){
+   match input{
+    Some(x) if x<10=>{self.value=x as u16;},
+    Some(x) if x<20=>{self.value=(x as u16)+1;},
+    _=>{},
+   }
+  }
+ }
+ fn first(s:&mut State,input:Option<bool>)
+ ensures final(s).value as int==if input==Some(true){1int}else{3int},final(s).epoch==old(s).epoch,
+ {s.choose(input);}
+ fn second(s:&mut State,input:Option<u8>)
+ ensures final(s).value as int==match input{Some(x) if x<10=>x as int,Some(x) if x<20=>(x as int)+1,_=>old(s).value as int},final(s).epoch==old(s).epoch,
+ {s.ordered(input);}
+}"#;
+    let d=verify_one_file("guarded_state_match",source.into(),&["vstd","--no-cheating"]).unwrap();
+    assert_eq!(d.notes.iter().filter(|n|n.message.contains("output exactness: PROVED")).count(),2,"{:?}",d);
+}
+
+#[test]
+fn guarded_match_safety_is_required_only_on_the_selected_arm() {
+    let source=r#"use vstd::prelude::*;verus!{
+ pub struct State{pub value:u8}
+ impl State{#[verifier::infer] fn update(&mut self,input:Option<u8>,skip:bool){
+  match input{Some(_) if skip=>{},Some(x)=>{self.value=x+1;},None=>{}}
+ }}
+ fn skip(s:&mut State){s.update(Some(u8::MAX),true);}
+ fn bad(s:&mut State){s.update(Some(u8::MAX),false);}
+}"#;
+    let e=verify_one_file("selected_match_safety",source.into(),&["vstd","--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d|d.message.contains("precondition not satisfied")),"{:?}",e);
+    assert!(e.notes.iter().any(|d|d.message.contains("output exactness: PROVED")),"{:?}",e);
+    assert_eq!(e.errors.iter().filter(|d|d.message.contains("precondition not satisfied")).count(),1,"{:?}",e);
+}

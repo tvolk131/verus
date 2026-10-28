@@ -718,6 +718,9 @@ impl Interpreter<'_> {
                 let value = self.place(s, p)?;
                 let mut seen = boolean(span, false);
                 let mut results = Vec::new();
+                let mut fields = s.fields.clone();
+                let mut live = boolean(span, false);
+                let mut returns = false;
                 for arm in arms.iter() {
                     let mut branch = s.clone();
                     let p = self.pattern(&mut branch, &arm.x.pattern, value.clone())?;
@@ -726,13 +729,24 @@ impl Interpreter<'_> {
                     branch.active = logical(span, LogicalOp::And, s.active.clone(), available)?;
                     let guard = self.readonly(&mut branch, &arm.x.guard)?;
                     let condition = logical(span, LogicalOp::And, p, guard)?;
-                    branch.active =
-                        logical(span, LogicalOp::And, branch.active, condition.clone())?;
-                    let result = self.readonly(&mut branch, &arm.x.body)?;
+                    let selected = logical(span, LogicalOp::And,
+                        exits::not(span, seen.clone())?, condition.clone())?;
+                    branch.active = logical(span, LogicalOp::And, s.active.clone(), selected.clone())?;
+                    let entry_active = branch.active.expr.clone();
+                    let result = self.expr(&mut branch, &arm.x.body)?;
+                    returns |= !Arc::ptr_eq(&entry_active, &branch.active.expr);
+                    for (merged, value) in fields.iter_mut().zip(branch.fields.iter()) {
+                        if !Arc::ptr_eq(&merged.expr, &value.expr) {
+                            *merged = conditional(span, selected.clone(), value.clone(), merged.clone())?;
+                        }
+                    }
+                    live = logical(span, LogicalOp::Or, live, branch.active)?;
                     seen = logical(span, LogicalOp::Or, seen, condition.clone())?;
-                    results.push((condition, result));
+                    results.push((selected, result));
                 }
                 self.require(s, span, seen)?;
+                s.fields = fields;
+                if returns { s.active = live; }
                 let mut out = results
                     .last()
                     .ok_or_else(|| unsupported(span, "empty record match"))?

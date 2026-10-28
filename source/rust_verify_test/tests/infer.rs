@@ -5819,3 +5819,48 @@ verus!{pub fn goal(v:&native_clone_provider::Slots<(u64,u16)>)->(r:native_clone_
     assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
     assert!(!crates.vir("native_clone_consumer").exists());
 }
+
+#[test]
+fn private_view_bounds_are_checked_and_selected_only_for_demanded_goals() {
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+#[verus_verify(clone_via_view)] #[derive(Clone)] pub struct Slots<T>(Vec<Option<T>>);
+verus!{impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}}
+"#;
+    let consumer=r#"use vstd::prelude::*;verus!{
+ fn bump(v:&view_bound_provider::Slots<u8>,n:usize)->(r:usize)
+ requires n<v@.len(),ensures r as int==n as int+1,{n+1}
+ fn unrelated(n:usize)->usize{n}
+}"#;
+    let run=crates.build_source("view_bound_provider",provider,&[],&["--no-cheating"],true);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--no-cheating"],true);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("overflow"));
+    for _ in 0..2 {
+        let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--infer-goals","--no-cheating","--output-json"],true);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let report=json_inference(&run);
+        let assists=report["goal_assistance"].as_array().unwrap();
+        assert_eq!(assists.len(),1,"{report}");
+        assert_eq!(assists[0]["strategy"],"sequence_view_bound");
+        assert!(assists[0]["function"].as_str().unwrap().ends_with("::bump"));
+    }
+    let wrong_view=provider.replace("{self.0@}","{Seq::new(usize::MAX as nat+1,|i:int|None)}");
+    let run=crates.build_source("view_bound_provider",&wrong_view,&[],&["--no-cheating"],true);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
+    assert!(!crates.vir("view_bound_provider").exists());
+    // A same-named vacuous theorem does not satisfy the selection interface.
+    let fake=r#"use vstd::prelude::*;verus!{
+ pub struct Slots<T>(Vec<Option<T>>);
+ impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+ impl<T> Slots<T>{pub broadcast proof fn __verus_infer_view_len_bound(&self)
+  requires false,ensures #[trigger] self@.len()<=usize::MAX as int,{}}
+}"#;
+    let run=crates.build_source("view_bound_provider",fake,&[],&[],true);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--infer-goals","--output-json"],true);
+    assert!(!run.status.success());
+    assert!(json_inference(&run)["goal_assistance"].as_array().unwrap().is_empty());
+}

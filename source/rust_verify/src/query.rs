@@ -533,6 +533,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             cratex.functions = vir::infer::prepare_counting_goals(
                 &cratex.functions, &available, &mut self.inference_generation,
             );
+            cratex.functions = vir::infer::prepare_view_bound_goals(
+                &cratex.functions, &available, &mut self.inference_generation,
+            );
         }
 
         vir::traits::set_krate_dyn_compatibility(&other_vir_crates, &mut cratex);

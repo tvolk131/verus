@@ -200,3 +200,64 @@ fn signed_unsigned_and_primitive_rhs_wrappers_use_their_actual_ranges() {
         assert!(r.is_ok(), "{:?}", r);
     }
 }
+
+const COMPARE: &str = r#"use vstd::prelude::*;
+#[verus_verify] #[derive(Copy,Clone)] pub struct Count(pub usize);
+#[verus_infer] impl PartialEq for Count{fn eq(&self,rhs:&Self)->bool{self.0==rhs.0}}
+#[verus_infer] impl PartialOrd for Count{
+ fn partial_cmp(&self,rhs:&Self)->Option<core::cmp::Ordering>{self.0.partial_cmp(&rhs.0)}
+ fn lt(&self,rhs:&Self)->bool{self.0<rhs.0}
+ fn le(&self,rhs:&Self)->bool{self.0<=rhs.0}
+ fn gt(&self,rhs:&Self)->bool{self.0>rhs.0}
+ fn ge(&self,rhs:&Self)->bool{self.0>=rhs.0}
+}
+#[verus_infer] fn less(a:Count,b:Count)->bool{a<b}
+verus!{
+ fn check(a:Count,b:Count){
+  let x=a==b;assert(x==(a.0==b.0));
+  let x=less(a,b);assert(x==(a.0<b.0));
+  let x=a<=b;assert(x==(a.0<=b.0));
+  let x=a>b;assert(x==(a.0>b.0));
+  let x=a>=b;assert(x==(a.0>=b.0));
+ }
+}
+"#;
+
+#[test]
+fn comparison_adapters_check_the_original_bodies_and_all_precision_obligations() {
+    let d=verify_one_file("wrapper_compare",COMPARE.into(),&["vstd","--no-cheating"]).unwrap();
+    for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"] {
+        assert_eq!(d.notes.iter().filter(|n|n.message.contains(p)).count(),6,"{:?}",d);
+    }
+}
+
+#[test]
+fn comparison_extension_models_cannot_hide_an_inconsistent_override() {
+    let s=COMPARE.replace("fn lt(&self,rhs:&Self)->bool{self.0<rhs.0}","fn lt(&self,rhs:&Self)->bool{self.0>rhs.0}");
+    let e=verify_one_file("inconsistent_order",s,&["vstd","--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d|d.message.contains("postcondition not satisfied")),"{:?}",e);
+}
+
+#[test]
+fn comparison_names_do_not_supply_equality_semantics() {
+    let s=COMPARE.replace("fn eq(&self,rhs:&Self)->bool{self.0==rhs.0}","fn eq(&self,rhs:&Self)->bool{self.0!=rhs.0}");
+    let e=verify_one_file("changed_eq_semantics",s,&["vstd","--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d|d.message.contains("assertion failed")),"{:?}",e);
+    assert_eq!(e.notes.iter().filter(|n|n.message.contains("output exactness: PROVED")).count(),6,"{:?}",e);
+}
+
+#[test]
+fn boolean_trait_overrides_cannot_add_an_overflow_precondition() {
+    let s=r#"use vstd::prelude::*;verus!{
+ pub struct Count(pub usize);
+ impl vstd::std_specs::cmp::PartialEqSpecImpl for Count{
+  open spec fn obeys_eq_spec()->bool{false}
+  open spec fn eq_spec(&self,rhs:&Self)->bool{false}
+ }
+ impl PartialEq for Count{
+  #[verifier::infer] fn eq(&self,rhs:&Self)->bool{self.0+1==rhs.0}
+ }
+}"#;
+    let e=verify_one_file("partial_compare",s.into(),&["vstd","--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d|d.message.contains("overflow") || d.message.contains("inherited trait precondition must equal")),"{:?}",e);
+}

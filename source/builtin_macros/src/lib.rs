@@ -16,6 +16,7 @@ mod attr_block_trait;
 mod attr_rewrite;
 mod infer_wrapper;
 mod infer_clone;
+mod infer_compare;
 mod calc_macro;
 mod contrib;
 mod enum_synthesize;

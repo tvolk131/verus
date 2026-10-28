@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v30:checked-native-clone:4096";
+const VERSION: &str = "verus-infer-v31:native-record-match-and-compare:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -477,7 +477,7 @@ impl Registry {
             let valid = match wrapper_traits::kind(f).unwrap() {
                 wrapper_traits::Kind::From => f.x.params.iter().any(|p| wrappers.wrapper(&p.x.typ))
                     || wrappers.wrapper(&f.x.inner_ret.x.typ),
-                wrapper_traits::Kind::AddAssign => wrappers.wrapper(&f.x.params[0].x.typ),
+                wrapper_traits::Kind::AddAssign | wrapper_traits::Kind::Compare => wrappers.wrapper(&f.x.params[0].x.typ),
             };
             if !valid {
                 return Err(unsupported(&f.span, "wrapper trait inference requires a transparent nongeneric single scalar field"));

@@ -143,6 +143,36 @@ independent proof of those declarations.
 
 ## Native Clone and implementation-model checkpoint
 
+The subsequent native collector checkpoint uses metadata schema **26** and
+candidate cache version **31**. Rebuild providers after upgrading. It adds concrete
+checked PartialEq/PartialOrd adapters and bounded effectful record matches. Ordered
+guards control each arm's safety requirements, field updates, and surviving paths;
+unselected arms cannot impose their effects or overflow restrictions. Inherited
+trait input requirements are still checked independently by maximality.
+
+`clone_via_view` also emits an ordinary broadcast proof of the supplied sequence
+view's machine-length bound. This theorem is proved from the actual Vec field;
+changing the view to an oversized sequence fails verification. Goal assistance
+selects the theorem only after observing a certified direct view in caller goals
+or called preconditions/specifications. It enables a checked lemma and inserts no
+assumption. The traversal has fixed budgets and produces no selection on exhaustion.
+Recognized view-bound-only providers require full-crate verification and proof
+metadata before export. A same-named theorem with a precondition is not selected.
+
+The new native collector experiment retains all four pinned executable bodies,
+including u16 round arithmetic, guarded matches and original error policy. Supplied
+application invariants and behavior goals prove lifecycle, counts, exact slot
+updates, frames and selection. All four candidates pass soundness, maximality and
+exactness. Changed counters/resets/errors and omitted round/node requirements must
+fail named ordinary caller goals while candidate precision remains proved. It
+does not silently fix or claim discovery of the previously known u16 terminal-round
+overflow. Unit/Hasher codec and lock boundaries remain explicit.
+
+Native collector validation: **8 expected formal outcomes**, including five
+semantic negative controls, and **15 original native collector tests** passed.
+The new cross-crate bound test and the 21 record / 16 wrapper integration tests
+passed. These checkpoint counts supplement the earlier regression evidence below.
+
 Native derived Clone through a supplied direct view introduces a proposed ordinary
 postcondition, not an axiom. Rust's original derive body remains executable and
 must prove it. A generated public spec relation avoids exposing private fields.

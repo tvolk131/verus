@@ -9,6 +9,7 @@ use super::*;
 pub(super) enum Kind {
     From,
     AddAssign,
+    Compare,
 }
 
 /// Existing vstd specifications for core's blanket Into-through-From bridge.
@@ -95,6 +96,16 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
         && enums::unit(&f.x.inner_ret.x.typ)
     {
         Some(Kind::AddAssign)
+    } else if f.x.params.len() == 2
+        && matches!(&*f.x.inner_ret.x.typ, TypX::Bool)
+        && f.x.params.iter().all(|p| matches!(&*p.x.typ, TypX::Decorate(TypDecoration::Ref,None,_)))
+        && crate::ast_util::types_equal(&f.x.params[0].x.typ,&f.x.params[1].x.typ)
+        && ((models::path_is(trait_path,CrateId::Core,&["cmp","PartialEq"])
+            && ["eq","ne"].iter().any(|n| models::path_is(&method.path,CrateId::Core,&["cmp","PartialEq",n])))
+            || (models::path_is(trait_path,CrateId::Core,&["cmp","PartialOrd"])
+            && ["lt","le","gt","ge"].iter().any(|n| models::path_is(&method.path,CrateId::Core,&["cmp","PartialOrd",n]))))
+    {
+        Some(Kind::Compare)
     } else {
         None
     }

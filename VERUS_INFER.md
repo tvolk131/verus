@@ -127,6 +127,13 @@ Implemented and covered by regression tests:
   parking_lot guard operations with vstd's verified lock operations and separately
   models SCALE encoding; it does not verify native RAII/Drop or the codec algorithm.
   Generic Data/Hash clone laws and application invariants remain supplied.
+- [x] All four original native `UnitsCollector` bodies now infer exact contracts,
+  retaining u16 round arithmetic and native branch/error policies. Bounded record
+  matches compose guarded effects and early returns; checked scalar comparisons
+  compose through concrete PartialEq/PartialOrd implementations. Demand-driven
+  selection of an ordinary proved view-length companion removes manual hidden
+  length observations from private collection callers. Application invariants and
+  goals remain supplied; round/index safety requirements are exposed, not repaired.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -429,7 +436,15 @@ APIs and research directions.
     Runtime tests exercise the original parking_lot cold/warm/contended clone paths.
     Native lock/Drop verification, SCALE derivation and general Data clone semantics
     remain open; do not describe the adapted proof as unchanged native verification.
-17. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+17. **Native collector checkpoint implemented.** The original new_initial,
+    from_previous, add_unit and prospective_parents executable bodies retain their
+    u16 round, guarded matches and early-return policies. Supplied ordinary goals
+    prove invariant preservation, exact changed slot, frames, monotone counts,
+    lifecycle and both selection errors. Concrete wrapper comparisons and bounded
+    effectful record matches infer all three properties. A checked private-view
+    length lemma is selected on demand. Missing round/node bounds and changed
+    counter/reset/error behavior fail caller proofs despite exact inference.
+18. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

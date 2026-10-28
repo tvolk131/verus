@@ -46,7 +46,7 @@ pub fn is_wrapper_trait(f: &Function) -> bool {
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
-    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
+    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract || view_bounds_goals::lemma(f).is_some()
 }
 
 pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
@@ -76,6 +76,8 @@ pub use report::{GeneratedCandidate, GenerationReport};
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
 pub use counting_goals::prepare as prepare_counting_goals;
+mod view_bounds_goals;
+pub use view_bounds_goals::prepare as prepare_view_bound_goals;
 
 pub fn is_state_summary(function: &Function) -> bool {
     function.x.attrs.infer

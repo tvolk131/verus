@@ -21,6 +21,7 @@ pub struct GenerationReport {
     pub failure: Option<String>,
     /// Scoped lemma selections are observations, never proof receipts.
     pub goal_lemmas: Vec<(Fun, Vec<Fun>)>,
+    pub view_bound_lemmas: Vec<(Fun, Vec<Fun>)>,
 }
 
 impl GeneratedCandidate {

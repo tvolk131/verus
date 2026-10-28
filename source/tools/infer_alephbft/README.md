@@ -622,3 +622,27 @@ runtime evidence for the native library paths, separate from the adapted proof.
 The source checkout is never edited. This checkpoint does not verify the whole
 Aleph crate, arbitrary Data/Clone implementations, the clean-main collector, or
 distributed protocol properties.
+
+## Original native collector
+
+```sh
+python3 source/tools/eval_verus_infer_alephbft_native_collector.py \
+  --alephbft /path/to/AlephBFT --output /tmp/infer-native-collector \
+  --native-tests --native-target /tmp/aleph-native-target
+```
+
+All four original `UnitsCollector` executable bodies are extracted and checked for
+byte preservation. Their contracts are inferred in default exact mode. The round
+remains u16 and no new bounds guards or terminal policy are added. Supplied ordinary
+goals check lifecycle, invariant/count preservation, exact slot updates, frames,
+and both selection errors. Checked scalar comparison adapters and a proved private
+view-length companion let the original APIs compose without manual size/get
+observations in these callers. The existing corrected threshold and Unit/Hasher
+codec/lock boundaries remain visible inputs.
+
+Eight formal outcomes cover the provider, cold/warm consumers, and five semantic
+negative controls. Wrong counter/reset/error behavior and removed round/node
+requirements fail named caller goals while all four inferred candidates retain
+their three proof receipts. The optional native run executes the 15 original
+collector tests. The input checkout is never edited. The known u16 round overflow
+is exposed as a safety requirement, not repaired or newly discovered here.
