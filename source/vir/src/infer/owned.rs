@@ -85,6 +85,9 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
 }
 #[derive(Clone)]
 struct Val {
+    // Additional proposed complete-value equation for a selected shared return.
+    // Content observations remain available across private abstraction borders.
+    identity: Option<Term>,
     typ: Typ,
     node: Node,
 }
@@ -102,9 +105,10 @@ enum Node {
 }
 impl Val {
     fn atom(t: Term) -> Self {
-        Self { typ: t.expr.typ.clone(), node: Node::Atom(t) }
+        Self { identity:None, typ: t.expr.typ.clone(), node: Node::Atom(t) }
     }
     fn scalar(&self, span: &Span) -> Result<Term, VirErr> {
+        if let Some(value)=&self.identity{return Ok(value.clone());}
         match &self.node {
             Node::Atom(t)=>Ok(t.clone()),
             Node::Fields(fs) => {
@@ -158,7 +162,7 @@ impl Engine<'_> {
         })
     }
     fn result_value(&self, span: &Span, typ: Typ, node: Node) -> Result<Val, VirErr> {
-        let value = Val { typ, node };
+        let value = Val { identity: None, typ, node };
         if self.value_result(&value.typ) {
             Ok(Val::atom(value.scalar(span)?))
         } else {
@@ -361,7 +365,7 @@ impl Engine<'_> {
             }
             Node::Atom(atom(e)?)
         };
-        Ok(Val { typ, node })
+        Ok(Val { identity: None, typ, node })
     }
     fn field(&self, v: Val, op: &FieldOpr, s: &Span) -> Result<Val, VirErr> {
         match v.node {
@@ -414,7 +418,7 @@ impl Engine<'_> {
                         fs.into_iter().find(|(p, _)| p.field == op.field).map(|(_, t)| t)
                     })
                     .ok_or_else(|| unsupported(s, "owned vector storage unavailable"))?;
-                Ok(Val { typ, node: Node::Seq(t) })
+                Ok(Val { identity: None, typ, node: Node::Seq(t) })
             }
             Node::Variants(vs)=>vs.into_iter().find(|(v,_,_)|v==&op.variant)
                 .and_then(|(_,_,fs)|fs).and_then(|fs|fs.into_iter().find(|(field,_)|
@@ -499,7 +503,7 @@ impl Engine<'_> {
                 if i==0 {self.object(s,a)}else{self.expr(s,a)?.scalar(&a.span)}
             }).collect::<Result<Vec<_>,_>>()?;
             let value=trait_getters::instantiate(&spec,&types,values,&self.f.x.typ_bounds)?;
-            return Ok(Val{typ:e.typ.clone(),node:Node::Iterator(value,false)});
+            return Ok(Val { identity: None,typ:e.typ.clone(),node:Node::Iterator(value,false)});
         }
         if let Some((op,args))=iterators::operation(e,self.all) {
             let receiver=match &args[0].x {
@@ -512,7 +516,7 @@ impl Engine<'_> {
             let Node::Iterator(sequence,partial)=value.node else{return Err(unsupported(span,"native consumers require a certified finite iterator factory"));};
             if op==iterators::Operation::Any && partial {return Err(unsupported(span,"native short-circuit search after a partial filter"));}
             let (sequence,new_partial)=if op==iterators::Operation::Count{(sequence,false)}else{self.predicate(s,&args[1],sequence,op==iterators::Operation::Any)?};
-            if op==iterators::Operation::Filter{return Ok(Val{typ:e.typ.clone(),node:Node::Iterator(sequence,partial||new_partial)});}
+            if op==iterators::Operation::Filter{return Ok(Val { identity: None,typ:e.typ.clone(),node:Node::Iterator(sequence,partial||new_partial)});}
             let item=iterators::sequence(&sequence.expr.typ).ok_or_else(||unsupported(span,"native iterator observation type"))?.clone();
             let len=self.standard(span,collections::Model::SeqLen,vec![item],vec![sequence])?;
             if op==iterators::Operation::Any{
@@ -623,7 +627,7 @@ impl Engine<'_> {
                     } else {
                         return Err(unsupported(span, "owned Option constructor"));
                     };
-                    return Ok(Val {
+                    return Ok(Val { identity: None,
                         typ: e.typ.clone(),
                         node: Node::Option(boolean(span, value.is_some()), value),
                     });
@@ -658,7 +662,7 @@ impl Engine<'_> {
                     })
                     .collect::<Result<Vec<_>, VirErr>>()?;
                 if records::shape::fields(&e.typ, self.ds).is_some() {
-                    Ok(Val {
+                    Ok(Val { identity: None,
                         typ: e.typ.clone(),
                         node: Node::Fields(values.into_iter().map(|(p, v, _)| (p, v)).collect()),
                     })
@@ -820,7 +824,7 @@ impl Engine<'_> {
                             "native Clone inference requires a certified sequence view",
                         ));
                     }
-                    return Ok(Val { typ: e.typ.clone(), node: v.node });
+                    return Ok(Val { identity: None, typ: e.typ.clone(), node: v.node });
                 }
                 if let Some(m) = model_call(e, self.all) {
                     return self.collection(s, e, m, args);
@@ -907,7 +911,7 @@ impl Engine<'_> {
                     self.expr(s, a)?;
                 }
                 let t = element(&e.typ, self.all, self.ds)?;
-                Ok(Val {
+                Ok(Val { identity: None,
                     typ: e.typ.clone(),
                     node: Node::Seq(self.lib(span, Model::Empty, vec![t], vec![])?),
                 })
@@ -927,7 +931,7 @@ impl Engine<'_> {
                     ));
                 }
                 let seq = self.repeat(span, n, v)?;
-                Ok(Val { typ: e.typ.clone(), node: Node::Seq(seq) })
+                Ok(Val { identity: None, typ: e.typ.clone(), node: Node::Seq(seq) })
             }
             Model::Clone => {
                 if args.len() != 1 {
@@ -940,7 +944,8 @@ impl Engine<'_> {
                         "generic Clone does not establish value equality; use a verified copy loop",
                     ));
                 }
-                Ok(Val { typ: e.typ.clone(), node: v.node })
+                // A clone's contents do not establish complete object identity.
+                Ok(Val { identity: None, typ: e.typ.clone(), node: v.node })
             }
             _ => {
                 Err(unsupported(span, "collection calls must occur in a checked fill/copy pattern"))
@@ -1033,7 +1038,7 @@ impl Engine<'_> {
         }
         let ret = crate::sst_util::subst_typ(&ts, &f.x.inner_ret.x.typ);
         let root = SpannedTyped::new(&f.span, &ret, ExprX::Var(f.x.inner_ret.x.name.clone()));
-        let layout = self.layout(root.clone(), 8)?;
+        let layout = self.returned_layout(root.clone())?;
         let post = subst(&f.x.ensure.0[0])?;
         let mut clauses = vec![];
         split(&post, &mut clauses);
@@ -1170,7 +1175,7 @@ impl Engine<'_> {
         }
         if let ExprX::Ctor(dt, variant, fs, None) = &e.x {
             if let Some(fields) = records::shape::fields(&e.typ, self.ds) {
-                return Ok(Val {
+                return Ok(Val { identity: None,
                     typ: e.typ.clone(),
                     node: Node::Fields(
                         fields
@@ -1212,6 +1217,11 @@ impl Engine<'_> {
     }
     fn post(&self, v: &Val, out: &Expr) -> Result<Term, VirErr> {
         let span = &out.span;
+        if let Some(identity)=&v.identity {
+            let mut contents=v.clone();contents.identity=None;
+            return logical(span,LogicalOp::And,self.post(&contents,out)?,
+                records::equal(span,atom(out.clone())?,identity.clone())?);
+        }
         match &v.node {
             Node::Atom(t) => records::equal(span, atom(out.clone())?, t.clone()),
             Node::Seq(t) => records::equal(span, self.observe(out)?, t.clone()),
@@ -1258,7 +1268,7 @@ impl Engine<'_> {
             }
             return Ok(value);
         }
-        let layout = self.layout(out.clone(), 8)?;
+        let layout = self.returned_layout(out.clone())?;
         let mut clauses = vec![];
         split(post, &mut clauses);
         let v = self.decode_parts(s, out, &layout, &clauses)?;
@@ -1336,7 +1346,8 @@ impl Engine<'_> {
                 Node::Option(some, p)
             }
         };
-        Ok(Val { typ: layout.typ.clone(), node })
+        let identity=if layout.identity.is_some(){Some(self.formula(s,&find_rhs(out,clauses)?)?)}else{None};
+        Ok(Val { identity, typ: layout.typ.clone(), node })
     }
 }
 fn field_expr(e: &Expr, op: &FieldOpr, t: &Typ) -> Expr {
@@ -1403,6 +1414,7 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
     if is_bool(&c, false) {
         return Ok(b);
     }
+    let identity=match (a.identity,b.identity){(Some(a),Some(b))=>Some(conditional(s,c.clone(),a,b)?),_=>None};
     let node = match (a.node, b.node) {
         (Node::Atom(a), Node::Atom(b)) => Node::Atom(conditional(s, c, a, b)?),
         (Node::Seq(a), Node::Seq(b)) => Node::Seq(term(
@@ -1454,7 +1466,7 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
         ),
         _ => return Err(unsupported(s, "owned branch type")),
     };
-    Ok(Val { typ: a.typ, node })
+    Ok(Val { identity, typ: a.typ, node })
 }
 fn split(e: &Expr, out: &mut Vec<Expr>) {
     if let ExprX::Logical(LogicalOp::And, a, b) = &e.x {
@@ -1585,6 +1597,7 @@ pub(super) fn infer(
     for (c, v) in eng.exits.iter().rev() {
         result = choose(&f.span, c.clone(), v.clone(), result)?;
     }
+    eng.strengthen_tagged_borrow(&s,f,&mut result)?;
     let mut pre = boolean(&f.span, true);
     for p in &eng.requirements {
         pre = logical(&f.span, LogicalOp::And, pre, p.clone())?;

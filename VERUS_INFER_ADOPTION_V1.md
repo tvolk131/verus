@@ -123,3 +123,18 @@ and std::error::Error implementations may remain unverified while the enum,
 selector and error-ordering claims are checked. No formatting/error-method
 contract or assumption is added. This decision does not authorize the separate
 Signed/UncheckedSigned serialization proposal, which remains unapplied.
+
+## Intermediate progress
+
+The original NodeCount arithmetic/conversion/ordering bodies, NodeMap size and
+quorum expression now verify through reusable checked derive/operator support.
+The original parent selector now has an inferred contract and authored goals for
+quorum, preceding-round own-parent selection, complete stored-map logical value,
+returned contents and error precedence. Early quorum failure covers zero members
+and arbitrary indices. Wrong quorum/round/error source mutations are rejected.
+
+This completes the parent-selection/query step, not adoption v1. Native metadata
+construction/validation and Creator creation still require work, as do collector
+advancement's proof block, manual trigger hints and the mutable-selector helper
+contract. The hash boundary, full inventory audit and fresh replay remain part
+of the final acceptance criteria.

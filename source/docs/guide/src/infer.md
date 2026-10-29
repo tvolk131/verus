@@ -2347,3 +2347,35 @@ verification and certified metadata before publication/import.
 
 Current metadata policy is 40 and candidate-cache version is 46; rebuild
 providers and consumers together. This support adds no assumed comparison laws.
+
+## Complete values through tagged shared returns
+
+Bounded `Option<&T>` and `Result<&T, E>` queries can preserve the complete
+logical value selected from an immutable input, in addition to collection
+contents through its supplied view:
+
+```rust
+#[verus_infer]
+fn select(h: &Holder) -> Result<&Vec<u8>, u8> {
+    if h.ready { Ok(&h.data) } else { Err(1) }
+}
+```
+
+On success the checked summary relates the returned value to `h.data` itself
+and preserves its content equation. A forwarding inferred function carries both
+facts across crate boundaries. For a private field, inference uses a private
+ordinary spec definition without exposing its body to clients. Existing authored
+views still provide the public content relation. Public field projections may
+expose their ordinary logical definitions.
+
+The direct source profile selects the same pure parameter/field projection in
+all successful constructors; arbitrary dynamic borrow selection is broader work.
+Every proposal is proved against the original implementation. Independent output
+precision observes a shared payload's complete logical value, including inside
+Option/Result, so equal views alone cannot identify another returned object.
+This is logical value equality; Rust's normal borrow checker still handles
+executable references. Cloning preserves the checked content relation without
+acquiring the selected source object's complete-value equation.
+
+Current metadata policy is 41 and candidate-cache version is 47. Rebuild inferred
+providers and dependents together.

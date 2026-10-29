@@ -139,6 +139,6 @@ impl Engine<'_> {
                 return Err(unsupported(&self.f.span, "mapped iterator callback output"));
             }
         };
-        Ok(Val { typ: value.typ.clone(), node })
+        Ok(Val { identity: None, typ: value.typ.clone(), node })
     }
 }

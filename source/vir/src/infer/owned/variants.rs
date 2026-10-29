@@ -90,7 +90,7 @@ impl Engine<'_> {
                 Ok((v.clone(), boolean(&e.span, &v == variant), payload))
             })
             .collect::<Result<Vec<_>, VirErr>>()?;
-        Ok(Val { typ: e.typ.clone(), node: Node::Variants(branches) })
+        Ok(Val { identity: None, typ: e.typ.clone(), node: Node::Variants(branches) })
     }
     pub(super) fn variants_post(&self, branches: &[Branch], out: &Expr) -> Result<Term, VirErr> {
         let TypX::Datatype(dt, ..) = &*out.typ else { unreachable!() };

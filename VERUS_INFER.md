@@ -56,6 +56,10 @@ Implemented and covered by regression tests:
   proposed ordinary trait specifications. Inherited Boolean comparisons compose
   through those checked definitions. Ordering-only providers still require
   full-crate verification and certified exports, with no precision claim on cmp.
+- [x] Complete logical-value identity for bounded Option/Result shared projections,
+  alongside collection-content relations through private views. Ordinary checked
+  private definitions retain the selected object across forwarding/imports;
+  independent output precision observes shared payloads by complete value.
 - [x] Exact pointwise prefix mutation loops for borrowed record collections:
   zero-based usize counters, same-index updates (direct or checked inferred
   helpers), signed/unsigned per-element safety, full sequence/suffix/field frames,

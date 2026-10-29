@@ -189,6 +189,25 @@ fields, reversed/missing/external bodies, false client goals, zero-target provid
 metadata, repeated builds and stale/withheld exports. No axiom or assumed function
 contract is added. These safeguards do not formally prove the implementation.
 
+## Complete tagged shared returns
+
+Policy 41 and candidate version 47 strengthen shallow Option/Result shared
+projections. A bounded scan can propose one pure immutable input/field projection
+shared by all direct successful constructors. Its private spec definition is
+ordinary checked vocabulary, never an assumed accessor. Public field projections
+can have public bodies; private fields retain restricted body visibility. The
+original executable must prove the resulting identity equation.
+
+Returned payload candidates preserve both complete logical-value identity and
+the existing content equations. Summary decoding checks both and composes both
+across forwarding and imports. Cloning/mutation does not inherit the original
+object-identity equation. Independently, precision enumerates shared payloads from
+the return datatype and compares complete values, including through tag guards;
+it does not select an observation from the candidate's clauses or helper marker.
+Equal collection views cannot substitute a different returned object. Existing
+Rust borrow checking, ordinary body proofs, all exact obligations, full-crate
+publication and dependency metadata remain mandatory. No new axioms are added.
+
 ## Ordinary native range-loop proof assistance
 
 Metadata policy **38** and candidate cache version **44** accompany this

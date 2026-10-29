@@ -251,7 +251,7 @@ impl Engine<'_> {
         step.locals.insert(acc.clone(), Val::atom(acc_value.clone()));
         step.locals.insert(entry.clone(), Val::atom(entry_value.clone()));
         step.locals
-            .insert(dest.clone(), Val { typ: initial.typ.clone(), node: Node::Seq(acc_value) });
+            .insert(dest.clone(), Val { identity: None, typ: initial.typ.clone(), node: Node::Seq(acc_value) });
         self.pattern(&mut step, &source.pattern, Val::atom(entry_value))?;
         let req_start = self.requirements.len();
         let exits_start = self.exits.len();
@@ -450,7 +450,7 @@ impl Engine<'_> {
             invs: Arc::new(invs),
             decrease: decrease.clone(),
         });
-        s.locals.insert(dest, Val { typ: initial.typ, node: Node::Seq(fold(self, full)?) });
+        s.locals.insert(dest, Val { identity: None, typ: initial.typ, node: Node::Seq(fold(self, full)?) });
         Ok(Val::atom(exits::unit_value(span)?))
     }
 }

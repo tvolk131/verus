@@ -266,7 +266,7 @@ impl Engine<'_> {
                 .collect(),
         );
         self.plans.push(Plan { span: e.span.id, invs, decrease: Arc::new(vec![measure.expr]) });
-        s.locals.insert(dest, Val { typ: initial.typ, node: Node::Seq(result) });
+        s.locals.insert(dest, Val { identity: None, typ: initial.typ, node: Node::Seq(result) });
         Ok(Val::atom(exits::unit_value(span)?))
     }
 }

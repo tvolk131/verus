@@ -202,8 +202,12 @@ fn observations(
         // twice for generic trait returns.
         return observations(ctx, span, t, a, b, depth - 1, out);
     }
-    if let TypX::Decorate(crate::ast::TypDecoration::Ref, None, t) = &**typ {
-        return observations(ctx, span, t, a, b, depth - 1, out);
+    if let TypX::Decorate(crate::ast::TypDecoration::Ref, None, _) = &**typ {
+        // Shared returned payloads preserve complete logical values, including
+        // when nested in Option/Result. Collection-view equality alone cannot
+        // identify the object selected by the original borrow.
+        out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,a,b)));
+        return Ok(());
     }
     if let TypX::Datatype(dt @ crate::ast::Dt::Path(p), args, _) = &**typ {
         // Invariant-bearing objects are preserved by complete value identity.

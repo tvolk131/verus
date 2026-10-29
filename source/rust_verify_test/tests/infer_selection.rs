@@ -78,3 +78,54 @@ fn borrowed_option_payloads_support_canonical_primitive_widening() {
     let d = verify_one_file("borrowed_widen", s.into(), &["vstd", "--no-cheating"]).unwrap();
     assert!(d.notes.iter().any(|d| d.message.contains("output exactness: PROVED")), "{d:?}");
 }
+
+#[test]
+fn tagged_borrows_preserve_complete_selected_values(){
+ let s=r#"use vstd::prelude::*;verus!{
+ struct Slots<T>(Vec<Option<T>>);
+ impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+ struct Table<T>{slots:Slots<T>,ready:bool}
+ impl<T> Table<T>{
+  #[verifier::infer] fn select(&self)->Result<&Slots<T>,u8>{if self.ready{Ok(&self.slots)}else{Err(4)}}
+  #[verifier::infer] fn maybe(&self)->Option<&Slots<T>>{if self.ready{Some(&self.slots)}else{None}}
+ }
+ #[verifier::infer] fn forward<T>(t:&Table<T>)->Result<&Slots<T>,u8>{t.select()}
+ fn goal<T>(t:&Table<T>){
+  let r=forward(t);assert(r.is_ok()==t.ready);if let Ok(value)=r{assert(*value==t.slots);}
+  let r=t.maybe();assert(r.is_some()==t.ready);if let Some(value)=r{assert(*value==t.slots);}
+ }
+}"#;
+ let d=verify_one_file("tagged_complete_borrow",s.into(),&["vstd","--no-cheating","--output-json"]).unwrap();
+ let fs=d.json_output.unwrap()["verus-infer"]["functions"].as_array().unwrap().clone();assert_eq!(fs.len(),3);
+ for f in fs {for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}}
+}
+
+#[test]
+fn equal_views_cannot_substitute_a_different_returned_object(){
+ let s=r#"use vstd::prelude::*;verus!{
+ struct Slots(Vec<u8>);
+ impl View for Slots {type V=Seq<u8>;closed spec fn view(&self)->Self::V{self.0@}}
+ struct Table{left:Slots,right:Slots}
+ #[verifier::infer] fn select(t:&Table)->Result<&Slots,u8>{Ok(&t.left)}
+ fn wrong(t:&Table) requires t.left@==t.right@, {
+  let r=select(t);if let Ok(value)=r{assert(*value==t.right);}
+ }
+}"#;
+ let e=verify_one_file("wrong_equal_view_borrow",s.into(),&["vstd","--no-cheating","--output-json"]).unwrap_err();
+ assert!(e.errors.iter().any(|d|d.message.contains("assertion failed")),"{:?}",e);
+ let r=&e.json_output.unwrap()["verus-infer"];assert_eq!(r["interface_written"],false);
+ assert_eq!(r["functions"][0]["required_checks_passed"],true);
+}
+
+#[test]
+fn copying_a_selected_borrow_keeps_contents_without_asserting_clone_identity(){
+ let s=r#"use vstd::prelude::*;verus!{
+ struct Holder{data:Vec<u8>,ready:bool}
+ #[verifier::infer] fn select(h:&Holder)->Result<&Vec<u8>,u8>{if h.ready{Ok(&h.data)}else{Err(1)}}
+ #[verifier::infer] fn copy_selected(h:&Holder)->Result<Vec<u8>,u8>{Ok(select(h)?.clone())}
+ fn goal(h:&Holder)->(r:Result<Vec<u8>,u8>)
+  ensures r.is_ok()==h.ready,r.is_ok() ==> r.unwrap()@==h.data@,
+ {copy_selected(h)}
+}"#;
+ verify_one_file("selected_borrow_copy",s.into(),&["vstd","--no-cheating"]).unwrap();
+}

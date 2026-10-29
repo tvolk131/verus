@@ -52,3 +52,34 @@ pub fn preserved(c:borrow_provider::Cached)->(r:Result<borrow_provider::Cached,E
     assert!(!crates.vir("borrow_provider").exists());
     assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }
+
+#[test]
+fn tagged_borrow_identity_crosses_private_provider_and_forwarding_interfaces(){
+ let crates=InferCrates::new();
+ let provider=r#"use vstd::prelude::*;
+ pub struct Slots<T>(Vec<Option<T>>);
+ impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
+ pub struct Table<T>{pub left:Slots<T>,pub right:Slots<T>,pub ready:bool}
+ impl<T> Table<T>{
+  #[verifier::infer] pub fn select(&self)->Result<&Slots<T>,u8>{if self.ready{Ok(&self.left)}else{Err(4)}}
+ }
+"#;
+ let consumer=r#"use vstd::prelude::*;
+ #[verifier::infer] pub fn forward<T>(t:&tagged_base::Table<T>)->Result<&tagged_base::Slots<T>,u8>{t.select()}
+ pub fn goal<T>(t:&tagged_base::Table<T>){let r=forward(t);assert(r.is_ok()==t.ready);
+  if let Ok(value)=r{assert(*value==t.left);}}
+"#;
+ for _ in 0..2 {
+  for (name,body,deps) in [("tagged_base",provider,vec![]),("tagged_app",consumer,vec!["tagged_base"])] {
+   let r=crates.build(name,body,&deps,&["--no-cheating","--output-json"]);
+   assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+   assert_eq!(json_inference(&r)["functions"][0]["required_checks_passed"],true);
+  }
+ }
+ let wrong=provider.replace("Ok(&self.left)","Ok(&self.right)");
+ let p=crates.build("tagged_base",&wrong,&[],&["--no-cheating","--output-json"]);
+ assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+ let c=crates.build("tagged_app",consumer,&["tagged_base"],&["--no-cheating","--output-json"]);
+ assert!(!c.status.success());assert!(!crates.vir("tagged_app").exists());
+ assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
+}
