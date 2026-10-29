@@ -49,7 +49,15 @@ pub(crate) fn def_path_to_vir_path<'tcx>(tcx: TyCtxt<'tcx>, def_path: DefPath) -
         use rustc_hir::definitions::DefPathData;
         match &d.data {
             DefPathData::ValueNs(symbol) | DefPathData::TypeNs(symbol) => {
-                segments.push(Arc::new(symbol.to_string()));
+                // Multiple unnamed const items have the same symbol but distinct
+                // Rust disambiguators. Derive macros put impls inside these
+                // wrappers; collapsing them merges unrelated method identities.
+                let name = if symbol.as_str() == "_" && d.disambiguator != 0 {
+                    format!("_anon%{}", d.disambiguator)
+                } else {
+                    symbol.to_string()
+                };
+                segments.push(Arc::new(name));
             }
             DefPathData::Ctor => {
                 segments.push(Arc::new(vir::def::RUST_DEF_CTOR.to_string()));
