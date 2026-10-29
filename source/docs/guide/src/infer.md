@@ -726,7 +726,8 @@ on the borrower returning a valid, correctly indexed and sized collector. A
 checked `try_initialize_round` API accepts every `u16` round and rejects `u16::MAX`
 without mutation, because that collector would need to store `round + 1` in `u16`.
 The native `add_unit` range orchestration now uses the range assistance below.
-`create_unit` remains outside this native proof.
+The native `create_unit` policy is also checked, including its coordinates,
+selected parent rounds and concrete error ordering, within the opaque hash boundary.
 
 
 ## Checked native range mutation
@@ -741,6 +742,12 @@ mathematical integers, so an inclusive machine maximum does not overflow the
 proof cursor. Unchanged sequence lengths stay equal. Growth goals can instead
 propose entry-length and processed-prefix lower bounds and the final-length
 upper bound. Every proposal must initialize and remain inductive.
+
+If a pointwise property is hidden inside an authored predicate, its bound can
+still expose the sequence being traversed. When exactly one final-state sequence
+length occurs independently of the quantified index, assistance can supply an
+internal index trigger for the generated prefix invariant. Source trigger hints
+are not required for that case; explicit source triggers remain intact.
 
 For example, [the range example](../../../../examples/verus_infer_range.rs)
 fills a subrange with `1`, proves the other elements and an unrelated field
@@ -770,6 +777,31 @@ abstraction and error policy. The native FullUnit coordinate law is checked;
 SignedUnit observation delegation remains pending a serializer-boundary decision.
 Hash outputs remain opaque; these proofs establish neither signature validity
 nor hash-cache consistency.
+
+## Checked pointwise transport through cloned fields
+
+With `--infer-goals`, an ordinary transition can receive checked intermediate
+assertions for a supplied `previous.valid() ==> result.valid()` goal. The bounded
+profile takes one shared input, returns the same record type through a local
+constructor binding, and clones up to four input fields using checked native
+clone relations. Visible unary spec definitions expose guarded integer-indexed
+properties of those fields. Assistance proposes their transport to the cloned
+fields, retaining the source-side guard so the existing clone and invariant
+facts can instantiate.
+
+The invariant, transition policy and any custom Clone laws remain authored.
+Every proposed assertion is checked by ordinary Verus against the actual body;
+there is no assumption of clone identity or invariant preservation. A production
+projection check removes only the added pure assertions and checks that all
+original statements, return expressions and function contracts are unchanged.
+Reports list `pointwise_assistance` separately from exact contracts. Definitions
+and formula traversal have fixed budgets; other transition shapes retain their
+ordinary proof obligations.
+
+This removes Aleph's local collector-advancement proof block. Generic hash values
+can still change under `Clone`; preservation of their identity is not claimed.
+Only the checked clone relation is available when proving the authored round
+invariant and advancement policy.
 
 
 ## Owned collection construction and round advancement

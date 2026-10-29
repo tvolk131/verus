@@ -142,6 +142,7 @@ impl Verifier {
             "generated_functions": functions.len(),
             "generation_failure": generation.failure,
             "range_loop_assistance": generation.range_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and original iterator termination obligations"})).collect::<Vec<_>>(),
+            "pointwise_assistance": generation.pointwise_facts.iter().map(|(f,n)|json!({"function":name(f),"facts":n,"checked_by":"ordinary checked assertions; no assumed invariant or clone law"})).collect::<Vec<_>>(),
             "growth_loop_assistance": generation.growth_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and termination obligations"})).collect::<Vec<_>>(),
             "factory_assistance": generation.factory_callbacks.iter().map(|(function,count)|json!({
                 "function":name(function),"strategy":"total_factory_callbacks","callbacks":count,

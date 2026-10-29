@@ -2147,3 +2147,38 @@ suites and 114 backend assurance tests. Policy 43 / candidate cache 49 invalidat
 older output schemas. The native Creator policy has 145 proof results, 31 exact
 helpers and 93 certificates; five real-source mutants are rejected and 41 pinned
 creation runtime tests pass. No new library specification or hash law was added.
+
+## Checked cloned-field transport and hidden range predicates
+
+Behind --infer-goals, a bounded pass proposes pointwise invariant-transport facts
+for an ordinary record transition using existing checked native Clone relations.
+It matches an authored unary-predicate implication and clones of input fields,
+expands only visible pure spec definitions within fixed budgets, and retains
+source guards when proposing the corresponding indexed property on cloned
+fields. These are ordinary assertions, never assumptions or replacement contracts.
+The original function's executable code, return and all contract/metadata fields
+must survive an independent production projection check byte-for-byte.
+
+Assertion predicates are independently checked for pure spec vocabulary, including
+trigger terms and temporary-place children. A backend fault test rejects assumed
+assertions, removed/reordered executable statements, changed code or return,
+changed input contracts, and an assumption hidden in a trigger. Fresh expression
+and place IDs keep generated assertions distinct from the source expressions.
+
+For generated range-prefix invariants, one unambiguous final-state sequence-length
+bound can supply an internal sequence-index trigger when the authored pointwise
+predicate hides the access. Existing source triggers and native iterator
+scaffolding are preserved. The existing production range projection checker
+continues to enforce executable code, source invariants and termination measures.
+
+No public contract schema, independent precision checker, library axiom or trust
+boundary changed; policy 43 / candidate cache 49 remain valid. Reports expose
+pointwise_assistance separately from exact inference. Aleph's remaining local
+collector proof block and all collector/Creator/NodeMap trigger hints are removed;
+the mutable-selector helper contract and final adoption audit/replay remain open.
+
+This checkpoint passes all 466 compiler regressions in the 18 inference suites
+and 115 backend tests. Native evidence retains 145 proof results, 31 exact helpers,
+93 certificates and 41 pinned creation runtime tests. Five actual-source mutants
+(advancement round, invalid parent round, retained count, skipped ingestion and
+truncated ingestion range) fail with healthy exact helpers and withheld exports.

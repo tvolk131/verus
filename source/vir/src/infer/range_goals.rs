@@ -61,7 +61,66 @@ fn has_entry(e: &Expr) -> bool {
     });
     yes
 }
-fn prefix(e: &Expr, end: &Expr) -> Result<Expr, VirErr> {
+fn prefix_trigger(
+    body: &Expr,
+    binder: &VarBinder<Typ>,
+    all: &HashMap<Fun, Function>,
+) -> Option<Expr> {
+    let mut sequences = std::collections::BTreeMap::new();
+    let mut budget = 1024usize;
+    expr_visitor_walk(body, &mut |e| {
+        if budget == 0 {
+            return VisitorControlFlow::Stop(());
+        }
+        budget -= 1;
+        if let ExprX::Call {
+            target: CallTarget::Fun(_, n, ..),
+            args,
+            post_args: None,
+            body: None,
+        } = &e.x
+        {
+            if all.get(n).and_then(collections::model) == Some(collections::Model::SeqLen)
+                && args.len() == 1
+                && future(&args[0])
+            {
+                let mut dependent = false;
+                expr_visitor_walk(&args[0], &mut |e| {
+                    dependent |= matches!(&e.x,ExprX::Var(n) if n==&binder.name);
+                    VisitorControlFlow::<()>::Recurse
+                });
+                if !dependent {
+                    sequences.insert(owned::skeleton(&args[0]), args[0].clone());
+                }
+            }
+        }
+        VisitorControlFlow::Recurse
+    });
+    if budget == 0 || sequences.len() != 1 {
+        return None;
+    }
+    let sequence = sequences.into_values().next()?;
+    let item = iterators::sequence(&sequence.typ)?.clone();
+    let model =
+        all.values().find(|f| collections::model(f) == Some(collections::Model::SeqIndex))?;
+    trait_getters::instantiate(
+        model,
+        &Arc::new(vec![item]),
+        vec![
+            records::atom(sequence).ok()?,
+            records::atom(SpannedTyped::new(
+                &body.span,
+                &binder.a,
+                ExprX::Var(binder.name.clone()),
+            ))
+            .ok()?,
+        ],
+        &Arc::new(vec![]),
+    )
+    .ok()
+    .map(|t| t.expr)
+}
+fn prefix(e: &Expr, end: &Expr, all: &HashMap<Fun, Function>) -> Result<Expr, VirErr> {
     let ExprX::Quant(q, bs, body) = &e.x else { return Ok(e.clone()) };
     if q.quant != air::ast::Quant::Forall
         || bs.len() != 1
@@ -86,7 +145,19 @@ fn prefix(e: &Expr, end: &Expr) -> Result<Expr, VirErr> {
         ExprX::WithTriggers { triggers, body: b } => {
             body.new_x(ExprX::WithTriggers { triggers: triggers.clone(), body: wrap(b) })
         }
-        _ => wrap(body),
+        _ => {
+            if let Some(trigger) = prefix_trigger(body, &bs[0], all) {
+                // A hidden pointwise predicate may not expose the array access to
+                // the default trigger heuristic. The loop's bound supplies it.
+                let wrapped = wrap(body);
+                wrapped.new_x(ExprX::WithTriggers {
+                    triggers: Arc::new(vec![Arc::new(vec![trigger])]),
+                    body: wrapped.clone(),
+                })
+            } else {
+                wrap(body)
+            }
+        }
     };
     Ok(e.new_x(ExprX::Quant(*q, bs.clone(), body)))
 }
@@ -389,7 +460,7 @@ fn prepare_one(
                 continue;
             }
         }
-        let p = if !has_entry(&p) { prefix(&p, &end)? } else { p };
+        let p = if !has_entry(&p) { prefix(&p, &end, all)? } else { p };
         proposed.push(current(&p)?);
     }
     if proposed.is_empty() {

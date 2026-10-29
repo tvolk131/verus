@@ -134,7 +134,7 @@ verus!{
  fn concrete(v:&Option<Vec<Value>>){let r=generic(v);assert(r.deep_view()==v.deep_view());}
  fn string(v:&String)->(r:String) ensures r.deep_view()==v.deep_view(),{v.clone()}
 }"#;
-    verify_one_file("clone_view_without_copy",source.into(),&["vstd","--no-cheating"]).unwrap();
+    verify_one_file("clone_view_without_copy", source.into(), &["vstd", "--no-cheating"]).unwrap();
 }
 
 #[test]
@@ -146,8 +146,9 @@ fn native_clone_view_law_rejects_changed_abstract_values() {
  impl CloneView for Value{proof fn lemma_clone_view(a:Self,b:Self)
   ensures a.deep_view()==b.deep_view(),{}}
 }"#;
-    let e=verify_one_file("dishonest_clone_view",source.into(),&["vstd","--no-cheating"]).unwrap_err();
-    assert!(e.errors.iter().any(|d|d.message.contains("postcondition not satisfied")),"{e:?}");
+    let e = verify_one_file("dishonest_clone_view", source.into(), &["vstd", "--no-cheating"])
+        .unwrap_err();
+    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{e:?}");
 }
 
 #[test]
@@ -156,6 +157,75 @@ fn plain_clone_does_not_supply_a_deep_view_preservation_law() {
  fn wrong<T:Clone+DeepView>(v:&Vec<T>)->(r:Vec<T>)
   ensures r.deep_view()==v.deep_view(),{v.clone()}
 }"#;
-    let e=verify_one_file("plain_clone_no_view_law",source.into(),&["vstd","--no-cheating"]).unwrap_err();
-    assert!(e.errors.iter().any(|d|d.message.contains("postcondition not satisfied")),"{e:?}");
+    let e = verify_one_file("plain_clone_no_view_law", source.into(), &["vstd", "--no-cheating"])
+        .unwrap_err();
+    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{e:?}");
+}
+
+// The authored invariant and transition remain ordinary goals. The assistance
+// supplies a checked pointwise bridge through Clone's existing relation.
+const TRANSPORT: &str = r#"
+verus! {
+ struct State<T> { slots:Slots<(T,u16)>, epoch:u16 }
+ impl<T> View for State<T> {
+  type V=(Seq<Option<(T,u16)>>,u16);
+  closed spec fn view(&self)->Self::V {(self.slots@,self.epoch)}
+ }
+ impl<T> State<T> {
+  spec fn valid(&self)->bool {
+   self@.1>0 && forall|i:int|0<=i<self@.0.len() && self@.0[i].is_some()
+    ==> self@.0[i].unwrap().1<self@.1
+  }
+ }
+ fn advance<T:Clone>(previous:&State<T>)->(r:State<T>)
+  requires previous@.1<u16::MAX,
+  ensures previous.valid() ==> r.valid(),r@.1==previous@.1+1,
+ {
+  let next=State{slots:previous.slots.clone(),epoch:previous.epoch+1};
+  next
+ }
+}
+"#;
+
+#[test]
+fn ordinary_clone_transition_transports_a_hidden_pointwise_invariant() {
+    let source = format!("{WRAPPER}{TRANSPORT}");
+    let d = verify_one_file(
+        "clone_pointwise_transport",
+        source,
+        &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+    )
+    .unwrap();
+    let report = &d.json_output.unwrap()["verus-infer"];
+    assert_eq!(report["pointwise_assistance"].as_array().unwrap().len(), 1, "{report}");
+    assert_eq!(report["pointwise_assistance"][0]["facts"], 1, "{report}");
+    assert!(report["functions"].as_array().unwrap().is_empty());
+}
+
+#[test]
+fn pointwise_transport_does_not_assume_the_invariant_or_change_the_transition() {
+    for (index, body) in [
+        TRANSPORT.replace("epoch:previous.epoch+1", "epoch:0"),
+        TRANSPORT.replace("previous.valid() ==> r.valid()", "r.valid()"),
+        TRANSPORT.replace("r@.1==previous@.1+1", "r@.1==previous@.1"),
+    ]
+    .iter()
+    .enumerate()
+    {
+        let e = verify_one_file(
+            &format!("clone_pointwise_wrong_{index}"),
+            format!("{WRAPPER}{body}"),
+            &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+        )
+        .unwrap_err();
+        assert!(
+            e.errors
+                .iter()
+                .any(|d| d.message.contains("assertion failed")
+                    || d.message.contains("postcondition")),
+            "{:?}",
+            e
+        );
+        assert_eq!(e.json_output.unwrap()["verus-infer"]["interface_written"], false);
+    }
 }

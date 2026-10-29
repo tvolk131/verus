@@ -166,6 +166,17 @@ certificates, five rejected native mutations and 41 pinned creation runtime test
 Evidence is in the native pilot's verification/units_collector/CREATION.md and
 creation-evidence.json. The engine passes 463 compiler and 114 backend tests.
 
-Collector advancement's proof block, manual trigger hints and the mutable-selector
-helper contract remain. The hash boundary, full inventory audit and fresh replay
-remain part of final acceptance. This checkpoint does not complete adoption v1.
+Collector advancement's local proof block and every source trigger hint in the
+collector, Creator and NodeMap slice have now been removed. Reusable ordinary
+goal assistance supplies a checked pointwise assertion through the existing clone
+relation and an internal index trigger for hidden range predicates. Original
+executable statements, supplied contracts and the hash boundary are unchanged.
+The native proof still has 145 results and all 93 exact-helper certificates.
+Five actual-source mutations are rejected, all 41 pinned creation runtime tests
+pass, and the engine passes 466 compiler and 115 backend tests. Evidence is in
+the native pilot's verification/units_collector/SCAFFOLD_REMOVAL.md and
+scaffold-evidence.json.
+
+The mutable-selector helper contract remains mechanical authored input. The hash
+boundary, full inventory audit and fresh replay remain part of final acceptance.
+This checkpoint does not complete adoption v1.

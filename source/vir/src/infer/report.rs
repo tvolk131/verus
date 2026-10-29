@@ -26,6 +26,7 @@ pub struct GenerationReport {
     pub factory_callbacks: Vec<(Fun, usize)>,
     pub growth_loops: Vec<(Fun, Span)>,
     pub range_loops: Vec<(Fun, Span)>,
+    pub pointwise_facts: Vec<(Fun, usize)>,
 }
 
 impl GeneratedCandidate {

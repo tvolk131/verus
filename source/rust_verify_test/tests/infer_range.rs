@@ -35,6 +35,33 @@ fn inclusive_mutation_preserves_length_frames_and_other_fields() {
     succeeds(FILL);
 }
 #[test]
+fn hidden_pointwise_predicate_needs_no_authored_index_trigger() {
+    let source = FILL
+        .replace(
+            "struct Buffer",
+            "spec fn filled(b:Buffer,i:int)->bool {b.values@[i]==1}\nstruct Buffer",
+        )
+        .replace("start<=i<=end ==>", "start<=i<=end && i<final(b).values@.len() ==>")
+        .replace("#[trigger] final(b).values@[i]==1", "filled(*final(b),i)")
+        .replace("#[trigger] ", "");
+    succeeds(&source);
+    let wrong = source.replace("b.values[i as usize]=1;", "b.values[i as usize]=2;");
+    let e = verify_one_file(
+        &name(&wrong),
+        wrong,
+        &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+    )
+    .unwrap_err();
+    assert!(
+        e.errors
+            .iter()
+            .any(|d| d.message.contains("invariant") || d.message.contains("postcondition")),
+        "{:?}",
+        e
+    );
+    assert_eq!(e.json_output.unwrap()["verus-infer"]["interface_written"], false);
+}
+#[test]
 fn exclusive_usize_range_including_empty_ranges() {
     succeeds(
         &FILL
@@ -86,7 +113,8 @@ fn changed_values_slots_frames_range_and_skipped_steps_are_rejected() {
             e.errors.iter().any(|d| d.message.contains("invariant")
                 || d.message.contains("postcondition")
                 || d.message.contains("precondition")),
-            "{:?}",e
+            "{:?}",
+            e
         );
     }
 }
@@ -96,7 +124,7 @@ fn source_invariants_remain_obligations() {
     let e =
         verify_one_file(&name(&s), s, &["vstd", "--no-cheating", "--infer-goals", "--output-json"])
             .unwrap_err();
-    assert!(e.errors.iter().any(|d| d.message.contains("invariant")), "{:?}",e);
+    assert!(e.errors.iter().any(|d| d.message.contains("invariant")), "{:?}", e);
 }
 #[test]
 fn signed_ranges_are_not_selected_by_this_profile() {

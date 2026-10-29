@@ -134,6 +134,10 @@ in checked lemmas instead of repeating proof steps at each call site.
 
 Try `--infer-goals` for the documented assistance strategies. It can select
 checked counting, fold and view-bound lemmas and propose certain scalar proofs.
+Bounded growth/range profiles can supply loop induction and internal index
+triggers, and a checked cloned-field transition can receive intermediate
+pointwise transport assertions. The source contracts and chosen invariants
+remain ordinary obligations.
 It does not provide an unrestricted proof search or automatically discover all
 necessary invariants. For comparison, these two callers establish the same
 bound:

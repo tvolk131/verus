@@ -585,6 +585,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             cratex.functions = vir::infer::prepare_factory_callbacks(
                 &cratex.functions, &available, &datatypes, &mut self.inference_generation,
             ).map_err(|e| self.emit_error(e))?;
+            cratex.functions = vir::infer::prepare_pointwise_goals(
+                &cratex.functions, &available, &mut self.inference_generation,
+            ).map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_growth_goals(
                 &cratex.functions, &available, &mut self.inference_generation,
             ).map_err(|e| self.emit_error(e))?;
