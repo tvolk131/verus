@@ -6138,3 +6138,48 @@ fn ordinary_range_proofs_cross_crates_require_full_checks_and_block_failed_expor
     assert!(!crates.vir("range_base").exists());
     assert_eq!(json_inference(&r)["interface_written"],false);
 }
+
+#[test]
+fn native_binary_wrappers_compose_through_private_queries_and_checked_exports() {
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+#[verus_verify] #[derive(Copy,Clone)] pub struct Amount(pub usize);
+#[verus_infer] impl From<usize> for Amount {fn from(n:usize)->Self{Amount(n)}}
+#[verus_infer] impl core::ops::Mul<usize> for Amount {type Output=Self;fn mul(self,n:usize)->Self{Amount(self.0*n)}}
+#[verus_infer] impl core::ops::Div<usize> for Amount {type Output=Self;fn div(self,n:usize)->Self{Amount(self.0/n)}}
+#[verus_infer] impl core::ops::Add for Amount {type Output=Self;fn add(self,n:Self)->Self{Amount(self.0+n.0)}}
+#[verus_infer] pub fn quota(n:&Amount)->Amount {(*n*2)/3+Amount(1)}
+"#;
+    let consumer=r#"use vstd::prelude::*;use binary_base::Amount;
+#[verus_verify] pub struct Slots<T>(Vec<Option<T>>);
+verus!{impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}}
+impl<T> Slots<T>{#[verus_infer] pub fn size(&self)->Amount{self.0.len().into()}}
+verus!{
+ pub fn goal<T>(s:&Slots<T>)->(r:Amount) requires s@.len()<=usize::MAX/2,
+ ensures r.0==(2*s@.len())/3+1,
+ {let size=s.size();binary_base::quota(&size)}
+}
+"#;
+    for _ in 0..2 {
+        let p=crates.build_source("binary_base",provider,&[],&["--no-cheating","--output-json"],true);
+        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+        assert_eq!(json_inference(&p)["functions"].as_array().unwrap().len(),5);
+        let c=crates.build_source("binary_app",consumer,&["binary_base"],&["--no-cheating","--output-json"],true);
+        assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
+        assert_eq!(json_inference(&c)["functions"].as_array().unwrap().len(),1);
+    }
+    let bad=consumer.replace("r.0==(2*s@.len())/3+1","r.0==(2*s@.len())/3+2");
+    let c=crates.build_source("binary_app",&bad,&["binary_base"],&["--no-cheating","--output-json"],true);
+    assert!(!c.status.success());assert!(!crates.vir("binary_app").exists());
+    assert!(json_inference(&c)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+    for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","quota"]] {
+        let p=crates.build_source("binary_base",provider,&[],&opts,true);
+        assert!(!p.status.success());assert!(!crates.vir("binary_base").exists());
+        assert!(String::from_utf8_lossy(&p.stderr).contains("requires full-crate verification"));
+    }
+    let wrong=provider.replace("Amount(self.0+n.0)","Amount(self.0-n.0)");
+    let p=crates.build_source("binary_base",&wrong,&[],&["--no-cheating","--output-json"],true);
+    assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+    let c=crates.build_source("binary_app",consumer,&["binary_base"],&["--no-cheating","--output-json"],true);
+    assert!(!c.status.success());assert!(!crates.vir("binary_app").exists());
+}

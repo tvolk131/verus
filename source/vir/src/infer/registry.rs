@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v44:checked-native-range-goals:4096";
+const VERSION: &str = "verus-infer-v45:checked-wrapper-binary-traits:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -485,10 +485,16 @@ impl Registry {
         let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
+            if wrapper_traits::kind(f)==Some(wrapper_traits::Kind::Binary) {
+                let FunctionKind::TraitMethodImpl{method,..}=&f.x.kind else{unreachable!()};
+                if !functions.iter().chain(imported).any(|decl|decl.x.name==*method && wrapper_traits::binary_boundary(decl)) {
+                    return Err(unsupported(&f.span,"binary wrapper inference requires the canonical vstd operator contract; preconditions are inherited from the trait"));
+                }
+            }
             let valid = match wrapper_traits::kind(f).unwrap() {
                 wrapper_traits::Kind::From => f.x.params.iter().any(|p| wrappers.wrapper(&p.x.typ))
                     || wrappers.wrapper(&f.x.inner_ret.x.typ) || is_owned_summary(f),
-                wrapper_traits::Kind::AddAssign | wrapper_traits::Kind::Compare => wrappers.wrapper(&f.x.params[0].x.typ),
+                wrapper_traits::Kind::AddAssign | wrapper_traits::Kind::Compare | wrapper_traits::Kind::Binary => wrappers.wrapper(&f.x.params[0].x.typ),
             };
             if !valid {
                 return Err(unsupported(&f.span, "wrapper trait inference requires a transparent nongeneric single scalar field"));

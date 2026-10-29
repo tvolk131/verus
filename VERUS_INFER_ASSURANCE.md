@@ -147,6 +147,28 @@ checked error preservation, unsupported shapes and cross-crate composition.
 False callers and native API mutations are rejected with healthy helper proofs.
 These checks are evidence, not a formal proof of the inference implementation.
 
+## Checked binary wrapper and derive boundaries
+
+Policy 39 and candidate version 45 add exact concrete scalar-wrapper binary
+operators and explicit opt-in checking of native derived implementations. Generated
+extension definitions are untrusted candidates. The real executable remains the
+ordinary body; all three exact checks and inherited-domain equality are required.
+The inferred arithmetic follows the actual body, including nonstandard Add bodies.
+Primitive UFCS arithmetic uses canonical core identities and existing vstd
+operator contracts, concrete equal integer types and matching call signatures.
+The successful-execution precision rule is limited to that closed primitive
+boundary. No vstd axiom or new assumed function contract is added.
+
+Every generated derive request must match a same-owner, same-signature exact
+implementation before inference can return, including zero-target crates. This
+prevents a generated extension from becoming usable when its derive failed to
+provide a checked implementation. Request markers grant no evidence. Regressions
+reject missing targets, wrong bodies, vacuous/changed inherited domains, unsafe
+calls and false application goals. Additional checks cover all integer widths,
+shared copied receivers, native erasure, repeated provider/client builds and
+withheld failed interfaces. These are safeguards, not a formal implementation
+proof. The broader Aleph adoption v1 charter remains active.
+
 ## Ordinary native range-loop proof assistance
 
 Metadata policy **38** and candidate cache version **44** accompany this

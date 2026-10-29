@@ -18,6 +18,9 @@ and restrictions take precedence over illustrative APIs in this RFC.
 For project-level usage and the role of explicit specifications and proofs, see
 [the adoption guide](source/docs/guide/src/infer_adoption.md).
 
+The finite native adoption milestone is specified in
+[the Aleph adoption v1 charter](VERUS_INFER_ADOPTION_V1.md).
+
 Implemented and covered by regression tests:
 
 - [x] Opt-in native Rust `#[verus_infer]` and `verus!` executable-function annotations.
@@ -44,6 +47,10 @@ Implemented and covered by regression tests:
   an additive checked terminal-round/membership error API. Application views,
   observation laws and behavior goals remain authored; native Signed wrappers
   and Creator unit creation remain follow-ups.
+- [x] Checked binary arithmetic on concrete scalar wrappers and explicit native
+  derive opt-ins: actual implementations determine semantics, inherited trait
+  domains are checked independently, and all exact certificates remain mandatory.
+  Original Aleph quorum and size expressions compose without arithmetic adapters.
 - [x] Exact pointwise prefix mutation loops for borrowed record collections:
   zero-based usize counters, same-index updates (direct or checked inferred
   helpers), signed/unsigned per-element safety, full sequence/suffix/field frames,

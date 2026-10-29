@@ -15,6 +15,8 @@ mod atomic_ghost;
 mod attr_block_trait;
 mod attr_rewrite;
 mod infer_wrapper;
+mod infer_binary;
+mod infer_derive_ops;
 mod infer_clone;
 mod infer_factory;
 mod infer_compare;
@@ -454,6 +456,17 @@ pub fn verus_verify(
         let vstd = syntax::Vstd(proc_macro2::Span::call_site());
         return infer_factory::expand(item, view, quote::quote!(#vstd))
             .unwrap_or_else(|e| e.to_compile_error()).into();
+    }
+    if let Ok(meta) = syn::parse::<syn::MetaList>(args.clone()) {
+        if meta.path.is_ident("infer_derive") {
+            if cfg_erase().erase_all() { return input; }
+            let operators = match meta.parse_args_with(syn::punctuated::Punctuated::<syn::Ident,syn::Token![,]>::parse_terminated) {
+                Ok(operators)=>operators.into_iter().collect(), Err(e)=>return e.to_compile_error().into(),
+            };
+            let item=syn::parse_macro_input!(input as syn::ItemStruct);
+            let vstd=syntax::Vstd(proc_macro2::Span::call_site());
+            return infer_derive_ops::expand(item,operators,quote::quote!(#vstd)).unwrap_or_else(|e|e.to_compile_error()).into();
+        }
     }
     if args.to_string() == "clone_via_view" {
         if cfg_erase().erase_all() {

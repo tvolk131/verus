@@ -2269,3 +2269,51 @@ payloads, guarded borrowed-array reads, unreachable operations, and retained
 pre-exit overflow checks. A cached three-crate transfer chain verifies
 conservation; a poisoned precondition must fail maximality at early exits and
 suppress old exports.
+
+
+## Scalar-wrapper binary operators and native derives
+
+An exact `#[verus_infer]` impl can cover concrete `Add`, `Sub`, `Mul`, `Div`, or
+`Rem` on a transparent nongeneric primitive-integer tuple wrapper. The bounded
+source shape has `Output = Self`, a by-value receiver, one rhs, and a direct
+constructor over `self.0 op rhs` or `self.0 op rhs.0`. All machine integer widths
+are supported. The expression in the actual body selects the relation: an Add
+implementation that subtracts is described as subtraction, not assumed to add.
+Extra statements, effects, generic implementations and other shapes are rejected.
+The [binary operator example](../../../../examples/verus_infer_binary.rs) composes
+an original overloaded quorum expression, including a copied shared receiver.
+
+The macro proposes ordinary vstd operator-extension definitions for the actual
+expression. It retains the executable body. The inferred domain must equal the
+inherited trait requirement, and ordinary soundness, safe-domain maximality and
+output exactness must all pass before publication. The canonical vstd operator
+boundary must be present; an unmodeled foreign trait cannot gain a new inferred
+precondition. Calls to canonical primitive integer operator methods, including
+UFCS calls emitted by derive macros, use the existing checked arithmetic models.
+Signed division/remainder preserve truncation and exclude zero and MIN/-1.
+
+Native code with supported derives can put the following annotation **before**
+its derive declaration (this example assumes derive_more is a Cargo dependency):
+
+```rust
+#[verus_verify(infer_derive(Add, From))]
+#[derive(Copy, Clone, derive_more::Add, derive_more::From)]
+pub struct Count(pub usize);
+```
+
+This keeps the real Rust derive implementation. It proposes a direct primitive
+From relation or same-wrapper arithmetic relation and requests exact checking of
+the corresponding implementation. The field must be one directly spelled
+primitive integer and public enough for the open extension definitions. Do not
+list an inferred derive in `external_derive`. A missing or mismatched concrete
+implementation is rejected even when the crate has no other inference targets.
+A marker is only a request, never proof evidence. Wrong native bodies, false
+inherited domains and missing checked implementations cannot publish interfaces.
+Different derive libraries or configurations may emit shapes outside this bounded
+profile; those remain unsupported rather than silently assumed.
+
+Metadata policy 39 and candidate-cache version 45 require matching rebuilt
+providers and dependents. Rebuild vstd after changing the macro artifact. The
+native Aleph NodeCount chain and NodeMap size query use this support without
+rewriting their arithmetic or Into expressions. This is an intermediate adoption
+v1 checkpoint, not completion of the full native parent-creation goal.

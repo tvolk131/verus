@@ -1920,7 +1920,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     let panic = crate::infer::is_panic_maximality_model(func, typs);
                     let native_iterator = crate::infer::is_native_iterator_maximality_model(func, typs);
                     let result_map = crate::infer::is_result_map_maximality_model(func, typs);
-                    if !inferred && !subslice && !vector_index && !panic && !native_iterator && !result_map {
+                    let primitive_operator = crate::infer::is_primitive_operator_maximality_model(func, typs);
+                    if !inferred && !subslice && !vector_index && !panic && !native_iterator && !result_map && !primitive_operator {
                         return Err(crate::messages::error(
                             &stm.span,
                             "Verus Infer incomplete: unsupported callee requirement in maximality check",

@@ -68,6 +68,22 @@ pub fn modify_derived_item<'tcx>(
     action: AutomaticDeriveAction,
     function: &mut FunctionX,
 ) -> Result<(), VirErr> {
+    // A marker only requests inference. It supplies no evidence: the original
+    // derive body and the inherited trait domain must pass all exact checks.
+    let name = function.name.path.last_segment().to_string();
+    let target = if name == "from" {
+        Some(ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder())
+    } else { inputs.first().cloned() };
+    if let Some(rustc_middle::ty::TyKind::Adt(adt, _)) = target.map(|t| t.kind()) {
+        if matches!(name.as_str(), "from" | "add" | "sub" | "mul" | "div" | "rem") {
+            let marker = format!("__verus_infer_derived_{name}");
+            if ctxt.tcx.inherent_impls(adt.did()).iter().any(|impl_id|
+                ctxt.tcx.associated_items(*impl_id).in_definition_order().any(|m|
+                    m.tag() == rustc_middle::ty::AssocTag::Fn && m.name().as_str() == marker)) {
+                Arc::make_mut(&mut function.attrs).infer = true;
+            }
+        }
+    }
     let AutomaticDeriveAction::Special(special) = action else {
         return Ok(());
     };

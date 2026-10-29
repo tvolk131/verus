@@ -1,0 +1,103 @@
+//! Opt in actual Rust-derived scalar arithmetic implementations. Generated
+//! extension definitions are candidates, checked against each native derive body.
+use proc_macro2::TokenStream;
+use quote::{format_ident, quote};
+use syn::{ItemStruct, spanned::Spanned};
+
+pub(crate) fn expand(
+    item: ItemStruct,
+    operators: Vec<syn::Ident>,
+    vstd: TokenStream,
+) -> syn::Result<TokenStream> {
+    let bad = || {
+        syn::Error::new(
+            item.span(),
+            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Add/Sub/Mul/Div/Rem implementations",
+        )
+    };
+    if operators.is_empty()
+        || !item.generics.params.is_empty()
+        || item.generics.where_clause.is_some()
+    {
+        return Err(bad());
+    }
+    let syn::Fields::Unnamed(fields) = &item.fields else { return Err(bad()) };
+    if fields.unnamed.len() != 1 {
+        return Err(bad());
+    }
+    let syn::Type::Path(t) = &fields.unnamed[0].ty else { return Err(bad()) };
+    if t.qself.is_some()
+        || t.path.segments.len() != 1
+        || !matches!(
+            t.path.segments[0].ident.to_string().as_str(),
+            "u8" | "u16"
+                | "u32"
+                | "u64"
+                | "u128"
+                | "usize"
+                | "i8"
+                | "i16"
+                | "i32"
+                | "i64"
+                | "i128"
+                | "isize"
+        )
+    {
+        return Err(bad());
+    }
+    let mut derives = vec![];
+    for attr in &item.attrs {
+        if attr.path().is_ident("derive") {
+            let paths = attr.parse_args_with(
+                syn::punctuated::Punctuated::<syn::Path, syn::Token![,]>::parse_terminated,
+            )?;
+            derives.extend(
+                paths.iter().filter_map(|p| p.segments.last()).map(|s| s.ident.to_string()),
+            );
+        }
+    }
+    let name = &item.ident;
+    let mut seen = vec![];
+    let mut models = vec![];
+    for op in operators {
+        let method = match op.to_string().as_str() {
+            "From" => "from",
+            "Add" => "add",
+            "Sub" => "sub",
+            "Mul" => "mul",
+            "Div" => "div",
+            "Rem" => "rem",
+            _ => return Err(bad()),
+        };
+        if !derives.contains(&op.to_string()) || seen.contains(&method) {
+            return Err(bad());
+        }
+        seen.push(method);
+        if method == "from" {
+            let field = &fields.unnamed[0].ty;
+            models.push(quote!{
+                impl #name {#[doc(hidden)] pub open spec fn __verus_infer_derived_from(&self)->bool {true}}
+                impl #vstd::std_specs::convert::FromSpecImpl<#field> for #name {
+                    open spec fn obeys_from_spec()->bool {true}
+                    open spec fn from_spec(value:#field)->Self {#name(value)}
+                }
+            });
+            continue;
+        }
+        let extension = format_ident!("{}SpecImpl", op);
+        let base = format_ident!("{}Spec", op);
+        let marker = format_ident!("__verus_infer_derived_{}", method);
+        let obeys = format_ident!("obeys_{}_spec", method);
+        let req = format_ident!("{}_req", method);
+        let spec = format_ident!("{}_spec", method);
+        models.push(quote!{
+            impl #name {#[doc(hidden)] pub open spec fn #marker(&self)->bool {true}}
+            impl #vstd::std_specs::ops::#extension for #name {
+                open spec fn #obeys()->bool {true}
+                open spec fn #req(self,rhs:Self)->bool {#vstd::std_specs::ops::#base::#req(self.0,rhs.0)}
+                open spec fn #spec(self,rhs:Self)->Self {#name(#vstd::std_specs::ops::#base::#spec(self.0,rhs.0))}
+            }
+        });
+    }
+    Ok(quote! {#vstd::prelude::verus!{#item #(#models)*}})
+}

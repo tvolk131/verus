@@ -4,11 +4,13 @@
 //! candidate comes from its body; maximality also proves that the trait's
 //! inherited requires equals the proposed domain.
 use super::*;
+pub(super) use super::wrapper_binary::{binary_boundary,primitive_boundary,primitive_call,validate_derived_requests};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub(super) enum Kind {
     From,
     AddAssign,
+    Binary,
     Compare,
 }
 
@@ -98,6 +100,11 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
         && enums::unit(&f.x.inner_ret.x.typ)
     {
         Some(Kind::AddAssign)
+    } else if f.x.params.len()==2 && !records::mutable(f)
+        && [ ("Add","add"),("Sub","sub"),("Mul","mul"),("Div","div"),("Rem","rem") ].iter().any(|(t,m)|
+            models::path_is(trait_path,CrateId::Core,&["ops","arith",t]) &&
+            models::path_is(&method.path,CrateId::Core,&["ops","arith",t,m])) {
+        Some(Kind::Binary)
     } else if f.x.params.len() == 2
         && matches!(&*f.x.inner_ret.x.typ, TypX::Bool)
         && f.x.params.iter().all(|p| matches!(&*p.x.typ, TypX::Decorate(TypDecoration::Ref,None,_)))
@@ -157,6 +164,9 @@ pub(super) fn residual_conversion(
 /// Resolve only the exact concrete implementation selected by Rust. Rewriting
 /// is candidate-only; executable trait dispatch remains unchanged.
 pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
+    if let Some(e)=primitive_call(e,all){return Some(e);}
+
+
     let ExprX::Call {
         target: CallTarget::Fun(call_kind, method, types, impls, attrs),
         args,
@@ -227,10 +237,9 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr
         || types.len() != trait_typ_args.len()
         || !types.iter().zip(trait_typ_args.iter()).all(|(a, b)| crate::ast_util::types_equal(a, b))
         || args.len() != f.x.params.len()
-        || !args
-            .iter()
-            .zip(f.x.params.iter())
-            .all(|(a, p)| crate::ast_util::types_equal(&a.typ, &p.x.typ))
+        || !args.iter().zip(f.x.params.iter()).all(|(a,p)|
+            crate::ast_util::types_equal(&a.typ,&p.x.typ) ||
+            kind(f)==Some(Kind::Binary) && matches!(&*a.typ,TypX::Decorate(TypDecoration::Ref,None,t) if crate::ast_util::types_equal(t,&p.x.typ)))
         || !crate::ast_util::types_equal(&e.typ, &f.x.inner_ret.x.typ)
     {
         return None;
@@ -243,7 +252,11 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr
             Arc::new(vec![]),
             attrs.clone(),
         ),
-        args: args.clone(),
+        // VIR preserves a shared decorator on an explicit copied dereference.
+        // Candidate-only scalar projection observes the copied pointee value;
+        // ordinary verification still checks the untouched Rust call.
+        args: Arc::new(args.iter().zip(f.x.params.iter()).map(|(a,p)|
+            if crate::ast_util::types_equal(&a.typ,&p.x.typ){a.clone()}else{SpannedTyped::new(&a.span,&p.x.typ,a.x.clone())}).collect()),
         post_args: None,
         body: None,
     }))

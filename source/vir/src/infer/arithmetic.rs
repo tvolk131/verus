@@ -3,13 +3,14 @@
 use super::*;
 
 pub(super) fn division_dependency(e: &Expr) -> Option<Fun> {
-    match e.x {
+    match &e.x {
         ExprX::Binary(BinaryOp::Arith(ArithOp::TruncatingDiv(..)), ..) => {
             Some(crate::def::fn_truncating_div())
         }
         ExprX::Binary(BinaryOp::Arith(ArithOp::TruncatingMod(..)), ..) => {
             Some(crate::def::fn_truncating_mod())
         }
+        ExprX::Unary(UnaryOp::Clip{..},inner)=>division_dependency(inner),
         _ => None,
     }
 }

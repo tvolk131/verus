@@ -90,7 +90,7 @@ impl Newtypes {
             return Ok(f.clone());
         }
         if !matches!(f.x.kind, FunctionKind::Static)
-            && !matches!(wrapper_traits::kind(f),Some(wrapper_traits::Kind::From | wrapper_traits::Kind::Compare))
+            && !matches!(wrapper_traits::kind(f),Some(wrapper_traits::Kind::From | wrapper_traits::Kind::Compare | wrapper_traits::Kind::Binary))
         {
             return Err(unsupported(
                 &f.span,

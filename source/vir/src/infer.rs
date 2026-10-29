@@ -40,6 +40,7 @@ mod sequence_views;
 mod trait_getters;
 mod iterators;
 mod wrapper_traits;
+mod wrapper_binary;
 mod owned;
 mod cloning;
 
@@ -63,6 +64,9 @@ pub fn is_pure_observation(f: &Function) -> bool {
 
 /// Concrete exact-mode implementations whose proposed domain must be proved
 /// equivalent to the ordinary inherited trait precondition.
+pub fn is_wrapper_operator_boundary(f:&Function)->bool {wrapper_traits::binary_boundary(f)}
+pub fn is_primitive_operator_maximality_model(f:&Function,ts:&Typs)->bool {wrapper_traits::primitive_boundary(f,ts)}
+
 pub fn is_wrapper_trait(f: &Function) -> bool {
     wrapper_traits::kind(f).is_some()
 }
@@ -835,7 +839,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    wrapper_traits::binary_boundary(function) || owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -850,6 +854,11 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
         available.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
+        if let FunctionKind::TraitMethodImpl{method,..}=&f.x.kind {
+            if is_wrapper_trait(f) {
+                if let Some(boundary)=available.get(method).filter(|d|wrapper_traits::binary_boundary(d)){used.insert(method.clone(),boundary.clone());}
+            }
+        }
         if collections::kind(f).is_some() || records::candidate(f) || is_owned_summary(f) {
             for model in available.values().filter(|model| collections::model(model).is_some()
                 || records::has_loops(f) && owned::model(model) == Some(owned::Model::SeqNew)) {
@@ -882,7 +891,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                         used.insert(resolved.clone(), callee.clone());
                     }
                 }
-                if let Some(name) = arithmetic::division_dependency(e) {
+                if let Some(name) = arithmetic::division_dependency(&wrapper_traits::primitive_call(e,&available).unwrap_or_else(||e.clone())) {
                     if let Some(model) =
                         available.get(&name).filter(|f| arithmetic::division_model(f))
                     {
@@ -936,6 +945,7 @@ pub fn infer_functions_with_datatypes(
     let functions=prepared_factories.as_slice();
     *report = GenerationReport::default();
     report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
+    wrapper_traits::validate_derived_requests(functions,datatypes)?;
     if !functions.iter().any(|f| f.x.attrs.infer) {
         // An ordinary Clone or checked-query provider may have no inference
         // targets. Its direct-view evidence still needs certification and export gating.

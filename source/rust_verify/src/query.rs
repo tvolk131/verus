@@ -521,7 +521,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         let imported: Vec<_> = other_vir_crates
             .iter()
             .flat_map(|k| k.functions.iter())
-            .filter(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f) || vir::infer::is_approved_model(f)
+            .filter(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f) || vir::infer::is_approved_model(f) || vir::infer::is_wrapper_operator_boundary(f)
                 || f.x.name.path.krate != vir::ast::CrateId::Vstd && vir::infer::is_pure_observation(f))
             .cloned()
             .collect();

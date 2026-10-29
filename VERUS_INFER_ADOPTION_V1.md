@@ -115,3 +115,11 @@ requirements or trust boundaries require an explicit recorded decision.
 - Creator and checked collection contracts still contain manual trigger hints.
 - Mutable selection identity/frames are still authored mechanical helper clauses.
 - Opaque codec hashing limits any stronger initial-round hash agreement claim.
+
+## Recorded scope decisions
+
+2026-10-29, explicitly approved by the user: ConstraintError's generated Display
+and std::error::Error implementations may remain unverified while the enum,
+selector and error-ordering claims are checked. No formatting/error-method
+contract or assumption is added. This decision does not authorize the separate
+Signed/UncheckedSigned serialization proposal, which remains unapplied.
