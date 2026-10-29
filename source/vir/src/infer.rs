@@ -25,6 +25,7 @@ mod eligibility;
 mod enums;
 mod exits;
 mod goals;
+mod growth_goals;
 mod integer_models;
 mod loops;
 mod models;
@@ -109,6 +110,7 @@ pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
+pub use growth_goals::prepare as prepare_growth_goals;
 pub use counting_goals::prepare as prepare_counting_goals;
 pub use fold_goals::prepare as prepare_fold_goals;
 mod view_bounds_goals;

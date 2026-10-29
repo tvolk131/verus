@@ -2909,7 +2909,7 @@ impl Verifier {
         self.inference_generation = query.inference_generation.clone();
         let local_crate = local_crate.map_err(map_query_err)?;
 
-        if let Some(inferred) = local_crate.functions.iter().find(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
+        if let Some(inferred) = local_crate.functions.iter().find(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f) || self.inference_generation.growth_loops.iter().any(|(name,_)| name==&f.x.name)) {
             if self.args.no_verify
                 || self.args.verify_root
                 || self.args.verify_function.is_some()

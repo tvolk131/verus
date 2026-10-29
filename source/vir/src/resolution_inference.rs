@@ -332,6 +332,7 @@ impl ResolutionInfo {
 pub fn krate_infer_resolution(
     krate: &Krate,
     infos: &HashMap<Fun, Arc<ResolutionInfo>>,
+    assisted_loops: &std::collections::HashSet<Fun>,
 ) -> Result<Krate, Vec<VirErr>> {
     let mut datatypes = HashMap::new();
     for datatype in krate.datatypes.iter() {
@@ -353,7 +354,7 @@ pub fn krate_infer_resolution(
     let mut errors = vec![];
     for function in &mut Arc::make_mut(&mut krate).functions {
         if let Some(res_info) = infos.get(&function.x.name) {
-            let inferred_info = (function.x.attrs.infer || function.x.attrs.infer_iterator_factory)
+            let inferred_info = (function.x.attrs.infer || function.x.attrs.infer_iterator_factory || assisted_loops.contains(&function.x.name))
                 .then(|| res_info.with_inferred_specs(function.x.body.as_ref().unwrap()));
             let res_info = inferred_info.as_ref().unwrap_or(res_info);
             let new_body = infer_resolution(

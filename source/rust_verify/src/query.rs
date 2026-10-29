@@ -585,6 +585,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             cratex.functions = vir::infer::prepare_factory_callbacks(
                 &cratex.functions, &available, &datatypes, &mut self.inference_generation,
             ).map_err(|e| self.emit_error(e))?;
+            cratex.functions = vir::infer::prepare_growth_goals(
+                &cratex.functions, &available, &mut self.inference_generation,
+            ).map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_counting_goals(
                 &cratex.functions, &available, &mut self.inference_generation,
             );
@@ -684,7 +687,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 Err(_) => unreachable!(),
             }
         }
-        let krate = krate_infer_resolution(&krate, &res_infos).map_err(|e| self.emit_errors(e))?;
+        let krate = krate_infer_resolution(&krate, &res_infos, &self.inference_generation.growth_loops.iter().map(|(f,_)|f.clone()).collect()).map_err(|e| self.emit_errors(e))?;
 
         vir::well_formed::check_crate_merged(&krate).map_err(|e| self.emit_error(e))?;
 

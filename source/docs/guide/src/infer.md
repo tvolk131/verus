@@ -627,6 +627,60 @@ capacity **before** subtracting funds if errors must preserve the state. Returni
 [`verus_infer_traversals.rs`](../../../../examples/verus_infer_traversals.rs) for a
 checked prefix-fill wrapper and signed increment example.
 
+## Checked growth and transition loops
+
+`--infer-goals` can propose loop invariants and a decreasing measure for an
+**ordinary authored growth contract**. This complements `#[verus_infer]` on
+supported bottom-up helpers. It does not infer application policies, choose a
+state-machine invariant, or certify the whole application contract as maximal
+and output-exact.
+
+The bounded profile accepts a unit-returning function with a mutable receiver,
+one unannotated `while` loop and one recognized vector `push` in its body. The
+contract must supply one final sequence-length equation with an entry-state or
+immutable target, for example `final_len == max(old_len, target)`. Supplied final
+state predicates, unchanged-field equations, prefix relations and quantified
+properties of appended elements are proposed at intermediate states too. Those
+clauses must be inductive; unsupported algorithms still need explicit proofs.
+
+For current length `len` and supplied final length `target`, the proposals include
+`old_len <= len <= target` and measure `target - len`. The length equation is
+weakened to its upper bound inside the loop, while the original exact equation
+remains a required postcondition. Function-entry references use explicit entry
+snapshots. Loop isolation is disabled so the ordinary query retains the supplied
+input contract. No precondition or output goal is weakened, and every invariant
+must initialize and survive every iteration. Ordinary Verus also checks source
+bounds, arithmetic, helper preconditions and termination.
+
+Elements can be records containing their own collections. Their application
+meaning and transition laws come from authored views and ordinary checked
+contracts, rather than from guessing nested representations or assuming helper
+semantics. Existing elements retain their full values through the supplied prefix
+relation; an abstract view is used only where the author explicitly chooses it.
+The [growth example](../../../../examples/verus_infer_growth.rs) grows a vector
+of snapshots by calling a checked transition that copies each snapshot's vector.
+It contains no loop annotations or local proof blocks.
+
+Handwritten loop annotations are preserved. Multiple/nested loops, native `for`
+loops, termination bypasses, non-unit return functions and loops without the
+required length goal receive no growth proposal. Other algorithms can keep using
+ordinary Verus. Finite traversal and formula budgets bound candidate generation;
+exhaustion does not establish a proof. Failed proposals fail verification.
+Reports list `growth_loop_assistance` separately from exact inference candidates.
+Assisted providers require full-crate checks, and failed assisted exports are
+withheld. Imported ordinary contracts retain Verus's normal trusted-library
+boundary.
+
+Aleph's native Creator uses this path for its collector-growth worker. The author
+supplies the Creator invariant, final length, prefix preservation and round bound.
+An ordinary mutable-return wrapper checks the selected collector and its unchanged
+other slots; preservation of the Creator invariant after the borrow is conditional
+on the borrower returning a valid, correctly indexed and sized collector. A
+checked `try_initialize_round` API accepts every `u16` round and rejects `u16::MAX`
+without mutation, because that collector would need to store `round + 1` in `u16`.
+Existing `add_unit`/`create_unit` orchestration remains outside this native proof.
+
+
 ## Owned collection construction and round advancement
 
 Ordinary public methods may also expose a total value query with a single

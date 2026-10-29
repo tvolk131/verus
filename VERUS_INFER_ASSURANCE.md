@@ -147,6 +147,31 @@ checked error preservation, unsupported shapes and cross-crate composition.
 False callers and native API mutations are rejected with healthy helper proofs.
 These checks are evidence, not a formal proof of the inference implementation.
 
+## Ordinary growth-loop proof assistance
+
+Metadata schema **37** and candidate cache version **43** accompany the growth
+checkpoint. This adds no serialized AST fields, library axioms or assumed helper
+contracts. Providers and dependents with inference metadata must be rebuilt.
+
+Proposals come from the ordinary function's supplied postconditions, including
+an exact final-length goal. They are obligations, not new entry assumptions.
+The original preconditions, postconditions, executable operations and source
+checks are preserved. Generated state predicates, frames, prefix facts, length
+bounds and the decreasing measure receive ordinary induction and termination
+checks. A production projection gate checks every remaining serialized body
+field, and a pure-expression gate rejects effects and assumptions in inserted
+annotations. Fresh spec identifiers and constructor bookkeeping do not alter
+executable constructor checks.
+
+Assisted ordinary functions are reported separately from exact inference
+candidates. They receive no maximality/output-exactness claim. Full-crate checks
+are required; no-verify/filter attempts and failed providers cannot publish an
+assisted interface. Backend negative cases cover wrong transitions, overwritten
+prefixes/frames, insufficient round bounds, non-progressing loops and incorrect
+mutable-borrow selection. Existing handwritten loop proofs are preserved.
+Application invariant meanings, public abstraction contracts and input policies
+remain authored. These safeguards are not a formal proof of the new transformer.
+
 ## Trusted array-helper audit
 
 The additions are `no_unwind` on two pre-existing external-body functions in

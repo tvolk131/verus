@@ -24,6 +24,7 @@ pub struct GenerationReport {
     pub view_bound_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub fold_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub factory_callbacks: Vec<(Fun, usize)>,
+    pub growth_loops: Vec<(Fun, Span)>,
 }
 
 impl GeneratedCandidate {

@@ -29,6 +29,14 @@ Implemented and covered by regression tests:
   lock/codec signatures; cache consistency, signature verification, and the rest
   of the native crate are not established by this checkpoint. See the
   [workspace adoption recipe](source/docs/guide/src/infer_adoption.md#opting-an-existing-cargo-workspace-into-verification).
+- [x] Goal-directed proof annotations for ordinary collection-growth and checked
+  state-transition loops behind `--infer-goals`: authored length/prefix/state goals
+  propose inductive facts and termination, retaining the original executable and
+  all source checks. Structured elements can contain collections and use ordinary
+  checked transition contracts. Native Aleph Creator initialization composes this
+  with an ordinary mutable-borrow contract and an explicit terminal-round Result
+  boundary. Application invariants, behavior goals and public abstraction contracts
+  remain authored; this does not certify exact state-machine contract synthesis.
 - [x] Exact pointwise prefix mutation loops for borrowed record collections:
   zero-based usize counters, same-index updates (direct or checked inferred
   helpers), signed/unsigned per-element safety, full sequence/suffix/field frames,

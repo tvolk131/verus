@@ -6038,3 +6038,64 @@ fn pointwise_record_loops_cross_crates_reprove_and_reject_false_callers() {
         assert_eq!(json_inference(&run)["interface_written"], false);
     }
 }
+
+#[test]
+fn ordinary_growth_proofs_cross_crates_require_full_checks_and_block_failed_exports() {
+    let crates = InferCrates::new();
+    let base = r#"use vstd::prelude::*;
+        pub struct History {pub values:Vec<u8>,pub tag:u8}
+        pub fn grow(h:&mut History,n:usize)
+            ensures final(h).values@.len()==if old(h).values@.len()>n {old(h).values@.len() as int}else{n as int},
+                final(h).values@.take(old(h).values@.len() as int)==old(h).values@,
+                final(h).tag==old(h).tag,
+                forall|i:int|old(h).values@.len()<=i<final(h).values@.len() ==> #[trigger] final(h).values@[i]==0,
+        {while h.values.len()<n {h.values.push(0);}}
+    "#;
+    for _ in 0..2 {
+        let r = crates.build(
+            "growth_base",
+            base,
+            &[],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let report = json_inference(&r);
+        assert_eq!(
+            report["growth_loop_assistance"].as_array().unwrap().len(),
+            1
+        );
+        assert!(report["functions"].as_array().unwrap().is_empty());
+        assert_eq!(report["interface_written"], true);
+    }
+    let app = r#"use vstd::prelude::*;
+        pub fn goal(h:&mut growth_base::History,n:usize)
+            ensures final(h).tag==old(h).tag, final(h).values@.len()>=n,
+        {growth_base::grow(h,n);}
+    "#;
+    crates.succeeds("growth_app", app, &["growth_base"]);
+    let bad = app.replace("final(h).values@.len()>=n", "final(h).values@.len()<n");
+    let r = crates.build(
+        "growth_app",
+        &bad,
+        &["growth_base"],
+        &["--infer-goals", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("growth_app").exists());
+    for flag in ["--no-verify", "--verify-root"] {
+        let r = crates.build("growth_base", base, &[], &["--infer-goals", flag]);
+        assert!(!r.status.success());
+        assert!(!crates.vir("growth_base").exists());
+        assert!(String::from_utf8_lossy(&r.stderr).contains("requires full-crate verification"));
+    }
+    let bad = base.replace("push(0)", "push(1)");
+    let r = crates.build(
+        "growth_base",
+        &bad,
+        &[],
+        &["--infer-goals", "--no-cheating", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("growth_base").exists());
+    assert_eq!(json_inference(&r)["interface_written"], false);
+}
