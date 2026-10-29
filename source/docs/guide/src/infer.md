@@ -720,8 +720,8 @@ boundary.
 
 Aleph's native Creator uses this path for its collector-growth worker. The author
 supplies the Creator invariant, final length, prefix preservation and round bound.
-An ordinary mutable-return wrapper checks the selected collector and its unchanged
-other slots; preservation of the Creator invariant after the borrow is conditional
+The mutable-selector assistance below supplies the wrapper's identity and frame
+contract. Preservation of the Creator invariant after the borrow is conditional
 on the borrower returning a valid, correctly indexed and sized collector. A
 checked `try_initialize_round` API accepts every `u16` round and rejects `u16::MAX`
 without mutation, because that collector would need to store `round + 1` in `u16`.
@@ -802,6 +802,52 @@ This removes Aleph's local collector-advancement proof block. Generic hash value
 can still change under `Clone`; preservation of their identity is not claimed.
 Only the checked clone relation is available when proving the authored round
 invariant and advancement policy.
+
+## Checked mutable selectors
+
+With `--infer-goals`, an ordinary helper can receive generated borrow identity
+and state-frame postconditions. The bounded profile has one mutable record
+receiver and up to three scalar inputs, one ordinary unit-returning preparation
+call, and a tail expression borrowing one element of a direct vector field:
+
+```rust,ignore
+fn select(&mut self, index: u16) -> (slot: &mut Slot)
+    requires old(self).valid(), index < u16::MAX,
+    ensures slot.number == index,
+{
+    self.grow(index);
+    &mut self.slots[index as usize]
+}
+```
+
+The input conditions and the returned slot's application meaning remain authored.
+The preparation call's checked contract supplies length, preserved-prefix and
+configuration facts. Assistance proposes their transport across the returned
+loan: the final selected slot equals the final returned value, other prefix
+elements and unrelated fields retain their values, and length facts remain true.
+For a unary receiver invariant established by preparation and required on entry,
+it can propose restoration conditional on the future returned value satisfying
+the authored return properties.
+
+Every added postcondition is proved against the original helper body by ordinary
+Verus. An independent production projection check preserves the complete original
+body, input conditions, output goals and other function metadata. Candidate
+contracts reject effects, assumptions and undeclared variables, including in
+triggers. Contract snapshots retain ordinary `old` semantics. Neither the vector
+borrow law nor future invariant restoration is assumed by this strategy.
+
+Reports use `mutable_selector_assistance`; these ordinary contracts do not claim
+maximal input safety or exact outputs. Formula and clause budgets bound proposals.
+Other helper shapes retain ordinary verification, and authors still choose their
+abstractions, invariants and generic-interface laws.
+
+The generated interface and its consumers require full-crate verification.
+Failed or partially verified providers and consumers publish no interface.
+Inference-aware artifact headers retain the proof/dependency requirement even
+when an intermediate ordinary API has no inferred public function. Rebuild
+libraries after the metadata format changes. Aleph's native mutable selector now
+needs only its input and semantic return contract; its six mechanical identity,
+frame, length and restoration clauses have been removed from the source.
 
 
 ## Owned collection construction and round advancement

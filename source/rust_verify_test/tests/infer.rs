@@ -6140,6 +6140,93 @@ fn ordinary_range_proofs_cross_crates_require_full_checks_and_block_failed_expor
 }
 
 #[test]
+fn ordinary_mutable_selectors_cross_crates_require_complete_checked_publication() {
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+        pub struct Pool {pub values:Vec<u8>,pub tag:u8}
+        pub fn prepare(p:&mut Pool,i:usize)
+          requires i<old(p).values@.len(),
+          ensures final(p).tag==old(p).tag,
+            final(p).values@.len()==old(p).values@.len(),
+            final(p).values@.take(old(p).values@.len() as int)==old(p).values@,
+        {}
+        pub fn select(p:&mut Pool,i:usize)->(r:&mut u8)
+          requires i<old(p).values@.len(),
+          ensures *r==old(p).values@[i as int],
+        {prepare(p,i);&mut p.values[i]}
+    "#;
+    for _ in 0..2 {
+        let run=crates.build("selector_base",provider,&[],&["--infer-goals","--no-cheating","--output-json"]);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let report=json_inference(&run);
+        assert_eq!(report["mutable_selector_assistance"].as_array().unwrap().len(),1);
+        assert!(report["functions"].as_array().unwrap().is_empty());
+        assert_eq!(report["interface_written"],true);
+    }
+    let client=r#"use vstd::prelude::*;
+        pub fn set(p:&mut selector_base::Pool,i:usize,value:u8)
+          requires i<old(p).values@.len(),
+          ensures final(p).values@[i as int]==value,final(p).tag==old(p).tag,
+            final(p).values@.len()==old(p).values@.len(),
+            forall|j:int|0<=j<old(p).values@.len() && j!=i ==> final(p).values@[j]==old(p).values@[j],
+        {let r=selector_base::select(p,i);*r=value;}
+    "#;
+    crates.succeeds("selector_client",client,&["selector_base"]);
+    let bad=client.replace("*r=value;","*r=0;");
+    let run=crates.build("selector_client",&bad,&["selector_base"],&["--no-cheating","--output-json"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("selector_client").exists());
+    assert_eq!(json_inference(&run)["interface_written"],false);
+    for flag in ["--no-verify","--verify-root"] {
+        let run=crates.build("selector_client",client,&["selector_base"],&[flag]);
+        assert!(!run.status.success());
+        assert!(!crates.vir("selector_client").exists());
+        assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"));
+    }
+    crates.succeeds("selector_client",client,&["selector_base"]);
+    let leaf=r#"use vstd::prelude::*;
+        pub fn goal(p:&mut selector_base::Pool,i:usize,value:u8)
+          requires i<old(p).values@.len(),
+          ensures final(p).values@[i as int]==value,final(p).tag==old(p).tag,
+        {selector_client::set(p,i,value);}
+    "#;
+    crates.succeeds("selector_leaf",leaf,&["selector_base","selector_client"]);
+    // This intermediate API contains no inferred functions or selectors. Its
+    // header must still require its transitive proof/dependency trailer.
+    let path=crates.vir("selector_client");
+    let mut bytes=std::fs::read(&path).unwrap();
+    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    bytes.truncate(start);
+    std::fs::write(&path,bytes).unwrap();
+    let run=crates.build("selector_leaf",leaf,&["selector_base","selector_client"],&["--output-json"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("inference proof metadata"));
+    assert!(!crates.vir("selector_leaf").exists());
+    for flags in [vec!["--no-verify"],vec!["--verify-root"],vec!["--verify-root","--verify-function","select"]] {
+        let mut args=vec!["--infer-goals"];
+        args.extend(flags);
+        let run=crates.build("selector_base",provider,&[],&args);
+        assert!(!run.status.success());
+        assert!(!crates.vir("selector_base").exists());
+        assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"),"{}",String::from_utf8_lossy(&run.stderr));
+    }
+    let run=crates.build("selector_base",&provider.replace("&mut p.values[i]","&mut p.values[0]"),&[],&["--infer-goals","--no-cheating","--output-json"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("selector_base").exists());
+    assert_eq!(json_inference(&run)["interface_written"],false);
+    let run=crates.build("selector_base",provider,&[],&["--infer-goals","--no-cheating"]);
+    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let path=crates.vir("selector_base");
+    let mut bytes=std::fs::read(&path).unwrap();
+    bytes.truncate(bytes.len()-8);
+    std::fs::write(&path,bytes).unwrap();
+    let run=crates.build("selector_client",client,&["selector_base"],&["--output-json"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("inference proof metadata"));
+    assert!(!crates.vir("selector_client").exists());
+}
+
+#[test]
 fn native_binary_wrappers_compose_through_private_queries_and_checked_exports() {
     let crates=InferCrates::new();
     let provider=r#"use vstd::prelude::*;
@@ -6204,13 +6291,13 @@ verus!{pub fn goal(a:Amount,b:Amount){let r=a.cmp(&b);
         assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
     }
     let prior_client=std::fs::read(crates.vir("ordering_app")).unwrap();
+    assert!(prior_client.ends_with(b"VRINFER1"));
     crates.edit_metadata("ordering_base",|m|{assert!(m["proofs"].as_array().unwrap().is_empty());m["soundness"]=false.into();});
     let c=crates.build_source("ordering_app",caller,&["ordering_base"],&["--no-cheating"],true);
     assert!(!c.status.success());
-    // Ordinary clients retain their previous ordinary artifact on an import
-    // error; no replacement is published. Inferred providers below invalidate
-    // their old certified artifact before a rejected filtered rebuild.
-    assert_eq!(std::fs::read(crates.vir("ordering_app")).unwrap(),prior_client);
+    // Ordinary consumers now carry the dependency certificate too. A failed
+    // import must invalidate that old API before any replacement is published.
+    assert!(!crates.vir("ordering_app").exists());
     for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","cmp"]] {
         let good=crates.build_source("ordering_base",provider,&[],&["--no-cheating"],true);
         assert!(good.status.success(),"{}",String::from_utf8_lossy(&good.stderr));

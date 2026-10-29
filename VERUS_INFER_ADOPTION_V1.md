@@ -177,6 +177,24 @@ pass, and the engine passes 466 compiler and 115 backend tests. Evidence is in
 the native pilot's verification/units_collector/SCAFFOLD_REMOVAL.md and
 scaffold-evidence.json.
 
-The mutable-selector helper contract remains mechanical authored input. The hash
-boundary, full inventory audit and fresh replay remain part of final acceptance.
-This checkpoint does not complete adoption v1.
+The mutable-selector helper's six mechanical identity, frame, length and
+conditional-restoration clauses are now removed as well. Reusable goal assistance
+proposes those ordinary postconditions from the direct vector borrow and the
+checked preparation contract. The author's input conditions and the returned
+collector's validity, round and size semantics remain unchanged. Ordinary Verus
+checks the generated clauses against the original helper body.
+
+The interface publication safeguard now also follows certified dependencies
+through ordinary intermediate APIs. Their artifact header requires the proof
+trailer even when their public API has no inferred function. Such consumers must
+verify their entire crate and wait for successful verification before publishing.
+
+This checkpoint passes 470 compiler regressions, 116 backend tests and the driver
+metadata test. Native evidence retains all 145 proof results and 93 certificates,
+41 pinned creation runtime tests, six rejected implementation mutants and a
+no-assistance control. Evidence is in the native pilot's
+verification/units_collector/SELECTOR.md and selector-evidence.json.
+
+The hash boundary, full authored-input inventory audit, final safeguard suite and
+fresh replay remain part of final acceptance. This checkpoint does not complete
+adoption v1.

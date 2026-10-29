@@ -28,6 +28,7 @@ mod goals;
 mod growth_goals;
 mod range_goals;
 mod pointwise_goals;
+mod selector_goals;
 mod integer_models;
 mod loops;
 mod models;
@@ -88,7 +89,7 @@ pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
 
 pub fn is_inference_contract(f: &Function) -> bool {
     wrapper_compare::request(f) || f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
-        || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || view_bounds_goals::lemma(f).is_some()
+        || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || f.x.attrs.infer_mutable_selector || view_bounds_goals::lemma(f).is_some()
 }
 
 pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
@@ -102,7 +103,8 @@ pub fn validate_inferred_sequence_views(functions: &[Function], datatypes: &[Dat
     sequence_views::validate_imports(functions,datatypes)?;
     cloning::validate(functions,datatypes)?;
     trait_getters::validate(functions)?;
-    iterators::validate(functions)
+    iterators::validate(functions)?;
+    selector_goals::validate_imports(functions)
 }
 
 pub(crate) fn record_sequence_view(typ: &Typ, functions: &HashMap<Fun, Function>) -> Option<Function> {
@@ -121,6 +123,7 @@ pub use goals::prepare as prepare_proof_goals;
 pub use growth_goals::prepare as prepare_growth_goals;
 pub use range_goals::prepare as prepare_range_goals;
 pub use pointwise_goals::prepare as prepare_pointwise_goals;
+pub use selector_goals::prepare as prepare_selector_goals;
 pub use counting_goals::prepare as prepare_counting_goals;
 pub use fold_goals::prepare as prepare_fold_goals;
 mod view_bounds_goals;

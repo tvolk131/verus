@@ -138,6 +138,9 @@ Bounded growth/range profiles can supply loop induction and internal index
 triggers, and a checked cloned-field transition can receive intermediate
 pointwise transport assertions. The source contracts and chosen invariants
 remain ordinary obligations.
+Direct mutable element selectors following a checked preparation call can also
+receive generated identity/frame contracts and conditional invariant-restoration
+facts. The authored contract still defines the selected value's application meaning.
 It does not provide an unrestricted proof search or automatically discover all
 necessary invariants. For comparison, these two callers establish the same
 bound:

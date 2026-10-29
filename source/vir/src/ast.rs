@@ -1554,6 +1554,9 @@ pub struct FunctionAttrsX {
     pub infer_owned: bool,
     /// Ordinary checked native Clone and its public logical view relation.
     pub infer_clone_contract: bool,
+    /// Ordinary checked mutable-selector postconditions, generated internally.
+    /// Imports and publication require complete inference-aware verification.
+    pub infer_mutable_selector: bool,
     /// Erasure and lifetime checking based on ghost blocks
     pub uses_ghost_blocks: bool,
     /// Inline spec function for SMT

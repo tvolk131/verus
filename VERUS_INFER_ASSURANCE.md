@@ -943,7 +943,9 @@ post-verification publication barrier, even when the consumer contains no local
 inferred function. Direct export paths are invalidated before parsing; Cargo
 paths are invalidated once known. A frontend error at those boundaries or a
 failed auxiliary proof cannot leave a stale assisted API.
-Legacy ordinary exports without the flag retain their existing behavior.
+Legacy ordinary exports without the flag or certified inference dependencies
+retain their existing behavior. Certified consumers now use the publication
+barrier described under checked mutable selectors below.
 
 Auxiliary failure or timeout fails the ordinary caller, including when a later
 ordinary query succeeds. Unsupported expressions, exceeded expansion/visit/
@@ -2182,3 +2184,53 @@ and 115 backend tests. Native evidence retains 145 proof results, 31 exact helpe
 93 certificates and 41 pinned creation runtime tests. Five actual-source mutants
 (advancement round, invalid parent round, retained count, skipped ingestion and
 truncated ingestion range) fail with healthy exact helpers and withheld exports.
+
+## Checked mutable selectors and ordinary dependency consumers
+
+With --infer-goals, a bounded ordinary helper consisting of one checked
+unit-returning preparation call followed by a direct mutable vector-field element
+borrow can receive generated identity/frame/length postconditions. The template
+uses the existing canonical vector borrow model, stable preparation clauses and
+its checked preserved-prefix relation. A receiver predicate established by
+preparation and required on entry can be proposed after borrow expiration,
+conditional on the future returned value satisfying the original semantic return
+clauses. No predicate, borrow law or restoration premise is assumed.
+
+All proposed postconditions undergo ordinary original-body verification. An
+independent production projection check permits only appended pure postconditions
+and an internal publication marker; it preserves code, input conditions, original
+output goals, bounds, modes and termination metadata byte-for-byte. Its fault test
+rejects modified inputs/body/goals, forged markers, assumptions (including hidden
+trigger effects), and undeclared variables. Formula/clause budgets and the direct
+record/vector/call shape bound generation. Contract Old snapshots retain normal
+Verus semantics; loop-only entry variables are not emitted into global contracts.
+
+The new internal marker requires full verification and inference-aware imported
+interface validation, even in a provider with zero exact-inference candidates.
+Public contracts and imported model artifacts remain covered by the existing
+whole-API fingerprint. The generator is rerun rather than caching proof evidence;
+ordinary assisted functions do not claim maximality or exactness.
+
+Certified dependencies now carry the same full-verification/publication barrier
+through ordinary consumers without --infer-goals. An inference-aware artifact
+header requires the proof/dependency trailer after private-helper pruning or an
+ordinary intermediate API. Failed imports, failed callers and filtered rebuilds
+remove old certified artifacts and publish no replacement. A three-crate test
+checks ordinary forwarding, full-check gates and removal of an intermediate
+trailer. Ordinary unmarked library payloads retain legacy trailing-data behavior;
+trusted-model fingerprints still bind every artifact byte and changed model
+artifacts still require independent reproof.
+
+Metadata schema 38 / policy 44 and candidate cache 50 invalidate older formats.
+Libraries must be rebuilt for the changed artifact header and internal function
+marker. Aleph's six authored mutable-selector mechanical clauses are removed;
+the original helper body and semantic input/return contract are unchanged. No
+library axiom, hash/codec assumption or Signed serializer exclusion was added.
+
+The selector checkpoint passes 470 compiler regressions across all 18 inference
+suites, 116 backend tests and the driver metadata test. The matching library
+format was rebuilt with 2,209 verified vstd results and no errors. Native evidence
+retains 145 proof results, all 31 exact helpers and 93 certificates, 41 pinned
+creation runtime tests, six rejected actual-source mutants and a rejected
+no-assistance control. Full input-inventory audit and fresh adoption replay
+remain required before declaring adoption v1 complete.

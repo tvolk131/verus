@@ -2910,6 +2910,14 @@ impl Verifier {
         self.inference_generation = query.inference_generation.clone();
         let local_crate = local_crate.map_err(map_query_err)?;
 
+        if !self.imported_inference_dependencies.is_empty()
+            && (self.args.no_verify || self.args.verify_root || self.args.verify_function.is_some()
+                || !self.args.verify_module.is_empty() || !self.args.verify_only_module.is_empty()) {
+            return Err(map_err_diagnostics(vir::messages::error_bare(
+                "Verus Infer requires full-crate verification for consumers of certified inference dependencies; --no-verify and function/module filters are unsupported",
+            )));
+        }
+
         if let Some(inferred) = local_crate.functions.iter().find(|f| {
             f.x.attrs.infer || vir::infer::is_inference_contract(f)
                 || self.inference_generation.growth_loops.iter()
@@ -2947,8 +2955,10 @@ impl Verifier {
         let crate_metadata = crate::import_export::CrateMetadata {
             crate_id: spans.local_crate.as_u64(),
             original_files: spans.local_files.clone(),
+            inference_aware: false, // Set only by the post-verification exporter.
         };
-        if self.args.infer_goals || local_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
+        if self.args.infer_goals || !self.imported_inference_dependencies.is_empty()
+            || local_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
             // Inferred and goal-assisted APIs must wait for their complete
             // proofs, including every generated auxiliary query.
             self.pending_inference_export = Some((crate_metadata, local_crate.clone()));
@@ -3359,6 +3369,15 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
         let time_import1 = Instant::now();
         self.verifier.time_import = time_import1 - time_import0;
         self.verifier.imported_inference_dependencies = imported.inference_dependencies;
+        if !self.verifier.imported_inference_dependencies.is_empty() {
+            if let Err(err) = crate::import_export::invalidate_local_inference_export(
+                &self.verifier.args, &self.verifier.export_vir_path_via_cargo,
+            ) {
+                compiler.sess.dcx().err(err.note.clone());
+                self.verifier.encountered_vir_error = true;
+                return rustc_driver::Compilation::Stop;
+            }
+        }
         self.verifier.inference_trusted_models = imported.trusted_models;
         self.verifier.available_trusted_models = imported.available_trusted_models;
         let verus_items = Arc::new(crate::verus_items::from_diagnostic_items(tcx));

@@ -13,14 +13,17 @@ use vir::infer::ProofStatus;
 // Ordinary .vir files retain their existing representation. Inference proof
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
-const INFER_SCHEMA: u32 = 37;
-const INFER_POLICY: &str = "candidate-bound-evidence-v43";
+const INFER_SCHEMA: u32 = 38;
+const INFER_POLICY: &str = "candidate-bound-evidence-v44";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct CrateMetadata {
     pub crate_id: u64,
     pub original_files: HashMap<Vec<u8>, FileStartEndPos>,
+    /// Requires the proof trailer even if public-API pruning leaves no inferred
+    /// function (or this is an ordinary consumer of a certified dependency).
+    pub inference_aware: bool,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -124,17 +127,21 @@ pub(crate) fn import_crates(
                 );
             }
         }
-        if krate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
-            let mut trailer = Vec::new();
-            file.by_ref()
-                .take(MAX_INFER_METADATA + 1)
-                .read_to_end(&mut trailer)
-                .map_err(|e| io_vir_err("read inference metadata".into(), e))?;
+        let mut trailer = Vec::new();
+        file.by_ref()
+            .take(MAX_INFER_METADATA + 1)
+            .read_to_end(&mut trailer)
+            .map_err(|e| io_vir_err("read inference metadata".into(), e))?;
+        if metadata.inference_aware || trailer.ends_with(INFER_MAGIC)
+            || krate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
             if trailer.len() as u64 > MAX_INFER_METADATA || !trailer.ends_with(INFER_MAGIC) {
                 return Err(inference_error(
                     file_path,
                     "missing or invalid inference proof metadata",
                 ));
+            }
+            if !metadata.inference_aware {
+                return Err(inference_error(file_path,"invalid inference-aware artifact header"));
             }
             let certificate: InferenceMetadata =
                 serde_json::from_slice(&trailer[..trailer.len() - INFER_MAGIC.len()])
@@ -265,7 +272,16 @@ fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>, local_inference: 
         let mut marker = [0; 8];
         file.read_exact(&mut marker)
             .map_err(|e| io_vir_err("read previous inference export".into(), e))?;
-        if &marker == INFER_MAGIC {
+        let mut inference_aware = &marker == INFER_MAGIC;
+        if !inference_aware {
+            file.seek(SeekFrom::Start(0))
+                .map_err(|e| io_vir_err("seek previous inference header".into(), e))?;
+            let decoded: Result<CrateWithMetadata, _> = bincode_next::serde::decode_from_std_read(
+                &mut file, bincode_next::config::legacy(),
+            );
+            inference_aware = decoded.is_ok_and(|c| c.metadata.inference_aware);
+        }
+        if inference_aware {
             drop(file);
             std::fs::remove_file(&path)
                 .map_err(|e| io_vir_err("invalidate previous inference export".into(), e))?;
@@ -277,7 +293,7 @@ fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>, local_inference: 
 pub(crate) fn export_crate(
     args: &Args,
     export_vir_path_via_cargo: &Option<PathBuf>,
-    vir_metadata: CrateMetadata,
+    mut vir_metadata: CrateMetadata,
     vir_crate: Krate,
     // Some is supplied only by the post-verification publication barrier.
     verified_inference: Option<(
@@ -335,6 +351,7 @@ pub(crate) fn export_crate(
     } else {
         None
     };
+    vir_metadata.inference_aware = inference.is_some();
     atomic_export(
         &file_path,
         &CrateWithMetadata { krate, metadata: vir_metadata },
