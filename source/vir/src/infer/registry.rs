@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v38:complete-value-result-composition:4096";
+const VERSION: &str = "verus-infer-v39:typed-map-errors-borrowed-values:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -479,6 +479,7 @@ impl Registry {
         let prepared=sequence_views::prepare(&trait_contracts,imported,datatypes);
         let prepared=cloning::prepare(&prepared,imported,datatypes);
         let prepared=owned::prepare(&prepared,imported,datatypes);
+        let prepared=owned::borrowed::prepare(&prepared,imported)?;
         let functions=prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {

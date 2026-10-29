@@ -108,7 +108,7 @@ fn native_short_circuit_partial_callbacks_fail_closed() {
     for (body, diagnostic) in [
         ("s.iter().any(|(_,v)|*v - 1 > 2)", "item-independent callback safety"),
         ("s.iter().filter(|&(_,v)|*v==round-1).any(|(_,v)|*v>0)", "search after a partial filter"),
-        ("s.iter().any(|(_,v)|{let mut x=*v;x+=1;x>round})", "pure scalar expressions"),
+        ("s.iter().any(|(_,v)|{let mut x=*v;x+=1;x>round})", "immutable expressions"),
     ] {
         let source = format!(
             "use vstd::prelude::*;#[verifier::infer] pub fn search(s:&native_factory::Slots<u16>,round:u16)->bool{{{body}}}"

@@ -28,7 +28,7 @@ pub(super) fn model(f: &Function) -> bool {
 
 pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<(bool, Exprs)> {
     let ExprX::Call {
-        target: CallTarget::Fun(CallTargetKind::Dynamic, n, types, impls, _),
+        target: CallTarget::Fun(kind, n, types, impls, _),
         args,
         post_args: None,
         body: None,
@@ -39,9 +39,14 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<(boo
     if !all.get(n).is_some_and(model)
         || types.len() != 2
         || args.len() != 2
-        || !impls.is_empty()
         || !crate::ast_util::types_equal(&types[0], &types[1])
-        || !matches!(&*types[0], TypX::TypParam(_) | TypX::Projection { .. })
+        || !(matches!(kind,CallTargetKind::Dynamic) && impls.is_empty()
+                && matches!(&*types[0], TypX::TypParam(_) | TypX::Projection { .. })
+            || n.path.last_segment().as_str()=="ne"
+                && matches!(kind,CallTargetKind::ExternalTraitDefault
+                    |CallTargetKind::DynamicResolved{is_trait_default:true,..})
+                && matches!(&*types[0],TypX::Datatype(Dt::Path(p),..)
+                    if matches!(p.krate,CrateId::Id(..))))
         || !args.iter().all(|a| {
             trait_getters::shared(&a.typ)
                 .is_some_and(|t| crate::ast_util::types_equal(t, &types[0]))

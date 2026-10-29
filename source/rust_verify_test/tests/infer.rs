@@ -750,7 +750,14 @@ fn scalar_newtype_definition_changes_invalidate_candidate_cache() {
         assert_eq!(report["functions"][0]["metrics"]["cache"], expected_cache);
         assert_eq!(report["functions"][0]["required_checks_passed"], true);
     }
-    let unsupported = source.replace("pub value:u8", "pub value:u8, pub extra:u8");
+    let record = source.replace("pub value:u8", "pub value:u8, pub extra:u8");
+    let run = crates.build("wrapper_layout", &record, &[], &["--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let report = json_inference(&run);
+    assert_ne!(report["functions"][0]["metrics"]["cache"], "hit");
+    assert_eq!(report["functions"][0]["required_checks_passed"], true);
+    let fields = (0..9).map(|i|format!("pub field{i}:u8")).collect::<Vec<_>>().join(",");
+    let unsupported = source.replace("pub value:u8", &fields);
     let run = crates.build("wrapper_layout", &unsupported, &[], &["--output-json"]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("parameters and return values"));
@@ -5942,3 +5949,9 @@ mod equality_cases;
 
 #[path="infer_cases/result_composition.rs"]
 mod result_composition_cases;
+
+#[path="infer_cases/result_map.rs"]
+mod result_map_cases;
+
+#[path="infer_cases/borrowed_objects.rs"]
+mod borrowed_object_cases;

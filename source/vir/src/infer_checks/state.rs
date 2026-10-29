@@ -9,20 +9,33 @@ use crate::ast::{
 use crate::context::Ctx;
 
 /// Observe a complete returned value independently of the candidate's clauses.
+pub(crate) fn output_equivalence(ctx: &Ctx, span: &Span, typ: &Typ, a: Exp, b: Exp) -> Result<Exp, VirErr> {
+    let mut equalities = vec![];
+    observations(ctx, span, typ, a, b, 9, &mut equalities)?;
+    Ok(crate::sst_util::sst_conjoin(span, &Arc::new(equalities)))
+}
+
+/// Observe a complete returned value independently of the candidate's clauses.
 pub(super) fn returned(
     ctx: &Ctx,
     function: &FunctionSst,
     original: &FuncCheckSst,
 ) -> Result<FuncCheckSst, VirErr> {
-    returned_body(ctx, &function.span, &function.x.inner_ret.x.typ, original)
+    returned_body_kind(ctx, &function.span, &function.x.inner_ret.x.typ, original,
+        crate::infer::identity_borrow_return(&ctx.func_map[&function.x.name]))
 }
 
+#[cfg(test)]
 pub(super) fn returned_body(
     ctx: &Ctx,
     span: &Span,
     typ: &Typ,
     original: &FuncCheckSst,
 ) -> Result<FuncCheckSst, VirErr> {
+    returned_body_kind(ctx,span,typ,original,false)
+}
+
+fn returned_body_kind(ctx:&Ctx,span:&Span,typ:&Typ,original:&FuncCheckSst,identity:bool)->Result<FuncCheckSst,VirErr>{
     validate_query_kind(original, None, span)?;
     let name =
         VarIdent(Arc::new("__verus_infer_owned_output".into()), VarIdentDisambiguate::AirLocal);
@@ -37,7 +50,9 @@ pub(super) fn returned_body(
     let other = SpannedTyped::new(span, typ, ExpX::Var(name.clone()));
     let actual = SpannedTyped::new(span, typ, ExpX::Var(dest.clone()));
     let mut equalities = vec![];
-    observations(ctx, span, typ, other.clone(), actual, 6, &mut equalities)?;
+    if identity {
+        equalities.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,other.clone(),actual)));
+    } else { observations(ctx, span, typ, other.clone(), actual, 9, &mut equalities)?; }
     let vars = [(name.clone(), typ.clone()), (dest.clone(), typ.clone())];
     let equals = crate::poly::visit_exp_native_for_pure_exp_with_vars(
         ctx,
@@ -176,7 +191,7 @@ fn observations(
     out: &mut Vec<Exp>,
 ) -> Result<(), VirErr> {
     let bad = || error(span, "Verus Infer incomplete: unsupported nested record precision shape");
-    if depth == 0 || out.len() >= 16 {
+    if depth == 0 || out.len() >= 64 {
         return Err(bad());
     }
     // Opaque imported datatypes have a boxed SST return type. Boxing changes
@@ -190,6 +205,12 @@ fn observations(
         return observations(ctx, span, t, a, b, depth - 1, out);
     }
     if let TypX::Datatype(dt @ crate::ast::Dt::Path(p), args, _) = &**typ {
+        // Invariant-bearing objects are preserved by complete value identity.
+        // Do not expose or omit any of their hidden/cache/ghost representation.
+        if ctx.datatype_map.get(dt).is_some_and(|d|d.x.user_defined_invariant_fn.is_some()) {
+            out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,a,b)));
+            return Ok(());
+        }
         if p.krate == crate::ast::CrateId::Core
             && p.segments.iter().map(|s| s.as_str()).eq(["result", "Result"])
             && args.len() == 2
@@ -377,10 +398,10 @@ fn observations(
                     let mut payload=vec![];
                     observations(ctx,span,&t,SpannedTyped::new(span,&t,ExpX::UnaryOpr(op.clone(),a.clone())),
                         SpannedTyped::new(span,&t,ExpX::UnaryOpr(op,b.clone())),depth-1,&mut payload)?;
-                    if out.len()+payload.len()>16{return Err(bad());}
+                    if out.len()+payload.len()>64{return Err(bad());}
                     for eq in payload {out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Implies,tag(a.clone()),eq)));}
                 }
-                if out.len()>16{return Err(bad());}
+                if out.len()>64{return Err(bad());}
             }
             return Ok(());
         }

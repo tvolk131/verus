@@ -36,6 +36,21 @@ pub(crate) struct QueryError {
 
 pub(crate) type Res<T> = Result<T, QueryError>;
 
+fn inference_warning_ctx(krate: &Krate, base: &WarningCtx) -> Result<WarningCtx, VirErr> {
+    let mut result = base.clone();
+    for f in &krate.functions {
+        if !result.fun_warn_configs.contains_key(&f.x.name) {
+            if let Some(source) = vir::infer::borrowed_observation_source(f) {
+                let config = base.fun_warn_configs.get(&source).cloned().ok_or_else(|| {
+                    vir::messages::error(&f.span, "missing borrowed observation source configuration")
+                })?;
+                result.fun_warn_configs.insert(f.x.name.clone(), config);
+            }
+        }
+    }
+    Ok(result)
+}
+
 pub(crate) struct Query<'r, 'tcx> {
     args: Args,
     reporter: &'r dyn Diagnostics,
@@ -528,6 +543,42 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         )
         .map_err(|e| self.emit_error(e))?;
 
+        // Synthesized projection definitions are ordinary spec functions. Run
+        // their normal per-function well-formedness and mode checks before any
+        // proof can use them; do not add unchecked logical axioms after HIR.
+        let warning_ctx = inference_warning_ctx(&Arc::new(cratex.clone()), &pre_crate.warning_ctx)
+            .map_err(|e| self.emit_error(e))?;
+        let generated = |f: &vir::ast::Function| vir::infer::borrowed_observation_source(f).is_some();
+        if cratex.functions.iter().any(generated) {
+            let mut stubs = (*self.get_all_function_stubs()?).clone();
+            for f in cratex.functions.iter().filter(|f| generated(f)) {
+                stubs.insert(f.x.name.clone(), vir::ast_util::function_to_stub(f));
+            }
+            let stubs = Arc::new(stubs);
+            let lookup = self.get_demote_trait_lookup()?;
+            for f in cratex.functions.iter_mut().filter(|f| generated(f)) {
+                let (wf, errors, diags) = vir::well_formed::check_function(
+                    &pre_crate.krate_without_funs, stubs.clone(), initial_wf_results.lookup.clone(),
+                    &lookup, f, &warning_ctx, self.args.no_cheating, self.args.no_verify,
+                );
+                self.emit_non_blocking_errors(errors);
+                self.emit_diags(diags);
+                let wf = wf.map_err(|e| {
+                    self.handle_wf_error(&pre_crate.ctxt, Some(f.x.name.clone()), e)
+                })?;
+                all_dyn_compatability_checks.push(wf.dyn_compatability_checks);
+                let (checked, _, resolution) = vir::modes::check_function(
+                    stubs.clone(), initial_wf_results.lookup.clone(), f, &lookup,
+                ).map_err(|e| self.emit_errors(e))?;
+                if resolution.is_some() {
+                    return Err(self.emit_error(vir::messages::error(
+                        &f.span, "borrowed observation must be a pure spec definition",
+                    )));
+                }
+                *f = checked;
+            }
+        }
+
         if self.args.infer_goals {
             let available: Vec<_> = other_vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
             cratex.functions = vir::infer::prepare_trait_contracts(&cratex.functions,&available);
@@ -550,7 +601,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             vir::ast_simplify::krate_merge_arch(&krate, &other_vir_crates)
                 .map_err(|e| self.emit_error(e))?;
 
-        let (check, diags) = vir::well_formed::check_crate_final(&krate, &pre_crate.warning_ctx);
+        let (check, diags) = vir::well_formed::check_crate_final(&krate, &warning_ctx);
         self.emit_diags(diags);
         let () = check.map_err(|e| self.emit_error(e))?;
 
@@ -591,6 +642,8 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         vir_crates.push(krate);
         let unpruned_crate = vir::ast_simplify::merge_krates(vir_crates, &merged_traits)
             .map_err(|e| self.emit_error(e))?;
+        let warning_ctx=inference_warning_ctx(&unpruned_crate,&pre_crate.warning_ctx)
+            .map_err(|e|self.emit_error(e))?;
         let (krate, _) = vir::prune::prune_krate_for_module_or_krate(
             &unpruned_crate,
             &self.crate_id,
@@ -604,14 +657,14 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         // Demote external traits
         let krate = vir::traits::demote_external_traits(
             self.reporter,
-            &pre_crate.warning_ctx,
+            &warning_ctx,
             &krate,
             &demote_trait_lookup,
         )
         .map_err(|e| self.emit_error(e))?;
 
         // Inherit default bodies
-        let mut new_warning_ctx = (*pre_crate.warning_ctx).clone();
+        let mut new_warning_ctx = warning_ctx;
         let krate = vir::traits::inherit_default_bodies(&krate, &mut new_warning_ctx)
             .map_err(|e| self.emit_error(e))?;
 

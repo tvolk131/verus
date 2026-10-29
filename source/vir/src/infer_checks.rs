@@ -13,6 +13,7 @@ use std::collections::HashMap;
 use std::sync::Arc;
 
 mod state;
+pub(crate) use state::output_equivalence;
 
 #[derive(Clone, Copy, Debug)]
 pub enum PrecisionCheck {
@@ -232,7 +233,7 @@ fn precision_check_body(
                         for (entry, diagnostic) in entries[start..].iter_mut().zip([
                             "Verus Infer: callback precondition must include every safe execution",
                             "Verus Infer: callback equation must hold independently of the caller precondition",
-                            "Verus Infer: callback equation must determine its Boolean output exactly",
+                            "Verus Infer: callback equation must determine its complete output exactly",
                         ]) {
                             let StmX::Assume(condition) = &entry.x else {
                                 return Err(error(&stm.span, "Verus Infer incomplete: malformed callback precision goal"));

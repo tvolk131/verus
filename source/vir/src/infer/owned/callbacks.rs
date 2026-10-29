@@ -1,4 +1,4 @@
-//! Pure scalar callback candidates. Generated contracts are checked against the
+//! Pure callback candidates. Generated contracts are checked against the
 //! original executable closure, and decoration cannot change its body or binds.
 use super::*;
 
@@ -116,6 +116,15 @@ impl Engine<'_> {
         s: &State,
         e: &Expr,
     ) -> Result<(VarBinder<Typ>, Term, Term), VirErr> {
+        let (param, pre, value) = self.callback_value(s, e, true)?;
+        Ok((param, pre, value.scalar(&e.span)?))
+    }
+    pub(super) fn callback_value(
+        &mut self,
+        s: &State,
+        e: &Expr,
+        boolean_only: bool,
+    ) -> Result<(VarBinder<Typ>, Term, Val), VirErr> {
         let mut e = e;
         loop {
             match &e.x {
@@ -145,18 +154,18 @@ impl Engine<'_> {
         else {
             return Err(unsupported(
                 &e.span,
-                "native predicates require a direct executable closure",
+                "inferred callbacks require a direct executable closure",
             ));
         };
         if params.len() != 1
-            || !matches!(&*ret.a, TypX::Bool)
+            || boolean_only && !matches!(&*ret.a, TypX::Bool)
             || !requires.is_empty()
             || !ensures.is_empty()
             || self.callbacks.iter().any(|p| p.span == e.span.id)
         {
             return Err(unsupported(
                 &e.span,
-                "native predicates require one immutable value and no handwritten contracts",
+                "inferred callbacks require one immutable value and no handwritten contracts",
             ));
         }
         crate::ast_visitor::expr_visitor_check(body, &mut |_, e| {
@@ -169,14 +178,18 @@ impl Engine<'_> {
                     | ExprX::Return(_)
                     | ExprX::NonSpecClosure { .. }
                     | ExprX::Ghost { .. }
-                    | ExprX::Call { .. }
                     | ExprX::AssertAssume { .. }
                     | ExprX::AssertBy { .. }
             ) {
                 Err(unsupported(
                     &e.span,
-                    "native predicate callbacks must be pure scalar expressions",
+                    "inferred callbacks must be immutable expressions",
                 ))
+            } else if let ExprX::Call { target: CallTarget::Fun(_, n, ..), .. } = &e.x {
+                if boolean_only || self.all.get(n).is_some_and(|f|
+                    f.x.params.iter().any(|p| matches!(&*p.x.typ, TypX::MutRef(_)))) {
+                    Err(unsupported(&e.span, "mapped callbacks require immutable calls"))
+                } else { Ok(()) }
             } else {
                 Ok(())
             }
@@ -186,20 +199,16 @@ impl Engine<'_> {
         let p = &params[0];
         local.locals.insert(
             p.name.clone(),
-            self.layout(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())), 5)?,
+            self.layout(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())), 8)?,
         );
         let start = self.requirements.len();
-        let value = self.expr(&mut local, body)?.scalar(&e.span)?;
+        let value = self.expr(&mut local, body)?;
         let reqs = self.requirements.drain(start..).collect::<Vec<_>>();
         let mut pre = boolean(&e.span, true);
         for req in reqs {
             pre = logical(&e.span, LogicalOp::And, pre, req)?;
         }
-        let post = records::equal(
-            &e.span,
-            atom(SpannedTyped::new(&e.span, &ret.a, ExprX::Var(ret.name.clone())))?,
-            value.clone(),
-        )?;
+        let post = self.post(&value, &SpannedTyped::new(&e.span, &ret.a, ExprX::Var(ret.name.clone())))?;
         pure_contract(&pre.expr)?;
         pure_contract(&post.expr)?;
         self.callbacks.push(Plan {
@@ -288,8 +297,8 @@ pub(super) fn strip(body: &Expr) -> Result<Expr, VirErr> {
 fn pure_contract(e: &Expr) -> Result<(), VirErr> {
     loops::pure(e)?;
     crate::ast_visitor::expr_visitor_check(e, &mut |_, e| {
-        if matches!(&e.x, ExprX::Call { .. } | ExprX::Quant(..) | ExprX::Closure(..)) {
-            Err(unsupported(&e.span, "callback contracts require pure scalar conditions"))
+        if matches!(&e.x, ExprX::Quant(..) | ExprX::Closure(..)) {
+            Err(unsupported(&e.span, "callback contracts require pure expressions without binders"))
         } else {
             Ok(())
         }

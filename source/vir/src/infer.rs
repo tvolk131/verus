@@ -43,6 +43,14 @@ mod cloning;
 
 pub fn is_owned_summary(f:&Function)->bool{f.x.attrs.infer && f.x.attrs.infer_owned}
 
+/// Bare borrowed object results retain complete value identity. This observation
+/// is selected by the signature, independently of any candidate postcondition.
+pub(crate) fn identity_borrow_return(f: &Function) -> bool {
+    matches!(&*f.x.inner_ret.x.typ,TypX::Decorate(TypDecoration::Ref,None,t)
+        if matches!(&**t,TypX::Datatype(..)|TypX::TypParam(_)|TypX::Projection{..}))
+}
+pub fn borrowed_observation_source(f:&Function)->Option<Fun>{owned::borrowed::source(f)}
+
 /// Pure vocabulary used only in proposed contracts, never an executable model.
 pub fn is_pure_observation(f: &Function) -> bool {
     f.x.mode == Mode::Spec && f.x.require.is_empty() && f.x.ensure.0.is_empty()
@@ -63,6 +71,9 @@ pub fn is_panic_maximality_model(f:&Function,types:&Typs)->bool {
 }
 pub fn is_native_iterator_maximality_model(f:&Function,types:&Typs)->bool {
     iterators::model(f).is_some() && types.len()==f.x.typ_params.len()
+}
+pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
+    owned::result_map::model(f) && types.len() == f.x.typ_params.len()
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
@@ -233,6 +244,9 @@ fn conditional(span: &Span, c: Term, a: Term, b: Term) -> Result<Term, VirErr> {
     if is_bool(&a, true) && is_bool(&b, true) {
         return Ok(a);
     }
+    if is_bool(&a,false) && is_bool(&b,false) {return Ok(a);}
+    if is_bool(&a,true) && is_bool(&b,false) {return Ok(c);}
+    if is_bool(&a,false) && is_bool(&b,true) {return exits::not(span,c);}
     let typ = a.expr.typ.clone();
     term(span, &typ, ExprX::If(c.expr, a.expr, Some(b.expr)), 1 + c.size + a.size + b.size)
 }
@@ -716,6 +730,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 if is_owned_summary(f) && owned::native_scaffold_call(f,e,all){return Ok(());}
                 if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
+                if is_owned_summary(f) && owned::result_map::call(e,all).is_some(){return Ok(());}
                 if is_owned_summary(f) && (iterators::source_call(e,all).is_some() || iterators::operation(e,all).is_some()){return Ok(());}
                 if is_owned_summary(f) && equality::source_call(e, all).is_some() { return Ok(()); }
                 if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
@@ -814,7 +829,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()

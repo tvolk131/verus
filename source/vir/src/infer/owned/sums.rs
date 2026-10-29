@@ -54,6 +54,15 @@ pub(super) fn field(t: &Typ, v: &str) -> FieldOpr {
     }
 }
 impl Engine<'_> {
+    pub(super) fn result_parts(&self, span: &Span, input: &Val) -> Result<(Term, Option<Box<Val>>, Option<Box<Val>>), VirErr> {
+        if let Node::Result(ok,a,b)=&input.node {return Ok((ok.clone(),a.clone(),b.clone()));}
+        let (a,b)=result(&input.typ).ok_or_else(||unsupported(span,"Result parts type"))?;
+        let value=input.scalar(span)?;
+        let TypX::Datatype(dt,..)=&*input.typ else{unreachable!()};
+        Ok((variant_test(span,value.clone(),dt,&Arc::new("Ok".into()))?,
+            Some(Box::new(self.layout(field_expr(&value.expr,&field(&input.typ,"Ok"),a),8)?)),
+            Some(Box::new(self.layout(field_expr(&value.expr,&field(&input.typ,"Err"),b),8)?))))
+    }
     pub(super) fn propagate(
         &mut self,
         s: &mut State,
@@ -67,18 +76,15 @@ impl Engine<'_> {
             .ok_or_else(|| unsupported(&e.span, "Result propagation input"))?;
         let (_, target_err) = result(&p.return_type)
             .ok_or_else(|| unsupported(&e.span, "Result propagation output"))?;
-        if [ok_typ, err_typ, target_err].iter().any(|t| {
-            !records::shape::value_type(t, &self.f.x.typ_params, self.ds, 5)
-        }) {
-            return Err(unsupported(&e.span, "structured ? requires bounded value payloads"));
-        }
         let input = self.expr(s, &p.operand)?;
-        let value = input.scalar(&e.span)?;
-        let TypX::Datatype(dt, ..) = &*input.typ else { unreachable!() };
-        let ok = variant_test(&e.span, value.clone(), dt, &Arc::new("Ok".into()))?;
+        let (ok,success,error) = self.result_parts(&e.span,&input)?;
         // Ordinary projections are used only under their selected variant's
         // path. An absent payload is irrelevant under the impossible tag.
-        let success = self.layout(field_expr(&value.expr, &field(&input.typ, "Ok"), ok_typ), 5)?;
+        let success=if let Some(v)=success {*v} else if crate::ast_util::is_unit(ok_typ) {
+            Val::atom(exits::unit_value(&e.span)?)
+        } else {
+            self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,"Ok"),ok_typ),8)?
+        };
         let failed = logical(
             &e.span, LogicalOp::And, s.active.clone(), exits::not(&e.span, ok.clone())?,
         )?;
@@ -87,8 +93,12 @@ impl Engine<'_> {
             // type. Preserve it instead of projecting and rebuilding its value.
             input
         } else {
-            let error = self.layout(field_expr(&value.expr, &field(&input.typ, "Err"), err_typ), 5)?;
-            let error = Val::atom(coerce(&e.span, error.scalar(&e.span)?, target_err)?);
+            let error=if let Some(v)=error {*v} else {
+                self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,"Err"),err_typ),8)?
+            };
+            let error=if same(err_typ,target_err) {error} else {
+                Val::atom(coerce(&e.span,error.scalar(&e.span)?,target_err)?)
+            };
             self.result_value(
                 &e.span, p.return_type,
                 Node::Result(boolean(&e.span, false), None, Some(Box::new(error))),

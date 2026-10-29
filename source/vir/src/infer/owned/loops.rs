@@ -432,6 +432,7 @@ pub(super) fn pure(e: &Expr) -> Result<(), VirErr> {
                 ]
                 .iter()
                 .any(|p| models::path_is(&name.path, CrateId::Vstd, p))
+                    || borrowed::is_value_name(name)
                     || name.path.krate == CrateId::Vstd
                         && name.path.segments.len() == 3
                         && name.path.segments[0].as_str() == "seq"

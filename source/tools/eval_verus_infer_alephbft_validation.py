@@ -57,6 +57,44 @@ def full_validation_api(control):
         '// ORIGINAL_FULL_VALIDATION', '\n'.join(methods))
 
 
+def parent_validation_api(api, units, validator, signature):
+    """Infer original accessors and parent orchestration; supply only interfaces/policy."""
+    for marker, expected in (
+        ('pub struct UncheckedSigned<', 'signable:T,signature:S,'),
+        ('pub struct Signed<', 'unchecked:UncheckedSigned<T,K::Signature>,'),
+    ):
+        fields = item(signature, marker)[2].split('{', 1)[1].rsplit('}', 1)[0]
+        if re.sub(r'\s+', '', fields) != expected:
+            raise ValueError('signed wrapper representation changed: '+marker)
+    for adapted, original, methods in (
+        ('impl UnitCoord', 'impl UnitCoord', ['pub fn new(', 'pub fn creator(', 'pub fn round(']),
+        ('impl<H: Hasher> PreUnit<H>', 'impl<H: Hasher> PreUnit<H>',
+         ['pub(crate) fn new(', 'pub(crate) fn n_members(', 'pub(crate) fn creator(',
+          'pub(crate) fn round(', 'pub(crate) fn control_hash(']),
+        ('impl<H: Hasher, D: CloneView> FullUnit<H, D>', 'impl<H: Hasher, D: Data> FullUnit<H, D>',
+         ['pub(crate) fn as_pre_unit(']),
+    ):
+        start, end, implementation = item(api, adapted)
+        source = item(units, original)[2]
+        for marker in methods:
+            a, b, _ = item(implementation, marker)
+            implementation = implementation[:a]+'#[verifier::infer]\n'+item(source, marker)[2]+implementation[b:]
+        api = api[:start]+implementation+api[end:]
+    signed = item(signature, 'impl<T: Signable + Index, K: Keychain> Signed<T, K>')[2]
+    parent = item(validator, 'impl<K: Keychain> Validator<K>')[2]
+    models = (FIXTURES/'parent_validation_models.rs').read_text()
+    for marker, original in (
+        ('// ORIGINAL_SIGNED_ACCESSOR', item(signed, 'pub fn as_signable(')[2]),
+        ('// ORIGINAL_VALIDATION_ERROR', item(validator, 'pub enum ValidationError')[2]),
+        ('// ORIGINAL_VALIDATOR', item(validator, 'pub struct Validator')[2]),
+        ('// ORIGINAL_PARENT_VALIDATION', item(parent, 'fn validate_unit_parents<')[2]),
+    ):
+        if models.count(marker) != 1:
+            raise ValueError('parent fixture marker changed: '+marker)
+        models = models.replace(marker, original)
+    return api+models
+
+
 def native_construction_runtime(runtime):
     old = 'let control = ControlHash::<Hasher64> { parents, combined_hash: [0; 8] };'
     new = """let mut hashes = NodeMap::with_size(NodeCount(size));
@@ -140,13 +178,16 @@ def main():
     parser.add_argument('--native-pipelines', action='store_true')
     parser.add_argument('--native-construction', action='store_true')
     parser.add_argument('--full-validation', action='store_true')
+    parser.add_argument('--parent-validation', action='store_true')
     parser.add_argument('--native-target', type=Path)
     args = parser.parse_args()
+    if args.parent_validation:
+        args.full_validation = True
     if args.full_validation:
         args.native_construction = True
     if args.native_construction:
         args.native_pipelines = True
-    inferred_count = 18 if args.full_validation else 16 if args.native_construction else 15
+    inferred_count = 29 if args.parent_validation else 18 if args.full_validation else 16 if args.native_construction else 15
     output = args.output.resolve()
     if output.exists() and any(output.iterdir()):
         parser.error('output must be new or empty')
@@ -178,6 +219,10 @@ def main():
             api = api.replace('vstd::std_specs::iter_adapters::group_native_adapter_axioms};',
                 'vstd::std_specs::iter_adapters::group_native_adapter_axioms,vstd::std_specs::cmp::group_eq_identity};')
             api += full_validation_api(control)
+        if args.parent_validation:
+            validator, signature = [git(checkout, 'show', f'{REVISION}:{path}') for path in
+                ('consensus/src/units/validator.rs', 'crypto/src/signature.rs')]
+            api = parent_validation_api(api, units, validator, signature)
         result['source'] = dict(**origin,
             bodies='original six-variant Error<H>, own-parent lookup, n_members, runtime assertion and three-stage ? orchestration',
             adaptations='two iterator pipelines replaced by ordinary checked finite collection queries; positive-round validation scope',
@@ -203,6 +248,12 @@ def main():
                 construction_goals='input-map length and per-slot round projection; full construction-to-validation caller without supplied fold induction',
                 equality='explicit checked PartialEqIdentity bound on the supplied Hasher interface; no assumption that Rust Eq implies value identity',
                 not_claimed='automatic factory/view or policy discovery, proof of SCALE bytes/hash security, arbitrary loops, full crate/protocol correctness')
+        if args.parent_validation:
+            result['source'].update(
+                parent_validation='original validate_unit_parents, map_err closure, signed accessor and nine unit accessors/constructors infer exact summaries',
+                parent_policy='supplied member-check priority, complete PreUnit error views, exact wrapped ControlHash error, unchanged complete Signed success value and conditional creator bound',
+                signed_boundary='already checked Signed input; source field layout and as_signable body retained; reduced marker traits and supplied Keychain count equation; no authentication/signing proof',
+                not_claimed='outer validate_unit signature/session/max-round validation, automatic policy/view discovery, SCALE/hash security, full crate/protocol correctness')
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK='20971520',
                    VERUS_INFER_CACHE=str(output/'candidate-cache'))
         codec_lib, codec_vir = directory/'libcodec_model.rlib', directory/'codec_model.vir'
@@ -260,6 +311,21 @@ def main():
                 'Error::RoundZeroBadControlHash(\n                recalculated_control_hash,\n                self.combined_hash,'), False))
             cases.insert(-1, ('wrong-round-dispatch', api.replace(
                 '0 => self.validate_initial_round()', '1 => self.validate_initial_round()'), False))
+        if args.parent_validation:
+            cases.insert(-1, ('wrong-member-test', api.replace(
+                'n_members != self.keychain.node_count()', 'n_members == self.keychain.node_count()'), False))
+            cases.insert(-1, ('wrong-parent-error', api.replace(
+                'ValidationError::ParentValidationFailed(pre_unit.clone(), e)',
+                'ValidationError::ParentValidationFailed(pre_unit.clone(), Error::NotEnoughParentsForRound(0))'), False))
+            cases.insert(-1, ('wrong-parent-copy-goal', api.replace(
+                'copy@==pre@', 'copy@.1==pre@.1 + 1'), False))
+            # Change just this call: other validators must retain their own ?.
+            original = item(item(validator, 'impl<K: Keychain> Validator<K>')[2], 'fn validate_unit_parents<')[2]
+            ignored = original.replace('pre_unit\n            .control_hash',
+                'let _: core::result::Result<(),ValidationError<H,D,K::Signature>> = pre_unit\n            .control_hash').replace('))?;', '));')
+            cases.insert(-1, ('ignored-parent-error', api.replace(original, ignored), False))
+            cases.insert(-1, ('missing-parent-creator-bound', api.replace(
+                '|| su.pre_value().0.0<su.pre_value().2.0.len(),', '|| true,'), False))
         for case, text, expected in cases:
             if not expected and text == api:
                 raise ValueError('ineffective mutation: '+case)
@@ -341,6 +407,17 @@ def main():
             if args.full_validation and 'NATIVE_INITIAL_VALIDATION_CASES=254' not in run['stdout']:
                 raise ValueError('native initial validation corpus did not complete')
             result['native'].append(dict(case='untouched-native', returncode=run['returncode'], wall_micros=run['wall_micros']))
+            if args.parent_validation:
+                guard.check(); codec_guard.check()
+                run = measured(['cargo', 'test', '--offline', '-p', 'aleph-bft', '--lib',
+                    'units::validator::tests::', '--', '--test-threads=1'], native_env, 600, checkout)
+                guard.check(); codec_guard.check()
+                (output/'native-validator.stdout.txt').write_text(run['stdout'])
+                (output/'native-validator.stderr.txt').write_text(run['stderr'])
+                validate_native(run, True, 'native-parent-validation')
+                if '6 passed' not in run['stdout']:
+                    raise ValueError('original native validator tests did not all execute')
+                result['native'].append(dict(case='untouched-native-validator', returncode=run['returncode'], wall_micros=run['wall_micros']))
         result['success'] = True
     except Exception as error:
         result['success'], result['error'] = False, str(error)

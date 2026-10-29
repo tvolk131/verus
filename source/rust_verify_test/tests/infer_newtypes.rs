@@ -105,10 +105,11 @@ test_verify_one_file! {
 }
 
 test_verify_one_file! {
-    #[test] returning_wrapper_references_is_rejected verus_code! {
+    #[test] returned_wrapper_references_preserve_complete_values verus_code! {
         struct Count(u8);
         #[verifier::infer] fn borrow(x: &Count) -> &Count { x }
-    } => Err(e) => assert_vir_error_msg(e, "returning wrapper references")
+        fn goal(x:&Count)->(r:&Count) ensures r.0==x.0,{borrow(x)}
+    } => Ok(())
 }
 
 test_verify_one_file! {

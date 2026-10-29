@@ -856,6 +856,41 @@ state input-map bounds and per-slot projection goals without fold induction.
 Collection views, factory proofs, equality law, application policy and the codec
 boundary remain explicit supplied inputs.
 
+The existing standard `Result::map_err` contract also composes a direct immutable
+closure with bounded scalar, record or collection-bearing enum output:
+
+```rust,ignore
+#[verus_infer]
+fn attach_context(input: Result<u8, u16>, context: &Snapshot) -> Result<u8, Error> {
+    input.map_err(|code| Error::WithContext(context.clone(), code))
+}
+```
+
+`Snapshot` must have a checked Clone relation for the proposed complete field
+observations; `Copy` or `Clone` alone supplies no identity law. Every variant tag
+and guarded payload observation participates in output exactness. The closure's
+original body separately proves safety, maximality and output precision. A partial
+callback restricts the outer domain only on its error path. Captured mutation,
+arbitrary callbacks, conversion traits and unbounded recursive enums remain outside
+this profile. No new standard-library assumption is added for `map_err`.
+
+Direct shared getters returning an object can infer complete logical value
+identity. For `fn inner(&self) -> &Inner { &self.inner }`, inference creates an
+ordinary closed spec projection and proves the executable getter's equation.
+Generated definitions undergo the normal well-formedness and mode checks; their
+bodies stay private to the owner. This supports accessor chains through opaque
+objects, including records with type invariants, without exporting private field
+selectors. Preserving an opaque object does not infer its representation, invariant
+or Clone behavior. Pure contract substitution is read-only and cannot add an
+execution-path condition.
+
+Aleph's `--parent-validation` experiment uses these features on the unchanged
+`Validator::validate_unit_parents` body. Its supplied policy checks member-count
+priority, complete PreUnit views in errors, exact nested ControlHash errors, and
+complete Signed value identity on success. Signed authentication and Keychain's
+count equation remain explicit interfaces; the outer signature/session/round
+validator is separate work.
+
 ## Checked finite collection queries
 
 `vstd::iter` provides ordinary verified implementations of `SparseIter` for

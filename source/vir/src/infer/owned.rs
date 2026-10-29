@@ -8,6 +8,9 @@ mod sums;
 mod callbacks;
 mod native_for;
 mod mutations;
+pub(crate) mod result_map;
+mod variants;
+pub(crate) mod borrowed;
 use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
@@ -15,6 +18,12 @@ fn same(a: &Typ, b: &Typ) -> bool {
 }
 fn base(t: &Typ) -> &Typ {
     if let TypX::Decorate(TypDecoration::Ref, None, t) = &**t { t } else { t }
+}
+// An invariant-bearing executable object can be preserved as a complete value.
+// No representation or clone equation is inferred for that opaque object.
+fn opaque_identity(t: &Typ, ds: &[Datatype]) -> bool {
+    matches!(&**base(t),TypX::Datatype(dt,_,_) if ds.iter().any(|d|
+        &d.x.name==dt && d.x.mode==Mode::Exec && d.x.user_defined_invariant_fn.is_some()))
 }
 fn option(t: &Typ) -> Option<&Typ> {
     match &**t {
@@ -44,11 +53,20 @@ fn heap_known(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype], depth: usi
             || sums::result(t).is_some_and(|(a, b)| {
                 heap_known(a, all, ds, depth - 1) || heap_known(b, all, ds, depth - 1)
             })
+            || records::shape::variants(base(t), ds).is_some_and(|vs|vs.iter().any(|(_,fs)|
+                fs.iter().any(|(_,t)|heap_known(t,all,ds,depth-1))))
             || records::shape::fields(base(t), ds)
                 .is_some_and(|fs| fs.iter().any(|(_, t)| heap_known(t, all, ds, depth - 1))))
 }
 fn result_query(f:&Function)->bool {
     records::candidate(f) && !records::mutable(f) && sums::result(&f.x.inner_ret.x.typ).is_some()
+}
+fn structured_return(f:&Function,ds:&[Datatype])->bool {
+    matches!(f.x.kind,FunctionKind::Static)
+        && (identity_borrow_return(f)
+            || records::shape::fields(&f.x.inner_ret.x.typ,ds).is_some_and(|fs|
+                fs.len()>1 || records::candidate(f) && records::shape::root_type(f).is_some_and(|t|
+                    records::shape::fields(t,ds).is_some_and(|fs|fs.len()>1))))
 }
 pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -> Vec<Function> {
     let all=fs.iter().chain(imported).map(|f|(f.x.name.clone(),f.clone())).collect();
@@ -56,9 +74,10 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
         .map(|f| {
             let mut x = f.x.clone();
             Arc::make_mut(&mut x.attrs).infer_owned =
-                x.attrs.infer && (heap_known(&x.inner_ret.x.typ, &all, ds, 5) || result_query(f)
+                x.attrs.infer && (heap_known(&x.inner_ret.x.typ, &all, ds, 8) || result_query(f)
+                    || structured_return(f,ds)
                     || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all));
+                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all) || result_map::uses(f,&all));
             f.new_x(x)
         })
         .collect()
@@ -78,6 +97,7 @@ enum Node {
     Fields(Vec<(FieldOpr, Val)>),
     Option(Term, Option<Box<Val>>),
     Result(Term, Option<Box<Val>>, Option<Box<Val>>),
+    Variants(Vec<variants::Branch>),
 }
 impl Val {
     fn atom(t: Term) -> Self {
@@ -148,7 +168,9 @@ impl Engine<'_> {
         fn place(s:&State,p:&Place,depth:usize)->Result<Term,VirErr>{
             if depth==0{return Err(unsupported(&p.span,"query receiver projection depth"));}
             match &p.x {
-                PlaceX::Local(n)=>s.objects.get(n).cloned().ok_or_else(||unsupported(&p.span,"query receiver needs an original immutable object")),
+                PlaceX::Local(n)=>s.objects.get(n).cloned().or_else(||match &s.locals.get(n)?.node {
+                    Node::Atom(t)=>Some(t.clone()),_=>None,
+                }).ok_or_else(||unsupported(&p.span,"query receiver needs a complete immutable value")),
                 PlaceX::Temporary(e)=>expr(s,e,depth-1),
                 PlaceX::Field(op,base)=>{let v=place(s,base,depth-1)?;term(&p.span,&p.typ,ExprX::UnaryOpr(UnaryOpr::Field(op.clone()),v.expr),v.size+1)},
                 _=>Err(unsupported(&p.span,"query receiver projection")),
@@ -157,9 +179,12 @@ impl Engine<'_> {
         fn expr(s:&State,e:&Expr,depth:usize)->Result<Term,VirErr>{
             if depth==0{return Err(unsupported(&e.span,"query receiver projection depth"));}
             match &e.x {
-                ExprX::Var(n)=>s.objects.get(n).cloned().ok_or_else(||unsupported(&e.span,"query receiver needs an original immutable object")),
+                ExprX::Var(n)=>s.objects.get(n).cloned().or_else(||match &s.locals.get(n)?.node {
+                    Node::Atom(t)=>Some(t.clone()),_=>None,
+                }).ok_or_else(||unsupported(&e.span,"query receiver needs a complete immutable value")),
                 ExprX::ReadPlace(p,_)=>place(s,p,depth-1),
                 ExprX::UnaryOpr(UnaryOpr::Field(op),a)=>{let v=expr(s,a,depth-1)?;term(&e.span,&e.typ,ExprX::UnaryOpr(UnaryOpr::Field(op.clone()),v.expr),v.size+1)},
+                ExprX::Block(ss,Some(tail)) if ss.is_empty()=>expr(s,tail,depth-1),
                 _=>Err(unsupported(&e.span,"query receiver must borrow an original immutable object")),
             }
         }
@@ -313,6 +338,10 @@ impl Engine<'_> {
                     self.layout(field_expr(&e, &sums::field(&typ, "Err"), err), depth - 1)?,
                 )),
             )
+        } else if let Some(node) = self.variants_layout(&e, depth)? {
+            node
+        } else if opaque_identity(&typ, self.ds) {
+            Node::Atom(atom(e)?)
         } else if let Some(fields) = records::shape::fields(&typ, self.ds) {
             Node::Fields(
                 fields
@@ -340,14 +369,37 @@ impl Engine<'_> {
                 .map(|(_, v)| v)
                 .ok_or_else(|| unsupported(s, "owned field")),
             Node::Atom(t) => {
-                let fs =
-                    records::constructor_fields(s, &v.typ, &op.datatype, &op.variant, self.ds)?;
+                let fs = records::constructor_fields(s, &v.typ, &op.datatype, &op.variant, self.ds)
+                    .or_else(|err| {
+                        if !opaque_identity(&v.typ,self.ds) {return Err(err);}
+                        let TypX::Datatype(dt,args,..)=&*v.typ else{return Err(err);};
+                        let d=self.ds.iter().find(|d|&d.x.name==dt).ok_or_else(||err.clone())?;
+                        if &op.datatype!=dt || d.x.variants.len()!=1 || op.variant!=d.x.variants[0].name {
+                            return Err(err);
+                        }
+                        let ts=d.x.typ_params.iter().zip(args.iter()).map(|(p,t)|(p.0.clone(),t.clone())).collect();
+                        Ok(d.x.variants[0].fields.iter().filter(|f|f.a.1==Mode::Exec).map(|f|
+                            (f.name.clone(),crate::sst_util::subst_typ(&ts,&f.a.0))).collect())
+                    })?;
                 let typ = fs
                     .into_iter()
                     .find(|(n, _)| n == &op.field)
                     .ok_or_else(|| unsupported(s, "owned scalar field"))?
                     .1;
-                Ok(Val::atom(atom(field_expr(&t.expr, op, &typ))?))
+                // Keep complete value equations compact when a helper returns
+                // a record constructor. Reading one field must not substitute
+                // every sibling (and their entire caller expressions) again.
+                let mut whole=&t.expr;
+                while let ExprX::ReadPlace(p,_)=&whole.x {
+                    if let PlaceX::Temporary(inner)=&p.x {whole=inner;} else {break;}
+                }
+                let e=if let ExprX::Ctor(dt,variant,fs,None)=&whole.x {
+                    if dt==&op.datatype && variant==&op.variant {
+                        fs.iter().find(|f|f.name==op.field).map(|f|f.a.clone())
+                            .ok_or_else(||unsupported(s,"missing complete constructor field"))?
+                    } else {field_expr(&t.expr,op,&typ)}
+                } else {field_expr(&t.expr,op,&typ)};
+                if heap_known(&typ,self.all,self.ds,8) {self.layout(e,8)} else {Ok(Val::atom(atom(e)?))}
             }
             Node::Seq(t) => {
                 let view = sequence_views::find(&v.typ, self.all, self.ds)
@@ -362,6 +414,10 @@ impl Engine<'_> {
                     .ok_or_else(|| unsupported(s, "owned vector storage unavailable"))?;
                 Ok(Val { typ, node: Node::Seq(t) })
             }
+            Node::Variants(vs)=>vs.into_iter().find(|(v,_,_)|v==&op.variant)
+                .and_then(|(_,_,fs)|fs).and_then(|fs|fs.into_iter().find(|(field,_)|
+                    field.datatype==op.datatype && field.field==op.field)).map(|(_,v)|v)
+                .ok_or_else(||unsupported(s,"structured enum field outside a present payload")),
             _ => Err(unsupported(s, "owned field projection")),
         }
     }
@@ -435,6 +491,7 @@ impl Engine<'_> {
         }
         if let Some(source)=native_for::source(e){return self.native_for(s,&source);}
         let span = &e.span;
+        if let Some(args) = result_map::call(e, self.all) { return self.map_error(s, e, &args); }
         if let Some((spec,types,args))=iterators::source_call(e,self.all) {
             let values=args.iter().enumerate().map(|(i,a)|{
                 if i==0 {self.object(s,a)}else{self.expr(s,a)?.scalar(&a.span)}
@@ -531,6 +588,9 @@ impl Engine<'_> {
                 Ok(Val::atom(logical(span, *op, a, b)?))
             }
             ExprX::Ctor(dt, variant, fs, None) => {
+                if variants::has_heap_enum(&e.typ,self.all,self.ds,8) && records::shape::variants(&e.typ,self.ds).is_some() {
+                    return self.variants_ctor(s,e,variant,fs);
+                }
                 if sums::result(&e.typ).is_some() {
                     if fs.len() != 1 || !matches!(variant.as_str(), "Ok" | "Err") {
                         return Err(unsupported(span, "Result constructor shape"));
@@ -692,14 +752,12 @@ impl Engine<'_> {
                 post_args: None,
                 body: None,
             } => {
-                if self.all.get(name).and_then(collections::model)
-                    == Some(collections::Model::SeqIndex)
-                {
+                if let Some(m @ (collections::Model::SeqLen|collections::Model::SeqIndex|collections::Model::SeqUpdate)) = self.all.get(name).and_then(collections::model) {
                     let values =
                         args.iter().map(|a| self.formula(s, a)).collect::<Result<Vec<_>, _>>()?;
                     return Ok(Val::atom(self.standard(
                         span,
-                        collections::Model::SeqIndex,
+                        m,
                         (**types).clone(),
                         values,
                     )?));
@@ -746,8 +804,13 @@ impl Engine<'_> {
                     )?));
                 }
                 if cloning::call(e, self.all) {
-                    let v = self.expr(s, &args[0])?;
-                    if !matches!(v.node, Node::Seq(_)) {
+                    let mut v = self.expr(s, &args[0])?;
+                    if let Node::Atom(t)=&v.node {
+                        if records::shape::fields(base(&v.typ),self.ds).is_some() {
+                            v=self.layout(t.expr.clone(),8)?;
+                        }
+                    }
+                    if !matches!(v.node, Node::Seq(_) | Node::Fields(_)) {
                         return Err(unsupported(
                             span,
                             "native Clone inference requires a certified sequence view",
@@ -929,11 +992,19 @@ impl Engine<'_> {
         };
         let mut local = State { locals: HashMap::new(), objects:HashMap::new(), active: s.active.clone() };
         for (p, a) in f.x.params.iter().zip(args.iter()) {
-            local.locals.insert(p.x.name.clone(), self.expr(s, a)?);
+            let value=self.expr(s,a)?;
             if let Ok(origin)=self.object(s,a){local.objects.insert(p.x.name.clone(),origin);}
+            else if let Node::Atom(t)=&value.node {local.objects.insert(p.x.name.clone(),t.clone());}
+            local.locals.insert(p.x.name.clone(), value);
         }
         let pre = self.formula(&mut local, &subst(&f.x.require[0])?)?;
         self.require(s, pre)?;
+        if identity_borrow_return(f) {
+            let post=subst(&f.x.ensure.0[0])?;
+            let rhs=find_rhs(&SpannedTyped::new(&f.span,&crate::sst_util::subst_typ(&ts,&f.x.inner_ret.x.typ),
+                ExprX::Var(f.x.inner_ret.x.name.clone())),&[post])?;
+            return Ok(Val::atom(self.formula(&local,&rhs)?));
+        }
         if !f.x.attrs.infer_owned {
             let post = subst(&f.x.ensure.0[0])?;
             let ExprX::Binary(BinaryOp::Eq(Mode::Spec), lhs, rhs) = &post.x else {
@@ -946,13 +1017,14 @@ impl Engine<'_> {
         }
         let ret = crate::sst_util::subst_typ(&ts, &f.x.inner_ret.x.typ);
         let root = SpannedTyped::new(&f.span, &ret, ExprX::Var(f.x.inner_ret.x.name.clone()));
-        let layout = self.layout(root.clone(), 5)?;
+        let layout = self.layout(root.clone(), 8)?;
         let post = subst(&f.x.ensure.0[0])?;
         let mut clauses = vec![];
         split(&post, &mut clauses);
         self.decode_parts(&mut local, &root, &layout, &clauses)
     }
-    fn formula(&mut self, s: &mut State, e: &Expr) -> Result<Term, VirErr> {
+    fn formula(&self, s: &State, e: &Expr) -> Result<Term, VirErr> {
+        if let Some(value)=arithmetic::arch_constant(e) {return Ok(value);}
         // Summary calls are pure and use only existing sequence/view models.
         if let ExprX::Call {
             target: CallTarget::Fun(kind, name, types, ..),
@@ -975,7 +1047,7 @@ impl Engine<'_> {
                 || self.all.get(resolved).and_then(collections::model)
                     == Some(collections::Model::View)
             {
-                let v = self.expr(s, &args[0])?;
+                let v = self.formula_value(s, &args[0])?;
                 if let Node::Seq(t) = v.node {
                     return Ok(t);
                 }
@@ -1002,12 +1074,27 @@ impl Engine<'_> {
                 return self.lib(&e.span, m, (**types).clone(), values);
             }
             if self.all.get(name).is_some_and(is_pure_observation) {
-                let values = args.iter().map(|a| self.formula(s, a).map(|v| v.expr)).collect::<Result<Vec<_>, _>>()?;
+                let whole=self.all.get(name).is_some_and(borrowed::is_value);
+                let values = args.iter().map(|a| {
+                    if whole {self.object(s,a).or_else(|_|self.formula(s,a))} else {self.formula(s,a)}
+                }.map(|v|v.expr)).collect::<Result<Vec<_>, _>>()?;
                 let ExprX::Call { target, .. } = &e.x else { unreachable!() };
                 return atom(e.new_x(ExprX::Call { target: target.clone(), args: Arc::new(values), post_args: None, body: None }));
             }
         }
         match &e.x {
+            ExprX::Const(Constant::Bool(_)|Constant::Int(_))=>atom(e.clone()),
+            ExprX::Var(_)|ExprX::ReadPlace(_,_)
+                |ExprX::UnaryOpr(UnaryOpr::Field(_),_)=>self.formula_value(s,e)?.scalar(&e.span),
+            ExprX::UnaryOpr(UnaryOpr::IsVariant{datatype,variant},a)=>{
+                let value=self.formula_value(s,a)?;
+                if let Node::Variants(vs)=&value.node {
+                    return vs.iter().find(|(v,_,_)|v==variant).map(|(_,tag,_)|tag.clone())
+                        .ok_or_else(||unsupported(&e.span,"pure enum tag"));
+                }
+                variant_test(&e.span,value.scalar(&e.span)?,datatype,variant)
+            }
+            ExprX::Block(ss,Some(tail)) if ss.is_empty()=>self.formula(s,tail),
             ExprX::Ctor(..) => self.formula_value(s, e)?.scalar(&e.span),
             ExprX::Closure(params,body)|ExprX::Quant(_,params,body)=>{
                 if params.is_empty() || params.len()>2{return Err(unsupported(&e.span,"native summary binder budget"));}
@@ -1044,10 +1131,27 @@ impl Engine<'_> {
                 let a = self.formula(s, a)?;
                 summary::unary(&e.span, *op, a)
             }
-            _ => self.expr(s, e)?.scalar(&e.span),
+            _ => Err(unsupported(&e.span,"invalid pure owned summary expression")),
         }
     }
-    fn formula_value(&mut self, s: &mut State, e: &Expr) -> Result<Val, VirErr> {
+    fn formula_value(&self, s: &State, e: &Expr) -> Result<Val, VirErr> {
+        match &e.x {
+            ExprX::Var(n)=>return s.locals.get(n).cloned().ok_or_else(||unsupported(&e.span,"pure summary variable")),
+            ExprX::ReadPlace(p,_)=>return self.formula_place(s,p),
+            ExprX::UnaryOpr(UnaryOpr::Field(op),a)=>{
+                let value=self.formula_value(s,a)?;
+                return self.field(value,op,&e.span);
+            }
+            ExprX::If(c,a,Some(b))=>{
+                let c=self.formula(s,c)?;
+                if is_bool(&c,true){return self.formula_value(s,a);}
+                if is_bool(&c,false){return self.formula_value(s,b);}
+                let a=self.formula_value(s,a)?;let b=self.formula_value(s,b)?;
+                return choose(&e.span,c,a,b);
+            }
+            ExprX::Block(ss,Some(tail)) if ss.is_empty()=>return self.formula_value(s,tail),
+            _=>{}
+        }
         if let ExprX::Ctor(dt, variant, fs, None) = &e.x {
             if let Some(fields) = records::shape::fields(&e.typ, self.ds) {
                 return Ok(Val {
@@ -1082,6 +1186,14 @@ impl Engine<'_> {
         }
         Ok(Val::atom(self.formula(s, e)?))
     }
+    fn formula_place(&self,s:&State,p:&Place)->Result<Val,VirErr>{
+        match &p.x {
+            PlaceX::Local(n)=>s.locals.get(n).cloned().ok_or_else(||unsupported(&p.span,"pure summary place")),
+            PlaceX::Temporary(e)=>self.formula_value(s,e),
+            PlaceX::Field(op,base)=>{let value=self.formula_place(s,base)?;self.field(value,op,&p.span)},
+            _=>Err(unsupported(&p.span,"unsupported pure summary place")),
+        }
+    }
     fn post(&self, v: &Val, out: &Expr) -> Result<Term, VirErr> {
         let span = &out.span;
         match &v.node {
@@ -1089,6 +1201,9 @@ impl Engine<'_> {
             Node::Seq(t) => records::equal(span, self.observe(out)?, t.clone()),
             Node::Iterator(..) => Err(unsupported(span,"inferred iterator outputs require a supplied finite view")),
             Node::Fields(fs) => {
+                if records::shape::value_type(&v.typ,&self.f.x.typ_params,self.ds,8) {
+                    return records::equal(span,atom(out.clone())?,v.scalar(span)?);
+                }
                 let mut p = boolean(span, true);
                 for (op, v) in fs {
                     p = logical(
@@ -1101,6 +1216,7 @@ impl Engine<'_> {
                 Ok(p)
             }
             Node::Result(ok, a, b) => self.result_post(ok, a.as_deref(), b.as_deref(), out),
+            Node::Variants(branches) => self.variants_post(branches,out),
             Node::Option(some, payload) => {
                 let tag = tag_expr(out);
                 let mut p = records::equal(span, atom(tag.clone())?, some.clone())?;
@@ -1118,7 +1234,15 @@ impl Engine<'_> {
         }
     }
     fn decode(&mut self, s: &mut State, out: &Expr, post: &Expr) -> Result<Val, VirErr> {
-        let layout = self.layout(out.clone(), 5)?;
+        if identity_borrow_return(self.f) {
+            let rhs=find_rhs(out,&[post.clone()])?;
+            let value=Val::atom(self.formula(s,&rhs)?);
+            if skeleton(&self.post(&value,out)?.expr)!=skeleton(post) {
+                return Err(unsupported(&post.span,"invalid borrowed identity summary"));
+            }
+            return Ok(value);
+        }
+        let layout = self.layout(out.clone(), 8)?;
         let mut clauses = vec![];
         split(post, &mut clauses);
         let v = self.decode_parts(s, out, &layout, &clauses)?;
@@ -1148,6 +1272,11 @@ impl Engine<'_> {
                 let t = self.formula(s, &rhs)?;
                 if matches!(layout.node, Node::Seq(_)) { Node::Seq(t) } else { Node::Atom(t) }
             }
+            Node::Fields(_) if records::shape::value_type(&layout.typ,&self.f.x.typ_params,self.ds,8)
+                && clauses.iter().any(|e|matches!(&e.x,ExprX::Binary(BinaryOp::Eq(Mode::Spec),a,_) if skeleton(a)==skeleton(out))) => {
+                let rhs=find_rhs(out,clauses)?;
+                Node::Atom(self.formula(s,&rhs)?)
+            }
             Node::Fields(fs) => Node::Fields(
                 fs.iter()
                     .map(|(op, v)| {
@@ -1161,6 +1290,7 @@ impl Engine<'_> {
             Node::Result(_, a, b) => {
                 self.result_decode(s, out, a.as_deref(), b.as_deref(), clauses)?
             }
+            Node::Variants(branches)=>self.variants_decode(s,out,branches,clauses)?,
             Node::Option(_, payload) => {
                 let tag = tag_expr(out);
                 let rhs = find_rhs(&tag, clauses)?;
@@ -1286,6 +1416,19 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
             };
             Node::Result(conditional(s, c.clone(), at, bt)?, merge(aa, ba)?, merge(ab, bb)?)
         }
+        (Node::Variants(a),Node::Variants(b)) if a.len()==b.len()=>Node::Variants(
+            a.into_iter().zip(b).map(|((av,at,af),(bv,bt,bf))| {
+                if av!=bv{return Err(unsupported(s,"structured enum branch mismatch"));}
+                let fields=match (af,bf) {
+                    (Some(a),Some(b)) if a.len()==b.len()=>Some(a.into_iter().zip(b).map(|((op,a),(other,b))| {
+                        if !records::shape::same_path(&[op.clone()],&[other]) {return Err(unsupported(s,"structured enum payload mismatch"));}
+                        Ok((op,choose(s,c.clone(),a,b)?))
+                    }).collect::<Result<Vec<_>,VirErr>>()?),
+                    (a,None)|(None,a)=>a,
+                    _=>return Err(unsupported(s,"structured enum payload count")),
+                };
+                Ok((av,conditional(s,c.clone(),at,bt)?,fields))
+            }).collect::<Result<Vec<_>,VirErr>>()?),
         (Node::Option(at, ap), Node::Option(bt, bp)) => Node::Option(
             conditional(s, c.clone(), at, bt)?,
             match (ap, bp) {
@@ -1401,8 +1544,15 @@ pub(super) fn infer(
         s.objects.insert(p.x.name.clone(),atom(SpannedTyped::new(&p.span,&p.x.typ,ExprX::Var(p.x.name.clone())))?);
         s.locals.insert(
             p.x.name.clone(),
-            eng.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 5)?,
+            eng.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 8)?,
         );
+    }
+    if identity_borrow_return(f) {
+        if let Some(value)=eng.borrowed_value(&s,f)? {
+            let body=f.x.body.as_ref().ok_or_else(||unsupported(&f.span,"borrowed projection body missing"))?;
+            let out=SpannedTyped::new(&f.span,&f.x.inner_ret.x.typ,ExprX::Var(f.x.inner_ret.x.name.clone()));
+            return Ok((Contract::new(boolean(&f.span,true).expr,records::equal(&f.span,atom(out)?,value)?.expr)?,body.clone()));
+        }
     }
     let result = eng.expr(
         &mut s,
@@ -1456,7 +1606,7 @@ fn validate_signature(
         || x.attrs.bit_vector
         || x.attrs.integer_ring
         || x.params.len() > 8
-        || x.typ_params.len() > 2
+        || x.typ_params.len() > 4
         || x.params
             .iter()
             .any(|p| p.x.mode != Mode::Exec || p.x.user_mut || matches!(&*p.x.typ, TypX::MutRef(_)))
@@ -1467,10 +1617,11 @@ fn validate_signature(
         || !x.decrease.is_empty()
         || x.decrease_by.is_some()
         || x.decrease_when.is_some()
-        || !(heap_known(&x.inner_ret.x.typ, all, ds, 5) || result_query(f)
+        || !(heap_known(&x.inner_ret.x.typ, all, ds, 8) || result_query(f)
+            || structured_return(f,ds)
             || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
             || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all) || equality::uses(f,all)
-            || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
+            || result_map::uses(f,all) || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {
         return Err(unsupported(
@@ -1492,7 +1643,7 @@ fn validate_signature(
         let t = base(t);
         let sequence =
             collections::vec_args(t).is_some() || sequence_views::find(t, all, ds).is_some();
-        if !sequence {
+        if !sequence && !opaque_identity(t,ds) {
             if let Some(payload) = option(t).filter(|p| heap_known(p, all, ds, 5)) {
                 if *left == 0 {
                     return false;
@@ -1525,11 +1676,13 @@ fn validate_signature(
         *left -= 1;
         true
     }
-    if !consume(&x.inner_ret.x.typ, all, ds, 5, &mut 16) {
-        return Err(unsupported(&f.span, "owned output exceeds 16 observations or type depth"));
+    let extended=variants::has_heap_enum(&x.inner_ret.x.typ,all,ds,8);
+    let (depth,budget)=if extended {(8,64)}else{(5,16)};
+    if !consume(&x.inner_ret.x.typ, all, ds, depth, &mut budget.clone()) {
+        return Err(unsupported(&f.span, &format!("owned output exceeds {budget} observations or type depth")));
     }
     for p in x.params.iter() {
-        if !consume(&p.x.typ, all, ds, 5, &mut 16) {
+        if !consume(&p.x.typ, all, ds, depth, &mut budget.clone()) {
             return Err(unsupported(
                 &p.span,
                 "owned input exceeds observation budget or type depth",
@@ -1540,7 +1693,7 @@ fn validate_signature(
         Engine { f, all, ds, requirements: vec![], exits: vec![], plans: vec![], callbacks:vec![], remaining: 0 };
     engine.layout(
         SpannedTyped::new(&f.span, &x.inner_ret.x.typ, ExprX::Var(x.inner_ret.x.name.clone())),
-        5,
+        8,
     )?;
 
     Ok(())
@@ -1576,7 +1729,7 @@ pub(super) fn validate_summary(
         s.objects.insert(p.x.name.clone(),atom(SpannedTyped::new(&p.span,&p.x.typ,ExprX::Var(p.x.name.clone())))?);
         s.locals.insert(
             p.x.name.clone(),
-            e.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 5)?,
+            e.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 8)?,
         );
     }
     validate_formula(&f.x.require[0], all)?;

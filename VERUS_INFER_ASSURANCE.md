@@ -1673,3 +1673,68 @@ application meanings, checked equality law, codec/lock/native-library boundaries
 and corrected quorum arithmetic remain as documented in the previous checkpoint.
 The next outer parent validator, full crate, encoding implementation and protocol
 properties are not claimed by this checkpoint.
+
+### Typed error mapping and parent-validation checkpoint (October 28, 2026)
+
+The existing standard `Result::map_err` specification now composes direct immutable
+callbacks with complete bounded output relations. The original executable closure
+is checked independently for safety, necessity of its inferred precondition, and
+`Q(other) <==> observations(other, actual)` for an arbitrary complete output.
+Observation selection comes from the datatype, independently of the candidate.
+Callback requirements constrain the outer function only under the Err tag. No
+new standard-library axiom or executable model is added for `map_err`; its existing
+specification remains the library boundary. Mutation, arbitrary indirect closures,
+recursive enums and general conversion-trait inference remain outside this profile.
+
+Collection-bearing enums retain every tag and every guarded payload observation.
+The bounded profile admits up to eight variants, four fields per variant, and four
+type parameters; the nested profile has a fixed depth and 64-observation cap. The
+expanded formula budget remains 4,096. Native structural Clone calls propose
+field/view preservation only when paired with a checked ordinary Clone relation.
+A weak relation cannot justify the mapped callback's equation and fails proof.
+Private sole-vector wrappers keep their independently certified direct View;
+no arbitrary Clone implementation is treated as identity.
+
+Direct shared object projections now use generated ordinary closed spec definitions
+for complete value identity. Each definition retains a validated source projection,
+passes normal Verus well-formedness and mode checks, and has its body restricted to
+the source owner. The executable getter still proves soundness, maximality and
+complete-value exactness. Imported clients use the closed declaration rather than
+private representation selectors. Invariant-bearing objects are atomic complete
+values; preserving one does not infer its invariant, cache behavior or Clone law.
+The normal exported-crate fingerprint binds the generated declarations, alongside
+the existing candidate-bound evidence and dependency checks.
+
+Generated callback contracts can contain constructors. Resolution bookkeeping marks
+only those pure specification constructors as Spec; pre-existing executable
+constructor checks and borrow metadata are preserved. A unit regression covers
+both generated regions and conflicting existing constructor entries. Pure summary
+substitution now takes immutable engine/path state, preventing a contract field or
+conditional from changing the executable path condition. This is a compiler
+safeguard, not a formal verification of the transformation itself.
+
+Aleph's original `Validator::validate_unit_parents` and supporting source accessors
+now infer in exact mode. A separate supplied caller checks member-count error
+priority, complete PreUnit views in both error forms, the exact wrapped
+ControlHash error, complete Signed identity on success, and the conditional creator
+bound. The input is already checked Signed; reduced unused marker bounds and a
+supplied Keychain count interface are explicit boundaries. Signing/authentication,
+the outer session/max-round validator, codec correctness and full protocol
+correctness are not claimed. No additional production bug is claimed from the
+synthetic negative controls.
+
+Metadata schema/policy is 33 and candidate cache is 39. Rebuild inferred providers
+and dependents after upgrading. Cross-crate regressions cover cold/warm typed
+mapping, captured structural clones and collection payloads, conditional arithmetic
+safety, exact nested enum tags, changed providers, private borrowed chains and
+opaque complete-object forwarding. Failed providers and consumers publish no
+interface.
+
+Validation for this checkpoint: 522 Rust integration tests across twenty binaries,
+111 VIR unit tests and 70 inference-tool Python tests pass. Rebuilt standard vstd
+verifies 2,204 obligations with zero errors. The guarded pinned Aleph run records
+22 expected formal outcomes and 29 complete exact contracts, both 7,704-case
+noninitial runtime corpora, 378 native constructed maps plus an empty map, 254
+native initial-validation cases, and all six original validator tests. The parent
+summary contains 715 requirement nodes and 1,707 output-equation nodes in both
+cold and warm runs, within the unchanged 4,096-node formula limit.

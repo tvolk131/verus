@@ -81,7 +81,8 @@ fn relation(f: &Function, all: &HashMap<Fun, Function>, ds: &[Datatype]) -> Opti
         return None;
     }
     let typ = shared(&x.params[0].x.typ)?;
-    if !same(typ, &x.inner_ret.x.typ) || sequence_views::find(typ, all, ds).is_none() {
+    if !same(typ, &x.inner_ret.x.typ)
+        || sequence_views::find(typ, all, ds).is_none() && records::shape::fields(typ,ds).is_none() {
         return None;
     }
     let ExprX::Call {

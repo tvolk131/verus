@@ -557,7 +557,20 @@ APIs and research directions.
     within the unchanged 4,096-node budget. Separate ordinary caller goals check
     the intended policy and conditional creator bound. General expression sharing
     and arbitrary-depth composition remain separate work.
-25. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+25. **Parent validation and typed error mapping checkpoint implemented.** The existing
+    standard `Result::map_err` specification composes direct immutable callbacks
+    with independently checked safety, maximality and complete-output precision.
+    Bounded collection-bearing error enums retain every tag and guarded payload
+    view. Checked native Clone relations compose through structural records.
+    Direct borrowed object accessors retain complete value identity via ordinary
+    closed spec definitions, checked by normal Verus well-formedness and modes;
+    private representation details remain hidden across imports. Pure summary
+    substitution cannot change executable path state. Aleph's original
+    `Validator::validate_unit_parents` and supporting accessors now infer in exact
+    mode. A supplied caller checks member-count priority, copied PreUnit views,
+    exact nested errors, unchanged Signed success and the conditional creator
+    bound. The input is already signed; authentication is an explicit boundary.
+26. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.
@@ -567,9 +580,10 @@ APIs and research directions.
     discovery and a dedicated expected-domain interface remain separate work.
     The existing supplied invariant and regression oracle are
     still visible inputs; do not count their desired semantics as inferred.
-    Aleph's next concrete target is `Validator::validate_unit_parents`, starting
-    from an already checked signed unit. General `Result::map_err`, nested error
-    payloads and borrowed wrapper accessors are its remaining inference blockers.
+    Aleph's next orchestration target is the outer `Validator::validate_unit`,
+    including checked signature, session and maximum-round interfaces. This
+    requires an explicit authentication policy and signature-library boundary;
+    parent validation does not establish those properties.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,

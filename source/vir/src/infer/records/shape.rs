@@ -1,7 +1,7 @@
 //! Bounded type/visibility inspection; no candidate behavior is assumed here.
 use super::*;
 
-pub(super) fn root_type(f: &Function) -> Option<&Typ> {
+pub(in crate::infer) fn root_type(f: &Function) -> Option<&Typ> {
     match &*f.x.params.first()?.x.typ {
         TypX::MutRef(t) | TypX::Decorate(TypDecoration::Ref, None, t) => Some(t),
         _ => None,
@@ -57,7 +57,7 @@ pub(in crate::infer) fn variants(typ: &Typ, datatypes: &[Datatype]) -> Option<Ve
     let d=datatypes.iter().find(|d|&d.x.name==dt)?;
     if d.x.mode!=Mode::Exec || d.x.proxy.is_some() || d.x.destructor
         || d.x.user_defined_invariant_fn.is_some() || !(2..=8).contains(&d.x.variants.len())
-        || d.x.typ_params.len()>2 || d.x.typ_params.len()!=args.len()
+        || d.x.typ_params.len()>4 || d.x.typ_params.len()!=args.len()
         || d.x.variants.iter().any(|v|v.fields.len()>4 || v.fields.iter().any(|f|f.a.1!=Mode::Exec))
     {return None;}
     let ts=d.x.typ_params.iter().zip(args.iter()).map(|(p,t)|(p.0.clone(),t.clone())).collect();

@@ -40,3 +40,30 @@ pub fn empty_arrays(a:&Key<[u8;0]>,b:&Key<[u8;0]>) {
         error
     );
 }
+
+#[test]
+fn concrete_default_inequality_uses_the_checked_equality_implementation() {
+    let crates = InferCrates::new();
+    let source = r#"use vstd::prelude::*;
+#[verus_verify] #[derive(Copy,Clone)] pub struct Count(pub usize);
+#[verus_infer] impl PartialEq for Count{fn eq(&self,rhs:&Self)->bool{self.0==rhs.0}}
+#[verus_infer] pub fn different(a:Count,b:Count)->bool{a!=b}
+verus!{pub fn goal(a:Count,b:Count){let r=different(a,b);assert(r==(a.0!=b.0));}}
+"#;
+    let run = crates.build("concrete_ne", source, &[], &["--no-cheating", "--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    for f in json_inference(&run)["functions"].as_array().unwrap() {
+        for p in ["soundness", "maximality", "exactness"] {
+            assert_eq!(f["proofs"][p]["status"], "proved");
+        }
+    }
+    let changed = source.replace("self.0==rhs.0", "self.0!=rhs.0");
+    let run = crates.build("concrete_ne", &changed, &[], &["--no-cheating"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("concrete_ne").exists());
+    assert!(
+        String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+}

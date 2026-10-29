@@ -112,10 +112,9 @@ fn propagation_of_an_always_error_value_preserves_the_exact_constructor() {
 }
 
 #[test]
-fn oversized_and_heap_error_values_fail_with_bounded_diagnostics() {
+fn oversized_and_recursive_error_values_fail_with_bounded_diagnostics() {
     for (name, definition) in [
         ("too_many_variants", "enum Error{A,B,C,D,E,F,G,H,I}"),
-        ("heap_payload", "enum Error{A(Vec<u8>),B}"),
         ("recursive_payload", "enum Error{A(Box<Error>),B}"),
     ] {
         let source = format!(
@@ -127,6 +126,26 @@ fn oversized_and_heap_error_values_fail_with_bounded_diagnostics() {
             "{:?}",
             e
         );
+    }
+}
+
+#[test]
+fn collection_error_payloads_preserve_their_complete_view_and_scalar_fields() {
+    let source=r#"use vstd::prelude::*;verus!{
+ enum Error{Payload(Vec<u8>,u16),Other}
+ struct State{tag:u16}
+ impl State{
+  #[verifier::infer] fn fail(&self,input:Vec<u8>)->Result<(),Error>{Err(Error::Payload(input,self.tag))}
+ }
+ fn goal(s:&State,input:Vec<u8>)->(r:Result<(),Error>)
+  ensures r.is_err(),r.get_Err_0() is Payload,
+   r.get_Err_0()->Payload_0@==input@,
+   r.get_Err_0()->Payload_1==s.tag,
+ {s.fail(input)}
+}"#;
+    let d=verify_one_file("collection_error",source.into(),&["vstd","--no-cheating"]).unwrap();
+    for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"] {
+        assert!(d.notes.iter().any(|d|d.message.contains(p)),"{:?}",d);
     }
 }
 

@@ -4818,11 +4818,10 @@ fn exec_closure_body_stms(
             if infer_callback {
                 if callback_pre.len() != 1
                     || closure_state.ensures.len() != 1
-                    || !types_equal(&e.typ, &bool_typ())
                 {
                     return Err(error(
                         &body.span,
-                        "Verus Infer incomplete: independent callbacks require one Boolean result equation",
+                        "Verus Infer incomplete: independent callbacks require one complete result relation",
                     ));
                 }
                 let relation = &closure_state.ensures[0];
@@ -4835,12 +4834,17 @@ fn exec_closure_body_stms(
                         }
                     })
                 };
-                let negated =
-                    SpannedTyped::new(&e.span, &bool_typ(), ExpX::Unary(UnaryOp::Not, e.clone()));
                 let actual = replace(&e);
-                let alternative = replace(&negated);
-                let alternative =
-                    SpannedTyped::new(&e.span, &bool_typ(), ExpX::Unary(UnaryOp::Not, alternative));
+                // An arbitrary complete result, independent of the candidate
+                // and its precondition. Derive equality observations from the
+                // datatype rather than from the proposed relation.
+                let (name, other) = state.next_temp(&e.span, &e.typ);
+                state.declare_imm_var_stm(&name, &e.typ, LocalDeclKind::Assert, false);
+                typ_inv_vars.push((name, e.typ.clone()));
+                let equals = crate::infer_checks::output_equivalence(ctx, &e.span, &e.typ, other.clone(), e.clone())?;
+                let alternative = SpannedTyped::new(&e.span, &bool_typ(), ExpX::Binary(
+                    sst::BinaryOp::Eq, replace(&other), equals,
+                ));
                 let mut checks = original_body_stms.clone();
                 // Placeholders survive ordinary SST renaming/coercion. The
                 // independent transformer converts these final three entries

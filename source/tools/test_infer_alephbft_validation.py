@@ -1,7 +1,7 @@
 """Keep native error payloads, assertion, and propagation source-connected."""
 import unittest
 
-from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, full_validation_api, RUNTIME
+from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, full_validation_api, parent_validation_api, RUNTIME
 from eval_verus_infer_alephbft_parents import item
 
 
@@ -56,6 +56,49 @@ class ValidationSourceTests(unittest.TestCase):
             item(generated, 'pub fn validate(')[2])
         self.assertIn('coord.parts().0.0 < parents@.len()', generated)
         self.assertNotIn('construction_rounds(parents).len()', generated)
+
+    def test_parent_validator_and_accessors_are_source_connected(self):
+        units = """impl UnitCoord {
+         pub fn new(round:Round,creator:NodeIndex)->Self{Self{round,creator}}
+         pub fn creator(&self)->NodeIndex{self.creator}
+         pub fn round(&self)->Round{self.round}
+        }
+        impl<H: Hasher> PreUnit<H> {
+         pub(crate) fn new(creator:NodeIndex,round:Round,control_hash:ControlHash<H>)->Self{Self{coord:UnitCoord::new(round,creator),control_hash}}
+         pub(crate) fn n_members(&self)->NodeCount{self.control_hash.n_members()}
+         pub(crate) fn creator(&self)->NodeIndex{self.coord.creator()}
+         pub(crate) fn round(&self)->Round{self.coord.round()}
+         pub(crate) fn control_hash(&self)->&ControlHash<H>{&self.control_hash}
+        }
+        impl<H: Hasher, D: Data> FullUnit<H, D> {
+         pub(crate) fn as_pre_unit(&self)->&PreUnit<H>{&self.pre_unit}
+        }"""
+        signature = """pub struct UncheckedSigned<T:Signable,S:Signature>{signable:T,signature:S,}
+        pub struct Signed<T:Signable+Index,K:Keychain>{unchecked:UncheckedSigned<T,K::Signature>,}
+        impl<T: Signable + Index, K: Keychain> Signed<T, K> {
+         pub fn as_signable(&self)->&T{&self.unchecked.signable}
+        }"""
+        validator = """pub enum ValidationError<H:Hasher,D:Data,S:Signature>{WrongNumberOfMembers(PreUnit<H>),Other(S,D)}
+        pub struct Validator<K:Keychain>{keychain:K}
+        impl<K: Keychain> Validator<K> {
+         fn validate_unit_parents<H:Hasher,D:Data>(&self,su:SignedUnit<H,D,K>)->Result<H,D,K>{
+          let pre_unit=su.as_signable().as_pre_unit();
+          pre_unit.control_hash.validate(UnitCoord::new(pre_unit.round(),pre_unit.creator()))
+           .map_err(|e|ValidationError::ParentValidationFailed(pre_unit.clone(),e))?;
+          Ok(su)
+         }
+        }"""
+        api = units.replace('D: Data', 'D: CloneView')
+        generated = parent_validation_api(api, units, validator, signature)
+        self.assertEqual(generated.count('#[verifier::infer]'), 11)
+        for marker in ('fn validate_unit_parents<', 'pub fn as_signable(', 'pub(crate) fn as_pre_unit('):
+            original = validator if 'validate_unit' in marker else signature if 'signable' in marker else units
+            self.assertEqual(item(generated, marker)[2], item(original, marker)[2])
+        self.assertIn('value==su', generated)
+        self.assertIn('copy@==pre@', generated)
+        self.assertIn('|| su.pre_value().0.0<su.pre_value().2.0.len()', generated)
+        with self.assertRaises(ValueError):
+            parent_validation_api(api, units, validator, signature.replace('signature:S,', 'signature:S,extra:u8,'))
 
     def test_native_error_lookup_and_orchestration_are_preserved(self):
         adapted = validation_api(SOURCE)

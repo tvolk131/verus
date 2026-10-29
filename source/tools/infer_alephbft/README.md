@@ -820,3 +820,31 @@ separate native corpus.
 Views, checked factory proofs, intended application policies, the corrected quorum
 arithmetic and existing codec/lock/native-library boundaries remain supplied. This
 does not verify SCALE bytes, hash security, the whole crate, or protocol correctness.
+
+## Original parent-validator orchestration
+
+Add `--parent-validation` to the validation runner command. It implies the full
+validation and native modes. Twenty-nine methods now infer exact summaries,
+including the original `Validator::validate_unit_parents`, `Signed::as_signable`,
+and nine UnitCoord/PreUnit/FullUnit constructors or accessors. Their executable
+bodies are extracted from the pinned source without method-contract adapters.
+
+The parent method composes native `map_err`, a captured PreUnit clone and `?`.
+Its separate supplied policy proves wrong-member-count priority, the copied
+complete PreUnit view on both error paths, the exact wrapped ControlHash error,
+and return of the complete original Signed object on success. Its conditional
+creator bound is required only when the member count matches and the round is
+nonzero. Parent-specific controls check the member comparison, nested error,
+false copied-context caller goal, ignored error and missing caller bound. Failed
+providers publish no interface. These controls test detection; they are not
+discovered Aleph bugs. The guarded run records 22 expected formal outcomes,
+including cold/warm verification and the runtime build.
+
+The input is an already checked Signed value. The fixture preserves the original
+wrapper fields and accessor body, checks field-layout drift, and reduces unused
+Signable/Index/codec marker bounds. A checked Keychain count equation is supplied.
+This does not verify signing, signature authentication, or the outer
+`Validator::validate_unit` session/max-round checks. `--native-tests` additionally
+runs the six untouched validator tests with the actual signature implementation.
+Existing codec, verified-lock, corrected-quorum and native iterator boundaries
+remain in force.
