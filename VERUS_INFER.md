@@ -10,7 +10,7 @@
 
 ---
 
-## Implementation status — October 28, 2026
+## Implementation status — October 29, 2026
 
 The design below includes future work. The current implementation is documented
 in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
@@ -21,6 +21,14 @@ For project-level usage and the role of explicit specifications and proofs, see
 Implemented and covered by regression tests:
 
 - [x] Opt-in native Rust `#[verus_infer]` and `verus!` executable-function annotations.
+- [x] Native Cargo adoption checkpoint for Aleph collector accounting: real
+  collection methods, wrapper operations, and a private state-update helper receive
+  exact contracts; ordinary contracts compose them with checked production
+  coordinate getters. The Cargo recipe verifies opted-in first-party crates and
+  checks ordinary Rust erasure. Hash outputs are opaque, with explicit third-party
+  lock/codec signatures; cache consistency, signature verification, and the rest
+  of the native crate are not established by this checkpoint. See the
+  [workspace adoption recipe](source/docs/guide/src/infer_adoption.md#opting-an-existing-cargo-workspace-into-verification).
 - [x] Exact loop-free inference for `bool`, `u8`, `u16`, `u32`, `u64`, and `u128`:
   arithmetic, comparisons, Boolean operations, unsigned casts, immutable locals,
   branches, and short-circuit safety conditions.

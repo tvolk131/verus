@@ -1883,3 +1883,48 @@ recorded in /tmp/verus-infer-outer/final-delivery/results.json.
 
 Metadata schema/policy is now 35 and candidate cache is 41. Rebuild inferred
 providers and dependents after upgrading.
+
+### Native Cargo collector accounting checkpoint (October 29)
+
+The follow-up to the independent clean Aleph pilot verifies the collector inside
+its actual Cargo workspace on branch `verus-infer-clean-pilot`, based on local
+main f35c7bba6d628bcafdf0d65dd471cc6f868ec034. This parent-led integration is not
+part of the blind trial. The Aleph worktree's
+verification/units_collector/verify_native.py checks native source directly;
+NATIVE.md documents reproduction, scope and explicit boundaries.
+
+The actual NodeMap methods, two native NodeCount operation implementations,
+collector constructor and private state-update helper receive seven exact
+contracts with all 21 required obligations proved. Ordinary contracts compose
+these with checked Unit defaults and the native FullUnit coordinate law. The
+selected first-party crates report 41 verification results and zero errors. A
+concrete coverage wrapper discharges the observation-law premise for FullUnit;
+a composed native-input proof covers replay and advancement. Other unverified
+Unit implementations default to a false observation-law predicate.
+
+The accounting theorem does not assume a functional hash equation. Native hash
+outputs are opaque. A separate ghost-only library-specification crate declares
+trusted parking_lot read/write/dereference signatures and the codec callback
+interface, with no cache invariant, read/write snapshot identity, encoded-fields
+equation or hash equation. The public wrapper preserves existing candidates on
+ignored arrivals and frames other slots, while the exact state helper records
+the hash it is passed. The adapter pilot's stronger stable hash observation has
+not been established for the native cache. Native SignedUnit observation laws,
+cache consistency, generic clone hash identity, prospective_parents and the rest
+of the consensus implementation remain outside this checkpoint.
+
+Five actual-source controls (increment, equal-round replacement, count reset,
+coordinate getter, and observation-law premise) and a no-assistance control fail
+ordinary application verification after all inferred helpers pass. Failed root
+crates publish no inference interface. Each first-party proof crate is selected
+as a --no-cheating root; vstd and the explicit trusted library boundary are not.
+This does not opt every Rust item in those crates into verification.
+
+The source audit checks retained NodeMap and FullUnit getter bodies and the
+collector split's original getter order/state-update statements. Native Rust
+1.85.1 passes all 180 consensus tests, 10 crypto tests, and one crypto doc test;
+Verus uses its own pinned Rust 1.99.1. Root regressions pass 281 trait/stdlib tests
+plus an ordinary Cargo erasure test. This pass fixed the primitive-target derive
+scanner panic, multiple-name external_derive parsing, and iterator proof imports
+that failed to erase in normal Rust builds. No candidate, precision, or metadata
+policy was relaxed, and no new inference axiom was added.

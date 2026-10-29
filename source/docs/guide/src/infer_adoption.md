@@ -178,6 +178,61 @@ reduced trait, replacement lock API or authentication adapter, state which bodie
 are original and which are adaptations. Native tests are useful evidence about
 those connections; they do not replace a missing implementation proof.
 
+## Opting an existing Cargo workspace into verification
+
+Follow the [Cargo setup](cargo_verus.md) for every first-party crate containing
+types, traits, or implementations that the proof uses. Opting in only the caller
+does not make dependency declarations available to Verus. Keep a private
+container's authored `View` in its defining crate, where its fields are visible;
+public contracts can use the view without exposing the representation.
+
+For this prototype, use the matching fork's `vstd` and macros. One portable
+arrangement is an exact `vstd` version in the workspace manifest and a
+command-local override to the built fork:
+
+```sh
+export PATH="$VERUS_SOURCE/target-verus/release:$PATH"
+export VERUS_Z3_PATH="$VERUS_SOURCE/z3"
+cargo verus verify \
+  --config "patch.crates-io.vstd.path=\"$VERUS_SOURCE/vstd\"" \
+  -p storage -p domain -p application \
+  --fwd-verus-args-to roots -- --infer-goals --no-cheating --output-json
+```
+
+Use the fork's pinned Rust toolchain for verification. A project's normal Rust
+toolchain can still compile erased annotations; check that separately. The same
+`--config` override is needed for ordinary Cargo builds using the local fork.
+Select all first-party proof crates as roots so their checks receive the flags.
+The `roots` option avoids forwarding `--no-cheating` into vstd or explicit trusted
+library-specification dependencies. Such dependencies remain trust boundaries.
+
+Annotating a datatype can activate its derived implementations too. Use
+[`external_derive`](exec_attr.md#selecting-derived-implementations) for unused
+codec, arithmetic, or other derives. Excluded implementations cannot be called
+from verified code; they acquire no trusted contract. Prove the selected
+operations separately. External trait declarations can make otherwise missing
+marker bounds available without asserting behavior; their bounds must match the
+actual trait, including associated-type and supertrait bounds.
+
+For a trait with unverified implementations, consider an `obeys_*` predicate
+that defaults to false, as in [vstd's trait specifications](external_trait_specifications.md#the-obeys_-pattern-in-vstd).
+Guard useful getter guarantees with that predicate. A checked implementation can
+define it to true and prove its getter bodies. A concrete coverage wrapper should
+discharge this premise for the real application type.
+
+Choose library guarantees according to the theorem. A slot-counting invariant
+may hold for every hash value returned by a dependency, without any equation for
+that hash or any cache invariant. Keep those results distinct: accounting does
+not establish hash-cache consistency. An ordinary wrapper can call an opaque
+dependency and pass its result to an exact inferred state-update helper.
+
+`--no-cheating` and the JSON field `is-verifying-entire-crate` do not mean every
+Rust item was opted into verification. Review the annotated scope, unverified
+trait implementations, and imported library specifications too. Use fresh
+verification and candidate-cache outputs for final evidence; repeat native tests
+and make deliberate implementation mutations fail the independent application
+contracts.
+
 ## Diagnose failures before adding hints
 
 Different failures call for different next steps:
