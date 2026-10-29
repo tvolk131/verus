@@ -3,7 +3,7 @@
 use super::*;
 use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor};
 
-fn clauses(e: &Expr, out: &mut Vec<Expr>) {
+pub(super) fn clauses(e: &Expr, out: &mut Vec<Expr>) {
     if let ExprX::Logical(LogicalOp::And, a, b) = &e.x {
         clauses(a, out);
         clauses(b, out);
@@ -11,7 +11,7 @@ fn clauses(e: &Expr, out: &mut Vec<Expr>) {
         out.push(e.clone());
     }
 }
-fn future(e: &Expr) -> bool {
+pub(super) fn future(e: &Expr) -> bool {
     let mut yes = false;
     expr_visitor_walk(e, &mut |e| {
         yes |= matches!(&e.x, ExprX::Unary(UnaryOp::MutRefFuture(_) | UnaryOp::MutRefFinal(_), _));
@@ -19,7 +19,7 @@ fn future(e: &Expr) -> bool {
     });
     yes
 }
-fn seq_len(e: &Expr, all: &HashMap<Fun, Function>) -> bool {
+pub(super) fn seq_len(e: &Expr, all: &HashMap<Fun, Function>) -> bool {
     match &e.x {
         ExprX::Unary(UnaryOp::Clip { range: IntRange::Int, .. }, a) => seq_len(a, all),
         ExprX::Call { target: CallTarget::Fun(_, n, ..), .. } => {
@@ -28,7 +28,7 @@ fn seq_len(e: &Expr, all: &HashMap<Fun, Function>) -> bool {
         _ => false,
     }
 }
-fn current(e: &Expr) -> Result<Expr, VirErr> {
+pub(super) fn current(e: &Expr) -> Result<Expr, VirErr> {
     map_expr_visitor(e, &|e| {
         Ok(match &e.x {
             ExprX::Old(a) => {
@@ -53,7 +53,7 @@ fn current(e: &Expr) -> Result<Expr, VirErr> {
         })
     })
 }
-fn pure(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr> {
+pub(super) fn pure(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr> {
     let mut budget = FORMULA_BUDGET;
     crate::ast_visitor::expr_visitor_check(e, &mut |_, e| {
         budget = budget
@@ -105,7 +105,7 @@ fn place_pure(p: &Place) -> bool {
         _ => false,
     }
 }
-fn fresh(e: &Expr, id: &mut u64) -> Result<Expr, VirErr> {
+pub(super) fn fresh(e: &Expr, id: &mut u64) -> Result<Expr, VirErr> {
     crate::ast_visitor::map_expr_visitor_env(
         e,
         &mut crate::ast_visitor::VisitorScopeMap::new(),

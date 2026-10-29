@@ -6,7 +6,7 @@ pub(in crate::infer) mod loops;
 mod models;
 mod sums;
 mod callbacks;
-mod native_for;
+pub(in crate::infer) mod native_for;
 mod mutations;
 pub(crate) mod result_map;
 mod variants;

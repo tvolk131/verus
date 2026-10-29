@@ -6099,3 +6099,42 @@ fn ordinary_growth_proofs_cross_crates_require_full_checks_and_block_failed_expo
     assert!(!crates.vir("growth_base").exists());
     assert_eq!(json_inference(&r)["interface_written"], false);
 }
+
+#[test]
+fn ordinary_range_proofs_cross_crates_require_full_checks_and_block_failed_exports() {
+    let crates=InferCrates::new();
+    let base=r#"use vstd::prelude::*;
+        pub struct Buffer {pub values:Vec<u8>,pub stamp:u8}
+        pub fn fill(b:&mut Buffer,start:u16,end:u16)
+          requires end<old(b).values@.len(),
+          ensures final(b).values@.len()==old(b).values@.len(),final(b).stamp==old(b).stamp,
+            forall|i:int|start<=i<=end ==> #[trigger] final(b).values@[i]==1,
+            forall|i:int|0<=i<old(b).values@.len() && (i<start || i>end) ==> #[trigger] final(b).values@[i]==old(b).values@[i],
+        {for i in start..=end {b.values[i as usize]=1;}}
+    "#;
+    for _ in 0..2 {
+        let r=crates.build("range_base",base,&[],&["--infer-goals","--no-cheating","--output-json"]);
+        assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+        let report=json_inference(&r);
+        assert_eq!(report["range_loop_assistance"].as_array().unwrap().len(),1);
+        assert!(report["functions"].as_array().unwrap().is_empty());
+        assert_eq!(report["interface_written"],true);
+    }
+    let app=r#"use vstd::prelude::*;
+        pub fn goal(b:&mut range_base::Buffer)
+          requires old(b).values@.len()>255,
+          ensures final(b).values@[255]==1,final(b).stamp==old(b).stamp,
+        {range_base::fill(b,255,255);}
+    "#;
+    crates.succeeds("range_app",app,&["range_base"]);
+    for flag in ["--no-verify","--verify-root"] {
+        let r=crates.build("range_base",base,&[],&["--infer-goals",flag]);
+        assert!(!r.status.success());
+        assert!(!crates.vir("range_base").exists());
+        assert!(String::from_utf8_lossy(&r.stderr).contains("requires full-crate verification"));
+    }
+    let r=crates.build("range_base",&base.replace("=1;","=2;"),&[],&["--infer-goals","--no-cheating","--output-json"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("range_base").exists());
+    assert_eq!(json_inference(&r)["interface_written"],false);
+}

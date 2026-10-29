@@ -147,6 +147,41 @@ checked error preservation, unsupported shapes and cross-crate composition.
 False callers and native API mutations are rejected with healthy helper proofs.
 These checks are evidence, not a formal proof of the inference implementation.
 
+## Ordinary native range-loop proof assistance
+
+Metadata policy **38** and candidate cache version **44** accompany this
+checkpoint. Rebuild inference providers and dependents. No library axiom or
+assumed helper contract is added.
+
+The untrusted pass proposes pure current-state/prefix invariants from authored
+postconditions for one native unsigned integer range. It retains the complete
+iterator lowering, its invariants and its original decreasing measure. Its
+projection validator independently removes only the inserted invariant prefix
+and restores loop isolation, then compares every serialized remaining body field
+with the original. It rejects changed source code, source invariant deletion,
+changed termination, termination bypasses and effectful/assumed annotations.
+Ordinary Verus must prove each generated invariant, source safety condition,
+helper precondition and original postcondition. Ordinary functions receive no
+maximal-safe-domain or output-exactness certification.
+
+Compiler regressions cover exclusive/inclusive ranges, empty and singleton
+cases, inclusive machine maximum, frames, changed values/slots/range endpoints,
+skipped work, early breaks and insufficient input contracts. Cross-crate tests
+repeat provider builds, check ordinary caller composition, reject verification
+filters and withhold failed-provider interfaces. Native Aleph ingestion composes
+checked mutable-return framing with collector updates and history growth;
+source mutants must fail despite healthy exact helper certificates. A trigger
+on the collector-index observation supports the authored quantified progress
+contract; the pass does not invent its meaning.
+
+A separate frontend regression preserves Rust disambiguators in unnamed-const
+paths. Codec derive wrappers previously collapsed unrelated method identities.
+Both independent implementations are checked, and a wrong body in either is
+rejected. This fix does not authorize serializer assumptions or derive exclusions.
+The native Signed getter proposal remains unapplied pending that separate
+boundary decision. These checks are evidence, not a formal proof of the compiler
+or transformer.
+
 ## Ordinary growth-loop proof assistance
 
 Metadata schema **37** and candidate cache version **43** accompany the growth

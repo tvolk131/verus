@@ -4,7 +4,7 @@
 use super::*;
 
 #[derive(Clone)]
-pub(super) struct Source {
+pub(in crate::infer) struct Source {
     pub loop_expr: Expr,
     pub iterator: Expr,
     pub pattern: Pattern,
@@ -88,7 +88,7 @@ pub(super) fn source(e: &Expr) -> Option<Source> {
         wrapper,
     })
 }
-pub(super) fn sources(f: &Function) -> Vec<Source> {
+pub(in crate::infer) fn sources(f: &Function) -> Vec<Source> {
     let mut found = vec![];
     if let Some(body) = &f.x.body {
         crate::ast_visitor::expr_visitor_walk(body, &mut |e| {

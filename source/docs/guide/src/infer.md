@@ -678,7 +678,51 @@ other slots; preservation of the Creator invariant after the borrow is condition
 on the borrower returning a valid, correctly indexed and sized collector. A
 checked `try_initialize_round` API accepts every `u16` round and rejects `u16::MAX`
 without mutation, because that collector would need to store `round + 1` in `u16`.
-Existing `add_unit`/`create_unit` orchestration remains outside this native proof.
+The native `add_unit` range orchestration now uses the range assistance below.
+`create_unit` remains outside this native proof.
+
+
+## Checked native range mutation
+
+With `--infer-goals`, an ordinary unit-returning function with a mutable first
+parameter can receive proof proposals for one native unsigned integer `for`
+range (`start..end` or `start..=end`). The author supplies the input contract and
+postconditions. Final-state frames become current-state invariants; a top-level
+one-variable integer `forall` without entry-state references is restricted to the
+processed prefix, ending at `start + iterator.index()`. This arithmetic uses
+mathematical integers, so an inclusive machine maximum does not overflow the
+proof cursor. Unchanged sequence lengths stay equal. Growth goals can instead
+propose entry-length and processed-prefix lower bounds and the final-length
+upper bound. Every proposal must initialize and remain inductive.
+
+For example, [the range example](../../../../examples/verus_infer_range.rs)
+fills a subrange with `1`, proves the other elements and an unrelated field
+unchanged, and preserves the vector's length without handwritten loop facts.
+Empty exclusive ranges, descending empty inclusive ranges, singletons and the
+maximum inclusive endpoint use the existing Verus iterator models.
+
+This bounded profile requires the frontend's default native iterator scaffold,
+one unsigned range and one loop. It preserves the entire iterator implementation,
+source annotations, original decreasing measure and executable body; it only
+adds pure invariants and disables loop isolation. It does not turn arbitrary
+iterators, signed ranges, multiple/nested loops or non-unit-return functions into
+this profile. Other shapes retain ordinary Verus obligations. Quantified goals
+that mix entry snapshots with progress may need an explicit inductive contract.
+Reports use `range_loop_assistance`, separate from exact synthesized contracts.
+Full-crate checking and successful-provider export gates still apply.
+
+Aleph's unchanged native `Creator::add_unit` loop now proves preservation of its
+accounting invariant and configuration, exact history length, unchanged earlier
+collectors and recording of the incoming round (or a newer round) throughout the
+traversed collectors. A checked mutable-return helper exposes the selected slot
+and frames other slots. `try_add_unit` additionally checks terminal rounds and
+creator membership before mutation and proves that error results preserve the
+complete Creator view. These are ordinary application proofs over inferred
+helpers. The author still chooses the invariant, observation semantics, public
+abstraction and error policy. The native FullUnit coordinate law is checked;
+SignedUnit observation delegation remains pending a serializer-boundary decision.
+Hash outputs remain opaque; these proofs establish neither signature validity
+nor hash-cache consistency.
 
 
 ## Owned collection construction and round advancement

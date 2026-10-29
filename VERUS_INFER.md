@@ -37,6 +37,13 @@ Implemented and covered by regression tests:
   with an ordinary mutable-borrow contract and an explicit terminal-round Result
   boundary. Application invariants, behavior goals and public abstraction contracts
   remain authored; this does not certify exact state-machine contract synthesis.
+- [x] Ordinary range-mutation proof assistance for native unsigned `for` ranges:
+  checked prefix induction, unchanged-field/slot frames, and bounded history
+  growth, retaining all iterator scaffolding and its original termination proof.
+  Native Aleph Creator ingestion now composes collector updates and growth, with
+  an additive checked terminal-round/membership error API. Application views,
+  observation laws and behavior goals remain authored; native Signed wrappers
+  and Creator unit creation remain follow-ups.
 - [x] Exact pointwise prefix mutation loops for borrowed record collections:
   zero-based usize counters, same-index updates (direct or checked inferred
   helpers), signed/unsigned per-element safety, full sequence/suffix/field frames,
