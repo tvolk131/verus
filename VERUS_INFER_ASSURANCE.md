@@ -189,6 +189,17 @@ fields, reversed/missing/external bodies, false client goals, zero-target provid
 metadata, repeated builds and stale/withheld exports. No axiom or assumed function
 contract is added. These safeguards do not formally prove the implementation.
 
+## Demanded map projections and native fold triggers
+
+Fold observation assistance also recognizes an authored sequence-map equation as
+an elementwise projection request. It enables the existing checked sparse/fold
+lemmas in that caller's scope; it adds no facts to inferred contracts and no new
+axioms. Unrequested callers remain unassisted. Native fold readiness quantifiers
+now carry a pure iterator-entry trigger so entry-independent safety conditions do
+not require author trigger hints. The annotation purity gate recursively checks
+trigger terms and rejects hidden assumptions. Mutated projections and false
+mapping goals must still fail ordinary verification with healthy helper proofs.
+
 ## Complete tagged shared returns
 
 Policy 41 and candidate version 47 strengthen shallow Option/Result shared

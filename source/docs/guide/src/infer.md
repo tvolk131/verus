@@ -1061,6 +1061,14 @@ projection theorem derives the resulting per-slot values, including absent slots
 No function contract gains eagerly synthesized application facts. General invariant
 or abstraction discovery remains separate from this bounded lemma catalog.
 
+A requested equality with `Seq::map_values`, including inside an authored pure
+specification definition, requests the same checked sparse-projection support as
+explicit length/index goals. Unrequested callers still receive no fold assistance.
+Generated native-loop readiness quantifiers use the iterator-entry index as an
+internal trigger, including when a step's safety condition ignores its entry.
+The trigger is part of a proposed invariant; normal verification still checks
+safety, induction, termination and every application goal.
+
 Ordinary exact unary queries can also observe a newly constructed collection when
 their visible specification body uses that receiver only through its certified
 sequence view. The query implementation remains checked against its supplied exact

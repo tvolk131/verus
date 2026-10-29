@@ -89,6 +89,15 @@ fn demands(f: &Function, all: &HashMap<Fun, Function>) -> Option<(bool, bool, bo
                     }
                     if observe && n.path.krate == CrateId::Vstd {
                         fold |= matches!(n.path.last_segment().as_str(), "fold_left" | "scatter");
+                        // A requested elementwise mapping asks for the complete
+                        // sequence projection, even without an explicit len or
+                        // index expression in the caller's contract.
+                        if n.path.segments.first().is_some_and(|s| s.as_str() == "seq_lib")
+                            && n.path.last_segment().as_str() == "map_values"
+                        {
+                            length = true;
+                            index = true;
+                        }
                     }
                     calls.push(n.clone());
                 }

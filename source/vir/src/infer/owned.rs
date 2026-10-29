@@ -1911,6 +1911,11 @@ mod tests {
         );
         assert!(validate_formula(&assumption, &HashMap::new()).is_err());
         assert!(loops::pure(&assumption).is_err());
+        let hidden = boolean(&span,true).expr.new_x(ExprX::WithTriggers {
+            triggers:Arc::new(vec![Arc::new(vec![assumption.clone()])]),
+            body:boolean(&span,true).expr,
+        });
+        assert!(native_for::pure(&hidden).is_err());
         assert!(validate_decoration(&f, &assumption).is_err());
     }
 }

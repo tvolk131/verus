@@ -313,3 +313,42 @@ pub fn goal(size:usize,index:usize,value:u16)->(r:Slots<u16>)
         assert_eq!(report["functions"][0]["proofs"][proof]["status"], "proved");
     }
 }
+
+#[test]
+fn requested_map_values_equations_enable_checked_sparse_projection(){
+ let crates=InferCrates::new();
+ let r=crates.build("native_mutation",&mutation_provider(),&[],&["--no-cheating"]);
+ assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+ let source=COPY_CONSUMER.replace("{copied(source)}",r#"{copied(source)}
+pub fn projected<T:Copy>(source:&Slots<T>)->(result:Slots<T>)
+ ensures result@ == source@.map_values(|slot:Option<T>|match slot {Some(v)=>Some(v),None=>None}),
+{copied(source)}
+pub fn no_request<T:Copy>(source:&Slots<T>){let _=copied(source);}
+"#);
+ for _ in 0..2 {
+  let r=crates.build("native_copy",&source,&["native_mutation"],&["--infer-goals","--no-cheating","--output-json"]);
+  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+  let report=json_inference(&r);
+  let goals=report["goal_assistance"].as_array().unwrap();
+  assert!(goals.iter().any(|g|g["function"].as_str().unwrap().ends_with("projected") && g["strategy"]=="sequence_fold_observation"));
+  assert!(!goals.iter().any(|g|g["function"].as_str().unwrap().ends_with("no_request")));
+ }
+ let wrong=source.replace("Some(v)=>Some(v)","Some(v)=>None");
+ let r=crates.build("native_copy",&wrong,&["native_mutation"],&["--infer-goals","--no-cheating","--output-json"]);
+ assert!(!r.status.success());assert!(!crates.vir("native_copy").exists());
+ assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+}
+
+#[test]
+fn entry_independent_native_fold_readiness_gets_an_internal_trigger(){
+ let crates=InferCrates::new();
+ let r=crates.build("native_mutation",&mutation_provider(),&[],&["--no-cheating"]);
+ assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+ let source=COPY_CONSUMER.replace("out.insert(index,*value)","out.insert(0,*value)");
+ let r=crates.build("native_copy",&source,&["native_mutation"],&["--infer-goals","--no-cheating","--output-json"]);
+ assert!(!r.status.success());assert!(!crates.vir("native_copy").exists());
+ let error=String::from_utf8_lossy(&r.stderr);
+ assert!(!error.contains("infer triggers") && !error.contains("unsupported") && !error.contains("panicked at"),"{}",error);
+ assert!(error.contains("postcondition not satisfied"),"{}",error);
+ assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+}

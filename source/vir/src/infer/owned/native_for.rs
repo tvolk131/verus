@@ -380,6 +380,10 @@ impl Engine<'_> {
             vec![item.clone()],
             vec![seq.clone(), i_value.clone()],
         )?;
+        // A step may ignore its entry when checking readiness (for example a
+        // constant destination index). Always retain an entry-index trigger so
+        // the generated forall does not depend on SMT trigger guessing.
+        let trigger = entry_at.expr.clone();
         let env = HashMap::from([(acc.clone(), actual_seq.clone()), (entry.clone(), entry_at)]);
         let mut req = boolean(span, true);
         for r in requirements {
@@ -409,7 +413,10 @@ impl Engine<'_> {
             ExprX::Quant(
                 Quant { quant: air::ast::Quant::Forall },
                 Arc::new(vec![Arc::new(VarBinderX { name: i, a: int_typ() })]),
-                req.expr,
+                req.expr.new_x(ExprX::WithTriggers {
+                    triggers: Arc::new(vec![Arc::new(vec![trigger])]),
+                    body: req.expr.clone(),
+                }),
             ),
             req.size + 1,
         )?);
@@ -474,6 +481,7 @@ pub(super) fn pure(e: &Expr) -> Result<(), VirErr> {
             | ExprX::Binary(..)
             | ExprX::Logical(..)
             | ExprX::Quant(..)
+            | ExprX::WithTriggers { .. }
             | ExprX::Closure(..)
             | ExprX::Ctor(_, _, _, None)
             | ExprX::If(_, _, Some(_)) => true,
