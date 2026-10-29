@@ -381,6 +381,7 @@ pub broadcast proof fn fold_prefix_step<A, B>(
 }
 
 pub broadcast group group_native_adapter_axioms {
+    crate::iterator_view::lemma_sparse_entry_origin,
     fold_prefix_step,
     flatten_options_witness,
     slice_count_post,

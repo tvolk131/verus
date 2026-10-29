@@ -582,6 +582,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         if self.args.infer_goals {
             let available: Vec<_> = other_vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
             cratex.functions = vir::infer::prepare_trait_contracts(&cratex.functions,&available);
+            cratex.functions = vir::infer::prepare_factory_callbacks(
+                &cratex.functions, &available, &datatypes, &mut self.inference_generation,
+            ).map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_counting_goals(
                 &cratex.functions, &available, &mut self.inference_generation,
             );

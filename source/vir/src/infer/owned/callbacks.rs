@@ -168,47 +168,45 @@ impl Engine<'_> {
                 "inferred callbacks require one immutable value and no handwritten contracts",
             ));
         }
-        crate::ast_visitor::expr_visitor_check(body, &mut |_, e| {
-            if matches!(
-                e.x,
-                ExprX::Assign { .. }
-                    | ExprX::BorrowMut(_)
-                    | ExprX::TwoPhaseBorrowMut(_)
-                    | ExprX::Loop { .. }
-                    | ExprX::Return(_)
-                    | ExprX::NonSpecClosure { .. }
-                    | ExprX::Ghost { .. }
-                    | ExprX::AssertAssume { .. }
-                    | ExprX::AssertBy { .. }
-            ) {
-                Err(unsupported(
-                    &e.span,
-                    "inferred callbacks must be immutable expressions",
-                ))
-            } else if let ExprX::Call { target: CallTarget::Fun(_, n, ..), .. } = &e.x {
-                if boolean_only || self.all.get(n).is_some_and(|f|
-                    f.x.params.iter().any(|p| matches!(&*p.x.typ, TypX::MutRef(_)))) {
-                    Err(unsupported(&e.span, "mapped callbacks require immutable calls"))
-                } else { Ok(()) }
-            } else {
-                Ok(())
-            }
-        })?;
+        validate_body(body, &ret.a, self.all, boolean_only)?;
+        // Callback propagation/returns belong to this closure, not its enclosing
+        // executable function. Keep all candidate path state and exits local.
+        let mut fx = self.f.x.clone();
+        let mut return_param = fx.inner_ret.x.clone();
+        return_param.name = ret.name.clone();
+        return_param.typ = ret.a.clone();
+        fx.inner_ret = fx.inner_ret.new_x(return_param);
+        fx.outer_ret = fx.inner_ret.clone();
+        let callback_function = self.f.new_x(fx);
+        let mut engine = Engine {
+            f: &callback_function,
+            all: self.all,
+            ds: self.ds,
+            requirements: vec![],
+            exits: vec![],
+            plans: vec![],
+            callbacks: vec![],
+            remaining: self.remaining,
+        };
         let mut local = s.clone();
         local.active = boolean(&e.span, true);
         let p = &params[0];
         local.locals.insert(
             p.name.clone(),
-            self.layout(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())), 8)?,
+            engine.layout(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())), 8)?,
         );
-        let start = self.requirements.len();
-        let value = self.expr(&mut local, body)?;
-        let reqs = self.requirements.drain(start..).collect::<Vec<_>>();
+        let mut value = engine.expr(&mut local, body)?;
+        for (condition, exit) in engine.exits.iter().rev() {
+            value = choose(&e.span, condition.clone(), exit.clone(), value)?;
+        }
+        self.remaining = engine.remaining;
+        let reqs = engine.requirements;
         let mut pre = boolean(&e.span, true);
         for req in reqs {
             pre = logical(&e.span, LogicalOp::And, pre, req)?;
         }
-        let post = self.post(&value, &SpannedTyped::new(&e.span, &ret.a, ExprX::Var(ret.name.clone())))?;
+        let post =
+            self.post(&value, &SpannedTyped::new(&e.span, &ret.a, ExprX::Var(ret.name.clone())))?;
         pure_contract(&pre.expr)?;
         pure_contract(&post.expr)?;
         self.callbacks.push(Plan {
@@ -322,4 +320,59 @@ pub(super) fn plans(body: &Expr) -> Vec<Plan> {
         crate::ast_visitor::VisitorControlFlow::<()>::Recurse
     });
     plans
+}
+
+fn validate_body(
+    body: &Expr,
+    ret: &Typ,
+    all: &HashMap<Fun, Function>,
+    boolean_only: bool,
+) -> Result<(), VirErr> {
+    use crate::ast_visitor::{VisitorControlFlow, VisitorScopeMap, expr_visitor_dfs};
+    let walked = expr_visitor_dfs(body, &mut VisitorScopeMap::new(), &mut |_, e| {
+        match propagation::recognize(e, all, ret) {
+            Ok(Some(p)) => {
+                return match validate_body(&p.operand, ret, all, boolean_only) {
+                    Ok(()) => VisitorControlFlow::Return,
+                    Err(err) => VisitorControlFlow::Stop(err),
+                };
+            }
+            Err(err) => return VisitorControlFlow::Stop(err),
+            Ok(None) => {}
+        }
+        if matches!(
+            e.x,
+            ExprX::Assign { .. }
+                | ExprX::BorrowMut(_)
+                | ExprX::TwoPhaseBorrowMut(_)
+                | ExprX::Loop { .. }
+                | ExprX::Return(_)
+                | ExprX::NonSpecClosure { .. }
+                | ExprX::Ghost { .. }
+                | ExprX::AssertAssume { .. }
+                | ExprX::AssertBy { .. }
+        ) {
+            return VisitorControlFlow::Stop(unsupported(
+                &e.span,
+                "inferred callbacks must be immutable expressions",
+            ));
+        }
+        if let ExprX::Call { target: CallTarget::Fun(_, n, ..), .. } = &e.x {
+            if boolean_only
+                || all.get(n).is_some_and(|f| {
+                    f.x.params.iter().any(|p| matches!(&*p.x.typ, TypX::MutRef(_)))
+                })
+            {
+                return VisitorControlFlow::Stop(unsupported(
+                    &e.span,
+                    "mapped callbacks require immutable calls",
+                ));
+            }
+        }
+        VisitorControlFlow::Recurse
+    });
+    match walked {
+        VisitorControlFlow::Stop(err) => Err(err),
+        _ => Ok(()),
+    }
 }

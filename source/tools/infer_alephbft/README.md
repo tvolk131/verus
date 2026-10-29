@@ -848,3 +848,31 @@ This does not verify signing, signature authentication, or the outer
 runs the six untouched validator tests with the actual signature implementation.
 Existing codec, verified-lock, corrected-quorum and native iterator boundaries
 remain in force.
+
+## Factory proofs from authored views
+
+Add `--factory-proofs` to the validation runner command. It implies parent/full
+validation and both native pipeline/construction modes. NodeMap::iter and
+ControlHash::parents are extracted from the pinned source with their complete
+original signatures and bodies. Each receives one
+`#[verus_verify(iterator_via_view(...))]` annotation. The new fixture retains the
+authored entries/parents observations and removes the manual callback contracts,
+factory proof blocks and named-local adaptations from the earlier fixture.
+
+`--infer-goals` regenerates one total immutable callback equation for each factory.
+Ordinary Verus checks those closures and the generated calls to verified generic
+factory combinators. The sparse-entry origin lemma supplies index provenance from
+the authored view. No new native iterator assumption is introduced. The factories
+are ordinary checked interfaces; the same 29 consuming/supporting methods retain
+their three exact-mode proofs. Factory callback proposals are reported separately.
+
+Additional controls change the emitted index and mapped round. Each must fail its
+named ordinary factory proof and leave no exported interface. Existing validation,
+payload, priority, constructor and caller-domain controls remain enabled. Native
+tests and runtime corpora continue to execute the original native code.
+
+This first profile handles shared factories returning one native map or an
+enumerated slice filter_map with direct total immutable callbacks. Authored output
+views, application policies, checked Clone/equality laws, codec/lock/library
+boundaries and the already checked Signed input remain explicit. Arbitrary iterator
+factory inference and maximal/exact iterator-object contracts are not claimed.

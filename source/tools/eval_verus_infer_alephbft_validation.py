@@ -25,7 +25,7 @@ NAMES = ('unit_creator_is_descendant_of_previous_unit',
          'check_if_parents_greater_than_previous_round', 'validate_non_initial_round')
 
 
-def native_models(node, control):
+def native_models(node, control, factory_proofs=False):
     """Fail on native factory drift before installing the checked ghost interface."""
     expected = [
         (node, 'pub fn iter(', 'self.0.iter().enumerate().filter_map(|(idx, maybe_value)| Some((NodeIndex(idx), maybe_value.as_ref()?)))'),
@@ -35,6 +35,10 @@ def native_models(node, control):
         actual = item(source, marker)[2].split('{', 1)[1].rsplit('}', 1)[0]
         if re.sub(r'\s+', '', actual) != re.sub(r'\s+', '', body):
             raise ValueError('native iterator factory changed: '+marker)
+    if factory_proofs:
+        return (FIXTURES/'factory_models.rs').read_text().replace(
+            '// ORIGINAL_NODE_FACTORY', item(node,'pub fn iter(')[2]).replace(
+            '// ORIGINAL_PARENT_FACTORY', item(control,'pub fn parents(')[2])
     return (FIXTURES/'native_pipeline_models.rs').read_text()
 
 
@@ -179,8 +183,11 @@ def main():
     parser.add_argument('--native-construction', action='store_true')
     parser.add_argument('--full-validation', action='store_true')
     parser.add_argument('--parent-validation', action='store_true')
+    parser.add_argument('--factory-proofs', action='store_true')
     parser.add_argument('--native-target', type=Path)
     args = parser.parse_args()
+    if args.factory_proofs:
+        args.parent_validation = True
     if args.parent_validation:
         args.full_validation = True
     if args.full_validation:
@@ -207,7 +214,7 @@ def main():
             for path in (NODE, UNITS, CONTROL, HASHER)]
         shared = shared.replace('(*self * 2) / 3 + NodeCount(1)', CORRECTED)
         api = infer_member_count(real_api(node, shared, units, control, hasher), control)
-        api += COMPARISONS + (native_models(node, control) if args.native_pipelines else QUERY_MODELS.read_text()) + validation_api(control, args.native_pipelines)
+        api += COMPARISONS + (native_models(node, control, args.factory_proofs) if args.native_pipelines else QUERY_MODELS.read_text()) + validation_api(control, args.native_pipelines)
         if args.native_pipelines:
             api = api.replace('vstd::seq::group_seq_axioms};',
                 'vstd::seq::group_seq_axioms,vstd::seq::group_seq_lemmas,vstd::std_specs::iter::group_iter_axioms,vstd::std_specs::iter_adapters::group_native_adapter_axioms};')
@@ -254,6 +261,11 @@ def main():
                 parent_policy='supplied member-check priority, complete PreUnit error views, exact wrapped ControlHash error, unchanged complete Signed success value and conditional creator bound',
                 signed_boundary='already checked Signed input; source field layout and as_signable body retained; reduced marker traits and supplied Keychain count equation; no authentication/signing proof',
                 not_claimed='outer validate_unit signature/session/max-round validation, automatic policy/view discovery, SCALE/hash security, full crate/protocol correctness')
+        if args.factory_proofs:
+            result['source'].update(
+                factories='original NodeMap::iter and ControlHash::parents bodies with one iterator_via_view annotation each; no handwritten callback contracts, named-local adaptations or factory proof blocks',
+                factory_proofs='ordinary verified iterator_view combinators and inferred total immutable callback equations; factory view contracts remain explicit author choices, not exact iterator-object inference',
+                boundaries='existing native iterator specifications, supplied collection/output views, SCALE codec and verified-lock adaptation, corrected quorum and already checked Signed input')
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK='20971520',
                    VERUS_INFER_CACHE=str(output/'candidate-cache'))
         codec_lib, codec_vir = directory/'libcodec_model.rlib', directory/'codec_model.vir'
@@ -326,6 +338,12 @@ def main():
             cases.insert(-1, ('ignored-parent-error', api.replace(original, ignored), False))
             cases.insert(-1, ('missing-parent-creator-bound', api.replace(
                 '|| su.pre_value().0.0<su.pre_value().2.0.len(),', '|| true,'), False))
+        if args.factory_proofs:
+            cases.insert(-1, ('wrong-factory-index', api.replace(
+                'Some((NodeIndex(idx), maybe_value.as_ref()?))',
+                'Some((NodeIndex(0), maybe_value.as_ref()?))'), False))
+            cases.insert(-1, ('wrong-factory-round', api.replace(
+                'UnitCoord::new(round, node_index)', 'UnitCoord::new(0, node_index)'), False))
         for case, text, expected in cases:
             if not expected and text == api:
                 raise ValueError('ineffective mutation: '+case)
@@ -337,6 +355,14 @@ def main():
             (output/(case+'.stdout.json')).write_text(run['stdout'])
             (output/(case+'.stderr.txt')).write_text(run['stderr'])
             data = validate(run, expected, inferred_count)
+            if args.factory_proofs:
+                assisted = data['verus-infer'].get('factory_assistance', [])
+                if len(assisted) != 2 or any(f['callbacks'] != 1 for f in assisted):
+                    raise ValueError('missing regenerated factory callback proofs')
+                target = {'wrong-factory-index': 'NodeMap::iter',
+                          'wrong-factory-round': 'ControlHash::parents'}.get(case)
+                if target and not any(n.endswith('::'+target) for n in data['verus-infer']['failed_functions']):
+                    raise ValueError('factory control did not fail its ordinary proof: '+case)
             if not expected:
                 if interface.exists():
                     raise ValueError('failed provider published interface')

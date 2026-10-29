@@ -56,6 +56,7 @@ pub mod invariant;
 pub mod iset;
 pub mod iset_lib;
 pub mod iter;
+pub mod iterator_view;
 #[cfg(verus_keep_ghost)]
 pub mod laws_cmp;
 #[cfg(verus_keep_ghost)]

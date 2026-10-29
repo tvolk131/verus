@@ -144,6 +144,19 @@ class ValidationSourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             native_construction_runtime('fn changed_corpus() {}')
 
+    def test_factory_proof_mode_keeps_original_chains_without_handwritten_proofs(self):
+        node = 'pub fn iter(&self) { self.0.iter().enumerate().filter_map(|(idx, maybe_value)| Some((NodeIndex(idx), maybe_value.as_ref()?))) }'
+        control = 'pub fn parents(&self) { self.parents.iter().map(|(node_index, &round)| UnitCoord::new(round, node_index)) }'
+        generated = native_models(node, control, factory_proofs=True)
+        self.assertEqual(item(generated, 'pub fn iter(')[2], node)
+        self.assertEqual(item(generated, 'pub fn parents(')[2], control)
+        self.assertEqual(generated.count('iterator_via_view('), 2)
+        self.assertNotIn('proof {', generated)
+        self.assertNotIn('filter_map_postcondition', generated)
+        self.assertNotIn('-> (result: impl Iterator', generated)
+        with self.assertRaises(ValueError):
+            native_models(node.replace('NodeIndex(idx)', 'NodeIndex(0)'), control, True)
+
     def test_changed_native_pipeline_is_not_silently_adapted(self):
         for old, new in [('parent.round == round - 1', 'parent.round < round - 1'),
                          ('unit_coord.round > round - 1', 'unit_coord.round >= round - 1')]:

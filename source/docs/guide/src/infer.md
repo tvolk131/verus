@@ -774,6 +774,51 @@ The separate checked `vstd::iter` implementations below still add no iterator
 axioms. See the [native factory example](../../../tools/infer_alephbft/native_pipeline_models.rs)
 and its [source-connected Aleph experiment](../../../tools/infer_alephbft/README.md).
 
+## Checked native iterator factories
+
+For supported native factories, an authored output observation can now request a
+generated ordinary factory proof:
+
+```rust,ignore
+impl<T> NodeMap<T> {
+    #[verus_verify(iterator_via_view(self.entries_value()))]
+    pub fn iter(&self) -> impl Iterator<Item = (NodeIndex, &T)> {
+        self.0.iter().enumerate().filter_map(|(idx, value)| {
+            Some((NodeIndex(idx), value.as_ref()?))
+        })
+    }
+}
+```
+
+Place this attribute on an ordinary Rust method outside `verus!`, and enable
+`--infer-goals`. The output observation remains authored: the sparse profile uses
+the supplied `sparse_entries` vocabulary. The attribute generates a
+`finite_native_view` contract and normal proof calls. Callback equations are
+proposed from the original closure and checked against its executable body;
+their exits and safety requirements are scoped to that closure. No handwritten
+callback contract, type annotation or factory proof block is needed in this
+example. A native `map` over a certified finite factory is supported similarly.
+
+The initial profile requires a shared receiver, a single returned adapter call,
+a direct immutable callback and a total callback candidate. The sparse family
+starts with native slice iteration and enumeration. More general chains, partial
+callbacks and custom iterator implementations remain separate work. The macro
+keeps the original receiver/closure evaluation order for verification and returns
+the original item unchanged during executable erasure. Generated generic proof
+calls undergo normal Rust and Verus checking. All factory proofs must succeed
+before publishing an interface; `--no-verify` cannot certify them.
+
+These are ordinary verified factory interfaces, not exact inference of the whole
+iterator object or its maximal construction domain. Consuming inferred methods
+still prove soundness, maximality and output exactness. The checked combinators
+add no library axioms and retain the existing native iterator model boundary.
+The `factory_assistance` JSON entries report regenerated callback proposals;
+they are not independent precision receipts.
+
+The Aleph validation runner's `--factory-proofs` mode exercises both original
+factory bodies. Supplied collection/output views and application policies remain
+explicit, while their factory proof blocks and callback contracts are removed.
+
 ## Total native construction loops
 
 A bounded owned constructor can now use one native `for` loop over a supplied

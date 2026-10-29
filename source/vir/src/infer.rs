@@ -50,6 +50,7 @@ pub(crate) fn identity_borrow_return(f: &Function) -> bool {
         if matches!(&**t,TypX::Datatype(..)|TypX::TypParam(_)|TypX::Projection{..}))
 }
 pub fn borrowed_observation_source(f:&Function)->Option<Fun>{owned::borrowed::source(f)}
+pub use owned::factory_callbacks::prepare as prepare_factory_callbacks;
 
 /// Pure vocabulary used only in proposed contracts, never an executable model.
 pub fn is_pure_observation(f: &Function) -> bool {

@@ -1738,3 +1738,70 @@ noninitial runtime corpora, 378 native constructed maps plus an empty map, 254
 native initial-validation cases, and all six original validator tests. The parent
 summary contains 715 requirement nodes and 1,707 output-equation nodes in both
 cold and warm runs, within the unchanged 4,096-node formula limit.
+
+### Ordinary native factory proof assistance (October 28, 2026)
+
+`#[verus_verify(iterator_via_view(output_observation))]` requests an ordinary
+finite-native-view contract for a supported shared factory. The output observation
+is an explicit author choice. This is not maximal-domain or exact whole-iterator
+inference. Consumers continue to use the existing independent soundness,
+maximality and output-exactness checks.
+
+The frontend scaffold evaluates the original receiver once, retains the original
+adapter call and direct closure argument, and emits a normal proof call. Keeping
+the closure in its original argument position preserves Rust's contextual type
+inference. Executable erasure returns the original item. The generic proof calls
+receive ordinary Rust typing, Verus mode, precondition and body checks; the
+inference engine does not directly install a typed theorem instance into AIR.
+Structural macro tests cover evaluation multiplicity, adapter retention, generic
+where clauses and unsupported source shapes. This source transformation remains
+part of the compiler/macro implementation; it has not itself been formally proved.
+
+The new iterator_view module contains five ordinary verified proofs. Sparse
+filter-map and map combinators connect existing native constructor postconditions
+to a supplied output sequence. Their premises connect the actual callback to its
+complete output equation, and require callback safety over the relevant full
+input. The sparse-entry origin lemma exposes index provenance for downstream
+bounds. These proofs use the existing native iterator specifications and add no
+axiom or external body. Both standard and allocation-free vstd builds check them.
+
+Behind --infer-goals, bounded immutable callback candidates are regenerated for
+certified factory interfaces. Their original bodies prove the proposed equations
+with an unrestricted callback precondition. Partial or mutating callback candidates
+fail closed. Canonical value-only Option propagation is supported, including the
+original sparse iterator's as_ref()? expression. Callback candidate evaluation now
+uses a separate function return type, exit list and path state, preventing an
+inner propagation from being interpreted as an enclosing function return. Generated
+specification-constructor bookkeeping extends the existing protected region to
+ordinary factory callback contracts, preserving executable checks.
+
+Factory assistance reports callback proposals separately from inference receipts.
+The existing full-crate verification and export barrier applies to factory
+interfaces. Cross-crate cold/warm tests cover non-Copy borrowed elements, mapped
+records, count/search consumers, wrong indices, wrong mapped values, an incorrect
+supplied view, missing assistance, unchecked builds, and partial/mutating callbacks.
+No failed factory or dependent consumer may publish an interface.
+
+The guarded Aleph --factory-proofs run retains the complete original NodeMap::iter
+and ControlHash::parents signatures and bodies. Each has one view annotation;
+there are no handwritten callback contracts, factory proof blocks or named-local
+adaptations in this fixture. Both ordinary factory proofs succeed, along with the
+same 29 exact inferred contracts. Twenty-four expected formal outcomes include
+named factory failures for deliberately wrong indices and mapped rounds. Existing
+application policies, collection/output views, value laws, corrected quorum,
+codec/lock/native-library boundaries and checked-Signed input remain explicit.
+
+Validation: 525 Rust integration tests across twenty binaries, 111 VIR unit tests,
+seven builtin-macro unit tests and 71 inference-tool Python tests pass. Standard
+vstd verifies 2,209 obligations; no_std/no_alloc verifies 2,019, both with zero
+errors. Aleph retains both 7,704-case noninitial corpora, 378 native constructor
+maps plus an empty map, 254 initial-validation cases, and six original validator
+tests. The broad Cargo macro command additionally attempts existing documentation
+fragments as plain Rust doctests: 23 fail on Verus syntax and five are ignored.
+Their documentation text is unchanged from the preceding commit; the focused
+macro --lib test command passes. These doctest failures are not counted as passing
+verification checks.
+
+Metadata schema/policy is 34 and candidate cache is 40. Rebuild inferred providers
+and dependents after upgrading. Richer chains, partial-domain factory assistance,
+arbitrary iterators and automatic abstraction discovery remain separate work.

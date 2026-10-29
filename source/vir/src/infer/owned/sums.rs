@@ -69,8 +69,28 @@ impl Engine<'_> {
         e: &Expr,
         p: propagation::Propagation,
     ) -> Result<Val, VirErr> {
-        if p.kind != propagation::Carrier::Result {
-            return Err(unsupported(&e.span, "structured propagation currently requires Result value payloads"));
+        if p.kind == propagation::Carrier::Option {
+            let typ = option(&p.operand.typ)
+                .ok_or_else(|| unsupported(&e.span, "Option propagation input"))?;
+            let input = self.expr(s, &p.operand)?;
+            let whole = input.scalar(&e.span)?;
+            let tag = atom(tag_expr(&whole.expr))?;
+            let success = self.layout(
+                field_expr(&whole.expr, &option_field(&p.operand.typ), typ), 8,
+            )?;
+            let TypX::Datatype(dt, ..) = &*p.return_type else {
+                return Err(unsupported(&e.span, "Option propagation return type"));
+            };
+            let failure = Val::atom(atom(SpannedTyped::new(
+                &e.span, &p.return_type,
+                ExprX::Ctor(dt.clone(), Arc::new("None".into()), Arc::new(vec![]), None),
+            ))?);
+            let failed = logical(
+                &e.span, LogicalOp::And, s.active.clone(), exits::not(&e.span, tag.clone())?,
+            )?;
+            self.exits.push((failed, failure));
+            s.active = logical(&e.span, LogicalOp::And, s.active.clone(), tag)?;
+            return Ok(success);
         }
         let (ok_typ, err_typ) = result(&p.operand.typ)
             .ok_or_else(|| unsupported(&e.span, "Result propagation input"))?;

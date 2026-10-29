@@ -141,6 +141,9 @@ impl Verifier {
             "requested_functions": generation.requested,
             "generated_functions": functions.len(),
             "generation_failure": generation.failure,
+            "factory_assistance": generation.factory_callbacks.iter().map(|(function,count)|json!({
+                "function":name(function),"strategy":"total_factory_callbacks","callbacks":count,
+            })).collect::<Vec<_>>(),
             "goal_assistance": generation.goal_lemmas.iter().map(|(function, lemmas)| json!({
                 "function": name(function), "strategy": "counting_broadcast",
                 "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),

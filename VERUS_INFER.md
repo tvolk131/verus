@@ -570,7 +570,19 @@ APIs and research directions.
     mode. A supplied caller checks member-count priority, copied PreUnit views,
     exact nested errors, unchanged Signed success and the conditional creator
     bound. The input is already signed; authentication is an explicit boundary.
-26. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+26. **Checked factory proof assistance implemented.** An opt-in
+    `#[verus_verify(iterator_via_view(output_view))]` annotation retains the
+    original native body in executable erasure and requests an ordinary checked
+    finite-view contract. `--infer-goals` proposes total immutable callback
+    equations, including canonical Option propagation. Verified generic sparse
+    filter-map and map combinators discharge the factory proof without new
+    iterator axioms. Aleph's original NodeMap::iter and ControlHash::parents now
+    need no handwritten callback contracts, factory proof blocks or named-local
+    adaptations. Their output views remain supplied. Factories are ordinary
+    verified interfaces, not exact iterator-object inference candidates; their
+    consumers retain all three existing inference checks. More general factory
+    chains, partial callbacks and arbitrary iterator implementations remain open.
+27. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.

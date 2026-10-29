@@ -16,6 +16,7 @@ mod attr_block_trait;
 mod attr_rewrite;
 mod infer_wrapper;
 mod infer_clone;
+mod infer_factory;
 mod infer_compare;
 mod calc_macro;
 mod contrib;
@@ -433,6 +434,27 @@ pub fn verus_verify(
     args: proc_macro::TokenStream,
     input: proc_macro::TokenStream,
 ) -> proc_macro::TokenStream {
+    let tokens: proc_macro2::TokenStream = args.clone().into();
+    let mut parts = tokens.clone().into_iter();
+    if matches!(parts.next(), Some(proc_macro2::TokenTree::Ident(n)) if n == "iterator_via_view") {
+        let view = match (parts.next(), parts.next()) {
+            (Some(proc_macro2::TokenTree::Group(g)), None)
+                if g.delimiter() == proc_macro2::Delimiter::Parenthesis && !g.stream().is_empty() =>
+            {
+                g.stream()
+            }
+            _ => return syn::Error::new_spanned(
+                tokens, "expected iterator_via_view(output_view_expression)",
+            ).to_compile_error().into(),
+        };
+        if cfg_erase().erase_all() {
+            return input;
+        }
+        let item = syn::parse_macro_input!(input as syn::ItemFn);
+        let vstd = syntax::Vstd(proc_macro2::Span::call_site());
+        return infer_factory::expand(item, view, quote::quote!(#vstd))
+            .unwrap_or_else(|e| e.to_compile_error()).into();
+    }
     if args.to_string() == "clone_via_view" {
         if cfg_erase().erase_all() {
             return input;

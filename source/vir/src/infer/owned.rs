@@ -11,6 +11,7 @@ mod mutations;
 pub(crate) mod result_map;
 mod variants;
 pub(crate) mod borrowed;
+pub(crate) mod factory_callbacks;
 use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
