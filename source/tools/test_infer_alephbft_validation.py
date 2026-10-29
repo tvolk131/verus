@@ -50,9 +50,10 @@ class ValidationSourceTests(unittest.TestCase):
         }
         pub fn n_members''')
         generated = full_validation_api(original)
+        self.assertEqual(generated.count('#[verifier::infer]'), 2)
         self.assertEqual(item(original, 'fn validate_initial_round(')[2], item(generated, 'fn validate_initial_round(')[2])
-        self.assertEqual(item(original, 'pub fn validate(')[2].split('{', 1)[1],
-            item(generated, 'pub fn validate(')[2].split('{', 1)[1])
+        self.assertEqual(item(original, 'pub fn validate(')[2],
+            item(generated, 'pub fn validate(')[2])
         self.assertIn('coord.parts().0.0 < parents@.len()', generated)
         self.assertNotIn('construction_rounds(parents).len()', generated)
 

@@ -841,13 +841,20 @@ The original call and all three checks must prove that proposal. The explicit
 verified for booleans, machine integers and arrays of lawful elements. Rust's `Eq`
 marker alone supplies no such proof; unsupported or weaker equality fails closed.
 
-Aleph's full-validation mode infers the original initial-round branch and checks
-the unchanged public dispatcher against a supplied complete error policy. Constructor
-callers state input-map bounds and per-slot projection goals without fold induction.
-The dispatcher is an ordinary top-down proof target: fully expanding its entire
-inferred typed-result equation still exceeds the current formula budget. Collection
-views, factory proofs, equality law, application policy and the codec boundary remain
-explicit supplied inputs.
+Value-only `Result` summaries retain a complete typed conditional value through
+branches and helper calls. Identity `?` propagation can preserve that value on the
+error path when the complete return type matches. This avoids repeated tag/payload
+reconstruction. Collection-bearing results retain guarded complete view observations.
+All original safety and precision checks still run, and the 4,096-node formula
+budget remains unchanged. This is a bounded representation improvement, not general
+expression sharing or support for arbitrary-depth call chains.
+
+Aleph's full-validation mode infers both original validation branches and the
+unchanged public dispatcher. Separate ordinary caller goals check the complete
+supplied error policy and conditional creator-index bound. Constructor callers
+state input-map bounds and per-slot projection goals without fold induction.
+Collection views, factory proofs, equality law, application policy and the codec
+boundary remain explicit supplied inputs.
 
 ## Checked finite collection queries
 

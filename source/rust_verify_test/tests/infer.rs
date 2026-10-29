@@ -5939,3 +5939,6 @@ mod native_iterator_cases;
 
 #[path="infer_cases/equality.rs"]
 mod equality_cases;
+
+#[path="infer_cases/result_composition.rs"]
+mod result_composition_cases;

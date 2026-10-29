@@ -128,6 +128,22 @@ struct Engine<'a> {
     remaining: usize,
 }
 impl Engine<'_> {
+    // Value-only results have a complete logical value. Keep that value intact
+    // across calls/branches rather than duplicating it into tag and payload
+    // observations. Results containing owned collections still need views.
+    fn value_result(&self, typ: &Typ) -> bool {
+        sums::result(typ).is_some_and(|(a, b)| {
+            [a, b].iter().all(|t| records::shape::value_type(t, &self.f.x.typ_params, self.ds, 5))
+        })
+    }
+    fn result_value(&self, span: &Span, typ: Typ, node: Node) -> Result<Val, VirErr> {
+        let value = Val { typ, node };
+        if self.value_result(&value.typ) {
+            Ok(Val::atom(value.scalar(span)?))
+        } else {
+            Ok(value)
+        }
+    }
     fn object(&self,s:&State,e:&Expr)->Result<Term,VirErr>{
         fn place(s:&State,p:&Place,depth:usize)->Result<Term,VirErr>{
             if depth==0{return Err(unsupported(&p.span,"query receiver projection depth"));}
@@ -285,6 +301,8 @@ impl Engine<'_> {
                     self.layout(field_expr(&e, &option_field(&typ), payload), depth - 1)?,
                 )),
             )
+        } else if self.value_result(&typ) {
+            Node::Atom(atom(e)?)
         } else if let Some((ok, err)) = sums::result(&typ) {
             Node::Result(
                 atom(sums::tag(&e, "Ok"))?,
@@ -518,14 +536,15 @@ impl Engine<'_> {
                         return Err(unsupported(span, "Result constructor shape"));
                     }
                     let value = Some(Box::new(self.expr(s, &fs[0].a)?));
-                    return Ok(Val {
-                        typ: e.typ.clone(),
-                        node: if variant.as_str() == "Ok" {
+                    return self.result_value(
+                        span,
+                        e.typ.clone(),
+                        if variant.as_str() == "Ok" {
                             Node::Result(boolean(span, true), value, None)
                         } else {
                             Node::Result(boolean(span, false), None, value)
                         },
-                    });
+                    );
                 }
                 if sums::flat_enum(&e.typ, self.ds) && fs.is_empty() {
                     return Ok(Val::atom(atom(e.clone())?));

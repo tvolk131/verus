@@ -1627,3 +1627,49 @@ both with zero errors. The final pinned Aleph run records sixteen expected forma
 outcomes, seventeen complete exact contracts, both 7,704-case noninitial runtime
 corpora, 378 native constructed maps plus an empty map, and 254 additional native
 initial-validation cases. Cold/warm runs enable fold assistance in five callers.
+
+### Compact exact result composition checkpoint (October 28, 2026)
+
+Bounded value-only `Result` summaries now retain a complete typed value equation.
+Branches and helper calls compose that equation directly. For identity `?`
+propagation with the same complete return type, the failure exit preserves the
+input value under its error tag. Different success types retain ordinary guarded
+error projections and reconstruction. Results containing collections still use
+complete guarded view observations; this change does not grant a collection an
+unproved value abstraction.
+
+This changes only untrusted candidate representation. Original executable bodies,
+safety checks, candidate-bound evidence, independent maximality/output-exactness
+queries and publication barriers are unchanged. No new axiom, trusted executable
+model, proof-status shortcut or formula-budget increase is introduced. General
+expression sharing, arbitrary-depth composition and broader `map_err`/conversion
+support remain separate work. Metadata schema/policy is 32 and candidate cache is
+38; rebuild inferred providers and their dependents after upgrading.
+
+Aleph's original public `ControlHash::validate` dispatcher now infers its safety
+domain and complete typed output without a handwritten method contract. Its cold
+and warm reports contain 516 requirement nodes and 573 output-equation nodes,
+within the unchanged 4,096-node budget. Separate supplied caller goals still check
+the complete intended policy and conditional creator-index bound. A new missing
+public caller-bound control fails ordinary precondition verification. Existing
+wrong errors, payloads, priority, callback and constructor controls still fail
+semantically and publish no interface. These are deliberate mutations, not newly
+discovered production bugs.
+
+Cross-crate cold/warm tests cover complete generic errors, first-error priority,
+non-unit success values, success-type changes and error paths bypassing a later
+overflow. A successful path without its overflow bound fails. Reordering an
+independently verified provider's errors fails the consumer's supplied policy and
+blocks consumer publication. A collection-bearing result regression retains the
+exact success sequence view and guarded error value.
+
+Validation: the rebuilt verifier passes 517 integration tests across twenty
+binaries, 111 VIR unit tests and 69 inference-tool Python tests. Rebuilt standard
+vstd verifies 2,204 obligations with zero errors. The guarded pinned Aleph run
+passes seventeen expected formal outcomes, eighteen complete exact contracts,
+both 7,704-case noninitial runtime corpora, 378 native constructor maps plus an
+empty map, and 254 native initial-validation cases. Supplied factory/view and
+application meanings, checked equality law, codec/lock/native-library boundaries
+and corrected quorum arithmetic remain as documented in the previous checkpoint.
+The next outer parent validator, full crate, encoding implementation and protocol
+properties are not claimed by this checkpoint.

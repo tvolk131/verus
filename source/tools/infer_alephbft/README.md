@@ -785,12 +785,13 @@ codec implementation itself remains separate work.
 ## Complete public validation and demanded constructor facts
 
 Add `--full-validation` to the command above. This implies both native modes and
-adds inference of the unchanged `validate_initial_round` body. Seventeen methods
-receive soundness, maximality and exactness proofs. The unchanged public `validate`
-body is an ordinary top-down proof target with a supplied complete typed-error
-policy and the conditional creator-index safety bound. Its entire expanded inferred
-result equation exceeds the current formula budget; this mode does not claim
-inference of that dispatcher.
+adds inference of the unchanged `validate_initial_round` and public `validate`
+bodies. Eighteen methods receive soundness, maximality and exactness proofs.
+Complete value-only `Result` equations compose without repeatedly rebuilding
+separate tag/payload observations. The dispatcher fits the unchanged 4,096-node
+formula budget. Its safety domain and output are inferred; separate ordinary
+caller goals supply the intended complete typed-error policy and conditional
+creator-index safety bound. Application intent is not inferred.
 
 Constructor callers now state bounds using the **input map length**, and prove
 length preservation and per-slot round projection without handwritten fold
@@ -806,9 +807,10 @@ temporary map. Generic hash comparisons use an explicit checked `PartialEqIdenti
 bound in the supplied Hasher interface. No mathematical meaning is inferred from
 Rust's `Eq` marker.
 
-Sixteen expected formal outcomes include the initial error count, hash comparison, hash
-payload order and round dispatcher, in addition to construction and noninitial
-controls. The proof-target runtime exercises the public dispatcher on the existing
+Seventeen expected formal outcomes include the initial error count, hash comparison,
+hash payload order, round dispatcher and missing public caller bound, in addition
+to construction and noninitial controls. The proof-target runtime exercises the
+public dispatcher on the existing
 7,704 noninitial cases. The untouched native runtime additionally runs 254 initial
 cases, including bad hashes, parent-error priority, empty maps and out-of-range
 creators. Its real constructor, SCALE codec and hasher run as before. The proof-only

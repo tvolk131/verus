@@ -49,12 +49,10 @@ def construction_api(control):
 
 
 def full_validation_api(control):
-    # Public validate is the top-down proof target. Its intended policy is
-    # supplied, and ordinary verification connects the two inferred branches.
-    methods = ['#[verifier::infer]\n'+item(control, 'fn validate_initial_round(')[2],
-        method(control, 'pub fn validate(', 'Result<(), Error<H>>',
-            'result == self.expected_validation(unit_coord)').replace('    ensures',
-                '    requires unit_coord.parts().1 == 0 || unit_coord.parts().0.0 < self@.0.len(),\n    ensures', 1)]
+    # Both branches and the public dispatcher infer from unchanged source.
+    # Separate callers supply the complete policy and conditional safety bound.
+    methods = ['#[verifier::infer]\n'+item(control, marker)[2]
+        for marker in ('fn validate_initial_round(', 'pub fn validate(')]
     return (FIXTURES/'full_validation_models.rs').read_text().replace(
         '// ORIGINAL_FULL_VALIDATION', '\n'.join(methods))
 
@@ -148,7 +146,7 @@ def main():
         args.native_construction = True
     if args.native_construction:
         args.native_pipelines = True
-    inferred_count = 17 if args.full_validation else 16 if args.native_construction else 15
+    inferred_count = 18 if args.full_validation else 16 if args.native_construction else 15
     output = args.output.resolve()
     if output.exists() and any(output.iterdir()):
         parser.error('output must be new or empty')
@@ -201,7 +199,7 @@ def main():
                 not_claimed='automatic factory/view discovery, partial-domain or arbitrary loops, initial-round validation, proof of SCALE bytes or full protocol correctness')
         if args.full_validation:
             result['source'].update(
-                validation='original initial branch infers exact typed errors; ordinary public validate checks the supplied complete policy against both inferred branches',
+                validation='original initial branch and public dispatcher infer exact typed errors and maximal safety domains; separate ordinary callers check the supplied complete policy',
                 construction_goals='input-map length and per-slot round projection; full construction-to-validation caller without supplied fold induction',
                 equality='explicit checked PartialEqIdentity bound on the supplied Hasher interface; no assumption that Rust Eq implies value identity',
                 not_claimed='automatic factory/view or policy discovery, proof of SCALE bytes/hash security, arbitrary loops, full crate/protocol correctness')
@@ -248,6 +246,9 @@ def main():
             cases.insert(-1, ('wrong-construction-round', api.replace('insert(parent_index, *parent_round)', 'insert(parent_index, 0)'), False))
             cases.insert(-1, ('wrong-construction-hash', api.replace('parent_map.using_encoded(H::hash)', 'H::hash(&[])'), False))
         if args.full_validation:
+            cases.insert(-1, ('missing-public-creator-bound', api.replace(
+                'coord.parts().1 == 0 || coord.parts().0.0 < self@.0.len(),',
+                'true,'), False))
             cases.insert(-1, ('wrong-initial-payload', api.replace(
                 'Error::RoundZeroWithSomeParents(NodeCount(parents_count))',
                 'Error::RoundZeroWithSomeParents(NodeCount(0))'), False))

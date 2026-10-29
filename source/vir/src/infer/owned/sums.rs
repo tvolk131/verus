@@ -54,31 +54,49 @@ pub(super) fn field(t: &Typ, v: &str) -> FieldOpr {
     }
 }
 impl Engine<'_> {
-    pub(super) fn propagate(&mut self,s:&mut State,e:&Expr,p:propagation::Propagation)->Result<Val,VirErr> {
-        if p.kind!=propagation::Carrier::Result {
-            return Err(unsupported(&e.span,"structured propagation currently requires Result value payloads"));
+    pub(super) fn propagate(
+        &mut self,
+        s: &mut State,
+        e: &Expr,
+        p: propagation::Propagation,
+    ) -> Result<Val, VirErr> {
+        if p.kind != propagation::Carrier::Result {
+            return Err(unsupported(&e.span, "structured propagation currently requires Result value payloads"));
         }
-        let (ok_typ,err_typ)=result(&p.operand.typ).ok_or_else(||unsupported(&e.span,"Result propagation input"))?;
-        let (_,target_err)=result(&p.return_type).ok_or_else(||unsupported(&e.span,"Result propagation output"))?;
-        if !records::shape::value_type(ok_typ,&self.f.x.typ_params,self.ds,5)
-            || !records::shape::value_type(err_typ,&self.f.x.typ_params,self.ds,5)
-            || !records::shape::value_type(target_err,&self.f.x.typ_params,self.ds,5) {
-            return Err(unsupported(&e.span,"structured ? requires bounded value payloads"));
+        let (ok_typ, err_typ) = result(&p.operand.typ)
+            .ok_or_else(|| unsupported(&e.span, "Result propagation input"))?;
+        let (_, target_err) = result(&p.return_type)
+            .ok_or_else(|| unsupported(&e.span, "Result propagation output"))?;
+        if [ok_typ, err_typ, target_err].iter().any(|t| {
+            !records::shape::value_type(t, &self.f.x.typ_params, self.ds, 5)
+        }) {
+            return Err(unsupported(&e.span, "structured ? requires bounded value payloads"));
         }
-        let input=self.expr(s,&p.operand)?;
-        let Node::Result(ok,a,b)=&input.node else{return Err(unsupported(&e.span,"Result propagation layout"));};
-        // Only the selected constructor's payload matters. For an absent branch,
-        // use its ordinary datatype projection, guarded by an impossible tag.
-        let payload=|variant:&str,t:&Typ,v:&Option<Box<Val>>|->Result<Val,VirErr>{
-            match v {Some(v)=>Ok((**v).clone()),None=>self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,variant),t),5)}
+        let input = self.expr(s, &p.operand)?;
+        let value = input.scalar(&e.span)?;
+        let TypX::Datatype(dt, ..) = &*input.typ else { unreachable!() };
+        let ok = variant_test(&e.span, value.clone(), dt, &Arc::new("Ok".into()))?;
+        // Ordinary projections are used only under their selected variant's
+        // path. An absent payload is irrelevant under the impossible tag.
+        let success = self.layout(field_expr(&value.expr, &field(&input.typ, "Ok"), ok_typ), 5)?;
+        let failed = logical(
+            &e.span, LogicalOp::And, s.active.clone(), exits::not(&e.span, ok.clone())?,
+        )?;
+        let failure = if same(&input.typ, &p.return_type) {
+            // On this exit the input is already Err with the right complete
+            // type. Preserve it instead of projecting and rebuilding its value.
+            input
+        } else {
+            let error = self.layout(field_expr(&value.expr, &field(&input.typ, "Err"), err_typ), 5)?;
+            let error = Val::atom(coerce(&e.span, error.scalar(&e.span)?, target_err)?);
+            self.result_value(
+                &e.span, p.return_type,
+                Node::Result(boolean(&e.span, false), None, Some(Box::new(error))),
+            )?
         };
-        let a=payload("Ok",ok_typ,a)?;
-        let b=payload("Err",err_typ,b)?;
-        let error=Val::atom(coerce(&e.span,b.scalar(&e.span)?,target_err)?);
-        let failed=logical(&e.span,LogicalOp::And,s.active.clone(),exits::not(&e.span,ok.clone())?)?;
-        self.exits.push((failed,Val{typ:p.return_type,node:Node::Result(boolean(&e.span,false),None,Some(Box::new(error)))}));
-        s.active=logical(&e.span,LogicalOp::And,s.active.clone(),ok.clone())?;
-        Ok(a)
+        self.exits.push((failed, failure));
+        s.active = logical(&e.span, LogicalOp::And, s.active.clone(), ok)?;
+        Ok(success)
     }
     pub(super) fn result_post(
         &self,

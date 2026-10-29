@@ -54,6 +54,25 @@ fn generic_copy_option_and_complete_record_lifecycle_are_exact() {
 }
 
 #[test]
+fn collection_results_retain_complete_guarded_sequence_views() {
+    exact(
+        r#"use vstd::prelude::*;verus!{
+ enum Error{Missing,Other}
+ #[verifier::infer] fn select(fail:bool,values:Vec<u8>)->Result<Vec<u8>,Error>{
+  if fail{Err(Error::Missing)}else{Ok(values)}
+ }
+ #[verifier::infer] fn relay(fail:bool,values:Vec<u8>)->Result<Vec<u8>,Error>{select(fail,values)}
+ fn goal(fail:bool,values:Vec<u8>)->(r:Result<Vec<u8>,Error>)
+  ensures r.is_ok()==!fail,
+   r.is_ok() ==> r.get_Ok_0()@==values@,
+   r.is_err() ==> r.get_Err_0()==Error::Missing,
+ {relay(fail,values)}
+}"#,
+        2,
+    );
+}
+
+#[test]
 fn fill_loop_synthesizes_contents_and_termination() {
     exact(
         r#"use vstd::prelude::*;verus!{

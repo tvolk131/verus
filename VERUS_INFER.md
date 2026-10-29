@@ -177,10 +177,13 @@ Implemented and covered by regression tests:
   through `--infer-goals`. Visible unary view-query observations compose with
   constructed collections. Generic same-type equality proposes identity only when
   ordinary verification and independent precision checks establish the supplied
-  checked law. Aleph's original initial branch now infers exact errors; an ordinary
-  supplied policy checks its unchanged public dispatcher. Input-map bounds and
-  constructor projection goals need no handwritten fold induction. Fully inferring
-  the complete dispatcher still exceeds the current expansion budget.
+  checked law. Aleph's original initial branch now infers exact errors. Input-map
+  bounds and constructor projection goals need no handwritten fold induction.
+- [x] Compact composition of complete value-only `Result` equations through calls,
+  branches and identity `?` propagation. Collection-bearing results retain guarded
+  view observations. Aleph's original public dispatcher now infers its maximal
+  safety domain and exact typed output within the unchanged formula budget;
+  separate supplied caller goals check the complete application policy.
 - [x] A bounded candidate registry and persistent cache with transitive dependency
   invalidation. Source eligibility is always checked, and every reused candidate
   receives fresh proofs; the cache stores no proof outcomes.
@@ -318,8 +321,10 @@ Still planned or outside the implemented subset:
   Checked finite iterator implementations are available as explicit library APIs;
   synthesis of iterator-factory meanings, arbitrary closures/iterator loops, and
   full protocol properties remains open. Original ControlHash construction and both
-  validation branches now connect to a supplied complete public-validator policy;
-  codec implementation proofs and fully inferred dispatcher summaries remain open.
+  validation branches and public dispatcher are inferred and checked against a
+  supplied complete policy. Codec implementation proofs and the next outer parent
+  validator remain open; its error mapping, richer nested payloads and borrowed
+  wrapper accessors need broader inference support.
 - [ ] Safe-only mode and the other proposed attribute options; the implemented
   options are `precision` and `precision_rlimit`. Proposed controls include
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
@@ -543,11 +548,16 @@ APIs and research directions.
     sparse-update observations derive caller length and per-slot projection facts
     without application-specific induction. Pure view-query specialization handles
     constructed receivers; checked equality laws support generic hash comparisons.
-    Aleph's original initial branch is inferred and its unchanged public dispatcher
-    is checked against the supplied complete typed-error policy. Factory/view and
-    application meanings remain supplied; larger composed inferred dispatcher
-    equations still exceed the current formula budget.
-24. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+    Aleph's original initial branch is inferred. Factory/view and application
+    meanings remain supplied.
+24. **Compact result composition checkpoint implemented.** Bounded value-only
+    results retain complete equations instead of separate tag/payload formulas;
+    same-type identity propagation preserves the error value on its failure path.
+    Aleph's original public dispatcher now infers all three exact guarantees
+    within the unchanged 4,096-node budget. Separate ordinary caller goals check
+    the intended policy and conditional creator bound. General expression sharing
+    and arbitrary-depth composition remain separate work.
+25. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.
@@ -557,6 +567,9 @@ APIs and research directions.
     discovery and a dedicated expected-domain interface remain separate work.
     The existing supplied invariant and regression oracle are
     still visible inputs; do not count their desired semantics as inferred.
+    Aleph's next concrete target is `Validator::validate_unit_parents`, starting
+    from an already checked signed unit. General `Result::map_err`, nested error
+    payloads and borrowed wrapper accessors are its remaining inference blockers.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,
