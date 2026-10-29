@@ -2,7 +2,7 @@
 //! Original executable bodies and ordinary library specifications remain authoritative.
 use super::*;
 use records::{atom, coerce};
-mod loops;
+pub(in crate::infer) mod loops;
 mod models;
 mod sums;
 mod callbacks;
@@ -12,7 +12,7 @@ pub(crate) mod result_map;
 mod variants;
 pub(crate) mod borrowed;
 pub(crate) mod factory_callbacks;
-use models::Model;
+pub(in crate::infer) use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
     crate::ast_util::types_equal(a, b)
@@ -271,6 +271,7 @@ impl Engine<'_> {
             datatypes: self.ds,
             requirements: vec![],
             remaining: FORMULA_BUDGET,
+            plans: vec![],
         }
         .model_call(s, m, types, args)?;
         if m == collections::Model::SeqLen {
@@ -1478,7 +1479,7 @@ fn find_rhs(lhs: &Expr, clauses: &[Expr]) -> Result<Expr, VirErr> {
     }
     Ok(rhs)
 }
-fn skeleton(e: &Expr) -> String {
+pub(super) fn skeleton(e: &Expr) -> String {
     // Spans are deliberately excluded; names, types and operations remain bound.
     let mut value = serde_json::to_value(e).unwrap();
     fn strip(v: &mut serde_json::Value) {

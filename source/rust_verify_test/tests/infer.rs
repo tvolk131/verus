@@ -5961,3 +5961,80 @@ mod factory_goal_cases;
 
 #[path="infer_cases/outer_validation.rs"]
 mod outer_validation_cases;
+
+#[test]
+fn pointwise_record_loops_cross_crates_reprove_and_reject_false_callers() {
+    let crates = InferCrates::new();
+    let base = r#"
+        use vstd::prelude::*;
+        pub struct Bag { pub values: Vec<u8>, pub stamp: u8 }
+        impl Bag {
+            #[verifier::infer] pub fn bump(&mut self, n: usize) {
+                let mut i=0usize;
+                while i<n { self.values[i]+=1; i+=1; }
+            }
+        }
+    "#;
+    for _ in 0..2 {
+        let run = crates.build(
+            "prefix_base",
+            base,
+            &[],
+            &["--no-cheating", "--output-json"],
+        );
+        assert!(
+            run.status.success(),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["metrics"]["cache_policy"], "regenerated_state");
+        assert_eq!(f["loop_proofs"].as_array().unwrap().len(), 1);
+        for p in ["soundness", "maximality", "exactness"] {
+            assert_eq!(f["proofs"][p]["status"], "proved");
+            assert_eq!(f["proofs"][p]["required"], true);
+        }
+    }
+    let middle = r#"
+        use vstd::prelude::*;
+        #[verifier::infer] pub fn relay(b:&mut prefix_base::Bag,n:usize) {b.bump(n);}
+    "#;
+    crates.succeeds("prefix_middle", middle, &["prefix_base"]);
+    let app = r#"
+        use vstd::prelude::*;
+        pub fn check(b:&mut prefix_base::Bag,n:usize)
+            requires n<=old(b).values@.len(),
+                forall|i:int|0<=i<n ==> old(b).values@[i]<255,
+            ensures final(b).stamp==old(b).stamp,
+                final(b).values@.len()==old(b).values@.len(),
+                forall|i:int|0<=i<old(b).values@.len() ==>
+                    #[trigger] final(b).values@[i] as int == if i<n {old(b).values@[i]+1} else {old(b).values@[i] as int},
+        {prefix_middle::relay(b,n);}
+    "#;
+    let run = crates.build(
+        "prefix_app",
+        app,
+        &["prefix_base", "prefix_middle"],
+        &["--infer-goals"],
+    );
+    assert!(
+        run.status.success(),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    for wrong in [
+        app.replace("old(b).values@[i]<255", "old(b).values@[i]<=255"),
+        app.replace("old(b).values@[i]+1", "old(b).values@[i]+2"),
+    ] {
+        let run = crates.build(
+            "prefix_app",
+            &wrong,
+            &["prefix_base", "prefix_middle"],
+            &["--infer-goals", "--output-json"],
+        );
+        assert!(!run.status.success());
+        assert!(!crates.vir("prefix_app").exists());
+        assert_eq!(json_inference(&run)["interface_written"], false);
+    }
+}

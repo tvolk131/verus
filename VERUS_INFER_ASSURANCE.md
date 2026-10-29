@@ -121,6 +121,32 @@ The serialized identity introduced with the assurance milestone also requires
 rebuilding `vstd`, other `.vir` libraries, and dependents, including ordinary
 libraries built with older compiler binaries.
 
+## Pointwise mutation traversal checkpoint
+
+The borrowed-record prefix profile uses metadata schema **36** and candidate
+cache version **42**. Rebuild inferred providers and dependents after upgrading.
+It uses the existing `Seq::new`, indexing, update and vector specifications;
+there are no new standard-library axioms or external-body contracts.
+
+Generated loop annotations refer to entry state with explicit `VarAt(Pre)`
+snapshots, rather than the bookkeeping-only `Old` node. Inserted expression and
+place identifiers are fresh. The shared body projection gate retains every
+executable operation and admits only pure annotations and proof settings.
+Constructor metadata is extended only in generated spec positions; original
+executable constructor checks remain intact. Ordinary checking still proves
+induction, source bounds/arithmetic safety and termination. Function- and
+loop-level termination bypasses are rejected.
+
+The maximality query retains the same loop-lowering rules. Its visited-prefix
+safety witness starts empty and must be inductive after the proposed precondition
+is removed. At successful exit it establishes the entire visited domain; it is
+not an assumed copy of the candidate precondition. Full-state output exactness
+and all existing publication gates remain mandatory. Compiler regressions cover
+empty prefixes, signed arithmetic, index-dependent values, aliased slot updates,
+checked error preservation, unsupported shapes and cross-crate composition.
+False callers and native API mutations are rejected with healthy helper proofs.
+These checks are evidence, not a formal proof of the inference implementation.
+
 ## Trusted array-helper audit
 
 The additions are `no_unwind` on two pre-existing external-body functions in

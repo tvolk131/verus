@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v41:structured-queries-and-error-conversions:4096";
+const VERSION: &str = "verus-infer-v42:pointwise-record-traversals:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -360,8 +360,10 @@ impl Registry {
                     } else { c.clone() };
                     Ok((n.clone(), c))
                 }).collect::<Result<HashMap<_, _>, VirErr>>()?;
-                let inferred = records::infer(f, &record_callees, &self.datatypes)?
-                    .install_lifted(f, &key)?;
+                let (contract, body) = records::infer(f, &record_callees, &self.datatypes)?;
+                let inferred = if let Some(body) = body {
+                    contract.install_owned(f, &key, body)?
+                } else { contract.install_lifted(f, &key)? };
                 self.misses+=1;
                 let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
                 keys.insert(name.clone(),key); candidates.insert(name,inferred); continue;
@@ -514,6 +516,10 @@ impl Registry {
                 .map(|(((original, rewritten), projection), f)| {
                     if !original.x.attrs.infer { return Ok(f.clone()); }
                     if is_owned_summary(original){return Contract::new(f.x.require[0].clone(),f.x.ensure.0[0].clone())?.install_owned(original,f.x.attrs.infer_candidate_id.as_ref().unwrap(),owned::restore_body(original,f.x.body.as_ref().unwrap())?);}
+                    if records::has_loops(original) {
+                        return Contract::new(f.x.require[0].clone(),f.x.ensure.0[0].clone())?
+                            .install_owned(original,f.x.attrs.infer_candidate_id.as_ref().unwrap(),owned::restore_body(original,f.x.body.as_ref().unwrap())?);
+                    }
                     if Arc::ptr_eq(rewritten, projection) {
                         return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
                             .install_lifted(original, f.x.attrs.infer_candidate_id.as_ref().unwrap());

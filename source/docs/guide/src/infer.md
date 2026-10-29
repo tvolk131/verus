@@ -364,8 +364,8 @@ logical values; lifetimes/ownership use the original Rust/Verus checks. This doe
 not establish pointer-address identity. Unit-valued queries and non-unit early
 returns are currently unsupported. Mutable methods still require unit return.
 
-Aliases, additional mutable/structured reference parameters, mutable locals, whole-vector
-replacement, loops, division/remainder and general trait/operator calls remain
+Aliases, additional mutable/structured reference parameters, general mutable locals, whole-vector
+replacement, general loops, division/remainder and general trait/operator calls remain
 unsupported by this path. The bounded concrete From/AddAssign path above is an
 exception. Arbitrary `Into` and derived operator implementations are not interpreted
 as constructors or arithmetic.
@@ -569,6 +569,63 @@ reads the three getters and calls the checked direct update. A minimal invariant
 goal and a separate unit-behavior oracle check the result. This does not verify the
 full original traits, cached FullUnit hashing, unrelated native bounds or the
 clean-main collector's operator/lifecycle code.
+
+## Pointwise mutable prefix loops
+
+Default exact mode also supports one zero-based `usize` traversal of a vector
+field in a borrowed record:
+
+```rust
+#[verifier::infer]
+fn bump(&mut self, n: usize) {
+    let mut i = 0usize;
+    while i < n {
+        self.values[i] += 1;
+        i += 1;
+    }
+}
+```
+
+For `Vec<u8>`, inference derives `n <= old(self).values@.len()` and that every
+visited element is below 255. It describes the complete final sequence: each
+index below `n` increases by one, the suffix is unchanged, length is unchanged,
+and every other record field is framed. A zero count permits every initial
+value. Signed element arithmetic retains its ordinary checked bounds too.
+Loop-independent partial arithmetic is required only when the prefix is nonempty.
+Direct slot compound assignments outside loops also retain sequential aliasing:
+in `balances[src] -= amount; balances[dst] += amount`, the second operation reads
+the already updated sequence, including when `src == dst`.
+
+The loop body must contain one pointwise update followed by `i += 1` or
+`i = i + 1`. The update may use an exact inferred record method, including a
+private sequence wrapper's insertion API. Reads of the changed collection must
+use the same index. Other record fields remain unchanged. Bounds may be immutable
+parameters, wrapper fields or the collection length. Native Rust uses the usual
+`#[verus_infer]` spelling. Source contracts and loop annotations are unnecessary.
+
+The candidate adds a prefix-content invariant, visited-prefix safety facts,
+bounds and frame facts, and the decreasing measure `bound - i`. Function-entry
+observations use explicit entry snapshots, so loop mutation cannot change their
+meaning. Ordinary Verus proves initialization, preservation, source safety and
+termination. The maximality query removes the candidate precondition and still
+checks the induction; visited safety facts must be established by completed safe
+iterations. Output exactness observes the complete final modeled record state.
+The shared projection gate removes only proof annotations and compares the
+remaining executable with the original typed body. No loop axioms are added.
+
+General iterator mutation, neighboring-element dependencies, growing/shrinking
+collections, multiple/nested loops, non-unit counter steps, early exits, mutable
+returns and sound-mode traversal summaries remain unsupported. Such algorithms
+can still use ordinary Verus contracts and loop invariants.
+
+A public checked `Result` API can validate inputs before calling an inferred
+unit-returning worker. Its error choices and preservation policy remain authored
+and receive ordinary verification; mutable `Result` inference is not introduced
+here. For a transfer, check indices, available source funds, and destination
+capacity **before** subtracting funds if errors must preserve the state. Returning
+`Err` after the subtraction does not establish that property. See
+[`verus_infer_traversals.rs`](../../../../examples/verus_infer_traversals.rs) for a
+checked prefix-fill wrapper and signed increment example.
 
 ## Owned collection construction and round advancement
 

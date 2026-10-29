@@ -1,7 +1,7 @@
-//! Checked proof decoration for the closed fill/copy loop families.
+//! Shared checked proof decoration for owned and borrowed collection loops.
 use super::*;
 #[derive(Clone)]
-pub(super) struct Plan {
+pub(in crate::infer) struct Plan {
     pub span: u64,
     pub invs: LoopInvariants,
     pub decrease: Exprs,
@@ -270,7 +270,7 @@ impl Engine<'_> {
         Ok(Val::atom(exits::unit_value(span)?))
     }
 }
-pub(super) fn annotate(f: &Function, plans: &[Plan]) -> Result<Expr, VirErr> {
+pub(in crate::infer) fn annotate(f: &Function, plans: &[Plan]) -> Result<Expr, VirErr> {
     let body = f.x.body.as_ref().unwrap();
     let out = crate::ast_visitor::map_expr_visitor(body, &|e| {
         if let ExprX::Loop {
@@ -407,13 +407,17 @@ pub(super) fn pure(e: &Expr) -> Result<(), VirErr> {
         let allowed = match &e.x {
             ExprX::Const(_)
             | ExprX::Var(_)
+            | ExprX::VarAt(_, VarAt::Pre)
             | ExprX::Unary(_, _)
             | ExprX::UnaryOpr(_, _)
             | ExprX::Binary(_, _, _)
             | ExprX::Logical(_, _, _)
             | ExprX::Ctor(_, _, _, None)
             | ExprX::Closure(_, _)
+            | ExprX::Quant(_, _, _)
+            | ExprX::WithTriggers { .. }
             | ExprX::If(_, _, Some(_)) => true,
+            ExprX::Old(a) => matches!(&a.x, ExprX::Var(_)),
             ExprX::ReadPlace(p, _) => pure_place(p),
             ExprX::Call {
                 target: CallTarget::Fun(_, name, ..),

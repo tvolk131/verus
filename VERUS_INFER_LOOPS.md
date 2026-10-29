@@ -1,5 +1,9 @@
 # Exact unsigned counted-loop inference
 
+This document describes the numeric accumulator family. For borrowed collection
+prefix mutation loops, see the [inference guide](source/docs/guide/src/infer.md#pointwise-mutable-prefix-loops)
+and [example](examples/verus_infer_traversals.rs).
+
 Supported functions are exact, nongeneric executable functions over two or three
 immutable unsigned inputs of the same type (`usize` or `u8` through `u128`), with
 that same return type. They initialize a mutable accumulator from input `x`, run

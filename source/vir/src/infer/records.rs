@@ -1,12 +1,38 @@
 //! Bounded symbolic effects and queries for one borrowed transparent record.
 //! Candidates describe every field, and are checked against the original body.
-//! No invariant is assumed or discovered by this untrusted synthesizer.
+//! Candidate traversal invariants are checked; no application invariant is assumed.
 use super::*;
 use collections::Model;
 
 mod calls;
+mod traversals;
 pub(super) mod shape;
 use shape::{Field, Shape, shape, value_type};
+
+pub(super) fn has_loops(f: &Function) -> bool {
+    candidate(f) && mutable(f) && f.x.body.as_ref().is_some_and(|body| {
+        let mut found = false;
+        crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+            found |= matches!(&e.x, ExprX::Loop { .. });
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+        found
+    })
+}
+pub(super) fn validate_source(f: &Function) -> Result<(), VirErr> {
+    if let Some(body) = &f.x.body {
+        crate::ast_visitor::expr_visitor_check(body, &mut |_, e| {
+            if let ExprX::Loop { invs, decrease, is_for_loop, assume_termination, atomic_call, .. } = &e.x {
+                if !invs.is_empty() || !decrease.is_empty() || *is_for_loop || *assume_termination || *atomic_call
+                    || f.x.attrs.exec_assume_termination || f.x.attrs.exec_allows_no_decreases_clause {
+                    return Err(unsupported(&e.span, "pointwise traversal rejects handwritten loop proofs and termination bypasses"));
+                }
+            }
+            Ok(())
+        })?;
+    }
+    Ok(())
+}
 
 fn same(a: &Typ, b: &Typ) -> bool {
     crate::ast_util::types_equal(a, b)
@@ -162,6 +188,7 @@ pub(super) struct Interpreter<'a> {
     pub(super) datatypes: &'a [Datatype],
     pub(super) requirements: Vec<Term>,
     pub(super) remaining: usize,
+    pub(super) plans: Vec<owned::loops::Plan>,
 }
 
 impl Interpreter<'_> {
@@ -683,6 +710,7 @@ impl Interpreter<'_> {
                             };
                             if binding.by_ref != ByRef::No
                                 || binding.user_mut == Some(true)
+                                    && !matches!(&*binding.typ, TypX::Int(IntRange::USize))
                                 || !value_type(
                                     &binding.typ,
                                     &self.function.x.typ_params,
@@ -840,9 +868,6 @@ impl Interpreter<'_> {
                             conditional(span, s.active.clone(), leaf, s.fields[i].clone())?;
                     }
                 } else {
-                    if op.is_some() {
-                        return Err(unsupported(span, "compound vector-slot assignment"));
-                    }
                     let PlaceX::DerefMut(p) = &place.x else {
                         return Err(unsupported(span, "record assignment target"));
                     };
@@ -878,6 +903,11 @@ impl Interpreter<'_> {
                         )?,
                     )?;
                     let element = self.shape.fields[i].element.clone().unwrap();
+                    let value = if let Some(op) = op {
+                        let before = self.model_call(span, Model::SeqIndex,
+                            vec![element.clone()], vec![s.fields[i].clone(), index.clone()])?;
+                        self.binary(s, span, *op, before, value)?
+                    } else { value };
                     let value = coerce(span, value, &element)?;
                     let updated = self.model_call(
                         span,
@@ -890,9 +920,10 @@ impl Interpreter<'_> {
                 }
                 exits::unit_value(span)
             }
+            ExprX::Loop { .. } => self.traversal(s, e),
             _ => Err(unsupported(
                 span,
-                "record expression outside the bounded, loop-free state subset",
+                "record expression outside the bounded state and traversal subset",
             )),
         }
     }
@@ -983,7 +1014,7 @@ pub(super) fn infer(
     f: &Function,
     all: &HashMap<Fun, Function>,
     datatypes: &[Datatype],
-) -> Result<Contract, VirErr> {
+) -> Result<(Contract, Option<Expr>), VirErr> {
     let shape = validate_signature(f, datatypes, all)?;
     let mut engine = Interpreter {
         function: f,
@@ -992,6 +1023,7 @@ pub(super) fn infer(
         datatypes,
         requirements: vec![],
         remaining: FORMULA_BUDGET,
+        plans: vec![],
     };
     let mut fields = Vec::new();
     for (i, field) in engine.shape.fields.iter().enumerate() {
@@ -1048,7 +1080,10 @@ pub(super) fn infer(
     // reference wrappers inserted when instantiating standard models.
     let pre = atom(pre.expr)?;
     let post = atom(post.expr)?;
-    Contract::new(pre.expr, post.expr)
+    let body = if engine.plans.is_empty() { None } else {
+        Some(owned::loops::annotate(f, &engine.plans)?)
+    };
+    Ok((Contract::new(pre.expr, post.expr)?, body))
 }
 
 /// A closed state-summary language, with one final equality for every field.
@@ -1072,7 +1107,7 @@ pub(super) fn validate_summary(
     signature.ensure = (Arc::new(vec![]), Arc::new(vec![]));
     let shape = validate_signature(&f.new_x(signature), datatypes, all)?;
     let engine =
-        Interpreter { function: f, shape, all, datatypes, requirements: vec![], remaining: 0 };
+        Interpreter { function: f, shape, all, datatypes, requirements: vec![], remaining: 0, plans: vec![] };
     fn clauses(e: &Expr, out: &mut Vec<Expr>) {
         if let ExprX::Logical(LogicalOp::And, a, b) = &e.x {
             clauses(a, out);
@@ -1083,15 +1118,22 @@ pub(super) fn validate_summary(
     }
     let validate_value = |root: &Expr| -> Result<(), VirErr> {
         let mut remaining = FORMULA_BUDGET;
-        crate::ast_visitor::expr_visitor_check(root, &mut |_, e| {
+        crate::ast_visitor::expr_visitor_check(root, &mut |scope, e| {
             remaining = remaining.checked_sub(1).ok_or_else(invalid)?;
             let valid = match &e.x {
                 _ if arithmetic::arch_constant(e).is_some() => true,
                 ExprX::Const(Constant::Bool(_)) => true,
                 ExprX::Const(Constant::Int(n)) => n.bits() <= 4096,
                 ExprX::Var(v) => {
-                    f.x.params.iter().any(|p| &p.x.name == v && same(&p.x.typ, &e.typ))
+                    scope.get(v).map_or_else(
+                        || f.x.params.iter().any(|p| &p.x.name == v && same(&p.x.typ, &e.typ)),
+                        |p| same(&p.typ, &e.typ),
+                    )
                 }
+                ExprX::Closure(params, _) | ExprX::Quant(Quant { quant: air::ast::Quant::Forall }, params, _) => {
+                    params.len() == 1 && same(&params[0].a, &int_typ())
+                }
+                ExprX::WithTriggers { .. } => true,
                 ExprX::Old(a) => matches!(&a.x,ExprX::Var(v) if v==&f.x.params[0].x.name),
                 ExprX::Unary(UnaryOp::MutRefCurrent, a) => matches!(&a.x, ExprX::Old(_)),
                 ExprX::Unary(UnaryOp::Not | UnaryOp::Clip { .. }, _) => true,
@@ -1149,7 +1191,8 @@ pub(super) fn validate_summary(
                     post_args: None,
                     body: None,
                     ..
-                } => all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)) || matches!(
+                } => all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)
+                    || owned::model(f) == Some(owned::Model::SeqNew)) || matches!(
                     all.get(name).and_then(collections::model),
                     Some(
                         Model::View

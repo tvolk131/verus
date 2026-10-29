@@ -708,6 +708,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
             return Err(unsupported(&f.span, "recursive inferred call graph"));
         }
         if source && is_owned_summary(f) { owned::validate_source(f)?; }
+        if source && records::candidate(f) && !is_owned_summary(f) { records::validate_source(f)?; }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
                 // Resolution inserts borrow-expiration scaffolding. Traverse it
@@ -846,7 +847,8 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
         if collections::kind(f).is_some() || records::candidate(f) || is_owned_summary(f) {
-            for model in available.values().filter(|f| collections::model(f).is_some()) {
+            for model in available.values().filter(|model| collections::model(model).is_some()
+                || records::has_loops(f) && owned::model(model) == Some(owned::Model::SeqNew)) {
                 used.insert(model.x.name.clone(), model.clone());
             }
         }
@@ -1308,6 +1310,7 @@ fn format_expr(e: &Expr) -> String {
         ExprX::If(c, a, Some(b)) => {
             format!("if {} {{ {} }} else {{ {} }}", format_expr(c), format_expr(a), format_expr(b))
         }
+        ExprX::WithTriggers { body, .. } => format_expr(body),
         _ => unreachable!("only synthesized expressions are printed"),
     }
 }

@@ -87,7 +87,8 @@ impl Contract {
     fn install_body(self,original:&Function,provenance:&str,body:Option<Expr>)->Result<Function,VirErr>{
         let Self { pre, post } = self;
         let nonlinear = original.x.attrs.nonlinear
-            || !original.x.attrs.infer_owned && loops::recognize(original)?.is_some_and(|plan| plan.nonlinear);
+            || !original.x.attrs.infer_owned && !records::candidate(original)
+                && loops::recognize(original)?.is_some_and(|plan| plan.nonlinear);
         // Bind outcomes to the original typed body, the actual proposed formulas
         // (including cache contents), configuration and transitive dependencies.
         let id = Sha256::digest(format!(

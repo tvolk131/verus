@@ -29,6 +29,14 @@ Implemented and covered by regression tests:
   lock/codec signatures; cache consistency, signature verification, and the rest
   of the native crate are not established by this checkpoint. See the
   [workspace adoption recipe](source/docs/guide/src/infer_adoption.md#opting-an-existing-cargo-workspace-into-verification).
+- [x] Exact pointwise prefix mutation loops for borrowed record collections:
+  zero-based usize counters, same-index updates (direct or checked inferred
+  helpers), signed/unsigned per-element safety, full sequence/suffix/field frames,
+  and independently checked induction and termination. Slot compound assignments
+  preserve sequential aliasing. A native Aleph NodeMap fill composes its existing
+  insert helper behind an ordinary checked Result API; errors preserve the whole
+  view. General iterator mutation, collection growth, early exits and mutable
+  returns remain open. See the [supported profile](source/docs/guide/src/infer.md#pointwise-mutable-prefix-loops).
 - [x] Exact loop-free inference for `bool`, `u8`, `u16`, `u32`, `u64`, and `u128`:
   arithmetic, comparisons, Boolean operations, unsigned casts, immutable locals,
   branches, and short-circuit safety conditions.
