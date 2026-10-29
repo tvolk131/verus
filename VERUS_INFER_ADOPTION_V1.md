@@ -146,7 +146,26 @@ certificates. Three native PreUnit mutations fail their independent coverage
 goals, and the pinned runtime's 40 creation tests pass. Evidence is recorded in
 the native pilot's verification/units_collector/PREUNIT.md and its receipt file.
 
-Creator creation still requires work, as do collector advancement's proof block,
-manual trigger hints and the mutable-selector helper contract. The hash boundary,
-full inventory audit and fresh replay remain part of the final acceptance
-criteria. This checkpoint does not complete adoption v1.
+Creator::create_unit now verifies over the frozen domain, including every u16
+round, initial creation with arbitrary node IDs, and zero-membership error
+coverage. Its authored outcome checks coordinates, the exact selected-parent
+round projection, quorum/own-parent policy and error order. Separate goals check
+initial absence of parents and positive-round parent positions and bounds.
+
+The private Creator API now returns its existing ConstraintError directly rather
+than boxing it into anyhow::Error. Existing callers only inspect success or log
+the same Display messages; all call sites compile and the pinned runtime tests
+pass. This removes the unnecessary erased-error conversion without adding an
+assumed contract or extending dependency exclusions. The algorithm and branch
+order are unchanged. The new constructor tuple-view profile proves a uniqueness
+postcondition and both precision checks, enabling exact opaque result forwarding
+across modules/crates without exposing private constructors.
+
+The creation checkpoint records 145 proof results, all 31 exact helpers and 93
+certificates, five rejected native mutations and 41 pinned creation runtime tests.
+Evidence is in the native pilot's verification/units_collector/CREATION.md and
+creation-evidence.json. The engine passes 463 compiler and 114 backend tests.
+
+Collector advancement's proof block, manual trigger hints and the mutable-selector
+helper contract remain. The hash boundary, full inventory audit and fresh replay
+remain part of final acceptance. This checkpoint does not complete adoption v1.

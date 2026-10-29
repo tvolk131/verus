@@ -149,3 +149,41 @@ fn opaque_fields_use_checked_projection_views_and_complete_move_identity(){
  assert!(String::from_utf8_lossy(&r.stderr).contains("private record formulas require an authored projection observation"));
  assert!(!String::from_utf8_lossy(&r.stderr).contains("panicked"));
 }
+
+#[test]
+fn tuple_view_constructors_compose_exactly_across_private_interfaces(){
+ let crates=InferCrates::new();
+ let provider=OPAQUE_PROJECTIONS.replace("#[verifier::infer] fn new(payload:","#[verifier::infer] pub fn new(payload:");
+ let consumer=r#"use vstd::prelude::*;
+ #[verifier::infer] pub fn build<T>(p:opaque_constructor::hidden::Payload<T>,other:opaque_constructor::hidden::Payload<T>,round:u16)->opaque_constructor::Packet<T>{
+  opaque_constructor::Packet::new(p,other,round)
+ }
+ #[verifier::infer] pub fn relay<T>(p:opaque_constructor::hidden::Payload<T>,other:opaque_constructor::hidden::Payload<T>,round:u16)->opaque_constructor::Packet<T>{build(p,other,round)}
+ pub fn goal<T>(p:opaque_constructor::hidden::Payload<T>,other:opaque_constructor::hidden::Payload<T>,round:u16)->(r:opaque_constructor::Packet<T>)
+  ensures r@==(round,p),
+ {relay(p,other,round)}
+ "#;
+ for _ in 0..2 {
+  for (name,body,deps,count) in [("opaque_constructor",provider.as_str(),vec![],6),("opaque_constructor_client",consumer,vec!["opaque_constructor"],2)] {
+   let r=crates.build(name,body,&deps,&["--no-cheating","--output-json"]);
+   assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+   let report=json_inference(&r);let fs=report["functions"].as_array().unwrap();assert_eq!(fs.len(),count);
+   assert!(fs.iter().all(|f|f["required_checks_passed"]==true),"{}",report);
+  }
+ }
+ let wrong=consumer.replace("ensures r@==(round,p)","ensures r@==(round,other)");
+ let r=crates.build("opaque_constructor_client",&wrong,&["opaque_constructor"],&["--no-cheating","--output-json"]);
+ assert!(!r.status.success());assert!(!crates.vir("opaque_constructor_client").exists());
+ assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+ // A view dropping a complete opaque component cannot acquire a uniqueness or
+ // exact-output guarantee, even though the constructor itself remains safe.
+ let minimal=&provider[..provider.find("fn moved<T>").unwrap()];
+ let lossy=minimal.replace("type V=(u16,hidden::Payload<T>);closed spec fn view(&self)->Self::V{(self.round,self.payload)}",
+  "type V=(u16,bool);closed spec fn view(&self)->Self::V{(self.round,true)}");
+ assert_ne!(minimal,lossy);
+ let lossy=format!("{} fn blocked(){{assert(false);}}",lossy);
+ let r=crates.build("opaque_constructor",&lossy,&[],&["--no-cheating","--output-json"]);
+ assert!(!r.status.success());assert!(!crates.vir("opaque_constructor").exists());
+ let report=json_inference(&r);assert!(report["functions"].as_array().unwrap().iter().any(|f|f["required_checks_passed"]==false));
+ assert!(!String::from_utf8_lossy(&r.stderr).contains("assertion failed"));
+}

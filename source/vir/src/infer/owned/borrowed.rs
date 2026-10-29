@@ -207,7 +207,7 @@ pub(super) fn value(f: &Function, all: &HashMap<Fun, Function>) -> Option<Functi
 
 impl Engine<'_> {
     pub(super) fn returned_layout(&self, out: Expr) -> Result<Val, VirErr> {
-        let mut layout = self.layout(out.clone(), 8)?;
+        let mut layout = self.record_output_layout(self.layout(out.clone(), 8)?,&out,8)?;
         if let Some((payload, variant)) = tagged_payload(&out.typ) {
             let op = if variant == "Ok" {
                 sums::field(&out.typ, variant)

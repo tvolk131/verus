@@ -528,6 +528,27 @@ are excluded from this checkpoint; the earlier experiments cover their manually
 specified supplied-core versions. This does not establish clean-main `Unit`/`Hasher`
 trait inference or automatic abstract-view discovery.
 
+### Constructor results through complete tuple views
+
+A bounded constructor whose record contains complete opaque components can
+describe its result through an authored tuple-valued `View`. Other fields must
+fit the existing value-record profile. This keeps private constructors and fields
+out of the public result equation. For example, a packet constructor can infer
+that `result@ == (round, payload)` from a view exposing those two components.
+
+The generated contract also proposes a uniqueness guarantee: every typed peer
+with the same view as this result equals the result as a complete logical value.
+Ordinary verification must prove that guarantee. It allows an exact inferred
+caller in another crate to forward the opaque result while retaining whole-value
+precision. No injectivity law is assumed. A lossy view that drops part of the
+modeled result fails the required proof checks and cannot publish an interface.
+
+The bounded projection definitions used by the view are evaluated only while
+building candidate formulas. The executable constructor and independent SST
+precision observations are unchanged. Certified direct sequence wrappers retain
+their existing content profile; arbitrary collection representations, cloning
+laws and arbitrary view inverses are not added by this constructor profile.
+
 ### Verified trait query contracts and associated types
 
 The [trait example](../../../../examples/verus_infer_traits.rs) uses supplied

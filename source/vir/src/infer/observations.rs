@@ -162,9 +162,21 @@ fn projections(all: &HashMap<Fun, Function>) -> Vec<Projection> {
     out.sort_by_key(|p| std::cmp::Reverse(p.path.len()));
     out
 }
-fn borrowed_projection(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
+fn projection_call(e: &Expr, all: &HashMap<Fun, Function>, borrowed_only: bool) -> Option<Expr> {
     let (name, arg) = target(e)?;
-    let f = all.get(name).filter(|f| owned::borrowed::is_value(f) && f.x.params.len() == 1)?;
+    let f = all.get(name).filter(|f| {
+        f.x.params.len() == 1
+            && is_pure_observation(f)
+            && if borrowed_only {
+                owned::borrowed::is_value(f)
+            } else {
+                f.x.name.path.krate != CrateId::Vstd
+                    && f.x
+                        .body
+                        .as_ref()
+                        .is_some_and(|body| path(body, &f.x.params[0].x.name, all, 8).is_some())
+            }
+    })?;
     let ExprX::Call { target: CallTarget::Fun(CallTargetKind::Static, _, types, ..), .. } = &e.x
     else {
         return None;
@@ -196,6 +208,28 @@ fn borrowed_projection(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
     )
     .ok()
 }
+pub(super) fn expand_projections(e: &Expr, all: &HashMap<Fun, Function>) -> Result<Expr, VirErr> {
+    let mut out = e.clone();
+    let mut budget = FORMULA_BUDGET;
+    for _ in 0..8 {
+        out = crate::ast_visitor::map_expr_visitor_env(
+            &out,
+            &mut crate::ast_visitor::VisitorScopeMap::new(),
+            &mut budget,
+            &|budget, _, e| {
+                *budget = budget.checked_sub(1).ok_or_else(|| {
+                    unsupported(&e.span, "projection definition expansion budget exceeded")
+                })?;
+                Ok(projection_call(e, all, false).unwrap_or_else(|| e.clone()))
+            },
+            &|_, _, s| Ok(vec![s.clone()]),
+            &|_, t| Ok(t.clone()),
+            &|_, _, p| Ok(p.clone()),
+            &|_, _, p| Ok(p.clone()),
+        )?;
+    }
+    Ok(out)
+}
 fn replace(
     e: &Expr,
     p: &Projection,
@@ -205,7 +239,7 @@ fn replace(
     // A generated borrow definition may hide a simple physical projection.
     // Expand it only for matching an authored observation. If none matches,
     // retain the original checked definition and its abstraction boundary.
-    let mut receiver = borrowed_projection(e, all).unwrap_or_else(|| read(e));
+    let mut receiver = projection_call(e, all, true).unwrap_or_else(|| read(e));
     for step in p.path.iter().rev() {
         receiver = match (step, &receiver.x) {
             (Step::Field(a), ExprX::UnaryOpr(UnaryOpr::Field(b), x))

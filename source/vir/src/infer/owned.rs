@@ -6,6 +6,7 @@ pub(in crate::infer) mod loops;
 mod models;
 mod sums;
 mod callbacks;
+mod record_views;
 pub(in crate::infer) mod native_for;
 mod mutations;
 pub(crate) mod result_map;
@@ -95,6 +96,9 @@ struct Val {
 enum Node {
     Atom(Term),
     Seq(Term),
+    // Complete proposed tuple observation of a record with opaque components.
+    // Original-body precision independently checks whether it loses any state.
+    Abstract(Term),
     // Whether an earlier lazy filter has a partial callback. A subsequent
     // short-circuiting consumer needs a more precise safety model in that case.
     Iterator(Term, bool),
@@ -1078,6 +1082,10 @@ impl Engine<'_> {
             } else {
                 name
             };
+            if args.len()==1 && self.all.get(resolved).is_some_and(record_views::observation) {
+                let value=self.formula_value(s,&args[0])?;
+                if let Node::Abstract(t)=value.node{return Ok(t);}
+            }
             if let Some(spec)=self.all.get(name).filter(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)
                 || f.x.attrs.infer_iterator_observation && iterators::observation(f)) {
                 let values=args.iter().map(|a|self.object(s,a).or_else(|_|self.formula(s,a))).collect::<Result<Vec<_>,_>>()?;
@@ -1175,6 +1183,10 @@ impl Engine<'_> {
         }
     }
     fn formula_value(&self, s: &State, e: &Expr) -> Result<Val, VirErr> {
+        if records::shape::opaque_value(base(&e.typ),self.ds,&self.f.x.owning_module)
+            && sequence_views::find(base(&e.typ),self.all,self.ds).is_none() {
+            if let Ok(value)=self.object(s,e){return Ok(Val::atom(value));}
+        }
         match &e.x {
             ExprX::Var(n)=>return s.locals.get(n).cloned().ok_or_else(||unsupported(&e.span,"pure summary variable")),
             ExprX::ReadPlace(p,_)=>return self.formula_place(s,p),
@@ -1241,9 +1253,18 @@ impl Engine<'_> {
             return logical(span,LogicalOp::And,self.post(&contents,out)?,
                 records::equal(span,atom(out.clone())?,identity.clone())?);
         }
+        if trait_getters::shared(&out.typ).is_none() {
+            if let Some(view)=record_views::find(&v.typ,self.all,self.ds) {
+                let image=records::equal(span,view.call(out.clone())?,self.record_view_value(v,&view)?)?;
+                // Checked uniqueness lets an exact caller recover complete
+                // value identity even when this View's body is private.
+                return logical(span,LogicalOp::And,image,view.unique(out)?);
+            }
+        }
         match &v.node {
             Node::Atom(t) => records::equal(span, atom(out.clone())?, t.clone()),
             Node::Seq(t) => records::equal(span, self.observe(out)?, t.clone()),
+            Node::Abstract(_) => Err(unsupported(span,"missing authored record output view")),
             Node::Iterator(..) => Err(unsupported(span,"inferred iterator outputs require a supplied finite view")),
             Node::Fields(fs) => {
                 if records::shape::value_type(&v.typ,&self.f.x.typ_params,self.ds,8) {
@@ -1306,6 +1327,11 @@ impl Engine<'_> {
         clauses: &[Expr],
     ) -> Result<Val, VirErr> {
         let node = match &layout.node {
+            Node::Abstract(_) => {
+                let view=record_views::find(&layout.typ,self.all,self.ds).ok_or_else(||unsupported(&out.span,"missing imported record view"))?;
+                let rhs=find_rhs(&view.call(out.clone())?.expr,clauses)?;
+                Node::Abstract(self.formula(s,&rhs)?)
+            }
             Node::Iterator(..) => return Err(unsupported(&out.span,"imported iterator output layout")),
             Node::Atom(_) | Node::Seq(_) => {
                 let lhs = if matches!(layout.node, Node::Seq(_)) {
@@ -1435,6 +1461,7 @@ fn choose(s: &Span, c: Term, a: Val, b: Val) -> Result<Val, VirErr> {
     let identity=match (a.identity,b.identity){(Some(a),Some(b))=>Some(conditional(s,c.clone(),a,b)?),_=>None};
     let node = match (a.node, b.node) {
         (Node::Atom(a), Node::Atom(b)) => Node::Atom(conditional(s, c, a, b)?),
+        (Node::Abstract(a),Node::Abstract(b))=>Node::Abstract(conditional(s,c,a,b)?),
         (Node::Seq(a), Node::Seq(b)) => Node::Seq(term(
             s,
             &a.expr.typ,
@@ -1822,6 +1849,7 @@ fn validate_formula(e: &Expr, all: &HashMap<Fun, Function>) -> Result<(), VirErr
             | ExprX::Ctor(_, _, _, None)
             | ExprX::Closure(_, _)
             | ExprX::Quant(_, _, _)
+            | ExprX::WithTriggers { .. }
             | ExprX::If(_, _, Some(_)) => true,
             ExprX::ReadPlace(p, _) => {
                 fn place(p: &Place) -> bool {
@@ -1934,6 +1962,7 @@ mod tests {
             body:boolean(&span,true).expr,
         });
         assert!(native_for::pure(&hidden).is_err());
+        assert!(validate_formula(&hidden,&HashMap::new()).is_err());
         assert!(validate_decoration(&f, &assumption).is_err());
     }
 }

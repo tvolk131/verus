@@ -2120,3 +2120,30 @@ and 114 backend assurance tests. Native evidence covers 140 proof results,
 and 40 pinned creation runtime tests. The runtime sources are unchanged by
 this inference checkpoint. General constructor-result abstraction and the
 remaining adoption-v1 scaffold removal/audit/replay remain open.
+
+## Constructor tuple views and complete opaque results
+
+A bounded record containing an opaque component can propose its constructor
+result through an authored tuple View. The inference generator additionally
+proposes checked uniqueness at the actual result: a peer with the same view must
+equal that result as a complete logical value. This clause is an ordinary
+verified postcondition, not a trusted View-injectivity axiom. It lets exact
+compiled callers recover complete output identity without seeing private fields.
+Original SST soundness/maximality/exactness checking is unchanged.
+
+Selection uses the datatype's owner rather than the caller's module, so local
+and imported schemas agree. Other fields must fit the value-record profile;
+direct sequence-wrapper profiles keep their previous semantics. Projection
+expansion and output-view evaluation are bounded candidate generation. Imported
+summaries retain canonical coverage checks, pure vocabulary and candidate-bound
+evidence. Trigger-bearing imported formulas are traversed fully, including their
+trigger terms; the fault test rejects an assumption hidden inside a trigger.
+
+Repeated provider/caller tests verify exact forwarding across private interfaces.
+A wrong downstream payload requirement fails after healthy helper proofs. A
+lossy tuple view fails required constructor proofs before callers run and removes
+any stale interface. The checkpoint passes 463 compiler tests in all 18 inference
+suites and 114 backend assurance tests. Policy 43 / candidate cache 49 invalidates
+older output schemas. The native Creator policy has 145 proof results, 31 exact
+helpers and 93 certificates; five real-source mutants are rejected and 41 pinned
+creation runtime tests pass. No new library specification or hash law was added.
