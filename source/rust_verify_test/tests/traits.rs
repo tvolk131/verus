@@ -4,6 +4,22 @@ mod common;
 use common::*;
 
 test_verify_one_file! {
+    #[test] automatic_derive_primitive_target code! {
+        pub struct Count(pub usize);
+        // Third-party derives such as derive_more::Into emit primitive targets.
+        #[automatically_derived]
+        impl From<Count> for usize {
+            fn from(value: Count) -> Self { value.0 }
+        }
+        verus! {
+            fn checked() { assert(1usize == 1usize); }
+        }
+    } => Ok(diags) => {
+        assert!(diags.warnings.iter().any(|d| d.message.contains("automatically derived item")));
+    }
+}
+
+test_verify_one_file! {
     #[test] supported_1 verus_code! {
         trait T1 {}
         trait T2 {

@@ -679,7 +679,14 @@ fn get_attributes_for_automatic_derive<'tcx>(
 
                 let type_def_id = match impll.self_ty.kind {
                     rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(None, path)) => {
-                        path.res.def_id()
+                        let Some(def_id) = path.res.opt_def_id() else {
+                            // A derive can emit an impl whose target is a primitive
+                            // (for example, Into for a tuple wrapper). Such targets
+                            // have no datatype attributes to inherit.
+                            warn_unknown();
+                            return None;
+                        };
+                        def_id
                     }
                     _ => {
                         warn_unknown();

@@ -699,12 +699,15 @@ pub(crate) fn parse_attrs(
                 AttrTree::Fun(_, arg, None) if arg == "external_type_specification" => {
                     v.push(Attr::ExternalTypeSpecification)
                 }
-                AttrTree::Fun(_, arg, Some(box [AttrTree::Fun(_, r, None)]))
-                    if arg == "external_derive" =>
-                {
-                    v.push(Attr::ExternalAutoDerives(Some(
-                        r.split(",").map(|x| x.trim().to_owned()).collect(),
-                    )));
+                AttrTree::Fun(_, arg, Some(names)) if arg == "external_derive" => {
+                    let mut derives = std::collections::HashSet::new();
+                    for name in names.iter() {
+                        let AttrTree::Fun(_, name, None) = name else {
+                            return err_span(span, "external_derive expects derive names");
+                        };
+                        derives.extend(name.split(",").map(|x| x.trim().to_owned()));
+                    }
+                    v.push(Attr::ExternalAutoDerives(Some(derives)));
                 }
                 AttrTree::Fun(_, arg, None) if arg == "external_derive" => {
                     v.push(Attr::ExternalAutoDerives(None));

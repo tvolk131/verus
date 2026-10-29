@@ -133,6 +133,24 @@ fn ptr_mut_read<'a, T>(ptr: *const T)  -> T
 ```
 
 
+## Selecting derived implementations
+
+Annotating an existing datatype can also opt its automatically derived
+implementations into verification. Keep unrelated derives outside the selected
+proof with `external_derive`:
+
+```rust
+#[verus_verify(external_derive(Decode, Encode))]
+#[derive(Clone, Decode, Encode)]
+pub struct Message { /* ... */ }
+```
+
+The named implementations remain ordinary Rust code and are unavailable to
+verified callers. This does not supply trusted contracts for them. The attribute
+accepts one or more derive names; `external_derive` without arguments excludes
+all derived implementations. Checked contracts for selected operations must
+still be established separately.
+
 ## More examples and tests
 
 ```rust

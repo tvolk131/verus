@@ -687,6 +687,16 @@ test_verify_one_file_with_options! {
 }
 
 test_verify_one_file! {
+    #[test] external_derive_multiple_names verus_code! {
+        #[derive(Clone, Copy, Default)]
+        #[verifier::external_derive(Clone, Default)]
+        struct X { u: u64 }
+
+        fn test(x: X) { let a = x.clone(); }
+    } => Err(err) => assert_vir_error_msg(err, "cannot use function `test_crate::X::clone` which is ignored")
+}
+
+test_verify_one_file! {
     #[test] vec_index_nounwind verus_code! {
         use vstd::*;
 
