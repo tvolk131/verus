@@ -2,7 +2,9 @@
 //! These bodies use existing native library specifications; they add no axioms.
 //! The chosen collection/output view is supplied by the interface author.
 use crate::prelude::*;
+#[cfg(verus_keep_ghost)]
 use crate::std_specs::iter::{IteratorSpec, map_fun, map_iter, map_post, map_postcondition};
+#[cfg(verus_keep_ghost)]
 use crate::std_specs::iter_adapters::*;
 verus! {
 

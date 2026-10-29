@@ -2,6 +2,7 @@
 //! These are executable implementations, with no iterator axioms or termination
 //! assumptions beyond the existing Iterator trait interface.
 use crate::prelude::*;
+#[cfg(verus_keep_ghost)]
 use crate::std_specs::iter::IteratorSpec;
 verus! {
 
@@ -44,6 +45,7 @@ pub struct SparseIter<'a, T> {
     cursor: usize,
 }
 
+#[cfg(verus_keep_ghost)]
 impl<'a, T> crate::std_specs::iter::IteratorSpecImpl for SparseIter<'a, T> {
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
