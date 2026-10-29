@@ -1,5 +1,9 @@
 # Experimental contract inference
 
+For a practical workflow, including authored views, application contracts,
+explicit proofs and dependency boundaries, start with
+[adopting inference in an existing codebase](infer_adoption.md).
+
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
 

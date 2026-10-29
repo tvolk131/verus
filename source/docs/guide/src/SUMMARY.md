@@ -143,6 +143,7 @@
   - [Spec and proof attributes for exec functions](exec_attr.md)
     - [Automatic exec to spec functions](exec_to_spec.md)
     - [Experimental contract inference](infer.md)
+      - [Adopting inference in an existing codebase](infer_adoption.md)
 - [Specification language](./reference-specification-language.md)
   - [Type Interpretations](./reference-types.md)
   - [Spec expressions](./spec-expressions.md)

@@ -15,6 +15,8 @@
 The design below includes future work. The current implementation is documented
 in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
 and restrictions take precedence over illustrative APIs in this RFC.
+For project-level usage and the role of explicit specifications and proofs, see
+[the adoption guide](source/docs/guide/src/infer_adoption.md).
 
 Implemented and covered by regression tests:
 
