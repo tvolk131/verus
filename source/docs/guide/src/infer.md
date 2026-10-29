@@ -2317,3 +2317,33 @@ providers and dependents. Rebuild vstd after changing the macro artifact. The
 native Aleph NodeCount chain and NodeMap size query use this support without
 rewriting their arithmetic or Into expressions. This is an intermediate adoption
 v1 checkpoint, not completion of the full native parent-creation goal.
+
+## Native scalar comparison derives
+
+The same explicit opt-in supports native `PartialEq`, `PartialOrd` and `Ord`
+derives on a single primitive-integer tuple field:
+
+```rust
+#[verus_verify(infer_derive(PartialEq, PartialOrd, Ord))]
+#[derive(Copy, Clone, Eq, PartialEq, PartialOrd, Ord)]
+pub struct Count(pub usize);
+
+#[verus_infer]
+fn earlier(a: Count, b: Count) -> bool { a < b }
+```
+
+The actual derived `eq` body gets an exact inferred contract. The actual
+`partial_cmp` and `cmp` bodies are checked normally against generated complete
+trait definitions. They do not receive separate precision certificates. When
+Rust's `PartialOrd` derive delegates to `Ord`, list both in the opt-in. Without an
+Ord derive, native field-delegating PartialOrd is supported by itself.
+
+Inherited `!=`, `<`, `<=`, `>` and `>=` compose through the checked definitions,
+including wrapper fields and computed values. Explicit custom comparison
+implementations retain their existing body-derived semantics. Missing or reversed
+implementations and false application goals fail verification. Even a provider
+that requests only Ord, with no exact inference target, requires full-crate
+verification and certified metadata before publication/import.
+
+Current metadata policy is 40 and candidate-cache version is 46; rebuild
+providers and consumers together. This support adds no assumed comparison laws.

@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v45:checked-wrapper-binary-traits:4096";
+const VERSION: &str = "verus-infer-v46:checked-wrapper-derived-comparisons:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -506,7 +506,7 @@ impl Registry {
         self.originals = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
         let result = (|| {
             let all = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
-            let rewritten = functions.iter().map(|f| wrapper_traits::rewrite(f, &all))
+            let rewritten = functions.iter().map(|f| wrapper_traits::rewrite(f, &all,datatypes))
                 .collect::<Result<Vec<_>, _>>()?;
             let projected =
                 rewritten.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;

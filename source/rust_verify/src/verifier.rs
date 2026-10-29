@@ -2877,7 +2877,8 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
-        if pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| f.x.attrs.infer) {
+        if pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| f.x.attrs.infer
+            || f.x.name.path.last_segment().starts_with("__verus_infer_derived_")) {
             crate::import_export::invalidate_local_inference_export(
                 &self.args,
                 &self.export_vir_path_via_cargo,
@@ -2965,7 +2966,7 @@ impl Verifier {
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
         let mut models: std::collections::BTreeMap<_, _> =
             self.inference_trusted_models.iter().cloned().collect();
-        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_clone_contract || vir::infer::is_wrapper_trait(f) || vir::infer::is_owned_summary(f)) {
+        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_clone_contract || vir::infer::is_wrapper_trait(f) || vir::infer::is_inference_contract(f) || vir::infer::is_owned_summary(f)) {
             // Ordinary implementation proofs can use library models even when
             // this provider contains no inferred executable. Bind their model
             // artifacts conservatively before certifying the trait interface.

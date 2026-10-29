@@ -1,4 +1,4 @@
-//! Opt in actual Rust-derived scalar arithmetic implementations. Generated
+//! Opt in actual Rust-derived scalar arithmetic and comparison implementations. Generated
 //! extension definitions are candidates, checked against each native derive body.
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -12,7 +12,7 @@ pub(crate) fn expand(
     let bad = || {
         syn::Error::new(
             item.span(),
-            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Add/Sub/Mul/Div/Rem implementations",
+            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Add/Sub/Mul/Div/Rem/PartialEq/PartialOrd/Ord implementations",
         )
     };
     if operators.is_empty()
@@ -67,12 +67,41 @@ pub(crate) fn expand(
             "Mul" => "mul",
             "Div" => "div",
             "Rem" => "rem",
+            "PartialEq" => "eq",
+            "PartialOrd" => "partial_cmp",
+            "Ord" => "cmp",
             _ => return Err(bad()),
         };
         if !derives.contains(&op.to_string()) || seen.contains(&method) {
             return Err(bad());
         }
         seen.push(method);
+        if matches!(method, "eq" | "partial_cmp" | "cmp") {
+            let marker = format_ident!("__verus_infer_derived_{}", method);
+            let extension = format_ident!("{}SpecImpl", op);
+            let base = format_ident!("{}Spec", op);
+            let obeys = format_ident!("obeys_{}_spec", method);
+            let spec = format_ident!("{}_spec", method);
+            let (result, body) = match method {
+                "eq" => (quote!(bool), quote!(self.0 == rhs.0)),
+                "cmp" => (
+                    quote!(::core::cmp::Ordering),
+                    quote!(#vstd::std_specs::cmp::#base::#spec(&self.0,&rhs.0)),
+                ),
+                _ => (
+                    quote!(Option<::core::cmp::Ordering>),
+                    quote!(#vstd::std_specs::cmp::#base::#spec(&self.0,&rhs.0)),
+                ),
+            };
+            models.push(quote! {
+                impl #name {#[doc(hidden)] pub open spec fn #marker(&self)->bool {true}}
+                impl #vstd::std_specs::cmp::#extension for #name {
+                    open spec fn #obeys()->bool {true}
+                    open spec fn #spec(&self,rhs:&Self)->#result {#body}
+                }
+            });
+            continue;
+        }
         if method == "from" {
             let field = &fields.unnamed[0].ty;
             models.push(quote!{
@@ -98,6 +127,13 @@ pub(crate) fn expand(
                 open spec fn #spec(self,rhs:Self)->Self {#name(#vstd::std_specs::ops::#base::#spec(self.0,rhs.0))}
             }
         });
+    }
+    if seen.contains(&"partial_cmp") && derives.iter().any(|d| d == "Ord") && !seen.contains(&"cmp")
+    {
+        return Err(syn::Error::new(
+            item.span(),
+            "infer_derive(PartialOrd) also requires Ord when the native derive delegates to Ord",
+        ));
     }
     Ok(quote! {#vstd::prelude::verus!{#item #(#models)*}})
 }

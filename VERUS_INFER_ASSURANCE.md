@@ -169,6 +169,26 @@ shared copied receivers, native erasure, repeated provider/client builds and
 withheld failed interfaces. These are safeguards, not a formal implementation
 proof. The broader Aleph adoption v1 charter remains active.
 
+Policy 40 and candidate version 46 extend explicit derive requests to PartialEq,
+PartialOrd and Ord. The native eq body is an exact target. Ordering-enum methods
+are ordinary checked implementations of complete generated trait definitions;
+they receive no soundness/maximality/exactness certificate of their own. The
+request validator requires a real, same-owner and same-signature body before
+the zero-inference early return. An Ord-only provider is still an inference
+interface: filters/no-verify cannot publish it, and failed ordinary bodies cannot
+publish it. Imported interfaces bind the entire API and library-model artifacts.
+
+Candidate projection of inherited Boolean comparisons is limited to the
+canonical core/vstd boundary, concrete primitive-integer wrappers and a matching
+validated derive request. It preserves custom explicit operator meanings.
+Ordinary executable calls and all precision obligations remain unchanged.
+Verification dependency collection retains inferred comparison providers and
+computed argument calls, including inherited ne. Regressions cover actual Rust
+derives with and without Ord delegation, copied shared receivers, private record
+fields, reversed/missing/external bodies, false client goals, zero-target provider
+metadata, repeated builds and stale/withheld exports. No axiom or assumed function
+contract is added. These safeguards do not formally prove the implementation.
+
 ## Ordinary native range-loop proof assistance
 
 Metadata policy **38** and candidate cache version **44** accompany this

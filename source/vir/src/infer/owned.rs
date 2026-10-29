@@ -78,7 +78,7 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
                 x.attrs.infer && (heap_known(&x.inner_ret.x.typ, &all, ds, 8) || result_query(f)
                     || structured_return(f,ds)
                     || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all) || result_map::uses(f,&all));
+                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all,ds) || result_map::uses(f,&all));
             f.new_x(x)
         })
         .collect()
@@ -1636,7 +1636,7 @@ fn validate_signature(
         || !(heap_known(&x.inner_ret.x.typ, all, ds, 8) || result_query(f)
             || structured_return(f,ds)
             || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all) || equality::uses(f,all)
+            || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all) || equality::uses(f,all,ds)
             || result_map::uses(f,all) || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {

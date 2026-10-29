@@ -262,7 +262,7 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr
     }))
 }
 
-pub(super) fn rewrite(f: &Function, all: &HashMap<Fun, Function>) -> Result<Function, VirErr> {
+pub(super) fn rewrite(f: &Function, all: &HashMap<Fun, Function>,datatypes:&[Datatype]) -> Result<Function, VirErr> {
     if !f.x.attrs.infer {
         return Ok(f.clone());
     }
@@ -275,7 +275,7 @@ pub(super) fn rewrite(f: &Function, all: &HashMap<Fun, Function>) -> Result<Func
                 body,
                 &mut crate::ast_visitor::VisitorScopeMap::new(),
                 &mut (),
-                &|_, _, e| Ok(source_call(e, all).unwrap_or_else(|| e.clone())),
+                &|_, _, e| Ok(source_call(e, all).or_else(||wrapper_compare::source_call(e,all,datatypes)).unwrap_or_else(|| e.clone())),
                 &|_, _, s| Ok(vec![s.clone()]),
                 &|_, t| Ok(t.clone()),
                 &|_, _, p| Ok(p.clone()),

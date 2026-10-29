@@ -6183,3 +6183,63 @@ verus!{
     let c=crates.build_source("binary_app",consumer,&["binary_base"],&["--no-cheating","--output-json"],true);
     assert!(!c.status.success());assert!(!crates.vir("binary_app").exists());
 }
+
+#[test]
+fn derived_ordering_without_exact_targets_is_certified_and_invalidates_stale_exports(){
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+#[verus_verify(infer_derive(Ord))]
+#[derive(Copy,Clone,Eq,PartialEq,PartialOrd,Ord)] pub struct Amount(pub u8);
+"#;
+    let caller=r#"use vstd::prelude::*;use ordering_base::Amount;
+verus!{pub fn goal(a:Amount,b:Amount){let r=a.cmp(&b);
+ assert((r==core::cmp::Ordering::Less)==(a.0<b.0));}}
+"#;
+    for _ in 0..2 {
+        let p=crates.build_source("ordering_base",provider,&[],&["--no-cheating","--output-json"],true);
+        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+        assert!(json_inference(&p)["functions"].as_array().unwrap().is_empty());
+        assert!(std::fs::read(crates.vir("ordering_base")).unwrap().ends_with(b"VRINFER1"));
+        let c=crates.build_source("ordering_app",caller,&["ordering_base"],&["--no-cheating"],true);
+        assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
+    }
+    let prior_client=std::fs::read(crates.vir("ordering_app")).unwrap();
+    crates.edit_metadata("ordering_base",|m|{assert!(m["proofs"].as_array().unwrap().is_empty());m["soundness"]=false.into();});
+    let c=crates.build_source("ordering_app",caller,&["ordering_base"],&["--no-cheating"],true);
+    assert!(!c.status.success());
+    // Ordinary clients retain their previous ordinary artifact on an import
+    // error; no replacement is published. Inferred providers below invalidate
+    // their old certified artifact before a rejected filtered rebuild.
+    assert_eq!(std::fs::read(crates.vir("ordering_app")).unwrap(),prior_client);
+    for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","cmp"]] {
+        let good=crates.build_source("ordering_base",provider,&[],&["--no-cheating"],true);
+        assert!(good.status.success(),"{}",String::from_utf8_lossy(&good.stderr));
+        let p=crates.build_source("ordering_base",provider,&[],&opts,true);
+        assert!(!p.status.success());assert!(!crates.vir("ordering_base").exists());
+        assert!(String::from_utf8_lossy(&p.stderr).contains("requires full-crate verification"));
+    }
+}
+
+#[test]
+fn native_derived_comparisons_compose_across_crates_and_reject_wrong_client_goals(){
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+#[verus_verify(infer_derive(PartialEq,PartialOrd,Ord))]
+#[derive(Copy,Clone,Eq,PartialEq,PartialOrd,Ord)] pub struct Amount(pub i16);
+"#;
+    let caller=r#"use vstd::prelude::*;use compare_base::Amount;
+#[verus_infer] pub fn earlier(a:Amount,b:Amount)->bool{a<b}
+verus!{pub fn goal(a:Amount,b:Amount){let r=earlier(a,b);assert(r==(a.0<b.0));}}
+"#;
+    for _ in 0..2 {
+        let p=crates.build_source("compare_base",provider,&[],&["--no-cheating","--output-json"],true);
+        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+        let c=crates.build_source("compare_app",caller,&["compare_base"],&["--no-cheating","--output-json"],true);
+        assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
+        assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
+    }
+    let bad=caller.replace("assert(r==(a.0<b.0))","assert(r==(a.0>b.0))");
+    let c=crates.build_source("compare_app",&bad,&["compare_base"],&["--no-cheating","--output-json"],true);
+    assert!(!c.status.success());assert!(!crates.vir("compare_app").exists());
+    assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
+}

@@ -51,6 +51,11 @@ Implemented and covered by regression tests:
   derive opt-ins: actual implementations determine semantics, inherited trait
   domains are checked independently, and all exact certificates remain mandatory.
   Original Aleph quorum and size expressions compose without arithmetic adapters.
+- [x] Explicit native scalar-wrapper PartialEq/PartialOrd/Ord derive support:
+  actual eq bodies receive exact checks, and actual ordering bodies prove the
+  proposed ordinary trait specifications. Inherited Boolean comparisons compose
+  through those checked definitions. Ordering-only providers still require
+  full-crate verification and certified exports, with no precision claim on cmp.
 - [x] Exact pointwise prefix mutation loops for borrowed record collections:
   zero-based usize counters, same-index updates (direct or checked inferred
   helpers), signed/unsigned per-element safety, full sequence/suffix/field frames,

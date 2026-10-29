@@ -41,7 +41,7 @@ use crate::automatic_derive::AutomaticDeriveAction;
 use crate::context::ContextX;
 use crate::rust_to_vir_base::def_id_to_vir_path_option;
 use crate::rustc_hir::intravisit::*;
-use crate::verus_items::get_rust_item;
+use crate::verus_items::{get_rust_item,RustItem};
 use rustc_hir::{
     ForeignItem, ForeignItemId, ForeignItemKind, HirId, ImplItem, ImplItemId, ImplItemKind, Item,
     ItemId, ItemKind, OwnerId, TraitItem, TraitItemId, TraitItemKind,
@@ -734,7 +734,14 @@ fn get_attributes_for_automatic_derive<'tcx>(
                     if opts_in_to_verus(&type_eattrs) {
                         let trait_def_id = impll.of_trait.unwrap().trait_ref.path.res.def_id();
                         let rust_item = get_rust_item(ctxt.tcx, trait_def_id);
-                        let action = crate::automatic_derive::get_action(rust_item);
+                        let requested=match rust_item {
+                            Some(RustItem::PartialEq)=>Some("eq"),
+                            Some(RustItem::PartialOrd)=>Some("partial_cmp"),
+                            Some(RustItem::Ord)=>Some("cmp"),
+                            _=>None,
+                        }.is_some_and(|method|crate::automatic_derive::has_derived_request(ctxt.tcx,type_def_id,method));
+                        let action = if requested {AutomaticDeriveAction::VerifyAsIs}
+                            else {crate::automatic_derive::get_action(rust_item)};
                         match action {
                             AutomaticDeriveAction::Special(_)
                             | AutomaticDeriveAction::VerifyAsIs => Some(type_eattrs),

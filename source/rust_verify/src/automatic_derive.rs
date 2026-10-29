@@ -60,6 +60,13 @@ pub fn is_automatically_derived(attrs: &[rustc_hir::Attribute]) -> bool {
     false
 }
 
+pub fn has_derived_request<'tcx>(tcx:rustc_middle::ty::TyCtxt<'tcx>,owner:rustc_span::def_id::DefId,name:&str)->bool {
+    let marker=format!("__verus_infer_derived_{name}");
+    tcx.inherent_impls(owner).iter().any(|impl_id|
+        tcx.associated_items(*impl_id).in_definition_order().any(|m|
+            m.tag()==rustc_middle::ty::AssocTag::Fn && m.name().as_str()==marker))
+}
+
 pub fn modify_derived_item<'tcx>(
     ctxt: &Context<'tcx>,
     id: rustc_span::def_id::DefId,
@@ -74,12 +81,10 @@ pub fn modify_derived_item<'tcx>(
     let target = if name == "from" {
         Some(ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder())
     } else { inputs.first().cloned() };
+    let target=target.map(|t|match t.kind(){rustc_middle::ty::TyKind::Ref(_,inner,_)=>*inner,_=>t});
     if let Some(rustc_middle::ty::TyKind::Adt(adt, _)) = target.map(|t| t.kind()) {
-        if matches!(name.as_str(), "from" | "add" | "sub" | "mul" | "div" | "rem") {
-            let marker = format!("__verus_infer_derived_{name}");
-            if ctxt.tcx.inherent_impls(adt.did()).iter().any(|impl_id|
-                ctxt.tcx.associated_items(*impl_id).in_definition_order().any(|m|
-                    m.tag() == rustc_middle::ty::AssocTag::Fn && m.name().as_str() == marker)) {
+        if matches!(name.as_str(), "from" | "add" | "sub" | "mul" | "div" | "rem" | "eq") {
+            if has_derived_request(ctxt.tcx,adt.did(),&name) {
                 Arc::make_mut(&mut function.attrs).infer = true;
             }
         }

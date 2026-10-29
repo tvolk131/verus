@@ -57,11 +57,14 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<(boo
     Some((n.path.last_segment().as_str() == "ne", args.clone()))
 }
 
-pub(super) fn uses(f: &Function, all: &HashMap<Fun, Function>) -> bool {
+pub(super) fn uses(f: &Function, all: &HashMap<Fun, Function>,datatypes:&[Datatype]) -> bool {
     let mut found = false;
     if let Some(b) = &f.x.body {
         crate::ast_visitor::expr_visitor_walk(b, &mut |e| {
-            found |= source_call(e, all).is_some();
+            // Scalar wrappers use the projection pipeline. Do not route an
+            // inherited ne call to owned analysis merely because it also fits
+            // the broader logical-identity proposal.
+            found |= source_call(e, all).is_some() && wrapper_compare::source_call(e,all,datatypes).is_none();
             crate::ast_visitor::VisitorControlFlow::<()>::Recurse
         });
     }

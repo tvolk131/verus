@@ -3,7 +3,8 @@ use super::wrapper_traits::{Kind, kind};
 use super::*;
 
 /// Generated extension definitions are usable only when the concrete matching
-/// implementation is an exact inference target. Check even crates with zero
+/// implementation is checked (exact for scalar outputs, ordinary for ordering
+/// enums). Check even crates with zero
 /// inferred functions, so a missing/misnamed derive cannot publish the model.
 pub(super) fn validate_derived_requests(
     fs: &[Function],
@@ -17,13 +18,16 @@ pub(super) fn validate_derived_requests(
         let bad = || {
             unsupported(
                 &marker.span,
-                "derived trait request requires one checked exact implementation for the same scalar wrapper and signature",
+                "derived trait request requires one checked implementation for the same scalar wrapper and signature",
             )
         };
-        if !matches!(suffix, "from" | "add" | "sub" | "mul" | "div" | "rem")
-            || !is_pure_observation(marker)
+        if !matches!(
+            suffix,
+            "from" | "add" | "sub" | "mul" | "div" | "rem" | "eq" | "partial_cmp" | "cmp"
+        ) || !is_pure_observation(marker)
             || marker.x.params.len() != 1
             || marker.x.body.is_none()
+            || !matches!(&*marker.x.inner_ret.x.typ, TypX::Bool)
         {
             return Err(bad());
         }
@@ -43,14 +47,30 @@ pub(super) fn validate_derived_requests(
             return Err(bad());
         }
         let field = &data.x.variants[0].fields[0].a.0;
+        if !newtypes::Newtypes::new(datatypes).wrapper(owner)
+            || !matches!(&**field,TypX::Int(r) if arithmetic::exact_range(*r))
+        {
+            return Err(bad());
+        }
         let count = fs
             .iter()
             .filter(|f| {
-                let wanted = if suffix == "from" { Some(Kind::From) } else { Some(Kind::Binary) };
+                if matches!(suffix, "partial_cmp" | "cmp") {
+                    return wrapper_compare::ordinary_derive(f, owner, suffix);
+                }
+                let wanted = match suffix {
+                    "from" => Some(Kind::From),
+                    "eq" => Some(Kind::Compare),
+                    _ => Some(Kind::Binary),
+                };
                 if kind(f) != wanted
                     || f.x.body.is_none()
                     || f.x.name.path.last_segment().as_str() != suffix
-                    || !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, owner)
+                    || if suffix == "eq" {
+                        !matches!(&*f.x.inner_ret.x.typ, TypX::Bool)
+                    } else {
+                        !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, owner)
+                    }
                 {
                     return false;
                 }

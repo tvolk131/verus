@@ -41,6 +41,7 @@ mod trait_getters;
 mod iterators;
 mod wrapper_traits;
 mod wrapper_binary;
+mod wrapper_compare;
 mod owned;
 mod cloning;
 
@@ -84,7 +85,7 @@ pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
-    f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
+    wrapper_compare::request(f) || f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
         || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || view_bounds_goals::lemma(f).is_some()
 }
 
@@ -737,6 +738,25 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 if !source && matches!(&e.x,ExprX::Call{target:CallTarget::BuiltinSpecFun(..)|CallTarget::FnSpec(_),..}) {return Ok(());}
                 let rewritten = wrapper_traits::source_call(e, all);
                 let e = rewritten.as_ref().unwrap_or(e);
+                // Candidate generation projected these concrete comparisons;
+                // verification retains their original checked trait calls.
+                // Still traverse each argument and any inferred eq provider
+                // required by an inherited default such as ne.
+                if !source {
+                    if let ExprX::Call{target:CallTarget::Fun(_,name,types,..),..}=&e.x {
+                        if all.get(name).is_some_and(wrapper_compare::boundary) {
+                            let mut providers=all.values().filter(|p|
+                                wrapper_traits::kind(p)==Some(wrapper_traits::Kind::Compare)
+                                && types.first().is_some_and(|t|trait_getters::shared(&p.x.params[0].x.typ)
+                                    .is_some_and(|u|crate::ast_util::types_equal(t,u)))).collect::<Vec<_>>();
+                            providers.sort_by(|a,b|a.x.name.cmp(&b.x.name));
+                            for provider in providers {
+                                visit(provider,all,source,active,done,order)?;
+                            }
+                            return Ok(());
+                        }
+                    }
+                }
                 if is_owned_summary(f) && owned::native_scaffold_call(f,e,all){return Ok(());}
                 if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
@@ -839,7 +859,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    wrapper_traits::binary_boundary(function) || owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    wrapper_compare::boundary(function) || wrapper_traits::binary_boundary(function) || owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
