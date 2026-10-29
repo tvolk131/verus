@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v47:tagged-borrow-identity:4096";
+const VERSION: &str = "verus-infer-v48:opaque-record-value-leaves:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -341,6 +341,7 @@ impl Registry {
                 let wrappers=newtypes::Newtypes::new(&self.datatypes);
                 let callees=candidates.iter().map(|(n,c)|Ok((n.clone(),if self.projected.contains(n){wrappers.lift(&self.originals[n],c)?.install_lifted(&self.originals[n],&keys[n])?}else{c.clone()}))).collect::<Result<HashMap<_,_>,VirErr>>()?;
                 let (contract,body)=owned::infer(f,&callees,&self.datatypes)?;
+                let contract=observations::lift_contract(f,contract,&callees,&self.datatypes)?;
                 let inferred=contract.install_owned(f,&key,body)?;
                 self.misses+=1;let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
                 keys.insert(name.clone(),key);candidates.insert(name,inferred);continue;
@@ -361,6 +362,7 @@ impl Registry {
                     Ok((n.clone(), c))
                 }).collect::<Result<HashMap<_, _>, VirErr>>()?;
                 let (contract, body) = records::infer(f, &record_callees, &self.datatypes)?;
+                let contract=observations::lift_contract(f,contract,&record_callees,&self.datatypes)?;
                 let inferred = if let Some(body) = body {
                     contract.install_owned(f, &key, body)?
                 } else { contract.install_lifted(f, &key)? };

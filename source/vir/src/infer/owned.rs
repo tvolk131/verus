@@ -405,7 +405,11 @@ impl Engine<'_> {
                             .ok_or_else(||unsupported(s,"missing complete constructor field"))?
                     } else {field_expr(&t.expr,op,&typ)}
                 } else {field_expr(&t.expr,op,&typ)};
-                if heap_known(&typ,self.all,self.ds,8) {self.layout(e,8)} else {Ok(Val::atom(atom(e)?))}
+                if heap_known(&typ,self.all,self.ds,8)
+                    && (!records::shape::opaque_value(&typ,self.ds,&self.f.x.owning_module)
+                        || sequence_views::find(&typ,self.all,self.ds).is_some()) {
+                    self.layout(e,8)
+                } else {Ok(Val::atom(atom(e)?))}
             }
             Node::Seq(t) => {
                 let view = sequence_views::find(&v.typ, self.all, self.ds)
@@ -658,7 +662,22 @@ impl Engine<'_> {
                             get_variant: false,
                             check: VariantCheck::None,
                         };
-                        Ok((op, self.expr(s, &f.a)?, t))
+                        // Moving an original immutable by-value input preserves
+                        // the complete object, including an opaque private field.
+                        // Do not extend this equation to clones or mutated locals.
+                        let direct = match &f.a.x {
+                            ExprX::Var(n) => Some(n),
+                            ExprX::ReadPlace(p, _) => match &p.x { PlaceX::Local(n) => Some(n), _ => None },
+                            _ => None,
+                        };
+                        let value = if records::shape::opaque_value(&t,self.ds,&self.f.x.owning_module)
+                            && sequence_views::find(&t,self.all,self.ds).is_none()
+                            && direct.is_some_and(|n|self.f.x.params.iter().any(|p|
+                            &p.x.name==n && !p.x.user_mut && same(&p.x.typ,&t)
+                            && !matches!(&*p.x.typ,TypX::MutRef(_)|TypX::Decorate(TypDecoration::Ref,..)))) {
+                            Val::atom(self.object(s,&f.a)?)
+                        } else { self.expr(s,&f.a)? };
+                        Ok((op, value, t))
                     })
                     .collect::<Result<Vec<_>, VirErr>>()?;
                 if records::shape::fields(&e.typ, self.ds).is_some() {
@@ -1077,7 +1096,7 @@ impl Engine<'_> {
                 let values=args.iter().map(|a|self.formula(s,a)).collect::<Result<Vec<_>,_>>()?;
                 return self.standard(&e.span,m,(**types).clone(),values);
             }
-            if model(self.all.get(name).ok_or_else(|| unsupported(&e.span, "owned summary model"))?)
+            if model(self.all.get(resolved).ok_or_else(|| unsupported(&e.span, "owned summary model"))?)
                 == Some(Model::SeqNew)
             {
                 let n = self.formula(s, &args[0])?;
@@ -1088,16 +1107,15 @@ impl Engine<'_> {
                 return self.repeat(&e.span, n, v);
             }
             if let Some(m @ (Model::Empty | Model::Take | Model::SeqPush | Model::SeqFilter | Model::SeqFold | Model::Scatter)) =
-                self.all.get(name).and_then(model)
+                self.all.get(resolved).and_then(model)
             {
                 let values =
                     args.iter().map(|a| self.formula(s, a)).collect::<Result<Vec<_>, _>>()?;
                 return self.lib(&e.span, m, (**types).clone(), values);
             }
-            if self.all.get(name).is_some_and(is_pure_observation) {
-                let whole=self.all.get(name).is_some_and(borrowed::is_value);
+            if self.all.get(resolved).is_some_and(is_pure_observation) {
                 let values = args.iter().map(|a| {
-                    if whole {self.object(s,a).or_else(|_|self.formula(s,a))} else {self.formula(s,a)}
+                    self.object(s,a).or_else(|_|self.formula(s,a))
                 }.map(|v|v.expr)).collect::<Result<Vec<_>, _>>()?;
                 let ExprX::Call { target, .. } = &e.x else { unreachable!() };
                 return atom(e.new_x(ExprX::Call { target: target.clone(), args: Arc::new(values), post_args: None, body: None }));
@@ -1121,6 +1139,7 @@ impl Engine<'_> {
                 if params.is_empty() || params.len()>2{return Err(unsupported(&e.span,"native summary binder budget"));}
                 let mut local=s.clone();
                 for p in params.iter(){
+                    local.objects.insert(p.name.clone(),atom(SpannedTyped::new(&e.span,&p.a,ExprX::Var(p.name.clone())))?);
                     local.locals.insert(p.name.clone(),self.layout(SpannedTyped::new(&e.span,&p.a,ExprX::Var(p.name.clone())),5)?);
                 }
                 let value=self.formula(&mut local,body)?;
@@ -1298,10 +1317,9 @@ impl Engine<'_> {
                 let t = self.formula(s, &rhs)?;
                 if matches!(layout.node, Node::Seq(_)) { Node::Seq(t) } else { Node::Atom(t) }
             }
-            Node::Fields(_) if records::shape::value_type(&layout.typ,&self.f.x.typ_params,self.ds,8)
-                && clauses.iter().any(|e|matches!(&e.x,ExprX::Binary(BinaryOp::Eq(Mode::Spec),a,_) if skeleton(a)==skeleton(out))) => {
+            Node::Fields(_) if clauses.iter().any(|e|matches!(&e.x,ExprX::Binary(BinaryOp::Eq(Mode::Spec),a,_) if skeleton(a)==skeleton(out))) => {
                 let rhs=find_rhs(out,clauses)?;
-                Node::Atom(self.formula(s,&rhs)?)
+                Node::Atom(self.object(s,&rhs).or_else(|_|self.formula(s,&rhs))?)
             }
             Node::Fields(fs) => Node::Fields(
                 fs.iter()

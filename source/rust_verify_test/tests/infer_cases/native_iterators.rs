@@ -352,3 +352,30 @@ fn entry_independent_native_fold_readiness_gets_an_internal_trigger(){
  assert!(error.contains("postcondition not satisfied"),"{}",error);
  assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
 }
+
+#[test]
+fn composed_native_filters_keep_authored_predicate_vocabulary() {
+    let crates=InferCrates::new();
+    let provider=crates.build("observation_factory",PROVIDER,&[],&["--no-cheating"]);
+    assert!(provider.status.success(),"{}",String::from_utf8_lossy(&provider.stderr));
+    let consumer=r#"use vstd::prelude::*;
+    pub struct Item{stamp:u16,flag:bool}
+    impl Item{pub closed spec fn stamp_value(&self)->u16{self.stamp}}
+    #[verifier::infer] pub fn matching(s:&observation_factory::Slots<Item>,stamp:u16)->usize{
+        s.iter().filter(|&(_,value)|value.stamp==stamp).count()
+    }
+    #[verifier::infer] pub fn relay(s:&observation_factory::Slots<Item>,stamp:u16)->usize{matching(s,stamp)}
+    fn goal(s:&observation_factory::Slots<Item>,stamp:u16)->(r:usize)
+        ensures r==s.entries_value().filter(|e:(usize,&Item)|e.1.stamp==stamp).len(),
+    {relay(s,stamp)}
+    "#;
+    for _ in 0..2 {
+        let r=crates.build("observation_filter",consumer,&["observation_factory"],&["--no-cheating","--output-json"]);
+        assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+        assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+    }
+    let wrong=consumer.replace("value.stamp==stamp","value.stamp!=stamp");
+    let r=crates.build("observation_filter",&wrong,&["observation_factory"],&["--no-cheating","--output-json"]);
+    assert!(!r.status.success());assert!(!crates.vir("observation_filter").exists());
+    assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+}

@@ -167,6 +167,15 @@ pub(in crate::infer) fn same_path(a: &[FieldOpr], b: &[FieldOpr]) -> bool {
                 && a.get_variant == b.get_variant
         })
 }
+/// An unexpanded first-party value can be preserved as a whole. This grants no
+/// field equation, collection view, destructor behavior or method contract.
+pub(in crate::infer) fn opaque_value(t:&Typ,ds:&[Datatype],owner:&Option<Path>)->bool {
+    let TypX::Datatype(dt,args,_) = &**t else {return false;};
+    ds.iter().any(|d|d.x.name==*dt && d.x.mode==Mode::Exec && d.x.proxy.is_none()
+        && !d.x.destructor && args.len()==d.x.typ_params.len() && args.len()<=4
+        && !matches!(&d.x.transparency,DatatypeTransparency::WhenVisible(vis)
+            if crate::ast_util::is_visible_to_opt(vis,owner)))
+}
 pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Function>) -> Result<Shape, VirErr> {
     let bad = || {
         unsupported(
@@ -220,6 +229,13 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
         }
         if let Some(view) = sequence_views::find(t, all, ds) {
             out.push(Field { path, typ: t.clone(), element: Some(view.element.clone()), view: Some(view) });
+            return Ok(());
+        }
+        if opaque_value(t,ds,&f.x.owning_module) {
+            // Whole opaque values can be framed inside a visible record.
+            // Mutating an opaque root needs a supported state interface.
+            if path.is_empty() && mutable(f) {return Err(bad());}
+            out.push(Field {path,typ:t.clone(),element:None,view:None});
             return Ok(());
         }
         // Ordinary scalar/Option/tuple payloads remain leaves; transparent

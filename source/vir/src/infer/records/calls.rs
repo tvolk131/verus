@@ -175,6 +175,27 @@ impl Interpreter<'_> {
         }
         let types: HashMap<_, _> =
             callee.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
+        // The caller's immutable receiver is still its original complete
+        // value. Compose the checked relation without opening private fields.
+        if !mutable(callee) && !mutable(self.function) {
+            let substitute = |expr: &Expr| crate::ast_visitor::map_expr_visitor_env(expr,
+                &mut crate::ast_visitor::VisitorScopeMap::new(), &mut (),
+                &|_, _, e| Ok(e.clone()), &|_, _, s| Ok(vec![s.clone()]),
+                &|_, t| Ok(match &**t { TypX::TypParam(n) => types.get(n).cloned().unwrap_or_else(||t.clone()), _ => t.clone() }),
+                &|_, _, p| Ok(p.clone()), &|_, _, p| Ok(p.clone()));
+            let pre = substitute(&callee.x.require[0])?;
+            let post = substitute(&callee.x.ensure.0[0])?;
+            let ExprX::Binary(BinaryOp::Eq(Mode::Spec), lhs, rhs) = &post.x else { return Err(bad()); };
+            if !matches!(&lhs.x,ExprX::Var(n) if n==&callee.x.inner_ret.x.name) { return Err(bad()); }
+            let receiver=coerce(&e.span,atom(observations::logical_value(&args[0]))?,
+                &crate::sst_util::subst_typ(&types,&callee.x.params[0].x.typ))?;
+            let mut vars = HashMap::from([(callee.x.params[0].x.name.clone(),receiver)]);
+            for (p, arg) in callee.x.params.iter().skip(1).zip(args.iter().skip(1)) {
+                vars.insert(p.x.name.clone(), self.readonly(s,arg)?);
+            }
+            self.require(s,&e.span,substitute_value(&pre,&vars)?)?;
+            return substitute_value(rhs,&vars);
+        }
         let mut instantiated = callee.x.clone();
         instantiated.typ_params = self.function.x.typ_params.clone();
         instantiated.typ_bounds = self.function.x.typ_bounds.clone();

@@ -31,6 +31,7 @@ mod integer_models;
 mod loops;
 mod models;
 mod newtypes;
+mod observations;
 mod propagation;
 mod panics;
 mod registry;

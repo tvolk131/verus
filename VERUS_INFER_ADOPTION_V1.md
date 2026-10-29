@@ -133,8 +133,20 @@ quorum, preceding-round own-parent selection, complete stored-map logical value,
 returned contents and error precedence. Early quorum failure covers zero members
 and arbitrary indices. Wrong quorum/round/error source mutations are rejected.
 
-This completes the parent-selection/query step, not adoption v1. Native metadata
-construction/validation and Creator creation still require work, as do collector
-advancement's proof block, manual trigger hints and the mutable-selector helper
-contract. The hash boundary, full inventory audit and fresh replay remain part
-of the final acceptance criteria.
+Native metadata projection/construction, all initial/noninitial validation
+branches, UnitCoord and PreUnit construction/accessors now verify as well.
+PreUnit's view retains its requested coordinates and the complete supplied
+ControlHash value. Reusable inference preserves opaque moved inputs and composes
+readonly queries through authored projection observations. Numeric metadata
+construction remains separate from the checked opaque hash call; no hash law or
+new assumed contract was added.
+
+The PreUnit checkpoint has 140 proof results, 31 exact helpers and all 93 required
+certificates. Three native PreUnit mutations fail their independent coverage
+goals, and the pinned runtime's 40 creation tests pass. Evidence is recorded in
+the native pilot's verification/units_collector/PREUNIT.md and its receipt file.
+
+Creator creation still requires work, as do collector advancement's proof block,
+manual trigger hints and the mutable-selector helper contract. The hash boundary,
+full inventory audit and fresh replay remain part of the final acceptance
+criteria. This checkpoint does not complete adoption v1.

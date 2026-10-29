@@ -1017,7 +1017,7 @@ fn private_sequence_view_interfaces_compose_without_exporting_the_definition() {
     assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
     let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("visible transparent record fields"));
+    assert!(json_inference(&run)["generation_failure"].is_string(),"{}",String::from_utf8_lossy(&run.stderr));
     assert!(!crates.vir("private_app").exists());
     // The view evidence must not survive removal of the inference certificate.
     let run=crates.build("private_base",base,&[],&[]);

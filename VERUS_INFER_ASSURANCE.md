@@ -2086,3 +2086,37 @@ plus an ordinary Cargo erasure test. This pass fixed the primitive-target derive
 scanner panic, multiple-name external_derive parsing, and iterator proof imports
 that failed to erase in normal Rust builds. No candidate, precision, or metadata
 policy was relaxed, and no new inference axiom was added.
+## Opaque record components and authored input projections
+
+Readonly record inference now retains an unrelated private first-party component
+as a complete logical value. A constructor can preserve an original immutable
+by-value input moved directly into such a field. The independent SST precision
+checker selects whole-value equality for opaque components from module/type
+information, without consulting the candidate's clauses. Existing certified
+direct sequence views retain their previous content observations. Opaque-root
+mutation remains unsupported without a supported state interface.
+
+A bounded untrusted projection pass can express input equations through an
+authored public scalar observation or tuple-valued View. Generated borrow
+definitions are expanded only to match such an authored projection; they do not
+become abstraction choices. Original-body soundness and both independent
+precision checks remain required. The pass does not rewrite output schemas or
+callback-bound predicates, assume View injectivity, or create executable models.
+Unavailable private projections fail before module pruning. Generic type
+substitution, complete-object arguments and imported pure vocabulary remain
+validated and bound to the published candidate/dependency evidence.
+
+Cross-crate regressions exercise composite private payloads, scalar and shared
+queries, whole moved inputs, repeated provider/caller builds, wrong input/getter
+mutants, missing observations, and full-verification/export gates. Independent
+backend fault injection removes all opaque representation fields and rejects a
+missing return relation and an equality to the wrong input. The matching native
+PreUnit checkpoint verifies all five original bodies and retains the opaque
+Hasher/codec boundary. Policy 42 / candidate cache 48 invalidates older profiles.
+
+The checkpoint passes 462 compiler regressions across all 18 inference suites
+and 114 backend assurance tests. Native evidence covers 140 proof results,
+31 exact helpers, all 93 certificates, three rejected implementation mutations
+and 40 pinned creation runtime tests. The runtime sources are unchanged by
+this inference checkpoint. General constructor-result abstraction and the
+remaining adoption-v1 scaffold removal/audit/replay remain open.

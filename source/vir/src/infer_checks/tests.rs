@@ -1456,3 +1456,40 @@ fn total_native_loop_precision_rechecks_safety_and_rejects_restrictive_domains()
     check.body = missing;
     assert!(validate_query_kind(&check, None, &span()).is_err());
 }
+
+#[test]
+fn opaque_return_precision_checks_complete_identity_without_candidate_fields() {
+    let (mut ctx, _, mut check) = record_fixture();
+    let dt = ctx.datatype_map.keys().next().unwrap().clone();
+    let mut datatype = ctx.datatype_map[&dt].x.clone();
+    datatype.transparency = DatatypeTransparency::Never;
+    datatype.variants = Arc::new(vec![]);
+    ctx.datatype_map.insert(dt.clone(), Spanned::new(span(), datatype));
+    ctx.datatype_is_transparent.insert(dt.clone(), false);
+    let typ = Arc::new(TypX::Datatype(dt, Arc::new(vec![]), Arc::new(vec![])));
+    ctx.mono_types.push(crate::poly::typ_as_mono(&typ).unwrap());
+    let vars = [(var("input"),typ.clone()),(var("other"),typ.clone()),(var("result"),typ.clone())];
+    let value = |n|SpannedTyped::new(&span(),&typ,ExpX::Var(var(n)));
+    let encode = |e:Exp|crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx,&e,&vars);
+    let relation = |n|encode(binary(crate::sst::BinaryOp::Eq,value("result"),value(n)));
+    check.reqs = Arc::new(vec![]);
+    check.local_decls = Arc::new(vars.iter().map(|(ident,typ)|Arc::new(LocalDeclX{
+        ident:ident.clone(),typ:typ.clone(),kind:if ident==&var("result"){LocalDeclKind::Return}else{LocalDeclKind::Param{mutable:false}},
+    })).collect());
+    check.body = Spanned::new(span(),StmX::Return{assert_id:None,base_error:error(&span(),"postcondition"),
+        ret_exp:Some(encode(value("input"))),inside_body:false});
+    check.post_condition = Arc::new(PostConditionSst{dest:Some(var("result")),ens_exps:Arc::new(vec![relation("input")]),
+        ens_spec_precondition_stms:Arc::new(vec![]),kind:PostConditionKind::Ensures});
+    let pars = Arc::new(vars[..2].iter().map(|(name,typ)|Spanned::new(span(),ParX{name:name.clone(),typ:typ.clone(),mode:Mode::Exec})).collect());
+    let exact = |c:&FuncCheckSst|state::returned_body(&ctx,&span(),&typ,c).unwrap();
+    assert!(verifies(&ctx,&pars,&check));
+    assert!(verifies(&ctx,&pars,&exact(&check)));
+    let mut weak = check.clone();
+    Arc::make_mut(&mut weak.post_condition).ens_exps = Arc::new(vec![]);
+    assert!(verifies(&ctx,&pars,&weak));
+    assert!(!verifies(&ctx,&pars,&exact(&weak)));
+    let mut wrong = check.clone();
+    Arc::make_mut(&mut wrong.post_condition).ens_exps = Arc::new(vec![relation("other")]);
+    assert!(!verifies(&ctx,&pars,&wrong));
+    assert!(!verifies(&ctx,&pars,&exact(&wrong)));
+}

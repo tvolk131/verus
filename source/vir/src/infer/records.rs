@@ -1181,6 +1181,7 @@ pub(super) fn validate_summary(
                 } => {
                     models::path_is(&name.path, CrateId::Vstd, &["view", "View", "view"])
                         && all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f) == Some(Model::View))
+                        || all.get(resolved).is_some_and(is_pure_observation)
                 }
                 ExprX::Call{target:CallTarget::Fun(CallTargetKind::Dynamic,name,types,impls,_),args,post_args:None,body:None}=>{
                     types.len()==1 && impls.is_empty()
@@ -1191,7 +1192,7 @@ pub(super) fn validate_summary(
                     post_args: None,
                     body: None,
                     ..
-                } => all.get(name).is_some_and(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)
+                } => all.get(name).is_some_and(|f|is_pure_observation(f) || f.x.attrs.infer_trait_observation && trait_getters::observation(f)
                     || owned::model(f) == Some(owned::Model::SeqNew)) || matches!(
                     all.get(name).and_then(collections::model),
                     Some(

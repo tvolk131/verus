@@ -493,6 +493,32 @@ the datatype, validated on import and published only after complete verification
 Closed bodies remain unavailable to clients. View/state templates regenerate and
 receive fresh proofs; this introduces no new trusted library model or axiom.
 
+### Composite records with private fields
+
+A bounded readonly record query can retain an unrelated private first-party
+field as a complete logical value. Reading a coordinate beside an opaque payload
+does not require opening the payload. Queries on that payload can compose exact
+checked helper contracts through public authored projection observations, such
+as a closed scalar observation or a tuple-valued `View` containing a collection
+view. Inference can re-express input projections using those definitions; normal
+verification checks the proposed equations against the original executable body.
+It does not invent an abstraction or assume a representation law.
+
+This profile uses unary projection definitions, bounded tuple projections and
+up to four directly matched type parameters. It preserves the existing output
+observation scheme. Callback-bound variables keep their original predicates;
+arbitrary closure equivalences are not synthesized by this projection pass.
+When a foreign private projection has no usable observation, inference reports
+an unsupported abstraction boundary before module pruning.
+
+A constructor that directly moves an original immutable by-value input into an
+opaque record field can preserve that complete input value. The independent
+precision check observes the opaque field by whole-value equality. This is a
+logical value guarantee, not an address claim, and grants no clone, encoding or
+hash equation. Certified direct sequence wrappers retain their existing content
+observations. General constructor-result abstraction and arbitrary private
+collection representations still require further support or authored interfaces.
+
 The private Aleph checkpoint builds an extracted `NodeMap` API in a separate
 crate and checks the supplied collector's update through it. It retains original
 get/insert bodies, the documented size-constructor adaptation, supplied invariant,

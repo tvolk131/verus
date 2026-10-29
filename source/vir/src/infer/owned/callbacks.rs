@@ -191,6 +191,7 @@ impl Engine<'_> {
         let mut local = s.clone();
         local.active = boolean(&e.span, true);
         let p = &params[0];
+        local.objects.insert(p.name.clone(),atom(SpannedTyped::new(&e.span,&p.a,ExprX::Var(p.name.clone())))?);
         local.locals.insert(
             p.name.clone(),
             engine.layout(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())), 8)?,

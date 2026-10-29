@@ -14,7 +14,7 @@ use vir::infer::ProofStatus;
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
 const INFER_SCHEMA: u32 = 37;
-const INFER_POLICY: &str = "candidate-bound-evidence-v41";
+const INFER_POLICY: &str = "candidate-bound-evidence-v42";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]

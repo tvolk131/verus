@@ -386,6 +386,17 @@ fn observations(
     if nested {
         let TypX::Datatype(dt, args, _) = &**typ else { unreachable!() };
         let d = ctx.datatype_map.get(dt).ok_or_else(bad)?;
+        // A private first-party value has no representation in this module.
+        // Observe its complete logical value rather than opening hidden fields
+        // or weakening precision to a partial content view. Certified direct
+        // sequence views above retain their existing independent observations.
+        if !ctx.datatype_is_transparent.get(dt).copied().unwrap_or(false)
+            && d.x.mode == Mode::Exec && d.x.proxy.is_none() && !d.x.destructor
+            && d.x.typ_params.len() == args.len()
+        {
+            out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,a,b)));
+            return Ok(());
+        }
         // Enumerate every tag and every guarded payload from the datatype,
         // independently of the candidate's equations or selected constructor.
         if (2..=8).contains(&d.x.variants.len()) && d.x.typ_params.len()==args.len()
