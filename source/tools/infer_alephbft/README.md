@@ -876,3 +876,56 @@ enumerated slice filter_map with direct total immutable callbacks. Authored outp
 views, application policies, checked Clone/equality laws, codec/lock/library
 boundaries and the already checked Signed input remain explicit. Arbitrary iterator
 factory inference and maximal/exact iterator-object contracts are not claimed.
+
+## Outer validation against an authored policy
+
+Add `--outer-validation` to the validation runner command. It implies
+`--factory-proofs` and all preceding validation modes. The original
+`Validator::validate_unit` executable body is retained unchanged and checked
+directly against an explicit application contract. There are no handwritten
+proof blocks, closure contracts or per-call assertions in the outer method.
+The checked policy establishes this priority:
+
+1. Failed authentication returns the complete original unchecked signed value.
+2. A session mismatch returns a clone with the complete logical FullUnit view.
+3. A round strictly above the configured maximum returns the corresponding
+   logical FullUnit view; equality to the maximum is allowed.
+4. Otherwise the existing checked member-count and parent-validation policy applies.
+   Success preserves the complete original Signed value and its original contents.
+
+The input-domain goal permits out-of-range creators when authentication, session,
+round or member checks reject before the indexed parent operation; otherwise
+noninitial rounds require the creator to fit the supplied parent map. This
+sufficient domain is an author input, not a maximality claim about the outer method.
+
+The original Validator constructor and SignatureError-to-ValidationError From body
+add two exact inferred contracts, for 31 total, alongside two ordinary factory
+proofs and the ordinary outer policy proof. From inference preserves all three
+precision checks and independently checks the inherited total trait domain.
+The optional vstd whole-object FromSpec equation is disabled for this structured
+conversion; its actual inferred contract remains checked and used by native `?`.
+Bounded ordinary exact value queries can now consume owned records and shared
+context, and generic checked From conversions compose in canonical Result `?`.
+Breadth-first view-bound search retains discovered checked lemmas at its existing
+traversal limits, which is needed by this larger caller.
+
+`outer_validation_models.rs` supplies an authentication predicate over the logical
+unit, creator and original signature, and a Keychain method contract. An ordinary
+checked adapter models `UncheckedSigned::check` using this interface. This is an
+explicit boundary for the native hash/as_ref/index/verify chain, not a proof of
+that chain or a cryptographic implementation. The native signature wrapper's
+field layouts and signature-error representation are drift checked. Encoding,
+hash, iterator, verified-lock and corrected-quorum boundaries remain visible.
+FullUnit cloning is already ordinarily verified through the supplied cache
+invariant. Exact inference relative to arbitrary cache-insensitive views is not
+implemented, so the outer method is deliberately an ordinary policy proof.
+
+Nine additional formal controls reject wrong/ignored authentication, wrong
+signature conversion, session comparison/payload, maximum-round comparison,
+outer error priority, ignored parent errors and a missing outer creator bound.
+Failed builds cannot publish an interface. With `--native-tests`, the six original
+validator tests run together with a 95-case corpus over signature, session, round,
+membership and creator combinations. One further case retains the indexed-parent
+panic outside the stated domain. The existing mock Keychain does not reject an
+out-of-range creator merely because the signature matches; no such law is assumed.
+The original native wrappers, SCALE and hash implementations execute in that corpus.

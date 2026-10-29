@@ -310,8 +310,8 @@ Still planned or outside the implemented subset:
   broader mutable helper composition and counting
   lemma selection beyond the checked counting catalog remain open.
 - [ ] General consumption of handwritten/external contracts by inferred functions,
-  beyond exact precondition-free trait queries with a shared receiver and up to two
-  scalar arguments; mixed handwritten-and-inferred
+  beyond exact precondition-free trait queries and bounded ordinary value queries
+  with an owned/shared record receiver and shared context; mixed handwritten-and-inferred
   contracts, and broader generic/trait specialization.
 - [ ] Broader records, nested/multiple-field datatypes, returned wrapper references,
   and operator-trait inference beyond concrete From/AddAssign through Verus's
@@ -582,7 +582,25 @@ APIs and research directions.
     verified interfaces, not exact iterator-object inference candidates; their
     consumers retain all three existing inference checks. More general factory
     chains, partial callbacks and arbitrary iterator implementations remain open.
-27. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
+27. **Outer validation and structured query checkpoint implemented.** Ordinary exact
+    value-query contracts can consume an owned record and a shared context and
+    return bounded structured values. Canonical Result `?` can compose the concrete
+    checked exact generic From implementation selected by Rust. Each conversion
+    retains soundness, maximality, output precision and inherited-domain checks;
+    partial or unmarked conversions cannot supply this path. Generic trait return
+    precision builds its pre-poly observations without inserting Box/Unbox twice.
+    Goal-directed view-bound search uses breadth-first traversal and retains
+    already discovered checked lemmas at its existing limits.
+    Aleph's original outer Validator::validate_unit body is checked directly
+    against supplied authentication/session/maximum-round/member/parent policy,
+    with no handwritten proof blocks. The constructor and signature-error From
+    conversion add two exact summaries (31 total). The outer method is an ordinary
+    application proof, not an exact/maximality-certified inference candidate:
+    cloned FullUnit errors use supplied logical views, while success preserves the
+    complete original Signed value. A supplied authenticated predicate and checked
+    adapter model the native signature-check interface; the signature implementation
+    and cryptographic security remain outside this experiment.
+28. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
     external trait proxies, inherited operator/conversion contracts beyond the checked
     concrete subset, arbitrary Clone relations, more loop families and richer mutable
     return values remain.
@@ -592,10 +610,10 @@ APIs and research directions.
     discovery and a dedicated expected-domain interface remain separate work.
     The existing supplied invariant and regression oracle are
     still visible inputs; do not count their desired semantics as inferred.
-    Aleph's next orchestration target is the outer `Validator::validate_unit`,
-    including checked signature, session and maximum-round interfaces. This
-    requires an explicit authentication policy and signature-library boundary;
-    parent validation does not establish those properties.
+    Aleph's outer orchestration is checked against an explicit authentication
+    policy. Verifying or more directly connecting the native hash/as_ref/index/
+    Keychain::verify chain, reusing signature-library contracts, and inference
+    relative to deliberately chosen cache-insensitive views remain separate work.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,

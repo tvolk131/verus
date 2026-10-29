@@ -99,6 +99,38 @@ def parent_validation_api(api, units, validator, signature):
     return api+models
 
 
+def outer_validation_api(api, validator, signature):
+    """Retain the outer body and From conversion; declare authentication meaning."""
+    authentication = '''
+ spec fn authenticated<H:Hasher,D:Data>(&self,unit:UnitView<H,D>,creator:NodeIndex,signature:Self::Signature)->bool;
+ fn authenticate<H:Hasher,D:Data>(&self,unit:&FullUnit<H,D>,signature:&Self::Signature)->(result:bool)
+  ensures result==self.authenticated::<H,D>(unit@,unit.creator_value(),*signature);
+'''
+    site = ' type Signature:Signature;'
+    if api.count(site) != 1:
+        raise ValueError('authentication interface insertion changed')
+    api = api.replace(site, site+authentication)
+    marker = 'mod parent_validation {'
+    api = api.replace(marker, (FIXTURES/'outer_validation_models.rs').read_text()+'\n'+marker)
+    # The remaining marker bounds of SignatureError are outside this adapter.
+    error_fields = item(signature, 'pub struct SignatureError<')[2].split('{',1)[1].rsplit('}',1)[0]
+    if re.sub(r'\s+', '', error_fields) != 'pubunchecked:UncheckedSigned<T,S>,':
+        raise ValueError('signature error representation changed')
+    conversion = item(validator, 'impl<H: Hasher, D: Data, S: Signature> From<')[2]
+    conversion = conversion.replace('    fn from(', '    #[verifier::infer]\n    fn from(', 1)
+    original = item(validator, 'impl<K: Keychain> Validator<K>')[2]
+    methods = '#[verifier::infer]\n'+item(original, 'pub fn new(')[2]
+    methods += '\n'+method(original, 'pub fn validate_unit<', 'Result<H, D, K>',
+        'self.outer_policy(uu,result)')
+    methods = methods.replace('    ensures self.outer_policy(uu,result),',
+        '    requires self.outer_domain(uu),\n    ensures self.outer_policy(uu,result),')
+    insertion = '\n'+conversion+'\nimpl<K:Keychain> Validator<K>{\n'+methods+'\n}\n'
+    insertion += (FIXTURES/'outer_validation_goals.rs').read_text()
+    if not api.endswith('}}\n'):
+        raise ValueError('parent module closing site changed')
+    return api[:-3]+insertion+'}}\n'
+
+
 def native_construction_runtime(runtime):
     old = 'let control = ControlHash::<Hasher64> { parents, combined_hash: [0; 8] };'
     new = """let mut hashes = NodeMap::with_size(NodeCount(size));
@@ -184,8 +216,11 @@ def main():
     parser.add_argument('--full-validation', action='store_true')
     parser.add_argument('--parent-validation', action='store_true')
     parser.add_argument('--factory-proofs', action='store_true')
+    parser.add_argument('--outer-validation', action='store_true')
     parser.add_argument('--native-target', type=Path)
     args = parser.parse_args()
+    if args.outer_validation:
+        args.factory_proofs = True
     if args.factory_proofs:
         args.parent_validation = True
     if args.parent_validation:
@@ -194,7 +229,7 @@ def main():
         args.native_construction = True
     if args.native_construction:
         args.native_pipelines = True
-    inferred_count = 29 if args.parent_validation else 18 if args.full_validation else 16 if args.native_construction else 15
+    inferred_count = 31 if args.outer_validation else 29 if args.parent_validation else 18 if args.full_validation else 16 if args.native_construction else 15
     output = args.output.resolve()
     if output.exists() and any(output.iterdir()):
         parser.error('output must be new or empty')
@@ -230,6 +265,8 @@ def main():
             validator, signature = [git(checkout, 'show', f'{REVISION}:{path}') for path in
                 ('consensus/src/units/validator.rs', 'crypto/src/signature.rs')]
             api = parent_validation_api(api, units, validator, signature)
+        if args.outer_validation:
+            api = outer_validation_api(api, validator, signature)
         result['source'] = dict(**origin,
             bodies='original six-variant Error<H>, own-parent lookup, n_members, runtime assertion and three-stage ? orchestration',
             adaptations='two iterator pipelines replaced by ordinary checked finite collection queries; positive-round validation scope',
@@ -266,6 +303,12 @@ def main():
                 factories='original NodeMap::iter and ControlHash::parents bodies with one iterator_via_view annotation each; no handwritten callback contracts, named-local adaptations or factory proof blocks',
                 factory_proofs='ordinary verified iterator_view combinators and inferred total immutable callback equations; factory view contracts remain explicit author choices, not exact iterator-object inference',
                 boundaries='existing native iterator specifications, supplied collection/output views, SCALE codec and verified-lock adaptation, corrected quorum and already checked Signed input')
+        if args.outer_validation:
+            result['source'].update(
+                outer_validation='original validate_unit body is ordinarily checked directly against the supplied complete policy; original constructor and generic SignatureError From conversion infer exact contracts',
+                outer_policy='authentication, session, inclusive maximum round, member count, then parent policy; complete original unchecked signature error and Signed success identity, logical views of cloned unit errors',
+                authentication_boundary='supplied Keychain authenticated predicate and authenticate contract; ordinary checked UncheckedSigned::check adapter binds the original logical unit, creator and signature; native hash/as_ref/index/verify chain and cryptographic security are not proved',
+                not_claimed='exact inference of cache-bearing clone outputs or maximality of the outer domain, automatic application policy discovery, signature implementation correctness, SCALE/hash security, full crate/protocol correctness')
         env = dict(os.environ, VERUS_Z3_PATH=str(z3), RUST_MIN_STACK='20971520',
                    VERUS_INFER_CACHE=str(output/'candidate-cache'))
         codec_lib, codec_vir = directory/'libcodec_model.rlib', directory/'codec_model.vir'
@@ -344,6 +387,33 @@ def main():
                 'Some((NodeIndex(0), maybe_value.as_ref()?))'), False))
             cases.insert(-1, ('wrong-factory-round', api.replace(
                 'UnitCoord::new(round, node_index)', 'UnitCoord::new(0, node_index)'), False))
+        if args.outer_validation:
+            cases.insert(-1, ('wrong-authentication-adapter', api.replace(
+                'if !keychain.authenticate(&self.signable,&self.signature)',
+                'if keychain.authenticate(&self.signable,&self.signature)'), False))
+            cases.insert(-1, ('ignored-authentication', api.replace(
+                'let su = uu.check(&self.keychain)?;', 'let su = Signed{unchecked:uu};'), False))
+            cases.insert(-1, ('wrong-signature-conversion', api.replace(
+                'ValidationError::WrongSignature(se.unchecked)',
+                'ValidationError::RoundTooHigh(se.unchecked.signable)'), False))
+            cases.insert(-1, ('wrong-session-test', api.replace(
+                'full_unit.session_id() != self.session_id', 'full_unit.session_id() == self.session_id'), False))
+            cases.insert(-1, ('wrong-maximum-round', api.replace(
+                'full_unit.round() > self.max_round', 'full_unit.round() >= self.max_round'), False))
+            cases.insert(-1, ('wrong-session-payload', api.replace(
+                'ValidationError::WrongSession(full_unit.clone())',
+                'ValidationError::WrongSession(FullUnit::new(full_unit.as_pre_unit().clone(),None,0))'), False))
+            session = item(item(validator, 'impl<K: Keychain> Validator<K>')[2], 'pub fn validate_unit<')[2]
+            body = session.split('{',1)[1]
+            a = body.index('        if full_unit.session_id()')
+            b = body.index('        if full_unit.round()')
+            c = body.index('        self.validate_unit_parents(su)')
+            reordered = body[:a]+body[b:c]+body[a:b]+body[c:]
+            cases.insert(-1, ('wrong-outer-priority', api.replace(body, reordered), False))
+            cases.insert(-1, ('ignored-outer-parent-error', api.replace(
+                'self.validate_unit_parents(su)\n    }', 'Ok(su)\n    }'), False))
+            cases.insert(-1, ('missing-outer-creator-bound', api.replace(
+                '|| unit@.0.0.0<unit@.0.2.0.len()', '|| true'), False))
         for case, text, expected in cases:
             if not expected and text == api:
                 raise ValueError('ineffective mutation: '+case)
@@ -434,15 +504,23 @@ def main():
                 raise ValueError('native initial validation corpus did not complete')
             result['native'].append(dict(case='untouched-native', returncode=run['returncode'], wall_micros=run['wall_micros']))
             if args.parent_validation:
+                if args.outer_validation:
+                    native_validator = checkout/'consensus/src/units/validator.rs'
+                    original = native_validator.read_text()
+                    end = original.rfind('}')
+                    native_validator.write_text(original[:end]+(FIXTURES/'outer_validation_runtime.rs').read_text()+original[end:])
                 guard.check(); codec_guard.check()
                 run = measured(['cargo', 'test', '--offline', '-p', 'aleph-bft', '--lib',
-                    'units::validator::tests::', '--', '--test-threads=1'], native_env, 600, checkout)
+                    'units::validator::tests::', '--', '--test-threads=1', '--nocapture'], native_env, 600, checkout)
                 guard.check(); codec_guard.check()
                 (output/'native-validator.stdout.txt').write_text(run['stdout'])
                 (output/'native-validator.stderr.txt').write_text(run['stderr'])
                 validate_native(run, True, 'native-parent-validation')
-                if '6 passed' not in run['stdout']:
+                expected_tests = '7 passed' if args.outer_validation else '6 passed'
+                if expected_tests not in run['stdout']:
                     raise ValueError('original native validator tests did not all execute')
+                if args.outer_validation and 'NATIVE_OUTER_VALIDATION_CASES=95;CREATOR_PANIC=1' not in run['stdout']:
+                    raise ValueError('native outer validation corpus did not complete')
                 result['native'].append(dict(case='untouched-native-validator', returncode=run['returncode'], wall_micros=run['wall_micros']))
         result['success'] = True
     except Exception as error:

@@ -68,8 +68,8 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
     };
     if !f.x.attrs.infer
         || f.x.attrs.infer_allow_approx
-        || !f.x.typ_params.is_empty()
-        || !f.x.typ_bounds.is_empty()
+        || f.x.typ_params.len()>4
+        || f.x.typ_bounds.len()>24
         || f.x.proxy.is_some()
         || f.x.attrs.is_external_body
         || f.x.attrs.is_unsafe
@@ -85,6 +85,8 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
         && f.x.params.len() == 1
     {
         Some(Kind::From)
+    } else if !f.x.typ_params.is_empty() || !f.x.typ_bounds.is_empty() {
+        None
     } else if models::path_is(trait_path, CrateId::Core, &["ops", "arith", "AddAssign"])
         && models::path_is(
             &method.path,
@@ -109,6 +111,47 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
     } else {
         None
     }
+}
+
+/// The concrete From implementation selected by the canonical Result residual.
+/// Infer only its type arguments here; its body and total inherited domain must
+/// still pass the ordinary three exact-mode checks.
+pub(super) fn residual_conversion(
+    from:&Typ,to:&Typ,impls:&ImplPaths,value:Expr,all:&HashMap<Fun,Function>,
+)->Option<Expr>{
+    fn unify(pattern:&Typ,actual:&Typ,parameters:&[Ident],out:&mut HashMap<Ident,Typ>,depth:usize)->bool{
+        if depth==0{return false;}
+        match (&**pattern,&**actual){
+            (TypX::TypParam(n),_) if parameters.contains(n)=>{
+                if let Some(t)=out.get(n){crate::ast_util::types_equal(t,actual)}
+                else{out.insert(n.clone(),actual.clone());true}
+            }
+            (TypX::Datatype(a,ps,_),TypX::Datatype(b,ts,_)) if a==b && ps.len()==ts.len()=>
+                ps.iter().zip(ts.iter()).all(|(p,t)|unify(p,t,parameters,out,depth-1)),
+            _=>crate::ast_util::types_equal(pattern,actual),
+        }
+    }
+    if impls.len()!=1{return None;}
+    let ImplPath::TraitImplPath(selected)=&impls[0] else{return None;};
+    let mut found=None;
+    for f in all.values().filter(|f|kind(f)==Some(Kind::From)){
+        let FunctionKind::TraitMethodImpl{impl_path,trait_typ_args,..}=&f.x.kind else{continue;};
+        if impl_path!=selected || trait_typ_args.len()!=2{continue;}
+        let mut types=HashMap::new();
+        if !unify(&f.x.params[0].x.typ,from,&f.x.typ_params,&mut types,8)
+            || !unify(&f.x.inner_ret.x.typ,to,&f.x.typ_params,&mut types,8){continue;}
+        let types:Vec<_>=f.x.typ_params.iter().map(|p|types.get(p).cloned()).collect::<Option<_>>()?;
+        let substitutions=f.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
+        if !crate::ast_util::types_equal(&crate::sst_util::subst_typ(&substitutions,&trait_typ_args[0]),to)
+            || !crate::ast_util::types_equal(&crate::sst_util::subst_typ(&substitutions,&trait_typ_args[1]),from)
+            || found.is_some(){return None;}
+        found=Some(SpannedTyped::new(&value.span,to,ExprX::Call{
+            target:CallTarget::Fun(CallTargetKind::Static,f.x.name.clone(),Arc::new(types),Arc::new(vec![]),CallTargetAttrs{
+                autospec:AutospecUsage::Final,const_var:false,assume_external_allowed:false,
+            }),args:Arc::new(vec![value.clone()]),post_args:None,body:None,
+        }));
+    }
+    found
 }
 
 /// Resolve only the exact concrete implementation selected by Rust. Rewriting

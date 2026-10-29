@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v40:checked-native-factory-callbacks:4096";
+const VERSION: &str = "verus-infer-v41:structured-queries-and-error-conversions:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -485,7 +485,7 @@ impl Registry {
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
             let valid = match wrapper_traits::kind(f).unwrap() {
                 wrapper_traits::Kind::From => f.x.params.iter().any(|p| wrappers.wrapper(&p.x.typ))
-                    || wrappers.wrapper(&f.x.inner_ret.x.typ),
+                    || wrappers.wrapper(&f.x.inner_ret.x.typ) || is_owned_summary(f),
                 wrapper_traits::Kind::AddAssign | wrapper_traits::Kind::Compare => wrappers.wrapper(&f.x.params[0].x.typ),
             };
             if !valid {

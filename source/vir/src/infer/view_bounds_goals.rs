@@ -84,14 +84,14 @@ pub(super) fn lemma(f: &Function) -> Option<Dt> {
 }
 
 fn demands(f: &Function, all: &HashMap<Fun, Function>) -> std::collections::HashSet<Dt> {
-    let mut queue: Vec<_> = f.x.require.iter().chain(f.x.ensure.0.iter()).cloned().collect();
+    let mut queue: std::collections::VecDeque<_> = f.x.require.iter().chain(f.x.ensure.0.iter()).cloned().collect();
     if let Some(b) = &f.x.body {
-        queue.push(b.clone());
+        queue.push_back(b.clone());
     }
     let mut visited = std::collections::HashSet::new();
     let mut observed = std::collections::HashSet::new();
     let mut remaining = 4096usize;
-    while let Some(e) = queue.pop() {
+    while let Some(e) = queue.pop_front() {
         let mut calls = vec![];
         crate::ast_visitor::expr_visitor_walk(&e, &mut |e| {
             if remaining == 0 {
@@ -106,9 +106,6 @@ fn demands(f: &Function, all: &HashMap<Fun, Function>) -> std::collections::Hash
             }
             crate::ast_visitor::VisitorControlFlow::Recurse
         });
-        if remaining == 0 {
-            return std::collections::HashSet::new();
-        }
         for n in calls {
             let Some(callee) = all.get(&n) else {
                 continue;
@@ -124,16 +121,19 @@ fn demands(f: &Function, all: &HashMap<Fun, Function>) -> std::collections::Hash
             }
             if visited.insert(n) {
                 if visited.len() > 32 {
-                    return std::collections::HashSet::new();
+                    // Keep checked facts already demanded. A larger caller
+                    // must not lose useful discoveries when traversal ends.
+                    return observed;
                 }
                 queue.extend(callee.x.require.iter().cloned());
                 if callee.x.mode == Mode::Spec {
                     if let Some(b) = &callee.x.body {
-                        queue.push(b.clone());
+                        queue.push_back(b.clone());
                     }
                 }
             }
         }
+        if remaining == 0 {return observed;}
     }
     observed
 }

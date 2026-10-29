@@ -442,7 +442,7 @@ impl Interpreter<'_> {
         let span = &e.span;
         if let Some((_getter,spec,types,args))=trait_getters::source_call(e,self.all) {
             let args=args.iter().map(|a|self.readonly(s,a)).collect::<Result<Vec<_>,_>>()?;
-            return trait_getters::instantiate(&spec,&types,args,&self.function.x.typ_bounds);
+            return trait_getters::instantiate_source(&spec,&types,args,&self.function.x.typ_bounds,e);
         }
         if let Some(arg) = widening::call(e, self.all) {
             let arg = self.readonly(s, arg)?;

@@ -116,7 +116,13 @@ impl Engine<'_> {
             let error=if let Some(v)=error {*v} else {
                 self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,"Err"),err_typ),8)?
             };
-            let error=if same(err_typ,target_err) {error} else {
+            let error=if let Some(conversion)=&p.conversion {
+                let ExprX::Call{target:CallTarget::Fun(_,name,types,..),..}=&conversion.x else{unreachable!()};
+                let f=self.all.get(name).ok_or_else(||unsupported(&e.span,"missing checked From summary"))?.clone();
+                let origin=error.scalar(&e.span).ok();
+                let mut branch=s.clone();branch.active=failed.clone();
+                self.helper_values(&mut branch,conversion,&f,types,vec![(error,origin)])?
+            }else if same(err_typ,target_err) {error} else {
                 Val::atom(coerce(&e.span,error.scalar(&e.span)?,target_err)?)
             };
             self.result_value(

@@ -1,7 +1,9 @@
-//! Bounded composition of ordinary exact trait query contracts.
+//! Bounded composition of ordinary exact trait and value query contracts.
 //!
-//! No name-based model or new axiom: a shared, precondition-free method must
-//! ensure result == one same-trait observation with the same scalar arguments.
+//! No name-based model or new axiom: a precondition-free method must ensure
+//! result == one matching pure observation with the same arguments. Trait
+//! queries use shared receivers/scalar arguments; static value queries also
+//! accept an owned receiver and shared context.
 //! Normal Verus checks every implementation/default body. Marked declarations
 //! are published only after full verification and bound to inference metadata.
 use super::*;
@@ -29,15 +31,10 @@ fn header(f: &Function, mode: Mode) -> Option<Owner> {
             Owner::Trait(trait_path.clone())
         }
         FunctionKind::Static
-            if x.typ_params.len() <= 2
+            if x.typ_params.len() <= 4
                 && x.typ_bounds.len() <= 24
-                && (eligibility::scalar(&x.inner_ret.x.typ)
-                    || matches!(
-                        &*x.inner_ret.x.typ,
-                        TypX::TypParam(_) | TypX::Projection { .. }
-                    ))
                 && matches!(
-                    x.params.first().and_then(|p| shared(&p.x.typ)).map(|t| &**t),
+                    x.params.first().map(|p| &**shared(&p.x.typ).unwrap_or(&p.x.typ)),
                     Some(TypX::Datatype(..))
                 ) =>
         {
@@ -54,7 +51,9 @@ fn header(f: &Function, mode: Mode) -> Option<Owner> {
         || x.proxy.is_some()
         || !(1..=3).contains(&x.params.len())
         || x.params.iter().any(|p| p.x.mode != mode || p.x.user_mut)
-        || x.params.iter().skip(1).any(|p| !eligibility::scalar(&p.x.typ))
+        || x.params.iter().skip(1).any(|p| !eligibility::scalar(&p.x.typ)
+            && !(owner == Owner::Static && shared(&p.x.typ).is_some_and(|t|
+                matches!(&**t,TypX::Datatype(..)|TypX::TypParam(_)))))
         || x.inner_ret.x.mode != mode
         || x.outer_ret.x.mode != mode
         || !matches!(x.item_kind, ItemKind::Function)
@@ -196,13 +195,13 @@ pub(super) fn source_call(
     if !f.x.attrs.infer_trait_getter
         || types.len() != f.x.typ_params.len()
         || args.len() != f.x.params.len()
-        || !impls.is_empty()
     {
         return None;
     }
     if !(match header(f, Mode::Exec)? {
-        Owner::Trait(_) => matches!(kind, CallTargetKind::Dynamic),
-        Owner::Static => matches!(kind, CallTargetKind::Static),
+        Owner::Trait(_) => matches!(kind, CallTargetKind::Dynamic) && impls.is_empty()
+            || matches!(kind,CallTargetKind::DynamicResolved{..}),
+        Owner::Static => matches!(kind, CallTargetKind::Static) && impls.is_empty(),
     }) {
         return None;
     }
@@ -211,6 +210,20 @@ pub(super) fn source_call(
         return None;
     }
     Some((f.clone(), spec, types.clone(), args.clone()))
+}
+
+pub(super) fn instantiate_source(
+    spec:&Function,types:&Typs,arguments:Vec<Term>,bounds:&GenericBounds,source:&Expr,
+)->Result<Term,VirErr>{
+    let mut value=instantiate(spec,types,arguments,bounds)?;
+    if let ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{..},_,_,impls,_),..}=&source.x {
+        let ExprX::Call{target:CallTarget::Fun(kind,name,types,_,attrs),args,post_args,body}=&value.expr.x else{unreachable!()};
+        value.expr=value.expr.new_x(ExprX::Call{
+            target:CallTarget::Fun(kind.clone(),name.clone(),types.clone(),impls.clone(),attrs.clone()),
+            args:args.clone(),post_args:post_args.clone(),body:body.clone(),
+        });
+    }
+    Ok(value)
 }
 
 /// Preserve associated types as opaque values. Only explicit associated-type

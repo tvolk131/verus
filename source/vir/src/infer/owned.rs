@@ -533,11 +533,11 @@ impl Engine<'_> {
                 }
                 return Err(unsupported(span, "constructed query receiver requires a direct sequence view"));
             }
-            let args=args.iter().enumerate().map(|(i,a)|{
-                if i==0 {if let Ok(v)=self.object(s,a){return Ok(v);}}
+            let args=args.iter().map(|a|{
+                if let Ok(v)=self.object(s,a){return Ok(v);}
                 self.expr(s,a)?.scalar(&a.span)
             }).collect::<Result<Vec<_>,_>>()?;
-            return Ok(Val::atom(trait_getters::instantiate(&spec,&types,args,&self.f.x.typ_bounds)?));
+            return Ok(Val::atom(trait_getters::instantiate_source(&spec,&types,args,&self.f.x.typ_bounds,e)?));
         }
         if let Some(p)=propagation::recognize(e,self.all,&self.f.x.inner_ret.x.typ)? {
             return self.propagate(s,e,p);
@@ -702,6 +702,8 @@ impl Engine<'_> {
                                     if b.user_mut!=Some(true) {
                                         if let Ok(origin)=self.object(s,&crate::ast_util::place_to_spec_expr(init)) {
                                             s.objects.insert(b.name.clone(),origin);
+                                        } else if let Ok(complete)=v.scalar(span) {
+                                            s.objects.insert(b.name.clone(),complete);
                                         }
                                     }
                                     s.locals.insert(b.name.clone(), v);
@@ -971,6 +973,19 @@ impl Engine<'_> {
             return Err(unsupported(&e.span, "owned helpers require exact summaries"));
         }
         if records::mutable(f){return self.mutable_sequence_helper(s,e,f,types,args);}
+        let values=args.iter().map(|a|Ok((self.expr(s,a)?,self.object(s,a).ok())))
+            .collect::<Result<Vec<_>,VirErr>>()?;
+        self.helper_values(s,e,f,types,values)
+    }
+    fn helper_values(
+        &mut self, s:&mut State, e:&Expr, f:&Function, types:&Typs,
+        values:Vec<(Val,Option<Term>)>,
+    )->Result<Val,VirErr>{
+        crate::infer_proof::CandidateId::from_function(f)?;
+        if f.x.attrs.infer_allow_approx || f.x.require.len() != 1 || f.x.ensure.0.len() != 1
+            || f.x.params.len()!=values.len() || f.x.typ_params.len()!=types.len() {
+            return Err(unsupported(&e.span, "owned helpers require exact summaries"));
+        }
         let ts: HashMap<Ident, Typ> =
             f.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
         let subst = |expr: &Expr| {
@@ -992,9 +1007,8 @@ impl Engine<'_> {
             )
         };
         let mut local = State { locals: HashMap::new(), objects:HashMap::new(), active: s.active.clone() };
-        for (p, a) in f.x.params.iter().zip(args.iter()) {
-            let value=self.expr(s,a)?;
-            if let Ok(origin)=self.object(s,a){local.objects.insert(p.x.name.clone(),origin);}
+        for (p, (value,origin)) in f.x.params.iter().zip(values) {
+            if let Some(origin)=origin {local.objects.insert(p.x.name.clone(),origin);}
             else if let Node::Atom(t)=&value.node {local.objects.insert(p.x.name.clone(),t.clone());}
             local.locals.insert(p.x.name.clone(), value);
         }
@@ -1041,7 +1055,7 @@ impl Engine<'_> {
             };
             if let Some(spec)=self.all.get(name).filter(|f|f.x.attrs.infer_trait_observation && trait_getters::observation(f)
                 || f.x.attrs.infer_iterator_observation && iterators::observation(f)) {
-                let values=args.iter().enumerate().map(|(i,a)|if i==0{self.object(s,a)}else{self.formula(s,a)}).collect::<Result<Vec<_>,_>>()?;
+                let values=args.iter().map(|a|self.object(s,a).or_else(|_|self.formula(s,a))).collect::<Result<Vec<_>,_>>()?;
                 return trait_getters::instantiate(spec,types,values,&self.f.x.typ_bounds);
             }
             if self.all.get(resolved).is_some_and(|f| f.x.attrs.infer_sequence_view)
@@ -1591,7 +1605,7 @@ fn validate_signature(
     if !x.attrs.infer_owned
         || x.attrs.infer_allow_approx
         || x.mode != Mode::Exec
-        || !matches!(x.kind, FunctionKind::Static)
+        || !(matches!(x.kind, FunctionKind::Static) || wrapper_traits::kind(f)==Some(wrapper_traits::Kind::From))
         || !matches!(x.item_kind, ItemKind::Function)
         || x.inner_ret.x.mode != Mode::Exec
         || x.attrs.broadcast_forall

@@ -568,6 +568,35 @@ clean-main collector's operator/lifecycle code.
 
 ## Owned collection construction and round advancement
 
+Ordinary public methods may also expose a total value query with a single
+`ensures result == self.observation(context)` equation. The bounded static profile
+accepts an owned or shared datatype receiver, up to four type parameters, and up
+to two scalar or shared datatype/type-parameter context arguments. The matching
+pure observation has the same parameters and types. Structured results are
+eligible only when their complete values/collection observations fit the owned
+inference profile. Preconditions, mutable arguments, prophetic observations and
+external-body implementations are not accepted by this recognition rule.
+Ordinary verification checks the method; cross-crate use requires its certified
+export, including the observation's meaning and dependency fingerprints.
+
+Canonical Result `?` in this profile can use a bounded generic `From` method
+marked `#[verifier::infer]`. Rust must select that concrete implementation;
+inference neither guesses a converter nor assigns meaning from the trait name.
+The converter proves all three exact-mode obligations and equivalence to its
+inherited trait domain. Its ordinary vstd `FromSpecImpl` obligations still apply.
+For a collection-bearing conversion whose optional whole-object FromSpec law is
+unused, `obeys_from_spec()` can be false; the actual inferred contract and every
+verification obligation remain checked. General conversion/Into inference and
+arbitrary user Try implementations are separate work.
+
+For example, the Aleph outer validator is checked directly against an authored
+application policy over inferred helpers. Its error conversion is inferred; its
+authentication decision has a supplied contract. Cloned FullUnit error payloads
+are compared through the authored view, which omits the hash cache. This ordinary
+caller proof does not claim exact whole-object output inference or maximality
+for the outer method. Neither the authentication contract nor a supplied codec
+model proves the underlying cryptographic or serialization implementation.
+
 Default exact mode supports bounded functions that return a `Vec`, a transparent
 record containing vectors, a private sole-vector wrapper with a certified direct
 view, or `Option` of such a value. For example, these methods need no handwritten
@@ -1506,7 +1535,8 @@ integer `From` conversions. For example, `Result<u8, u8>` can propagate into
 
 These are 35 concrete conversions backed by the existing vstd models, valid
 under both pointer widths. Success payload types may change between the operand
-and enclosing function. Arbitrary user-defined `From`, narrowing conversions,
+and enclosing function. Bounded checked generic `From` error conversions are also
+supported by the owned profile described above. Other user-defined `From`, narrowing conversions,
 custom `Try`, try blocks, nested enums, and sound-mode enum inference remain
 unsupported.
 

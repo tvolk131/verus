@@ -179,6 +179,7 @@ pub(super) struct Propagation {
     pub residual: Expr,
     pub kind: Carrier,
     pub return_type: Typ,
+    pub conversion: Option<Expr>,
 }
 
 fn static_call(e: &Expr) -> Option<(&Fun, &Typs, &ImplPaths, &Exprs)> {
@@ -344,6 +345,7 @@ pub(super) fn recognize(
     {
         return Err(invalid());
     }
+    let mut custom_conversion=None;
     match kind {
         Carrier::Option
             if ctyps.len() == 1
@@ -351,21 +353,28 @@ pub(super) fn recognize(
                 && crate::ast_util::types_equal(result, &carrier(kind, ctyps.as_ref().clone())) => {
         }
         Carrier::Result if ctyps.len() == 3 => {
-            if !crate::ast_util::types_equal(&ctyps[1], &typs[1])
-                || !(crate::ast_util::types_equal(&ctyps[1], &ctyps[2])
-                    || lossless_error_conversion(&ctyps[1], &ctyps[2]))
-            {
+            let primitive=crate::ast_util::types_equal(&ctyps[1], &ctyps[2])
+                || lossless_error_conversion(&ctyps[1], &ctyps[2]);
+            if !primitive {
+                let TypX::Datatype(dt,..)=&*args[0].typ else{return Err(invalid());};
+                let payload=SpannedTyped::new(&e.span,&ctyps[1],ExprX::UnaryOpr(UnaryOpr::Field(FieldOpr{
+                    datatype:dt.clone(),variant:Arc::new("Err".into()),field:crate::def::positional_field_ident(0),
+                    get_variant:false,check:VariantCheck::None,
+                }),args[0].clone()));
+                custom_conversion=wrapper_traits::residual_conversion(&ctyps[1],&ctyps[2],cimpls,payload,functions);
+            }
+            if !crate::ast_util::types_equal(&ctyps[1], &typs[1]) || !primitive && custom_conversion.is_none() {
                 return Err(unsupported(
                     &e.span,
-                    "? requires identical error types or an approved lossless primitive integer conversion",
+                    "? requires identical errors, a lossless primitive conversion, or a checked exact From implementation",
                 ));
             }
-            if cimpls.len() != 1
+            if custom_conversion.is_none() && (cimpls.len() != 1
                 || !matches!(&cimpls[0], ImplPath::TraitImplPath(p)
                 if p.krate == CrateId::Core && !p.segments.is_empty() && p.segments[0].as_str() == "convert" &&
                     (if crate::ast_util::types_equal(&ctyps[1], &ctyps[2]) {p.segments.len()==2} else {p.segments.len()==3 && p.segments[1].as_str()=="num"})
                     && p.segments.last().is_some_and(|s|s.starts_with("impl")))
-                || !crate::ast_util::types_equal(
+                ) || !crate::ast_util::types_equal(
                     result,
                     &carrier(kind, vec![ctyps[0].clone(), ctyps[2].clone()]),
                 )
@@ -381,6 +390,7 @@ pub(super) fn recognize(
         residual: conversion,
         kind,
         return_type: result.clone(),
+        conversion: custom_conversion,
     }))
 }
 
@@ -412,6 +422,7 @@ pub(super) fn visit_calls(
                 if let Some(p) = recognize(e, functions, result)? {
                     callback(&p.branch, true)?;
                     callback(&p.residual, true)?;
+                    if let Some(conversion)=&p.conversion{callback(conversion,false)?;}
                     visit_calls(&p.operand, result, functions, callback)?;
                     return Ok(true);
                 }
@@ -435,6 +446,7 @@ pub(super) fn visit_calls(
 
 impl Engine<'_> {
     pub(super) fn propagate(&mut self, e: &Expr, p: Propagation) -> Result<Summary, VirErr> {
+        if p.conversion.is_some(){return Err(unsupported(&e.span,"structured From propagation requires owned inference"));}
         let arg = self.expr(&p.operand)?;
         let input = value(&arg, &e.span)?;
         let success = Arc::new(

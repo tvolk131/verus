@@ -5958,3 +5958,6 @@ mod borrowed_object_cases;
 
 #[path="infer_cases/factory_goals.rs"]
 mod factory_goal_cases;
+
+#[path="infer_cases/outer_validation.rs"]
+mod outer_validation_cases;

@@ -1,7 +1,7 @@
 """Keep native error payloads, assertion, and propagation source-connected."""
 import unittest
 
-from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, full_validation_api, parent_validation_api, RUNTIME
+from eval_verus_infer_alephbft_validation import validation_api, infer_member_count, native_models, construction_api, native_construction_runtime, full_validation_api, parent_validation_api, outer_validation_api, FIXTURES, RUNTIME
 from eval_verus_infer_alephbft_parents import item
 
 
@@ -38,6 +38,33 @@ pub fn n_members(&self) -> NodeCount { self.parents.size() }
 
 
 class ValidationSourceTests(unittest.TestCase):
+    def test_outer_body_is_preserved_with_explicit_policy_and_authentication(self):
+        validator = '''impl<H: Hasher, D: Data, S: Signature> From<SignatureError<FullUnit<H, D>, S>> for ValidationError<H, D, S> {
+    fn from(se: SignatureError<FullUnit<H, D>, S>) -> Self { ValidationError::WrongSignature(se.unchecked) }
+}
+impl<K: Keychain> Validator<K> {
+ pub fn new(session_id:SessionId,keychain:K,max_round:Round)->Self{Self{session_id,keychain,max_round}}
+ pub fn validate_unit<H: Hasher, D: Data>(&self,uu:UncheckedSignedUnit<H,D,K::Signature>)-> Result<H, D, K> {
+  let su=uu.check(&self.keychain)?;
+  if su.as_signable().session_id()!=self.session_id{return Err(ValidationError::WrongSession(su.as_signable().clone()));}
+  self.validate_unit_parents(su)
+ }
+}'''
+        signature = 'pub struct SignatureError<T:Signable,S:Signature>{pub unchecked:UncheckedSigned<T,S>,}'
+        generated = outer_validation_api((FIXTURES/'parent_validation_models.rs').read_text(),validator,signature)
+        original = item(validator, 'pub fn validate_unit<')[2]
+        outer = item(generated, 'pub fn validate_unit<')[2]
+        self.assertEqual(original.split('{',1)[1],outer.split('{',1)[1])
+        self.assertIn('requires self.outer_domain(uu)',outer)
+        self.assertIn('ensures self.outer_policy(uu,result)',outer)
+        self.assertNotIn('proof {',generated)
+        self.assertIn('value==su',generated)
+        self.assertIn('original==uu',generated)
+        self.assertIn('authenticated::<H,D>',generated)
+        self.assertEqual(generated.count('#[verifier::infer]'),4)
+        with self.assertRaises(ValueError):
+            outer_validation_api((FIXTURES/'parent_validation_models.rs').read_text(),validator,signature.replace('pub unchecked:', 'pub extra:u8,pub unchecked:'))
+
     def test_full_validation_preserves_both_original_bodies(self):
         original = SOURCE.replace('pub fn n_members', '''
         fn validate_initial_round(&self) -> Result<(), Error<H>> {

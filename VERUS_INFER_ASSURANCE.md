@@ -1805,3 +1805,81 @@ verification checks.
 Metadata schema/policy is 34 and candidate cache is 40. Rebuild inferred providers
 and dependents after upgrading. Richer chains, partial-domain factory assistance,
 arbitrary iterators and automatic abstraction discovery remain separate work.
+
+## Outer validator and structured query checkpoint (2026-10-28)
+
+Bounded ordinary exact static queries now admit an owned/shared datatype receiver,
+shared context, up to four type parameters and structured returned values. The
+single result equation must call a matching pure observation with unchanged
+parameters. Implementations remain ordinarily verified; external bodies,
+preconditions, mutable parameters and prophetic observations are excluded from
+this recognition rule. Complete immutable value provenance is retained separately
+from collection observations. Resolved trait queries carry the selected impl paths
+into their pure observation calls. Certified exports bind these ordinary APIs and
+their observation definitions to the existing full-verification barrier.
+
+Canonical Result residual recognition now accepts a bounded exact inferred From
+implementation only when Rust selected that concrete impl. Bounded type matching
+instantiates its actual input/output types; the conversion becomes an explicit
+inference dependency. The owned interpreter applies its checked summary on the
+error path without evaluating the operand twice. All three ordinary checks and
+the independent inherited-trait-domain equivalence remain required. Partial,
+unmarked and unchecked conversions cannot supply this path. The generic standard
+residual's existing unwind limitation is unchanged. No new standard-library
+model, axiom or external body is introduced.
+
+Generic trait returns also exposed a precision-lowering panic: boxed output
+observations were explicitly unboxed before being passed through ordinary poly
+lowering, which inserted boxing operations again. The observation builder now
+keeps the pre-poly expressions and lets the existing lowering handle each
+projection. It still derives every tag and guarded payload independently of the
+candidate. The new generic collection-error tests cover this path and rejected
+changed payloads. Optional vstd FromSpec whole-object laws remain ordinary
+obligations. The fixture sets obeys_from_spec to false for its structured
+conversion, using the independently checked inferred contract instead of adding
+a stronger whole-vector/object-identity law.
+
+View-bound assistance traverses demands breadth first and preserves already
+discovered checked lemmas at the existing 32-function/4096-expression limits.
+This only enables ordinary verified theorems; it introduces no assumed bound.
+A cross-crate regression uses a private view and a longer unrelated spec chain
+to check that the bound theorem remains selected and that the caller fails
+without assistance.
+
+Aleph --outer-validation retains the complete original validate_unit executable
+body, with no handwritten proof blocks. It checks an authored contract directly:
+authentication rejection precedes session rejection, which precedes a strictly
+greater-than-maximum round rejection, followed by the existing member/parent
+policy. Signature errors retain the complete original unchecked value, cloned
+FullUnit errors retain their supplied logical views, and success returns the
+complete original Signed value. The constructor and original signature-error
+From body add two exact summaries (31 total); the two factories and outer policy
+are ordinary checked proofs. The outer method has no inferred exactness receipt
+or maximal-domain claim. Cache-insensitive abstract output inference remains open.
+
+The authentication predicate, Keychain method contract and ordinary checked
+UncheckedSigned::check adapter are explicit supplied interfaces. They bind the
+logical unit, creator and original signature. They do not verify the native
+hash/as_ref/index/verify chain or the signature implementation's security.
+Representation drift checks, codec/lock/native-iterator boundaries, corrected
+quorum arithmetic and supplied application meanings remain in place. Nine new
+formal controls target authentication, signature conversion, session/payload,
+maximum round, outer priority, ignored parent errors and input coverage. These
+are deliberate mutations, not discovered production bugs.
+
+The final guarded Aleph run has 33 expected formal outcomes, with no exports from
+failed inference-enabled providers. Both 7,704-case noninitial corpora, 378 native
+constructor maps plus empty, 254 initial-validation cases and the six original
+validator tests remain green. An added native corpus checks 95 outer-validation
+combinations and one expected out-of-domain creator panic. The mock signature
+checker does not imply a creator-range check, so no such law is assumed. The
+native corpus runs the original SCALE/hash/signature wrappers, separately from
+the supplied formal authentication adapter.
+
+Validation: 531 Rust integration tests across twenty binaries, 111 VIR unit tests
+and 72 inference-tool Python tests pass. Standard vstd verifies 2,209 obligations;
+no_std/no_alloc verifies 2,019, both with zero errors. Final guarded evidence is
+recorded in /tmp/verus-infer-outer/final-delivery/results.json.
+
+Metadata schema/policy is now 35 and candidate cache is 41. Rebuild inferred
+providers and dependents after upgrading.
