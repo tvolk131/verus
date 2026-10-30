@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "README.md",
-      "size": 5749,
-      "sha256": "8b03f981ff19c355b82596c5fdc32f2972c2bc0de2813220a519e6ebc56c1e2a"
+      "size": 5752,
+      "sha256": "badc258f38e325d24eba603d81f0b725602a8ae3a57801943983d814a3b5a79c"
     },
     {
       "path": "assumptions.md",
@@ -26,9 +26,9 @@
       "sha256": "2c1b15bfde4a098ab929414c5351fc2e074d91ece00eb9bfcd16c37e5eab618b"
     },
     {
-      "path": "native-source.patch",
-      "size": 32279,
-      "sha256": "e69e703d661bc5147fba3c43462037f0b06106dc3d3af66958b608cf09d26ad4"
+      "path": "native-source.patch.gz",
+      "size": 8072,
+      "sha256": "6845da4b01e6fc43ae06166adb9f2359cecb01e6d3b10e55337fcdb84f995555"
     },
     {
       "path": "native-source.tar.gz",

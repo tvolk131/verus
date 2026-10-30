@@ -54,7 +54,7 @@ nothing was pushed.
 
 - [Machine-readable closure](closure-summary.json) and [control outcomes](controls-summary.json).
 - [Source audit](source-audit.json), with original-body hashes and all six new typed-only assumed signatures.
-- [Native patch](native-source.patch) and [complete accepted native source](native-source.tar.gz), preserving its license and prior evidence.
+- [Native patch](native-source.patch.gz) and [complete accepted native source](native-source.tar.gz), preserving its license and prior evidence.
 - [Raw evidence](raw-evidence.tar.gz) and [per-member hashes](raw-evidence-index.json): 315 verified members, including exact command/environment receipts, full stdout/stderr, original/accepted syntax inventories and source snapshots, recorded runners, proof/native outputs and compiler test outputs.
 - [Engine source provenance](engine-source-receipt.json). The proof binary was built from this exact source content before the local implementation commit; its version banner retains the baseline SHA and dirty marker. Artifact hashes bind every accepted proof to the recorded compiler and vstd. The full regression run uses that same compiler hash.
 
