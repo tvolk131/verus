@@ -1,7 +1,9 @@
 # Semantic-only adoption across native implementation patterns
 
-Status: active. Verus baseline `f8318b9c5`; original Aleph baseline
+Status: complete, October 30, 2026. Verus baseline `f8318b9c5`; original Aleph baseline
 `f35c7bba6d628bcafdf0d65dd471cc6f868ec034`. V2 acceptance remains complete.
+The [independent acceptance](VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md) meets the
+frozen stopping rule below without source corrections or weaker requirements.
 
 ## Objective and stopping rule
 
@@ -78,7 +80,7 @@ Record unsupported cases as unfinished requirements rather than weakening this
 stopping rule. Commit cohesive validated work locally; do not push. Broader
 mutation, traversal, recursion and unrelated codebases remain future milestones.
 
-## Implementation checkpoint
+## Implementation checkpoint before independent review
 
 The parent development fixture restores all three native patterns. Parsed body
 tokens for ControlHash::new and the Creator selector equal pinned original main;
@@ -91,8 +93,8 @@ Same-source native checking passes 192 unit tests plus one doctest. Three actual
 implementation mutations fail ordinary proofs with healthy helper certificates,
 no-verify/filtered publication is rejected and restored full verification passes.
 The authored inventory retains no local supporting proof blocks, executable-loop
-annotations or manual trigger hints. The fresh-context acceptance audit remains
-required before completion; these are parent results, not independent acceptance.
+annotations or manual trigger hints. These parent results preceded the required
+fresh-context acceptance audit; independent results are recorded below.
 
 The implementation is committed as `fbab46ec4`; its fixed clean engine and the
 native implementation/evidence commits are pinned in
@@ -103,3 +105,20 @@ attribute checks using compiler/library artifacts equal to the fixed pin.
 The final separate native run follows source restoration; an overlapping earlier
 native/mutation run is explicitly excluded. Raw accepted evidence is compressed
 losslessly with an individual-file hash index. Nothing is pushed.
+
+## Independent acceptance
+
+The authorized fresh-context read-only audit concludes **MET** for all frozen
+finite requirements, with no blocking objections. A fresh Cargo target and
+candidate cache reproduce 154 results, 35 exact helpers/all 105 required checks,
+83 checked executable bodies and one generated proof body. Separate same-source
+native testing passes 192 unit tests and one doctest. Independent generic cases,
+actual derive expansion, source/compiled inventories, original body tokens,
+semantic domains and mutation/publication evidence support all three patterns.
+
+The unmodified report, all 183 indexed audit files, frozen inputs and a separate
+parent provenance check are preserved in the repository's
+[audit bundle](evidence/verus-infer-mechanical-v3/independent-audit.tar.gz).
+The [acceptance record](VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md) distinguishes
+independent findings from parent checks and states the remaining trust/scope
+limits. The fixed engine, application source and artifacts remain unchanged.

@@ -2467,6 +2467,42 @@ cases and native execution. The parent Aleph fixture verifies all three original
 patterns with 154 results/all 105 checks for 35 exact helpers, 192 native unit
 tests plus one doctest, three rejected implementation mutations and withheld
 failed/no-verify/filtered interfaces. Original selected constructor/selector body
-tokens match pinned Aleph main. V2 remains complete; the v3 independent audit is
-still required. These counts are selected evidence, not general Rust coverage or
-formal verification of the inference implementation.
+tokens match pinned Aleph main. This checkpoint preceded the required v3
+independent audit recorded below. These counts are selected evidence, not general
+Rust coverage or formal verification of the inference implementation.
+
+## Mechanical native adoption v3 independent acceptance
+
+The authorized fresh-context audit concludes MET for the frozen finite milestone
+using clean fixed engine `fbab46ec4` and native proposal/evidence `53a8917`.
+Fresh offline/locked proof outputs and candidate cache reproduce 154 results,
+35 exact helpers with all 105 required checks, 83 executable bodies and one
+generated proof body. A separate fresh native run passes 192 unit tests and one
+doctest. Seventeen direct generic cases and the generic Cargo fixture exercise
+unrelated positive, semantic-negative, cross-crate and publication boundaries.
+
+The audit independently checks actual AddAssign expansion and composition,
+original constructor/selector body tokens, meaningful author inputs, full
+frozen input domains, selected compiled scope and unchanged trust boundaries.
+It reviews the three deliberate native mutations and restored final evidence;
+it does not relabel them as original defects or claim to rerun the parent's
+631-check engine suite. All nine pinned artifacts, 1,739 tracked engine files,
+154 proposal files and original exports match the accepted hashes.
+
+The parent's closing check additionally matches the original exports to actual
+local Git objects at pinned original `f35c7bb`; the auditor lacked those objects
+in its proposal repository. This supplements the independent supplied-export
+comparison without rewriting the report or asserting remote provenance.
+The unmodified report, all 183 indexed audit files, frozen requirements and
+supplemental receipt are archived with individual member hashes in
+`evidence/verus-infer-mechanical-v3`. See
+[the acceptance record](VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md) and
+[structured evidence](VERUS_INFER_MECHANICAL_V3_EVIDENCE.json).
+
+No implementation correction, input-domain narrowing, new exclusion or stronger
+dependency assumption is needed for acceptance. Ordinary constructor/selector
+assistance remains checked scaffolding, not exact whole-result inference.
+Authors still choose semantic views, validity, interfaces and policies. The
+normal compiler/solver/library trust boundary and unverified protocol, signed
+validation, cryptography, cache consistency and broader Rust profiles remain
+explicit. This completes the finite v3 milestone. Nothing is pushed.

@@ -1,0 +1,41 @@
+{
+  "recorded_utc": "2026-10-30T16:04:04.667199+00:00",
+  "decision": "MET for the frozen finite milestone",
+  "main_head_before_closure": "6b114279e9f776fd9b3002b1633e1e9f77990014",
+  "engine_commit": "fbab46ec4c5a1dd600c80d094ea7fe4fb90e34dd",
+  "native_evidence_commit": "53a8917b40bf934a4e3b10668d6f93c6c0ef3e98",
+  "independent_audit": "/private/tmp/verus-mechanical-v3/independent-audit/20261030T154530Z",
+  "verified_audit_files": 183,
+  "verified_pinned_artifacts": 9,
+  "verified_source_files": {
+    "proposal": 154,
+    "engine": 1739,
+    "original": 3
+  },
+  "all_input_hashes_match": true,
+  "proof": {
+    "exit": 0,
+    "verified": 154,
+    "errors": 0,
+    "exact_helpers": 35,
+    "required_checks_proved": 105,
+    "checked_exec_bodies": 83,
+    "checked_generated_proof_bodies": 1,
+    "fresh_candidate_misses": 35
+  },
+  "native": {
+    "exit": 0,
+    "unit_tests": 192,
+    "doctests": 1,
+    "sources_unchanged": true
+  },
+  "generic_direct_cases": 17,
+  "generic_cargo_passed": true,
+  "local_original_git_objects_match": true,
+  "remote_original_provenance_claimed": false,
+  "audit_report_sha256": "eadd16327db814c6f434abfa558a13f309331eab5eaa89a9f5788f4f24aa8192",
+  "archive_sha256": "9bc552e3b93a4be767eccece8af8f86eea8b2e361105cfbded47760cd588601b",
+  "bundle_index_sha256": "ecbe8d4f5268357287be10d25339eb78d28c9e6aa2211136625abf3e0dfc1ddd",
+  "source_or_engine_changes_needed": false,
+  "pushed": false
+}

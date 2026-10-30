@@ -23,9 +23,11 @@ final acceptance results are recorded in
 [the Aleph adoption v1 charter](VERUS_INFER_ADOPTION_V1.md).
 [Repeatable native adoption v2](VERUS_INFER_ADOPTION_V2.md) is also complete,
 including independent clean-main acceptance and source/native/negative audits.
-The active [mechanical adoption v3 milestone](VERUS_INFER_MECHANICAL_V3.md)
-targets checked derived assignment, construction folds inside larger functions,
-and growth followed by a mutable return, preserving selected original bodies.
+The [mechanical adoption v3 milestone](VERUS_INFER_MECHANICAL_V3.md) is complete:
+checked derived assignment, construction folds inside larger functions, and
+growth followed by a mutable return preserve selected original bodies. Its
+[independent acceptance](VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md) records the
+finite scope, fresh proof/native results and preserved audit evidence.
 
 Implemented and covered by regression tests:
 

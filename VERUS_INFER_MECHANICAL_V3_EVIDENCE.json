@@ -1,5 +1,5 @@
 {
-  "status": "parent validation passed; independent audit authorization pending",
+  "status": "complete: independent acceptance and parent closure passed",
   "engine": {
     "engine_commit": "fbab46ec4c5a1dd600c80d094ea7fe4fb90e34dd",
     "engine_source": "/private/tmp/verus-mechanical-v3/engine/verus/source",
@@ -241,7 +241,50 @@
     }
   },
   "independent_audit": {
-    "status": "authorization requested; not yet run"
+    "status": "complete",
+    "decision": "MET for the frozen finite milestone",
+    "blocking_objections": [],
+    "delegation_explicitly_authorized": true,
+    "audit_directory": "/private/tmp/verus-mechanical-v3/independent-audit/20261030T154530Z",
+    "engine_commit": "fbab46ec4c5a1dd600c80d094ea7fe4fb90e34dd",
+    "native_evidence_commit": "53a8917b40bf934a4e3b10668d6f93c6c0ef3e98",
+    "report_member": "ACCEPTANCE_REPORT.md",
+    "report_sha256": "eadd16327db814c6f434abfa558a13f309331eab5eaa89a9f5788f4f24aa8192",
+    "archive": "evidence/verus-infer-mechanical-v3/independent-audit.tar.gz",
+    "archive_sha256": "9bc552e3b93a4be767eccece8af8f86eea8b2e361105cfbded47760cd588601b",
+    "bundle_index": "evidence/verus-infer-mechanical-v3/bundle-index.json",
+    "bundle_index_sha256": "ecbe8d4f5268357287be10d25339eb78d28c9e6aa2211136625abf3e0dfc1ddd",
+    "independent_indexed_files": 183,
+    "preserved_members": 193,
+    "proof": {
+      "exit": 0,
+      "verified": 154,
+      "errors": 0,
+      "exact_helpers": 35,
+      "required_checks_proved": 105,
+      "checked_exec_bodies": 83,
+      "checked_generated_proof_bodies": 1,
+      "fresh_candidate_misses": 35
+    },
+    "native": {
+      "exit": 0,
+      "unit_tests": 192,
+      "doctests": 1,
+      "sources_unchanged": true
+    },
+    "generic_direct_cases": 17,
+    "generic_cargo_passed": true,
+    "reviewed_native_mutations": 3,
+    "shared_source_mutations_rerun_by_auditor": false,
+    "parent_631_check_suite_rerun_by_auditor": false,
+    "all_fixed_sources_and_artifacts_unchanged": true,
+    "compiled_scope_limits": "83 checked exec bodies include generated methods and semantic goals; 671 native functions outside the selected proof closure are not certified",
+    "original_provenance": "Independent exact comparison to supplied fixed export; parent separately resolves and matches actual local original Git objects, without remote-provenance claim",
+    "parent_closure_receipt": "evidence/verus-infer-mechanical-v3/parent-closure-receipt.json",
+    "acceptance_record": "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md",
+    "frozen_requirements_member": "frozen-inputs/VERUS_INFER_MECHANICAL_V3.md",
+    "frozen_requirements_sha256": "a06d43ec35ecd10146cfcd963d9d462f4d50b5b7bec2a10beb6625b81767c480",
+    "frozen_acceptance_brief_sha256": "67daaf8fef510421b7cfbe716f847ce5a7a426549f3c44f945caa06272cdec4f"
   },
   "pushed": false,
   "artifacts_sha256": {
@@ -507,5 +550,14 @@
   },
   "native_evidence_commit": "53a8917b40bf934a4e3b10668d6f93c6c0ef3e98",
   "native_worktree_clean": true,
-  "acceptance_brief": "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE_BRIEF.md"
+  "acceptance_brief": "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE_BRIEF.md",
+  "recorded_utc": "2026-10-30T16:04:04.667199+00:00",
+  "closure_files_sha256": {
+    "VERUS_INFER.md": "d8db275e3c54525b85a63b66ab24a5e735a3fd1cd461ba0ff54bdeb95e6d0728",
+    "VERUS_INFER_ASSURANCE.md": "00e200ad5475773f920c5dccdde769a9abd694d762977d13c29dd8d97332b02b",
+    "VERUS_INFER_MECHANICAL_V3.md": "41ed80bbbcddaa77e5cbfd2b52c341de8742c3df30e2966be58e001a68c5170e",
+    "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md": "01308b39ac7b33b91a808e81f555cd5a2c2d22c6ea50779b873a76be57526962",
+    "evidence/verus-infer-mechanical-v3/bundle-index.json": "ecbe8d4f5268357287be10d25339eb78d28c9e6aa2211136625abf3e0dfc1ddd",
+    "evidence/verus-infer-mechanical-v3/parent-closure-receipt.json": "0422a9fcd31dd71423d17a273390dd4d68bd2fa7ab406777b25b87672155a8f9"
+  }
 }
