@@ -151,6 +151,12 @@ accepts one or more derive names; `external_derive` without arguments excludes
 all derived implementations. Checked contracts for selected operations must
 still be established separately.
 
+For a conversion derive which emits a reverse `From<LocalType>` implementation
+for a primitive field (such as `derive_more::Into`), `external_derive(Into)` refers
+to the source derive, rather than excluding unrelated `From` implementations.
+The owned nongeneric scalar-wrapper profile can instead request checked behavior
+with `infer_derive(Into)`; the original generated conversion body must verify.
+
 ## More examples and tests
 
 ```rust

@@ -677,7 +677,25 @@ fn get_attributes_for_automatic_derive<'tcx>(
                     return None;
                 };
 
-                let type_def_id = match impll.self_ty.kind {
+                // A reverse conversion derive implements canonical From<Local>
+                // for a primitive, rather than a trait for Local. Inherit the
+                // local source's scope only for that concrete canonical shape.
+                let reverse_from_owner = {
+                    let tr = ctxt.tcx.impl_trait_ref(item.owner_id.to_def_id()).skip_binder();
+                    let path = def_id_to_vir_path_option(ctxt.tcx, Some(&ctxt.verus_items), tr.def_id);
+                    if path.as_ref().is_some_and(|path| path.krate == vir::ast::CrateId::Core
+                        && path.segments.iter().map(|s| s.as_str()).eq(["convert", "From"]))
+                        && tr.args.len() == 2
+                        && tr.args[0].as_type().is_some_and(|t| matches!(t.kind(),
+                            rustc_middle::ty::TyKind::Int(_) | rustc_middle::ty::TyKind::Uint(_)))
+                    {
+                        tr.args[1].as_type().and_then(|t| match t.kind() {
+                            rustc_middle::ty::TyKind::Adt(adt, args) if args.is_empty() && adt.did().is_local() => Some(adt.did()),
+                            _ => None,
+                        })
+                    } else { None }
+                };
+                let type_def_id = if let Some(owner) = reverse_from_owner { owner } else { match impll.self_ty.kind {
                     rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(None, path)) => {
                         let Some(def_id) = path.res.opt_def_id() else {
                             // A derive can emit an impl whose target is a primitive
@@ -692,7 +710,7 @@ fn get_attributes_for_automatic_derive<'tcx>(
                         warn_unknown();
                         return None;
                     }
-                };
+                }};
                 if let Some(type_local_def_id) = type_def_id.as_local() {
                     let type_hir_id = ctxt.tcx.local_def_id_to_hir_id(type_local_def_id);
                     let type_attrs = ctxt.tcx.hir_attrs(type_hir_id);
@@ -704,10 +722,27 @@ fn get_attributes_for_automatic_derive<'tcx>(
                         }
                     };
 
+                    if reverse_from_owner.is_some()
+                        && !crate::automatic_derive::has_derived_request(ctxt.tcx, type_def_id, "into")
+                        && !match &type_eattrs.external_auto_derives {
+                            crate::attributes::AutoDerivesAttr::AllExternal => true,
+                            crate::attributes::AutoDerivesAttr::SomeExternal(names) => names.iter().any(|name| name == "Into"),
+                            crate::attributes::AutoDerivesAttr::Regular => false,
+                        }
+                    {
+                        // Preserve legacy scope unless the author explicitly
+                        // requests checked Into or excludes the source derive.
+                        warn_unknown();
+                        return None;
+                    }
+
                     if match &type_eattrs.external_auto_derives {
                         crate::attributes::AutoDerivesAttr::Regular => false,
                         crate::attributes::AutoDerivesAttr::AllExternal => true,
                         crate::attributes::AutoDerivesAttr::SomeExternal(names) => {
+                            if reverse_from_owner.is_some() {
+                                names.iter().any(|name| name == "Into")
+                            } else {
                             let def_path = ctxt.tcx.def_path(of_trait.trait_ref.path.res.def_id());
                             def_path
                                 .data
@@ -725,6 +760,7 @@ fn get_attributes_for_automatic_derive<'tcx>(
                                     })
                                 })
                                 .unwrap_or(false)
+                            }
                         }
                     } {
                         type_eattrs.external = true;

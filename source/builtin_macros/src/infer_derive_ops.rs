@@ -12,7 +12,7 @@ pub(crate) fn expand(
     let bad = || {
         syn::Error::new(
             item.span(),
-            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Add/Sub/Mul/Div/Rem/PartialEq/PartialOrd/Ord implementations",
+            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Into/Add/Sub/Mul/Div/Rem/PartialEq/PartialOrd/Ord implementations",
         )
     };
     if operators.is_empty()
@@ -62,6 +62,7 @@ pub(crate) fn expand(
     for op in operators {
         let method = match op.to_string().as_str() {
             "From" => "from",
+            "Into" => "into",
             "Add" => "add",
             "Sub" => "sub",
             "Mul" => "mul",
@@ -76,6 +77,20 @@ pub(crate) fn expand(
             return Err(bad());
         }
         seen.push(method);
+        if method == "into" {
+            // derive_more::Into emits From<Wrapper> for the primitive field.
+            // The marker requests checking of that actual reverse conversion;
+            // it does not certify the proposed extension definition.
+            let field = &fields.unnamed[0].ty;
+            models.push(quote! {
+                impl #name {#[doc(hidden)] pub open spec fn __verus_infer_derived_into(&self)->bool {true}}
+                impl #vstd::std_specs::convert::FromSpecImpl<#name> for #field {
+                    open spec fn obeys_from_spec()->bool {true}
+                    open spec fn from_spec(value:#name)->Self {value.0}
+                }
+            });
+            continue;
+        }
         if matches!(method, "eq" | "partial_cmp" | "cmp") {
             let marker = format_ident!("__verus_infer_derived_{}", method);
             let extension = format_ident!("{}SpecImpl", op);

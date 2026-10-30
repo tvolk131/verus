@@ -78,13 +78,21 @@ pub fn modify_derived_item<'tcx>(
     // A marker only requests inference. It supplies no evidence: the original
     // derive body and the inherited trait domain must pass all exact checks.
     let name = function.name.path.last_segment().to_string();
+    let reverse_from = name == "from"
+        && matches!(ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder().kind(),
+            rustc_middle::ty::TyKind::Int(_) | rustc_middle::ty::TyKind::Uint(_));
     let target = if name == "from" {
-        Some(ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder())
+        let output = ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder();
+        if reverse_from {
+            inputs.first().cloned()
+        } else {
+            Some(output)
+        }
     } else { inputs.first().cloned() };
     let target=target.map(|t|match t.kind(){rustc_middle::ty::TyKind::Ref(_,inner,_)=>*inner,_=>t});
     if let Some(rustc_middle::ty::TyKind::Adt(adt, _)) = target.map(|t| t.kind()) {
         if matches!(name.as_str(), "from" | "add" | "sub" | "mul" | "div" | "rem" | "eq") {
-            if has_derived_request(ctxt.tcx,adt.did(),&name) {
+            if has_derived_request(ctxt.tcx,adt.did(),if reverse_from {"into"} else {&name}) {
                 Arc::make_mut(&mut function.attrs).infer = true;
             }
         }

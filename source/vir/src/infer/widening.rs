@@ -65,6 +65,32 @@ pub(super) fn call<'a>(e: &'a Expr, all: &HashMap<Fun, Function>) -> Option<&'a 
     if args.len() != 1 || typs.len() != 2 || !all.get(name).is_some_and(model) {
         return None;
     }
+    // Real conversion derives call <Integer as From<Integer>>::from. Core's
+    // identity impl is fixed by Rust coherence for concrete primitive integers;
+    // vstd's existing FromSpecImpl<T> for T supplies its identity equation.
+    // Do not apply this to a user datatype, trait, impl, or lossy conversion.
+    let core_identity_impl = |path: &Path| {
+        path.krate == CrateId::Core && path.segments.len() == 2
+            && path.segments[0].as_str() == "convert" && path.segments[1].starts_with("impl")
+    };
+    let identity_dispatch = match kind {
+        CallTargetKind::Dynamic if impls.len() == 1 =>
+            matches!(&impls[0], ImplPath::TraitImplPath(path) if core_identity_impl(path)),
+        CallTargetKind::DynamicResolved { resolved, is_trait_default: false, .. } => {
+            let path = &resolved.path;
+            path.krate == CrateId::Core && path.segments.len() == 3
+                && path.segments[0].as_str() == "convert" && path.segments[1].starts_with("impl")
+                && path.segments[2].as_str() == "from"
+        }
+        _ => false,
+    };
+    if identity_dispatch && crate::ast_util::types_equal(&typs[0], &typs[1])
+        && matches!(&*typs[0], TypX::Int(range) if arithmetic::exact_range(*range))
+        && crate::ast_util::types_equal(&args[0].typ, &typs[0])
+        && crate::ast_util::types_equal(&e.typ, &typs[0])
+    {
+        return Some(&args[0]);
+    }
     let f = match kind {
         CallTargetKind::DynamicResolved { resolved, is_trait_default: false, .. } => {
             all.get(resolved).filter(|f| model(f))?

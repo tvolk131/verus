@@ -23,7 +23,7 @@ pub(super) fn validate_derived_requests(
         };
         if !matches!(
             suffix,
-            "from" | "add" | "sub" | "mul" | "div" | "rem" | "eq" | "partial_cmp" | "cmp"
+            "from" | "into" | "add" | "sub" | "mul" | "div" | "rem" | "eq" | "partial_cmp" | "cmp"
         ) || !is_pure_observation(marker)
             || marker.x.params.len() != 1
             || marker.x.body.is_none()
@@ -59,17 +59,17 @@ pub(super) fn validate_derived_requests(
                     return wrapper_compare::ordinary_derive(f, owner, suffix);
                 }
                 let wanted = match suffix {
-                    "from" => Some(Kind::From),
+                    "from" | "into" => Some(Kind::From),
                     "eq" => Some(Kind::Compare),
                     _ => Some(Kind::Binary),
                 };
                 if kind(f) != wanted
                     || f.x.body.is_none()
-                    || f.x.name.path.last_segment().as_str() != suffix
+                    || f.x.name.path.last_segment().as_str() != if suffix == "into" { "from" } else { suffix }
                     || if suffix == "eq" {
                         !matches!(&*f.x.inner_ret.x.typ, TypX::Bool)
                     } else {
-                        !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, owner)
+                        !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, if suffix == "into" { field } else { owner })
                     }
                 {
                     return false;
@@ -78,7 +78,7 @@ pub(super) fn validate_derived_requests(
                     return false;
                 };
                 trait_typ_args.len() == 2
-                    && crate::ast_util::types_equal(&trait_typ_args[0], owner)
+                    && crate::ast_util::types_equal(&trait_typ_args[0], if suffix == "into" { field } else { owner })
                     && crate::ast_util::types_equal(
                         &trait_typ_args[1],
                         if suffix == "from" { field } else { owner },

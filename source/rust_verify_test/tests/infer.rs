@@ -5944,6 +5944,12 @@ fn ordinary_static_queries_require_checked_exports_and_compose_across_private_vi
 #[path="infer_cases/native_iterators.rs"]
 mod native_iterator_cases;
 
+#[path="infer_cases/scope.rs"]
+mod scope_cases;
+
+#[path="infer_cases/derive_conversions.rs"]
+mod derive_conversion_cases;
+
 #[path="infer_cases/equality.rs"]
 mod equality_cases;
 

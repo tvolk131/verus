@@ -2300,3 +2300,44 @@ positive receipts, mutation results and manual-input classifications. Opaque
 hash/codec/lock limitations remain explicit, including the frozen restriction on
 initial constructor/validator hash agreement. No requirement is weakened to close
 the milestone.
+
+## Native adoption integration checkpoint
+
+Policy 46 / candidate cache 52 adds opt-in checked reverse scalar conversion
+derives. `infer_derive(Into)` proposes a projection specification for the actual
+`From<Wrapper> for Integer` emitted by the derive. Canonical trait identity,
+concrete source/destination types, the local nongeneric wrapper owner and its
+single primitive-integer field bind the request to its implementation. The
+original executable body, inherited domain and all three exact obligations must
+verify. A request without its checked target fails even when there are no other
+inference candidates. A forward request alone neither checks nor infers an
+otherwise ignored reverse derive. Explicit `external_derive(Into)` excludes the
+reverse source derive and grants no callable specification.
+
+Primitive identity conversion composition recognizes only canonical core From
+dispatch with equal concrete primitive integer input/output types and the existing
+vstd From model. It proposes an identity expression for candidate generation;
+ordinary verification still checks the original call. No user-defined type or
+trait gains an identity law, and no vstd axiom or trusted contract is added.
+Persistent metadata schema remains 38; the policy/cache changes invalidate older
+candidate and interface evidence.
+
+The new compiled native-function scope snapshot is presentation-only. It is not
+serialized into proof interfaces or consulted by candidate acceptance, dependency
+checks or publication. Reports distinguish checked bodies, specifications,
+interfaces, external bodies and outside-scope items. Failed, partial and
+no-verification runs never report a fully checked selected scope. This does not
+certify unannotated Rust, that callers satisfy preconditions, or that an authored
+application property covers its intended domain.
+
+Compiler regressions exercise repeated/cross-crate reverse conversion, all twelve
+primitive integer identity conversions, missing/wrong/restrictive implementations,
+unrequested reverse derives and failed/filtered/no-verification publication.
+Scope regressions cover ordinary requirements, external bodies and frontend
+failure. The general Cargo fixture uses real derive_more and codec expansions,
+retains excluded Sum/codec implementations for native execution, and rejects
+verified use of those exclusions and exclusion of a requested conversion. Its
+runner records commands, source/tool identities, complete reports and native
+test outcomes. These checks support the integration change; the independent
+clean-main Aleph acceptance in VERUS_INFER_ADOPTION_V2.md remains a separate,
+unfinished requirement.

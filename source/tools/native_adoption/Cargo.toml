@@ -1,0 +1,21 @@
+[package]
+name = "verus-infer-native-adoption"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+vstd = "=0.0.0-2026-10-25-0158"
+derive_more = { version = "1.0", features = ["add", "from", "into", "sum"] }
+codec = { package = "parity-scale-codec", version = "3.0", default-features = false, features = ["derive"] }
+
+[features]
+use-excluded-sum = []
+use-excluded-codec = []
+wrong-goal = []
+exclude-requested-into = []
+
+[package.metadata.verus]
+verify = true

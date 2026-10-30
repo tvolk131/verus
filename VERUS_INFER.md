@@ -21,6 +21,10 @@ For project-level usage and the role of explicit specifications and proofs, see
 The finite native adoption milestone is complete; its scope, stopping rule and
 final acceptance results are recorded in
 [the Aleph adoption v1 charter](VERUS_INFER_ADOPTION_V1.md).
+The next active milestone is
+[repeatable native adoption](VERUS_INFER_ADOPTION_V2.md): explicit comparable
+proof scope, native derive/conversion integration and independent clean-main
+adoption acceptance. Its partial implementation is not completion of that trial.
 
 Implemented and covered by regression tests:
 

@@ -3,9 +3,53 @@
 use super::Verifier;
 use serde_json::{Value, json};
 use std::collections::HashMap;
-use vir::ast::{ExprX, Fun, Function};
+use vir::ast::{ExprX, Fun, FunX, Function, Mode};
 use vir::ast_util::{fun_as_friendly_rust_name as name, typ_to_diagnostic_str};
 use vir::infer_proof::Outcome;
+
+/// Presentation-only snapshot of compiled local Rust functions. It is never
+/// serialized into a proof interface or consulted by verification/publication.
+#[derive(Clone)]
+pub(super) struct NativeFunctionScope {
+    name: Option<Fun>,
+    rust_name: String,
+    source: String,
+    selected: bool,
+    external_body: bool,
+    external_specification: bool,
+    derived: bool,
+}
+
+#[allow(deprecated)]
+pub(super) fn collect_native_scope<'tcx>(
+    tcx: rustc_middle::ty::TyCtxt<'tcx>,
+    items: &crate::external::CrateItems,
+    verus_items: &crate::verus_items::VerusItems,
+) -> Vec<NativeFunctionScope> {
+    let mut functions = vec![];
+    for item in &items.items {
+        let id = item.id.owner_id().to_def_id();
+        if !matches!(tcx.def_kind(id), rustc_hir::def::DefKind::Fn | rustc_hir::def::DefKind::AssocFn) {
+            continue;
+        }
+        let (selected, external_body, external_specification) = match item.verif {
+            crate::external::VerifOrExternal::VerusAware { external_body, external_fn_specification, .. } =>
+                (true, external_body, external_fn_specification),
+            crate::external::VerifOrExternal::External { .. } => (false, false, false),
+        };
+        functions.push(NativeFunctionScope {
+            name: crate::rust_to_vir_base::def_id_to_vir_path_option(tcx, Some(verus_items), id)
+                .map(|path| std::sync::Arc::new(FunX { path })),
+            rust_name: tcx.def_path_str(id),
+            source: tcx.sess.source_map().span_to_diagnostic_string(tcx.def_span(id)),
+            selected, external_body, external_specification,
+            derived: crate::automatic_derive::is_automatically_derived(tcx.get_all_attrs(id))
+                || crate::automatic_derive::is_automatically_derived(tcx.get_all_attrs(tcx.parent(id))),
+        });
+    }
+    functions.sort_by(|a,b| a.rust_name.cmp(&b.rust_name));
+    functions
+}
 
 fn check(outcome: Option<Outcome>, required: bool, missing_reason: &str) -> Value {
     let (status, reason) = match outcome {
@@ -19,6 +63,52 @@ fn check(outcome: Option<Outcome>, required: bool, missing_reason: &str) -> Valu
 }
 
 impl Verifier {
+    fn verification_scope_json(&self, run_succeeded: bool, available: &HashMap<Fun, Function>) -> Value {
+        // A success under filters or --no-verify is not evidence for the entire
+        // selected scope. Keep reporting conservative on all failure paths.
+        let full_success = run_succeeded && !self.args.no_verify && !self.args.verify_root
+            && self.args.verify_function.is_none() && self.args.verify_module.is_empty()
+            && self.args.verify_only_module.is_empty();
+        let mut checked_exec = 0usize;
+        let mut checked_proof = 0usize;
+        let proxies: HashMap<_, _> = available.values()
+            .filter_map(|f|f.x.proxy.as_ref().map(|p|(p.x.clone(),f))).collect();
+        let functions: Vec<_> = self.native_function_scope.iter().flatten().map(|native| {
+            let f = native.name.as_ref().and_then(|name| available.get(name)
+                .or_else(||proxies.get(&name.path).copied()));
+            let status = if !native.selected { "outside_selected_scope" }
+            else if native.external_specification { "external_specification" }
+            else if native.external_body || f.is_some_and(|f|f.x.attrs.is_external_body) {
+                "unverified_body_with_contract"
+            } else if let Some(f) = f {
+                if f.x.mode == Mode::Spec { "specification_definition_or_declaration" }
+                else if f.x.body.is_none() { "interface_without_checked_body" }
+                else if !full_success { "selected_body_not_certified_by_successful_full_run" }
+                else if f.x.mode == Mode::Proof { checked_proof += 1; "checked_proof_body" }
+                else { checked_exec += 1; "checked_exec_body" }
+            } else { "selected_item_without_translated_body" };
+            json!({
+                "function": f.map(|f|name(&f.x.name)).unwrap_or_else(||native.rust_name.clone()),
+                "rust_function":native.rust_name,"source":native.source,
+                "automatically_derived":native.derived,"selected":native.selected,
+                "body_status":status,
+                "inference_candidate":f.is_some_and(|f|f.x.attrs.infer),
+                "ordinary_contract":f.is_some_and(|f|!f.x.attrs.infer && (!f.x.require.is_empty() || !f.x.ensure.0.is_empty())),
+            })
+        }).collect();
+        json!({
+            "coverage":"selected local Verus items; not all Rust code",
+            "native_collection_completed":self.native_function_scope.is_some(),
+            "complete_selected_scope_verified":full_success,
+            "checked_exec_bodies":checked_exec,"checked_proof_bodies":checked_proof,
+            "native_functions":functions,
+            "limitations":["Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+                "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+                "A checked body is not a claim that unverified callers satisfy its preconditions.",
+                "This report does not certify a requested application property or replace an authored scope/trust inventory."],
+        })
+    }
+
     pub fn inference_report_json(&self, run_succeeded: bool, total_micros: u128) -> Value {
         let generation = &self.inference_generation;
         let available: HashMap<Fun, Function> = self
@@ -136,6 +226,7 @@ impl Verifier {
         failed_functions.sort();
         json!({
             "schema_version": 1,
+            "verification_scope":self.verification_scope_json(run_succeeded, &available),
             "status": status,
             "crate_success": run_succeeded,
             "requested_functions": generation.requested,

@@ -4,6 +4,11 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
+The current build uses metadata schema **38**, inference policy **46** and
+candidate-cache version **52**. Rebuild compiler/macros/vstd and providers
+together. Historical checkpoint version numbers below describe when a feature
+was introduced, rather than compatible alternatives to the current build.
+
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
 
@@ -2254,7 +2259,7 @@ triggers rebuilds of consumers. Fingerprints conservatively include diagnostic
 locations and all imported inferred interfaces, so some semantically unchanged
 rebuilds may also invalidate dependents.
 
-The current inference policy uses metadata schema 22 and candidate-cache version 27.
+The architecture-binding checkpoint introduced metadata schema 22 and candidate-cache version 27.
 Loop candidate identity version 3 also binds the selected nonlinear-prover setting.
 Cache identities include the merged architecture of the crate and its imports;
 exported contract fingerprints also bind that architecture. A library proved
@@ -2462,6 +2467,22 @@ inherited domains and missing checked implementations cannot publish interfaces.
 Different derive libraries or configurations may emit shapes outside this bounded
 profile; those remain unsupported rather than silently assumed.
 
+`infer_derive(Into)` also supports the owned reverse conversion emitted by
+`derive_more::Into` for this same nongeneric single primitive-integer tuple
+profile. The frontend retains and checks the actual `From<Wrapper>` implementation
+on the primitive destination, then callers can compose `value.into()` through
+core's existing Into-through-From bridge. The marker is validated against the
+matching concrete source/destination signature; missing, excluded, wrong or
+restricted implementations cannot publish the proposed extension model.
+Reference/mutable-reference conversions, multiple fields and arbitrary target
+types remain outside this opt-in. Primitive identity `From<Integer> for Integer`
+calls reuse core's canonical implementation and vstd's existing identity
+specification; user traits and user datatypes receive no identity assumption.
+
+Metadata policy 46 and candidate cache 52 require rebuilding matching providers
+and vstd. The independent native Cargo example and runner are in
+`source/tools/native_adoption` and `source/tools/check_native_adoption.py`.
+
 Metadata policy 39 and candidate-cache version 45 require matching rebuilt
 providers and dependents. Rebuild vstd after changing the macro artifact. The
 native Aleph NodeCount chain and NodeMap size query use this support without
@@ -2495,7 +2516,7 @@ implementations and false application goals fail verification. Even a provider
 that requests only Ord, with no exact inference target, requires full-crate
 verification and certified metadata before publication/import.
 
-Current metadata policy is 40 and candidate-cache version is 46; rebuild
+The comparison checkpoint introduced metadata policy 40 and candidate-cache version 46; rebuild
 providers and consumers together. This support adds no assumed comparison laws.
 
 ## Complete values through tagged shared returns
@@ -2527,5 +2548,5 @@ This is logical value equality; Rust's normal borrow checker still handles
 executable references. Cloning preserves the checked content relation without
 acquiring the selected source object's complete-value equation.
 
-Current metadata policy is 41 and candidate-cache version is 47. Rebuild inferred
+The shared-return checkpoint introduced metadata policy 41 and candidate-cache version 47. Rebuild inferred
 providers and dependents together.

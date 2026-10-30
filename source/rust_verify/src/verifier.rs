@@ -340,6 +340,7 @@ pub struct Verifier {
     inference_generation: vir::infer::GenerationReport,
     inference_ready: bool,
     inference_exported: bool,
+    native_function_scope: Option<Vec<infer_report::NativeFunctionScope>>,
     pub(crate) compile: bool,
 
     // If we've already created the log directory, this is the path to it:
@@ -542,6 +543,7 @@ impl Verifier {
             inference_generation: Default::default(),
             inference_ready: false,
             inference_exported: false,
+            native_function_scope: None,
             compile,
 
             created_log_dir: Arc::new(std::sync::Mutex::new(None)),
@@ -598,6 +600,7 @@ impl Verifier {
             inference_generation: Default::default(),
             inference_ready: false,
             inference_exported: false,
+            native_function_scope: self.native_function_scope.clone(),
             compile: self.compile,
 
             created_log_dir: self.created_log_dir.clone(),
@@ -2855,6 +2858,7 @@ impl Verifier {
         };
 
         let crate_items = crate::external::get_crate_items(&ctxtx).map_err(map_errs_diagnostics)?;
+        self.native_function_scope = Some(infer_report::collect_native_scope(tcx, &crate_items, &ctxtx.verus_items));
 
         check_no_opaque_types_in_trait(ctxtx.tcx, &crate_items).map_err(map_err_diagnostics)?;
 
