@@ -72,7 +72,7 @@ fn structured_return(f:&Function,ds:&[Datatype])->bool {
 }
 pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -> Vec<Function> {
     let all=fs.iter().chain(imported).map(|f|(f.x.name.clone(),f.clone())).collect();
-    fs.iter()
+    let mut out:Vec<_>=fs.iter()
         .map(|f| {
             let mut x = f.x.clone();
             Arc::make_mut(&mut x.attrs).infer_owned =
@@ -82,7 +82,40 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
                     || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all,ds) || result_map::uses(f,&all));
             f.new_x(x)
         })
-        .collect()
+        .collect();
+    // Readonly scalar forwarding retains the callee's summary language. Without
+    // this propagation, a native iterator query could verify locally but export
+    // a record summary whose narrower decoder cannot represent its predicates.
+    let mut callers:HashMap<Fun,Vec<usize>>=HashMap::new();
+    for (i,f) in out.iter().enumerate().filter(|(_,f)|f.x.attrs.infer
+        && records::candidate(f) && !records::mutable(f)
+        && matches!(&*f.x.inner_ret.x.typ,TypX::Int(_)|TypX::Bool)) {
+        if let Some(body)=&f.x.body {
+            let mut budget=FORMULA_BUDGET;
+            crate::ast_visitor::expr_visitor_walk(body,&mut |e| {
+                if budget==0 {return crate::ast_visitor::VisitorControlFlow::<()>::Return;}
+                budget-=1;
+                if let ExprX::Call{target:CallTarget::Fun(kind,name,..),..}=&e.x {
+                    let name=if let CallTargetKind::DynamicResolved{resolved,..}=kind {resolved}else{name};
+                    callers.entry(name.clone()).or_default().push(i);
+                }
+                crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+            });
+        }
+    }
+    let mut pending:Vec<_>=out.iter().chain(imported).filter(|f|is_owned_summary(f))
+        .map(|f|f.x.name.clone()).collect();
+    while let Some(name)=pending.pop() {
+        for i in callers.get(&name).into_iter().flatten() {
+            if !out[*i].x.attrs.infer_owned {
+                let mut x=out[*i].x.clone();
+                Arc::make_mut(&mut x.attrs).infer_owned=true;
+                out[*i]=out[*i].new_x(x);
+                pending.push(out[*i].x.name.clone());
+            }
+        }
+    }
+    out
 }
 #[derive(Clone)]
 struct Val {
@@ -134,6 +167,8 @@ impl Val {
                 if is_bool(ok,false){return ctor("Err",b.as_ref().ok_or_else(||unsupported(span,"missing error value"))?);}
                 conditional(span,ok.clone(),ctor("Ok",a.as_ref().ok_or_else(||unsupported(span,"missing success value"))?)?,ctor("Err",b.as_ref().ok_or_else(||unsupported(span,"missing error value"))?)?)
             }
+            Node::Abstract(_)=>Err(unsupported(span,
+                "reconstructed private record requires scalar View components; a complete input value can be forwarded")),
             _=>Err(unsupported(span, "owned scalar expression")),
         }
     }
@@ -373,6 +408,13 @@ impl Engine<'_> {
     }
     fn field(&self, v: Val, op: &FieldOpr, s: &Span) -> Result<Val, VirErr> {
         match v.node {
+            Node::Abstract(observed) => {
+                let view=record_views::find(&v.typ,self.all,self.ds)
+                    .ok_or_else(||unsupported(s,"private record has no tuple observation"))?;
+                let value=view.project_field(&observed,op,self.all)?
+                    .ok_or_else(||unsupported(s,"private field needs a direct scalar tuple View component"))?;
+                Ok(Val::atom(value))
+            }
             Node::Fields(fs) => fs
                 .into_iter()
                 .find(|(p, _)| p.field == op.field && p.datatype == op.datatype)
@@ -1258,7 +1300,14 @@ impl Engine<'_> {
                 let image=records::equal(span,view.call(out.clone())?,self.record_view_value(v,&view)?)?;
                 // Checked uniqueness lets an exact caller recover complete
                 // value identity even when this View's body is private.
-                return logical(span,LogicalOp::And,image,view.unique(out)?);
+                return if view.complete_value {
+                    logical(span,LogicalOp::And,image,view.unique(out)?)
+                } else {
+                    // Owned collection contents retain their independent
+                    // structural precision observation. A collection view
+                    // does not grant complete object identity or injectivity.
+                    Ok(image)
+                };
             }
         }
         match &v.node {
@@ -1695,7 +1744,9 @@ fn validate_signature(
             || structured_return(f,ds)
             || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
             || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all) || equality::uses(f,all,ds)
-            || result_map::uses(f,all) || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
+            || result_map::uses(f,all)
+            || !records::mutable(f) && records::candidate(f) && eligibility::scalar(&x.inner_ret.x.typ)
+            || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
     {
         return Err(unsupported(

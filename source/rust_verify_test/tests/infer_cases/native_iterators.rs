@@ -365,17 +365,33 @@ fn composed_native_filters_keep_authored_predicate_vocabulary() {
         s.iter().filter(|&(_,value)|value.stamp==stamp).count()
     }
     #[verifier::infer] pub fn relay(s:&observation_factory::Slots<Item>,stamp:u16)->usize{matching(s,stamp)}
+    #[verifier::infer] pub fn relay2(s:&observation_factory::Slots<Item>,stamp:u16)->usize{relay(s,stamp)}
     fn goal(s:&observation_factory::Slots<Item>,stamp:u16)->(r:usize)
-        ensures r==s.entries_value().filter(|e:(usize,&Item)|e.1.stamp==stamp).len(),
-    {relay(s,stamp)}
+        ensures r==s.entries_value().filter(|e:(usize,&Item)|e.1.stamp_value()==stamp).len(),
+    {relay2(s,stamp)}
     "#;
     for _ in 0..2 {
         let r=crates.build("observation_filter",consumer,&["observation_factory"],&["--no-cheating","--output-json"]);
         assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
         assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
     }
+    let client=r#"use vstd::prelude::*;
+    pub fn goal(s:&observation_factory::Slots<observation_filter::Item>,stamp:u16)->(r:usize)
+        ensures r==s.entries_value().filter(|e:(usize,&observation_filter::Item)|e.1.stamp_value()==stamp).len(),
+    {observation_filter::relay2(s,stamp)}
+    "#;
+    let r=crates.build("observation_client",client,&["observation_factory","observation_filter"],&["--no-cheating"]);
+    assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
+    let local=consumer.replace("#[verifier::infer] pub fn","#[verifier::infer] fn")
+        .replace("e.1.stamp_value()","e.1.stamp");
+    let r=crates.build("local_filter",&local,&["observation_factory"],&["--no-cheating","--output-json"]);
+    assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
     let wrong=consumer.replace("value.stamp==stamp","value.stamp!=stamp");
     let r=crates.build("observation_filter",&wrong,&["observation_factory"],&["--no-cheating","--output-json"]);
     assert!(!r.status.success());assert!(!crates.vir("observation_filter").exists());
     assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+    let wrong_observation=consumer.replace("{self.stamp}","{0}");
+    let r=crates.build("observation_filter",&wrong_observation,&["observation_factory"],&["--no-cheating","--output-json"]);
+    assert!(!r.status.success());assert!(!crates.vir("observation_filter").exists());
+    assert!(json_inference(&r)["functions"].as_array().unwrap().iter().any(|f|f["required_checks_passed"]==false));
 }

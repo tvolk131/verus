@@ -1,5 +1,5 @@
 {
-  "status": "validated integration checkpoint; independent Aleph acceptance pending",
+  "status": "post-trial count and visibility integration checkpoints validated; independent clean-main acceptance pending",
   "recorded_utc": "2026-10-30T03:46:56.112281+00:00",
   "baseline": "bc45dab58fc0f4c09672994ac4d2100ac83c5f3a",
   "policy": 46,
@@ -736,6 +736,109 @@
     "limits": [
       "First independent trial remains recorded as partial; parent semantic strengthening is separate.",
       "Final fresh independent acceptance and private-constructor well-formedness safeguard remain open."
+    ]
+  },
+  "visibility_checkpoint": {
+    "policy": 47,
+    "candidate_cache": 53,
+    "metadata_schema": 38,
+    "source_files_sha256": {
+      "VERUS_INFER_ADOPTION_V2.md": "cb4420e730ecccc44a87394591d96774a734c51e2d17a4e2ac0ec8ce3317331f",
+      "VERUS_INFER_ASSURANCE.md": "e5bcbf02eb213a37e161640408ee3cc2936d3ab16500c733d5f6688eac6468fa",
+      "source/docs/guide/src/infer.md": "d2ea56273655c5a5206497270b65c148fa52b57322e58fadfd78e011f12eabc5",
+      "source/docs/guide/src/infer_adoption.md": "fa9676eba1e00edadae9c1d1e3c8e81ba503ec2aaa040b0b7ce5d0b0864c7926",
+      "source/rust_verify/src/import_export.rs": "f40e52cf66c191a03643334ab720565b7259bd7cdf45df6657bb9bdb044c0509",
+      "source/rust_verify/src/query.rs": "3d9778093be317ebea95ffc7027b0f8c36491810c0954b2b1d0eddbc44b1e3ce",
+      "source/rust_verify_test/tests/infer.rs": "4e7a68fa982f0a232a26917fffbc848e2001c0ad7ef173f8c2be10b1ccda94db",
+      "source/rust_verify_test/tests/infer_cases/factory_goals.rs": "2f86fd7c9cd282cf52afbcc00620224dd9d36539a0bbd75f264021654cf4b6d9",
+      "source/rust_verify_test/tests/infer_cases/native_iterators.rs": "c2324b4f84f0736e1b9c498c65f822ef4b444ed9d87de88930afeb811aa88b23",
+      "source/vir/src/infer/observations.rs": "d4478e9e1c6c54aa9fafe793a671bbbe0e14d176f96215723b750ab7c2a35038",
+      "source/vir/src/infer/owned.rs": "a8eddf8a5c47c9b05c124dba35a12d1c08e8b51a928ab07f65ebcb34da2ef4b6",
+      "source/vir/src/infer/owned/callbacks.rs": "e3ff8e5d9cb9cb645142a3d15948ea89b65c0a8faa8602bcb877785e8cc941a6",
+      "source/vir/src/infer/owned/record_views.rs": "842d42c18d8750530dad5863cf9ef9e72ad8537ceac23e47610f4115692cc876",
+      "source/vir/src/infer/registry.rs": "d870181e1d03e8f52afbab58e1aa6bda51aa254f6d236f4a88ca087899fd7cfa",
+      "source/vir/src/well_formed.rs": "b4e714d9fbae3df9bfc30c2ea1626fe9466beb34cc8fa64f0f5f1470f3df9826",
+      "source/rust_verify_test/tests/infer_cases/visibility.rs": "910f6269e4c2002daf1712ec1dc464ebe5ac1803389dc29dc56d02e47e841e41"
+    },
+    "logs": {
+      "/private/tmp/verus-adoption-v2-visibility-all-tests.log": {
+        "sha256": "dee187a7191efae04660ab254bbafae52aff59a238fbed8bfb0cccfdfa838539",
+        "test_results": [
+          "test result: ok. 278 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 42.14s",
+          "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.06s",
+          "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.96s",
+          "test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s",
+          "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.30s",
+          "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.70s",
+          "test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.04s",
+          "test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s",
+          "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.52s",
+          "test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s",
+          "test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.14s",
+          "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.30s",
+          "test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.66s",
+          "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.30s",
+          "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.15s",
+          "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.59s",
+          "test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.06s",
+          "test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.31s",
+          "test result: ok. 57 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.31s",
+          "test result: ok. 82 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.83s"
+        ],
+        "vstd_results": []
+      },
+      "/private/tmp/verus-adoption-v2-visibility-backend-tests.log": {
+        "sha256": "c0f428a8f2bc214fdfcb4f545ef3f47abd03af53c8ce081aab22f0905c16969f",
+        "test_results": [
+          "test result: ok. 116 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.50s"
+        ],
+        "vstd_results": []
+      },
+      "/private/tmp/verus-adoption-v2-visibility-driver-tests.log": {
+        "sha256": "137209f7d6387d26f8ce4b8d55e3f189bff50c029aa86cb26c7c0eff176726b2",
+        "test_results": [
+          "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+        ],
+        "vstd_results": []
+      },
+      "/private/tmp/verus-adoption-v2-visibility-vstd.log": {
+        "sha256": "73b6135feb665d31971569f7a4930dfc27a182ed5d2b4fcf6bdf1dc9e11b37f6",
+        "test_results": [],
+        "vstd_results": [
+          "verification results:: 2215 verified, 0 errors"
+        ]
+      }
+    },
+    "checks": {
+      "inference_compiler_tests": 486,
+      "std_tests": 57,
+      "syntax_attr_tests": 82,
+      "backend_unit_tests": 116,
+      "driver_metadata_tests": 1,
+      "vstd_verified": 2215,
+      "vstd_errors": 0
+    },
+    "generic_runner": {
+      "receipt": "/private/tmp/verus-adoption-v2-visibility-final47-generic/run-jr7qngl7/receipt.json",
+      "sha256": "3ba47641a788d4900c795767172c4de3f97617c3e44a44195bdaab4eacaeb823",
+      "success": true,
+      "case_count": 9,
+      "engine_sha256": {
+        "cargo-verus": "d8a239b772c3887551c6ae6029ee0a2d31eb7313a2fa2551e0e3a982314b59b1",
+        "verus": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+        "rust_verify": "8cd6de85cb295444880a1492aa042c5eafde644df7a2689f075ab1b4d707fd17",
+        "vstd.vir": "f208de20b8ad73e7238f58c3e0f7c89a2a1558e2bd4abf502ffc4cd83a498790",
+        "libvstd.rlib": "979026c1e61f2b854bdfa0e7c7ac0d9faff94e894d986c2f9bb9f5eb4b17d401"
+      }
+    },
+    "assurance": [
+      "Synthesized pre/postconditions use the ordinary well-formedness checker before pruning, proof use or export.",
+      "Authored public observations replace private constructor/field expressions; no View injectivity is assumed.",
+      "Readonly scalar forwarding retains the existing bounded owned summary decoder.",
+      "Independent SST precision rules are unchanged.",
+      "Unsupported nested reconstruction, lossy views, wrong observations, incorrect callback mappings and false callers reject publication.",
+      "Final fixed-toolchain independent acceptance remains required."
     ]
   }
 }

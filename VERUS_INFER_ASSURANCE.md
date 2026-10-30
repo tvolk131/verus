@@ -2364,3 +2364,43 @@ proofs. All 481 inference regressions and 116 backend tests pass; matching vstd
 verifies 2,215 results with no errors. Policy 46, cache 52 and metadata schema 38
 are unchanged for this ordinary theorem-selection checkpoint; changed library
 artifact fingerprints require rebuilding providers and dependents normally.
+
+## Generated contract visibility and private constructor observations
+
+Policy 47 / candidate cache 53 restores normal contract well-formedness checking
+after synthesis and goal preparation, before module pruning, verification or
+export. New pre/postconditions use the same checker and visibility/pre-state/
+post-state rules as authored clauses. A minimized nested private constructor
+previously reached a `missing variant` compiler panic after its helper checks;
+an equivalent authored clause was rejected for opaque-constructor access. It
+now receives a diagnostic and cannot publish an interface. This is an inference
+integration defect, not an Aleph runtime bug. Metadata schema remains 38.
+
+Supported private scalar records can propose constructor contracts through their
+authored public tuple View, including checked uniqueness for complete value
+records. Collection-bearing records instead retain the independent structural
+content observation; a content view supplies no whole-object uniqueness law.
+Private tuple components and pure public projection observations can compose
+through flat enclosing views. Unsupported nested reconstruction fails cleanly.
+All substitutions, including reads through local places, remain candidate-only.
+No independent SST precision rule or executable body is changed.
+
+Bound callback projections also use public authored observations, and application
+predicates can name that same API. Ordinary iterator-factory callbacks receive
+checked image equations rather than the quantified uniqueness auxiliary used by
+exact constructors; they acquire no precision certificate. Wrong observations,
+lossy views and incorrect callback mappings are rejected. Local private helpers
+may still describe their own private representation, subject to ordinary rules.
+Bound predicates retain their original vocabulary where the representation is
+legal. Readonly scalar callers of owned iterator queries retain that same
+summary profile transitively, so exported forwarding chains use its existing
+bounded decoder. Candidate projection reads are normalized consistently with
+that decoder. Repeated cross-crate tests include two forwarding layers; import
+coverage/guard validation and all three required proofs remain enforced.
+
+The checkpoint passes 486 inference compiler tests, 57 standard-library tests,
+82 syntax/attribute tests, 116 backend unit tests and the driver metadata test.
+Matching vstd proves 2,215 results with no errors; the generic native Cargo
+runner passes all nine positive/negative cases and native erasure tests. The
+parent's strengthened Aleph replay remains distinct from the original independent
+trial's partial result. Final independent clean-main acceptance is still open.

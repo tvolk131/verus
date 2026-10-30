@@ -5,6 +5,7 @@ use super::*;
 pub(super) struct RecordView {
     pub function: Function,
     types: Typs,
+    pub complete_value: bool,
 }
 
 pub(super) fn observation(f: &Function) -> bool {
@@ -27,18 +28,24 @@ pub(super) fn find(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype]) -> Op
     // This new profile handles complete opaque components. Ordinary records and
     // certified sequence wrappers retain their established output schemas.
     // Use the datatype's owner, so imported and local selection is identical.
-    if !fields.iter().any(|(_, t)| {
+    let private_representation = matches!(&d.x.transparency,
+        DatatypeTransparency::WhenVisible(vis) if !d.x.visibility.at_least_as_restrictive_as(vis));
+    if !private_representation && !fields.iter().any(|(_, t)| {
         records::shape::opaque_value(t, ds, &d.x.owning_module)
             && sequence_views::find(t, all, ds).is_none()
     }) {
         return None;
     }
     let params: Vec<_> = d.x.typ_params.iter().map(|p| p.0.clone()).collect();
-    if !fields.iter().all(|(_, t)| {
+    let complete_value=fields.iter().all(|(_, t)| {
         records::shape::value_type(t, &params, ds, 8)
             || records::shape::opaque_value(t, ds, &d.x.owning_module)
                 && sequence_views::find(t, all, ds).is_none()
-    }) {
+    });
+    if !complete_value && !fields.iter().all(|(_,t)|
+        records::shape::value_type(t,&params,ds,8)
+            || records::shape::opaque_value(t,ds,&d.x.owning_module)
+            || heap_known(t,all,ds,8)) {
         return None;
     }
     let mut found = None;
@@ -65,12 +72,45 @@ pub(super) fn find(t: &Typ, all: &HashMap<Fun, Function>, ds: &[Datatype]) -> Op
         if found.is_some() {
             return None;
         }
-        found = Some(RecordView { function: f.clone(), types: args.clone() });
+        found = Some(RecordView { function: f.clone(), types: args.clone(), complete_value });
     }
     found
 }
 
 impl RecordView {
+    pub(super) fn project_field(
+        &self, observed: &Term, wanted: &FieldOpr, all: &HashMap<Fun, Function>,
+    ) -> Result<Option<Term>, VirErr> {
+        fn locate(
+            e: &Expr, receiver: &VarIdent, wanted: &FieldOpr,
+            path: Vec<(FieldOpr, Typ)>, depth: usize,
+        ) -> Option<Vec<(FieldOpr, Typ)>> {
+            if depth == 0 { return None; }
+            let e=observations::logical_value(e);
+            if let ExprX::UnaryOpr(UnaryOpr::Field(op), base)=&e.x {
+                if op.datatype==wanted.datatype && op.variant==wanted.variant && op.field==wanted.field
+                    && matches!(&observations::logical_value(base).x,ExprX::Var(v) if v==receiver) {
+                    return Some(path);
+                }
+            }
+            if let ExprX::Ctor(dt @ Dt::Tuple(_), variant, fields, None)=&e.x {
+                for field in fields.iter() {
+                    let mut next=path.clone();
+                    next.push((FieldOpr{datatype:dt.clone(),variant:variant.clone(),field:field.name.clone(),
+                        get_variant:false,check:VariantCheck::None},field.a.typ.clone()));
+                    if let Some(found)=locate(&field.a,receiver,wanted,next,depth-1) {return Some(found);}
+                }
+            }
+            None
+        }
+        let body=self.body(all)?;
+        let Some(path)=locate(&body,&self.function.x.params[0].x.name,wanted,vec![],8)
+            else {return Ok(None)};
+        let mut value=observed.expr.clone();
+        for (op,typ) in path {value=field_expr(&value,&op,&typ);}
+        atom(value).map(Some)
+    }
+
     fn substitutions(&self) -> HashMap<Ident, Typ> {
         self.function.x.typ_params.iter().cloned().zip(self.types.iter().cloned()).collect()
     }

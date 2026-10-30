@@ -206,8 +206,21 @@ impl Engine<'_> {
         for req in reqs {
             pre = logical(&e.span, LogicalOp::And, pre, req)?;
         }
-        let post =
-            self.post(&value, &SpannedTyped::new(&e.span, &ret.a, ExprX::Var(ret.name.clone())))?;
+        let output=SpannedTyped::new(&e.span,&ret.a,ExprX::Var(ret.name.clone()));
+        let post = if self.f.x.attrs.infer_iterator_factory && !self.f.x.attrs.infer {
+            if let Some(view)=record_views::find(&value.typ,self.all,self.ds) {
+                // An ordinary factory needs a checked callback observation,
+                // not the quantified uniqueness certificate exported by an
+                // exact constructor. Keep complete moved-input identity when
+                // available; never assume either equation.
+                let image=records::equal(&e.span,view.call(output.clone())?,
+                    self.record_view_value(&value,&view)?)?;
+                if let Some(identity)=&value.identity {
+                    logical(&e.span,LogicalOp::And,image,
+                        records::equal(&e.span,atom(output.clone())?,identity.clone())?)?
+                } else {image}
+            } else {self.post(&value,&output)?}
+        } else {self.post(&value,&output)?};
         pure_contract(&pre.expr)?;
         pure_contract(&post.expr)?;
         self.callbacks.push(Plan {

@@ -30,6 +30,8 @@ fn read(e: &Expr) -> Expr {
     }
     match &e.x {
         ExprX::ReadPlace(p, _) => place(p),
+        ExprX::UnaryOpr(UnaryOpr::Field(op), base) =>
+            e.new_x(ExprX::UnaryOpr(UnaryOpr::Field(op.clone()), read(base))),
         ExprX::Block(ss, Some(t)) if ss.is_empty() => read(t),
         _ => e.clone(),
     }
@@ -203,7 +205,13 @@ fn projection_call(e: &Expr, all: &HashMap<Fun, Function>, borrowed_only: bool) 
                 _ => t.clone(),
             })
         },
-        &|_, _, p| Ok(p.clone()),
+        &|_, _, p| {
+            Ok(if matches!(&p.x,PlaceX::Local(v) if v==&f.x.params[0].x.name) {
+                p.new_x(PlaceX::Temporary(read(arg)))
+            } else {
+                p.clone()
+            })
+        },
         &|_, _, p| Ok(p.clone()),
     )
     .ok()
@@ -230,16 +238,100 @@ pub(super) fn expand_projections(e: &Expr, all: &HashMap<Fun, Function>) -> Resu
     }
     Ok(out)
 }
+// Normalize a tuple component only for matching an enclosing authored
+// observation. For example, inner@.1 can match outer's scalar View field.
+// The expanded private path is never retained when no public observation fits.
+fn component_projection(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
+    let mut receiver = read(e);
+    let mut steps = Vec::new();
+    while let ExprX::UnaryOpr(UnaryOpr::Field(op), base) = &receiver.x {
+        if !matches!(op.datatype, Dt::Tuple(_)) || steps.len() == 8 {
+            return None;
+        }
+        steps.push(op.clone());
+        receiver = read(base);
+    }
+    if steps.is_empty() {
+        return None;
+    }
+    let (name, arg) = target(&receiver)?;
+    let f = all.get(name).filter(|f| {
+        is_pure_observation(f)
+            && f.x.visibility.is_public()
+            && !f.x.attrs.is_external_body
+            && f.x.proxy.is_none()
+            && f.x.params.len() == 1
+            && f.x.body.is_some()
+            && f.x.name.path.krate != CrateId::Vstd
+    })?;
+    let ExprX::Call { target: CallTarget::Fun(kind, _, types, ..), .. } = &receiver.x else {
+        return None;
+    };
+    let types = match kind {
+        CallTargetKind::DynamicResolved { typs, .. } => typs,
+        _ => types,
+    };
+    if types.len() != f.x.typ_params.len() {
+        return None;
+    }
+    let mut component = read(f.x.body.as_ref()?);
+    for step in steps.iter().rev() {
+        let ExprX::Ctor(dt, variant, fields, None) = &component.x else {
+            return None;
+        };
+        if dt != &step.datatype || variant != &step.variant {
+            return None;
+        }
+        component = read(&fields.iter().find(|field| field.name == step.field)?.a);
+    }
+    path(&component, &f.x.params[0].x.name, all, 8)?;
+    let ts: HashMap<_, _> = f.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
+    let out = crate::ast_visitor::map_expr_visitor_env(
+        &component,
+        &mut crate::ast_visitor::VisitorScopeMap::new(),
+        &mut (),
+        &|_, _, e| {
+            Ok(if matches!(&e.x,ExprX::Var(v) if v==&f.x.params[0].x.name) {
+                read(arg)
+            } else {
+                e.clone()
+            })
+        },
+        &|_, _, s| Ok(vec![s.clone()]),
+        &|_, t| {
+            Ok(if let TypX::TypParam(n) = &**t {
+                ts.get(n).cloned().unwrap_or_else(|| t.clone())
+            } else {
+                t.clone()
+            })
+        },
+        &|_, _, p| {
+            Ok(if matches!(&p.x,PlaceX::Local(v) if v==&f.x.params[0].x.name) {
+                p.new_x(PlaceX::Temporary(read(arg)))
+            } else {
+                p.clone()
+            })
+        },
+        &|_, _, p| Ok(p.clone()),
+    )
+    .ok()?;
+    crate::ast_util::types_equal(&out.typ, &e.typ).then_some(out)
+}
+
 fn replace(
     e: &Expr,
     p: &Projection,
-    params: &Params,
+    function: &Function,
+    scope: &crate::ast_visitor::VisitorScopeMap,
     all: &HashMap<Fun, Function>,
+    datatypes: &[Datatype],
 ) -> Option<Expr> {
     // A generated borrow definition may hide a simple physical projection.
     // Expand it only for matching an authored observation. If none matches,
     // retain the original checked definition and its abstraction boundary.
-    let mut receiver = projection_call(e, all, true).unwrap_or_else(|| read(e));
+    let mut receiver = component_projection(e, all)
+        .or_else(|| projection_call(e, all, true))
+        .unwrap_or_else(|| read(e));
     for step in p.path.iter().rev() {
         receiver = match (step, &receiver.x) {
             (Step::Field(a), ExprX::UnaryOpr(UnaryOpr::Field(b), x))
@@ -257,20 +349,29 @@ fn replace(
             _ => return None,
         };
     }
-    fn input(e: &Expr, params: &Params) -> bool {
+    fn input(e: &Expr, params: &Params, scope: Option<&crate::ast_visitor::VisitorScopeMap>) -> bool {
         let e = read(e);
         match &e.x {
-            ExprX::Var(n) => params.iter().any(|p| p.x.name == *n),
-            ExprX::UnaryOpr(UnaryOpr::Field(_), a) => input(a, params),
+            ExprX::Var(n) => params.iter().any(|p| p.x.name == *n)
+                || scope.is_some_and(|scope| scope.get(n).is_some()),
+            ExprX::UnaryOpr(UnaryOpr::Field(_), a) => input(a, params, scope),
             _ => false,
         }
     }
-    // Bound callback variables keep their original predicates. Changing a
-    // lambda's vocabulary can require a separate extensional closure proof.
-    if !input(&receiver, params) {
-        return None;
-    }
     let TypX::Datatype(dt, args, _) = &**base(&receiver.typ) else { return None };
+    if !input(&receiver, &function.x.params, None) {
+        // Lift bound predicates when publishing requires an abstraction. Keep
+        // the original lambda vocabulary where the representation is legal.
+        if !input(&receiver, &function.x.params, Some(scope)) {
+            return None;
+        }
+        let datatype = datatypes.iter().find(|d| &d.x.name == dt)?;
+        match &datatype.x.transparency {
+            DatatypeTransparency::WhenVisible(vis)
+                if !function.x.visibility.at_least_as_restrictive_as(vis) => {}
+            _ => return None,
+        }
+    }
     let TypX::Datatype(expected, params, _) = &**base(&p.spec.x.params[0].x.typ) else {
         return None;
     };
@@ -337,18 +438,19 @@ fn replace(
 pub(super) fn lift_value(
     e: &Expr,
     all: &HashMap<Fun, Function>,
-    params: &Params,
+    function: &Function,
+    datatypes: &[Datatype],
 ) -> Result<Expr, VirErr> {
     let ps = projections(all);
     crate::ast_visitor::map_expr_visitor_env(
         e,
         &mut crate::ast_visitor::VisitorScopeMap::new(),
         &mut FORMULA_BUDGET.clone(),
-        &|budget, _, e| {
+        &|budget, scope, e| {
             *budget = budget
                 .checked_sub(1)
                 .ok_or_else(|| unsupported(&e.span, "observation lifting budget exceeded"))?;
-            Ok(ps.iter().find_map(|p| replace(e, p, params, all)).unwrap_or_else(|| e.clone()))
+            Ok(ps.iter().find_map(|p| replace(e, p, function, scope, all, datatypes)).unwrap_or_else(|| e.clone()))
         },
         &|_, _, s| Ok(vec![s.clone()]),
         &|_, t| Ok(t.clone()),
@@ -363,28 +465,28 @@ pub(super) fn lift_contract(
     all: &HashMap<Fun, Function>,
     datatypes: &[Datatype],
 ) -> Result<Contract, VirErr> {
-    fn post(e: &Expr, all: &HashMap<Fun, Function>, params: &Params) -> Result<Expr, VirErr> {
+    fn post(e: &Expr, all: &HashMap<Fun, Function>, function: &Function, datatypes: &[Datatype]) -> Result<Expr, VirErr> {
         Ok(match &e.x {
             ExprX::Binary(BinaryOp::Eq(Mode::Spec), a, b) => e.new_x(ExprX::Binary(
                 BinaryOp::Eq(Mode::Spec),
                 a.clone(),
-                lift_value(b, all, params)?,
+                lift_value(b, all, function, datatypes)?,
             )),
             ExprX::Logical(op, a, b) => e.new_x(ExprX::Logical(
                 *op,
                 if *op == LogicalOp::Implies {
-                    lift_value(a, all, params)?
+                    lift_value(a, all, function, datatypes)?
                 } else {
-                    post(a, all, params)?
+                    post(a, all, function, datatypes)?
                 },
-                post(b, all, params)?,
+                post(b, all, function, datatypes)?,
             )),
             _ => e.clone(),
         })
     }
     // Preserve the independently selected output-observation schema. This
     // profile only changes the input expressions used to explain those outputs.
-    let c = Contract::new(lift_value(&c.pre, all, &f.x.params)?, post(&c.post, all, &f.x.params)?)?;
+    let c = Contract::new(lift_value(&c.pre, all, f, datatypes)?, post(&c.post, all, f, datatypes)?)?;
     // Module pruning removes hidden representations. Diagnose an unavailable
     // abstraction before a proposed formula reaches that boundary.
     let visible = |op: &FieldOpr| {

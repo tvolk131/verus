@@ -132,6 +132,15 @@ For Aleph, cloned `FullUnit` error values preserve the authored logical view;
 the outer validator is checked directly against that policy rather than claiming
 an exact inferred contract for every cache-bearing output.
 
+Public inferred constructor contracts must respect the same abstraction boundary
+as authored contracts. Supported private records can use a supplied tuple view of
+their scalar state, complete forwarded inputs and collection contents. Inference
+checks that the view retains the modeled output; it does not assume injectivity.
+Reconstructing another private record inside that view is a limited profile:
+use a flat view of supported components or an ordinary verified semantic API.
+For public iterator predicates over private elements, name their supplied public
+observations in application contracts as well.
+
 ## Use explicit contracts and proofs where they add meaning or bridge a gap
 
 Explicit application contracts are useful even when inference succeeds: they

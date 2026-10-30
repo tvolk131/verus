@@ -40,6 +40,48 @@ pub fn any_goal(s:&Slots<u16>,round:u16)->(r:bool)
 pub fn noncopy(s:&Slots<Vec<u8>>)->(r:usize) ensures r==s.entries_value().len(),{count(s)}
 "#;
 
+#[test]
+fn private_constructor_views_supply_checked_ordinary_factory_callback_observations() {
+    let crates = InferCrates::new();
+    let source = PROVIDER
+        .replace(
+            "pub struct Entry{pub index:usize,pub value:u16}",
+            r#"
+pub struct Entry{index:usize,value:u16}
+impl View for Entry{type V=(usize,u16);
+ closed spec fn view(&self)->Self::V{(self.index,self.value)}}
+impl Entry{#[verifier::infer] pub fn new(index:usize,value:u16)->Self{Self{index,value}}}
+"#,
+        )
+        .replace("pub open spec fn mapped_value", "pub closed spec fn mapped_value")
+        .replace("| (index,&value)|Entry{index,value}", "| (index,&value)|Entry::new(index,value)")
+        .replace("|(index,&value)|Entry{index,value}", "|(index,&value)|Entry::new(index,value)");
+    for _ in 0..2 {
+        let run = provider(&crates, &source, &["--infer-goals", "--no-cheating", "--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        assert!(
+            json_inference(&run)["functions"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|f| f["required_checks_passed"] == true)
+        );
+    }
+    let wrong = source.replace("Entry::new(index,value)", "Entry::new(index,0)");
+    assert_ne!(wrong, source);
+    let run = provider(&crates, &wrong, &["--infer-goals", "--no-cheating", "--output-json"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("factory_provider").exists());
+    assert!(
+        json_inference(&run)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|f| f["required_checks_passed"] == true)
+    );
+    assert!(String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"));
+}
+
 fn provider(crates: &InferCrates, source: &str, options: &[&str]) -> std::process::Output {
     crates.build_source(
         "factory_provider",

@@ -608,6 +608,27 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             );
         }
 
+        if self.args.infer_goals || cratex.functions.iter().any(|f|
+            f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        {
+            let mut stubs = (*self.get_all_function_stubs()?).clone();
+            for f in &cratex.functions {
+                stubs.insert(f.x.name.clone(), vir::ast_util::function_to_stub(f));
+            }
+            let stubs = Arc::new(stubs);
+            for f in &cratex.functions {
+                let (wf, errors, diags) = vir::well_formed::check_generated_contracts(
+                    &pre_crate.krate_without_funs, stubs.clone(), initial_wf_results.lookup.clone(),
+                    f, &warning_ctx, self.args.no_cheating,
+                );
+                self.emit_non_blocking_errors(errors);
+                self.emit_diags(diags);
+                let wf = wf.map_err(|e|
+                    self.handle_wf_error(&pre_crate.ctxt, Some(f.x.name.clone()), e))?;
+                all_dyn_compatability_checks.push(wf.dyn_compatability_checks);
+            }
+        }
+
         vir::traits::set_krate_dyn_compatibility(&other_vir_crates, &mut cratex);
         let krate = Arc::new(cratex);
 

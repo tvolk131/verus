@@ -1028,6 +1028,33 @@ pub fn check_function(
     no_cheating: bool,
     no_verify: bool,
 ) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
+    run_function_check(|emit| check_function_inner(
+        krate, funs, lookup, demote_trait_lookup, function, emit, warning_ctx,
+        no_cheating, no_verify,
+    ))
+}
+
+/// Synthesis runs after source checking. Its new contracts must obey the same
+/// access, expression and pre/post-state rules as an authored contract.
+pub fn check_generated_contracts(
+    krate: &Krate,
+    funs: Arc<HashMap<Fun, FunctionStub>>,
+    lookup: Arc<WfLookup>,
+    function: &Function,
+    warning_ctx: &crate::context::WarningCtx,
+    no_cheating: bool,
+) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
+    run_function_check(|emit| {
+        let ctxt = Ctxt { funs, lookup, krate, no_cheating };
+        let warn_config = warning_ctx.fun_warn_configs.get(&function.x.name)
+            .expect("missing warning configuration for generated contract");
+        check_requires_ensures(&ctxt, function, emit, warn_config)
+    })
+}
+
+fn run_function_check(
+    check: impl FnOnce(&mut EmitErrorState) -> Result<(), VirErr>,
+) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
     let mut emit = EmitErrorState {
         boundary_errors: IndexMap::new(),
         diags: vec![],
@@ -1035,17 +1062,7 @@ pub fn check_function(
         deferred_errors: vec![],
         dyn_compatability_checks: IndexMap::new(),
     };
-    let wf = check_function_inner(
-        krate,
-        funs,
-        lookup,
-        demote_trait_lookup,
-        function,
-        &mut emit,
-        warning_ctx,
-        no_cheating,
-        no_verify,
-    );
+    let wf = check(&mut emit);
     let res = match wf {
         Ok(()) if emit.boundary_errors.len() == 0 => Ok(PerFunctionCheckResults {
             func_failed_proof_notes: emit.func_failed_proof_notes,
@@ -1061,6 +1078,25 @@ pub fn check_function(
         }),
     };
     (res, emit.deferred_errors, emit.diags)
+}
+
+fn check_requires_ensures(
+    ctxt: &Ctxt,
+    function: &Function,
+    emit: &mut EmitErrorState,
+    warn_config: &Option<WarningConfig>,
+) -> Result<(), VirErr> {
+    for req in function.x.require.iter() {
+        check_expr(ctxt, function, req,
+            Some((&function.x.visibility, "'requires' clause of public function")),
+            Area::PreState("requires"), emit, warn_config)?;
+    }
+    for ens in function.x.ensure.0.iter().chain(function.x.ensure.1.iter()) {
+        check_expr(ctxt, function, ens,
+            Some((&function.x.visibility, "'ensures' clause of public function")),
+            Area::PostState, emit, warn_config)?;
+    }
+    Ok(())
 }
 
 fn check_function_inner(
@@ -1495,32 +1531,7 @@ fn check_function_inner(
         }
     }
 
-    for req in function.x.require.iter() {
-        let msg = "'requires' clause of public function";
-        let disallow_private_access = Some((&function.x.visibility, msg));
-        check_expr(
-            &ctxt,
-            function,
-            req,
-            disallow_private_access,
-            Area::PreState("requires"),
-            emit,
-            warn_config,
-        )?;
-    }
-    for ens in function.x.ensure.0.iter().chain(function.x.ensure.1.iter()) {
-        let msg = "'ensures' clause of public function";
-        let disallow_private_access = Some((&function.x.visibility, msg));
-        check_expr(
-            &ctxt,
-            function,
-            ens,
-            disallow_private_access,
-            Area::PostState,
-            emit,
-            warn_config,
-        )?;
-    }
+    check_requires_ensures(&ctxt, function, emit, warn_config)?;
     if let Some(r) = &function.x.returns {
         if typ_contains_opaque(&function.x.inner_ret.x.typ) {
             return Err(error(

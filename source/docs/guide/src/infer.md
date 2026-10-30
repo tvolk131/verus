@@ -4,8 +4,8 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
-The current build uses metadata schema **38**, inference policy **46** and
-candidate-cache version **52**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **47** and
+candidate-cache version **53**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -511,8 +511,10 @@ It does not invent an abstraction or assume a representation law.
 
 This profile uses unary projection definitions, bounded tuple projections and
 up to four directly matched type parameters. It preserves the existing output
-observation scheme. Callback-bound variables keep their original predicates;
-arbitrary closure equivalences are not synthesized by this projection pass.
+observation scheme. Callback-bound projections can also use authored public
+observations; their candidate equations must pass the same independent checks.
+Application contracts using these predicates should name the public observation.
+Arbitrary closure equivalences are not synthesized by this projection pass.
 When a foreign private projection has no usable observation, inference reports
 an unsupported abstraction boundary before module pruning.
 
@@ -535,18 +537,31 @@ trait inference or automatic abstract-view discovery.
 
 ### Constructor results through complete tuple views
 
-A bounded constructor whose record contains complete opaque components can
-describe its result through an authored tuple-valued `View`. Other fields must
-fit the existing value-record profile. This keeps private constructors and fields
+A bounded constructor for a private record, or a record containing complete
+opaque components, can describe its result through an authored tuple-valued
+`View`. Other fields must fit the supported value or collection profile. This keeps private constructors and fields
 out of the public result equation. For example, a packet constructor can infer
 that `result@ == (round, payload)` from a view exposing those two components.
 
-The generated contract also proposes a uniqueness guarantee: every typed peer
+For complete value records, the generated contract also proposes a uniqueness guarantee: every typed peer
 with the same view as this result equals the result as a complete logical value.
 Ordinary verification must prove that guarantee. It allows an exact inferred
 caller in another crate to forward the opaque result while retaining whole-value
 precision. No injectivity law is assumed. A lossy view that drops part of the
 modeled result fails the required proof checks and cannot publish an interface.
+
+A collection-bearing record can instead expose collection contents and its
+other modeled state through the tuple view. Independent structural exactness
+still checks that state; no whole-object uniqueness or allocation identity is
+claimed for a content observation. Ordinary iterator-factory callbacks use a
+checked image equation, without acquiring exact constructor certificates.
+
+Generated public contracts obey the same visibility and pre/post-state rules as
+authored contracts. A public constructor without a usable public observation
+cannot export private fields or a private constructor. Unsupported reconstruction
+of a private record inside another record's view reports a diagnostic. A flat
+view of supported scalar components and complete forwarded inputs is supported;
+an author may also provide an ordinary verified semantic interface.
 
 The bounded projection definitions used by the view are evaluated only while
 building candidate formulas. The executable constructor and independent SST

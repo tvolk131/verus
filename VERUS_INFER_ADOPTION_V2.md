@@ -3,6 +3,13 @@
 Status: active. Verus baseline `bc45dab58`; pristine Aleph baseline
 `f35c7bba6d628bcafdf0d65dd471cc6f868ec034`.
 
+The first independent attempt remains recorded as partial. Parent follow-up has
+proved the general count bridge and restored ordinary well-formedness checks on
+generated public contracts. Supported private constructors use authored public
+views; unsupported nested reconstruction fails cleanly. These engine fixes and
+parent semantic strengthening require a new fixed-toolchain acceptance attempt;
+they do not retroactively change the independent result.
+
 ## Objective
 
 Make the completed Aleph v1 verification result reproducible from clean main by
@@ -152,5 +159,14 @@ successful creation's parent bounds/quorum contract, exposing collector validity
 through its already public view. These semantic-only application changes verify.
 
 This checkpoint passes 481 inference regressions, 116 backend tests and all
-2,215 vstd results. A final independent acceptance attempt, complete evidence
-audit and the discovered private-constructor diagnostic safeguard remain open.
+2,215 vstd results.
+
+The subsequent policy-47/cache-53 checkpoint checks synthesized contracts with
+the ordinary well-formedness rules before pruning/export. It supports private
+constructor observations through authored views and preserves checked iterator
+summary composition through readonly forwarding chains. Unsupported nested
+reconstruction, lossy views, false observations and wrong callback mappings
+cannot publish interfaces. The independent precision checker is unchanged.
+All 486 inference, 139 standard/attribute, 116 backend and driver metadata tests
+pass. A final independent acceptance attempt and complete evidence audit remain
+open.

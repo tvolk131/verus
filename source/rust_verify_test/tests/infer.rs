@@ -1011,13 +1011,15 @@ fn private_sequence_view_interfaces_compose_without_exporting_the_definition() {
     assert!(!run.status.success());
     assert_eq!(json_inference(&run)["status"],"caller_proof_failed");
     assert!(!crates.vir("private_app").exists());
-    // Changing the supplied view to a lossy one removes structural eligibility.
+    // A lossy view cannot explain legal public storage contracts. Reject the
+    // provider before publishing hidden-field clauses or starting a caller.
     let lossy=base.replace("{self.0@}","{self.0@.take(0)}");
     let run=crates.build("private_base",&lossy,&[],&["--output-json"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    assert!(!run.status.success());
+    assert!(!crates.vir("private_base").exists());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("opaque datatype"));
     let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
     assert!(!run.status.success());
-    assert!(json_inference(&run)["generation_failure"].is_string(),"{}",String::from_utf8_lossy(&run.stderr));
     assert!(!crates.vir("private_app").exists());
     // The view evidence must not survive removal of the inference certificate.
     let run=crates.build("private_base",base,&[],&[]);
@@ -5946,6 +5948,9 @@ mod native_iterator_cases;
 
 #[path="infer_cases/scope.rs"]
 mod scope_cases;
+
+#[path="infer_cases/visibility.rs"]
+mod visibility_cases;
 
 #[path="infer_cases/derive_conversions.rs"]
 mod derive_conversion_cases;
