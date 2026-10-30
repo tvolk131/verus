@@ -1,0 +1,23 @@
+{
+  "aleph_v4_native_commit": "fa88a4f0956e7a888bbe3d47bc8e14286f2af953",
+  "aleph_v4_source_hashes_match_prior_accepted_closure": 80,
+  "aleph_v4_status": "",
+  "aleph_v3_fixed_engine_commit": "fbab46ec4c5a1dd600c80d094ea7fe4fb90e34dd",
+  "aleph_v3_fixed_engine_status": "",
+  "aleph_v3_pinned_artifacts_match": 9,
+  "aleph_v3_artifacts_sha256": {
+    "verus": "2b4d5ef2734badc6b322f988dee3b4c8855df8ac890c45c80d320622dee1350c",
+    "rust_verify": "b46fb097f2142e3de3fe5d56a8426452f4301a8cf905ac4a9ee4ca0a88e63049",
+    "cargo-verus": "9184cc70413dbda567bfbe7b92c9095872a150f0fd1e98b61a49b6eb408b997e",
+    "vstd.vir": "f2687f1b8bcd5375d57f21c2aa182a92339b29359b49135a9ac9684f6b69f8db",
+    "libvstd.rlib": "69c01a5383ce9e5167e250e2d775f4cff6c3765ecf270410b0fd65fe810c5a2d",
+    "libverus_builtin.rlib": "6d6b4b8caa2e9d4de48e8b0ecd4da99d5b9bdf1b8ff18450abd96ab10a0f0d61",
+    "libverus_builtin_macros.dylib": "6df51eb80d3d02f240c90c1ec801be07584c4f940df49c994b24f7e06095eae5",
+    "libverus_state_machines_macros.dylib": "b2bb0551e96c43dba0e4295fed3f7bc5cca80040564a8b748a2aff98bf1933d0"
+  },
+  "aleph_v3_z3_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+  "accepted_evidence_git_trees": [
+    "040000 tree a22e189fed5e4fd59c20de601f4c3d1e2361ef8d\tevidence/verus-infer-mechanical-v3",
+    "040000 tree bb282ea200182e38aa360e4ac4b30478e9abc1f2\tevidence/verus-infer-validation-v4"
+  ]
+}

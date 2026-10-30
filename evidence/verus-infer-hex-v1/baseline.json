@@ -1,0 +1,18 @@
+{
+  "native_baseline": "129db6ac54d25b08e0b927c225aefe4a8df05a57",
+  "native_version": "1.3.0",
+  "engine_baseline": "3e7fe46401bcc35f9fe781daab4939f368aa616e",
+  "native_default_toolchain": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "proof_and_replay_toolchain": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "msrv_toolchain": "rustc 1.74.0 (79e9716c9 2023-11-13)",
+  "source_sha256": {
+    "Cargo.toml": "89761ac9b6e84eb5453b800b71494c7d32b7d21310e8908c4e2258f589b60fd7",
+    "Cargo-recent.lock": "c70b2438b33fdc2c115ef652944dce695507d8dcb9a9d143102cc8f8c6544d5a",
+    ".cargo/mutants.toml": "dc0077e85e1defd4899a60587d14e971ef13bcc9125f6d06d2522765a7219fc3",
+    "src/lib.rs": "ae7cdeaabcacceb3eb397ef2b68dfd48da1b42300dd5ebc67b5965e5a15b8d8f",
+    "src/iter.rs": "c0d42d0f317152169ed03cac68656357f40d0bbbf983fe726133703bb9c0065d",
+    "src/error.rs": "706a5ceb530ef47e2cc9abc05c4f3717c1a891725de2c8434b417bc1369349af"
+  },
+  "instructions": "No AGENTS.md in either repository or parent directories.",
+  "configuration_change": "Ignored Cargo.lock copied verbatim from tracked Cargo-recent.lock; no toolchain or Cargo configuration change."
+}

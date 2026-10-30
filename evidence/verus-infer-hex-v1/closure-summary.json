@@ -1,0 +1,66 @@
+{
+  "decision": "MET for the finite native byte-pair milestone only",
+  "engine_implementation_commit": "c8c384a70b23e842ed2edcb2dddc27a3a61dbf61",
+  "native_implementation_commit": "5ccfbad247d5a332408929173e4072fbf06d8bd1",
+  "proof_run": "accepted-final/restored",
+  "verification_results": 8,
+  "errors": 0,
+  "exact_inferred_helpers": 1,
+  "required_certificates": 3,
+  "native_checked_exec_functions": 4,
+  "real_static_initializer_checked": true,
+  "authored_checked_requirements": [
+    "table ASCII-range/sentinel mapping",
+    "decode_nibble ASCII-range mapping",
+    "pair arithmetic/error precedence semantics"
+  ],
+  "original_functions_signatures_and_bodies_preserved": 218,
+  "semantic_mutations_rejected": 6,
+  "negative_controls_rejected": [
+    "without_assistance",
+    "no_verify",
+    "filtered"
+  ],
+  "native_test_feature_sets": {
+    "default": {
+      "unit": 99,
+      "api": 3,
+      "decoding_semantics": 2,
+      "doctests": 12
+    },
+    "all": {
+      "unit": 99,
+      "api": 3,
+      "decoding_semantics": 2,
+      "doctests": 12
+    },
+    "no_default": {
+      "unit": 36,
+      "api": 3,
+      "decoding_semantics": 1,
+      "doctests": 12
+    },
+    "alloc": {
+      "unit": 84,
+      "api": 3,
+      "decoding_semantics": 2,
+      "doctests": 12
+    }
+  },
+  "native_toolchain": "1.99.1",
+  "msrv_baseline_and_restored_default_tests": "1.74.0 passed",
+  "inference_regressions": 288,
+  "constant_static_regressions": 57,
+  "constant_static_ignored": 2,
+  "vstd_verified": 2215,
+  "policy": 51,
+  "cache": 57,
+  "outside_proof": [
+    "HexToBytesIter positions and state",
+    "ChunksExact",
+    "unsafe pointer drains",
+    "public decode_to_vec and decode_to_array output/length semantics"
+  ],
+  "aleph_evidence_and_pinned_artifacts_preserved": true,
+  "independent_agent_review": false
+}

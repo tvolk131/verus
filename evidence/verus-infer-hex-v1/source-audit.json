@@ -1,0 +1,1557 @@
+{
+  "comparable_original_functions": 218,
+  "all_original_signatures_and_executable_bodies_unchanged": true,
+  "method": "Verus/Rust parser inventory; compare all six original source files, erasing only added cfg_attr(verus_keep_ghost, verus_...) attributes inside bodies. Original rustfmt attributes retained.",
+  "checks": [
+    {
+      "file": "src/lib.rs",
+      "owner": "",
+      "name": "decode_to_vec",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "99bacd01c14ff0162ad101c973b4a1b3cd01b31455355b5051135b1ef3c9cc75"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "",
+      "name": "decode_to_array",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "b3862db1f91cb15d8a1a851924ec3ffc66d584af5e1ab779d7b834de556592c7"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Case as Default",
+      "name": "default",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c76f75a877f80684c8eb318c498fd5df1ed23541f2d83c9e3f6b52c2c0a81460"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Case",
+      "name": "table",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "f2fcbe551757c53e4dec240172ef3ccf4e78dbafb41a2c286029e00b095c5cc9"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Char",
+      "name": "decode_nibble",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d87ea04d37f4845141be95f7902568a7f637fb1ec26f081780b2b62d2896b693"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Char",
+      "name": "slice_as_str",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6fb87edc40f5b372a82a9f72b4c86f634db35140b49959777f8524ae3d9ab71c"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Char",
+      "name": "slice_as_bytes",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6ceb329da88ee5debeaa3945e2f62d1500a37f1700a4969a33cf3721e17939b4"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Char as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "cd4f3a88acb0b1ba6d47adeaca2bc4c413992fba9c37a7ba7d76d622d8e1a466"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "Char as fmt :: Debug",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4e7bb539fcbf6f17586eb4fca1e7eb5ae17ea56e273394133919230f7f534241"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "char as From < Char >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "01cd5841feb19be2a5745a0097bcdd1adf6b6717b433c3b3f58320f61566f252"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "u8 as From < Char >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6081a8635ba9a46cbd3830ff66cfe4d0c6e06e52a60330b32dd7522d4832f857"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "table::Table",
+      "name": "byte_to_chars",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8189e766a0d310fc442869e74c7fb871bca279aa76d885d8a4eeb0f5177c717b"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "table::Table",
+      "name": "byte_to_str",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8dd02533ebccc4766bd82d7ead75d70841662a6a454c4073e5787c47e8f4b6e7"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "table::Table",
+      "name": "byte_to_hex_chars",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "7a9bcc597f2a2233c612e6a86072197a59a6eeed06eb44f2811997c8d0df0ea5"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "table::Table as PartialEq",
+      "name": "eq",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "48484081fde1c675a2f81b8eaf1ca95228ca4e90f2f5d9a3633787d9a5568a35"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "tests",
+      "name": "hex_macro",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ce14db9ef1f0850ae96a011e7cff2d5fdfb242a2bfa73c1f2b6c32e4e304a1ef"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "tests",
+      "name": "hex_macro_case_insensitive",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "67475989b0af06132600a44468c5834a0b3af0b73749056cdcd29364526c0dab"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "tests",
+      "name": "hex_macro_const_context",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "18120aa481783e0ee687d1deb60d2e17be96d3693be0b63f13c9206966e9c4a0"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "tests",
+      "name": "char_slice_casts",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "77529ec3253e9f9702739c4daf35cad692646b93f82ad9eec44f89016e20706b"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "tests",
+      "name": "char_display",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8169d6710d469d5b118b74b561fceee8e6757942102e505a85ebecda80c3cce2"
+    },
+    {
+      "file": "src/lib.rs",
+      "owner": "tests",
+      "name": "char_debug",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "9fd1b82e76d2e26d521984905c437b5ec30560a8b23aa45609a629440dbd27b5"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < 'a >",
+      "name": "new",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "fe6171cdb02ceede2b1e94b9b28a1f7b14c0ac90d790d417ded1b4886762a549"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < '_ > as Iterator",
+      "name": "next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0bdf1b654f68b7314a6b19ccee03b954ca0f64ebeab0849fca5cd008621e9186"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < '_ > as Iterator",
+      "name": "size_hint",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4f9e79c673310465a06d2905125b3ad9e073580a88ec703632e3486ccda04848"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < '_ > as Iterator",
+      "name": "nth",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4f23358d5185427a1261a2fb510d2564c40758768840b195f37b5da2092317ab"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < '_ > as DoubleEndedIterator",
+      "name": "next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "102d86db577817b4ff52c23ffbbca768146a202a717f42aea1db962b5df3e63a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < '_ > as DoubleEndedIterator",
+      "name": "nth_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0dab365ce9baf45dc3f49b15813ab06f0cd79f3e04f3953fb0a40b423825bc48"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexSliceToBytesIter < '_ > as io :: Read",
+      "name": "read",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "41557e651cfad730a25b3f73439ebd267c6fc6ee7f064787e8c6574e31efd8fa"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < HexDigitsIter < 'a > >",
+      "name": "new",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "05523a4cbf1623b2183329605c5a367c0287f0af1171f0cf41a10244f6c89094"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < HexDigitsIter < 'a > >",
+      "name": "new_unchecked",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "2f00bc9df2492d0f5c1b20894b9374e532f9dfefec59fe7898a1e4c9f3b6251a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < HexDigitsIter < 'a > >",
+      "name": "drain_to_slice",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "74288a0a2a73485e4c27b676a289e7be85ebdb4011e1a064f50fffcec42744a0"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < HexDigitsIter < 'a > >",
+      "name": "drain_to_vec",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "85c64a8fe42f993be293c11ad85f791a9afd07570a914d4c74d14cdedb2b7fcb"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I >",
+      "name": "from_pairs",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4de809e5c54073c56d9695e3eb68a06b48008f6e91007a74276eab8a0d6516c4"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I > as Iterator",
+      "name": "next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6d02b8fd95d1be44e0f882cc91afac175200cb69b9f75ffc9992a16d16687a6b"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I > as Iterator",
+      "name": "size_hint",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "35e2bf8cbfbe6cd589c71bc4fcc8a8bce886e1cfe8a664be7005fd49d790177a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I > as Iterator",
+      "name": "nth",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "867c840f28fdbb66f2c9e02e7ff4c1e0eddf280ff30a7755c9699d6f20de75a2"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I > as DoubleEndedIterator",
+      "name": "next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8b462a60f15c8629a8806156c70e1dbf32045b73b15a00b79b59efd393a2e165"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I > as DoubleEndedIterator",
+      "name": "nth_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c1cb81d04fad2348e7024e8e1fc04f342c63f8668dc29c23eaf14c85966ba049"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexToBytesIter < I > as io :: Read",
+      "name": "read",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "cb5a13853b32021ed617aafa36b695120f256803e6e6e284f95f54690bd264ca"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexDigitsIter < 'a >",
+      "name": "new_unchecked",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "5b78ff9a1a8ce15a9dffebdfa0eaae0f3bacf47bf9bcd35113b9748b6b537476"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexDigitsIter < '_ > as Iterator",
+      "name": "next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "9cd4fc033d500faf5ac65198921e812bf4e8e0931c39ca02fc577d67a17bc3a3"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexDigitsIter < '_ > as Iterator",
+      "name": "size_hint",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "35e2bf8cbfbe6cd589c71bc4fcc8a8bce886e1cfe8a664be7005fd49d790177a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexDigitsIter < '_ > as Iterator",
+      "name": "nth",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "860c49049c53536faa1407a8d586440988ef2522d139b6b1e0084e036d0a4a28"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexDigitsIter < '_ > as DoubleEndedIterator",
+      "name": "next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bdbce48246e64665ef7c772617921cfe876e96f26e4cc3c69fdd35ae539d17a1"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "HexDigitsIter < '_ > as DoubleEndedIterator",
+      "name": "nth_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "adfd54920bf916a5d500f29a9c2adc6044abfc0757db84541e61aff5186af1a0"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "",
+      "name": "hex_chars_to_byte",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "55c6547fe8d49a4efd04d5c5eb2a057f82883460e09dd976731b466afd954dd8"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I >",
+      "name": "new",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a7c307fb87399cd5ca4fab388be68ce4cffa8c39bf299ce7dc0eaf1e089ffe6f"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I > as Iterator",
+      "name": "next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4b9c303fd22d5aa817c1913e1fc75202ab386ce9da083c6b6c14b56157058dd6"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I > as Iterator",
+      "name": "size_hint",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "35e2bf8cbfbe6cd589c71bc4fcc8a8bce886e1cfe8a664be7005fd49d790177a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I > as Iterator",
+      "name": "nth",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "f8bae7fdd4780d8da20f77e7f1bf671ab55f94cecab7538ac8f64c384e9929bb"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I > as DoubleEndedIterator",
+      "name": "next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e7c11c1f7d890351120f0c9a0a0e53f117ec1d970c03145783f98e9777507c4e"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I > as DoubleEndedIterator",
+      "name": "nth_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8a9e30829b41e32cc9e6293aba1299fbf08fc9d4010b15cc687364fd7397fc06"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "BytesToHexIter < I > as ExactSizeIterator",
+      "name": "len",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e6fa0b175ffe657e07a3838bfb9b4a54290fc0330520d4d7451df5198dc5ebbb"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "nth_slow",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "1496865c884e0f355c9a9cad248d1aeddb5080dc14ff167d4ec427d2aed74707"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "nth_back_slow",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "46da012849cbe70aca0db5519b4c46733aedb6adbd366f9626822b2128d5e0ad"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_byte",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "b8be2e8bf376e8aec8722dd38134197106e8114a966b2c6b472e826aaa46ed4b"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "decode_iter_forward",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a102c7c4cb887aa3c678b885b12fdfe367ad778c5abc9ea9283dcc7fe3aea0b5"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "decode_iter_backward",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "491b9c50717e0c12b16039649c4fcedca55c6140c8ed3e9fb0be05f6cfea54b6"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_digits_size_hint",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c85e375c0a80f7ad9a6f7eb4fed89846e23eeb6335c9908d60765cffbf69379e"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_size_hint",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e95eee87e3f3dd65f044fbb1fed09ddb6f53ca3c9e249c8d01e730e2435cb3c8"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ed3485babd7015196205e55efdf602efe7d5756275b482f9124a68857f3f5ee1"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain_panic_empty",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bbbf89f6e6be0c99b881dc389edae8329caddfc860f344b7c0cc471e2d1823c1"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain_panic_too_small",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a6ddb27f3bf0b592631edefca644c094afbe88b26d8a051eb73ce54a7883113b"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain_panic_too_big",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "82f5d0f28204f8f645a2e01a42591161e6360261b8aadb97224c05a9f18af245"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain_first_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c537edfdae3075f13ab548bf962ad198e697b2e67c7f36cb00a06bb83dc48751"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain_middle_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "fd6f2b6124f3dec4ce803f8ecd59f089d55315b53a8502388773c827fa2756c2"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_slice_drain_end_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d0a228575ae68e0106347325529051e2044ab04529e5552f393bf72ec599c9d1"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_vec_drain",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c2da6f3a85939ac13723754f30ff44dd667cbaff53b8fe79bf91aebe54a02d64"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_vec_drain_first_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6847ca025a938628357c08e9254a062dbeee410d6b61d0878837227289b1c7eb"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_vec_drain_middle_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "35c94ef5c60466496adf6011a5ce8ee85a5976d38f6cdbbb503f5e51acaeac4a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_vec_drain_end_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "78519d00f2f29bc692b37972960f15fa5da7042c48ec7c1a4be0c63bee415e31"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "decode_error_pos_after_next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d2020fbe034e09e938f1f75aaed823bca238632aba2ce08145eccd56d862ebe7"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "decode_error_pos_after_next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "36b00ee27d9f9c14e5d3ed405e968b51c94dc415e8095f458ed49ed302c3823b"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4de425c0c446d643e970c30694b52e25698bd111debb3fb219d13ffb528cacbf"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_backwards",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "2b96b48d77b6ae1f085241fe205019662bac01094603288bdc4fa24cfce2b366"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_nth",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ab87a45c411d24019f5cf59b460a902156f8fb9f02bd27b945c2e5424ed87e83"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_nth_after_next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "645102d061a75dc889b8d5cdf11e6c58f7944542b1ed7c5005eb5aa5d5ad6908"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_nth_after_next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "dcd32e74154d5b9dda9c67e9c42435c5f22fb27cebb0e7fa25aee0b816e62b3f"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_nth_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a1aed67d45ed6f76ecd89fd422db2cb7554b1f80278ec03f45352cb5e4bc0052"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_nth_back_after_next",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8f789507f11eabbab9b07ff213c86409f9815d938bac357747633ee45054e54a"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "encode_iter_nth_back_after_next_back",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "013eea1e1a0f31fc970d806dbe4593b90ae9c4ea256618bd425b4a43fce21f69"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "roundtrip_forward",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "736132b08d6c1824ca3715b1633d558f77f5506e54324ee4b3d80dbdb023837d"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "roundtrip_backward",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "12a8118194592e1b9f070b580d9e3cec6117630c87ea0bcea9f39324f18580e6"
+    },
+    {
+      "file": "src/iter.rs",
+      "owner": "tests",
+      "name": "hex_to_bytes_iter_read",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "98812049cd5f8d660eb59200a082fdf3c2f4ef3e6ff37edb3b47ff1699ef5862"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeVariableLengthBytesError",
+      "name": "offset",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a0c092cc5b8c30f3165bbc55effbe5428057920388d76f62d7823dd2a81f368b"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeVariableLengthBytesError as From < Infallible >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "863a21fb7d82dda0d00db953f4a3d1d334df9f69a8e715a5b33c11bd77c42536"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeVariableLengthBytesError as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "26007b53c6e52d1c48ac26be8c7181843d64baa70b5364cd05b203f9b696a9db"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeVariableLengthBytesError as From < InvalidCharError >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c802fcd27042bceb0f887f3001724d786659c80d3f41e55f4fb47d504a981bb9"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeVariableLengthBytesError as From < OddLengthStringError >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ca606aa5a27b0272f0125e4a93e42548000f2b3f350c74fac26328b2f5d0824b"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidCharError",
+      "name": "invalid_char",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "63241608c41e7dc000f30a4c9bd5b52ea8d12f078abbe0743366a409ce08c6ed"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidCharError",
+      "name": "pos",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "894dc4518713f5b38e433110272653f6223e9d25828ae410fe714b1738e3eb2e"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidCharError",
+      "name": "offset",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "3d215c1c2857aeaacde6c1ee2b12d32284a59c4b7e71af3cfeb5a722ad91afa9"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidCharError as From < Infallible >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "863a21fb7d82dda0d00db953f4a3d1d334df9f69a8e715a5b33c11bd77c42536"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidCharError as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6d8d594ce9c7caf1eaa44b721e09f951028733ebb227975b1840bef7d43d4a57"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "OddLengthStringError",
+      "name": "length",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "805c97404d7a896b3062a444d0a95b7168e134db02f5e99637b74fa63d775623"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "OddLengthStringError as From < Infallible >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "863a21fb7d82dda0d00db953f4a3d1d334df9f69a8e715a5b33c11bd77c42536"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "OddLengthStringError as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "584e9949c69fb015327d896346efb9a5b627c949446e948853932a6f3c57ea9b"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeFixedLengthBytesError",
+      "name": "offset",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "2b412637129571dae2fee974f16aba05becb5d3b043bc93a3dc6296441314ef4"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeFixedLengthBytesError as From < Infallible >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "863a21fb7d82dda0d00db953f4a3d1d334df9f69a8e715a5b33c11bd77c42536"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeFixedLengthBytesError as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e71ba1e57d3dfc34eee98e51d5d7d5ab9d82a1ce640495ef42979d2567b92b18"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeFixedLengthBytesError as From < InvalidCharError >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c802fcd27042bceb0f887f3001724d786659c80d3f41e55f4fb47d504a981bb9"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "DecodeFixedLengthBytesError as From < InvalidLengthError >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "43ed088f2c8bc51c0ff189440b24025bdb36b6e30bd09e79541e754a2772692d"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidLengthError",
+      "name": "expected_length",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "95b1d7d90349727eb85397fad3e8e15adff959ddf91545730e58778dde8e558f"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidLengthError",
+      "name": "invalid_length",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "63241608c41e7dc000f30a4c9bd5b52ea8d12f078abbe0743366a409ce08c6ed"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidLengthError as From < Infallible >",
+      "name": "from",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "863a21fb7d82dda0d00db953f4a3d1d334df9f69a8e715a5b33c11bd77c42536"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "InvalidLengthError as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "47c05944e28373ceb8e0925f8f7b6d89b1667cb9fc3be13af583660e03e6f0d0"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "check_source",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "3c9811574ae938bab0a1eb8810b774a5893f30ba0e73c85965e0c2437ac35cb6"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "invalid_char_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6c410fe3ccc4de7cf70581c02458c1a829596d1ee4b1bd0599764396609c4d04"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "odd_length_string_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "48bbd4cc81d0ae2985893307f49e53e5fe1c6d4942134571a793f556495bd981"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "invalid_length_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8383b51585873c87af1e4c610c887ef90a33310a5c6df979f506daaa0e230878"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "to_bytes_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d7b8e386182418642992747dd4f26221f02438614fd89f4aef9d0aab1f693619"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "to_array_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bef342cd5ebdeadb30852b4c044a70358e772f5847acb23d557f680408ef3812"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "hex_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "57d85c076b6ae2cfc0ec7231ddbba8cdfd9007d37f5b36998038e574a7e7b598"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "hex_error_position",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "7ce691dfaa09ac3432e907bdf581339babc6c612d5845a877c31a3f1e2fb5415"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "hex_to_array",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e10963c6f19df4c9ca0a16a0e11f806c530861dee5586d3f218f8aa8a0e0dd1d"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "hex_to_array_error",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "697998bbe948043835c89e93c5720e8b15d77794d73f8bd973319010da15460e"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "mixed_case",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "95563ef733958e497c29ec4e24e3d2e1a296f63b3f09f6a76eb19c789cda3f23"
+    },
+    {
+      "file": "src/error.rs",
+      "owner": "tests",
+      "name": "invalid_char_max_position_formats_without_panicking",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "2a6f74c06b91c2fd9454fca9393b741ddbc277ec226b3fdff58bcbc1c1a75a0f"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP >",
+      "name": "new",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "1ecc9fccb330b658d3edd20473d9c9545594b7ea0f84febf11d9d3b484b73f59"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP >",
+      "name": "as_str",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "17bbbf3cc031811160e55ed66ec57857136bd3c3359c912dfa8bd1e838fc466d"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP >",
+      "name": "push_str",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c4ec72cbd7800c59e7d8f2386cae66351af3cb9ee07270d4be2d9ab33eed83c0"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP >",
+      "name": "clear",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "78e04b18741b34d95a85a2dcc9a1b26d13ec016eaf43e09f378f7c36fa47a6d2"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP >",
+      "name": "is_full",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0005e225c2bd3a89c9ca114ac8c980370cd0a9cdd292008f7377a4cffa32f481"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP >",
+      "name": "remaining_capacity",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "741cdf209e90fea5079ba259b2dbc25aa5f25a2002d35c75dc0e6ddfdfe34695"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP > as Write",
+      "name": "write_str",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0d7edebe981cd4bc1e77b7918ed82dc61233c85c029438401dff509f9e971cec"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP > as Clone",
+      "name": "clone",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c27e8ac0ac65eb717bd3b3e7f0ce344f26991d9b45711246ee070b7f9cd6b5bb"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP > as PartialEq",
+      "name": "eq",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "eb3b7eb52d8cca7e5677c9b995ab2a31b0b07cdf6f5fec32bbba28c9f7befd58"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP > as Hash",
+      "name": "hash",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "387b5dea15e1a8f5fd7e6189b9a720558c9fbba907d22fa2d28698395fc113d5"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "ArrayString < CAP > as fmt :: Debug",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a53f5799dde1e80835f17511c4c2770172abffe6c037aaeb2a09893ad1f244ba"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "tests",
+      "name": "zero_capacity",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "19a69edcee30b437f132f7b4cb2107f660ed4c00fe2600fa44ab4a34f5d3f059"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "tests",
+      "name": "utf8_exact_capacity",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "821ee9ba30174070812735a08617d05dc2f42b1d56cef67422730bf28825140d"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "tests",
+      "name": "rejected_write_preserves_contents",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bc2889092c7fbf3bbf307fb760ca1902c0723bd6abecfdd37184df5362712b74"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "tests",
+      "name": "clear_reuse_and_clone",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "fadf70dabb724e587c831449e815b05c2f6eee03d23e6ba23193e25210639581"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "tests",
+      "name": "push_overflow",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "180b1925acfb09db34ac74e3425bb469c2ec1664bfff68aa46ed5c4ada916cfb"
+    },
+    {
+      "file": "src/array_string.rs",
+      "owner": "tests",
+      "name": "traits_use_only_string_contents",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d08377ed44dd1f848c101710ea48bd1cdf7cae720bd0749410ff373ac4c46f55"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "new",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d4eb402f85c50ae1bc16b790cfed83f0f13633aeff8678a4b6a29f921cd57d4c"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "put_byte",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "83243fe795efefcbf72cd87dfee8493a27f641e8aa7d5623041d5cb0c6d464cd"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "put_bytes",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bc6203f3df3a69f73003b82e45fc821d75c3040db438fa53a04691e597518b63"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "put_bytes_inner",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ec4ec8bda4ec8b75198ea0455bf01556247fb92cd9930b1a2ee8d6fa9bc2e546"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "put_bytes_min",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6bdf3d39f0ab6167bd04615ddb314e36041f07e575b329ae433d6080dd6a4ccc"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "is_full",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "5e4b6230f50aa810f0a4a7009b8cc390b7cb981a73fa534bab129c061acc1adc"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "as_str",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e71aa8cf4be59746592527eb89932f2b2b366a675a2e709dfaa14af7f3053c5a"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "clear",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d353608c14f2b3eba8c0c92dd084bc4f2164903c27c1c9590423b2c0455e776e"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "space_remaining",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "442f3720d0995742550ea5df9070a9f2640c9c95ef17caf70265ea4e34025aac"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP >",
+      "name": "put_filler",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "20795cae3524916f98f6cf78a0ffaa083fc30784061f74614e86d8917a2b59d2"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP > as Default",
+      "name": "default",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d0b267e5bd33e4dc02bc5c9679f72e64216710236838752da81ca890ec166cff"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP > as FromIterator < A >",
+      "name": "from_iter",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e593e3a5b7f13086a57a2028fcab3cb95138f047c770c240537c90b900a0e1af"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "BufEncoder < CAP > as Extend < A >",
+      "name": "extend",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "040f9e129e061d4e86a0684d9ceaa6c8d444918c8ff06d3641664573450e3fe5"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "empty",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a10c6ecd3511d4cb0a9167dcb81529f2fa2db2d8245736dcef0af937d1acdace"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "single_byte_exact_buf",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "3deee57dab29e0b5b39787f03b280853ed718ad6309925403d3b0bb947e68004"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "single_byte_oversized_buf",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e598966c9b6517bbfa324215456422a7b01789e49e9e6b97adfbeee7c2e4b356"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "two_bytes",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "77ab61fa46ca248f234c241e5d2815a93c5dd24b93e6c068007b1822e3e2ac29"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "put_bytes_min",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0242c0558609d56f36da55bf74c33c3588d9dd3220395b24edf3048a901ae55d"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "put_filler",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4d5bf6654e74eb41b28d9eae95c7ead0c8790e31ef9df92d51901151fff9e4cd"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "from_iterator",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "7eb49340d5e9d7fff4d9bc3a8280ae6b14692f6cc79ce34007b94dee17c07f77"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "extend",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "50a560d214303e150e6a7f7437c16fda1e586f0899479fac9908f91e9509eeb6"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "same_as_fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "58e0620304e13e7f3de861528b37f42ea7746d1297c080cc232979d379a22c0d"
+    },
+    {
+      "file": "src/buf_encoder.rs",
+      "owner": "tests",
+      "name": "put_bytes_accepts_overestimated_size_hint_when_items_fit",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "fa098066b9152db698c039cf6f3b8588240d971fe9defd1cc58e9af72ccf9ced"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "trait DisplayHex",
+      "name": "as_hex",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "trait DisplayHex",
+      "name": "to_lower_hex_string",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e027136c250315869ec8ae5f6316c28619bd745aea0c9e728d88c77cafb4f8ea"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "trait DisplayHex",
+      "name": "to_upper_hex_string",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "93c7f205db53556759c1991fcc8ac0064da0269477e2d94e75ff6f9834a3d56e"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "trait DisplayHex",
+      "name": "to_hex_string",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "cbbaaada06d6fd7306527f2595e6929f5b524b916ffbac0a72c9a179161ad171"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "trait DisplayHex",
+      "name": "append_hex_to_string",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "fe66b80d40e8a16f32c634c2a8172b61facd8eceda6335f3eff3ef52b60d3c46"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "trait DisplayHex",
+      "name": "hex_reserve_suggestion",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "",
+      "name": "internal_display",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "17bd1286ec84f99b2c92b0528bd8f6f709fa9e1f8a137264e763ffc48de2eaaf"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "",
+      "name": "write_pad_left",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "5d6b24ccaf85adee4b674e3339427a1e086d3f22b55a7731822ef86e4edb2d6e"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "",
+      "name": "write_pad_right",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a067cce74bf1e5ef9358ede660bb071d37ca0a59131e3e719fbb3a3d0fdbd0da"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "[u8] as DisplayHex",
+      "name": "as_hex",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "47c8044afbf9f6729ebc87ccf752ab85200aada74a382e2218dcb50192177121"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "[u8] as DisplayHex",
+      "name": "hex_reserve_suggestion",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0ea955413057ab145a95563ed1f84551ab92771353c69ea928c1fc86804e1be8"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "DisplayByteSlice < '_ >",
+      "name": "display",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "7c1cc63eb5922a104fb5b1276061011c20c18ebb94bc3f114ab93441859997ba"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "DisplayByteSlice < '_ > as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "63f094e2e199b5091652a818340876dc5946f2529552121081c4db33980d1125"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "DisplayByteSlice < '_ > as fmt :: Debug",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "63f094e2e199b5091652a818340876dc5946f2529552121081c4db33980d1125"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "DisplayByteSlice < '_ > as fmt :: LowerHex",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "db7855e033362fcc0e2e442b46a5757acddaca5a460dee0e6473048fca64b366"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "DisplayByteSlice < '_ > as fmt :: UpperHex",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a06f4f4c64244410efad93d2d255370ed65035da66095c23aba7d5d4c0cd715a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "",
+      "name": "fmt_hex_max_fn",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "c440c024c3d7d4edb658e79d605cdfca0d187dcde6958ed786254ba2a024b10a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "HexWriter < T >",
+      "name": "new",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ca401930208dd3dc68e829726dc1895028f1e9701f62a1b6e75c0ef802c0dcaf"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "HexWriter < T >",
+      "name": "into_inner",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "585efb592a286e9da789e3ed797f3d84417ad7bd994c79b15a2dac2be30ee1e6"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "HexWriter < T > as std :: io :: Write",
+      "name": "write",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "35060dcacf7df505655cb46e97003a2ea132f3885a43db823c7e12cc74c7f3aa"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "HexWriter < T > as std :: io :: Write",
+      "name": "flush",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "870ed6940f5e3497e54c853faf328a9452ac4d56c1c6d3d9a4fb431e3caff3b3"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "check_encoding",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "d456cf50ba9d7ffba75e6d9861824b208701142118c7dfa8d7c6da1b0166c7ee"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "empty",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "7212af8597f07cb36d0aa7b729e5f9103ccb541764117df7ab5424f129a3ebea"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "single",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "76d564891f86fffd5ef5049138356ce0223cfedd3d21b193d88dfb94180668f2"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "two",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "f6794aa39c4d6a20f9ffed57fa0949bf15a863e4fd2222816d54580095393adb"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "just_below_boundary",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "0cff6db0b21a62b8c8318b5855706e1db68e1e6b6a3ce0fac5ed143f37f9151e"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "just_above_boundary",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "3fce074ff0f2ece51eb0ce4f76bdae8c2d8b11be5bd9cf1cb4a58122dbfe677d"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "just_above_double_boundary",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "03512abd944cf8c19e1bf5983d87d54f77ab4470ef1f4343ea9d761882d00df8"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_exact_macro",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "f298520402b670b9a6804297d850c106ef5171a989b69ea0a021d972d0ec3a98"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_hex_max_short_bytes_with_precision",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "87cafa679ed5ee80c901a22fde8913806601dcafff3dea9ee5d1c5d427ee1a41"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_hex_macros_evaluate_bytes_once",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "9ae1552ed319a860efcf5655a3b9308b67eab34d3533c726ba7af0da47599d5a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_hex_macros_keep_temporaries_alive",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "4927f74df3546bea8c96812ff9d17a3bc6d7aa512893d75df34064e56306c18a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_hex_max_short_values_keep_fixed_width",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "fa9a3432405b56fb7e57b75585871140793e06b799bc7c3c61e3638138b064f1"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc::TestHexUpperLower < '_ > as fmt :: Display",
+      "name": "fmt",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "173ab844c62b5a774bac85d9e3934c6579ffb2623643530057ffbea12b264eac"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_hex_lower_macro",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "b82212c51a4711af368ca1783eb0766f2916980348654199d44da01c90d6833b"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "fmt_hex_upper_macro",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "f042cddab2dade0d4516f0fb6e81d323072766158f79af88511763d0bbd33a6a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "alternate_flag",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "efd4bf9a6334b9140539714b69b9795daa5ca1dd680151be6d20af1464cb8224"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "display_short_with_padding",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "be8e3f3d3a80fdffb1680b5e42b1d23e1598ad491d4c9c658bf693ffe6bba411"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "display_long",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "63ec7e02126b1f0759b83058e31841dfa26885512500467396324893962e7965"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_truncates",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "8682fb1a63598f2be52f625d02ecae42ead449c03a63c155130de86887e9fd71"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_with_padding_truncates",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "26b8fbd874e48b34fc7db9934ed6ca71cf25d5bc68a26175ed1f69edcda8c716"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_with_padding_pads_right",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bc65df82fc92341babed4137e0c57b21156360e542d93218852bf2f8fbbc2a19"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_with_padding_pads_left",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e2121d35ab4b4c0ce68d5a22841910198ba9b4ac12931bd0dd1d04e18d7786dd"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_with_padding_pads_center",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "9d98fd614908d1061ad0b882cf459302e49af237809684ca95a0d16097594fc0"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_with_padding_pads_center_odd",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "78bba9591a451f164f014ab126125cff5425dc4e6a7bb79ce5152bc1df470689"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "precision_does_not_extend",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "34aa2087c102605556127191c0b363ddfed96610a176f62b9719dc85ecb8e4e1"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "padding_extends",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "bb454b9a604d315d9e06acc883d64da02f734f32bf1e1a49e05c80e1125b0e25"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "padding_does_not_truncate",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6ef51a88bc0ec3c010ddf7362b6d1144ecd76433e00557d6ac54cdf6cfb30d6f"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc::Wrapper as Borrow < [u8] >",
+      "name": "borrow",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "55d069a3ed8ecfb7feedec2b9924a02a6e1f1d8db02925235fa5db0361ebc364"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_fmt_impl_macro_forward",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "56e247a6aee3eb8ecbe5a3c7c9b90d64383d54077fad5f748822c8603d70918a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_fmt_impl_macro_backwards",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "ff0ecb04735ffc2253bb7a2275ff9d185af61deb27ae4954a0b7fb0bb04d78b3"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_fmt_impl_macro_gen_forward",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "17d2688f11bc8da045176639960b641e06b23250c5493b928c92e366cab9904a"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_fmt_impl_macro_gen_backwards",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "2908392ef55e78f7946feb0f176bffb33ad10c97640346121ca7f3dbe9ac2368"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_display_case",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "6cdba1cc64b401cf34c7da0c1f94b4e2d325ea56162cac45ef6511b16b341d48"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "upper_hex_precision_preserves_case",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "03ece966457a4bba8575914f14bd8dbbccd0cd5514e121d8e1994ff527b4e05c"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "lower_hex_precision_works_correctly_with_lowecase",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "57297f993c8dba456f522437d21bdbf148fddf3aca06bd3c16e62e4868742584"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_precision_extreme_boundaries",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "7e3d96cf6913dc9516847a91044712d422968e52598b333241d855a308f2ad02"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::alloc",
+      "name": "hex_precision_greater_than_length",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "a4c7707f1886809be5aaed686ac85159e9f27125d93b3071e58c8a67448bfde6"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::std",
+      "name": "hex_writer",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "e9f0f948ad7430ef4eaf7c612b11bb7fecd9fdfbcb14a4b51a84a8ea5a53628f"
+    },
+    {
+      "file": "src/display.rs",
+      "owner": "tests::std",
+      "name": "hex_writer_accepts_and_mut",
+      "signature_unchanged": true,
+      "body_sha256_after_erasing_added_verification_attributes": "72afaf7422af89a793bbd416f469d695eff4dfdf15d6f8a9f1c7034dba25c149"
+    }
+  ],
+  "new_exclusions": [],
+  "new_assumptions": [],
+  "authored_input": [
+    "ASCII-range digit and sentinel requirements",
+    "checked extensional static-table requirement",
+    "checked decode_nibble result requirement",
+    "ordinary full-domain arithmetic pair requirement"
+  ],
+  "source_config_only_changes": [
+    "verification cfg registration in Cargo lint table",
+    "verification-only imports and specification module",
+    "Char verification selection",
+    "decode_nibble split into selected impl with unchanged signature/body",
+    "table and nibble required-behavior annotations",
+    "pair inference opt-in",
+    "ordinary pair goal",
+    "exhaustive byte/pair and native public-boundary tests",
+    "adoption documentation"
+  ],
+  "new_authored_proof_blocks_or_invariants_or_triggers": 0,
+  "aleph_preserved_git_trees": [
+    "040000 tree a22e189fed5e4fd59c20de601f4c3d1e2361ef8d\tevidence/verus-infer-mechanical-v3",
+    "040000 tree bb282ea200182e38aa360e4ac4b30478e9abc1f2\tevidence/verus-infer-validation-v4"
+  ]
+}

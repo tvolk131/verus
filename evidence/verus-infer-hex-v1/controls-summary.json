@@ -1,0 +1,149 @@
+[
+  {
+    "case": "fresh",
+    "expected_success": true,
+    "verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "success": true,
+      "verified": 8,
+      "errors": 0,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": true,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "wrong_table",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 7,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "swapped_nibbles",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 7,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "invalid_acceptance",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 7,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "low_error_payload",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 7,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "wrong_output",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 6,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "error_priority",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 7,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "without_assistance",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "success": false,
+      "verified": 6,
+      "errors": 1,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": true
+  },
+  {
+    "case": "no_verify",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": false
+  },
+  {
+    "case": "filtered",
+    "expected_success": false,
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": true
+    },
+    "interface_written": false,
+    "helper_certificates_healthy": false
+  },
+  {
+    "case": "restored",
+    "expected_success": true,
+    "verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "success": true,
+      "verified": 8,
+      "errors": 0,
+      "is-verifying-entire-crate": true
+    },
+    "interface_written": true,
+    "helper_certificates_healthy": true
+  }
+]
