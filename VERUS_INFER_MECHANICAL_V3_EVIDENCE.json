@@ -284,7 +284,11 @@
     "acceptance_record": "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md",
     "frozen_requirements_member": "frozen-inputs/VERUS_INFER_MECHANICAL_V3.md",
     "frozen_requirements_sha256": "a06d43ec35ecd10146cfcd963d9d462f4d50b5b7bec2a10beb6625b81767c480",
-    "frozen_acceptance_brief_sha256": "67daaf8fef510421b7cfbe716f847ce5a7a426549f3c44f945caa06272cdec4f"
+    "frozen_acceptance_brief_sha256": "67daaf8fef510421b7cfbe716f847ce5a7a426549f3c44f945caa06272cdec4f",
+    "post_audit_native_evidence_commit": "a2de660d5467ce3611584768285b9227a1e2832b",
+    "post_audit_integrity_receipt": "evidence/verus-infer-mechanical-v3/post-audit-integrity.json",
+    "post_audit_changes": "Evidence and documentation only; audited source and fixed engine unchanged.",
+    "post_audit_integrity_receipt_sha256": "6dd0edd179d01cb1f5b4b25f7fa88066daa3df50e3d6d2ae9577a39c3fc76326"
   },
   "pushed": false,
   "artifacts_sha256": {
@@ -548,7 +552,7 @@
       }
     ]
   },
-  "native_evidence_commit": "53a8917b40bf934a4e3b10668d6f93c6c0ef3e98",
+  "native_evidence_commit": "a2de660d5467ce3611584768285b9227a1e2832b",
   "native_worktree_clean": true,
   "acceptance_brief": "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE_BRIEF.md",
   "recorded_utc": "2026-10-30T16:04:04.667199+00:00",
@@ -556,8 +560,10 @@
     "VERUS_INFER.md": "d8db275e3c54525b85a63b66ab24a5e735a3fd1cd461ba0ff54bdeb95e6d0728",
     "VERUS_INFER_ASSURANCE.md": "00e200ad5475773f920c5dccdde769a9abd694d762977d13c29dd8d97332b02b",
     "VERUS_INFER_MECHANICAL_V3.md": "41ed80bbbcddaa77e5cbfd2b52c341de8742c3df30e2966be58e001a68c5170e",
-    "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md": "01308b39ac7b33b91a808e81f555cd5a2c2d22c6ea50779b873a76be57526962",
+    "VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md": "67beffaae017139b53ca10fcdc625550eb9b75ea21d1a5394828a03c6ce3729f",
     "evidence/verus-infer-mechanical-v3/bundle-index.json": "ecbe8d4f5268357287be10d25339eb78d28c9e6aa2211136625abf3e0dfc1ddd",
-    "evidence/verus-infer-mechanical-v3/parent-closure-receipt.json": "0422a9fcd31dd71423d17a273390dd4d68bd2fa7ab406777b25b87672155a8f9"
-  }
+    "evidence/verus-infer-mechanical-v3/parent-closure-receipt.json": "0422a9fcd31dd71423d17a273390dd4d68bd2fa7ab406777b25b87672155a8f9",
+    "evidence/verus-infer-mechanical-v3/post-audit-integrity.json": "6dd0edd179d01cb1f5b4b25f7fa88066daa3df50e3d6d2ae9577a39c3fc76326"
+  },
+  "native_parent_evidence_commit": "53a8917b40bf934a4e3b10668d6f93c6c0ef3e98"
 }

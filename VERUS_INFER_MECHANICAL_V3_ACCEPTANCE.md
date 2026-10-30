@@ -93,9 +93,9 @@ The [parent closure receipt](evidence/verus-infer-mechanical-v3/parent-closure-r
 records independent-output validation, all member/hash checks and current input
 integrity. All nine pinned compiler/library/Z3 artifacts, 1,739 tracked engine
 files, 154 tracked proposal files and original exports match the audit inputs;
-the fixed repositories remain clean at the same commits. The frozen documents
-are preserved before this completion update. Full identities and historical
-parent evidence remain in
+the fixed repositories were clean at those commits at the independent audit and
+initial closure. The frozen documents are preserved before the completion
+update. Full identities and historical parent evidence remain in
 [VERUS_INFER_MECHANICAL_V3_EVIDENCE.json](VERUS_INFER_MECHANICAL_V3_EVIDENCE.json).
 
 The auditor compared the supplied original export independently but could not
@@ -120,3 +120,13 @@ serialization correctness, hash-cache consistency, arbitrary loops/recursion
 and unrelated codebases remain outside this milestone. Native tests and mutation
 checks are finite regressions; the semantic proofs quantify over their stated
 domains. All completed work remains local; nothing is pushed.
+
+## Native evidence mirror
+
+After acceptance, native fixture commit
+`a2de660d5467ce3611584768285b9227a1e2832b` additionally preserves the independent
+report and indexed raw evidence alongside the application. It changes only
+`verification/mechanical_v3` evidence/documentation. The proof/native source
+continues to equal the audited implementation; the audited input remains
+`53a8917b`. The parent confirms current source/artifact integrity in
+[the final receipt](evidence/verus-infer-mechanical-v3/post-audit-integrity.json).
