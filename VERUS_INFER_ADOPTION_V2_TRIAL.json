@@ -1,0 +1,472 @@
+{
+  "engine_commit": "a12cfc6983fa16df899bf97c794a6a67708b0409",
+  "engine_clean": true,
+  "verus_version": "Verus\n  Version: 0.2026.10.29.a12cfc6\n  Profile: release\n  Platform: macos_aarch64\n  Toolchain: 1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN)",
+  "sha256": {
+    "verus": "2b4d5ef2734badc6b322f988dee3b4c8855df8ac890c45c80d320622dee1350c",
+    "rust_verify": "aa346d5edad9760dfdd56ea05d90b084deb9269bb93c1288ebfdf6a633dd5edb",
+    "cargo-verus": "17805695a49b2ad355bf6c33d419e6e78d7a274f7d1c3809ede90f9e66b19a80",
+    "vstd.vir": "302ed8a687710addc76b0a77592731682827817932ee58744250031af17b6edf",
+    "libvstd.rlib": "9c2b506e4479820fa3204e0b6633fa67590d461116d9706c2576115e07da41f1",
+    "libverus_builtin.rlib": "feb5a7b22ddd17768cf7794076fb54568e4990eabd3c3a2bf9b531580480e26f",
+    "libverus_builtin_macros.dylib": "df13a9d92bb1336b1c66feeea13fc68a865a70bed302d4ec3dd64a7315acf95b",
+    "libverus_state_machines_macros.dylib": "ddc90c7db4d9d2af6b58ce185a98617a3e35b603066dd408522fbd3aee3c7db6"
+  },
+  "z3_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+  "trial_brief_sha256": "4788e70cb9eb43d4f1e164ba454e5083961576d2fc89858489279e6759c8ce91",
+  "vstd_results": [
+    "verification results:: 2209 verified, 0 errors"
+  ],
+  "status": "running; independent acceptance has not yet been established",
+  "thread_id": "mcp:da3c90b2-3983-4e3b-a1f8-4b2bf29553b3",
+  "thread_link": "[Independent Aleph native adoption v2 acceptance](t3-thread://v1/mcp:da3c90b2-3983-4e3b-a1f8-4b2bf29553b3)",
+  "aleph_base": "f35c7bba6d628bcafdf0d65dd471cc6f868ec034",
+  "aleph_worktree": "/Users/tommyvolk/.t3/worktrees/AlephBFT/verus-infer-native-adoption-v2-acceptance",
+  "brief_file": "VERUS_INFER_ADOPTION_V2_TRIAL.md",
+  "fixed_source": "/private/tmp/verus-adoption-v2/engine/verus/source",
+  "pinned_generic_receipt": "/private/tmp/verus-adoption-v2/pinned-generic/run-dplpzmla/receipt.json",
+  "pinned_generic_receipt_sha256": "f70db27bdc651ccd7254ccdea1346e4b2b98aceac0c70821282fdb1afb95f980",
+  "pinned_generic_cases": [
+    {
+      "case": "fresh",
+      "expected_success": true
+    },
+    {
+      "case": "repeat",
+      "expected_success": true
+    },
+    {
+      "case": "false_goal",
+      "expected_success": false
+    },
+    {
+      "case": "excluded_sum",
+      "expected_success": false
+    },
+    {
+      "case": "excluded_codec",
+      "expected_success": false
+    },
+    {
+      "case": "excluded_request",
+      "expected_success": false
+    },
+    {
+      "case": "no_verify",
+      "expected_success": false
+    },
+    {
+      "case": "filtered",
+      "expected_success": false
+    },
+    {
+      "case": "restored",
+      "expected_success": true
+    }
+  ],
+  "pinned_generic_commands": [
+    {
+      "label": "fresh_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.18247950000000002
+    },
+    {
+      "label": "fresh",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 0,
+      "seconds": 21.302633875
+    },
+    {
+      "label": "repeat_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.06754762499999956
+    },
+    {
+      "label": "repeat",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 0,
+      "seconds": 0.8072878750000001
+    },
+    {
+      "label": "false_goal_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.057602541999997925
+    },
+    {
+      "label": "false_goal",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--features",
+        "wrong-goal",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 101,
+      "seconds": 0.7203233749999995
+    },
+    {
+      "label": "excluded_sum_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.050550041000001045
+    },
+    {
+      "label": "excluded_sum",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--features",
+        "use-excluded-sum",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 101,
+      "seconds": 0.5082137909999993
+    },
+    {
+      "label": "excluded_codec_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.04712299999999914
+    },
+    {
+      "label": "excluded_codec",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--features",
+        "use-excluded-codec",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 101,
+      "seconds": 0.5045838750000016
+    },
+    {
+      "label": "excluded_request_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.04677249999999944
+    },
+    {
+      "label": "excluded_request",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--features",
+        "exclude-requested-into",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 101,
+      "seconds": 0.5359041250000018
+    },
+    {
+      "label": "no_verify_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.055280915999997404
+    },
+    {
+      "label": "no_verify",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--no-verify"
+      ],
+      "exit_status": 101,
+      "seconds": 0.5371376249999997
+    },
+    {
+      "label": "filtered_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.04768941599999721
+    },
+    {
+      "label": "filtered",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--verify-root",
+        "--verify-function",
+        "unwrap"
+      ],
+      "exit_status": 1,
+      "seconds": 0.0032528340000013145
+    },
+    {
+      "label": "restored_clean",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "clean",
+        "--offline",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "-p",
+        "verus-infer-native-adoption"
+      ],
+      "exit_status": 0,
+      "seconds": 0.02450508299999754
+    },
+    {
+      "label": "restored",
+      "argv": [
+        "/private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release/cargo-verus",
+        "verus",
+        "verify",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "--offline",
+        "--locked",
+        "-p",
+        "verus-infer-native-adoption",
+        "--fwd-verus-args-to",
+        "roots",
+        "--",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "exit_status": 0,
+      "seconds": 0.7204247079999995
+    },
+    {
+      "label": "native",
+      "argv": [
+        "cargo",
+        "--config",
+        "patch.crates-io.vstd.path=\"/private/tmp/verus-adoption-v2/engine/verus/source/vstd\"",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_adoption/Cargo.toml"
+      ],
+      "exit_status": 0,
+      "seconds": 8.259112582999997
+    }
+  ],
+  "engine_build_commands": [
+    "git clone --local --no-hardlinks /Users/tommyvolk/Documents/GitHub/verus /private/tmp/verus-adoption-v2/engine/verus",
+    "Copy the recorded Z3 binary into source/z3; no prior application or proof artifacts are build inputs.",
+    "From source/: cargo build --release --offline --locked -p rust_verify -p verus -p cargo-verus -p verus_builtin_macros -p verus_builtin -p verus_state_machines_macros -p vstd_build",
+    "From source/: cargo run --release --offline --locked -p vstd_build -- /private/tmp/verus-adoption-v2/engine/verus/source/target-verus/release --release",
+    "python3 source/tools/check_native_adoption.py --verus-source /private/tmp/verus-adoption-v2/engine/verus/source --output /private/tmp/verus-adoption-v2/pinned-generic"
+  ],
+  "logs_sha256": {
+    "engine/build.log": "9b2e7ce9a0a961ec14c21d3221757a8decf95e4e3b4e774885668025ca2bd624",
+    "engine/vstd.log": "4c23b08ef024f3905c571762735de84c3a2dc2e46d8f345e6dc66591b19f5da5",
+    "pinned-generic.log": "4df4fecf337c5464b1e34a7ffaeaf18209ddc1d2ffe48ca4858d0f3a1acca5df"
+  },
+  "limits": [
+    "The fixed compiler and generic checks passed. No claim about the running independent Aleph adoption is made by this launch receipt.",
+    "The task permits equivalent author views/decomposition and existing opaque interfaces, without supplying a previous Aleph proof implementation."
+  ]
+}
