@@ -1,0 +1,693 @@
+diff --git a/consensus/src/units/control_hash.rs b/consensus/src/units/control_hash.rs
+index f006210..fecf90e 100644
+--- a/consensus/src/units/control_hash.rs
++++ b/consensus/src/units/control_hash.rs
+@@ -56,7 +56,7 @@ impl<H: Hasher> Display for Error<H> {
+ 
+ /// Combined hashes of the parents of a unit together with the set of indices of creators of the
+ /// parents. By parent here we mean a parent hash and its round.
+-#[verus_verify(external_derive(Clone, Eq, PartialEq, Hash, Debug, Decode, Encode))]
++#[verus_verify(external_derive(Eq, PartialEq, Hash, Debug, Decode, Encode))]
+ #[derive(Clone, Eq, PartialEq, Hash, Debug, Decode, Encode)]
+ pub struct ControlHash<H: Hasher> {
+     parents: NodeMap<Round>,
+@@ -69,6 +69,9 @@ impl<H: Hasher> View for ControlHash<H> {
+     closed spec fn view(&self) -> Self::V { (self.parents@, self.combined_hash) }
+ }
+ impl<H: Hasher> ControlHash<H> {
++    pub closed spec fn __verus_clone_relation(&self, result: Self) -> bool {
++        self.parents.__verus_clone_relation(result.parents) && cloned(self.combined_hash, result.combined_hash)
++    }
+     pub closed spec fn parent_coords(&self) -> Seq<UnitCoord> {
+         self.parents.entries_value().map_values(|entry: (NodeIndex, &Round)|
+             UnitCoord { round: *entry.1, creator: entry.0 })
+@@ -128,7 +131,7 @@ impl<H: Hasher> ControlHash<H> {
+                 self@.0[i].unwrap() < coord@.0,
+             self@.0.count_prefix(|slot: Option<Round>| slot == Some((coord@.0 - 1) as Round), self@.0.len())
+                 >= (2 * self@.0.len()) / 3 + 1,
+-        ensures result == Ok(()),
++        ensures result == Ok(()), self.numeric_policy(coord) == Ok(()),
+     { self.validate(coord) }
+     /// Creates new control hash from parents hashes and rounds
+     pub fn new(parents_with_rounds_and_hashes: &NodeMap<(H::Hash, Round)>) -> (result: Self)
+diff --git a/consensus/src/units/mod.rs b/consensus/src/units/mod.rs
+index abf6c15..0be7b0a 100644
+--- a/consensus/src/units/mod.rs
++++ b/consensus/src/units/mod.rs
+@@ -61,7 +61,7 @@ impl Display for UnitCoord {
+ }
+ 
+ /// The simplest type representing a unit, consisting of coordinates and a control hash
+-#[verus_verify(external_derive(Clone, Eq, PartialEq, Hash, Debug, Decode, Encode))]
++#[verus_verify(external_derive(Eq, PartialEq, Hash, Debug, Decode, Encode))]
+ #[derive(Clone, Eq, PartialEq, Hash, Debug, Decode, Encode)]
+ pub struct PreUnit<H: Hasher> {
+     coord: UnitCoord,
+@@ -129,7 +129,9 @@ impl<H: Hasher, D: Data> From<FullUnit<H, D>> for Option<D> {
+     }
+ }
+ 
++#[verus_verify]
+ impl<H: Hasher, D: Data> Clone for FullUnit<H, D> {
++    #[verus_spec(result => ensures self.clone_relation(result),)]
+     fn clone(&self) -> Self {
+         let hash = self.hash.try_read().and_then(|guard| *guard);
+         FullUnit {
+@@ -141,7 +143,9 @@ impl<H: Hasher, D: Data> Clone for FullUnit<H, D> {
+     }
+ }
+ 
++#[verus_verify]
+ impl<H: Hasher, D: Data> FullUnit<H, D> {
++    #[verus_spec(result => ensures result@ == (pre_unit, data, session_id),)]
+     pub(crate) fn new(pre_unit: PreUnit<H>, data: Option<D>, session_id: SessionId) -> Self {
+         FullUnit {
+             pre_unit,
+@@ -150,6 +154,10 @@ impl<H: Hasher, D: Data> FullUnit<H, D> {
+             hash: RwLock::new(None),
+         }
+     }
++}
++
++impl<H: Hasher, D: Data> FullUnit<H, D> {
++    #[verus_infer]
+     pub(crate) fn as_pre_unit(&self) -> &PreUnit<H> {
+         &self.pre_unit
+     }
+@@ -161,6 +169,7 @@ impl<H: Hasher, D: Data> FullUnit<H, D> {
+     }
+ }
+ 
++#[verus_verify]
+ impl<H: Hasher, D: Data> Signable for FullUnit<H, D> {
+     type Hash = H::Hash;
+     fn hash(&self) -> H::Hash {
+@@ -168,7 +177,12 @@ impl<H: Hasher, D: Data> Signable for FullUnit<H, D> {
+     }
+ }
+ 
++#[verus_verify]
+ impl<H: Hasher, D: Data> Index for FullUnit<H, D> {
++    verus_trait_impl! {
++        open spec fn lawful_index(&self) -> bool { true }
++        closed spec fn observed_index(&self) -> NodeIndex { self.pre_unit.coord.creator }
++    }
+     fn index(&self) -> NodeIndex {
+         self.creator()
+     }
+@@ -185,6 +199,7 @@ pub trait Unit: 'static + Send + Clone {
+ 
+     open spec fn lawful_observation(&self) -> bool { false }
+     open spec fn observed_coord(&self) -> UnitCoord { arbitrary() }
++    open spec fn observed_session(&self) -> SessionId { arbitrary() }
+ 
+     fn hash(&self) -> <Self::Hasher as Hasher>::Hash;
+ 
+@@ -193,7 +208,8 @@ pub trait Unit: 'static + Send + Clone {
+ 
+     fn control_hash(&self) -> &ControlHash<Self::Hasher>;
+ 
+-    fn session_id(&self) -> SessionId;
++    fn session_id(&self) -> (result: SessionId)
++        ensures self.lawful_observation() ==> result == self.observed_session();
+ 
+     fn creator(&self) -> (result: NodeIndex)
+         ensures self.lawful_observation() ==> result == self.observed_coord()@.1,
+@@ -228,6 +244,7 @@ impl<H: Hasher, D: Data> Unit for FullUnit<H, D> {
+     verus_trait_impl! {
+         open spec fn lawful_observation(&self) -> bool { true }
+         closed spec fn observed_coord(&self) -> UnitCoord { self.pre_unit.coord }
++        closed spec fn observed_session(&self) -> SessionId { self.session_id }
+     }
+ 
+     type Hasher = H;
+@@ -336,3 +353,23 @@ pub mod tests {
+         }
+     }
+ }
++
++#[cfg(verus_keep_ghost)]
++verus! {
++impl<H: Hasher> PreUnit<H> {
++    pub closed spec fn __verus_clone_relation(&self, result: Self) -> bool {
++        result.coord == self.coord && self.control_hash.__verus_clone_relation(result.control_hash)
++    }
++}
++impl<H: Hasher, D: Data> View for FullUnit<H, D> {
++    type V = (PreUnit<H>, Option<D>, SessionId);
++    closed spec fn view(&self) -> Self::V { (self.pre_unit, self.data, self.session_id) }
++}
++impl<H: Hasher, D: Data> FullUnit<H, D> {
++    pub closed spec fn clone_relation(&self, result: Self) -> bool {
++        self.pre_unit.__verus_clone_relation(result.pre_unit) && self.session_id == result.session_id &&
++        (match self.data { None => result.data.is_none(), Some(data) =>
++            result.data.is_some() && cloned(data, result.data.unwrap()) })
++    }
++}
++}
+diff --git a/consensus/src/units/validator.rs b/consensus/src/units/validator.rs
+index b867b18..995c9cd 100644
+--- a/consensus/src/units/validator.rs
++++ b/consensus/src/units/validator.rs
+@@ -1,3 +1,4 @@
++use vstd::prelude::*;
+ use crate::units::{ControlHashError, UnitCoord};
+ use crate::{
+     units::{FullUnit, PreUnit, SignedUnit, UncheckedSignedUnit, Unit},
+@@ -10,6 +11,7 @@ use std::{
+ 
+ /// All that can be wrong with a unit except control hash issues.
+ #[derive(Eq, PartialEq, Debug)]
++#[verus_verify]
+ pub enum ValidationError<H: Hasher, D: Data, S: Signature> {
+     WrongSignature(UncheckedSignedUnit<H, D, S>),
+     WrongSession(FullUnit<H, D>),
+@@ -40,15 +42,21 @@ impl<H: Hasher, D: Data, S: Signature> Display for ValidationError<H, D, S> {
+     }
+ }
+ 
++#[verus_verify]
+ impl<H: Hasher, D: Data, S: Signature> From<SignatureError<FullUnit<H, D>, S>>
+     for ValidationError<H, D, S>
+ {
++    #[verus_spec(result => ensures match result {
++        ValidationError::WrongSignature(unit) => unit@ == se@,
++        _ => false,
++    },)]
+     fn from(se: SignatureError<FullUnit<H, D>, S>) -> Self {
+         ValidationError::WrongSignature(se.unchecked)
+     }
+ }
+ 
+ #[derive(Clone, Eq, PartialEq, Debug, Hash)]
++#[verus_verify]
+ pub struct Validator<K: Keychain> {
+     session_id: SessionId,
+     keychain: K,
+@@ -59,6 +67,7 @@ type Result<H, D, K> =
+     StdResult<SignedUnit<H, D, K>, ValidationError<H, D, <K as Keychain>::Signature>>;
+ 
+ impl<K: Keychain> Validator<K> {
++    #[verus_infer]
+     pub fn new(session_id: SessionId, keychain: K, max_round: Round) -> Self {
+         Validator {
+             session_id,
+@@ -75,6 +84,11 @@ impl<K: Keychain> Validator<K> {
+         self.keychain.index()
+     }
+ 
++    #[verus_spec(result =>
++        requires self@.1.lawful_verification(),
++            uu@.0@.0@.0 > 0 ==> self@.1.members().0 <= usize::MAX / 2,
++        ensures self.validation_policy(uu, result),
++    )]
+     pub fn validate_unit<H: Hasher, D: Data>(
+         &self,
+         uu: UncheckedSignedUnit<H, D, K::Signature>,
+@@ -92,6 +106,11 @@ impl<K: Keychain> Validator<K> {
+         self.validate_unit_parents(su)
+     }
+ 
++    #[verus_spec(result =>
++        requires self@.1.lawful_verification(),
++            su@.0@.0@.0 > 0 ==> (su@.0@.0@.1.0 < self@.1.members().0 && self@.1.members().0 <= usize::MAX / 2),
++        ensures self.parent_policy(su, result),
++    )]
+     fn validate_unit_parents<H: Hasher, D: Data>(
+         &self,
+         su: SignedUnit<H, D, K>,
+@@ -258,3 +277,136 @@ mod tests {
+         assert_eq!(full_unit, unchecked_unit.into_signable());
+     }
+ }
++
++#[cfg(verus_keep_ghost)]
++verus! {
++impl<H: Hasher, D: Data, S: Signature> vstd::std_specs::convert::FromSpecImpl<SignatureError<FullUnit<H, D>, S>> for ValidationError<H, D, S> {
++    open spec fn obeys_from_spec() -> bool { true }
++    open spec fn from_spec(value: SignatureError<FullUnit<H, D>, S>) -> Self {
++        ValidationError::WrongSignature(value.unchecked)
++    }
++}
++impl<K: Keychain> View for Validator<K> {
++    type V = (SessionId, K, Round);
++    closed spec fn view(&self) -> Self::V { (self.session_id, self.keychain, self.max_round) }
++}
++impl<K: Keychain> Validator<K> {
++    pub closed spec fn signature_accepted<H: Hasher, D: Data>(&self, uu: UncheckedSignedUnit<H, D, K::Signature>) -> bool {
++        uu@.0@.0@.1.0 < self@.1.members().0 &&
++        exists|bytes: &[u8]| self.keychain.accepted(bytes@, uu@.1, uu@.0@.0@.1)
++    }
++    pub closed spec fn signature_rejected<H: Hasher, D: Data>(&self, uu: UncheckedSignedUnit<H, D, K::Signature>) -> bool {
++        uu@.0@.0@.1.0 >= self@.1.members().0 ||
++        exists|bytes: &[u8]| !self.keychain.accepted(bytes@, uu@.1, uu@.0@.0@.1)
++    }
++    pub closed spec fn metadata_policy<H: Hasher, D: Data>(&self, unit: FullUnit<H, D>, result: StdResult<(), ControlHashError<H>>) -> bool {
++        let pre = unit@.0;
++        let coord = UnitCoord { round: pre@.0, creator: pre@.1 };
++        if pre@.0 == 0 { pre@.2.initial_policy(result) }
++        else { result == pre@.2.numeric_policy(coord) }
++    }
++    pub closed spec fn parent_policy<H: Hasher, D: Data>(&self, input: SignedUnit<H, D, K>, result: Result<H, D, K>) -> bool {
++        let pre = input@.0@.0;
++        if pre@.2@.0.len() != self@.1.members().0 {
++            match result {
++                Err(ValidationError::WrongNumberOfMembers(payload)) => pre.__verus_clone_relation(payload),
++                _ => false,
++            }
++        } else {
++            match result {
++                Ok(unit) => unit@ == input@ && self.metadata_policy(input@.0, Ok(())),
++                Err(ValidationError::ParentValidationFailed(payload, error)) =>
++                    pre.__verus_clone_relation(payload) && self.metadata_policy(input@.0, Err(error)),
++                _ => false,
++            }
++        }
++    }
++    pub closed spec fn validation_policy<H: Hasher, D: Data>(&self, input: UncheckedSignedUnit<H, D, K::Signature>, result: Result<H, D, K>) -> bool {
++        match result {
++            Err(ValidationError::WrongSignature(payload)) =>
++                payload@ == input@ && self.signature_rejected(input),
++            Err(ValidationError::WrongSession(payload)) =>
++                self.signature_accepted(input) && input@.0@.2 != self.session_id && input@.0.clone_relation(payload),
++            Err(ValidationError::RoundTooHigh(payload)) =>
++                self.signature_accepted(input) && input@.0@.2 == self.session_id &&
++                input@.0@.0@.0 > self.max_round && input@.0.clone_relation(payload),
++            Err(ValidationError::WrongNumberOfMembers(payload)) =>
++                self.signature_accepted(input) && input@.0@.2 == self.session_id &&
++                input@.0@.0@.0 <= self.max_round && input@.0@.0@.2@.0.len() != self@.1.members().0 &&
++                input@.0@.0.__verus_clone_relation(payload),
++            Err(ValidationError::ParentValidationFailed(payload, error)) =>
++                self.signature_accepted(input) && input@.0@.2 == self.session_id &&
++                input@.0@.0@.0 <= self.max_round && input@.0@.0@.2@.0.len() == self@.1.members().0 &&
++                input@.0@.0.__verus_clone_relation(payload) && self.metadata_policy(input@.0, Err(error)),
++            Ok(unit) =>
++                unit@ == input@ && self.signature_accepted(input) && input@.0@.2 == self.session_id &&
++                input@.0@.0@.0 <= self.max_round && input@.0@.0@.2@.0.len() == self@.1.members().0 &&
++                self.metadata_policy(input@.0, Ok(())),
++        }
++    }
++}
++
++// Independent end-to-end goals use a checked interface implementation. Its
++// decision ignores bytes, so arbitrary hashing/AsRef results remain represented.
++use aleph_bft_types::{ValidationExampleKeychain, validation_example_input};
++
++fn validation_order_goal<H: Hasher, D: Data>(
++    input: UncheckedSignedUnit<H, D, u8>, count: NodeCount,
++    session: SessionId, max_round: Round,
++) -> (result: Result<H, D, ValidationExampleKeychain>)
++    requires input@.0@.0@.0 > 0 ==> count.0 <= usize::MAX / 2,
++    ensures
++        if input@.1 != 37 || input@.0@.0@.1.0 >= count.0 {
++            match result {
++                Err(ValidationError::WrongSignature(payload)) => payload@ == input@,
++                _ => false,
++            }
++        } else if input@.0@.2 != session {
++            match result {
++                Err(ValidationError::WrongSession(payload)) => input@.0.clone_relation(payload),
++                _ => false,
++            }
++        } else if input@.0@.0@.0 > max_round {
++            match result {
++                Err(ValidationError::RoundTooHigh(payload)) => input@.0.clone_relation(payload),
++                _ => false,
++            }
++        } else if input@.0@.0@.2@.0.len() != count.0 {
++            match result {
++                Err(ValidationError::WrongNumberOfMembers(payload)) =>
++                    input@.0@.0.__verus_clone_relation(payload),
++                _ => false,
++            }
++        } else {
++            let validator = Validator { session_id: session,
++                keychain: ValidationExampleKeychain { count }, max_round };
++            match result {
++                Ok(signed) => signed@ == input@ && validator.metadata_policy(input@.0, Ok(())),
++                Err(ValidationError::ParentValidationFailed(payload, error)) =>
++                    input@.0@.0.__verus_clone_relation(payload) && validator.metadata_policy(input@.0, Err(error)),
++                _ => false,
++            }
++        },
++{
++    Validator::new(session, ValidationExampleKeychain { count }, max_round).validate_unit(input)
++}
++
++pub fn validates_constructed_positive_goal<H: Hasher, D: Data>(
++    parent_hash: H::Hash, data: Option<D>, session: SessionId,
++) -> (result: Result<H, D, ValidationExampleKeychain>)
++    ensures match result {
++        Ok(signed) => signed@.1 == 37 && signed@.0@.2 == session &&
++            signed@.0@.1 == data && signed@.0@.0@.0 == 1 && signed@.0@.0@.1 == NodeIndex(0),
++        _ => false,
++    },
++{
++    let mut parents = crate::NodeMap::with_size(NodeCount(1));
++    parents.insert(NodeIndex(0), (parent_hash, 0));
++    let control = crate::units::ControlHash::<H>::new(&parents);
++    control.validate_eligible(UnitCoord::new(1, NodeIndex(0)));
++    let pre = PreUnit::new(NodeIndex(0), 1, control);
++    let unit = FullUnit::new(pre, data, session);
++    let input = validation_example_input(unit, 37);
++    Validator::new(session, ValidationExampleKeychain { count: NodeCount(1) }, 1).validate_unit(input)
++}
++}
+diff --git a/crypto/src/lib.rs b/crypto/src/lib.rs
+index d61489c..700f5c2 100644
+--- a/crypto/src/lib.rs
++++ b/crypto/src/lib.rs
+@@ -11,3 +11,6 @@ pub use signature::{
+     PartialMultisignature, PartiallyMultisigned, Signable, Signature, SignatureError, SignatureSet,
+     Signed, UncheckedSigned,
+ };
++
++#[cfg(verus_keep_ghost)]
++pub use signature::validation_examples::{ValidationExampleKeychain, validation_example_input};
+diff --git a/crypto/src/node.rs b/crypto/src/node.rs
+index 8ef0012..3f17678 100644
+--- a/crypto/src/node.rs
++++ b/crypto/src/node.rs
+@@ -33,8 +33,13 @@ impl Decode for NodeIndex {
+ }
+ 
+ /// Indicates that an implementor has been assigned some index.
++verus! {
+ pub trait Index {
+-    fn index(&self) -> NodeIndex;
++    open spec fn lawful_index(&self) -> bool { false }
++    open spec fn observed_index(&self) -> NodeIndex { arbitrary() }
++    fn index(&self) -> (result: NodeIndex)
++        ensures self.lawful_index() ==> result == self.observed_index();
++}
+ }
+ 
+ /// Node count. Right now it doubles as node weight in many places in the code, in the future we
+diff --git a/crypto/src/signature.rs b/crypto/src/signature.rs
+index 619d50a..17d840a 100644
+--- a/crypto/src/signature.rs
++++ b/crypto/src/signature.rs
+@@ -1,11 +1,13 @@
+ use crate::{Index, NodeCount, NodeIndex, NodeMap};
+ use codec::{Codec, Decode, Encode};
++use vstd::prelude::*;
+ use log::warn;
+ use std::{fmt::Debug, hash::Hash};
+ 
+ /// The type used as a signature.
+ ///
+ /// The Signature typically does not contain the index of the node who signed the data.
++#[verus_verify]
+ pub trait Signature: Debug + Clone + Codec + Send + Sync + Eq + 'static {}
+ 
+ impl<T: Debug + Clone + Codec + Send + Sync + Eq + 'static> Signature for T {}
+@@ -17,16 +19,23 @@ impl<T: Debug + Clone + Codec + Send + Sync + Eq + 'static> Signature for T {}
+ /// The meaning of sign is then to produce a signature `s` using the given private key,
+ /// and `verify(msg, s, j)` is to verify whether the signature s under the message msg is
+ /// correct with respect to the public key of the jth node.
++verus! {
+ pub trait Keychain: Index + Clone + Send + Sync + 'static {
+     type Signature: Signature;
++    open spec fn lawful_verification(&self) -> bool { false }
++    open spec fn accepted(&self, bytes: Seq<u8>, signature: Self::Signature, index: NodeIndex) -> bool { arbitrary() }
++    open spec fn members(&self) -> NodeCount { arbitrary() }
+ 
+     /// Returns the total number of known public keys.
+-    fn node_count(&self) -> NodeCount;
++    fn node_count(&self) -> (result: NodeCount)
++        ensures self.lawful_verification() ==> result == self.members();
+     /// Signs a message `msg`.
+     fn sign(&self, msg: &[u8]) -> Self::Signature;
+     /// Verifies whether a node with `index` correctly signed the message `msg`.
+     /// Should always return false for indices outside the node range.
+-    fn verify(&self, msg: &[u8], sgn: &Self::Signature, index: NodeIndex) -> bool;
++    fn verify(&self, msg: &[u8], sgn: &Self::Signature, index: NodeIndex) -> (result: bool)
++        ensures self.lawful_verification() ==> result == (index.0 < self.members().0 && self.accepted(msg@, *sgn, index));
++}
+ }
+ 
+ /// A type to which signatures can be aggregated.
+@@ -77,6 +86,7 @@ impl<S: Signature> PartialMultisignature for SignatureSet<S> {
+ /// Signable data should provide a hash of type [`Self::Hash`] which is build from all parts of the
+ /// data which should be signed. The type [`Self::Hash`] should implement [`AsRef<[u8]>`], and
+ /// the bytes returned by `hash.as_ref()` are used by a [`MultiKeychain`] to sign the data.
++#[verus_verify]
+ pub trait Signable {
+     type Hash: AsRef<[u8]>;
+     /// Return a hash for signing.
+@@ -95,12 +105,14 @@ impl<T: AsRef<[u8]> + Clone> Signable for T {
+ /// The method `[UncheckedSigned::check]` can be used to upgrade this `struct` to
+ /// `[Signed<T, K>]` which ensures that the signature matches the signed object.
+ #[derive(Clone, Eq, PartialEq, Hash, Debug, Decode, Encode)]
++#[verus_verify]
+ pub struct UncheckedSigned<T: Signable, S: Signature> {
+     signable: T,
+     signature: S,
+ }
+ 
+ impl<T: Signable, S: Signature> UncheckedSigned<T, S> {
++    #[verus_infer]
+     pub fn as_signable(&self) -> &T {
+         &self.signable
+     }
+@@ -122,12 +134,24 @@ impl<T: Signable, S: Signature> UncheckedSigned<Indexed<T>, S> {
+ 
+ /// Error type returned when a verification of a signature fails.
+ #[derive(Clone, Eq, PartialEq, Hash, Debug, Decode, Encode)]
++#[verus_verify]
+ pub struct SignatureError<T: Signable, S: Signature> {
+     pub unchecked: UncheckedSigned<T, S>,
+ }
+ 
++#[verus_verify]
+ impl<T: Signable + Index, S: Signature> UncheckedSigned<T, S> {
+     /// Verifies whether the signature matches the key with the index as in the signed data.
++    #[verus_spec(result =>
++        ensures match result {
++            Ok(signed) => signed@ == self@,
++            Err(error) => error@ == self@,
++        },
++        result.is_ok() && self@.0.lawful_index() && keychain.lawful_verification() ==> self@.0.observed_index().0 < keychain.members().0,
++        result.is_ok() && self@.0.lawful_index() && keychain.lawful_verification() ==> exists|bytes: &[u8]| keychain.accepted(bytes@, self@.1, self@.0.observed_index()),
++        result.is_err() && self@.0.lawful_index() && keychain.lawful_verification() && self@.0.observed_index().0 < keychain.members().0 ==>
++            exists|bytes: &[u8]| !keychain.accepted(bytes@, self@.1, self@.0.observed_index()),
++    )]
+     pub fn check<K: Keychain<Signature = S>>(
+         self,
+         keychain: &K,
+@@ -176,6 +200,7 @@ impl<T: Signable, S: Signature> From<UncheckedSigned<Indexed<T>, S>> for Uncheck
+ 
+ /// A correctly signed object of type `T`.
+ #[derive(Eq, PartialEq, Hash, Debug, Decode, Encode)]
++#[verus_verify]
+ pub struct Signed<T: Signable + Index, K: Keychain> {
+     unchecked: UncheckedSigned<T, K::Signature>,
+ }
+@@ -202,6 +227,7 @@ impl<T: Signable + Index, K: Keychain> Signed<T, K> {
+     }
+ 
+     /// Get a reference to the signed object.
++    #[verus_infer]
+     pub fn as_signable(&self) -> &T {
+         &self.unchecked.signable
+     }
+@@ -634,3 +660,23 @@ mod tests {
+         );
+     }
+ }
++
++#[cfg(verus_keep_ghost)]
++verus! {
++impl<T: Signable, S: Signature> View for UncheckedSigned<T, S> {
++    type V = (T, S);
++    closed spec fn view(&self) -> Self::V { (self.signable, self.signature) }
++}
++impl<T: Signable + Index, K: Keychain> View for Signed<T, K> {
++    type V = (T, K::Signature);
++    closed spec fn view(&self) -> Self::V { (self.unchecked.signable, self.unchecked.signature) }
++}
++impl<T: Signable, S: Signature> View for SignatureError<T, S> {
++    type V = (T, S);
++    open spec fn view(&self) -> Self::V { self.unchecked@ }
++}
++}
++
++#[cfg(verus_keep_ghost)]
++#[path = "validation_examples.rs"]
++pub mod validation_examples;
+diff --git a/crypto/src/validation_examples.rs b/crypto/src/validation_examples.rs
+new file mode 100644
+index 0000000..62f9c19
+--- /dev/null
++++ b/crypto/src/validation_examples.rs
+@@ -0,0 +1,47 @@
++//! Checked reference interfaces and nonvacuity goals, not cryptographic algorithms.
++use super::*;
++verus! {
++#[derive(Copy, Clone)]
++pub struct ValidationExampleKeychain { pub count: NodeCount }
++impl Index for ValidationExampleKeychain {
++    open spec fn lawful_index(&self) -> bool { true }
++    open spec fn observed_index(&self) -> NodeIndex { NodeIndex(0) }
++    fn index(&self) -> NodeIndex { NodeIndex(0) }
++}
++impl Keychain for ValidationExampleKeychain {
++    type Signature = u8;
++    open spec fn lawful_verification(&self) -> bool { true }
++    open spec fn members(&self) -> NodeCount { self.count }
++    open spec fn accepted(&self, bytes: Seq<u8>, signature: u8, index: NodeIndex) -> bool { signature == 37 }
++    fn node_count(&self) -> NodeCount { self.count }
++    fn sign(&self, msg: &[u8]) -> u8 { 37 }
++    fn verify(&self, msg: &[u8], signature: &u8, index: NodeIndex) -> bool {
++        index.0 < self.count.0 && *signature == 37
++    }
++}
++
++pub struct Packet { pub index: NodeIndex, pub bytes: [u8; 1] }
++impl Index for Packet {
++    open spec fn lawful_index(&self) -> bool { true }
++    open spec fn observed_index(&self) -> NodeIndex { self.index }
++    fn index(&self) -> NodeIndex { self.index }
++}
++impl Signable for Packet {
++    type Hash = [u8; 1];
++    fn hash(&self) -> [u8; 1] { self.bytes }
++}
++
++pub fn validation_example_input<T: Signable>(value: T, signature: u8) -> (result: UncheckedSigned<T, u8>)
++    ensures result@ == (value, signature),
++{ UncheckedSigned { signable: value, signature } }
++
++pub fn accepts(packet: Packet, keychain: ValidationExampleKeychain) -> (result: Result<Signed<Packet, ValidationExampleKeychain>, SignatureError<Packet, u8>>)
++    requires packet.index.0 < keychain.count.0,
++    ensures match result { Ok(signed) => signed@ == (packet, 37u8), _ => false },
++{ validation_example_input(packet, 37).check(&keychain) }
++
++pub fn rejects(packet: Packet, keychain: ValidationExampleKeychain, signature: u8) -> (result: Result<Signed<Packet, ValidationExampleKeychain>, SignatureError<Packet, u8>>)
++    requires signature != 37 || packet.index.0 >= keychain.count.0,
++    ensures match result { Err(error) => error@ == (packet, signature), _ => false },
++{ validation_example_input(packet, signature).check(&keychain) }
++}
+diff --git a/types/src/lib.rs b/types/src/lib.rs
+index 7e5601f..1501505 100644
+--- a/types/src/lib.rs
++++ b/types/src/lib.rs
+@@ -40,3 +40,6 @@ pub type SessionId = u64;
+ 
+ /// An asynchronous round of the protocol.
+ pub type Round = u16;
++
++#[cfg(verus_keep_ghost)]
++pub use aleph_bft_crypto::{ValidationExampleKeychain, validation_example_input};
+diff --git a/verification/native_adoption_v2_replay/opaque/src/lib.rs b/verification/native_adoption_v2_replay/opaque/src/lib.rs
+index febba93..b8811a5 100644
+--- a/verification/native_adoption_v2_replay/opaque/src/lib.rs
++++ b/verification/native_adoption_v2_replay/opaque/src/lib.rs
+@@ -7,6 +7,9 @@ verus! {
+ #[verifier::external_trait_specification]
+ pub trait CodecEncode {
+     type ExternalTraitSpecificationFor: codec::Encode;
++    fn size_hint(&self) -> usize;
++    fn encode_to<T: codec::Output + ?Sized>(&self, dest: &mut T);
++    fn encode(&self) -> Vec<u8>;
+     fn using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R
+         requires forall|bytes: &[u8]| f.requires((bytes,));
+ }
+@@ -14,8 +17,31 @@ pub trait CodecEncode {
+ #[verifier::external_trait_specification]
+ pub trait CodecDecode: Sized {
+     type ExternalTraitSpecificationFor: codec::Decode;
++    fn decode<I: codec::Input>(value: &mut I) -> Result<Self, codec::Error>;
+ }
+ 
++#[verifier::external_trait_specification]
++pub trait CodecInput {
++    type ExternalTraitSpecificationFor: codec::Input;
++}
++#[verifier::external_trait_specification]
++pub trait CodecOutput {
++    type ExternalTraitSpecificationFor: codec::Output;
++}
++#[verifier::external_trait_specification]
++pub trait CodecWrapper: core::ops::Deref {
++    type ExternalTraitSpecificationFor: codec::WrapperTypeEncode;
++}
++#[verifier::external_type_specification]
++#[verifier::external_body]
++pub struct CodecError(codec::Error);
++
++pub assume_specification<D: Into<std::borrow::Cow<'static, str>>>[codec::Error::chain](error: codec::Error, description: D) -> codec::Error;
++
++pub assume_specification<T: codec::Encode + ?Sized, X: codec::WrapperTypeEncode<Target=T>>[<X as codec::Encode>::size_hint](x: &X) -> usize;
++pub assume_specification<T: codec::Encode + ?Sized, X: codec::WrapperTypeEncode<Target=T>>[<X as codec::Encode>::encode](x: &X) -> Vec<u8>;
++pub assume_specification<T: codec::Encode + ?Sized, X: codec::WrapperTypeEncode<Target=T>, W: codec::Output + ?Sized>[<X as codec::Encode>::encode_to](x: &X, dest: &mut W);
++
+ #[verifier::external_trait_specification]
+ pub trait CodecMarker: codec::Decode + codec::Encode {
+     type ExternalTraitSpecificationFor: codec::Codec;
+@@ -24,6 +50,7 @@ pub trait CodecMarker: codec::Decode + codec::Encode {
+ #[verifier::external_trait_specification]
+ pub trait OpaqueAsRef<T: core::marker::PointeeSized>: core::marker::PointeeSized {
+     type ExternalTraitSpecificationFor: core::convert::AsRef<T>;
++    fn as_ref(&self) -> &T;
+ }
+ 
+ #[verifier::external_type_specification]
+@@ -61,4 +88,7 @@ pub assume_specification<R: parking_lot::lock_api::RawRwLock, T: ?Sized>[parking
+ pub assume_specification<'a, 'g, R: parking_lot::lock_api::RawRwLock + 'a, T: ?Sized + 'a>[<parking_lot::lock_api::RwLockReadGuard<'a, R, T> as core::ops::Deref>::deref](guard: &'g parking_lot::lock_api::RwLockReadGuard<'a, R, T>) -> (result: &'g T);
+ pub assume_specification<'a, 'g, R: parking_lot::lock_api::RawRwLock + 'a, T: ?Sized + 'a>[<parking_lot::lock_api::RwLockWriteGuard<'a, R, T> as core::ops::Deref>::deref](guard: &'g parking_lot::lock_api::RwLockWriteGuard<'a, R, T>) -> (result: &'g T);
+ pub assume_specification<'a, 'g, R: parking_lot::lock_api::RawRwLock + 'a, T: ?Sized + 'a>[<parking_lot::lock_api::RwLockWriteGuard<'a, R, T> as core::ops::DerefMut>::deref_mut](guard: &'g mut parking_lot::lock_api::RwLockWriteGuard<'a, R, T>) -> (result: &'g mut T);
++pub assume_specification<R: parking_lot::lock_api::RawRwLock, T>[parking_lot::lock_api::RwLock::<R, T>::new](value: T) -> parking_lot::lock_api::RwLock<R, T>;
++pub assume_specification<R: parking_lot::lock_api::RawRwLock, T: ?Sized>[parking_lot::lock_api::RwLock::<R, T>::try_read](lock: &parking_lot::lock_api::RwLock<R, T>) -> Option<parking_lot::lock_api::RwLockReadGuard<'_, R, T>>;
++
+ }
+diff --git a/verification/validation_v4/README.md b/verification/validation_v4/README.md
+new file mode 100644
+index 0000000..f25c231
+--- /dev/null
++++ b/verification/validation_v4/README.md
+@@ -0,0 +1,44 @@
++# Native unchecked-unit validation v4
++
++Finite milestone complete, October 30, 2026. Native baseline:
++`a2de660d5467ce3611584768285b9227a1e2832b`; Verus implementation:
++`5929d1db8`. All prior v3 checked items and 35 inferred helpers remain checked.
++
++The original `UncheckedSigned::check`, `Validator::validate_unit` and
++`validate_unit_parents` executable bodies are unchanged and now checked. The
++returned value retains the actual input signable object and signature. Errors
++follow signature, session, maximum round, member count and existing control-hash
++priority. Cloned error payloads satisfy the checked clone relation; generic
++cloning is not assumed to preserve identity.
++
++`lawful_index` and `lawful_verification` are explicit opt-in semantic interfaces,
++false by default. FullUnit proves its index/session observations. An unrelated
++checked reference keychain proves accepted/rejected signature paths. This is a
++conditional verification-interface theorem, not certification of a cryptographic
++implementation or every value constructible through Signed's Decode impl.
++Hashing, AsRef and locking retain their opaque result boundaries. Positive-round
++arithmetic retains v3's `members <= usize::MAX / 2` domain. Initial hash comparison
++retains its actual opaque comparison meaning.
++
++The acceptance replay has 204 verified results, zero errors, 39 exact helpers
++with all 117 mandatory certificates proved, and 125 checked executable bodies
++plus one existing generated proof body. The universal order goal covers all
++branches, including simultaneous faults; a second goal builds a positive-round
++unit through the original constructors and proves acceptance. Seven deliberate
++semantic mutations fail ordinary application verification while helper
++certificates remain healthy. No-verify and filtered publication are rejected.
++Restored source passes a fresh full replay. Native tests: 192 unit tests and one
++doctest. Verus inference regression tests: 285 passing; vstd: 2,215 verified.
++
++The parsed source comparison finds all 179 comparable original bodies unchanged.
++The sole Rust structural refactor splits FullUnit's constructor into a selected
++impl block; its body is unchanged. PreUnit and ControlHash Clone exclusions were
++removed and their derives checked. No serializer or other exclusion was added.
++Signed, UncheckedSigned and SignatureError codec derive bodies are checked
++against typed-only codec declarations; no encoding equation is supplied.
++
++Durable evidence, original/accepted syntax inventories, exact commands, full
++stdout/stderr, source hashes, assumptions and accepted source archive are in the
++Verus repository at `evidence/verus-infer-validation-v4`. The original v3 fixture
++and fixed engine were left unchanged. This acceptance was checked locally by the
++implementing agent; no new independent-agent audit is claimed. No push was made.

@@ -1,0 +1,138 @@
+{
+  "kind": "deliberate mutations, not original Aleph bug discoveries",
+  "cases": [
+    {
+      "name": "signature-guard",
+      "path": "crypto/src/signature.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "e32ebf6e0fc2f6a4e0c6cbabeae3c631c1a01328e2b032259abda72e89f291bc",
+      "source_mutated": "ba33a3a91d702aa1126aeb0deb587ce3fc31ed7f116b6fd2ecd0faef6ee99862",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 100,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "session-guard",
+      "path": "consensus/src/units/validator.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "b578effa18aa490fd4f33cb36d9bdf5b37f0b026289c9413b504075e0cb4f458",
+      "source_mutated": "eee52b1f909b699ad5a1644d0c6441fdd30e0c228bfa6e8ff5c8214c5ce00098",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 102,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "round-guard",
+      "path": "consensus/src/units/validator.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "b578effa18aa490fd4f33cb36d9bdf5b37f0b026289c9413b504075e0cb4f458",
+      "source_mutated": "19e4220b64cf456a05a6180a8393900a8b0100b61c8b0c929953de22cdeba603",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 102,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "membership-guard",
+      "path": "consensus/src/units/validator.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "b578effa18aa490fd4f33cb36d9bdf5b37f0b026289c9413b504075e0cb4f458",
+      "source_mutated": "58e18419eaab9a33eb97f5ce7ddd683cec2e9e3fc653269f403d40962fd55ee5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 102,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "parent-guard",
+      "path": "consensus/src/units/validator.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "b578effa18aa490fd4f33cb36d9bdf5b37f0b026289c9413b504075e0cb4f458",
+      "source_mutated": "d160eae776250347f664e5ebd3961858a215ee578fe7d7aa91dca33e6212ef32",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 102,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "returned-payload",
+      "path": "consensus/src/units/validator.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "b578effa18aa490fd4f33cb36d9bdf5b37f0b026289c9413b504075e0cb4f458",
+      "source_mutated": "13ec9a365a8e71cbbeb8b910bfd7eb923c0969fab29d72e31602256578695867",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 102,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "session-round-priority",
+      "path": "consensus/src/units/validator.rs",
+      "rejected": true,
+      "helper_checks_healthy": true,
+      "interface_withheld": true,
+      "source_before": "b578effa18aa490fd4f33cb36d9bdf5b37f0b026289c9413b504075e0cb4f458",
+      "source_mutated": "7868aacadcd42cb29dcb2defd0ec581c9ec5c0ba665cec98f2b324aadc86e7e1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 102,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "no-verify",
+      "rejected": true,
+      "interface_withheld": true,
+      "verifier_started": true
+    },
+    {
+      "name": "filtered",
+      "rejected": true,
+      "interface_withheld": true,
+      "verifier_started": false
+    }
+  ],
+  "restored_full_passed": true,
+  "failure": null
+}

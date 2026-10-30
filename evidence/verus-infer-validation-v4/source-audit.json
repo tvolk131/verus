@@ -1,0 +1,120 @@
+{
+  "common_bodies_compared": 179,
+  "changed_original_bodies": [],
+  "required_original_bodies": [
+    {
+      "file": "crypto/src/signature.rs",
+      "owner": "UncheckedSigned < T , S >",
+      "name": "check",
+      "body_sha256": "4815533d204a34c8700103fc72de6a603c61ed8f40b993267c8942dd1f1528d3",
+      "original_body_unchanged": true,
+      "findings": []
+    },
+    {
+      "file": "consensus/src/units/validator.rs",
+      "owner": "Validator < K >",
+      "name": "validate_unit",
+      "body_sha256": "c20749b035d3668aff41b453af1c9f064c40137032be81927c2d4719504765d7",
+      "original_body_unchanged": true,
+      "findings": []
+    },
+    {
+      "file": "consensus/src/units/validator.rs",
+      "owner": "Validator < K >",
+      "name": "validate_unit_parents",
+      "body_sha256": "5bf6f888c9538251d7fa5b3270317b27f678f83eeaa410e4beda467d8f6b3d01",
+      "original_body_unchanged": true,
+      "findings": []
+    }
+  ],
+  "derive_scope_changes": [
+    {
+      "item": [
+        "consensus/src/units/mod.rs",
+        "",
+        "PreUnit",
+        ""
+      ],
+      "removed_exclusions": [
+        "Clone"
+      ],
+      "added_exclusions": []
+    },
+    {
+      "item": [
+        "consensus/src/units/control_hash.rs",
+        "",
+        "ControlHash",
+        ""
+      ],
+      "removed_exclusions": [
+        "Clone"
+      ],
+      "added_exclusions": []
+    }
+  ],
+  "new_executable_body_findings": [],
+  "new_assumed_signatures": [
+    {
+      "definition": "pub assume_specification < D : Into < std :: borrow :: Cow < 'static , str > > > [codec :: Error :: chain] (error : codec :: Error , description : D) -> codec :: Error ;",
+      "ensures": null,
+      "file": "verification/native_adoption_v2_replay/opaque/src/lib.rs",
+      "kind": "assumed_specification",
+      "line": 39,
+      "name": "codec :: Error :: chain",
+      "owner": "",
+      "requires": null
+    },
+    {
+      "definition": "pub assume_specification < T : codec :: Encode + ? Sized , X : codec :: WrapperTypeEncode < Target = T > > [< X as codec :: Encode > :: size_hint] (x : & X) -> usize ;",
+      "ensures": null,
+      "file": "verification/native_adoption_v2_replay/opaque/src/lib.rs",
+      "kind": "assumed_specification",
+      "line": 41,
+      "name": "codec :: Encode :: size_hint",
+      "owner": "",
+      "requires": null
+    },
+    {
+      "definition": "pub assume_specification < T : codec :: Encode + ? Sized , X : codec :: WrapperTypeEncode < Target = T > > [< X as codec :: Encode > :: encode] (x : & X) -> Vec < u8 > ;",
+      "ensures": null,
+      "file": "verification/native_adoption_v2_replay/opaque/src/lib.rs",
+      "kind": "assumed_specification",
+      "line": 42,
+      "name": "codec :: Encode :: encode",
+      "owner": "",
+      "requires": null
+    },
+    {
+      "definition": "pub assume_specification < T : codec :: Encode + ? Sized , X : codec :: WrapperTypeEncode < Target = T > , W : codec :: Output + ? Sized > [< X as codec :: Encode > :: encode_to] (x : & X , dest : & mut W) ;",
+      "ensures": null,
+      "file": "verification/native_adoption_v2_replay/opaque/src/lib.rs",
+      "kind": "assumed_specification",
+      "line": 43,
+      "name": "codec :: Encode :: encode_to",
+      "owner": "",
+      "requires": null
+    },
+    {
+      "definition": "pub assume_specification < R : parking_lot :: lock_api :: RawRwLock , T > [parking_lot :: lock_api :: RwLock :: new] (value : T) -> parking_lot :: lock_api :: RwLock < R , T > ;",
+      "ensures": null,
+      "file": "verification/native_adoption_v2_replay/opaque/src/lib.rs",
+      "kind": "assumed_specification",
+      "line": 91,
+      "name": "parking_lot :: lock_api :: RwLock :: < R , T > :: new",
+      "owner": "",
+      "requires": null
+    },
+    {
+      "definition": "pub assume_specification < R : parking_lot :: lock_api :: RawRwLock , T : ? Sized > [parking_lot :: lock_api :: RwLock :: try_read] (lock : & parking_lot :: lock_api :: RwLock < R , T >) -> Option < parking_lot :: lock_api :: RwLockReadGuard < '_ , R , T > > ;",
+      "ensures": null,
+      "file": "verification/native_adoption_v2_replay/opaque/src/lib.rs",
+      "kind": "assumed_specification",
+      "line": 92,
+      "name": "parking_lot :: lock_api :: RwLock :: < R , T > :: try_read",
+      "owner": "",
+      "requires": null
+    }
+  ],
+  "scope_note": "Authored syntax only; compare compiled scope and interface inventory separately."
+}

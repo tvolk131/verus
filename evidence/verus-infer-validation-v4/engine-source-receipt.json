@@ -1,0 +1,22 @@
+{
+  "baseline": "f9c12a937",
+  "implementation_commit": "5929d1db8f39548bcca78b19012b273ea6b613d7",
+  "source_hashes": {
+    "source/docs/guide/src/infer.md": "5455a1ce781b33b32bfd338902fcd1e6b51ad198606e59f49fe3125447a9b204",
+    "source/rust_verify/src/import_export.rs": "40a7b605db6f889fff69315b79bbc23cc6bfe9c191d79bd5fffcefa40d4b1172",
+    "source/rust_verify/src/infer_report.rs": "a30fb90ee9b8a8b770034fd2806ff07b73264d1bd6cc27dfd370a7f7aa8682f6",
+    "source/rust_verify/src/query.rs": "02d4b80b00fd45055fd00e505ba5bc04d691096d03616ac5872ed6fe88ad74db",
+    "source/rust_verify_test/tests/infer.rs": "40f8e61a7863db38553713dfc5778695278f33b6c18ea7daab459faa5d9fe656",
+    "source/rust_verify_test/tests/infer_cases/borrowed_objects.rs": "9111d4f602c8d09f3bdceff17db84f1fd10db9eaea9fe4f5253c37f5c40454b9",
+    "source/rust_verify_test/tests/infer_cases/error_callbacks.rs": "44c67adf38645073f790b14de5580fde215342ff24b24bae863b56970a9928fe",
+    "source/vir/src/infer.rs": "5db84016eeba053e0d6bbcc73839523ee32ef0877b0b646b8ec5a88220774807",
+    "source/vir/src/infer/owned.rs": "9d96ef44173f345e8980dd6d398b6251b763633b7e281d5f29736afb6afa0637",
+    "source/vir/src/infer/owned/error_callbacks.rs": "a95f630004572648814c3d2c838c60c243178db0f6bebd39a72a35baef48e218",
+    "source/vir/src/infer/owned/loops.rs": "866b32dabc236d6d302cc1a7cbbabcb3ee43053e218a70444b62139d47f7e5f6",
+    "source/vir/src/infer/records.rs": "7a56ad8470cddec10e11fc397621d5e53923a9c842f10026958203c4a027eb53",
+    "source/vir/src/infer/registry.rs": "109cfb0c9beb3f152530290554ad639c4bc569c3ba23bf7981f85e0a3aa0119a",
+    "source/vir/src/infer/report.rs": "770e93403dc6137f56e0f50383475ca38e2a8d1e149c4e2b528cdadfc2ae37fd"
+  },
+  "artifact_receipt": "../engine-validation/vstd-final-receipt.json",
+  "build_note": "Proof binary built from this exact source content before the local implementation commit; version banner retains baseline SHA and dirty marker."
+}

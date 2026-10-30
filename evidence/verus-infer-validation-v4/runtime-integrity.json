@@ -1,0 +1,23 @@
+{
+  "engine_artifacts": {
+    "rust_verify": "4f5ed65e9f25092737862cbb0a04c38efd2a136f4254bb90458933dd089c8de3",
+    "verus": "2b4d5ef2734badc6b322f988dee3b4c8855df8ac890c45c80d320622dee1350c",
+    "cargo-verus": "9184cc70413dbda567bfbe7b92c9095872a150f0fd1e98b61a49b6eb408b997e",
+    "vstd.vir": "2b31bcf4003b178116c3d70c52c04537a7f38babbf2d96dc9e371dad613d5751",
+    "libvstd.rlib": "39939b93999e51aeb5e56c812c86647a1ef7d0cbbd62854d8d7c4b2fde856093",
+    "libverus_builtin.rlib": "6d6b4b8caa2e9d4de48e8b0ecd4da99d5b9bdf1b8ff18450abd96ab10a0f0d61",
+    "libverus_builtin_macros.dylib": "6df51eb80d3d02f240c90c1ec801be07584c4f940df49c994b24f7e06095eae5",
+    "libverus_state_machines_macros.dylib": "b2bb0551e96c43dba0e4295fed3f7bc5cca80040564a8b748a2aff98bf1933d0",
+    "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+  },
+  "versions": {
+    "proof_rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: aarch64-apple-darwin\nrelease: 1.99.1\nLLVM version: 23.1.1",
+    "native_rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7",
+    "z3": "Z3 version 4.16.0 - 64 bit"
+  },
+  "archive_members_verified": 315,
+  "native_archive_proof_inputs_verified": 80,
+  "recorded_runner_matches_receipt": true,
+  "native_worktree_clean": true,
+  "source_integrity": "closure-summary and archived closure script compare current sources to accepted fresh proof and native-test receipts"
+}
