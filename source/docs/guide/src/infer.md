@@ -803,6 +803,23 @@ can still change under `Clone`; preservation of their identity is not claimed.
 Only the checked clone relation is available when proving the authored round
 invariant and advancement policy.
 
+## Readonly vectors with hidden elements
+
+A readonly record query can retain a vector's hidden first-party elements as
+complete logical values, even when those elements contain private collections.
+For example, an inferred `(self.history.len() - 1) as u16` query can use the
+author's sequence view without expanding each history element's representation.
+Its inferred input condition comes from the executable subtraction, rather than
+requiring an application invariant. The machine cast remains in the exact output
+equation; callers wanting an untruncated round still establish the length bound.
+
+This extends readonly eligibility only. No element-field equation, clone law,
+mutable opaque-vector summary or new library model is introduced. Original-body
+soundness and independent maximality/exactness checks remain required. An authored
+view supplies the public vocabulary for private collection storage. Aleph's
+`Creator::current_round` now uses this profile instead of a handwritten getter
+contract.
+
 ## Checked mutable selectors
 
 With `--infer-goals`, an ordinary helper can receive generated borrow identity

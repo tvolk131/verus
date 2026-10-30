@@ -2234,3 +2234,27 @@ retains 145 proof results, all 31 exact helpers and 93 certificates, 41 pinned
 creation runtime tests, six rejected actual-source mutants and a rejected
 no-assistance control. Full input-inventory audit and fresh adoption replay
 remain required before declaring adoption v1 complete.
+
+## Readonly vector queries over opaque first-party elements
+
+Readonly record eligibility can retain an otherwise supported vector's hidden
+first-party elements as complete logical values. Private collection fields inside
+an element are not expanded. Mutable record eligibility is unchanged; no field,
+clone or mutation equation follows from the new element eligibility. Length
+queries use canonical sequence-view vocabulary so the existing checked input
+projection pass can express them through an authored public view rather than leak
+a private physical vector field into an imported contract.
+
+Independent SST precision checking is unchanged. Soundness, maximality and
+exactness must prove the generated scalar query against its original body. The
+generic cross-crate regression retains private collection-bearing elements and
+private outer storage, repeats provider builds, checks a caller over the supplied
+view and a wider cast domain, rejects wrong output and empty-input callers, and
+rejects the corresponding mutable opaque-element record profile.
+
+Aleph's original current_round body now uses exact inference; its manual getter
+domain/equation was removed during the acceptance audit. Inference recovers the
+nonempty-vector safety condition and the actual u16 cast without assuming the
+Creator invariant. The native application proves its stronger untruncated round
+meaning from the authored validity predicate. Policy 45 / candidate cache 51
+invalidates older query templates; metadata schema remains 38.

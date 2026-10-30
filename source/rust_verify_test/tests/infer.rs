@@ -6140,6 +6140,56 @@ fn ordinary_range_proofs_cross_crates_require_full_checks_and_block_failed_expor
 }
 
 #[test]
+fn readonly_vector_queries_keep_hidden_collection_elements_opaque() {
+    let crates=InferCrates::new();
+    let provider=r#"use vstd::prelude::*;
+pub mod hidden {use super::*;
+ #[verus_verify] pub struct Blob<T>{storage:Vec<T>,salt:usize}
+}
+#[verus_verify] pub struct Store<T>{items:Vec<hidden::Blob<T>>,revision:u8}
+verus!{impl<T> View for Store<T>{type V=(Seq<hidden::Blob<T>>,u8);
+ closed spec fn view(&self)->Self::V{(self.items@,self.revision)}}}
+#[verus_infer] pub fn last<T>(s:&Store<T>)->u16{(s.items.len()-1) as u16}
+verus!{pub fn coverage<T>(s:&Store<T>)->(r:u16)
+ requires 0<s@.0.len()<=u16::MAX,
+ ensures r as int==s@.0.len()-1,
+ {last(s)}}
+"#;
+    for _ in 0..2 {
+        let run=crates.build_source("opaque_vector",provider,&[],&["--no-cheating","--output-json"],true);
+        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let report=json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(),1);
+        assert_eq!(report["functions"][0]["required_checks_passed"],true);
+    }
+    let client=r#"use vstd::prelude::*;use opaque_vector::Store;
+        pub fn goal<T>(s:&Store<T>)->(r:u16)
+          requires 0<s@.0.len()<=u16::MAX,
+          ensures r as int==s@.0.len()-1,
+        {opaque_vector::last(s)}
+        pub fn wrap<T>(s:&Store<T>)->(r:u16)
+          requires s@.0.len()==65537,
+          ensures r==(65536int as u16),
+        {opaque_vector::last(s)}
+    "#;
+    crates.succeeds("opaque_vector_client",client,&["opaque_vector"]);
+    let wrong=client.replace("r as int==s@.0.len()-1","r as int==s@.0.len()");
+    let run=crates.build("opaque_vector_client",&wrong,&["opaque_vector"],&["--no-cheating","--output-json"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("opaque_vector_client").exists());
+    let empty=client.replace("0<s@.0.len()<=u16::MAX","s@.0.len()==0");
+    let run=crates.build("opaque_vector_client",&empty,&["opaque_vector"],&["--no-cheating","--output-json"]);
+    assert!(!run.status.success());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"));
+    // The same element eligibility is not granted to mutable record inference.
+    let mutable=format!("{provider}\n#[verus_infer] pub fn update<T>(s:&mut Store<T>){{s.revision=0;}}");
+    let run=crates.build_source("opaque_vector",&mutable,&[],&["--no-cheating","--output-json"],true);
+    assert!(!run.status.success());
+    assert!(!crates.vir("opaque_vector").exists());
+    assert!(String::from_utf8_lossy(&run.stderr).contains("record state requires"),"{}",String::from_utf8_lossy(&run.stderr));
+}
+
+#[test]
 fn ordinary_mutable_selectors_cross_crates_require_complete_checked_publication() {
     let crates=InferCrates::new();
     let provider=r#"use vstd::prelude::*;

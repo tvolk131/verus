@@ -218,9 +218,13 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
             return Err(bad());
         }
         if let Some(ts) = collections::vec_args(t) {
+            // Readonly queries can retain a hidden first-party element as a
+            // whole logical value, including its private collection fields.
+            // This grants no mutable-element profile or representation law.
             if ts.len() != 2
                 || !matches!(&*ts[1],TypX::Datatype(Dt::Path(p),xs,_) if xs.is_empty() && models::path_is(p,CrateId::Alloc,&["alloc","Global"]))
-                || !value_type(&ts[0], &f.x.typ_params, ds, 4)
+                || !(value_type(&ts[0], &f.x.typ_params, ds, 4)
+                    || !mutable(f) && opaque_value(&ts[0],ds,&f.x.owning_module))
             {
                 return Err(bad());
             }

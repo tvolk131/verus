@@ -198,3 +198,14 @@ verification/units_collector/SELECTOR.md and selector-evidence.json.
 The hash boundary, full authored-input inventory audit, final safeguard suite and
 fresh replay remain part of final acceptance. This checkpoint does not complete
 adoption v1.
+
+The acceptance audit also removed Creator::current_round's handwritten getter
+contract. Exact inference now checks its original length/subtraction/cast body
+using readonly vector elements retained as opaque complete values and the authored
+Creator view. This adds one exact helper: the native slice now has 147 proof
+results, 32 exact helpers and all 96 required certificates. Wrong getter value and
+an extra-underflow/domain mutation fail ordinary application coverage with those
+helpers healthy. The pinned 41 creation runtime tests pass. The engine passes
+471 compiler regressions across all 18 inference suites and 116 backend tests.
+Evidence is in the native pilot's verification/units_collector/CURRENT_ROUND.md
+and current-round-evidence.json. The full inventory/audit/replay is still open.

@@ -353,7 +353,10 @@ impl Interpreter<'_> {
     }
     fn len(&self, field: usize) -> Result<Term, VirErr> {
         let f = &self.shape.fields[field];
-        if f.view.is_some() {
+        // Keep new opaque-element queries in the sequence vocabulary so an
+        // authored View can hide the physical vector field across modules.
+        if f.view.is_some() || !mutable(self.function) && f.element.as_ref().is_some_and(|t|
+            shape::opaque_value(t,self.datatypes,&self.function.x.owning_module)) {
             let len=self.model_call(&self.function.span,Model::SeqLen,vec![f.element.clone().unwrap()],vec![self.view(field,false)?])?;
             return term(&self.function.span,&int_typ(),ExprX::Unary(UnaryOp::Clip{range:IntRange::Int,truncate:false},len.expr),1+len.size);
         }
