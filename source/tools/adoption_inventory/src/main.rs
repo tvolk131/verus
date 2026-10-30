@@ -78,8 +78,23 @@ impl<'a> Visit<'a> for BodyAudit {
         visit::visit_expr(self, x);
     }
     fn visit_attribute(&mut self, a: &'a syn::Attribute) {
-        let t = tok(a);
-        if t.contains("trigger") {
+        // Inspect identifier tokens, including hints nested in native macro
+        // attributes. Documentation/other string literals are not proof hints.
+        let mut pending = vec![a.to_token_stream()];
+        let mut hint = false;
+        while let Some(tokens) = pending.pop() {
+            for token in tokens {
+                match token {
+                    proc_macro2::TokenTree::Ident(name) => hint |= matches!(
+                        name.to_string().as_str(),
+                        "trigger" | "all_triggers" | "auto_trigger" | "no_auto_trigger" | "auto"
+                    ),
+                    proc_macro2::TokenTree::Group(group) => pending.push(group.stream()),
+                    _ => {}
+                }
+            }
+        }
+        if hint {
             self.finding(a, "manual_trigger");
         }
         visit::visit_attribute(self, a);

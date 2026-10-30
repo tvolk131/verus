@@ -28,7 +28,9 @@ compiled native scope and inspect macros/dependency interfaces separately.
 
 The checker exercises visibility of authored clauses, proof blocks, loop clauses,
 manual triggers, assumptions, external bodies, hidden macro tokens, inherited cfg
-and malformed-source rejection. These are parser tests, not universal proofs of
+and malformed-source rejection. Trigger findings inspect identifier tokens in
+attributes, including nested native contract attributes; words in documentation
+or other string literals do not count as proof hints. These are parser tests, not universal proofs of
 the auditor. A source review must still decide which contracts express intended
 semantics, whether a required implementation was excluded and whether trusted
 interfaces or preconditions weaken the intended application claim.

@@ -37,9 +37,15 @@ verus! {
     fn opaque() -> u8 { 0 }
     proof fn unsound() { assume(false); }
     spec fn hinted() -> bool { forall|i: int| #[trigger] predicate(i) }
+    /// When should trigger_tasks be called next?
+    fn documented() { }
     pub assume_specification [foreign] (n: u8) -> (r: u8) ensures r == n;
 }
 }
+#[verus_spec(ensures forall|i: int| #[trigger] predicate(i),)]
+fn native_hinted() { }
+#[example("trigger", "all_triggers")]
+fn string_metadata() { }
 #[cfg(test)]
 mod tests { fn test_only() { assert!(true); custom!(opaque_tokens); } }
 '''
@@ -69,6 +75,10 @@ def main():
         assert by_name["unsound"]["mode"] == "proof"
         assert by_name["test_only"]["test"]
         assert by_name["still_in_source"]["attributes"]
+        for name in ["hinted", "native_hinted"]:
+            assert any(f["kind"] == "manual_trigger" for f in by_name[name]["findings"])
+        for name in ["documented", "string_metadata"]:
+            assert not any(f["kind"] == "manual_trigger" for f in by_name[name]["findings"])
         assert any("external_body" in attr for attr in by_name["opaque"]["attributes"])
         assert any("allow" in attr for attr in by_name["step"]["attributes"])
         kinds = {entry["kind"] for entry in entries}
