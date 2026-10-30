@@ -240,6 +240,10 @@ impl Verifier {
             "factory_assistance": generation.factory_callbacks.iter().map(|(function,count)|json!({
                 "function":name(function),"strategy":"total_factory_callbacks","callbacks":count,
             })).collect::<Vec<_>>(),
+            "error_callback_assistance": generation.error_callbacks.iter().map(|(function,count)|json!({
+                "function":name(function),"strategy":"constructor_and_callee_postconditions","callbacks":count,
+                "checked_by":"ordinary closure and original-body verification",
+            })).collect::<Vec<_>>(),
             "goal_assistance": generation.goal_lemmas.iter().map(|(function, lemmas)| json!({
                 "function": name(function), "strategy": "counting_broadcast",
                 "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),

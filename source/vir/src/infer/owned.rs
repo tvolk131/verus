@@ -13,6 +13,7 @@ pub(crate) mod result_map;
 mod variants;
 pub(crate) mod borrowed;
 pub(crate) mod factory_callbacks;
+pub(crate) mod error_callbacks;
 pub(in crate::infer) use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {
@@ -1351,7 +1352,11 @@ impl Engine<'_> {
     fn decode(&mut self, s: &mut State, out: &Expr, post: &Expr) -> Result<Val, VirErr> {
         if identity_borrow_return(self.f) {
             let rhs=find_rhs(out,&[post.clone()])?;
-            let value=Val::atom(self.formula(s,&rhs)?);
+            // A complete borrowed value is already the observation. Rebuilding
+            // its private collection fields would discard that identity and
+            // unnecessarily require models for unrelated storage.
+            validate_formula(&rhs, self.all)?;
+            let value=Val::atom(records::substitute_value(&rhs, &s.objects)?);
             if skeleton(&self.post(&value,out)?.expr)!=skeleton(post) {
                 return Err(unsupported(&post.span,"invalid borrowed identity summary"));
             }
@@ -1664,17 +1669,23 @@ pub(super) fn infer(
     let mut s = State { locals: HashMap::new(), objects:HashMap::new(), active: boolean(&f.span, true) };
     for p in f.x.params.iter() {
         s.objects.insert(p.x.name.clone(),atom(SpannedTyped::new(&p.span,&p.x.typ,ExprX::Var(p.x.name.clone())))?);
-        s.locals.insert(
-            p.x.name.clone(),
-            eng.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 8)?,
-        );
     }
+    // A checked direct borrowed projection only needs the complete source
+    // object. Unrelated opaque fields (e.g. a cache) need no structural model.
+    // The prepared observation requires an entire, statement-free projection
+    // body; ordinary soundness and complete-value precision remain mandatory.
     if identity_borrow_return(f) {
         if let Some(value)=eng.borrowed_value(&s,f)? {
             let body=f.x.body.as_ref().ok_or_else(||unsupported(&f.span,"borrowed projection body missing"))?;
             let out=SpannedTyped::new(&f.span,&f.x.inner_ret.x.typ,ExprX::Var(f.x.inner_ret.x.name.clone()));
             return Ok((Contract::new(boolean(&f.span,true).expr,records::equal(&f.span,atom(out)?,value)?.expr)?,body.clone()));
         }
+    }
+    for p in f.x.params.iter() {
+        s.locals.insert(
+            p.x.name.clone(),
+            eng.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 8)?,
+        );
     }
     let result = eng.expr(
         &mut s,
@@ -1852,10 +1863,12 @@ pub(super) fn validate_summary(
     let mut s = State { locals: HashMap::new(), objects:HashMap::new(), active: boolean(&f.span, true) };
     for p in f.x.params.iter() {
         s.objects.insert(p.x.name.clone(),atom(SpannedTyped::new(&p.span,&p.x.typ,ExprX::Var(p.x.name.clone())))?);
-        s.locals.insert(
-            p.x.name.clone(),
-            e.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 8)?,
-        );
+        if !identity_borrow_return(f) {
+            s.locals.insert(
+                p.x.name.clone(),
+                e.layout(SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone())), 8)?,
+            );
+        }
     }
     validate_formula(&f.x.require[0], all)?;
     validate_formula(&f.x.ensure.0[0], all)?;

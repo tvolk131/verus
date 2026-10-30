@@ -452,7 +452,7 @@ pub(super) fn pure(e: &Expr) -> Result<(), VirErr> {
         }
     })
 }
-fn pure_place(p: &Place) -> bool {
+pub(super) fn pure_place(p: &Place) -> bool {
     match &p.x {
         PlaceX::Local(_) => true,
         PlaceX::Temporary(e) => pure(e).is_ok(),

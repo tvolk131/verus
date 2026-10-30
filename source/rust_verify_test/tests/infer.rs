@@ -5972,6 +5972,8 @@ mod result_map_cases;
 
 #[path="infer_cases/borrowed_objects.rs"]
 mod borrowed_object_cases;
+#[path="infer_cases/error_callbacks.rs"]
+mod error_callback_cases;
 
 #[path="infer_cases/factory_goals.rs"]
 mod factory_goal_cases;

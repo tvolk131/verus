@@ -2577,3 +2577,33 @@ acquiring the selected source object's complete-value equation.
 
 The shared-return checkpoint introduced metadata policy 41 and candidate-cache version 47. Rebuild inferred
 providers and dependents together.
+
+A bare shared getter with an entire body of the form `&self.field` can retain
+complete value identity even when its owner contains an unrelated opaque field,
+such as a cache. The projection can traverse nested fields and use a supplied
+public observation for private storage. No representation or behavioral model
+for the untouched field is needed. This profile does not skip executable
+statements or grant an identity equation to clones. Normal body soundness,
+safe-domain maximality and independent complete-value precision remain required.
+Imported summaries retain that same identity equation without reconstructing
+private collection storage. Pure vocabulary and exact summary coverage are
+still validated. This extension uses policy 50 / candidate-cache version 56;
+rebuild inferred providers and dependents together.
+
+With `--infer-goals`, a loop-free ordinary function with an authored postcondition
+can also receive proposed contracts for a direct `Result::map_err` closure whose
+body constructs an error value. The bounded profile composes constructor tags,
+unchanged fields and existing callee postconditions. For example, a checked
+cloning helper can contribute its `cloned` relation without promising that a
+generic clone equals its source. The closure and original function body still
+undergo ordinary verification. This assistance adds no exactness or maximality
+claim to an ordinary function.
+
+The profile leaves authored closure contracts alone. It declines partial,
+mutable, unsafe or asynchronous callees, unsupported postconditions, loops and
+oversized candidates. Limits are four callbacks, four levels of constructor
+nesting, eight fields per constructor, four postconditions per callee and a
+4,096-node formula budget. The JSON `error_callback_assistance` entry reports
+proposals, not proof certificates. Ordinary filtering rules still apply to
+ordinary contracts; a crate publishing inferred guarantees continues to require
+full verification and all inference certificates.

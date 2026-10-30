@@ -129,7 +129,7 @@ pub(super) fn equal(span: &Span, a: Term, b: Term) -> Result<Term, VirErr> {
         1 + a.size + b.size,
     )
 }
-fn substitute_value(e: &Expr, vars: &HashMap<VarIdent, Term>) -> Result<Term, VirErr> {
+pub(super) fn substitute_value(e: &Expr, vars: &HashMap<VarIdent, Term>) -> Result<Term, VirErr> {
     let mut remaining = FORMULA_BUDGET;
     let expr = crate::ast_visitor::map_expr_visitor_env(
         e, &mut crate::ast_visitor::VisitorScopeMap::new(), &mut remaining,

@@ -1,6 +1,57 @@
 use super::*;
 
 #[test]
+fn direct_borrow_projection_ignores_unobserved_opaque_cache() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
+pub struct Payload { values: Vec<u8> }
+#[verifier::external_body] pub struct Cache { value: u8 }
+pub struct Packet { left: Payload, right: Payload, cache: Cache }
+impl View for Packet {
+ type V = (Payload, Payload);
+ closed spec fn view(&self) -> Self::V { (self.left, self.right) }
+}
+impl Packet {
+ #[verifier::infer] pub fn payload(&self) -> &Payload { &self.left }
+}
+"#;
+    let consumer = r#"use vstd::prelude::*;
+pub fn goal(p: &opaque_cache::Packet) {
+ let payload = p.payload();
+ assert(*payload == p@.0);
+}
+"#;
+    for _ in 0..2 {
+        let p = crates.build("opaque_cache", provider, &[], &["--no-cheating", "--output-json"]);
+        assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
+        let report = json_inference(&p);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 1);
+        assert_eq!(report["functions"][0]["required_checks_passed"], true);
+        let c = crates.build("opaque_cache_client", consumer, &["opaque_cache"], &["--no-cheating"]);
+        assert!(c.status.success(), "{}", String::from_utf8_lossy(&c.stderr));
+    }
+    let wrong = provider.replace("{ &self.left }", "{ &self.right }");
+    let p = crates.build("opaque_cache", &wrong, &[], &["--no-cheating", "--output-json"]);
+    assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
+    assert_eq!(json_inference(&p)["functions"][0]["required_checks_passed"], true);
+    let c = crates.build("opaque_cache_client", consumer, &["opaque_cache"], &["--no-cheating"]);
+    assert!(!c.status.success());
+    assert!(!crates.vir("opaque_cache_client").exists());
+
+    let unsafe_body = provider.replace("{ &self.left }", "{ let _bad = 1u8 / 0u8; &self.left }");
+    let p = crates.build("opaque_cache", &unsafe_body, &[], &["--no-cheating"]);
+    assert!(!p.status.success());
+    assert!(!crates.vir("opaque_cache").exists());
+    assert!(!String::from_utf8_lossy(&p.stderr).contains("panicked"));
+    for options in [vec!["--no-verify"], vec!["--verify-root", "--verify-function", "payload"]] {
+        let p = crates.build("opaque_cache", provider, &[], &options);
+        assert!(!p.status.success());
+        assert!(!crates.vir("opaque_cache").exists());
+        assert!(String::from_utf8_lossy(&p.stderr).contains("requires full-crate verification"));
+    }
+}
+
+#[test]
 fn borrowed_projection_chains_keep_complete_objects_across_imports() {
     let crates = InferCrates::new();
     let provider = r#"use vstd::prelude::*;
