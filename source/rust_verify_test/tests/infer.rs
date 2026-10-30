@@ -5955,6 +5955,12 @@ mod visibility_cases;
 #[path="infer_cases/derive_conversions.rs"]
 mod derive_conversion_cases;
 
+#[path="infer_cases/derive_assignments.rs"]
+mod derive_assignment_cases;
+
+#[path="infer_cases/local_folds.rs"]
+mod local_fold_cases;
+
 #[path="infer_cases/equality.rs"]
 mod equality_cases;
 

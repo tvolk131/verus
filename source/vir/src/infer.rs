@@ -26,6 +26,7 @@ mod enums;
 mod exits;
 mod goals;
 mod growth_goals;
+mod local_fold_goals;
 mod range_goals;
 mod pointwise_goals;
 mod selector_goals;
@@ -68,8 +69,13 @@ pub fn is_pure_observation(f: &Function) -> bool {
 
 /// Concrete exact-mode implementations whose proposed domain must be proved
 /// equivalent to the ordinary inherited trait precondition.
-pub fn is_wrapper_operator_boundary(f:&Function)->bool {wrapper_traits::binary_boundary(f)}
-pub fn is_primitive_operator_maximality_model(f:&Function,ts:&Typs)->bool {wrapper_traits::primitive_boundary(f,ts)}
+pub fn is_wrapper_operator_boundary(f:&Function)->bool {wrapper_traits::binary_boundary(f) || wrapper_traits::assignment_boundary(f)}
+pub fn is_primitive_operator_maximality_model(f:&Function,ts:&Typs)->bool {
+    wrapper_traits::primitive_boundary(f,ts)
+        || wrapper_traits::assignment_boundary(f) && ts.len() == 2
+            && crate::ast_util::types_equal(&ts[0], &ts[1])
+            && matches!(&*ts[0], TypX::Int(r) if arithmetic::exact_range(*r))
+}
 
 pub fn is_wrapper_trait(f: &Function) -> bool {
     wrapper_traits::kind(f).is_some()
@@ -121,6 +127,7 @@ pub use report::{GeneratedCandidate, GenerationReport};
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
 pub use growth_goals::prepare as prepare_growth_goals;
+pub use local_fold_goals::prepare as prepare_local_fold_goals;
 pub use range_goals::prepare as prepare_range_goals;
 pub use pointwise_goals::prepare as prepare_pointwise_goals;
 pub use selector_goals::prepare as prepare_selector_goals;
@@ -865,7 +872,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    wrapper_compare::boundary(function) || wrapper_traits::binary_boundary(function) || owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    wrapper_compare::boundary(function) || wrapper_traits::binary_boundary(function) || wrapper_traits::assignment_boundary(function) || owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -882,7 +889,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
         if let FunctionKind::TraitMethodImpl{method,..}=&f.x.kind {
             if is_wrapper_trait(f) {
-                if let Some(boundary)=available.get(method).filter(|d|wrapper_traits::binary_boundary(d)){used.insert(method.clone(),boundary.clone());}
+                if let Some(boundary)=available.get(method).filter(|d|is_wrapper_operator_boundary(d)){used.insert(method.clone(),boundary.clone());}
             }
         }
         if collections::kind(f).is_some() || records::candidate(f) || is_owned_summary(f) {

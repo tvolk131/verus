@@ -3,7 +3,7 @@
 This standalone Cargo crate uses actual derive_more and codec derives. It keeps
 ordinary native implementations while explicitly excluding unused Sum/Encode/
 Decode from verification. Those exclusions supply no trusted contracts. The
-selected arithmetic and both scalar-wrapper conversion directions must be checked
+selected arithmetic, assignment derives and both conversion directions are checked
 against the real generated bodies before inferred callers can use them.
 
 Build the matching release compiler, macros and vstd, then run from the Verus

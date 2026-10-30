@@ -91,7 +91,7 @@ pub fn modify_derived_item<'tcx>(
     } else { inputs.first().cloned() };
     let target=target.map(|t|match t.kind(){rustc_middle::ty::TyKind::Ref(_,inner,_)=>*inner,_=>t});
     if let Some(rustc_middle::ty::TyKind::Adt(adt, _)) = target.map(|t| t.kind()) {
-        if matches!(name.as_str(), "from" | "add" | "sub" | "mul" | "div" | "rem" | "eq") {
+        if matches!(name.as_str(), "from" | "add" | "add_assign" | "sub" | "mul" | "div" | "rem" | "eq") {
             if has_derived_request(ctxt.tcx,adt.did(),if reverse_from {"into"} else {&name}) {
                 Arc::make_mut(&mut function.attrs).infer = true;
             }

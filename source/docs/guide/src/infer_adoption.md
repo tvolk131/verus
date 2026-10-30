@@ -143,6 +143,23 @@ observations in application contracts as well.
 
 ## Use explicit contracts and proofs where they add meaning or bridge a gap
 
+Two bounded assistance profiles also avoid extracting implementation helpers.
+An ordinary immutable-input function can construct a local collection with one
+supported native fold and then return a larger record or call an opaque API.
+`--infer-goals` proposes only the fold's proof annotations; the complete original
+function still proves its semantic contract. The opaque suffix receives no
+functional equation and the ordinary constructor receives no exact certificate.
+The report lists this separately as `local_fold_assistance`.
+
+An append-only growth loop followed directly by a mutable vector-element return
+can receive generated induction and selector contracts. Authors supply validity
+and the selected element's semantic requirements. The compiler proposes bounded
+growth, unchanged fields/earlier positions, initial selected-value identity and
+conditional validity restoration when the caller finishes the borrow. All these
+facts must verify against the original body; neither an extracted preparation
+method nor a handwritten borrow-frame contract is required. Other algorithms
+remain outside these bounded profiles.
+
 Explicit application contracts are useful even when inference succeeds: they
 record the intended invariant, input coverage, error policy and frame conditions.
 Trait contracts similarly specify what generic code may rely on. Rust's `Clone`

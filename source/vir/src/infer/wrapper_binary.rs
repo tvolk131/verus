@@ -23,7 +23,7 @@ pub(super) fn validate_derived_requests(
         };
         if !matches!(
             suffix,
-            "from" | "into" | "add" | "sub" | "mul" | "div" | "rem" | "eq" | "partial_cmp" | "cmp"
+            "from" | "into" | "add" | "add_assign" | "sub" | "mul" | "div" | "rem" | "eq" | "partial_cmp" | "cmp"
         ) || !is_pure_observation(marker)
             || marker.x.params.len() != 1
             || marker.x.body.is_none()
@@ -61,12 +61,15 @@ pub(super) fn validate_derived_requests(
                 let wanted = match suffix {
                     "from" | "into" => Some(Kind::From),
                     "eq" => Some(Kind::Compare),
+                    "add_assign" => Some(Kind::AddAssign),
                     _ => Some(Kind::Binary),
                 };
                 if kind(f) != wanted
                     || f.x.body.is_none()
                     || f.x.name.path.last_segment().as_str() != if suffix == "into" { "from" } else { suffix }
-                    || if suffix == "eq" {
+                    || if suffix == "add_assign" {
+                        !enums::unit(&f.x.inner_ret.x.typ)
+                    } else if suffix == "eq" {
                         !matches!(&*f.x.inner_ret.x.typ, TypX::Bool)
                     } else {
                         !crate::ast_util::types_equal(&f.x.inner_ret.x.typ, if suffix == "into" { field } else { owner })

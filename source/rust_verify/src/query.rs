@@ -588,6 +588,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             cratex.functions = vir::infer::prepare_pointwise_goals(
                 &cratex.functions, &available, &mut self.inference_generation,
             ).map_err(|e| self.emit_error(e))?;
+            cratex.functions = vir::infer::prepare_local_fold_goals(
+                &cratex.functions, &available, &datatypes, &mut self.inference_generation,
+            ).map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_selector_goals(
                 &cratex.functions, &available, &datatypes, &mut self.inference_generation,
             ).map_err(|e| self.emit_error(e))?;
@@ -719,6 +722,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         }
         let assisted_loops = self.inference_generation.growth_loops.iter()
             .chain(self.inference_generation.range_loops.iter())
+            .chain(self.inference_generation.local_folds.iter())
             .map(|(f, _)| f.clone()).collect();
         let krate = krate_infer_resolution(&krate, &res_infos, &assisted_loops)
             .map_err(|e| self.emit_errors(e))?;

@@ -12,6 +12,7 @@ enum Phase {
 fn plain(e: &Expr) -> &Expr {
     match &e.x {
         ExprX::Block(ss, Some(t)) if ss.is_empty() => plain(t),
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::Int, truncate: false }, e) => plain(e),
         ExprX::ReadPlace(p, _) => match &p.x {
             PlaceX::Temporary(e) => plain(e),
             _ => e,
@@ -386,6 +387,7 @@ fn proposal(
     f: &Function,
     all: &HashMap<Fun, Function>,
     ds: &[Datatype],
+    inline_posts: Option<&[Expr]>,
 ) -> Result<Vec<Expr>, VirErr> {
     if !header(f) {
         return Ok(vec![]);
@@ -396,34 +398,34 @@ fn proposal(
         return Ok(vec![]);
     }
     let StmtX::Expr(preparation) = &ss[0].x else { return Ok(vec![]) };
-    let (Some((callee, types, args)), Some((borrow, _, borrow_args))) =
-        (call(preparation), call(tail))
-    else {
+    let Some((borrow, _, borrow_args)) = call(tail) else { return Ok(vec![]) };
+    let preparation_call = call(preparation);
+    let callee = preparation_call.and_then(|(callee, types, args)| {
+        all.get(callee).filter(|c| {
+            c.x.mode == Mode::Exec
+                && !c.x.attrs.infer
+                && !c.x.attrs.is_external_body
+                && !c.x.attrs.is_unsafe
+                && !c.x.attrs.is_async
+                && !c.x.attrs.prophecy_dependent
+                && !c.x.attrs.exec_assume_termination
+                && !c.x.attrs.exec_allows_no_decreases_clause
+                && c.x.proxy.is_none()
+                && enums::unit(&c.x.inner_ret.x.typ)
+                && c.x.params.len() == args.len()
+                && c.x.typ_params.len() == types.len()
+        })
+    });
+    if inline_posts.is_none() && callee.is_none() {
         return Ok(vec![]);
-    };
-    let Some(callee) = all.get(callee).filter(|c| {
-        c.x.mode == Mode::Exec
-            && !c.x.attrs.infer
-            && !c.x.attrs.is_external_body
-            && !c.x.attrs.is_unsafe
-            && !c.x.attrs.is_async
-            && !c.x.attrs.prophecy_dependent
-            && !c.x.attrs.exec_assume_termination
-            && !c.x.attrs.exec_allows_no_decreases_clause
-            && c.x.proxy.is_none()
-            && enums::unit(&c.x.inner_ret.x.typ)
-            && c.x.params.len() == args.len()
-            && c.x.typ_params.len() == types.len()
-    }) else {
-        return Ok(vec![]);
-    };
-    if args.is_empty()
-        || !all
-            .get(borrow)
-            .is_some_and(|c| collections::model(c) == Some(collections::Model::IndexMut))
+    }
+    if !all.get(borrow).is_some_and(|c| collections::model(c) == Some(collections::Model::IndexMut))
         || borrow_args.len() != 2
-        || !projection(&args[0]).is_some_and(|(n, q, path)| {
-            n == f.x.params[0].x.name && q == Phase::Current && path.is_empty()
+        || preparation_call.is_some_and(|(_, _, args)| {
+            args.is_empty()
+                || !projection(&args[0]).is_some_and(|(n, q, path)| {
+                    n == f.x.params[0].x.name && q == Phase::Current && path.is_empty()
+                })
         })
     {
         return Ok(vec![]);
@@ -442,10 +444,8 @@ fn proposal(
     };
     let mut remaining = FORMULA_BUDGET;
     for e in callee
-        .x
-        .ensure
-        .0
-        .iter()
+        .into_iter()
+        .flat_map(|c| c.x.ensure.0.iter())
         .chain(f.x.ensure.0.iter())
         .chain(f.x.require.iter())
         .chain(std::iter::once(body))
@@ -501,11 +501,17 @@ fn proposal(
         result(f, true),
     )];
     let mut posts = vec![];
-    for e in callee.x.ensure.0.iter() {
-        if mentions(e, &callee.x.inner_ret.x.name) {
-            continue;
+    if let Some(inline) = inline_posts {
+        for e in inline {
+            growth_goals::clauses(e, &mut posts);
         }
-        growth_goals::clauses(&instantiate(e, callee, types, args)?, &mut posts);
+    } else if let (Some(callee), Some((_, types, args))) = (callee, preparation_call) {
+        for e in callee.x.ensure.0.iter() {
+            if mentions(e, &callee.x.inner_ret.x.name) {
+                continue;
+            }
+            growth_goals::clauses(&instantiate(e, callee, types, args)?, &mut posts);
+        }
     }
     let mut original_posts = vec![];
     for e in f.x.ensure.0.iter() {
@@ -598,6 +604,51 @@ fn proposal(
                             triggered,
                         ),
                     ));
+                    // The initially returned element also retains its old
+                    // complete value. A caller that leaves the borrow unchanged
+                    // can recover preservation of the entire old prefix,
+                    // including the selected position.
+                    let bound = logic(
+                        &f.span,
+                        LogicalOp::And,
+                        relation(
+                            &f.span,
+                            BinaryOp::Inequality(InequalityOp::Le),
+                            SpannedTyped::new(
+                                &f.span,
+                                &int_typ(),
+                                ExprX::Const(Constant::Int(0.into())),
+                            ),
+                            index.clone(),
+                        ),
+                        relation(
+                            &f.span,
+                            BinaryOp::Inequality(InequalityOp::Lt),
+                            index.clone(),
+                            sequence_model(
+                                collections::Model::SeqLen,
+                                old_sequence.clone(),
+                                vec![],
+                                all,
+                            )?,
+                        ),
+                    );
+                    facts.push(logic(
+                        &f.span,
+                        LogicalOp::Implies,
+                        bound,
+                        relation(
+                            &f.span,
+                            BinaryOp::Eq(Mode::Spec),
+                            result(f, false),
+                            sequence_model(
+                                collections::Model::SeqIndex,
+                                old_sequence.clone(),
+                                vec![index.clone()],
+                                all,
+                            )?,
+                        ),
+                    ));
                 }
             }
         }
@@ -636,6 +687,158 @@ fn proposal(
         return Err(unsupported(&f.span, "selector contract budget exceeded"));
     }
     facts.iter().map(spec).collect()
+}
+
+/// Propose append-only preparation facts for an inline growth loop. As with an
+/// explicit preparation API, these are untrusted claims: the original selector
+/// body must prove them and every loop invariant. No helper is added or called.
+fn inline_growth(
+    f: &Function,
+    all: &HashMap<Fun, Function>,
+    ds: &[Datatype],
+    report: &mut GenerationReport,
+) -> Result<Option<(Function, Vec<Expr>)>, VirErr> {
+    if !header(f) {
+        return Ok(None);
+    }
+    let Some(body) = &f.x.body else { return Ok(None) };
+    let ExprX::Block(ss, Some(tail)) = &body.x else { return Ok(None) };
+    if ss.len() != 1 {
+        return Ok(None);
+    }
+    let StmtX::Expr(source) = &ss[0].x else { return Ok(None) };
+    let mut loops = vec![];
+    expr_visitor_walk(source, &mut |e| {
+        if matches!(&e.x, ExprX::Loop { .. }) {
+            loops.push(e.clone());
+        }
+        VisitorControlFlow::<()>::Recurse
+    });
+    if loops.len() != 1
+        || !matches!(&loops[0].x, ExprX::Loop { cond: Some(_), is_for_loop: false, .. })
+    {
+        return Ok(None);
+    }
+    let Some((borrow, _, args)) = call(tail) else { return Ok(None) };
+    if args.len() != 2
+        || !all
+            .get(borrow)
+            .is_some_and(|c| collections::model(c) == Some(collections::Model::IndexMut))
+    {
+        return Ok(None);
+    }
+    let Some((root, Phase::Current, path)) = projection(&args[0]) else { return Ok(None) };
+    if root != f.x.params[0].x.name || path.len() != 1 {
+        return Ok(None);
+    }
+    let TypX::MutRef(record) = &*f.x.params[0].x.typ else { return Ok(None) };
+    let Some(fields) = records::shape::fields(record, ds) else { return Ok(None) };
+    let Some((op, vector)) =
+        fields.iter().find(|(op, _)| records::shape::same_path(&[op.clone()], &path))
+    else {
+        return Ok(None);
+    };
+    let Some(vector_types) = collections::vec_args(vector) else { return Ok(None) };
+    let old = view(field(state(f, Phase::Entry), op, vector), all)?;
+    let after = view(field(state(f, Phase::Future), op, vector), all)?;
+    let as_int = |e: Expr| {
+        SpannedTyped::new(
+            &f.span,
+            &int_typ(),
+            ExprX::Unary(UnaryOp::Clip { range: IntRange::Int, truncate: false }, e),
+        )
+    };
+    let old_len = as_int(sequence_model(collections::Model::SeqLen, old.clone(), vec![], all)?);
+    let new_len = as_int(sequence_model(collections::Model::SeqLen, after.clone(), vec![], all)?);
+    let index = SpannedTyped::new(
+        &tail.span,
+        &int_typ(),
+        ExprX::Unary(UnaryOp::Clip { range: IntRange::Int, truncate: false }, spec(&args[1])?),
+    );
+    let target = SpannedTyped::new(
+        &tail.span,
+        &int_typ(),
+        ExprX::Binary(
+            BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Allow)),
+            index,
+            SpannedTyped::new(&tail.span, &int_typ(), ExprX::Const(Constant::Int(1.into()))),
+        ),
+    );
+    let bound = SpannedTyped::new(
+        &tail.span,
+        &int_typ(),
+        ExprX::If(
+            relation(
+                &tail.span,
+                BinaryOp::Inequality(InequalityOp::Lt),
+                target.clone(),
+                old_len.clone(),
+            ),
+            old_len.clone(),
+            Some(target),
+        ),
+    );
+    let mut posts = vec![relation(&f.span, BinaryOp::Eq(Mode::Spec), new_len, bound)];
+    let take = all
+        .values()
+        .find(|c| owned::model(c) == Some(owned::Model::Take))
+        .ok_or_else(|| unsupported(&f.span, "inline growth requires checked prefix vocabulary"))?;
+    let prefix = trait_getters::instantiate(
+        take,
+        &Arc::new(vec![vector_types[0].clone()]),
+        vec![records::atom(after)?, records::atom(old_len)?],
+        &Arc::new(vec![]),
+    )?
+    .expr;
+    posts.push(relation(&f.span, BinaryOp::Eq(Mode::Spec), prefix, old));
+    for (other, typ) in &fields {
+        if other.field != op.field {
+            posts.push(relation(
+                &f.span,
+                BinaryOp::Eq(Mode::Spec),
+                field(state(f, Phase::Future), other, typ),
+                field(state(f, Phase::Entry), other, typ),
+            ));
+        }
+    }
+    let mut requirements = vec![];
+    for p in f.x.require.iter() {
+        growth_goals::clauses(p, &mut requirements);
+    }
+    for p in requirements {
+        let Some((name, types, args)) = call(&p) else { continue };
+        if args.len() != 1
+            || !all.get(name).is_some_and(|c| c.x.mode == Mode::Spec)
+            || !projection(&args[0])
+                .is_some_and(|(n, q, path)| n == root && q == Phase::Entry && path.is_empty())
+        {
+            continue;
+        }
+        posts.push(
+            trait_getters::instantiate_source(
+                &all[name],
+                types,
+                vec![records::atom(state(f, Phase::Future))?],
+                &f.x.typ_bounds,
+                &p,
+            )?
+            .expr,
+        );
+    }
+    let mut projected = f.x.clone();
+    let mut ret = projected.inner_ret.x.clone();
+    ret.typ = crate::ast_util::unit_typ();
+    projected.inner_ret = projected.inner_ret.new_x(ret.clone());
+    projected.outer_ret = projected.outer_ret.new_x(ret);
+    projected.ensure = (Arc::new(posts.clone()), Arc::new(vec![]));
+    let analysis = f.new_x(projected);
+    let annotated = growth_goals::prepare_one(&analysis, all, report)?;
+    if Arc::ptr_eq(&analysis, &annotated) {
+        return Ok(None);
+    }
+    let mut out = f.x.clone();
+    out.body = annotated.x.body.clone();
+    Ok(Some((f.new_x(out), posts)))
 }
 
 /// Only append pure postconditions and an internal publication marker. Preserve
@@ -683,18 +886,20 @@ pub fn prepare(
     let mut id = u64::MAX / 8;
     fs.iter()
         .map(|f| {
-            let facts = proposal(f, &all, ds)?;
+            let inline = inline_growth(f, &all, ds, report)?;
+            let prepared = inline.as_ref().map(|(f, _)| f).unwrap_or(f);
+            let facts = proposal(prepared, &all, ds, inline.as_ref().map(|(_, p)| p.as_slice()))?;
             if facts.is_empty() {
-                return Ok(f.clone());
+                return Ok(prepared.clone());
             }
-            let mut x = f.x.clone();
+            let mut x = prepared.x.clone();
             for p in &facts {
                 pure_contract(p, f, &all)?;
                 Arc::make_mut(&mut x.ensure.0).push(growth_goals::fresh(p, &mut id)?);
             }
             Arc::make_mut(&mut x.attrs).infer_mutable_selector = true;
             let candidate = f.new_x(x);
-            validate_decoration(f, &candidate, &all)?;
+            validate_decoration(prepared, &candidate, &all)?;
             report.mutable_selectors.push((f.x.name.clone(), facts.len()));
             Ok(candidate)
         })

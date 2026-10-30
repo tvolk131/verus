@@ -2926,6 +2926,7 @@ impl Verifier {
             f.x.attrs.infer || vir::infer::is_inference_contract(f)
                 || self.inference_generation.growth_loops.iter()
                     .chain(self.inference_generation.range_loops.iter())
+                    .chain(self.inference_generation.local_folds.iter())
                     .any(|(name, _)| name == &f.x.name)
         }) {
             if self.args.no_verify

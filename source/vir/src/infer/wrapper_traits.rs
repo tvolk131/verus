@@ -165,6 +165,7 @@ pub(super) fn residual_conversion(
 /// is candidate-only; executable trait dispatch remains unchanged.
 pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
     if let Some(e)=primitive_call(e,all){return Some(e);}
+    if let Some(e)=primitive_add_assign(e,all){return Some(e);}
 
 
     let ExprX::Call {
@@ -260,6 +261,47 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr
         post_args: None,
         body: None,
     }))
+}
+
+/// A derive can spell primitive += as a trait method call. Project only the
+/// canonical checked integer boundary, never a user implementation by name.
+/// This expression is used for candidate construction; verification keeps the
+/// original method call and its existing vstd pre/postconditions.
+fn primitive_add_assign(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
+    let ExprX::Call {
+        target: CallTarget::Fun(CallTargetKind::DynamicResolved {
+            resolved, is_trait_default: false, ..
+        }, name, types, _, _),
+        args, post_args: None, body: None,
+    } = &e.x else { return None; };
+    let boundary = all.get(name)?;
+    let p = &resolved.path;
+    if !assignment_boundary(boundary)
+        || p.krate != CrateId::Core || p.segments.len() != 4
+        || p.segments[0].as_str() != "ops" || p.segments[1].as_str() != "arith"
+        || !p.segments[2].starts_with("impl") || p.last_segment().as_str() != "add_assign"
+        || types.len() != 2 || !crate::ast_util::types_equal(&types[0], &types[1])
+        || args.len() != 2 || !crate::ast_util::types_equal(&args[1].typ, &types[0])
+        || !enums::unit(&e.typ)
+    { return None; }
+    let TypX::Int(range) = &*types[0] else { return None; };
+    if !arithmetic::exact_range(*range) { return None; }
+    let (ExprX::BorrowMut(place) | ExprX::TwoPhaseBorrowMut(place)) = &args[0].x else { return None; };
+    if !crate::ast_util::types_equal(&place.typ, &types[0]) { return None; }
+    Some(e.new_x(ExprX::Assign {
+        place: place.clone(), rhs: args[1].clone(),
+        op: Some(BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(*range)))),
+        typ: types[0].clone(), resolve: false,
+    }))
+}
+
+pub(super) fn assignment_boundary(f: &Function) -> bool {
+    f.x.mode == Mode::Exec && !f.x.attrs.infer && f.x.body.is_none()
+        && f.x.params.len() == 2 && enums::unit(&f.x.inner_ret.x.typ)
+        && matches!(f.x.kind, FunctionKind::TraitMethodDecl { .. })
+        && models::path_is(&f.x.name.path, CrateId::Core, &["ops", "arith", "AddAssign", "add_assign"])
+        && f.x.proxy.as_ref().is_some_and(|proxy|
+            models::path_is(&proxy.x, CrateId::Vstd, &["std_specs", "ops", "ExAddAssign", "add_assign"]))
 }
 
 pub(super) fn rewrite(f: &Function, all: &HashMap<Fun, Function>,datatypes:&[Datatype]) -> Result<Function, VirErr> {

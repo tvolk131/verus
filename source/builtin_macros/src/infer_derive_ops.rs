@@ -12,7 +12,7 @@ pub(crate) fn expand(
     let bad = || {
         syn::Error::new(
             item.span(),
-            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Into/Add/Sub/Mul/Div/Rem/PartialEq/PartialOrd/Ord implementations",
+            "infer_derive requires a nongeneric single primitive-integer tuple field and named derived From/Into/Add/AddAssign/Sub/Mul/Div/Rem/PartialEq/PartialOrd/Ord implementations",
         )
     };
     if operators.is_empty()
@@ -64,6 +64,7 @@ pub(crate) fn expand(
             "From" => "from",
             "Into" => "into",
             "Add" => "add",
+            "AddAssign" => "add_assign",
             "Sub" => "sub",
             "Mul" => "mul",
             "Div" => "div",
@@ -77,6 +78,21 @@ pub(crate) fn expand(
             return Err(bad());
         }
         seen.push(method);
+        if method == "add_assign" {
+            models.push(quote! {
+                impl #name {#[doc(hidden)] pub open spec fn __verus_infer_derived_add_assign(&self)->bool {true}}
+                impl #vstd::std_specs::ops::AddAssignSpecImpl for #name {
+                    open spec fn obeys_add_assign_spec()->bool {true}
+                    open spec fn add_assign_req(&self,rhs:Self)->bool {
+                        #vstd::std_specs::ops::AddSpec::add_req(self.0,rhs.0)
+                    }
+                    open spec fn add_assign_spec(&self,rhs:Self)->&Self {
+                        &#name(#vstd::std_specs::ops::AddSpec::add_spec(self.0,rhs.0))
+                    }
+                }
+            });
+            continue;
+        }
         if method == "into" {
             // derive_more::Into emits From<Wrapper> for the primitive field.
             // The marker requests checking of that actual reverse conversion;

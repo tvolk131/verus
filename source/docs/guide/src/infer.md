@@ -4,8 +4,8 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
-The current build uses metadata schema **38**, inference policy **47** and
-candidate-cache version **53**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **48** and
+candidate-cache version **54**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -2503,6 +2503,18 @@ providers and dependents. Rebuild vstd after changing the macro artifact. The
 native Aleph NodeCount chain and NodeMap size query use this support without
 rewriting their arithmetic or Into expressions. This is an intermediate adoption
 v1 checkpoint, not completion of the full native parent-creation goal.
+
+`infer_derive(AddAssign)` checks the real same-wrapper assignment derive in this
+single primitive-integer tuple profile. The annotation proposes the existing
+vstd `AddAssignSpecImpl` definitions and requests exact checking of the actual
+generated body. Both direct primitive `+=` and canonical integer `add_assign`
+method calls emitted by derive libraries are supported. Nested record callers
+compose the checked state relation without rewriting their `+=` expressions.
+Signed addition retains both overflow bounds, including negative inputs.
+Missing/excluded implementations, wrong bodies and restrictive inherited domains
+fail; no arithmetic meaning is granted to unrelated traits or implementations.
+This assignment checkpoint uses policy 48 / candidate cache 54 and adds no new
+standard-library contract or axiom.
 
 ## Native scalar comparison derives
 

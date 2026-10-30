@@ -236,6 +236,7 @@ impl Verifier {
             "pointwise_assistance": generation.pointwise_facts.iter().map(|(f,n)|json!({"function":name(f),"facts":n,"checked_by":"ordinary checked assertions; no assumed invariant or clone law"})).collect::<Vec<_>>(),
             "mutable_selector_assistance": generation.mutable_selectors.iter().map(|(f,n)|json!({"function":name(f),"postconditions":n,"checked_by":"ordinary original-body verification; source contracts preserved"})).collect::<Vec<_>>(),
             "growth_loop_assistance": generation.growth_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and termination obligations"})).collect::<Vec<_>>(),
+            "local_fold_assistance": generation.local_folds.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary full-body invariant, safety and original iterator termination obligations"})).collect::<Vec<_>>(),
             "factory_assistance": generation.factory_callbacks.iter().map(|(function,count)|json!({
                 "function":name(function),"strategy":"total_factory_callbacks","callbacks":count,
             })).collect::<Vec<_>>(),

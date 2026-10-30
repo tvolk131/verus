@@ -2430,3 +2430,43 @@ final independent success from the first partial trial and separate parent
 closure. This completes only the agreed finite adoption milestone; existing
 opaque boundaries, excluded protocol/crypto properties and unsupported broader
 Rust profiles remain explicit. Nothing is pushed.
+
+## Mechanical native adoption v3 implementation checkpoint
+
+Policy 48 / candidate cache 54 adds opt-in checked native AddAssign derives.
+The generated extension model must match a concrete canonical implementation;
+its original body, inherited domain and all three exact obligations are checked.
+Primitive add_assign method spelling projects to arithmetic only at the existing
+canonical vstd integer boundary with equal concrete integer operands. The approved
+maximality-model whitelist now includes that same closed boundary: its inherited
+overflow requirement describes successful primitive execution. User-defined
+operators acquire no assumed meaning. Existing library declarations are reused;
+no new standard specification, library axiom or external body is added.
+
+Ordinary local-fold assistance analyzes a temporary prefix ending at the local
+accumulator, then discards its proposed function/contract. Only proof decorations
+validated against the entire original body are installed. Opaque suffix calls
+retain their original safety obligations and no output equation. Local fold
+reporting joins the existing resolution metadata and full-verification gates.
+Goal-directed fold lemmas can use a generated local invariant as context, while
+the authored goal still supplies demand. No ordinary constructor gains an exact
+certificate from this analysis.
+
+Inline growth selectors reuse checked append-only annotations and propose the
+same identity/frame/restoration facts as explicit preparation APIs. A temporary
+unit-result analysis is never installed. Original functions prove the generated
+loop invariants and postconditions, including complete initial selected-value
+identity when the old prefix is preserved. This lets callers recover the whole
+old prefix after an unchanged borrow; future mutation still needs its supplied
+semantic validity requirements. Executable projection checks remain mandatory.
+
+The implementation checkpoint passes 492 inference regressions across 18 suites,
+139 standard-library/attribute tests, 116 backend tests and seven macro tests.
+The non-Aleph Cargo fixture checks ten exact helpers across nine positive/negative
+cases and native execution. The parent Aleph fixture verifies all three original
+patterns with 154 results/all 105 checks for 35 exact helpers, 192 native unit
+tests plus one doctest, three rejected implementation mutations and withheld
+failed/no-verify/filtered interfaces. Original selected constructor/selector body
+tokens match pinned Aleph main. V2 remains complete; the v3 independent audit is
+still required. These counts are selected evidence, not general Rust coverage or
+formal verification of the inference implementation.

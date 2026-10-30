@@ -169,6 +169,81 @@ fn mutable_selection_generates_identity_frames_and_conditional_invariant_restora
     assert!(report["functions"].as_array().unwrap().is_empty());
 }
 
+fn inline_selector() -> String {
+    let source = SELECTOR
+        .replace(
+            "pub struct Slot {pub number:u16}",
+            "pub struct Slot {pub number:u16,pub payload:u64}",
+        )
+        .replace(
+            "  self.grow(index);",
+            r#"  while self.slots.len()<=index as usize {
+   let number=self.slots.len() as u16;
+   self.slots.push(Slot{number,payload:0});
+  }"#,
+        );
+    let first = source.find(" pub fn grow").unwrap();
+    let last = source.find(" pub fn select").unwrap();
+    format!("{}{}", &source[..first], &source[last..]).replace("pub fn caller(s:",r#"
+pub fn untouched(s:&mut History,index:u16)
+ requires old(s).valid(),index<u16::MAX,
+ ensures final(s).valid(),final(s).tag==old(s).tag,
+  final(s).slots@.len()==if old(s).slots@.len()>index as int+1 {old(s).slots@.len() as int}else{index as int+1},
+  final(s).slots@.take(old(s).slots@.len() as int)==old(s).slots@,
+ {let _=s.select(index);}
+pub fn caller(s:"#)
+}
+
+#[test]
+fn inline_growth_and_mutable_return_need_only_semantic_input_and_result_contracts() {
+    let source = inline_selector();
+    let d = verify_one_file(
+        "inline_selector",
+        source,
+        &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+    )
+    .unwrap();
+    let report = &d.json_output.unwrap()["verus-infer"];
+    assert_eq!(report["growth_loop_assistance"].as_array().unwrap().len(), 1);
+    assert_eq!(report["mutable_selector_assistance"].as_array().unwrap().len(), 1);
+    assert!(report["functions"].as_array().unwrap().is_empty());
+}
+
+#[test]
+fn inline_selector_checks_growth_identity_frames_and_future_invariant_restoration() {
+    let original = inline_selector();
+    for (i, source) in [
+        original.replace("slot.number=index;", "slot.number=0;"),
+        original.replace("&mut self.slots[index as usize]", "&mut self.slots[0]"),
+        original.replace("let number=self.slots.len() as u16;", "let number=0;"),
+        original.replace(
+            "self.slots.push(Slot{number,payload:0});",
+            "self.tag=0;self.slots.push(Slot{number,payload:0});",
+        ),
+        original.replace(
+            "while self.slots.len()<=index as usize",
+            "while self.slots.len()<index as usize",
+        ),
+    ]
+    .iter()
+    .enumerate()
+    {
+        let e = verify_one_file(
+            &format!("inline_selector_wrong_{i}"),
+            source.clone(),
+            &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+        )
+        .unwrap_err();
+        assert!(
+            e.errors.iter().any(|d| d.message.contains("postcondition")
+                || d.message.contains("invariant")
+                || d.message.contains("precondition")),
+            "{e:?}"
+        );
+        assert_eq!(e.json_output.unwrap()["verus-infer"]["interface_written"], false);
+    }
+}
+
 #[test]
 fn mutable_selection_never_assumes_input_validity_frames_or_future_borrower_behavior() {
     for (i, source) in [

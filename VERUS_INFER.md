@@ -10,7 +10,7 @@
 
 ---
 
-## Implementation status — October 29, 2026
+## Implementation status — October 30, 2026
 
 The design below includes future work. The current implementation is documented
 in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
@@ -21,10 +21,11 @@ For project-level usage and the role of explicit specifications and proofs, see
 The finite native adoption milestone is complete; its scope, stopping rule and
 final acceptance results are recorded in
 [the Aleph adoption v1 charter](VERUS_INFER_ADOPTION_V1.md).
-The next active milestone is
-[repeatable native adoption](VERUS_INFER_ADOPTION_V2.md): explicit comparable
-proof scope, native derive/conversion integration and independent clean-main
-adoption acceptance. Its partial implementation is not completion of that trial.
+[Repeatable native adoption v2](VERUS_INFER_ADOPTION_V2.md) is also complete,
+including independent clean-main acceptance and source/native/negative audits.
+The active [mechanical adoption v3 milestone](VERUS_INFER_MECHANICAL_V3.md)
+targets checked derived assignment, construction folds inside larger functions,
+and growth followed by a mutable return, preserving selected original bodies.
 
 Implemented and covered by regression tests:
 

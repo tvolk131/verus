@@ -115,7 +115,7 @@ def main():
             assert any(not f["selected"] and "Encode" in f["rust_function"] for f in scope["native_functions"])
             if success or label == "false_goal":
                 functions = inference["functions"]
-                assert len(functions) == 6 and all(f["required_checks_passed"] and f["mode"] == "exact"
+                assert len(functions) == 10 and all(f["required_checks_passed"] and f["mode"] == "exact"
                     and all(f["proofs"][p]["required"] and f["proofs"][p]["status"] == "proved"
                             for p in ["soundness", "maximality", "exactness"]) for f in functions), (label, out)
             if not success:
@@ -133,7 +133,7 @@ def main():
     finally:
         (out / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(out)
-    print("Real derives, six exact helpers, scope/call/publication controls and native erasure passed")
+    print("Real derives, ten exact helpers, scope/call/publication controls and native erasure passed")
 
 
 if __name__ == "__main__":

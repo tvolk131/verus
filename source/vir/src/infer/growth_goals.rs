@@ -277,7 +277,7 @@ pub fn prepare(
     fs.iter().map(|f| prepare_one(f, &all, report)).collect()
 }
 
-fn prepare_one(
+pub(super) fn prepare_one(
     f: &Function,
     all: &HashMap<Fun, Function>,
     report: &mut GenerationReport,
