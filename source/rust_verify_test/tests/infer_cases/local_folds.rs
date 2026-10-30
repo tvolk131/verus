@@ -64,8 +64,13 @@ fn ordinary_constructor_keeps_local_fold_and_opaque_suffix_without_proof_hints()
                 .any(|f| f["function"].as_str().unwrap().ends_with("::pack"))
         );
     }
-    for replacement in ["out.insert(index,0)", "out.insert(index+1,*value)"] {
-        let source = SOURCE.replace("out.insert(index,*value)", replacement);
+    for source in [
+        SOURCE.replace("out.insert(index,*value)", "out.insert(index,0)"),
+        SOURCE.replace("out.insert(index,*value)", "out.insert(index+1,*value)"),
+        // The temporary prefix analysis must not hide safety obligations in
+        // the original suffix, including the empty-input case.
+        SOURCE.replace("stamp:H::stamp()", "stamp:100 / source.size() as u64"),
+    ] {
         let run = crates.build_source(
             "local_fold",
             &source,
@@ -73,9 +78,16 @@ fn ordinary_constructor_keeps_local_fold_and_opaque_suffix_without_proof_hints()
             &["--infer-goals", "--no-cheating", "--output-json"],
             true,
         );
-        assert!(!run.status.success(), "wrong projection unexpectedly verified");
+        assert!(!run.status.success(), "wrong or unsafe constructor unexpectedly verified");
         assert!(!crates.vir("local_fold").exists());
         assert!(!String::from_utf8_lossy(&run.stderr).contains("panicked at"));
+        assert!(
+            json_inference(&run)["functions"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|f| f["required_checks_passed"] == true)
+        );
     }
     let run = crates.build_source("local_fold", SOURCE, &[], &["--no-cheating"], true);
     assert!(!run.status.success(), "missing loop assistance unexpectedly proved the complete goal");

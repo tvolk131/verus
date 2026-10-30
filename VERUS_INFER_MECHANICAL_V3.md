@@ -93,3 +93,13 @@ no-verify/filtered publication is rejected and restored full verification passes
 The authored inventory retains no local supporting proof blocks, executable-loop
 annotations or manual trigger hints. The fresh-context acceptance audit remains
 required before completion; these are parent results, not independent acceptance.
+
+The implementation is committed as `fbab46ec4`; its fixed clean engine and the
+native implementation/evidence commits are pinned in
+[VERUS_INFER_MECHANICAL_V3_EVIDENCE.json](VERUS_INFER_MECHANICAL_V3_EVIDENCE.json).
+The [acceptance brief](VERUS_INFER_MECHANICAL_V3_ACCEPTANCE_BRIEF.md) freezes the
+independent review task. A post-pin replay passes all 631 inference/standard/
+attribute checks using compiler/library artifacts equal to the fixed pin.
+The final separate native run follows source restoration; an overlapping earlier
+native/mutation run is explicitly excluded. Raw accepted evidence is compressed
+losslessly with an individual-file hash index. Nothing is pushed.
