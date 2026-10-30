@@ -1,5 +1,5 @@
 {
-  "status": "post-trial count and visibility integration checkpoints validated; independent clean-main acceptance pending",
+  "status": "complete: final independent acceptance and parent audit passed",
   "recorded_utc": "2026-10-30T03:46:56.112281+00:00",
   "baseline": "bc45dab58fc0f4c09672994ac4d2100ac83c5f3a",
   "policy": 46,
@@ -894,5 +894,116 @@
     "pinned_generic_receipt": "/private/tmp/verus-adoption-v2/closure-pinned-generic/run-ofbekqn2/receipt.json",
     "pinned_generic_receipt_sha256": "6afa9aab6dc65f079b5a95692a4510089acaf000de38fb3ac01252623f37dd8a",
     "overall_goal_complete": false
+  },
+  "top_level_integration_fields_describe": "Historical initial integration checkpoint; current acceptance is independent_acceptance.",
+  "independent_acceptance": {
+    "status": "complete",
+    "independent_thread_id": "mcp:bfa545d3-1a20-4acc-b00a-6dcacc9d8b8b",
+    "independent_thread_link": "[Independent Aleph native adoption v2 replay](t3-thread://v1/mcp:bfa545d3-1a20-4acc-b00a-6dcacc9d8b8b)",
+    "aleph_base": "f35c7bba6d628bcafdf0d65dd471cc6f868ec034",
+    "implementation_commit": "7f1b59332b479493ca1d321f51375567ce375e3b",
+    "evidence_commit": "0574b4a84b8c20de434ce852c772e333ff7e6d1f",
+    "aleph_worktree": "/Users/tommyvolk/.t3/worktrees/AlephBFT/verus-infer-native-adoption-v2-replay",
+    "fixed_engine_commit": "9b24988eff4a250188ff11445115560c54cf4688",
+    "policy": 47,
+    "candidate_cache": 53,
+    "metadata_schema": 38,
+    "verification": {
+      "results": 156,
+      "errors": 0,
+      "exact_helpers": 35,
+      "required_proved_certificates": 105,
+      "checked_exec_bodies": 85,
+      "checked_proof_bodies": 1,
+      "compiled_native_functions_inventoried": 830
+    },
+    "native": {
+      "consensus_unit_tests": 181,
+      "crypto_unit_tests": 11,
+      "total_unit_tests": 192,
+      "doctests": 1
+    },
+    "controls": {
+      "native_source_mutations_rejected": 10,
+      "healthy_helper_checks_in_each_mutation": true,
+      "failed_addressed_exports_withheld": true,
+      "no_verify_rejected": true,
+      "filtered_verification_rejected": true,
+      "restored_full_run_passed": true
+    },
+    "manual_input_audit": {
+      "authored_entries": 1075,
+      "authored_source_files": 58,
+      "supporting_proof_blocks": 0,
+      "loop_annotations": 0,
+      "manual_trigger_hints": 0,
+      "assumes_in_first_party_sources": 0,
+      "assumed_signatures_in_authorized_opaque_dependency": 5,
+      "application_assertions": 11,
+      "documentation_trigger_false_positives_resolved": 2,
+      "inventory_fix_commit": "c6e9a8efd"
+    },
+    "domain_audit": {
+      "quorum_original_domain": "n <= usize::MAX/2; actual certified domain equivalence proved",
+      "all_valid_collector_creator_states_covered": true,
+      "initial_creation_arbitrary_ids_and_zero_members": true,
+      "positive_creation_all_frozen_counts_in_range_creators": true,
+      "every_requested_u16_creation_round": true,
+      "raw_advance_ingestion_domain": "all representable rounds below u16::MAX",
+      "checked_terminal_rejects_before_mutation": true,
+      "actual_successful_creation_output_calls_native_validator": true,
+      "initial_hash_pair_comparison": "stored value retained; inequality conditional on existing PartialEq law, no assumed law flag"
+    },
+    "trust_audit": {
+      "opaque_declarations": 14,
+      "useful_new_assumed_dependency_equations": 0,
+      "first_party_assumed_implementations": 0,
+      "signed_serializer_exclusions": false,
+      "signed_source_unchanged": true,
+      "native_fullunit_methods_checked": 4,
+      "protocol_crypto_cache_claims": false
+    },
+    "independent_artifacts_sha256": {
+      "report.md": "039f184e375a8d565895e4f7a63f829965cc6c5a784ce6d2625a1df77871176a",
+      "requirement-matrix.md": "cd5137ae1895bb564e1f500a4332b022010b8d41589376f05d25dd57760f034c",
+      "bug-ledger.md": "6b3fc0019dc220a3ce567f9bdf5fcf659314796831ab234b0569e3a256102883",
+      "exclusions.md": "5eb23b30c9ffdc7d0519ee480dfdbf6b9419fcba8925e03617d4e1d5279f3a5d",
+      "opaque/src/lib.rs": "1cb9f4bf1c41aedf6e776be895475e8237f9cf40090c75da110e56f8023cf201",
+      "proof-summary.json": "9ebb69d4574c3e1acce774ec627c82f63c996231120819b6d11f98093060e7b3",
+      "helper-certificates.json": "84a1aff1849e0ecc5b5376ce0bc6a0761c5ab29eb913a13d5757e0c8cbb3fb86",
+      "function-inventory.json": "18272ea8822060e0d8b33f72134f54cffe2e2f74731e884f01ec79acd7957d55",
+      "authored-inputs.json": "abcfe28b714b81626da5913974afbefd8bf77f8b2bdd8c37bb37b49094608594",
+      "final-controls-summary.json": "d6b17231eb7d3d0eb43a546a9d0b11ef2d47886b0883b04c4b384433c687640e",
+      "final-source-audit.json": "ec8a1e3638ac506f8e60d7e85070449081676810a49b1163e27c36c9724bad05",
+      "final-engine-audit.json": "0ff4b5ed53f4899d807caba6550455e2469affd22500281662184f0604d35b29",
+      "final-artifact-hashes.json": "6aad4cb2ecfc7a78e93e07b953c602815114f1c46e17a66565913cce0e112a6b",
+      "publication-check.json": "796c3cf65a25531b196d3d0c28219ab585719c8bbf633c6fc191d25bf4745b61",
+      "run.py": "0026ff4c8f5fc0adf30a0178f0866b1b19591fa8072ef3004c0407012b3cbf89",
+      "controls.py": "6e8a7995a6ecc626d0597218eda346e9e177170fb9190580a043098356d77413"
+    },
+    "parent_fresh_replay": {
+      "proof_receipt": "/private/tmp/verus-adoption-v2/independent-acceptance-audit/proof-receipt.json",
+      "proof_receipt_sha256": "bd4f72af0d135a927fd21764cf62fcbbebb848cdc462750052572d7a20ac2014",
+      "native_receipt": "/private/tmp/verus-adoption-v2/independent-acceptance-audit/native-receipt.json",
+      "native_receipt_sha256": "fdeeea9a59c1ce6805791486173d25af8c3a4254a95ef14a461d0330d527d1a4",
+      "same_source_input_count": 80,
+      "all_inputs_match_current_source": true,
+      "fresh_targets_and_candidate_cache": true,
+      "engine_and_z3_identity_checked_before_and_after": true,
+      "raw_proof_stdout_sha256": "fc6f8bb6fe88ac96c80f15b996e99746f0dcc385cfb366220981f1ac349a7930",
+      "raw_native_stdout_sha256": "a482556d064fc652411c1b697b41b1bc110e908c488a94f3c6b90e2e6791f661",
+      "regenerated_syntax_inventory": "/private/tmp/verus-adoption-v2/independent-acceptance-audit/authored-inputs.json",
+      "regenerated_syntax_inventory_sha256": "c138868757f9fdc5df7a2ab093bc2af5c822032370900686ba04ef57fc01924b"
+    },
+    "confirmed_reachable_production_bugs": 0,
+    "acceptance_review": "VERUS_INFER_ADOPTION_V2_ACCEPTANCE.md",
+    "acceptance_review_sha256": "8b5662b5bcbca6b2b05e571486967176112770c3e341a28f80f93b955776e3d5",
+    "historical_results_preserved": {
+      "first_independent_trial": "a014fae: partial",
+      "parent_closure": "e5619e3: separate parent result",
+      "v1": "complete; not relabeled"
+    },
+    "monitor_disabled": true,
+    "pushed": false
   }
 }

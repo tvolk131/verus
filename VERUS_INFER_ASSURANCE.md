@@ -2404,3 +2404,29 @@ Matching vstd proves 2,215 results with no errors; the generic native Cargo
 runner passes all nine positive/negative cases and native erasure tests. The
 parent's strengthened Aleph replay remains distinct from the original independent
 trial's partial result. Final independent clean-main acceptance is still open.
+
+## Native adoption v2 independent acceptance
+
+The final independent Aleph replay at `0574b4a` starts from pristine `f35c7bb`
+with clean fixed engine `9b24988ef`, general documentation and frozen semantic
+requirements. Its source/dependency/manual-input audit and a fresh parent replay
+meet the finite adoption charter: 156 results, 35 exact helpers with all 105
+required checks, 85 executable bodies and one generated proof body. Separate
+same-source native testing passes 192 unit tests and one doctest. Ten deliberate
+native mutations fail ordinary application goals after healthy helper checks;
+no-verify/filtered attempts cannot publish, and restored verification passes.
+
+Actual creation output reaches the native validator under the frozen domain;
+initial comparison retains its conditional existing equality-law guarantee.
+Views/invariants/interfaces/application policies remain authored. No supporting
+local proofs, loop annotations, trigger hints, mechanical getter/selector-frame
+clauses or stronger dependency behavior are added. Required native bodies and
+derives remain connected; scope reporting and source parsing are audit aids,
+not certificate acceptance rules. The parser's documentation-trigger false
+positives were corrected separately without changing the fixed proof engine.
+
+VERUS_INFER_ADOPTION_V2_ACCEPTANCE.md and its structured receipt distinguish the
+final independent success from the first partial trial and separate parent
+closure. This completes only the agreed finite adoption milestone; existing
+opaque boundaries, excluded protocol/crypto properties and unsupported broader
+Rust profiles remain explicit. Nothing is pushed.

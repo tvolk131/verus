@@ -1,14 +1,22 @@
 # Repeatable native adoption: v2
 
-Status: active. Verus baseline `bc45dab58`; pristine Aleph baseline
+Status: complete, October 30, 2026. Verus baseline `bc45dab58`; pristine Aleph baseline
 `f35c7bba6d628bcafdf0d65dd471cc6f868ec034`.
+
+The final independent replay at Aleph `0574b4a` and parent fresh-run/source audit
+meet the frozen stopping rule: 156 proof results, all 105 required checks for
+35 exact helpers, 85 executable bodies, 192 native unit tests plus one doctest,
+ten rejected source mutations and successful publication/restoration controls.
+See [the acceptance review](VERUS_INFER_ADOPTION_V2_ACCEPTANCE.md) and structured
+evidence. The monitor is disabled; nothing is pushed. This does not extend v1
+scope, authorize Signed serializer exclusions or complete arbitrary Rust support.
 
 The first independent attempt remains recorded as partial. Parent follow-up has
 proved the general count bridge and restored ordinary well-formedness checks on
 generated public contracts. Supported private constructors use authored public
 views; unsupported nested reconstruction fails cleanly. These engine fixes and
-parent semantic strengthening require a new fixed-toolchain acceptance attempt;
-they do not retroactively change the independent result.
+parent semantic strengthening were validated by the final fixed-toolchain
+independent attempt; they do not retroactively change the first partial result.
 
 ## Objective
 
@@ -182,5 +190,9 @@ the original partial trial. This parent result does not meet the independent
 adoption requirement by itself.
 
 Clean fixed engine `9b24988ef` and matching vstd pass the pinned generic Cargo
-controls and all 2,215 library proofs. A repeat independent clean-main acceptance
-using the strengthened explicit requirement brief remains open.
+controls and all 2,215 library proofs. The repeat independent clean-main attempt
+at `0574b4a` now passes the strengthened brief and parent semantic/source/domain/
+trust audit. Its 35 exact helpers and 85 executable bodies reflect its own
+decomposition; matching the parent's helper count was not a stopping criterion.
+The independent raw evidence, source/native identities, negative controls and
+fresh parent replay are recorded in the acceptance review and structured receipt.
