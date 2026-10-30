@@ -840,5 +840,59 @@
       "Unsupported nested reconstruction, lossy views, wrong observations, incorrect callback mappings and false callers reject publication.",
       "Final fixed-toolchain independent acceptance remains required."
     ]
+  },
+  "parent_closure_checkpoint": {
+    "status": "parent semantic closure validated; independent clean-main replay still required",
+    "aleph_commit": "e5619e341e468d9aa8c822d28ce1e33cf2b79960",
+    "aleph_worktree": "/Users/tommyvolk/.t3/worktrees/AlephBFT/verus-infer-native-adoption-v2-acceptance",
+    "engine": {
+      "engine_commit": "9b24988eff4a250188ff11445115560c54cf4688",
+      "engine_clean": true,
+      "source": "/private/tmp/verus-adoption-v2/closure-engine/verus/source",
+      "verus_version": "Verus\n  Version: 0.2026.10.30.9b24988\n  Profile: release\n  Platform: macos_aarch64\n  Toolchain: 1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN)\n\n",
+      "sha256": {
+        "verus": "2b4d5ef2734badc6b322f988dee3b4c8855df8ac890c45c80d320622dee1350c",
+        "rust_verify": "ae16f1b672379d649687f330e6b9b0ec8b2a082028412eb70ae0ce5f37c3fe8e",
+        "cargo-verus": "bfa83472323bf86334835fe6f354ca6c78af0222202b5dab38825d86529e73f1",
+        "vstd.vir": "a74d4205823048539cdc7169f4de7542d0e5b6f067255fe0267a2244d628f579",
+        "libvstd.rlib": "3d073ecde724bcab308db47b97cccbf6b2aff59017c8369d473bd032dad72833",
+        "libverus_builtin.rlib": "6fb6d26b7ab90f76e4f0318a25264d1035deedd58f2301061b4bf8bb47a2e96e",
+        "libverus_builtin_macros.dylib": "05ebb3b9b40e89835a13392499f6651c737c17ac7aef212c9d13140d94ec6e32",
+        "libverus_state_machines_macros.dylib": "838eed24609508b768834e01d0c1addc2297a8495d20b9e2475b73fcccabf587"
+      },
+      "z3_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "vstd_verified": 2215,
+      "vstd_errors": 0
+    },
+    "verification": {
+      "results": 146,
+      "errors": 0,
+      "exact_helpers": 34,
+      "required_proved_certificates": 102,
+      "checked_exec_bodies": 77,
+      "generated_proof_bodies": 1
+    },
+    "negative_controls": {
+      "implementation_mutations": 8,
+      "false_application_requirement": 1,
+      "all_rejected_after_healthy_helper_certificates": true,
+      "failed_exports_withheld": true,
+      "restored_full_run_passed": true
+    },
+    "native_unit_tests": 194,
+    "native_doctests": 1,
+    "authored_source_inventory_files": 7,
+    "artifacts_sha256": {
+      "README.md": "fece593831501b5334c007cfeb97acbda0a8bcf1e82ec38fcb8f64e26051e43b",
+      "run.py": "9edf6f301f6b23fbb84a87e8c4d489faff4b9d2ed79aa182fae0065c6608abd3",
+      "summary.json": "9baa017659c513a37b5fe2543745b767331c06a6133015058378aea566dfd388",
+      "certificates.json": "fde1b0b6333098b3534258c1917e5a03bb2ddff570e10d68a16ca088af42ddff",
+      "compiled-scope.json": "1594dabcbc552b45f993042711b377bfb95edda34759ae4b5c7726edc45f0eb9",
+      "authored-inputs.json": "792d6aad81a5399d2235951ad235153c92ac669a56af71c9ff4269ce6f723ad8",
+      "engine.json": "abbaecaf3eb580832daba12eccc49cc4660b5fa2f141d07a1d2387ad246e972f"
+    },
+    "pinned_generic_receipt": "/private/tmp/verus-adoption-v2/closure-pinned-generic/run-ofbekqn2/receipt.json",
+    "pinned_generic_receipt_sha256": "6afa9aab6dc65f079b5a95692a4510089acaf000de38fb3ac01252623f37dd8a",
+    "overall_goal_complete": false
   }
 }

@@ -168,5 +168,19 @@ summary composition through readonly forwarding chains. Unsupported nested
 reconstruction, lossy views, false observations and wrong callback mappings
 cannot publish interfaces. The independent precision checker is unchanged.
 All 486 inference, 139 standard/attribute, 116 backend and driver metadata tests
-pass. A final independent acceptance attempt and complete evidence audit remain
-open.
+pass.
+
+The separate parent Aleph audit at `e5619e3` proves all finite semantic
+requirements, including a direct application assertion that actual successful
+creation output satisfies metadata eligibility. It verifies 146 results,
+34 exact helpers / 102 mandatory certificates and 77 native executable bodies.
+Eight implementation mutations and one false stronger quorum requirement are
+rejected after healthy helper proofs; a restored full run passes. The same
+restored source passes 194 native unit tests and one doctest. Its views, domains,
+source closure and unchanged trust boundaries are inventoried separately from
+the original partial trial. This parent result does not meet the independent
+adoption requirement by itself.
+
+Clean fixed engine `9b24988ef` and matching vstd pass the pinned generic Cargo
+controls and all 2,215 library proofs. A repeat independent clean-main acceptance
+using the strengthened explicit requirement brief remains open.
