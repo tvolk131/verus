@@ -40,6 +40,13 @@ fn header(f: &Function, mode: Mode) -> Option<Owner> {
         {
             Owner::Static
         }
+        FunctionKind::Static
+            if x.typ_params.is_empty() && x.typ_bounds.is_empty()
+                && x.params.iter().all(|p| eligibility::scalar(&p.x.typ))
+                && enums::supported(&x.inner_ret.x.typ) =>
+        {
+            Owner::Static
+        }
         _ => return None,
     };
     if x.mode != mode
@@ -59,7 +66,10 @@ fn header(f: &Function, mode: Mode) -> Option<Owner> {
         || !matches!(x.item_kind, ItemKind::Function)
         || x.attrs.exec_assume_termination
         || x.attrs.exec_allows_no_decreases_clause
-        || !x.visibility.is_public()
+        || !x.visibility.is_public() && !(owner == Owner::Static
+            && x.typ_params.is_empty() && x.typ_bounds.is_empty()
+            && x.params.iter().all(|p|eligibility::scalar(&p.x.typ))
+            && enums::supported(&x.inner_ret.x.typ))
         || !x.require.is_empty()
         || !x.ensure.1.is_empty()
         || x.returns.is_some()

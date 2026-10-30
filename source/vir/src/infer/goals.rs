@@ -283,5 +283,5 @@ pub fn prepare(
     };
     let mut result = check.clone();
     result.body = requests.stm(&check.body)?;
-    Ok(result)
+    super::packing_goals::decorate(&result, callees)
 }

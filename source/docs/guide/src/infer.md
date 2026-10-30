@@ -4,8 +4,8 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
-The current build uses metadata schema **38**, inference policy **48** and
-candidate-cache version **54**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **51** and
+candidate-cache version **57**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -2607,3 +2607,43 @@ nesting, eight fields per constructor, four postconditions per callee and a
 proposals, not proof certificates. Ordinary filtering rules still apply to
 ordinary contracts; a crate publishing inferred guarantees continues to require
 full verification and all inference certificates.
+
+## Scalar optional queries and unsigned packing
+
+A precondition-free ordinary function can expose a checked scalar query using
+one `result == observation(arguments)` requirement. The matching pure observation
+must take the same scalar arguments in order; the result is a supported scalar
+or scalar `Option`. Nongeneric scalar queries may be private within their module.
+Their implementations remain ordinary proof obligations. This extends the
+existing certified trait/value-query interface, with the same full-verification
+publication and imported-interface validation. An authored required-behavior
+contract does not receive an exact-inference certificate.
+
+Exact owned inference now composes the existing vstd `Option::ok_or` model,
+including eager evaluation of its error argument, tagged tuple errors and native
+`?` precedence. Unsigned finite bitwise binary operations retain Rust's shift
+safety requirement and truncating semantics. Ordinary body soundness, maximality
+and output exactness independently check the original function. This adds no
+new assumed library specification or first-party equation.
+
+With `--infer-goals`, an ordinary caller of an exact inferred function can receive
+an arithmetic packing lemma for a constant unsigned `(high << k) | low`
+expression in that function's summary. The bounded profile handles widths 8, 16
+and 32 and `0 < k < width`, proposing at most four distinct shapes per caller.
+It proves the universal conditional equation with the existing BV backend before
+using precisely the same fact in the unchanged ordinary proof:
+
+`high <= 2^(width-k)-1 && low <= 2^k-1` implies
+`((high << k) | low) == 2^k * high + low`.
+
+Nonnegative bounds are explicit premises too. Application proofs must establish
+those premises; overlapping fields or truncated high bits do not acquire the
+arithmetic equation. Precision queries never consume these caller proposals.
+
+Function-local immutable static declarations are collected and checked as their
+own items, like existing nested constants. A native static may carry a required
+extensional table contract through `#[verus_spec(ensures ...)]`; the real
+initializer must prove it. Static initializer inference, arbitrary mutable array
+initializers, iterator state over `ChunksExact`, and the unsafe raw-pointer drains
+of hex-conservative are not newly inferred by this profile. Mutable statics
+remain unsupported. This checkpoint uses policy 51 / candidate cache 57.

@@ -5967,6 +5967,9 @@ mod equality_cases;
 #[path="infer_cases/result_composition.rs"]
 mod result_composition_cases;
 
+#[path="infer_cases/scalar_option_queries.rs"]
+mod scalar_option_query_cases;
+
 #[path="infer_cases/result_map.rs"]
 mod result_map_cases;
 

@@ -25,6 +25,7 @@ mod eligibility;
 mod enums;
 mod exits;
 mod goals;
+mod packing_goals;
 mod growth_goals;
 mod local_fold_goals;
 mod range_goals;
@@ -775,6 +776,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
                 if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
                 if is_owned_summary(f) && owned::result_map::call(e,all).is_some(){return Ok(());}
+                if is_owned_summary(f) && owned::option_result::call(e,all).is_some(){return Ok(());}
                 if is_owned_summary(f) && (iterators::source_call(e,all).is_some() || iterators::operation(e,all).is_some()){return Ok(());}
                 if is_owned_summary(f) && equality::source_call(e, all).is_some() { return Ok(()); }
                 if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
@@ -873,7 +875,7 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    wrapper_compare::boundary(function) || wrapper_traits::binary_boundary(function) || wrapper_traits::assignment_boundary(function) || owned::result_map::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    wrapper_compare::boundary(function) || wrapper_traits::binary_boundary(function) || wrapper_traits::assignment_boundary(function) || owned::result_map::model(function) || owned::option_result::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()

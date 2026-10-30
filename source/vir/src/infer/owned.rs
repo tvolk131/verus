@@ -10,6 +10,7 @@ mod record_views;
 pub(in crate::infer) mod native_for;
 mod mutations;
 pub(crate) mod result_map;
+pub(crate) mod option_result;
 mod variants;
 pub(crate) mod borrowed;
 pub(crate) mod factory_callbacks;
@@ -80,7 +81,7 @@ pub(super) fn prepare(fs: &[Function], imported: &[Function], ds: &[Datatype]) -
                 x.attrs.infer && (heap_known(&x.inner_ret.x.typ, &all, ds, 8) || result_query(f)
                     || structured_return(f,ds)
                     || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
-                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all,ds) || result_map::uses(f,&all));
+                    || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,&all) || equality::uses(f, &all,ds) || result_map::uses(f,&all) || option_result::uses(f,&all));
             f.new_x(x)
         })
         .collect();
@@ -549,6 +550,7 @@ impl Engine<'_> {
         if let Some(source)=native_for::source(e){return self.native_for(s,&source);}
         let span = &e.span;
         if let Some(args) = result_map::call(e, self.all) { return self.map_error(s, e, &args); }
+        if let Some(args) = option_result::call(e, self.all) { return self.option_result(s, e, &args); }
         if let Some((spec,types,args))=iterators::source_call(e,self.all) {
             let values=args.iter().enumerate().map(|(i,a)|{
                 if i==0 {self.object(s,a)}else{self.expr(s,a)?.scalar(&a.span)}
@@ -626,6 +628,18 @@ impl Engine<'_> {
             ExprX::Unary(UnaryOp::Not, a) => {
                 let a = self.expr(s, a)?.scalar(span)?;
                 Ok(Val::atom(exits::not(span, a)?))
+            }
+            ExprX::Binary(op @ BinaryOp::Bitwise(..), a, b) => {
+                let (pure, shift) = bitwise::source(*op, &a.typ, &b.typ, &e.typ)
+                    .ok_or_else(|| unsupported(span, "invalid owned bitwise operation"))?;
+                let left = self.expr(s, a)?.scalar(span)?;
+                let right = self.expr(s, b)?.scalar(span)?;
+                let left = bitwise::coerce(span, &a.typ, left)?;
+                let right = if let Some(width) = shift {
+                    self.require(s, bitwise::shift_safe(span, right.clone(), width)?)?;
+                    right
+                } else { bitwise::coerce(span, &b.typ, right)? };
+                Ok(Val::atom(summary::binary(span, pure, left, right)?))
             }
             ExprX::Binary(op, a, b) => {
                 let a = self.expr(s, a)?.scalar(span)?;
@@ -1756,6 +1770,7 @@ fn validate_signature(
             || sums::has_value_enum(&x.inner_ret.x.typ,ds,5)
             || x.params.iter().any(|p|sums::has_value_enum(&p.x.typ,ds,5)) || iterators::uses(f,all) || equality::uses(f,all,ds)
             || result_map::uses(f,all)
+            || option_result::uses(f,all)
             || !records::mutable(f) && records::candidate(f) && eligibility::scalar(&x.inner_ret.x.typ)
             || f.x.body.is_none() && eligibility::scalar(&x.inner_ret.x.typ))
         || !same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
