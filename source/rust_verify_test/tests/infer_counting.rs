@@ -3,6 +3,65 @@
 mod common;
 use common::*;
 
+const SPARSE_COUNT: &str = r#"
+use vstd::prelude::*;
+verus! {
+pub proof fn occupied<A>(slots: Seq<Option<A>>)
+    ensures slots.count_prefix(|slot: Option<A>| slot.is_some(), slots.len())
+        == vstd::seq_update::sparse_entries(slots, |i: int| i).len(),
+{}
+pub open spec fn rounds(source: Seq<Option<(int, int)>>) -> Seq<Option<int>> {
+    source.map_values(|slot: Option<(int, int)>| match slot {
+        None => None, Some(pair) => Some(pair.1),
+    })
+}
+pub open spec fn entries(slots: Seq<Option<int>>) -> Seq<(int, int)> {
+    vstd::seq_update::sparse_entries(slots, |i: int| (i, slots[i].unwrap()))
+}
+pub proof fn projected(source: Seq<Option<(int, int)>>, target: int)
+    ensures source.count_prefix(|slot: Option<(int, int)>|
+            slot.is_some() && slot.unwrap().1 == target, source.len())
+        == entries(rounds(source)).map_values(|entry: (int, int)| entry.1)
+            .filter(|value: int| value == target).len(),
+{}
+pub proof fn positional_projection(source: Seq<Option<(int, int)>>, target: int)
+    ensures source.count_prefix(|slot: Option<(int, int)>|
+            slot.is_some() && slot.unwrap().1 == target, source.len())
+        == rounds(source).count_prefix(|slot: Option<int>|
+            slot.is_some() && slot.unwrap() == target, rounds(source).len()),
+{}
+}
+"#;
+
+#[test]
+fn sparse_projected_filtered_counts_use_checked_demanded_lemmas() {
+    let plain = verify_one_file("sparse_count_plain", SPARSE_COUNT.to_owned(), &["vstd"]);
+    let errors = plain.expect_err("the inductive connection needs checked library assistance");
+    assert!(errors.errors.iter().any(|d| d.message.contains("postcondition")), "{:?}", errors);
+    let assisted = verify_one_file(
+        "sparse_count_assisted",
+        SPARSE_COUNT.to_owned(),
+        &["vstd", "--infer-goals", "--no-cheating"],
+    );
+    assert!(assisted.is_ok(), "{:?}", assisted);
+}
+
+#[test]
+fn false_sparse_counts_and_unrelated_projection_cannot_borrow_a_bridge() {
+    for (name, source) in [
+        ("sparse_count_wrong", SPARSE_COUNT.replace("|i: int| i).len()", "|i: int| i).len() + 1")),
+        ("sparse_count_wrong_projection", SPARSE_COUNT.replace("Some(pair.1)", "Some(pair.0)")),
+        (
+            "sparse_count_wrong_size",
+            SPARSE_COUNT.replace("entries(rounds(source))", "entries(rounds(source).take(0))"),
+        ),
+    ] {
+        let result = verify_one_file(name, source, &["vstd", "--infer-goals", "--no-cheating"]);
+        let errors = result.expect_err("a false positional/iterator equation must fail");
+        assert!(errors.errors.iter().any(|d| d.message.contains("postcondition")), "{:?}", errors);
+    }
+}
+
 const OCCUPIED: &str = r#"
 use vstd::prelude::*;
 verus! {

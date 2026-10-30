@@ -75,11 +75,12 @@ fn signature(f: &Function, lemma: bool) -> bool {
 
 /// Missing/oversized spec bodies merely make the strategy inapplicable. They
 /// never authorize a contract or suppress an ordinary proof failure.
-fn demands_count(f: &Function, all: &HashMap<Fun, Function>) -> bool {
+fn demands_count(f: &Function, all: &HashMap<Fun, Function>) -> Option<(bool, bool)> {
     let mut pending: Vec<_> = f.x.require.iter().chain(f.x.ensure.0.iter()).cloned().collect();
     let mut visited = std::collections::HashSet::new();
     let mut nodes = NODES;
     let mut found = false;
+    let (mut sparse, mut projection) = (false, false);
     if let Some(body) = &f.x.body {
         expr_visitor_walk(body, &mut |e| {
             if nodes == 0 {
@@ -92,7 +93,7 @@ fn demands_count(f: &Function, all: &HashMap<Fun, Function>) -> bool {
             VisitorControlFlow::Recurse
         });
         if nodes == 0 {
-            return false;
+            return None;
         }
     }
     while let Some(e) = pending.pop() {
@@ -108,15 +109,19 @@ fn demands_count(f: &Function, all: &HashMap<Fun, Function>) -> bool {
             VisitorControlFlow::Recurse
         });
         if nodes == 0 {
-            return false;
+            return None;
         }
         for name in calls {
             let Some(callee) = all.get(&name) else { continue };
+            sparse |= models::path_is(&name.path, CrateId::Vstd, &["seq_update", "sparse_entries"]);
+            projection |= name.path.krate == CrateId::Vstd
+                && name.path.segments.first().is_some_and(|s| s.as_str() == "seq_lib")
+                && name.path.last_segment().as_str() == "map_values";
             if identity(callee, "count_prefix") && signature(callee, false) {
                 found = true;
             } else if callee.x.mode == Mode::Spec && visited.insert(name) {
                 if visited.len() > FUNCTIONS {
-                    return false;
+                    return None;
                 }
                 if let Some(body) = &callee.x.body {
                     pending.push(body.clone());
@@ -124,7 +129,7 @@ fn demands_count(f: &Function, all: &HashMap<Fun, Function>) -> bool {
             }
         }
     }
-    found
+    found.then_some((sparse, projection))
 }
 
 pub fn prepare(
@@ -143,6 +148,19 @@ pub fn prepare(
     if lemmas.len() != LEMMAS.len() {
         return functions.to_vec();
     }
+    let optional: Vec<_> = [
+        ("lemma_sparse_entries_count", 2, 2),
+        ("lemma_sparse_filter_count", 3, 5),
+        ("lemma_sparse_map_filter_count", 4, 6),
+        ("lemma_count_prefix_congruence", 2, 5),
+    ]
+    .iter()
+    .filter_map(|(name, types, params)| {
+        all.values()
+            .find(|f| fold_goals::catalog(f, "seq_update", name, *types, *params))
+            .map(|f| (*name == "lemma_count_prefix_congruence", f.x.name.clone()))
+    })
+    .collect();
     functions
         .iter()
         .map(|f| {
@@ -153,10 +171,23 @@ pub fn prepare(
                 || f.x.attrs.bit_vector
                 || f.x.attrs.is_external_body
                 || f.x.body.is_none()
-                || !demands_count(f, &all)
             {
                 return f.clone();
             }
+            let Some((sparse, projection)) = demands_count(f, &all) else { return f.clone() };
+            // Optional conditional theorems are selected only for demanded
+            // sparse/projection vocabulary. The library and inferred precision
+            // obligations never receive their own catalog as proof assistance.
+            let lemmas: Vec<_> = lemmas
+                .iter()
+                .cloned()
+                .chain(
+                    optional
+                        .iter()
+                        .filter(|(congruence, _)| if *congruence { projection } else { sparse })
+                        .map(|(_, name)| name.clone()),
+                )
+                .collect();
             let body = f.x.body.as_ref().unwrap();
             let ExprX::Block(original, tail) = &body.x else { return f.clone() };
             let mut statements: Vec<_> = lemmas

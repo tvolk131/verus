@@ -17,7 +17,7 @@
   "vstd_results": [
     "verification results:: 2209 verified, 0 errors"
   ],
-  "status": "running; independent acceptance has not yet been established",
+  "status": "first independent trial completed with partial acceptance; parent closure work in progress",
   "thread_id": "mcp:da3c90b2-3983-4e3b-a1f8-4b2bf29553b3",
   "thread_link": "[Independent Aleph native adoption v2 acceptance](t3-thread://v1/mcp:da3c90b2-3983-4e3b-a1f8-4b2bf29553b3)",
   "aleph_base": "f35c7bba6d628bcafdf0d65dd471cc6f868ec034",
@@ -474,6 +474,10 @@
     "bound_thread_id": "7576776b-8f1c-4981-b52a-c889ea47c079",
     "interval_ms": 300000,
     "next_run_at_creation": "2026-10-30T04:26:21.062Z",
-    "purpose": "Read-only while the independent trial runs; disable on terminal result and resume the authorized parent acceptance audit."
-  }
+    "purpose": "Read-only while the independent trial runs; disable on terminal result and resume the authorized parent acceptance audit.",
+    "enabled": false,
+    "stopped_reason": "Independent run completed; parent goal resumed"
+  },
+  "trial_source_commit": "43cb4654562867334baf11214d292a667b269ea0",
+  "trial_evidence_commit": "a014fae"
 }

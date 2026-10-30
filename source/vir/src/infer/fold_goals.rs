@@ -20,7 +20,7 @@ fn path(f: &Function, module: &str, name: &str) -> bool {
         && matches!(f.x.kind, FunctionKind::Static)
 }
 
-fn catalog(f: &Function, module: &str, name: &str, types: usize, params: usize) -> bool {
+pub(super) fn catalog(f: &Function, module: &str, name: &str, types: usize, params: usize) -> bool {
     path(f, module, name)
         && f.x.mode == Mode::Proof
         && f.x.attrs.broadcast_forall

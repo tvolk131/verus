@@ -134,3 +134,23 @@ native test executes the retained conversions, Sum and codec implementations.
 VERUS_INFER_ADOPTION_V2_EVIDENCE.json records source/tool identities, commands,
 receipt/log hashes and outcomes. These are integration checks, not Aleph proof
 acceptance or a formal verification of the compiler changes.
+
+The first independent clean-main trial committed its implementation as
+`43cb465` and evidence as `a014fae`. It honestly reported partial acceptance:
+34 exact helpers / 102 checks and 74 native executable bodies verified, while
+two universal metadata eligibility goals failed. Its 76 native tests and seven
+rejected policy mutations do not fill that gap. The automatic monitor stopped
+when the trial completed.
+
+A subsequent general counting checkpoint adds checked vstd theorems connecting
+positional counts to sparse/mapped/filtered observations, plus pointwise count
+congruence. Bounded demand selection enables only ordinary checked broadcasts;
+no application proof block, assumed equation or new trusted model is added.
+The original minimization and both previously failing native goals pass. Parent
+review additionally restores v1's conditional reported hash-comparison fact and
+successful creation's parent bounds/quorum contract, exposing collector validity
+through its already public view. These semantic-only application changes verify.
+
+This checkpoint passes 481 inference regressions, 116 backend tests and all
+2,215 vstd results. A final independent acceptance attempt, complete evidence
+audit and the discovered private-constructor diagnostic safeguard remain open.

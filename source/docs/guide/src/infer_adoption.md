@@ -110,6 +110,13 @@ preservation. Its body needs no additional proof statements. This example's
 it, and `spend` proves preservation. It is not automatically assumed as a type
 invariant, and inference does not discover it.
 
+A closed invariant can hide its meaning from clients as well as its physical
+representation. If callers need to derive facts such as a count bound or parent
+eligibility, expose those facts in the public semantic contract, or define an
+open predicate using the public view. The view's implementation can remain
+closed. Choose this interface deliberately: proving that an opaque predicate is
+preserved does not by itself give clients its underlying field equations.
+
 For a private sole-vector wrapper, a supplied direct sequence view also enables
 supported collection APIs to compose without exposing storage. The
 [private collection example](../../../../examples/verus_infer_private_views.rs)
@@ -145,6 +152,11 @@ Bounded growth/range profiles can supply loop induction and internal index
 triggers, and a checked cloned-field transition can receive intermediate
 pointwise transport assertions. The source contracts and chosen invariants
 remain ordinary obligations.
+Checked sparse-count lemmas also connect positional `count_prefix` accounting
+to sparse iterator length after mapping and filtering. Their pointwise
+compatibility and equal-length conditions must follow from the supplied views
+and contracts. Selecting the lemmas does not assume those conditions or an
+arbitrary relationship between two counting expressions.
 Direct mutable element selectors following a checked preparation call can also
 receive generated identity/frame contracts and conditional invariant-restoration
 facts. The authored contract still defines the selected value's application meaning.

@@ -629,5 +629,113 @@
     "Compiler and library checks are engineering evidence, not a formal proof of the inference implementation.",
     "The generic native test is bounded execution, distinct from its checked helper certificates.",
     "This checkpoint does not establish the full clean-main Aleph acceptance."
-  ]
+  ],
+  "counting_checkpoint": {
+    "status": "validated checked math/assistance checkpoint; final independent acceptance pending",
+    "baseline_commit": "7bc7c65bd94fa0d2eecbd73407b51551f4ec127e",
+    "files_sha256": {
+      "VERUS_INFER_ADOPTION_V2.md": "9c2278ef8c1a66209af4b08365cb79cf11a8eb26c74c9518af12394c3da92861",
+      "VERUS_INFER_ASSURANCE.md": "d0d74972c6d47a2f2227776f23a4444322727e6bab32c90528fa04f83fee9569",
+      "source/docs/guide/src/infer_adoption.md": "eaf5f0168b95597a9f42817806caa86b73dd5d1f6b2a3cb47797ce6f0d8f68b2",
+      "source/rust_verify_test/tests/infer_counting.rs": "e3459f366c858dcad411709b97fd9f8ca9859193905cd57d042a40650e8c38ab",
+      "source/vir/src/infer/counting_goals.rs": "93dae4a2d5b748c868287c4dda31c57528f8e549b429023efe63b6e6e2dee654",
+      "source/vir/src/infer/fold_goals.rs": "f7ca4e45195769bb5f1810d805539d50c29edbb42775d8394263244a8a43d6cd",
+      "source/vstd/seq_update.rs": "d74cb00c1612df281e1170f5911560cfbf8889a3f07c2f7b9f9ca03d7f172312"
+    },
+    "logs_sha256": {
+      "/private/tmp/verus-adoption-v2-count-all-tests.log": "2fc92fa0851ad1870a8198ef8a4fd2fa9d779458479d324b81e099884082e229",
+      "/private/tmp/verus-adoption-v2-count-backend-tests.log": "7473a35d6949dc039d3d75ac99f1f0f2ff0714215f3aff3ee90f999fb87f9684",
+      "/private/tmp/verus-adoption-v2-count-vstd.log": "dc66d5908033980f3a398675811d00ffd31d3367fb6edf74804f64e6d188185a",
+      "/private/tmp/verus-adoption-v2-count-native-strict.log": "a0ac5585390a95c3297dec462b0d7b3be348ae8e0c267571f2a2e52e5760bfe5",
+      "/private/tmp/verus-adoption-v2-count-native-strict.stderr": "d803fef973cc0173425545f09878c6376012089dde38c969c27e3ca71131f072",
+      "/private/tmp/verus-adoption-v2-count-minimum.log": "6d2e429b599afee2454e66d6d8c7b779a31fcaba4333d34163c6b87ef58215ed"
+    },
+    "test_results": [
+      "test result: ok. 273 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 35.06s",
+      "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.63s",
+      "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.39s",
+      "test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.80s",
+      "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s",
+      "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.31s",
+      "test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.83s",
+      "test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s",
+      "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.22s",
+      "test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s",
+      "test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.91s",
+      "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.01s",
+      "test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.65s",
+      "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.62s",
+      "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s",
+      "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.31s",
+      "test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.61s",
+      "test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.17s"
+    ],
+    "inference_tests": 481,
+    "backend_tests": 116,
+    "vstd_verified": 2215,
+    "vstd_errors": 0,
+    "native_reports": [
+      {
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 61,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "helper_count": 15,
+        "scope": {
+          "checked_exec_bodies": 30,
+          "checked_proof_bodies": 1,
+          "complete_selected_scope_verified": true
+        },
+        "interface_written": true
+      },
+      {
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 0,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "helper_count": 0,
+        "scope": {
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "complete_selected_scope_verified": true
+        },
+        "interface_written": true
+      },
+      {
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 84,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "helper_count": 19,
+        "scope": {
+          "checked_exec_bodies": 46,
+          "checked_proof_bodies": 0,
+          "complete_selected_scope_verified": true
+        },
+        "interface_written": true
+      }
+    ],
+    "aleph_trial_base": "a014fae",
+    "aleph_parent_semantic_changes_sha256": {
+      "consensus/src/creation/collector.rs": "b92797179750df877074dcc43deb097881bf1d06155019827fcc380001539475",
+      "consensus/src/creation/creator.rs": "942b0e99a19bcb810d311a3f40799bfdae628326d70efa9d72094090d5ac0785",
+      "consensus/src/units/control_hash.rs": "6a58b53e8a0ee20ec431e4c895ade76876e6736811c0407a222c8ad90b0c546b"
+    },
+    "limits": [
+      "First independent trial remains recorded as partial; parent semantic strengthening is separate.",
+      "Final fresh independent acceptance and private-constructor well-formedness safeguard remain open."
+    ]
+  }
 }

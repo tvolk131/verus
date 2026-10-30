@@ -2341,3 +2341,26 @@ runner records commands, source/tool identities, complete reports and native
 test outcomes. These checks support the integration change; the independent
 clean-main Aleph acceptance in VERUS_INFER_ADOPTION_V2.md remains a separate,
 unfinished requirement.
+
+## Checked positional/sparse count bridges
+
+The collection library now proves positional count congruence and the connection
+to sparse observations after mapping/filtering by induction. Equal prefix/slot
+lengths and pointwise predicate compatibility are premises, not synthesized or
+assumed facts. Occupied-slot counting is a checked specialization. Private helper
+proofs establish prefix traversal and identity filtering; no external-body,
+axiom, native implementation or standard-library assumption is added.
+
+The bounded counting selector enables these canonical checked broadcasts only
+when a supplied count goal also reaches sparse/projection vocabulary. Original
+contracts, bodies and goals are preserved. Selection alone supplies no proof of
+the conditional premises and grants no exactness claim to ordinary functions.
+Existing exact precision checking and interface publication are unchanged.
+
+The generic regression needs the assistance, and rejects wrong counts, a wrong
+projection and incompatible lengths. The original independent occupied-slot
+minimization and the actual Aleph count/eligibility goals pass without local
+proofs. All 481 inference regressions and 116 backend tests pass; matching vstd
+verifies 2,215 results with no errors. Policy 46, cache 52 and metadata schema 38
+are unchanged for this ordinary theorem-selection checkpoint; changed library
+artifact fingerprints require rebuilding providers and dependents normally.
