@@ -18,7 +18,8 @@ and restrictions take precedence over illustrative APIs in this RFC.
 For project-level usage and the role of explicit specifications and proofs, see
 [the adoption guide](source/docs/guide/src/infer_adoption.md).
 
-The finite native adoption milestone is specified in
+The finite native adoption milestone is complete; its scope, stopping rule and
+final acceptance results are recorded in
 [the Aleph adoption v1 charter](VERUS_INFER_ADOPTION_V1.md).
 
 Implemented and covered by regression tests:

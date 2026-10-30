@@ -167,7 +167,8 @@ reject missing targets, wrong bodies, vacuous/changed inherited domains, unsafe
 calls and false application goals. Additional checks cover all integer widths,
 shared copied receivers, native erasure, repeated provider/client builds and
 withheld failed interfaces. These are safeguards, not a formal implementation
-proof. The broader Aleph adoption v1 charter remains active.
+proof. The broader Aleph adoption v1 charter was still active at this checkpoint;
+its completed acceptance audit is recorded at the end of this document.
 
 Policy 40 and candidate version 46 extend explicit derive requests to PartialEq,
 PartialOrd and Ord. The native eq body is an exact target. Ordering-enum methods
@@ -2258,3 +2259,44 @@ nonempty-vector safety condition and the actual u16 cast without assuming the
 Creator invariant. The native application proves its stronger untruncated round
 meaning from the authored validity predicate. Policy 45 / candidate cache 51
 invalidates older query templates; metadata schema remains 38.
+
+## Completed Aleph adoption v1 acceptance
+
+The finite charter in VERUS_INFER_ADOPTION_V1.md is complete. This is a bounded
+native adoption result, not a claim of inference completeness or a formal proof
+of the inference implementation. The final audit inventories 51 fixed source
+implementations, all authored semantic inputs and existing boundaries, including
+outside-slice methods in the same files. It finds no local supporting proof
+blocks, executable-loop annotations, manual trigger hints or mechanical getter /
+mutable-selector identity/frame contracts in the fixed implementation.
+
+A source audit using the actual Rust/Verus parser rejects five deliberate
+annotation/exclusion regressions. Compiler reports reconcile the checked source
+closure and required generated derives. Source hashes show the native dependency
+boundary, signature module and Cargo.lock are unchanged from the frozen baseline.
+Only the explicitly approved ConstraintError generated Display and Error methods
+are newly unverified; the enum, selector and error ordering are checked. The
+Signed serializer proposal remains unapplied and no assumed contract is added.
+
+Fresh pinned baseline trees plus audited overlays build a new release engine,
+verify vstd (2,209 results / zero errors), and verify the native Cargo roots with
+147 results, 32 exact helpers and all 96 soundness/maximality/exactness
+certificates. The final engine passes 471 compiler regressions across 18 suites,
+116 backend tests and the driver metadata test. The native pinned toolchain
+passes 197 unit tests plus one doctest, including the 41 creation tests.
+
+All 50 native source mutations and the no-assistance control fail as expected
+with healthy exact-helper checks and failed interfaces withheld. The restored
+source verifies again after the negatives. Repeated setup reproduces both source
+trees and upgrade patch hashes; rustc dependency files exclude old extracted proof
+adapters. The replay explicitly audits the authored semantic inputs already in
+the pinned adoption baseline and removes its old scaffolding before verification;
+it does not claim a pristine upstream-master adoption experiment.
+
+The Aleph pilot retains ACCEPTANCE.md, EVIDENCE.json, SOURCE_INVENTORY.json,
+fixed-closure.json, compilation-inputs.json and portable audit/replay tools under
+verification/units_collector. They record commands, source/artifact identities,
+positive receipts, mutation results and manual-input classifications. Opaque
+hash/codec/lock limitations remain explicit, including the frozen restriction on
+initial constructor/validator hash agreement. No requirement is weakened to close
+the milestone.

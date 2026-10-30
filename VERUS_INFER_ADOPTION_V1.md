@@ -1,7 +1,27 @@
 # Aleph adoption v1
 
-Status: active. Baselines: Verus `8cdf05382`, native Aleph pilot `7410c7b`.
+Status: complete, October 29, 2026. Baselines: Verus `8cdf05382`, native Aleph pilot `7410c7b`.
 This is a finite adoption milestone, not completeness for arbitrary Rust.
+
+The final replay verifies 147 results, including all 96 required certificates for
+32 exact helpers. All 471 compiler regressions, 116 backend tests, the driver
+metadata test, 197 native unit tests and one doctest pass. All 50 native source
+mutants and the no-assistance control are rejected with failed interfaces
+withheld; a restored-source full check passes afterward. The rebuilt vstd has
+2,209 verified results and no errors.
+
+The isolated Aleph pilot records acceptance in
+`verification/units_collector/ACCEPTANCE.md`, with `EVIDENCE.json`,
+`SOURCE_INVENTORY.json`, `fixed-closure.json`, `compilation-inputs.json` and
+portable audit/replay utilities beside it (Aleph commit `ff52f2c`). The inventory covers all 51 fixed
+source implementations, authored contracts/definitions/goals, generated derives
+and existing boundaries. It confirms no forbidden local scaffolding or new
+assumed contract. Both pinned source trees and patch hashes were reconstructed
+twice; the native Cargo input lists exclude historical extracted proof files.
+
+All five acceptance criteria below pass. The existing opaque hash boundary and
+the explicitly approved formatting exclusion remain as stated in this charter;
+the separate Signed serializer proposal remains unapplied.
 
 ## Objective and fixed slice
 
@@ -124,7 +144,7 @@ selector and error-ordering claims are checked. No formatting/error-method
 contract or assumption is added. This decision does not authorize the separate
 Signed/UncheckedSigned serialization proposal, which remains unapplied.
 
-## Intermediate progress
+## Intermediate progress (historical checkpoints)
 
 The original NodeCount arithmetic/conversion/ordering bodies, NodeMap size and
 quorum expression now verify through reusable checked derive/operator support.
