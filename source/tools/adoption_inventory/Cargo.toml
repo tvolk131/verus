@@ -1,0 +1,13 @@
+[package]
+name = "verus-adoption-source-inventory"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+verus_syn = { path = "../../../dependencies/syn", features = ["visit"] }
+proc-macro2 = { version = "1", features = ["span-locations"] }
+quote = "1"
+serde_json = "1"

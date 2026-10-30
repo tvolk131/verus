@@ -292,6 +292,13 @@ outside scope can mean unannotated, excluded or automatically ignored code. This
 presentation is not a certificate, does not change verification/publication, and
 does not establish that unverified Rust callers satisfy a method's preconditions.
 
+For the authored side of that inventory, the standalone
+[source parser](../../../../source/tools/adoption_inventory/README.md) lists
+source contracts, views, attributes, assumptions and proof syntax before macro
+expansion. It preserves opaque macros for review and includes cfg-disabled code.
+Reconcile its explicitly supplied files with the compiled scope; it does not
+decide whether a contract is the right application property or replace proof.
+
 ## Diagnose failures before adding hints
 
 Different failures call for different next steps:
