@@ -16,9 +16,9 @@ precision checker is not a prerequisite for every feature.
 The integer-operation batch adds bitwise/shifts and explicit arithmetic policies.
 Every extension must keep source eligibility, typed summaries, fresh ordinary
 proofs, and publication gates aligned. Any added standard-library specification is an explicit trusted-model
-change requiring a documented audit and dependency fingerprints. The feature
-backlog and proposed milestone order are maintained in
-[the main roadmap](VERUS_INFER.md#proposed-next-milestones).
+change requiring a documented audit and dependency fingerprints. The active development sequence is maintained in
+[the direction document](VERUS_INFER_DIRECTION.md#active-sequence);
+[the RFC](VERUS_INFER.md) preserves the implementation history and broader backlog.
 
 ## Current protections and trust boundary
 

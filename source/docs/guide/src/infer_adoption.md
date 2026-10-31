@@ -4,6 +4,8 @@ Verus Infer is useful for deriving implementation contracts and composing them
 into application proofs. An author still chooses what the program should mean
 and which properties matter. Start with a useful property and a small slice of
 code, then expand as checked interfaces become available.
+The [direction and active roadmap](https://github.com/tvolk131/verus/blob/verus-infer/VERUS_INFER_DIRECTION.md)
+describes the division of responsibility and current development priorities.
 
 This chapter describes the working prototype on this branch. Use a matching
 Verus compiler, macros and vstd; released tools do not necessarily include these

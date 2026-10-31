@@ -10,13 +10,15 @@
 
 ---
 
-## Implementation status — October 30, 2026
+## Implementation status — October 31, 2026
 
 The design below includes future work. The current implementation is documented
 in [the inference guide](source/docs/guide/src/infer.md); its supported syntax
 and restrictions take precedence over illustrative APIs in this RFC.
 For project-level usage and the role of explicit specifications and proofs, see
-[the adoption guide](source/docs/guide/src/infer_adoption.md).
+[the adoption guide](source/docs/guide/src/infer_adoption.md). Current priorities
+and the division between inference, assistance and authored goals are in
+[the direction and active roadmap](VERUS_INFER_DIRECTION.md).
 
 The finite native adoption milestone is complete; its scope, stopping rule and
 final acceptance results are recorded in
@@ -28,6 +30,9 @@ checked derived assignment, construction folds inside larger functions, and
 growth followed by a mutable return preserve selected original bodies. Its
 [independent acceptance](VERUS_INFER_MECHANICAL_V3_ACCEPTANCE.md) records the
 finite scope, fresh proof/native results and preserved audit evidence.
+The later [native validation v4](VERUS_INFER_VALIDATION_V4.md) and
+[hex public vector decoder](evidence/verus-infer-hex-v3/README.md) milestones
+are also complete within their recorded scopes.
 
 Implemented and covered by regression tests:
 
@@ -387,7 +392,7 @@ Still planned or outside the implemented subset:
   safety policy, incomplete-result behavior, budgets, export, and diagnostics.
 - [ ] Further relational simplification, dedicated contract-query APIs,
   ordinary-proof-first goal retries, broader demand-driven strengthening, and
-  IDE presentation and suggestions. The initial `--infer-goals` strategy is
+  IDE presentation and suggestions. The initial `--infer-goals` strategy
   includes explicit scalar assertions and a checked bit-vector tactic, plus
   supplied count contracts/assertions and scoped counting theorem selection.
 - [ ] Richer abstract domains and refinement, including relational properties
@@ -420,13 +425,18 @@ transformations remains separately scoped work.
 
 ## Proposed next milestones
 
-The implementation checklist above records completed work and the full backlog.
-The current checkpoint includes exact and sound platform integers, explicit
-integer policies, unsigned stepped/countdown loops, richer flat control flow,
-primitive error widening, owned array outputs, and local shared subslices.
-Caches/imports preserve architecture and trusted-model fingerprints. The guide is the source of supported syntax; the original
-phases later in this RFC retain their proposed design, including unimplemented
-APIs and research directions.
+The [direction and active roadmap](VERUS_INFER_DIRECTION.md#active-sequence)
+sets the current sequence: explain assistance decisions, measure transfer to
+an unrelated application, then resolve one evidenced blocker. It also defines
+the evidence used to judge progress and the follow-on candidates.
+
+## Implementation history
+
+The checkpoints below record how the prototype developed. Their limitations
+and remaining work describe each checkpoint at the time; later acceptance
+records may supersede them. The [feature reference](source/docs/guide/src/infer.md)
+defines current supported behavior. The original phases later in this RFC
+retain their proposed design, including unimplemented APIs and research directions.
 
 1. **Integer-operation batch implemented.** Exact fixed-width/platform bitwise
    operators, shifts, wrapping/saturating add/subtract/multiply, checked negation,
@@ -657,20 +667,18 @@ APIs and research directions.
     complete original Signed value. A supplied authenticated predicate and checked
     adapter model the native signature-check interface; the signature implementation
     and cryptographic security remain outside this experiment.
-28. **Next: richer abstractions and reducing the remaining implementation adapters.** General trait contracts,
-    external trait proxies, inherited operator/conversion contracts beyond the checked
-    concrete subset, arbitrary Clone relations, more loop families and richer mutable
-    return values remain.
-    More general supplied views, representation-lemma selection and automatic
-    abstraction discovery are separate extensions beyond direct projections.
-    Broader query control, ordinary-proof-first retries, application invariant
-    discovery and a dedicated expected-domain interface remain separate work.
-    The existing supplied invariant and regression oracle are
-    still visible inputs; do not count their desired semantics as inferred.
-    Aleph's outer orchestration is checked against an explicit authentication
-    policy. Verifying or more directly connecting the native hash/as_ref/index/
-    Keychain::verify chain, reusing signature-library contracts, and inference
-    relative to deliberately chosen cache-insensitive views remain separate work.
+
+## Deferred extensions
+
+Broader trait contracts, Clone relations, loop families, mutable returns and
+abstraction discovery remain potential extensions. Ordinary-proof-first retries,
+a dedicated expected-domain interface and additional application evaluations
+are tracked in the [direction document](VERUS_INFER_DIRECTION.md).
+
+The native validation v4 milestone connects the original signature-check and
+outer-validator bodies under explicit dependency laws. Its
+[acceptance record](evidence/verus-infer-validation-v4/README.md) defines the
+remaining cryptographic, codec, synchronization and cache-consistency boundaries.
 
 The [assurance plan](VERUS_INFER_ASSURANCE.md#later-formal-verification-targets)
 tracks formal verification of production acceptance and precision transformations,
