@@ -9,55 +9,6 @@ with `python3 -B -m unittest discover -s source/tools -p 'test_infer*.py'` from
 the repository root. PR CI runs these tests independently, then runs this corpus
 and the Cargo incremental evaluation after building the verifier.
 
-## Native and hex replay safety
-
-`check_native_adoption.py`, `check_hex_adoption.py`, `check_hex_iterator.py`,
-`check_hex_vec_adoption.py`, and `check_hex_vec_phase3.py` use explicit checks,
-including under `python3 -O`; required clean/native commands cannot be optimized
-away. All five accept `--timeout SECONDS` (finite, positive; default 300) for each
-command, including metadata queries and the phase-3 restored replay controller.
-Choose a controller timeout large enough for its entire nested positive replay.
-Timeouts, launch failures, interrupts, changed/missing artifacts, malformed
-reports, and restoration failures are harness failures, not negative controls.
-
-The runners retain stdout/stderr, command status, and an atomically replaced
-`receipt.json` with `success: false` and failure details when a run fails after
-its output directory is created. Successful receipts keep their existing fields;
-native command records retain `exit_status` and hex records retain `exit_code`.
-Tool inputs, solver, runner/support files, and both macro libraries are guarded
-before/after commands; macro discovery supports `.so`, `.dylib`, and `.dll`
-(including DLL names without `lib`). On POSIX, timeout/interrupt cleanup signals
-the command's process group, allows up to five seconds for nested runner cleanup,
-then kills remaining group members. Non-POSIX cleanup uses the existing direct
-process-kill fallback. SIGKILL, host failure, or an unwritable output directory
-cannot guarantee a receipt or restoration.
-
-Hex mutation replays **still modify the explicitly supplied checkout in place**.
-Use a disposable checkout with exclusive write access and do not run concurrently
-with editors, builds, or other replay runners. Restoration attempts every saved
-file and records post-run hashes even when another restoration fails. Automatic
-source snapshots are intentionally not introduced here: preserving actual source
-paths, Cargo configuration, and the existing proof/publication scope needs a
-separate change. `--positive-only` avoids these mutations; the phase-3 controller
-only probes and invokes the positive-only iterator replay, and never certifies
-the blocked public-vector endpoint.
-
-Fast, standard-library-only replay regressions use fake commands/artifacts in
-temporary engine/application directories, not external application checkouts:
-
-```sh
-python3 -B -m unittest discover -s source/tools -p 'test_infer_replay.py'
-python3 -B -O -m unittest discover -s source/tools -p 'test_infer_replay.py'
-```
-
-These tests exercise optimized execution, required commands, proof/scope and
-publication rejection, portable artifact discovery, timeout/interrupt cleanup,
-and restoration/failure receipts. They do not substitute for a real replay with
-matching release compiler/macros/vstd, solver, toolchains, and offline Cargo
-dependencies. Historical frozen evidence is unchanged.
-
-## Standalone evaluation corpus
-
 From the repository root, after building Verus:
 
 ```sh
@@ -220,3 +171,50 @@ generation. Its structured status is `verification_failed`, with an explicitly
 checked “is not supported” diagnostic; it is not mislabeled as an Infer analysis
 rejection. Unsupported Infer syntax and incomplete proofs retain their distinct
 manifest/report categories.
+
+## Native and hex replay safety
+
+`check_native_adoption.py`, `check_hex_adoption.py`, `check_hex_iterator.py`,
+`check_hex_vec_adoption.py`, and `check_hex_vec_phase3.py` use explicit checks,
+including under `python3 -O`; required clean/native commands cannot be optimized
+away. All five accept `--timeout SECONDS` (finite, positive; default 300) for each
+command, including metadata queries and the phase-3 restored replay controller.
+Choose a controller timeout large enough for its entire nested positive replay.
+Timeouts, launch failures, interrupts, changed/missing artifacts, malformed
+reports, and restoration failures are harness failures, not negative controls.
+
+The runners retain stdout/stderr, command status, and an atomically replaced
+`receipt.json` with `success: false` and failure details when a run fails after
+its output directory is created. Successful receipts keep their existing fields;
+native command records retain `exit_status` and hex records retain `exit_code`.
+Tool inputs, solver, runner/support files, and both macro libraries are guarded
+before/after commands; macro discovery supports `.so`, `.dylib`, and `.dll`
+(including DLL names without `lib`). On POSIX, timeout/interrupt cleanup signals
+the command's process group, allows up to five seconds for nested runner cleanup,
+then kills remaining group members. Non-POSIX cleanup uses the existing direct
+process-kill fallback. SIGKILL, host failure, or an unwritable output directory
+cannot guarantee a receipt or restoration.
+
+Hex mutation replays **still modify the explicitly supplied checkout in place**.
+Use a disposable checkout with exclusive write access and do not run concurrently
+with editors, builds, or other replay runners. Restoration attempts every saved
+file and records post-run hashes even when another restoration fails. Automatic
+source snapshots are intentionally not introduced here: preserving actual source
+paths, Cargo configuration, and the existing proof/publication scope needs a
+separate change. `--positive-only` avoids these mutations; the phase-3 controller
+only probes and invokes the positive-only iterator replay, and never certifies
+the blocked public-vector endpoint.
+
+Fast, standard-library-only replay regressions use fake commands/artifacts in
+temporary engine/application directories, not external application checkouts:
+
+```sh
+python3 -B -m unittest discover -s source/tools -p 'test_infer_replay.py'
+python3 -B -O -m unittest discover -s source/tools -p 'test_infer_replay.py'
+```
+
+These tests exercise optimized execution, required commands, proof/scope and
+publication rejection, portable artifact discovery, timeout/interrupt cleanup,
+and restoration/failure receipts. They do not substitute for a real replay with
+matching release compiler/macros/vstd, solver, toolchains, and offline Cargo
+dependencies. Historical frozen evidence is unchanged.
