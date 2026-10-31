@@ -1,7 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
-use common::infer::source_name;
+use common::infer::{assistance_decision, source_name};
 use common::*;
 
 const FILL: &str = r#"use vstd::prelude::*;verus!{
@@ -26,6 +26,8 @@ fn succeeds(s: &str) {
     .unwrap();
     let r = &d.json_output.unwrap()["verus-infer"];
     assert_eq!(r["range_loop_assistance"].as_array().unwrap().len(), 1, "{r}");
+    assert_eq!(assistance_decision(r, "range_loop", "::fill")["status"], "applied");
+    assert_eq!(r["assistance_explanations"]["preparation_completed"], true);
     assert!(r["functions"].as_array().unwrap().is_empty(), "ordinary proof is not exact synthesis");
 }
 #[test]
@@ -123,6 +125,14 @@ fn source_invariants_remain_obligations() {
         verify_one_file(&name(&s), s, &["vstd", "--no-cheating", "--infer-goals", "--output-json"])
             .unwrap_err();
     assert!(e.errors.iter().any(|d| d.message.contains("invariant")), "{:?}", e);
+    assert_eq!(
+        assistance_decision(
+            &e.json_output.as_ref().unwrap()["verus-infer"],
+            "range_loop",
+            "::fill"
+        )["reason"],
+        "unsupported_iterator_proof_shape"
+    );
 }
 #[test]
 fn signed_ranges_are_not_selected_by_this_profile() {
@@ -130,10 +140,48 @@ fn signed_ranges_are_not_selected_by_this_profile() {
     let e =
         verify_one_file(&name(&s), s, &["vstd", "--no-cheating", "--infer-goals", "--output-json"])
             .unwrap_err();
+    assert_eq!(
+        assistance_decision(
+            &e.json_output.as_ref().unwrap()["verus-infer"],
+            "range_loop",
+            "::fill"
+        )["reason"],
+        "unsupported_range"
+    );
     assert!(
         e.json_output.unwrap()["verus-infer"]["range_loop_assistance"]
             .as_array()
             .unwrap()
             .is_empty()
     );
+}
+
+#[test]
+fn range_explanations_identify_missing_final_state_and_goal_budget() {
+    let ensures_start = FILL.find(" ensures ").unwrap();
+    let body_start = FILL.find("{for i").unwrap();
+    let no_goals = format!("{}{}", &FILL[..ensures_start], &FILL[body_start..]);
+    for (source, reason, status) in [
+        (no_goals, "missing_final_state_goal", "skipped"),
+        (
+            FILL.replace(
+                "final(b).stamp==old(b).stamp,",
+                &"final(b).stamp==old(b).stamp,".repeat(13),
+            ),
+            "goal_budget_exhausted",
+            "budget_exhausted",
+        ),
+    ] {
+        let diagnostics = verify_one_file(
+            &name(&source),
+            source,
+            &["vstd", "--infer-goals", "--no-cheating", "--output-json"],
+        )
+        .unwrap_or_else(|error| error);
+        let report = &diagnostics.json_output.unwrap()["verus-infer"];
+        let decision = assistance_decision(report, "range_loop", "::fill");
+        assert_eq!(decision["status"], status, "{report}");
+        assert_eq!(decision["reason"], reason, "{report}");
+        assert!(report["range_loop_assistance"].as_array().unwrap().is_empty());
+    }
 }

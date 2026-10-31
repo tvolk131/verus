@@ -423,3 +423,30 @@ fn validate_root(
         _ => Ok(()),
     }
 }
+
+/// These conditions are the existing, shared entry restrictions of the two loop
+/// profiles. Reporting a restriction never relaxes it or changes a proof query.
+pub(super) fn loop_assistance(f: &Function) -> Option<super::report::AssistanceSkip> {
+    use super::report::AssistanceSkip::*;
+    if f.x.attrs.infer {
+        Some(InferredFunction)
+    } else if f.x.mode != Mode::Exec {
+        Some(NonExecutable)
+    } else if f.x.attrs.is_external_body {
+        Some(ExternalBody)
+    } else if f.x.attrs.is_unsafe || f.x.attrs.is_async {
+        Some(UnsafeOrAsync)
+    } else if f.x.attrs.exec_assume_termination || f.x.attrs.exec_allows_no_decreases_clause {
+        Some(TerminationSuppressed)
+    } else if !enums::unit(&f.x.inner_ret.x.typ) {
+        Some(NonUnitReturn)
+    } else if f.x.body.is_none() {
+        Some(MissingBody)
+    } else if f.x.params.iter().any(|p| p.x.user_mut) {
+        Some(MutableParameterBinding)
+    } else if !f.x.params.first().is_some_and(|p| matches!(&*p.x.typ, TypX::MutRef(_))) {
+        Some(MissingMutableReceiver)
+    } else {
+        None
+    }
+}

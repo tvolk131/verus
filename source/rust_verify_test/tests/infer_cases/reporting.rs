@@ -151,3 +151,68 @@ fn structured_report_poisoned_cache_is_reproved_and_stale_export_removed() {
     assert_ne!(f["candidate_id"], original["functions"][0]["candidate_id"]);
     assert!(!crates.vir("json_poison").exists());
 }
+
+#[test]
+fn assistance_explanations_distinguish_disabled_and_skipped_profiles() {
+    let crates = InferCrates::new();
+    let body = "#[verifier::infer] pub fn increment(x:u8)->u8{x+1} pub fn ordinary(){} pub open spec fn observation()->bool{true}";
+    let disabled = crates.build("assistance_report", body, &[], &["--output-json"]);
+    assert!(disabled.status.success(), "{}", String::from_utf8_lossy(&disabled.stderr));
+    let report = json_inference(&disabled);
+    let explanations = &report["assistance_explanations"];
+    assert_eq!(explanations["enabled"], false);
+    assert_eq!(explanations["preparation_started"], false);
+    assert_eq!(explanations["preparation_completed"], false);
+    assert!(explanations["decisions"].as_array().unwrap().is_empty());
+
+    let mut first = None;
+    for _ in 0..2 {
+        let run = crates.build("assistance_report", body, &[], &["--output-json", "--infer-goals"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        common::infer::assert_exact_report(&report, 1);
+        let explanations = &report["assistance_explanations"];
+        assert_eq!(explanations["enabled"], true);
+        assert_eq!(explanations["preparation_started"], true);
+        assert_eq!(explanations["preparation_completed"], true);
+        assert_eq!(explanations["profiles"], serde_json::json!(["growth_loop", "range_loop"]));
+        for profile in ["growth_loop", "range_loop"] {
+            for (function, reason) in [
+                ("::ordinary", "missing_mutable_receiver"),
+                ("::increment", "inference_candidate"),
+                ("::observation", "non_executable_function"),
+            ] {
+                let decision = common::infer::assistance_decision(&report, profile, function);
+                assert_eq!(decision["status"], "skipped");
+                assert_eq!(decision["reason"], reason);
+                assert!(!decision["message"].as_str().unwrap().is_empty());
+            }
+        }
+        assert_eq!(explanations["decisions"].as_array().unwrap().len(), 6);
+        if let Some(first) = &first {
+            assert_eq!(explanations, first, "warm runs must retain deterministic explanations");
+        }
+        first = Some(explanations.clone());
+        assert_eq!(report["interface_written"], true);
+    }
+}
+
+#[test]
+fn assistance_explanations_do_not_invent_attempts_after_frontend_failure() {
+    let crates = InferCrates::new();
+    let run = crates.build(
+        "assistance_frontend_error",
+        "pub fn broken()->u8{false}",
+        &[],
+        &["--infer-goals", "--output-json"],
+    );
+    assert!(!run.status.success());
+    let report = json_inference(&run);
+    let explanations = &report["assistance_explanations"];
+    assert_eq!(explanations["enabled"], true);
+    assert_eq!(explanations["preparation_started"], false);
+    assert_eq!(explanations["preparation_completed"], false);
+    assert!(explanations["decisions"].as_array().unwrap().is_empty());
+    assert_eq!(report["interface_written"], false);
+    assert!(!crates.vir("assistance_frontend_error").exists());
+}

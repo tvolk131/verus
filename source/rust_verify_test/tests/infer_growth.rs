@@ -1,7 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
-use common::infer::source_name;
+use common::infer::{assistance_decision, source_name};
 use common::*;
 
 const SIMPLE: &str = r#"use vstd::prelude::*;verus!{
@@ -49,6 +49,10 @@ fn succeeds(s: &str) {
     .unwrap();
     let r = &d.json_output.unwrap()["verus-infer"];
     assert_eq!(r["growth_loop_assistance"].as_array().unwrap().len(), 1, "{r}");
+    let decision = assistance_decision(r, "growth_loop", "::grow");
+    assert_eq!(decision["status"], "applied");
+    assert_eq!(decision["reason"], serde_json::Value::Null);
+    assert_eq!(r["assistance_explanations"]["preparation_completed"], true);
     assert!(
         r["functions"].as_array().unwrap().is_empty(),
         "ordinary proofs must not claim exact inference"
@@ -81,8 +85,16 @@ fn wrong_values_frames_prefixes_and_progress_are_rejected() {
         ),
         STRUCTURED.replace("round:s.round+1", "round:s.round"),
     ] {
-        let e =
-            verify_one_file(&name(&s), s, &["vstd", "--no-cheating", "--infer-goals"]).unwrap_err();
+        let e = verify_one_file(
+            &name(&s),
+            s,
+            &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+        )
+        .unwrap_err();
+        let report = &e.json_output.as_ref().unwrap()["verus-infer"];
+        assert_eq!(assistance_decision(report, "growth_loop", "::grow")["status"], "applied");
+        assert_eq!(report["crate_success"], false);
+        assert_eq!(report["interface_written"], false);
         assert!(
             e.errors.iter().any(|d| d.message.contains("invariant")
                 || d.message.contains("postcondition")
@@ -102,6 +114,14 @@ fn explicit_loop_proofs_are_preserved() {
     let e =
         verify_one_file(&name(&s), s, &["vstd", "--no-cheating", "--infer-goals", "--output-json"])
             .unwrap_err();
+    assert_eq!(
+        assistance_decision(
+            &e.json_output.as_ref().unwrap()["verus-infer"],
+            "growth_loop",
+            "::grow"
+        )["reason"],
+        "authored_loop_proof"
+    );
     assert!(
         e.json_output.unwrap()["verus-infer"]["growth_loop_assistance"]
             .as_array()
@@ -293,4 +313,59 @@ fn unrelated_zero_argument_preparation_retains_ordinary_borrow_verification() {
             .unwrap()
             .is_empty()
     );
+}
+
+#[test]
+fn growth_explanations_identify_missing_ambiguous_and_over_budget_goals() {
+    let length_goal = "final(h).values@.len()==if old(h).values@.len()>n {old(h).values@.len() as int}else{n as int},";
+    for (source, reason, status) in [
+        (SIMPLE.replace(length_goal, ""), "missing_final_length_goal", "skipped"),
+        (
+            SIMPLE.replace(length_goal, &length_goal.repeat(2)),
+            "ambiguous_final_length_goal",
+            "skipped",
+        ),
+        (
+            SIMPLE.replace("final(h).tag==old(h).tag,", &"final(h).tag==old(h).tag,".repeat(13)),
+            "goal_budget_exhausted",
+            "budget_exhausted",
+        ),
+    ] {
+        let result = verify_one_file(
+            &name(&source),
+            source,
+            &["vstd", "--infer-goals", "--no-cheating", "--output-json"],
+        );
+        let diagnostics = result.unwrap_or_else(|error| error);
+        let report = &diagnostics.json_output.unwrap()["verus-infer"];
+        let decision = assistance_decision(report, "growth_loop", "::grow");
+        assert_eq!(decision["status"], status, "{report}");
+        assert_eq!(decision["reason"], reason, "{report}");
+        assert!(report["growth_loop_assistance"].as_array().unwrap().is_empty());
+        assert_eq!(report["assistance_explanations"]["preparation_completed"], true);
+    }
+}
+
+#[test]
+fn failed_growth_preparation_reports_the_error_without_claiming_later_attempts() {
+    let source =
+        SIMPLE.replace("final(h).tag==old(h).tag", "final(h).tag==(choose|x:u8| x==old(h).tag)");
+    let diagnostics = verify_one_file(
+        &name(&source),
+        source,
+        &["vstd", "--infer-goals", "--no-cheating", "--output-json"],
+    )
+    .unwrap_err();
+    let report = &diagnostics.json_output.unwrap()["verus-infer"];
+    let decision = assistance_decision(report, "growth_loop", "::grow");
+    assert_eq!(decision["status"], "error", "{report}");
+    assert_eq!(decision["reason"], "preparation_error");
+    assert!(decision["message"].as_str().unwrap().contains("growth annotation"));
+    let explanations = &report["assistance_explanations"];
+    assert_eq!(explanations["preparation_started"], true);
+    assert_eq!(explanations["preparation_completed"], false);
+    assert!(
+        explanations["decisions"].as_array().unwrap().iter().all(|d| d["profile"] == "growth_loop")
+    );
+    assert_eq!(report["interface_written"], false);
 }

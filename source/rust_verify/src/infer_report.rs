@@ -5,6 +5,7 @@ use serde_json::{Value, json};
 use std::collections::HashMap;
 use vir::ast::{ExprX, Fun, FunX, Function, Mode};
 use vir::ast_util::{fun_as_friendly_rust_name as name, typ_to_diagnostic_str};
+use vir::infer::AssistanceOutcome;
 use vir::infer_proof::Outcome;
 
 /// Presentation-only snapshot of compiled local Rust functions. It is never
@@ -241,6 +242,24 @@ impl Verifier {
         } else {
             "verified"
         };
+        let mut decisions: Vec<_> = generation.assistance_decisions.iter().map(|decision| {
+            let (status, reason, message) = match &decision.outcome {
+                AssistanceOutcome::Applied => ("applied", None, "Proof annotations were proposed; ordinary verification must still establish the function's obligations."),
+                AssistanceOutcome::Skipped(skip) => {
+                    let (reason, message) = skip.diagnostic();
+                    (if skip.budget_exhausted() { "budget_exhausted" } else { "skipped" }, Some(reason), message)
+                },
+                AssistanceOutcome::Error(message) => ("error", Some("preparation_error"), message.as_str()),
+            };
+            json!({
+                "profile":decision.profile,"function":name(&decision.function),
+                "source":decision.source.as_string,"status":status,"reason":reason,"message":message,
+            })
+        }).collect();
+        decisions.sort_by(|a, b| {
+            (a["profile"].as_str(), a["function"].as_str())
+                .cmp(&(b["profile"].as_str(), b["function"].as_str()))
+        });
         let mut failed_functions: Vec<_> = self.func_fails.iter().map(name).collect();
         failed_functions.sort();
         json!({
@@ -251,6 +270,13 @@ impl Verifier {
             "requested_functions": generation.requested,
             "generated_functions": functions.len(),
             "generation_failure": generation.failure,
+            "assistance_explanations": {
+                "enabled":self.args.infer_goals,
+                "profiles":["growth_loop","range_loop"],
+                "preparation_started":generation.assistance_preparation_started,
+                "preparation_completed":generation.assistance_preparation_completed,
+                "decisions":decisions,
+            },
             "range_loop_assistance": generation.range_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and original iterator termination obligations"})).collect::<Vec<_>>(),
             "pointwise_assistance": generation.pointwise_facts.iter().map(|(f,n)|json!({"function":name(f),"facts":n,"checked_by":"ordinary checked assertions; no assumed invariant or clone law"})).collect::<Vec<_>>(),
             "sequence_pattern_assistance": generation.sequence_patterns.iter().map(|(f,n)|json!({"function":name(f),"quantifiers":n,"checked_by":"original unchanged quantified proposition; alternate sequence-index patterns only"})).collect::<Vec<_>>(),

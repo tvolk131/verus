@@ -153,7 +153,7 @@ mod summary;
 mod widening;
 
 pub use pipeline::GoalContext;
-pub use report::{GeneratedCandidate, GenerationReport};
+pub use report::{AssistanceOutcome, GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;

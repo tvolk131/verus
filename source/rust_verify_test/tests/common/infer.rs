@@ -196,3 +196,22 @@ pub(crate) fn verify_exact(name: &str, source: String, count: usize) -> TestErr 
     assert_exact_report(&diagnostics.json_output.as_ref().unwrap()["verus-infer"], count);
     diagnostics
 }
+
+/// Locate one actual preparation decision without consulting production policy.
+pub(crate) fn assistance_decision<'a>(
+    report: &'a serde_json::Value,
+    profile: &str,
+    function_suffix: &str,
+) -> &'a serde_json::Value {
+    let decisions: Vec<_> = report["assistance_explanations"]["decisions"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|decision| {
+            decision["profile"] == profile
+                && decision["function"].as_str().unwrap().ends_with(function_suffix)
+        })
+        .collect();
+    assert_eq!(decisions.len(), 1, "{report}");
+    decisions[0]
+}
