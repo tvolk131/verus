@@ -1656,6 +1656,60 @@ and diagnostic reruns contribute to SMT time. The whole-generation timer also
 includes dependency ordering and failed work. See the
 [evaluation corpus](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_eval/README.md) for measurement scope.
 
+### Assistance explanations
+
+With `--infer-goals --output-json`, `verus-infer.assistance_explanations`
+explains decisions made during ordinary-body preparation. The initial coverage
+is the top-level `growth_loop` and `range_loop` profiles; `profiles` lists that
+coverage explicitly. Other strategies retain their existing assistance fields.
+An absent decision for another strategy does not mean it failed or was attempted.
+
+`enabled` records the requested `--infer-goals` setting. `preparation_started`
+means the ordered preparation pipeline was entered; `preparation_completed`
+means every preparation pass returned successfully. Neither flag establishes a
+proof. An early frontend failure can leave both false even when assistance was
+requested. A preparation error retains earlier decisions and the failing
+attempt, and records no attempts for functions or profiles that were not reached.
+
+Each decision gives `profile`, `function`, `source`, `status`, `reason` and a
+human-readable `message`. Decisions are sorted by profile and function name for
+repeatable inspection, rather than representing a trace of execution order.
+
+| Status | Meaning |
+| --- | --- |
+| `applied` | The profile proposed proof annotations; `reason` is null. Ordinary verification must still check them and the authored contract. |
+| `skipped` | An entry restriction or recognized shape/goal condition prevented this profile from proposing annotations. |
+| `budget_exhausted` | An existing discovery or goal-count budget prevented this profile from proposing annotations. This is not a solver timeout. |
+| `error` | Preparation returned an error, preserved in `message`; later preparation was not performed. |
+
+Reason keys distinguish, for example, `missing_final_length_goal`,
+`ambiguous_final_length_goal`, `authored_loop_proof`, `unsupported_range`,
+`source_budget_exhausted` and `goal_budget_exhausted`. Messages describe the
+profile's requirement. Preserve the intended property and input domain when
+responding to a diagnostic; an authored proof or another supported profile may
+be appropriate. The reported reason is the first stopping condition, rather
+than a list of every possible obstacle.
+
+These decisions describe the input received by each top-level profile. An
+earlier selector or local-fold pass may already have prepared the function;
+its observations remain in the corresponding existing assistance fields.
+Internal selector analysis projections do not create additional explanation
+rows. Existing annotations and native iterator scaffolding retain their checks.
+
+For example, inspect decisions that need attention with:
+
+```sh
+source/target-verus/release/verus examples/verus_infer_growth.rs \
+  --infer-goals --no-cheating --output-json > /tmp/infer-growth-report.json
+jq '."verus-infer".assistance_explanations.decisions[] | select(.status != "applied")' /tmp/infer-growth-report.json
+```
+
+The explanations are generation observations. An `applied` decision can appear
+in a run whose application proof fails. Check `crate_success`, the function's
+required proof outcomes and `interface_written` separately. This additive report
+field changes neither candidate-cache identities nor interface metadata and is
+never consumed by verification or publication.
+
 ## Supported code and safety policy
 
 Exact mode supports `bool`, `usize`, `isize`, fixed-width unsigned integers (`u8`, `u16`, `u32`,

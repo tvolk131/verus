@@ -1,5 +1,7 @@
 //! Untrusted prefix induction for ordinary native integer-range mutation goals.
 //! Retains the complete source loop and frontend iterator proof scaffolding.
+use super::eligibility::loop_assistance;
+use super::report::AssistanceSkip;
 use super::*;
 use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor};
 use growth_goals::{clauses, current, fresh, future, pure, seq_len};
@@ -338,24 +340,14 @@ fn prepare_one(
     f: &Function,
     all: &HashMap<Fun, Function>,
     report: &mut GenerationReport,
-) -> Result<Function, VirErr> {
-    if f.x.attrs.infer
-        || f.x.mode != Mode::Exec
-        || f.x.attrs.is_external_body
-        || f.x.attrs.is_unsafe
-        || f.x.attrs.is_async
-        || f.x.attrs.exec_assume_termination
-        || f.x.attrs.exec_allows_no_decreases_clause
-        || !enums::unit(&f.x.inner_ret.x.typ)
-        || f.x.body.is_none()
-        || f.x.params.iter().any(|p| p.x.user_mut)
-        || !f.x.params.first().is_some_and(|p| matches!(&*p.x.typ, TypX::MutRef(_)))
-    {
-        return Ok(f.clone());
+) -> Result<(Function, AssistanceOutcome), VirErr> {
+    let skip = |reason| Ok((f.clone(), AssistanceOutcome::Skipped(reason)));
+    if let Some(reason) = loop_assistance(f) {
+        return skip(reason);
     }
     let sources = owned::native_for::sources(f);
     if sources.len() != 1 {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::ExpectedSingleNativeFor);
     }
     let source = &sources[0];
     let mut count = 0;
@@ -370,18 +362,21 @@ fn prepare_one(
         }
         VisitorControlFlow::Recurse
     });
-    if count != 1 || budget == 0 {
-        return Ok(f.clone());
+    if budget == 0 {
+        return skip(AssistanceSkip::SourceBudget);
+    }
+    if count != 1 {
+        return skip(AssistanceSkip::ExpectedSingleLoop);
     }
     let ExprX::Loop { invs, decrease, .. } = &source.loop_expr.x else { unreachable!() };
     if invs.len() != 7 || decrease.len() != 1 {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::IteratorProofShape);
     }
     let Some((start, _)) = endpoints(&source.iterator, all) else {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::UnsupportedRange);
     };
     let Some(index) = index(source, all) else {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::UnsupportedIndex);
     };
     let start = SpannedTyped::new(
         &start.span,
@@ -402,7 +397,7 @@ fn prepare_one(
         clauses(p, &mut posts);
     }
     if posts.len() > 12 {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::GoalBudget);
     }
     let mut proposed = vec![];
     for p in posts {
@@ -464,11 +459,11 @@ fn prepare_one(
         proposed.push(current(&p)?);
     }
     if proposed.is_empty() {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::MissingFinalStateGoal);
     }
     let result = install(f, &source.loop_expr, proposed, all)?;
     report.range_loops.push((f.x.name.clone(), source.loop_expr.span.clone()));
-    Ok(result)
+    Ok((result, AssistanceOutcome::Applied))
 }
 pub fn prepare(
     fs: &[Function],
@@ -476,7 +471,7 @@ pub fn prepare(
     report: &mut GenerationReport,
 ) -> Result<Vec<Function>, VirErr> {
     let all = crate::infer::pipeline::function_map(fs, imported);
-    fs.iter().map(|f| prepare_one(f, &all, report)).collect()
+    report.observe_assistance(fs, "range_loop", |f, report| prepare_one(f, &all, report))
 }
 
 #[cfg(test)]

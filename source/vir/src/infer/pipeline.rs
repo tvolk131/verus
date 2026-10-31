@@ -21,6 +21,7 @@ impl<'a> GoalContext<'a> {
         functions: &[Function],
         report: &mut GenerationReport,
     ) -> Result<Vec<Function>, VirErr> {
+        report.assistance_preparation_started = true;
         // Preserve the dependency order: callback/getter models precede their
         // consumers; structural loop/selector preparation precedes lemma and
         // trigger assistance. Each pass receives the preceding pass's output.
@@ -39,7 +40,9 @@ impl<'a> GoalContext<'a> {
         functions = counting_goals::prepare(&functions, self.imported, report);
         functions = view_bounds_goals::prepare(&functions, self.imported, report);
         functions = fold_goals::prepare(&functions, self.imported, report);
-        sequence_triggers::prepare(&functions, report)
+        let functions = sequence_triggers::prepare(&functions, report)?;
+        report.assistance_preparation_completed = true;
+        Ok(functions)
     }
 }
 

@@ -1,5 +1,7 @@
 //! Checked loop-proof proposals for ordinary append-only transition goals.
 //! The supplied application contract remains the goal, never an assumption.
+use super::eligibility::loop_assistance;
+use super::report::AssistanceSkip;
 use super::*;
 use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor};
 
@@ -273,7 +275,7 @@ pub fn prepare(
     report: &mut GenerationReport,
 ) -> Result<Vec<Function>, VirErr> {
     let all = crate::infer::pipeline::function_map(fs, imported);
-    fs.iter().map(|f| prepare_one(f, &all, report)).collect()
+    report.observe_assistance(fs, "growth_loop", |f, report| prepare_one_explained(f, &all, report))
 }
 
 pub(super) fn prepare_one(
@@ -281,20 +283,22 @@ pub(super) fn prepare_one(
     all: &HashMap<Fun, Function>,
     report: &mut GenerationReport,
 ) -> Result<Function, VirErr> {
-    if f.x.attrs.infer
-        || f.x.mode != Mode::Exec
-        || f.x.attrs.is_external_body
-        || f.x.attrs.is_unsafe
-        || f.x.attrs.is_async
-        || f.x.attrs.exec_assume_termination
-        || f.x.attrs.exec_allows_no_decreases_clause
-        || !enums::unit(&f.x.inner_ret.x.typ)
-        || f.x.body.is_none()
-        || f.x.params.iter().any(|p| p.x.user_mut)
-        || f.x.params.iter().skip(1).any(|p| matches!(&*p.x.typ, TypX::MutRef(_)))
-        || !f.x.params.first().is_some_and(|p| matches!(&*p.x.typ, TypX::MutRef(_)))
-    {
-        return Ok(f.clone());
+    // Selectors use a temporary analysis projection. Only top-level preparation
+    // records decisions; the existing applied-annotation observation is retained.
+    prepare_one_explained(f, all, report).map(|(function, _)| function)
+}
+
+fn prepare_one_explained(
+    f: &Function,
+    all: &HashMap<Fun, Function>,
+    report: &mut GenerationReport,
+) -> Result<(Function, AssistanceOutcome), VirErr> {
+    let skip = |reason| Ok((f.clone(), AssistanceOutcome::Skipped(reason)));
+    if let Some(reason) = loop_assistance(f) {
+        return skip(reason);
+    }
+    if f.x.params.iter().skip(1).any(|p| matches!(&*p.x.typ, TypX::MutRef(_))) {
+        return skip(AssistanceSkip::AdditionalMutableInput);
     }
     let mut loops = vec![];
     let mut budget = 8192usize;
@@ -308,8 +312,11 @@ pub(super) fn prepare_one(
         }
         VisitorControlFlow::Recurse
     });
-    if budget == 0 || loops.len() != 1 {
-        return Ok(f.clone());
+    if budget == 0 {
+        return skip(AssistanceSkip::SourceBudget);
+    }
+    if loops.len() != 1 {
+        return skip(AssistanceSkip::ExpectedSingleLoop);
     }
     let source = &loops[0];
     let ExprX::Loop {
@@ -323,10 +330,10 @@ pub(super) fn prepare_one(
         ..
     } = &source.x
     else {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::UnsupportedWhileLoop);
     };
     if !invs.is_empty() || !decrease.is_empty() {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::AuthoredLoopProof);
     }
     let mut pushes = 0;
     expr_visitor_walk(body, &mut |e| {
@@ -336,7 +343,7 @@ pub(super) fn prepare_one(
         VisitorControlFlow::<()>::Recurse
     });
     if pushes != 1 {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::ExpectedSinglePush);
     }
     let mut posts = vec![];
     for e in f.x.ensure.0.iter() {
@@ -352,8 +359,11 @@ pub(super) fn prepare_one(
             }
         }
     }
+    if bounds.is_empty() {
+        return skip(AssistanceSkip::MissingLengthGoal);
+    }
     if bounds.len() != 1 {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::AmbiguousLengthGoal);
     }
     let (len, limit) = &bounds[0];
     let mut invs = vec![];
@@ -368,7 +378,7 @@ pub(super) fn prepare_one(
         }
     }
     if invs.len() > 12 {
-        return Ok(f.clone());
+        return skip(AssistanceSkip::GoalBudget);
     }
     let len = current(len)?;
     let limit = current(limit)?;
@@ -400,12 +410,46 @@ pub(super) fn prepare_one(
     );
     let result = install(f, source, invs, measure, all)?;
     report.growth_loops.push((f.x.name.clone(), source.span.clone()));
-    Ok(result)
+    Ok((result, AssistanceOutcome::Applied))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn source_budget_is_reported_without_decorating_the_function() {
+        let original = crate::infer::tests::function("large_body", crate::infer::tests::input("x"));
+        let unit = crate::ast_util::unit_typ();
+        let mut x = original.x.clone();
+        Arc::make_mut(&mut x.attrs).infer = false;
+        let mut receiver = x.params[0].x.clone();
+        receiver.typ = Arc::new(TypX::MutRef(receiver.typ.clone()));
+        x.params = Arc::new(vec![x.params[0].new_x(receiver)]);
+        let mut ret = x.inner_ret.x.clone();
+        ret.typ = unit.clone();
+        x.inner_ret = x.inner_ret.new_x(ret);
+        x.outer_ret = x.inner_ret.clone();
+        let statement = crate::def::Spanned::new(
+            original.span.clone(),
+            StmtX::Expr(boolean(&original.span, true).expr),
+        );
+        x.body = Some(SpannedTyped::new(
+            &original.span,
+            &unit,
+            ExprX::Block(Arc::new(vec![statement; 9000]), None),
+        ));
+        let original = original.new_x(x);
+        let mut report = GenerationReport::default();
+        let prepared = prepare(std::slice::from_ref(&original), &[], &mut report).unwrap();
+        assert!(Arc::ptr_eq(&prepared[0], &original));
+        assert!(report.growth_loops.is_empty());
+        assert_eq!(report.assistance_decisions.len(), 1);
+        assert!(matches!(
+            report.assistance_decisions[0].outcome,
+            AssistanceOutcome::Skipped(AssistanceSkip::SourceBudget)
+        ));
+    }
+
     #[test]
     fn growth_decoration_rejects_executable_changes_and_assumptions() {
         let original = crate::infer::loops::tests::counted_function();
