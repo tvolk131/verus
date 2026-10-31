@@ -36,6 +36,7 @@ pub mod array;
 pub mod atomic;
 pub mod atomic_ghost;
 pub mod bits;
+#[cfg(feature = "alloc")]
 pub mod byte_vec;
 pub mod bytes;
 pub mod calc_macro;
