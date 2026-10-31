@@ -160,7 +160,7 @@ pub(super) fn relation(f: &Function, all: &HashMap<Fun, Function>) -> Option<Fun
 }
 
 pub(super) fn prepare(functions: &[Function], imported: &[Function]) -> Vec<Function> {
-    let all = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+    let all = crate::infer::pipeline::function_map(functions, imported);
     let mut getters = std::collections::HashSet::new();
     let mut observations = std::collections::HashSet::new();
     for f in functions {

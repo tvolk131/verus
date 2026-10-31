@@ -145,7 +145,7 @@ pub(super) fn factory(f: &Function, all: &HashMap<Fun, Function>) -> Option<Func
     found
 }
 pub(super) fn prepare(fs: &[Function], imported: &[Function]) -> Vec<Function> {
-    let all = fs.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+    let all = crate::infer::pipeline::function_map(fs, imported);
     let mut factories = std::collections::HashSet::new();
     let mut specs = std::collections::HashSet::new();
     for f in fs {
