@@ -140,7 +140,7 @@ condition fails the boundary/maximality check. A partial `From` implementation
 cannot gain an implementation-specific precondition: From's inherited domain is
 unrestricted. Concrete dependent inference waits for the required proof outcomes.
 
-See [`examples/verus_infer_wrapper_traits.rs`](../../../../examples/verus_infer_wrapper_traits.rs)
+See [`examples/verus_infer_wrapper_traits.rs`](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_wrapper_traits.rs)
 for checked conversions in both directions, `.into()` round trips, nested counter
 updates, ordinary caller goals and an erased native smoke test.
 
@@ -152,7 +152,7 @@ uses the reduced Unit/Hasher interface, supplied view/invariant, corrected
 threshold and supplied widened-round collector core. It does not verify the full
 original collector, native derive implementations or cached FullUnit hashing.
 
-The [AlephBFT parent-selection experiment](../../../tools/infer_alephbft/README.md)
+The [AlephBFT parent-selection experiment](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_alephbft/README.md)
 compares a handwritten threshold contract with this inference path, supplies
 native boundary/state-sequence probes, and records the remaining collector proof
 requirements. Its formal collector is the existing manually verified production
@@ -283,7 +283,7 @@ and a separate checked equivalence compares it with the original recursive count
 Loop annotations, state contracts and the transition's sequence-equality assertion remain.
 The checked reference/equivalence definitions are experiment-only evidence.
 Reproduce it with `source/tools/eval_verus_infer_alephbft_counting.py` as documented
-in the [experiment README](../../../tools/infer_alephbft/README.md).
+in the [experiment README](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_alephbft/README.md).
 
 ## Bounded mutable records
 
@@ -425,7 +425,7 @@ collector core, not clean main's `NodeMap`/`Unit`/`Hasher` implementation.
 
 ### Transparent wrapper composition
 
-The [wrapper example](../../../../examples/verus_infer_wrappers.rs) defines a
+The [wrapper example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_wrappers.rs) defines a
 `SlotTable<T>` with inferred length, borrowed lookup and insertion methods, then
 uses those methods from a containing registry:
 
@@ -452,7 +452,7 @@ annotation removal; this is not a proof of the clean-main `Unit`/`Hasher` collec
 
 ### Private vector wrappers with supplied views
 
-The [private-view example](../../../../examples/verus_infer_private_views.rs)
+The [private-view example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_private_views.rs)
 retains collection privacy. Supply an ordinary Verus view inside the defining
 module, then annotate the supported executable methods as usual:
 
@@ -571,7 +571,7 @@ laws and arbitrary view inverses are not added by this constructor profile.
 
 ### Verified trait query contracts and associated types
 
-The [trait example](../../../../examples/verus_infer_traits.rs) uses supplied
+The [trait example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_traits.rs) uses supplied
 ordinary Verus contracts to describe getters, then infers a generic record update:
 
 ```rust
@@ -691,7 +691,7 @@ and receive ordinary verification; mutable `Result` inference is not introduced
 here. For a transfer, check indices, available source funds, and destination
 capacity **before** subtracting funds if errors must preserve the state. Returning
 `Err` after the subtraction does not establish that property. See
-[`verus_infer_traversals.rs`](../../../../examples/verus_infer_traversals.rs) for a
+[`verus_infer_traversals.rs`](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_traversals.rs) for a
 checked prefix-fill wrapper and signed increment example.
 
 ## Checked growth and transition loops
@@ -724,7 +724,7 @@ meaning and transition laws come from authored views and ordinary checked
 contracts, rather than from guessing nested representations or assuming helper
 semantics. Existing elements retain their full values through the supplied prefix
 relation; an abstract view is used only where the author explicitly chooses it.
-The [growth example](../../../../examples/verus_infer_growth.rs) grows a vector
+The [growth example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_growth.rs) grows a vector
 of snapshots by calling a checked transition that copies each snapshot's vector.
 It contains no loop annotations or local proof blocks.
 
@@ -769,7 +769,7 @@ length occurs independently of the quantified index, assistance can supply an
 internal index trigger for the generated prefix invariant. Source trigger hints
 are not required for that case; explicit source triggers remain intact.
 
-For example, [the range example](../../../../examples/verus_infer_range.rs)
+For example, [the range example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_range.rs)
 fills a subrange with `1`, proves the other elements and an unrelated field
 unchanged, and preserves the vector's length without handwritten loop facts.
 Empty exclusive ranges, descending empty inclusive ranges, singletons and the
@@ -953,7 +953,7 @@ returns exactly that many `None` slots with epoch zero. `next` has no overflow
 restriction: it returns `None` exactly at the maximum epoch, otherwise preserves
 all slot contents and increments the epoch. Ordinary caller goals can prove
 these facts using the inferred interfaces. The
-[complete example](../../../../examples/verus_infer_owned.rs) also verifies and
+[complete example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_owned.rs) also verifies and
 runs natively, including empty construction and the terminal epoch.
 
 The source subset includes `Vec::new`, `Vec::with_capacity`, `vec![value; size]`,
@@ -1004,7 +1004,7 @@ and report fresh soundness, maximality and exactness evidence. Templates regener
 on every run. Imported interfaces validate complete observation coverage, guards,
 a closed pure model language and the existing candidate/dependency/model evidence.
 
-The [Aleph lifecycle runner](../../../tools/eval_verus_infer_alephbft_lifecycle.py)
+The [Aleph lifecycle runner](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/eval_verus_infer_alephbft_lifecycle.py)
 removes supplied constructor/advance contracts, loop annotations and local proof
 blocks from the supplied Vec core, preserving executable bodies. A separate crate
 variant retains original NodeMap API bodies including `with_size`, and supplies
@@ -1034,7 +1034,7 @@ integers/bool/char, Option, arrays and tuples of arity one through four. Copy al
 does not establish this law. Custom Clone implementations can change their value.
 The tuple Clone model deliberately permits cloning or copying each component.
 
-The [native Clone example](../../../../examples/verus_infer_clone.rs) demonstrates
+The [native Clone example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_clone.rs) demonstrates
 the declarations and a generic exact caller. Current source limits are one unnamed
 Vec field and at most two type parameters, with no lifetime or const parameters.
 The supplied View must be the checked direct projection. Complete logical contents
@@ -1044,7 +1044,7 @@ functions of their own, must pass full-crate verification before export.
 
 ## Source-connected Unit implementations
 
-The [Aleph Unit runner](../../../tools/eval_verus_infer_alephbft_units.py) checks
+The [Aleph Unit runner](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/eval_verus_infer_alephbft_units.py) checks
 the native Hasher64 hash body against existing DefaultHasher models and a
 target-endian u64 byte model. It also checks native UnitCoord/PreUnit/ControlHash
 methods and Clone derives, FullUnit construction/clone, all four Unit methods,
@@ -1121,8 +1121,8 @@ enumerate and filter_map specifications. They do not verify precompiled Rust cor
 Count support is restricted to native slice iterators and their supported native
 adapter families; no blanket count law is assumed for custom Iterator overrides.
 The separate checked `vstd::iter` implementations below still add no iterator
-axioms. See the [native factory example](../../../tools/infer_alephbft/native_pipeline_models.rs)
-and its [source-connected Aleph experiment](../../../tools/infer_alephbft/README.md).
+axioms. See the [native factory example](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_alephbft/native_pipeline_models.rs)
+and its [source-connected Aleph experiment](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_alephbft/README.md).
 
 ## Checked native iterator factories
 
@@ -1311,7 +1311,7 @@ above. Read-only record methods returning bounded `Result` values retain complet
 tag/payload exactness, including scalar error policies. This does not infer arbitrary
 iterator loops or synthesize callback meanings.
 
-The [bounded Aleph query model](../../../tools/infer_alephbft/parent_query_models.rs)
+The [bounded Aleph query model](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_alephbft/parent_query_models.rs)
 uses these helpers for parent round projection, counting in a round range, and
 finding future-round parents. A separate inferred validator composes quorum and
 future-round checks. That older comparison adapts the native iterator chains. The newer native-pipeline
@@ -1330,7 +1330,7 @@ existing Option::as_ref and primitive From widening models. General error payloa
 mutable references, arbitrary aliases and returned slice unsizing remain outside
 this profile.
 
-The [selection example](../../../../examples/verus_infer_selection.rs) infers a
+The [selection example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_selection.rs) infers a
 quorum/own-parent query and proves separate success, contents and error goals.
 No application invariant or intended policy is assumed. Returned references are
 compared by complete logical contents, not allocation or address identity;
@@ -1654,7 +1654,7 @@ time, and expanded predicate AST sizes. Generation and solver results remain
 separate: a cache hit still requires fresh proofs. Optional precision queries
 and diagnostic reruns contribute to SMT time. The whole-generation timer also
 includes dependency ordering and failed work. See the
-[evaluation corpus](../../../tools/infer_eval/README.md) for measurement scope.
+[evaluation corpus](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_eval/README.md) for measurement scope.
 
 ## Supported code and safety policy
 
@@ -2450,7 +2450,7 @@ constructor over `self.0 op rhs` or `self.0 op rhs.0`. All machine integer width
 are supported. The expression in the actual body selects the relation: an Add
 implementation that subtracts is described as subtraction, not assumed to add.
 Extra statements, effects, generic implementations and other shapes are rejected.
-The [binary operator example](../../../../examples/verus_infer_binary.rs) composes
+The [binary operator example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_binary.rs) composes
 an original overloaded quorum expression, including a copied shared receiver.
 
 The macro proposes ordinary vstd operator-extension definitions for the actual
