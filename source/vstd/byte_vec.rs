@@ -2,7 +2,9 @@
 //! Primitive boundaries are allocation/acquisition, in-bounds pointer arithmetic,
 //! and transfer into Vec. Writes use the existing tracked raw-pointer primitive.
 use crate::prelude::*;
-use crate::raw_ptr::{PointsTo, PointsToRaw, PtrData, ptr_mut_from_data};
+use crate::raw_ptr::{PointsTo, PointsToRaw};
+#[cfg(verus_keep_ghost)]
+use crate::raw_ptr::{PtrData, ptr_mut_from_data};
 use alloc::vec::Vec;
 
 verus! {

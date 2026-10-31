@@ -4,6 +4,8 @@
 use crate::prelude::*;
 #[cfg(verus_keep_ghost)]
 use crate::std_specs::iter::IteratorSpec;
+#[cfg(feature = "alloc")]
+use alloc::vec::Vec;
 verus! {
 
 broadcast use {
