@@ -190,9 +190,20 @@ pub fn write<'a>(p: *mut u8, value: u8, Tracked(spare): Tracked<&mut ByteSpare<'
         ) && spare.cells[i].is_init() && spare.cells[i].value() == spare.contents[i] by {
             if i < k {
                 assert(before.cells.dom().contains(i));
+                assert(before.cells[i].ptr() == ptr_mut_from_data::<u8>(
+                    PtrData {
+                        addr: (before.base@.addr + i) as usize,
+                        provenance: before.base@.provenance,
+                        metadata: (),
+                    },
+                ));
+                assert(before.cells[i].is_init());
+                assert(before.cells[i].value() == before.contents[i]);
             } else {
                 assert(i == k);
                 assert(spare.cells[i].ptr() == p);
+                assert(spare.cells[i].is_init());
+                assert(spare.cells[i].value() == value);
             }
         }
         assert(spare.contents.len() <= spare.capacity);
