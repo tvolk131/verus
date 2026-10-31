@@ -1,0 +1,16 @@
+{
+  "all_prior_evidence_file_hashes_preserved": 28,
+  "aleph_v4_native_commit": "fa88a4f0956e7a888bbe3d47bc8e14286f2af953",
+  "aleph_v4_sources_preserved": 80,
+  "aleph_v4_clean": true,
+  "aleph_v3_fixed_engine_commit": "fbab46ec4c5a1dd600c80d094ea7fe4fb90e34dd",
+  "aleph_v3_fixed_engine_clean": true,
+  "aleph_v3_pinned_artifacts_and_solver_preserved": 9,
+  "hex_v1_source_commit": "5ccfbad247d5a332408929173e4072fbf06d8bd1",
+  "hex_v1_archive_preserved": true,
+  "accepted_evidence_git_trees": [
+    "040000 tree 892aed3b955d70240ecd5c47d6b833034a67d042\tevidence/verus-infer-hex-v1",
+    "040000 tree a22e189fed5e4fd59c20de601f4c3d1e2361ef8d\tevidence/verus-infer-mechanical-v3",
+    "040000 tree bb282ea200182e38aa360e4ac4b30478e9abc1f2\tevidence/verus-infer-validation-v4"
+  ]
+}

@@ -2689,3 +2689,15 @@ Native hex iterator acceptance is finite: actual construction/chunks/next/nth
 with independent ASCII digit semantics over arbitrary UTF-8 bytes and exact
 original byte errors. It neither extends the immutable hex v1/Aleph results
 nor proves public unsafe vector decoding. See `evidence/verus-infer-hex-v2`.
+
+The original public vector endpoint has a reproducible **unaccepted** memory
+probe in `source/tools/check_hex_vec_phase3.py`. The proof-only native flag
+`verus_hex_vec_phase3` selects the original `decode_to_vec`, error conversions
+and pointer-writing drain with independent required semantics. The current
+frontend rejects Vec::as_mut_ptr, core::ptr::write, pointer add and Vec::set_len;
+no interface is published. Existing Vec::with_capacity specifications describe
+only an empty logical sequence. Existing raw-pointer wrappers require explicit
+tracked permissions. A future general bridge must connect allocation/capacity,
+provenance and initialized-prefix ownership, including early-error cleanup,
+and check the runtime exact iterator hint. See the finite phase charter and
+raw blocker/restored evidence in `evidence/verus-infer-hex-vec-phase3`.
