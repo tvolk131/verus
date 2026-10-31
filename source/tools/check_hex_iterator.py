@@ -13,7 +13,7 @@ from pathlib import Path
 import subprocess
 
 from infer_eval_support import digest as sha, support_artifacts
-from infer_experiment import LoggedCommands, require_publication
+from infer_experiment import LoggedCommands, require_exact, require_publication, validate_run
 
 
 def main():
@@ -53,17 +53,18 @@ def main():
         if not assistance:
             command.remove("--infer-goals")
         code = run(label, command, environment)
-        report = json.loads((out / (label + ".stdout")).read_text())
+        report = validate_run(dict(returncode=code,
+            stdout=(out / (label + ".stdout")).read_text(),
+            stderr=(out / (label + ".stderr")).read_text()),
+            expected, allow_frontend=bool(flags))
         result = report["verification-results"]
         inference = report["verus-infer"]
-        assert (code == 0) == expected and result.get("success", False) == expected, (label, out)
         require_publication(report, expected, artifact)
         if expected:
             functions = inference["functions"]
             assert len(functions) == 1, (label, functions)
             assert "hex_chars_to_byte" in functions[0]["function"], (label, functions)
-            for check in ["soundness", "maximality", "exactness"]:
-                assert functions[0]["proofs"][check]["status"] == "proved", (label, functions)
+            require_exact(functions)
             assert inference["verification_scope"]["complete_selected_scope_verified"], (label, out)
             checked = {r["function"] for r in inference["verification_scope"]["native_functions"] if r["body_status"] == "checked_exec_body"}
             required = ["Char::decode_nibble", "iter::hex_chars_to_byte",

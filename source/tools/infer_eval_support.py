@@ -80,7 +80,7 @@ def run_compiler(command, env, timeout, cwd=None):
                           start_new_session=(os.name == "posix")) as process:
         try:
             stdout, stderr = process.communicate(timeout=timeout)
-        except subprocess.TimeoutExpired as error:
+        except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
             try:
                 if os.name == "posix":
                     os.killpg(process.pid, signal.SIGKILL)
