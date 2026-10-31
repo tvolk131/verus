@@ -1,0 +1,51 @@
+{
+  "decision": "accepted finite native forward string iterator milestone",
+  "engine_implementation_commit": "1e0cf81d20d0dcec0f137edc9b95a8d9c2d98d60",
+  "native_implementation_commit": "cc0bf36056a190bd7da4cbf226e778580e8bb472",
+  "proof_run": "acceptance-final/restored",
+  "verification_results": 30,
+  "errors": 0,
+  "new_application_theorems": 6,
+  "retained_pair_application_theorems": 1,
+  "application_goals": [
+    "hex_conservative::iter::forward_step_goal",
+    "hex_conservative::iter::original_error_location_goal",
+    "hex_conservative::iter::pair_decoding_goal",
+    "hex_conservative::iter::saturated_error_position_goal",
+    "hex_conservative::iter::string_exhaustion_goal",
+    "hex_conservative::iter::string_forward_goal",
+    "hex_conservative::iter::string_next_goal"
+  ],
+  "native_named_checked_exec_bodies": 25,
+  "real_static_initializer_checked": true,
+  "exact_inference_helpers": 1,
+  "mandatory_certificates": 3,
+  "inference_regressions": 291,
+  "constant_static_regressions": 57,
+  "constant_static_ignored": 2,
+  "unwind_regressions": 17,
+  "type_invariant_regressions": 90,
+  "vstd_verified_tooling_only": 2215,
+  "semantic_mutations_rejected": 18,
+  "negative_controls_rejected": [
+    "without_assistance",
+    "no_verify",
+    "filtered"
+  ],
+  "native_features": [
+    "default",
+    "all",
+    "no-default",
+    "alloc-only"
+  ],
+  "native_toolchain": "1.99.1",
+  "msrv": "1.74.0",
+  "restored_source_hashes_match": true,
+  "all_218_original_bodies_and_signatures_unchanged": true,
+  "metadata_schema": 38,
+  "policy": 52,
+  "cache": 58,
+  "actual_public_decode_to_vec_verified": false,
+  "generic_runtime_size_hint_len_exactness_verified": false,
+  "prior_accepted_evidence_preserved": true
+}

@@ -1,0 +1,41 @@
+{
+  "native_baseline": "5ccfbad247d5a332408929173e4072fbf06d8bd1",
+  "engine_baseline": "b42a50e3e96e32b9c76b25dd51caaacd5a120c37",
+  "proof_toolchain": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "native_msrv": "rustc 1.74.0 (79e9716c9 2023-11-13)",
+  "features": "proof std+alloc; native default/all/no-default/alloc; MSRV default",
+  "preserved_evidence_sha256": {
+    "evidence/verus-infer-hex-v1/controls-summary.json": "48d8d64aaeaf348b45ef901a706507a7c3397453dd8ee39e21f92827dc29fe06",
+    "evidence/verus-infer-hex-v1/engine-source-receipt.json": "303d6ce8154c6da719913e97ca1d0bf47791a168a70c6ffa0a2c8b4fac10e850",
+    "evidence/verus-infer-hex-v1/source-audit.json": "e99f3a3af8913aa1148593e4e8bf01301a160b47361adcb4349094a4b8486f00",
+    "evidence/verus-infer-hex-v1/native-source.tar.gz": "d15fa4b76dbc00103554c11f2ec4338c8002b5cdb5af6f9a7c3a322f2a340a82",
+    "evidence/verus-infer-hex-v1/preservation.json": "6e1afdb587f195bf4068a72ccda54297d62ac176e38b8c2e26e5f7adba1f1dd6",
+    "evidence/verus-infer-hex-v1/README.md": "539ac758b56da51767cc2eb0a0bd4e8d2c0b18d27a03485bac9331325b6f362b",
+    "evidence/verus-infer-hex-v1/baseline.json": "ec300b38487ce64e647b32c4e3c1ddef9524de92d77c3fe3773d0089166535f4",
+    "evidence/verus-infer-hex-v1/raw-evidence-index.json": "eaf7a4bf7af805639471095f5c6f679f0091c342525d209b930623be57d0460f",
+    "evidence/verus-infer-hex-v1/charter.md": "7448c24607cd508cb3a32a36bac324ead86436624aa7c639f5c8315ba6172e77",
+    "evidence/verus-infer-hex-v1/raw-evidence.tar.gz": "a44b679700c6c73db9436546c4e14f1023084b878cdcf0331f362e5fefb0a40a",
+    "evidence/verus-infer-hex-v1/native-source.patch.gz": "57510606b342f8473edfa78c792efc4fa3ac1fdafd1ffab902ff026dd98ee435",
+    "evidence/verus-infer-hex-v1/closure-summary.json": "3be36dbb9eb24a0478bee55db83062e7815eacfa58e0afb1262364b54e566405",
+    "evidence/verus-infer-mechanical-v3/bundle-index.json": "ecbe8d4f5268357287be10d25339eb78d28c9e6aa2211136625abf3e0dfc1ddd",
+    "evidence/verus-infer-mechanical-v3/independent-audit.tar.gz": "9bc552e3b93a4be767eccece8af8f86eea8b2e361105cfbded47760cd588601b",
+    "evidence/verus-infer-mechanical-v3/parent-closure-receipt.json": "0422a9fcd31dd71423d17a273390dd4d68bd2fa7ab406777b25b87672155a8f9",
+    "evidence/verus-infer-mechanical-v3/post-audit-integrity.json": "6dd0edd179d01cb1f5b4b25f7fa88066daa3df50e3d6d2ae9577a39c3fc76326",
+    "evidence/verus-infer-validation-v4/controls-summary.json": "2a9b75b735812371d60393c49cd4da6b07b2133b2b75c8fc74037e27eafd1a6b",
+    "evidence/verus-infer-validation-v4/runtime-integrity.json": "c5161e1bb5bf2130b897140f1e4c4b6bf4c2f6f1864e419190c6947a946ded97",
+    "evidence/verus-infer-validation-v4/engine-source-receipt.json": "2c1b15bfde4a098ab929414c5351fc2e074d91ece00eb9bfcd16c37e5eab618b",
+    "evidence/verus-infer-validation-v4/source-audit.json": "a1f33bd977628f8b47616333fcc885b6281e1cd32222f4af8ef2000130b71c6e",
+    "evidence/verus-infer-validation-v4/native-source.tar.gz": "79695ca839869cbcc6a55b2e03215f4bbeaa3a84618e22916969299c51d35bf4",
+    "evidence/verus-infer-validation-v4/bundle-index.json": "c6a5f21cc793f837da19540820db4d54ff642745d2c9063064a646d350843425",
+    "evidence/verus-infer-validation-v4/assumptions.md": "b251bc0d3eb97aaf2b65c26deff45d488a65832a1688d28e27f9a2582978d549",
+    "evidence/verus-infer-validation-v4/README.md": "badc258f38e325d24eba603d81f0b725602a8ae3a57801943983d814a3b5a79c",
+    "evidence/verus-infer-validation-v4/raw-evidence-index.json": "4c1c7dcd215979de51c1750be4b0320582b720949bf0d814e5e6fec3e3717af7",
+    "evidence/verus-infer-validation-v4/raw-evidence.tar.gz": "0b8393c43317478f54bb9d9989128a855df3fdeef152606ce47357ee9a77e57b",
+    "evidence/verus-infer-validation-v4/native-source.patch.gz": "6845da4b01e6fc43ae06166adb9f2359cecb01e6d3b10e55337fcdb84f995555",
+    "evidence/verus-infer-validation-v4/closure-summary.json": "a02b799335cfea6c5846a1abc28e4d7261637c6de164cee4fe9e7118c1e78b4c"
+  },
+  "baseline_native_log": {
+    "stdout_sha256": "7f12af0cc25ab215d6a1a413c5077280379232ca26845484112f0bf41a3ba644",
+    "stderr_sha256": "86d95e905f4e0beaa46c5f901c3317bad722fb38d3f9341386aaacca2be64235"
+  }
+}
