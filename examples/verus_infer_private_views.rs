@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 //! Supplied direct sequence views preserve collection privacy during inference.
 //! Run with --infer-goals. In native Rust, use #[verus_infer] on the methods.
 use vstd::prelude::*;

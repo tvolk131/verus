@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 //! Run with: verus verus_infer_growth.rs --infer-goals --no-cheating
 use vstd::prelude::*;
 

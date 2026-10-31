@@ -72,6 +72,12 @@ pub fn vec_iter<'a, T>(v: &'a Vec<T>) -> (iter: VecIterator<'a, T>)
 impl<'a, T> Iterator for VecIterator<'a, T> {
     type Item = &'a T;
 
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        proof { use_type_invariant(self); }
+        let remaining = self.j - self.i;
+        (remaining, Some(remaining))
+    }
+
     fn next(&mut self) -> (ret: Option<Self::Item>) 
     {
         proof { use_type_invariant(&*self); }
@@ -88,6 +94,10 @@ impl<'a, T> Iterator for VecIterator<'a, T> {
 
 // ANCHOR: iter_spec
 impl<'a, T> IteratorSpecImpl for VecIterator<'a, T> {
+
+    open spec fn has_exact_size_hint(&self) -> bool {
+        true
+    }
 
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
