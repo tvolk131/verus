@@ -14,6 +14,13 @@ that, for example, manipulates raw pointers.
 
 ![VS Code Demo](source/docs/verus-demo.png)
 
+## Verus Infer branch
+
+This branch develops experimental contract inference and checked proof assistance.
+Start with the [direction and active roadmap](VERUS_INFER_DIRECTION.md),
+[adoption guide](source/docs/guide/src/infer_adoption.md), or
+[feature reference](source/docs/guide/src/infer.md).
+
 ## Status
 
 Verus is under *active development*. Features may be broken and/or missing, and
