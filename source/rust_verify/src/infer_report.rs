@@ -253,6 +253,7 @@ impl Verifier {
             "generation_failure": generation.failure,
             "range_loop_assistance": generation.range_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and original iterator termination obligations"})).collect::<Vec<_>>(),
             "pointwise_assistance": generation.pointwise_facts.iter().map(|(f,n)|json!({"function":name(f),"facts":n,"checked_by":"ordinary checked assertions; no assumed invariant or clone law"})).collect::<Vec<_>>(),
+            "sequence_pattern_assistance": generation.sequence_patterns.iter().map(|(f,n)|json!({"function":name(f),"quantifiers":n,"checked_by":"original unchanged quantified proposition; alternate sequence-index patterns only"})).collect::<Vec<_>>(),
             "mutable_selector_assistance": generation.mutable_selectors.iter().map(|(f,n)|json!({"function":name(f),"postconditions":n,"checked_by":"ordinary original-body verification; source contracts preserved"})).collect::<Vec<_>>(),
             "growth_loop_assistance": generation.growth_loops.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary invariant, safety and termination obligations"})).collect::<Vec<_>>(),
             "local_fold_assistance": generation.local_folds.iter().map(|(f,s)|json!({"function":name(f),"source":s.as_string,"checked_by":"ordinary full-body invariant, safety and original iterator termination obligations"})).collect::<Vec<_>>(),

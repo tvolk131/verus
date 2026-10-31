@@ -452,6 +452,7 @@ pub struct ExIter<'a, T: 'a>(Iter<'a, T>);
 pub uninterp spec fn into_iter_elts<'a, T: 'a>(i: Iter<'a, T>) -> Seq<T>;
 
 impl <'a, T: 'a> super::iter::IteratorSpecImpl for Iter<'a, T> {
+    open spec fn has_exact_size_hint(&self) -> bool { true }
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }
@@ -495,6 +496,7 @@ pub struct ExIterMut<'a, T: 'a>(IterMut<'a, T>);
 // See exampes/iterators/slice_iter_mut.rs for a verified implementation of this interface.
 // Any changes here should first be verified over there.
 impl<'a, T: 'a> super::iter::IteratorSpecImpl for IterMut<'a, T> {
+    open spec fn has_exact_size_hint(&self) -> bool { true }
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }
@@ -690,6 +692,7 @@ pub struct ExChunks<'a, T: 'a>(Chunks<'a, T>);
 pub uninterp spec fn after_chunks_elts<'a, T: 'a>(i: Chunks<'a, T>) -> Seq<&'a [T]>;
 
 impl<'a, T: 'a> super::iter::IteratorSpecImpl for Chunks<'a, T> {
+    open spec fn has_exact_size_hint(&self) -> bool { true }
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }

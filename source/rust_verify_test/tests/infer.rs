@@ -6405,3 +6405,6 @@ verus!{pub fn goal(a:Amount,b:Amount){let r=earlier(a,b);assert(r==(a.0<b.0));}}
     assert!(!c.status.success());assert!(!crates.vir("compare_app").exists());
     assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
 }
+
+#[path = "infer_cases/byte_spare.rs"]
+mod byte_spare_cases;

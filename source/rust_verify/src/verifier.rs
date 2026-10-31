@@ -2915,6 +2915,13 @@ impl Verifier {
         let local_crate = query.get_exportable_crate();
         self.inference_generation = query.inference_generation.clone();
         let local_crate = local_crate.map_err(map_query_err)?;
+        if self.args.no_lifetime && (local_crate.functions.iter().any(vir::infer::uses_byte_vec_resources)
+            || !self.imported_inference_dependencies.is_empty()) {
+            return Err(map_err_diagnostics(vir::messages::error_bare(
+                "byte-buffer resource checking requires normal tracked lifetime checks; --no-lifetime is unsupported",
+            )));
+        }
+
 
         if !self.imported_inference_dependencies.is_empty()
             && (self.args.no_verify
@@ -2931,6 +2938,8 @@ impl Verifier {
         if let Some(inferred) = local_crate.functions.iter().find(|f| {
             f.x.attrs.infer
                 || vir::infer::is_inference_contract(f)
+                || vir::infer::uses_byte_vec_resources(f)
+                || vir::infer::exact_size_hint_opt_in(f)
                 || self
                     .inference_generation
                     .array_callbacks
@@ -2938,6 +2947,7 @@ impl Verifier {
                     .chain(self.inference_generation.type_invariant_entries.iter())
                     .chain(self.inference_generation.error_callbacks.iter())
                     .chain(self.inference_generation.factory_callbacks.iter())
+                    .chain(self.inference_generation.sequence_patterns.iter())
                     .any(|(name, _)| name == &f.x.name)
                 || self
                     .inference_generation
@@ -3011,6 +3021,8 @@ impl Verifier {
                 || vir::infer::is_wrapper_trait(f)
                 || vir::infer::is_inference_contract(f)
                 || vir::infer::is_owned_summary(f)
+                || vir::infer::uses_byte_vec_resources(f)
+                || vir::infer::exact_size_hint_opt_in(f)
         }) {
             // Ordinary implementation proofs can use library models even when
             // this provider contains no inferred executable. Bind their model

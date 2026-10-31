@@ -14,6 +14,7 @@ pub uninterp spec fn chunks<'a,T:'a>(i: ChunksExact<'a,T>) -> Seq<&'a [T]>;
 pub uninterp spec fn width<'a,T:'a>(i: ChunksExact<'a,T>) -> usize;
 
 impl<'a,T:'a> IteratorSpecImpl for ChunksExact<'a,T> {
+    open spec fn has_exact_size_hint(&self) -> bool { true }
     open spec fn obeys_prophetic_iter_laws(&self)->bool {true}
     open spec fn remaining(&self)->Seq<Self::Item> {chunks(*self)}
     open spec fn will_return_none(&self)->bool {true}

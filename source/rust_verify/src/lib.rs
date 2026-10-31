@@ -48,6 +48,7 @@ pub mod external;
 pub mod externs;
 pub mod file_loader;
 mod fn_call_to_vir;
+mod native_exact_hints;
 mod hir_hide_reveal_rewrite;
 mod import_export;
 mod pre_header;

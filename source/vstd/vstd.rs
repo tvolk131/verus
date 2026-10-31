@@ -75,6 +75,7 @@ pub mod pervasive;
 pub mod predicate;
 pub mod proph;
 pub mod raw_ptr;
+pub mod byte_vec;
 pub mod relations;
 pub mod resource;
 pub mod rwlock;

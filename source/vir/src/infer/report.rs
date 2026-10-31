@@ -32,6 +32,7 @@ pub struct GenerationReport {
     pub range_loops: Vec<(Fun, Span)>,
     pub pointwise_facts: Vec<(Fun, usize)>,
     pub mutable_selectors: Vec<(Fun, usize)>,
+    pub sequence_patterns: Vec<(Fun, usize)>,
 }
 
 impl GeneratedCandidate {

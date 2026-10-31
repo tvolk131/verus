@@ -4,8 +4,8 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
-The current build uses metadata schema **38**, inference policy **52** and
-candidate-cache version **58**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **54** and
+candidate-cache version **60**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -2693,11 +2693,60 @@ nor proves public unsafe vector decoding. See `evidence/verus-infer-hex-v2`.
 The original public vector endpoint has a reproducible **unaccepted** memory
 probe in `source/tools/check_hex_vec_phase3.py`. The proof-only native flag
 `verus_hex_vec_phase3` selects the original `decode_to_vec`, error conversions
-and pointer-writing drain with independent required semantics. The current
-frontend rejects Vec::as_mut_ptr, core::ptr::write, pointer add and Vec::set_len;
-no interface is published. Existing Vec::with_capacity specifications describe
+and pointer-writing drain with independent required semantics. At that frozen checkpoint the
+frontend rejected Vec::as_mut_ptr, core::ptr::write, pointer add and Vec::set_len;
+no interface was published. Those Vec::with_capacity specifications describe
 only an empty logical sequence. Existing raw-pointer wrappers require explicit
 tracked permissions. A future general bridge must connect allocation/capacity,
 provenance and initialized-prefix ownership, including early-error cleanup,
 and check the runtime exact iterator hint. See the finite phase charter and
 raw blocker/restored evidence in `evidence/verus-infer-hex-vec-phase3`.
+
+
+### Checked native byte spare capacity (policy 54 / cache 60)
+
+The bounded `#[verus_verify(byte_buffer)]` profile checks a fresh global-allocator
+`Vec<u8>` filled by the original `with_capacity -> as_mut_ptr -> ptr::write ->
+ptr.add -> set_len` path. It accepts one local forward loop and an optional `?`
+on each byte. Bind capacity and the source iterator before allocation. See
+`source/tools/native_byte_buffer/src/lib.rs` for an independent native example.
+The native body is passed untouched to erasure; verified-mode instrumentation
+carries each original core/alloc function item for compiler identity/type checks.
+Aliasing, reallocation, extra loop effects, raw reads, pointer escape, arbitrary
+T/destructors and other unsafe Rust remain unsupported by this profile.
+
+`vstd::byte_vec` uses the existing tracked PointsToRaw/PointsTo machinery.
+Allocation capacity is at least the request. An exclusive Vec borrow and tracked
+lease bind allocation identity, provenance, capacity, epoch and initialized
+prefix. Each write splits and initializes one checked cell. One-past advancement
+is permitted; one-past writes are rejected. Sealing consumes all write permissions;
+set_len consumes a matching receipt and exposes only initialized bytes in the Vec
+view. Reacquisition invalidates stale receipts. Early Err retains native length
+zero and discards only u8 permissions before ordinary allocation cleanup. Empty
+buffers are included. Four explicit standard-library boundaries remain trusted:
+allocation, acquisition, bounded pointer advancement and receipt-checked set_len.
+Writing, sealing and prefix preservation are checked library code. This is not a
+proof of the Rust allocator/Vec implementation.
+
+Runtime length uses a separate checked exact-size-hint capability. Actual selected
+next/size_hint and overridden len bodies must verify; ignored native overrides,
+custom Drop and custom adapter overrides outside the finite profile are rejected.
+The provided core len uses the checked size_hint lower bound; the safe trait name
+or an authored exact_len observation supplies no runtime equation. A missing
+carrier capability gets a concrete checked false definition, not a trait default.
+
+For two-byte decoding policy, `byte_pair_semantics(result_sequence, digit_query)`
+requests a generic checked prefix lemma. Its universal policy precondition must
+verify; it assumes no first-party decoder or table equation. General sequence
+pattern assistance adds alternate index triggers to unchanged quantified
+propositions; JSON reports list `sequence_pattern_assistance`. These checked
+requirements and tooling results do not count as new exact inference helpers.
+
+Resource/hint providers and consumers require full-scope successful publication,
+matching artifacts and normal lifetime checks, also without --infer-goals.
+The unrelated filler, cold/warm cross-crate clients, safety/semantic mutations,
+and failed/no-verify/filtered/no-lifetime controls are inference regressions.
+`source/tools/check_hex_vec_adoption.py` checks the actual public hex endpoint,
+restored proofs and native feature/MSRV behavior. See
+`evidence/verus-infer-hex-v3/assumptions.md` for the trust, erasure and domain
+inventory; earlier accepted source/archive pins remain immutable.

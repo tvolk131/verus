@@ -104,9 +104,16 @@ pub trait ExIterator {
                 decreases_to!(old(self).decrease()->0 => final(self).decrease()->0),
     ;
 
-    // Implementations may strengthen this ordinary method contract. In
-    // particular ExactSizeIterator implementations check their exact hints.
-    fn size_hint(&self) -> (ret: (usize, Option<usize>));
+    /// Opt in only when the actual size_hint body checks the exact equation.
+    /// Missing carrier methods get a concrete checked false definition from
+    /// the macro; no inherited default or runtime guarantee is assumed.
+    spec fn has_exact_size_hint(&self) -> bool;
+
+    fn size_hint(&self) -> (ret: (usize, Option<usize>))
+        ensures
+            self.has_exact_size_hint() && self.obeys_prophetic_iter_laws() ==>
+                ret.0 == self.remaining().len() && ret.1 == Some(ret.0),
+    ;
 
     /******* Mechanisms that support ergonomic `for` loops *********/
 
@@ -452,7 +459,10 @@ pub trait ExExactSizeIterator: Iterator {
 
     fn len(&self) -> (len: usize)
         ensures
-            self.obeys_prophetic_iter_laws() ==> len == self.exact_len() == self.remaining().len();
+            // core's provided len returns size_hint().0. Its exactness is
+            // conditional on that checked method law, not a trait-name axiom.
+            self.has_exact_size_hint() && self.obeys_prophetic_iter_laws() ==>
+                len == self.remaining().len();
 }
 
 /********************************************************************************

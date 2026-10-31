@@ -14,6 +14,7 @@ mod syntax;
 mod atomic_ghost;
 mod attr_block_trait;
 mod attr_rewrite;
+mod byte_buffer;
 mod infer_wrapper;
 mod infer_binary;
 mod infer_derive_ops;
@@ -477,6 +478,27 @@ pub fn verus_verify(
         return infer_clone::expand(item, quote::quote!(#vstd))
             .unwrap_or_else(|e| e.to_compile_error())
             .into();
+    }
+    if let Ok(meta) = syn::parse::<syn::MetaList>(args.clone()) {
+        if meta.path.is_ident("byte_pair_semantics") {
+            if !cfg_erase().keep() {
+                return attr_rewrite::rewrite_verus_attribute(&cfg_erase(),proc_macro::TokenStream::new(),input);
+            }
+            let paths=match meta.parse_args_with(syn::punctuated::Punctuated::<syn::Path,syn::Token![,]>::parse_terminated) {
+                Ok(p)=>p.into_iter().collect(),Err(e)=>return e.to_compile_error().into(),
+            };
+            let item=syn::parse_macro_input!(input as syn::ItemFn);
+            let vstd=syntax::Vstd(proc_macro2::Span::call_site());
+            return byte_buffer::pair_semantics(item,paths,quote::quote!(#vstd)).unwrap_or_else(|e|e.to_compile_error()).into();
+        }
+    }
+    if args.to_string() == "byte_buffer" {
+        if !cfg_erase().keep() {
+            return attr_rewrite::rewrite_verus_attribute(&cfg_erase(), proc_macro::TokenStream::new(), input);
+        }
+        let item=syn::parse_macro_input!(input as syn::ItemFn);
+        let vstd=syntax::Vstd(proc_macro2::Span::call_site());
+        return byte_buffer::expand(item,quote::quote!(#vstd)).unwrap_or_else(|e|e.to_compile_error()).into();
     }
     attr_rewrite::rewrite_verus_attribute(&cfg_erase(), args, input)
 }

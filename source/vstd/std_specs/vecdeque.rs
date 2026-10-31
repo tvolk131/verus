@@ -282,6 +282,7 @@ pub struct ExIter<'a, T: 'a>(Iter<'a, T>);
 pub uninterp spec fn into_iter_elts<'a, T: 'a>(i: Iter<'a, T>) -> Seq<&'a T>;
 
 impl<'a, T: 'a> super::iter::IteratorSpecImpl for Iter<'a, T> {
+    open spec fn has_exact_size_hint(&self) -> bool { true }
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }

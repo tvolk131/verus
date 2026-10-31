@@ -363,6 +363,11 @@ pub(crate) enum SetItem {
 
 #[derive(PartialEq, Eq, Debug, Clone, Hash)]
 pub(crate) enum VstdItem {
+    ByteVecAllocate,
+    ByteVecAcquire,
+    ByteVecWrite,
+    ByteVecAdvance,
+    ByteVecFinish,
     TupleClone(usize),
     SeqFn(vir::interpreter::SeqFn),
     SetItem(SetItem),
@@ -733,6 +738,11 @@ fn verus_items_map() -> Vec<(&'static str, VerusItem)> {
         ("verus::vstd::atomic::AtomicUpdate::outer_mask", VerusItem::Vstd(VstdItem::AtomicUpdate(AtomicUpdateItem::AtomicUpdateOuterMask), Some(Arc::new("atomic::AtomicUpdate::outer_mask".to_owned())))),
         ("verus::vstd::atomic::AtomicUpdate::inner_mask", VerusItem::Vstd(VstdItem::AtomicUpdate(AtomicUpdateItem::AtomicUpdateInnerMask), Some(Arc::new("atomic::AtomicUpdate::inner_mask".to_owned())))),
 
+        ("verus::vstd::byte_vec::allocate", VerusItem::Vstd(VstdItem::ByteVecAllocate, Some(Arc::new("byte_vec::allocate".to_owned())))),
+        ("verus::vstd::byte_vec::acquire", VerusItem::Vstd(VstdItem::ByteVecAcquire, Some(Arc::new("byte_vec::acquire".to_owned())))),
+        ("verus::vstd::byte_vec::write", VerusItem::Vstd(VstdItem::ByteVecWrite, Some(Arc::new("byte_vec::write".to_owned())))),
+        ("verus::vstd::byte_vec::advance", VerusItem::Vstd(VstdItem::ByteVecAdvance, Some(Arc::new("byte_vec::advance".to_owned())))),
+        ("verus::vstd::byte_vec::finish", VerusItem::Vstd(VstdItem::ByteVecFinish, Some(Arc::new("byte_vec::finish".to_owned())))),
         ("verus::vstd::std_specs::vec::vec_index", VerusItem::Vstd(VstdItem::VecIndex, Some(Arc::new("std_specs::vec::vec_index".to_owned())))),
         ("verus::vstd::std_specs::vec::vec_index_mut", VerusItem::Vstd(VstdItem::VecIndexMut, Some(Arc::new("std_specs::vec::vec_index_mut".to_owned())))),
         ("verus::vstd::array::array_index_get", VerusItem::Vstd(VstdItem::ArrayIndexGet, Some(Arc::new("array::array_index_get".to_owned())))),

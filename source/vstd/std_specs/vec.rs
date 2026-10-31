@@ -379,6 +379,7 @@ pub struct ExIntoIter<T, A: Allocator>(IntoIter<T, A>);
 pub uninterp spec fn into_iter_elts<T, A: Allocator>(i: IntoIter<T, A>) -> Seq<T>;
 
 impl <T, A: Allocator> super::iter::IteratorSpecImpl for IntoIter<T, A> {
+    open spec fn has_exact_size_hint(&self) -> bool { true }
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }

@@ -1,0 +1,9 @@
+[package]
+name = "checked-native-byte-buffer"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.74"
+publish = false
+[workspace]
+[lints.rust]
+unexpected_cfgs = { level = "deny", check-cfg = ['cfg(verus_keep_ghost)'] }

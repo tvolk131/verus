@@ -26,6 +26,9 @@ mod enums;
 mod exits;
 mod goals;
 mod type_invariant_goals;
+mod exact_hints;
+pub use exact_hints::validate as validate_exact_size_hints;
+pub use exact_hints::opt_in as exact_size_hint_opt_in;
 mod packing_goals;
 mod growth_goals;
 mod local_fold_goals;
@@ -43,6 +46,8 @@ mod registry;
 mod records;
 mod record_models;
 mod sequence_views;
+mod sequence_triggers;
+pub use sequence_triggers::prepare as prepare_sequence_patterns;
 mod trait_getters;
 mod iterators;
 mod wrapper_traits;
@@ -99,7 +104,7 @@ pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
 
 pub fn is_inference_contract(f: &Function) -> bool {
     wrapper_compare::request(f) || f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
-        || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || f.x.attrs.infer_mutable_selector || view_bounds_goals::lemma(f).is_some()
+        || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || f.x.attrs.infer_mutable_selector || view_bounds_goals::lemma(f).is_some() || uses_byte_vec_resources(f) || exact_size_hint_opt_in(f)
 }
 
 pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
@@ -1386,3 +1391,19 @@ pub(crate) mod tests;
 
 #[cfg(test)]
 mod coverage_tests;
+
+/// The bounded byte-resource effect must never publish under skipped checking.
+pub fn uses_byte_vec_resources(f:&Function)->bool {
+    if f.x.name.path.krate==CrateId::Vstd {return false;}
+    let mut found=false;
+    if let Some(body)=&f.x.body {
+        crate::ast_visitor::expr_visitor_walk(body,&mut|e|{
+            if let ExprX::Call{target:CallTarget::Fun(_,n,..),..}=&e.x {
+                found |= n.path.krate==CrateId::Vstd && n.path.segments.len()==2
+                    && n.path.segments[0].as_str()=="byte_vec";
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+    }
+    found
+}

@@ -600,6 +600,11 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             }
         }
 
+        crate::native_exact_hints::validate(&pre_crate.ctxt,&cratex.functions)
+            .map_err(|e|self.emit_error(e))?;
+        vir::infer::validate_exact_size_hints(&cratex.functions)
+            .map_err(|e|self.emit_error(e))?;
+
         if self.args.infer_goals {
             cratex.functions = vir::infer::prepare_type_invariant_goals(
                 &cratex.functions,
@@ -675,6 +680,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 &available,
                 &mut self.inference_generation,
             );
+            cratex.functions = vir::infer::prepare_sequence_patterns(&cratex.functions, &mut self.inference_generation).map_err(|e|self.emit_error(e))?;
         }
 
         if self.args.infer_goals
