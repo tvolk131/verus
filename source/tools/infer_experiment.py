@@ -74,18 +74,24 @@ class LoggedCommands:
         started = time.monotonic()
         try:
             result = run_compiler(command, environment, self.timeout, cwd=self.cwd)
-        except subprocess.TimeoutExpired as error:
+        except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
             self._logs(label, error.stdout or "", error.stderr or "")
+            self._record(label, command, environment, started, None,
+                         timed_out=isinstance(error, subprocess.TimeoutExpired),
+                         interrupted=isinstance(error, KeyboardInterrupt))
             raise
         self._logs(label, result.stdout, result.stderr)
+        self._record(label, command, environment, started, result.returncode)
+        return result.returncode
+
+    def _record(self, label, command, environment, started, exit_code, **details):
         self.commands.append(dict(
-            label=label, argv=command, cwd=str(self.cwd), exit_code=result.returncode,
+            label=label, argv=command, cwd=str(self.cwd), exit_code=exit_code,
             seconds=time.monotonic() - started,
             environment={k: environment[k] for k in (
                 "RUSTUP_TOOLCHAIN", "VERUS_Z3_PATH", "VERUS_INFER_CACHE", "CARGO_TARGET_DIR"
-            ) if k in environment},
+            ) if k in environment}, **details,
         ))
-        return result.returncode
 
     def _logs(self, label, stdout, stderr):
         for suffix, contents in (("stdout", stdout), ("stderr", stderr)):
