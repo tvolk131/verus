@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-warnings
 use vstd::prelude::*;
 
 // This deliberately publishes a range, not an exact input/output relationship.

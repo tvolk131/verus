@@ -89,6 +89,12 @@ fn run_example_for_file(file_path: &str) {
                 command
             ),
         }
+        for option in first_line_elements.iter().skip(3).take_while(|option| **option != "---") {
+            match *option {
+                "--infer-goals" => options.push("--infer-goals"),
+                option => panic!("invalid option {:?} for example file test", option),
+            }
+        }
     }
 
     let relative_path = PathBuf::from(relative_path);

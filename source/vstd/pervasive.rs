@@ -417,6 +417,7 @@ pub open spec fn strictly_cloned<T: Clone>(a: T, b: T) -> bool {
 /// By always considering a value to be a clone of itself, regardless of the definition
 /// of `T::clone`, this definition is useful in places where 'clone' calls might be
 /// optimized to copies. This is particularly common in the Rust stdlib.
+#[cfg_attr(verus_keep_ghost, rustc_diagnostic_item = "verus::vstd::pervasive::cloned")]
 pub open spec fn cloned<T: Clone>(a: T, b: T) -> bool {
     strictly_cloned(a, b) || a == b
 }

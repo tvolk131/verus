@@ -1,5 +1,7 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 //! Owned collection construction and round advancement without method contracts.
 //! Copying is an explicit executable loop; the supplied logical view is Vec's.
+//! These methods stay within the crate so their inferred contracts can describe private fields.
 use vstd::prelude::*;
 
 #[verus_verify]
@@ -11,12 +13,12 @@ pub struct Snapshot<T: Copy> {
 #[verus_verify]
 impl<T: Copy> Snapshot<T> {
     #[verus_infer]
-    pub fn new(size: usize) -> Self {
+    pub(crate) fn new(size: usize) -> Self {
         Self { slots: vec![None; size], epoch: 0 }
     }
 
     #[verus_infer]
-    pub fn next(&self) -> Option<Self> {
+    pub(crate) fn next(&self) -> Option<Self> {
         if self.epoch == u16::MAX {
             return None;
         }

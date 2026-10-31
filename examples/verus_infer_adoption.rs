@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 //! A small adoption workflow: inferred implementation facts, authored API
 //! meaning, and automatic or explicit proof assistance.
 //! Verify with --infer-goals --no-cheating; compile with --compile.
