@@ -16,6 +16,7 @@ from eval_verus_infer_alephbft_parents import (
     CORRECTED, FIXTURES, METHOD, ROOT, VALUE, item, prepare,
     remove_constructor_loop_annotation, validate_native,
 )
+from infer_experiment import save_results, snapshot_inputs, validate_run
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 STATE = "verification-infer/collector_state.rs"
@@ -57,19 +58,12 @@ def add_mutation(source, old, new):
 
 
 def validate(run, expected, state_count, unsupported=None, state_mode="exact"):
-    data = json.loads(run["stdout"])
-    verification = data["verification-results"]
-    if (run["returncode"] == 0) != expected or verification.get("success") != expected:
-        raise ValueError(f"unexpected verification outcome: {verification}")
-    if any(t in run["stderr"].lower() for t in ("panicked at", "resource limit", "timed out")):
-        raise ValueError("panic or resource exhaustion is not semantic evidence")
+    data = validate_run(run, expected, allow_frontend=bool(unsupported))
     report = data.get("verus-infer", {})
     if unsupported:
         if report.get("status") != "unsupported" or unsupported not in run["stderr"]:
             raise ValueError("missing expected unsupported-source diagnostic")
         return data
-    if verification.get("encountered-vir-error"):
-        raise ValueError("frontend failure is not a semantic rejection")
     functions = report.get("functions", [])
     states = [f for f in functions if f.get("summary_kind") == "record_state"]
     if len(functions) != 2 + state_count or len(states) != state_count:
@@ -121,16 +115,14 @@ def main():
     result = dict(host=host_info(), tool_artifacts=guard.initial, source={}, runs=[], native=[])
     checkout = output / "checkout"
 
-    def save(): (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
+    def save():
+        save_results(output, result)
 
     def snapshot(name, native=False):
         relatives = [VALUE, METHOD, STATE, PROPERTIES]
-        if native: relatives += ["verification-infer/native.rs", "verification-infer/native/Cargo.toml"]
-        dest = output / ("native-inputs" if native else "inputs") / name
-        for relative in relatives:
-            path = dest / relative; path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text((checkout / relative).read_text())
-        return dict(input_snapshot=str(dest), source_hashes={p: digest(dest / p) for p in relatives})
+        if native:
+            relatives += ["verification-infer/native.rs", "verification-infer/native/Cargo.toml"]
+        return snapshot_inputs(checkout, output / ("native-inputs" if native else "inputs") / name, relatives)
 
     try:
         shared, result["source"] = prepare(repo, checkout)

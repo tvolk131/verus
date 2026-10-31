@@ -13,6 +13,7 @@ from pathlib import Path
 
 from eval_verus_infer_alephbft_collections import OPS, PROPERTIES, STATE, extract_operations, validate
 from eval_verus_infer_alephbft_parents import CORRECTED, FIXTURES, METHOD, ROOT, VALUE, item, prepare, remove_constructor_loop_annotation, validate_native
+from infer_experiment import save_results, snapshot_inputs
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 
@@ -114,16 +115,14 @@ def main():
     result = dict(host=host_info(), tool_artifacts=guard.initial, source={}, runs=[], native=[])
     checkout = output / "checkout"
 
-    def save(): (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
+    def save():
+        save_results(output, result)
 
     def snapshot(name, native=False):
         relatives = [VALUE, METHOD, STATE, OPS, PROPERTIES]
-        if native: relatives += ["verification-infer/native.rs", "verification-infer/native/Cargo.toml"]
-        dest = output / ("native-inputs" if native else "inputs") / name
-        for relative in relatives:
-            path = dest / relative; path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text((checkout / relative).read_text())
-        return dict(input_snapshot=str(dest), source_hashes={p: digest(dest / p) for p in relatives})
+        if native:
+            relatives += ["verification-infer/native.rs", "verification-infer/native/Cargo.toml"]
+        return snapshot_inputs(checkout, output / ("native-inputs" if native else "inputs") / name, relatives)
 
     try:
         shared, result["source"] = prepare(repo, checkout)

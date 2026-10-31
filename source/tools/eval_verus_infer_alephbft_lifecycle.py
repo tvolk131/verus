@@ -16,6 +16,7 @@ from eval_verus_infer_alephbft_parents import ROOT, NODE, FIXTURES, CORRECTED, M
 from eval_verus_infer_alephbft_records import infer_add
 from eval_verus_infer_alephbft_private import private_api, validate
 from eval_verus_infer_alephbft_traits import getter_adapter, generic_collector, wrapper_api, wrapper_collector, UNITS
+from infer_experiment import save_results
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 
@@ -173,7 +174,8 @@ def main():
     extras=[Path(__file__),supplied,FIXTURES/'parents_properties.rs']
     extras += [Path(__file__).with_name(n) for n in ('eval_verus_infer_alephbft.py','eval_verus_infer_alephbft_parents.py','eval_verus_infer_alephbft_records.py','eval_verus_infer_alephbft_counting.py','eval_verus_infer_alephbft_wrappers.py','eval_verus_infer_alephbft_private.py','eval_verus_infer_alephbft_traits.py','infer_eval_support.py')]
     guard=ArtifactGuard(tool_artifacts(verus,z3,extra=extras)); result=dict(host=host_info(),tool_artifacts=guard.initial,runs=[])
-    def save(): (output/'results.json').write_text(json.dumps(result,indent=2)+'\n')
+    def save():
+        save_results(output, result)
     try:
         shared,origin=prepare(repo,output/'checkout'); checkout=output/'checkout'; directory=checkout/'verification-infer'
         original=supplied.read_text(); node=git(checkout,'show',f'{REVISION}:{NODE}'); units=git(checkout,'show',f'{REVISION}:{UNITS}')

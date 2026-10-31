@@ -15,6 +15,7 @@ from eval_verus_infer_alephbft_parents import ROOT, FIXTURES, NODE, CORRECTED, i
 from eval_verus_infer_alephbft_traits import UNITS
 from eval_verus_infer_alephbft_lifecycle import lifecycle_api, private_core
 from eval_verus_infer_alephbft_private import validate
+from infer_experiment import save_results
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 MODELS = FIXTURES / 'full_unit_models.rs'
@@ -113,7 +114,8 @@ def main():
     extras+=list(Path(__file__).parent.glob('eval_verus_infer_alephbft*.py'))+[Path(__file__).with_name('infer_eval_support.py')]
     guard=ArtifactGuard(tool_artifacts(verus,z3,extra=extras))
     result=dict(host=host_info(),tool_artifacts=guard.initial,runs=[],native=[])
-    def save():(output/'results.json').write_text(json.dumps(result,indent=2)+'\n')
+    def save():
+        save_results(output, result)
     try:
         shared,origin=prepare(repo,output/'checkout');checkout=output/'checkout';directory=checkout/'verification-infer'
         node,units,control,hasher=[git(checkout,'show',f'{REVISION}:{path}') for path in (NODE,UNITS,CONTROL,HASHER)]

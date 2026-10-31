@@ -13,6 +13,7 @@ from pathlib import Path
 from eval_verus_infer_alephbft import REVISION, git
 from eval_verus_infer_alephbft_parents import CORRECTED, FIXTURES, METHOD, NODE, ROOT, VALUE, item, prepare, validate_native
 from eval_verus_infer_alephbft_records import infer_add, add_mutation, require_domain_rejection
+from infer_experiment import require_exact, save_results, snapshot_inputs, validate_run
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 API="verification-infer/node_map.rs"
@@ -57,21 +58,13 @@ def api_mutation(source, method, old, new):
 
 
 def validate(run, expected):
-    data=json.loads(run["stdout"]);result=data["verification-results"]
-    if (run["returncode"]==0)!=expected or result.get("success")!=expected:
-        raise ValueError(f"unexpected verification outcome: {result}")
-    if result.get("encountered-vir-error") or any(s in run["stderr"].lower() for s in ("panicked at","resource limit","timed out")):
-        raise ValueError("frontend/panic/resource failure is not semantic evidence")
+    data = validate_run(run, expected)
     functions=data.get("verus-infer",{}).get("functions",[])
     kinds=[f.get("summary_kind") for f in functions]
     if len(functions)!=6 or kinds.count("record_state")!=2 or kinds.count("record_view")!=2 or kinds.count("value")!=2:
         raise ValueError(f"unexpected candidate kinds: {kinds}")
+    require_exact(functions)
     for f in functions:
-        if f["mode"]!="exact" or not f["required_checks_passed"]:
-            raise ValueError("all helpers and the composed caller must pass exact checks")
-        for p in ("soundness","maximality","exactness"):
-            if f["proofs"][p]["status"]!="proved" or not f["proofs"][p]["required"]:
-                raise ValueError("missing required proof")
         if f["summary_kind"]!="value" and (f["metrics"]["cache"]!="miss" or f["metrics"]["cache_policy"]!="regenerated_state"):
             raise ValueError("record templates must regenerate and reprove")
     return data
@@ -96,14 +89,13 @@ def main():
     guard=ArtifactGuard(tool_artifacts(verus,z3,extra=extra))
     result=dict(host=host_info(),tool_artifacts=guard.initial,runs=[],native=[])
     checkout=output/"checkout"
-    def save(): (output/"results.json").write_text(json.dumps(result,indent=2)+"\n")
-    def snapshot(name,native=False):
-        dest=output/("native-inputs" if native else "inputs")/name
-        files=[VALUE,METHOD,API,STATE,PROPERTIES]
-        if native: files += ["verification-infer/native.rs","verification-infer/native_reference.rs","verification-infer/native/Cargo.toml"]
-        for f in files:
-            p=dest/f;p.parent.mkdir(parents=True,exist_ok=True);p.write_text((checkout/f).read_text())
-        return dict(input_snapshot=str(dest),source_hashes={f:digest(dest/f) for f in files})
+    def save():
+        save_results(output, result)
+    def snapshot(name, native=False):
+        relatives = [VALUE, METHOD, API, STATE, PROPERTIES]
+        if native:
+            relatives += ["verification-infer/native.rs", "verification-infer/native_reference.rs", "verification-infer/native/Cargo.toml"]
+        return snapshot_inputs(checkout, output / ("native-inputs" if native else "inputs") / name, relatives)
     try:
         shared,origin=prepare(repo,checkout)
         (checkout/METHOD).write_text(shared.replace("(*self * 2) / 3 + NodeCount(1)",CORRECTED))

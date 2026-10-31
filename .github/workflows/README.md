@@ -17,6 +17,10 @@ and publishing for the Verus project.
 
 **Jobs:**
 
+1. **`infer-tooling`** (Linux)
+   - Runs the standard-library-only Python experiment harness tests.
+   - Runs independently of compiler builds for quick feedback.
+
 1. **`fmt`** (linux)
    - Validates Rust code formatting with `rustfmt`
    - Validates `vstd` formatting with `verusfmt`
@@ -33,7 +37,9 @@ and publishing for the Verus project.
    - Runs after `fmt` and `clippy` pass
 
 1. **`full-test`** (Linux x64)
-   - Runs full test suite.
+   - Runs AIR, VIR, and verifier integration tests.
+   - Runs the inference corpus with cold/warm candidates and the Cargo
+     incremental regression, retaining reports and logs as an artifact.
 
 1. **`basic-test`** (macOs x64, Windows x64, and Linux x64)
    - Runs basic tests only

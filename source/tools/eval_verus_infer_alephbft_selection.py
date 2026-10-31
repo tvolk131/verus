@@ -13,6 +13,7 @@ from eval_verus_infer_alephbft_parents import ROOT, NODE, METHOD, CORRECTED, FIX
 from eval_verus_infer_alephbft_lifecycle import direct_core, private_core, lifecycle_api, mutate
 from eval_verus_infer_alephbft_private import validate
 from eval_verus_infer_alephbft_traits import UNITS
+from infer_experiment import save_results
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 
@@ -80,7 +81,8 @@ def main():
     out.mkdir(parents=True,exist_ok=True);verus=a.verus.resolve();z3=a.z3.resolve()
     extras=[Path(__file__),supplied,FIXTURES/'parents_properties.rs']+[Path(__file__).with_name(n) for n in ('eval_verus_infer_alephbft.py','eval_verus_infer_alephbft_parents.py','eval_verus_infer_alephbft_lifecycle.py','eval_verus_infer_alephbft_private.py','eval_verus_infer_alephbft_records.py','eval_verus_infer_alephbft_traits.py','eval_verus_infer_alephbft_wrappers.py','eval_verus_infer_alephbft_counting.py','infer_eval_support.py')]
     guard=ArtifactGuard(tool_artifacts(verus,z3,extra=extras));results=dict(host=host_info(),artifacts=guard.initial,runs=[])
-    def save():(out/'results.json').write_text(json.dumps(results,indent=2)+'\n')
+    def save():
+        save_results(out, results)
     try:
         shared,origin=prepare(repo,out/'checkout');checkout=out/'checkout';d=checkout/'verification-infer'
         shared=shared.replace('(*self * 2) / 3 + NodeCount(1)',CORRECTED);(checkout/METHOD).write_text(shared)
