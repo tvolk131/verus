@@ -17,7 +17,14 @@ OBLIGATIONS = ("soundness", "maximality", "exactness")
 def validate_run(run, expected, *, allow_frontend=False):
     data = json.loads(run["stdout"])
     result = data["verification-results"]
-    if (run["returncode"] == 0) != expected or result.get("success") != expected:
+    success = result.get("success")
+    # Early policy/frontend rejection can happen before verification emits a
+    # success field. Only explicitly permitted, marked frontend errors qualify.
+    if (allow_frontend and not expected and "success" not in result
+            and (result.get("encountered-error") is True
+                 or result.get("encountered-vir-error") is True)):
+        success = False
+    if (run["returncode"] == 0) != expected or success != expected:
         raise ValueError(f"unexpected verification outcome: {result}")
     if any(s in run["stderr"].lower() for s in ("panicked at", "resource limit", "timed out")):
         raise ValueError("panic or resource exhaustion is not semantic evidence")
