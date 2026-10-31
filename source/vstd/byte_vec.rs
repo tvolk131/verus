@@ -1,10 +1,10 @@
 //! Bounded ownership bridge for a fresh global-allocator `Vec<u8>` spare buffer.
 //! Primitive boundaries are allocation/acquisition, in-bounds pointer arithmetic,
 //! and transfer into Vec. Writes use the existing tracked raw-pointer primitive.
-use crate::prelude::*;
-use crate::raw_ptr::{PointsTo, PointsToRaw};
+use crate::vstd::prelude::*;
+use crate::vstd::raw_ptr::{PointsTo, PointsToRaw};
 #[cfg(verus_keep_ghost)]
-use crate::raw_ptr::{PtrData, ptr_mut_from_data};
+use crate::vstd::raw_ptr::{PtrData, ptr_mut_from_data};
 use alloc::vec::Vec;
 
 verus! {
@@ -136,10 +136,10 @@ pub fn write<'a>(p: *mut u8, value: u8, Tracked(spare): Tracked<&mut ByteSpare<'
         final(spare).contents() == old(spare).contents().push(value),
     no_unwind
 {
-    broadcast use crate::group_vstd_default;
-    broadcast use crate::layout::group_layout_axioms;
-    broadcast use crate::layout::align_of_u8;
-    broadcast use crate::raw_ptr::group_raw_ptr_axioms;
+    broadcast use crate::vstd::group_vstd_default;
+    broadcast use crate::vstd::layout::group_layout_axioms;
+    broadcast use crate::vstd::layout::align_of_u8;
+    broadcast use crate::vstd::raw_ptr::group_raw_ptr_axioms;
 
     let ghost before = *spare;
     proof {
@@ -148,14 +148,14 @@ pub fn write<'a>(p: *mut u8, value: u8, Tracked(spare): Tracked<&mut ByteSpare<'
     let ghost k = spare.contents.len() as int;
     let tracked mut cell = {
         let tracked mut raw = PointsToRaw::empty(spare.base@.provenance);
-        crate::modes::tracked_swap(&mut raw, &mut spare.raw);
+        crate::vstd::modes::tracked_swap(&mut raw, &mut spare.raw);
         let ghost address = spare.base@.addr as int + k;
         assert(raw.is_range(address, spare.capacity as int - k));
         assert forall|a: int|
             Set::<int>::range(address, address + 1).contains(a) implies raw.dom().contains(a) by {}
         let tracked (slot, rest) = raw.split(Set::range(address, address + 1));
         spare.raw = rest;
-        assert(crate::layout::align_of::<u8>() == 1);
+        assert(crate::vstd::layout::align_of::<u8>() == 1);
         slot.into_typed::<u8>(address as usize)
     };
     proof {
@@ -168,7 +168,7 @@ pub fn write<'a>(p: *mut u8, value: u8, Tracked(spare): Tracked<&mut ByteSpare<'
             },
         ));
     }
-    crate::raw_ptr::ptr_mut_write(p, Tracked(&mut cell), value);
+    crate::vstd::raw_ptr::ptr_mut_write(p, Tracked(&mut cell), value);
     proof {
         spare.cells.tracked_insert(k, cell);
         spare.contents = spare.contents.push(value);
@@ -385,7 +385,7 @@ pub proof fn whole_pair_validity<A, R, E>(
             0 <= k <= results.len() && #[trigger] successful_prefix(results, k) ==> forall|j: int|
                 0 <= j < 2 * k ==> byte_ok(#[trigger] bytes[j]),
 {
-    broadcast use crate::group_vstd_default;
+    broadcast use crate::vstd::group_vstd_default;
 
     assert forall|k: int|
         0 <= k <= results.len() && #[trigger] successful_prefix(results, k) implies forall|j: int|

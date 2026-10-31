@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 //! Bounded exact trait getters and opaque associated types in record inference.
 //! Run with --infer-goals. The logical getter contracts remain supplied.
 use vstd::prelude::*;

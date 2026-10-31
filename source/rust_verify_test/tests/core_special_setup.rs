@@ -32,7 +32,6 @@ test_verify_one_file_with_options! {
             verus_keep_ghost,
             feature(fn_traits),
         )]
-        #![cfg_attr(verus_keep_ghost, verifier::exec_allows_no_decreases_clause)]
 
         #[verifier::external]
         #[path="../../../../builtin/src/lib.rs"]
@@ -76,6 +75,14 @@ test_verify_one_file_with_options! {
                 requires x@.len() > 0
             {
                 x[0]
+            }
+
+            fn test_tuple_clone<A: Clone, B: Clone>(value: &(A, B)) -> (result: (A, B))
+                ensures
+                    cloned(value.0, result.0),
+                    cloned(value.1, result.1),
+            {
+                value.clone()
             }
 
             fn test_ptr_stuff(a: *mut u8, b: *mut [u8; 2]) {

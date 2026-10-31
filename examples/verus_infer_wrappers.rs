@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 // Run with --infer-goals to discharge the supplied counting invariant.
 // Inside verus!, verifier::infer is the equivalent of verus_infer on ordinary Rust.
 use vstd::prelude::*;

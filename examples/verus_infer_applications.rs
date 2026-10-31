@@ -1,3 +1,4 @@
+// rust_verify/tests/example.rs expect-warnings
 //! Small application kernels within Infer's current pure Rust subset.
 use vstd::prelude::*;
 
