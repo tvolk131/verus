@@ -156,7 +156,7 @@ impl<
     type V = Map<Key::V, Value::V>;
 
     open spec fn deep_view(&self) -> Map<Key::V, Value::V> {
-        crate::std_specs::hash::hash_map_deep_view_impl(*self)
+        crate::vstd::std_specs::hash::hash_map_deep_view_impl(*self)
     }
 }
 
@@ -172,7 +172,7 @@ impl<Key: DeepView, Value: DeepView, S> DeepView for std::collections::HashMap<K
     type V = Map<Key::V, Value::V>;
 
     open spec fn deep_view(&self) -> Map<Key::V, Value::V> {
-        crate::std_specs::hash::hash_map_deep_view_impl(*self)
+        crate::vstd::std_specs::hash::hash_map_deep_view_impl(*self)
     }
 }
 

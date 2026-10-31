@@ -153,7 +153,10 @@ impl<T: CloneView> CloneView for alloc::vec::Vec<T> {
         ensures
             a.deep_view() == b.deep_view(),
     {
-        broadcast use {crate::std_specs::vec::group_vec_axioms, crate::seq::group_seq_axioms};
+        broadcast use {
+            crate::vstd::std_specs::vec::group_vec_axioms,
+            crate::vstd::seq::group_seq_axioms,
+        };
 
         if a != b {
             assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
@@ -161,7 +164,7 @@ impl<T: CloneView> CloneView for alloc::vec::Vec<T> {
                 T::lemma_clone_view(a@[i], b@[i]);
             }
             assert(a.deep_view() =~= b.deep_view());
-            crate::std_specs::vec::vec_clone_deep_view_proof(a, b);
+            crate::vstd::std_specs::vec::vec_clone_deep_view_proof(a, b);
         }
     }
 }
@@ -196,8 +199,8 @@ impl<T: CloneIdentity, const N: usize> CloneIdentity for [T; N] {
         ensures
             a == b,
     {
-        broadcast use crate::array::group_array_axioms;
-        broadcast use crate::seq::axiom_seq_ext_equal;
+        broadcast use crate::vstd::array::group_array_axioms;
+        broadcast use crate::vstd::seq::axiom_seq_ext_equal;
 
         if a != b {
             assert forall|i: int| 0 <= i < N implies a@[i] == b@[i] by {

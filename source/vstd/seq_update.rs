@@ -1,9 +1,9 @@
 //! Checked observations of folds that update indexed sequence slots.
-use crate::prelude::*;
+use crate::vstd::prelude::*;
 
 verus! {
 
-broadcast use crate::seq::group_seq_axioms;
+broadcast use crate::vstd::seq::group_seq_axioms;
 
 pub open spec fn scatter<A, B>(
     entries: Seq<A>,
@@ -35,7 +35,7 @@ pub broadcast proof fn lemma_fold_left_congruence<A, B>(
 
 /// An explicit collection observation, reusable by checked sparse iterator factories.
 pub open spec fn sparse_entries<A, E>(source: Seq<Option<A>>, label: spec_fn(int) -> E) -> Seq<E> {
-    crate::std_specs::iter_adapters::flatten_options(
+    crate::vstd::std_specs::iter_adapters::flatten_options(
         Seq::new(
             source.len(),
             |i: int|
@@ -61,7 +61,9 @@ pub proof fn lemma_sparse_entries_eq<A, E>(
                 Some(_) => Some(label(i)),
             },
     ensures
-        sparse_entries(source, label) == crate::std_specs::iter_adapters::flatten_options(full),
+        sparse_entries(source, label) == crate::vstd::std_specs::iter_adapters::flatten_options(
+            full,
+        ),
 {
     assert(Seq::new(
         source.len(),
@@ -95,12 +97,12 @@ pub broadcast proof fn lemma_sparse_entries_empty<A, E>(
 
 proof fn flatten_push<E>(values: Seq<Option<E>>, last: Option<E>)
     ensures
-        crate::std_specs::iter_adapters::flatten_options(values.push(last)) == match last {
-            None => crate::std_specs::iter_adapters::flatten_options(values),
-            Some(v) => crate::std_specs::iter_adapters::flatten_options(values).push(v),
+        crate::vstd::std_specs::iter_adapters::flatten_options(values.push(last)) == match last {
+            None => crate::vstd::std_specs::iter_adapters::flatten_options(values),
+            Some(v) => crate::vstd::std_specs::iter_adapters::flatten_options(values).push(v),
         },
 {
-    use crate::std_specs::iter_adapters::flatten_options;
+    use crate::vstd::std_specs::iter_adapters::flatten_options;
     values.lemma_filter_push(last, |v: Option<E>| v.is_some());
     if last.is_some() {
         assert(flatten_options(values.push(last)) =~= flatten_options(values).push(last.unwrap()));
@@ -153,9 +155,9 @@ proof fn sparse_filter_count_prefix<S, A, E, B>(
         ).map_values(project).filter(keep).len(),
     decreases n,
 {
-    use crate::std_specs::iter_adapters::flatten_options;
+    use crate::vstd::std_specs::iter_adapters::flatten_options;
     if n == 0 {
-        broadcast use crate::seq_lib::group_filter_ensures;
+        broadcast use crate::vstd::seq_lib::group_filter_ensures;
 
         assert(sparse_entries(slots.take(n), label) =~= Seq::empty());
         assert(sparse_entries(slots.take(n), label).map_values(project) =~= Seq::empty());
@@ -305,10 +307,10 @@ proof fn scatter_sparse_prefix<A, E, B>(
         ),
     decreases n,
 {
-    use crate::std_specs::iter_adapters::flatten_options;
+    use crate::vstd::std_specs::iter_adapters::flatten_options;
     reveal_with_fuel(Seq::fold_left, 2);
     if n == 0 {
-        broadcast use crate::seq_lib::group_filter_ensures;
+        broadcast use crate::vstd::seq_lib::group_filter_ensures;
 
         assert(sparse_entries(source.take(n), label) =~= Seq::empty());
         assert(initial =~= Seq::new(source.len(), |i: int| initial[i]));
@@ -424,7 +426,7 @@ pub broadcast proof fn lemma_last_write<A>(entries: Seq<A>, index: spec_fn(A) ->
         },
     decreases entries.len(),
 {
-    broadcast use crate::seq::group_seq_axioms;
+    broadcast use crate::vstd::seq::group_seq_axioms;
 
     reveal_with_fuel(last_write, 2);
     if entries.len() > 0 && index(entries.last()) != slot {
@@ -451,7 +453,7 @@ pub broadcast proof fn lemma_scatter_len<A, B>(
         #[trigger] scatter(entries, initial, index, value).len() == initial.len(),
     decreases entries.len(),
 {
-    broadcast use crate::seq::group_seq_axioms;
+    broadcast use crate::vstd::seq::group_seq_axioms;
 
     reveal_with_fuel(Seq::fold_left, 2);
     if entries.len() > 0 {
@@ -480,7 +482,7 @@ pub broadcast proof fn lemma_scatter_index<A, B>(
         },
     decreases entries.len(),
 {
-    broadcast use crate::seq::group_seq_axioms;
+    broadcast use crate::vstd::seq::group_seq_axioms;
 
     reveal_with_fuel(Seq::fold_left, 2);
     reveal_with_fuel(last_write, 2);

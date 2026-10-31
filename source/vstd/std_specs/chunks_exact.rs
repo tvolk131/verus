@@ -1,7 +1,7 @@
 //! Standard-library boundary for immutable exact chunks and slice/array copy.
 //! These contracts model Rust core, not an application's iterator wrappers.
-use crate::prelude::*;
-use crate::std_specs::iter::*;
+use crate::vstd::prelude::*;
+use crate::vstd::std_specs::iter::*;
 use core::slice::ChunksExact;
 
 verus! {

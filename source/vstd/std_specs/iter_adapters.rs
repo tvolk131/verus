@@ -3,7 +3,7 @@
 //! Count support is closed under known native adapters starting at slice::Iter.
 //! Iterator::next laws alone do not constrain user overrides of fold/count.
 use super::iter::{IteratorSpec, filter_fun, filter_iter, map_fun, map_iter};
-use crate::prelude::*;
+use crate::vstd::prelude::*;
 use core::iter::{Enumerate, Filter, FilterMap, Map};
 
 verus! {
@@ -133,7 +133,7 @@ pub broadcast proof fn lemma_flatten_options_contains<T>(values: Seq<Option<T>>,
     ensures
         #[trigger] flatten_options(values).contains(value) == values.contains(Some(value)),
 {
-    broadcast use {crate::seq::group_seq_axioms, crate::seq_lib::group_filter_ensures};
+    broadcast use {crate::vstd::seq::group_seq_axioms, crate::vstd::seq_lib::group_filter_ensures};
 
     let present = values.filter(|v: Option<T>| v.is_some());
     if flatten_options(values).contains(value) {
@@ -217,7 +217,7 @@ pub proof fn flatten_options_prefix<T>(prefix: Seq<Option<T>>, full: Seq<Option<
     ensures
         flatten_options(prefix).is_prefix_of(flatten_options(full)),
 {
-    broadcast use crate::seq::group_seq_lemmas;
+    broadcast use crate::vstd::seq::group_seq_lemmas;
 
     let rest = full.subrange(prefix.len() as int, full.len() as int);
     assert(full =~= prefix + rest);
@@ -231,7 +231,7 @@ pub proof fn filter_index_by_value<T>(values: Seq<T>, pred: spec_fn(T) -> bool)
         values.filter_index(|i: int| pred(values[i])) == values.filter(pred),
     decreases values.len(),
 {
-    broadcast use crate::seq::group_seq_lemmas;
+    broadcast use crate::vstd::seq::group_seq_lemmas;
 
     reveal(Seq::filter_index);
     reveal(Seq::filter);
@@ -261,7 +261,7 @@ pub broadcast proof fn filter_empty_iff<T>(values: Seq<T>, pred: spec_fn(T) -> b
         (#[trigger] values.filter(pred).len() == 0) == (forall|i: int|
             0 <= i < values.len() ==> !pred(values[i])),
 {
-    broadcast use crate::seq_lib::group_filter_ensures;
+    broadcast use crate::vstd::seq_lib::group_filter_ensures;
 
     if forall|i: int| 0 <= i < values.len() ==> !pred(values[i]) {
         values.lemma_all_neg_filter_empty(pred);
@@ -346,7 +346,7 @@ pub broadcast proof fn flatten_options_witness<T>(values: Seq<Option<T>>, index:
             exists|i: int| 0 <= i < values.len() && #[trigger] values[i] == Some(value)
         }),
 {
-    broadcast use {crate::seq::group_seq_lemmas, crate::seq_lib::group_filter_ensures};
+    broadcast use {crate::vstd::seq::group_seq_lemmas, crate::vstd::seq_lib::group_filter_ensures};
 
     let present = values.filter(|v: Option<T>| v.is_some());
     assert(present[index].is_some());
@@ -372,7 +372,7 @@ pub broadcast proof fn fold_prefix_step<A, B>(
             values[index],
         ),
 {
-    broadcast use crate::seq::group_seq_lemmas;
+    broadcast use crate::vstd::seq::group_seq_lemmas;
 
     let prefix = values.take(index);
     assert(values.take(index + 1) =~= prefix.push(values[index]));
@@ -382,7 +382,7 @@ pub broadcast proof fn fold_prefix_step<A, B>(
 }
 
 pub broadcast group group_native_adapter_axioms {
-    crate::iterator_view::lemma_sparse_entry_origin,
+    crate::vstd::iterator_view::lemma_sparse_entry_origin,
     fold_prefix_step,
     flatten_options_witness,
     slice_count_post,

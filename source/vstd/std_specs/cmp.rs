@@ -57,7 +57,7 @@ impl<T: PartialEqIdentity, const N: usize> PartialEqIdentity for [T; N] {
     proof fn lemma_eq_identity(a: Self, b: Self)
         ensures <Self as PartialEqSpec>::obeys_eq_spec(), <Self as PartialEqSpec>::eq_spec(&a, &b) == (a == b),
     {
-        broadcast use {crate::array::group_array_axioms, crate::seq::group_seq_axioms};
+        broadcast use {crate::vstd::array::group_array_axioms, crate::vstd::seq::group_seq_axioms};
         T::lemma_eq_identity(arbitrary(), arbitrary());
         assert forall|i: int| 0 <= i < N implies
             #[trigger] a@[i].eq_spec(&b@[i]) == (a@[i] == b@[i]) by {
