@@ -34,6 +34,15 @@ class ExperimentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_run(frontend, False)
         validate_run(frontend, False, allow_frontend=True)
+        early = self.run_result(stdout=json.dumps({
+            "verification-results": {"encountered-vir-error": True},
+        }))
+        validate_run(early, False, allow_frontend=True)
+        with self.assertRaises(ValueError):
+            validate_run(early, False)
+        with self.assertRaises(ValueError):
+            validate_run(self.run_result(stdout=json.dumps({"verification-results": {}})),
+                         False, allow_frontend=True)
         with self.assertRaises(ValueError):
             validate_run(self.run_result(returncode=0), False)
 
