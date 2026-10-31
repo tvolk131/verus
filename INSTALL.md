@@ -3,7 +3,7 @@
 Verus provides first-tier support to relatively recent OS distributions (MacOS, Windows and Ubuntu).
 The general rule of thumb is that we lag one version behind the latest offered on Github.
 These are the architectures that have release artifacts prebuilt:
-- MacOS 14 (arm)
+- MacOS 15 (arm)
 - MacOS 15 (x86_64)
 - Windows 2022 (x86_64)
 - Ubuntu 24.04 (x86_64)
