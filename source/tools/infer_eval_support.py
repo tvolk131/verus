@@ -68,9 +68,10 @@ def tool_artifacts(verifier, solver, extra=()):
     paths = [Path(verifier), Path(solver), *support_artifacts(), *extra,
              *(directory / n for n in names)]
     # The exact filenames vary by host. Missing macro libraries are a setup error.
-    for stem in ("libverus_builtin_macros", "libverus_state_machines_macros"):
-        found = [p for p in directory.glob(stem + ".*") if p.suffix in (".so", ".dylib", ".dll")]
-        paths.extend(found or [directory / (stem + ".missing")])
+    for stem in ("verus_builtin_macros", "verus_state_machines_macros"):
+        found = [p for prefix in ("lib", "") for p in directory.glob(prefix + stem + ".*")
+                 if p.suffix in (".so", ".dylib", ".dll")]
+        paths.extend(found or [directory / ("lib" + stem + ".missing")])
     return paths
 
 
@@ -83,12 +84,28 @@ def run_compiler(command, env, timeout, cwd=None):
         except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
             try:
                 if os.name == "posix":
-                    os.killpg(process.pid, signal.SIGKILL)
+                    os.killpg(process.pid, signal.SIGINT)
                 else:
                     process.kill()
             except ProcessLookupError:
                 pass
-            error.stdout, error.stderr = process.communicate()
+            try:
+                error.stdout, error.stderr = process.communicate(timeout=5)
+            except (subprocess.TimeoutExpired, KeyboardInterrupt):
+                try:
+                    if os.name == "posix":
+                        os.killpg(process.pid, signal.SIGKILL)
+                    else:
+                        process.kill()
+                except ProcessLookupError:
+                    pass
+                error.stdout, error.stderr = process.communicate()
+            finally:
+                if os.name == "posix":
+                    try:
+                        os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
             raise
         return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
 

@@ -7,13 +7,12 @@ use its actual src/lib.rs, default std+alloc cfg and a separate fresh export/cac
 per invocation. No Cargo configuration or accepted Aleph fixture is modified.
 """
 import argparse
-import json
 import os
 from pathlib import Path
-import subprocess
 
-from infer_eval_support import digest as sha, support_artifacts
-from infer_experiment import LoggedCommands, require_exact, require_publication, validate_run
+from infer_eval_support import ArtifactGuard, digest as sha, support_artifacts, tool_artifacts
+from infer_experiment import (LoggedCommands, positive_timeout, replay_receipt, require,
+                              require_exact, require_publication, restore_sources, validate_run)
 
 
 def main():
@@ -21,28 +20,42 @@ def main():
     parser.add_argument("--native-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--positive-only", action="store_true")
+    parser.add_argument("--timeout", type=positive_timeout, default=300.0,
+                        help="positive per-command timeout in seconds (default: 300)")
     args = parser.parse_args()
+    out = args.output.resolve()
+    out.mkdir(parents=True, exist_ok=False)
+    receipt = {"cases": [], "commands": []}
+    with replay_receipt(out, receipt):
+        replay(args, out, receipt)
+    print(out)
+
+
+def replay(args, out, receipt):
     root = args.native_root.resolve()
     engine = Path(__file__).resolve().parents[2]
     binary = engine / "source/target-verus/release"
-    out = args.output.resolve()
-    out.mkdir(parents=True, exist_ok=False)
+    guard = ArtifactGuard(tool_artifacts(binary / "verus", engine / "source/z3",
+                                         extra=[Path(__file__).resolve()]))
     paths = [root / "src/lib.rs", root / "src/iter.rs"]
     originals = {p: p.read_bytes() for p in paths}
     sources = sorted((root / "src").glob("*.rs")) + sorted((root / "tests").rglob("*.rs")) + [
         root / name for name in ["Cargo.toml", "Cargo.lock", "Cargo-recent.lock", "VERUS_INFER.md"]]
-    receipt = {"native_sources_before": {str(p.relative_to(root)): sha(p) for p in sources},
-               "artifacts": {n: sha(binary / n) for n in ["verus", "rust_verify", "vstd.vir", "libvstd.rlib", "libverus_builtin_macros.dylib"]},
-               "runner_sha256": sha(Path(__file__).resolve()),
-               "runner_support_sha256": {p.name: sha(p) for p in support_artifacts()},
-               "native_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip(),
-               "proof_toolchain": subprocess.check_output(["rustc", "+1.99.1", "--version"], text=True).strip(),
-               "cases": [], "commands": []}
+    receipt.update(native_sources_before={str(p.relative_to(root)): sha(p) for p in sources},
+                   artifacts={Path(path).name: value["sha256"] for path, value in guard.initial.items()},
+                   runner_sha256=sha(Path(__file__).resolve()),
+                   runner_support_sha256={p.name: sha(p) for p in support_artifacts()})
     env = dict(os.environ, RUSTUP_TOOLCHAIN="1.99.1", VERUS_Z3_PATH=str(engine / "source/z3"))
     for key in ["RUSTFLAGS", "CARGO_ENCODED_RUSTFLAGS", "RUSTC_WRAPPER", "RUSTC_WORKSPACE_WRAPPER"]:
         env.pop(key, None)
 
-    run = LoggedCommands(out, engine, receipt["commands"])
+    run = LoggedCommands(out, engine, receipt["commands"], timeout=args.timeout, guard=guard)
+    require(run("native_commit", ["git", "-C", str(root), "rev-parse", "HEAD"], env) == 0,
+            "cannot determine native commit")
+    receipt["native_commit"] = (out / "native_commit.stdout").read_text().strip()
+    require(run("proof_toolchain", ["rustc", "+1.99.1", "--version"], env) == 0,
+            "cannot determine proof toolchain")
+    receipt["proof_toolchain"] = (out / "proof_toolchain.stdout").read_text().strip()
 
     def proof(label, expected=True, flags=(), assistance=True):
         artifact = out / (label + ".vir")
@@ -62,10 +75,10 @@ def main():
         require_publication(report, expected, artifact)
         if expected:
             functions = inference["functions"]
-            assert len(functions) == 1, (label, functions)
-            assert "hex_chars_to_byte" in functions[0]["function"], (label, functions)
+            require(len(functions) == 1, (label, functions))
+            require("hex_chars_to_byte" in functions[0]["function"], (label, functions))
             require_exact(functions)
-            assert inference["verification_scope"]["complete_selected_scope_verified"], (label, out)
+            require(inference["verification_scope"]["complete_selected_scope_verified"], (label, out))
         receipt["cases"].append({"label": label, "expected_success": expected, "verification": result, "inference": inference})
         return inference
 
@@ -84,38 +97,31 @@ def main():
             ]
             for label, path, before, after in cases:
                 text = originals[path].decode()
-                assert text.count(before) == 1, (label, "ambiguous mutation")
+                require(text.count(before) == 1, (label, "ambiguous mutation"))
                 path.write_text(text.replace(before, after))
                 try:
                     inference = proof(label, False)
-                    assert len(inference["functions"]) == 1 and inference["functions"][0]["required_checks_passed"], (label, out)
+                    require(len(inference["functions"]) == 1 and inference["functions"][0]["required_checks_passed"], (label, out))
                     errors = (out / (label + ".stderr")).read_text()
-                    assert "postcondition not satisfied" in errors, (label, out)
+                    require("postcondition not satisfied" in errors, (label, out))
                 finally:
                     path.write_bytes(originals[path])
             inference = proof("without_assistance", False, assistance=False)
-            assert inference["functions"][0]["required_checks_passed"], ("without_assistance", out)
-            assert "postcondition not satisfied" in (out / "without_assistance.stderr").read_text()
+            require(inference["functions"][0]["required_checks_passed"], ("without_assistance", out))
+            require("postcondition not satisfied" in (out / "without_assistance.stderr").read_text(), 'check_hex_adoption: replay validation failed')
             proof("no_verify", False, ["--no-verify"])
             proof("filtered", False, ["--verify-root", "--verify-function", "decode_nibble"])
             for label in ["no_verify", "filtered"]:
-                assert "requires full-crate verification" in (out / (label + ".stderr")).read_text(), (label, out)
+                require("requires full-crate verification" in (out / (label + ".stderr")).read_text(), (label, out))
         proof("restored")
         for label, features in [("default", []), ("all", ["--all-features"]),
                                 ("no_default", ["--no-default-features"]),
                                 ("alloc", ["--no-default-features", "--features", "alloc"])]:
             environment = dict(env, CARGO_TARGET_DIR=str(out / "native-target"))
-            assert run("native_" + label, ["cargo", "+1.99.1", "test", "--offline", "--locked",
-                       "--manifest-path", str(root / "Cargo.toml"), "-p", "hex-conservative", *features], environment) == 0, (label, out)
-        receipt["success"] = True
+            require(run("native_" + label, ["cargo", "+1.99.1", "test", "--offline", "--locked",
+                       "--manifest-path", str(root / "Cargo.toml"), "-p", "hex-conservative", *features], environment) == 0, (label, out))
     finally:
-        for path, original in originals.items():
-            if path.read_bytes() != original:
-                path.write_bytes(original)
-        receipt["native_sources_after"] = {str(p.relative_to(root)): sha(p) for p in sources}
-        assert receipt["native_sources_before"] == receipt["native_sources_after"], "source restoration failed"
-        (out / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
-    print(out)
+        restore_sources(root, originals, sources, receipt)
 
 
 if __name__ == "__main__":
