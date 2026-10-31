@@ -146,8 +146,7 @@ pub fn prepare(
     imported: &[Function],
     report: &mut GenerationReport,
 ) -> Vec<Function> {
-    let all: HashMap<_, _> =
-        fs.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+    let all = crate::infer::pipeline::function_map(fs, imported);
     let mut catalog: Vec<_> =
         all.values().filter_map(|f| lemma(f).map(|dt| (f.x.name.clone(), dt))).collect();
     catalog.sort_by(|a, b| a.0.cmp(&b.0));

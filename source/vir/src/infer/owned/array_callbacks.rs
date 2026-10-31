@@ -39,7 +39,7 @@ pub fn prepare(
     imported: &[Function],
     report: &mut GenerationReport,
 ) -> Result<Vec<Function>, VirErr> {
-    let all = fs.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+    let all = crate::infer::pipeline::function_map(fs, imported);
     fs.iter()
         .map(|f| {
             if f.x.mode != Mode::Exec

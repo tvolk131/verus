@@ -137,8 +137,7 @@ pub fn prepare(
     imported: &[Function],
     report: &mut GenerationReport,
 ) -> Vec<Function> {
-    let all: HashMap<_, _> =
-        functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+    let all = crate::infer::pipeline::function_map(functions, imported);
     let lemmas: Vec<_> = LEMMAS
         .iter()
         .filter_map(|name| {

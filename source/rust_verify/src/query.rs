@@ -605,85 +605,11 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         vir::infer::validate_exact_size_hints(&cratex.functions).map_err(|e| self.emit_error(e))?;
 
         if self.args.infer_goals {
-            cratex.functions = vir::infer::prepare_type_invariant_goals(
-                &cratex.functions,
-                &datatypes,
-                &mut self.inference_generation,
-            );
             let available: Vec<_> =
                 other_vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
-            cratex.functions = vir::infer::prepare_array_callbacks(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_trait_contracts(&cratex.functions, &available);
-            cratex.functions = vir::infer::prepare_factory_callbacks(
-                &cratex.functions,
-                &available,
-                &datatypes,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_error_callbacks(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_pointwise_goals(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_local_fold_goals(
-                &cratex.functions,
-                &available,
-                &datatypes,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_selector_goals(
-                &cratex.functions,
-                &available,
-                &datatypes,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_growth_goals(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_range_goals(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
-            cratex.functions = vir::infer::prepare_counting_goals(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            );
-            cratex.functions = vir::infer::prepare_view_bound_goals(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            );
-            cratex.functions = vir::infer::prepare_fold_goals(
-                &cratex.functions,
-                &available,
-                &mut self.inference_generation,
-            );
-            cratex.functions = vir::infer::prepare_sequence_patterns(
-                &cratex.functions,
-                &mut self.inference_generation,
-            )
-            .map_err(|e| self.emit_error(e))?;
+            cratex.functions = vir::infer::GoalContext::new(&available, &datatypes)
+                .prepare(&cratex.functions, &mut self.inference_generation)
+                .map_err(|e| self.emit_error(e))?;
         }
 
         if self.args.infer_goals

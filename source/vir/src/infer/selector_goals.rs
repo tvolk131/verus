@@ -882,7 +882,7 @@ pub fn prepare(
     ds: &[Datatype],
     report: &mut GenerationReport,
 ) -> Result<Vec<Function>, VirErr> {
-    let all = fs.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+    let all = crate::infer::pipeline::function_map(fs, imported);
     let mut id = u64::MAX / 8;
     fs.iter()
         .map(|f| {

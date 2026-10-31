@@ -29,15 +29,19 @@ mod goals;
 mod type_invariant_goals;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;
 pub use exact_hints::validate as validate_exact_size_hints;
+mod cloning;
 mod growth_goals;
 mod integer_models;
+mod iterators;
 mod local_fold_goals;
 mod loops;
 mod models;
 mod newtypes;
 mod observations;
+mod owned;
 mod packing_goals;
 mod panics;
+mod pipeline;
 mod pointwise_goals;
 mod propagation;
 mod range_goals;
@@ -47,10 +51,6 @@ mod registry;
 mod selector_goals;
 mod sequence_triggers;
 mod sequence_views;
-pub use sequence_triggers::prepare as prepare_sequence_patterns;
-mod cloning;
-mod iterators;
-mod owned;
 mod trait_getters;
 mod wrapper_binary;
 mod wrapper_compare;
@@ -69,9 +69,6 @@ pub(crate) fn identity_borrow_return(f: &Function) -> bool {
 pub fn borrowed_observation_source(f: &Function) -> Option<Fun> {
     owned::borrowed::source(f)
 }
-pub use owned::array_callbacks::prepare as prepare_array_callbacks;
-pub use owned::error_callbacks::prepare as prepare_error_callbacks;
-pub use owned::factory_callbacks::prepare as prepare_factory_callbacks;
 
 /// Pure vocabulary used only in proposed contracts, never an executable model.
 pub fn is_pure_observation(f: &Function) -> bool {
@@ -127,10 +124,6 @@ pub fn is_inference_contract(f: &Function) -> bool {
         || exact_size_hint_opt_in(f)
 }
 
-pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
-    iterators::prepare(&trait_getters::prepare(functions, imported), imported)
-}
-
 /// Internal structural evidence, not a trusted standard-library model.
 pub fn is_inferred_sequence_view(f: &Function) -> bool {
     f.x.attrs.infer_sequence_view
@@ -159,26 +152,12 @@ mod slices;
 mod summary;
 mod widening;
 
+pub use pipeline::GoalContext;
 pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
-pub fn prepare_type_invariant_goals(
-    functions: &[Function],
-    datatypes: &[Datatype],
-    report: &mut GenerationReport,
-) -> Vec<Function> {
-    type_invariant_goals::prepare(functions, datatypes, report)
-}
-pub use counting_goals::prepare as prepare_counting_goals;
-pub use fold_goals::prepare as prepare_fold_goals;
-pub use growth_goals::prepare as prepare_growth_goals;
-pub use local_fold_goals::prepare as prepare_local_fold_goals;
-pub use pointwise_goals::prepare as prepare_pointwise_goals;
-pub use range_goals::prepare as prepare_range_goals;
-pub use selector_goals::prepare as prepare_selector_goals;
 mod view_bounds_goals;
-pub use view_bounds_goals::prepare as prepare_view_bound_goals;
 
 pub fn is_state_summary(function: &Function) -> bool {
     function.x.attrs.infer
