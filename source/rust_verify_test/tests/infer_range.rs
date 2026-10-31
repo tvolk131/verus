@@ -1,6 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
+use common::infer::source_name;
 use common::*;
 
 const FILL: &str = r#"use vstd::prelude::*;verus!{
@@ -14,10 +15,7 @@ fn fill(b:&mut Buffer,start:u16,end:u16)
 {for i in start..=end {b.values[i as usize]=1;}}
 }"#;
 fn name(s: &str) -> String {
-    use std::hash::{Hash, Hasher};
-    let mut h = std::collections::hash_map::DefaultHasher::new();
-    s.hash(&mut h);
-    format!("range_{:x}", h.finish())
+    source_name("range", s)
 }
 fn succeeds(s: &str) {
     let d = verify_one_file(

@@ -1,6 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
+use common::infer::{source_name, verify_exact};
 use common::*;
 
 const LIFECYCLE: &str = r#"use vstd::prelude::*;
@@ -32,16 +33,10 @@ fn advance<T:Copy>(s:&Snapshot<T>)->(r:Option<Snapshot<T>>)
 "#;
 
 fn name(source: &str) -> String {
-    use std::hash::{Hash, Hasher};
-    let mut h = std::collections::hash_map::DefaultHasher::new();
-    source.hash(&mut h);
-    format!("owned_{:x}", h.finish())
+    source_name("owned", source)
 }
 fn exact(source: &str, count: usize) {
-    let d = verify_one_file(&name(source), source.into(), &["vstd", "--no-cheating"]).unwrap();
-    for p in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
-        assert_eq!(d.notes.iter().filter(|n| n.message.contains(p)).count(), count, "{:?}", d);
-    }
+    verify_exact(&name(source), source.into(), count);
 }
 fn unsupported(source: &str, reason: &str) {
     let e = verify_one_file(&name(source), source.into(), &["vstd", "--no-cheating"]).unwrap_err();

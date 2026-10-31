@@ -1,6 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
+use common::infer::verify_exact as checked;
 use common::*;
 
 const BASE: &str = r#"use vstd::prelude::*;
@@ -11,18 +12,7 @@ const BASE: &str = r#"use vstd::prelude::*;
 #[verus_infer] impl core::ops::Sub for Quantity {type Output=Self;fn sub(self,rhs:Self)->Self {Quantity(self.0-rhs.0)}}
 #[verus_infer] impl core::ops::Rem<u8> for Quantity {type Output=Self;fn rem(self,rhs:u8)->Self {Quantity(self.0%rhs)}}
 "#;
-fn checked(label: &str, s: String, n: usize) {
-    let d = verify_one_file(label, s, &["vstd", "--no-cheating", "--output-json"]).unwrap();
-    let r = d.json_output.unwrap();
-    let fs = r["verus-infer"]["functions"].as_array().unwrap();
-    assert_eq!(fs.len(), n);
-    for f in fs {
-        assert_eq!(f["mode"], "exact");
-        for p in ["soundness", "maximality", "exactness"] {
-            assert_eq!(f["proofs"][p]["status"], "proved", "{}", f);
-        }
-    }
-}
+
 #[test]
 fn primitive_and_wrapper_rhs_preserve_all_five_operations() {
     checked(

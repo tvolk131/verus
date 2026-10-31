@@ -184,7 +184,8 @@ fn original_byte_filler_composes_and_publication_remains_fail_closed() {
         assert!(
             text.contains("requires full-crate verification")
                 || text.contains("requires normal tracked lifetime checks"),
-            "{text}"
+            "{}",
+            text
         );
     }
     let uninitialized = "use vstd::prelude::*;use vstd::byte_vec::*;verus!{pub fn bad(){let mut v=allocate(1);let(_,Tracked(s))=acquire(&mut v);let tracked r=seal(s);finish(&mut v,1,Tracked(r));}}";
@@ -290,7 +291,7 @@ fn byte_spare_permissions_enforce_initialization_exclusivity_and_generations() {
         let src = format!("use vstd::prelude::*;use vstd::byte_vec::*;verus!{{{body}}}");
         let e =
             verify_one_file(name, src, &["vstd", "--infer-goals", "--no-cheating"]).unwrap_err();
-        assert!(e.errors.iter().any(|d| d.message.contains(expected)), "{name}: {e:?}");
+        assert!(e.errors.iter().any(|d| d.message.contains(expected)), "{}: {:?}", name, e);
     }
     let good = r#"use vstd::prelude::*;use vstd::byte_vec::*;verus!{
       fn single(x:u8)->(r:Vec<u8>) ensures r@==seq![x],{

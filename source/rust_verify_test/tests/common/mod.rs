@@ -6,6 +6,8 @@ extern crate rustc_span;
 
 use serde::Deserialize;
 
+pub(crate) mod infer;
+
 #[allow(unused_imports)]
 pub use rust_verify_test_macros::{code, code_str, verus_code, verus_code_str};
 
