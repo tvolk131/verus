@@ -1,6 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
+use common::infer::source_name;
 use common::*;
 
 const SIMPLE: &str = r#"use vstd::prelude::*;verus!{
@@ -37,10 +38,7 @@ impl History {
 }
 }"#;
 fn name(s: &str) -> String {
-    use std::hash::{Hash, Hasher};
-    let mut h = std::collections::hash_map::DefaultHasher::new();
-    s.hash(&mut h);
-    format!("growth_{:x}", h.finish())
+    source_name("growth", s)
 }
 fn succeeds(s: &str) {
     let d = verify_one_file(
@@ -238,7 +236,8 @@ fn inline_selector_checks_growth_identity_frames_and_future_invariant_restoratio
             e.errors.iter().any(|d| d.message.contains("postcondition")
                 || d.message.contains("invariant")
                 || d.message.contains("precondition")),
-            "{e:?}"
+            "{:?}",
+            e
         );
         assert_eq!(e.json_output.unwrap()["verus-infer"]["interface_written"], false);
     }

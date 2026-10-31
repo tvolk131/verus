@@ -1,6 +1,7 @@
 #![feature(rustc_private)]
 #[macro_use]
 mod common;
+use common::infer::verify_exact as checked;
 use common::*;
 
 const BASE: &str = r#"use vstd::prelude::*;
@@ -18,19 +19,7 @@ pub struct Quantity(pub u8);
  #[verus_infer] fn below(&self,limit:Quantity)->bool{self.amount<limit}
 }
 "#;
-fn checked(label: &str, s: String, count: usize) {
-    let r = verify_one_file(label, s, &["vstd", "--no-cheating", "--output-json"])
-        .unwrap()
-        .json_output
-        .unwrap();
-    let fs = r["verus-infer"]["functions"].as_array().unwrap();
-    assert_eq!(fs.len(), count);
-    for f in fs {
-        for p in ["soundness", "maximality", "exactness"] {
-            assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
-        }
-    }
-}
+
 #[test]
 fn original_native_derives_and_inherited_boolean_methods_are_checked() {
     checked(
