@@ -1,0 +1,1879 @@
+{
+  "success": true,
+  "accepting_series": "acceptance-committed",
+  "cases": [
+    {
+      "label": "fresh",
+      "expected_success": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 37,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": true,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": []
+    },
+    {
+      "label": "wrong_table",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "swapped_nibbles",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 35,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 3 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "invalid_acceptance",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "low_error_payload",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 35,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 3 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "wrong_output",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 33,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 3 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "error_priority",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 35,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 3 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "odd_length",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "utf8_length",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "chunk_width",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: constructed value may fail to meet its declared type invariant",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "digit_skip",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "digit_next",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "decoder_next",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "decoder_skip",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "cursor_stride",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "byte_position",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "low_position",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "cursor_overflow",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: possible arithmetic underflow/overflow",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "exhaustion_cursor",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 3 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "drain_stride",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: precondition not satisfied",
+        "error: invariant not satisfied at end of loop body",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "drain_uninitialized",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: precondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "drain_wrong_length",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "drain_short_capacity",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: invariant not satisfied before loop",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "public_error_conversion",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 2 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "runtime_hint",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 36,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: postcondition not satisfied",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "without_assistance",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 29,
+        "errors": 6,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": [
+        "error: value may fail to meet its declared type invariant after mutation (type invariant is checked at end of call to `core::iter::traits::iterator::Iterator::next`)",
+        "error: precondition not satisfied",
+        "error: value may fail to meet its declared type invariant after mutation (type invariant is checked at end of call to `core::iter::traits::iterator::Iterator::nth`)",
+        "error: precondition not satisfied",
+        "error: constructed value may fail to meet its declared type invariant",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: postcondition not satisfied",
+        "error: aborting due to 9 previous errors; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "no_verify",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": false,
+      "diagnostic_first_errors": [
+        "error: Verus Infer requires full-crate verification; --no-verify and function/module filters are unsupported",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "filtered",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": false,
+      "diagnostic_first_errors": [
+        "error: Verus Infer requires full-crate verification; --no-verify and function/module filters are unsupported",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "no_lifetime",
+      "expected_success": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "interface_written": false,
+      "exact_pair_checks_passed": false,
+      "diagnostic_first_errors": [
+        "error: byte-buffer resource checking requires normal tracked lifetime checks; --no-lifetime is unsupported",
+        "error: aborting due to 1 previous error; 6 warnings emitted"
+      ]
+    },
+    {
+      "label": "restored",
+      "expected_success": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 37,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "interface_written": true,
+      "exact_pair_checks_passed": true,
+      "diagnostic_first_errors": []
+    }
+  ],
+  "semantic_safety_mutations": [
+    "wrong_table",
+    "swapped_nibbles",
+    "invalid_acceptance",
+    "low_error_payload",
+    "wrong_output",
+    "error_priority",
+    "odd_length",
+    "utf8_length",
+    "chunk_width",
+    "digit_skip",
+    "digit_next",
+    "decoder_next",
+    "decoder_skip",
+    "cursor_stride",
+    "byte_position",
+    "low_position",
+    "cursor_overflow",
+    "exhaustion_cursor",
+    "drain_stride",
+    "drain_uninitialized",
+    "drain_wrong_length",
+    "drain_short_capacity",
+    "public_error_conversion",
+    "runtime_hint"
+  ],
+  "resource_controls": [
+    {
+      "label": "one_past_write",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "ordinary precondition/body checking"
+    },
+    {
+      "label": "uninitialized",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "ordinary precondition/body checking"
+    },
+    {
+      "label": "invalid_length",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "ordinary precondition/body checking"
+    },
+    {
+      "label": "duplicated_permission",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "tracked Rust lifetime/ownership rejection"
+    },
+    {
+      "label": "dropped_vector",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "tracked Rust lifetime/ownership rejection"
+    },
+    {
+      "label": "reborrow_vector",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "tracked Rust lifetime/ownership rejection"
+    },
+    {
+      "label": "post_transfer",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "tracked Rust lifetime/ownership rejection"
+    },
+    {
+      "label": "stale_receipt",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "ordinary precondition/body checking"
+    },
+    {
+      "label": "wrong_allocation",
+      "expected_success": false,
+      "exit_code": 1,
+      "diagnostic": "ordinary precondition/body checking"
+    },
+    {
+      "label": "empty",
+      "expected_success": true,
+      "exit_code": 0,
+      "diagnostic": "ordinary precondition/body checking"
+    }
+  ],
+  "runtime_hint_controls": [
+    {
+      "label": "wrong_hint",
+      "expected_success": false,
+      "exit_code": 1
+    },
+    {
+      "label": "wrong_len",
+      "expected_success": false,
+      "exit_code": 1
+    },
+    {
+      "label": "unselected_wrong_len",
+      "expected_success": false,
+      "exit_code": 1
+    },
+    {
+      "label": "unselected_hint",
+      "expected_success": false,
+      "exit_code": 1
+    },
+    {
+      "label": "no_capability",
+      "expected_success": false,
+      "exit_code": 1
+    },
+    {
+      "label": "false_logical_len",
+      "expected_success": true,
+      "exit_code": 0
+    }
+  ],
+  "additional_regression_controls": [
+    "sealed receipt after reserve",
+    "custom Drop unsupported",
+    "custom forward adapter unsupported",
+    "no-vacuity assert(false)",
+    "no-flag failed proof/no-verify publication",
+    "cross-crate no-lifetime rejection",
+    "fake resolved primitive identity",
+    "unsupported extra alias"
+  ],
+  "commands": [
+    {
+      "label": "fresh",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/fresh.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 1.320473417,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/fresh-cache"
+      }
+    },
+    {
+      "label": "wrong_table",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/wrong_table.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.195809583,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/wrong_table-cache"
+      }
+    },
+    {
+      "label": "swapped_nibbles",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/swapped_nibbles.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.4751217910000003,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/swapped_nibbles-cache"
+      }
+    },
+    {
+      "label": "invalid_acceptance",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/invalid_acceptance.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2271574590000007,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/invalid_acceptance-cache"
+      }
+    },
+    {
+      "label": "low_error_payload",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/low_error_payload.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.473586417,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/low_error_payload-cache"
+      }
+    },
+    {
+      "label": "wrong_output",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/wrong_output.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.4724417920000006,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/wrong_output-cache"
+      }
+    },
+    {
+      "label": "error_priority",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/error_priority.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.5016126660000015,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/error_priority-cache"
+      }
+    },
+    {
+      "label": "odd_length",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/odd_length.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2288404999999987,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/odd_length-cache"
+      }
+    },
+    {
+      "label": "utf8_length",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/utf8_length.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2546204170000017,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/utf8_length-cache"
+      }
+    },
+    {
+      "label": "chunk_width",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/chunk_width.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2733230829999993,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/chunk_width-cache"
+      }
+    },
+    {
+      "label": "digit_skip",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/digit_skip.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.3013820420000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/digit_skip-cache"
+      }
+    },
+    {
+      "label": "digit_next",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/digit_next.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2947968750000012,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/digit_next-cache"
+      }
+    },
+    {
+      "label": "decoder_next",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/decoder_next.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.319173750000001,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/decoder_next-cache"
+      }
+    },
+    {
+      "label": "decoder_skip",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/decoder_skip.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2635286249999993,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/decoder_skip-cache"
+      }
+    },
+    {
+      "label": "cursor_stride",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/cursor_stride.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.3246673330000007,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/cursor_stride-cache"
+      }
+    },
+    {
+      "label": "byte_position",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/byte_position.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2670502090000006,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/byte_position-cache"
+      }
+    },
+    {
+      "label": "low_position",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/low_position.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2875077499999996,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/low_position-cache"
+      }
+    },
+    {
+      "label": "cursor_overflow",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/cursor_overflow.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.3163096670000023,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/cursor_overflow-cache"
+      }
+    },
+    {
+      "label": "exhaustion_cursor",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/exhaustion_cursor.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2951725419999995,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/exhaustion_cursor-cache"
+      }
+    },
+    {
+      "label": "drain_stride",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/drain_stride.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.428288958000003,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/drain_stride-cache"
+      }
+    },
+    {
+      "label": "drain_uninitialized",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/drain_uninitialized.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.5291110000000003,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/drain_uninitialized-cache"
+      }
+    },
+    {
+      "label": "drain_wrong_length",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/drain_wrong_length.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.5075898330000008,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/drain_wrong_length-cache"
+      }
+    },
+    {
+      "label": "drain_short_capacity",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/drain_short_capacity.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2438140410000003,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/drain_short_capacity-cache"
+      }
+    },
+    {
+      "label": "public_error_conversion",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/public_error_conversion.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2420884579999978,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/public_error_conversion-cache"
+      }
+    },
+    {
+      "label": "runtime_hint",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/runtime_hint.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.2333076249999948,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/runtime_hint-cache"
+      }
+    },
+    {
+      "label": "without_assistance",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/without_assistance.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 1.5858227920000019,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/without_assistance-cache"
+      }
+    },
+    {
+      "label": "no_verify",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/no_verify.vir",
+        "--no-verify"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 0.36565133400000605,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/no_verify-cache"
+      }
+    },
+    {
+      "label": "filtered",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/filtered.vir",
+        "--verify-root",
+        "--verify-function",
+        "decode_nibble"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 0.36985791699999737,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/filtered-cache"
+      }
+    },
+    {
+      "label": "no_lifetime",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/no_lifetime.vir",
+        "--no-lifetime"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 1,
+      "seconds": 0.37014058399999783,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/no_lifetime-cache"
+      }
+    },
+    {
+      "label": "restored",
+      "argv": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/acceptance-committed/restored.vir"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 1.2797670829999959,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-hex-v3/acceptance-committed/restored-cache"
+      }
+    },
+    {
+      "label": "native_default",
+      "argv": [
+        "cargo",
+        "+1.99.1",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/Cargo.toml",
+        "-p",
+        "hex-conservative"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 2.7134097499999967,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-hex-v3/acceptance-committed/native-target"
+      }
+    },
+    {
+      "label": "native_all",
+      "argv": [
+        "cargo",
+        "+1.99.1",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/Cargo.toml",
+        "-p",
+        "hex-conservative",
+        "--all-features"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 2.7348260830000015,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-hex-v3/acceptance-committed/native-target"
+      }
+    },
+    {
+      "label": "native_no_default",
+      "argv": [
+        "cargo",
+        "+1.99.1",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/Cargo.toml",
+        "-p",
+        "hex-conservative",
+        "--no-default-features"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 2.1957125829999953,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-hex-v3/acceptance-committed/native-target"
+      }
+    },
+    {
+      "label": "native_alloc",
+      "argv": [
+        "cargo",
+        "+1.99.1",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/Cargo.toml",
+        "-p",
+        "hex-conservative",
+        "--no-default-features",
+        "--features",
+        "alloc"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 2.473869708999999,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-hex-v3/acceptance-committed/native-target"
+      }
+    },
+    {
+      "label": "native_msrv",
+      "argv": [
+        "cargo",
+        "+1.74.0",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/Cargo.toml",
+        "-p",
+        "hex-conservative"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit_code": 0,
+      "seconds": 2.8870359170000057,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.74.0",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/Documents/GitHub/verus/source/z3",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-hex-v3/acceptance-committed/msrv-target"
+      }
+    },
+    {
+      "label": "committed-infer",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus/source",
+      "exit": 0,
+      "seconds": 39.520394208
+    },
+    {
+      "label": "committed-general",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "consts",
+        "--test",
+        "unwind",
+        "--test",
+        "user_defined_type_invariants",
+        "--test",
+        "external_traits"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus/source",
+      "exit": 0,
+      "seconds": 3.046556625000001
+    },
+    {
+      "label": "committed-new-raw",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer",
+        "byte_spare",
+        "--",
+        "--nocapture"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus/source",
+      "exit": 0,
+      "seconds": 5.310035500000005
+    },
+    {
+      "label": "committed-hints",
+      "command": [
+        "python3",
+        "/private/tmp/verus-hex-v3/hint_controls.py"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 1.983042041999994
+    },
+    {
+      "label": "committed-leases",
+      "command": [
+        "python3",
+        "/private/tmp/verus-hex-v3/lease_controls.py"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 3.3198785829999977
+    },
+    {
+      "label": "committed-example-native",
+      "command": [
+        "cargo",
+        "+1.99.1",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_byte_buffer/Cargo.toml",
+        "--target-dir",
+        "/private/tmp/verus-hex-v3/committed-example-native-target"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 0.36589466600000264
+    },
+    {
+      "label": "committed-example-msrv",
+      "command": [
+        "cargo",
+        "+1.74.0",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "/Users/tommyvolk/Documents/GitHub/verus/source/tools/native_byte_buffer/Cargo.toml",
+        "--target-dir",
+        "/private/tmp/verus-hex-v3/committed-example-msrv-target"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 0.6286144590000049
+    },
+    {
+      "label": "committed-compiled",
+      "command": [
+        "/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release/verus",
+        "/Users/tommyvolk/Documents/GitHub/hex-conservative/src/lib.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "hex_conservative",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "verus_hex_vec_phase3",
+        "--infer-goals",
+        "--no-cheating",
+        "--compile",
+        "--output-json",
+        "--export",
+        "/private/tmp/verus-hex-v3/committed-compiled.vir",
+        "-o",
+        "/private/tmp/verus-hex-v3/libhex_conservative.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 1.3467146250000042
+    },
+    {
+      "label": "committed-linked-build",
+      "command": [
+        "rustc",
+        "+1.99.1",
+        "--edition=2021",
+        "/private/tmp/verus-hex-v3/native_smoke.rs",
+        "--extern",
+        "hex_conservative=/private/tmp/verus-hex-v3/libhex_conservative.rlib",
+        "-L",
+        "dependency=/Users/tommyvolk/Documents/GitHub/verus/source/target-verus/release",
+        "-o",
+        "/private/tmp/verus-hex-v3/native_smoke"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 0.07807766599999866
+    },
+    {
+      "label": "committed-linked-run",
+      "command": [
+        "/private/tmp/verus-hex-v3/native_smoke"
+      ],
+      "cwd": "/Users/tommyvolk/Documents/GitHub/verus",
+      "exit": 0,
+      "seconds": 0.1689747920000002
+    }
+  ]
+}

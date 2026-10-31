@@ -1,0 +1,30 @@
+[
+  {
+    "function": "required_vector_result",
+    "baseline": "ae20db038c7807e0b2f851b40149265783f7a4b7",
+    "body_unchanged": true,
+    "signature_unchanged": true,
+    "body_sha256": "271e53e48af58316d6429c074f778c9035140d54632766e75c81f1f66f2c5945"
+  },
+  {
+    "function": "table_value",
+    "baseline": "5ccfbad247d5a332408929173e4072fbf06d8bd1",
+    "body_unchanged": true,
+    "signature_unchanged": true,
+    "body_sha256": "ab2b40c218846acf9ebcb47a2ebb9fad62bec95a1b611243dd29b744b3e321ae"
+  },
+  {
+    "function": "digit",
+    "baseline": "5ccfbad247d5a332408929173e4072fbf06d8bd1",
+    "body_unchanged": true,
+    "signature_unchanged": true,
+    "body_sha256": "f5fc05720b670ce78e0e69425bd59b9e82d6c9ba2eef4f7582cf900cc7912dc1"
+  },
+  {
+    "function": "pair",
+    "baseline": "5ccfbad247d5a332408929173e4072fbf06d8bd1",
+    "body_unchanged": true,
+    "signature_unchanged": true,
+    "body_sha256": "bfc2ca4e4918f3b8cde1913b1c242a8276c4502e4aa06917ed3f83940d98c47d"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "native_changes_this_phase": [
+    "VERUS_INFER.md",
+    "src/decoding_spec.rs",
+    "src/error.rs",
+    "src/iter.rs",
+    "src/lib.rs"
+  ],
+  "production_algorithms_changed": 0,
+  "original_upstream_functions_unchanged": 218,
+  "source_config_only_inventory": [
+    "required semantic predicates/observations",
+    "explicit exact-hint capability opt-ins",
+    "equivalent canonical pair-sequence constructor requirements",
+    "reachable internal drain domain requirement",
+    "checked error-conversion trait requirements",
+    "byte-buffer and semantic-prefix proof-only annotations",
+    "two new application semantic goals",
+    "documentation"
+  ],
+  "native_config_changes_this_phase": [],
+  "native_configuration_sha256": {
+    ".cargo/mutants.toml": "dc0077e85e1defd4899a60587d14e971ef13bcc9125f6d06d2522765a7219fc3",
+    "Cargo-minimal.lock": "6e4aece0798cbb834013b1e523b745ef7f3e9fa1fccd98663c7fdf2ef4795b38",
+    "Cargo-recent.lock": "c70b2438b33fdc2c115ef652944dce695507d8dcb9a9d143102cc8f8c6544d5a",
+    "Cargo.lock": "c70b2438b33fdc2c115ef652944dce695507d8dcb9a9d143102cc8f8c6544d5a",
+    "Cargo.toml": "370804c8246bbed59875e6b99fd5a7ba1675e70e698b3ea1060b9d62d399c611",
+    "benches/Cargo.toml": "b54c5babc86e03224bb34283a6b45ebb9d12c5e27e54d7588ed62b0a967adfe3",
+    "fuzz/Cargo.toml": "88ac15f96c084357c32ace972b82a7bfa87ed1ddf6018429e21a56b07f001a14",
+    "tests/compile-tests/fail/odd-capacity/Cargo.toml": "dce8d4e4680f246dda63675eebbacdade6322e27610491010888c78a669c61cf",
+    "tests/compile-tests/pass/even-capacity/Cargo.toml": "4ec0a4f5fa389be0d4eb878c390a0096daa845a22936777b5812d3c519ea971d"
+  },
+  "ignored_lock_matches_accepted_v2_archive": true,
+  "tooling_instrumentation": [
+    "tracked allocation lease and initialized prefix invariants",
+    "ordinary checked write/seal/abandon",
+    "checked general two-byte prefix lemma",
+    "alternate sequence-index instantiation patterns",
+    "resolved native primitive type/identity guard",
+    "selected native runtime override/Drop/adapter inventory"
+  ],
+  "source_ghost_instrumentation_erases": true,
+  "proof_compiled_linked_native_smoke_passed": true
+}
