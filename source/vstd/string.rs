@@ -134,7 +134,8 @@ pub assume_specification[ str::as_bytes ](s: &str) -> (b: &[u8])
 #[cfg(not(verus_verify_core))]
 #[verifier::allow_in_spec]
 pub assume_specification[ str::len ](s: &str) -> usize
-    ensures s.spec_bytes().len() <= usize::MAX,
+    ensures
+        s.spec_bytes().len() <= usize::MAX,
     returns
         s.spec_bytes().len() as usize,
     opens_invariants none

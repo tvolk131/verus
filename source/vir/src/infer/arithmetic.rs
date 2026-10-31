@@ -10,7 +10,7 @@ pub(super) fn division_dependency(e: &Expr) -> Option<Fun> {
         ExprX::Binary(BinaryOp::Arith(ArithOp::TruncatingMod(..)), ..) => {
             Some(crate::def::fn_truncating_mod())
         }
-        ExprX::Unary(UnaryOp::Clip{..},inner)=>division_dependency(inner),
+        ExprX::Unary(UnaryOp::Clip { .. }, inner) => division_dependency(inner),
         _ => None,
     }
 }

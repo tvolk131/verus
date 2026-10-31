@@ -216,32 +216,63 @@ pub fn natural_goal<T:Copy>(source:&Slots<T>)->(result:Slots<T>)
  forall|i:int|0<=i<source@.len() ==> #[trigger] result@[i]==source@[i],
 {copied(source)}
 pub fn unrequested<T:Copy>(source:&Slots<T>){let _=copied(source);}
-"#);
+"#,
+    );
     for _ in 0..2 {
-        let r = crates.build("native_copy", &source, &["native_mutation"],
-            &["--infer-goals", "--no-cheating", "--output-json"]);
+        let r = crates.build(
+            "native_copy",
+            &source,
+            &["native_mutation"],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+        );
         assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
         let report = json_inference(&r);
-        assert!(report["goal_assistance"].as_array().unwrap().iter().any(|row|
-            row["strategy"] == "sequence_fold_observation"));
-        assert!(!report["goal_assistance"].as_array().unwrap().iter().any(|row|
-            row["strategy"] == "sequence_fold_observation" && row["function"].as_str().unwrap().ends_with("unrequested")));
+        assert!(
+            report["goal_assistance"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|row| row["strategy"] == "sequence_fold_observation")
+        );
+        assert!(
+            !report["goal_assistance"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|row| row["strategy"] == "sequence_fold_observation"
+                    && row["function"].as_str().unwrap().ends_with("unrequested"))
+        );
         for proof in ["soundness", "maximality", "exactness"] {
             assert_eq!(report["functions"][0]["proofs"][proof]["status"], "proved");
         }
     }
-    let r = crates.build("native_copy", &source, &["native_mutation"], &["--no-cheating","--output-json"]);
+    let r = crates.build(
+        "native_copy",
+        &source,
+        &["native_mutation"],
+        &["--no-cheating", "--output-json"],
+    );
     assert!(!r.status.success());
     assert!(!crates.vir("native_copy").exists());
-    for proof in ["soundness","maximality","exactness"] {
-        assert_eq!(json_inference(&r)["functions"][0]["proofs"][proof]["status"],"proved");
+    for proof in ["soundness", "maximality", "exactness"] {
+        assert_eq!(json_inference(&r)["functions"][0]["proofs"][proof]["status"], "proved");
     }
     let wrong = source.replace("out.insert(index,*value)", "out.insert(index,None::<T>.unwrap())");
-    let r = crates.build("native_copy", &wrong, &["native_mutation"], &["--infer-goals", "--no-cheating"]);
+    let r = crates.build(
+        "native_copy",
+        &wrong,
+        &["native_mutation"],
+        &["--infer-goals", "--no-cheating"],
+    );
     assert!(!r.status.success());
     assert!(!crates.vir("native_copy").exists());
     let false_goal = source.replace("result@[i]==source@[i]", "result@[i]!=source@[i]");
-    let r = crates.build("native_copy", &false_goal, &["native_mutation"], &["--infer-goals", "--no-cheating"]);
+    let r = crates.build(
+        "native_copy",
+        &false_goal,
+        &["native_mutation"],
+        &["--infer-goals", "--no-cheating"],
+    );
     assert!(!r.status.success());
     assert!(!crates.vir("native_copy").exists());
     assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
@@ -250,7 +281,8 @@ pub fn unrequested<T:Copy>(source:&Slots<T>){let _=copied(source);}
 #[test]
 fn checked_view_queries_compose_with_constructed_receivers() {
     let crates = InferCrates::new();
-    let provider = mutation_provider() + r#"verus! {impl<T> Slots<T>{
+    let provider = mutation_provider()
+        + r#"verus! {impl<T> Slots<T>{
  pub open spec fn view_size(&self)->usize{self@.len() as usize}
  pub fn view_size_checked(&self)->(r:usize) ensures r==self.view_size(),{self.0.len()}
 }}"#;
@@ -267,23 +299,33 @@ pub fn goal(size:usize){let result=constructed(size);assert(result.count==size);
  let result=temporary(size);assert(result.count==size);}
 }"#;
     for _ in 0..2 {
-        let r=crates.build("native_mutation", &provider, &[], &["--infer-goals","--no-cheating"]);
+        let r =
+            crates.build("native_mutation", &provider, &[], &["--infer-goals", "--no-cheating"]);
         assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
-        let r=crates.build("view_query", source, &["native_mutation"], &["--no-cheating","--output-json"]);
+        let r = crates.build(
+            "view_query",
+            source,
+            &["native_mutation"],
+            &["--no-cheating", "--output-json"],
+        );
         assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
-        for f in json_inference(&r)["functions"].as_array().unwrap(){
-            for proof in ["soundness","maximality","exactness"] {assert_eq!(f["proofs"][proof]["status"],"proved");}
+        for f in json_inference(&r)["functions"].as_array().unwrap() {
+            for proof in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][proof]["status"], "proved");
+            }
         }
     }
-    let hidden=provider.replace("pub open spec fn view_size", "pub closed spec fn view_size");
-    let r=crates.build("native_mutation", &hidden, &[], &["--infer-goals","--no-cheating"]);
+    let hidden = provider.replace("pub open spec fn view_size", "pub closed spec fn view_size");
+    let r = crates.build("native_mutation", &hidden, &[], &["--infer-goals", "--no-cheating"]);
     assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
-    let r=crates.build("view_query", source, &["native_mutation"], &["--no-cheating"]);
-    assert!(!r.status.success());assert!(!crates.vir("view_query").exists());
+    let r = crates.build("view_query", source, &["native_mutation"], &["--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("view_query").exists());
     assert!(String::from_utf8_lossy(&r.stderr).contains("visible observation body"));
-    let wrong=provider.replace("{self.0.len()}","{0}");
-    let r=crates.build("native_mutation", &wrong, &[], &["--infer-goals","--no-cheating"]);
-    assert!(!r.status.success());assert!(!crates.vir("native_mutation").exists());
+    let wrong = provider.replace("{self.0.len()}", "{0}");
+    let r = crates.build("native_mutation", &wrong, &[], &["--infer-goals", "--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_mutation").exists());
     assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }
 
@@ -315,50 +357,89 @@ pub fn goal(size:usize,index:usize,value:u16)->(r:Slots<u16>)
 }
 
 #[test]
-fn requested_map_values_equations_enable_checked_sparse_projection(){
- let crates=InferCrates::new();
- let r=crates.build("native_mutation",&mutation_provider(),&[],&["--no-cheating"]);
- assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
- let source=COPY_CONSUMER.replace("{copied(source)}",r#"{copied(source)}
+fn requested_map_values_equations_enable_checked_sparse_projection() {
+    let crates = InferCrates::new();
+    let r = crates.build("native_mutation", &mutation_provider(), &[], &["--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let source = COPY_CONSUMER.replace(
+        "{copied(source)}",
+        r#"{copied(source)}
 pub fn projected<T:Copy>(source:&Slots<T>)->(result:Slots<T>)
  ensures result@ == source@.map_values(|slot:Option<T>|match slot {Some(v)=>Some(v),None=>None}),
 {copied(source)}
 pub fn no_request<T:Copy>(source:&Slots<T>){let _=copied(source);}
-"#);
- for _ in 0..2 {
-  let r=crates.build("native_copy",&source,&["native_mutation"],&["--infer-goals","--no-cheating","--output-json"]);
-  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-  let report=json_inference(&r);
-  let goals=report["goal_assistance"].as_array().unwrap();
-  assert!(goals.iter().any(|g|g["function"].as_str().unwrap().ends_with("projected") && g["strategy"]=="sequence_fold_observation"));
-  assert!(!goals.iter().any(|g|g["function"].as_str().unwrap().ends_with("no_request")));
- }
- let wrong=source.replace("Some(v)=>Some(v)","Some(v)=>None");
- let r=crates.build("native_copy",&wrong,&["native_mutation"],&["--infer-goals","--no-cheating","--output-json"]);
- assert!(!r.status.success());assert!(!crates.vir("native_copy").exists());
- assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+"#,
+    );
+    for _ in 0..2 {
+        let r = crates.build(
+            "native_copy",
+            &source,
+            &["native_mutation"],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let report = json_inference(&r);
+        let goals = report["goal_assistance"].as_array().unwrap();
+        assert!(goals.iter().any(|g| g["function"].as_str().unwrap().ends_with("projected")
+            && g["strategy"] == "sequence_fold_observation"));
+        assert!(!goals.iter().any(|g| g["function"].as_str().unwrap().ends_with("no_request")));
+    }
+    let wrong = source.replace("Some(v)=>Some(v)", "Some(v)=>None");
+    let r = crates.build(
+        "native_copy",
+        &wrong,
+        &["native_mutation"],
+        &["--infer-goals", "--no-cheating", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_copy").exists());
+    assert!(
+        json_inference(&r)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|f| f["required_checks_passed"] == true)
+    );
 }
 
 #[test]
-fn entry_independent_native_fold_readiness_gets_an_internal_trigger(){
- let crates=InferCrates::new();
- let r=crates.build("native_mutation",&mutation_provider(),&[],&["--no-cheating"]);
- assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
- let source=COPY_CONSUMER.replace("out.insert(index,*value)","out.insert(0,*value)");
- let r=crates.build("native_copy",&source,&["native_mutation"],&["--infer-goals","--no-cheating","--output-json"]);
- assert!(!r.status.success());assert!(!crates.vir("native_copy").exists());
- let error=String::from_utf8_lossy(&r.stderr);
- assert!(!error.contains("infer triggers") && !error.contains("unsupported") && !error.contains("panicked at"),"{}",error);
- assert!(error.contains("postcondition not satisfied"),"{}",error);
- assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+fn entry_independent_native_fold_readiness_gets_an_internal_trigger() {
+    let crates = InferCrates::new();
+    let r = crates.build("native_mutation", &mutation_provider(), &[], &["--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let source = COPY_CONSUMER.replace("out.insert(index,*value)", "out.insert(0,*value)");
+    let r = crates.build(
+        "native_copy",
+        &source,
+        &["native_mutation"],
+        &["--infer-goals", "--no-cheating", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("native_copy").exists());
+    let error = String::from_utf8_lossy(&r.stderr);
+    assert!(
+        !error.contains("infer triggers")
+            && !error.contains("unsupported")
+            && !error.contains("panicked at"),
+        "{}",
+        error
+    );
+    assert!(error.contains("postcondition not satisfied"), "{}", error);
+    assert!(
+        json_inference(&r)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|f| f["required_checks_passed"] == true)
+    );
 }
 
 #[test]
 fn composed_native_filters_keep_authored_predicate_vocabulary() {
-    let crates=InferCrates::new();
-    let provider=crates.build("observation_factory",PROVIDER,&[],&["--no-cheating"]);
-    assert!(provider.status.success(),"{}",String::from_utf8_lossy(&provider.stderr));
-    let consumer=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let provider = crates.build("observation_factory", PROVIDER, &[], &["--no-cheating"]);
+    assert!(provider.status.success(), "{}", String::from_utf8_lossy(&provider.stderr));
+    let consumer = r#"use vstd::prelude::*;
     pub struct Item{stamp:u16,flag:bool}
     impl Item{pub closed spec fn stamp_value(&self)->u16{self.stamp}}
     #[verifier::infer] pub fn matching(s:&observation_factory::Slots<Item>,stamp:u16)->usize{
@@ -371,27 +452,73 @@ fn composed_native_filters_keep_authored_predicate_vocabulary() {
     {relay2(s,stamp)}
     "#;
     for _ in 0..2 {
-        let r=crates.build("observation_filter",consumer,&["observation_factory"],&["--no-cheating","--output-json"]);
-        assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-        assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
+        let r = crates.build(
+            "observation_filter",
+            consumer,
+            &["observation_factory"],
+            &["--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        assert!(
+            json_inference(&r)["functions"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|f| f["required_checks_passed"] == true)
+        );
     }
-    let client=r#"use vstd::prelude::*;
+    let client = r#"use vstd::prelude::*;
     pub fn goal(s:&observation_factory::Slots<observation_filter::Item>,stamp:u16)->(r:usize)
         ensures r==s.entries_value().filter(|e:(usize,&observation_filter::Item)|e.1.stamp_value()==stamp).len(),
     {observation_filter::relay2(s,stamp)}
     "#;
-    let r=crates.build("observation_client",client,&["observation_factory","observation_filter"],&["--no-cheating"]);
-    assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-    let local=consumer.replace("#[verifier::infer] pub fn","#[verifier::infer] fn")
-        .replace("e.1.stamp_value()","e.1.stamp");
-    let r=crates.build("local_filter",&local,&["observation_factory"],&["--no-cheating","--output-json"]);
-    assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-    let wrong=consumer.replace("value.stamp==stamp","value.stamp!=stamp");
-    let r=crates.build("observation_filter",&wrong,&["observation_factory"],&["--no-cheating","--output-json"]);
-    assert!(!r.status.success());assert!(!crates.vir("observation_filter").exists());
-    assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
-    let wrong_observation=consumer.replace("{self.stamp}","{0}");
-    let r=crates.build("observation_filter",&wrong_observation,&["observation_factory"],&["--no-cheating","--output-json"]);
-    assert!(!r.status.success());assert!(!crates.vir("observation_filter").exists());
-    assert!(json_inference(&r)["functions"].as_array().unwrap().iter().any(|f|f["required_checks_passed"]==false));
+    let r = crates.build(
+        "observation_client",
+        client,
+        &["observation_factory", "observation_filter"],
+        &["--no-cheating"],
+    );
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let local = consumer
+        .replace("#[verifier::infer] pub fn", "#[verifier::infer] fn")
+        .replace("e.1.stamp_value()", "e.1.stamp");
+    let r = crates.build(
+        "local_filter",
+        &local,
+        &["observation_factory"],
+        &["--no-cheating", "--output-json"],
+    );
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let wrong = consumer.replace("value.stamp==stamp", "value.stamp!=stamp");
+    let r = crates.build(
+        "observation_filter",
+        &wrong,
+        &["observation_factory"],
+        &["--no-cheating", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("observation_filter").exists());
+    assert!(
+        json_inference(&r)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|f| f["required_checks_passed"] == true)
+    );
+    let wrong_observation = consumer.replace("{self.stamp}", "{0}");
+    let r = crates.build(
+        "observation_filter",
+        &wrong_observation,
+        &["observation_factory"],
+        &["--no-cheating", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("observation_filter").exists());
+    assert!(
+        json_inference(&r)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|f| f["required_checks_passed"] == false)
+    );
 }

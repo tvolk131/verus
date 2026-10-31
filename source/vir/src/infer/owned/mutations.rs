@@ -131,7 +131,8 @@ impl Engine<'_> {
         if !same(&after.expr.typ, &sequence.expr.typ) {
             return Err(bad());
         }
-        s.locals.insert(dest.clone(), Val { identity: None, typ: before.typ, node: Node::Seq(after) });
+        s.locals
+            .insert(dest.clone(), Val { identity: None, typ: before.typ, node: Node::Seq(after) });
         Ok(Val::atom(exits::unit_value(&e.span)?))
     }
 }

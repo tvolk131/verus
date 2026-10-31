@@ -86,7 +86,7 @@ impl Engine<'_> {
         let node = match &value.node {
             Node::Atom(t) => Node::Atom(self.formula(s, &t.expr)?),
             Node::Seq(t) => Node::Seq(self.formula(s, &t.expr)?),
-            Node::Abstract(t)=>Node::Abstract(self.formula(s,&t.expr)?),
+            Node::Abstract(t) => Node::Abstract(self.formula(s, &t.expr)?),
             Node::Fields(fs) => Node::Fields(
                 fs.iter()
                     .map(|(op, v)| Ok((op.clone(), self.substitute_value(s, v)?)))

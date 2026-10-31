@@ -191,7 +191,10 @@ impl Engine<'_> {
         let mut local = s.clone();
         local.active = boolean(&e.span, true);
         let p = &params[0];
-        local.objects.insert(p.name.clone(),atom(SpannedTyped::new(&e.span,&p.a,ExprX::Var(p.name.clone())))?);
+        local.objects.insert(
+            p.name.clone(),
+            atom(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())))?,
+        );
         local.locals.insert(
             p.name.clone(),
             engine.layout(SpannedTyped::new(&e.span, &p.a, ExprX::Var(p.name.clone())), 8)?,
@@ -206,21 +209,34 @@ impl Engine<'_> {
         for req in reqs {
             pre = logical(&e.span, LogicalOp::And, pre, req)?;
         }
-        let output=SpannedTyped::new(&e.span,&ret.a,ExprX::Var(ret.name.clone()));
+        let output = SpannedTyped::new(&e.span, &ret.a, ExprX::Var(ret.name.clone()));
         let post = if self.f.x.attrs.infer_iterator_factory && !self.f.x.attrs.infer {
-            if let Some(view)=record_views::find(&value.typ,self.all,self.ds) {
+            if let Some(view) = record_views::find(&value.typ, self.all, self.ds) {
                 // An ordinary factory needs a checked callback observation,
                 // not the quantified uniqueness certificate exported by an
                 // exact constructor. Keep complete moved-input identity when
                 // available; never assume either equation.
-                let image=records::equal(&e.span,view.call(output.clone())?,
-                    self.record_view_value(&value,&view)?)?;
-                if let Some(identity)=&value.identity {
-                    logical(&e.span,LogicalOp::And,image,
-                        records::equal(&e.span,atom(output.clone())?,identity.clone())?)?
-                } else {image}
-            } else {self.post(&value,&output)?}
-        } else {self.post(&value,&output)?};
+                let image = records::equal(
+                    &e.span,
+                    view.call(output.clone())?,
+                    self.record_view_value(&value, &view)?,
+                )?;
+                if let Some(identity) = &value.identity {
+                    logical(
+                        &e.span,
+                        LogicalOp::And,
+                        image,
+                        records::equal(&e.span, atom(output.clone())?, identity.clone())?,
+                    )?
+                } else {
+                    image
+                }
+            } else {
+                self.post(&value, &output)?
+            }
+        } else {
+            self.post(&value, &output)?
+        };
         pure_contract(&pre.expr)?;
         pure_contract(&post.expr)?;
         self.callbacks.push(Plan {

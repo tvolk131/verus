@@ -54,33 +54,41 @@ fn check<Q:Queries>(v:&Validator<Q>,round:u16)->(r:bool)
 }"#;
 
 #[test]
-fn scalar_parameterized_trait_queries_keep_argument_order_and_exactness(){
- let d=verify_one_file("parameterized_queries",QUERIES.into(),&["vstd","--no-cheating"]).unwrap();
- for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"]{
-  assert_eq!(d.notes.iter().filter(|n|n.message.contains(p)).count(),1,"{:?}",d);
- }
+fn scalar_parameterized_trait_queries_keep_argument_order_and_exactness() {
+    let d = verify_one_file("parameterized_queries", QUERIES.into(), &["vstd", "--no-cheating"])
+        .unwrap();
+    for p in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+        assert_eq!(d.notes.iter().filter(|n| n.message.contains(p)).count(), 1, "{:?}", d);
+    }
 }
 
 #[test]
-fn query_equations_cannot_permute_or_change_arguments(){
- for (name,args) in [("swapped","hi,lo"),("changed","lo,lo")]{
-  let source=QUERIES.replace("r==self.in_range_value(lo,hi)",&format!("r==self.in_range_value({args})"));
-  unsupported(name,source);
- }
+fn query_equations_cannot_permute_or_change_arguments() {
+    for (name, args) in [("swapped", "hi,lo"), ("changed", "lo,lo")] {
+        let source = QUERIES
+            .replace("r==self.in_range_value(lo,hi)", &format!("r==self.in_range_value({args})"));
+        unsupported(name, source);
+    }
 }
 
 #[test]
-fn query_arguments_are_evaluated_with_their_original_safety_checks(){
- let e=verify_one_file("query_zero_round",QUERIES.replace("requires round>0,",""),&["vstd","--no-cheating"]).unwrap_err();
- assert!(e.errors.iter().any(|d|d.message.contains("precondition not satisfied")),"{:?}",e);
- for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"]{
-  assert!(e.notes.iter().any(|n|n.message.contains(p)),"{:?}",e);
- }
+fn query_arguments_are_evaluated_with_their_original_safety_checks() {
+    let e = verify_one_file(
+        "query_zero_round",
+        QUERIES.replace("requires round>0,", ""),
+        &["vstd", "--no-cheating"],
+    )
+    .unwrap_err();
+    assert!(e.errors.iter().any(|d| d.message.contains("precondition not satisfied")), "{:?}", e);
+    for p in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+        assert!(e.notes.iter().any(|n| n.message.contains(p)), "{:?}", e);
+    }
 }
 
 #[test]
-fn parameterized_queries_compose_into_exact_result_policies(){
- let source=format!(r#"{QUERIES} verus!{{
+fn parameterized_queries_compose_into_exact_result_policies() {
+    let source = format!(
+        r#"{QUERIES} verus!{{
  impl<Q:Queries> Validator<Q>{{
   #[verifier::infer] fn validate(&self,round:u16)->Result<(),u16>{{
    let previous=round-1;
@@ -94,48 +102,75 @@ fn parameterized_queries_compose_into_exact_result_policies(){
   ensures r.is_ok()==(v.query.in_range_value((round-1) as u16,(round-1) as u16)>=v.minimum
    && !v.query.after_value((round-1) as u16)),
  {{v.validate(round)}}
- }}"#);
- verify_one_file("queries_result_policy",source,&["vstd","--no-cheating"]).unwrap();
+ }}"#
+    );
+    verify_one_file("queries_result_policy", source, &["vstd", "--no-cheating"]).unwrap();
 }
 
 #[test]
 fn generic_trait_getters_and_nested_associated_types_preserve_accounting() {
- let r=verify_one_file("traits",TRAITS.to_owned(),&["vstd","--infer-goals"]);
- assert!(r.is_ok(),"{:?}",r);
+    let r = verify_one_file("traits", TRAITS.to_owned(), &["vstd", "--infer-goals"]);
+    assert!(r.is_ok(), "{:?}", r);
 }
 
-fn unsupported(name:&str,source:String){
- let e=verify_one_file(name,source,&["vstd","--infer-goals"]).unwrap_err();
- assert_vir_error_msg(e,"trait inference requires a certified precondition-free getter");
-}
-
-#[test]
-fn weak_trait_contracts_do_not_become_exact_getters(){
- unsupported("weak",TRAITS.replace("ensures r==self.key_value()","ensures r<=self.key_value()"));
+fn unsupported(name: &str, source: String) {
+    let e = verify_one_file(name, source, &["vstd", "--infer-goals"]).unwrap_err();
+    assert_vir_error_msg(e, "trait inference requires a certified precondition-free getter");
 }
 
 #[test]
-fn getter_preconditions_are_explicitly_unsupported(){
- unsupported("requires",TRAITS.replace("ensures r==self.key_value()","requires self.key_value()<10, ensures r==self.key_value()"));
+fn weak_trait_contracts_do_not_become_exact_getters() {
+    unsupported(
+        "weak",
+        TRAITS.replace("ensures r==self.key_value()", "ensures r<=self.key_value()"),
+    );
 }
 
 #[test]
-fn recommended_spec_queries_are_not_silently_assumed(){
- unsupported("recommended",TRAITS.replace("spec fn key_value(&self)->usize;","spec fn key_value(&self)->usize recommends false;"));
+fn getter_preconditions_are_explicitly_unsupported() {
+    unsupported(
+        "requires",
+        TRAITS.replace(
+            "ensures r==self.key_value()",
+            "requires self.key_value()<10, ensures r==self.key_value()",
+        ),
+    );
 }
 
 #[test]
-fn changed_accounting_still_fails_the_application_goal(){
- let e=verify_one_file("count",TRAITS.replace("self.used+=1","self.used+=2"),&["vstd","--infer-goals"]).unwrap_err();
- for label in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"]{
-  assert!(e.notes.iter().any(|n|n.message.contains(label)),"{:?}",e);
- }
- assert!(e.errors.iter().any(|e|e.message.contains("precondition not satisfied")||e.message.contains("postcondition not satisfied")),"{:?}",e);
+fn recommended_spec_queries_are_not_silently_assumed() {
+    unsupported(
+        "recommended",
+        TRAITS.replace(
+            "spec fn key_value(&self)->usize;",
+            "spec fn key_value(&self)->usize recommends false;",
+        ),
+    );
 }
 
 #[test]
-fn a_bad_concrete_implementation_cannot_satisfy_the_trait_contract(){
- let concrete=r#"
+fn changed_accounting_still_fails_the_application_goal() {
+    let e = verify_one_file(
+        "count",
+        TRAITS.replace("self.used+=1", "self.used+=2"),
+        &["vstd", "--infer-goals"],
+    )
+    .unwrap_err();
+    for label in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"]
+    {
+        assert!(e.notes.iter().any(|n| n.message.contains(label)), "{:?}", e);
+    }
+    assert!(
+        e.errors.iter().any(|e| e.message.contains("precondition not satisfied")
+            || e.message.contains("postcondition not satisfied")),
+        "{:?}",
+        e
+    );
+}
+
+#[test]
+fn a_bad_concrete_implementation_cannot_satisfy_the_trait_contract() {
+    let concrete = r#"
 pub struct F;
 impl Family for F{type Id=u64;}
 pub struct Message{pub key:usize,pub payload:u64}
@@ -147,14 +182,14 @@ impl Event for Message {
  fn payload(&self)->u64{self.payload}
 }
 "#;
- let source=TRAITS.replace("pub struct Table",&format!("{concrete}\npub struct Table"));
- let e=verify_one_file("bad_impl",source,&["vstd","--infer-goals"]).unwrap_err();
- assert!(e.errors.iter().any(|e|e.message.contains("postcondition not satisfied")),"{:?}",e);
+    let source = TRAITS.replace("pub struct Table", &format!("{concrete}\npub struct Table"));
+    let e = verify_one_file("bad_impl", source, &["vstd", "--infer-goals"]).unwrap_err();
+    assert!(e.errors.iter().any(|e| e.message.contains("postcondition not satisfied")), "{:?}", e);
 }
 
 #[test]
-fn unrelated_concrete_implementations_are_checked_normally(){
- let concrete=r#"
+fn unrelated_concrete_implementations_are_checked_normally() {
+    let concrete = r#"
 pub struct F;
 impl Family for F{type Id=u64;}
 pub struct Message{pub key:usize,pub payload:u64}
@@ -166,14 +201,14 @@ impl Event for Message {
  fn payload(&self)->u64{self.payload}
 }
 "#;
- let source=TRAITS.replace("pub struct Table",&format!("{concrete}\npub struct Table"));
- let r=verify_one_file("impl",source,&["vstd","--infer-goals"]);
- assert!(r.is_ok(),"{:?}",r);
+    let source = TRAITS.replace("pub struct Table", &format!("{concrete}\npub struct Table"));
+    let r = verify_one_file("impl", source, &["vstd", "--infer-goals"]);
+    assert!(r.is_ok(), "{:?}", r);
 }
 
 #[test]
-fn associated_payloads_compose_through_private_borrowed_tuple_lookups(){
- let wrappers=r#"
+fn associated_payloads_compose_through_private_borrowed_tuple_lookups() {
+    let wrappers = r#"
 pub mod storage {
  use vstd::prelude::*;
  pub struct Slots<T>(Vec<Option<T>>);
@@ -185,19 +220,20 @@ pub mod storage {
  }
 }
 "#;
- let source=TRAITS.replace("pub struct Table",&format!("{wrappers}\npub struct Table"))
-  .replace("Vec<Option<F::Id>>","storage::Slots<(F::Id,u16)>")
-  .replace("Option<F::Id>","Option<(F::Id,u16)>")
-  .replace("self.slots[i]=Some(u.payload());","self.slots.put(i,(u.payload(),7u16));")
-  .replace("self.slots[i]","self.slots.get(i)")
-  .replace("{t.add(u);}","{let _=t.slots.len();t.add(u);}");
- let r=verify_one_file("tuple_projection",source,&["vstd","--infer-goals"]);
- assert!(r.is_ok(),"{:?}",r);
+    let source = TRAITS
+        .replace("pub struct Table", &format!("{wrappers}\npub struct Table"))
+        .replace("Vec<Option<F::Id>>", "storage::Slots<(F::Id,u16)>")
+        .replace("Option<F::Id>", "Option<(F::Id,u16)>")
+        .replace("self.slots[i]=Some(u.payload());", "self.slots.put(i,(u.payload(),7u16));")
+        .replace("self.slots[i]", "self.slots.get(i)")
+        .replace("{t.add(u);}", "{let _=t.slots.len();t.add(u);}");
+    let r = verify_one_file("tuple_projection", source, &["vstd", "--infer-goals"]);
+    assert!(r.is_ok(), "{:?}", r);
 }
 
 #[test]
-fn explicitly_borrowed_trait_results_are_outside_the_getter_profile(){
- let source=r#"use vstd::prelude::*;
+fn explicitly_borrowed_trait_results_are_outside_the_getter_profile() {
+    let source = r#"use vstd::prelude::*;
  verus! {
   pub trait Borrowed {
    type Item;
@@ -207,5 +243,5 @@ fn explicitly_borrowed_trait_results_are_outside_the_getter_profile(){
   pub struct State{pub n:u8}
   impl State{#[verifier::infer] pub fn inspect<T:Borrowed>(&mut self,t:&T){let _=t.get();}}
  }"#;
- unsupported("borrowed_trait",source.to_owned());
+    unsupported("borrowed_trait", source.to_owned());
 }

@@ -56,10 +56,13 @@ pub(super) fn tagged_payload(typ: &Typ) -> Option<(&Typ, &'static str)> {
 fn tagged_projection(f: &Function, body: &Expr, variant: &str) -> Option<Expr> {
     let mut selected = None;
     let mut valid = true;
-    let mut remaining=FORMULA_BUDGET;
+    let mut remaining = FORMULA_BUDGET;
     crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
-        if remaining==0 {valid=false;return crate::ast_visitor::VisitorControlFlow::<()>::Return;}
-        remaining-=1;
+        if remaining == 0 {
+            valid = false;
+            return crate::ast_visitor::VisitorControlFlow::<()>::Return;
+        }
+        remaining -= 1;
         if let ExprX::Ctor(_, name, fields, None) = &e.x {
             if name.as_str() == variant && same(&e.typ, &f.x.inner_ret.x.typ) {
                 let value = (fields.len() == 1).then(|| projection(f, &fields[0].a)).flatten();
@@ -132,10 +135,10 @@ pub(crate) fn prepare(
                             && check(base, ds)
                     }
                     PlaceX::Local(_) => true,
-                    PlaceX::Temporary(e)=>match &e.x {
-                        ExprX::ReadPlace(p,_)=>check(p,ds),
-                        ExprX::Var(_)=>true,
-                        _=>false,
+                    PlaceX::Temporary(e) => match &e.x {
+                        ExprX::ReadPlace(p, _) => check(p, ds),
+                        ExprX::Var(_) => true,
+                        _ => false,
                     },
                     _ => false,
                 }
@@ -207,7 +210,7 @@ pub(super) fn value(f: &Function, all: &HashMap<Fun, Function>) -> Option<Functi
 
 impl Engine<'_> {
     pub(super) fn returned_layout(&self, out: Expr) -> Result<Val, VirErr> {
-        let mut layout = self.record_output_layout(self.layout(out.clone(), 8)?,&out,8)?;
+        let mut layout = self.record_output_layout(self.layout(out.clone(), 8)?, &out, 8)?;
         if let Some((payload, variant)) = tagged_payload(&out.typ) {
             let op = if variant == "Ok" {
                 sums::field(&out.typ, variant)

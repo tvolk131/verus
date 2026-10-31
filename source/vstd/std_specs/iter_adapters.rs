@@ -134,10 +134,11 @@ pub broadcast proof fn lemma_flatten_options_contains<T>(values: Seq<Option<T>>,
         #[trigger] flatten_options(values).contains(value) == values.contains(Some(value)),
 {
     broadcast use {crate::seq::group_seq_axioms, crate::seq_lib::group_filter_ensures};
+
     let present = values.filter(|v: Option<T>| v.is_some());
     if flatten_options(values).contains(value) {
-        let j = choose|j: int| 0 <= j < flatten_options(values).len()
-            && flatten_options(values)[j] == value;
+        let j = choose|j: int|
+            0 <= j < flatten_options(values).len() && flatten_options(values)[j] == value;
         values.lemma_filter_contains_rev(|v: Option<T>| v.is_some(), present[j]);
         assert(present[j] == Some(value));
     }

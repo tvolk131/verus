@@ -52,7 +52,8 @@ fn demands(f: &Function, all: &HashMap<Fun, Function>) -> Option<(bool, bool, bo
     let mut visited = HashSet::new();
     // A local fold can expose its checked scatter equation in a generated loop
     // invariant rather than a callee contract. It supplies context, not demand.
-    let local_scatter=contracts.iter().any(|n|all.get(n).is_some_and(|c|path(c,"seq_update","scatter")));
+    let local_scatter =
+        contracts.iter().any(|n| all.get(n).is_some_and(|c| path(c, "seq_update", "scatter")));
     let (mut length, mut index, mut fold, mut scatter) = (false, false, false, local_scatter);
     // Only requested expressions establish demand. Callee contracts can expose
     // a fold equation but cannot manufacture an observation request.

@@ -250,8 +250,10 @@ impl Engine<'_> {
         let mut step = s.clone();
         step.locals.insert(acc.clone(), Val::atom(acc_value.clone()));
         step.locals.insert(entry.clone(), Val::atom(entry_value.clone()));
-        step.locals
-            .insert(dest.clone(), Val { identity: None, typ: initial.typ.clone(), node: Node::Seq(acc_value) });
+        step.locals.insert(
+            dest.clone(),
+            Val { identity: None, typ: initial.typ.clone(), node: Node::Seq(acc_value) },
+        );
         self.pattern(&mut step, &source.pattern, Val::atom(entry_value))?;
         let req_start = self.requirements.len();
         let exits_start = self.exits.len();
@@ -288,29 +290,58 @@ impl Engine<'_> {
         // This changes only the proposed equation; the original loop and fold
         // invariant still prove it. Other steps retain the general fold summary.
         let mut scatter = None;
-        if let ExprX::Call { target: CallTarget::Fun(_, name, ..), args, post_args: None, body: None } = &next.expr.x {
+        if let ExprX::Call {
+            target: CallTarget::Fun(_, name, ..),
+            args,
+            post_args: None,
+            body: None,
+        } = &next.expr.x
+        {
             if models::path_is(&name.path, CrateId::Vstd, &["seq", "Seq", "update"])
-                && args.len() == 3 && matches!(&args[0].x, ExprX::Var(n) if n == &acc)
+                && args.len() == 3
+                && matches!(&args[0].x, ExprX::Var(n) if n == &acc)
                 && args[1..].iter().all(|e| {
                     crate::ast_visitor::expr_visitor_check(e, &mut |_, e| {
                         if matches!(&e.x, ExprX::Var(n) if n == &acc) { Err(()) } else { Ok(()) }
-                    }).is_ok()
+                    })
+                    .is_ok()
                 })
             {
                 let elem = iterators::sequence(&initial_seq.expr.typ).unwrap().clone();
-                let closure = |body: &Expr| term(span,
-                    &Arc::new(TypX::SpecFn(Arc::new(vec![item.clone()]), body.typ.clone())),
-                    ExprX::Closure(Arc::new(vec![Arc::new(VarBinderX { name: entry.clone(), a: item.clone() })]), body.clone()),
-                    next.size + 1);
-                let index = term(span, &int_typ(), ExprX::Unary(
-                    UnaryOp::Clip { range: IntRange::Int, truncate: false }, args[1].clone()), next.size + 1)?;
+                let closure = |body: &Expr| {
+                    term(
+                        span,
+                        &Arc::new(TypX::SpecFn(Arc::new(vec![item.clone()]), body.typ.clone())),
+                        ExprX::Closure(
+                            Arc::new(vec![Arc::new(VarBinderX {
+                                name: entry.clone(),
+                                a: item.clone(),
+                            })]),
+                            body.clone(),
+                        ),
+                        next.size + 1,
+                    )
+                };
+                let index = term(
+                    span,
+                    &int_typ(),
+                    ExprX::Unary(
+                        UnaryOp::Clip { range: IntRange::Int, truncate: false },
+                        args[1].clone(),
+                    ),
+                    next.size + 1,
+                )?;
                 scatter = Some((elem, closure(&index.expr)?, closure(&args[2])?));
             }
         }
         let fold = |engine: &Engine<'_>, seq: Term| {
             if let Some((elem, index, value)) = &scatter {
-                return engine.lib(span, Model::Scatter, vec![item.clone(), elem.clone()],
-                    vec![seq, initial_seq.clone(), index.clone(), value.clone()]);
+                return engine.lib(
+                    span,
+                    Model::Scatter,
+                    vec![item.clone(), elem.clone()],
+                    vec![seq, initial_seq.clone(), index.clone(), value.clone()],
+                );
             }
             engine.lib(
                 span,
@@ -457,7 +488,10 @@ impl Engine<'_> {
             invs: Arc::new(invs),
             decrease: decrease.clone(),
         });
-        s.locals.insert(dest, Val { identity: None, typ: initial.typ, node: Node::Seq(fold(self, full)?) });
+        s.locals.insert(
+            dest,
+            Val { identity: None, typ: initial.typ, node: Node::Seq(fold(self, full)?) },
+        );
         Ok(Val::atom(exits::unit_value(span)?))
     }
 }

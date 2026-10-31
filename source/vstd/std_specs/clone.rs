@@ -71,7 +71,6 @@ pub assume_specification<T>[ <Ghost<T> as Clone>::clone ](b: &Ghost<T>) -> (res:
 ;
 
 } // verus!
-
 // Verified models for Rust's builtin tuple Clone shim. `cloned` permits the
 // compiler's copy optimization without assuming arbitrary Clone is identity.
 macro_rules! tuple_clone_model {
@@ -90,41 +89,59 @@ tuple_clone_model!("verus::vstd::std_specs::clone::tuple_clone_3", tuple_clone_3
 tuple_clone_model!("verus::vstd::std_specs::clone::tuple_clone_4", tuple_clone_4, A 0, B 1, C 2, D 3);
 
 verus! {
+
 /// An explicit, checked value law. `Copy` by itself does not supply this law.
 /// Implementations prove it against the actual Clone contract, including the
 /// reflexive closure used by standard container specifications.
 pub trait CloneIdentity: Clone {
     proof fn lemma_clone_identity(a: Self, b: Self)
-        requires cloned(a, b),
-        ensures a == b;
+        requires
+            cloned(a, b),
+        ensures
+            a == b,
+    ;
 }
 
 pub broadcast proof fn lemma_cloned_identity<T: CloneIdentity>(a: T, b: T)
-    requires #[trigger] cloned(a, b),
-    ensures a == b,
-{ T::lemma_clone_identity(a, b); }
+    requires
+        #[trigger] cloned(a, b),
+    ensures
+        a == b,
+{
+    T::lemma_clone_identity(a, b);
+}
 
 /// A checked law about native `Clone`, expressed in the application's deep view.
 /// Unlike `CloneIdentity`, this permits distinct allocated representations.
 pub trait CloneView: Clone + DeepView {
     proof fn lemma_clone_view(a: Self, b: Self)
-        requires cloned(a, b),
-        ensures a.deep_view() == b.deep_view();
+        requires
+            cloned(a, b),
+        ensures
+            a.deep_view() == b.deep_view(),
+    ;
 }
 
 pub broadcast proof fn lemma_cloned_view<T: CloneView>(a: T, b: T)
-    requires #[trigger] cloned(a, b),
-    ensures a.deep_view() == b.deep_view(),
-{ T::lemma_clone_view(a, b); }
+    requires
+        #[trigger] cloned(a, b),
+    ensures
+        a.deep_view() == b.deep_view(),
+{
+    T::lemma_clone_view(a, b);
+}
 
 impl<T: CloneView> CloneView for Option<T> {
     proof fn lemma_clone_view(a: Self, b: Self)
-        ensures a.deep_view() == b.deep_view(),
+        ensures
+            a.deep_view() == b.deep_view(),
     {
         if a != b {
             match a {
                 None => {},
-                Some(x) => { T::lemma_clone_view(x, b.unwrap()); },
+                Some(x) => {
+                    T::lemma_clone_view(x, b.unwrap());
+                },
             }
         }
     }
@@ -133,12 +150,14 @@ impl<T: CloneView> CloneView for Option<T> {
 #[cfg(feature = "alloc")]
 impl<T: CloneView> CloneView for alloc::vec::Vec<T> {
     proof fn lemma_clone_view(a: Self, b: Self)
-        ensures a.deep_view() == b.deep_view(),
+        ensures
+            a.deep_view() == b.deep_view(),
     {
         broadcast use {crate::std_specs::vec::group_vec_axioms, crate::seq::group_seq_axioms};
+
         if a != b {
-            assert forall|i: int| 0 <= i < a@.len() implies
-                a@[i].deep_view() == b@[i].deep_view() by {
+            assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
+                == b@[i].deep_view() by {
                 T::lemma_clone_view(a@[i], b@[i]);
             }
             assert(a.deep_view() =~= b.deep_view());
@@ -150,18 +169,23 @@ impl<T: CloneView> CloneView for alloc::vec::Vec<T> {
 #[cfg(feature = "alloc")]
 impl CloneView for alloc::string::String {
     proof fn lemma_clone_view(a: Self, b: Self)
-        ensures a.deep_view() == b.deep_view(),
-    {}
+        ensures
+            a.deep_view() == b.deep_view(),
+    {
+    }
 }
 
 impl<T: CloneIdentity> CloneIdentity for Option<T> {
     proof fn lemma_clone_identity(a: Self, b: Self)
-        ensures a == b,
+        ensures
+            a == b,
     {
         if a != b {
             match a {
                 None => {},
-                Some(x) => { T::lemma_clone_identity(x, b.unwrap()); },
+                Some(x) => {
+                    T::lemma_clone_identity(x, b.unwrap());
+                },
             }
         }
     }
@@ -169,22 +193,25 @@ impl<T: CloneIdentity> CloneIdentity for Option<T> {
 
 impl<T: CloneIdentity, const N: usize> CloneIdentity for [T; N] {
     proof fn lemma_clone_identity(a: Self, b: Self)
-        ensures a == b,
+        ensures
+            a == b,
     {
         broadcast use crate::array::group_array_axioms;
         broadcast use crate::seq::axiom_seq_ext_equal;
+
         if a != b {
-            assert forall|i:int| 0 <= i < N implies a@[i] == b@[i] by {
+            assert forall|i: int| 0 <= i < N implies a@[i] == b@[i] by {
                 T::lemma_clone_identity(a@[i], b@[i]);
             }
             assert(a@ =~= b@);
         }
     }
 }
-}
 
+} // verus!
 macro_rules! identity_scalar {
-    ($($t:ty),*) => {verus!{$(
+    ($($t:ty),*) => {
+        verus!{$(
         impl CloneIdentity for $t {
             proof fn lemma_clone_identity(a: Self,b: Self)
                 ensures a==b,
@@ -195,12 +222,14 @@ macro_rules! identity_scalar {
                 ensures a.deep_view()==b.deep_view(),
             { Self::lemma_clone_identity(a,b); }
         }
-    )*}};
+    )*}
+    };
 }
 identity_scalar!(bool, char, u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize);
 
 macro_rules! identity_tuple {
-    ($($t:ident $i:tt),+) => {verus!{
+    ($($t:ident $i:tt),+) => {
+        verus!{
         impl<$($t: CloneIdentity),+> CloneIdentity for ($($t,)+) {
             proof fn lemma_clone_identity(a: Self,b: Self)
                 ensures a==b,
@@ -208,7 +237,8 @@ macro_rules! identity_tuple {
                 if a!=b { $($t::lemma_clone_identity(a.$i,b.$i);)+ }
             }
         }
-    }};
+    }
+    };
 }
 identity_tuple!(A 0);
 identity_tuple!(A 0, B 1);

@@ -60,11 +60,17 @@ pub fn is_automatically_derived(attrs: &[rustc_hir::Attribute]) -> bool {
     false
 }
 
-pub fn has_derived_request<'tcx>(tcx:rustc_middle::ty::TyCtxt<'tcx>,owner:rustc_span::def_id::DefId,name:&str)->bool {
-    let marker=format!("__verus_infer_derived_{name}");
-    tcx.inherent_impls(owner).iter().any(|impl_id|
-        tcx.associated_items(*impl_id).in_definition_order().any(|m|
-            m.tag()==rustc_middle::ty::AssocTag::Fn && m.name().as_str()==marker))
+pub fn has_derived_request<'tcx>(
+    tcx: rustc_middle::ty::TyCtxt<'tcx>,
+    owner: rustc_span::def_id::DefId,
+    name: &str,
+) -> bool {
+    let marker = format!("__verus_infer_derived_{name}");
+    tcx.inherent_impls(owner).iter().any(|impl_id| {
+        tcx.associated_items(*impl_id)
+            .in_definition_order()
+            .any(|m| m.tag() == rustc_middle::ty::AssocTag::Fn && m.name().as_str() == marker)
+    })
 }
 
 pub fn modify_derived_item<'tcx>(
@@ -79,20 +85,26 @@ pub fn modify_derived_item<'tcx>(
     // derive body and the inherited trait domain must pass all exact checks.
     let name = function.name.path.last_segment().to_string();
     let reverse_from = name == "from"
-        && matches!(ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder().kind(),
-            rustc_middle::ty::TyKind::Int(_) | rustc_middle::ty::TyKind::Uint(_));
+        && matches!(
+            ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder().kind(),
+            rustc_middle::ty::TyKind::Int(_) | rustc_middle::ty::TyKind::Uint(_)
+        );
     let target = if name == "from" {
         let output = ctxt.tcx.fn_sig(id).skip_binder().output().skip_binder();
-        if reverse_from {
-            inputs.first().cloned()
-        } else {
-            Some(output)
-        }
-    } else { inputs.first().cloned() };
-    let target=target.map(|t|match t.kind(){rustc_middle::ty::TyKind::Ref(_,inner,_)=>*inner,_=>t});
+        if reverse_from { inputs.first().cloned() } else { Some(output) }
+    } else {
+        inputs.first().cloned()
+    };
+    let target = target.map(|t| match t.kind() {
+        rustc_middle::ty::TyKind::Ref(_, inner, _) => *inner,
+        _ => t,
+    });
     if let Some(rustc_middle::ty::TyKind::Adt(adt, _)) = target.map(|t| t.kind()) {
-        if matches!(name.as_str(), "from" | "add" | "add_assign" | "sub" | "mul" | "div" | "rem" | "eq") {
-            if has_derived_request(ctxt.tcx,adt.did(),if reverse_from {"into"} else {&name}) {
+        if matches!(
+            name.as_str(),
+            "from" | "add" | "add_assign" | "sub" | "mul" | "div" | "rem" | "eq"
+        ) {
+            if has_derived_request(ctxt.tcx, adt.did(), if reverse_from { "into" } else { &name }) {
                 Arc::make_mut(&mut function.attrs).infer = true;
             }
         }

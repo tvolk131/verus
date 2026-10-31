@@ -110,11 +110,15 @@ proof fn flatten_push<E>(values: Seq<Option<E>>, last: Option<E>)
 /// Pointwise-compatible predicates give equal positional counts, even when the
 /// two sequences have different element types.
 pub broadcast proof fn lemma_count_prefix_congruence<A, B>(
-    left: Seq<A>, selected: spec_fn(A) -> bool,
-    right: Seq<B>, keep: spec_fn(B) -> bool, n: nat,
+    left: Seq<A>,
+    selected: spec_fn(A) -> bool,
+    right: Seq<B>,
+    keep: spec_fn(B) -> bool,
+    n: nat,
 )
     requires
-        n <= left.len(), n <= right.len(),
+        n <= left.len(),
+        n <= right.len(),
         forall|i: int| 0 <= i < n ==> selected(#[trigger] left[i]) == keep(right[i]),
     ensures
         #[trigger] left.count_prefix(selected, n) == #[trigger] right.count_prefix(keep, n),
@@ -139,35 +143,60 @@ proof fn sparse_filter_count_prefix<S, A, E, B>(
     requires
         original.len() == slots.len(),
         0 <= n <= slots.len(),
-        forall|i: int| 0 <= i < slots.len() ==>
-            selected(#[trigger] original[i]) == (slots[i].is_some() && keep(project(label(i)))),
+        forall|i: int|
+            0 <= i < slots.len() ==> selected(#[trigger] original[i]) == (slots[i].is_some()
+                && keep(project(label(i)))),
     ensures
-        original.count_prefix(selected, n as nat)
-            == sparse_entries(slots.take(n), label).map_values(project).filter(keep).len(),
+        original.count_prefix(selected, n as nat) == sparse_entries(
+            slots.take(n),
+            label,
+        ).map_values(project).filter(keep).len(),
     decreases n,
 {
     use crate::std_specs::iter_adapters::flatten_options;
     if n == 0 {
         broadcast use crate::seq_lib::group_filter_ensures;
+
         assert(sparse_entries(slots.take(n), label) =~= Seq::empty());
         assert(sparse_entries(slots.take(n), label).map_values(project) =~= Seq::empty());
         reveal(Seq::filter);
     } else {
         sparse_filter_count_prefix(original, selected, slots, label, project, keep, n - 1);
-        let previous = Seq::new((n - 1) as nat, |i: int|
-            match slots[i] { None => None, Some(_) => Some(label(i)) });
-        let last = match slots[n - 1] { None => None, Some(_) => Some(label(n - 1)) };
-        assert(Seq::new(slots.take(n).len(), |i: int|
-            match slots.take(n)[i] { None => None, Some(_) => Some(label(i)) })
-            =~= previous.push(last));
-        assert(Seq::new(slots.take(n - 1).len(), |i: int|
-            match slots.take(n - 1)[i] { None => None, Some(_) => Some(label(i)) })
-            =~= previous);
+        let previous = Seq::new(
+            (n - 1) as nat,
+            |i: int|
+                match slots[i] {
+                    None => None,
+                    Some(_) => Some(label(i)),
+                },
+        );
+        let last = match slots[n - 1] {
+            None => None,
+            Some(_) => Some(label(n - 1)),
+        };
+        assert(Seq::new(
+            slots.take(n).len(),
+            |i: int|
+                match slots.take(n)[i] {
+                    None => None,
+                    Some(_) => Some(label(i)),
+                },
+        ) =~= previous.push(last));
+        assert(Seq::new(
+            slots.take(n - 1).len(),
+            |i: int|
+                match slots.take(n - 1)[i] {
+                    None => None,
+                    Some(_) => Some(label(i)),
+                },
+        ) =~= previous);
         lemma_sparse_entries_eq(slots.take(n), label, previous.push(last));
         lemma_sparse_entries_eq(slots.take(n - 1), label, previous);
         flatten_push(previous, last);
         let before = sparse_entries(slots.take(n - 1), label);
-        assert(selected(original[n - 1]) == (slots[n - 1].is_some() && keep(project(label(n - 1)))));
+        assert(selected(original[n - 1]) == (slots[n - 1].is_some() && keep(
+            project(label(n - 1)),
+        )));
         if slots[n - 1].is_some() {
             assert(sparse_entries(slots.take(n), label) == before.push(label(n - 1)));
             before.lemma_push_map_commute(project, label(n - 1));
@@ -181,40 +210,53 @@ proof fn sparse_filter_count_prefix<S, A, E, B>(
 /// Counting slots agrees with a mapped and filtered sparse observation whenever
 /// their per-position predicates agree. This proves only the supplied relation.
 pub broadcast proof fn lemma_sparse_map_filter_count<S, A, E, B>(
-    original: Seq<S>, selected: spec_fn(S) -> bool,
-    slots: Seq<Option<A>>, label: spec_fn(int) -> E,
-    project: spec_fn(E) -> B, keep: spec_fn(B) -> bool,
+    original: Seq<S>,
+    selected: spec_fn(S) -> bool,
+    slots: Seq<Option<A>>,
+    label: spec_fn(int) -> E,
+    project: spec_fn(E) -> B,
+    keep: spec_fn(B) -> bool,
 )
     requires
         original.len() == slots.len(),
-        forall|i: int| 0 <= i < slots.len() ==>
-            selected(#[trigger] original[i]) == (slots[i].is_some() && keep(project(label(i)))),
+        forall|i: int|
+            0 <= i < slots.len() ==> selected(#[trigger] original[i]) == (slots[i].is_some()
+                && keep(project(label(i)))),
     ensures
-        #[trigger] original.count_prefix(selected, original.len())
-            == #[trigger] sparse_entries(slots, label).map_values(project).filter(keep).len(),
+        #[trigger] original.count_prefix(selected, original.len()) == #[trigger] sparse_entries(
+            slots,
+            label,
+        ).map_values(project).filter(keep).len(),
 {
     sparse_filter_count_prefix(original, selected, slots, label, project, keep, slots.len() as int);
     assert(slots.take(slots.len() as int) =~= slots);
 }
 
 pub broadcast proof fn lemma_sparse_filter_count<S, A, E>(
-    original: Seq<S>, selected: spec_fn(S) -> bool,
-    slots: Seq<Option<A>>, label: spec_fn(int) -> E, keep: spec_fn(E) -> bool,
+    original: Seq<S>,
+    selected: spec_fn(S) -> bool,
+    slots: Seq<Option<A>>,
+    label: spec_fn(int) -> E,
+    keep: spec_fn(E) -> bool,
 )
     requires
         original.len() == slots.len(),
-        forall|i: int| 0 <= i < slots.len() ==>
-            selected(#[trigger] original[i]) == (slots[i].is_some() && keep(label(i))),
+        forall|i: int|
+            0 <= i < slots.len() ==> selected(#[trigger] original[i]) == (slots[i].is_some()
+                && keep(label(i))),
     ensures
-        #[trigger] original.count_prefix(selected, original.len())
-            == #[trigger] sparse_entries(slots, label).filter(keep).len(),
+        #[trigger] original.count_prefix(selected, original.len()) == #[trigger] sparse_entries(
+            slots,
+            label,
+        ).filter(keep).len(),
 {
     lemma_sparse_map_filter_count(original, selected, slots, label, |e: E| e, keep);
     assert(sparse_entries(slots, label).map_values(|e: E| e) =~= sparse_entries(slots, label));
 }
 
 proof fn filter_identity<E>(values: Seq<E>)
-    ensures values.filter(|e: E| true) == values,
+    ensures
+        values.filter(|e: E| true) == values,
     decreases values.len(),
 {
     reveal(Seq::filter);
@@ -225,11 +267,14 @@ proof fn filter_identity<E>(values: Seq<E>)
 }
 
 pub broadcast proof fn lemma_sparse_entries_count<A, E>(
-    slots: Seq<Option<A>>, label: spec_fn(int) -> E,
+    slots: Seq<Option<A>>,
+    label: spec_fn(int) -> E,
 )
     ensures
-        #[trigger] sparse_entries(slots, label).len()
-            == slots.count_prefix(|slot: Option<A>| slot.is_some(), slots.len()),
+        #[trigger] sparse_entries(slots, label).len() == slots.count_prefix(
+            |slot: Option<A>| slot.is_some(),
+            slots.len(),
+        ),
 {
     lemma_sparse_filter_count(slots, |slot: Option<A>| slot.is_some(), slots, label, |e: E| true);
     filter_identity(sparse_entries(slots, label));

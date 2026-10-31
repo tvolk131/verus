@@ -28,8 +28,11 @@ impl<A> Seq<A> {
         if len == 0 {
             0
         } else {
-            self.count_prefix(pred, (len - 1) as nat)
-                + if pred(self[len - 1]) { 1nat } else { 0nat }
+            self.count_prefix(pred, (len - 1) as nat) + if pred(self[len - 1]) {
+                1nat
+            } else {
+                0nat
+            }
         }
     }
 
@@ -47,7 +50,11 @@ impl<A> Seq<A> {
 
     /// Replacing a slot changes the count only by that slot's contribution.
     pub broadcast proof fn lemma_count_prefix_update(
-        self, pred: spec_fn(A) -> bool, index: int, value: A, len: nat,
+        self,
+        pred: spec_fn(A) -> bool,
+        index: int,
+        value: A,
+        len: nat,
     )
         requires
             0 <= index < self.len(),
@@ -55,9 +62,18 @@ impl<A> Seq<A> {
         ensures
             #[trigger] self.update(index, value).count_prefix(pred, len) as int
                 == self.count_prefix(pred, len) as int + if index < len {
-                    (if pred(value) { 1int } else { 0int })
-                        - (if pred(self[index]) { 1int } else { 0int })
-                } else { 0int },
+                (if pred(value) {
+                    1int
+                } else {
+                    0int
+                }) - (if pred(self[index]) {
+                    1int
+                } else {
+                    0int
+                })
+            } else {
+                0int
+            },
         decreases len,
     {
         if len > 0 {
@@ -84,8 +100,8 @@ impl<A> Seq<A> {
         requires
             len <= self.len(),
         ensures
-            #[trigger] self.count_prefix(pred, len) == len ==>
-                forall|i: int| 0 <= i < len ==> pred(#[trigger] self[i]),
+            #[trigger] self.count_prefix(pred, len) == len ==> forall|i: int|
+                0 <= i < len ==> pred(#[trigger] self[i]),
         decreases len,
     {
         if len > 0 {

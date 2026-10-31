@@ -38,17 +38,17 @@ pub fn policy<T>(input:Envelope<T>,gate:&Gate,limit:u16)->(result:Result<Envelop
 "#;
 
 #[test]
-fn structured_queries_and_generic_from_preserve_complete_collection_payloads(){
- let source=format!("use vstd::prelude::*;verus!{{{PROVIDER}{CONSUMER}}}");
- let d=verify_one_file("structured_query_from",source,&["vstd","--no-cheating"]).unwrap();
- for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"]{
-  assert_eq!(d.notes.iter().filter(|n|n.message.contains(p)).count(),2,"{:?}",d);
- }
+fn structured_queries_and_generic_from_preserve_complete_collection_payloads() {
+    let source = format!("use vstd::prelude::*;verus!{{{PROVIDER}{CONSUMER}}}");
+    let d = verify_one_file("structured_query_from", source, &["vstd", "--no-cheating"]).unwrap();
+    for p in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+        assert_eq!(d.notes.iter().filter(|n| n.message.contains(p)).count(), 2, "{:?}", d);
+    }
 }
 
 #[test]
-fn resolved_trait_queries_retain_the_concrete_implementation(){
- let source=r#"use vstd::prelude::*;verus!{
+fn resolved_trait_queries_retain_the_concrete_implementation() {
+    let source = r#"use vstd::prelude::*;verus!{
  pub trait Query{
   spec fn allowed_value(&self)->bool;
   fn allowed(&self)->(r:bool) ensures r==self.allowed_value();
@@ -61,12 +61,12 @@ fn resolved_trait_queries_retain_the_concrete_implementation(){
  #[verifier::infer] pub fn check(gate:&Gate)->Result<bool,u16>{Ok(gate.allowed())}
  fn goal(gate:&Gate)->(r:Result<bool,u16>) ensures r==Ok::<bool,u16>(gate.permit),{check(gate)}
 }"#;
- verify_one_file("resolved_query",source.into(),&["vstd","--no-cheating"]).unwrap();
+    verify_one_file("resolved_query", source.into(), &["vstd", "--no-cheating"]).unwrap();
 }
 
 #[test]
-fn structured_query_contracts_and_converted_payloads_are_checked(){
- for (name,source) in [
+fn structured_query_contracts_and_converted_payloads_are_checked() {
+    for (name,source) in [
   ("wrong_query",PROVIDER.replace("{if gate.permit{Ok(self)}else{Err(Rejected{input:self})}}",
    "{Err(Rejected{input:self})}")),
   ("wrong_conversion",PROVIDER.replace("fn from(error:Rejected<T>)->Self{Error::Denied(error)}",
@@ -78,43 +78,70 @@ fn structured_query_contracts_and_converted_payloads_are_checked(){
 }
 
 #[test]
-fn partial_and_unchecked_from_conversions_cannot_supply_result_propagation(){
- for (name,source) in [
-  ("partial_from",PROVIDER.replace("fn from(error:Rejected<T>)->Self{Error::Denied(error)}",
-   "fn from(error:Rejected<T>)->Self{Error::Expired(error.input.sequence+1)}")),
-  ("unmarked_from",PROVIDER.replace("#[verifier::infer] fn from","fn from")),
- ]{
-  let e=verify_one_file(name,format!("use vstd::prelude::*;verus!{{{source}{CONSUMER}}}"),&["vstd","--no-cheating"]).unwrap_err();
-  assert!(e.errors.iter().any(|d|d.message.contains("inherited trait precondition")
-   || d.message.contains("checked exact From implementation")),"{:?}",e);
- }
+fn partial_and_unchecked_from_conversions_cannot_supply_result_propagation() {
+    for (name, source) in [
+        (
+            "partial_from",
+            PROVIDER.replace(
+                "fn from(error:Rejected<T>)->Self{Error::Denied(error)}",
+                "fn from(error:Rejected<T>)->Self{Error::Expired(error.input.sequence+1)}",
+            ),
+        ),
+        ("unmarked_from", PROVIDER.replace("#[verifier::infer] fn from", "fn from")),
+    ] {
+        let e = verify_one_file(
+            name,
+            format!("use vstd::prelude::*;verus!{{{source}{CONSUMER}}}"),
+            &["vstd", "--no-cheating"],
+        )
+        .unwrap_err();
+        assert!(
+            e.errors.iter().any(|d| d.message.contains("inherited trait precondition")
+                || d.message.contains("checked exact From implementation")),
+            "{:?}",
+            e
+        );
+    }
 }
 
 #[test]
-fn structured_query_and_conversion_exports_are_rechecked_cold_and_warm(){
- let crates=InferCrates::new();
- let consumer=format!("use vstd::prelude::*;use structured_provider::*;{CONSUMER}");
- for _ in 0..2{
-  let r=crates.build("structured_provider",PROVIDER,&[],&["--no-cheating","--output-json"]);
-  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-  let r=crates.build("structured_consumer",&consumer,&["structured_provider"],&["--no-cheating","--output-json"]);
-  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-  assert_eq!(json_inference(&r)["functions"][0]["proofs"]["exactness"]["status"],"proved");
- }
- let r=crates.build("structured_provider",PROVIDER,&[],&["--no-verify"]);
- assert!(!r.status.success());assert!(!crates.vir("structured_provider").exists());
- let wrong=PROVIDER.replace("Error::Denied(error)}","Error::Expired(error.input.sequence)}");
- let r=crates.build("structured_provider",&wrong,&[],&["--no-cheating"]);
- assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
- let r=crates.build("structured_consumer",&consumer,&["structured_provider"],&["--no-cheating"]);
- assert!(!r.status.success());assert!(!crates.vir("structured_consumer").exists());
- assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
+fn structured_query_and_conversion_exports_are_rechecked_cold_and_warm() {
+    let crates = InferCrates::new();
+    let consumer = format!("use vstd::prelude::*;use structured_provider::*;{CONSUMER}");
+    for _ in 0..2 {
+        let r =
+            crates.build("structured_provider", PROVIDER, &[], &["--no-cheating", "--output-json"]);
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let r = crates.build(
+            "structured_consumer",
+            &consumer,
+            &["structured_provider"],
+            &["--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        assert_eq!(json_inference(&r)["functions"][0]["proofs"]["exactness"]["status"], "proved");
+    }
+    let r = crates.build("structured_provider", PROVIDER, &[], &["--no-verify"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("structured_provider").exists());
+    let wrong = PROVIDER.replace("Error::Denied(error)}", "Error::Expired(error.input.sequence)}");
+    let r = crates.build("structured_provider", &wrong, &[], &["--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let r = crates.build(
+        "structured_consumer",
+        &consumer,
+        &["structured_provider"],
+        &["--no-cheating"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("structured_consumer").exists());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }
 
 #[test]
-fn larger_callers_keep_discovered_checked_view_bounds(){
- let crates=InferCrates::new();
- let provider=r#"use vstd::prelude::*;
+fn larger_callers_keep_discovered_checked_view_bounds() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
  pub struct Slots(Vec<u8>);
  impl View for Slots{type V=Seq<u8>;closed spec fn view(&self)->Self::V{self.0@}}
  impl Slots{
@@ -124,19 +151,31 @@ fn larger_callers_keep_discovered_checked_view_bounds(){
   #[verifier::infer]pub fn len(&self)->usize{self.0.len()}
  }
  "#;
- let r=crates.build("bounds_provider",provider,&[],&["--no-cheating"]);
- assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
- let mut consumer="use vstd::prelude::*;use bounds_provider::Slots;".to_string();
- for i in 0..40{
-  let tail=if i==39{"true".to_string()}else{format!("noise{}(s)",i+1)};
-  consumer.push_str(&format!("pub closed spec fn noise{i}(s:&Slots)->bool{{{tail}}}\n"));
- }
- consumer.push_str("pub fn bound(s:&Slots) requires noise0(s), ensures s@.len()<=usize::MAX, {}\n");
- let r=crates.build("bounds_consumer",&consumer,&["bounds_provider"],&["--infer-goals","--no-cheating","--output-json"]);
- assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
- let report=json_inference(&r);
- assert!(report["goal_assistance"].as_array().unwrap().iter().any(|x|x["strategy"]=="sequence_view_bound"));
- let r=crates.build("bounds_consumer",&consumer,&["bounds_provider"],&["--no-cheating"]);
- assert!(!r.status.success());
- assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
+    let r = crates.build("bounds_provider", provider, &[], &["--no-cheating"]);
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let mut consumer = "use vstd::prelude::*;use bounds_provider::Slots;".to_string();
+    for i in 0..40 {
+        let tail = if i == 39 { "true".to_string() } else { format!("noise{}(s)", i + 1) };
+        consumer.push_str(&format!("pub closed spec fn noise{i}(s:&Slots)->bool{{{tail}}}\n"));
+    }
+    consumer
+        .push_str("pub fn bound(s:&Slots) requires noise0(s), ensures s@.len()<=usize::MAX, {}\n");
+    let r = crates.build(
+        "bounds_consumer",
+        &consumer,
+        &["bounds_provider"],
+        &["--infer-goals", "--no-cheating", "--output-json"],
+    );
+    assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+    let report = json_inference(&r);
+    assert!(
+        report["goal_assistance"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|x| x["strategy"] == "sequence_view_bound")
+    );
+    let r = crates.build("bounds_consumer", &consumer, &["bounds_provider"], &["--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }

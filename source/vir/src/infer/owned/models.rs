@@ -88,7 +88,8 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
     if let Some(k) = spec {
         if x.mode != Mode::Spec
             || x.proxy.is_some()
-            || x.typ_params.len() != if matches!(k, Model::SeqFold | Model::Scatter) { 2 } else { 1 }
+            || x.typ_params.len()
+                != if matches!(k, Model::SeqFold | Model::Scatter) { 2 } else { 1 }
         {
             return None;
         }

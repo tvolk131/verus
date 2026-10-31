@@ -27,7 +27,8 @@ pub fn goal(p: &opaque_cache::Packet) {
         let report = json_inference(&p);
         assert_eq!(report["functions"].as_array().unwrap().len(), 1);
         assert_eq!(report["functions"][0]["required_checks_passed"], true);
-        let c = crates.build("opaque_cache_client", consumer, &["opaque_cache"], &["--no-cheating"]);
+        let c =
+            crates.build("opaque_cache_client", consumer, &["opaque_cache"], &["--no-cheating"]);
         assert!(c.status.success(), "{}", String::from_utf8_lossy(&c.stderr));
     }
     let wrong = provider.replace("{ &self.left }", "{ &self.right }");
@@ -105,9 +106,9 @@ pub fn preserved(c:borrow_provider::Cached)->(r:Result<borrow_provider::Cached,E
 }
 
 #[test]
-fn tagged_borrow_identity_crosses_private_provider_and_forwarding_interfaces(){
- let crates=InferCrates::new();
- let provider=r#"use vstd::prelude::*;
+fn tagged_borrow_identity_crosses_private_provider_and_forwarding_interfaces() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
  pub struct Slots<T>(Vec<Option<T>>);
  impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
  pub struct Table<T>{pub left:Slots<T>,pub right:Slots<T>,pub ready:bool}
@@ -115,24 +116,28 @@ fn tagged_borrow_identity_crosses_private_provider_and_forwarding_interfaces(){
   #[verifier::infer] pub fn select(&self)->Result<&Slots<T>,u8>{if self.ready{Ok(&self.left)}else{Err(4)}}
  }
 "#;
- let consumer=r#"use vstd::prelude::*;
+    let consumer = r#"use vstd::prelude::*;
  #[verifier::infer] pub fn forward<T>(t:&tagged_base::Table<T>)->Result<&tagged_base::Slots<T>,u8>{t.select()}
  pub fn goal<T>(t:&tagged_base::Table<T>){let r=forward(t);assert(r.is_ok()==t.ready);
   if let Ok(value)=r{assert(*value==t.left);}}
 "#;
- for _ in 0..2 {
-  for (name,body,deps) in [("tagged_base",provider,vec![]),("tagged_app",consumer,vec!["tagged_base"])] {
-   let r=crates.build(name,body,&deps,&["--no-cheating","--output-json"]);
-   assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-   assert_eq!(json_inference(&r)["functions"][0]["required_checks_passed"],true);
-  }
- }
- let wrong=provider.replace("Ok(&self.left)","Ok(&self.right)");
- let p=crates.build("tagged_base",&wrong,&[],&["--no-cheating","--output-json"]);
- assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
- let c=crates.build("tagged_app",consumer,&["tagged_base"],&["--no-cheating","--output-json"]);
- assert!(!c.status.success());assert!(!crates.vir("tagged_app").exists());
- assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
+    for _ in 0..2 {
+        for (name, body, deps) in
+            [("tagged_base", provider, vec![]), ("tagged_app", consumer, vec!["tagged_base"])]
+        {
+            let r = crates.build(name, body, &deps, &["--no-cheating", "--output-json"]);
+            assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+            assert_eq!(json_inference(&r)["functions"][0]["required_checks_passed"], true);
+        }
+    }
+    let wrong = provider.replace("Ok(&self.left)", "Ok(&self.right)");
+    let p = crates.build("tagged_base", &wrong, &[], &["--no-cheating", "--output-json"]);
+    assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
+    let c =
+        crates.build("tagged_app", consumer, &["tagged_base"], &["--no-cheating", "--output-json"]);
+    assert!(!c.status.success());
+    assert!(!crates.vir("tagged_app").exists());
+    assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"], true);
 }
 
 const OPAQUE_PROJECTIONS: &str = r#"use vstd::prelude::*;
@@ -163,49 +168,73 @@ fn accessors<T>(p:&Packet<T>){
 "#;
 
 #[test]
-fn opaque_fields_use_checked_projection_views_and_complete_move_identity(){
- let crates=InferCrates::new();
- let caller=r#"use vstd::prelude::*;
+fn opaque_fields_use_checked_projection_views_and_complete_move_identity() {
+    let crates = InferCrates::new();
+    let caller = r#"use vstd::prelude::*;
  #[verifier::infer] pub fn size<T>(p:&opaque_values::Packet<T>)->usize{p.size()}
  #[verifier::infer] pub fn round<T>(p:&opaque_values::Packet<T>)->u16{p.round()}
  #[verifier::infer] pub fn payload<T>(p:&opaque_values::Packet<T>)->&opaque_values::hidden::Payload<T>{p.payload()}
  pub fn goal<T>(p:&opaque_values::Packet<T>){let n=size(p);assert(n==p@.1@.0.len());let r=round(p);assert(r==p@.0);let v=payload(p);assert(*v==p@.1);}
  "#;
- for _ in 0..2 {
-  for (name,source,deps,count) in [("opaque_values",OPAQUE_PROJECTIONS,vec![],6),("opaque_caller",caller,vec!["opaque_values"],3)] {
-   let r=crates.build(name,source,&deps,&["--no-cheating","--output-json"]);
-   assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-   let report=json_inference(&r);let fs=report["functions"].as_array().unwrap();assert_eq!(fs.len(),count);
-   assert!(fs.iter().all(|f|f["required_checks_passed"]==true),"{}",report);
-  }
- }
- for wrong in [OPAQUE_PROJECTIONS.replace("Self{payload,round}","Self{payload:other,round}"),
-   OPAQUE_PROJECTIONS.replace("{self.payload.size()}","{0}"),
-   OPAQUE_PROJECTIONS.replace("{self.round}","{0}")] {
-  let r=crates.build("opaque_values",&wrong,&[],&["--no-cheating","--output-json"]);
-  assert!(!r.status.success());assert!(!crates.vir("opaque_values").exists());
-  assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied")
-   || String::from_utf8_lossy(&r.stderr).contains("assertion failed"));
-  assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
- }
- for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","round"]] {
-  let failed=crates.build("opaque_values",OPAQUE_PROJECTIONS,&[],&opts);
-  assert!(!failed.status.success());assert!(!crates.vir("opaque_values").exists());
-  assert!(String::from_utf8_lossy(&failed.stderr).contains("requires full-crate verification"));
- }
- let missing=OPAQUE_PROJECTIONS.replace("impl<T> View for Payload<T>{type V=(Seq<T>,u16);closed spec fn view(&self)->Self::V{(self.values@,self.stamp)}}","");
- let missing=&missing[..missing.find("fn accessors<T>").unwrap()];
- let r=crates.build("opaque_values",missing,&[],&["--no-cheating"]);
- assert!(!r.status.success());assert!(!crates.vir("opaque_values").exists());
- assert!(String::from_utf8_lossy(&r.stderr).contains("private record formulas require an authored projection observation"));
- assert!(!String::from_utf8_lossy(&r.stderr).contains("panicked"));
+    for _ in 0..2 {
+        for (name, source, deps, count) in [
+            ("opaque_values", OPAQUE_PROJECTIONS, vec![], 6),
+            ("opaque_caller", caller, vec!["opaque_values"], 3),
+        ] {
+            let r = crates.build(name, source, &deps, &["--no-cheating", "--output-json"]);
+            assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+            let report = json_inference(&r);
+            let fs = report["functions"].as_array().unwrap();
+            assert_eq!(fs.len(), count);
+            assert!(fs.iter().all(|f| f["required_checks_passed"] == true), "{}", report);
+        }
+    }
+    for wrong in [
+        OPAQUE_PROJECTIONS.replace("Self{payload,round}", "Self{payload:other,round}"),
+        OPAQUE_PROJECTIONS.replace("{self.payload.size()}", "{0}"),
+        OPAQUE_PROJECTIONS.replace("{self.round}", "{0}"),
+    ] {
+        let r = crates.build("opaque_values", &wrong, &[], &["--no-cheating", "--output-json"]);
+        assert!(!r.status.success());
+        assert!(!crates.vir("opaque_values").exists());
+        assert!(
+            String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied")
+                || String::from_utf8_lossy(&r.stderr).contains("assertion failed")
+        );
+        assert!(
+            json_inference(&r)["functions"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|f| f["required_checks_passed"] == true)
+        );
+    }
+    for opts in [vec!["--no-verify"], vec!["--verify-root", "--verify-function", "round"]] {
+        let failed = crates.build("opaque_values", OPAQUE_PROJECTIONS, &[], &opts);
+        assert!(!failed.status.success());
+        assert!(!crates.vir("opaque_values").exists());
+        assert!(
+            String::from_utf8_lossy(&failed.stderr).contains("requires full-crate verification")
+        );
+    }
+    let missing=OPAQUE_PROJECTIONS.replace("impl<T> View for Payload<T>{type V=(Seq<T>,u16);closed spec fn view(&self)->Self::V{(self.values@,self.stamp)}}","");
+    let missing = &missing[..missing.find("fn accessors<T>").unwrap()];
+    let r = crates.build("opaque_values", missing, &[], &["--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("opaque_values").exists());
+    assert!(
+        String::from_utf8_lossy(&r.stderr)
+            .contains("private record formulas require an authored projection observation")
+    );
+    assert!(!String::from_utf8_lossy(&r.stderr).contains("panicked"));
 }
 
 #[test]
-fn tuple_view_constructors_compose_exactly_across_private_interfaces(){
- let crates=InferCrates::new();
- let provider=OPAQUE_PROJECTIONS.replace("#[verifier::infer] fn new(payload:","#[verifier::infer] pub fn new(payload:");
- let consumer=r#"use vstd::prelude::*;
+fn tuple_view_constructors_compose_exactly_across_private_interfaces() {
+    let crates = InferCrates::new();
+    let provider = OPAQUE_PROJECTIONS
+        .replace("#[verifier::infer] fn new(payload:", "#[verifier::infer] pub fn new(payload:");
+    let consumer = r#"use vstd::prelude::*;
  #[verifier::infer] pub fn build<T>(p:opaque_constructor::hidden::Payload<T>,other:opaque_constructor::hidden::Payload<T>,round:u16)->opaque_constructor::Packet<T>{
   opaque_constructor::Packet::new(p,other,round)
  }
@@ -214,27 +243,52 @@ fn tuple_view_constructors_compose_exactly_across_private_interfaces(){
   ensures r@==(round,p),
  {relay(p,other,round)}
  "#;
- for _ in 0..2 {
-  for (name,body,deps,count) in [("opaque_constructor",provider.as_str(),vec![],6),("opaque_constructor_client",consumer,vec!["opaque_constructor"],2)] {
-   let r=crates.build(name,body,&deps,&["--no-cheating","--output-json"]);
-   assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-   let report=json_inference(&r);let fs=report["functions"].as_array().unwrap();assert_eq!(fs.len(),count);
-   assert!(fs.iter().all(|f|f["required_checks_passed"]==true),"{}",report);
-  }
- }
- let wrong=consumer.replace("ensures r@==(round,p)","ensures r@==(round,other)");
- let r=crates.build("opaque_constructor_client",&wrong,&["opaque_constructor"],&["--no-cheating","--output-json"]);
- assert!(!r.status.success());assert!(!crates.vir("opaque_constructor_client").exists());
- assert!(json_inference(&r)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
- // A view dropping a complete opaque component cannot acquire a uniqueness or
- // exact-output guarantee, even though the constructor itself remains safe.
- let minimal=&provider[..provider.find("fn moved<T>").unwrap()];
- let lossy=minimal.replace("type V=(u16,hidden::Payload<T>);closed spec fn view(&self)->Self::V{(self.round,self.payload)}",
+    for _ in 0..2 {
+        for (name, body, deps, count) in [
+            ("opaque_constructor", provider.as_str(), vec![], 6),
+            ("opaque_constructor_client", consumer, vec!["opaque_constructor"], 2),
+        ] {
+            let r = crates.build(name, body, &deps, &["--no-cheating", "--output-json"]);
+            assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+            let report = json_inference(&r);
+            let fs = report["functions"].as_array().unwrap();
+            assert_eq!(fs.len(), count);
+            assert!(fs.iter().all(|f| f["required_checks_passed"] == true), "{}", report);
+        }
+    }
+    let wrong = consumer.replace("ensures r@==(round,p)", "ensures r@==(round,other)");
+    let r = crates.build(
+        "opaque_constructor_client",
+        &wrong,
+        &["opaque_constructor"],
+        &["--no-cheating", "--output-json"],
+    );
+    assert!(!r.status.success());
+    assert!(!crates.vir("opaque_constructor_client").exists());
+    assert!(
+        json_inference(&r)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|f| f["required_checks_passed"] == true)
+    );
+    // A view dropping a complete opaque component cannot acquire a uniqueness or
+    // exact-output guarantee, even though the constructor itself remains safe.
+    let minimal = &provider[..provider.find("fn moved<T>").unwrap()];
+    let lossy=minimal.replace("type V=(u16,hidden::Payload<T>);closed spec fn view(&self)->Self::V{(self.round,self.payload)}",
   "type V=(u16,bool);closed spec fn view(&self)->Self::V{(self.round,true)}");
- assert_ne!(minimal,lossy);
- let lossy=format!("{} fn blocked(){{assert(false);}}",lossy);
- let r=crates.build("opaque_constructor",&lossy,&[],&["--no-cheating","--output-json"]);
- assert!(!r.status.success());assert!(!crates.vir("opaque_constructor").exists());
- let report=json_inference(&r);assert!(report["functions"].as_array().unwrap().iter().any(|f|f["required_checks_passed"]==false));
- assert!(!String::from_utf8_lossy(&r.stderr).contains("assertion failed"));
+    assert_ne!(minimal, lossy);
+    let lossy = format!("{} fn blocked(){{assert(false);}}", lossy);
+    let r = crates.build("opaque_constructor", &lossy, &[], &["--no-cheating", "--output-json"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("opaque_constructor").exists());
+    let report = json_inference(&r);
+    assert!(
+        report["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|f| f["required_checks_passed"] == false)
+    );
+    assert!(!String::from_utf8_lossy(&r.stderr).contains("assertion failed"));
 }

@@ -60,37 +60,49 @@ fn check<T:Copy>(r:&mut Registry<T>,i:usize,v:T)
 
 #[test]
 fn private_sequence_views_preserve_accounting_across_modules() {
- let result=verify_one_file("private",PRIVATE_WRAPPERS.to_owned(),&["vstd","--infer-goals"]);
- assert!(result.is_ok(),"{:?}",result);
+    let result =
+        verify_one_file("private", PRIVATE_WRAPPERS.to_owned(), &["vstd", "--infer-goals"]);
+    assert!(result.is_ok(), "{:?}", result);
 }
 
 #[test]
 fn private_view_helper_mutation_still_needs_to_satisfy_the_goal() {
- rejected("private_wrong_slot",PRIVATE_WRAPPERS.replace("self.0[i]=Some(v)","self.0[0]=Some(v)"));
+    rejected(
+        "private_wrong_slot",
+        PRIVATE_WRAPPERS.replace("self.0[i]=Some(v)", "self.0[0]=Some(v)"),
+    );
 }
 
 #[test]
 fn private_views_reject_an_extra_overflow_restriction_on_valid_inputs() {
- rejected("private_domain",PRIVATE_WRAPPERS.replace("  if i>=self.slots.len()", "  let extra=i+1; if i>=self.slots.len()"));
+    rejected(
+        "private_domain",
+        PRIVATE_WRAPPERS
+            .replace("  if i>=self.slots.len()", "  let extra=i+1; if i>=self.slots.len()"),
+    );
 }
 
 #[test]
 fn private_views_preserve_unchanged_sibling_fields() {
- rejected("private_frame",PRIVATE_WRAPPERS.replace("self.used+=1;", "self.used+=1;self.stable=false;"));
+    rejected(
+        "private_frame",
+        PRIVATE_WRAPPERS.replace("self.used+=1;", "self.used+=1;self.stable=false;"),
+    );
 }
 
 #[test]
 fn lossy_sequence_views_do_not_qualify_as_complete_state() {
- let source=PRIVATE_WRAPPERS.replace("{self.0@}","{self.0@.take(0)}");
- let e=verify_one_file("lossy",source,&["vstd","--infer-goals"]).unwrap_err();
- assert_vir_error_msg(e,"visible transparent record fields");
+    let source = PRIVATE_WRAPPERS.replace("{self.0@}", "{self.0@.take(0)}");
+    let e = verify_one_file("lossy", source, &["vstd", "--infer-goals"]).unwrap_err();
+    assert_vir_error_msg(e, "visible transparent record fields");
 }
 
 #[test]
 fn sequence_views_cannot_hide_additional_state_fields() {
- let source=PRIVATE_WRAPPERS.replace("Slots<T>(Vec<Option<T>>)","Slots<T>(Vec<Option<T>>,u8)");
- let e=verify_one_file("hidden",source,&["vstd","--infer-goals"]).unwrap_err();
- assert_vir_error_msg(e,"visible transparent record fields");
+    let source =
+        PRIVATE_WRAPPERS.replace("Slots<T>(Vec<Option<T>>)", "Slots<T>(Vec<Option<T>>,u8)");
+    let e = verify_one_file("hidden", source, &["vstd", "--infer-goals"]).unwrap_err();
+    assert_vir_error_msg(e, "visible transparent record fields");
 }
 
 test_verify_one_file_with_options! {

@@ -2,8 +2,10 @@ use super::super::prelude::*;
 use super::super::seq::{
     group_seq_lemmas, lemma_seq_empty, lemma_seq_subrange_index, lemma_seq_subrange_len,
 };
+use super::iter_adapters::{
+    enumerate_post, filter_map_post, native_count_post, native_count_supported,
+};
 use core::iter::{Filter, FromIterator, Iterator, Rev, Skip, Take, Zip};
-use super::iter_adapters::{enumerate_post, filter_map_post, native_count_supported, native_count_post};
 
 // Reduce the boilerplate in the definitions below.  We have to use a macro,
 // since inside of ExIterator, we don't yet know that `self` is an Iterator.

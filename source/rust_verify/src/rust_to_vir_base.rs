@@ -661,7 +661,8 @@ pub(crate) fn get_impl_paths_for_clauses<'tcx>(
                                             let path = Arc::new(vir::ast::PathX {
                                                 krate: vir::ast::CrateId::Vstd,
                                                 segments: Arc::new(vec![
-                                                    Arc::new("std_specs".into()), Arc::new("clone".into()),
+                                                    Arc::new("std_specs".into()),
+                                                    Arc::new("clone".into()),
                                                     Arc::new(format!("tuple_clone_{}", ts.len())),
                                                     Arc::new("builtin_impl".into()),
                                                 ]),
@@ -1446,7 +1447,12 @@ pub(crate) fn mid_ty_to_vir_ghost<'tcx>(
                     ResolutionResult::Builtin(b) => {
                         if let Some((helper, _)) = crate::tuple_clone::helper(tcx, *def_id, args) {
                             Some(Arc::new(vir::ast::FunX {
-                                path: def_id_to_vir_path(tcx, verus_items, helper, None::<&mut HashMap<_, _>>),
+                                path: def_id_to_vir_path(
+                                    tcx,
+                                    verus_items,
+                                    helper,
+                                    None::<&mut HashMap<_, _>>,
+                                ),
                             }))
                         } else {
                             unsupported_err!(span, format!("built-in instance {:?}", b));

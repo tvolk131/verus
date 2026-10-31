@@ -216,10 +216,12 @@ pub(crate) fn expand_extension_traits(erase_all: bool, items: &mut Vec<Item>) {
     if !erase_all {
         for item in items.iter_mut() {
             if let Item::Impl(imp) = item {
-                let iterator_model = imp.trait_.as_ref().is_some_and(|(_,path,_)|
-                    path.segments.last().is_some_and(|s|s.ident=="IteratorSpecImpl"));
-                let has_method = imp.items.iter().any(|item|
-                    matches!(item,ImplItem::Fn(f) if f.sig.ident=="has_exact_size_hint"));
+                let iterator_model = imp.trait_.as_ref().is_some_and(|(_, path, _)| {
+                    path.segments.last().is_some_and(|s| s.ident == "IteratorSpecImpl")
+                });
+                let has_method = imp.items.iter().any(
+                    |item| matches!(item,ImplItem::Fn(f) if f.sig.ident=="has_exact_size_hint"),
+                );
                 if iterator_model && !has_method {
                     imp.items.push(parse_quote_spanned!(imp.impl_token.span =>
                         open spec fn has_exact_size_hint(&self)->bool {false}

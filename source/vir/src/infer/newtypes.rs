@@ -86,11 +86,24 @@ impl Newtypes {
     }
 
     pub(super) fn project(&self, f: &Function) -> Result<Function, VirErr> {
-        if !f.x.attrs.infer || f.x.attrs.infer_owned || f.x.attrs.infer_allow_approx || records::candidate(f) && !f.x.params.first().is_some_and(|p|self.shape(&p.x.typ).is_some()) || !self.uses_wrapper(f) {
+        if !f.x.attrs.infer
+            || f.x.attrs.infer_owned
+            || f.x.attrs.infer_allow_approx
+            || records::candidate(f)
+                && !f.x.params.first().is_some_and(|p| self.shape(&p.x.typ).is_some())
+            || !self.uses_wrapper(f)
+        {
             return Ok(f.clone());
         }
         if !matches!(f.x.kind, FunctionKind::Static)
-            && !matches!(wrapper_traits::kind(f),Some(wrapper_traits::Kind::From | wrapper_traits::Kind::Compare | wrapper_traits::Kind::Binary))
+            && !matches!(
+                wrapper_traits::kind(f),
+                Some(
+                    wrapper_traits::Kind::From
+                        | wrapper_traits::Kind::Compare
+                        | wrapper_traits::Kind::Binary
+                )
+            )
         {
             return Err(unsupported(
                 &f.span,

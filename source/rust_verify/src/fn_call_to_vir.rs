@@ -282,13 +282,18 @@ fn fn_call_or_assoc_const_to_vir<'tcx>(
                 vir::ast::CallTargetKind::Dynamic
             }
             ResolutionResult::Builtin(b) => {
-                if let Some((helper, helper_args)) = crate::tuple_clone::helper(tcx, f, node_substs) {
+                if let Some((helper, helper_args)) = crate::tuple_clone::helper(tcx, f, node_substs)
+                {
                     let fun = Arc::new(FunX { path: bctx.ctxt.def_id_to_vir_path(helper) });
                     let typs = mk_typ_args(bctx, helper_args, helper, expr.span)?;
-                    let impl_paths = get_impl_paths(bctx, helper, helper_args, None, const_var, expr.span)?;
+                    let impl_paths =
+                        get_impl_paths(bctx, helper, helper_args, None, const_var, expr.span)?;
                     record_name = fun.clone();
                     vir::ast::CallTargetKind::DynamicResolved {
-                        resolved: fun, typs, impl_paths, is_trait_default: false,
+                        resolved: fun,
+                        typs,
+                        impl_paths,
+                        is_trait_default: false,
                     }
                 } else {
                     unsupported_err!(expr.span, format!("built-in instance {:?}", b));
@@ -3253,50 +3258,108 @@ fn strip_two_phase(e: &vir::ast::Expr) -> vir::ast::Expr {
 /// effect. The witness must be an actual monomorphic core/alloc function item,
 /// never a closure, function pointer or a user function with a similar name.
 fn native_byte_vec_call<'tcx>(
-    bctx:&BodyCtxt<'tcx>, expr:&Expr<'tcx>, f:DefId, args:&[&'tcx Expr<'tcx>],
-)->Result<Option<vir::ast::Expr>,VirErr> {
-    let path=bctx.ctxt.def_id_to_vir_path(f);
-    if path.krate!=CrateId::Vstd || path.segments.len()!=2 || path.segments[0].as_str()!="byte_vec" {return Ok(None);}
-    let Some(op)=path.segments[1].strip_prefix("native_") else{return Ok(None)};
-    if !["allocate","acquire","write","advance","finish"].contains(&op) {return Ok(None);}
-    let Some(witness)=args.first() else{return err_span(expr.span,"byte-buffer bridge missing primitive witness")};
-    if !matches!(witness.kind,ExprKind::Path(_)) {return err_span(witness.span,"unsupported byte-buffer primitive witness: expected a resolved function item");}
-    let TyKind::FnDef(original,types)=bctx.types.expr_ty(witness).kind() else {
-        return err_span(witness.span,"unsupported byte-buffer primitive witness: indirect call");
+    bctx: &BodyCtxt<'tcx>,
+    expr: &Expr<'tcx>,
+    f: DefId,
+    args: &[&'tcx Expr<'tcx>],
+) -> Result<Option<vir::ast::Expr>, VirErr> {
+    let path = bctx.ctxt.def_id_to_vir_path(f);
+    if path.krate != CrateId::Vstd
+        || path.segments.len() != 2
+        || path.segments[0].as_str() != "byte_vec"
+    {
+        return Ok(None);
+    }
+    let Some(op) = path.segments[1].strip_prefix("native_") else { return Ok(None) };
+    if !["allocate", "acquire", "write", "advance", "finish"].contains(&op) {
+        return Ok(None);
+    }
+    let Some(witness) = args.first() else {
+        return err_span(expr.span, "byte-buffer bridge missing primitive witness");
     };
-    let original_path=bctx.ctxt.def_id_to_vir_path(*original);
-    let names:Vec<_>=original_path.segments.iter().map(|s|s.as_str()).collect();
-    let identity=match op {
-        "allocate"=>original_path.krate==CrateId::Alloc && matches!(names.as_slice(),["vec",_,"with_capacity"]),
-        "acquire"=>original_path.krate==CrateId::Alloc && matches!(names.as_slice(),["vec",_,"as_mut_ptr"]),
-        "write"=>original_path.krate==CrateId::Core && matches!(names.as_slice(),["ptr","write"]),
-        "advance"=>original_path.krate==CrateId::Core && matches!(names.as_slice(),["ptr","mut_ptr",_,"add"]),
-        "finish"=>original_path.krate==CrateId::Alloc && matches!(names.as_slice(),["vec",_,"set_len"]),
-        _=>false,
+    if !matches!(witness.kind, ExprKind::Path(_)) {
+        return err_span(
+            witness.span,
+            "unsupported byte-buffer primitive witness: expected a resolved function item",
+        );
+    }
+    let TyKind::FnDef(original, types) = bctx.types.expr_ty(witness).kind() else {
+        return err_span(witness.span, "unsupported byte-buffer primitive witness: indirect call");
     };
-    let byte_types=types.skip_binder().iter().all(|arg|match arg.kind(){
-        GenericArgKind::Lifetime(_)=>true,
-        GenericArgKind::Type(t)=> match t.kind(){
-            TyKind::Uint(rustc_ast::ast::UintTy::U8)=>true,
-            TyKind::Adt(d,_)=>{
-                let p=bctx.ctxt.def_id_to_vir_path(d.did());
-                p.krate==CrateId::Alloc && p.segments.iter().map(|s|s.as_str()).eq(["alloc","Global"])
-            },
-            _=>false,
+    let original_path = bctx.ctxt.def_id_to_vir_path(*original);
+    let names: Vec<_> = original_path.segments.iter().map(|s| s.as_str()).collect();
+    let identity = match op {
+        "allocate" => {
+            original_path.krate == CrateId::Alloc
+                && matches!(names.as_slice(), ["vec", _, "with_capacity"])
+        }
+        "acquire" => {
+            original_path.krate == CrateId::Alloc
+                && matches!(names.as_slice(), ["vec", _, "as_mut_ptr"])
+        }
+        "write" => {
+            original_path.krate == CrateId::Core && matches!(names.as_slice(), ["ptr", "write"])
+        }
+        "advance" => {
+            original_path.krate == CrateId::Core
+                && matches!(names.as_slice(), ["ptr", "mut_ptr", _, "add"])
+        }
+        "finish" => {
+            original_path.krate == CrateId::Alloc
+                && matches!(names.as_slice(), ["vec", _, "set_len"])
+        }
+        _ => false,
+    };
+    let byte_types = types.skip_binder().iter().all(|arg| match arg.kind() {
+        GenericArgKind::Lifetime(_) => true,
+        GenericArgKind::Type(t) => match t.kind() {
+            TyKind::Uint(rustc_ast::ast::UintTy::U8) => true,
+            TyKind::Adt(d, _) => {
+                let p = bctx.ctxt.def_id_to_vir_path(d.did());
+                p.krate == CrateId::Alloc
+                    && p.segments.iter().map(|s| s.as_str()).eq(["alloc", "Global"])
+            }
+            _ => false,
         },
-        _=>false,
+        _ => false,
     });
     if !identity || !byte_types {
-        return err_span(witness.span,format!("unsupported byte-buffer primitive identity or element type: {original_path:?}"));
+        return err_span(
+            witness.span,
+            format!(
+                "unsupported byte-buffer primitive identity or element type: {original_path:?}"
+            ),
+        );
     }
-    let symbol=rustc_span::Symbol::intern(&format!("verus::vstd::byte_vec::{op}"));
-    let Some(target)=bctx.ctxt.tcx.get_diagnostic_item(symbol) else{return err_span(expr.span,"byte-buffer resource model is unavailable; rebuild matching vstd")};
-    let result=fn_call_to_vir(bctx,expr,target,bctx.ctxt.tcx.mk_args(&[]),expr.span,args[1..].to_vec(),false)?;
+    let symbol = rustc_span::Symbol::intern(&format!("verus::vstd::byte_vec::{op}"));
+    let Some(target) = bctx.ctxt.tcx.get_diagnostic_item(symbol) else {
+        return err_span(
+            expr.span,
+            "byte-buffer resource model is unavailable; rebuild matching vstd",
+        );
+    };
+    let result = fn_call_to_vir(
+        bctx,
+        expr,
+        target,
+        bctx.ctxt.tcx.mk_args(&[]),
+        expr.span,
+        args[1..].to_vec(),
+        false,
+    )?;
     // MIR sees the original carrier signature, including the erased witness.
     // Logical verification sees the validated resource effect and its obligations.
-    let original_name=Arc::new(FunX{path});
-    if let Some(call)=bctx.ctxt.erasure_info.borrow_mut().resolved_calls.iter_mut().rev().find(|c|c.0==expr.hir_id) {
-        call.2=ResolvedCall::Call(original_name.clone(),original_name,false);
+    let original_name = Arc::new(FunX { path });
+    if let Some(call) = bctx
+        .ctxt
+        .erasure_info
+        .borrow_mut()
+        .resolved_calls
+        .iter_mut()
+        .rev()
+        .find(|c| c.0 == expr.hir_id)
+    {
+        call.2 = ResolvedCall::Call(original_name.clone(), original_name, false);
     }
     Ok(Some(result))
 }

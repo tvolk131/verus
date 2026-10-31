@@ -622,7 +622,8 @@ fn private_inferred_helpers_mark_exports_and_remove_stale_ordinary_outputs() {
     // Upgrade an unmarked ordinary artifact, then fail during generation.
     crates.succeeds("private_only", "pub fn property(x:u8)->u8{x}", &[]);
     assert!(!std::fs::read(crates.vir("private_only")).unwrap().ends_with(b"VRINFER1"));
-    let unsupported = "#[verifier::infer] fn helper(x:u8)->u8{loop{}} pub fn property(x:u8)->u8{helper(x)}";
+    let unsupported =
+        "#[verifier::infer] fn helper(x:u8)->u8{loop{}} pub fn property(x:u8)->u8{helper(x)}";
     let run = crates.build("private_only", unsupported, &[], &[]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("Verus Infer unsupported"));
@@ -711,7 +712,8 @@ fn scalar_newtypes_cross_crate_cache_reproof_and_failed_export() {
         assert_eq!(report["functions"][0]["metrics"]["cache"], expected_cache);
         assert_eq!(report["functions"][0]["required_checks_passed"], true);
     }
-    let files: Vec<_> = std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap().collect();
+    let files: Vec<_> =
+        std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap().collect();
     assert_eq!(files.len(), 1);
     let base_cache = files.into_iter().next().unwrap().unwrap().path();
     for expected_cache in ["miss", "hit"] {
@@ -727,7 +729,8 @@ fn scalar_newtypes_cross_crate_cache_reproof_and_failed_export() {
     // A cache entry is only a proposal: dropping the overflow condition must
     // fail against the original wrapper body and remove its old certificate.
     let path = base_cache;
-    let mut candidate: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+    let mut candidate: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
     candidate["pre"] = serde_json::json!({"Bool": true});
     std::fs::write(path, serde_json::to_vec(&candidate).unwrap()).unwrap();
     let run = crates.build("wrapper_base", base, &[], &["--output-json"]);
@@ -741,9 +744,13 @@ fn scalar_newtypes_cross_crate_cache_reproof_and_failed_export() {
 #[test]
 fn scalar_newtype_definition_changes_invalidate_candidate_cache() {
     let crates = InferCrates::new();
-    let source = "pub struct Count { pub value:u8 } #[verifier::infer] pub fn identity(x:Count)->Count{x}";
-    for (body, expected_cache) in [(source.to_owned(), "miss"), (source.to_owned(), "hit"),
-        (source.replace("value", "other"), "miss")] {
+    let source =
+        "pub struct Count { pub value:u8 } #[verifier::infer] pub fn identity(x:Count)->Count{x}";
+    for (body, expected_cache) in [
+        (source.to_owned(), "miss"),
+        (source.to_owned(), "hit"),
+        (source.replace("value", "other"), "miss"),
+    ] {
         let run = crates.build("wrapper_layout", &body, &[], &["--output-json"]);
         assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
         let report = json_inference(&run);
@@ -756,7 +763,7 @@ fn scalar_newtype_definition_changes_invalidate_candidate_cache() {
     let report = json_inference(&run);
     assert_ne!(report["functions"][0]["metrics"]["cache"], "hit");
     assert_eq!(report["functions"][0]["required_checks_passed"], true);
-    let fields = (0..9).map(|i|format!("pub field{i}:u8")).collect::<Vec<_>>().join(",");
+    let fields = (0..9).map(|i| format!("pub field{i}:u8")).collect::<Vec<_>>().join(",");
     let unsupported = source.replace("pub value:u8", &fields);
     let run = crates.build("wrapper_layout", &unsupported, &[], &["--output-json"]);
     assert!(!run.status.success());
@@ -783,7 +790,8 @@ fn goal_assistance_uses_checked_imports_and_failed_goals_remove_stale_exports() 
     assert!(!crates.vir("goals_consumer").exists());
     let run = crates.build("goals_consumer", caller, &["goals_base"], &["--infer-goals"]);
     assert!(run.status.success());
-    let run = crates.build("goals_consumer", "pub fn broken( {", &["goals_base"], &["--infer-goals"]);
+    let run =
+        crates.build("goals_consumer", "pub fn broken( {", &["goals_base"], &["--infer-goals"]);
     assert!(!run.status.success());
     assert!(!crates.vir("goals_consumer").exists());
 }
@@ -807,15 +815,24 @@ fn counting_assistance_uses_imported_invariants_and_removes_failed_exports() {
     let plain = crates.build("counting_app", caller, &["counting_base"], &[]);
     assert!(!plain.status.success());
     assert!(String::from_utf8_lossy(&plain.stderr).contains("possible arithmetic"));
-    let run = crates.build("counting_app", caller, &["counting_base"], &["--infer-goals", "--output-json"]);
+    let run = crates.build(
+        "counting_app",
+        caller,
+        &["counting_base"],
+        &["--infer-goals", "--output-json"],
+    );
     assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
     let report = json_inference(&run);
     assert_eq!(report["goal_assistance"].as_array().unwrap().len(), 1);
     assert_eq!(report["goal_assistance"][0]["strategy"], "counting_broadcast");
     assert_eq!(report["goal_assistance"][0]["lemmas"].as_array().unwrap().len(), 4);
     assert!(std::fs::read(crates.vir("counting_app")).unwrap().ends_with(b"VRINFER1"));
-    let run = crates.build("counting_app", &caller.replace("*total+=1", "*total+=2"),
-        &["counting_base"], &["--infer-goals"]);
+    let run = crates.build(
+        "counting_app",
+        &caller.replace("*total+=1", "*total+=2"),
+        &["counting_base"],
+        &["--infer-goals"],
+    );
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     assert!(!crates.vir("counting_app").exists());
@@ -823,8 +840,8 @@ fn counting_assistance_uses_imported_invariants_and_removes_failed_exports() {
 
 #[test]
 fn record_state_summaries_cross_crates_preserve_frames_and_honest_precision() {
-    let crates=InferCrates::new();
-    let base=r#"
+    let crates = InferCrates::new();
+    let base = r#"
         use vstd::prelude::*;
         pub struct Pool {pub slots:Vec<bool>,pub used:usize,pub epoch:u8}
         impl Pool {
@@ -835,29 +852,30 @@ fn record_state_summaries_cross_crates_preserve_frames_and_honest_precision() {
         }
     "#;
     for _ in 0..2 {
-        let run=crates.build("record_base",base,&[],&["--output-json"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        let report=json_inference(&run);let f=&report["functions"][0];
-        assert_eq!(f["summary_kind"],"record_state");
-        assert_eq!(f["metrics"]["cache_policy"],"regenerated_state");
-        assert_eq!(f["metrics"]["cache"],"miss");
-        assert_eq!(f["proofs"]["soundness"]["status"],"proved");
-        for p in ["maximality","exactness"] {
-            assert_eq!(f["proofs"][p]["status"],"proved");
-            assert_eq!(f["proofs"][p]["required"],true);
+        let run = crates.build("record_base", base, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let f = &report["functions"][0];
+        assert_eq!(f["summary_kind"], "record_state");
+        assert_eq!(f["metrics"]["cache_policy"], "regenerated_state");
+        assert_eq!(f["metrics"]["cache"], "miss");
+        assert_eq!(f["proofs"]["soundness"]["status"], "proved");
+        for p in ["maximality", "exactness"] {
+            assert_eq!(f["proofs"][p]["status"], "proved");
+            assert_eq!(f["proofs"][p]["required"], true);
         }
     }
-    let caller=r#"
+    let caller = r#"
         use vstd::prelude::*;
         pub fn check(s:&mut record_base::Pool,i:usize)
             requires old(s).valid(),
             ensures final(s).valid(),final(s).epoch==old(s).epoch,
         {s.insert(i);}
     "#;
-    let run=crates.build("record_app",caller,&["record_base"],&["--infer-goals"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let wrong=caller.replace("final(s).epoch==old(s).epoch","final(s).used==old(s).used");
-    let run=crates.build("record_app",&wrong,&["record_base"],&["--infer-goals"]);
+    let run = crates.build("record_app", caller, &["record_base"], &["--infer-goals"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let wrong = caller.replace("final(s).epoch==old(s).epoch", "final(s).used==old(s).used");
+    let run = crates.build("record_app", &wrong, &["record_base"], &["--infer-goals"]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     assert!(!crates.vir("record_app").exists());
@@ -872,8 +890,16 @@ fn record_precision_timeouts_block_exact_publication_but_remain_optional_in_soun
     "#;
     assert!(crates.build("record_budget", source, &[], &["--output-json"]).status.success());
     assert!(crates.vir("record_budget").exists());
-    let limited = source.replace("#[verifier::infer]", "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer]");
-    let run = crates.build("record_budget", &format!("{limited} fn caller(){{assert(false);}}"), &[], &["--output-json"]);
+    let limited = source.replace(
+        "#[verifier::infer]",
+        "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer]",
+    );
+    let run = crates.build(
+        "record_budget",
+        &format!("{limited} fn caller(){{assert(false);}}"),
+        &[],
+        &["--output-json"],
+    );
     assert!(!run.status.success());
     let report = json_inference(&run);
     assert_eq!(report["status"], "required_proof_incomplete");
@@ -884,7 +910,12 @@ fn record_precision_timeouts_block_exact_publication_but_remain_optional_in_soun
     assert_eq!(f["exported"], false);
     assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
     assert!(!crates.vir("record_budget").exists());
-    let run = crates.build("record_budget", &limited.replace("#[verifier::infer]", "#[verifier::infer(sound)]"), &[], &["--output-json"]);
+    let run = crates.build(
+        "record_budget",
+        &limited.replace("#[verifier::infer]", "#[verifier::infer(sound)]"),
+        &[],
+        &["--output-json"],
+    );
     assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
     let report = json_inference(&run);
     let f = &report["functions"][0];
@@ -897,8 +928,8 @@ fn record_precision_timeouts_block_exact_publication_but_remain_optional_in_soun
 
 #[test]
 fn generic_wrapper_interfaces_reprove_queries_updates_and_composed_callers() {
-    let crates=InferCrates::new();
-    let base=r#"
+    let crates = InferCrates::new();
+    let base = r#"
         use vstd::prelude::*;
         pub struct Slots<T>(pub Vec<Option<T>>);
         impl<T> Slots<T>{
@@ -908,18 +939,25 @@ fn generic_wrapper_interfaces_reprove_queries_updates_and_composed_callers() {
         }
     "#;
     for _ in 0..2 {
-        let run=crates.build("wrapper_base",base,&[],&["--output-json"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        let report=json_inference(&run);let fs=report["functions"].as_array().unwrap();
-        assert_eq!(fs.len(),3);
+        let run = crates.build("wrapper_base", base, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let fs = report["functions"].as_array().unwrap();
+        assert_eq!(fs.len(), 3);
         for f in fs {
-            assert!(matches!(f["summary_kind"].as_str(),Some("record_view"|"record_state")),"{}",f);
-            assert_eq!(f["metrics"]["cache_policy"],"regenerated_state");
-            assert_eq!(f["metrics"]["cache"],"miss");
-            for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}
+            assert!(
+                matches!(f["summary_kind"].as_str(), Some("record_view" | "record_state")),
+                "{}",
+                f
+            );
+            assert_eq!(f["metrics"]["cache_policy"], "regenerated_state");
+            assert_eq!(f["metrics"]["cache"], "miss");
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+            }
         }
     }
-    let caller=r#"
+    let caller = r#"
         use vstd::prelude::*;
         pub struct Outer<T>{pub map:wrapper_base::Slots<T>,pub used:usize,pub stable:u8}
         impl<T:Copy> Outer<T>{
@@ -935,32 +973,48 @@ fn generic_wrapper_interfaces_reprove_queries_updates_and_composed_callers() {
         {s.add(i,v);}
     "#;
     for _ in 0..2 {
-        let run=crates.build("wrapper_app",caller,&["wrapper_base"],&["--infer-goals","--output-json"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        assert_eq!(json_inference(&run)["functions"][0]["proofs"]["exactness"]["status"],"proved");
+        let run = crates.build(
+            "wrapper_app",
+            caller,
+            &["wrapper_base"],
+            &["--infer-goals", "--output-json"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        assert_eq!(json_inference(&run)["functions"][0]["proofs"]["exactness"]["status"], "proved");
     }
-    let wrong=base.replace("self.0[i].as_ref()","self.0[0].as_ref()");
-    let run=crates.build("wrapper_base",&wrong,&[],&["--output-json"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("wrapper_app",caller,&["wrapper_base"],&["--infer-goals","--output-json"]);
+    let wrong = base.replace("self.0[i].as_ref()", "self.0[0].as_ref()");
+    let run = crates.build("wrapper_base", &wrong, &[], &["--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run =
+        crates.build("wrapper_app", caller, &["wrapper_base"], &["--infer-goals", "--output-json"]);
     assert!(!run.status.success());
-    let report=json_inference(&run);
-    assert_eq!(report["status"],"caller_proof_failed");
-    for p in ["soundness","maximality","exactness"]{assert_eq!(report["functions"][0]["proofs"][p]["status"],"proved");}
+    let report = json_inference(&run);
+    assert_eq!(report["status"], "caller_proof_failed");
+    for p in ["soundness", "maximality", "exactness"] {
+        assert_eq!(report["functions"][0]["proofs"][p]["status"], "proved");
+    }
     assert!(!crates.vir("wrapper_app").exists());
     // A precision failure in a generic helper cannot publish or start callers.
-    let limited=base.replace("#[verifier::infer] pub fn put", "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer] pub fn put");
-    let run=crates.build("wrapper_base",&format!("{limited} fn blocked(){{assert(false);}}"),&[],&["--output-json"]);
+    let limited = base.replace(
+        "#[verifier::infer] pub fn put",
+        "#[verifier::infer_precision_rlimit(0.000001)] #[verifier::infer] pub fn put",
+    );
+    let run = crates.build(
+        "wrapper_base",
+        &format!("{limited} fn blocked(){{assert(false);}}"),
+        &[],
+        &["--output-json"],
+    );
     assert!(!run.status.success());
-    assert_eq!(json_inference(&run)["status"],"required_proof_incomplete");
+    assert_eq!(json_inference(&run)["status"], "required_proof_incomplete");
     assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
     assert!(!crates.vir("wrapper_base").exists());
 }
 
 #[test]
 fn private_sequence_view_interfaces_compose_without_exporting_the_definition() {
-    let crates=InferCrates::new();
-    let base=r#"
+    let crates = InferCrates::new();
+    let base = r#"
         use vstd::prelude::*;
         pub struct Slots<T>(Vec<Option<T>>);
         impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
@@ -970,7 +1024,7 @@ fn private_sequence_view_interfaces_compose_without_exporting_the_definition() {
             #[verifier::infer] pub fn put(&mut self,i:usize,v:T){self.0[i]=Some(v);}
         }
     "#;
-    let caller=r#"
+    let caller = r#"
         use vstd::prelude::*;
         pub struct Outer<T>{pub map:private_base::Slots<T>,pub sibling:private_base::Slots<T>,pub used:usize,pub stable:u8}
         impl<T:Copy> Outer<T>{
@@ -986,78 +1040,103 @@ fn private_sequence_view_interfaces_compose_without_exporting_the_definition() {
         {let _=s.map.len();s.add(i,v);}
     "#;
     for _ in 0..2 {
-        let run=crates.build("private_base",base,&[],&["--output-json"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        for f in json_inference(&run)["functions"].as_array().unwrap(){for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}}
-        let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        for p in ["soundness","maximality","exactness"]{assert_eq!(json_inference(&run)["functions"][0]["proofs"][p]["status"],"proved");}
+        let run = crates.build("private_base", base, &[], &["--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for f in json_inference(&run)["functions"].as_array().unwrap() {
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+            }
+        }
+        let run = crates.build(
+            "private_app",
+            caller,
+            &["private_base"],
+            &["--infer-goals", "--output-json"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for p in ["soundness", "maximality", "exactness"] {
+            assert_eq!(json_inference(&run)["functions"][0]["proofs"][p]["status"], "proved");
+        }
     }
     // The closed body supplies no automatic representation facts to clients.
     // Calling the checked len query above is what exposes this bound.
-    let hidden=r#"use vstd::prelude::*; pub fn hidden(s:&private_base::Slots<u8>){ assert(s@.len()<=usize::MAX); }"#;
-    let run=crates.build("private_hidden",hidden,&["private_base"],&[]);
+    let hidden = r#"use vstd::prelude::*; pub fn hidden(s:&private_base::Slots<u8>){ assert(s@.len()<=usize::MAX); }"#;
+    let run = crates.build("private_hidden", hidden, &["private_base"], &[]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
-    let raw="use vstd::prelude::*;pub fn raw(s:&private_base::Slots<u8>){let _=&s.0;}";
-    let run=crates.build("private_field",raw,&["private_base"],&[]);
+    let raw = "use vstd::prelude::*;pub fn raw(s:&private_base::Slots<u8>){let _=&s.0;}";
+    let run = crates.build("private_field", raw, &["private_base"], &[]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("is private"),"{}",String::from_utf8_lossy(&run.stderr));
+    assert!(
+        String::from_utf8_lossy(&run.stderr).contains("is private"),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
     // A precisely certified wrong helper must still fail application intent.
-    let wrong=base.replace("self.0[i]=Some(v)","self.0[0]=Some(v)");
-    let run=crates.build("private_base",&wrong,&[],&["--output-json"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
+    let wrong = base.replace("self.0[i]=Some(v)", "self.0[0]=Some(v)");
+    let run = crates.build("private_base", &wrong, &[], &["--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run =
+        crates.build("private_app", caller, &["private_base"], &["--infer-goals", "--output-json"]);
     assert!(!run.status.success());
-    assert_eq!(json_inference(&run)["status"],"caller_proof_failed");
+    assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
     assert!(!crates.vir("private_app").exists());
     // A lossy view cannot explain legal public storage contracts. Reject the
     // provider before publishing hidden-field clauses or starting a caller.
-    let lossy=base.replace("{self.0@}","{self.0@.take(0)}");
-    let run=crates.build("private_base",&lossy,&[],&["--output-json"]);
+    let lossy = base.replace("{self.0@}", "{self.0@.take(0)}");
+    let run = crates.build("private_base", &lossy, &[], &["--output-json"]);
     assert!(!run.status.success());
     assert!(!crates.vir("private_base").exists());
     assert!(String::from_utf8_lossy(&run.stderr).contains("opaque datatype"));
-    let run=crates.build("private_app",caller,&["private_base"],&["--infer-goals","--output-json"]);
+    let run =
+        crates.build("private_app", caller, &["private_base"], &["--infer-goals", "--output-json"]);
     assert!(!run.status.success());
     assert!(!crates.vir("private_app").exists());
     // The view evidence must not survive removal of the inference certificate.
-    let run=crates.build("private_base",base,&[],&[]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let mut bytes=std::fs::read(crates.vir("private_base")).unwrap();
-    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
-    bytes.truncate(start);std::fs::write(crates.vir("private_base"),bytes).unwrap();
-    let run=crates.build("private_app",caller,&["private_base"],&[]);
+    let run = crates.build("private_base", base, &[], &[]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let mut bytes = std::fs::read(crates.vir("private_base")).unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
+    bytes.truncate(start);
+    std::fs::write(crates.vir("private_base"), bytes).unwrap();
+    let run = crates.build("private_app", caller, &["private_base"], &[]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("missing or invalid inference proof metadata")
+    );
 }
 
 #[test]
 fn private_sequence_view_evidence_requires_metadata_even_without_public_inferred_methods() {
-    let crates=InferCrates::new();
-    let base=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let base = r#"use vstd::prelude::*;
       pub struct Buffer(Vec<u8>);
       impl View for Buffer{type V=Seq<u8>;closed spec fn view(&self)->Seq<u8>{self.0@}}
       impl Buffer{#[verifier::infer] fn put(&mut self,i:usize,v:u8){self.0[i]=v;}}
     "#;
-    let run=crates.build("view_only",base,&[],&["--output-json"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let caller="use vstd::prelude::*;pub fn unchanged(s:&view_only::Buffer) ensures s@==s@, {}";
-    let run=crates.build("view_client",caller,&["view_only"],&["--infer-goals"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let mut bytes=std::fs::read(crates.vir("view_only")).unwrap();
-    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
-    bytes.truncate(start);std::fs::write(crates.vir("view_only"),bytes).unwrap();
-    let run=crates.build("view_client",caller,&["view_only"],&["--infer-goals"]);
+    let run = crates.build("view_only", base, &[], &["--output-json"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let caller = "use vstd::prelude::*;pub fn unchanged(s:&view_only::Buffer) ensures s@==s@, {}";
+    let run = crates.build("view_client", caller, &["view_only"], &["--infer-goals"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let mut bytes = std::fs::read(crates.vir("view_only")).unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
+    bytes.truncate(start);
+    std::fs::write(crates.vir("view_only"), bytes).unwrap();
+    let run = crates.build("view_client", caller, &["view_only"], &["--infer-goals"]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("missing or invalid inference proof metadata")
+    );
     assert!(!crates.vir("view_client").exists());
 }
 
 #[test]
 fn certified_trait_getters_cross_crates_bind_models_and_reject_failed_providers() {
-    let crates=InferCrates::new();
-    let base=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let base = r#"use vstd::prelude::*;
       pub trait Family{type Id:Copy;}
       pub trait Event{
        type Family:Family;
@@ -1076,7 +1155,7 @@ fn certified_trait_getters_cross_crates_bind_models_and_reject_failed_providers(
        fn payload(&self)->u64{self.payload}
       }
     "#;
-    let consumer=r#"use vstd::prelude::*;use getter_base::{Family,Event};
+    let consumer = r#"use vstd::prelude::*;use getter_base::{Family,Event};
       pub struct Table<F:Family>{pub slots:Vec<Option<F::Id>>,pub used:usize}
       impl<F:Family> Table<F>{
        pub open spec fn valid(&self)->bool{self.used==self.slots@.count_prefix(|s:Option<F::Id>|s.is_some(),self.slots@.len())}
@@ -1089,61 +1168,104 @@ fn certified_trait_getters_cross_crates_bind_models_and_reject_failed_providers(
       pub fn invariant<F:Family,U:Event<Family=F>>(t:&mut Table<F>,u:&U)
        requires old(t).valid(),ensures final(t).valid(),{t.add(u);}
     "#;
-    let app=r#"use vstd::prelude::*;
+    let app = r#"use vstd::prelude::*;
       pub fn apply(t:&mut getter_consumer::Table<getter_base::F>,m:&getter_base::Message)
        requires old(t).valid(),m.key<old(t).slots@.len(),old(t).slots@[m.key as int].is_none(),
        ensures final(t).slots@[m.key as int]==Some(m.payload),
       {t.add(m);}
     "#;
     for _ in 0..2 {
-        let run=crates.build("getter_base",base,&[],&["--infer-goals","--output-json","--no-cheating"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals","--output-json","--no-cheating"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        for p in ["soundness","maximality","exactness"]{assert_eq!(json_inference(&run)["functions"][0]["proofs"][p]["status"],"proved");}
-        let run=crates.build("getter_app",app,&["getter_base","getter_consumer"],&["--infer-goals","--no-cheating"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+        let run = crates.build(
+            "getter_base",
+            base,
+            &[],
+            &["--infer-goals", "--output-json", "--no-cheating"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let run = crates.build(
+            "getter_consumer",
+            consumer,
+            &["getter_base"],
+            &["--infer-goals", "--output-json", "--no-cheating"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        for p in ["soundness", "maximality", "exactness"] {
+            assert_eq!(json_inference(&run)["functions"][0]["proofs"][p]["status"], "proved");
+        }
+        let run = crates.build(
+            "getter_app",
+            app,
+            &["getter_base", "getter_consumer"],
+            &["--infer-goals", "--no-cheating"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
     }
     // Changing the observation together with its implementation is a legitimate
     // new API. The old consumer certificate must not survive that change.
-    let changed=base.replace("fn key_value(&self)->usize{self.key}","fn key_value(&self)->usize{0}")
-        .replace("fn key(&self)->usize{self.key}","fn key(&self)->usize{0}");
-    let run=crates.build("getter_base",&changed,&[],&["--infer-goals","--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("getter_app","use vstd::prelude::*;pub fn import_only(){}",&["getter_base","getter_consumer"],&["--infer-goals"]);
+    let changed = base
+        .replace("fn key_value(&self)->usize{self.key}", "fn key_value(&self)->usize{0}")
+        .replace("fn key(&self)->usize{self.key}", "fn key(&self)->usize{0}");
+    let run = crates.build("getter_base", &changed, &[], &["--infer-goals", "--no-cheating"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build(
+        "getter_app",
+        "use vstd::prelude::*;pub fn import_only(){}",
+        &["getter_base", "getter_consumer"],
+        &["--infer-goals"],
+    );
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("stale or missing inferred dependency fingerprint"),"{}",String::from_utf8_lossy(&run.stderr));
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("stale or missing inferred dependency fingerprint"),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
     assert!(!crates.vir("getter_app").exists());
-    let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals","--output-json"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("getter_app",app,&["getter_base","getter_consumer"],&["--infer-goals"]);
+    let run = crates.build(
+        "getter_consumer",
+        consumer,
+        &["getter_base"],
+        &["--infer-goals", "--output-json"],
+    );
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run =
+        crates.build("getter_app", app, &["getter_base", "getter_consumer"], &["--infer-goals"]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     // A wrong implementation cannot publish its otherwise well-shaped contract.
-    let bad=base.replace("fn key(&self)->usize{self.key}","fn key(&self)->usize{0}");
-    let run=crates.build("getter_base",&bad,&[],&["--infer-goals"]);
-    assert!(!run.status.success());assert!(!crates.vir("getter_base").exists());
+    let bad = base.replace("fn key(&self)->usize{self.key}", "fn key(&self)->usize{0}");
+    let run = crates.build("getter_base", &bad, &[], &["--infer-goals"]);
+    assert!(!run.status.success());
+    assert!(!crates.vir("getter_base").exists());
     // A contracts-only provider must also reject verification bypasses/filters.
-    for options in [&["--infer-goals","--no-verify"][..],&["--infer-goals","--verify-root"][..]]{
-        let run=crates.build("getter_base",base,&[],options);
+    for options in [&["--infer-goals", "--no-verify"][..], &["--infer-goals", "--verify-root"][..]]
+    {
+        let run = crates.build("getter_base", base, &[], options);
         assert!(!run.status.success());
         assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"));
         assert!(!crates.vir("getter_base").exists());
     }
-    let run=crates.build("getter_base",base,&[],&["--infer-goals"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let mut bytes=std::fs::read(crates.vir("getter_base")).unwrap();
-    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
-    bytes.truncate(start);std::fs::write(crates.vir("getter_base"),bytes).unwrap();
-    let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals"]);
+    let run = crates.build("getter_base", base, &[], &["--infer-goals"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let mut bytes = std::fs::read(crates.vir("getter_base")).unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
+    bytes.truncate(start);
+    std::fs::write(crates.vir("getter_base"), bytes).unwrap();
+    let run = crates.build("getter_consumer", consumer, &["getter_base"], &["--infer-goals"]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("missing or invalid inference proof metadata")
+    );
     // Ordinary legacy interfaces cannot supply compiler-certified getter facts.
-    let run=crates.build("getter_base",base,&[],&[]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("getter_consumer",consumer,&["getter_base"],&["--infer-goals"]);
+    let run = crates.build("getter_base", base, &[], &[]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build("getter_consumer", consumer, &["getter_base"], &["--infer-goals"]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("trait inference requires a certified precondition-free getter"));
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("trait inference requires a certified precondition-free getter")
+    );
     assert!(!crates.vir("getter_consumer").exists());
 }
 
@@ -1151,26 +1273,37 @@ fn certified_trait_getters_cross_crates_bind_models_and_reject_failed_providers(
 fn record_precision_covers_all_integer_widths_and_both_pointer_models() {
     let crates = InferCrates::new();
     let mut source = String::new();
-    for (i, typ) in ["u8","u16","u32","u64","u128","usize","i8","i16","i32","i64","i128","isize"].iter().enumerate() {
+    for (i, typ) in
+        ["u8", "u16", "u32", "u64", "u128", "usize", "i8", "i16", "i32", "i64", "i128", "isize"]
+            .iter()
+            .enumerate()
+    {
         source.push_str(&format!("pub struct State{i} {{pub count:{typ},pub stable:bool}} impl State{i} {{ #[verifier::infer] pub fn update(&mut self,skip:bool){{if skip{{return;}} self.count+=1;}} }}"));
     }
-    for bytes in [4,8] {
-        let run = crates.verify("record_widths", &format!("global size_of usize == {bytes};{source}"), &[], &["--output-json"]);
+    for bytes in [4, 8] {
+        let run = crates.verify(
+            "record_widths",
+            &format!("global size_of usize == {bytes};{source}"),
+            &[],
+            &["--output-json"],
+        );
         assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
         let report = json_inference(&run);
         let functions = report["functions"].as_array().unwrap();
-        assert_eq!(functions.len(),12);
-        for f in functions { for p in ["soundness","maximality","exactness"] {
-            assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
-            assert_eq!(f["proofs"][p]["required"], true);
-        }}
+        assert_eq!(functions.len(), 12);
+        for f in functions {
+            for p in ["soundness", "maximality", "exactness"] {
+                assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+                assert_eq!(f["proofs"][p]["required"], true);
+            }
+        }
     }
 }
 
 #[test]
 fn wrapper_trait_certificates_compose_across_crates_and_reject_changed_boundaries() {
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;use vstd::std_specs::{ops::*,convert::*};
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;use vstd::std_specs::{ops::*,convert::*};
       #[derive(Copy,Clone)] pub struct Count(pub usize);
       impl From<usize> for Count{#[verifier::infer] fn from(n:usize)->Self{Count(n)}}
       impl FromSpecImpl<usize> for Count{
@@ -1186,74 +1319,117 @@ fn wrapper_trait_certificates_compose_across_crates_and_reject_changed_boundarie
        open spec fn add_assign_spec(&self,rhs:Self)->&Self{&Count((self.0+rhs.0) as usize)}
       }
     "#;
-    let consumer=r#"use vstd::prelude::*;use wrapper_base::Count;
+    let consumer = r#"use vstd::prelude::*;use wrapper_base::Count;
       pub struct State{pub count:Count,pub epoch:u64}
       impl State{#[verifier::infer] pub fn bump(&mut self){self.count+=Count(1);}}
       pub struct Slots<T>(Vec<Option<T>>);
       impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
       impl<T> Slots<T>{#[verifier::infer] pub fn size(&self)->Count{self.0.len().into()}}
     "#;
-    let app=r#"use vstd::prelude::*;use wrapper_consumer::*;
+    let app = r#"use vstd::prelude::*;use wrapper_consumer::*;
       fn update(s:&mut State) requires old(s).count.0<usize::MAX,
        ensures final(s).count.0==old(s).count.0+1,final(s).epoch==old(s).epoch,{s.bump();}
       fn length<T>(s:&Slots<T>)->(r:wrapper_base::Count) ensures r.0==s@.len(),{s.size()}
     "#;
     for _ in 0..2 {
-        for (name,body,deps) in [("wrapper_base",provider,&[][..]),("wrapper_consumer",consumer,&["wrapper_base"][..]),("wrapper_app",app,&["wrapper_base","wrapper_consumer"][..])] {
-            let run=crates.build(name,body,deps,&["--no-cheating","--output-json"]);
-            assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-            if name!="wrapper_app" {for f in json_inference(&run)["functions"].as_array().unwrap(){
-                for p in ["soundness","maximality","exactness"]{assert_eq!(f["proofs"][p]["status"],"proved","{f}");}
-            }}
+        for (name, body, deps) in [
+            ("wrapper_base", provider, &[][..]),
+            ("wrapper_consumer", consumer, &["wrapper_base"][..]),
+            ("wrapper_app", app, &["wrapper_base", "wrapper_consumer"][..]),
+        ] {
+            let run = crates.build(name, body, deps, &["--no-cheating", "--output-json"]);
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+            if name != "wrapper_app" {
+                for f in json_inference(&run)["functions"].as_array().unwrap() {
+                    for p in ["soundness", "maximality", "exactness"] {
+                        assert_eq!(f["proofs"][p]["status"], "proved", "{f}");
+                    }
+                }
+            }
         }
     }
     // Native impl attributes introduce specification impls. Compiled erased
     // declarations must preserve the same implementation identities on import.
-    let native=r#"use vstd::prelude::*;
+    let native = r#"use vstd::prelude::*;
       #[verus_verify] #[derive(Copy,Clone)] pub struct Count(pub usize);
       #[verus_infer] impl From<usize> for Count{fn from(n:usize)->Self{Count(n)}}
       #[verus_infer] impl core::ops::AddAssign for Count{fn add_assign(&mut self,rhs:Self){self.0+=rhs.0;}}
     "#;
-    let run=crates.build_source("native_wrapper_base",native,&[],&["--no-cheating"],true);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("native_wrapper_consumer",&consumer.replace("wrapper_base","native_wrapper_base"),&["native_wrapper_base"],&["--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("native_wrapper_app",&app.replace("wrapper_base","native_wrapper_base").replace("wrapper_consumer","native_wrapper_consumer"),&["native_wrapper_base","native_wrapper_consumer"],&["--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+    let run = crates.build_source("native_wrapper_base", native, &[], &["--no-cheating"], true);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build(
+        "native_wrapper_consumer",
+        &consumer.replace("wrapper_base", "native_wrapper_base"),
+        &["native_wrapper_base"],
+        &["--no-cheating"],
+    );
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build(
+        "native_wrapper_app",
+        &app.replace("wrapper_base", "native_wrapper_base")
+            .replace("wrapper_consumer", "native_wrapper_consumer"),
+        &["native_wrapper_base", "native_wrapper_consumer"],
+        &["--no-cheating"],
+    );
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
     // A legitimate changed operator gets new evidence; old consumers cannot
     // silently retain the old arithmetic interpretation.
-    let changed=provider.replace("self.0+=rhs.0;","self.0=rhs.0;")
-        .replace("self.0 as int+rhs.0 as int<=usize::MAX as int}","true}")
-        .replace("&Count((self.0+rhs.0) as usize)","&Count(rhs.0)");
-    let run=crates.build("wrapper_base",&changed,&[],&["--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("wrapper_app","use vstd::prelude::*;fn import_only(){}",&["wrapper_base","wrapper_consumer"],&[]);
+    let changed = provider
+        .replace("self.0+=rhs.0;", "self.0=rhs.0;")
+        .replace("self.0 as int+rhs.0 as int<=usize::MAX as int}", "true}")
+        .replace("&Count((self.0+rhs.0) as usize)", "&Count(rhs.0)");
+    let run = crates.build("wrapper_base", &changed, &[], &["--no-cheating"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build(
+        "wrapper_app",
+        "use vstd::prelude::*;fn import_only(){}",
+        &["wrapper_base", "wrapper_consumer"],
+        &[],
+    );
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("stale or missing inferred dependency fingerprint"),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("wrapper_consumer",consumer,&["wrapper_base"],&["--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("wrapper_app",app,&["wrapper_base","wrapper_consumer"],&["--no-cheating"]);
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("stale or missing inferred dependency fingerprint"),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    let run = crates.build("wrapper_consumer", consumer, &["wrapper_base"], &["--no-cheating"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run =
+        crates.build("wrapper_app", app, &["wrapper_base", "wrapper_consumer"], &["--no-cheating"]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     // A sound but restrictive inherited operator domain fails maximality and
     // cannot publish an inferred interface.
-    let restrictive=provider.replace("<=usize::MAX as int}","<=usize::MAX as int/2}");
-    let run=crates.build("wrapper_base",&restrictive,&[],&["--output-json","--no-cheating"]);
-    assert!(!run.status.success());assert!(!crates.vir("wrapper_base").exists());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("inherited trait precondition must equal"));
-    let report=json_inference(&run);
-    let op=report["functions"].as_array().unwrap().iter().find(|f|f["function"].as_str().unwrap().ends_with("::add_assign")).unwrap();
-    assert_eq!(op["proofs"]["soundness"]["status"],"proved");
-    assert_eq!(op["required_checks_passed"],false);
-    // Missing proof evidence also rejects a syntactically valid trait interface.
-    let run=crates.build("wrapper_base",provider,&[],&["--no-cheating"]);
-    assert!(run.status.success());
-    let mut bytes=std::fs::read(crates.vir("wrapper_base")).unwrap();
-    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
-    bytes.truncate(start);std::fs::write(crates.vir("wrapper_base"),bytes).unwrap();
-    let run=crates.build("wrapper_consumer",consumer,&["wrapper_base"],&[]);
+    let restrictive = provider.replace("<=usize::MAX as int}", "<=usize::MAX as int/2}");
+    let run = crates.build("wrapper_base", &restrictive, &[], &["--output-json", "--no-cheating"]);
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(!crates.vir("wrapper_base").exists());
+    assert!(
+        String::from_utf8_lossy(&run.stderr).contains("inherited trait precondition must equal")
+    );
+    let report = json_inference(&run);
+    let op = report["functions"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|f| f["function"].as_str().unwrap().ends_with("::add_assign"))
+        .unwrap();
+    assert_eq!(op["proofs"]["soundness"]["status"], "proved");
+    assert_eq!(op["required_checks_passed"], false);
+    // Missing proof evidence also rejects a syntactically valid trait interface.
+    let run = crates.build("wrapper_base", provider, &[], &["--no-cheating"]);
+    assert!(run.status.success());
+    let mut bytes = std::fs::read(crates.vir("wrapper_base")).unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
+    bytes.truncate(start);
+    std::fs::write(crates.vir("wrapper_base"), bytes).unwrap();
+    let run = crates.build("wrapper_consumer", consumer, &["wrapper_base"], &[]);
+    assert!(!run.status.success());
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("missing or invalid inference proof metadata")
+    );
 }
 
 impl InferCrates {
@@ -1295,11 +1471,24 @@ impl InferCrates {
         options: &[&str],
         compile: bool,
     ) -> std::process::Output {
-        self.build_source(name,&format!("use verus_builtin::*; use verus_builtin_macros::*; verus! {{ {body} }}"),dependencies,options,compile)
+        self.build_source(
+            name,
+            &format!("use verus_builtin::*; use verus_builtin_macros::*; verus! {{ {body} }}"),
+            dependencies,
+            options,
+            compile,
+        )
     }
-    fn build_source(&self,name:&str,body:&str,dependencies:&[&str],options:&[&str],compile:bool)->std::process::Output {
+    fn build_source(
+        &self,
+        name: &str,
+        body: &str,
+        dependencies: &[&str],
+        options: &[&str],
+        compile: bool,
+    ) -> std::process::Output {
         let source = self.directory.path().join(format!("{name}.rs"));
-        std::fs::write(&source,body).unwrap();
+        std::fs::write(&source, body).unwrap();
         let mut command = std::process::Command::new(
             self.profile.join(format!("rust_verify{}", std::env::consts::EXE_SUFFIX)),
         );
@@ -4073,11 +4262,13 @@ fn slices_poisoned_cache_bounds_and_outputs_are_independently_rejected() {
                 serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
             match poison {
                 "permissive" => candidate["pre"] = serde_json::json!({"Bool":true}),
-                "restrictive" => candidate["pre"] = serde_json::json!({"Logical":[
-                    vir::ast::LogicalOp::And, candidate["pre"].clone(),
-                    {"Binary":[vir::ast::BinaryOp::Inequality(vir::ast::InequalityOp::Le),
-                        {"SliceLen":{"Param":0}}, vir::ast::Constant::Int(64.into())]}
-                ]}),
+                "restrictive" => {
+                    candidate["pre"] = serde_json::json!({"Logical":[
+                        vir::ast::LogicalOp::And, candidate["pre"].clone(),
+                        {"Binary":[vir::ast::BinaryOp::Inequality(vir::ast::InequalityOp::Le),
+                            {"SliceLen":{"Param":0}}, vir::ast::Constant::Int(64.into())]}
+                    ]})
+                }
                 _ => {
                     candidate["post"]["Binary"][2]["Binary"][2] =
                         serde_json::to_value(&vir::ast::Constant::Int(0.into())).unwrap()
@@ -5494,15 +5685,14 @@ fn coverage_incomplete_array_proofs_remove_stale_exports_and_block_callers() {
     assert!(!crates.vir("coverage_timeout").exists());
 }
 
-
 #[test]
 fn precision_ranges_all_integer_types_and_pointer_models_are_freshly_proved() {
     let crates = InferCrates::new();
     let mut body = String::from("use vstd::prelude::*;");
     let mut caller = String::from("fn caller(){");
-    for typ in [
-        "u8", "u16", "u32", "u64", "u128", "usize", "i8", "i16", "i32", "i64", "i128", "isize",
-    ] {
+    for typ in
+        ["u8", "u16", "u32", "u64", "u128", "usize", "i8", "i16", "i32", "i64", "i128", "isize"]
+    {
         body.push_str(&format!(
             "#[verifier::infer(sound)] pub fn mask_{typ}(x:{typ})->{typ}{{(x&15)>>1}}"
         ));
@@ -5519,11 +5709,7 @@ fn precision_ranges_all_integer_types_and_pointer_models_are_freshly_proved() {
                 &[],
                 &["--output-json", "--num-threads", "4"],
             );
-            assert!(
-                run.status.success(),
-                "{}",
-                String::from_utf8_lossy(&run.stderr)
-            );
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
             let report = json_inference(&run);
             assert_eq!(report["functions"].as_array().unwrap().len(), 24);
             for f in report["functions"].as_array().unwrap() {
@@ -5550,11 +5736,7 @@ fn precision_truncation_arithmetic_aliases_and_contract_simplification() {
     "#;
     for cache in ["miss", "hit"] {
         let run = crates.build("precision_arithmetic", body, &[], &["--output-json"]);
-        assert!(
-            run.status.success(),
-            "{}",
-            String::from_utf8_lossy(&run.stderr)
-        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
         let report = json_inference(&run);
         for f in report["functions"].as_array().unwrap() {
             assert_eq!(f["metrics"]["cache"], cache);
@@ -5583,11 +5765,7 @@ fn precision_poisoned_mask_bounds_cannot_borrow_checked_hint_evidence() {
     let crates = InferCrates::new();
     let body = "use vstd::prelude::*;#[verifier::infer(sound)] pub fn masked(x:u8)->u8{x&15}fn caller(){let _=masked(255);}";
     let run = crates.build("precision_mask_poison", body, &[], &["--output-json"]);
-    assert!(
-        run.status.success(),
-        "{}",
-        String::from_utf8_lossy(&run.stderr)
-    );
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
     for file in std::fs::read_dir(crates.directory.path().join("candidate-cache")).unwrap() {
         let path = file.unwrap().path();
         let mut c: serde_json::Value =
@@ -5614,14 +5792,8 @@ fn precision_bitvector_resource_limits_never_publish_or_start_callers() {
     assert!(!run.status.success());
     let report = json_inference(&run);
     assert_eq!(report["status"], "required_proof_incomplete");
-    assert_eq!(
-        report["functions"][0]["proofs"]["soundness"]["status"],
-        "incomplete"
-    );
-    assert_eq!(
-        report["functions"][0]["available_to_same_crate_callers"],
-        false
-    );
+    assert_eq!(report["functions"][0]["proofs"]["soundness"]["status"], "incomplete");
+    assert_eq!(report["functions"][0]["available_to_same_crate_callers"], false);
     assert!(!crates.vir("precision_hint_timeout").exists());
     assert!(!String::from_utf8_lossy(&run.stderr).contains("assertion failed"));
 }
@@ -5658,11 +5830,7 @@ fn owned_private_factories_and_copy_loops_cross_crates_with_exact_evidence() {
    r.is_some() ==> r.unwrap().epoch==s.epoch+1,r.is_some() ==> r.unwrap().used==0,{s.next()}
 "#;
     let check = |run: &std::process::Output| {
-        assert!(
-            run.status.success(),
-            "{}",
-            String::from_utf8_lossy(&run.stderr)
-        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
         let report = json_inference(run);
         let fs = report["functions"].as_array().unwrap();
         assert_eq!(fs.len(), 2);
@@ -5674,12 +5842,7 @@ fn owned_private_factories_and_copy_loops_cross_crates_with_exact_evidence() {
         }
     };
     for _ in 0..2 {
-        check(&crates.build(
-            "owned_provider",
-            provider,
-            &[],
-            &["--no-cheating", "--output-json"],
-        ));
+        check(&crates.build("owned_provider", provider, &[], &["--no-cheating", "--output-json"]));
         check(&crates.build(
             "owned_consumer",
             consumer,
@@ -5695,22 +5858,14 @@ fn owned_private_factories_and_copy_loops_cross_crates_with_exact_evidence() {
         &[],
         &["--output-json"],
     ));
-    let run = crates.build(
-        "owned_consumer",
-        consumer,
-        &["owned_provider"],
-        &["--output-json"],
-    );
+    let run = crates.build("owned_consumer", consumer, &["owned_provider"], &["--output-json"]);
     assert!(!run.status.success());
     assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
     assert!(!crates.vir("owned_consumer").exists());
     check(&crates.build("owned_provider", provider, &[], &["--output-json"]));
     // Neither a partial output summary nor an uncertified export is usable.
     let mut bytes = std::fs::read(crates.vir("owned_provider")).unwrap();
-    let start = bytes
-        .windows(b"{\"schema\":".len())
-        .rposition(|s| s == b"{\"schema\":")
-        .unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
     bytes.truncate(start);
     std::fs::write(crates.vir("owned_provider"), bytes).unwrap();
     let run = crates.build("owned_consumer", consumer, &["owned_provider"], &[]);
@@ -5752,11 +5907,7 @@ fn borrowed_result_summaries_cross_private_crate_boundaries() {
             ("selection_consumer", consumer, vec!["selection_provider"]),
         ] {
             let run = crates.build(name, source, &deps, &["--no-cheating", "--output-json"]);
-            assert!(
-                run.status.success(),
-                "{}",
-                String::from_utf8_lossy(&run.stderr)
-            );
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
             let report = json_inference(&run);
             let fs = report["functions"].as_array().unwrap();
             assert_eq!(fs.len(), 1);
@@ -5768,12 +5919,8 @@ fn borrowed_result_summaries_cross_private_crate_boundaries() {
     }
     let changed = provider.replace("Err(1)", "Err(2)");
     crates.succeeds("selection_provider", &changed, &[]);
-    let run = crates.build(
-        "selection_consumer",
-        consumer,
-        &["selection_provider"],
-        &["--output-json"],
-    );
+    let run =
+        crates.build("selection_consumer", consumer, &["selection_provider"], &["--output-json"]);
     assert!(!run.status.success());
     assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
     assert!(!crates.vir("selection_consumer").exists());
@@ -5797,93 +5944,124 @@ verus!{pub fn goal(v:&native_clone_provider::Slots<(u64,u16)>)->(r:native_clone_
             ("native_clone_provider", provider, vec![]),
             ("native_clone_consumer", consumer, vec!["native_clone_provider"]),
         ] {
-            let run=crates.build_source(name,source,&deps,&["--no-cheating","--output-json"],true);
-            assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
+            let run =
+                crates.build_source(name, source, &deps, &["--no-cheating", "--output-json"], true);
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
             assert!(crates.vir(name).exists());
         }
     }
-    for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","clone"]] {
-        let run=crates.build_source("native_clone_provider",provider,&[],&opts,true);
+    for opts in [vec!["--no-verify"], vec!["--verify-root", "--verify-function", "clone"]] {
+        let run = crates.build_source("native_clone_provider", provider, &[], &opts, true);
         assert!(!run.status.success());
         assert!(!crates.vir("native_clone_provider").exists());
         assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"));
     }
-    let broken=format!("{provider} verus!{{pub fn false_goal(){{assert(false);}}}}");
-    let run=crates.build_source("native_clone_provider",&broken,&[],&[],true);
+    let broken = format!("{provider} verus!{{pub fn false_goal(){{assert(false);}}}}");
+    let run = crates.build_source("native_clone_provider", &broken, &[], &[], true);
     assert!(!run.status.success());
     assert!(!crates.vir("native_clone_provider").exists());
-    let false_relation=provider.replace("#[verus_verify(clone_via_view)]","#[verus_verify]").to_owned()
+    let false_relation = provider
+        .replace("#[verus_verify(clone_via_view)]", "#[verus_verify]")
+        .to_owned()
         + "verus!{impl<T:Clone> Slots<T>{pub open spec fn __verus_clone_relation(&self,r:Self)->bool{false}}}";
-    let run=crates.build_source("native_clone_provider",&false_relation,&[],&[],true);
+    let run = crates.build_source("native_clone_provider", &false_relation, &[], &[], true);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     assert!(!crates.vir("native_clone_provider").exists());
-    let run=crates.build_source("native_clone_provider",provider,&[],&[],true);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let mut bytes=std::fs::read(crates.vir("native_clone_provider")).unwrap();
-    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    let run = crates.build_source("native_clone_provider", provider, &[], &[], true);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let mut bytes = std::fs::read(crates.vir("native_clone_provider")).unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
     bytes.truncate(start);
-    std::fs::write(crates.vir("native_clone_provider"),bytes).unwrap();
-    let run=crates.build_source("native_clone_consumer",consumer,&["native_clone_provider"],&[],true);
+    std::fs::write(crates.vir("native_clone_provider"), bytes).unwrap();
+    let run = crates.build_source(
+        "native_clone_consumer",
+        consumer,
+        &["native_clone_provider"],
+        &[],
+        true,
+    );
     assert!(!run.status.success());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("missing or invalid inference proof metadata"));
+    assert!(
+        String::from_utf8_lossy(&run.stderr)
+            .contains("missing or invalid inference proof metadata")
+    );
     assert!(!crates.vir("native_clone_consumer").exists());
 }
 
 #[test]
 fn private_view_bounds_are_checked_and_selected_only_for_demanded_goals() {
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
 #[verus_verify(clone_via_view)] #[derive(Clone)] pub struct Slots<T>(Vec<Option<T>>);
 verus!{impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}}
 "#;
-    let consumer=r#"use vstd::prelude::*;verus!{
+    let consumer = r#"use vstd::prelude::*;verus!{
  fn bump(v:&view_bound_provider::Slots<u8>,n:usize)->(r:usize)
  requires n<v@.len(),ensures r as int==n as int+1,{n+1}
  fn unrelated(n:usize)->usize{n}
 }"#;
-    let run=crates.build_source("view_bound_provider",provider,&[],&["--no-cheating"],true);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--no-cheating"],true);
+    let run = crates.build_source("view_bound_provider", provider, &[], &["--no-cheating"], true);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build_source(
+        "view_bound_consumer",
+        consumer,
+        &["view_bound_provider"],
+        &["--no-cheating"],
+        true,
+    );
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("overflow"));
     for _ in 0..2 {
-        let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--infer-goals","--no-cheating","--output-json"],true);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        let report=json_inference(&run);
-        let assists=report["goal_assistance"].as_array().unwrap();
-        assert_eq!(assists.len(),1,"{report}");
-        assert_eq!(assists[0]["strategy"],"sequence_view_bound");
+        let run = crates.build_source(
+            "view_bound_consumer",
+            consumer,
+            &["view_bound_provider"],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        let assists = report["goal_assistance"].as_array().unwrap();
+        assert_eq!(assists.len(), 1, "{report}");
+        assert_eq!(assists[0]["strategy"], "sequence_view_bound");
         assert!(assists[0]["function"].as_str().unwrap().ends_with("::bump"));
     }
-    let wrong_view=provider.replace("{self.0@}","{Seq::new(usize::MAX as nat+1,|i:int|None)}");
-    let run=crates.build_source("view_bound_provider",&wrong_view,&[],&["--no-cheating"],true);
+    let wrong_view = provider.replace("{self.0@}", "{Seq::new(usize::MAX as nat+1,|i:int|None)}");
+    let run =
+        crates.build_source("view_bound_provider", &wrong_view, &[], &["--no-cheating"], true);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
     assert!(!crates.vir("view_bound_provider").exists());
     // A same-named vacuous theorem does not satisfy the selection interface.
-    let fake=r#"use vstd::prelude::*;verus!{
+    let fake = r#"use vstd::prelude::*;verus!{
  pub struct Slots<T>(Vec<Option<T>>);
  impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}
  impl<T> Slots<T>{pub broadcast proof fn __verus_infer_view_len_bound(&self)
   requires false,ensures #[trigger] self@.len()<=usize::MAX as int,{}}
 }"#;
-    let run=crates.build_source("view_bound_provider",fake,&[],&[],true);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build_source("view_bound_consumer",consumer,&["view_bound_provider"],&["--infer-goals","--output-json"],true);
+    let run = crates.build_source("view_bound_provider", fake, &[], &[], true);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build_source(
+        "view_bound_consumer",
+        consumer,
+        &["view_bound_provider"],
+        &["--infer-goals", "--output-json"],
+        true,
+    );
     assert!(!run.status.success());
     assert!(json_inference(&run)["goal_assistance"].as_array().unwrap().is_empty());
 }
 
 #[test]
 fn generic_error_values_and_propagation_cross_certified_crate_boundaries() {
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
 pub enum Error<T:Copy>{Pair(T,u16),Other}
 #[verifier::infer] pub fn leaf<T:Copy>(fail:bool,value:T,round:u16)->Result<(),Error<T>>{
  if fail{return Err(Error::Pair(value,round));}Ok(())
 }"#;
-    let consumer=r#"use vstd::prelude::*;
+    let consumer = r#"use vstd::prelude::*;
 #[verifier::infer] pub fn bridge<T:Copy>(fail:bool,value:T,round:u16)->Result<u16,error_provider::Error<T>>{
  error_provider::leaf(fail,value,round)?;Ok(round+1)
 }
@@ -5893,27 +6071,39 @@ pub fn goal(value:u64)->(result:Result<u16,error_provider::Error<u64>>)
 {bridge(true,value,u16::MAX)}
 "#;
     for _ in 0..2 {
-        for (name,body,deps) in [("error_provider",provider,vec![]),("error_consumer",consumer,vec!["error_provider"])] {
-            let run=crates.build(name,body,&deps,&["--no-cheating","--output-json"]);
-            assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-            let report=json_inference(&run);
-            let fs=report["functions"].as_array().unwrap();assert_eq!(fs.len(),1);
-            for check in ["soundness","maximality","exactness"]{assert_eq!(fs[0]["proofs"][check]["status"],"proved");}
+        for (name, body, deps) in [
+            ("error_provider", provider, vec![]),
+            ("error_consumer", consumer, vec!["error_provider"]),
+        ] {
+            let run = crates.build(name, body, &deps, &["--no-cheating", "--output-json"]);
+            assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+            let report = json_inference(&run);
+            let fs = report["functions"].as_array().unwrap();
+            assert_eq!(fs.len(), 1);
+            for check in ["soundness", "maximality", "exactness"] {
+                assert_eq!(fs[0]["proofs"][check]["status"], "proved");
+            }
         }
     }
-    let changed=provider.replace("Err(Error::Pair(value,round))","Err(Error::Other)");
-    let run=crates.build("error_provider",&changed,&[],&["--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let run=crates.build("error_consumer",consumer,&["error_provider"],&["--no-cheating","--output-json"]);
-    assert!(!run.status.success());assert!(!crates.vir("error_consumer").exists());
-    assert_eq!(json_inference(&run)["status"],"caller_proof_failed");
+    let changed = provider.replace("Err(Error::Pair(value,round))", "Err(Error::Other)");
+    let run = crates.build("error_provider", &changed, &[], &["--no-cheating"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let run = crates.build(
+        "error_consumer",
+        consumer,
+        &["error_provider"],
+        &["--no-cheating", "--output-json"],
+    );
+    assert!(!run.status.success());
+    assert!(!crates.vir("error_consumer").exists());
+    assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));
 }
 
 #[test]
-fn ordinary_static_queries_require_checked_exports_and_compose_across_private_views(){
- let crates=InferCrates::new();
- let provider=r#"use vstd::prelude::*;
+fn ordinary_static_queries_require_checked_exports_and_compose_across_private_views() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
  pub struct Slots<T>(Vec<T>);
  impl<T> View for Slots<T>{type V=Seq<T>;closed spec fn view(&self)->Self::V{self.0@}}
  impl Slots<u8>{
@@ -5921,70 +6111,82 @@ fn ordinary_static_queries_require_checked_exports_and_compose_across_private_vi
   pub fn length_checked(&self)->(r:usize) ensures r==self.length_value(),{self.0.len()}
  }
  "#;
- let consumer=r#"use vstd::prelude::*;pub struct State{pub slots:query_provider::Slots<u8>}
+    let consumer = r#"use vstd::prelude::*;pub struct State{pub slots:query_provider::Slots<u8>}
  pub enum Error{First,Second}
  #[verifier::infer]pub fn query(s:&State,n:usize)->Result<usize,Error>{Ok(s.slots.length_checked()+n)}
  pub fn goal(s:&State)->(r:Result<usize,Error>) ensures r==Ok::<usize,Error>(s.slots.length_value()),{query(s,0)}
  "#;
- for _ in 0..2{
-  let r=crates.build("query_provider",provider,&[],&["--infer-goals","--no-cheating","--output-json"]);
-  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-  assert!(json_inference(&r)["functions"].as_array().unwrap().is_empty());
-  let r=crates.build("query_consumer",consumer,&["query_provider"],&["--no-cheating","--output-json"]);
-  assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-  assert_eq!(json_inference(&r)["functions"][0]["proofs"]["exactness"]["status"],"proved");
- }
- let r=crates.build("query_provider",provider,&[],&["--infer-goals","--no-verify"]);
- assert!(!r.status.success());assert!(!crates.vir("query_provider").exists());
- assert!(String::from_utf8_lossy(&r.stderr).contains("requires full-crate verification"));
- let broken=provider.replace("{self.0.len()}","{0}");
- let r=crates.build("query_provider",&broken,&[],&["--infer-goals","--no-cheating"]);
- assert!(!r.status.success());assert!(!crates.vir("query_provider").exists());
- assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
+    for _ in 0..2 {
+        let r = crates.build(
+            "query_provider",
+            provider,
+            &[],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        assert!(json_inference(&r)["functions"].as_array().unwrap().is_empty());
+        let r = crates.build(
+            "query_consumer",
+            consumer,
+            &["query_provider"],
+            &["--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        assert_eq!(json_inference(&r)["functions"][0]["proofs"]["exactness"]["status"], "proved");
+    }
+    let r = crates.build("query_provider", provider, &[], &["--infer-goals", "--no-verify"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("query_provider").exists());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("requires full-crate verification"));
+    let broken = provider.replace("{self.0.len()}", "{0}");
+    let r = crates.build("query_provider", &broken, &[], &["--infer-goals", "--no-cheating"]);
+    assert!(!r.status.success());
+    assert!(!crates.vir("query_provider").exists());
+    assert!(String::from_utf8_lossy(&r.stderr).contains("postcondition not satisfied"));
 }
 
-#[path="infer_cases/native_iterators.rs"]
+#[path = "infer_cases/native_iterators.rs"]
 mod native_iterator_cases;
 
-#[path="infer_cases/scope.rs"]
+#[path = "infer_cases/scope.rs"]
 mod scope_cases;
 
-#[path="infer_cases/visibility.rs"]
+#[path = "infer_cases/visibility.rs"]
 mod visibility_cases;
 
-#[path="infer_cases/derive_conversions.rs"]
+#[path = "infer_cases/derive_conversions.rs"]
 mod derive_conversion_cases;
 
-#[path="infer_cases/derive_assignments.rs"]
+#[path = "infer_cases/derive_assignments.rs"]
 mod derive_assignment_cases;
 
-#[path="infer_cases/local_folds.rs"]
+#[path = "infer_cases/local_folds.rs"]
 mod local_fold_cases;
 
-#[path="infer_cases/equality.rs"]
+#[path = "infer_cases/equality.rs"]
 mod equality_cases;
 
-#[path="infer_cases/result_composition.rs"]
+#[path = "infer_cases/result_composition.rs"]
 mod result_composition_cases;
 
-#[path="infer_cases/scalar_option_queries.rs"]
+#[path = "infer_cases/scalar_option_queries.rs"]
 mod scalar_option_query_cases;
 
-#[path="infer_cases/forward_chunks.rs"]
+#[path = "infer_cases/forward_chunks.rs"]
 mod forward_chunk_cases;
 
-#[path="infer_cases/result_map.rs"]
+#[path = "infer_cases/result_map.rs"]
 mod result_map_cases;
 
-#[path="infer_cases/borrowed_objects.rs"]
+#[path = "infer_cases/borrowed_objects.rs"]
 mod borrowed_object_cases;
-#[path="infer_cases/error_callbacks.rs"]
+#[path = "infer_cases/error_callbacks.rs"]
 mod error_callback_cases;
 
-#[path="infer_cases/factory_goals.rs"]
+#[path = "infer_cases/factory_goals.rs"]
 mod factory_goal_cases;
 
-#[path="infer_cases/outer_validation.rs"]
+#[path = "infer_cases/outer_validation.rs"]
 mod outer_validation_cases;
 
 #[test]
@@ -6001,17 +6203,8 @@ fn pointwise_record_loops_cross_crates_reprove_and_reject_false_callers() {
         }
     "#;
     for _ in 0..2 {
-        let run = crates.build(
-            "prefix_base",
-            base,
-            &[],
-            &["--no-cheating", "--output-json"],
-        );
-        assert!(
-            run.status.success(),
-            "{}",
-            String::from_utf8_lossy(&run.stderr)
-        );
+        let run = crates.build("prefix_base", base, &[], &["--no-cheating", "--output-json"]);
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
         let report = json_inference(&run);
         let f = &report["functions"][0];
         assert_eq!(f["metrics"]["cache_policy"], "regenerated_state");
@@ -6037,17 +6230,9 @@ fn pointwise_record_loops_cross_crates_reprove_and_reject_false_callers() {
                     #[trigger] final(b).values@[i] as int == if i<n {old(b).values@[i]+1} else {old(b).values@[i] as int},
         {prefix_middle::relay(b,n);}
     "#;
-    let run = crates.build(
-        "prefix_app",
-        app,
-        &["prefix_base", "prefix_middle"],
-        &["--infer-goals"],
-    );
-    assert!(
-        run.status.success(),
-        "{}",
-        String::from_utf8_lossy(&run.stderr)
-    );
+    let run =
+        crates.build("prefix_app", app, &["prefix_base", "prefix_middle"], &["--infer-goals"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
     for wrong in [
         app.replace("old(b).values@[i]<255", "old(b).values@[i]<=255"),
         app.replace("old(b).values@[i]+1", "old(b).values@[i]+2"),
@@ -6085,10 +6270,7 @@ fn ordinary_growth_proofs_cross_crates_require_full_checks_and_block_failed_expo
         );
         assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
         let report = json_inference(&r);
-        assert_eq!(
-            report["growth_loop_assistance"].as_array().unwrap().len(),
-            1
-        );
+        assert_eq!(report["growth_loop_assistance"].as_array().unwrap().len(), 1);
         assert!(report["functions"].as_array().unwrap().is_empty());
         assert_eq!(report["interface_written"], true);
     }
@@ -6099,12 +6281,7 @@ fn ordinary_growth_proofs_cross_crates_require_full_checks_and_block_failed_expo
     "#;
     crates.succeeds("growth_app", app, &["growth_base"]);
     let bad = app.replace("final(h).values@.len()>=n", "final(h).values@.len()<n");
-    let r = crates.build(
-        "growth_app",
-        &bad,
-        &["growth_base"],
-        &["--infer-goals", "--output-json"],
-    );
+    let r = crates.build("growth_app", &bad, &["growth_base"], &["--infer-goals", "--output-json"]);
     assert!(!r.status.success());
     assert!(!crates.vir("growth_app").exists());
     for flag in ["--no-verify", "--verify-root"] {
@@ -6127,8 +6304,8 @@ fn ordinary_growth_proofs_cross_crates_require_full_checks_and_block_failed_expo
 
 #[test]
 fn ordinary_range_proofs_cross_crates_require_full_checks_and_block_failed_exports() {
-    let crates=InferCrates::new();
-    let base=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let base = r#"use vstd::prelude::*;
         pub struct Buffer {pub values:Vec<u8>,pub stamp:u8}
         pub fn fill(b:&mut Buffer,start:u16,end:u16)
           requires end<old(b).values@.len(),
@@ -6138,36 +6315,46 @@ fn ordinary_range_proofs_cross_crates_require_full_checks_and_block_failed_expor
         {for i in start..=end {b.values[i as usize]=1;}}
     "#;
     for _ in 0..2 {
-        let r=crates.build("range_base",base,&[],&["--infer-goals","--no-cheating","--output-json"]);
-        assert!(r.status.success(),"{}",String::from_utf8_lossy(&r.stderr));
-        let report=json_inference(&r);
-        assert_eq!(report["range_loop_assistance"].as_array().unwrap().len(),1);
+        let r = crates.build(
+            "range_base",
+            base,
+            &[],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+        );
+        assert!(r.status.success(), "{}", String::from_utf8_lossy(&r.stderr));
+        let report = json_inference(&r);
+        assert_eq!(report["range_loop_assistance"].as_array().unwrap().len(), 1);
         assert!(report["functions"].as_array().unwrap().is_empty());
-        assert_eq!(report["interface_written"],true);
+        assert_eq!(report["interface_written"], true);
     }
-    let app=r#"use vstd::prelude::*;
+    let app = r#"use vstd::prelude::*;
         pub fn goal(b:&mut range_base::Buffer)
           requires old(b).values@.len()>255,
           ensures final(b).values@[255]==1,final(b).stamp==old(b).stamp,
         {range_base::fill(b,255,255);}
     "#;
-    crates.succeeds("range_app",app,&["range_base"]);
-    for flag in ["--no-verify","--verify-root"] {
-        let r=crates.build("range_base",base,&[],&["--infer-goals",flag]);
+    crates.succeeds("range_app", app, &["range_base"]);
+    for flag in ["--no-verify", "--verify-root"] {
+        let r = crates.build("range_base", base, &[], &["--infer-goals", flag]);
         assert!(!r.status.success());
         assert!(!crates.vir("range_base").exists());
         assert!(String::from_utf8_lossy(&r.stderr).contains("requires full-crate verification"));
     }
-    let r=crates.build("range_base",&base.replace("=1;","=2;"),&[],&["--infer-goals","--no-cheating","--output-json"]);
+    let r = crates.build(
+        "range_base",
+        &base.replace("=1;", "=2;"),
+        &[],
+        &["--infer-goals", "--no-cheating", "--output-json"],
+    );
     assert!(!r.status.success());
     assert!(!crates.vir("range_base").exists());
-    assert_eq!(json_inference(&r)["interface_written"],false);
+    assert_eq!(json_inference(&r)["interface_written"], false);
 }
 
 #[test]
 fn readonly_vector_queries_keep_hidden_collection_elements_opaque() {
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
 pub mod hidden {use super::*;
  #[verus_verify] pub struct Blob<T>{storage:Vec<T>,salt:usize}
 }
@@ -6181,13 +6368,19 @@ verus!{pub fn coverage<T>(s:&Store<T>)->(r:u16)
  {last(s)}}
 "#;
     for _ in 0..2 {
-        let run=crates.build_source("opaque_vector",provider,&[],&["--no-cheating","--output-json"],true);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        let report=json_inference(&run);
-        assert_eq!(report["functions"].as_array().unwrap().len(),1);
-        assert_eq!(report["functions"][0]["required_checks_passed"],true);
+        let run = crates.build_source(
+            "opaque_vector",
+            provider,
+            &[],
+            &["--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["functions"].as_array().unwrap().len(), 1);
+        assert_eq!(report["functions"][0]["required_checks_passed"], true);
     }
-    let client=r#"use vstd::prelude::*;use opaque_vector::Store;
+    let client = r#"use vstd::prelude::*;use opaque_vector::Store;
         pub fn goal<T>(s:&Store<T>)->(r:u16)
           requires 0<s@.0.len()<=u16::MAX,
           ensures r as int==s@.0.len()-1,
@@ -6197,27 +6390,48 @@ verus!{pub fn coverage<T>(s:&Store<T>)->(r:u16)
           ensures r==(65536int as u16),
         {opaque_vector::last(s)}
     "#;
-    crates.succeeds("opaque_vector_client",client,&["opaque_vector"]);
-    let wrong=client.replace("r as int==s@.0.len()-1","r as int==s@.0.len()");
-    let run=crates.build("opaque_vector_client",&wrong,&["opaque_vector"],&["--no-cheating","--output-json"]);
+    crates.succeeds("opaque_vector_client", client, &["opaque_vector"]);
+    let wrong = client.replace("r as int==s@.0.len()-1", "r as int==s@.0.len()");
+    let run = crates.build(
+        "opaque_vector_client",
+        &wrong,
+        &["opaque_vector"],
+        &["--no-cheating", "--output-json"],
+    );
     assert!(!run.status.success());
     assert!(!crates.vir("opaque_vector_client").exists());
-    let empty=client.replace("0<s@.0.len()<=u16::MAX","s@.0.len()==0");
-    let run=crates.build("opaque_vector_client",&empty,&["opaque_vector"],&["--no-cheating","--output-json"]);
+    let empty = client.replace("0<s@.0.len()<=u16::MAX", "s@.0.len()==0");
+    let run = crates.build(
+        "opaque_vector_client",
+        &empty,
+        &["opaque_vector"],
+        &["--no-cheating", "--output-json"],
+    );
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"));
     // The same element eligibility is not granted to mutable record inference.
-    let mutable=format!("{provider}\n#[verus_infer] pub fn update<T>(s:&mut Store<T>){{s.revision=0;}}");
-    let run=crates.build_source("opaque_vector",&mutable,&[],&["--no-cheating","--output-json"],true);
+    let mutable =
+        format!("{provider}\n#[verus_infer] pub fn update<T>(s:&mut Store<T>){{s.revision=0;}}");
+    let run = crates.build_source(
+        "opaque_vector",
+        &mutable,
+        &[],
+        &["--no-cheating", "--output-json"],
+        true,
+    );
     assert!(!run.status.success());
     assert!(!crates.vir("opaque_vector").exists());
-    assert!(String::from_utf8_lossy(&run.stderr).contains("record state requires"),"{}",String::from_utf8_lossy(&run.stderr));
+    assert!(
+        String::from_utf8_lossy(&run.stderr).contains("record state requires"),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
 }
 
 #[test]
 fn ordinary_mutable_selectors_cross_crates_require_complete_checked_publication() {
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
         pub struct Pool {pub values:Vec<u8>,pub tag:u8}
         pub fn prepare(p:&mut Pool,i:usize)
           requires i<old(p).values@.len(),
@@ -6231,14 +6445,19 @@ fn ordinary_mutable_selectors_cross_crates_require_complete_checked_publication(
         {prepare(p,i);&mut p.values[i]}
     "#;
     for _ in 0..2 {
-        let run=crates.build("selector_base",provider,&[],&["--infer-goals","--no-cheating","--output-json"]);
-        assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-        let report=json_inference(&run);
-        assert_eq!(report["mutable_selector_assistance"].as_array().unwrap().len(),1);
+        let run = crates.build(
+            "selector_base",
+            provider,
+            &[],
+            &["--infer-goals", "--no-cheating", "--output-json"],
+        );
+        assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+        let report = json_inference(&run);
+        assert_eq!(report["mutable_selector_assistance"].as_array().unwrap().len(), 1);
         assert!(report["functions"].as_array().unwrap().is_empty());
-        assert_eq!(report["interface_written"],true);
+        assert_eq!(report["interface_written"], true);
     }
-    let client=r#"use vstd::prelude::*;
+    let client = r#"use vstd::prelude::*;
         pub fn set(p:&mut selector_base::Pool,i:usize,value:u8)
           requires i<old(p).values@.len(),
           ensures final(p).values@[i as int]==value,final(p).tag==old(p).tag,
@@ -6246,56 +6465,79 @@ fn ordinary_mutable_selectors_cross_crates_require_complete_checked_publication(
             forall|j:int|0<=j<old(p).values@.len() && j!=i ==> final(p).values@[j]==old(p).values@[j],
         {let r=selector_base::select(p,i);*r=value;}
     "#;
-    crates.succeeds("selector_client",client,&["selector_base"]);
-    let bad=client.replace("*r=value;","*r=0;");
-    let run=crates.build("selector_client",&bad,&["selector_base"],&["--no-cheating","--output-json"]);
+    crates.succeeds("selector_client", client, &["selector_base"]);
+    let bad = client.replace("*r=value;", "*r=0;");
+    let run = crates.build(
+        "selector_client",
+        &bad,
+        &["selector_base"],
+        &["--no-cheating", "--output-json"],
+    );
     assert!(!run.status.success());
     assert!(!crates.vir("selector_client").exists());
-    assert_eq!(json_inference(&run)["interface_written"],false);
-    for flag in ["--no-verify","--verify-root"] {
-        let run=crates.build("selector_client",client,&["selector_base"],&[flag]);
+    assert_eq!(json_inference(&run)["interface_written"], false);
+    for flag in ["--no-verify", "--verify-root"] {
+        let run = crates.build("selector_client", client, &["selector_base"], &[flag]);
         assert!(!run.status.success());
         assert!(!crates.vir("selector_client").exists());
         assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"));
     }
-    crates.succeeds("selector_client",client,&["selector_base"]);
-    let leaf=r#"use vstd::prelude::*;
+    crates.succeeds("selector_client", client, &["selector_base"]);
+    let leaf = r#"use vstd::prelude::*;
         pub fn goal(p:&mut selector_base::Pool,i:usize,value:u8)
           requires i<old(p).values@.len(),
           ensures final(p).values@[i as int]==value,final(p).tag==old(p).tag,
         {selector_client::set(p,i,value);}
     "#;
-    crates.succeeds("selector_leaf",leaf,&["selector_base","selector_client"]);
+    crates.succeeds("selector_leaf", leaf, &["selector_base", "selector_client"]);
     // This intermediate API contains no inferred functions or selectors. Its
     // header must still require its transitive proof/dependency trailer.
-    let path=crates.vir("selector_client");
-    let mut bytes=std::fs::read(&path).unwrap();
-    let start=bytes.windows(b"{\"schema\":".len()).rposition(|s|s==b"{\"schema\":").unwrap();
+    let path = crates.vir("selector_client");
+    let mut bytes = std::fs::read(&path).unwrap();
+    let start = bytes.windows(b"{\"schema\":".len()).rposition(|s| s == b"{\"schema\":").unwrap();
     bytes.truncate(start);
-    std::fs::write(&path,bytes).unwrap();
-    let run=crates.build("selector_leaf",leaf,&["selector_base","selector_client"],&["--output-json"]);
+    std::fs::write(&path, bytes).unwrap();
+    let run = crates.build(
+        "selector_leaf",
+        leaf,
+        &["selector_base", "selector_client"],
+        &["--output-json"],
+    );
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("inference proof metadata"));
     assert!(!crates.vir("selector_leaf").exists());
-    for flags in [vec!["--no-verify"],vec!["--verify-root"],vec!["--verify-root","--verify-function","select"]] {
-        let mut args=vec!["--infer-goals"];
+    for flags in [
+        vec!["--no-verify"],
+        vec!["--verify-root"],
+        vec!["--verify-root", "--verify-function", "select"],
+    ] {
+        let mut args = vec!["--infer-goals"];
         args.extend(flags);
-        let run=crates.build("selector_base",provider,&[],&args);
+        let run = crates.build("selector_base", provider, &[], &args);
         assert!(!run.status.success());
         assert!(!crates.vir("selector_base").exists());
-        assert!(String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"),"{}",String::from_utf8_lossy(&run.stderr));
+        assert!(
+            String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
     }
-    let run=crates.build("selector_base",&provider.replace("&mut p.values[i]","&mut p.values[0]"),&[],&["--infer-goals","--no-cheating","--output-json"]);
+    let run = crates.build(
+        "selector_base",
+        &provider.replace("&mut p.values[i]", "&mut p.values[0]"),
+        &[],
+        &["--infer-goals", "--no-cheating", "--output-json"],
+    );
     assert!(!run.status.success());
     assert!(!crates.vir("selector_base").exists());
-    assert_eq!(json_inference(&run)["interface_written"],false);
-    let run=crates.build("selector_base",provider,&[],&["--infer-goals","--no-cheating"]);
-    assert!(run.status.success(),"{}",String::from_utf8_lossy(&run.stderr));
-    let path=crates.vir("selector_base");
-    let mut bytes=std::fs::read(&path).unwrap();
-    bytes.truncate(bytes.len()-8);
-    std::fs::write(&path,bytes).unwrap();
-    let run=crates.build("selector_client",client,&["selector_base"],&["--output-json"]);
+    assert_eq!(json_inference(&run)["interface_written"], false);
+    let run = crates.build("selector_base", provider, &[], &["--infer-goals", "--no-cheating"]);
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    let path = crates.vir("selector_base");
+    let mut bytes = std::fs::read(&path).unwrap();
+    bytes.truncate(bytes.len() - 8);
+    std::fs::write(&path, bytes).unwrap();
+    let run = crates.build("selector_client", client, &["selector_base"], &["--output-json"]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("inference proof metadata"));
     assert!(!crates.vir("selector_client").exists());
@@ -6303,8 +6545,8 @@ fn ordinary_mutable_selectors_cross_crates_require_complete_checked_publication(
 
 #[test]
 fn native_binary_wrappers_compose_through_private_queries_and_checked_exports() {
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
 #[verus_verify] #[derive(Copy,Clone)] pub struct Amount(pub usize);
 #[verus_infer] impl From<usize> for Amount {fn from(n:usize)->Self{Amount(n)}}
 #[verus_infer] impl core::ops::Mul<usize> for Amount {type Output=Self;fn mul(self,n:usize)->Self{Amount(self.0*n)}}
@@ -6312,7 +6554,7 @@ fn native_binary_wrappers_compose_through_private_queries_and_checked_exports() 
 #[verus_infer] impl core::ops::Add for Amount {type Output=Self;fn add(self,n:Self)->Self{Amount(self.0+n.0)}}
 #[verus_infer] pub fn quota(n:&Amount)->Amount {(*n*2)/3+Amount(1)}
 "#;
-    let consumer=r#"use vstd::prelude::*;use binary_base::Amount;
+    let consumer = r#"use vstd::prelude::*;use binary_base::Amount;
 #[verus_verify] pub struct Slots<T>(Vec<Option<T>>);
 verus!{impl<T> View for Slots<T>{type V=Seq<Option<T>>;closed spec fn view(&self)->Self::V{self.0@}}}
 impl<T> Slots<T>{#[verus_infer] pub fn size(&self)->Amount{self.0.len().into()}}
@@ -6323,87 +6565,157 @@ verus!{
 }
 "#;
     for _ in 0..2 {
-        let p=crates.build_source("binary_base",provider,&[],&["--no-cheating","--output-json"],true);
-        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
-        assert_eq!(json_inference(&p)["functions"].as_array().unwrap().len(),5);
-        let c=crates.build_source("binary_app",consumer,&["binary_base"],&["--no-cheating","--output-json"],true);
-        assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
-        assert_eq!(json_inference(&c)["functions"].as_array().unwrap().len(),1);
+        let p = crates.build_source(
+            "binary_base",
+            provider,
+            &[],
+            &["--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
+        assert_eq!(json_inference(&p)["functions"].as_array().unwrap().len(), 5);
+        let c = crates.build_source(
+            "binary_app",
+            consumer,
+            &["binary_base"],
+            &["--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(c.status.success(), "{}", String::from_utf8_lossy(&c.stderr));
+        assert_eq!(json_inference(&c)["functions"].as_array().unwrap().len(), 1);
     }
-    let bad=consumer.replace("r.0==(2*s@.len())/3+1","r.0==(2*s@.len())/3+2");
-    let c=crates.build_source("binary_app",&bad,&["binary_base"],&["--no-cheating","--output-json"],true);
-    assert!(!c.status.success());assert!(!crates.vir("binary_app").exists());
-    assert!(json_inference(&c)["functions"].as_array().unwrap().iter().all(|f|f["required_checks_passed"]==true));
-    for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","quota"]] {
-        let p=crates.build_source("binary_base",provider,&[],&opts,true);
-        assert!(!p.status.success());assert!(!crates.vir("binary_base").exists());
+    let bad = consumer.replace("r.0==(2*s@.len())/3+1", "r.0==(2*s@.len())/3+2");
+    let c = crates.build_source(
+        "binary_app",
+        &bad,
+        &["binary_base"],
+        &["--no-cheating", "--output-json"],
+        true,
+    );
+    assert!(!c.status.success());
+    assert!(!crates.vir("binary_app").exists());
+    assert!(
+        json_inference(&c)["functions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|f| f["required_checks_passed"] == true)
+    );
+    for opts in [vec!["--no-verify"], vec!["--verify-root", "--verify-function", "quota"]] {
+        let p = crates.build_source("binary_base", provider, &[], &opts, true);
+        assert!(!p.status.success());
+        assert!(!crates.vir("binary_base").exists());
         assert!(String::from_utf8_lossy(&p.stderr).contains("requires full-crate verification"));
     }
-    let wrong=provider.replace("Amount(self.0+n.0)","Amount(self.0-n.0)");
-    let p=crates.build_source("binary_base",&wrong,&[],&["--no-cheating","--output-json"],true);
-    assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
-    let c=crates.build_source("binary_app",consumer,&["binary_base"],&["--no-cheating","--output-json"],true);
-    assert!(!c.status.success());assert!(!crates.vir("binary_app").exists());
+    let wrong = provider.replace("Amount(self.0+n.0)", "Amount(self.0-n.0)");
+    let p =
+        crates.build_source("binary_base", &wrong, &[], &["--no-cheating", "--output-json"], true);
+    assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
+    let c = crates.build_source(
+        "binary_app",
+        consumer,
+        &["binary_base"],
+        &["--no-cheating", "--output-json"],
+        true,
+    );
+    assert!(!c.status.success());
+    assert!(!crates.vir("binary_app").exists());
 }
 
 #[test]
-fn derived_ordering_without_exact_targets_is_certified_and_invalidates_stale_exports(){
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+fn derived_ordering_without_exact_targets_is_certified_and_invalidates_stale_exports() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
 #[verus_verify(infer_derive(Ord))]
 #[derive(Copy,Clone,Eq,PartialEq,PartialOrd,Ord)] pub struct Amount(pub u8);
 "#;
-    let caller=r#"use vstd::prelude::*;use ordering_base::Amount;
+    let caller = r#"use vstd::prelude::*;use ordering_base::Amount;
 verus!{pub fn goal(a:Amount,b:Amount){let r=a.cmp(&b);
  assert((r==core::cmp::Ordering::Less)==(a.0<b.0));}}
 "#;
     for _ in 0..2 {
-        let p=crates.build_source("ordering_base",provider,&[],&["--no-cheating","--output-json"],true);
-        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+        let p = crates.build_source(
+            "ordering_base",
+            provider,
+            &[],
+            &["--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
         assert!(json_inference(&p)["functions"].as_array().unwrap().is_empty());
         assert!(std::fs::read(crates.vir("ordering_base")).unwrap().ends_with(b"VRINFER1"));
-        let c=crates.build_source("ordering_app",caller,&["ordering_base"],&["--no-cheating"],true);
-        assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
+        let c = crates.build_source(
+            "ordering_app",
+            caller,
+            &["ordering_base"],
+            &["--no-cheating"],
+            true,
+        );
+        assert!(c.status.success(), "{}", String::from_utf8_lossy(&c.stderr));
     }
-    let prior_client=std::fs::read(crates.vir("ordering_app")).unwrap();
+    let prior_client = std::fs::read(crates.vir("ordering_app")).unwrap();
     assert!(prior_client.ends_with(b"VRINFER1"));
-    crates.edit_metadata("ordering_base",|m|{assert!(m["proofs"].as_array().unwrap().is_empty());m["soundness"]=false.into();});
-    let c=crates.build_source("ordering_app",caller,&["ordering_base"],&["--no-cheating"],true);
+    crates.edit_metadata("ordering_base", |m| {
+        assert!(m["proofs"].as_array().unwrap().is_empty());
+        m["soundness"] = false.into();
+    });
+    let c =
+        crates.build_source("ordering_app", caller, &["ordering_base"], &["--no-cheating"], true);
     assert!(!c.status.success());
     // Ordinary consumers now carry the dependency certificate too. A failed
     // import must invalidate that old API before any replacement is published.
     assert!(!crates.vir("ordering_app").exists());
-    for opts in [vec!["--no-verify"],vec!["--verify-root","--verify-function","cmp"]] {
-        let good=crates.build_source("ordering_base",provider,&[],&["--no-cheating"],true);
-        assert!(good.status.success(),"{}",String::from_utf8_lossy(&good.stderr));
-        let p=crates.build_source("ordering_base",provider,&[],&opts,true);
-        assert!(!p.status.success());assert!(!crates.vir("ordering_base").exists());
+    for opts in [vec!["--no-verify"], vec!["--verify-root", "--verify-function", "cmp"]] {
+        let good = crates.build_source("ordering_base", provider, &[], &["--no-cheating"], true);
+        assert!(good.status.success(), "{}", String::from_utf8_lossy(&good.stderr));
+        let p = crates.build_source("ordering_base", provider, &[], &opts, true);
+        assert!(!p.status.success());
+        assert!(!crates.vir("ordering_base").exists());
         assert!(String::from_utf8_lossy(&p.stderr).contains("requires full-crate verification"));
     }
 }
 
 #[test]
-fn native_derived_comparisons_compose_across_crates_and_reject_wrong_client_goals(){
-    let crates=InferCrates::new();
-    let provider=r#"use vstd::prelude::*;
+fn native_derived_comparisons_compose_across_crates_and_reject_wrong_client_goals() {
+    let crates = InferCrates::new();
+    let provider = r#"use vstd::prelude::*;
 #[verus_verify(infer_derive(PartialEq,PartialOrd,Ord))]
 #[derive(Copy,Clone,Eq,PartialEq,PartialOrd,Ord)] pub struct Amount(pub i16);
 "#;
-    let caller=r#"use vstd::prelude::*;use compare_base::Amount;
+    let caller = r#"use vstd::prelude::*;use compare_base::Amount;
 #[verus_infer] pub fn earlier(a:Amount,b:Amount)->bool{a<b}
 verus!{pub fn goal(a:Amount,b:Amount){let r=earlier(a,b);assert(r==(a.0<b.0));}}
 "#;
     for _ in 0..2 {
-        let p=crates.build_source("compare_base",provider,&[],&["--no-cheating","--output-json"],true);
-        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
-        let c=crates.build_source("compare_app",caller,&["compare_base"],&["--no-cheating","--output-json"],true);
-        assert!(c.status.success(),"{}",String::from_utf8_lossy(&c.stderr));
-        assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
+        let p = crates.build_source(
+            "compare_base",
+            provider,
+            &[],
+            &["--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(p.status.success(), "{}", String::from_utf8_lossy(&p.stderr));
+        let c = crates.build_source(
+            "compare_app",
+            caller,
+            &["compare_base"],
+            &["--no-cheating", "--output-json"],
+            true,
+        );
+        assert!(c.status.success(), "{}", String::from_utf8_lossy(&c.stderr));
+        assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"], true);
     }
-    let bad=caller.replace("assert(r==(a.0<b.0))","assert(r==(a.0>b.0))");
-    let c=crates.build_source("compare_app",&bad,&["compare_base"],&["--no-cheating","--output-json"],true);
-    assert!(!c.status.success());assert!(!crates.vir("compare_app").exists());
-    assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"],true);
+    let bad = caller.replace("assert(r==(a.0<b.0))", "assert(r==(a.0>b.0))");
+    let c = crates.build_source(
+        "compare_app",
+        &bad,
+        &["compare_base"],
+        &["--no-cheating", "--output-json"],
+        true,
+    );
+    assert!(!c.status.success());
+    assert!(!crates.vir("compare_app").exists());
+    assert_eq!(json_inference(&c)["functions"][0]["required_checks_passed"], true);
 }
 
 #[path = "infer_cases/byte_spare.rs"]

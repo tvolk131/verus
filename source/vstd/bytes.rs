@@ -217,7 +217,8 @@ pub open spec fn spec_u64_to_ne_bytes(x: u64) -> Seq<u8> {
 }
 
 pub assume_specification[ u64::to_ne_bytes ](x: u64) -> (result: [u8; 8])
-    ensures result@ == spec_u64_to_ne_bytes(x),
+    ensures
+        result@ == spec_u64_to_ne_bytes(x),
 ;
 
 // `spec_u64_to_le_bytes_open` is equivalent to `spec_u64_to_le_bytes` but
