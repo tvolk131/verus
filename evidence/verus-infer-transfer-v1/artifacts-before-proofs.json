@@ -1,0 +1,274 @@
+{
+  "recorded_utc": "2026-10-31T19:11:27.903248+00:00",
+  "baseline": "45f93e51f4d0c0f1b71ef645932d54a7862ec983",
+  "engine_source_diff": "",
+  "independent_build_root": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release",
+  "parent_release_artifacts_used": false,
+  "artifacts": {
+    "verus": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/verus",
+      "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+      "bytes": 3683824,
+      "device": 16777233,
+      "inode": 165485781
+    },
+    "rust_verify": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/rust_verify",
+      "sha256": "96d2268dcc4beda176f97d6b13652c4cc4beea1961bdf853f46e97f5f96f1187",
+      "bytes": 31202736,
+      "device": 16777233,
+      "inode": 165486050
+    },
+    "cargo-verus": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/cargo-verus",
+      "sha256": "db2c3d6a01c8b6598c581b39ce17ab9e7b6096a6805f9cb29c50018c9f68101b",
+      "bytes": 2283424,
+      "device": 16777233,
+      "inode": 165485714
+    },
+    "vstd.vir": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/vstd.vir",
+      "sha256": "2ad76a775b7e7088b8273625ebda80617a76208acbd482c5613d04e336b45c4a",
+      "bytes": 32542625,
+      "device": 16777233,
+      "inode": 165487198
+    },
+    "libvstd.rlib": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/libvstd.rlib",
+      "sha256": "b1e95a711a5fba814fe53cc129b9d179c59994bdb9b712db090bdbf716a5abc6",
+      "bytes": 9908104,
+      "device": 16777233,
+      "inode": 165487194
+    },
+    "libverus_builtin.rlib": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/libverus_builtin.rlib",
+      "sha256": "6ad05b87254e8084f7217d4ee19d46122b9e527d95e879e2b6487bc1fc517a73",
+      "bytes": 905856,
+      "device": 16777233,
+      "inode": 165487199
+    },
+    "libverus_builtin_macros.dylib": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/libverus_builtin_macros.dylib",
+      "sha256": "ff1206918415cf15a4d5d154d8e6cf5e579536d0a1f4606275af00f5b8ae23ee",
+      "bytes": 13980912,
+      "device": 16777233,
+      "inode": 165487200
+    },
+    "libverus_state_machines_macros.dylib": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/libverus_state_machines_macros.dylib",
+      "sha256": "94d0a5a7b6ea7be14964a5f801c6ad42a0e5aef8bf98810ed0d7a854ab637ff4",
+      "bytes": 9092064,
+      "device": 16777233,
+      "inode": 165487201
+    }
+  },
+  "rustc_version_verbose": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: aarch64-apple-darwin\nrelease: 1.99.1\nLLVM version: 23.1.1",
+  "rustc": {
+    "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustc",
+    "sha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1",
+    "bytes": 413480,
+    "device": 16777233,
+    "inode": 151143826
+  },
+  "rustc_driver": {
+    "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib",
+    "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395",
+    "bytes": 83390408,
+    "device": 16777233,
+    "inode": 151143787
+  },
+  "cargo": {
+    "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/cargo",
+    "sha256": "6d576d8058f8ca643e8fce55b64ee3c614ba64c9da2e536bae843e6a2e1f3951",
+    "bytes": 32182376,
+    "device": 16777233,
+    "inode": 151143604
+  },
+  "z3": {
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/z3",
+    "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+    "bytes": 26087280,
+    "device": 16777233,
+    "inode": 165481035
+  },
+  "z3_version": "Z3 version 4.16.0 - 64 bit",
+  "z3_origin": "Copied only the standalone solver from the parent source/z3; no parent verifier, macros, or vstd artifacts used. Solver supply-chain origin is not independently authenticated.",
+  "z3_matches_parent_solver_sha256": true,
+  "z3_independent_inode": true,
+  "verus_version": "Verus\n  Version: 0.2026.10.31.45f93e5\n  Profile: release\n  Platform: macos_aarch64\n  Toolchain: 1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN)",
+  "source_inputs": {
+    "rust-toolchain.toml": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/rust-toolchain.toml",
+      "sha256": "6aa218e09a62da9dac4c1e3bf0f0ecc922c179d77d100da44d099da2194e70b1",
+      "bytes": 115,
+      "device": 16777233,
+      "inode": 165478958
+    },
+    "source/Cargo.lock": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/Cargo.lock",
+      "sha256": "30cd48d355d863cc714c0768bb1b69adb618d77fcd395c916acedb8e63456bc4",
+      "bytes": 92794,
+      "device": 16777233,
+      "inode": 165478985
+    },
+    "source/.cargo/config.toml": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/.cargo/config.toml",
+      "sha256": "2c9023a801ae2c410cf3a06793d3c7002e90708b03ea7eadd16c19d4600ba370",
+      "bytes": 441,
+      "device": 16777233,
+      "inode": 165478962
+    },
+    "source/Makefile.toml": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/Makefile.toml",
+      "sha256": "7de1114c5d924c5224933e4c149f77e6706a8a929bf4dfbd6fa0cf4028630675",
+      "bytes": 2500,
+      "device": 16777233,
+      "inode": 165479023
+    },
+    "source/vstd/Cargo.lock": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/vstd/Cargo.lock",
+      "sha256": "5563c3cb7d1e29eb590ea30198f2c8b5f331739ea1d2bd30e9d3b55db7e864fe",
+      "bytes": 2922,
+      "device": 16777233,
+      "inode": 165486708
+    }
+  },
+  "archive_members_match_source_snapshot": {
+    "src/encode.rs": true,
+    "src/decode.rs": true,
+    "src/lib.rs": true,
+    "Cargo.toml": true,
+    "Cargo.toml.orig": true,
+    "LICENSE": true,
+    ".cargo_vcs_info.json": true
+  },
+  "cached_registry_index_version": {
+    "name": "unsigned-varint",
+    "vers": "0.8.0",
+    "deps": [
+      {
+        "name": "asynchronous-codec",
+        "req": "^0.7",
+        "features": [],
+        "optional": true,
+        "default_features": true,
+        "target": null,
+        "kind": "normal"
+      },
+      {
+        "name": "bytes",
+        "req": "^1",
+        "features": [],
+        "optional": true,
+        "default_features": true,
+        "target": null,
+        "kind": "normal"
+      },
+      {
+        "name": "criterion",
+        "req": "^0.3",
+        "features": [],
+        "optional": false,
+        "default_features": true,
+        "target": null,
+        "kind": "dev"
+      },
+      {
+        "name": "futures-executor",
+        "req": "^0.3.4",
+        "features": [],
+        "optional": false,
+        "default_features": true,
+        "target": null,
+        "kind": "dev"
+      },
+      {
+        "name": "futures-io",
+        "req": "^0.3.4",
+        "features": [],
+        "optional": true,
+        "default_features": true,
+        "target": null,
+        "kind": "normal"
+      },
+      {
+        "name": "futures-util",
+        "req": "^0.3.4",
+        "features": [
+          "io"
+        ],
+        "optional": true,
+        "default_features": true,
+        "target": null,
+        "kind": "normal"
+      },
+      {
+        "name": "hex",
+        "req": "^0.4",
+        "features": [],
+        "optional": false,
+        "default_features": true,
+        "target": null,
+        "kind": "dev"
+      },
+      {
+        "name": "nom",
+        "req": "^7",
+        "features": [],
+        "optional": true,
+        "default_features": true,
+        "target": null,
+        "kind": "normal"
+      },
+      {
+        "name": "quickcheck",
+        "req": "^1",
+        "features": [],
+        "optional": false,
+        "default_features": true,
+        "target": null,
+        "kind": "dev"
+      },
+      {
+        "name": "tokio-util",
+        "req": "^0.7",
+        "features": [
+          "codec"
+        ],
+        "optional": true,
+        "default_features": true,
+        "target": null,
+        "kind": "normal"
+      }
+    ],
+    "cksum": "eb066959b24b5196ae73cb057f45598450d2c5f71460e98c49b738086eff9c06",
+    "features": {
+      "asynchronous_codec": [
+        "std",
+        "bytes",
+        "asynchronous-codec"
+      ],
+      "codec": [
+        "std",
+        "bytes",
+        "tokio-util"
+      ],
+      "futures": [
+        "std",
+        "futures-io",
+        "futures-util"
+      ],
+      "std": []
+    },
+    "yanked": false,
+    "pubtime": "2023-11-01T17:52:24Z"
+  },
+  "archive_matches_cached_registry_checksum": true,
+  "upstream_origin_limit": "Crate archive, locally cached registry checksum and VCS metadata agree. No independent network retrieval or upstream Git checkout authenticated the claimed revision; the selected exact bytes are pinned and bundled.",
+  "selection_sha256": "099873723b641260e5bf712b66a32e2a73bd7d0be283f75cfac534fc61a5c96b",
+  "fixture_hashes": {
+    "fixtures/inferred.rs": "4cce53a5ca69442427685ce8cf72dbdbb086d2615b60ab88fc0dc65c889b4413",
+    "fixtures/ordinary.rs": "2b34e5a05bba8572b4c56d8b2737d1e4283d84030a5016a82ff513ae02bc1643",
+    "original-selected.rs": "faef7ad4eec15afcffa66e445b8a63b12f5f6cb0139336f53c87e224fd6ae7c0"
+  }
+}

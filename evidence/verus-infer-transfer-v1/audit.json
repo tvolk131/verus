@@ -1,0 +1,63 @@
+{
+  "audited_utc": "2026-10-31T19:27:53.877738+00:00",
+  "engine_baseline": "45f93e51f4d0c0f1b71ef645932d54a7862ec983",
+  "engine_source_diff": "",
+  "head_before_experiment_commit": "45f93e51f4d0c0f1b71ef645932d54a7862ec983",
+  "selection_unchanged_sha256": "099873723b641260e5bf712b66a32e2a73bd7d0be283f75cfac534fc61a5c96b",
+  "selection_and_artifact_receipts_predate_first_application_trial": true,
+  "body_preservation": {
+    "fixtures/constant-enclosed-inferred.rs": {
+      "original_macro_exact_substring": true,
+      "original_u64_function_exact_substring": true,
+      "original_constant_exact_substring": true,
+      "no_requires": true,
+      "sha256": "78bd26405d8854553fc124afd8bb8d267920ae252e784a85640fef7b1399f3fe"
+    },
+    "fixtures/constant-enclosed-ordinary.rs": {
+      "original_macro_exact_substring": true,
+      "original_u64_function_exact_substring": true,
+      "original_constant_exact_substring": true,
+      "no_requires": true,
+      "sha256": "d4fbd5746103c1c45c6e31602e51b32a034405195bc512768e6904a11b0f6c4b"
+    },
+    "fixtures/inferred.rs": {
+      "original_macro_exact_substring": true,
+      "original_u64_function_exact_substring": true,
+      "original_constant_exact_substring": true,
+      "no_requires": true,
+      "sha256": "4cce53a5ca69442427685ce8cf72dbdbb086d2615b60ab88fc0dc65c889b4413"
+    },
+    "fixtures/ordinary.rs": {
+      "original_macro_exact_substring": true,
+      "original_u64_function_exact_substring": true,
+      "original_constant_exact_substring": true,
+      "no_requires": true,
+      "sha256": "2b34e5a05bba8572b4c56d8b2737d1e4283d84030a5016a82ff513ae02bc1643"
+    }
+  },
+  "artifacts_unchanged_sha256": {
+    "verus": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+    "rust_verify": "96d2268dcc4beda176f97d6b13652c4cc4beea1961bdf853f46e97f5f96f1187",
+    "cargo-verus": "db2c3d6a01c8b6598c581b39ce17ab9e7b6096a6805f9cb29c50018c9f68101b",
+    "vstd.vir": "2ad76a775b7e7088b8273625ebda80617a76208acbd482c5613d04e336b45c4a",
+    "libvstd.rlib": "b1e95a711a5fba814fe53cc129b9d179c59994bdb9b712db090bdbf716a5abc6",
+    "libverus_builtin.rlib": "6ad05b87254e8084f7217d4ee19d46122b9e527d95e879e2b6487bc1fc517a73",
+    "libverus_builtin_macros.dylib": "ff1206918415cf15a4d5d154d8e6cf5e579536d0a1f4606275af00f5b8ae23ee",
+    "libverus_state_machines_macros.dylib": "94d0a5a7b6ea7be14964a5f801c6ad42a0e5aef8bf98810ed0d7a854ab637ff4"
+  },
+  "rustc_driver_cargo_z3_hashes_unchanged": true,
+  "primary_command_receipts_validated": 32,
+  "application_frontend_rejections_validated": 16,
+  "application_checked_exec_bodies": 0,
+  "semantic_mutation_control": "not applicable: no positive application proof",
+  "engine_sanity_cold_misses_warm_hits_all_fresh_required_proofs": true,
+  "native_slice_cases_per_profile": 173503,
+  "native_binaries_sha256": {
+    "/private/tmp/libunsigned_varint_transfer_v1.rlib": "e8ce5c722d9af3a5d454670d7e2930c41e85f789daa515504cb23256243e221b",
+    "/private/tmp/libunsigned_varint_transfer_v1_release.rlib": "0344ddd1a9222c2de892a7ad58669b9a8576cef99ab4952deb74184d2e7c8112",
+    "/private/tmp/verus-infer-transfer-v1-native-tests": "94d55d5639dee07aa0480dcfd79f54b1094947d25d09ebb09e369dc1016b1195",
+    "/private/tmp/verus-infer-transfer-v1-native-release-tests": "ecdf9d1c1a076cd3f6b605b3afcbaea5289926c4d02c1eb1d6a64d053290dbc3"
+  },
+  "corrected_replay_commands_validated": 16,
+  "trust_limit": "Hash/source/log consistency audit, not a proof certificate, source-to-binary formal proof or authenticated supply-chain audit."
+}

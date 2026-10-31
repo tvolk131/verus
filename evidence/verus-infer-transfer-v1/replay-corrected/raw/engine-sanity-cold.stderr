@@ -1,0 +1,74 @@
+note: Verus Infer verus_infer_quickstart::add_one candidate (mathematical integer arithmetic): requires (x <= 254); ensures result == (x + 1)
+ --> examples/verus_infer_quickstart.rs:7:1
+  |
+7 | pub fn add_one(x: u8) -> u8 {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::checked_add_one candidate (mathematical integer arithmetic): requires if (x == 255) { true } else { (x <= 254) }; ensures result == if (x == 255) { None } else { Some(((x + 1) as u8)) }
+  --> examples/verus_infer_quickstart.rs:14:1
+   |
+14 | pub fn checked_add_one(x: u8) -> Option<u8> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_two candidate (mathematical integer arithmetic): requires ((x <= 254) && (x <= 253)); ensures result == (x + 2)
+  --> examples/verus_infer_quickstart.rs:21:1
+   |
+21 | pub fn add_two(x: u8) -> u8 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_one: soundness: PROVED
+ --> examples/verus_infer_quickstart.rs:7:1
+  |
+7 | pub fn add_one(x: u8) -> u8 {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_one: safe-domain maximality: PROVED
+ --> examples/verus_infer_quickstart.rs:7:1
+  |
+7 | pub fn add_one(x: u8) -> u8 {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_one: output exactness: PROVED
+ --> examples/verus_infer_quickstart.rs:7:1
+  |
+7 | pub fn add_one(x: u8) -> u8 {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::checked_add_one: soundness: PROVED
+  --> examples/verus_infer_quickstart.rs:14:1
+   |
+14 | pub fn checked_add_one(x: u8) -> Option<u8> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::checked_add_one: safe-domain maximality: PROVED
+  --> examples/verus_infer_quickstart.rs:14:1
+   |
+14 | pub fn checked_add_one(x: u8) -> Option<u8> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::checked_add_one: output exactness: PROVED
+  --> examples/verus_infer_quickstart.rs:14:1
+   |
+14 | pub fn checked_add_one(x: u8) -> Option<u8> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_two: soundness: PROVED
+  --> examples/verus_infer_quickstart.rs:21:1
+   |
+21 | pub fn add_two(x: u8) -> u8 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_two: safe-domain maximality: PROVED
+  --> examples/verus_infer_quickstart.rs:21:1
+   |
+21 | pub fn add_two(x: u8) -> u8 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer verus_infer_quickstart::add_two: output exactness: PROVED
+  --> examples/verus_infer_quickstart.rs:21:1
+   |
+21 | pub fn add_two(x: u8) -> u8 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer: 3 verified contracts available to same-crate callers
+

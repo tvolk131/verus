@@ -1,0 +1,99 @@
+{
+  "engine_root": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998",
+  "source_baseline": "45f93e51f4d0c0f1b71ef645932d54a7862ec983",
+  "artifact_sha256": {
+    "verus": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+    "rust_verify": "96d2268dcc4beda176f97d6b13652c4cc4beea1961bdf853f46e97f5f96f1187",
+    "cargo-verus": "db2c3d6a01c8b6598c581b39ce17ab9e7b6096a6805f9cb29c50018c9f68101b",
+    "vstd.vir": "2ad76a775b7e7088b8273625ebda80617a76208acbd482c5613d04e336b45c4a",
+    "libvstd.rlib": "b1e95a711a5fba814fe53cc129b9d179c59994bdb9b712db090bdbf716a5abc6",
+    "libverus_builtin.rlib": "6ad05b87254e8084f7217d4ee19d46122b9e527d95e879e2b6487bc1fc517a73",
+    "libverus_builtin_macros.dylib": "ff1206918415cf15a4d5d154d8e6cf5e579536d0a1f4606275af00f5b8ae23ee",
+    "libverus_state_machines_macros.dylib": "94d0a5a7b6ea7be14964a5f801c6ad42a0e5aef8bf98810ed0d7a854ab637ff4"
+  },
+  "artifact_differences_from_frozen_build": [],
+  "z3_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+  "commands": [
+    {
+      "label": "native-upstream-build-corrected",
+      "expected_exit_status": 0,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "native-tests-build-corrected",
+      "expected_exit_status": 0,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "native-tests",
+      "expected_exit_status": 0,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "native-upstream-release-build",
+      "expected_exit_status": 0,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "native-release-tests-build",
+      "expected_exit_status": 0,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "native-release-tests",
+      "expected_exit_status": 0,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-ordinary-plain-cold",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-ordinary-plain-warm",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-ordinary-assisted-cold",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-ordinary-assisted-warm",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-inferred-plain-cold",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-inferred-plain-warm",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-inferred-assisted-cold",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "constant-enclosed-inferred-assisted-warm",
+      "expected_exit_status": 1,
+      "observed_exit_status": 1
+    },
+    {
+      "label": "engine-sanity-cold",
+      "expected_exit_status": 0,
+      "observed_exit_status": 0
+    },
+    {
+      "label": "engine-sanity-warm",
+      "expected_exit_status": 0,
+      "observed_exit_status": 0
+    }
+  ],
+  "limit": "This replays captured commands, not the original clean build. Rebuilt artifacts are distinct evidence; source equivalence alone does not authenticate their build provenance."
+}

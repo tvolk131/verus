@@ -1,0 +1,185 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling verus_syn v0.0.0-2026-09-06-0133 (/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/dependencies/syn)
+   Compiling verus_prettyplease v0.0.0-2026-09-06-0133 (/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/dependencies/prettyplease)
+   Compiling hashbrown v0.17.1
+   Compiling equivalent v1.0.3
+   Compiling convert_case v0.4.0
+   Compiling vstd v0.0.0-2026-10-25-0158 (/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/vstd)
+   Compiling verus_builtin v0.0.0-2026-10-11-0230 (/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/builtin)
+   Compiling indexmap v2.14.2
+   Compiling syn v2.0.119
+   Compiling synstructure v0.13.2
+   Compiling verus_state_machines_macros v0.0.0-2026-10-25-0158 (/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/state_machines_macros)
+   Compiling verus_builtin_macros v0.0.0-2026-10-25-0158 (/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/builtin_macros)
+note: automatically chose triggers for this expression:
+   --> iter.rs:204:9
+    |
+204 | /         forall|i: int|
+205 | |             0 <= i < items@.len() && items@[i].is_some() ==> f.requires((&items@[i].unwrap(),)),
+    | |_______________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iter.rs:205:38
+    |
+205 |             0 <= i < items@.len() && items@[i].is_some() ==> f.requires((&items@[i].unwrap(),)),
+    |                                      ^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iter.rs:232:13
+    |
+232 | /             forall|j: int|
+233 | |                 0 <= j < items@.len() && items@[j].is_some() ==> f.requires((&items@[j].unwrap(),)),
+    | |___________________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iter.rs:233:42
+    |
+233 |                 0 <= j < items@.len() && items@[j].is_some() ==> f.requires((&items@[j].unwrap(),)),
+    |                                          ^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iter.rs:257:9
+    |
+257 | /         forall|i: int|
+258 | |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |___________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iter.rs:258:70
+    |
+258 |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                      ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iter.rs:279:13
+    |
+279 | /             forall|i: int|
+280 | |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |_______________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iter.rs:280:74
+    |
+280 |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                          ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iter.rs:309:9
+    |
+309 | /         forall|i: int|
+310 | |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |___________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iter.rs:310:70
+    |
+310 |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                      ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iter.rs:333:13
+    |
+333 | /             forall|i: int|
+334 | |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |_______________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iter.rs:334:74
+    |
+334 |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                          ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> std_specs/iter_adapters.rs:299:51
+    |
+299 |               0 <= k < result.remaining().len() ==> exists|i: int|
+    |  ___________________________________________________^
+300 | |                 0 <= i < input.remaining().len() && f.ensures(
+301 | |                     (input.remaining()[i],),
+302 | |                     Some(#[trigger] result.remaining()[k]),
+303 | |                 ),
+    | |_________________^
+
+note:   trigger 1 of 1:
+   --> std_specs/iter_adapters.rs:301:22
+    |
+301 |                     (input.remaining()[i],),
+    |                      ^^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iterator_view.rs:198:9
+    |
+198 | /         exists|f: F, full: Seq<I::Item>|
+199 | |             map_post(input, f, result) && finite_native_view(input, full) && output.len()
+200 | |                 == full.len() && (forall|i: int|
+201 | |                 0 <= i < full.len() ==> f.requires((#[trigger] full[i],))) && (forall|
+...   |
+205 | |                 0 <= i < full.len() && #[trigger] f.ensures((full[i],), value) ==> value
+206 | |                     == output[i]),
+    | |_________________________________^
+
+note:   trigger 1 of 1:
+   --> iterator_view.rs:199:13
+    |
+199 |             map_post(input, f, result) && finite_native_view(input, full) && output.len()
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+200 |                 == full.len() && (forall|i: int|
+    |                    ^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> iterator_view.rs:217:21
+    |
+217 |       let (f, full) = choose|f: F, full: Seq<I::Item>|
+    |  _____________________^
+218 | |         map_post(input, f, result) && finite_native_view(input, full) && output.len() == full.len()
+219 | |             && (forall|i: int| 0 <= i < full.len() ==> f.requires((#[trigger] full[i],))) && (
+220 | |         forall|i: int, value: B|
+221 | |             0 <= i < full.len() && #[trigger] f.ensures((full[i],), value) ==> value == output[i]);
+    | |__________________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> iterator_view.rs:218:9
+    |
+218 |         map_post(input, f, result) && finite_native_view(input, full) && output.len() == full.len()
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^                                                       ^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> std_specs/clone.rs:162:13
+    |
+162 |             assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
+    |             ^^^^^^
+
+note:   trigger 1 of 2:
+   --> std_specs/clone.rs:162:61
+    |
+162 |             assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
+    |                                                             ^^^^^
+
+note:   trigger 2 of 2:
+   --> std_specs/clone.rs:163:20
+    |
+163 |                 == b@[i].deep_view() by {
+    |                    ^^^^^
+
+note: Verus printed one or more automatically chosen quantifier triggers
+      because it had low confidence in the chosen triggers.
+      To suppress these messages, do one of the following:
+        (1) manually annotate a single desired trigger using #[trigger]
+            (example: forall|i: int, j: int| f(i) && #[trigger] g(i) && #[trigger] h(j)),
+        (2) manually annotate multiple desired triggers using #![trigger ...]
+            (example: forall|i: int| #![trigger f(i)] #![trigger g(i)] f(i) && g(i)),
+        (3) accept the automatically chosen trigger using #![auto]
+            (example: forall|i: int, j: int| #![auto] f(i) && g(i) && h(j))
+        (4) use the --triggers-mode silent command-line option to suppress all printing of triggers.
+      (Note: triggers are used by the underlying SMT theorem prover to instantiate quantifiers;
+      the theorem prover instantiates a quantifier whenever some expression matches the
+      pattern specified by one of the quantifier's triggers.)
+   --> std_specs/clone.rs:162:13
+    |
+162 |             assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
+    |             ^^^^^^
+
+verification results:: 2219 verified, 0 errors
+    Finished `release` profile [optimized] target(s) in 19.94s

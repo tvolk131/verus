@@ -1,0 +1,5 @@
+{
+  "fixtures/inferred.rs": "4cce53a5ca69442427685ce8cf72dbdbb086d2615b60ab88fc0dc65c889b4413",
+  "fixtures/ordinary.rs": "2b34e5a05bba8572b4c56d8b2737d1e4283d84030a5016a82ff513ae02bc1643",
+  "original-selected.rs": "faef7ad4eec15afcffa66e445b8a63b12f5f6cb0139336f53c87e224fd6ae7c0"
+}

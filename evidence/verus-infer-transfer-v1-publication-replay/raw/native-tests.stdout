@@ -1,0 +1,8 @@
+
+running 3 tests
+test all_radix_boundaries_and_buffer_byte_patterns ... ok
+test exhaustive_low_16_bits_with_nonzero_buffers ... ok
+test deterministic_full_width_samples_and_arbitrary_buffers ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

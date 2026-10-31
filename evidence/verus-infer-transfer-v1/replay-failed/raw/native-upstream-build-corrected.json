@@ -1,0 +1,28 @@
+{
+  "label": "native-upstream-build-corrected",
+  "argv": [
+    "rustc",
+    "--edition=2018",
+    "--crate-name",
+    "unsigned_varint",
+    "--crate-type",
+    "lib",
+    "/private/tmp/verus-infer-transfer-v1-replay/native/verus-infer-transfer-v1-replay/upstream/src/lib.rs",
+    "-o",
+    "/private/tmp/verus-infer-transfer-v1-replay/native/libunsigned_varint_transfer_v1.rlib"
+  ],
+  "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998",
+  "started_utc": "2026-10-31T19:17:48.628602+00:00",
+  "environment": {
+    "PATH": "/Users/tommyvolk/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/tommyvolk/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/opt/homebrew/bin:/Users/tommyvolk/.t3/userdata/providers/codex/codex_095eca24-b4b7-4a15-8759-9d8964dbd03a/shadow/tmp/arg0-macos/codex-arg0WPplOq:/Users/tommyvolk/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/tommyvolk/.railway/bin:/Users/tommyvolk/.local/bin:/Users/tommyvolk/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/Users/tommyvolk/.cargo/bin:/Users/tommyvolk/.lmstudio/bin:/Users/tommyvolk/.lmstudio/bin",
+    "RUSTUP_TOOLCHAIN": "1.99.1",
+    "RUST_MIN_STACK": "20971520",
+    "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/z3"
+  },
+  "timeout_seconds": 180,
+  "selection_sha256": "099873723b641260e5bf712b66a32e2a73bd7d0be283f75cfac534fc61a5c96b",
+  "exit_status": 1,
+  "elapsed_seconds": 0.23816954099999998,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "733ce6f8dfa765a67dde4400b273d3925494bc7c747ebdeb64d02bed893baf0b"
+}

@@ -1,0 +1,30 @@
+{
+  "label": "constant-enclosed-ordinary-assisted-warm",
+  "argv": [
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/target-verus/release/verus",
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/constant-enclosed-ordinary.rs",
+    "--crate-type=lib",
+    "--crate-name=uv_transfer",
+    "--no-cheating",
+    "--output-json",
+    "--time",
+    "--export",
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/work/constant-enclosed-ordinary-assisted/result.vir",
+    "--infer-goals"
+  ],
+  "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998",
+  "started_utc": "2026-10-31T19:13:39.090265+00:00",
+  "environment": {
+    "PATH": "/Users/tommyvolk/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/tommyvolk/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/opt/homebrew/bin:/Users/tommyvolk/.t3/userdata/providers/codex/codex_095eca24-b4b7-4a15-8759-9d8964dbd03a/shadow/tmp/arg0-macos/codex-arg0WPplOq:/Users/tommyvolk/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/tommyvolk/.railway/bin:/Users/tommyvolk/.local/bin:/Users/tommyvolk/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/Users/tommyvolk/.cargo/bin:/Users/tommyvolk/.lmstudio/bin:/Users/tommyvolk/.lmstudio/bin",
+    "RUSTUP_TOOLCHAIN": "1.99.1",
+    "RUST_MIN_STACK": "20971520",
+    "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/z3",
+    "VERUS_INFER_CACHE": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/work/constant-enclosed-ordinary-assisted/cache"
+  },
+  "timeout_seconds": 180,
+  "selection_sha256": "099873723b641260e5bf712b66a32e2a73bd7d0be283f75cfac534fc61a5c96b",
+  "exit_status": 1,
+  "elapsed_seconds": 0.293166708,
+  "stdout_sha256": "0bf8aadee76e891dcb1f932df75980eeb08abbbb45c5ee2be1e75db0b6a7612a",
+  "stderr_sha256": "636fea1599b86a255986e6ef9c374307facd1b3e5e240ac0f339e21de03fa1bb"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "frozen_at_utc": "2026-10-31T19:06:45.788222+00:00",
+  "before_first_proof": true,
+  "engine_baseline": "45f93e51f4d0c0f1b71ef645932d54a7862ec983",
+  "head": "45f93e51f4d0c0f1b71ef645932d54a7862ec983",
+  "head_tree": "10a1d83c1e462f9a8980973bfe9435b44aaedb5d",
+  "baseline_tree": "10a1d83c1e462f9a8980973bfe9435b44aaedb5d",
+  "branch": "t3/verus-infer-transfer-experiment-1",
+  "initial_clean_checkout_observed": true,
+  "engine_diff_at_selection": "",
+  "provenance_issue": "None in provided source checkout. Parent release artifacts have uncommitted-work provenance and will not be used. Build an independent engine in this worktree. Shared installed rustc and copied standalone Z3 must be fingerprinted separately.",
+  "candidate_assessment": "Only unsigned-varint bodies inspected before selection; cache filename inventory also listed base64 and httparse, but neither was tried. Pure no_std encoder, no allocation or I/O, compact macro plus u64 wrapper. Finite 10-byte array and mutable iterator, break, shifts, inclusive subslice and returned borrow may exceed documented inference/frontend support. Selection is not contingent on a proof passing.",
+  "upstream": {
+    "crate": "unsigned-varint",
+    "version": "0.8.0",
+    "repository": "https://github.com/paritytech/unsigned-varint",
+    "revision_from_cargo_vcs_info": "10d55e5dbdd7f61b6495bd12a49d06df82e08612",
+    "license": "MIT",
+    "source_cache": "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unsigned-varint-0.8.0",
+    "selected_items": [
+      "src/encode.rs: encode! macro",
+      "src/encode.rs: pub fn u64",
+      "src/encode.rs: U64_LEN"
+    ],
+    "archive_sha256": "eb066959b24b5196ae73cb057f45598450d2c5f71460e98c49b738086eff9c06",
+    "snapshot_sha256": {
+      ".cargo_vcs_info.json": "cbc8af6ae1ac9b172aecc21cdc0dd18f01b0dd3206cac3f709b82b10976b9f17",
+      "Cargo.toml": "8ad7e2224c30b607c52abc00468978e561175a145ea1a2b6228d252655840209",
+      "Cargo.toml.orig": "6af9e7f2c53fc6495cf62164fd7ffaab25fe17894fb94271bee3b24ce3d5c435",
+      "LICENSE": "ec353d4fecf7963b4c054384557e5dbc3c7a717997eb4a3815b315721a6aa75a",
+      "src/decode.rs": "bfb7908274ca89ce0667930ff358ea561c518c083ff92a51e5b9dc5433dad31f",
+      "src/encode.rs": "1352a5a06b8868452c7037e46b963d07743e9e72aa4d5e2a7ada33438dc625db",
+      "src/lib.rs": "23f6d3cd610fdf932810501a97b7195d9496d851e88ab0a373b08547f36df9d2",
+      "unsigned-varint-0.8.0.crate": "eb066959b24b5196ae73cb057f45598450d2c5f71460e98c49b738086eff9c06"
+    },
+    "original_selected_sha256": "faef7ad4eec15afcffa66e445b8a63b12f5f6cb0139336f53c87e224fd6ae7c0"
+  },
+  "required_domain": "Every Rust u64 number (0..=18446744073709551615), every initialized mutable [u8; 10] with arbitrary previous byte contents, under Rust's exclusive-borrow rules. No numerical bound, ASCII restriction, zero-buffer restriction, or other precondition may be added. Target: aarch64-apple-darwin, 64-bit usize.",
+  "required_property": "The returned prefix is the canonical unsigned base-128 varint for number: length 1..=10; byte j has payload floor(number / 128^j) mod 128; bit 7 is set exactly on nonfinal bytes; number < 128^length and, for length > 1, number >= 128^(length-1). Required for the entire domain, without panics or failed debug assertions. Preservation of untouched buffer suffix will also be tested natively, but is not part of the frozen proof goal.",
+  "allowed_adaptations": "Verus import/macro enclosure, explicit returned lifetime if required, Verus named-result syntax and authored postconditions/spec radix definition. Retain original encode! and selected u64 executable body byte-for-byte. No mutable-iterator replacement, indexing rewrite, body externalization, trusted specifications, engine/macro/vstd edits, extra preconditions or candidate shopping.",
+  "protocol": "Run native tests and independent baseline build; ordinary vs --infer-goals in separate cold then warm processes, preserving raw stdout JSON/stderr/status/timing. Also try #[verus_infer] on the identical macro-using body to expose exact-inference support, without claiming its result as application policy. A checked positive proof requires semantic mutation rejection. If frontend rejects the unchanged body, stop rather than adapt away the evidenced blocker. Warm means retained candidate cache and OS state, never cached proofs; an early frontend error may produce no candidates or proofs.",
+  "ai_assistance": "OpenAI Codex:gpt-6.1-sol, authorized replacement for rate-limited Claude Opus 5.5; no other agents."
+}

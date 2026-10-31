@@ -1,0 +1,393 @@
+{
+  "func-details": {
+    "verus_infer_quickstart::add_two": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "verus_infer_quickstart::checked_add_one": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "verus_infer_quickstart::add_one": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 9,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": true,
+      "checked_exec_bodies": 3,
+      "checked_proof_bodies": 0,
+      "native_functions": [
+        {
+          "function": "verus_infer_quickstart::add_one",
+          "rust_function": "add_one",
+          "source": "examples/verus_infer_quickstart.rs:7:1: 7:28",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "ordinary_contract": false
+        },
+        {
+          "function": "verus_infer_quickstart::add_two",
+          "rust_function": "add_two",
+          "source": "examples/verus_infer_quickstart.rs:21:1: 21:28",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "ordinary_contract": false
+        },
+        {
+          "function": "verus_infer_quickstart::checked_add_one",
+          "rust_function": "checked_add_one",
+          "source": "examples/verus_infer_quickstart.rs:14:1: 14:44",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "ordinary_contract": false
+        },
+        {
+          "function": "main",
+          "rust_function": "main",
+          "source": "examples/verus_infer_quickstart.rs:25:1: 25:10",
+          "automatically_derived": false,
+          "selected": false,
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "verified",
+    "crate_success": true,
+    "requested_functions": 3,
+    "generated_functions": 3,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": false,
+      "profiles": [
+        "growth_loop",
+        "range_loop"
+      ],
+      "preparation_started": false,
+      "preparation_completed": false,
+      "decisions": []
+    },
+    "range_loop_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [],
+    "functions": [
+      {
+        "function": "verus_infer_quickstart::add_one",
+        "source": "examples/verus_infer_quickstart.rs:7:1: 7:28 (#0)",
+        "candidate_id": "bd8e6c235db746a6a6178194bb4bdcc60ded60b9d0ff1bbaf243097a037a2d8c",
+        "mode": "exact",
+        "summary_kind": "value",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "u8"
+          }
+        ],
+        "result_type": "u8",
+        "contract": {
+          "requires": "(x <= 254)",
+          "ensures": "result == (x + 1)"
+        },
+        "loop_proofs": [],
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "required_checks_passed": true,
+        "available_to_same_crate_callers": true,
+        "exported": true,
+        "dependencies": [],
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "candidate_cache",
+          "generation_micros": 994,
+          "solver_micros": 1539,
+          "requires_nodes": 3,
+          "ensures_nodes": 5
+        }
+      },
+      {
+        "function": "verus_infer_quickstart::add_two",
+        "source": "examples/verus_infer_quickstart.rs:21:1: 21:28 (#0)",
+        "candidate_id": "cc6f30d03d0292c8307be38152138deb49b360b1a90347bf4830fa3a71a14d3c",
+        "mode": "exact",
+        "summary_kind": "value",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "u8"
+          }
+        ],
+        "result_type": "u8",
+        "contract": {
+          "requires": "((x <= 254) && (x <= 253))",
+          "ensures": "result == (x + 2)"
+        },
+        "loop_proofs": [],
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "required_checks_passed": true,
+        "available_to_same_crate_callers": true,
+        "exported": true,
+        "dependencies": [
+          {
+            "function": "verus_infer_quickstart::add_one",
+            "candidate_id": "bd8e6c235db746a6a6178194bb4bdcc60ded60b9d0ff1bbaf243097a037a2d8c",
+            "mode": "exact"
+          }
+        ],
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "candidate_cache",
+          "generation_micros": 214,
+          "solver_micros": 703,
+          "requires_nodes": 7,
+          "ensures_nodes": 5
+        }
+      },
+      {
+        "function": "verus_infer_quickstart::checked_add_one",
+        "source": "examples/verus_infer_quickstart.rs:14:1: 14:44 (#0)",
+        "candidate_id": "90eb255abe023312b6e89046ba14c8561090de5cf29d89736cdd3afa67ed5fef",
+        "mode": "exact",
+        "summary_kind": "value",
+        "parameters": [
+          {
+            "name": "x",
+            "type": "u8"
+          }
+        ],
+        "result_type": "core::option::Option<u8>",
+        "contract": {
+          "requires": "if (x == 255) { true } else { (x <= 254) }",
+          "ensures": "result == if (x == 255) { None } else { Some(((x + 1) as u8)) }"
+        },
+        "loop_proofs": [],
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "required_checks_passed": true,
+        "available_to_same_crate_callers": true,
+        "exported": true,
+        "dependencies": [],
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "candidate_cache",
+          "generation_micros": 250,
+          "solver_micros": 837,
+          "requires_nodes": 8,
+          "ensures_nodes": 12
+        }
+      }
+    ],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [],
+    "interface_written": true,
+    "metrics": {
+      "generation_micros": 6396,
+      "total_micros": 700805
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.10.31.45f93e5"
+    },
+    "num-threads": 0,
+    "total": 700,
+    "estimated-cpu-time": 700,
+    "rust": {
+      "total": 174,
+      "init-and-types": 94,
+      "trait-conflicts": 64,
+      "compile": 16
+    },
+    "verification": {
+      "total": 449,
+      "vir": {
+        "total": 367,
+        "hir": 53,
+        "import": 234,
+        "rust-to-vir": 30
+      }
+    },
+    "total-verify": 79,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 50
+      },
+      {
+        "module": "",
+        "time": 15
+      },
+      {
+        "module": "",
+        "time": 13
+      }
+    ],
+    "air": {
+      "total": 64,
+      "module-times": [
+        {
+          "module": "",
+          "time": 43
+        },
+        {
+          "module": "",
+          "time": 10
+        },
+        {
+          "module": "",
+          "time": 10
+        }
+      ]
+    },
+    "smt": {
+      "total": 3,
+      "smt-init": 0,
+      "rlimit-init": 446,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 0,
+          "time-micros": 152,
+          "rlimit": 446
+        }
+      ],
+      "smt-run": 3,
+      "rlimit-run": 8972,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 1,
+          "time-micros": 3079,
+          "rlimit": 8972,
+          "function-breakdown": [
+            {
+              "function": "verus_infer_quickstart::add_two",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 703,
+              "rlimit": 3138,
+              "success": true
+            },
+            {
+              "function": "verus_infer_quickstart::add_one",
+              "mode:": "exec",
+              "time": 1,
+              "time-micros": 1539,
+              "rlimit": 2100,
+              "success": true
+            },
+            {
+              "function": "verus_infer_quickstart::checked_add_one",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 837,
+              "rlimit": 3734,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.10.31.45f93e5",
+    "platform": {
+      "os": "macos",
+      "arch": "aarch64"
+    },
+    "toolchain": "1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN)",
+    "commit": "45f93e51f4d0c0f1b71ef645932d54a7862ec983"
+  }
+}

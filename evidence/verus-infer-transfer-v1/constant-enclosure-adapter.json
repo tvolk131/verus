@@ -1,0 +1,20 @@
+{
+  "recorded_utc": "2026-10-31T19:13:37.504662+00:00",
+  "reason": "Initial trials had both an unsupported native macro-generated for loop and an accidentally unannotated constant. Enclose only the unchanged constant in verus! so the independent original-loop blocker is isolated. Retain every initial fixture and log. Selection, original macro, u64 body, property and full input domain remain unchanged.",
+  "first_proofs_already_attempted": true,
+  "selection_sha256": "099873723b641260e5bf712b66a32e2a73bd7d0be283f75cfac534fc61a5c96b",
+  "changes": [
+    {
+      "before": "fixtures/ordinary.rs",
+      "after": "fixtures/constant-enclosed-ordinary.rs",
+      "before_sha256": "2b34e5a05bba8572b4c56d8b2737d1e4283d84030a5016a82ff513ae02bc1643",
+      "after_sha256": "d4fbd5746103c1c45c6e31602e51b32a034405195bc512768e6904a11b0f6c4b"
+    },
+    {
+      "before": "fixtures/inferred.rs",
+      "after": "fixtures/constant-enclosed-inferred.rs",
+      "before_sha256": "4cce53a5ca69442427685ce8cf72dbdbb086d2615b60ab88fc0dc65c889b4413",
+      "after_sha256": "78bd26405d8854553fc124afd8bb8d267920ae252e784a85640fef7b1399f3fe"
+    }
+  ]
+}

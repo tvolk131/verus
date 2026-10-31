@@ -1,0 +1,21 @@
+error: extern location for unsigned_varint is of an unknown type: /private/tmp/verus-infer-transfer-v1-native-lib.rlib
+ --> evidence/verus-infer-transfer-v1/native_tests.rs:1:1
+  |
+1 | extern crate unsigned_varint;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: file name should be lib*.rlib or lib*.dylib
+ --> evidence/verus-infer-transfer-v1/native_tests.rs:1:1
+  |
+1 | extern crate unsigned_varint;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0463]: can't find crate for `unsigned_varint`
+ --> evidence/verus-infer-transfer-v1/native_tests.rs:1:1
+  |
+1 | extern crate unsigned_varint;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ can't find crate
+
+error: aborting due to 3 previous errors
+
+For more information about this error, try `rustc --explain E0463`.

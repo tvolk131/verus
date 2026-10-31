@@ -62,6 +62,11 @@ to diagnose and evaluate on another application.
 Keep each step reviewable on its own. Historical milestone documents and frozen
 evidence retain their original claims and pins.
 
+The [published transfer baseline](evidence/verus-infer-transfer-v1-publication.md)
+reuses the frozen unsigned-varint 0.8.0 capture for step 2. All 16 attempts were
+frontend-rejected; it establishes a macro-loop intake blocker, not an application
+proof success. No blocker extension is included in that publication.
+
 ## How to judge progress
 
 For each application slice, record the requested property and input domain,

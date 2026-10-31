@@ -1,0 +1,19 @@
+error: The verifier does not yet support the following Rust feature: `for` loops produced by a macro expansion (wrap the loop in the macro body with `verus_exec_expr! { ... }`)
+  --> /private/tmp/verus-infer-transfer-publication-20261031-5399f1e6/fixtures/constant-enclosed-ordinary.rs:28:9
+   |
+28 | /         for b in $buf.iter_mut() {
+29 | |             *b = n as u8 | 0x80;
+30 | |             n >>= 7;
+31 | |             if n == 0 {
+...  |
+35 | |             i += 1
+36 | |         }
+   | |_________^
+...
+44 |       encode!(number, buf)
+   |       -------------------- in this macro invocation
+   |
+   = note: this error originates in the macro `encode` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: aborting due to 1 previous error
+

@@ -1,0 +1,16 @@
+native-upstream-build-corrected 0
+native-tests-build-corrected 0
+native-tests 0
+native-upstream-release-build 0
+native-release-tests-build 0
+native-release-tests 0
+constant-enclosed-ordinary-plain-cold 1
+constant-enclosed-ordinary-plain-warm 1
+constant-enclosed-ordinary-assisted-cold 1
+constant-enclosed-ordinary-assisted-warm 1
+constant-enclosed-inferred-plain-cold 1
+constant-enclosed-inferred-plain-warm 1
+constant-enclosed-inferred-assisted-cold 1
+constant-enclosed-inferred-assisted-warm 1
+engine-sanity-cold 0
+engine-sanity-warm 0

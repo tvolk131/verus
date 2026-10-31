@@ -1,0 +1,3 @@
+Error: `cargo metadata` exited with an error: error: cannot create the lock file /Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/source/vstd/Cargo.lock because --locked was passed to prevent this
+help: to generate the lock file without accessing the network, remove the --locked flag and use --offline instead.
+

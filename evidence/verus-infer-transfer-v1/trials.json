@@ -1,0 +1,930 @@
+[
+  {
+    "label": "ordinary-plain-cold",
+    "fixture": "ordinary",
+    "assisted": false,
+    "temperature": "cold",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 1.309365417,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": false,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 1112528
+      }
+    }
+  },
+  {
+    "label": "ordinary-plain-warm",
+    "fixture": "ordinary",
+    "assisted": false,
+    "temperature": "warm",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.29738375,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": false,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 214767
+      }
+    }
+  },
+  {
+    "label": "ordinary-assisted-cold",
+    "fixture": "ordinary",
+    "assisted": true,
+    "temperature": "cold",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.297572584,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": true,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 213905
+      }
+    }
+  },
+  {
+    "label": "ordinary-assisted-warm",
+    "fixture": "ordinary",
+    "assisted": true,
+    "temperature": "warm",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.29500558299999996,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/ordinary.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": true,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 221579
+      }
+    }
+  },
+  {
+    "label": "inferred-plain-cold",
+    "fixture": "inferred",
+    "assisted": false,
+    "temperature": "cold",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.283398333,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "encode_policy",
+            "rust_function": "encode_policy",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:50:1: 50:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": false,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 238007
+      }
+    }
+  },
+  {
+    "label": "inferred-plain-warm",
+    "fixture": "inferred",
+    "assisted": false,
+    "temperature": "warm",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.292100208,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "encode_policy",
+            "rust_function": "encode_policy",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:50:1: 50:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": false,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 218028
+      }
+    }
+  },
+  {
+    "label": "inferred-assisted-cold",
+    "fixture": "inferred",
+    "assisted": true,
+    "temperature": "cold",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.293909041,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "encode_policy",
+            "rust_function": "encode_policy",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:50:1: 50:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": true,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 249517
+      }
+    }
+  },
+  {
+    "label": "inferred-assisted-warm",
+    "fixture": "inferred",
+    "assisted": true,
+    "temperature": "warm",
+    "cache_before": {},
+    "cache_after": {},
+    "export_exists_after": false,
+    "exit_status": 1,
+    "elapsed_seconds": 0.29741500000000004,
+    "verification_results": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "inference": {
+      "schema_version": 1,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "VERUS_layout_of_usize",
+            "rust_function": "VERUS_layout_of_usize",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:5:1: 5:27",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "unverified_body_with_contract",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical",
+            "rust_function": "canonical",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:13:1: 13:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "encode_policy",
+            "rust_function": "encode_policy",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:50:1: 50:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "radix_power",
+            "rust_function": "radix_power",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:7:1: 7:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "u64",
+            "rust_function": "u64",
+            "source": "/Users/tommyvolk/.t3/worktrees/verus/t3-10dbd998/evidence/verus-infer-transfer-v1/fixtures/inferred.rs:43:1: 43:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "status": "verification_failed",
+      "crate_success": false,
+      "requested_functions": 0,
+      "generated_functions": 0,
+      "generation_failure": null,
+      "assistance_explanations": {
+        "enabled": true,
+        "profiles": [
+          "growth_loop",
+          "range_loop"
+        ],
+        "preparation_started": false,
+        "preparation_completed": false,
+        "decisions": []
+      },
+      "range_loop_assistance": [],
+      "pointwise_assistance": [],
+      "sequence_pattern_assistance": [],
+      "mutable_selector_assistance": [],
+      "growth_loop_assistance": [],
+      "local_fold_assistance": [],
+      "factory_assistance": [],
+      "error_callback_assistance": [],
+      "array_callback_assistance": [],
+      "type_invariant_entry_assistance": [],
+      "goal_assistance": [],
+      "failed_functions": [],
+      "functions": [],
+      "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+      "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+      "imported_inference_dependencies": [],
+      "trusted_models": [],
+      "interface_written": false,
+      "metrics": {
+        "generation_micros": 0,
+        "total_micros": 238270
+      }
+    }
+  }
+]
