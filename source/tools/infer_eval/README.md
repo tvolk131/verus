@@ -9,6 +9,24 @@ with `python3 -B -m unittest discover -s source/tools -p 'test_infer*.py'` from
 the repository root. PR CI runs these tests independently, then runs this corpus
 and the Cargo incremental evaluation after building the verifier.
 
+## Assurance mutation controls
+
+From the repository root, run the fast acceptance-policy controls with
+`python3 -B source/tools/test_infer_assurance_mutations.py --policy-only`, or
+the full controls with `python3 -B source/tools/test_infer_assurance_mutations.py`.
+Both require the pinned Rust toolchain; full execution also needs cached Cargo
+dependencies and Z3 at `source/z3` (or an explicit `VERUS_Z3_PATH`). Full execution
+builds only AIR/VIR and its macro dependency in a temporary workspace, reusing
+that workspace across mutants without changing checkout sources or build artifacts.
+Every mutant must compile and produce a completed, nonempty failing Rust test
+result; crashes, compile errors, empty filters, and surviving mutants fail the runner.
+Counted-loop and native-loop missing-measure guards are mutated independently.
+Unittest discovery cheaply checks every registered mutation site without Rust.
+PR CI explicitly executes policy controls in `infer-tooling` and full controls
+in `full-test`, reusing its toolchain, solver, and downloaded dependencies.
+
+## Evaluation corpus
+
 From the repository root, after building Verus:
 
 ```sh
