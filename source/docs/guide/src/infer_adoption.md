@@ -119,9 +119,9 @@ preserved does not by itself give clients its underlying field equations.
 
 For a private sole-vector wrapper, a supplied direct sequence view also enables
 supported collection APIs to compose without exposing storage. The
-[private collection example](../../../../examples/verus_infer_private_views.rs)
+[private collection example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_private_views.rs)
 defines slot contents and a counting invariant; the
-[trait example](../../../../examples/verus_infer_traits.rs) supplies logical
+[trait example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_traits.rs) supplies logical
 getter contracts for generic events. These examples include supporting contracts
 and, where needed, explicit queries that expose representation bounds.
 
@@ -289,7 +289,7 @@ is rejected. Codec derives unused by the selected proof can be treated the same
 way; an operation that relies on encoding behavior needs an adequate checked or
 explicitly inventoried library interface instead.
 
-The [native integration example](../../../../source/tools/native_adoption/README.md)
+The [native integration example](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/native_adoption/README.md)
 uses real arithmetic/conversion/Sum/codec derives, tests ordinary Rust behavior,
 and rejects verified use of the excluded methods. Its runner records commands,
 source/binary identities and full proof reports. This is a general example, not
@@ -331,7 +331,7 @@ presentation is not a certificate, does not change verification/publication, and
 does not establish that unverified Rust callers satisfy a method's preconditions.
 
 For the authored side of that inventory, the standalone
-[source parser](../../../../source/tools/adoption_inventory/README.md) lists
+[source parser](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/adoption_inventory/README.md) lists
 source contracts, views, attributes, assumptions and proof syntax before macro
 expansion. It preserves opaque macros for review and includes cfg-disabled code.
 Reconcile its explicitly supplied files with the compiled scope; it does not
@@ -356,7 +356,7 @@ or bypassing required checks is not a substitute for establishing the property.
 ## Run, inspect and maintain the proof
 
 From this repository's root, with the prototype already built, run the complete
-[adoption example](../../../../examples/verus_infer_adoption.rs):
+[adoption example](https://github.com/tvolk131/verus/blob/verus-infer/examples/verus_infer_adoption.rs):
 
 ```sh
 source/target-verus/release/verus examples/verus_infer_adoption.rs \
@@ -380,7 +380,7 @@ regressions deliberately change an error order, drop an update, or remove a call
 bound and check that verification fails for the intended reason. Such mutation
 checks test whether the proof exercises the property; they supplement the proof.
 
-The [Aleph experiments](../../../tools/infer_alephbft/README.md) show this workflow
+The [Aleph experiments](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/infer_alephbft/README.md) show this workflow
 at a larger scale: authored collection views and invariants, inferred helper
 behavior, generated proofs for supported iterator factories, and an ordinary
 outer validation policy proof. Their pinned sources, supplied authentication and
