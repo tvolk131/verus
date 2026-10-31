@@ -4,8 +4,8 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
-The current build uses metadata schema **38**, inference policy **51** and
-candidate-cache version **57**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **52** and
+candidate-cache version **58**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -2647,3 +2647,45 @@ initializer must prove it. Static initializer inference, arbitrary mutable array
 initializers, iterator state over `ChunksExact`, and the unsafe raw-pointer drains
 of hex-conservative are not newly inferred by this profile. Mutable statics
 remain unsupported. This checkpoint uses policy 51 / candidate cache 57.
+
+
+### Checked forward chunk iterators (policy 52 / cache 58)
+
+`--infer-goals` supports two additional ordinary-body assistance profiles.
+For a native scalar `slice.try_into().expect(...)` callback returning a fixed
+array (up to 64 elements), it proposes the required slice length and exact
+element equations. The unchanged closure body and each caller obligation are
+checked by ordinary verification. Immutable local aliases and tuple destructuring
+in error constructors are normalized only when proposing callback formulas;
+the implementation body is preserved. Reports list `array_callback_assistance`
+separately from inferred helpers and their mandatory certificates.
+
+For eligible ordinary executable entries with an accessible authored type
+invariant, assistance inserts the existing `use_type_invariant` operator.
+It does not introduce a new invariant axiom. Construction and mutable-borrow
+restoration remain checked. Unsafe/async/external bodies and inference helpers
+are excluded from this assistance, not from verification. Reports expose
+`type_invariant_entry_assistance`. These profiles require full selected-crate
+verification for publication, including providers with no inferred helpers.
+
+The standard-library boundary now models immutable `ChunksExact`: constructor
+full-chunk contents (discarding a remainder), forward next/nth suffix state,
+exact concrete hints, clone preservation and fallible copied slice-to-array
+conversion. These are explicit trusted core contracts in
+`vstd/std_specs/chunks_exact.rs`, not checked application implementations.
+The Iterator trait has a conditional nth law parallel to its existing next
+law; first-party implementations claiming the prophetic laws must check it.
+The generic size_hint contract is deliberately only typed. Concrete
+implementations can check stronger requirements. No first-party exact runtime
+hint or unsafe vector drain guarantee is inferred from the trait name.
+
+Concrete core/alloc assume-spec proxies may refine a trait method with
+`no_unwind`. Dispatch and mutable-borrow restoration use that resolved
+standard-library refinement. First-party trait implementations still cannot
+declare an unchecked unwind refinement. The str::len model also exports the
+representability bound on its byte length.
+
+Native hex iterator acceptance is finite: actual construction/chunks/next/nth
+with independent ASCII digit semantics over arbitrary UTF-8 bytes and exact
+original byte errors. It neither extends the immutable hex v1/Aleph results
+nor proves public unsafe vector decoding. See `evidence/verus-infer-hex-v2`.

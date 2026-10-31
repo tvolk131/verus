@@ -2858,7 +2858,8 @@ impl Verifier {
         };
 
         let crate_items = crate::external::get_crate_items(&ctxtx).map_err(map_errs_diagnostics)?;
-        self.native_function_scope = Some(infer_report::collect_native_scope(tcx, &crate_items, &ctxtx.verus_items));
+        self.native_function_scope =
+            Some(infer_report::collect_native_scope(tcx, &crate_items, &ctxtx.verus_items));
 
         check_no_opaque_types_in_trait(ctxtx.tcx, &crate_items).map_err(map_err_diagnostics)?;
 
@@ -2881,8 +2882,9 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
-        if pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| f.x.attrs.infer
-            || f.x.name.path.last_segment().starts_with("__verus_infer_derived_")) {
+        if pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| {
+            f.x.attrs.infer || f.x.name.path.last_segment().starts_with("__verus_infer_derived_")
+        }) {
             crate::import_export::invalidate_local_inference_export(
                 &self.args,
                 &self.export_vir_path_via_cargo,
@@ -2915,16 +2917,32 @@ impl Verifier {
         let local_crate = local_crate.map_err(map_query_err)?;
 
         if !self.imported_inference_dependencies.is_empty()
-            && (self.args.no_verify || self.args.verify_root || self.args.verify_function.is_some()
-                || !self.args.verify_module.is_empty() || !self.args.verify_only_module.is_empty()) {
+            && (self.args.no_verify
+                || self.args.verify_root
+                || self.args.verify_function.is_some()
+                || !self.args.verify_module.is_empty()
+                || !self.args.verify_only_module.is_empty())
+        {
             return Err(map_err_diagnostics(vir::messages::error_bare(
                 "Verus Infer requires full-crate verification for consumers of certified inference dependencies; --no-verify and function/module filters are unsupported",
             )));
         }
 
         if let Some(inferred) = local_crate.functions.iter().find(|f| {
-            f.x.attrs.infer || vir::infer::is_inference_contract(f)
-                || self.inference_generation.growth_loops.iter()
+            f.x.attrs.infer
+                || vir::infer::is_inference_contract(f)
+                || self
+                    .inference_generation
+                    .array_callbacks
+                    .iter()
+                    .chain(self.inference_generation.type_invariant_entries.iter())
+                    .chain(self.inference_generation.error_callbacks.iter())
+                    .chain(self.inference_generation.factory_callbacks.iter())
+                    .any(|(name, _)| name == &f.x.name)
+                || self
+                    .inference_generation
+                    .growth_loops
+                    .iter()
                     .chain(self.inference_generation.range_loops.iter())
                     .chain(self.inference_generation.local_folds.iter())
                     .any(|(name, _)| name == &f.x.name)
@@ -2962,8 +2980,13 @@ impl Verifier {
             original_files: spans.local_files.clone(),
             inference_aware: false, // Set only by the post-verification exporter.
         };
-        if self.args.infer_goals || !self.imported_inference_dependencies.is_empty()
-            || local_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
+        if self.args.infer_goals
+            || !self.imported_inference_dependencies.is_empty()
+            || local_crate
+                .functions
+                .iter()
+                .any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        {
             // Inferred and goal-assisted APIs must wait for their complete
             // proofs, including every generated auxiliary query.
             self.pending_inference_export = Some((crate_metadata, local_crate.clone()));
@@ -2981,11 +3004,19 @@ impl Verifier {
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
         let mut models: std::collections::BTreeMap<_, _> =
             self.inference_trusted_models.iter().cloned().collect();
-        if local_crate.functions.iter().any(|f| f.x.attrs.infer_trait_getter || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_clone_contract || vir::infer::is_wrapper_trait(f) || vir::infer::is_inference_contract(f) || vir::infer::is_owned_summary(f)) {
+        if local_crate.functions.iter().any(|f| {
+            f.x.attrs.infer_trait_getter
+                || f.x.attrs.infer_iterator_factory
+                || f.x.attrs.infer_clone_contract
+                || vir::infer::is_wrapper_trait(f)
+                || vir::infer::is_inference_contract(f)
+                || vir::infer::is_owned_summary(f)
+        }) {
             // Ordinary implementation proofs can use library models even when
             // this provider contains no inferred executable. Bind their model
             // artifacts conservatively before certifying the trait interface.
-            models.extend(self.available_trusted_models.iter().map(|(f,s)|(f.clone(),s.clone())));
+            models
+                .extend(self.available_trusted_models.iter().map(|(f, s)| (f.clone(), s.clone())));
         }
         for function in local_crate.functions.iter().filter(|f| f.x.attrs.infer) {
             let used = vir::infer::trusted_model_dependencies(
@@ -3376,7 +3407,8 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
         self.verifier.imported_inference_dependencies = imported.inference_dependencies;
         if !self.verifier.imported_inference_dependencies.is_empty() {
             if let Err(err) = crate::import_export::invalidate_local_inference_export(
-                &self.verifier.args, &self.verifier.export_vir_path_via_cargo,
+                &self.verifier.args,
+                &self.verifier.export_vir_path_via_cargo,
             ) {
                 compiler.sess.dcx().err(err.note.clone());
                 self.verifier.encountered_vir_error = true;

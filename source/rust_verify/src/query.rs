@@ -42,7 +42,10 @@ fn inference_warning_ctx(krate: &Krate, base: &WarningCtx) -> Result<WarningCtx,
         if !result.fun_warn_configs.contains_key(&f.x.name) {
             if let Some(source) = vir::infer::borrowed_observation_source(f) {
                 let config = base.fun_warn_configs.get(&source).cloned().ok_or_else(|| {
-                    vir::messages::error(&f.span, "missing borrowed observation source configuration")
+                    vir::messages::error(
+                        &f.span,
+                        "missing borrowed observation source configuration",
+                    )
                 })?;
                 result.fun_warn_configs.insert(f.x.name.clone(), config);
             }
@@ -521,8 +524,14 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         let imported: Vec<_> = other_vir_crates
             .iter()
             .flat_map(|k| k.functions.iter())
-            .filter(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f) || vir::infer::is_approved_model(f) || vir::infer::is_wrapper_operator_boundary(f)
-                || f.x.name.path.krate != vir::ast::CrateId::Vstd && vir::infer::is_pure_observation(f))
+            .filter(|f| {
+                f.x.attrs.infer
+                    || vir::infer::is_inference_contract(f)
+                    || vir::infer::is_approved_model(f)
+                    || vir::infer::is_wrapper_operator_boundary(f)
+                    || f.x.name.path.krate != vir::ast::CrateId::Vstd
+                        && vir::infer::is_pure_observation(f)
+            })
             .cloned()
             .collect();
         let inference_arch =
@@ -548,7 +557,8 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         // proof can use them; do not add unchecked logical axioms after HIR.
         let warning_ctx = inference_warning_ctx(&Arc::new(cratex.clone()), &pre_crate.warning_ctx)
             .map_err(|e| self.emit_error(e))?;
-        let generated = |f: &vir::ast::Function| vir::infer::borrowed_observation_source(f).is_some();
+        let generated =
+            |f: &vir::ast::Function| vir::infer::borrowed_observation_source(f).is_some();
         if cratex.functions.iter().any(generated) {
             let mut stubs = (*self.get_all_function_stubs()?).clone();
             for f in cratex.functions.iter().filter(|f| generated(f)) {
@@ -558,8 +568,14 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             let lookup = self.get_demote_trait_lookup()?;
             for f in cratex.functions.iter_mut().filter(|f| generated(f)) {
                 let (wf, errors, diags) = vir::well_formed::check_function(
-                    &pre_crate.krate_without_funs, stubs.clone(), initial_wf_results.lookup.clone(),
-                    &lookup, f, &warning_ctx, self.args.no_cheating, self.args.no_verify,
+                    &pre_crate.krate_without_funs,
+                    stubs.clone(),
+                    initial_wf_results.lookup.clone(),
+                    &lookup,
+                    f,
+                    &warning_ctx,
+                    self.args.no_cheating,
+                    self.args.no_verify,
                 );
                 self.emit_non_blocking_errors(errors);
                 self.emit_diags(diags);
@@ -568,11 +584,16 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 })?;
                 all_dyn_compatability_checks.push(wf.dyn_compatability_checks);
                 let (checked, _, resolution) = vir::modes::check_function(
-                    stubs.clone(), initial_wf_results.lookup.clone(), f, &lookup,
-                ).map_err(|e| self.emit_errors(e))?;
+                    stubs.clone(),
+                    initial_wf_results.lookup.clone(),
+                    f,
+                    &lookup,
+                )
+                .map_err(|e| self.emit_errors(e))?;
                 if resolution.is_some() {
                     return Err(self.emit_error(vir::messages::error(
-                        &f.span, "borrowed observation must be a pure spec definition",
+                        &f.span,
+                        "borrowed observation must be a pure spec definition",
                     )));
                 }
                 *f = checked;
@@ -580,42 +601,87 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         }
 
         if self.args.infer_goals {
-            let available: Vec<_> = other_vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
-            cratex.functions = vir::infer::prepare_trait_contracts(&cratex.functions,&available);
+            cratex.functions = vir::infer::prepare_type_invariant_goals(
+                &cratex.functions,
+                &datatypes,
+                &mut self.inference_generation,
+            );
+            let available: Vec<_> =
+                other_vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
+            cratex.functions = vir::infer::prepare_array_callbacks(
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
+            cratex.functions = vir::infer::prepare_trait_contracts(&cratex.functions, &available);
             cratex.functions = vir::infer::prepare_factory_callbacks(
-                &cratex.functions, &available, &datatypes, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &datatypes,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_error_callbacks(
-                &cratex.functions, &available, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_pointwise_goals(
-                &cratex.functions, &available, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_local_fold_goals(
-                &cratex.functions, &available, &datatypes, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &datatypes,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_selector_goals(
-                &cratex.functions, &available, &datatypes, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &datatypes,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_growth_goals(
-                &cratex.functions, &available, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_range_goals(
-                &cratex.functions, &available, &mut self.inference_generation,
-            ).map_err(|e| self.emit_error(e))?;
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
+            )
+            .map_err(|e| self.emit_error(e))?;
             cratex.functions = vir::infer::prepare_counting_goals(
-                &cratex.functions, &available, &mut self.inference_generation,
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
             );
             cratex.functions = vir::infer::prepare_view_bound_goals(
-                &cratex.functions, &available, &mut self.inference_generation,
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
             );
             cratex.functions = vir::infer::prepare_fold_goals(
-                &cratex.functions, &available, &mut self.inference_generation,
+                &cratex.functions,
+                &available,
+                &mut self.inference_generation,
             );
         }
 
-        if self.args.infer_goals || cratex.functions.iter().any(|f|
-            f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        if self.args.infer_goals
+            || cratex
+                .functions
+                .iter()
+                .any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
         {
             let mut stubs = (*self.get_all_function_stubs()?).clone();
             for f in &cratex.functions {
@@ -624,13 +690,18 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             let stubs = Arc::new(stubs);
             for f in &cratex.functions {
                 let (wf, errors, diags) = vir::well_formed::check_generated_contracts(
-                    &pre_crate.krate_without_funs, stubs.clone(), initial_wf_results.lookup.clone(),
-                    f, &warning_ctx, self.args.no_cheating,
+                    &pre_crate.krate_without_funs,
+                    stubs.clone(),
+                    initial_wf_results.lookup.clone(),
+                    f,
+                    &warning_ctx,
+                    self.args.no_cheating,
                 );
                 self.emit_non_blocking_errors(errors);
                 self.emit_diags(diags);
-                let wf = wf.map_err(|e|
-                    self.handle_wf_error(&pre_crate.ctxt, Some(f.x.name.clone()), e))?;
+                let wf = wf.map_err(|e| {
+                    self.handle_wf_error(&pre_crate.ctxt, Some(f.x.name.clone()), e)
+                })?;
                 all_dyn_compatability_checks.push(wf.dyn_compatability_checks);
             }
         }
@@ -684,8 +755,8 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         vir_crates.push(krate);
         let unpruned_crate = vir::ast_simplify::merge_krates(vir_crates, &merged_traits)
             .map_err(|e| self.emit_error(e))?;
-        let warning_ctx=inference_warning_ctx(&unpruned_crate,&pre_crate.warning_ctx)
-            .map_err(|e|self.emit_error(e))?;
+        let warning_ctx = inference_warning_ctx(&unpruned_crate, &pre_crate.warning_ctx)
+            .map_err(|e| self.emit_error(e))?;
         let (krate, _) = vir::prune::prune_krate_for_module_or_krate(
             &unpruned_crate,
             &self.crate_id,
@@ -723,10 +794,14 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 Err(_) => unreachable!(),
             }
         }
-        let assisted_loops = self.inference_generation.growth_loops.iter()
+        let assisted_loops = self
+            .inference_generation
+            .growth_loops
+            .iter()
             .chain(self.inference_generation.range_loops.iter())
             .chain(self.inference_generation.local_folds.iter())
-            .map(|(f, _)| f.clone()).collect();
+            .map(|(f, _)| f.clone())
+            .collect();
         let krate = krate_infer_resolution(&krate, &res_infos, &assisted_loops)
             .map_err(|e| self.emit_errors(e))?;
 

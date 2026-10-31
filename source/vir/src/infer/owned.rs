@@ -15,6 +15,7 @@ mod variants;
 pub(crate) mod borrowed;
 pub(crate) mod factory_callbacks;
 pub(crate) mod error_callbacks;
+pub(crate) mod array_callbacks;
 pub(in crate::infer) use models::Model;
 pub(crate) use models::{call as model_call, model};
 fn same(a: &Typ, b: &Typ) -> bool {

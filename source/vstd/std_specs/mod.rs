@@ -30,6 +30,7 @@ pub mod range;
 pub mod result;
 
 pub mod slice;
+pub mod chunks_exact;
 
 #[cfg(feature = "alloc")]
 pub mod vec;

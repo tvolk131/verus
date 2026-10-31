@@ -25,6 +25,7 @@ mod eligibility;
 mod enums;
 mod exits;
 mod goals;
+mod type_invariant_goals;
 mod packing_goals;
 mod growth_goals;
 mod local_fold_goals;
@@ -61,6 +62,7 @@ pub(crate) fn identity_borrow_return(f: &Function) -> bool {
 pub fn borrowed_observation_source(f:&Function)->Option<Fun>{owned::borrowed::source(f)}
 pub use owned::factory_callbacks::prepare as prepare_factory_callbacks;
 pub use owned::error_callbacks::prepare as prepare_error_callbacks;
+pub use owned::array_callbacks::prepare as prepare_array_callbacks;
 
 /// Pure vocabulary used only in proposed contracts, never an executable model.
 pub fn is_pure_observation(f: &Function) -> bool {
@@ -128,6 +130,7 @@ pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
+pub fn prepare_type_invariant_goals(functions:&[Function],datatypes:&[Datatype],report:&mut GenerationReport)->Vec<Function>{type_invariant_goals::prepare(functions,datatypes,report)}
 pub use growth_goals::prepare as prepare_growth_goals;
 pub use local_fold_goals::prepare as prepare_local_fold_goals;
 pub use range_goals::prepare as prepare_range_goals;

@@ -25,6 +25,8 @@ pub struct GenerationReport {
     pub fold_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub factory_callbacks: Vec<(Fun, usize)>,
     pub error_callbacks: Vec<(Fun, usize)>,
+    pub array_callbacks: Vec<(Fun, usize)>,
+    pub type_invariant_entries: Vec<(Fun, usize)>,
     pub growth_loops: Vec<(Fun, Span)>,
     pub local_folds: Vec<(Fun, Span)>,
     pub range_loops: Vec<(Fun, Span)>,

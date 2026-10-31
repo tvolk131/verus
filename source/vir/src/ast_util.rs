@@ -774,6 +774,11 @@ impl FunctionX {
 }
 
 pub(crate) fn call_no_unwind(call_target: &CallTarget, funs: &HashMap<Fun, Function>) -> bool {
+    if let CallTarget::Fun(CallTargetKind::DynamicResolved { resolved, .. }, ..) = call_target {
+        if funs.get(resolved).is_some_and(is_std_no_unwind_refinement) {
+            return true;
+        }
+    }
     match call_target {
         CallTarget::FnSpec(_) | CallTarget::BuiltinSpecFun(..) => true,
         CallTarget::AssumeExternal => true,
@@ -789,6 +794,16 @@ pub(crate) fn call_no_unwind(call_target: &CallTarget, funs: &HashMap<Fun, Funct
             }
         },
     }
+}
+
+/// A concrete trusted core/alloc/std model may refine a possibly-unwinding
+/// trait method. This does not accept unchecked first-party implementation laws.
+pub(crate) fn is_std_no_unwind_refinement(f: &Function) -> bool {
+    matches!(f.x.name.path.krate, CrateId::Core | CrateId::Alloc)
+        && f.x.proxy.is_some()
+        && f.x.body.is_none()
+        && f.x.mode == Mode::Exec
+        && matches!(f.x.unwind_spec, Some(UnwindSpec::NoUnwind))
 }
 
 pub fn get_variant<'a>(variants: &'a Variants, variant: &Ident) -> &'a Variant {

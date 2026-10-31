@@ -29,12 +29,18 @@ pub(super) fn collect_native_scope<'tcx>(
     let mut functions = vec![];
     for item in &items.items {
         let id = item.id.owner_id().to_def_id();
-        if !matches!(tcx.def_kind(id), rustc_hir::def::DefKind::Fn | rustc_hir::def::DefKind::AssocFn) {
+        if !matches!(
+            tcx.def_kind(id),
+            rustc_hir::def::DefKind::Fn | rustc_hir::def::DefKind::AssocFn
+        ) {
             continue;
         }
         let (selected, external_body, external_specification) = match item.verif {
-            crate::external::VerifOrExternal::VerusAware { external_body, external_fn_specification, .. } =>
-                (true, external_body, external_fn_specification),
+            crate::external::VerifOrExternal::VerusAware {
+                external_body,
+                external_fn_specification,
+                ..
+            } => (true, external_body, external_fn_specification),
             crate::external::VerifOrExternal::External { .. } => (false, false, false),
         };
         functions.push(NativeFunctionScope {
@@ -42,12 +48,16 @@ pub(super) fn collect_native_scope<'tcx>(
                 .map(|path| std::sync::Arc::new(FunX { path })),
             rust_name: tcx.def_path_str(id),
             source: tcx.sess.source_map().span_to_diagnostic_string(tcx.def_span(id)),
-            selected, external_body, external_specification,
+            selected,
+            external_body,
+            external_specification,
             derived: crate::automatic_derive::is_automatically_derived(tcx.get_all_attrs(id))
-                || crate::automatic_derive::is_automatically_derived(tcx.get_all_attrs(tcx.parent(id))),
+                || crate::automatic_derive::is_automatically_derived(
+                    tcx.get_all_attrs(tcx.parent(id)),
+                ),
         });
     }
-    functions.sort_by(|a,b| a.rust_name.cmp(&b.rust_name));
+    functions.sort_by(|a, b| a.rust_name.cmp(&b.rust_name));
     functions
 }
 
@@ -63,16 +73,25 @@ fn check(outcome: Option<Outcome>, required: bool, missing_reason: &str) -> Valu
 }
 
 impl Verifier {
-    fn verification_scope_json(&self, run_succeeded: bool, available: &HashMap<Fun, Function>) -> Value {
+    fn verification_scope_json(
+        &self,
+        run_succeeded: bool,
+        available: &HashMap<Fun, Function>,
+    ) -> Value {
         // A success under filters or --no-verify is not evidence for the entire
         // selected scope. Keep reporting conservative on all failure paths.
-        let full_success = run_succeeded && !self.args.no_verify && !self.args.verify_root
-            && self.args.verify_function.is_none() && self.args.verify_module.is_empty()
+        let full_success = run_succeeded
+            && !self.args.no_verify
+            && !self.args.verify_root
+            && self.args.verify_function.is_none()
+            && self.args.verify_module.is_empty()
             && self.args.verify_only_module.is_empty();
         let mut checked_exec = 0usize;
         let mut checked_proof = 0usize;
-        let proxies: HashMap<_, _> = available.values()
-            .filter_map(|f|f.x.proxy.as_ref().map(|p|(p.x.clone(),f))).collect();
+        let proxies: HashMap<_, _> = available
+            .values()
+            .filter_map(|f| f.x.proxy.as_ref().map(|p| (p.x.clone(), f)))
+            .collect();
         let functions: Vec<_> = self.native_function_scope.iter().flatten().map(|native| {
             let f = native.name.as_ref().and_then(|name| available.get(name)
                 .or_else(||proxies.get(&name.path).copied()));
@@ -243,6 +262,12 @@ impl Verifier {
             "error_callback_assistance": generation.error_callbacks.iter().map(|(function,count)|json!({
                 "function":name(function),"strategy":"constructor_and_callee_postconditions","callbacks":count,
                 "checked_by":"ordinary closure and original-body verification",
+            })).collect::<Vec<_>>(),
+            "array_callback_assistance": generation.array_callbacks.iter().map(|(function,count)|json!({
+                "function":name(function),"callbacks":count,"checked_by":"ordinary unchanged slice conversion callback; generated domain and element equations",
+            })).collect::<Vec<_>>(),
+            "type_invariant_entry_assistance": generation.type_invariant_entries.iter().map(|(function,count)|json!({
+                "function":name(function),"parameters":count,"checked_by":"existing use_type_invariant operator; ordinary construction and restoration checks retained",
             })).collect::<Vec<_>>(),
             "goal_assistance": generation.goal_lemmas.iter().map(|(function, lemmas)| json!({
                 "function": name(function), "strategy": "counting_broadcast",

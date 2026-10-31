@@ -13,6 +13,103 @@ fn plain(e: &Expr) -> &Expr {
     }
 }
 
+// Closure argument patterns lower to immutable local declarations. Recover only
+// their pure projections for candidate formulas; retain all original statements.
+fn return_expression(body: &Expr) -> Option<Expr> {
+    fn substitute(e: &Expr, vars: &HashMap<VarIdent, Expr>) -> Option<Expr> {
+        crate::ast_visitor::map_expr_visitor_env(
+            e,
+            &mut crate::ast_visitor::VisitorScopeMap::new(),
+            &mut (),
+            &|_, _, e| {
+                Ok(if let ExprX::Var(n) = &e.x {
+                    vars.get(n).cloned().unwrap_or_else(|| e.clone())
+                } else {
+                    e.clone()
+                })
+            },
+            &|_, _, s| Ok(vec![s.clone()]),
+            &|_, t| Ok(t.clone()),
+            &|_, _, p| {
+                Ok(if let PlaceX::Local(n) = &p.x {
+                    vars.get(n)
+                        .map(|v| p.new_x(PlaceX::Temporary(v.clone())))
+                        .unwrap_or_else(|| p.clone())
+                } else {
+                    p.clone()
+                })
+            },
+            &|_, _, p| Ok(p.clone()),
+        )
+        .ok()
+    }
+    fn bind(p: &Pattern, v: Expr, vars: &mut HashMap<VarIdent, Expr>, depth: usize) -> Option<()> {
+        if depth == 0 {
+            return None;
+        }
+        match &p.x {
+            PatternX::Var(b) if b.user_mut != Some(true) && matches!(b.by_ref, ByRef::No) => {
+                vars.insert(b.name.clone(), v);
+                Some(())
+            }
+            PatternX::Constructor(dt @ Dt::Tuple(_), variant, fields) => {
+                if fields.len() > 4 {
+                    return None;
+                }
+                for field in fields.iter() {
+                    let op = FieldOpr {
+                        datatype: dt.clone(),
+                        variant: variant.clone(),
+                        field: field.name.clone(),
+                        get_variant: false,
+                        check: VariantCheck::None,
+                    };
+                    bind(
+                        &field.a,
+                        SpannedTyped::new(
+                            &v.span,
+                            &field.a.typ,
+                            ExprX::UnaryOpr(UnaryOpr::Field(op), v.clone()),
+                        ),
+                        vars,
+                        depth - 1,
+                    )?;
+                }
+                Some(())
+            }
+            PatternX::Wildcard => Some(()),
+            _ => None,
+        }
+    }
+    let mut vars = HashMap::new();
+    let mut body = body.clone();
+    for _ in 0..4 {
+        if let ExprX::Block(stmts, Some(tail)) = &plain(&body).x {
+            if stmts.len() > 8 {
+                return None;
+            }
+            for s in stmts.iter() {
+                let StmtX::Decl {
+                    pattern,
+                    mode: None | Some((Mode::Exec, DeclProph::Default)),
+                    init: Some(init),
+                    els: None,
+                    assert_irrefutable: false,
+                } = &s.x
+                else {
+                    return None;
+                };
+                let value = substitute(&crate::ast_util::place_to_spec_expr(init), &vars)?;
+                bind(pattern, observations::logical_value(&value), &mut vars, 4)?;
+            }
+            body = substitute(tail, &vars)?;
+        } else {
+            return substitute(&body, &vars);
+        }
+    }
+    None
+}
+
 fn value(e: &Expr) -> Option<Expr> {
     let e = observations::logical_value(plain(e));
     match &e.x {
@@ -45,6 +142,7 @@ fn pure(e: &Expr, all: &HashMap<Fun, Function>) -> bool {
             | ExprX::If(_, _, Some(_)) => true,
             ExprX::Old(value) => matches!(value.x, ExprX::Var(_)),
             ExprX::ReadPlace(place, _) => loops::pure_place(place),
+            ExprX::Block(stmts, Some(_)) if stmts.is_empty() => true,
             ExprX::Call {
                 target: CallTarget::Fun(kind, name, ..),
                 post_args: None,
@@ -94,7 +192,7 @@ fn call_post(source: &Expr, output: &Expr, all: &HashMap<Fun, Function>) -> Opti
         || f.x.params.len() != args.len()
         || f.x.typ_params.len() != types.len()
         || !f.x.require.is_empty()
-        || f.x.ensure.0.is_empty()
+        || f.x.ensure.0.is_empty() && f.x.returns.is_none()
         || f.x.ensure.0.len() > 4
         || !f.x.ensure.1.is_empty()
         || f.x
@@ -115,8 +213,20 @@ fn call_post(source: &Expr, output: &Expr, all: &HashMap<Fun, Function>) -> Opti
             .map(|(p, arg)| Some((p.x.name.clone(), value(arg)?)))
             .collect::<Option<_>>()?;
     vars.insert(f.x.inner_ret.x.name.clone(), output.clone());
-    f.x.ensure
-        .0
+    let mut posts = (*f.x.ensure.0).clone();
+    if let Some(value) = &f.x.returns {
+        let result = SpannedTyped::new(
+            &f.span,
+            &f.x.inner_ret.x.typ,
+            ExprX::Var(f.x.inner_ret.x.name.clone()),
+        );
+        posts.push(SpannedTyped::new(
+            &f.span,
+            &bool_typ(),
+            ExprX::Binary(BinaryOp::Eq(Mode::Spec), result, value.clone()),
+        ));
+    }
+    posts
         .iter()
         .map(|post| {
             let mapped = crate::ast_visitor::map_expr_visitor_env(
@@ -163,6 +273,37 @@ fn relation(
     if !same(&source.typ, &output.typ) {
         return None;
     }
+    if let ExprX::If(condition, left, Some(right)) = &source.x {
+        let condition = value(condition)?;
+        if !matches!(&*condition.typ, TypX::Bool) {
+            return None;
+        }
+        let left = relation(left, output, all, depth - 1)?;
+        let right = relation(right, output, all, depth - 1)?;
+        let not = SpannedTyped::new(
+            &condition.span,
+            &bool_typ(),
+            ExprX::Unary(UnaryOp::Not, condition.clone()),
+        );
+        return Some(
+            left.into_iter()
+                .map(|p| {
+                    SpannedTyped::new(
+                        &p.span,
+                        &bool_typ(),
+                        ExprX::Logical(LogicalOp::Implies, condition.clone(), p.clone()),
+                    )
+                })
+                .chain(right.into_iter().map(|p| {
+                    SpannedTyped::new(
+                        &p.span,
+                        &bool_typ(),
+                        ExprX::Logical(LogicalOp::Implies, not.clone(), p.clone()),
+                    )
+                }))
+                .collect(),
+        );
+    }
     if let ExprX::Ctor(dt, variant, fields, None) = &source.x {
         if fields.len() > 8 {
             return None;
@@ -200,7 +341,11 @@ fn relation(
     }
 }
 
-fn decorate(f: &Function, body: &Expr, plans: &[callbacks::Plan]) -> Result<Expr, VirErr> {
+pub(super) fn decorate(
+    f: &Function,
+    body: &Expr,
+    plans: &[callbacks::Plan],
+) -> Result<Expr, VirErr> {
     fn transform(body: &Expr, plans: &[callbacks::Plan], strip: bool) -> Result<Expr, VirErr> {
         crate::ast_visitor::map_expr_visitor(body, &|e| {
             if let ExprX::NonSpecClosure {
@@ -297,7 +442,6 @@ pub fn prepare(
                         if params.len() == 1
                             && requires.is_empty()
                             && ensures.is_empty()
-                            && matches!(&plain(body).x, ExprX::Ctor(..))
                             && !plans.iter().any(|p: &callbacks::Plan| p.span == closure.span.id)
                         {
                             let output = SpannedTyped::new(
@@ -305,7 +449,10 @@ pub fn prepare(
                                 &ret.a,
                                 ExprX::Var(ret.name.clone()),
                             );
-                            if let Some(clauses) = relation(body, &output, &all, 4) {
+                            if let Some(clauses) = return_expression(body)
+                                .filter(|e| matches!(&plain(e).x, ExprX::Ctor(..)))
+                                .and_then(|body| relation(&body, &output, &all, 6))
+                            {
                                 if clauses.iter().all(|p| pure(p, &all)) {
                                     let post = clauses.into_iter().try_fold(
                                         boolean(&closure.span, true),

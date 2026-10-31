@@ -4,7 +4,7 @@ use crate::ast::{
     Fun, Function, Ident, IntRange, IntegerTypeBoundKind, InvAtomicity, Label, LogicalOp,
     LoopInvariantKind, MaskSpec, Mode, OverflowBehavior, PatternBinding, PatternX, Place, PlaceX,
     SignedDivEdgeCaseBehavior, SpannedTyped, Stmt, StmtX, Typ, TypX, Typs, UnaryOp, UnaryOpr,
-    UninterpretedFloatBinaryOp, UnwindSpec, VarAt, VarBinder, VarBinderX, VarBinders, VarIdent,
+    UninterpretedFloatBinaryOp, VarAt, VarBinder, VarBinderX, VarBinders, VarIdent,
     VarIdentDisambiguate, VariantCheck, VirErr,
 };
 use crate::ast::{BuiltinSpecFun, CrateId, Exprs};
@@ -1061,10 +1061,7 @@ fn expr_get_call(
                         has_return: has_ret,
                         args: Arc::new(exps),
                         obligations: all_obligations,
-                        may_unwind: !matches!(
-                            function.x.unwind_spec_or_default(),
-                            UnwindSpec::NoUnwind
-                        ),
+                        may_unwind: !crate::ast_util::call_no_unwind(target, &ctx.func_map),
                         body,
                     }),
                 )))
@@ -4816,9 +4813,7 @@ fn exec_closure_body_stms(
 
             let closure_state = containing_closure.as_ref().unwrap();
             if infer_callback {
-                if callback_pre.len() != 1
-                    || closure_state.ensures.len() != 1
-                {
+                if callback_pre.len() != 1 || closure_state.ensures.len() != 1 {
                     return Err(error(
                         &body.span,
                         "Verus Infer incomplete: independent callbacks require one complete result relation",
@@ -4841,10 +4836,18 @@ fn exec_closure_body_stms(
                 let (name, other) = state.next_temp(&e.span, &e.typ);
                 state.declare_imm_var_stm(&name, &e.typ, LocalDeclKind::Assert, false);
                 typ_inv_vars.push((name, e.typ.clone()));
-                let equals = crate::infer_checks::output_equivalence(ctx, &e.span, &e.typ, other.clone(), e.clone())?;
-                let alternative = SpannedTyped::new(&e.span, &bool_typ(), ExpX::Binary(
-                    sst::BinaryOp::Eq, replace(&other), equals,
-                ));
+                let equals = crate::infer_checks::output_equivalence(
+                    ctx,
+                    &e.span,
+                    &e.typ,
+                    other.clone(),
+                    e.clone(),
+                )?;
+                let alternative = SpannedTyped::new(
+                    &e.span,
+                    &bool_typ(),
+                    ExpX::Binary(sst::BinaryOp::Eq, replace(&other), equals),
+                );
                 let mut checks = original_body_stms.clone();
                 // Placeholders survive ordinary SST renaming/coercion. The
                 // independent transformer converts these final three entries

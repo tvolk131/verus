@@ -85,6 +85,29 @@ pub trait ExIterator {
                 decreases_to!(old(self).decrease()->0 => final(self).decrease()->0),
     ;
 
+    /// Forward skipping consumes n skipped items and the selected item, or
+    /// exhausts the iterator. Arithmetic here is mathematical, including MAX.
+    fn nth(&mut self, n: usize) -> (ret: Option<Self::Item>)
+        ensures
+            iter_state_preserved!(old(self), final(self)),
+            final(self).obeys_prophetic_iter_laws() ==> {
+                if n < old(self).remaining().len() {
+                    &&& ret == Some(old(self).remaining()[n as int])
+                    &&& final(self).remaining() == old(self).remaining().subrange(n as int + 1, old(self).remaining().len() as int)
+                } else {
+                    &&& ret == None
+                    &&& final(self).remaining() == Seq::empty()
+                    &&& final(self).will_return_none()
+                }
+            },
+            final(self).obeys_prophetic_iter_laws() && n < old(self).remaining().len() && final(self).decrease() is Some ==>
+                decreases_to!(old(self).decrease()->0 => final(self).decrease()->0),
+    ;
+
+    // Implementations may strengthen this ordinary method contract. In
+    // particular ExactSizeIterator implementations check their exact hints.
+    fn size_hint(&self) -> (ret: (usize, Option<usize>));
+
     /******* Mechanisms that support ergonomic `for` loops *********/
 
     /// Value used by default for the decreases clause when no explicit decreases clause is provided

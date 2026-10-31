@@ -1898,7 +1898,10 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                 let error = error(&stm.span, description);
                 let filter = Some(fun_to_air_ident(&ctx.name_ctxt, &func.x.name));
                 let unrestricted_domain = state.post_condition_info.ens_exprs.len() == 1
-                    && matches!(&*state.post_condition_info.ens_exprs[0].1, ExprX::Const(Constant::Bool(true)));
+                    && matches!(
+                        &*state.post_condition_info.ens_exprs[0].1,
+                        ExprX::Const(Constant::Bool(true))
+                    );
                 if matches!(state.post_condition_info.kind, PostConditionKind::InferMaximality)
                     && !unrestricted_domain
                 {
@@ -1906,10 +1909,13 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     // Closed standard subslice calls use the existing Index
                     // models' exact bounds requirements for successful execution.
                     // Ordinary verification still asserts these requirements.
-                    let inferred =
-                        func.x.attrs.infer && !func.x.attrs.infer_allow_approx
-                            && (typs.is_empty() || crate::infer::is_record_callee(func, typs))
-                        || resolved_fun.as_ref().and_then(|f|ctx.func_map.get(f)).is_some_and(|f|crate::infer::is_wrapper_trait(f));
+                    let inferred = func.x.attrs.infer
+                        && !func.x.attrs.infer_allow_approx
+                        && (typs.is_empty() || crate::infer::is_record_callee(func, typs))
+                        || resolved_fun
+                            .as_ref()
+                            .and_then(|f| ctx.func_map.get(f))
+                            .is_some_and(|f| crate::infer::is_wrapper_trait(f));
                     let subslice = resolved_fun
                         .as_ref()
                         .and_then(|f| ctx.func_map.get(f))
@@ -1918,10 +1924,19 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         });
                     let vector_index = crate::infer::is_vec_maximality_model(func, typs);
                     let panic = crate::infer::is_panic_maximality_model(func, typs);
-                    let native_iterator = crate::infer::is_native_iterator_maximality_model(func, typs);
+                    let native_iterator =
+                        crate::infer::is_native_iterator_maximality_model(func, typs);
                     let result_map = crate::infer::is_result_map_maximality_model(func, typs);
-                    let primitive_operator = crate::infer::is_primitive_operator_maximality_model(func, typs);
-                    if !inferred && !subslice && !vector_index && !panic && !native_iterator && !result_map && !primitive_operator {
+                    let primitive_operator =
+                        crate::infer::is_primitive_operator_maximality_model(func, typs);
+                    if !inferred
+                        && !subslice
+                        && !vector_index
+                        && !panic
+                        && !native_iterator
+                        && !result_map
+                        && !primitive_operator
+                    {
                         return Err(crate::messages::error(
                             &stm.span,
                             "Verus Infer incomplete: unsupported callee requirement in maximality check",
@@ -1956,7 +1971,15 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                 }
             }
 
-            let callee_unwind_spec = func.x.unwind_spec_or_default();
+            let callee_unwind_spec = if resolved_fun
+                .as_ref()
+                .and_then(|f| ctx.func_map.get(f))
+                .is_some_and(crate::ast_util::is_std_no_unwind_refinement)
+            {
+                UnwindSpec::NoUnwind
+            } else {
+                func.x.unwind_spec_or_default()
+            };
             let callee_never_unwinds = matches!(callee_unwind_spec, UnwindSpec::NoUnwind);
             if !matches!(state.unwind, UnwindAir::MayUnwind)
                 && !callee_never_unwinds

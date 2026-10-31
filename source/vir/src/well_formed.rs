@@ -1028,10 +1028,19 @@ pub fn check_function(
     no_cheating: bool,
     no_verify: bool,
 ) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
-    run_function_check(|emit| check_function_inner(
-        krate, funs, lookup, demote_trait_lookup, function, emit, warning_ctx,
-        no_cheating, no_verify,
-    ))
+    run_function_check(|emit| {
+        check_function_inner(
+            krate,
+            funs,
+            lookup,
+            demote_trait_lookup,
+            function,
+            emit,
+            warning_ctx,
+            no_cheating,
+            no_verify,
+        )
+    })
 }
 
 /// Synthesis runs after source checking. Its new contracts must obey the same
@@ -1046,7 +1055,9 @@ pub fn check_generated_contracts(
 ) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
     run_function_check(|emit| {
         let ctxt = Ctxt { funs, lookup, krate, no_cheating };
-        let warn_config = warning_ctx.fun_warn_configs.get(&function.x.name)
+        let warn_config = warning_ctx
+            .fun_warn_configs
+            .get(&function.x.name)
             .expect("missing warning configuration for generated contract");
         check_requires_ensures(&ctxt, function, emit, warn_config)
     })
@@ -1087,14 +1098,26 @@ fn check_requires_ensures(
     warn_config: &Option<WarningConfig>,
 ) -> Result<(), VirErr> {
     for req in function.x.require.iter() {
-        check_expr(ctxt, function, req,
+        check_expr(
+            ctxt,
+            function,
+            req,
             Some((&function.x.visibility, "'requires' clause of public function")),
-            Area::PreState("requires"), emit, warn_config)?;
+            Area::PreState("requires"),
+            emit,
+            warn_config,
+        )?;
     }
     for ens in function.x.ensure.0.iter().chain(function.x.ensure.1.iter()) {
-        check_expr(ctxt, function, ens,
+        check_expr(
+            ctxt,
+            function,
+            ens,
             Some((&function.x.visibility, "'ensures' clause of public function")),
-            Area::PostState, emit, warn_config)?;
+            Area::PostState,
+            emit,
+            warn_config,
+        )?;
     }
     Ok(())
 }
@@ -1127,8 +1150,10 @@ fn check_function_inner(
                 assert!(trait_typ_args.len() == tr.x.typ_params.len() + 1);
             }
         }
-        if function.x.require.len() > 0 && !(crate::infer::is_wrapper_trait(function)
-            && crate::infer_proof::CandidateId::from_function(function).is_ok()) {
+        if function.x.require.len() > 0
+            && !(crate::infer::is_wrapper_trait(function)
+                && crate::infer_proof::CandidateId::from_function(function).is_ok())
+        {
             return Err(error(
                 &function.span,
                 "trait method implementation cannot declare requires clauses; these can only be inherited from the trait declaration",
@@ -1140,7 +1165,9 @@ fn check_function_inner(
                 "trait method implementation cannot declare an opens_invariants spec; this can only be inherited from the trait declaration",
             ));
         }
-        if function.x.unwind_spec.is_some() {
+        if function.x.unwind_spec.is_some()
+            && !crate::ast_util::is_std_no_unwind_refinement(function)
+        {
             return Err(error(
                 &function.span,
                 "trait method implementation cannot declare an unwind specification; this can only be inherited from the trait declaration",

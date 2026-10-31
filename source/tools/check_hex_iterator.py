@@ -1,0 +1,158 @@
+#!/usr/bin/env python3
+"""Replay the native string-backed forward iterator milestone without copying/replacing its algorithms.
+
+Mutations run in the explicitly supplied native checkout and are restored in a
+finally block. The caller must have write permission for that checkout. Proofs
+use its actual src/lib.rs, default std+alloc cfg and a separate fresh export/cache
+per invocation. No Cargo configuration or accepted Aleph fixture is modified.
+"""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--native-root", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--positive-only", action="store_true")
+    args = parser.parse_args()
+    root = args.native_root.resolve()
+    engine = Path(__file__).resolve().parents[2]
+    binary = engine / "source/target-verus/release"
+    out = args.output.resolve()
+    out.mkdir(parents=True, exist_ok=False)
+    paths = [root / "src/lib.rs", root / "src/iter.rs"]
+    originals = {p: p.read_bytes() for p in paths}
+    sources = sorted((root / "src").glob("*.rs")) + sorted((root / "tests").rglob("*.rs")) + [
+        root / name for name in ["Cargo.toml", "Cargo.lock", "Cargo-recent.lock", "VERUS_INFER.md"]]
+    receipt = {"native_sources_before": {str(p.relative_to(root)): sha(p) for p in sources},
+               "artifacts": {n: sha(binary / n) for n in ["verus", "rust_verify", "vstd.vir", "libvstd.rlib", "libverus_builtin_macros.dylib"]},
+               "runner_sha256": sha(Path(__file__).resolve()),
+               "native_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip(),
+               "proof_toolchain": subprocess.check_output(["rustc", "+1.99.1", "--version"], text=True).strip(),
+               "cases": [], "commands": []}
+    env = dict(os.environ, RUSTUP_TOOLCHAIN="1.99.1", VERUS_Z3_PATH=str(engine / "source/z3"))
+    for key in ["RUSTFLAGS", "CARGO_ENCODED_RUSTFLAGS", "RUSTC_WRAPPER", "RUSTC_WORKSPACE_WRAPPER"]:
+        env.pop(key, None)
+
+    def run(label, command, environment):
+        started = time.monotonic()
+        with (out / (label + ".stdout")).open("w") as stdout, (out / (label + ".stderr")).open("w") as stderr:
+            result = subprocess.run(command, cwd=engine, env=environment, stdout=stdout, stderr=stderr)
+        receipt["commands"].append({"label": label, "argv": command, "cwd": str(engine),
+                                    "exit_code": result.returncode, "seconds": time.monotonic() - started,
+                                    "environment": {k: environment[k] for k in ["RUSTUP_TOOLCHAIN", "VERUS_Z3_PATH", "VERUS_INFER_CACHE", "CARGO_TARGET_DIR"] if k in environment}})
+        return result.returncode
+
+    def proof(label, expected=True, flags=(), assistance=True):
+        artifact = out / (label + ".vir")
+        environment = dict(env, VERUS_INFER_CACHE=str(out / (label + "-cache")))
+        command = [str(binary / "verus"), str(root / "src/lib.rs"), "--crate-type", "lib",
+                   "--crate-name", "hex_conservative", "--cfg", 'feature="std"', "--cfg", 'feature="alloc"',
+                   "--infer-goals", "--no-cheating", "--output-json", "--export", str(artifact), *flags]
+        if not assistance:
+            command.remove("--infer-goals")
+        code = run(label, command, environment)
+        report = json.loads((out / (label + ".stdout")).read_text())
+        result = report["verification-results"]
+        inference = report["verus-infer"]
+        assert (code == 0) == expected and result.get("success", False) == expected, (label, out)
+        assert inference["interface_written"] == expected and artifact.exists() == expected, (label, out)
+        assert inference["crate_success"] == expected, (label, out)
+        if expected:
+            functions = inference["functions"]
+            assert len(functions) == 1, (label, functions)
+            assert "hex_chars_to_byte" in functions[0]["function"], (label, functions)
+            for check in ["soundness", "maximality", "exactness"]:
+                assert functions[0]["proofs"][check]["status"] == "proved", (label, functions)
+            assert inference["verification_scope"]["complete_selected_scope_verified"], (label, out)
+            checked = {r["function"] for r in inference["verification_scope"]["native_functions"] if r["body_status"] == "checked_exec_body"}
+            required = ["Char::decode_nibble", "iter::hex_chars_to_byte",
+                        "iter::HexToBytesIter::new", "iter::HexToBytesIter::new_unchecked", "iter::HexToBytesIter::from_pairs",
+                        "iter::HexToBytesIter::next", "iter::HexToBytesIter::nth",
+                        "iter::HexDigitsIter::new_unchecked", "iter::HexDigitsIter::next", "iter::HexDigitsIter::nth", "iter::HexDigitsIter::size_hint",
+                        "iter::pair_decoding_goal", "iter::forward_step_goal", "iter::string_forward_goal", "iter::string_next_goal",
+                        "iter::original_error_location_goal", "iter::string_exhaustion_goal", "iter::saturated_error_position_goal"]
+            assert all("hex_conservative::" + name in checked for name in required), (label, checked)
+            assert len(inference["array_callback_assistance"]) == 2
+            assert len(inference["type_invariant_entry_assistance"]) == 4
+        receipt["cases"].append({"label": label, "expected_success": expected, "verification": result, "inference": inference})
+        return inference
+
+    try:
+        proof("fresh")
+        assert len(receipt["cases"][-1]["inference"]["array_callback_assistance"]) == 2
+        if not args.positive_only:
+            cases = [
+                ("wrong_table", paths[0], "t[Char::LowerA as usize] = 10", "t[Char::LowerA as usize] = 11"),
+                ("swapped_nibbles", paths[1], "Ok((hih << 4) | loh)", "Ok((loh << 4) | hih)"),
+                ("invalid_acceptance", paths[0], "if n == 0xFF {", "if n == 0xFE {"),
+                ("low_error_payload", paths[1], ".ok_or((lo, false))?", ".ok_or((hi, false))?"),
+                ("wrong_output", paths[1], "Ok((hih << 4) | loh)", "Ok(0)"),
+                ("error_priority", paths[1],
+                 "let hih = Char::decode_nibble(hi).ok_or((hi, true))?;\n    let loh = Char::decode_nibble(lo).ok_or((lo, false))?;",
+                 "let loh = Char::decode_nibble(lo).ok_or((lo, false))?;\n    let hih = Char::decode_nibble(hi).ok_or((hi, true))?;"),
+            ]
+            cases += [
+                ("odd_length", paths[1], "if s.len() % 2 != 0 {", "if s.len() % 2 == 0 {"),
+                ("utf8_length", paths[1], "if s.len() % 2 != 0 {", "if (s.len() > 0 && s.as_bytes()[0] > 127) || s.len() % 2 != 0 {"),
+                ("chunk_width", paths[1], "Self { iter: digits.chunks_exact(2) }", "Self { iter: digits.chunks_exact(3) }"),
+                ("digit_skip", paths[1], 'self.iter.nth(n).map(|digits|', 'self.iter.nth(0).map(|digits|'),
+                ("digit_next", paths[1], 'self.iter.next().map(|digits|', 'self.iter.nth(1).map(|digits|'),
+                ("decoder_next", paths[1], 'fn next(&mut self) -> Option<Self::Item> { self.nth(0) }', 'fn next(&mut self) -> Option<Self::Item> { self.nth(1) }'),
+                ("decoder_skip", paths[1], 'let [hi, lo] = self.iter.nth(n)?;', 'let [hi, lo] = self.iter.nth(0)?;'),
+                ("cursor_stride", paths[1], 'self.front_pos = self.front_pos.saturating_add(n).saturating_add(1);', 'self.front_pos = self.front_pos.saturating_add(n).saturating_add(2);'),
+                ("byte_position", paths[1], 'let pos = self.front_pos.saturating_add(n).saturating_mul(2);', 'let pos = self.front_pos.saturating_add(n).saturating_mul(3);'),
+                ("low_position", paths[1], 'pos: if is_high { pos } else { pos.saturating_add(1) },', 'pos: if is_high { pos } else { pos.saturating_add(2) },'),
+                ("cursor_overflow", paths[1], 'self.front_pos = self.front_pos.saturating_add(n).saturating_add(1);', 'self.front_pos = (self.front_pos + n).saturating_add(1);'),
+                ("exhaustion_cursor", paths[1], 'let [hi, lo] = self.iter.nth(n)?;', 'self.front_pos = self.front_pos.saturating_add(1);\n        let [hi, lo] = self.iter.nth(n)?;'),
+            ]
+            for label, path, before, after in cases:
+                text = originals[path].decode()
+                assert text.count(before) == (2 if label == 'low_position' else 1), (label, "ambiguous mutation")
+                path.write_text(text.replace(before, after, 1))
+                try:
+                    inference = proof(label, False)
+                    assert len(inference["functions"]) == 1 and inference["functions"][0]["required_checks_passed"], (label, out)
+                    errors = (out / (label + ".stderr")).read_text()
+                    assert any(e in errors for e in ["postcondition not satisfied", "invariant", "overflow"]), (label, out)
+                finally:
+                    path.write_bytes(originals[path])
+            inference = proof("without_assistance", False, assistance=False)
+            assert inference["functions"][0]["required_checks_passed"], ("without_assistance", out)
+            assert "postcondition not satisfied" in (out / "without_assistance.stderr").read_text()
+            proof("no_verify", False, ["--no-verify"])
+            proof("filtered", False, ["--verify-root", "--verify-function", "decode_nibble"])
+            for label in ["no_verify", "filtered"]:
+                assert "requires full-crate verification" in (out / (label + ".stderr")).read_text(), (label, out)
+        proof("restored")
+        for label, features in [("default", []), ("all", ["--all-features"]),
+                                ("no_default", ["--no-default-features"]),
+                                ("alloc", ["--no-default-features", "--features", "alloc"])]:
+            environment = dict(env, CARGO_TARGET_DIR=str(out / "native-target"))
+            assert run("native_" + label, ["cargo", "+1.99.1", "test", "--offline", "--locked",
+                       "--manifest-path", str(root / "Cargo.toml"), "-p", "hex-conservative", *features], environment) == 0, (label, out)
+        environment = dict(env, RUSTUP_TOOLCHAIN="1.74.0", CARGO_TARGET_DIR=str(out / "msrv-target"))
+        assert run("native_msrv", ["cargo", "+1.74.0", "test", "--offline", "--locked", "--manifest-path", str(root / "Cargo.toml"), "-p", "hex-conservative"], environment) == 0
+        receipt["success"] = True
+    finally:
+        for path, original in originals.items():
+            if path.read_bytes() != original:
+                path.write_bytes(original)
+        receipt["native_sources_after"] = {str(p.relative_to(root)): sha(p) for p in sources}
+        assert receipt["native_sources_before"] == receipt["native_sources_after"], "source restoration failed"
+        (out / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
+    print(out)
+
+
+if __name__ == "__main__":
+    main()
