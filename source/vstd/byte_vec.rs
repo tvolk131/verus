@@ -1,4 +1,4 @@
-//! Bounded ownership bridge for a fresh global-allocator Vec<u8> spare buffer.
+//! Bounded ownership bridge for a fresh global-allocator `Vec<u8>` spare buffer.
 //! Primitive boundaries are allocation/acquisition, in-bounds pointer arithmetic,
 //! and transfer into Vec. Writes use the existing tracked raw-pointer primitive.
 use crate::prelude::*;
