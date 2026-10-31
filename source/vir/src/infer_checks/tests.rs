@@ -246,24 +246,28 @@ fn correct_candidate_passes_all_checks() {
 
 #[test]
 fn trait_boundary_equivalence_is_asserted_before_success_assumptions() {
-    let (ctx,pars,original)=fixture();
-    let maximal=precision_check_body(&span(),&pars[0].x.typ,&original,PrecisionCheck::Maximality).unwrap();
-    let valid=trait_boundary(&span(),&pars,&original.reqs,&original,maximal.clone());
-    assert!(verifies(&ctx,&pars,&valid));
-    let x=SpannedTyped::new(&span(),&pars[0].x.typ,ExpX::Var(pars[0].x.name.clone()));
-    let restrictive=Arc::new(vec![binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le),x,integer(100))]);
-    let invalid=trait_boundary(&span(),&pars,&restrictive,&original,maximal.clone());
-    assert!(!verifies(&ctx,&pars,&invalid));
+    let (ctx, pars, original) = fixture();
+    let maximal =
+        precision_check_body(&span(), &pars[0].x.typ, &original, PrecisionCheck::Maximality)
+            .unwrap();
+    let valid = trait_boundary(&span(), &pars, &original.reqs, &original, maximal.clone());
+    assert!(verifies(&ctx, &pars, &valid));
+    let x = SpannedTyped::new(&span(), &pars[0].x.typ, ExpX::Var(pars[0].x.name.clone()));
+    let restrictive =
+        Arc::new(vec![binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), x, integer(100))]);
+    let invalid = trait_boundary(&span(), &pars, &restrictive, &original, maximal.clone());
+    assert!(!verifies(&ctx, &pars, &invalid));
     // An inherited false precondition would make ordinary soundness vacuous.
     // The boundary assertion must still fail on unrestricted typed inputs.
-    let mut impossible=original.clone();
-    impossible.reqs=Arc::new(vec![SpannedTyped::new(&span(),&bool_typ(),ExpX::Const(Constant::Bool(false)))]);
-    let invalid=trait_boundary(&span(),&pars,&original.reqs,&impossible,maximal.clone());
-    assert!(!verifies(&ctx,&pars,&invalid));
+    let mut impossible = original.clone();
+    impossible.reqs =
+        Arc::new(vec![SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(false)))]);
+    let invalid = trait_boundary(&span(), &pars, &original.reqs, &impossible, maximal.clone());
+    assert!(!verifies(&ctx, &pars, &invalid));
     // A weaker inherited domain must not bypass the equivalence check either.
-    impossible.reqs=Arc::new(vec![]);
-    let invalid=trait_boundary(&span(),&pars,&original.reqs,&impossible,maximal);
-    assert!(!verifies(&ctx,&pars,&invalid));
+    impossible.reqs = Arc::new(vec![]);
+    let invalid = trait_boundary(&span(), &pars, &original.reqs, &impossible, maximal);
+    assert!(!verifies(&ctx, &pars, &invalid));
 }
 
 /// An independent transition oracle: a u8 increment and an unchanged Boolean.
@@ -1081,9 +1085,7 @@ fn owned_return_exactness_rejects_missing_loose_and_wrong_fields_independently()
     ));
     let input = SpannedTyped::new(&span(), &typ, ExpX::Var(var("input")));
     let output = SpannedTyped::new(&span(), &typ, ExpX::Var(var("result")));
-    let TypX::Datatype(dt, ..) = &*typ else {
-        unreachable!()
-    };
+    let TypX::Datatype(dt, ..) = &*typ else { unreachable!() };
     let field = |v: Exp, name: &str, t: &Typ| {
         SpannedTyped::new(
             &span(),
@@ -1149,11 +1151,7 @@ fn owned_return_exactness_rejects_missing_loose_and_wrong_fields_independently()
     });
     let pars = Arc::new(vec![Spanned::new(
         span(),
-        ParX {
-            name: var("input"),
-            typ: typ.clone(),
-            mode: Mode::Exec,
-        },
+        ParX { name: var("input"), typ: typ.clone(), mode: Mode::Exec },
     )]);
     let exact = |c: &FuncCheckSst| state::returned_body(&ctx, &span(), &typ, c).unwrap();
     assert!(verifies(&ctx, &pars, &check));
@@ -1199,13 +1197,16 @@ fn custom_error_precision_requires_each_tag_and_guarded_payload() {
     tagged_value_precision(true);
 }
 
-fn tagged_value_precision(custom:bool) {
+fn tagged_value_precision(custom: bool) {
     let (template, _, _) = record_fixture();
     let mut datatype = template.datatype_map.values().next().unwrap().x.clone();
     let dt = Dt::Path(Arc::new(PathX {
         krate: CrateId::Core,
-        segments: Arc::new(if custom{vec![Arc::new("application".into()),Arc::new("Error".into())]}
-            else{vec![Arc::new("result".into()), Arc::new("Result".into())]}),
+        segments: Arc::new(if custom {
+            vec![Arc::new("application".into()), Arc::new("Error".into())]
+        } else {
+            vec![Arc::new("result".into()), Arc::new("Result".into())]
+        }),
     }));
     datatype.name = dt.clone();
     datatype.typ_params = Arc::new(vec![
@@ -1223,9 +1224,7 @@ fn tagged_value_precision(custom:bool) {
                     a: (
                         Arc::new(TypX::TypParam(Arc::new(param.into()))),
                         Mode::Exec,
-                        Visibility {
-                            restricted_to: None,
-                        },
+                        Visibility { restricted_to: None },
                     ),
                 })]),
             })
@@ -1240,21 +1239,15 @@ fn tagged_value_precision(custom:bool) {
     ));
     let flag = SpannedTyped::new(&span(), &bool_typ(), ExpX::Var(var("flag")));
     let x = SpannedTyped::new(&span(), &byte, ExpX::Var(var("x")));
-    let vars = [
-        (var("flag"), bool_typ()),
-        (var("x"), byte.clone()),
-        (var("result"), result.clone()),
-    ];
+    let vars =
+        [(var("flag"), bool_typ()), (var("x"), byte.clone()), (var("result"), result.clone())];
     let encode = |e: Exp| crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx, &e, &vars);
     let output = SpannedTyped::new(&span(), &result, ExpX::Var(var("result")));
     let tag = SpannedTyped::new(
         &span(),
         &bool_typ(),
         ExpX::UnaryOpr(
-            UnaryOpr::IsVariant {
-                datatype: dt.clone(),
-                variant: Arc::new("Ok".into()),
-            },
+            UnaryOpr::IsVariant { datatype: dt.clone(), variant: Arc::new("Ok".into()) },
             output.clone(),
         ),
     );
@@ -1307,10 +1300,7 @@ fn tagged_value_precision(custom:bool) {
         ExpX::If(
             flag.clone(),
             ctor("Ok", x.clone()),
-            ctor(
-                "Err",
-                SpannedTyped::new(&span(), &byte, ExpX::Const(Constant::Int(7.into()))),
-            ),
+            ctor("Err", SpannedTyped::new(&span(), &byte, ExpX::Const(Constant::Int(7.into())))),
         ),
     );
     check.reqs = Arc::new(vec![]);
@@ -1353,11 +1343,7 @@ fn tagged_value_precision(custom:bool) {
             .map(|(name, typ)| {
                 Spanned::new(
                     span(),
-                    ParX {
-                        name: name.clone(),
-                        typ: typ.clone(),
-                        mode: Mode::Exec,
-                    },
+                    ParX { name: name.clone(), typ: typ.clone(), mode: Mode::Exec },
                 )
             })
             .collect(),
@@ -1376,13 +1362,9 @@ fn tagged_value_precision(custom:bool) {
                 .collect(),
         );
         assert!(verifies(&ctx, &pars, &weak));
-        assert!(
-            !verifies(&ctx, &pars, &exact(&weak)),
-            "missing clause {missing}"
-        );
+        assert!(!verifies(&ctx, &pars, &exact(&weak)), "missing clause {missing}");
     }
 }
-
 
 #[test]
 fn callback_precision_is_independent_of_its_candidate_and_outer_preconditions() {
@@ -1398,23 +1380,30 @@ fn callback_precision_is_independent_of_its_candidate_and_outer_preconditions() 
         (fits.clone(), boolean(true), boolean(false), false),
     ] {
         let mut check = base.clone();
-        let safety = Spanned::new(span(), StmX::Assert(None, Some(error(&span(), "callback overflow")), fits.clone()));
+        let safety = Spanned::new(
+            span(),
+            StmX::Assert(None, Some(error(&span(), "callback overflow")), fits.clone()),
+        );
         let mut packet = vec![safety];
         for goal in [pre, actual, excludes_other] {
             packet.push(Spanned::new(span(), StmX::Assume(goal)));
         }
-        let closure = Spanned::new(span(), StmX::ClosureInner {
-            // A faulty assumed precondition must never hide the independent checks.
-            body: Spanned::new(span(), StmX::Assume(boolean(false))),
-            typ_inv_vars: Arc::new(vec![]),
-            precision_body: Some(Spanned::new(span(), StmX::Block(Arc::new(packet)))),
-        });
+        let closure = Spanned::new(
+            span(),
+            StmX::ClosureInner {
+                // A faulty assumed precondition must never hide the independent checks.
+                body: Spanned::new(span(), StmX::Assume(boolean(false))),
+                typ_inv_vars: Arc::new(vec![]),
+                precision_body: Some(Spanned::new(span(), StmX::Block(Arc::new(packet)))),
+            },
+        );
         check.body = Spanned::new(span(), StmX::Block(Arc::new(vec![closure, check.body])));
-        let precision = precision_check_body(&span(), &pars[0].x.typ, &check, PrecisionCheck::Maximality).unwrap();
+        let precision =
+            precision_check_body(&span(), &pars[0].x.typ, &check, PrecisionCheck::Maximality)
+                .unwrap();
         assert_eq!(verifies(&ctx, &pars, &precision), expected);
     }
 }
-
 
 #[test]
 fn total_native_loop_precision_rechecks_safety_and_rejects_restrictive_domains() {
@@ -1468,28 +1457,62 @@ fn opaque_return_precision_checks_complete_identity_without_candidate_fields() {
     ctx.datatype_is_transparent.insert(dt.clone(), false);
     let typ = Arc::new(TypX::Datatype(dt, Arc::new(vec![]), Arc::new(vec![])));
     ctx.mono_types.push(crate::poly::typ_as_mono(&typ).unwrap());
-    let vars = [(var("input"),typ.clone()),(var("other"),typ.clone()),(var("result"),typ.clone())];
-    let value = |n|SpannedTyped::new(&span(),&typ,ExpX::Var(var(n)));
-    let encode = |e:Exp|crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx,&e,&vars);
-    let relation = |n|encode(binary(crate::sst::BinaryOp::Eq,value("result"),value(n)));
+    let vars =
+        [(var("input"), typ.clone()), (var("other"), typ.clone()), (var("result"), typ.clone())];
+    let value = |n| SpannedTyped::new(&span(), &typ, ExpX::Var(var(n)));
+    let encode = |e: Exp| crate::poly::visit_exp_native_for_pure_exp_with_vars(&ctx, &e, &vars);
+    let relation = |n| encode(binary(crate::sst::BinaryOp::Eq, value("result"), value(n)));
     check.reqs = Arc::new(vec![]);
-    check.local_decls = Arc::new(vars.iter().map(|(ident,typ)|Arc::new(LocalDeclX{
-        ident:ident.clone(),typ:typ.clone(),kind:if ident==&var("result"){LocalDeclKind::Return}else{LocalDeclKind::Param{mutable:false}},
-    })).collect());
-    check.body = Spanned::new(span(),StmX::Return{assert_id:None,base_error:error(&span(),"postcondition"),
-        ret_exp:Some(encode(value("input"))),inside_body:false});
-    check.post_condition = Arc::new(PostConditionSst{dest:Some(var("result")),ens_exps:Arc::new(vec![relation("input")]),
-        ens_spec_precondition_stms:Arc::new(vec![]),kind:PostConditionKind::Ensures});
-    let pars = Arc::new(vars[..2].iter().map(|(name,typ)|Spanned::new(span(),ParX{name:name.clone(),typ:typ.clone(),mode:Mode::Exec})).collect());
-    let exact = |c:&FuncCheckSst|state::returned_body(&ctx,&span(),&typ,c).unwrap();
-    assert!(verifies(&ctx,&pars,&check));
-    assert!(verifies(&ctx,&pars,&exact(&check)));
+    check.local_decls = Arc::new(
+        vars.iter()
+            .map(|(ident, typ)| {
+                Arc::new(LocalDeclX {
+                    ident: ident.clone(),
+                    typ: typ.clone(),
+                    kind: if ident == &var("result") {
+                        LocalDeclKind::Return
+                    } else {
+                        LocalDeclKind::Param { mutable: false }
+                    },
+                })
+            })
+            .collect(),
+    );
+    check.body = Spanned::new(
+        span(),
+        StmX::Return {
+            assert_id: None,
+            base_error: error(&span(), "postcondition"),
+            ret_exp: Some(encode(value("input"))),
+            inside_body: false,
+        },
+    );
+    check.post_condition = Arc::new(PostConditionSst {
+        dest: Some(var("result")),
+        ens_exps: Arc::new(vec![relation("input")]),
+        ens_spec_precondition_stms: Arc::new(vec![]),
+        kind: PostConditionKind::Ensures,
+    });
+    let pars = Arc::new(
+        vars[..2]
+            .iter()
+            .map(|(name, typ)| {
+                Spanned::new(
+                    span(),
+                    ParX { name: name.clone(), typ: typ.clone(), mode: Mode::Exec },
+                )
+            })
+            .collect(),
+    );
+    let exact = |c: &FuncCheckSst| state::returned_body(&ctx, &span(), &typ, c).unwrap();
+    assert!(verifies(&ctx, &pars, &check));
+    assert!(verifies(&ctx, &pars, &exact(&check)));
     let mut weak = check.clone();
     Arc::make_mut(&mut weak.post_condition).ens_exps = Arc::new(vec![]);
-    assert!(verifies(&ctx,&pars,&weak));
-    assert!(!verifies(&ctx,&pars,&exact(&weak)));
+    assert!(verifies(&ctx, &pars, &weak));
+    assert!(!verifies(&ctx, &pars, &exact(&weak)));
     let mut wrong = check.clone();
     Arc::make_mut(&mut wrong.post_condition).ens_exps = Arc::new(vec![relation("other")]);
-    assert!(!verifies(&ctx,&pars,&wrong));
-    assert!(!verifies(&ctx,&pars,&exact(&wrong)));
+    assert!(!verifies(&ctx, &pars, &wrong));
+    assert!(!verifies(&ctx, &pars, &exact(&wrong)));
 }

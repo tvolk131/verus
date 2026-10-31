@@ -1,4 +1,6 @@
+// rust_verify/tests/example.rs expect-success --infer-goals
 //! Borrowed Result queries infer complete success, error, and contents relations.
+//! These methods stay within the crate so their inferred contracts can describe private fields.
 use vstd::prelude::*;
 
 #[verus_verify]
@@ -15,7 +17,7 @@ pub struct Collector<T: Copy> {
 #[verus_verify]
 impl<T: Copy> Collector<T> {
     #[verus_infer]
-    pub fn parents(&self, creator: usize) -> Result<&Vec<Option<(T, u16)>>, SelectionError> {
+    pub(crate) fn parents(&self, creator: usize) -> Result<&Vec<Option<(T, u16)>>, SelectionError> {
         if self.direct_parents < 3 { return Err(SelectionError::TooFew); }
         if creator >= self.slots.len() { return Err(SelectionError::MissingOwn); }
         match self.slots[creator] {

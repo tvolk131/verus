@@ -1,15 +1,17 @@
 //! Checked finite iterator consumers and index-preserving sparse slice traversal.
 //! These are executable implementations, with no iterator axioms or termination
 //! assumptions beyond the existing Iterator trait interface.
-use crate::prelude::*;
+use crate::vstd::prelude::*;
 #[cfg(verus_keep_ghost)]
-use crate::std_specs::iter::IteratorSpec;
+use crate::vstd::std_specs::iter::IteratorSpec;
+#[cfg(feature = "alloc")]
+use alloc::vec::Vec;
 verus! {
 
 broadcast use {
-    crate::seq::group_seq_axioms,
-    crate::seq::group_seq_lemmas,
-    crate::slice::group_slice_axioms,
+    crate::vstd::seq::group_seq_axioms,
+    crate::vstd::seq::group_seq_lemmas,
+    crate::vstd::slice::group_slice_axioms,
 };
 
 pub open spec fn sparse_entries<'a, T: 'a>(s: Seq<Option<T>>, start: nat) -> Seq<(usize, &'a T)>
@@ -46,7 +48,7 @@ pub struct SparseIter<'a, T> {
 }
 
 #[cfg(verus_keep_ghost)]
-impl<'a, T> crate::std_specs::iter::IteratorSpecImpl for SparseIter<'a, T> {
+impl<'a, T> crate::vstd::std_specs::iter::IteratorSpecImpl for SparseIter<'a, T> {
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }
@@ -173,7 +175,7 @@ pub fn collect<I: Iterator>(iter: I) -> (values: Vec<I::Item>)
         values@ == iter.remaining(),
         iter.will_return_none(),
 {
-    broadcast use crate::std_specs::vec::group_vec_axioms;
+    broadcast use crate::vstd::std_specs::vec::group_vec_axioms;
 
     let mut rest = iter;
     let mut values = Vec::new();
@@ -210,7 +212,7 @@ pub fn map_sparse<T, U, F: Fn(&T) -> U>(items: &[Option<T>], f: F) -> (values: V
                 Some(value) => values@[i].is_some() && f.ensures((&value,), values@[i].unwrap()),
             },
 {
-    broadcast use crate::std_specs::vec::group_vec_axioms;
+    broadcast use crate::vstd::std_specs::vec::group_vec_axioms;
 
     let mut values: Vec<Option<U>> = Vec::new();
     let mut i = 0usize;

@@ -40,11 +40,15 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<(boo
         || types.len() != 2
         || args.len() != 2
         || !crate::ast_util::types_equal(&types[0], &types[1])
-        || !(matches!(kind,CallTargetKind::Dynamic) && impls.is_empty()
-                && matches!(&*types[0], TypX::TypParam(_) | TypX::Projection { .. })
-            || n.path.last_segment().as_str()=="ne"
-                && matches!(kind,CallTargetKind::ExternalTraitDefault
-                    |CallTargetKind::DynamicResolved{is_trait_default:true,..})
+        || !(matches!(kind, CallTargetKind::Dynamic)
+            && impls.is_empty()
+            && matches!(&*types[0], TypX::TypParam(_) | TypX::Projection { .. })
+            || n.path.last_segment().as_str() == "ne"
+                && matches!(
+                    kind,
+                    CallTargetKind::ExternalTraitDefault
+                        | CallTargetKind::DynamicResolved { is_trait_default: true, .. }
+                )
                 && matches!(&*types[0],TypX::Datatype(Dt::Path(p),..)
                     if matches!(p.krate,CrateId::Id(..))))
         || !args.iter().all(|a| {
@@ -57,14 +61,15 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<(boo
     Some((n.path.last_segment().as_str() == "ne", args.clone()))
 }
 
-pub(super) fn uses(f: &Function, all: &HashMap<Fun, Function>,datatypes:&[Datatype]) -> bool {
+pub(super) fn uses(f: &Function, all: &HashMap<Fun, Function>, datatypes: &[Datatype]) -> bool {
     let mut found = false;
     if let Some(b) = &f.x.body {
         crate::ast_visitor::expr_visitor_walk(b, &mut |e| {
             // Scalar wrappers use the projection pipeline. Do not route an
             // inherited ne call to owned analysis merely because it also fits
             // the broader logical-identity proposal.
-            found |= source_call(e, all).is_some() && wrapper_compare::source_call(e,all,datatypes).is_none();
+            found |= source_call(e, all).is_some()
+                && wrapper_compare::source_call(e, all, datatypes).is_none();
             crate::ast_visitor::VisitorControlFlow::<()>::Recurse
         });
     }

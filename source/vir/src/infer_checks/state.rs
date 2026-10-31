@@ -9,7 +9,13 @@ use crate::ast::{
 use crate::context::Ctx;
 
 /// Observe a complete returned value independently of the candidate's clauses.
-pub(crate) fn output_equivalence(ctx: &Ctx, span: &Span, typ: &Typ, a: Exp, b: Exp) -> Result<Exp, VirErr> {
+pub(crate) fn output_equivalence(
+    ctx: &Ctx,
+    span: &Span,
+    typ: &Typ,
+    a: Exp,
+    b: Exp,
+) -> Result<Exp, VirErr> {
     let mut equalities = vec![];
     observations(ctx, span, typ, a, b, 9, &mut equalities)?;
     Ok(crate::sst_util::sst_conjoin(span, &Arc::new(equalities)))
@@ -21,8 +27,13 @@ pub(super) fn returned(
     function: &FunctionSst,
     original: &FuncCheckSst,
 ) -> Result<FuncCheckSst, VirErr> {
-    returned_body_kind(ctx, &function.span, &function.x.inner_ret.x.typ, original,
-        crate::infer::identity_borrow_return(&ctx.func_map[&function.x.name]))
+    returned_body_kind(
+        ctx,
+        &function.span,
+        &function.x.inner_ret.x.typ,
+        original,
+        crate::infer::identity_borrow_return(&ctx.func_map[&function.x.name]),
+    )
 }
 
 #[cfg(test)]
@@ -32,10 +43,16 @@ pub(super) fn returned_body(
     typ: &Typ,
     original: &FuncCheckSst,
 ) -> Result<FuncCheckSst, VirErr> {
-    returned_body_kind(ctx,span,typ,original,false)
+    returned_body_kind(ctx, span, typ, original, false)
 }
 
-fn returned_body_kind(ctx:&Ctx,span:&Span,typ:&Typ,original:&FuncCheckSst,identity:bool)->Result<FuncCheckSst,VirErr>{
+fn returned_body_kind(
+    ctx: &Ctx,
+    span: &Span,
+    typ: &Typ,
+    original: &FuncCheckSst,
+    identity: bool,
+) -> Result<FuncCheckSst, VirErr> {
     validate_query_kind(original, None, span)?;
     let name =
         VarIdent(Arc::new("__verus_infer_owned_output".into()), VarIdentDisambiguate::AirLocal);
@@ -51,8 +68,14 @@ fn returned_body_kind(ctx:&Ctx,span:&Span,typ:&Typ,original:&FuncCheckSst,identi
     let actual = SpannedTyped::new(span, typ, ExpX::Var(dest.clone()));
     let mut equalities = vec![];
     if identity {
-        equalities.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,other.clone(),actual)));
-    } else { observations(ctx, span, typ, other.clone(), actual, 9, &mut equalities)?; }
+        equalities.push(SpannedTyped::new(
+            span,
+            &bool_typ(),
+            ExpX::Binary(BinaryOp::Eq, other.clone(), actual),
+        ));
+    } else {
+        observations(ctx, span, typ, other.clone(), actual, 9, &mut equalities)?;
+    }
     let vars = [(name.clone(), typ.clone()), (dest.clone(), typ.clone())];
     let equals = crate::poly::visit_exp_native_for_pure_exp_with_vars(
         ctx,
@@ -206,14 +229,14 @@ fn observations(
         // Shared returned payloads preserve complete logical values, including
         // when nested in Option/Result. Collection-view equality alone cannot
         // identify the object selected by the original borrow.
-        out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,a,b)));
+        out.push(SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, a, b)));
         return Ok(());
     }
     if let TypX::Datatype(dt @ crate::ast::Dt::Path(p), args, _) = &**typ {
         // Invariant-bearing objects are preserved by complete value identity.
         // Do not expose or omit any of their hidden/cache/ghost representation.
-        if ctx.datatype_map.get(dt).is_some_and(|d|d.x.user_defined_invariant_fn.is_some()) {
-            out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,a,b)));
+        if ctx.datatype_map.get(dt).is_some_and(|d| d.x.user_defined_invariant_fn.is_some()) {
+            out.push(SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, a, b)));
             return Ok(());
         }
         if p.krate == crate::ast::CrateId::Core
@@ -391,33 +414,82 @@ fn observations(
         // or weakening precision to a partial content view. Certified direct
         // sequence views above retain their existing independent observations.
         if !ctx.datatype_is_transparent.get(dt).copied().unwrap_or(false)
-            && d.x.mode == Mode::Exec && d.x.proxy.is_none() && !d.x.destructor
+            && d.x.mode == Mode::Exec
+            && d.x.proxy.is_none()
+            && !d.x.destructor
             && d.x.typ_params.len() == args.len()
         {
-            out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,a,b)));
+            out.push(SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, a, b)));
             return Ok(());
         }
         // Enumerate every tag and every guarded payload from the datatype,
         // independently of the candidate's equations or selected constructor.
-        if (2..=8).contains(&d.x.variants.len()) && d.x.typ_params.len()==args.len()
-            && d.x.variants.iter().all(|v|v.fields.len()<=4 && v.fields.iter().all(|f|f.a.1==Mode::Exec))
+        if (2..=8).contains(&d.x.variants.len())
+            && d.x.typ_params.len() == args.len()
+            && d.x
+                .variants
+                .iter()
+                .all(|v| v.fields.len() <= 4 && v.fields.iter().all(|f| f.a.1 == Mode::Exec))
         {
-            let ts=d.x.typ_params.iter().zip(args.iter()).map(|(p,t)|(p.0.clone(),t.clone())).collect();
+            let ts =
+                d.x.typ_params
+                    .iter()
+                    .zip(args.iter())
+                    .map(|(p, t)| (p.0.clone(), t.clone()))
+                    .collect();
             for variant in d.x.variants.iter() {
-                let tag=|v:Exp|SpannedTyped::new(span,&bool_typ(),ExpX::UnaryOpr(
-                    UnaryOpr::IsVariant{datatype:dt.clone(),variant:variant.name.clone()},v));
-                out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Eq,tag(a.clone()),tag(b.clone()))));
+                let tag = |v: Exp| {
+                    SpannedTyped::new(
+                        span,
+                        &bool_typ(),
+                        ExpX::UnaryOpr(
+                            UnaryOpr::IsVariant {
+                                datatype: dt.clone(),
+                                variant: variant.name.clone(),
+                            },
+                            v,
+                        ),
+                    )
+                };
+                out.push(SpannedTyped::new(
+                    span,
+                    &bool_typ(),
+                    ExpX::Binary(BinaryOp::Eq, tag(a.clone()), tag(b.clone())),
+                ));
                 for f in variant.fields.iter() {
-                    let t=crate::sst_util::subst_typ(&ts,&f.a.0);
-                    let t=if let TypX::Boxed(t)=&*t {t.clone()}else{t};
-                    let op=UnaryOpr::Field(FieldOpr{datatype:dt.clone(),variant:variant.name.clone(),field:f.name.clone(),get_variant:false,check:VariantCheck::None});
-                    let mut payload=vec![];
-                    observations(ctx,span,&t,SpannedTyped::new(span,&t,ExpX::UnaryOpr(op.clone(),a.clone())),
-                        SpannedTyped::new(span,&t,ExpX::UnaryOpr(op,b.clone())),depth-1,&mut payload)?;
-                    if out.len()+payload.len()>64{return Err(bad());}
-                    for eq in payload {out.push(SpannedTyped::new(span,&bool_typ(),ExpX::Binary(BinaryOp::Implies,tag(a.clone()),eq)));}
+                    let t = crate::sst_util::subst_typ(&ts, &f.a.0);
+                    let t = if let TypX::Boxed(t) = &*t { t.clone() } else { t };
+                    let op = UnaryOpr::Field(FieldOpr {
+                        datatype: dt.clone(),
+                        variant: variant.name.clone(),
+                        field: f.name.clone(),
+                        get_variant: false,
+                        check: VariantCheck::None,
+                    });
+                    let mut payload = vec![];
+                    observations(
+                        ctx,
+                        span,
+                        &t,
+                        SpannedTyped::new(span, &t, ExpX::UnaryOpr(op.clone(), a.clone())),
+                        SpannedTyped::new(span, &t, ExpX::UnaryOpr(op, b.clone())),
+                        depth - 1,
+                        &mut payload,
+                    )?;
+                    if out.len() + payload.len() > 64 {
+                        return Err(bad());
+                    }
+                    for eq in payload {
+                        out.push(SpannedTyped::new(
+                            span,
+                            &bool_typ(),
+                            ExpX::Binary(BinaryOp::Implies, tag(a.clone()), eq),
+                        ));
+                    }
                 }
-                if out.len()>64{return Err(bad());}
+                if out.len() > 64 {
+                    return Err(bad());
+                }
             }
             return Ok(());
         }

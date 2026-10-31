@@ -4261,7 +4261,8 @@ pub(crate) fn stmt_to_vir<'tcx>(
                         // It doesn't matter that they also appear here as statements
                         return Ok(vec![]);
                     }
-                    ItemKind::Fn { .. } | ItemKind::Const(..)
+                    ItemKind::Fn { .. }
+                    | ItemKind::Const(..)
                     | ItemKind::Static(Mutability::Not, ..) => {
                         // Nested functions, constants and immutable statics are handled
                         // elsewhere as standalone items, including their initializer proofs.

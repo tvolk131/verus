@@ -16,6 +16,7 @@ from eval_verus_infer_alephbft_traits import UNITS
 from eval_verus_infer_alephbft_units import real_api, method, CONTROL, HASHER, CODEC_MODEL
 from eval_verus_infer_alephbft_native_collector import COMPARISONS, QUERY_MODELS
 from eval_verus_infer_alephbft_private import validate
+from infer_experiment import save_results
 from infer_eval_support import ArtifactGuard, host_info, measured, tool_artifacts
 
 MODELS = FIXTURES / 'validation_models.rs'
@@ -240,7 +241,7 @@ def main():
     guard = ArtifactGuard(tool_artifacts(verus, z3, extra=extras))
     result = dict(host=host_info(), tool_artifacts=guard.initial, runs=[], native=[])
     def save():
-        (output/'results.json').write_text(json.dumps(result, indent=2)+'\n')
+        save_results(output, result)
     try:
         shared, origin = prepare(args.alephbft.resolve(), output/'checkout')
         checkout = output/'checkout'

@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 
+from infer_experiment import require_exact, save_results, validate_run
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -56,14 +57,7 @@ def prepare(repo, checkout):
 
 
 def validate(run, expected, inferred):
-    data = json.loads(run["stdout"])
-    result = data["verification-results"]
-    if (run["returncode"] == 0) != expected or result.get("success") != expected:
-        raise ValueError(f"unexpected verification outcome: {result}")
-    if result.get("encountered-vir-error"):
-        raise ValueError("frontend error is not an expected semantic negative control")
-    if "resource limit" in run["stderr"].lower() or "timed out" in run["stderr"].lower():
-        raise ValueError("resource exhaustion is not an expected semantic failure")
+    data = validate_run(run, expected)
     inference = data.get("verus-infer", {})
     if inferred:
         functions = inference["functions"]
@@ -72,9 +66,7 @@ def validate(run, expected, inferred):
         f = functions[0]
         if f["mode"] != "exact" or f["contract"]["requires"] != "true":
             raise ValueError("pilot changed precision or restricted the original input domain")
-        if any(f["proofs"][p]["status"] != "proved" or not f["proofs"][p]["required"]
-               for p in ("soundness", "maximality", "exactness")):
-            raise ValueError("missing required inference proof")
+        require_exact(functions)
     return data
 
 
@@ -102,7 +94,7 @@ def main():
     result = dict(host=host_info(), source={}, tool_artifacts=guard.initial, runs=[], native=[])
 
     def save():
-        (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
+        save_results(output, result)
 
     try:
         shared, result["source"] = prepare(args.alephbft.resolve(), checkout)

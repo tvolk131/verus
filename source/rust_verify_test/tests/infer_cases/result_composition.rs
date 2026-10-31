@@ -68,7 +68,8 @@ fn complete_result_composition_preserves_imported_errors_domains_and_precision()
     }
     // Error paths may bypass overflow; a successful path must still prove it safe.
     let unsafe_caller = CONSUMER.replace("requires round<u16::MAX,", "");
-    let run = crates.build("result_consumer", &unsafe_caller, &["result_provider"], &["--no-cheating"]);
+    let run =
+        crates.build("result_consumer", &unsafe_caller, &["result_provider"], &["--no-cheating"]);
     assert!(!run.status.success());
     assert!(String::from_utf8_lossy(&run.stderr).contains("precondition not satisfied"));
     assert!(!crates.vir("result_consumer").exists());
@@ -80,7 +81,12 @@ fn complete_result_composition_preserves_imported_errors_domains_and_precision()
     );
     let run = crates.build("result_provider", &reordered, &[], &["--no-cheating"]);
     assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
-    let run = crates.build("result_consumer", CONSUMER, &["result_provider"], &["--no-cheating", "--output-json"]);
+    let run = crates.build(
+        "result_consumer",
+        CONSUMER,
+        &["result_provider"],
+        &["--no-cheating", "--output-json"],
+    );
     assert!(!run.status.success());
     assert_eq!(json_inference(&run)["status"], "caller_proof_failed");
     assert!(String::from_utf8_lossy(&run.stderr).contains("postcondition not satisfied"));

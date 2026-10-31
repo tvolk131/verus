@@ -16,6 +16,7 @@ from eval_verus_infer_alephbft import REVISION, git
 from eval_verus_infer_alephbft_parents import CORRECTED, FIXTURES, NODE, ROOT, item, prepare
 from eval_verus_infer_alephbft_private import private_api, update_only, validate
 from eval_verus_infer_alephbft_records import add_mutation
+from infer_experiment import save_results
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 UNITS = "consensus/src/units/mod.rs"
@@ -234,7 +235,8 @@ def main():
     guard = ArtifactGuard(tool_artifacts(verus, z3, extra=extra))
     result = dict(host=host_info(), tool_artifacts=guard.initial, runs=[])
     checkout = output / "checkout"
-    def save(): (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
+    def save():
+        save_results(output, result)
     try:
         shared, origin = prepare(repo, checkout)
         node = git(checkout, "show", f"{REVISION}:{NODE}")

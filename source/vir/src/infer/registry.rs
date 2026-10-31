@@ -291,23 +291,40 @@ impl Registry {
         imported: &[Function],
     ) -> Result<Vec<Function>, VirErr> {
         let mut combined = functions.to_vec();
-        combined
-            .extend(imported.iter().filter(|f| f.x.attrs.infer || is_inference_contract(f) || is_approved_model(f)
-                || f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f)).cloned());
+        combined.extend(
+            imported
+                .iter()
+                .filter(|f| {
+                    f.x.attrs.infer
+                        || is_inference_contract(f)
+                        || is_approved_model(f)
+                        || f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f)
+                })
+                .cloned(),
+        );
         let all: HashMap<_, _> = combined.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
         let mut candidates = HashMap::new();
         let mut keys: HashMap<Fun, String> = HashMap::new();
         // Pure vocabulary can occur in specialized view-query equations. It
         // never becomes an executable model; include its definition in keys.
-        for f in combined.iter().filter(|f| f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f)) {
-            let key = Sha256::digest(format!("{VERSION}:spec-vocabulary:{f:?}")).iter().map(|b| format!("{b:02x}")).collect();
+        for f in combined
+            .iter()
+            .filter(|f| f.x.name.path.krate != CrateId::Vstd && is_pure_observation(f))
+        {
+            let key = Sha256::digest(format!("{VERSION}:spec-vocabulary:{f:?}"))
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect();
             keys.insert(f.x.name.clone(), key);
             candidates.insert(f.x.name.clone(), f.clone());
         }
-        for f in combined.iter().filter(|f|is_inference_contract(f)) {
-            let key=Sha256::digest(format!("{VERSION}:checked-contract:{f:?}")).iter().map(|b|format!("{b:02x}")).collect();
-            keys.insert(f.x.name.clone(),key);
-            candidates.insert(f.x.name.clone(),f.clone());
+        for f in combined.iter().filter(|f| is_inference_contract(f)) {
+            let key = Sha256::digest(format!("{VERSION}:checked-contract:{f:?}"))
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect();
+            keys.insert(f.x.name.clone(), key);
+            candidates.insert(f.x.name.clone(), f.clone());
         }
         for f in imported.iter().filter(|f| is_approved_model(f)) {
             let key: String = Sha256::digest(format!("{VERSION}:trusted-model:{f:?}"))
@@ -318,10 +335,15 @@ impl Registry {
             candidates.insert(f.x.name.clone(), f.clone());
         }
         for f in imported.iter().filter(|f| f.x.attrs.infer) {
-            if is_owned_summary(f){owned::validate_summary(f,&all,&self.datatypes)?;}
-            else if records::candidate(f) { records::validate_summary(f,&all,&self.datatypes)?; }
-            else if collections::kind(f).is_some() { collections::validate_summary(f, &all)?; }
-            else { validate_imported_summary(f)?; }
+            if is_owned_summary(f) {
+                owned::validate_summary(f, &all, &self.datatypes)?;
+            } else if records::candidate(f) {
+                records::validate_summary(f, &all, &self.datatypes)?;
+            } else if collections::kind(f).is_some() {
+                collections::validate_summary(f, &all)?;
+            } else {
+                validate_imported_summary(f)?;
+            }
             let key: String = Sha256::digest(format!("{VERSION}:import:{f:?}"))
                 .iter()
                 .map(|b| format!("{b:02x}"))
@@ -335,52 +357,107 @@ impl Registry {
             }
             let f = &all[&name];
             let start = std::time::Instant::now();
-            if is_owned_summary(f){
-                let mut dependencies:Vec<_>=keys.values().cloned().collect();dependencies.sort();dependencies.push(format!("{:?}",self.datatypes));
-                let key=candidate_key(self.originals.get(&name).unwrap_or(f),&dependencies,&self.configuration);
-                let wrappers=newtypes::Newtypes::new(&self.datatypes);
-                let callees=candidates.iter().map(|(n,c)|Ok((n.clone(),if self.projected.contains(n){wrappers.lift(&self.originals[n],c)?.install_lifted(&self.originals[n],&keys[n])?}else{c.clone()}))).collect::<Result<HashMap<_,_>,VirErr>>()?;
-                let (contract,body)=owned::infer(f,&callees,&self.datatypes)?;
-                let contract=observations::lift_contract(f,contract,&callees,&self.datatypes)?;
-                let inferred=contract.install_owned(f,&key,body)?;
-                self.misses+=1;let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
-                keys.insert(name.clone(),key);candidates.insert(name,inferred);continue;
+            if is_owned_summary(f) {
+                let mut dependencies: Vec<_> = keys.values().cloned().collect();
+                dependencies.sort();
+                dependencies.push(format!("{:?}", self.datatypes));
+                let key = candidate_key(
+                    self.originals.get(&name).unwrap_or(f),
+                    &dependencies,
+                    &self.configuration,
+                );
+                let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let callees = candidates
+                    .iter()
+                    .map(|(n, c)| {
+                        Ok((
+                            n.clone(),
+                            if self.projected.contains(n) {
+                                wrappers
+                                    .lift(&self.originals[n], c)?
+                                    .install_lifted(&self.originals[n], &keys[n])?
+                            } else {
+                                c.clone()
+                            },
+                        ))
+                    })
+                    .collect::<Result<HashMap<_, _>, VirErr>>()?;
+                let (contract, body) = owned::infer(f, &callees, &self.datatypes)?;
+                let contract = observations::lift_contract(f, contract, &callees, &self.datatypes)?;
+                let inferred = contract.install_owned(f, &key, body)?;
+                self.misses += 1;
+                let mut row =
+                    GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros());
+                row.record_template = true;
+                self.generated.push(row);
+                keys.insert(name.clone(), key);
+                candidates.insert(name, inferred);
+                continue;
             }
             if records::candidate(f) {
-                let mut dependencies: Vec<_> = keys.values().cloned().collect(); dependencies.sort();
-                dependencies.push(format!("{:?}",self.datatypes));
-                let key=candidate_key(self.originals.get(&name).unwrap_or(f),&dependencies,&self.configuration);
+                let mut dependencies: Vec<_> = keys.values().cloned().collect();
+                dependencies.sort();
+                dependencies.push(format!("{:?}", self.datatypes));
+                let key = candidate_key(
+                    self.originals.get(&name).unwrap_or(f),
+                    &dependencies,
+                    &self.configuration,
+                );
                 // Record analysis retains application types. Scalar synthesis
                 // temporarily projects wrappers, so lift checked callee formulas
                 // before composing them into a record/query candidate.
                 let wrappers = newtypes::Newtypes::new(&self.datatypes);
-                let record_callees = candidates.iter().map(|(n, c)| {
-                    let c = if self.projected.contains(n) {
-                        wrappers.lift(&self.originals[n], c)?
-                            .install_lifted(&self.originals[n], &keys[n])?
-                    } else { c.clone() };
-                    Ok((n.clone(), c))
-                }).collect::<Result<HashMap<_, _>, VirErr>>()?;
+                let record_callees = candidates
+                    .iter()
+                    .map(|(n, c)| {
+                        let c = if self.projected.contains(n) {
+                            wrappers
+                                .lift(&self.originals[n], c)?
+                                .install_lifted(&self.originals[n], &keys[n])?
+                        } else {
+                            c.clone()
+                        };
+                        Ok((n.clone(), c))
+                    })
+                    .collect::<Result<HashMap<_, _>, VirErr>>()?;
                 let (contract, body) = records::infer(f, &record_callees, &self.datatypes)?;
-                let contract=observations::lift_contract(f,contract,&record_callees,&self.datatypes)?;
+                let contract =
+                    observations::lift_contract(f, contract, &record_callees, &self.datatypes)?;
                 let inferred = if let Some(body) = body {
                     contract.install_owned(f, &key, body)?
-                } else { contract.install_lifted(f, &key)? };
-                self.misses+=1;
-                let mut row=GeneratedCandidate::new(&inferred,false,start.elapsed().as_micros());row.record_template=true;self.generated.push(row);
-                keys.insert(name.clone(),key); candidates.insert(name,inferred); continue;
+                } else {
+                    contract.install_lifted(f, &key)?
+                };
+                self.misses += 1;
+                let mut row =
+                    GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros());
+                row.record_template = true;
+                self.generated.push(row);
+                keys.insert(name.clone(), key);
+                candidates.insert(name, inferred);
+                continue;
             }
             if collections::kind(f).is_some() {
-                let mut dependencies: Vec<_> = all.values()
+                let mut dependencies: Vec<_> = all
+                    .values()
                     .filter(|f| collections::model(f).is_some())
-                    .map(|f| keys[&f.x.name].clone()).collect();
+                    .map(|f| keys[&f.x.name].clone())
+                    .collect();
                 dependencies.sort();
-                let key = candidate_key(self.originals.get(&name).unwrap_or(f), &dependencies, &self.configuration);
+                let key = candidate_key(
+                    self.originals.get(&name).unwrap_or(f),
+                    &dependencies,
+                    &self.configuration,
+                );
                 let inferred = collections::infer(f, &all)?.install_lifted(f, &key)?;
                 // Regenerate these bounded templates; never decode arbitrary
                 // state expressions through the scalar candidate-cache format.
                 self.misses += 1;
-                self.generated.push(GeneratedCandidate::new(&inferred, false, start.elapsed().as_micros()));
+                self.generated.push(GeneratedCandidate::new(
+                    &inferred,
+                    false,
+                    start.elapsed().as_micros(),
+                ));
                 keys.insert(name.clone(), key);
                 candidates.insert(name, inferred);
                 continue;
@@ -479,42 +556,70 @@ impl Registry {
         imported: &[Function],
         datatypes: &[Datatype],
     ) -> Result<Vec<Function>, VirErr> {
-        let trait_contracts=iterators::prepare(&trait_getters::prepare(functions,imported),imported);
-        let prepared=sequence_views::prepare(&trait_contracts,imported,datatypes);
-        let prepared=cloning::prepare(&prepared,imported,datatypes);
-        let prepared=owned::prepare(&prepared,imported,datatypes);
-        let prepared=owned::borrowed::prepare(&prepared,imported,datatypes)?;
-        let functions=prepared.as_slice();
+        let trait_contracts =
+            iterators::prepare(&trait_getters::prepare(functions, imported), imported);
+        let prepared = sequence_views::prepare(&trait_contracts, imported, datatypes);
+        let prepared = cloning::prepare(&prepared, imported, datatypes);
+        let prepared = owned::prepare(&prepared, imported, datatypes);
+        let prepared = owned::borrowed::prepare(&prepared, imported, datatypes)?;
+        let functions = prepared.as_slice();
         let wrappers = newtypes::Newtypes::new(datatypes);
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
-            if wrapper_traits::kind(f)==Some(wrapper_traits::Kind::Binary) {
-                let FunctionKind::TraitMethodImpl{method,..}=&f.x.kind else{unreachable!()};
-                if !functions.iter().chain(imported).any(|decl|decl.x.name==*method && wrapper_traits::binary_boundary(decl)) {
-                    return Err(unsupported(&f.span,"binary wrapper inference requires the canonical vstd operator contract; preconditions are inherited from the trait"));
+            if wrapper_traits::kind(f) == Some(wrapper_traits::Kind::Binary) {
+                let FunctionKind::TraitMethodImpl { method, .. } = &f.x.kind else {
+                    unreachable!()
+                };
+                if !functions
+                    .iter()
+                    .chain(imported)
+                    .any(|decl| decl.x.name == *method && wrapper_traits::binary_boundary(decl))
+                {
+                    return Err(unsupported(
+                        &f.span,
+                        "binary wrapper inference requires the canonical vstd operator contract; preconditions are inherited from the trait",
+                    ));
                 }
             }
             let valid = match wrapper_traits::kind(f).unwrap() {
-                wrapper_traits::Kind::From => f.x.params.iter().any(|p| wrappers.wrapper(&p.x.typ))
-                    || wrappers.wrapper(&f.x.inner_ret.x.typ) || is_owned_summary(f),
-                wrapper_traits::Kind::AddAssign | wrapper_traits::Kind::Compare | wrapper_traits::Kind::Binary => wrappers.wrapper(&f.x.params[0].x.typ),
+                wrapper_traits::Kind::From => {
+                    f.x.params.iter().any(|p| wrappers.wrapper(&p.x.typ))
+                        || wrappers.wrapper(&f.x.inner_ret.x.typ)
+                        || is_owned_summary(f)
+                }
+                wrapper_traits::Kind::AddAssign
+                | wrapper_traits::Kind::Compare
+                | wrapper_traits::Kind::Binary => wrappers.wrapper(&f.x.params[0].x.typ),
             };
             if !valid {
-                return Err(unsupported(&f.span, "wrapper trait inference requires a transparent nongeneric single scalar field"));
+                return Err(unsupported(
+                    &f.span,
+                    "wrapper trait inference requires a transparent nongeneric single scalar field",
+                ));
             }
         }
-        self.datatypes=datatypes.to_vec();
+        self.datatypes = datatypes.to_vec();
         let configuration = self.configuration.clone();
         self.configuration.push_str(&wrappers.fingerprint());
-        self.originals = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+        self.originals =
+            functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
         let result = (|| {
-            let all = functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
-            let rewritten = functions.iter().map(|f| wrapper_traits::rewrite(f, &all,datatypes))
+            let all =
+                functions.iter().chain(imported).map(|f| (f.x.name.clone(), f.clone())).collect();
+            let rewritten = functions
+                .iter()
+                .map(|f| wrapper_traits::rewrite(f, &all, datatypes))
                 .collect::<Result<Vec<_>, _>>()?;
             let projected =
                 rewritten.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
-            let imports = imported.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
-            self.projected = rewritten.iter().zip(&projected).chain(imported.iter().zip(&imports))
-                .filter(|(a, b)| !Arc::ptr_eq(a, b)).map(|(a, _)| a.x.name.clone()).collect();
+            let imports =
+                imported.iter().map(|f| wrappers.project(f)).collect::<Result<Vec<_>, _>>()?;
+            self.projected = rewritten
+                .iter()
+                .zip(&projected)
+                .chain(imported.iter().zip(&imports))
+                .filter(|(a, b)| !Arc::ptr_eq(a, b))
+                .map(|(a, _)| a.x.name.clone())
+                .collect();
             let inferred = self.infer_with_imports(&projected, &imports)?;
             let lifted = functions
                 .iter()
@@ -522,29 +627,46 @@ impl Registry {
                 .zip(projected.iter())
                 .zip(inferred.iter())
                 .map(|(((original, rewritten), projection), f)| {
-                    if !original.x.attrs.infer { return Ok(f.clone()); }
-                    if is_owned_summary(original){return Contract::new(f.x.require[0].clone(),f.x.ensure.0[0].clone())?.install_owned(original,f.x.attrs.infer_candidate_id.as_ref().unwrap(),owned::restore_body(original,f.x.body.as_ref().unwrap())?);}
+                    if !original.x.attrs.infer {
+                        return Ok(f.clone());
+                    }
+                    if is_owned_summary(original) {
+                        return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
+                            .install_owned(
+                                original,
+                                f.x.attrs.infer_candidate_id.as_ref().unwrap(),
+                                owned::restore_body(original, f.x.body.as_ref().unwrap())?,
+                            );
+                    }
                     if records::has_loops(original) {
-                        return Contract::new(f.x.require[0].clone(),f.x.ensure.0[0].clone())?
-                            .install_owned(original,f.x.attrs.infer_candidate_id.as_ref().unwrap(),owned::restore_body(original,f.x.body.as_ref().unwrap())?);
+                        return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
+                            .install_owned(
+                                original,
+                                f.x.attrs.infer_candidate_id.as_ref().unwrap(),
+                                owned::restore_body(original, f.x.body.as_ref().unwrap())?,
+                            );
                     }
                     if Arc::ptr_eq(rewritten, projection) {
                         return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
-                            .install_lifted(original, f.x.attrs.infer_candidate_id.as_ref().unwrap());
+                            .install_lifted(
+                                original,
+                                f.x.attrs.infer_candidate_id.as_ref().unwrap(),
+                            );
                     }
-                    wrappers.lift(original, f)?.install_lifted(
-                        original,
-                        f.x.attrs.infer_candidate_id.as_ref().unwrap(),
-                    )
+                    wrappers
+                        .lift(original, f)?
+                        .install_lifted(original, f.x.attrs.infer_candidate_id.as_ref().unwrap())
                 })
                 .collect::<Result<Vec<_>, VirErr>>()?;
             let by_name: HashMap<_, _> = lifted.iter().map(|f| (&f.x.name, f)).collect();
             for row in &mut self.generated {
-                let record_template=row.record_template;
+                let record_template = row.record_template;
                 *row = GeneratedCandidate::new(
-                    by_name[&row.function.x.name], row.cache_hit, row.elapsed_micros,
+                    by_name[&row.function.x.name],
+                    row.cache_hit,
+                    row.elapsed_micros,
                 );
-                row.record_template=record_template;
+                row.record_template = record_template;
             }
             Ok(lifted)
         })();

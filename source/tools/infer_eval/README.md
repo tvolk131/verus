@@ -1,5 +1,14 @@
 # Verus Infer evaluation corpus
 
+The source-connected Aleph and hex experiments share run validation, input
+snapshots, result writing, and command logging in `../infer_experiment.py`.
+Each runner retains its own source transformations and expected proof scope;
+unsupported source, incomplete proofs, and semantic failures remain distinct.
+Shared support files are included in artifact provenance. Run the tooling tests
+with `python3 -B -m unittest discover -s source/tools -p 'test_infer*.py'` from
+the repository root. PR CI runs these tests independently, then runs this corpus
+and the Cargo incremental evaluation after building the verifier.
+
 From the repository root, after building Verus:
 
 ```sh

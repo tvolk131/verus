@@ -19,44 +19,46 @@ mod bitwise;
 mod collections;
 mod contract;
 mod counting_goals;
-mod equality;
-mod fold_goals;
 mod eligibility;
 mod enums;
+mod equality;
+mod exact_hints;
 mod exits;
+mod fold_goals;
 mod goals;
 mod type_invariant_goals;
-mod exact_hints;
-pub use exact_hints::validate as validate_exact_size_hints;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;
-mod packing_goals;
+pub use exact_hints::validate as validate_exact_size_hints;
 mod growth_goals;
-mod local_fold_goals;
-mod range_goals;
-mod pointwise_goals;
-mod selector_goals;
 mod integer_models;
+mod local_fold_goals;
 mod loops;
 mod models;
 mod newtypes;
 mod observations;
-mod propagation;
+mod packing_goals;
 mod panics;
-mod registry;
-mod records;
+mod pointwise_goals;
+mod propagation;
+mod range_goals;
 mod record_models;
-mod sequence_views;
+mod records;
+mod registry;
+mod selector_goals;
 mod sequence_triggers;
+mod sequence_views;
 pub use sequence_triggers::prepare as prepare_sequence_patterns;
-mod trait_getters;
+mod cloning;
 mod iterators;
-mod wrapper_traits;
+mod owned;
+mod trait_getters;
 mod wrapper_binary;
 mod wrapper_compare;
-mod owned;
-mod cloning;
+mod wrapper_traits;
 
-pub fn is_owned_summary(f:&Function)->bool{f.x.attrs.infer && f.x.attrs.infer_owned}
+pub fn is_owned_summary(f: &Function) -> bool {
+    f.x.attrs.infer && f.x.attrs.infer_owned
+}
 
 /// Bare borrowed object results retain complete value identity. This observation
 /// is selected by the signature, independently of any candidate postcondition.
@@ -64,24 +66,33 @@ pub(crate) fn identity_borrow_return(f: &Function) -> bool {
     matches!(&*f.x.inner_ret.x.typ,TypX::Decorate(TypDecoration::Ref,None,t)
         if matches!(&**t,TypX::Datatype(..)|TypX::TypParam(_)|TypX::Projection{..}))
 }
-pub fn borrowed_observation_source(f:&Function)->Option<Fun>{owned::borrowed::source(f)}
-pub use owned::factory_callbacks::prepare as prepare_factory_callbacks;
-pub use owned::error_callbacks::prepare as prepare_error_callbacks;
+pub fn borrowed_observation_source(f: &Function) -> Option<Fun> {
+    owned::borrowed::source(f)
+}
 pub use owned::array_callbacks::prepare as prepare_array_callbacks;
+pub use owned::error_callbacks::prepare as prepare_error_callbacks;
+pub use owned::factory_callbacks::prepare as prepare_factory_callbacks;
 
 /// Pure vocabulary used only in proposed contracts, never an executable model.
 pub fn is_pure_observation(f: &Function) -> bool {
-    f.x.mode == Mode::Spec && f.x.require.is_empty() && f.x.ensure.0.is_empty()
-        && f.x.ensure.1.is_empty() && !f.x.attrs.prophecy_dependent
-        && !f.x.attrs.is_unsafe && !f.x.attrs.is_async
+    f.x.mode == Mode::Spec
+        && f.x.require.is_empty()
+        && f.x.ensure.0.is_empty()
+        && f.x.ensure.1.is_empty()
+        && !f.x.attrs.prophecy_dependent
+        && !f.x.attrs.is_unsafe
+        && !f.x.attrs.is_async
 }
 
 /// Concrete exact-mode implementations whose proposed domain must be proved
 /// equivalent to the ordinary inherited trait precondition.
-pub fn is_wrapper_operator_boundary(f:&Function)->bool {wrapper_traits::binary_boundary(f) || wrapper_traits::assignment_boundary(f)}
-pub fn is_primitive_operator_maximality_model(f:&Function,ts:&Typs)->bool {
-    wrapper_traits::primitive_boundary(f,ts)
-        || wrapper_traits::assignment_boundary(f) && ts.len() == 2
+pub fn is_wrapper_operator_boundary(f: &Function) -> bool {
+    wrapper_traits::binary_boundary(f) || wrapper_traits::assignment_boundary(f)
+}
+pub fn is_primitive_operator_maximality_model(f: &Function, ts: &Typs) -> bool {
+    wrapper_traits::primitive_boundary(f, ts)
+        || wrapper_traits::assignment_boundary(f)
+            && ts.len() == 2
             && crate::ast_util::types_equal(&ts[0], &ts[1])
             && matches!(&*ts[0], TypX::Int(r) if arithmetic::exact_range(*r))
 }
@@ -92,19 +103,28 @@ pub fn is_wrapper_trait(f: &Function) -> bool {
 
 /// Independently recognize the existing core panic model's empty successful
 /// domain. Ordinary soundness still checks its requires-false obligation.
-pub fn is_panic_maximality_model(f:&Function,types:&Typs)->bool {
-    types.is_empty() && panics::model(f)==Some(panics::Model::Panic)
+pub fn is_panic_maximality_model(f: &Function, types: &Typs) -> bool {
+    types.is_empty() && panics::model(f) == Some(panics::Model::Panic)
 }
-pub fn is_native_iterator_maximality_model(f:&Function,types:&Typs)->bool {
-    iterators::model(f).is_some() && types.len()==f.x.typ_params.len()
+pub fn is_native_iterator_maximality_model(f: &Function, types: &Typs) -> bool {
+    iterators::model(f).is_some() && types.len() == f.x.typ_params.len()
 }
 pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
     owned::result_map::model(f) && types.len() == f.x.typ_params.len()
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
-    wrapper_compare::request(f) || f.x.attrs.infer_sequence_view || f.x.attrs.infer_trait_getter || f.x.attrs.infer_trait_observation || f.x.attrs.infer_clone_contract
-        || f.x.attrs.infer_iterator_factory || f.x.attrs.infer_iterator_observation || f.x.attrs.infer_mutable_selector || view_bounds_goals::lemma(f).is_some() || uses_byte_vec_resources(f) || exact_size_hint_opt_in(f)
+    wrapper_compare::request(f)
+        || f.x.attrs.infer_sequence_view
+        || f.x.attrs.infer_trait_getter
+        || f.x.attrs.infer_trait_observation
+        || f.x.attrs.infer_clone_contract
+        || f.x.attrs.infer_iterator_factory
+        || f.x.attrs.infer_iterator_observation
+        || f.x.attrs.infer_mutable_selector
+        || view_bounds_goals::lemma(f).is_some()
+        || uses_byte_vec_resources(f)
+        || exact_size_hint_opt_in(f)
 }
 
 pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) -> Vec<Function> {
@@ -112,17 +132,25 @@ pub fn prepare_trait_contracts(functions: &[Function], imported: &[Function]) ->
 }
 
 /// Internal structural evidence, not a trusted standard-library model.
-pub fn is_inferred_sequence_view(f: &Function) -> bool { f.x.attrs.infer_sequence_view }
+pub fn is_inferred_sequence_view(f: &Function) -> bool {
+    f.x.attrs.infer_sequence_view
+}
 
-pub fn validate_inferred_sequence_views(functions: &[Function], datatypes: &[Datatype]) -> Result<(),VirErr> {
-    sequence_views::validate_imports(functions,datatypes)?;
-    cloning::validate(functions,datatypes)?;
+pub fn validate_inferred_sequence_views(
+    functions: &[Function],
+    datatypes: &[Datatype],
+) -> Result<(), VirErr> {
+    sequence_views::validate_imports(functions, datatypes)?;
+    cloning::validate(functions, datatypes)?;
     trait_getters::validate(functions)?;
     iterators::validate(functions)?;
     selector_goals::validate_imports(functions)
 }
 
-pub(crate) fn record_sequence_view(typ: &Typ, functions: &HashMap<Fun, Function>) -> Option<Function> {
+pub(crate) fn record_sequence_view(
+    typ: &Typ,
+    functions: &HashMap<Fun, Function>,
+) -> Option<Function> {
     sequence_views::observation(typ, functions)
 }
 mod report;
@@ -135,14 +163,20 @@ pub use report::{GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;
-pub fn prepare_type_invariant_goals(functions:&[Function],datatypes:&[Datatype],report:&mut GenerationReport)->Vec<Function>{type_invariant_goals::prepare(functions,datatypes,report)}
-pub use growth_goals::prepare as prepare_growth_goals;
-pub use local_fold_goals::prepare as prepare_local_fold_goals;
-pub use range_goals::prepare as prepare_range_goals;
-pub use pointwise_goals::prepare as prepare_pointwise_goals;
-pub use selector_goals::prepare as prepare_selector_goals;
+pub fn prepare_type_invariant_goals(
+    functions: &[Function],
+    datatypes: &[Datatype],
+    report: &mut GenerationReport,
+) -> Vec<Function> {
+    type_invariant_goals::prepare(functions, datatypes, report)
+}
 pub use counting_goals::prepare as prepare_counting_goals;
 pub use fold_goals::prepare as prepare_fold_goals;
+pub use growth_goals::prepare as prepare_growth_goals;
+pub use local_fold_goals::prepare as prepare_local_fold_goals;
+pub use pointwise_goals::prepare as prepare_pointwise_goals;
+pub use range_goals::prepare as prepare_range_goals;
+pub use selector_goals::prepare as prepare_selector_goals;
 mod view_bounds_goals;
 pub use view_bounds_goals::prepare as prepare_view_bound_goals;
 
@@ -152,9 +186,13 @@ pub fn is_state_summary(function: &Function) -> bool {
             || records::candidate(function) && records::mutable(function))
 }
 
-pub fn is_record_summary(function: &Function) -> bool { function.x.attrs.infer && records::candidate(function) && records::mutable(function) }
+pub fn is_record_summary(function: &Function) -> bool {
+    function.x.attrs.infer && records::candidate(function) && records::mutable(function)
+}
 
-pub(crate) fn is_record_callee(f:&Function,typs:&Typs)->bool {(records::candidate(f)||is_owned_summary(f)) && f.x.typ_params.len()==typs.len()}
+pub(crate) fn is_record_callee(f: &Function, typs: &Typs) -> bool {
+    (records::candidate(f) || is_owned_summary(f)) && f.x.typ_params.len() == typs.len()
+}
 
 pub fn is_collection_summary(function: &Function) -> bool {
     function.x.attrs.infer && collections::kind(function).is_some()
@@ -164,8 +202,7 @@ pub(crate) fn is_vec_maximality_model(function: &Function, typs: &Typs) -> bool 
     matches!(
         collections::model(function),
         Some(collections::Model::Index | collections::Model::IndexMut)
-    )
-        && typs.len() == 2
+    ) && typs.len() == 2
         && matches!(&*typs[1], TypX::Datatype(Dt::Path(p), ts, _) if ts.is_empty()
             && models::path_is(p, CrateId::Alloc, &["alloc", "Global"]))
 }
@@ -173,8 +210,8 @@ pub(crate) fn is_vec_maximality_model(function: &Function, typs: &Typs) -> bool 
 /// Resolve the existing, signature-validated Vec view model for state precision.
 /// This does not inspect or reuse the candidate's postcondition.
 pub(crate) fn record_vec_view(functions: &HashMap<Fun, Function>) -> Option<Function> {
-    let mut views = functions.values()
-        .filter(|f| collections::model(f) == Some(collections::Model::View));
+    let mut views =
+        functions.values().filter(|f| collections::model(f) == Some(collections::Model::View));
     let view = views.next()?.clone();
     views.next().is_none().then_some(view)
 }
@@ -277,9 +314,15 @@ fn conditional(span: &Span, c: Term, a: Term, b: Term) -> Result<Term, VirErr> {
     if is_bool(&a, true) && is_bool(&b, true) {
         return Ok(a);
     }
-    if is_bool(&a,false) && is_bool(&b,false) {return Ok(a);}
-    if is_bool(&a,true) && is_bool(&b,false) {return Ok(c);}
-    if is_bool(&a,false) && is_bool(&b,true) {return exits::not(span,c);}
+    if is_bool(&a, false) && is_bool(&b, false) {
+        return Ok(a);
+    }
+    if is_bool(&a, true) && is_bool(&b, false) {
+        return Ok(c);
+    }
+    if is_bool(&a, false) && is_bool(&b, true) {
+        return exits::not(span, c);
+    }
     let typ = a.expr.typ.clone();
     term(span, &typ, ExprX::If(c.expr, a.expr, Some(b.expr)), 1 + c.size + a.size + b.size)
 }
@@ -352,8 +395,14 @@ impl Engine<'_> {
         if let Some(arg) = widening::call(expr, self.callees) {
             let arg = self.expr(arg)?;
             let TypX::Int(range) = &*expr.typ else { unreachable!() };
-            return Ok(Summary { safe: arg.safe.clone(), value: Some(summary::unary(span,
-                UnaryOp::Clip { range: *range, truncate: true }, value(&arg, span)?)?) });
+            return Ok(Summary {
+                safe: arg.safe.clone(),
+                value: Some(summary::unary(
+                    span,
+                    UnaryOp::Clip { range: *range, truncate: true },
+                    value(&arg, span)?,
+                )?),
+            });
         }
         if let Some(n) = arithmetic::negative_literal(expr) {
             return pure(term(span, &int_typ(), ExprX::Const(Constant::Int(n)), 1)?);
@@ -739,8 +788,12 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
         if !active.insert(f.x.name.clone()) {
             return Err(unsupported(&f.span, "recursive inferred call graph"));
         }
-        if source && is_owned_summary(f) { owned::validate_source(f)?; }
-        if source && records::candidate(f) && !is_owned_summary(f) { records::validate_source(f)?; }
+        if source && is_owned_summary(f) {
+            owned::validate_source(f)?;
+        }
+        if source && records::candidate(f) && !is_owned_summary(f) {
+            records::validate_source(f)?;
+        }
         if let Some(body) = &f.x.body {
             let mut call = |e: &Expr, helper: bool| {
                 // Resolution inserts borrow-expiration scaffolding. Traverse it
@@ -748,17 +801,38 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 let plain = if !source {
                     if let ExprX::Call { target, args, .. } = &e.x {
                         Some(e.new_x(ExprX::Call {
-                            target: target.clone(), args: args.clone(), post_args: None, body: None,
+                            target: target.clone(),
+                            args: args.clone(),
+                            post_args: None,
+                            body: None,
                         }))
-                    } else { None }
-                } else { None };
+                    } else {
+                        None
+                    }
+                } else {
+                    None
+                };
                 let e = plain.as_ref().unwrap_or(e);
                 // Closure contract scaffolding introduces pure specification
                 // calls after synthesis. They cannot execute inferred helpers;
                 // all executable edges were already checked from source bodies.
-                if !source && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(_,n,..),..}
-                    if all.get(n).is_some_and(|f|f.x.mode==Mode::Spec)) {return Ok(());}
-                if !source && matches!(&e.x,ExprX::Call{target:CallTarget::BuiltinSpecFun(..)|CallTarget::FnSpec(_),..}) {return Ok(());}
+                if !source
+                    && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(_,n,..),..}
+                    if all.get(n).is_some_and(|f|f.x.mode==Mode::Spec))
+                {
+                    return Ok(());
+                }
+                if !source
+                    && matches!(
+                        &e.x,
+                        ExprX::Call {
+                            target: CallTarget::BuiltinSpecFun(..) | CallTarget::FnSpec(_),
+                            ..
+                        }
+                    )
+                {
+                    return Ok(());
+                }
                 let rewritten = wrapper_traits::source_call(e, all);
                 let e = rewritten.as_ref().unwrap_or(e);
                 // Candidate generation projected these concrete comparisons;
@@ -766,31 +840,65 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 // Still traverse each argument and any inferred eq provider
                 // required by an inherited default such as ne.
                 if !source {
-                    if let ExprX::Call{target:CallTarget::Fun(_,name,types,..),..}=&e.x {
+                    if let ExprX::Call { target: CallTarget::Fun(_, name, types, ..), .. } = &e.x {
                         if all.get(name).is_some_and(wrapper_compare::boundary) {
-                            let mut providers=all.values().filter(|p|
-                                wrapper_traits::kind(p)==Some(wrapper_traits::Kind::Compare)
-                                && types.first().is_some_and(|t|trait_getters::shared(&p.x.params[0].x.typ)
-                                    .is_some_and(|u|crate::ast_util::types_equal(t,u)))).collect::<Vec<_>>();
-                            providers.sort_by(|a,b|a.x.name.cmp(&b.x.name));
+                            let mut providers = all
+                                .values()
+                                .filter(|p| {
+                                    wrapper_traits::kind(p) == Some(wrapper_traits::Kind::Compare)
+                                        && types.first().is_some_and(|t| {
+                                            trait_getters::shared(&p.x.params[0].x.typ)
+                                                .is_some_and(|u| crate::ast_util::types_equal(t, u))
+                                        })
+                                })
+                                .collect::<Vec<_>>();
+                            providers.sort_by(|a, b| a.x.name.cmp(&b.x.name));
                             for provider in providers {
-                                visit(provider,all,source,active,done,order)?;
+                                visit(provider, all, source, active, done, order)?;
                             }
                             return Ok(());
                         }
                     }
                 }
-                if is_owned_summary(f) && owned::native_scaffold_call(f,e,all){return Ok(());}
-                if is_owned_summary(f) && cloning::call(e,all){return Ok(());}
-                if is_owned_summary(f) && owned::model_call(e,all).is_some(){return Ok(());}
-                if is_owned_summary(f) && owned::result_map::call(e,all).is_some(){return Ok(());}
-                if is_owned_summary(f) && owned::option_result::call(e,all).is_some(){return Ok(());}
-                if is_owned_summary(f) && (iterators::source_call(e,all).is_some() || iterators::operation(e,all).is_some()){return Ok(());}
-                if is_owned_summary(f) && equality::source_call(e, all).is_some() { return Ok(()); }
-                if !source && is_owned_summary(f) && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
-                    if all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f)==Some(collections::Model::View))){return Ok(());}
-                if (records::candidate(f) || is_owned_summary(f)) && trait_getters::source_call(e,all).is_some() {return Ok(());}
-                if widening::call(e, all).is_some() { return Ok(()); }
+                if is_owned_summary(f) && owned::native_scaffold_call(f, e, all) {
+                    return Ok(());
+                }
+                if is_owned_summary(f) && cloning::call(e, all) {
+                    return Ok(());
+                }
+                if is_owned_summary(f) && owned::model_call(e, all).is_some() {
+                    return Ok(());
+                }
+                if is_owned_summary(f) && owned::result_map::call(e, all).is_some() {
+                    return Ok(());
+                }
+                if is_owned_summary(f) && owned::option_result::call(e, all).is_some() {
+                    return Ok(());
+                }
+                if is_owned_summary(f)
+                    && (iterators::source_call(e, all).is_some()
+                        || iterators::operation(e, all).is_some())
+                {
+                    return Ok(());
+                }
+                if is_owned_summary(f) && equality::source_call(e, all).is_some() {
+                    return Ok(());
+                }
+                if !source
+                    && is_owned_summary(f)
+                    && matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{resolved,..},..),..}
+                    if all.get(resolved).is_some_and(|f|f.x.attrs.infer_sequence_view || collections::model(f)==Some(collections::Model::View)))
+                {
+                    return Ok(());
+                }
+                if (records::candidate(f) || is_owned_summary(f))
+                    && trait_getters::source_call(e, all).is_some()
+                {
+                    return Ok(());
+                }
+                if widening::call(e, all).is_some() {
+                    return Ok(());
+                }
                 let range = slices::range_call(e, all)?;
                 let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
                 if let ExprX::Call {
@@ -801,13 +909,19 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 } = &e.x
                 {
                     if source && (post_args.is_some() || body.is_some()) {
-                        return Err(unsupported(&e.span,"source calls cannot contain embedded verification code"));
+                        return Err(unsupported(
+                            &e.span,
+                            "source calls cannot contain embedded verification code",
+                        ));
                     }
                     let callee = all.get(name).filter(|f| f.x.attrs.infer || is_approved_model(f)).ok_or_else(|| {
                         unsupported(&e.span, &format!("calls require an acyclic same-crate inferred callee or certified imported summary: {name:?}"))
                     })?;
                     if source && panics::model(callee).is_some() && !helper {
-                        return Err(unsupported(&e.span,"panic helpers require a complete literal-message panic"));
+                        return Err(unsupported(
+                            &e.span,
+                            "panic helpers require a complete literal-message panic",
+                        ));
                     }
                     if arithmetic::division_model(callee)
                         || slices::model(callee)
@@ -830,7 +944,10 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         && !collections::source_call(e, all)
                         && !record_models::as_ref(callee)
                         && !(records::candidate(f) && records::candidate(callee))
-                        && !(is_owned_summary(f) && (is_owned_summary(callee)||records::mutable(callee)||callee.x.typ_params.is_empty()))
+                        && !(is_owned_summary(f)
+                            && (is_owned_summary(callee)
+                                || records::mutable(callee)
+                                || callee.x.typ_params.is_empty()))
                         && (!typs.is_empty() || !impls.is_empty())
                     {
                         return Err(unsupported(&e.span, "generic calls"));
@@ -839,8 +956,14 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         visit(callee, all, source, active, done, order)?;
                     }
                 } else if matches!(e.x, ExprX::Call { .. }) {
-                    if matches!(&e.x,ExprX::Call{target:CallTarget::Fun(CallTargetKind::Dynamic,..),..}) {
-                        return Err(unsupported(&e.span,"trait inference requires a certified precondition-free getter with one exact observation equation"));
+                    if matches!(
+                        &e.x,
+                        ExprX::Call { target: CallTarget::Fun(CallTargetKind::Dynamic, ..), .. }
+                    ) {
+                        return Err(unsupported(
+                            &e.span,
+                            "trait inference requires a certified precondition-free getter with one exact observation equation",
+                        ));
                     }
                     return Err(unsupported(
                         &e.span,
@@ -883,7 +1006,20 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    wrapper_compare::boundary(function) || wrapper_traits::binary_boundary(function) || wrapper_traits::assignment_boundary(function) || owned::result_map::model(function) || owned::option_result::model(function) || equality::model(function) || iterators::model(function).is_some() || panics::model(function).is_some() || cloning::model(function) || widening::model(function) || owned::model(function).is_some() || wrapper_traits::into_model(function) || record_models::as_ref(function) || collections::model(function).is_some()
+    wrapper_compare::boundary(function)
+        || wrapper_traits::binary_boundary(function)
+        || wrapper_traits::assignment_boundary(function)
+        || owned::result_map::model(function)
+        || owned::option_result::model(function)
+        || equality::model(function)
+        || iterators::model(function).is_some()
+        || panics::model(function).is_some()
+        || cloning::model(function)
+        || widening::model(function)
+        || owned::model(function).is_some()
+        || wrapper_traits::into_model(function)
+        || record_models::as_ref(function)
+        || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
@@ -898,14 +1034,20 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
         available.iter().map(|f| (f.x.name.clone(), f.clone())).collect();
     let mut used = std::collections::BTreeMap::new();
     for f in functions.iter().filter(|f| f.x.attrs.infer) {
-        if let FunctionKind::TraitMethodImpl{method,..}=&f.x.kind {
+        if let FunctionKind::TraitMethodImpl { method, .. } = &f.x.kind {
             if is_wrapper_trait(f) {
-                if let Some(boundary)=available.get(method).filter(|d|is_wrapper_operator_boundary(d)){used.insert(method.clone(),boundary.clone());}
+                if let Some(boundary) =
+                    available.get(method).filter(|d| is_wrapper_operator_boundary(d))
+                {
+                    used.insert(method.clone(), boundary.clone());
+                }
             }
         }
         if collections::kind(f).is_some() || records::candidate(f) || is_owned_summary(f) {
-            for model in available.values().filter(|model| collections::model(model).is_some()
-                || records::has_loops(f) && owned::model(model) == Some(owned::Model::SeqNew)) {
+            for model in available.values().filter(|model| {
+                collections::model(model).is_some()
+                    || records::has_loops(f) && owned::model(model) == Some(owned::Model::SeqNew)
+            }) {
                 used.insert(model.x.name.clone(), model.clone());
             }
         }
@@ -930,12 +1072,22 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                         used.insert(name.clone(), callee.clone());
                     }
                 }
-                if let ExprX::Call { target: CallTarget::Fun(CallTargetKind::DynamicResolved { resolved, .. }, ..), .. } = &e.x {
-                    if let Some(callee) = available.get(resolved).filter(|f| widening::model(f) || wrapper_traits::into_model(f) || owned::model(f).is_some()) {
+                if let ExprX::Call {
+                    target: CallTarget::Fun(CallTargetKind::DynamicResolved { resolved, .. }, ..),
+                    ..
+                } = &e.x
+                {
+                    if let Some(callee) = available.get(resolved).filter(|f| {
+                        widening::model(f)
+                            || wrapper_traits::into_model(f)
+                            || owned::model(f).is_some()
+                    }) {
                         used.insert(resolved.clone(), callee.clone());
                     }
                 }
-                if let Some(name) = arithmetic::division_dependency(&wrapper_traits::primitive_call(e,&available).unwrap_or_else(||e.clone())) {
+                if let Some(name) = arithmetic::division_dependency(
+                    &wrapper_traits::primitive_call(e, &available).unwrap_or_else(|| e.clone()),
+                ) {
                     if let Some(model) =
                         available.get(&name).filter(|f| arithmetic::division_model(f))
                     {
@@ -985,16 +1137,19 @@ pub fn infer_functions_with_datatypes(
 ) -> Result<Vec<Function>, VirErr> {
     // A supplied finite-view contract is an explicit composition interface even
     // when its provider contains no synthesized executable or goal assistance.
-    let prepared_factories=iterators::prepare(functions,imported);
-    let functions=prepared_factories.as_slice();
+    let prepared_factories = iterators::prepare(functions, imported);
+    let functions = prepared_factories.as_slice();
     *report = GenerationReport::default();
     report.requested = functions.iter().filter(|f| f.x.attrs.infer).count();
-    wrapper_traits::validate_derived_requests(functions,datatypes)?;
+    wrapper_traits::validate_derived_requests(functions, datatypes)?;
     if !functions.iter().any(|f| f.x.attrs.infer) {
         // An ordinary Clone or checked-query provider may have no inference
         // targets. Its direct-view evidence still needs certification and export gating.
-        if functions.iter().any(|f| f.x.name.path.last_segment().as_str() == "__verus_clone_relation"
-            || f.x.attrs.infer_trait_getter || f.x.attrs.infer_iterator_factory) {
+        if functions.iter().any(|f| {
+            f.x.name.path.last_segment().as_str() == "__verus_clone_relation"
+                || f.x.attrs.infer_trait_getter
+                || f.x.attrs.infer_iterator_factory
+        }) {
             let prepared = sequence_views::prepare(functions, imported, datatypes);
             return Ok(cloning::prepare(&prepared, imported, datatypes));
         }
@@ -1015,13 +1170,27 @@ pub fn validate_imported_summary_with_context(
     functions: &[Function],
 ) -> Result<(), VirErr> {
     let projected = newtypes::Newtypes::new(datatypes).project(function)?;
-    if is_owned_summary(&projected){return owned::validate_summary(&projected,&functions.iter().map(|f|(f.x.name.clone(),f.clone())).collect(),datatypes);}
+    if is_owned_summary(&projected) {
+        return owned::validate_summary(
+            &projected,
+            &functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect(),
+            datatypes,
+        );
+    }
     if records::candidate(&projected) {
-        records::validate_summary(&projected, &functions.iter().map(|f|(f.x.name.clone(),f.clone())).collect(), datatypes)
+        records::validate_summary(
+            &projected,
+            &functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect(),
+            datatypes,
+        )
     } else if collections::kind(&projected).is_some() {
-        collections::validate_summary(&projected,
-            &functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect())
-    } else { validate_imported_summary(&projected) }
+        collections::validate_summary(
+            &projected,
+            &functions.iter().map(|f| (f.x.name.clone(), f.clone())).collect(),
+        )
+    } else {
+        validate_imported_summary(&projected)
+    }
 }
 
 /// Validate the restricted summary shape on the import boundary. Proof
@@ -1174,16 +1343,30 @@ pub fn format_contract(function: &Function) -> String {
 /// Separate the checked predicates for structured presentation. Arithmetic is
 /// mathematical, with explicit machine casts and Rust signed division/remainder.
 pub fn format_contract_parts(function: &Function) -> (String, String) {
-    if collections::kind(function).is_some() || records::candidate(function) || is_owned_summary(function) {
+    if collections::kind(function).is_some()
+        || records::candidate(function)
+        || is_owned_summary(function)
+    {
         let result_name = VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal);
         let result = &function.x.inner_ret.x.name;
-        let post = crate::ast_visitor::map_expr_place_visitor(&function.x.ensure.0[0],
-            &|e| Ok(if matches!(&e.x, ExprX::Var(v) if v == result) {
-                e.new_x(ExprX::Var(result_name.clone()))
-            } else { e.clone() }),
-            &|p| Ok(if matches!(&p.x, PlaceX::Local(v) if v == result) {
-                p.new_x(PlaceX::Local(result_name.clone()))
-            } else { p.clone() })).expect("collection summary presentation");
+        let post = crate::ast_visitor::map_expr_place_visitor(
+            &function.x.ensure.0[0],
+            &|e| {
+                Ok(if matches!(&e.x, ExprX::Var(v) if v == result) {
+                    e.new_x(ExprX::Var(result_name.clone()))
+                } else {
+                    e.clone()
+                })
+            },
+            &|p| {
+                Ok(if matches!(&p.x, PlaceX::Local(v) if v == result) {
+                    p.new_x(PlaceX::Local(result_name.clone()))
+                } else {
+                    p.clone()
+                })
+            },
+        )
+        .expect("collection summary presentation");
         return (format_expr(&function.x.require[0]), format_expr(&post));
     }
     if function.x.attrs.infer_allow_approx {
@@ -1230,8 +1413,14 @@ pub fn format_loop_proofs(function: &Function) -> Vec<serde_json::Value> {
 
 fn format_expr(e: &Expr) -> String {
     match &e.x {
-        ExprX::UnaryOpr(UnaryOpr::CustomErr(_) | UnaryOpr::AutoDecreases | UnaryOpr::AutoLoopEnsures | UnaryOpr::ProofNote(_),inner)=>format_expr(inner),
-        ExprX::Unary(UnaryOp::CoerceMode{..},inner)=>format!("({})@",format_expr(inner)),
+        ExprX::UnaryOpr(
+            UnaryOpr::CustomErr(_)
+            | UnaryOpr::AutoDecreases
+            | UnaryOpr::AutoLoopEnsures
+            | UnaryOpr::ProofNote(_),
+            inner,
+        ) => format_expr(inner),
+        ExprX::Unary(UnaryOp::CoerceMode { .. }, inner) => format!("({})@", format_expr(inner)),
 
         ExprX::UnaryOpr(UnaryOpr::IntegerTypeBound(IntegerTypeBoundKind::UnsignedMax), _)
             if arithmetic::arch_constant(e).is_some() =>
@@ -1265,9 +1454,17 @@ fn format_expr(e: &Expr) -> String {
         ExprX::ArrayLiteral(elements) => {
             format!("[{}]", elements.iter().map(format_expr).collect::<Vec<_>>().join(", "))
         }
-        ExprX::Closure(params,body)=>format!("|{}| {}",params.iter().map(|p|p.name.0.to_string()).collect::<Vec<_>>().join(", "),format_expr(body)),
-        ExprX::Quant(q,params,body)=>format!("{}|{}| {}",if q.quant==air::ast::Quant::Forall{"forall"}else{"exists"},
-            params.iter().map(|p|p.name.0.to_string()).collect::<Vec<_>>().join(", "),format_expr(body)),
+        ExprX::Closure(params, body) => format!(
+            "|{}| {}",
+            params.iter().map(|p| p.name.0.to_string()).collect::<Vec<_>>().join(", "),
+            format_expr(body)
+        ),
+        ExprX::Quant(q, params, body) => format!(
+            "{}|{}| {}",
+            if q.quant == air::ast::Quant::Forall { "forall" } else { "exists" },
+            params.iter().map(|p| p.name.0.to_string()).collect::<Vec<_>>().join(", "),
+            format_expr(body)
+        ),
         ExprX::Unary(UnaryOp::Length(ArrayKind::Slice), a) => format!("({}).len()", format_expr(a)),
         ExprX::Binary(
             BinaryOp::Index(ArrayKind::Array | ArrayKind::Slice, BoundsCheck::Allow),
@@ -1280,7 +1477,11 @@ fn format_expr(e: &Expr) -> String {
             if fields.is_empty() {
                 if variant.as_str() == "tuple%0" { "()".into() } else { variant.to_string() }
             } else {
-                format!("{}({})", variant, fields.iter().map(|f| format_expr(&f.a)).collect::<Vec<_>>().join(", "))
+                format!(
+                    "{}({})",
+                    variant,
+                    fields.iter().map(|f| format_expr(&f.a)).collect::<Vec<_>>().join(", ")
+                )
             }
         }
         ExprX::UnaryOpr(UnaryOpr::IsVariant { variant, .. }, a) => {
@@ -1296,20 +1497,41 @@ fn format_expr(e: &Expr) -> String {
         ExprX::ReadPlace(p, _) => format_place(p),
         ExprX::Old(e) => format!("old({})", format_expr(e)),
         ExprX::Unary(UnaryOp::MutRefCurrent, e) => format_expr(e),
-        ExprX::Unary(UnaryOp::MutRefFuture(_) | UnaryOp::MutRefFinal(_), e) => format!("final({})", format_expr(e)),
+        ExprX::Unary(UnaryOp::MutRefFuture(_) | UnaryOp::MutRefFinal(_), e) => {
+            format!("final({})", format_expr(e))
+        }
         ExprX::Call { target: CallTarget::Fun(_, name, ..), args, .. } => {
             let p = &name.path;
-            if p.krate == CrateId::Vstd && p.segments.first().is_some_and(|s| s.as_str() == "view") && args.len() == 1 {
+            if p.krate == CrateId::Vstd
+                && p.segments.first().is_some_and(|s| s.as_str() == "view")
+                && args.len() == 1
+            {
                 format!("({})@", format_expr(&args[0]))
-            } else if models::path_is(p, CrateId::Vstd, &["std_specs", "vec", "spec_vec_len"]) && args.len() == 1 {
+            } else if models::path_is(p, CrateId::Vstd, &["std_specs", "vec", "spec_vec_len"])
+                && args.len() == 1
+            {
                 format!("({}).len()", format_expr(&args[0]))
             } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "len"]) && args.len() == 1 {
                 format!("({}).len()", format_expr(&args[0]))
-            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "index"]) && args.len() == 2 {
+            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "index"]) && args.len() == 2
+            {
                 format!("({})[{}]", format_expr(&args[0]), format_expr(&args[1]))
-            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "update"]) && args.len() == 3 {
-                format!("({}).update({}, {})", format_expr(&args[0]), format_expr(&args[1]), format_expr(&args[2]))
-            } else { format!("{}({})", crate::ast_util::fun_as_friendly_rust_name(name), args.iter().map(format_expr).collect::<Vec<_>>().join(", ")) }
+            } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "update"])
+                && args.len() == 3
+            {
+                format!(
+                    "({}).update({}, {})",
+                    format_expr(&args[0]),
+                    format_expr(&args[1]),
+                    format_expr(&args[2])
+                )
+            } else {
+                format!(
+                    "{}({})",
+                    crate::ast_util::fun_as_friendly_rust_name(name),
+                    args.iter().map(format_expr).collect::<Vec<_>>().join(", ")
+                )
+            }
         }
         ExprX::Logical(op, a, b) => format!(
             "({} {} {})",
@@ -1393,14 +1615,17 @@ pub(crate) mod tests;
 mod coverage_tests;
 
 /// The bounded byte-resource effect must never publish under skipped checking.
-pub fn uses_byte_vec_resources(f:&Function)->bool {
-    if f.x.name.path.krate==CrateId::Vstd {return false;}
-    let mut found=false;
-    if let Some(body)=&f.x.body {
-        crate::ast_visitor::expr_visitor_walk(body,&mut|e|{
-            if let ExprX::Call{target:CallTarget::Fun(_,n,..),..}=&e.x {
-                found |= n.path.krate==CrateId::Vstd && n.path.segments.len()==2
-                    && n.path.segments[0].as_str()=="byte_vec";
+pub fn uses_byte_vec_resources(f: &Function) -> bool {
+    if f.x.name.path.krate == CrateId::Vstd {
+        return false;
+    }
+    let mut found = false;
+    if let Some(body) = &f.x.body {
+        crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
+            if let ExprX::Call { target: CallTarget::Fun(_, n, ..), .. } = &e.x {
+                found |= n.path.krate == CrateId::Vstd
+                    && n.path.segments.len() == 2
+                    && n.path.segments[0].as_str() == "byte_vec";
             }
             crate::ast_visitor::VisitorControlFlow::<()>::Recurse
         });

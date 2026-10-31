@@ -822,11 +822,12 @@ fn compare_external_ty<'tcx>(
                         tcx.try_normalize_erasing_regions(
                             TypingEnv::fully_monomorphized(),
                             rustc_middle::ty::Unnormalized::new_wip(*c),
-                        ).ok()?.try_to_target_usize(tcx)
+                        )
+                        .ok()?
+                        .try_to_target_usize(tcx)
                     };
                     matches!((evaluate(const1), evaluate(const2)), (Some(a), Some(b)) if a == b)
-                })
-                    && compare_external_ty(tcx, verus_items, &ty1, &ty2, external_trait_from_to)
+                }) && compare_external_ty(tcx, verus_items, &ty1, &ty2, external_trait_from_to)
             }
             (
                 rustc_middle::ty::TyKind::Pat(ty1, pat1),

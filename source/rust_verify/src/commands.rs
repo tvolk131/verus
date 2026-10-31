@@ -344,7 +344,10 @@ impl<'a> OpGenerator<'a> {
                     continue;
                 }
                 let check = Arc::new(vir::infer_checks::precision_check(
-                    self.ctx, &function, func_check_sst, kind,
+                    self.ctx,
+                    &function,
+                    func_check_sst,
+                    kind,
                 )?);
                 vir::infer_checks::validate_query_kind(&check, Some(kind), &function.span)?;
                 let commands = vir::sst_to_air_func::func_sst_to_air(self.ctx, &function, &check)?;
@@ -512,7 +515,8 @@ impl Op {
     pub fn inference_request(
         &self,
     ) -> Result<Option<(vir::infer_proof::CandidateId, vir::infer_proof::Obligation)>, VirErr> {
-        let OpKind::Query { query_op, profile_rerun: false, func_check_sst, .. } = &self.kind else {
+        let OpKind::Query { query_op, profile_rerun: false, func_check_sst, .. } = &self.kind
+        else {
             return Ok(None);
         };
         let function = self.get_function();

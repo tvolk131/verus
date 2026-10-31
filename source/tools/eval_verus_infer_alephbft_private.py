@@ -15,6 +15,7 @@ from eval_verus_infer_alephbft import REVISION, git
 from eval_verus_infer_alephbft_parents import CORRECTED, FIXTURES, NODE, ROOT, item, prepare
 from eval_verus_infer_alephbft_wrappers import node_map_source, wrap_collector, api_mutation
 from eval_verus_infer_alephbft_records import add_mutation, require_domain_rejection
+from infer_experiment import require_exact, save_results, validate_run
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 API = "verification-infer/private_node.rs"
@@ -59,27 +60,15 @@ def update_only(original):
 
 
 def validate(run, expected, count, unsupported=False):
-    data = json.loads(run["stdout"])
-    result = data["verification-results"]
-    if (run["returncode"] == 0) != expected or result.get("success") != expected:
-        raise ValueError(f"unexpected verification outcome: {result}")
-    if any(s in run["stderr"].lower() for s in ("panicked at", "resource limit", "timed out")):
-        raise ValueError("panic/resource failure is not proof evidence")
+    data = validate_run(run, expected, allow_frontend=bool(unsupported))
     if unsupported:
         if "visible transparent record fields" not in run["stderr"]:
             raise ValueError("missing explicit unsupported-view diagnostic")
         return data
-    if result.get("encountered-vir-error"):
-        raise ValueError("frontend failure is not a semantic rejection")
     functions = data["verus-infer"]["functions"]
     if len(functions) != count:
         raise ValueError("unexpected inferred-function count")
-    for f in functions:
-        if f["mode"] != "exact" or not f["required_checks_passed"]:
-            raise ValueError("incomplete exact certification")
-        for p in ("soundness", "maximality", "exactness"):
-            if not f["proofs"][p]["required"] or f["proofs"][p]["status"] != "proved":
-                raise ValueError("missing exact obligation")
+    require_exact(functions)
     return data
 
 
@@ -105,7 +94,8 @@ def main():
     guard = ArtifactGuard(tool_artifacts(verus, z3, extra=extra))
     result = dict(host=host_info(), tool_artifacts=guard.initial, runs=[])
     checkout = output / "checkout"
-    def save(): (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
+    def save():
+        save_results(output, result)
     try:
         shared, origin = prepare(repo, checkout)
         threshold = shared.replace("(*self * 2) / 3 + NodeCount(1)", CORRECTED)

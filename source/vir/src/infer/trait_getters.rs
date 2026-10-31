@@ -41,7 +41,8 @@ fn header(f: &Function, mode: Mode) -> Option<Owner> {
             Owner::Static
         }
         FunctionKind::Static
-            if x.typ_params.is_empty() && x.typ_bounds.is_empty()
+            if x.typ_params.is_empty()
+                && x.typ_bounds.is_empty()
                 && x.params.iter().all(|p| eligibility::scalar(&p.x.typ))
                 && enums::supported(&x.inner_ret.x.typ) =>
         {
@@ -58,18 +59,23 @@ fn header(f: &Function, mode: Mode) -> Option<Owner> {
         || x.proxy.is_some()
         || !(1..=3).contains(&x.params.len())
         || x.params.iter().any(|p| p.x.mode != mode || p.x.user_mut)
-        || x.params.iter().skip(1).any(|p| !eligibility::scalar(&p.x.typ)
-            && !(owner == Owner::Static && shared(&p.x.typ).is_some_and(|t|
-                matches!(&**t,TypX::Datatype(..)|TypX::TypParam(_)))))
+        || x.params.iter().skip(1).any(|p| {
+            !eligibility::scalar(&p.x.typ)
+                && !(owner == Owner::Static
+                    && shared(&p.x.typ)
+                        .is_some_and(|t| matches!(&**t, TypX::Datatype(..) | TypX::TypParam(_))))
+        })
         || x.inner_ret.x.mode != mode
         || x.outer_ret.x.mode != mode
         || !matches!(x.item_kind, ItemKind::Function)
         || x.attrs.exec_assume_termination
         || x.attrs.exec_allows_no_decreases_clause
-        || !x.visibility.is_public() && !(owner == Owner::Static
-            && x.typ_params.is_empty() && x.typ_bounds.is_empty()
-            && x.params.iter().all(|p|eligibility::scalar(&p.x.typ))
-            && enums::supported(&x.inner_ret.x.typ))
+        || !x.visibility.is_public()
+            && !(owner == Owner::Static
+                && x.typ_params.is_empty()
+                && x.typ_bounds.is_empty()
+                && x.params.iter().all(|p| eligibility::scalar(&p.x.typ))
+                && enums::supported(&x.inner_ret.x.typ))
         || !x.require.is_empty()
         || !x.ensure.1.is_empty()
         || x.returns.is_some()
@@ -209,8 +215,10 @@ pub(super) fn source_call(
         return None;
     }
     if !(match header(f, Mode::Exec)? {
-        Owner::Trait(_) => matches!(kind, CallTargetKind::Dynamic) && impls.is_empty()
-            || matches!(kind,CallTargetKind::DynamicResolved{..}),
+        Owner::Trait(_) => {
+            matches!(kind, CallTargetKind::Dynamic) && impls.is_empty()
+                || matches!(kind, CallTargetKind::DynamicResolved { .. })
+        }
         Owner::Static => matches!(kind, CallTargetKind::Static) && impls.is_empty(),
     }) {
         return None;
@@ -223,14 +231,38 @@ pub(super) fn source_call(
 }
 
 pub(super) fn instantiate_source(
-    spec:&Function,types:&Typs,arguments:Vec<Term>,bounds:&GenericBounds,source:&Expr,
-)->Result<Term,VirErr>{
-    let mut value=instantiate(spec,types,arguments,bounds)?;
-    if let ExprX::Call{target:CallTarget::Fun(CallTargetKind::DynamicResolved{..},_,_,impls,_),..}=&source.x {
-        let ExprX::Call{target:CallTarget::Fun(kind,name,types,_,attrs),args,post_args,body}=&value.expr.x else{unreachable!()};
-        value.expr=value.expr.new_x(ExprX::Call{
-            target:CallTarget::Fun(kind.clone(),name.clone(),types.clone(),impls.clone(),attrs.clone()),
-            args:args.clone(),post_args:post_args.clone(),body:body.clone(),
+    spec: &Function,
+    types: &Typs,
+    arguments: Vec<Term>,
+    bounds: &GenericBounds,
+    source: &Expr,
+) -> Result<Term, VirErr> {
+    let mut value = instantiate(spec, types, arguments, bounds)?;
+    if let ExprX::Call {
+        target: CallTarget::Fun(CallTargetKind::DynamicResolved { .. }, _, _, impls, _),
+        ..
+    } = &source.x
+    {
+        let ExprX::Call {
+            target: CallTarget::Fun(kind, name, types, _, attrs),
+            args,
+            post_args,
+            body,
+        } = &value.expr.x
+        else {
+            unreachable!()
+        };
+        value.expr = value.expr.new_x(ExprX::Call {
+            target: CallTarget::Fun(
+                kind.clone(),
+                name.clone(),
+                types.clone(),
+                impls.clone(),
+                attrs.clone(),
+            ),
+            args: args.clone(),
+            post_args: post_args.clone(),
+            body: body.clone(),
         });
     }
     Ok(value)
@@ -329,41 +361,89 @@ pub(super) fn instantiate(
 /// through a certified direct sequence view. The observation body supplies the
 /// meaning; no runtime implementation is inlined or rewritten.
 pub(super) fn specialize_view(
-    spec: &Function, types: &Typs, sequence: Term, all: &HashMap<Fun, Function>, caller: &Function,
+    spec: &Function,
+    types: &Typs,
+    sequence: Term,
+    all: &HashMap<Fun, Function>,
+    caller: &Function,
 ) -> Result<Term, VirErr> {
     if !matches!(header(spec, Mode::Spec), Some(Owner::Static)) || spec.x.params.len() != 1 {
-        return Err(unsupported(&spec.span, "constructed receivers require a static unary view observation"));
+        return Err(unsupported(
+            &spec.span,
+            "constructed receivers require a static unary view observation",
+        ));
     }
-    if !caller.x.owning_module.as_ref().is_some_and(|m|
-        crate::ast_util::is_body_visible_to(&spec.x.body_visibility, m)) {
-        return Err(unsupported(&spec.span, "constructed receiver needs a visible observation body"));
+    if !caller
+        .x
+        .owning_module
+        .as_ref()
+        .is_some_and(|m| crate::ast_util::is_body_visible_to(&spec.x.body_visibility, m))
+    {
+        return Err(unsupported(
+            &spec.span,
+            "constructed receiver needs a visible observation body",
+        ));
     }
-    let body = spec.x.body.as_ref().ok_or_else(|| unsupported(&spec.span, "constructed receiver needs a visible observation body"))?;
+    let body = spec.x.body.as_ref().ok_or_else(|| {
+        unsupported(&spec.span, "constructed receiver needs a visible observation body")
+    })?;
     let ts: HashMap<_, _> = spec.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
     let receiver = &spec.x.params[0].x.name;
-    let value = crate::ast_visitor::map_expr_visitor_env(body,
-        &mut crate::ast_visitor::VisitorScopeMap::new(), &mut (),
+    let value = crate::ast_visitor::map_expr_visitor_env(
+        body,
+        &mut crate::ast_visitor::VisitorScopeMap::new(),
+        &mut (),
         &|_, _, e| {
-            if let ExprX::Call { target: CallTarget::Fun(kind, n, ..), args, post_args: None, body: None } = &e.x {
-                let name = match kind { CallTargetKind::DynamicResolved { resolved, .. } => resolved, _ => n };
-                if args.len() == 1 && local(&args[0], receiver)
+            if let ExprX::Call {
+                target: CallTarget::Fun(kind, n, ..),
+                args,
+                post_args: None,
+                body: None,
+            } = &e.x
+            {
+                let name = match kind {
+                    CallTargetKind::DynamicResolved { resolved, .. } => resolved,
+                    _ => n,
+                };
+                if args.len() == 1
+                    && local(&args[0], receiver)
                     && (models::path_is(&n.path, CrateId::Vstd, &["view", "View", "view"])
-                        || all.get(name).is_some_and(|f| f.x.attrs.infer_sequence_view
-                            || collections::model(f) == Some(collections::Model::View))) {
+                        || all.get(name).is_some_and(|f| {
+                            f.x.attrs.infer_sequence_view
+                                || collections::model(f) == Some(collections::Model::View)
+                        }))
+                {
                     return Ok(sequence.expr.clone());
                 }
             }
             Ok(e.clone())
-        }, &|_, _, s| Ok(vec![s.clone()]),
+        },
+        &|_, _, s| Ok(vec![s.clone()]),
         &|_, t| Ok(crate::sst_util::subst_typ(&ts, t)),
-        &|_, _, p| Ok(p.clone()), &|_, _, p| Ok(p.clone()))?;
+        &|_, _, p| Ok(p.clone()),
+        &|_, _, p| Ok(p.clone()),
+    )?;
     crate::ast_visitor::expr_visitor_check(&value, &mut |_, e| {
-        if local(e, receiver) { return Err(unsupported(&e.span, "query observation inspects a constructed receiver beyond its view")); }
+        if local(e, receiver) {
+            return Err(unsupported(
+                &e.span,
+                "query observation inspects a constructed receiver beyond its view",
+            ));
+        }
         if let ExprX::Call { target: CallTarget::Fun(kind, n, ..), .. } = &e.x {
-            let name = match kind { CallTargetKind::DynamicResolved { resolved, .. } => resolved, _ => n };
+            let name = match kind {
+                CallTargetKind::DynamicResolved { resolved, .. } => resolved,
+                _ => n,
+            };
             if !all.get(name).is_some_and(is_pure_observation)
-                && !models::path_is(&n.path, CrateId::Vstd, &["view", "View", "view"]) {
-                return Err(unsupported(&e.span, &format!("view observation needs pure nonprophetic specification vocabulary: {n:?}")));
+                && !models::path_is(&n.path, CrateId::Vstd, &["view", "View", "view"])
+            {
+                return Err(unsupported(
+                    &e.span,
+                    &format!(
+                        "view observation needs pure nonprophetic specification vocabulary: {n:?}"
+                    ),
+                ));
             }
         }
         Ok(())
@@ -371,7 +451,9 @@ pub(super) fn specialize_view(
     // Empty spec blocks are syntax, not an additional logical operation.
     let mut value = value;
     while let ExprX::Block(ss, Some(tail)) = &value.x {
-        if !ss.is_empty() { break; }
+        if !ss.is_empty() {
+            break;
+        }
         value = tail.clone();
     }
     records::atom(value)

@@ -1,11 +1,11 @@
 //! Checked proof combinators for finite native iterator factories.
 //! These bodies use existing native library specifications; they add no axioms.
 //! The chosen collection/output view is supplied by the interface author.
-use crate::prelude::*;
+use crate::vstd::prelude::*;
 #[cfg(verus_keep_ghost)]
-use crate::std_specs::iter::{IteratorSpec, map_fun, map_iter, map_post, map_postcondition};
+use crate::vstd::std_specs::iter::{IteratorSpec, map_fun, map_iter, map_post, map_postcondition};
 #[cfg(verus_keep_ghost)]
-use crate::std_specs::iter_adapters::*;
+use crate::vstd::std_specs::iter_adapters::*;
 verus! {
 
 proof fn native_map_view<I: Iterator, B, F: FnMut(I::Item) -> B>(
@@ -24,9 +24,9 @@ proof fn native_map_view<I: Iterator, B, F: FnMut(I::Item) -> B>(
         finite_native_view(result, output),
 {
     broadcast use {
-        crate::seq::group_seq_axioms,
-        crate::seq::group_seq_lemmas,
-        crate::std_specs::iter::group_iter_axioms,
+        crate::vstd::seq::group_seq_axioms,
+        crate::vstd::seq::group_seq_lemmas,
+        crate::vstd::std_specs::iter::group_iter_axioms,
         group_native_adapter_axioms,
     };
 
@@ -65,12 +65,12 @@ proof fn native_sparse_view<'a, T: 'a, B, F: FnMut((usize, &'a Option<T>)) -> Op
                 Some(_) => Some(label(i)),
             },
     ensures
-        finite_native_view(result, crate::seq_update::sparse_entries(source, label)),
+        finite_native_view(result, crate::vstd::seq_update::sparse_entries(source, label)),
 {
     broadcast use {
-        crate::seq::group_seq_axioms,
-        crate::seq::group_seq_lemmas,
-        crate::std_specs::iter::group_iter_axioms,
+        crate::vstd::seq::group_seq_axioms,
+        crate::vstd::seq::group_seq_lemmas,
+        crate::vstd::std_specs::iter::group_iter_axioms,
         group_native_adapter_axioms,
     };
 
@@ -84,7 +84,7 @@ proof fn native_sparse_view<'a, T: 'a, B, F: FnMut((usize, &'a Option<T>)) -> Op
                 Some(_) => Some(label(i)),
             },
     );
-    crate::seq_update::lemma_sparse_entries_eq(source, label, full);
+    crate::vstd::seq_update::lemma_sparse_entries_eq(source, label, full);
     assert(inner.remaining().len() == source.len());
     assert forall|i: int|
         0 <= i < filter_map_outputs(result).len() implies #[trigger] filter_map_outputs(result)[i]
@@ -99,14 +99,12 @@ proof fn native_sparse_view<'a, T: 'a, B, F: FnMut((usize, &'a Option<T>)) -> Op
     assert(result.decrease().is_some());
     assert(result.decrease().unwrap() <= usize::MAX as nat);
     full.lemma_filter_len(|value: Option<B>| value.is_some());
-    assert(crate::seq_update::sparse_entries(source, label).len() <= usize::MAX as nat);
-    assert(result.remaining().is_prefix_of(crate::seq_update::sparse_entries(source, label)));
-    assert(result.will_return_none() ==> result.remaining() == crate::seq_update::sparse_entries(
-        source,
-        label,
-    ));
+    assert(crate::vstd::seq_update::sparse_entries(source, label).len() <= usize::MAX as nat);
+    assert(result.remaining().is_prefix_of(crate::vstd::seq_update::sparse_entries(source, label)));
+    assert(result.will_return_none() ==> result.remaining()
+        == crate::vstd::seq_update::sparse_entries(source, label));
     assert forall|count: usize| #[trigger] native_count_post(result, count) implies count
-        == crate::seq_update::sparse_entries(source, label).len() by {
+        == crate::vstd::seq_update::sparse_entries(source, label).len() by {
         assert(result.will_return_none());
     }
 
@@ -118,14 +116,14 @@ pub broadcast proof fn lemma_sparse_entry_origin<A, E>(
     k: int,
 )
     requires
-        0 <= k < crate::seq_update::sparse_entries(source, label).len(),
+        0 <= k < crate::vstd::seq_update::sparse_entries(source, label).len(),
     ensures
         ({
-            let entry = #[trigger] crate::seq_update::sparse_entries(source, label)[k];
+            let entry = #[trigger] crate::vstd::seq_update::sparse_entries(source, label)[k];
             exists|i: int| 0 <= i < source.len() && source[i].is_some() && entry == label(i)
         }),
 {
-    broadcast use {crate::seq::group_seq_axioms, crate::seq::group_seq_lemmas};
+    broadcast use {crate::vstd::seq::group_seq_axioms, crate::vstd::seq::group_seq_lemmas};
 
     let full = Seq::new(
         source.len(),
@@ -135,7 +133,7 @@ pub broadcast proof fn lemma_sparse_entry_origin<A, E>(
                 Some(_) => Some(label(i)),
             },
     );
-    crate::seq_update::lemma_sparse_entries_eq(source, label, full);
+    crate::vstd::seq_update::lemma_sparse_entries_eq(source, label, full);
     flatten_options_witness(full, k);
 }
 
@@ -148,7 +146,7 @@ pub proof fn prove_sparse_factory<'a, T: 'a, B, F: FnMut((usize, &'a Option<T>))
         enumerate_index(input) == 0,
         exists|f: F, source: Seq<Option<T>>, label: spec_fn(int) -> B|
             filter_map_post::<_, B, _>(input, f, result) && output
-                == crate::seq_update::sparse_entries(source, label) && enumerate_iter(
+                == crate::vstd::seq_update::sparse_entries(source, label) && enumerate_iter(
                 input,
             ).remaining() == source.as_ref() && source.len() <= usize::MAX as nat && (forall|i: int|
 
@@ -165,18 +163,17 @@ pub proof fn prove_sparse_factory<'a, T: 'a, B, F: FnMut((usize, &'a Option<T>))
         finite_native_view(result, output),
 {
     broadcast use {
-        crate::seq::group_seq_axioms,
-        crate::seq::group_seq_lemmas,
-        crate::std_specs::iter::group_iter_axioms,
+        crate::vstd::seq::group_seq_axioms,
+        crate::vstd::seq::group_seq_lemmas,
+        crate::vstd::std_specs::iter::group_iter_axioms,
         group_native_adapter_axioms,
     };
 
     let (f, source, label) = choose|f: F, source: Seq<Option<T>>, label: spec_fn(int) -> B|
-        filter_map_post::<_, B, _>(input, f, result) && output == crate::seq_update::sparse_entries(
-            source,
-            label,
-        ) && enumerate_iter(input).remaining() == source.as_ref() && source.len()
-            <= usize::MAX as nat && (forall|i: int|
+        filter_map_post::<_, B, _>(input, f, result) && output
+            == crate::vstd::seq_update::sparse_entries(source, label) && enumerate_iter(
+            input,
+        ).remaining() == source.as_ref() && source.len() <= usize::MAX as nat && (forall|i: int|
             0 <= i < source.len() ==> f.requires(((i as usize, &source[i]),))) && (forall|
             i: int,
             value: Option<B>,
@@ -211,9 +208,9 @@ pub proof fn prove_map_factory<I: Iterator, B, F: FnMut(I::Item) -> B>(
         finite_native_view(result, output),
 {
     broadcast use {
-        crate::seq::group_seq_axioms,
-        crate::seq::group_seq_lemmas,
-        crate::std_specs::iter::group_iter_axioms,
+        crate::vstd::seq::group_seq_axioms,
+        crate::vstd::seq::group_seq_lemmas,
+        crate::vstd::std_specs::iter::group_iter_axioms,
         group_native_adapter_axioms,
     };
 

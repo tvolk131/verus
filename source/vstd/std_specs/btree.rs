@@ -74,7 +74,10 @@ pub struct ExKeys<'a, Key, Value>(Keys<'a, Key, Value>);
 pub uninterp spec fn into_iter_keys<'a, Key, Value>(i: Keys<'a, Key, Value>) -> Seq<Key>;
 
 impl<'a, K, V> super::iter::IteratorSpecImpl for Keys<'a, K, V> {
-    open spec fn has_exact_size_hint(&self) -> bool { true }
+    open spec fn has_exact_size_hint(&self) -> bool {
+        true
+    }
+
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }
@@ -107,7 +110,10 @@ pub struct ExValues<'a, Key, Value>(Values<'a, Key, Value>);
 pub uninterp spec fn into_iter_values<'a, Key, Value>(i: Values<'a, Key, Value>) -> Seq<Value>;
 
 impl<'a, K, V> super::iter::IteratorSpecImpl for Values<'a, K, V> {
-    open spec fn has_exact_size_hint(&self) -> bool { true }
+    open spec fn has_exact_size_hint(&self) -> bool {
+        true
+    }
+
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }
@@ -142,7 +148,10 @@ pub uninterp spec fn into_iter<'a, Key, Value>(i: btree_map::Iter<'a, Key, Value
 >;
 
 impl<'a, K, V> super::iter::IteratorSpecImpl for btree_map::Iter<'a, K, V> {
-    open spec fn has_exact_size_hint(&self) -> bool { true }
+    open spec fn has_exact_size_hint(&self) -> bool {
+        true
+    }
+
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }
@@ -1038,7 +1047,10 @@ pub struct ExSetIter<'a, K: 'a>(btree_set::Iter<'a, K>);
 pub uninterp spec fn into_iter_btree_keys<'a, Key>(i: btree_set::Iter::<'a, Key>) -> Seq<Key>;
 
 impl<'a, T> super::iter::IteratorSpecImpl for btree_set::Iter::<'a, T> {
-    open spec fn has_exact_size_hint(&self) -> bool { true }
+    open spec fn has_exact_size_hint(&self) -> bool {
+        true
+    }
+
     open spec fn obeys_prophetic_iter_laws(&self) -> bool {
         true
     }

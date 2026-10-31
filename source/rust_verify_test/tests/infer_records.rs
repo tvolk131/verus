@@ -224,7 +224,7 @@ fn record_expansion_budget_is_enforced() {
 
 #[test]
 fn guarded_match_effects_preserve_order_frames_and_early_returns() {
-    let source=r#"use vstd::prelude::*;verus!{
+    let source = r#"use vstd::prelude::*;verus!{
  pub struct State{pub value:u16,pub epoch:u16}
  impl State{
   #[verifier::infer] fn choose(&mut self,input:Option<bool>){
@@ -250,13 +250,19 @@ fn guarded_match_effects_preserve_order_frames_and_early_returns() {
  ensures final(s).value as int==match input{Some(x) if x<10=>x as int,Some(x) if x<20=>(x as int)+1,_=>old(s).value as int},final(s).epoch==old(s).epoch,
  {s.ordered(input);}
 }"#;
-    let d=verify_one_file("guarded_state_match",source.into(),&["vstd","--no-cheating"]).unwrap();
-    assert_eq!(d.notes.iter().filter(|n|n.message.contains("output exactness: PROVED")).count(),2,"{:?}",d);
+    let d =
+        verify_one_file("guarded_state_match", source.into(), &["vstd", "--no-cheating"]).unwrap();
+    assert_eq!(
+        d.notes.iter().filter(|n| n.message.contains("output exactness: PROVED")).count(),
+        2,
+        "{:?}",
+        d
+    );
 }
 
 #[test]
 fn guarded_match_safety_is_required_only_on_the_selected_arm() {
-    let source=r#"use vstd::prelude::*;verus!{
+    let source = r#"use vstd::prelude::*;verus!{
  pub struct State{pub value:u8}
  impl State{#[verifier::infer] fn update(&mut self,input:Option<u8>,skip:bool){
   match input{Some(_) if skip=>{},Some(x)=>{self.value=x+1;},None=>{}}
@@ -264,8 +270,14 @@ fn guarded_match_safety_is_required_only_on_the_selected_arm() {
  fn skip(s:&mut State){s.update(Some(u8::MAX),true);}
  fn bad(s:&mut State){s.update(Some(u8::MAX),false);}
 }"#;
-    let e=verify_one_file("selected_match_safety",source.into(),&["vstd","--no-cheating"]).unwrap_err();
-    assert!(e.errors.iter().any(|d|d.message.contains("precondition not satisfied")),"{:?}",e);
-    assert!(e.notes.iter().any(|d|d.message.contains("output exactness: PROVED")),"{:?}",e);
-    assert_eq!(e.errors.iter().filter(|d|d.message.contains("precondition not satisfied")).count(),1,"{:?}",e);
+    let e = verify_one_file("selected_match_safety", source.into(), &["vstd", "--no-cheating"])
+        .unwrap_err();
+    assert!(e.errors.iter().any(|d| d.message.contains("precondition not satisfied")), "{:?}", e);
+    assert!(e.notes.iter().any(|d| d.message.contains("output exactness: PROVED")), "{:?}", e);
+    assert_eq!(
+        e.errors.iter().filter(|d| d.message.contains("precondition not satisfied")).count(),
+        1,
+        "{:?}",
+        e
+    );
 }

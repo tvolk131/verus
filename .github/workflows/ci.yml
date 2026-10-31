@@ -23,6 +23,15 @@ permissions:
   contents: write
 
 jobs:
+  infer-tooling:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - name: Python experiment harness tests
+        run: python3 -B -m unittest discover -s source/tools -p 'test_infer*.py'
+
   # check if formatting is correct
   fmt:
     runs-on: ubuntu-24.04
@@ -210,7 +219,24 @@ jobs:
           # check cvc5
           cargo run --release --bin rust_verify -- -V cvc5 ../examples/assorted_demo.rs
           cargo nextest run --release -p air
+          cargo nextest run --release -p vir
           cargo nextest run --release -p rust_verify_test
+
+      - name: inference cold/warm evaluation
+        run: python3 source/tools/eval_verus_infer.py --output-dir "$RUNNER_TEMP/infer-evaluation"
+
+      - name: inference Cargo incremental evaluation
+        run: python3 source/tools/eval_verus_infer_cargo.py --output-dir "$RUNNER_TEMP/infer-cargo"
+
+      - name: upload inference evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inference-evaluation
+          path: |
+            ${{ runner.temp }}/infer-evaluation
+            ${{ runner.temp }}/infer-cargo
+          if-no-files-found: ignore
 
   # check if it builds and that basic tests pass on our main supported platforms
   basic-test:

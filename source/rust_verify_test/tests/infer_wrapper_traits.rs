@@ -225,30 +225,41 @@ verus!{
 
 #[test]
 fn comparison_adapters_check_the_original_bodies_and_all_precision_obligations() {
-    let d=verify_one_file("wrapper_compare",COMPARE.into(),&["vstd","--no-cheating"]).unwrap();
-    for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"] {
-        assert_eq!(d.notes.iter().filter(|n|n.message.contains(p)).count(),6,"{:?}",d);
+    let d = verify_one_file("wrapper_compare", COMPARE.into(), &["vstd", "--no-cheating"]).unwrap();
+    for p in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+        assert_eq!(d.notes.iter().filter(|n| n.message.contains(p)).count(), 6, "{:?}", d);
     }
 }
 
 #[test]
 fn comparison_extension_models_cannot_hide_an_inconsistent_override() {
-    let s=COMPARE.replace("fn lt(&self,rhs:&Self)->bool{self.0<rhs.0}","fn lt(&self,rhs:&Self)->bool{self.0>rhs.0}");
-    let e=verify_one_file("inconsistent_order",s,&["vstd","--no-cheating"]).unwrap_err();
-    assert!(e.errors.iter().any(|d|d.message.contains("postcondition not satisfied")),"{:?}",e);
+    let s = COMPARE.replace(
+        "fn lt(&self,rhs:&Self)->bool{self.0<rhs.0}",
+        "fn lt(&self,rhs:&Self)->bool{self.0>rhs.0}",
+    );
+    let e = verify_one_file("inconsistent_order", s, &["vstd", "--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{:?}", e);
 }
 
 #[test]
 fn comparison_names_do_not_supply_equality_semantics() {
-    let s=COMPARE.replace("fn eq(&self,rhs:&Self)->bool{self.0==rhs.0}","fn eq(&self,rhs:&Self)->bool{self.0!=rhs.0}");
-    let e=verify_one_file("changed_eq_semantics",s,&["vstd","--no-cheating"]).unwrap_err();
-    assert!(e.errors.iter().any(|d|d.message.contains("assertion failed")),"{:?}",e);
-    assert_eq!(e.notes.iter().filter(|n|n.message.contains("output exactness: PROVED")).count(),6,"{:?}",e);
+    let s = COMPARE.replace(
+        "fn eq(&self,rhs:&Self)->bool{self.0==rhs.0}",
+        "fn eq(&self,rhs:&Self)->bool{self.0!=rhs.0}",
+    );
+    let e = verify_one_file("changed_eq_semantics", s, &["vstd", "--no-cheating"]).unwrap_err();
+    assert!(e.errors.iter().any(|d| d.message.contains("assertion failed")), "{:?}", e);
+    assert_eq!(
+        e.notes.iter().filter(|n| n.message.contains("output exactness: PROVED")).count(),
+        6,
+        "{:?}",
+        e
+    );
 }
 
 #[test]
 fn boolean_trait_overrides_cannot_add_an_overflow_precondition() {
-    let s=r#"use vstd::prelude::*;verus!{
+    let s = r#"use vstd::prelude::*;verus!{
  pub struct Count(pub usize);
  impl vstd::std_specs::cmp::PartialEqSpecImpl for Count{
   open spec fn obeys_eq_spec()->bool{false}
@@ -258,6 +269,11 @@ fn boolean_trait_overrides_cannot_add_an_overflow_precondition() {
   #[verifier::infer] fn eq(&self,rhs:&Self)->bool{self.0+1==rhs.0}
  }
 }"#;
-    let e=verify_one_file("partial_compare",s.into(),&["vstd","--no-cheating"]).unwrap_err();
-    assert!(e.errors.iter().any(|d|d.message.contains("overflow") || d.message.contains("inherited trait precondition must equal")),"{:?}",e);
+    let e = verify_one_file("partial_compare", s.into(), &["vstd", "--no-cheating"]).unwrap_err();
+    assert!(
+        e.errors.iter().any(|d| d.message.contains("overflow")
+            || d.message.contains("inherited trait precondition must equal")),
+        "{:?}",
+        e
+    );
 }

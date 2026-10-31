@@ -132,8 +132,13 @@ pub(crate) fn import_crates(
             .take(MAX_INFER_METADATA + 1)
             .read_to_end(&mut trailer)
             .map_err(|e| io_vir_err("read inference metadata".into(), e))?;
-        if metadata.inference_aware || trailer.ends_with(INFER_MAGIC)
-            || krate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) {
+        if metadata.inference_aware
+            || trailer.ends_with(INFER_MAGIC)
+            || krate
+                .functions
+                .iter()
+                .any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        {
             if trailer.len() as u64 > MAX_INFER_METADATA || !trailer.ends_with(INFER_MAGIC) {
                 return Err(inference_error(
                     file_path,
@@ -141,7 +146,7 @@ pub(crate) fn import_crates(
                 ));
             }
             if !metadata.inference_aware {
-                return Err(inference_error(file_path,"invalid inference-aware artifact header"));
+                return Err(inference_error(file_path, "invalid inference-aware artifact header"));
             }
             let certificate: InferenceMetadata =
                 serde_json::from_slice(&trailer[..trailer.len() - INFER_MAGIC.len()])
@@ -214,11 +219,17 @@ pub(crate) fn import_crates(
         .collect();
     let datatypes: Vec<_> = vir_crates.iter().flat_map(|k| k.datatypes.iter()).cloned().collect();
     let functions: Vec<_> = vir_crates.iter().flat_map(|k| k.functions.iter()).cloned().collect();
-    vir::infer::validate_inferred_sequence_views(&functions,&datatypes)?;
+    vir::infer::validate_inferred_sequence_views(&functions, &datatypes)?;
     for f in vir_crates.iter().flat_map(|k| k.functions.iter()).filter(|f| f.x.attrs.infer) {
-        vir::infer::validate_imported_summary_with_context(f, &datatypes, &functions)
-            .map_err(|e| vir::messages::error_bare(format!("inferred interface {}: {}",
-                vir::ast_util::fun_as_friendly_rust_name(&f.x.name), e.note)))?;
+        vir::infer::validate_imported_summary_with_context(f, &datatypes, &functions).map_err(
+            |e| {
+                vir::messages::error_bare(format!(
+                    "inferred interface {}: {}",
+                    vir::ast_util::fun_as_friendly_rust_name(&f.x.name),
+                    e.note
+                ))
+            },
+        )?;
     }
     Ok(ImportOutput {
         vir_crates,
@@ -245,11 +256,18 @@ pub(crate) fn invalidate_inferred_export(
 
 /// Once local inference is known, invalidate even an older ordinary export.
 /// Private inferred helpers can leave no inferred function in the public API.
-pub(crate) fn invalidate_local_inference_export(args: &Args, via_cargo: &Option<PathBuf>) -> Result<(), VirErr> {
+pub(crate) fn invalidate_local_inference_export(
+    args: &Args,
+    via_cargo: &Option<PathBuf>,
+) -> Result<(), VirErr> {
     invalidate_export(args, via_cargo, true)
 }
 
-fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>, local_inference: bool) -> Result<(), VirErr> {
+fn invalidate_export(
+    args: &Args,
+    via_cargo: &Option<PathBuf>,
+    local_inference: bool,
+) -> Result<(), VirErr> {
     let Some(path) = export_path(args, via_cargo) else {
         return Ok(());
     };
@@ -277,7 +295,8 @@ fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>, local_inference: 
             file.seek(SeekFrom::Start(0))
                 .map_err(|e| io_vir_err("seek previous inference header".into(), e))?;
             let decoded: Result<CrateWithMetadata, _> = bincode_next::serde::decode_from_std_read(
-                &mut file, bincode_next::config::legacy(),
+                &mut file,
+                bincode_next::config::legacy(),
             );
             inference_aware = decoded.is_ok_and(|c| c.metadata.inference_aware);
         }
@@ -305,7 +324,9 @@ pub(crate) fn export_crate(
     let Some(file_path) = export_path(args, export_vir_path_via_cargo) else {
         return Ok(());
     };
-    if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f)) && verified_inference.is_none() {
+    if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
+        && verified_inference.is_none()
+    {
         return Err(crate::util::error("Verus Infer: cannot export unverified inferred contracts"));
     }
     let mut kratex = (*vir_crate).clone();
@@ -324,8 +345,7 @@ pub(crate) fn export_crate(
     let krate = Arc::new(kratex);
     // Keep the inference-aware marker even if private-helper pruning leaves
     // no inferred public functions. Later early failures must remove this API.
-    let inference = if verified_inference.is_some() {
-        let (dependencies, verified, models) = verified_inference.unwrap();
+    let inference = if let Some((dependencies, verified, models)) = verified_inference {
         let mut proofs = Vec::new();
         for function in krate.functions.iter().filter(|f| f.x.attrs.infer) {
             let proof = verified.status(function)?;

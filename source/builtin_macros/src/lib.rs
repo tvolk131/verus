@@ -15,16 +15,16 @@ mod atomic_ghost;
 mod attr_block_trait;
 mod attr_rewrite;
 mod byte_buffer;
-mod infer_wrapper;
-mod infer_binary;
-mod infer_derive_ops;
-mod infer_clone;
-mod infer_factory;
-mod infer_compare;
 mod calc_macro;
 mod contrib;
 mod enum_synthesize;
 mod fndecl;
+mod infer_binary;
+mod infer_clone;
+mod infer_compare;
+mod infer_derive_ops;
+mod infer_factory;
+mod infer_wrapper;
 mod is_variant;
 mod rustdoc;
 mod struct_decl_inv;
@@ -421,12 +421,16 @@ pub fn verus_infer(
         if let Ok(item) = syn::parse::<syn::ItemImpl>(input.clone()) {
             if precision == Some(true) || precision_rlimit.is_some() {
                 return syn::Error::new_spanned(
-                    item, "wrapper impl inference requires default exact precision and budget",
-                ).to_compile_error().into();
+                    item,
+                    "wrapper impl inference requires default exact precision and budget",
+                )
+                .to_compile_error()
+                .into();
             }
             let vstd = syntax::Vstd(proc_macro2::Span::call_site());
             return infer_wrapper::expand(item, quote::quote!(#vstd))
-                .unwrap_or_else(|e| e.to_compile_error()).into();
+                .unwrap_or_else(|e| e.to_compile_error())
+                .into();
         }
     }
     attr_rewrite::rewrite_verus_attribute(&cfg_erase(), attribute.into(), input)
@@ -442,13 +446,19 @@ pub fn verus_verify(
     if matches!(parts.next(), Some(proc_macro2::TokenTree::Ident(n)) if n == "iterator_via_view") {
         let view = match (parts.next(), parts.next()) {
             (Some(proc_macro2::TokenTree::Group(g)), None)
-                if g.delimiter() == proc_macro2::Delimiter::Parenthesis && !g.stream().is_empty() =>
+                if g.delimiter() == proc_macro2::Delimiter::Parenthesis
+                    && !g.stream().is_empty() =>
             {
                 g.stream()
             }
-            _ => return syn::Error::new_spanned(
-                tokens, "expected iterator_via_view(output_view_expression)",
-            ).to_compile_error().into(),
+            _ => {
+                return syn::Error::new_spanned(
+                    tokens,
+                    "expected iterator_via_view(output_view_expression)",
+                )
+                .to_compile_error()
+                .into();
+            }
         };
         if cfg_erase().erase_all() {
             return input;
@@ -456,17 +466,25 @@ pub fn verus_verify(
         let item = syn::parse_macro_input!(input as syn::ItemFn);
         let vstd = syntax::Vstd(proc_macro2::Span::call_site());
         return infer_factory::expand(item, view, quote::quote!(#vstd))
-            .unwrap_or_else(|e| e.to_compile_error()).into();
+            .unwrap_or_else(|e| e.to_compile_error())
+            .into();
     }
     if let Ok(meta) = syn::parse::<syn::MetaList>(args.clone()) {
         if meta.path.is_ident("infer_derive") {
-            if cfg_erase().erase_all() { return input; }
-            let operators = match meta.parse_args_with(syn::punctuated::Punctuated::<syn::Ident,syn::Token![,]>::parse_terminated) {
-                Ok(operators)=>operators.into_iter().collect(), Err(e)=>return e.to_compile_error().into(),
+            if cfg_erase().erase_all() {
+                return input;
+            }
+            let operators = match meta.parse_args_with(
+                syn::punctuated::Punctuated::<syn::Ident, syn::Token![,]>::parse_terminated,
+            ) {
+                Ok(operators) => operators.into_iter().collect(),
+                Err(e) => return e.to_compile_error().into(),
             };
-            let item=syn::parse_macro_input!(input as syn::ItemStruct);
-            let vstd=syntax::Vstd(proc_macro2::Span::call_site());
-            return infer_derive_ops::expand(item,operators,quote::quote!(#vstd)).unwrap_or_else(|e|e.to_compile_error()).into();
+            let item = syn::parse_macro_input!(input as syn::ItemStruct);
+            let vstd = syntax::Vstd(proc_macro2::Span::call_site());
+            return infer_derive_ops::expand(item, operators, quote::quote!(#vstd))
+                .unwrap_or_else(|e| e.to_compile_error())
+                .into();
         }
     }
     if args.to_string() == "clone_via_view" {
@@ -482,23 +500,38 @@ pub fn verus_verify(
     if let Ok(meta) = syn::parse::<syn::MetaList>(args.clone()) {
         if meta.path.is_ident("byte_pair_semantics") {
             if !cfg_erase().keep() {
-                return attr_rewrite::rewrite_verus_attribute(&cfg_erase(),proc_macro::TokenStream::new(),input);
+                return attr_rewrite::rewrite_verus_attribute(
+                    &cfg_erase(),
+                    proc_macro::TokenStream::new(),
+                    input,
+                );
             }
-            let paths=match meta.parse_args_with(syn::punctuated::Punctuated::<syn::Path,syn::Token![,]>::parse_terminated) {
-                Ok(p)=>p.into_iter().collect(),Err(e)=>return e.to_compile_error().into(),
+            let paths = match meta.parse_args_with(
+                syn::punctuated::Punctuated::<syn::Path, syn::Token![,]>::parse_terminated,
+            ) {
+                Ok(p) => p.into_iter().collect(),
+                Err(e) => return e.to_compile_error().into(),
             };
-            let item=syn::parse_macro_input!(input as syn::ItemFn);
-            let vstd=syntax::Vstd(proc_macro2::Span::call_site());
-            return byte_buffer::pair_semantics(item,paths,quote::quote!(#vstd)).unwrap_or_else(|e|e.to_compile_error()).into();
+            let item = syn::parse_macro_input!(input as syn::ItemFn);
+            let vstd = syntax::Vstd(proc_macro2::Span::call_site());
+            return byte_buffer::pair_semantics(item, paths, quote::quote!(#vstd))
+                .unwrap_or_else(|e| e.to_compile_error())
+                .into();
         }
     }
     if args.to_string() == "byte_buffer" {
         if !cfg_erase().keep() {
-            return attr_rewrite::rewrite_verus_attribute(&cfg_erase(), proc_macro::TokenStream::new(), input);
+            return attr_rewrite::rewrite_verus_attribute(
+                &cfg_erase(),
+                proc_macro::TokenStream::new(),
+                input,
+            );
         }
-        let item=syn::parse_macro_input!(input as syn::ItemFn);
-        let vstd=syntax::Vstd(proc_macro2::Span::call_site());
-        return byte_buffer::expand(item,quote::quote!(#vstd)).unwrap_or_else(|e|e.to_compile_error()).into();
+        let item = syn::parse_macro_input!(input as syn::ItemFn);
+        let vstd = syntax::Vstd(proc_macro2::Span::call_site());
+        return byte_buffer::expand(item, quote::quote!(#vstd))
+            .unwrap_or_else(|e| e.to_compile_error())
+            .into();
     }
     attr_rewrite::rewrite_verus_attribute(&cfg_erase(), args, input)
 }

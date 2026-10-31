@@ -49,33 +49,74 @@ pub(in crate::infer) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<
 }
 /// A bounded value enum. Payload eligibility is checked recursively by value_type,
 /// so this descriptor never grants a heap/reference abstraction by itself.
-pub(in crate::infer) fn variants(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<(Ident, Vec<(Ident, Typ)>)>> {
-    let TypX::Datatype(dt,args,_)=&**typ else{return None;};
+pub(in crate::infer) fn variants(
+    typ: &Typ,
+    datatypes: &[Datatype],
+) -> Option<Vec<(Ident, Vec<(Ident, Typ)>)>> {
+    let TypX::Datatype(dt, args, _) = &**typ else {
+        return None;
+    };
     // Core Option/Result retain their dedicated layouts. In particular, do not
     // admit compiler-internal ControlFlow/Infallible through this value profile.
-    if !matches!(dt,Dt::Path(p) if matches!(p.krate,CrateId::Id(..))){return None;}
-    let d=datatypes.iter().find(|d|&d.x.name==dt)?;
-    if d.x.mode!=Mode::Exec || d.x.proxy.is_some() || d.x.destructor
-        || d.x.user_defined_invariant_fn.is_some() || !(2..=8).contains(&d.x.variants.len())
-        || d.x.typ_params.len()>4 || d.x.typ_params.len()!=args.len()
-        || d.x.variants.iter().any(|v|v.fields.len()>4 || v.fields.iter().any(|f|f.a.1!=Mode::Exec))
-    {return None;}
-    let ts=d.x.typ_params.iter().zip(args.iter()).map(|(p,t)|(p.0.clone(),t.clone())).collect();
-    Some(d.x.variants.iter().map(|v|(v.name.clone(),v.fields.iter().map(|f|
-        (f.name.clone(),crate::sst_util::subst_typ(&ts,&f.a.0))).collect())).collect())
+    if !matches!(dt,Dt::Path(p) if matches!(p.krate,CrateId::Id(..))) {
+        return None;
+    }
+    let d = datatypes.iter().find(|d| &d.x.name == dt)?;
+    if d.x.mode != Mode::Exec
+        || d.x.proxy.is_some()
+        || d.x.destructor
+        || d.x.user_defined_invariant_fn.is_some()
+        || !(2..=8).contains(&d.x.variants.len())
+        || d.x.typ_params.len() > 4
+        || d.x.typ_params.len() != args.len()
+        || d.x
+            .variants
+            .iter()
+            .any(|v| v.fields.len() > 4 || v.fields.iter().any(|f| f.a.1 != Mode::Exec))
+    {
+        return None;
+    }
+    let ts =
+        d.x.typ_params.iter().zip(args.iter()).map(|(p, t)| (p.0.clone(), t.clone())).collect();
+    Some(
+        d.x.variants
+            .iter()
+            .map(|v| {
+                (
+                    v.name.clone(),
+                    v.fields
+                        .iter()
+                        .map(|f| (f.name.clone(), crate::sst_util::subst_typ(&ts, &f.a.0)))
+                        .collect(),
+                )
+            })
+            .collect(),
+    )
 }
-fn associated_type(t:&Typ,params:&[Ident],depth:usize)->bool {
-    if depth==0{return false;}
+fn associated_type(t: &Typ, params: &[Ident], depth: usize) -> bool {
+    if depth == 0 {
+        return false;
+    }
     match &**t {
-        TypX::TypParam(p)=>params.contains(p),
-        TypX::Projection{trait_typ_args,..}=>!trait_typ_args.is_empty() && trait_typ_args.len()<=4
-            && trait_typ_args.iter().all(|t|associated_type(t,params,depth-1)),
-        TypX::Datatype(_,args,_)=>args.len()<=4 && args.iter().all(|t|associated_type(t,params,depth-1)),
-        _=>scalar(t),
+        TypX::TypParam(p) => params.contains(p),
+        TypX::Projection { trait_typ_args, .. } => {
+            !trait_typ_args.is_empty()
+                && trait_typ_args.len() <= 4
+                && trait_typ_args.iter().all(|t| associated_type(t, params, depth - 1))
+        }
+        TypX::Datatype(_, args, _) => {
+            args.len() <= 4 && args.iter().all(|t| associated_type(t, params, depth - 1))
+        }
+        _ => scalar(t),
     }
 }
 
-pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datatype], depth: usize) -> bool {
+pub(in crate::infer) fn value_type(
+    t: &Typ,
+    params: &[Ident],
+    datatypes: &[Datatype],
+    depth: usize,
+) -> bool {
     if depth == 0 {
         return false;
     }
@@ -86,7 +127,7 @@ pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datat
         TypX::TypParam(p) => params.contains(p),
         // Associated-type syntax is bounded separately from runtime payload
         // nesting: Option<&(H::Hash,u16)> has the same value shape as (T,u16).
-        TypX::Projection{..} => associated_type(t,params,4),
+        TypX::Projection { .. } => associated_type(t, params, 4),
         TypX::Datatype(Dt::Tuple(n), ts, _) if *n <= 4 && ts.len() == *n => {
             ts.iter().all(|t| value_type(t, params, datatypes, depth - 1))
         }
@@ -96,10 +137,15 @@ pub(in crate::infer) fn value_type(t: &Typ, params: &[Ident], datatypes: &[Datat
             value_type(&ts[0], params, datatypes, depth - 1)
         }
         TypX::Decorate(TypDecoration::Ref, None, t) => value_type(t, params, datatypes, depth - 1),
-        _ => fields(t, datatypes)
-            .is_some_and(|fs| fs.iter().all(|(_, t)| value_type(t, params, datatypes, depth - 1)))
-            || variants(t,datatypes).is_some_and(|vs|vs.iter().all(|(_,fs)|
-                fs.iter().all(|(_,t)|value_type(t,params,datatypes,depth-1)))),
+        _ => {
+            fields(t, datatypes).is_some_and(|fs| {
+                fs.iter().all(|(_, t)| value_type(t, params, datatypes, depth - 1))
+            }) || variants(t, datatypes).is_some_and(|vs| {
+                vs.iter().all(|(_, fs)| {
+                    fs.iter().all(|(_, t)| value_type(t, params, datatypes, depth - 1))
+                })
+            })
+        }
     }
 }
 pub(in crate::infer) fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool {
@@ -132,7 +178,7 @@ pub(in crate::infer) fn bounds(bounds: &GenericBounds, params: &[Ident]) -> bool
     recognized == bounds.len()
 }
 
-fn record_bounds(bounds:&GenericBounds,params:&[Ident]) -> bool {
+fn record_bounds(bounds: &GenericBounds, params: &[Ident]) -> bool {
     bounds.len()<=24 && params.iter().all(|p|bounds.iter().filter(|b|
         matches!(&***b,GenericBoundX::Trait(TraitId::Sizedness(Sizedness::Sized),ts) if ts.len()==1 && matches!(&*ts[0],TypX::TypParam(n) if n==p))).count()==1)
         && bounds.iter().all(|b|match &**b {
@@ -169,14 +215,26 @@ pub(in crate::infer) fn same_path(a: &[FieldOpr], b: &[FieldOpr]) -> bool {
 }
 /// An unexpanded first-party value can be preserved as a whole. This grants no
 /// field equation, collection view, destructor behavior or method contract.
-pub(in crate::infer) fn opaque_value(t:&Typ,ds:&[Datatype],owner:&Option<Path>)->bool {
-    let TypX::Datatype(dt,args,_) = &**t else {return false;};
-    ds.iter().any(|d|d.x.name==*dt && d.x.mode==Mode::Exec && d.x.proxy.is_none()
-        && !d.x.destructor && args.len()==d.x.typ_params.len() && args.len()<=4
-        && !matches!(&d.x.transparency,DatatypeTransparency::WhenVisible(vis)
-            if crate::ast_util::is_visible_to_opt(vis,owner)))
+pub(in crate::infer) fn opaque_value(t: &Typ, ds: &[Datatype], owner: &Option<Path>) -> bool {
+    let TypX::Datatype(dt, args, _) = &**t else {
+        return false;
+    };
+    ds.iter().any(|d| {
+        d.x.name == *dt
+            && d.x.mode == Mode::Exec
+            && d.x.proxy.is_none()
+            && !d.x.destructor
+            && args.len() == d.x.typ_params.len()
+            && args.len() <= 4
+            && !matches!(&d.x.transparency,DatatypeTransparency::WhenVisible(vis)
+            if crate::ast_util::is_visible_to_opt(vis,owner))
+    })
 }
-pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Function>) -> Result<Shape, VirErr> {
+pub(super) fn shape(
+    f: &Function,
+    datatypes: &[Datatype],
+    all: &HashMap<Fun, Function>,
+) -> Result<Shape, VirErr> {
     let bad = || {
         unsupported(
             &f.span,
@@ -192,7 +250,8 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
         || !record_bounds(&f.x.typ_bounds, &f.x.typ_params)
         || f.x.params.iter().skip(1).any(|p| {
             matches!(&*p.x.typ, TypX::MutRef(_))
-                || trait_getters::shared(&p.x.typ).is_some_and(|t|!matches!(&**t,TypX::TypParam(_)|TypX::Projection{..}))
+                || trait_getters::shared(&p.x.typ)
+                    .is_some_and(|t| !matches!(&**t, TypX::TypParam(_) | TypX::Projection { .. }))
                 || !value_type(&p.x.typ, &f.x.typ_params, datatypes, 4)
         })
         || !value_type(&f.x.inner_ret.x.typ, &f.x.typ_params, datatypes, 4)
@@ -224,7 +283,7 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
             if ts.len() != 2
                 || !matches!(&*ts[1],TypX::Datatype(Dt::Path(p),xs,_) if xs.is_empty() && models::path_is(p,CrateId::Alloc,&["alloc","Global"]))
                 || !(value_type(&ts[0], &f.x.typ_params, ds, 4)
-                    || !mutable(f) && opaque_value(&ts[0],ds,&f.x.owning_module))
+                    || !mutable(f) && opaque_value(&ts[0], ds, &f.x.owning_module))
             {
                 return Err(bad());
             }
@@ -232,20 +291,30 @@ pub(super) fn shape(f: &Function, datatypes: &[Datatype], all: &HashMap<Fun, Fun
             return Ok(());
         }
         if let Some(view) = sequence_views::find(t, all, ds) {
-            out.push(Field { path, typ: t.clone(), element: Some(view.element.clone()), view: Some(view) });
+            out.push(Field {
+                path,
+                typ: t.clone(),
+                element: Some(view.element.clone()),
+                view: Some(view),
+            });
             return Ok(());
         }
-        if opaque_value(t,ds,&f.x.owning_module) {
+        if opaque_value(t, ds, &f.x.owning_module) {
             // Whole opaque values can be framed inside a visible record.
             // Mutating an opaque root needs a supported state interface.
-            if path.is_empty() && mutable(f) {return Err(bad());}
-            out.push(Field {path,typ:t.clone(),element:None,view:None});
+            if path.is_empty() && mutable(f) {
+                return Err(bad());
+            }
+            out.push(Field { path, typ: t.clone(), element: None, view: None });
             return Ok(());
         }
         // Ordinary scalar/Option/tuple payloads remain leaves; transparent
         // application records are traversed, including scalar newtype fields.
         if scalar(t)
-            || matches!(&**t, TypX::TypParam(_) | TypX::Projection{..} | TypX::Datatype(Dt::Tuple(_), ..))
+            || matches!(
+                &**t,
+                TypX::TypParam(_) | TypX::Projection { .. } | TypX::Datatype(Dt::Tuple(_), ..)
+            )
             || matches!(&**t,TypX::Datatype(Dt::Path(p),.. ) if models::path_is(p,CrateId::Core,&["option","Option"]))
         {
             if !value_type(t, &f.x.typ_params, ds, 4) {

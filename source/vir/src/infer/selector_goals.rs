@@ -314,7 +314,7 @@ fn is_sequence(
         && projection(&args[0]).is_some_and(|(n, q, path)| {
             n == f.x.params[0].x.name
                 && q == phase
-                && records::shape::same_path(&path, &[op.clone()])
+                && records::shape::same_path(&path, std::slice::from_ref(op))
         })
 }
 fn stable(e: &Expr, f: &Function, op: &FieldOpr, all: &HashMap<Fun, Function>) -> bool {
@@ -438,7 +438,7 @@ fn proposal(
     let TypX::MutRef(record) = &*f.x.params[0].x.typ else { unreachable!() };
     let Some(fields) = records::shape::fields(record, ds) else { return Ok(vec![]) };
     let Some((_, vector)) =
-        fields.iter().find(|(p, _)| records::shape::same_path(&[p.clone()], &path))
+        fields.iter().find(|(p, _)| records::shape::same_path(std::slice::from_ref(p), &path))
     else {
         return Ok(vec![]);
     };
@@ -734,7 +734,7 @@ fn inline_growth(
     let TypX::MutRef(record) = &*f.x.params[0].x.typ else { return Ok(None) };
     let Some(fields) = records::shape::fields(record, ds) else { return Ok(None) };
     let Some((op, vector)) =
-        fields.iter().find(|(op, _)| records::shape::same_path(&[op.clone()], &path))
+        fields.iter().find(|(op, _)| records::shape::same_path(std::slice::from_ref(op), &path))
     else {
         return Ok(None);
     };

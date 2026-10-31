@@ -24,13 +24,18 @@ fn value(e: &Expr, param: &syn::Ident) -> bool {
 }
 
 pub(crate) fn expand(mut item: ItemImpl, vstd: TokenStream) -> syn::Result<TokenStream> {
-    if item.trait_.as_ref().and_then(|(_,p,_)|p.segments.last())
-        .is_some_and(|s|s.ident=="PartialEq" || s.ident=="PartialOrd") {
-        return crate::infer_compare::expand(item,vstd);
+    if item
+        .trait_
+        .as_ref()
+        .and_then(|(_, p, _)| p.segments.last())
+        .is_some_and(|s| s.ident == "PartialEq" || s.ident == "PartialOrd")
+    {
+        return crate::infer_compare::expand(item, vstd);
     }
-    if item.trait_.as_ref().and_then(|(_,p,_)|p.segments.last())
-        .is_some_and(|s|matches!(s.ident.to_string().as_str(),"Add"|"Sub"|"Mul"|"Div"|"Rem")) {
-        return crate::infer_binary::expand(item,vstd);
+    if item.trait_.as_ref().and_then(|(_, p, _)| p.segments.last()).is_some_and(|s| {
+        matches!(s.ident.to_string().as_str(), "Add" | "Sub" | "Mul" | "Div" | "Rem")
+    }) {
+        return crate::infer_binary::expand(item, vstd);
     }
     if item.unsafety.is_some()
         || !item.generics.params.is_empty()

@@ -26,7 +26,7 @@ impl Exits {
 pub(super) fn not(span: &Span, value: Term) -> Result<Term, VirErr> {
     if let ExprX::Const(Constant::Bool(b)) = value.expr.x {
         Ok(boolean(span, !b))
-    } else if let ExprX::Unary(UnaryOp::Not,inner)=&value.expr.x {
+    } else if let ExprX::Unary(UnaryOp::Not, inner) = &value.expr.x {
         records::atom(inner.clone())
     } else {
         summary::unary(span, UnaryOp::Not, value)

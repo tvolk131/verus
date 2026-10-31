@@ -121,7 +121,7 @@ fn direct_body(f: &Function, all: &HashMap<Fun, Function>, storage: &FieldOpr) -
     }
     let ExprX::ReadPlace(p, _) = &args[0].x else { return false };
     let PlaceX::Field(op, base) = &p.x else { return false };
-    records::shape::same_path(&[op.clone()], &[storage.clone()])
+    records::shape::same_path(std::slice::from_ref(op), std::slice::from_ref(storage))
         && matches!(&base.x,PlaceX::Local(n) if n==&f.x.params[0].x.name)
 }
 
@@ -193,8 +193,13 @@ pub(super) fn observation(typ: &Typ, all: &HashMap<Fun, Function>) -> Option<Fun
     // Only a previously certified marker can supply this observation.
     let observed_receiver = |f: &Function| {
         let mut t = f.x.params.first()?.x.typ.clone();
-        while let TypX::Decorate(TypDecoration::Ref, None, inner) = &*t { t = inner.clone(); }
-        match &*t { TypX::Datatype(actual,_,_) => Some(actual.clone()), _ => None }
+        while let TypX::Decorate(TypDecoration::Ref, None, inner) = &*t {
+            t = inner.clone();
+        }
+        match &*t {
+            TypX::Datatype(actual, _, _) => Some(actual.clone()),
+            _ => None,
+        }
     };
     let mut views=all.values().filter(|f|f.x.attrs.infer_sequence_view && f.x.mode==Mode::Spec
         && f.x.typ_params.len()==args.len()

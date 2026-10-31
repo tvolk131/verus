@@ -614,10 +614,14 @@ impl<V, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
     /// Attempts a shared read-lock once, without waiting for another holder.
     /// On success, release the returned handle with `release_read`.
     pub fn try_acquire_read(&self) -> (result: Option<ReadHandle<'_, V, Pred>>)
-        ensures result.is_some() ==> result.unwrap().rwlock() == *self
-            && self.inv(result.unwrap().view()),
+        ensures
+            result.is_some() ==> result.unwrap().rwlock() == *self && self.inv(
+                result.unwrap().view(),
+            ),
     {
-        proof { use_type_invariant(self); }
+        proof {
+            use_type_invariant(self);
+        }
         let val = atomic_with_ghost!(&self.rc => load(); ghost g => { });
 
         let tracked mut token: Option<
@@ -639,11 +643,7 @@ impl<V, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
             match result {
                 Result::Ok(_) => {
                     let tracked mut handle_opt: Option<
-                        RwLockToks::reader<
-                            (Pred, CellId),
-                            un::PointsTo<V>,
-                            InternalPred<V, Pred>,
-                        >,
+                        RwLockToks::reader<(Pred, CellId), un::PointsTo<V>, InternalPred<V, Pred>>,
                     > = None;
 
                     let result =
@@ -690,7 +690,9 @@ impl<V, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
     /// The handle does not release its lock automatically when dropped.
     #[verifier::exec_allows_no_decreases_clause]
     pub fn acquire_read(&self) -> (read_handle: ReadHandle<'_, V, Pred>)
-        ensures read_handle.rwlock() == *self, self.inv(read_handle.view()),
+        ensures
+            read_handle.rwlock() == *self,
+            self.inv(read_handle.view()),
     {
         loop {
             match self.try_acquire_read() {
@@ -717,7 +719,8 @@ impl<V: Copy, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
     /// The configured predicate holds for the observed value; concurrent
     /// writers may change the stored value after the handle is released.
     pub fn read_copy(&self) -> (value: V)
-        ensures self.inv(value),
+        ensures
+            self.inv(value),
     {
         let handle = self.acquire_read();
         let value = *handle.borrow();
@@ -727,7 +730,8 @@ impl<V: Copy, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
 
     /// Attempt one copied read and release a successful handle before returning.
     pub fn try_read_copy(&self) -> (result: Option<V>)
-        ensures result.is_some() ==> self.inv(result.unwrap()),
+        ensures
+            result.is_some() ==> self.inv(result.unwrap()),
     {
         match self.try_acquire_read() {
             Some(handle) => {
@@ -741,8 +745,10 @@ impl<V: Copy, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
 
     /// Use a predicate-compatible fallback when the read attempt fails.
     pub fn try_read_or(&self, fallback: V) -> (value: V)
-        requires self.inv(fallback),
-        ensures self.inv(value),
+        requires
+            self.inv(fallback),
+        ensures
+            self.inv(value),
     {
         match self.try_read_copy() {
             Some(value) => value,
@@ -753,7 +759,8 @@ impl<V: Copy, Pred: RwLockPredicate<V>> RwLock<V, Pred> {
     /// Replace the value and release the write handle. Every write must satisfy
     /// the predicate chosen at construction. No persistent snapshot is promised.
     pub fn replace(&self, value: V)
-        requires self.inv(value),
+        requires
+            self.inv(value),
     {
         let (_, handle) = self.acquire_write();
         handle.release_write(value);

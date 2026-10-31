@@ -7,16 +7,13 @@ use its actual src/lib.rs, default std+alloc cfg and a separate fresh export/cac
 per invocation. No Cargo configuration or accepted Aleph fixture is modified.
 """
 import argparse
-import hashlib
 import json
 import os
 from pathlib import Path
 import subprocess
-import time
 
-
-def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+from infer_eval_support import digest as sha, support_artifacts
+from infer_experiment import LoggedCommands, require_exact, require_publication, validate_run
 
 
 def main():
@@ -37,6 +34,7 @@ def main():
     receipt = {"native_sources_before": {str(p.relative_to(root)): sha(p) for p in sources},
                "artifacts": {n: sha(binary / n) for n in ["verus", "rust_verify", "vstd.vir", "libvstd.rlib", "libverus_builtin_macros.dylib"]},
                "runner_sha256": sha(Path(__file__).resolve()),
+               "runner_support_sha256": {p.name: sha(p) for p in support_artifacts()},
                "native_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip(),
                "proof_toolchain": subprocess.check_output(["rustc", "+1.99.1", "--version"], text=True).strip(),
                "cases": [], "commands": []}
@@ -44,14 +42,7 @@ def main():
     for key in ["RUSTFLAGS", "CARGO_ENCODED_RUSTFLAGS", "RUSTC_WRAPPER", "RUSTC_WORKSPACE_WRAPPER"]:
         env.pop(key, None)
 
-    def run(label, command, environment):
-        started = time.monotonic()
-        with (out / (label + ".stdout")).open("w") as stdout, (out / (label + ".stderr")).open("w") as stderr:
-            result = subprocess.run(command, cwd=engine, env=environment, stdout=stdout, stderr=stderr)
-        receipt["commands"].append({"label": label, "argv": command, "cwd": str(engine),
-                                    "exit_code": result.returncode, "seconds": time.monotonic() - started,
-                                    "environment": {k: environment[k] for k in ["RUSTUP_TOOLCHAIN", "VERUS_Z3_PATH", "VERUS_INFER_CACHE", "CARGO_TARGET_DIR"] if k in environment}})
-        return result.returncode
+    run = LoggedCommands(out, engine, receipt["commands"])
 
     def proof(label, expected=True, flags=(), assistance=True):
         artifact = out / (label + ".vir")
@@ -62,18 +53,18 @@ def main():
         if not assistance:
             command.remove("--infer-goals")
         code = run(label, command, environment)
-        report = json.loads((out / (label + ".stdout")).read_text())
+        report = validate_run(dict(returncode=code,
+            stdout=(out / (label + ".stdout")).read_text(),
+            stderr=(out / (label + ".stderr")).read_text()),
+            expected, allow_frontend=bool(flags))
         result = report["verification-results"]
         inference = report["verus-infer"]
-        assert (code == 0) == expected and result.get("success", False) == expected, (label, out)
-        assert inference["interface_written"] == expected and artifact.exists() == expected, (label, out)
-        assert inference["crate_success"] == expected, (label, out)
+        require_publication(report, expected, artifact)
         if expected:
             functions = inference["functions"]
             assert len(functions) == 1, (label, functions)
             assert "hex_chars_to_byte" in functions[0]["function"], (label, functions)
-            for check in ["soundness", "maximality", "exactness"]:
-                assert functions[0]["proofs"][check]["status"] == "proved", (label, functions)
+            require_exact(functions)
             assert inference["verification_scope"]["complete_selected_scope_verified"], (label, out)
         receipt["cases"].append({"label": label, "expected_success": expected, "verification": result, "inference": inference})
         return inference

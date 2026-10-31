@@ -84,7 +84,8 @@ pub(super) fn lemma(f: &Function) -> Option<Dt> {
 }
 
 fn demands(f: &Function, all: &HashMap<Fun, Function>) -> std::collections::HashSet<Dt> {
-    let mut queue: std::collections::VecDeque<_> = f.x.require.iter().chain(f.x.ensure.0.iter()).cloned().collect();
+    let mut queue: std::collections::VecDeque<_> =
+        f.x.require.iter().chain(f.x.ensure.0.iter()).cloned().collect();
     if let Some(b) = &f.x.body {
         queue.push_back(b.clone());
     }
@@ -133,7 +134,9 @@ fn demands(f: &Function, all: &HashMap<Fun, Function>) -> std::collections::Hash
                 }
             }
         }
-        if remaining == 0 {return observed;}
+        if remaining == 0 {
+            return observed;
+        }
     }
     observed
 }

@@ -30,8 +30,9 @@ fn read(e: &Expr) -> Expr {
     }
     match &e.x {
         ExprX::ReadPlace(p, _) => place(p),
-        ExprX::UnaryOpr(UnaryOpr::Field(op), base) =>
-            e.new_x(ExprX::UnaryOpr(UnaryOpr::Field(op.clone()), read(base))),
+        ExprX::UnaryOpr(UnaryOpr::Field(op), base) => {
+            e.new_x(ExprX::UnaryOpr(UnaryOpr::Field(op.clone()), read(base)))
+        }
         ExprX::Block(ss, Some(t)) if ss.is_empty() => read(t),
         _ => e.clone(),
     }
@@ -335,7 +336,7 @@ fn replace(
     for step in p.path.iter().rev() {
         receiver = match (step, &receiver.x) {
             (Step::Field(a), ExprX::UnaryOpr(UnaryOpr::Field(b), x))
-                if records::shape::same_path(&[a.clone()], &[b.clone()]) =>
+                if records::shape::same_path(std::slice::from_ref(a), std::slice::from_ref(b)) =>
             {
                 read(x)
             }
@@ -349,11 +350,17 @@ fn replace(
             _ => return None,
         };
     }
-    fn input(e: &Expr, params: &Params, scope: Option<&crate::ast_visitor::VisitorScopeMap>) -> bool {
+    fn input(
+        e: &Expr,
+        params: &Params,
+        scope: Option<&crate::ast_visitor::VisitorScopeMap>,
+    ) -> bool {
         let e = read(e);
         match &e.x {
-            ExprX::Var(n) => params.iter().any(|p| p.x.name == *n)
-                || scope.is_some_and(|scope| scope.get(n).is_some()),
+            ExprX::Var(n) => {
+                params.iter().any(|p| p.x.name == *n)
+                    || scope.is_some_and(|scope| scope.get(n).is_some())
+            }
             ExprX::UnaryOpr(UnaryOpr::Field(_), a) => input(a, params, scope),
             _ => false,
         }
@@ -450,7 +457,10 @@ pub(super) fn lift_value(
             *budget = budget
                 .checked_sub(1)
                 .ok_or_else(|| unsupported(&e.span, "observation lifting budget exceeded"))?;
-            Ok(ps.iter().find_map(|p| replace(e, p, function, scope, all, datatypes)).unwrap_or_else(|| e.clone()))
+            Ok(ps
+                .iter()
+                .find_map(|p| replace(e, p, function, scope, all, datatypes))
+                .unwrap_or_else(|| e.clone()))
         },
         &|_, _, s| Ok(vec![s.clone()]),
         &|_, t| Ok(t.clone()),
@@ -465,7 +475,12 @@ pub(super) fn lift_contract(
     all: &HashMap<Fun, Function>,
     datatypes: &[Datatype],
 ) -> Result<Contract, VirErr> {
-    fn post(e: &Expr, all: &HashMap<Fun, Function>, function: &Function, datatypes: &[Datatype]) -> Result<Expr, VirErr> {
+    fn post(
+        e: &Expr,
+        all: &HashMap<Fun, Function>,
+        function: &Function,
+        datatypes: &[Datatype],
+    ) -> Result<Expr, VirErr> {
         Ok(match &e.x {
             ExprX::Binary(BinaryOp::Eq(Mode::Spec), a, b) => e.new_x(ExprX::Binary(
                 BinaryOp::Eq(Mode::Spec),
@@ -486,7 +501,8 @@ pub(super) fn lift_contract(
     }
     // Preserve the independently selected output-observation schema. This
     // profile only changes the input expressions used to explain those outputs.
-    let c = Contract::new(lift_value(&c.pre, all, f, datatypes)?, post(&c.post, all, f, datatypes)?)?;
+    let c =
+        Contract::new(lift_value(&c.pre, all, f, datatypes)?, post(&c.post, all, f, datatypes)?)?;
     // Module pruning removes hidden representations. Diagnose an unavailable
     // abstraction before a proposed formula reaches that boundary.
     let visible = |op: &FieldOpr| {

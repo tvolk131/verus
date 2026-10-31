@@ -25,12 +25,16 @@ pub(super) fn flat_enum(t: &Typ, ds: &[Datatype]) -> bool {
                 && d.x.variants.iter().all(|v| v.fields.is_empty())
         })
 }
-pub(super) fn has_value_enum(t:&Typ,ds:&[Datatype],depth:usize)->bool {
-    if depth==0{return false;}
-    let t=base(t);
-    records::shape::variants(t,ds).is_some()
-        || option(t).is_some_and(|t|has_value_enum(t,ds,depth-1))
-        || result(t).is_some_and(|(a,b)|has_value_enum(a,ds,depth-1)||has_value_enum(b,ds,depth-1))
+pub(super) fn has_value_enum(t: &Typ, ds: &[Datatype], depth: usize) -> bool {
+    if depth == 0 {
+        return false;
+    }
+    let t = base(t);
+    records::shape::variants(t, ds).is_some()
+        || option(t).is_some_and(|t| has_value_enum(t, ds, depth - 1))
+        || result(t).is_some_and(|(a, b)| {
+            has_value_enum(a, ds, depth - 1) || has_value_enum(b, ds, depth - 1)
+        })
 }
 pub(super) fn tag(e: &Expr, v: &str) -> Expr {
     let TypX::Datatype(dt, ..) = &*e.typ else { unreachable!() };
@@ -54,14 +58,22 @@ pub(super) fn field(t: &Typ, v: &str) -> FieldOpr {
     }
 }
 impl Engine<'_> {
-    pub(super) fn result_parts(&self, span: &Span, input: &Val) -> Result<(Term, Option<Box<Val>>, Option<Box<Val>>), VirErr> {
-        if let Node::Result(ok,a,b)=&input.node {return Ok((ok.clone(),a.clone(),b.clone()));}
-        let (a,b)=result(&input.typ).ok_or_else(||unsupported(span,"Result parts type"))?;
-        let value=input.scalar(span)?;
-        let TypX::Datatype(dt,..)=&*input.typ else{unreachable!()};
-        Ok((variant_test(span,value.clone(),dt,&Arc::new("Ok".into()))?,
-            Some(Box::new(self.layout(field_expr(&value.expr,&field(&input.typ,"Ok"),a),8)?)),
-            Some(Box::new(self.layout(field_expr(&value.expr,&field(&input.typ,"Err"),b),8)?))))
+    pub(super) fn result_parts(
+        &self,
+        span: &Span,
+        input: &Val,
+    ) -> Result<(Term, Option<Box<Val>>, Option<Box<Val>>), VirErr> {
+        if let Node::Result(ok, a, b) = &input.node {
+            return Ok((ok.clone(), a.clone(), b.clone()));
+        }
+        let (a, b) = result(&input.typ).ok_or_else(|| unsupported(span, "Result parts type"))?;
+        let value = input.scalar(span)?;
+        let TypX::Datatype(dt, ..) = &*input.typ else { unreachable!() };
+        Ok((
+            variant_test(span, value.clone(), dt, &Arc::new("Ok".into()))?,
+            Some(Box::new(self.layout(field_expr(&value.expr, &field(&input.typ, "Ok"), a), 8)?)),
+            Some(Box::new(self.layout(field_expr(&value.expr, &field(&input.typ, "Err"), b), 8)?)),
+        ))
     }
     pub(super) fn propagate(
         &mut self,
@@ -75,18 +87,21 @@ impl Engine<'_> {
             let input = self.expr(s, &p.operand)?;
             let whole = input.scalar(&e.span)?;
             let tag = atom(tag_expr(&whole.expr))?;
-            let success = self.layout(
-                field_expr(&whole.expr, &option_field(&p.operand.typ), typ), 8,
-            )?;
+            let success =
+                self.layout(field_expr(&whole.expr, &option_field(&p.operand.typ), typ), 8)?;
             let TypX::Datatype(dt, ..) = &*p.return_type else {
                 return Err(unsupported(&e.span, "Option propagation return type"));
             };
             let failure = Val::atom(atom(SpannedTyped::new(
-                &e.span, &p.return_type,
+                &e.span,
+                &p.return_type,
                 ExprX::Ctor(dt.clone(), Arc::new("None".into()), Arc::new(vec![]), None),
             ))?);
             let failed = logical(
-                &e.span, LogicalOp::And, s.active.clone(), exits::not(&e.span, tag.clone())?,
+                &e.span,
+                LogicalOp::And,
+                s.active.clone(),
+                exits::not(&e.span, tag.clone())?,
             )?;
             self.exits.push((failed, failure));
             s.active = logical(&e.span, LogicalOp::And, s.active.clone(), tag)?;
@@ -97,36 +112,56 @@ impl Engine<'_> {
         let (_, target_err) = result(&p.return_type)
             .ok_or_else(|| unsupported(&e.span, "Result propagation output"))?;
         let input = self.expr(s, &p.operand)?;
-        let (ok,success,error) = self.result_parts(&e.span,&input)?;
+        let (ok, success, error) = self.result_parts(&e.span, &input)?;
         // Ordinary projections are used only under their selected variant's
         // path. An absent payload is irrelevant under the impossible tag.
-        let success=if let Some(v)=success {*v} else if crate::ast_util::is_unit(ok_typ) {
+        let success = if let Some(v) = success {
+            *v
+        } else if crate::ast_util::is_unit(ok_typ) {
             Val::atom(exits::unit_value(&e.span)?)
         } else {
-            self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,"Ok"),ok_typ),8)?
+            self.layout(
+                field_expr(&input.scalar(&e.span)?.expr, &field(&input.typ, "Ok"), ok_typ),
+                8,
+            )?
         };
-        let failed = logical(
-            &e.span, LogicalOp::And, s.active.clone(), exits::not(&e.span, ok.clone())?,
-        )?;
+        let failed =
+            logical(&e.span, LogicalOp::And, s.active.clone(), exits::not(&e.span, ok.clone())?)?;
         let failure = if same(&input.typ, &p.return_type) {
             // On this exit the input is already Err with the right complete
             // type. Preserve it instead of projecting and rebuilding its value.
             input
         } else {
-            let error=if let Some(v)=error {*v} else {
-                self.layout(field_expr(&input.scalar(&e.span)?.expr,&field(&input.typ,"Err"),err_typ),8)?
+            let error = if let Some(v) = error {
+                *v
+            } else {
+                self.layout(
+                    field_expr(&input.scalar(&e.span)?.expr, &field(&input.typ, "Err"), err_typ),
+                    8,
+                )?
             };
-            let error=if let Some(conversion)=&p.conversion {
-                let ExprX::Call{target:CallTarget::Fun(_,name,types,..),..}=&conversion.x else{unreachable!()};
-                let f=self.all.get(name).ok_or_else(||unsupported(&e.span,"missing checked From summary"))?.clone();
-                let origin=error.scalar(&e.span).ok();
-                let mut branch=s.clone();branch.active=failed.clone();
-                self.helper_values(&mut branch,conversion,&f,types,vec![(error,origin)])?
-            }else if same(err_typ,target_err) {error} else {
-                Val::atom(coerce(&e.span,error.scalar(&e.span)?,target_err)?)
+            let error = if let Some(conversion) = &p.conversion {
+                let ExprX::Call { target: CallTarget::Fun(_, name, types, ..), .. } = &conversion.x
+                else {
+                    unreachable!()
+                };
+                let f = self
+                    .all
+                    .get(name)
+                    .ok_or_else(|| unsupported(&e.span, "missing checked From summary"))?
+                    .clone();
+                let origin = error.scalar(&e.span).ok();
+                let mut branch = s.clone();
+                branch.active = failed.clone();
+                self.helper_values(&mut branch, conversion, &f, types, vec![(error, origin)])?
+            } else if same(err_typ, target_err) {
+                error
+            } else {
+                Val::atom(coerce(&e.span, error.scalar(&e.span)?, target_err)?)
             };
             self.result_value(
-                &e.span, p.return_type,
+                &e.span,
+                p.return_type,
                 Node::Result(boolean(&e.span, false), None, Some(Box::new(error))),
             )?
         };
@@ -207,14 +242,21 @@ impl Engine<'_> {
         let a = values.pop().unwrap();
         Ok(Node::Result(ok, a, b))
     }
-    pub(super) fn pattern(&mut self, s: &mut State, p: &Pattern, value: Val) -> Result<Term, VirErr> {
+    pub(super) fn pattern(
+        &mut self,
+        s: &mut State,
+        p: &Pattern,
+        value: Val,
+    ) -> Result<Term, VirErr> {
         self.spend(&p.span)?;
         let span = &p.span;
         match &p.x {
             PatternX::Wildcard => Ok(boolean(span, true)),
             PatternX::ImmutRef(p) => self.pattern(s, p, value),
-            PatternX::Expr(e) if matches!(e.x,ExprX::Const(Constant::Int(_)|Constant::Bool(_))) => {
-                records::equal(span,value.scalar(span)?,self.expr(s,e)?.scalar(span)?)
+            PatternX::Expr(e)
+                if matches!(e.x, ExprX::Const(Constant::Int(_) | Constant::Bool(_))) =>
+            {
+                records::equal(span, value.scalar(span)?, self.expr(s, e)?.scalar(span)?)
             }
             PatternX::Var(b)
                 if matches!(b.by_ref, ByRef::No | ByRef::ImmutRef) && b.user_mut != Some(true) =>

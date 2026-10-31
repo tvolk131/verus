@@ -14,6 +14,7 @@ import re
 import subprocess
 
 from eval_verus_infer_alephbft import REVISION, git
+from infer_experiment import require_exact, save_results, validate_run
 from infer_eval_support import ArtifactGuard, digest, host_info, measured, tool_artifacts
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -78,25 +79,15 @@ def prepare(repo, checkout):
 
 
 def validate(run, expected, inference_count, unsupported=None):
-    data = json.loads(run["stdout"])
-    result = data["verification-results"]
-    if (run["returncode"] == 0) != expected or result.get("success") != expected:
-        raise ValueError(f"unexpected verification outcome: {result}")
-    if "panicked at" in run["stderr"] or "resource limit" in run["stderr"].lower() or "timed out" in run["stderr"].lower():
-        raise ValueError("panic or resource exhaustion is not semantic evidence")
+    data = validate_run(run, expected, allow_frontend=bool(unsupported))
     if unsupported:
         if data.get("verus-infer", {}).get("status") != "unsupported" or unsupported not in run["stderr"]:
             raise ValueError("missing expected source-capability diagnostic")
         return data
-    if result.get("encountered-vir-error"):
-        raise ValueError("frontend failure is not a semantic negative control")
     functions = data.get("verus-infer", {}).get("functions", [])
     if len(functions) != inference_count:
         raise ValueError("unexpected inferred function count")
-    if any(not f["required_checks_passed"] or f["mode"] != "exact"
-           or any(f["proofs"][p]["status"] != "proved" or not f["proofs"][p]["required"]
-                  for p in ("soundness", "maximality", "exactness")) for f in functions):
-        raise ValueError("missing mandatory inference checks")
+    require_exact(functions)
     return data
 
 
@@ -168,7 +159,7 @@ def main():
     checkout = output / "checkout"
 
     def save():
-        (output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
+        save_results(output, result)
 
     def native(name, filters, expect_success, manifest=None):
         env = dict(os.environ); env.pop("RUSTUP_TOOLCHAIN", None)

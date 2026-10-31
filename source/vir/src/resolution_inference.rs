@@ -305,8 +305,12 @@ impl ResolutionInfo {
         let mut ctor_needs_check = self.typ_inv_info.ctor_needs_check.clone();
         crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
             let specs: Vec<_> = match &e.x {
-                ExprX::Loop { invs, decrease, .. } => invs.iter().map(|i| &i.inv).chain(decrease.iter()).collect(),
-                ExprX::NonSpecClosure { requires, ensures, .. } => requires.iter().chain(ensures.iter()).collect(),
+                ExprX::Loop { invs, decrease, .. } => {
+                    invs.iter().map(|i| &i.inv).chain(decrease.iter()).collect()
+                }
+                ExprX::NonSpecClosure { requires, ensures, .. } => {
+                    requires.iter().chain(ensures.iter()).collect()
+                }
                 _ => vec![],
             };
             for spec in specs {
@@ -354,8 +358,10 @@ pub fn krate_infer_resolution(
     let mut errors = vec![];
     for function in &mut Arc::make_mut(&mut krate).functions {
         if let Some(res_info) = infos.get(&function.x.name) {
-            let inferred_info = (function.x.attrs.infer || function.x.attrs.infer_iterator_factory || assisted_loops.contains(&function.x.name))
-                .then(|| res_info.with_inferred_specs(function.x.body.as_ref().unwrap()));
+            let inferred_info = (function.x.attrs.infer
+                || function.x.attrs.infer_iterator_factory
+                || assisted_loops.contains(&function.x.name))
+            .then(|| res_info.with_inferred_specs(function.x.body.as_ref().unwrap()));
             let res_info = inferred_info.as_ref().unwrap_or(res_info);
             let new_body = infer_resolution(
                 &function.x.params,
@@ -4316,14 +4322,27 @@ mod inferred_spec_tests {
             temporary_modes: HashMap::from([(22, Mode::Exec)]),
             dual_mode: false,
         };
-        let callback = SpannedTyped::new(&span(30), &crate::ast_util::unit_typ(), ExprX::NonSpecClosure {
-            params: Arc::new(vec![]), proof_fn_modes: None, body: ctor(20),
-            requires: Arc::new(vec![ctor(31)]), ensures: Arc::new(vec![ctor(21)]),
-            ret: Arc::new(VarBinderX { name: VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal), a: typ.clone() }),
-            external_spec: None,
-        });
-        let body = SpannedTyped::new(&span(32), &crate::ast_util::unit_typ(), ExprX::Block(
-            Arc::new(vec![Spanned::new(span(33), StmtX::Expr(body))]), Some(callback)));
+        let callback = SpannedTyped::new(
+            &span(30),
+            &crate::ast_util::unit_typ(),
+            ExprX::NonSpecClosure {
+                params: Arc::new(vec![]),
+                proof_fn_modes: None,
+                body: ctor(20),
+                requires: Arc::new(vec![ctor(31)]),
+                ensures: Arc::new(vec![ctor(21)]),
+                ret: Arc::new(VarBinderX {
+                    name: VarIdent(Arc::new("result".into()), VarIdentDisambiguate::AirLocal),
+                    a: typ.clone(),
+                }),
+                external_spec: None,
+            },
+        );
+        let body = SpannedTyped::new(
+            &span(32),
+            &crate::ast_util::unit_typ(),
+            ExprX::Block(Arc::new(vec![Spanned::new(span(33), StmtX::Expr(body))]), Some(callback)),
+        );
         let extended = info.with_inferred_specs(&body);
         assert_eq!(extended.typ_inv_info.ctor_needs_check.get(&10), Some(&false));
         assert_eq!(extended.typ_inv_info.ctor_needs_check.get(&11), Some(&false));

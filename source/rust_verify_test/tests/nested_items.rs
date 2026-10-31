@@ -246,7 +246,7 @@ test_verify_one_file! {
 // Rust's disambiguator must remain part of each implementation's VIR identity.
 #[test]
 fn unnamed_constants_keep_distinct_trait_implementation_identities() {
-    let code=r#"use vstd::prelude::*;verus!{
+    let code = r#"use vstd::prelude::*;verus!{
 trait Read {fn value(&self)->(r:u8) ensures r>0;}
 struct A;
 struct B;
@@ -254,9 +254,13 @@ struct B;
 const _: ()={#[verus_verify] impl Read for A {fn value(&self)->u8 {1}}};
 const _: ()={#[verus_verify] impl Read for B {fn value(&self)->u8 {2}}};
 "#;
-    verify_one_file("anonymous_impls",code.into(),&["vstd","--no-cheating"]).unwrap();
-    for (label,source) in [("first",code.replace("{1}","{0}")),("second",code.replace("{2}","{0}"))] {
-        let e=verify_one_file(&format!("anonymous_bad_{label}"),source,&["vstd","--no-cheating"]).unwrap_err();
+    verify_one_file("anonymous_impls", code.into(), &["vstd", "--no-cheating"]).unwrap();
+    for (label, source) in
+        [("first", code.replace("{1}", "{0}")), ("second", code.replace("{2}", "{0}"))]
+    {
+        let e =
+            verify_one_file(&format!("anonymous_bad_{label}"), source, &["vstd", "--no-cheating"])
+                .unwrap_err();
         assert_eq!(e.errors.len(), 1);
         assert!(e.errors[0].message.contains("postcondition not satisfied"), "{:?}", e);
     }

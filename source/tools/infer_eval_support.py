@@ -58,10 +58,15 @@ class ArtifactGuard:
             raise ArtifactChanged("tool inputs changed during evaluation: " + ", ".join(changed))
 
 
+def support_artifacts():
+    return [Path(__file__), Path(__file__).with_name("infer_experiment.py")]
+
+
 def tool_artifacts(verifier, solver, extra=()):
     directory = Path(verifier).parent
     names = ["rust_verify", "vstd.vir", "libvstd.rlib", "libverus_builtin.rlib"]
-    paths = [Path(verifier), Path(solver), *extra, *(directory / n for n in names)]
+    paths = [Path(verifier), Path(solver), *support_artifacts(), *extra,
+             *(directory / n for n in names)]
     # The exact filenames vary by host. Missing macro libraries are a setup error.
     for stem in ("libverus_builtin_macros", "libverus_state_machines_macros"):
         found = [p for p in directory.glob(stem + ".*") if p.suffix in (".so", ".dylib", ".dll")]
@@ -75,7 +80,7 @@ def run_compiler(command, env, timeout, cwd=None):
                           start_new_session=(os.name == "posix")) as process:
         try:
             stdout, stderr = process.communicate(timeout=timeout)
-        except subprocess.TimeoutExpired as error:
+        except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
             try:
                 if os.name == "posix":
                     os.killpg(process.pid, signal.SIGKILL)

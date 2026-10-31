@@ -3,8 +3,10 @@
 //! No arithmetic/conversion meaning is assigned to a user implementation. Its
 //! candidate comes from its body; maximality also proves that the trait's
 //! inherited requires equals the proposed domain.
+pub(super) use super::wrapper_binary::{
+    binary_boundary, primitive_boundary, primitive_call, validate_derived_requests,
+};
 use super::*;
-pub(super) use super::wrapper_binary::{binary_boundary,primitive_boundary,primitive_call,validate_derived_requests};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub(super) enum Kind {
@@ -70,8 +72,8 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
     };
     if !f.x.attrs.infer
         || f.x.attrs.infer_allow_approx
-        || f.x.typ_params.len()>4
-        || f.x.typ_bounds.len()>24
+        || f.x.typ_params.len() > 4
+        || f.x.typ_bounds.len() > 24
         || f.x.proxy.is_some()
         || f.x.attrs.is_external_body
         || f.x.attrs.is_unsafe
@@ -100,19 +102,31 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
         && enums::unit(&f.x.inner_ret.x.typ)
     {
         Some(Kind::AddAssign)
-    } else if f.x.params.len()==2 && !records::mutable(f)
-        && [ ("Add","add"),("Sub","sub"),("Mul","mul"),("Div","div"),("Rem","rem") ].iter().any(|(t,m)|
-            models::path_is(trait_path,CrateId::Core,&["ops","arith",t]) &&
-            models::path_is(&method.path,CrateId::Core,&["ops","arith",t,m])) {
+    } else if f.x.params.len() == 2
+        && !records::mutable(f)
+        && [("Add", "add"), ("Sub", "sub"), ("Mul", "mul"), ("Div", "div"), ("Rem", "rem")]
+            .iter()
+            .any(|(t, m)| {
+                models::path_is(trait_path, CrateId::Core, &["ops", "arith", t])
+                    && models::path_is(&method.path, CrateId::Core, &["ops", "arith", t, m])
+            })
+    {
         Some(Kind::Binary)
     } else if f.x.params.len() == 2
         && matches!(&*f.x.inner_ret.x.typ, TypX::Bool)
-        && f.x.params.iter().all(|p| matches!(&*p.x.typ, TypX::Decorate(TypDecoration::Ref,None,_)))
-        && crate::ast_util::types_equal(&f.x.params[0].x.typ,&f.x.params[1].x.typ)
-        && ((models::path_is(trait_path,CrateId::Core,&["cmp","PartialEq"])
-            && ["eq","ne"].iter().any(|n| models::path_is(&method.path,CrateId::Core,&["cmp","PartialEq",n])))
-            || (models::path_is(trait_path,CrateId::Core,&["cmp","PartialOrd"])
-            && ["lt","le","gt","ge"].iter().any(|n| models::path_is(&method.path,CrateId::Core,&["cmp","PartialOrd",n]))))
+        && f.x
+            .params
+            .iter()
+            .all(|p| matches!(&*p.x.typ, TypX::Decorate(TypDecoration::Ref, None, _)))
+        && crate::ast_util::types_equal(&f.x.params[0].x.typ, &f.x.params[1].x.typ)
+        && ((models::path_is(trait_path, CrateId::Core, &["cmp", "PartialEq"])
+            && ["eq", "ne"]
+                .iter()
+                .any(|n| models::path_is(&method.path, CrateId::Core, &["cmp", "PartialEq", n])))
+            || (models::path_is(trait_path, CrateId::Core, &["cmp", "PartialOrd"])
+                && ["lt", "le", "gt", "ge"].iter().any(|n| {
+                    models::path_is(&method.path, CrateId::Core, &["cmp", "PartialOrd", n])
+                })))
     {
         Some(Kind::Compare)
     } else {
@@ -124,39 +138,92 @@ pub(super) fn kind(f: &Function) -> Option<Kind> {
 /// Infer only its type arguments here; its body and total inherited domain must
 /// still pass the ordinary three exact-mode checks.
 pub(super) fn residual_conversion(
-    from:&Typ,to:&Typ,impls:&ImplPaths,value:Expr,all:&HashMap<Fun,Function>,
-)->Option<Expr>{
-    fn unify(pattern:&Typ,actual:&Typ,parameters:&[Ident],out:&mut HashMap<Ident,Typ>,depth:usize)->bool{
-        if depth==0{return false;}
-        match (&**pattern,&**actual){
-            (TypX::TypParam(n),_) if parameters.contains(n)=>{
-                if let Some(t)=out.get(n){crate::ast_util::types_equal(t,actual)}
-                else{out.insert(n.clone(),actual.clone());true}
+    from: &Typ,
+    to: &Typ,
+    impls: &ImplPaths,
+    value: Expr,
+    all: &HashMap<Fun, Function>,
+) -> Option<Expr> {
+    fn unify(
+        pattern: &Typ,
+        actual: &Typ,
+        parameters: &[Ident],
+        out: &mut HashMap<Ident, Typ>,
+        depth: usize,
+    ) -> bool {
+        if depth == 0 {
+            return false;
+        }
+        match (&**pattern, &**actual) {
+            (TypX::TypParam(n), _) if parameters.contains(n) => {
+                if let Some(t) = out.get(n) {
+                    crate::ast_util::types_equal(t, actual)
+                } else {
+                    out.insert(n.clone(), actual.clone());
+                    true
+                }
             }
-            (TypX::Datatype(a,ps,_),TypX::Datatype(b,ts,_)) if a==b && ps.len()==ts.len()=>
-                ps.iter().zip(ts.iter()).all(|(p,t)|unify(p,t,parameters,out,depth-1)),
-            _=>crate::ast_util::types_equal(pattern,actual),
+            (TypX::Datatype(a, ps, _), TypX::Datatype(b, ts, _))
+                if a == b && ps.len() == ts.len() =>
+            {
+                ps.iter().zip(ts.iter()).all(|(p, t)| unify(p, t, parameters, out, depth - 1))
+            }
+            _ => crate::ast_util::types_equal(pattern, actual),
         }
     }
-    if impls.len()!=1{return None;}
-    let ImplPath::TraitImplPath(selected)=&impls[0] else{return None;};
-    let mut found=None;
-    for f in all.values().filter(|f|kind(f)==Some(Kind::From)){
-        let FunctionKind::TraitMethodImpl{impl_path,trait_typ_args,..}=&f.x.kind else{continue;};
-        if impl_path!=selected || trait_typ_args.len()!=2{continue;}
-        let mut types=HashMap::new();
-        if !unify(&f.x.params[0].x.typ,from,&f.x.typ_params,&mut types,8)
-            || !unify(&f.x.inner_ret.x.typ,to,&f.x.typ_params,&mut types,8){continue;}
-        let types:Vec<_>=f.x.typ_params.iter().map(|p|types.get(p).cloned()).collect::<Option<_>>()?;
-        let substitutions=f.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
-        if !crate::ast_util::types_equal(&crate::sst_util::subst_typ(&substitutions,&trait_typ_args[0]),to)
-            || !crate::ast_util::types_equal(&crate::sst_util::subst_typ(&substitutions,&trait_typ_args[1]),from)
-            || found.is_some(){return None;}
-        found=Some(SpannedTyped::new(&value.span,to,ExprX::Call{
-            target:CallTarget::Fun(CallTargetKind::Static,f.x.name.clone(),Arc::new(types),Arc::new(vec![]),CallTargetAttrs{
-                autospec:AutospecUsage::Final,const_var:false,assume_external_allowed:false,
-            }),args:Arc::new(vec![value.clone()]),post_args:None,body:None,
-        }));
+    if impls.len() != 1 {
+        return None;
+    }
+    let ImplPath::TraitImplPath(selected) = &impls[0] else {
+        return None;
+    };
+    let mut found = None;
+    for f in all.values().filter(|f| kind(f) == Some(Kind::From)) {
+        let FunctionKind::TraitMethodImpl { impl_path, trait_typ_args, .. } = &f.x.kind else {
+            continue;
+        };
+        if impl_path != selected || trait_typ_args.len() != 2 {
+            continue;
+        }
+        let mut types = HashMap::new();
+        if !unify(&f.x.params[0].x.typ, from, &f.x.typ_params, &mut types, 8)
+            || !unify(&f.x.inner_ret.x.typ, to, &f.x.typ_params, &mut types, 8)
+        {
+            continue;
+        }
+        let types: Vec<_> =
+            f.x.typ_params.iter().map(|p| types.get(p).cloned()).collect::<Option<_>>()?;
+        let substitutions = f.x.typ_params.iter().cloned().zip(types.iter().cloned()).collect();
+        if !crate::ast_util::types_equal(
+            &crate::sst_util::subst_typ(&substitutions, &trait_typ_args[0]),
+            to,
+        ) || !crate::ast_util::types_equal(
+            &crate::sst_util::subst_typ(&substitutions, &trait_typ_args[1]),
+            from,
+        ) || found.is_some()
+        {
+            return None;
+        }
+        found = Some(SpannedTyped::new(
+            &value.span,
+            to,
+            ExprX::Call {
+                target: CallTarget::Fun(
+                    CallTargetKind::Static,
+                    f.x.name.clone(),
+                    Arc::new(types),
+                    Arc::new(vec![]),
+                    CallTargetAttrs {
+                        autospec: AutospecUsage::Final,
+                        const_var: false,
+                        assume_external_allowed: false,
+                    },
+                ),
+                args: Arc::new(vec![value.clone()]),
+                post_args: None,
+                body: None,
+            },
+        ));
     }
     found
 }
@@ -164,9 +231,12 @@ pub(super) fn residual_conversion(
 /// Resolve only the exact concrete implementation selected by Rust. Rewriting
 /// is candidate-only; executable trait dispatch remains unchanged.
 pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
-    if let Some(e)=primitive_call(e,all){return Some(e);}
-    if let Some(e)=primitive_add_assign(e,all){return Some(e);}
-
+    if let Some(e) = primitive_call(e, all) {
+        return Some(e);
+    }
+    if let Some(e) = primitive_add_assign(e, all) {
+        return Some(e);
+    }
 
     let ExprX::Call {
         target: CallTarget::Fun(call_kind, method, types, impls, attrs),
@@ -245,22 +315,34 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr
     {
         return None;
     }
-    Some(e.new_x(ExprX::Call {
-        target: CallTarget::Fun(
-            CallTargetKind::Static,
-            f.x.name.clone(),
-            Arc::new(vec![]),
-            Arc::new(vec![]),
-            attrs.clone(),
-        ),
-        // VIR preserves a shared decorator on an explicit copied dereference.
-        // Candidate-only scalar projection observes the copied pointee value;
-        // ordinary verification still checks the untouched Rust call.
-        args: Arc::new(args.iter().zip(f.x.params.iter()).map(|(a,p)|
-            if crate::ast_util::types_equal(&a.typ,&p.x.typ){a.clone()}else{SpannedTyped::new(&a.span,&p.x.typ,a.x.clone())}).collect()),
-        post_args: None,
-        body: None,
-    }))
+    Some(
+        e.new_x(ExprX::Call {
+            target: CallTarget::Fun(
+                CallTargetKind::Static,
+                f.x.name.clone(),
+                Arc::new(vec![]),
+                Arc::new(vec![]),
+                attrs.clone(),
+            ),
+            // VIR preserves a shared decorator on an explicit copied dereference.
+            // Candidate-only scalar projection observes the copied pointee value;
+            // ordinary verification still checks the untouched Rust call.
+            args: Arc::new(
+                args.iter()
+                    .zip(f.x.params.iter())
+                    .map(|(a, p)| {
+                        if crate::ast_util::types_equal(&a.typ, &p.x.typ) {
+                            a.clone()
+                        } else {
+                            SpannedTyped::new(&a.span, &p.x.typ, a.x.clone())
+                        }
+                    })
+                    .collect(),
+            ),
+            post_args: None,
+            body: None,
+        }),
+    )
 }
 
 /// A derive can spell primitive += as a trait method call. Project only the
@@ -269,42 +351,85 @@ pub(super) fn source_call(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr
 /// original method call and its existing vstd pre/postconditions.
 fn primitive_add_assign(e: &Expr, all: &HashMap<Fun, Function>) -> Option<Expr> {
     let ExprX::Call {
-        target: CallTarget::Fun(CallTargetKind::DynamicResolved {
-            resolved, is_trait_default: false, ..
-        }, name, types, _, _),
-        args, post_args: None, body: None,
-    } = &e.x else { return None; };
+        target:
+            CallTarget::Fun(
+                CallTargetKind::DynamicResolved { resolved, is_trait_default: false, .. },
+                name,
+                types,
+                _,
+                _,
+            ),
+        args,
+        post_args: None,
+        body: None,
+    } = &e.x
+    else {
+        return None;
+    };
     let boundary = all.get(name)?;
     let p = &resolved.path;
     if !assignment_boundary(boundary)
-        || p.krate != CrateId::Core || p.segments.len() != 4
-        || p.segments[0].as_str() != "ops" || p.segments[1].as_str() != "arith"
-        || !p.segments[2].starts_with("impl") || p.last_segment().as_str() != "add_assign"
-        || types.len() != 2 || !crate::ast_util::types_equal(&types[0], &types[1])
-        || args.len() != 2 || !crate::ast_util::types_equal(&args[1].typ, &types[0])
+        || p.krate != CrateId::Core
+        || p.segments.len() != 4
+        || p.segments[0].as_str() != "ops"
+        || p.segments[1].as_str() != "arith"
+        || !p.segments[2].starts_with("impl")
+        || p.last_segment().as_str() != "add_assign"
+        || types.len() != 2
+        || !crate::ast_util::types_equal(&types[0], &types[1])
+        || args.len() != 2
+        || !crate::ast_util::types_equal(&args[1].typ, &types[0])
         || !enums::unit(&e.typ)
-    { return None; }
-    let TypX::Int(range) = &*types[0] else { return None; };
-    if !arithmetic::exact_range(*range) { return None; }
-    let (ExprX::BorrowMut(place) | ExprX::TwoPhaseBorrowMut(place)) = &args[0].x else { return None; };
-    if !crate::ast_util::types_equal(&place.typ, &types[0]) { return None; }
+    {
+        return None;
+    }
+    let TypX::Int(range) = &*types[0] else {
+        return None;
+    };
+    if !arithmetic::exact_range(*range) {
+        return None;
+    }
+    let (ExprX::BorrowMut(place) | ExprX::TwoPhaseBorrowMut(place)) = &args[0].x else {
+        return None;
+    };
+    if !crate::ast_util::types_equal(&place.typ, &types[0]) {
+        return None;
+    }
     Some(e.new_x(ExprX::Assign {
-        place: place.clone(), rhs: args[1].clone(),
+        place: place.clone(),
+        rhs: args[1].clone(),
         op: Some(BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Error(*range)))),
-        typ: types[0].clone(), resolve: false,
+        typ: types[0].clone(),
+        resolve: false,
     }))
 }
 
 pub(super) fn assignment_boundary(f: &Function) -> bool {
-    f.x.mode == Mode::Exec && !f.x.attrs.infer && f.x.body.is_none()
-        && f.x.params.len() == 2 && enums::unit(&f.x.inner_ret.x.typ)
+    f.x.mode == Mode::Exec
+        && !f.x.attrs.infer
+        && f.x.body.is_none()
+        && f.x.params.len() == 2
+        && enums::unit(&f.x.inner_ret.x.typ)
         && matches!(f.x.kind, FunctionKind::TraitMethodDecl { .. })
-        && models::path_is(&f.x.name.path, CrateId::Core, &["ops", "arith", "AddAssign", "add_assign"])
-        && f.x.proxy.as_ref().is_some_and(|proxy|
-            models::path_is(&proxy.x, CrateId::Vstd, &["std_specs", "ops", "ExAddAssign", "add_assign"]))
+        && models::path_is(
+            &f.x.name.path,
+            CrateId::Core,
+            &["ops", "arith", "AddAssign", "add_assign"],
+        )
+        && f.x.proxy.as_ref().is_some_and(|proxy| {
+            models::path_is(
+                &proxy.x,
+                CrateId::Vstd,
+                &["std_specs", "ops", "ExAddAssign", "add_assign"],
+            )
+        })
 }
 
-pub(super) fn rewrite(f: &Function, all: &HashMap<Fun, Function>,datatypes:&[Datatype]) -> Result<Function, VirErr> {
+pub(super) fn rewrite(
+    f: &Function,
+    all: &HashMap<Fun, Function>,
+    datatypes: &[Datatype],
+) -> Result<Function, VirErr> {
     if !f.x.attrs.infer {
         return Ok(f.clone());
     }
@@ -317,7 +442,11 @@ pub(super) fn rewrite(f: &Function, all: &HashMap<Fun, Function>,datatypes:&[Dat
                 body,
                 &mut crate::ast_visitor::VisitorScopeMap::new(),
                 &mut (),
-                &|_, _, e| Ok(source_call(e, all).or_else(||wrapper_compare::source_call(e,all,datatypes)).unwrap_or_else(|| e.clone())),
+                &|_, _, e| {
+                    Ok(source_call(e, all)
+                        .or_else(|| wrapper_compare::source_call(e, all, datatypes))
+                        .unwrap_or_else(|| e.clone()))
+                },
                 &|_, _, s| Ok(vec![s.clone()]),
                 &|_, t| Ok(t.clone()),
                 &|_, _, p| Ok(p.clone()),

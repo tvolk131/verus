@@ -41,7 +41,7 @@ use crate::automatic_derive::AutomaticDeriveAction;
 use crate::context::ContextX;
 use crate::rust_to_vir_base::def_id_to_vir_path_option;
 use crate::rustc_hir::intravisit::*;
-use crate::verus_items::{get_rust_item,RustItem};
+use crate::verus_items::{RustItem, get_rust_item};
 use rustc_hir::{
     ForeignItem, ForeignItemId, ForeignItemKind, HirId, ImplItem, ImplItemId, ImplItemKind, Item,
     ItemId, ItemKind, OwnerId, TraitItem, TraitItemId, TraitItemKind,
@@ -682,35 +682,52 @@ fn get_attributes_for_automatic_derive<'tcx>(
                 // local source's scope only for that concrete canonical shape.
                 let reverse_from_owner = {
                     let tr = ctxt.tcx.impl_trait_ref(item.owner_id.to_def_id()).skip_binder();
-                    let path = def_id_to_vir_path_option(ctxt.tcx, Some(&ctxt.verus_items), tr.def_id);
-                    if path.as_ref().is_some_and(|path| path.krate == vir::ast::CrateId::Core
-                        && path.segments.iter().map(|s| s.as_str()).eq(["convert", "From"]))
-                        && tr.args.len() == 2
-                        && tr.args[0].as_type().is_some_and(|t| matches!(t.kind(),
-                            rustc_middle::ty::TyKind::Int(_) | rustc_middle::ty::TyKind::Uint(_)))
+                    let path =
+                        def_id_to_vir_path_option(ctxt.tcx, Some(&ctxt.verus_items), tr.def_id);
+                    if path.as_ref().is_some_and(|path| {
+                        path.krate == vir::ast::CrateId::Core
+                            && path.segments.iter().map(|s| s.as_str()).eq(["convert", "From"])
+                    }) && tr.args.len() == 2
+                        && tr.args[0].as_type().is_some_and(|t| {
+                            matches!(
+                                t.kind(),
+                                rustc_middle::ty::TyKind::Int(_)
+                                    | rustc_middle::ty::TyKind::Uint(_)
+                            )
+                        })
                     {
                         tr.args[1].as_type().and_then(|t| match t.kind() {
-                            rustc_middle::ty::TyKind::Adt(adt, args) if args.is_empty() && adt.did().is_local() => Some(adt.did()),
+                            rustc_middle::ty::TyKind::Adt(adt, args)
+                                if args.is_empty() && adt.did().is_local() =>
+                            {
+                                Some(adt.did())
+                            }
                             _ => None,
                         })
-                    } else { None }
+                    } else {
+                        None
+                    }
                 };
-                let type_def_id = if let Some(owner) = reverse_from_owner { owner } else { match impll.self_ty.kind {
-                    rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(None, path)) => {
-                        let Some(def_id) = path.res.opt_def_id() else {
-                            // A derive can emit an impl whose target is a primitive
-                            // (for example, Into for a tuple wrapper). Such targets
-                            // have no datatype attributes to inherit.
+                let type_def_id = if let Some(owner) = reverse_from_owner {
+                    owner
+                } else {
+                    match impll.self_ty.kind {
+                        rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(None, path)) => {
+                            let Some(def_id) = path.res.opt_def_id() else {
+                                // A derive can emit an impl whose target is a primitive
+                                // (for example, Into for a tuple wrapper). Such targets
+                                // have no datatype attributes to inherit.
+                                warn_unknown();
+                                return None;
+                            };
+                            def_id
+                        }
+                        _ => {
                             warn_unknown();
                             return None;
-                        };
-                        def_id
+                        }
                     }
-                    _ => {
-                        warn_unknown();
-                        return None;
-                    }
-                }};
+                };
                 if let Some(type_local_def_id) = type_def_id.as_local() {
                     let type_hir_id = ctxt.tcx.local_def_id_to_hir_id(type_local_def_id);
                     let type_attrs = ctxt.tcx.hir_attrs(type_hir_id);
@@ -723,10 +740,16 @@ fn get_attributes_for_automatic_derive<'tcx>(
                     };
 
                     if reverse_from_owner.is_some()
-                        && !crate::automatic_derive::has_derived_request(ctxt.tcx, type_def_id, "into")
+                        && !crate::automatic_derive::has_derived_request(
+                            ctxt.tcx,
+                            type_def_id,
+                            "into",
+                        )
                         && !match &type_eattrs.external_auto_derives {
                             crate::attributes::AutoDerivesAttr::AllExternal => true,
-                            crate::attributes::AutoDerivesAttr::SomeExternal(names) => names.iter().any(|name| name == "Into"),
+                            crate::attributes::AutoDerivesAttr::SomeExternal(names) => {
+                                names.iter().any(|name| name == "Into")
+                            }
                             crate::attributes::AutoDerivesAttr::Regular => false,
                         }
                     {
@@ -743,23 +766,24 @@ fn get_attributes_for_automatic_derive<'tcx>(
                             if reverse_from_owner.is_some() {
                                 names.iter().any(|name| name == "Into")
                             } else {
-                            let def_path = ctxt.tcx.def_path(of_trait.trait_ref.path.res.def_id());
-                            def_path
-                                .data
-                                .last()
-                                .map(|seg| {
-                                    names.iter().any(|d| {
-                                        use rustc_hir::definitions::DefPathData;
-                                        match &seg.data {
-                                            DefPathData::ValueNs(symbol)
-                                            | DefPathData::TypeNs(symbol) => {
-                                                symbol.to_string().contains(d)
+                                let def_path =
+                                    ctxt.tcx.def_path(of_trait.trait_ref.path.res.def_id());
+                                def_path
+                                    .data
+                                    .last()
+                                    .map(|seg| {
+                                        names.iter().any(|d| {
+                                            use rustc_hir::definitions::DefPathData;
+                                            match &seg.data {
+                                                DefPathData::ValueNs(symbol)
+                                                | DefPathData::TypeNs(symbol) => {
+                                                    symbol.to_string().contains(d)
+                                                }
+                                                _ => true,
                                             }
-                                            _ => true,
-                                        }
+                                        })
                                     })
-                                })
-                                .unwrap_or(false)
+                                    .unwrap_or(false)
                             }
                         }
                     } {
@@ -770,14 +794,24 @@ fn get_attributes_for_automatic_derive<'tcx>(
                     if opts_in_to_verus(&type_eattrs) {
                         let trait_def_id = impll.of_trait.unwrap().trait_ref.path.res.def_id();
                         let rust_item = get_rust_item(ctxt.tcx, trait_def_id);
-                        let requested=match rust_item {
-                            Some(RustItem::PartialEq)=>Some("eq"),
-                            Some(RustItem::PartialOrd)=>Some("partial_cmp"),
-                            Some(RustItem::Ord)=>Some("cmp"),
-                            _=>None,
-                        }.is_some_and(|method|crate::automatic_derive::has_derived_request(ctxt.tcx,type_def_id,method));
-                        let action = if requested {AutomaticDeriveAction::VerifyAsIs}
-                            else {crate::automatic_derive::get_action(rust_item)};
+                        let requested = match rust_item {
+                            Some(RustItem::PartialEq) => Some("eq"),
+                            Some(RustItem::PartialOrd) => Some("partial_cmp"),
+                            Some(RustItem::Ord) => Some("cmp"),
+                            _ => None,
+                        }
+                        .is_some_and(|method| {
+                            crate::automatic_derive::has_derived_request(
+                                ctxt.tcx,
+                                type_def_id,
+                                method,
+                            )
+                        });
+                        let action = if requested {
+                            AutomaticDeriveAction::VerifyAsIs
+                        } else {
+                            crate::automatic_derive::get_action(rust_item)
+                        };
                         match action {
                             AutomaticDeriveAction::Special(_)
                             | AutomaticDeriveAction::VerifyAsIs => Some(type_eattrs),

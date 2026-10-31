@@ -131,7 +131,7 @@ fn oversized_and_recursive_error_values_fail_with_bounded_diagnostics() {
 
 #[test]
 fn collection_error_payloads_preserve_their_complete_view_and_scalar_fields() {
-    let source=r#"use vstd::prelude::*;verus!{
+    let source = r#"use vstd::prelude::*;verus!{
  enum Error{Payload(Vec<u8>,u16),Other}
  struct State{tag:u16}
  impl State{
@@ -143,9 +143,9 @@ fn collection_error_payloads_preserve_their_complete_view_and_scalar_fields() {
    r.get_Err_0()->Payload_1==s.tag,
  {s.fail(input)}
 }"#;
-    let d=verify_one_file("collection_error",source.into(),&["vstd","--no-cheating"]).unwrap();
-    for p in ["soundness: PROVED","safe-domain maximality: PROVED","output exactness: PROVED"] {
-        assert!(d.notes.iter().any(|d|d.message.contains(p)),"{:?}",d);
+    let d = verify_one_file("collection_error", source.into(), &["vstd", "--no-cheating"]).unwrap();
+    for p in ["soundness: PROVED", "safe-domain maximality: PROVED", "output exactness: PROVED"] {
+        assert!(d.notes.iter().any(|d| d.message.contains(p)), "{:?}", d);
     }
 }
 
