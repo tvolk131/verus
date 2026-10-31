@@ -190,10 +190,12 @@ native command records retain `exit_status` and hex records retain `exit_code`.
 Tool inputs, solver, runner/support files, and both macro libraries are guarded
 before/after commands; macro discovery supports `.so`, `.dylib`, and `.dll`
 (including DLL names without `lib`). On POSIX, timeout/interrupt cleanup signals
-the command's process group, allows up to five seconds for nested runner cleanup,
-then kills remaining group members. Non-POSIX cleanup uses the existing direct
-process-kill fallback. SIGKILL, host failure, or an unwritable output directory
-cannot guarantee a receipt or restoration.
+the command's process group, allows up to five seconds for cleanup, then kills
+remaining group members. Nested commands inherit progressively shorter cleanup
+grace periods, allowing them to kill interrupt-resistant children and persist
+failure receipts before their controller's cleanup deadline. Non-POSIX cleanup
+uses the existing direct process-kill fallback. SIGKILL, host failure, or an
+unwritable output directory cannot guarantee a receipt or restoration.
 
 Hex mutation replays **still modify the explicitly supplied checkout in place**.
 Use a disposable checkout with exclusive write access and do not run concurrently

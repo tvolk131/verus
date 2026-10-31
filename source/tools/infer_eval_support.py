@@ -76,7 +76,11 @@ def tool_artifacts(verifier, solver, extra=()):
 
 
 def run_compiler(command, env, timeout, cwd=None):
-    with subprocess.Popen(command, cwd=cwd, env=env, stdout=subprocess.PIPE,
+    cleanup_grace = float(env.get("_VERUS_INFER_CLEANUP_GRACE_SECONDS", "5"))
+    if not math.isfinite(cleanup_grace) or cleanup_grace <= 0:
+        raise ValueError("internal cleanup grace must be finite and positive")
+    child_env = dict(env, _VERUS_INFER_CLEANUP_GRACE_SECONDS=str(cleanup_grace / 2))
+    with subprocess.Popen(command, cwd=cwd, env=child_env, stdout=subprocess.PIPE,
                           stderr=subprocess.PIPE, text=True,
                           start_new_session=(os.name == "posix")) as process:
         try:
@@ -90,7 +94,7 @@ def run_compiler(command, env, timeout, cwd=None):
             except ProcessLookupError:
                 pass
             try:
-                error.stdout, error.stderr = process.communicate(timeout=5)
+                error.stdout, error.stderr = process.communicate(timeout=cleanup_grace)
             except (subprocess.TimeoutExpired, KeyboardInterrupt):
                 try:
                     if os.name == "posix":

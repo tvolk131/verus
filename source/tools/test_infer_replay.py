@@ -46,14 +46,20 @@ if name == "rustc":
     print("fake-rustc-version"); sys.exit(0)
 if name == "cargo":
     action = "clean" if "clean" in args else "native"
+    if failure == "native_resistant_timeout" and action == "native":
+        import signal
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
+        Path(os.environ["FAKE_READY"]).write_text(str(os.getpid()))
+        time.sleep(30)
     print(action, flush=True)
     if failure == action + "_timeout": time.sleep(30)
     sys.exit(7 if failure == action else 0)
 artifact = Path(args[args.index("--export") + 1]) if "--export" in args else None
 label = artifact.stem if artifact else "native_proof"
 if failure == "mutation_timeout" and label == "wrong_table":
+    print("mutation started", flush=True)
     Path(os.environ["FAKE_READY"]).write_text(str(os.getpid()))
-    print("mutation started", flush=True); time.sleep(30)
+    time.sleep(30)
 if failure == "malformed":
     print("not a report"); sys.exit(0)
 if failure == "artifact":
@@ -127,9 +133,17 @@ class ReplaySupportTests(unittest.TestCase):
 
     @unittest.skipUnless(os.name == "posix", "POSIX nested process-group interruption")
     def test_timeout_allows_nested_runner_to_reap_children_and_save_failure_receipt(self):
-        child = """import os,sys,time
+        self.check_nested_cleanup(ignore_interrupt=False)
+
+    @unittest.skipUnless(os.name == "posix", "POSIX nested process-group interruption")
+    def test_timeout_reaps_nested_child_ignoring_interrupt(self):
+        self.check_nested_cleanup(ignore_interrupt=True)
+
+    def check_nested_cleanup(self, *, ignore_interrupt):
+        child = f"""import os,signal,sys,time
 from pathlib import Path
 root=Path(sys.argv[1]);(root/'pid').write_text(str(os.getpid()))
+if {ignore_interrupt!r}: signal.signal(signal.SIGINT,signal.SIG_IGN)
 try:
     print('child started',flush=True);time.sleep(30)
 finally:
@@ -148,9 +162,9 @@ with replay_receipt(root,receipt):
             root = Path(tmp)
             commands = []
             with self.assertRaises(subprocess.TimeoutExpired):
-                LoggedCommands(root, root, commands, timeout=1)("outer",
+                LoggedCommands(root, root, commands, timeout=2)("outer",
                     [sys.executable, "-B", "-O", "-c", worker, str(TOOLS), tmp], dict(os.environ))
-            self.assertTrue((root / "cleaned").is_file())
+            self.assertEqual((root / "cleaned").is_file(), not ignore_interrupt)
             with self.assertRaises(ProcessLookupError):
                 os.kill(int((root / "pid").read_text()), 0)
             receipt = json.loads((root / "receipt.json").read_text())
@@ -290,15 +304,31 @@ class ReplayRunnerTests(unittest.TestCase):
         for name in ("check_native_adoption", *HEX):
             with self.subTest(runner=name):
                 failure = "clean_timeout" if name == "check_native_adoption" else "mutation_timeout"
-                result, receipt, output = self.replay(name, failure=failure, positive=False, timeout=.3)
+                result, receipt, output = self.replay(name, failure=failure, positive=False, timeout=2)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertEqual(receipt["failure"]["type"], "TimeoutExpired")
                 entry = receipt["commands"][-1]
                 self.assertTrue(entry["timed_out"])
-                self.assertIn("clean" if failure == "clean_timeout" else "mutation started",
-                              (output / (entry["label"] + ".stdout")).read_text())
+                self.assertTrue((output / (entry["label"] + ".stdout")).is_file())
+                self.assertTrue((output / (entry["label"] + ".stderr")).is_file())
                 if name in HEX:
                     self.assert_restored(receipt)
+
+    def test_phase3_timeout_reaps_nested_interrupt_resistant_native_command(self):
+        result, receipt, output = self.replay("check_hex_vec_phase3",
+            failure="native_resistant_timeout", timeout=3)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(receipt["failure"]["type"], "TimeoutExpired")
+        self.assertEqual(receipt["commands"][-1]["label"], "restored")
+        self.assertTrue(receipt["commands"][-1]["timed_out"])
+        with self.assertRaises(ProcessLookupError):
+            os.kill(int((self.root / "ready").read_text()), 0)
+        nested = json.loads((output / "restored-iterator/receipt.json").read_text())
+        self.assertFalse(nested["success"])
+        self.assertEqual(nested["failure"]["type"], "KeyboardInterrupt")
+        self.assertTrue(nested["commands"][-1]["interrupted"])
+        self.assert_restored(nested)
+        self.assertEqual(receipt["sources_before"], receipt["sources_after"])
 
     def test_restoration_failure_still_writes_receipt_and_restores_other_files(self):
         result, receipt, output = self.replay(HEX[0], failure="restoration", positive=False)
@@ -337,6 +367,7 @@ class ReplayRunnerTests(unittest.TestCase):
             self.assertFalse(receipt["success"])
             self.assertEqual(receipt["failure"]["type"], "KeyboardInterrupt")
             self.assertTrue(receipt["commands"][-1]["interrupted"])
+            self.assertIn("mutation started", (output / "wrong_table.stdout").read_text())
             self.assert_restored(receipt)
         finally:
             if process.poll() is None:
