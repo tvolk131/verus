@@ -68,14 +68,19 @@ def tool_artifacts(verifier, solver, extra=()):
     paths = [Path(verifier), Path(solver), *support_artifacts(), *extra,
              *(directory / n for n in names)]
     # The exact filenames vary by host. Missing macro libraries are a setup error.
-    for stem in ("libverus_builtin_macros", "libverus_state_machines_macros"):
-        found = [p for p in directory.glob(stem + ".*") if p.suffix in (".so", ".dylib", ".dll")]
-        paths.extend(found or [directory / (stem + ".missing")])
+    for stem in ("verus_builtin_macros", "verus_state_machines_macros"):
+        found = [p for prefix in ("lib", "") for p in directory.glob(prefix + stem + ".*")
+                 if p.suffix in (".so", ".dylib", ".dll")]
+        paths.extend(found or [directory / ("lib" + stem + ".missing")])
     return paths
 
 
 def run_compiler(command, env, timeout, cwd=None):
-    with subprocess.Popen(command, cwd=cwd, env=env, stdout=subprocess.PIPE,
+    cleanup_grace = float(env.get("_VERUS_INFER_CLEANUP_GRACE_SECONDS", "5"))
+    if not math.isfinite(cleanup_grace) or cleanup_grace <= 0:
+        raise ValueError("internal cleanup grace must be finite and positive")
+    child_env = dict(env, _VERUS_INFER_CLEANUP_GRACE_SECONDS=str(cleanup_grace / 2))
+    with subprocess.Popen(command, cwd=cwd, env=child_env, stdout=subprocess.PIPE,
                           stderr=subprocess.PIPE, text=True,
                           start_new_session=(os.name == "posix")) as process:
         try:
@@ -83,12 +88,28 @@ def run_compiler(command, env, timeout, cwd=None):
         except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
             try:
                 if os.name == "posix":
-                    os.killpg(process.pid, signal.SIGKILL)
+                    os.killpg(process.pid, signal.SIGINT)
                 else:
                     process.kill()
             except ProcessLookupError:
                 pass
-            error.stdout, error.stderr = process.communicate()
+            try:
+                error.stdout, error.stderr = process.communicate(timeout=cleanup_grace)
+            except (subprocess.TimeoutExpired, KeyboardInterrupt):
+                try:
+                    if os.name == "posix":
+                        os.killpg(process.pid, signal.SIGKILL)
+                    else:
+                        process.kill()
+                except ProcessLookupError:
+                    pass
+                error.stdout, error.stderr = process.communicate()
+            finally:
+                if os.name == "posix":
+                    try:
+                        os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
             raise
         return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
 

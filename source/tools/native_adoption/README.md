@@ -18,6 +18,10 @@ goal, attempted verified calls of excluded methods, no-verify/filtered publicati
 gates and a restored positive build. It also runs native Rust tests which exercise
 the retained Sum and codec implementations and the conversions. The default
 native test toolchain is 1.85.1; verification uses the fork's pinned toolchain.
+`--timeout SECONDS` bounds each command (finite positive value, default 300).
+Required commands and evidence checks also run under optimized Python (`-O`).
+Setup, timeout, interrupt, and validation failures retain a failed `receipt.json`
+in the run directory; these are never successful semantic negative controls.
 The runner invokes Cargo from the repository root and clears compiler-development
 Rust flags for native tests, so the embedded example does not accidentally inherit
 `source/.cargo`'s unstable development configuration on the older native compiler.
