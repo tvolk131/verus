@@ -19,6 +19,8 @@ and publishing for the Verus project.
 
 1. **`infer-tooling`** (Linux)
    - Runs the standard-library-only Python experiment harness tests.
+   - Preflights every assurance mutation site in unittest discovery, then
+     explicitly runs the dependency-free `--policy-only` mutations with Rust.
    - Runs independently of compiler builds for quick feedback.
 
 1. **`fmt`** (linux)
@@ -38,6 +40,9 @@ and publishing for the Verus project.
 
 1. **`full-test`** (Linux x64)
    - Runs AIR, VIR, and verifier integration tests.
+   - Explicitly runs all assurance mutations using the installed toolchain,
+     downloaded solver, and cached Cargo dependencies; only the small
+     AIR/VIR mutation workspace is built, not a second verifier.
    - Runs the inference corpus with cold/warm candidates and the Cargo
      incremental regression, retaining reports and logs as an artifact.
 
