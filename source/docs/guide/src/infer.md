@@ -34,6 +34,16 @@ it explicitly. Opt into sound summaries with
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
 
+## Macro-produced loops
+
+A `for` loop emitted by `macro_rules!` needs syntax processing inside the macro
+body: wrap the generated loop with the existing `verus_exec_expr! { ... }`.
+Wrapping only the invocation does not process tokens produced by a later
+expansion. The [macro-loop adapter](macro_loop_adapter.md) gives an ordinary
+verified example, native-erasure guidance and remaining limitations. This is
+not iterator-inference support: contracts, invariants, safety and application
+goals still need independent checks, with all certification gates unchanged.
+
 ## Scalar wrappers and inherent methods
 
 Exact inference also supports transparent, nongeneric datatypes with one variant
