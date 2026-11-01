@@ -144,6 +144,7 @@
     - [Automatic exec to spec functions](exec_to_spec.md)
     - [Experimental contract inference](infer.md)
       - [Adopting inference in an existing codebase](infer_adoption.md)
+      - [Loops produced by Rust macros](macro_loop_adapter.md)
 - [Specification language](./reference-specification-language.md)
   - [Type Interpretations](./reference-types.md)
   - [Spec expressions](./spec-expressions.md)
