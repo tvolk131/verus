@@ -1,0 +1,110 @@
+name: pinned Infer transfers
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Verus ref to build and verify
+        default: verus-infer
+        required: true
+        type: string
+  schedule:
+    - cron: '23 4 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: infer-transfers-${{ inputs.ref || 'verus-infer' }}
+  cancel-in-progress: false
+
+jobs:
+  application-proofs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      RUSTUP_TOOLCHAIN: 1.99.1
+      CARGO_BUILD_JOBS: 2
+      INFER_APPLICATIONS: ${{ runner.temp }}/infer-transfer-applications
+      INFER_EVIDENCE: ${{ runner.temp }}/infer-transfer-evidence
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout the selected inference source
+        timeout-minutes: 3
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || 'verus-infer' }}
+          persist-credentials: false
+
+      - name: Record the selected source
+        timeout-minutes: 1
+        run: |
+          mkdir -p "$INFER_EVIDENCE"
+          git rev-parse HEAD | tee "$INFER_EVIDENCE/verus-commit.txt"
+          git status --porcelain=v1 | tee "$INFER_EVIDENCE/verus-status.txt"
+          test ! -s "$INFER_EVIDENCE/verus-status.txt"
+
+      - name: Set up matching Rust components
+        timeout-minutes: 8
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.99.1
+          components: rustc-dev, llvm-tools, rustfmt
+
+      - name: Download the repository-selected solver
+        timeout-minutes: 4
+        working-directory: source
+        run: |
+          set -euo pipefail
+          timeout --kill-after=15s 3m ./tools/get-z3.sh 2>&1 | tee "$INFER_EVIDENCE/solver-setup.log"
+          timeout 20s ./z3 --version | tee "$INFER_EVIDENCE/solver-version.txt"
+
+      - name: Build one matching compiler and macro set
+        timeout-minutes: 15
+        working-directory: source
+        run: |
+          set -euo pipefail
+          timeout 30s rustc --version --verbose | tee "$INFER_EVIDENCE/rust-version.txt"
+          timeout --kill-after=30s 13m cargo build --locked --release \
+            -p rust_verify -p verus -p vstd_build \
+            -p verus_builtin -p verus_builtin_macros -p verus_state_machines_macros \
+            2>&1 | tee "$INFER_EVIDENCE/compiler-build.log"
+
+      - name: Verify and build matching vstd
+        timeout-minutes: 8
+        working-directory: source
+        run: |
+          set -euo pipefail
+          timeout --kill-after=30s 6m cargo run --locked --release -p vstd_build -- ./target-verus/release --release \
+            2>&1 | tee "$INFER_EVIDENCE/vstd-build.log"
+
+      - name: Prepare clean pinned application sources
+        timeout-minutes: 6
+        run: |
+          python3 -B source/tools/prepare_infer_transfers.py \
+            --destination "$INFER_APPLICATIONS" \
+            --output "$INFER_EVIDENCE/preparation" \
+            --timeout 120
+
+      - name: Prove all pinned external transfers
+        timeout-minutes: 35
+        run: |
+          python3 -B source/tools/check_infer_transfers.py \
+            --fedimint "$INFER_APPLICATIONS/fedimint" \
+            --redb "$INFER_APPLICATIONS/redb" \
+            --verus source/target-verus/release/verus \
+            --solver source/z3 \
+            --output "$INFER_EVIDENCE/replays" \
+            --timeout 180 --scenario-timeout 480
+
+      - name: Retain proof receipts and failure evidence
+        timeout-minutes: 5
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: infer-transfers-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/infer-transfer-evidence
+          if-no-files-found: warn
+          retention-days: 14

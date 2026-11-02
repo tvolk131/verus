@@ -122,6 +122,51 @@ properties. It is not whole-gateway fund safety, database correctness, concurren
 execution, crash recovery, cryptographic correctness, or verification of Rust
 standard-library implementation bodies. Read each scenario's trust inventory.
 
+## Nightly and manual CI proofs
+
+`.github/workflows/infer-transfers.yml` builds a matching compiler, macro set
+and verified vstd, prepares fresh application checkouts, and invokes this common
+frontdoor for all registered scenarios. It is separate from the fast harness
+unit-test job: a preparation receipt or passing Python controller tests cannot
+make an application proof green.
+
+The nightly schedule is 04:23 UTC and explicitly checks out `verus-infer`, not
+the default branch. Manual dispatch accepts an explicit Verus ref and defaults
+to `verus-infer`. Scheduled workflows must first be published on the repository's
+default branch to become active; manual availability also depends on publication.
+Adding this workflow locally does not dispatch a hosted run.
+
+`prepare_infer_transfers.py` takes the exact application pins from `SCENARIOS`
+in `check_infer_transfers.py`; they are not duplicated in YAML. It shallow-fetches
+only those commits, verifies detached HEAD and clean status, requires disjoint
+application/evidence paths, refuses either destination if it already exists or
+is a symlink, and retains command/failure receipts once fresh evidence storage
+has been established. Rejected repeat invocations leave old receipts and logs
+untouched. Git context variables and global/system Git configuration are not
+inherited; the actual repository root is checked immediately after initialization
+and again after checkout. It does not build
+or prove the applications, and its receipt explicitly leaves
+`application_proofs_proved` false. Example preparation:
+
+```sh
+python3 -B source/tools/prepare_infer_transfers.py \
+  --destination /private/tmp/fresh-infer-applications \
+  --output /private/tmp/infer-preparation-evidence
+```
+
+The workflow has read-only repository permissions, does not persist checkout
+credentials, and does not trigger on pull requests. It bounds setup commands,
+individual verifier calls, scenario controllers and the overall job. All nine
+steps have deadlines: active-work step budgets total 80 minutes, upload has
+five minutes, and the 90-minute job leaves another five minutes of margin.
+Solver setup and compiler/vstd commands also use GNU `timeout` on the Linux
+runner. These limits preserve time for upload after a failed or timed-out step;
+external cancellation or runner loss can still prevent upload. Artifacts
+retain the exact Verus revision, compiler/vstd/solver logs, preparation receipts
+and raw application proof receipts for 14 days, including on failures. The
+existing semantic/safety/auxiliary distinctions, source guards, mandatory exact
+checks and publication barriers remain the acceptance criteria.
+
 ## Harness tests
 
 The independent front-door tests need only Python and do not clone applications,

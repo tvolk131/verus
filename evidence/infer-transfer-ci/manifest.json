@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "implementation_commit": "87aa581ba4b606de7fa371ddb9531b2ce2fa50be",
+  "target_branch": "verus-infer",
+  "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+  "versions": {
+    "cache": 69,
+    "policy": 63,
+    "schema": 38
+  },
+  "source_sha256": {
+    ".github/workflows/infer-transfers.yml": "9881e793a60561b98c3181c619347d45eb19251c6fb7ddfe7a4e4a0af2a71da7",
+    "source/tools/prepare_infer_transfers.py": "d7a71e3a18ab4e417460ff3b8014dcea6382ed42cabdccb38937a644b2c260c1",
+    "source/tools/test_infer_transfer_preparation.py": "404dc55dccf892e0fba402ae14564ddd63b355beab40eb5f4295b25a1bb31816",
+    "source/tools/INFER_TRANSFERS.md": "af54dee88803b5338317831a748de35c32135ac7ac2a513378a842138679b868"
+  },
+  "unchanged_rust_source_sha256": {
+    "source/rust_verify/src/fn_call_to_vir.rs": "cfe706fb9eb66fe0f52008f50451858be15006a9e4ced321c766e8f8b1337680",
+    "source/rust_verify/src/import_export.rs": "7925b954f3937cdfa7527a4741cdf5f76a02232cf1fe7afc0d007ff355eab7ae",
+    "source/rust_verify/src/verus_items.rs": "b3fe47cd8bf1b17269333ffc30dfab69952102e62aec1719cadd85dd480a3292",
+    "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+    "source/rust_verify_test/tests/infer_cases/scalar_option_queries.rs": "07024f92d395cef43d95351a66f445420ad25a345adc6c1edca3ec2270eb3c46",
+    "source/rust_verify_test/tests/infer_codec_values.rs": "c7f40512f4be222c7813503f211f24598100153a786697b5bd7f1a35f35f6347",
+    "source/rust_verify_test/tests/infer_integer_conversions.rs": "060ff314e61e3c46981596fe9cec2bb6f1b870a051c9bab18921a005bc555ac8",
+    "source/rust_verify_test/tests/infer_literal_panic_range.rs": "87f5064026e9f795cb950a07efb7c020f8b65912f88574f572f0769a32a50242",
+    "source/rust_verify_test/tests/infer_native_option.rs": "30a41656cd0df84dd266f039c673101f7a6c3c9ecaf01dd48bf015eed6f0ef76",
+    "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+    "source/rust_verify_test/tests/infer_record_shifts.rs": "38f38896fa07af50822c513bad5f02130066370ccd3e4a210eba45f7f7f2925e",
+    "source/rust_verify_test/tests/infer_relational_goals.rs": "04b319e05950299802b0cf864705f1d61d0b0ad3390c77d93aa477d8a9e1fcaf",
+    "source/rust_verify_test/tests/infer_transfer_composition.rs": "e24a6c728b9389ac160df4c91670f14d4841ec8982098e7d8e145650fea3c5eb",
+    "source/vir/src/ast_simplify.rs": "57b39dfdaafe007a4038e82e7badce2f13e4451d979781cd53e94b11f1b6e873",
+    "source/vir/src/ast_to_sst.rs": "831db3e10fdf316f9fab5f4b6098bd2707aea9cd8f8204308a4837476d5f0abb",
+    "source/vir/src/infer.rs": "9d27fe2972b4883e7454610846f47e52cc2eac92042b1b79ada5c00b0abf718b",
+    "source/vir/src/infer/arrays.rs": "55d3f0fea34be8963672d237e9ded34f994661953c8214574df323e7e989c257",
+    "source/vir/src/infer/bitvector_hints.rs": "fb82d4b00529f599042c410960b0b37ac0786f459eebddaa4a35744b4cad5161",
+    "source/vir/src/infer/byte_models.rs": "18a50a63029e6443df5e99e0e8c4e1d7aa33b9ac8d17b26bedf05de94cdcbc5f",
+    "source/vir/src/infer/eligibility.rs": "28c8f49c2d6b5f7abdf004348c6047ada1b30ad1913cf83922f2a6c69197ffd3",
+    "source/vir/src/infer/exits.rs": "b86164f0344cb684ca2018c34ee0fa9d2bf3b784d0ae11ab1b5849b99cf97897",
+    "source/vir/src/infer/goals.rs": "6a17db08fe4bfd4c005d1c63e2ecd55a65f2912de2dde1d15d0163b11690ae3c",
+    "source/vir/src/infer/integer_conversions.rs": "30851566bd5660db69065d68c8ac27e2ee7c47314f503ad8c6147db6a219cabd",
+    "source/vir/src/infer/newtypes.rs": "ab1b5b25d1e1c79b18c68dad991a9d53c982d54dd6ca316861b37ffeb733cfd9",
+    "source/vir/src/infer/owned.rs": "f41fa53233fa9f0c3b6e3179c2f5a0991da7d5c745fe88d933f506e70dba8249",
+    "source/vir/src/infer/owned/callbacks.rs": "af25819e53f880261fdfb9786100ec4f07cef9be5aa4fad0a88d8b08d5901fb4",
+    "source/vir/src/infer/owned/loops.rs": "6157a2b8db29d036d6a43a3d86b7a70944996b7f2756f5e343505beddd8328f2",
+    "source/vir/src/infer/panics.rs": "4aa9017b6732eeacf3f281df6d0b89b2f869ab2ad541fb41f1c4cd239c5abb56",
+    "source/vir/src/infer/panics/tests.rs": "4ffa8999a53bd248e03d05772729cfcda8a33ae54d300404befc661e08bceb05",
+    "source/vir/src/infer/record_models.rs": "dc857fbeb367e24334c3024f807fe6f0dba4ad788535908f3011d613d25d6c17",
+    "source/vir/src/infer/record_models/tests.rs": "b90f5f95eafaba3624d025d1fc12c49415bddc5278682e424c701cf82a5e528c",
+    "source/vir/src/infer/records.rs": "4ac7567906b07269d348c0ffc451f84ce989fde3751040100a593b5cf47c6529",
+    "source/vir/src/infer/records/shape.rs": "248b7821193548c2650b55ad5c40846f09178b55226180cc3509de9e82bcf9c8",
+    "source/vir/src/infer/records/shape_tests.rs": "f762ea3d2bdaf3b233775b23606dcc059b76098d998b8a8330eac7677e96542d",
+    "source/vir/src/infer/records/shift_tests.rs": "9d269a85ae166bbdf9df5f36be5bba4b63e8baa1ec11c9b54af5c38ba43a576f",
+    "source/vir/src/infer/records/tests.rs": "c41103b5a3ffe5dc322c9aabd1eeefaa90bca3f796798c7a30120fe7c5c1f5ef",
+    "source/vir/src/infer/registry.rs": "9662831434378ac25b39d5e400f120c6f6b1cbad693e12ab934e49452b8877d0",
+    "source/vir/src/infer_checks.rs": "33e2dd920242441d4041d735bcdb19d14c4a798f9ef57276b04518eed06a17c7",
+    "source/vir/src/infer_checks/state.rs": "6563b7f5ffddbea03655c7befd7b0e325cd61e8a81d2039a7066ebc1f344b49f",
+    "source/vir/src/infer_checks/tests.rs": "dfa8ddf052ada3eab379677790bae97783324942f17071b40a327125c6292549",
+    "source/vir/src/sst_to_air.rs": "ed6ad0da8ec79bb4a7322adfa3edb9178eea309f02e13f1186406bc657266758",
+    "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3",
+    "source/vstd/native_option.rs": "bdb765d1b60e5ad6b1c593fe0163d72b2239e6c26b105cb3b7f684c4228adb70",
+    "source/vstd/vstd.rs": "d9da42ac44e3c47f0a6f225ef6071589b73bd6c987763ac8b44172a67c6dc7da"
+  },
+  "runtime_sha256": {
+    "verus": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+    "rust_verify": "323fd75d7713e67509fed0e21de5f9a61f2e7647f84842a3216399dec2266015",
+    "vstd_build": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+    "libverus_builtin.rlib": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+    "libverus_builtin_macros.dylib": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+    "libverus_state_machines_macros.dylib": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+    "libvstd.rlib": "295007ab949218d84ff6119ff7e834566e6bd942092bce9bc6df661f7fc8d941",
+    "vstd.vir": "39a700b176759c3cd48dd970e933d7016ab6323722b3fb46dd1fc152f2091cb4",
+    "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+  },
+  "runtime_directory": "/private/tmp/verus-infer-proof-assistance-0d9p49mm/final-package/tools",
+  "eof_adjustment": {
+    "file": "source/tools/check_fedimint_early_returns.py",
+    "original_sha256": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+    "final_sha256": "c38fb3d7814cecd6ac3f966356dbfa203036e71500c2249f3554539f581a1487",
+    "python_ast_identical": true
+  },
+  "independent_review": {
+    "report": {
+      "path": "/private/tmp/verus-ci-review-cu__c7jn/report.md",
+      "sha256": "54f18947351659d7e9497ab1be00a6bc8a7ec51a462ec44e21d6616f47e88f31"
+    },
+    "integrity": {
+      "path": "/private/tmp/verus-ci-review-cu__c7jn/integrity.json",
+      "sha256": "fe88a051a3d30e00608ef702244d45f9e6d8160cf426af7c92329c0386e76b67"
+    },
+    "original_delta": {
+      "path": "/private/tmp/verus-infer-application-next-4dp08w2a/ci-delta.apply_patch",
+      "sha256": "82d879a88ff5613d1467d301ba6263b6175f9b729a1a04009aa81c280959a429",
+      "file_hashes": {
+        ".github/workflows/infer-transfers.yml": "4bbfbbd4bb8fa748088589366c70182a1cc87a4d789c0ee6b60b2e52a2521b77",
+        "source/tools/prepare_infer_transfers.py": "ed10159dada75b3e4f682cedccf8f67b657ab3a10bdccc8ee0a8bfea2e672b8e",
+        "source/tools/test_infer_transfer_preparation.py": "900a04e74e460d23a9de7cb328a86a261f46c54437e7ec9e8d3905331e49c4a5",
+        "source/tools/INFER_TRANSFERS.md": "dbb006086f52e07358c9541734d5326ce5715e10638118450636815c104d3d1b"
+      }
+    },
+    "disposition": "All three P2 findings fixed locally and regression-tested."
+  },
+  "python": {
+    "normal": 160,
+    "optimized": 160,
+    "receipt": {
+      "path": "/private/tmp/verus-infer-application-next-4dp08w2a/ci-hardening-validation/receipt.json",
+      "sha256": "289cf8fe9a5fb15b52c2a8827bdf86bc67f661a8c220855b0755577bd8d933fd"
+    }
+  },
+  "proof": {
+    "wrapper": {
+      "path": "/private/tmp/verus-infer-application-next-4dp08w2a/checkpoint-replay-final/receipt.json",
+      "sha256": "90b8c564abcfea5aee6fdae4e720d1fcb08d9f5085f3b6a7681baa934c069734"
+    },
+    "combined": {
+      "path": "/private/tmp/verus-infer-application-next-4dp08w2a/checkpoint-replay-final/replays/transfer-suite-t147ne3h/receipt.json",
+      "sha256": "22ebf7196b2753c2370063e24d00a14cc3f679ae3eb42733b5546c3434fb6f25"
+    },
+    "scenarios": [
+      {
+        "scenario": "fedimint",
+        "status": "proved",
+        "checked_cases": 5,
+        "receipt": "/private/tmp/verus-infer-application-next-4dp08w2a/checkpoint-replay-final/replays/transfer-suite-t147ne3h/fedimint/run-oml0vhg3/receipt.json",
+        "receipt_sha256": "91d0961765b87cd071a02bc05ef8f1decb43235cd8852d1fb09cd6edf6c87380"
+      },
+      {
+        "scenario": "redb",
+        "status": "proved",
+        "checked_cases": 16,
+        "receipt": "/private/tmp/verus-infer-application-next-4dp08w2a/checkpoint-replay-final/replays/transfer-suite-t147ne3h/redb/redb-codec-q77is4w6/receipt.json",
+        "receipt_sha256": "4edf6d60ddcae5eeda35106c36262901ccc173af9a46596d00df509ee1282034"
+      },
+      {
+        "scenario": "redb_page_size",
+        "status": "proved",
+        "checked_cases": 11,
+        "receipt": "/private/tmp/verus-infer-application-next-4dp08w2a/checkpoint-replay-final/replays/transfer-suite-t147ne3h/redb_page_size/redb-page-size-yuhgrktn/receipt.json",
+        "receipt_sha256": "468abb4da3e8a42dfd9763837490dae61365821f0b1e79e14633feb263e97d91"
+      },
+      {
+        "scenario": "redb_address_range",
+        "status": "proved",
+        "checked_cases": 29,
+        "receipt": "/private/tmp/verus-infer-application-next-4dp08w2a/checkpoint-replay-final/replays/transfer-suite-t147ne3h/redb_address_range/redb-address-range-czzf3yjr/receipt.json",
+        "receipt_sha256": "74905f3256db5e8357b419ef97152d935409eab5130ee6f6f265d9a0724c55a8"
+      }
+    ]
+  },
+  "workflow": {
+    "active_step_minutes": 80,
+    "upload_minutes": 5,
+    "margin_minutes": 5,
+    "job_minutes": 90,
+    "hosted_manual_dispatch": false,
+    "linux_timeout_commands_executed_locally": false
+  },
+  "report_sha256": "f85701143d25c4c8fe1e19482db93570a7f6dd6dbca463633506f1aa52d9e0cf"
+}
