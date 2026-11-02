@@ -1,0 +1,1394 @@
+{
+  "date": "2026-11-01",
+  "scenario": "redb_address_range",
+  "status": "proved",
+  "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+  "baseline": {
+    "manifest": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/baseline/manifest.json",
+      "sha256": "92c5e344d5d441da8c85b5d4093871367fca0c5d7ef5e47aebe0201b80a6def7",
+      "bytes": 9198
+    },
+    "restore_patch": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/baseline/restore.apply_patch",
+      "sha256": "bf15a3b9c496001131a5e70903c0230ac35a8ac674328360b7f590d312ca2c66",
+      "bytes": 945933
+    },
+    "files_verified": 70,
+    "tools_verified": 9,
+    "cache": 67,
+    "policy": 61,
+    "schema": 38
+  },
+  "candidate": {
+    "cache": 68,
+    "policy": 62,
+    "schema": 38,
+    "parent_reservation": {
+      "cache": 69,
+      "policy": 63
+    },
+    "parent_parallel_option_fixes_incorporated": false
+  },
+  "application": {
+    "commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "path": "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+    "source": "src/tree_store/page_store/base.rs",
+    "source_sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+    "extraction": {
+      "PageNumber": {
+        "sha256": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 34
+      },
+      "page_size_bytes": {
+        "sha256": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 158
+      },
+      "address_range": {
+        "sha256": "22beb37e2f40bc1935fd83e046dcf7c631a28eab0ed86f041b5c940b4a9a9829",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 142
+      }
+    },
+    "original_bodies_and_fields_byte_preserved": true,
+    "import_only_adaptation": "pub(crate) declarations become pub",
+    "tuple_rewrite": false
+  },
+  "source_hashes": {
+    "source/rust_verify/src/import_export.rs": "4822726b17a6343044720865cb7ef8b22daf39cf32174a2532ab63c3f05df97c",
+    "source/rust_verify_test/tests/infer_literal_panic_range.rs": "87f5064026e9f795cb950a07efb7c020f8b65912f88574f572f0769a32a50242",
+    "source/tools/INFER_TRANSFERS.md": "a10d8c6c5788731f9459827b2a627836cb9c591557bc8e9e780973824bbbdc50",
+    "source/tools/check_infer_transfers.py": "b80efce1742835f79ba32321787cf330fb00ec8fcd10af25d7f9a392c2ec8642",
+    "source/tools/check_redb_address_range.py": "8edae7eada952190167da6f7145be8af05ddfd79fabe9e9670f45bab0505acea",
+    "source/tools/test_infer_transfers.py": "0e8007af86999aea079131f0f3716ea78e5ef8abf234061ad85f041a1a0b7763",
+    "source/tools/test_redb_address_range.py": "0c7580b5837eaad2f92abf7a0a7a46bcd09634ff23f6b7230b4f0b9a2833c41c",
+    "source/vir/src/infer.rs": "6fd27187ad65b6fcae3dc325ed457f9148e2fd99ff0688a3aaf46fa601623e26",
+    "source/vir/src/infer/eligibility.rs": "28c8f49c2d6b5f7abdf004348c6047ada1b30ad1913cf83922f2a6c69197ffd3",
+    "source/vir/src/infer/exits.rs": "b86164f0344cb684ca2018c34ee0fa9d2bf3b784d0ae11ab1b5849b99cf97897",
+    "source/vir/src/infer/panics.rs": "4aa9017b6732eeacf3f281df6d0b89b2f869ab2ad541fb41f1c4cd239c5abb56",
+    "source/vir/src/infer/panics/tests.rs": "4ffa8999a53bd248e03d05772729cfcda8a33ae54d300404befc661e08bceb05",
+    "source/vir/src/infer/records.rs": "b2b8616dbe54559ffa85c183d1930d316db79fd4816ee1a31f87addd43c3104f",
+    "source/vir/src/infer/records/shape.rs": "248b7821193548c2650b55ad5c40846f09178b55226180cc3509de9e82bcf9c8",
+    "source/vir/src/infer/records/shape_tests.rs": "f762ea3d2bdaf3b233775b23606dcc059b76098d998b8a8330eac7677e96542d",
+    "source/vir/src/infer/registry.rs": "a3eb18bf8960f87b1f94d2eb672296f9171d5a10743470b25014f776e9891a53"
+  },
+  "tools": {
+    "verus": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/verus",
+      "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+      "bytes": 3683824
+    },
+    "rust_verify": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/rust_verify",
+      "sha256": "65817c4da5df7dd1fdcb1c4f08aed279e744a2bc5144157f9cb249ec183be715",
+      "bytes": 31137760
+    },
+    "vstd_build": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/vstd_build",
+      "sha256": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+      "bytes": 80848
+    },
+    "libverus_builtin.rlib": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/libverus_builtin.rlib",
+      "sha256": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+      "bytes": 905856
+    },
+    "libverus_builtin_macros.dylib": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/libverus_builtin_macros.dylib",
+      "sha256": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+      "bytes": 13981424
+    },
+    "libverus_state_machines_macros.dylib": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/libverus_state_machines_macros.dylib",
+      "sha256": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+      "bytes": 9092304
+    },
+    "libvstd.rlib": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/libvstd.rlib",
+      "sha256": "54f41e0f73d54c211f3ecf7eefd26b2f217f2dd23c763c0b049260a6d9aef1f9",
+      "bytes": 10877896
+    },
+    "vstd.vir": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/vstd.vir",
+      "sha256": "7a0707e44f329c7e2e18ce1ba699f1a29cd88db98c470cc8e7a87414fc0e08ac",
+      "bytes": 33352654
+    },
+    "z3": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/bundle/z3",
+      "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "bytes": 26087280
+    }
+  },
+  "build": {
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-64ed8cc5/source",
+    "toolchain": "1.99.1",
+    "jobs": 2,
+    "offline": true,
+    "locked": true,
+    "release": true,
+    "CARGO_TARGET_DIR": "/private/tmp/verus-redb-address-range-64ed8cc5/target",
+    "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-address-range-64ed8cc5/target",
+    "VERUS_IN_VARGO": "1",
+    "RUST_MIN_STACK": 20971520,
+    "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-64ed8cc5/source/z3"
+  },
+  "tests": {
+    "vir_unit": 132,
+    "integration": 106,
+    "integration_binaries": 12,
+    "new_unit_tests": 3,
+    "new_integration_tests": 4,
+    "vstd_verified": 2221,
+    "vstd_errors": 0,
+    "python_infer_discovery": 120,
+    "python_targeted_transfer": 36,
+    "python_optimized_focused": 17,
+    "python_groups_overlap": true,
+    "configured_new_file_rustfmt_check": true,
+    "git_diff_check": true
+  },
+  "controls": {
+    "positive_cases": [
+      "original_cold",
+      "original_warm",
+      "original_poisoned_cache",
+      "boundaries_assisted",
+      "provider_cold",
+      "client_cold",
+      "client_warm",
+      "original_debug_no",
+      "release_domain_debug_no",
+      "boundaries_debug_no",
+      "guard_violation_debug_no",
+      "empty_region_debug_no",
+      "cfg_true_debug_yes",
+      "cfg_false_debug_no"
+    ],
+    "semantic_negative_cases": [
+      "false_containment_negative",
+      "false_length_negative"
+    ],
+    "safety_negative_cases": [
+      "shift64_zero_negative",
+      "shift255_zero_negative",
+      "page_multiply_overflow_negative",
+      "index_multiply_overflow_negative",
+      "regional_add_overflow_negative",
+      "region_multiply_overflow_negative",
+      "base_add_overflow_negative",
+      "start_add_overflow_negative",
+      "end_add_overflow_negative",
+      "guard_violation_negative",
+      "empty_region_negative",
+      "release_domain_debug_yes_negative"
+    ],
+    "auxiliary_negative_cases": [
+      "false_containment_auxiliary_negative"
+    ],
+    "metadata_negative_cases": [
+      "client_metadata_policy",
+      "client_metadata_exactness",
+      "client_metadata_trusted_model"
+    ]
+  },
+  "required_inference_obligations": 168,
+  "seeded_negative_exports_removed": 18,
+  "cases": [
+    {
+      "label": "original_cold",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 8,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_cold.stdout",
+        "sha256": "4e7e93f3a086a181a3f7250da8195a316d011da8f2f05cf8c716d69993da4ec9",
+        "bytes": 92650
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_cold.stderr",
+        "sha256": "96668eabf3445a5f90344cf9c38c2b95af5e920843308c863ca8ad526d8dff93",
+        "bytes": 9416
+      },
+      "seconds": 0.5338934999999999
+    },
+    {
+      "label": "original_warm",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 8,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_warm.stdout",
+        "sha256": "315ae104dab2e40255965e38335f57c4376701f682fd256f728f0d909a766167",
+        "bytes": 92650
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_warm.stderr",
+        "sha256": "96668eabf3445a5f90344cf9c38c2b95af5e920843308c863ca8ad526d8dff93",
+        "bytes": 9416
+      },
+      "seconds": 0.5885809590000001
+    },
+    {
+      "label": "original_poisoned_cache",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 8,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_poisoned_cache.stdout",
+        "sha256": "21cde83ecf62d5a44187779c189db7ec9b3d339ea86345a5d84b380f1b3d0fea",
+        "bytes": 92650
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_poisoned_cache.stderr",
+        "sha256": "96668eabf3445a5f90344cf9c38c2b95af5e920843308c863ca8ad526d8dff93",
+        "bytes": 9416
+      },
+      "seconds": 0.5014119999999997
+    },
+    {
+      "label": "boundaries_assisted",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 23,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/boundaries_assisted.stdout",
+        "sha256": "2980034a77033ab36f13488ff1caebf2e17eb5333e989c39100273416a32a307",
+        "bytes": 99942
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/boundaries_assisted.stderr",
+        "sha256": "8d22104e05d98654a4a44fdaef98074ee335062a624280907aed982c1e19695d",
+        "bytes": 9456
+      },
+      "seconds": 0.5750216250000002
+    },
+    {
+      "label": "provider_cold",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 6,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/provider_cold.stdout",
+        "sha256": "8ce568a4de06f84b956202e34b643cb7b2be84a0b555a4f3c0f0f6fc050c91fb",
+        "bytes": 91482
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/provider_cold.stderr",
+        "sha256": "435c56f72f24442c4bc70e3090f1d08156b928ba6c21a98cf58e4f8c54cead97",
+        "bytes": 9311
+      },
+      "seconds": 0.4389039170000002
+    },
+    {
+      "label": "client_cold",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 3,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 5,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_cold.stdout",
+        "sha256": "c26839420dcce18f85b616d112a88be6d089bd09cbb7f69a9f6211389c34d57d",
+        "bytes": 70087
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_cold.stderr",
+        "sha256": "b52c26ccab496ad10cd4cdb203940032554f68316f9a284b27fccfcec0609b81",
+        "bytes": 5794
+      },
+      "seconds": 0.410235417
+    },
+    {
+      "label": "client_warm",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 3,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 5,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_warm.stdout",
+        "sha256": "46fce3a49da2f9895998213a977a73bf3759889d9e334a90a3763daacfd7afd2",
+        "bytes": 70087
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_warm.stderr",
+        "sha256": "b52c26ccab496ad10cd4cdb203940032554f68316f9a284b27fccfcec0609b81",
+        "bytes": 5794
+      },
+      "seconds": 0.40801962500000055
+    },
+    {
+      "label": "shift64_zero_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/shift64_zero_negative.stdout",
+        "sha256": "e6ec77948d97d9810986b9774cbc99ec241247f4277ae977643f38bdc573c0db",
+        "bytes": 92275
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/shift64_zero_negative.stderr",
+        "sha256": "b58b1f896ebd05cc84024ebc81eb93ca9f9462b5ca98849aefc4ae8ca55ca10c",
+        "bytes": 10233
+      },
+      "seconds": 0.4878272920000004
+    },
+    {
+      "label": "shift255_zero_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/shift255_zero_negative.stdout",
+        "sha256": "2023962830f32a60c52b47b46eea9cb00606be6a0c624da0aa49c3e037808036",
+        "bytes": 92292
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/shift255_zero_negative.stderr",
+        "sha256": "f21eb4c394577631053a4adfc1eef87f416394fc225eb6f3f299ba1ae99b38de",
+        "bytes": 10256
+      },
+      "seconds": 0.4668198340000007
+    },
+    {
+      "label": "page_multiply_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/page_multiply_overflow_negative.stdout",
+        "sha256": "1993bb8ea5284e660746269efe902487a00419cfa7f7fa1d66ac07ab2742b153",
+        "bytes": 92445
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/page_multiply_overflow_negative.stderr",
+        "sha256": "6022a41d24c388be9d4777cabcd21d276f08102ed53c23a970b658385552f990",
+        "bytes": 10443
+      },
+      "seconds": 0.46961925000000004
+    },
+    {
+      "label": "index_multiply_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/index_multiply_overflow_negative.stdout",
+        "sha256": "ab24268cdcfb537e919fddbc3dc82e3b115a606d3510e5d495a66a043d02790e",
+        "bytes": 92462
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/index_multiply_overflow_negative.stderr",
+        "sha256": "1c0fe109ad27cb0237528ad40f38b188b7e171cbd7177d90f0f7cb4bcb208b98",
+        "bytes": 10502
+      },
+      "seconds": 0.4674478330000005
+    },
+    {
+      "label": "regional_add_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/regional_add_overflow_negative.stdout",
+        "sha256": "731f1dff36b174a5e68da6193db1517262bd7f99910ec1d1e7db56ceecf1f1de",
+        "bytes": 92428
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/regional_add_overflow_negative.stderr",
+        "sha256": "bcc704d4d9a4932e817b2185dc599ad90bcbe3cfe8a03d988123fd2150ffc087",
+        "bytes": 10496
+      },
+      "seconds": 0.46752837499999966
+    },
+    {
+      "label": "region_multiply_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/region_multiply_overflow_negative.stdout",
+        "sha256": "e2a6c85463d8e2890c24b21bfd1b99beab3df7cb1c8bfb7a99236ff17ff08ddb",
+        "bytes": 92479
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/region_multiply_overflow_negative.stderr",
+        "sha256": "b8ce3268757a4638b5740d97310457972076a405d29a8b2daf9abcc9ce3b1be2",
+        "bytes": 10521
+      },
+      "seconds": 0.47166637500000075
+    },
+    {
+      "label": "base_add_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/base_add_overflow_negative.stdout",
+        "sha256": "a28958ee681810c73434354ce5a049165c49b337aa8c62b7514d2377efaece4f",
+        "bytes": 92360
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/base_add_overflow_negative.stderr",
+        "sha256": "db1e8fe3ccc6648fe2075d62bdb3cef808aadfda7083af8ee98eb20fd6e1d620",
+        "bytes": 10374
+      },
+      "seconds": 0.5018193750000002
+    },
+    {
+      "label": "start_add_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/start_add_overflow_negative.stdout",
+        "sha256": "f70da15f902ce8cd0ccc04ca6b816eb7f61e6401552924f3491a131fe007b05f",
+        "bytes": 92377
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/start_add_overflow_negative.stderr",
+        "sha256": "1169ee82b6394716089084ed6aeb68344b5e3d476fbfca196e30e2a07841bb64",
+        "bytes": 10395
+      },
+      "seconds": 0.4656692920000012
+    },
+    {
+      "label": "end_add_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/end_add_overflow_negative.stdout",
+        "sha256": "b471ef97296ef42a6d0dee6f8822bc4fb54ad8f7594c48575e6781ba9d6bb7ee",
+        "bytes": 92344
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/end_add_overflow_negative.stderr",
+        "sha256": "87a91a7636daa1f26bb42ed1940dd00a6b2ab1e06cccb030def531801672cb49",
+        "bytes": 10353
+      },
+      "seconds": 0.4598521669999993
+    },
+    {
+      "label": "guard_violation_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/guard_violation_negative.stdout",
+        "sha256": "27316a7e57868635a4fb7f574dd5caf7e30f2bc1c6cde0809d5d230d65f1e8b4",
+        "bytes": 92326
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/guard_violation_negative.stderr",
+        "sha256": "c6de0cfd2d1b7d9a1920f634dc40920a6d5ef509f6db1493d8de9d677219bd87",
+        "bytes": 10306
+      },
+      "seconds": 0.48019624999999877
+    },
+    {
+      "label": "empty_region_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/empty_region_negative.stdout",
+        "sha256": "775b47a606aefeec0b72a418ed10fec25816ecc7d201b95f15e150003f71dd24",
+        "bytes": 92276
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/empty_region_negative.stderr",
+        "sha256": "df743ace795f5dde401e94fcb1733e8d1a62db8416963bb520e97917b9b446ec",
+        "bytes": 10233
+      },
+      "seconds": 0.4817477910000001
+    },
+    {
+      "label": "false_containment_negative",
+      "classification": "semantic_goal_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/false_containment_negative.stdout",
+        "sha256": "2db131603c5af41d37635785521363f53fb30e05db8778be4578362e3c78d40b",
+        "bytes": 92347
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/false_containment_negative.stderr",
+        "sha256": "42e37c41a2e0a211dfcdd08e205e3d5ee87691f17ebd6a99bbd9f0ef581aaf7b",
+        "bytes": 10128
+      },
+      "seconds": 0.4891029169999985
+    },
+    {
+      "label": "false_length_negative",
+      "classification": "semantic_goal_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/false_length_negative.stdout",
+        "sha256": "815c81308b882debf66ddc59c2f2519a3a493d83519601951cd798087850717a",
+        "bytes": 92262
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/false_length_negative.stderr",
+        "sha256": "e8690b0e4f84ce46e97f87ab77ff7971ae25c3c2e160c2a58d5c887532deaa7a",
+        "bytes": 10023
+      },
+      "seconds": 0.48068216699999944
+    },
+    {
+      "label": "false_containment_auxiliary_negative",
+      "classification": "proof_blocked",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 22,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/false_containment_auxiliary_negative.stdout",
+        "sha256": "bedfeffc223a966cb0c7d4ab2d41e3b6ff1bd661d89fd7a4042df4b8777051d3",
+        "bytes": 100987
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/false_containment_auxiliary_negative.stderr",
+        "sha256": "5d4b27f32ae31aec4aa6ea2ff480db44c7db41edf30bb4d1a491d13dd21c0f98",
+        "bytes": 10182
+      },
+      "seconds": 0.5574401669999993
+    },
+    {
+      "label": "original_debug_no",
+      "classification": "proved",
+      "cfg": "debug-assertions=no",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 8,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_debug_no.stdout",
+        "sha256": "72ea2788408c4b69d90d613f2cd887dd2377dc1f9cb4b06e78348f34d1edb7f0",
+        "bytes": 91580
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/original_debug_no.stderr",
+        "sha256": "38286d9e585a1507c65abc9773a04e4c1e79630a9f2d5d579cc8cce615b86441",
+        "bytes": 8346
+      },
+      "seconds": 0.5071165420000003
+    },
+    {
+      "label": "release_domain_debug_no",
+      "classification": "proved",
+      "cfg": "debug-assertions=no",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 8,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/release_domain_debug_no.stdout",
+        "sha256": "7023d6648a25f4f02cf342706f86d21d7ed5d8b2c3da3b36620ee068911fcd38",
+        "bytes": 91694
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/release_domain_debug_no.stderr",
+        "sha256": "160c4692147d64355cbe873b2c14c6b9076d51c1d93b84e88a55cd948b44b2e4",
+        "bytes": 8466
+      },
+      "seconds": 0.5076938750000011
+    },
+    {
+      "label": "release_domain_debug_yes_negative",
+      "classification": "caller_obligation_failure",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 7,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/release_domain_debug_yes_negative.stdout",
+        "sha256": "a3d15442900c6ce0eb77ebd9f9c17e757ccf29354f43751b8a9593755b066c07",
+        "bytes": 92951
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/release_domain_debug_yes_negative.stderr",
+        "sha256": "d37016985b496ac08cc822cbd59a5c021a7267aae93b02909d13dc0dec261064",
+        "bytes": 10223
+      },
+      "seconds": 0.49612470799999997
+    },
+    {
+      "label": "boundaries_debug_no",
+      "classification": "proved",
+      "cfg": "debug-assertions=no",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 23,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/boundaries_debug_no.stdout",
+        "sha256": "6098a503266faf6cebd125b4d2542d18da1bd33e45e939f14f2aa6e3b473c643",
+        "bytes": 98872
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/boundaries_debug_no.stderr",
+        "sha256": "b97d626e9a1701aebda917d997e9086fe4bb9bc279f51e426cd1d10a385d8173",
+        "bytes": 8386
+      },
+      "seconds": 0.5795220420000007
+    },
+    {
+      "label": "guard_violation_debug_no",
+      "classification": "proved",
+      "cfg": "debug-assertions=no",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 7,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/guard_violation_debug_no.stdout",
+        "sha256": "38368f2f28b9e6b2c7586414501b192b90ee4ad94a3bb0bb6d49b76d2fbbb027",
+        "bytes": 91104
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/guard_violation_debug_no.stderr",
+        "sha256": "8bcab80017fc8f6a7d710532c190a435dbe2d27106617068d0f13abb2cf919ea",
+        "bytes": 8486
+      },
+      "seconds": 0.479921083999999
+    },
+    {
+      "label": "empty_region_debug_no",
+      "classification": "proved",
+      "cfg": "debug-assertions=no",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 7,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/empty_region_debug_no.stdout",
+        "sha256": "4416c06cee760e06a1362cc632163da3bf2709710b857867737780d29beed25b",
+        "bytes": 91056
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/empty_region_debug_no.stderr",
+        "sha256": "811d92b0143a603bd9a1e791220f5a338d71a89c4aa097a8058e1e549054680c",
+        "bytes": 8426
+      },
+      "seconds": 0.48495687499999995
+    },
+    {
+      "label": "cfg_true_debug_yes",
+      "classification": "proved",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 7,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/cfg_true_debug_yes.stdout",
+        "sha256": "b81212aee24977823304047cd4601f3a529860c37ff0279de37d28f8e7005daa",
+        "bytes": 92068
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/cfg_true_debug_yes.stderr",
+        "sha256": "a87a0881cafbebee96cfca5416fac5405b54b8989da12373dbffe69fba3e1d25",
+        "bytes": 9416
+      },
+      "seconds": 0.4882317909999969
+    },
+    {
+      "label": "cfg_false_debug_no",
+      "classification": "proved",
+      "cfg": "debug-assertions=no",
+      "checks_proved": 6,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 7,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/cfg_false_debug_no.stdout",
+        "sha256": "d28a322836c68269191b37d54a38c2910cdaba62494ffe1d6dc5270a3f90d529",
+        "bytes": 91014
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/cfg_false_debug_no.stderr",
+        "sha256": "89c88cc12365a1a94e60833266ed763e370c3b3227d5086ce163fb715c3f2e73",
+        "bytes": 8366
+      },
+      "seconds": 0.49285062500000265
+    },
+    {
+      "label": "client_metadata_policy",
+      "classification": "frontend_rejection",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 0,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_metadata_policy.stdout",
+        "sha256": "e5926bf24d87e4fc1d03c08e659b5d6268f24d76008c5399253537b955213791",
+        "bytes": 2514
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_metadata_policy.stderr",
+        "sha256": "30a0beb780dd583108acbc9f2d53fd6115c7fce1ae56b2cfe72f8e414521f039",
+        "bytes": 341
+      },
+      "seconds": 0.048593875000001674
+    },
+    {
+      "label": "client_metadata_exactness",
+      "classification": "frontend_rejection",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 0,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_metadata_exactness.stdout",
+        "sha256": "3c84272e0431893a4cfa77a367146f828cda4b90374fb62de407f10bf222b699",
+        "bytes": 2514
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_metadata_exactness.stderr",
+        "sha256": "f42ac8a581d794c9e0e26f2f9510a0a77b319d4d5833d78371dbca698081f68b",
+        "bytes": 324
+      },
+      "seconds": 0.0491999579999991
+    },
+    {
+      "label": "client_metadata_trusted_model",
+      "classification": "frontend_rejection",
+      "cfg": "debug-assertions=yes",
+      "checks_proved": 0,
+      "required_checks_passed": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stdout": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_metadata_trusted_model.stdout",
+        "sha256": "b08b4e3d65776965909101970ccd58739985a3387d4b6ab2e06e5786b5ca5176",
+        "bytes": 2515
+      },
+      "stderr": {
+        "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/client_metadata_trusted_model.stderr",
+        "sha256": "51febce08f84ce312c1b484da8583872369c141812de61a9be7ac6d0b921013d",
+        "bytes": 333
+      },
+      "seconds": 0.2309435420000021
+    }
+  ],
+  "domains": {
+    "original_cold": [
+      {
+        "function": "original::PageNumber::address_range",
+        "candidate_id": "8ccb11084e7e60992e757b3f9ab5f18be9080e278558a7ad95489656cd280973",
+        "summary_kind": "owned_value",
+        "contract": {
+          "requires": "(((((((((((0 <= (self)->PageNumber_page_order) && ((self)->PageNumber_page_order < 64)) && ((0 <= ((1 << (self)->PageNumber_page_order) * (page_size as u64))) && (((1 << (self)->PageNumber_page_order) * (page_size as u64)) <= 18446744073709551615))) && ((0 <= (((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64)))) && ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) <= 18446744073709551615))) && ((0 <= (region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64))) && ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) <= 18446744073709551615))) && (((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64) < region_size)) && if (((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64) < region_size) { ((0 <= (((self)->PageNumber_region as u64) * region_size)) && ((((self)->PageNumber_region as u64) * region_size) <= 18446744073709551615)) } else { true }) && if (((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64) < region_size) { ((0 <= (data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64))) && ((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) <= 18446744073709551615)) } else { true }) && if (((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64) < region_size) { ((0 <= (((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64))) && ((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) <= 18446744073709551615)) } else { true }) && if (((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64) < region_size) { (((0 <= (self)->PageNumber_page_order) && ((self)->PageNumber_page_order < 64)) && ((0 <= ((1 << (self)->PageNumber_page_order) * (page_size as u64))) && (((1 << (self)->PageNumber_page_order) * (page_size as u64)) <= 18446744073709551615))) } else { true }) && if (((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64) < region_size) { ((0 <= (((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64) + ((1 << (self)->PageNumber_page_order) * (page_size as u64)))) && ((((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64) + ((1 << (self)->PageNumber_page_order) * (page_size as u64))) <= 18446744073709551615)) } else { true })",
+          "ensures": "(result == Range(((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64), ((((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64) + ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)))"
+        },
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "regenerated_state",
+          "generation_micros": 1559,
+          "solver_micros": 4620,
+          "requires_nodes": 402,
+          "ensures_nodes": 64
+        }
+      },
+      {
+        "function": "original::PageNumber::page_size_bytes",
+        "candidate_id": "20292af8cefcaefdd7530957b26aad52413c1f8b67f0444185c7f4cb1d313d24",
+        "summary_kind": "record_view",
+        "contract": {
+          "requires": "(((0 <= (self)->PageNumber_page_order) && ((self)->PageNumber_page_order < 64)) && ((0 <= ((1 << (self)->PageNumber_page_order) * (page_size as u64))) && (((1 << (self)->PageNumber_page_order) * (page_size as u64)) <= 18446744073709551615)))",
+          "ensures": "(result == ((1 << (self)->PageNumber_page_order) * (page_size as u64)))"
+        },
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "regenerated_state",
+          "generation_micros": 919,
+          "solver_micros": 2498,
+          "requires_nodes": 29,
+          "ensures_nodes": 9
+        }
+      }
+    ],
+    "original_debug_no": [
+      {
+        "function": "original::PageNumber::address_range",
+        "candidate_id": "bb86096065426b80998968af98c8f5b397adb940983373d6dd0e4f127031dc05",
+        "summary_kind": "owned_value",
+        "contract": {
+          "requires": "((((((((((0 <= (self)->PageNumber_page_order) && ((self)->PageNumber_page_order < 64)) && ((0 <= ((1 << (self)->PageNumber_page_order) * (page_size as u64))) && (((1 << (self)->PageNumber_page_order) * (page_size as u64)) <= 18446744073709551615))) && ((0 <= (((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64)))) && ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) <= 18446744073709551615))) && ((0 <= (region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64))) && ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) <= 18446744073709551615))) && ((0 <= (((self)->PageNumber_region as u64) * region_size)) && ((((self)->PageNumber_region as u64) * region_size) <= 18446744073709551615))) && ((0 <= (data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64))) && ((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) <= 18446744073709551615))) && ((0 <= (((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64))) && ((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) <= 18446744073709551615))) && (((0 <= (self)->PageNumber_page_order) && ((self)->PageNumber_page_order < 64)) && ((0 <= ((1 << (self)->PageNumber_page_order) * (page_size as u64))) && (((1 << (self)->PageNumber_page_order) * (page_size as u64)) <= 18446744073709551615)))) && ((0 <= (((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64) + ((1 << (self)->PageNumber_page_order) * (page_size as u64)))) && ((((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64) + ((1 << (self)->PageNumber_page_order) * (page_size as u64))) <= 18446744073709551615)))",
+          "ensures": "(result == Range(((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64), ((((((data_section_offset + ((((self)->PageNumber_region as u64) * region_size) as u64)) as u64) + ((region_pages_start + ((((self)->PageNumber_page_index as u64) * ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)) as u64)) as u64) + ((1 << (self)->PageNumber_page_order) * (page_size as u64))) as u64)))"
+        },
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "regenerated_state",
+          "generation_micros": 1386,
+          "solver_micros": 4395,
+          "requires_nodes": 289,
+          "ensures_nodes": 64
+        }
+      },
+      {
+        "function": "original::PageNumber::page_size_bytes",
+        "candidate_id": "55cbf6f5541a9e6e1beb7c58757cdd906e36cb4d688dfc9ab3125a85abdc42fe",
+        "summary_kind": "record_view",
+        "contract": {
+          "requires": "(((0 <= (self)->PageNumber_page_order) && ((self)->PageNumber_page_order < 64)) && ((0 <= ((1 << (self)->PageNumber_page_order) * (page_size as u64))) && (((1 << (self)->PageNumber_page_order) * (page_size as u64)) <= 18446744073709551615)))",
+          "ensures": "(result == ((1 << (self)->PageNumber_page_order) * (page_size as u64)))"
+        },
+        "proofs": {
+          "soundness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "maximality": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          },
+          "exactness": {
+            "status": "proved",
+            "required": true,
+            "reason": null
+          }
+        },
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "regenerated_state",
+          "generation_micros": 862,
+          "solver_micros": 2356,
+          "requires_nodes": 29,
+          "ensures_nodes": 9
+        }
+      }
+    ]
+  },
+  "cold_warm_cache_policy": "regenerated_state, not candidate-cache hits",
+  "native": {
+    "debug": {
+      "cases": 16719,
+      "debug_assertions": true,
+      "formal_proof": false
+    },
+    "release": {
+      "cases": 16719,
+      "debug_assertions": false,
+      "formal_proof": false
+    }
+  },
+  "frontdoor": {
+    "receipt": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/receipt.json",
+      "sha256": "8dc1a2a36dd7f3321bc61a624f2c89f3f3a1bc774c3951f6a51444c26ae83410",
+      "bytes": 577423
+    },
+    "scenarios": [
+      {
+        "scenario": "fedimint",
+        "status": "proved",
+        "proof_controls": 5,
+        "receipt": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/fedimint/run-0o72ipwz/receipt.json"
+      },
+      {
+        "scenario": "redb",
+        "status": "proved",
+        "proof_controls": 16,
+        "receipt": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb/redb-codec-hn1xtdt2/receipt.json"
+      },
+      {
+        "scenario": "redb_page_size",
+        "status": "proved",
+        "proof_controls": 11,
+        "receipt": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_page_size/redb-page-size-1kifxhci/receipt.json"
+      },
+      {
+        "scenario": "redb_address_range",
+        "status": "proved",
+        "proof_controls": 29,
+        "receipt": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/receipt.json"
+      }
+    ]
+  },
+  "raw_receipt": {
+    "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all/transfer-suite-te8zqstv/redb_address_range/redb-address-range-vie8xk75/receipt.json",
+    "sha256": "d1765cf7da94cca6ebd91741ddddce98d26c64fdde0988a1900f8da1bf22438a",
+    "bytes": 3127180
+  },
+  "validation_logs": {
+    "build-final.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/build-final.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "build-final.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/build-final.stderr",
+      "sha256": "3eb10390bb220674a5e2394bb16e5ecd433dbc30c4552b4fbdae930a607da46e",
+      "bytes": 251
+    },
+    "vstd-final.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/vstd-final.stdout",
+      "sha256": "f169b0baebd66878cca99e2c4debad8751ecbd9a9c50fa615d2aee3c4945d363",
+      "bytes": 47
+    },
+    "vstd-final.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/vstd-final.stderr",
+      "sha256": "1255389a60a922a8df0b20589af042de5b4151e7674011cc44a06bc3300bb074",
+      "bytes": 7794
+    },
+    "vir-final.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/vir-final.stdout",
+      "sha256": "b279443d01ffa7bed7d0fb5de8bdf85497d94a3028e2a1ff8c291fe0bd574e5c",
+      "bytes": 13050
+    },
+    "vir-final.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/vir-final.stderr",
+      "sha256": "735f9fcfbf55483d62bf4212b1b222f52bb565107aa4037caaf209a66f206d49",
+      "bytes": 273
+    },
+    "integration-final.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/integration-final.stdout",
+      "sha256": "8910237d1ee4e45bab5d9bdb79b152f38ac9d8f1a26e2b5ef841c89db5d401bd",
+      "bytes": 8502
+    },
+    "integration-final.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/integration-final.stderr",
+      "sha256": "2c00422cf6b20d9d3ff0dc8966287105af1fc7dd07038a10e472033f7139d935",
+      "bytes": 2085
+    },
+    "python-infer-final.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/python-infer-final.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "python-infer-final.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/python-infer-final.stderr",
+      "sha256": "da0751d81ce6ee7ae112b0d60817efbb6caa47809203e26f7d3164c3de80ee31",
+      "bytes": 221
+    },
+    "python-final.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/python-final.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "python-final.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/python-final.stderr",
+      "sha256": "739e859a15a83e50706b8b979e929dbc3ca147210557d03c880badce7a94be7c",
+      "bytes": 135
+    },
+    "python-optimized.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/python-optimized.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "python-optimized.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/python-optimized.stderr",
+      "sha256": "4a8b9368fb6d7a4f95da8aebef528ac7d7b9c7d6aad37e8a0013c5496995d83b",
+      "bytes": 116
+    },
+    "frontdoor-all.stdout": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all.stdout",
+      "sha256": "e72764754ed64ef27d03a41058534dbc496d2b85ae180f409df42f314f55fb7a",
+      "bytes": 85
+    },
+    "frontdoor-all.stderr": {
+      "path": "/private/tmp/verus-redb-address-range-64ed8cc5/frontdoor-all.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "trust_delta": {
+    "new_application_axioms": 0,
+    "new_trusted_panic_specifications": 0,
+    "vstd_contract_changes": 0,
+    "unchecked_hints": 0,
+    "trusted_application_summaries": 0,
+    "unsafe_casts": 0,
+    "newly_recognized_existing_standard_function": "core::panicking::panic",
+    "canonical_proxy_layout": "core::ops::range::Range<u64> via vstd::std_specs::range::ExRange",
+    "whole_database_safety_proved": false,
+    "rust_standard_library_formally_verified": false
+  },
+  "agents": {
+    "worktree": [],
+    "readonly_application": {
+      "path": "/private/tmp/verus-transfer-redb-miuzm2w3/redb/AGENTS.md",
+      "sha256": "e3f741c483261f4dd66b7f882a496cc7ba2486891b2e558ff6a7dd14b5b70a06",
+      "bytes": 4620
+    }
+  },
+  "boundaries": [
+    "Only extracted original helpers and explicit ordinary callers; no whole-database theorem",
+    "Native debug/release oracle is finite supporting evidence, not a formal Rust library proof",
+    "Warm record/owned candidates regenerate; poisoned caches are not claimed as cache hits",
+    "Generic arithmetic callers need no assistance; constant boundary callers use --infer-goals",
+    "Generic callers pass ordinary verification without --infer-goals; blanket optional BV expansion can exhaust rlimit and is not counted.",
+    "Debug-on requires the actual debug guard; debug-off omits it. Native release wrapping outside the checked domain is not modeled as a safety proof.",
+    "Only canonical Range<u64> is admitted by the proxy exception; no general external proxy or mutable/stateful abstraction is introduced."
+  ],
+  "historical_evidence_unchanged": true,
+  "handoff": "/private/tmp/verus-redb-address-range-64ed8cc5/handoff.json",
+  "baseline_relative_delta": "/private/tmp/verus-redb-address-range-64ed8cc5/delta.apply_patch"
+}

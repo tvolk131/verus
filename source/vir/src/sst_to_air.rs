@@ -1927,6 +1927,9 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                     let native_iterator =
                         crate::infer::is_native_iterator_maximality_model(func, typs);
                     let result_map = crate::infer::is_result_map_maximality_model(func, typs);
+                    let integer_unwrap =
+                        crate::infer::is_integer_unwrap_maximality_model(func, typs);
+                    let option_map = crate::infer::is_option_map_or_maximality_model(func, typs);
                     let primitive_operator =
                         crate::infer::is_primitive_operator_maximality_model(func, typs);
                     if !inferred
@@ -1935,6 +1938,8 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
                         && !panic
                         && !native_iterator
                         && !result_map
+                        && !integer_unwrap
+                        && !option_map
                         && !primitive_operator
                     {
                         return Err(crate::messages::error(

@@ -1076,6 +1076,41 @@ fn array_precision_checks_arbitrary_whole_values_including_empty_arrays() {
 }
 
 #[test]
+fn callback_array_observations_reuse_complete_value_equality_but_not_reference_equality() {
+    let (context, parameters, _) = fixture();
+    for length in [0, 1, 8, 64] {
+        let typ = Arc::new(TypX::Primitive(
+            Primitive::Array,
+            Arc::new(vec![parameters[0].x.typ.clone(), Arc::new(TypX::ConstInt(length.into()))]),
+        ));
+        for borrowed in [false, true] {
+            let typ = if borrowed {
+                Arc::new(TypX::Decorate(TypDecoration::Ref, None, typ.clone()))
+            } else {
+                typ.clone()
+            };
+            let left = SpannedTyped::new(&span(), &typ, ExpX::Var(var("left")));
+            let right = SpannedTyped::new(&span(), &typ, ExpX::Var(var("right")));
+            let observation = output_equivalence(&context, &span(), &typ, left, right).unwrap();
+            let mut extensional_equalities = 0;
+            let mut identity_equalities = 0;
+            crate::sst_visitor::map_exp_visitor(&observation, &mut |expression| {
+                match &expression.x {
+                    ExpX::BinaryOpr(BinaryOpr::ExtEq(false, _), _, _) => {
+                        extensional_equalities += 1;
+                    }
+                    ExpX::Binary(crate::sst::BinaryOp::Eq, _, _) => identity_equalities += 1,
+                    _ => {}
+                }
+                expression.clone()
+            });
+            assert_eq!(extensional_equalities, usize::from(!borrowed));
+            assert_eq!(identity_equalities, usize::from(borrowed));
+        }
+    }
+}
+
+#[test]
 fn owned_return_exactness_rejects_missing_loose_and_wrong_fields_independently() {
     let (ctx, _, mut check) = record_fixture();
     let typ = Arc::new(TypX::Datatype(

@@ -1,0 +1,1981 @@
+{
+  "created_utc": "2026-11-01T19:23:40.615996+00:00",
+  "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+  "baseline_manifest": {
+    "path": "/private/tmp/verus-infer-proof-implementation/restored-baseline/manifest.json",
+    "sha256": "093188a64998c13166fa0c575432afbeea8df4a311ddbaabb95aa30a2f34c581",
+    "bytes": 8106
+  },
+  "baseline_restore_verification": {
+    "path": "/private/tmp/verus-infer-proof-implementation/baseline-verification.json",
+    "sha256": "33f3545e56f283066cb7a9f575449577ed79046817c31acb0c3f22166cf29de8",
+    "bytes": 1582
+  },
+  "baseline_files": {
+    ".github/workflows/ci.yml": "d63c95bab60f0d5ff24c1c90f0f313058fec201e239c66b42559720a8a2303c8",
+    "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+    "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+    "evidence/transfer-fedimint-native/README.md": "e775ec9acb0a5a71e2429ef3ca79b05dfffb55a2dd82d9be58f29d18f9c9c5a7",
+    "evidence/transfer-fedimint-native/manifest.json": "19f43ac0dcf226ef6a0fc73d8e51b397fd724d001628d8f35c534474c1be932b",
+    "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+    "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+    "evidence/transfer-native-integration/README.md": "5a8dac663396962ea3b673d9836d1604536bb55309a0d08fd008531ad5b5cf82",
+    "evidence/transfer-native-integration/manifest.json": "3c85352c6c90a4e68d2b10214bd780471ab721f6425716e48fe5dd8236897051",
+    "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+    "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+    "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+    "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+    "evidence/transfer-redb-codec/README.md": "68e2746ea7e91ecafa011891e1c7a298c2be81a0f6f3c7207bba61c510f7776b",
+    "evidence/transfer-redb-codec/TRUST.md": "c428471d501ac8d3129316b7f7c2cfa269f15ed496b1fbdbab7ef9c2ba0548b7",
+    "evidence/transfer-redb-codec/manifest.json": "3c4ee8061eb33b116a86a546c2b6d251314ba71d87db526202f111642b7777f2",
+    "evidence/transfer-redb-codec/run.py": "46167c8671f720e467b8ecb2cf4af07add2721d58aa597b55a93f35c57e08870",
+    "evidence/transfer-redb-page-size/README.md": "31968b37c3110c8d8d004ae510c110836d24c2c16b1beb440415b2c3c291c89f",
+    "evidence/transfer-redb-page-size/manifest.json": "bca2589771530712873c9441e23ee419606cf5f31eecba17e2c999fbd3940715",
+    "source/docs/guide/src/infer.md": "c34a8918c86e3fc47a81b99d6f116f9dfdd7d1f3b7420d1482f69f1f249f4e56",
+    "source/rust_verify/src/fn_call_to_vir.rs": "cfe706fb9eb66fe0f52008f50451858be15006a9e4ced321c766e8f8b1337680",
+    "source/rust_verify/src/import_export.rs": "d6518fa30bdcd79e7e31b9b3c3d9d332fe6878c111bf2e305e117931e653cac0",
+    "source/rust_verify/src/verus_items.rs": "b3fe47cd8bf1b17269333ffc30dfab69952102e62aec1719cadd85dd480a3292",
+    "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+    "source/rust_verify_test/tests/infer_codec_values.rs": "c7f40512f4be222c7813503f211f24598100153a786697b5bd7f1a35f35f6347",
+    "source/rust_verify_test/tests/infer_integer_conversions.rs": "060ff314e61e3c46981596fe9cec2bb6f1b870a051c9bab18921a005bc555ac8",
+    "source/rust_verify_test/tests/infer_native_option.rs": "7c641db55661665ae6ac5e8ff60180b2d216c295aa5933b25cf5835328d0e28c",
+    "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+    "source/rust_verify_test/tests/infer_record_shifts.rs": "38f38896fa07af50822c513bad5f02130066370ccd3e4a210eba45f7f7f2925e",
+    "source/rust_verify_test/tests/infer_transfer_composition.rs": "e24a6c728b9389ac160df4c91670f14d4841ec8982098e7d8e145650fea3c5eb",
+    "source/tools/INFER_TRANSFERS.md": "67953f51f0a369f17cf51b636197537b70690030b41fb6bfa48525e22f5445d0",
+    "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+    "source/tools/check_fedimint_native.py": "cb7412a38a9ecf951654a4e6c17a60881944934b78bea1f8e92992caafc9ef06",
+    "source/tools/check_infer_transfers.py": "44caa9970c694f6944777090755898336048d247ba20cee7478321de6d20a3e5",
+    "source/tools/check_redb_codec.py": "347426170643832dc85ad68ef663d7f7d9b2d8dc6e84fb6fabf2e801b88b4747",
+    "source/tools/check_redb_page_size.py": "98fe9e250c04f60c5ae4fca1f54fc92b8952c664a4c97c01876579fec48d9a99",
+    "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+    "source/tools/test_fedimint_native.py": "727e7e8be966fd35186650aa8bb316cf775873fe9c80a660ce271a0462555efc",
+    "source/tools/test_infer_transfers.py": "77a5ae92df4abcc507998315dc088e82061cf5d7345d8055ac4eb68f162ed4eb",
+    "source/tools/test_redb_codec.py": "456de7b6405180aa920680975c9219c6d3ac14ded67460a37b15bac850a7b737",
+    "source/tools/test_redb_page_size.py": "640b17e80fafb528f49a9aebeeec1ae0771c7fe3284fb05a37a075515a304ef2",
+    "source/vir/src/ast_simplify.rs": "73f66dc22910cc3f633353f31cd15e12bcb5a595256f254b7f1ef9fb4f158243",
+    "source/vir/src/ast_to_sst.rs": "51fee513a70e1a98a4ac5f2f5afee96c1933435b5a1da2c1d99e66c52494ce5d",
+    "source/vir/src/infer.rs": "86a88a19e9fcc8674fcd2d0bce22385fbf5a5683089863e764fd4e0c343c6d55",
+    "source/vir/src/infer/byte_models.rs": "18a50a63029e6443df5e99e0e8c4e1d7aa33b9ac8d17b26bedf05de94cdcbc5f",
+    "source/vir/src/infer/eligibility.rs": "12babbfd3b24f3ff6bd4c3c6fd6c32c5d727d7a5bb84962e5917b99a3a2929c8",
+    "source/vir/src/infer/integer_conversions.rs": "30851566bd5660db69065d68c8ac27e2ee7c47314f503ad8c6147db6a219cabd",
+    "source/vir/src/infer/owned.rs": "f41fa53233fa9f0c3b6e3179c2f5a0991da7d5c745fe88d933f506e70dba8249",
+    "source/vir/src/infer/owned/callbacks.rs": "9380fca55e16bb35baf8ca1424d5695b2a23fe1bde4e1df441564423668e49ba",
+    "source/vir/src/infer/record_models.rs": "6e10116e19a18972fe9084d540d15cb293ba5a465f403aa34989299e596897f5",
+    "source/vir/src/infer/record_models/tests.rs": "f1ed11e8d84db9c3aa4e533ed6c477917d00f9e9bb46f55d76742be78b83f58b",
+    "source/vir/src/infer/records.rs": "e2cab43694acaa74a4635cb3ddd58a9451d87eae9582ea13b2337295f8954e57",
+    "source/vir/src/infer/records/shape.rs": "ac987c62f41d2a5f967433656129ed1168532956fff1b026b68f79c896daa870",
+    "source/vir/src/infer/records/shift_tests.rs": "9d269a85ae166bbdf9df5f36be5bba4b63e8baa1ec11c9b54af5c38ba43a576f",
+    "source/vir/src/infer/records/tests.rs": "c41103b5a3ffe5dc322c9aabd1eeefaa90bca3f796798c7a30120fe7c5c1f5ef",
+    "source/vir/src/infer/registry.rs": "34f17f11311da2acda4f6bba21f1421498f96afb1e5a9987e2f5ce1654a2211c",
+    "source/vir/src/sst_to_air.rs": "ed6ad0da8ec79bb4a7322adfa3edb9178eea309f02e13f1186406bc657266758",
+    "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3",
+    "source/vstd/native_option.rs": "bdb765d1b60e5ad6b1c593fe0163d72b2239e6c26b105cb3b7f684c4228adb70",
+    "source/vstd/vstd.rs": "d9da42ac44e3c47f0a6f225ef6071589b73bd6c987763ac8b44172a67c6dc7da"
+  },
+  "baseline_file_count": 60,
+  "versions": {
+    "cache": 65,
+    "policy": 59,
+    "schema": 38,
+    "parent_combined_cache": 67,
+    "parent_combined_policy": 61
+  },
+  "source_changes_against_restored_baseline": {
+    "source/rust_verify/src/import_export.rs": {
+      "before_sha256": "d6518fa30bdcd79e7e31b9b3c3d9d332fe6878c111bf2e305e117931e653cac0",
+      "after_sha256": "9ee94ce6a321725e68d1a0039e64e6fdbee0a4f7880d356883104830c20d09ac"
+    },
+    "source/rust_verify_test/tests/infer_relational_goals.rs": {
+      "before_sha256": null,
+      "after_sha256": "3433533f8a5599f707b1b53c1471334943cd833c23a6e9ebcfdbf1f2b53efb84"
+    },
+    "source/tools/INFER_TRANSFERS.md": {
+      "before_sha256": "67953f51f0a369f17cf51b636197537b70690030b41fb6bfa48525e22f5445d0",
+      "after_sha256": "901c00bcd9a8965492af50af8ebcc36669c680cc952b6978ed8751181d6f6acb"
+    },
+    "source/tools/check_redb_codec.py": {
+      "before_sha256": "347426170643832dc85ad68ef663d7f7d9b2d8dc6e84fb6fabf2e801b88b4747",
+      "after_sha256": "9c257309a1fbe5b31fe45b2e59f6ce14ff56f11dc528b69023454e0dd0a8d86a"
+    },
+    "source/tools/check_redb_page_size.py": {
+      "before_sha256": "98fe9e250c04f60c5ae4fca1f54fc92b8952c664a4c97c01876579fec48d9a99",
+      "after_sha256": "60cb8621563dcd306c9b1e23ce9e50462a8049f6bed825729f1bd596f36ec61e"
+    },
+    "source/tools/test_redb_codec.py": {
+      "before_sha256": "456de7b6405180aa920680975c9219c6d3ac14ded67460a37b15bac850a7b737",
+      "after_sha256": "290cffecbb5fa44c79163ca3d70747ae4f960d37cd1f9443fde2162f8e0ee60a"
+    },
+    "source/tools/test_redb_page_size.py": {
+      "before_sha256": "640b17e80fafb528f49a9aebeeec1ae0771c7fe3284fb05a37a075515a304ef2",
+      "after_sha256": "e5a199720c5ba7a318163a19e23117cc5b41879b2457d148da3af309893f597d"
+    },
+    "source/vir/src/infer/bitvector_hints.rs": {
+      "before_sha256": "cdeaecc45765cae1ed99b29998b770067d5aa4ad1645983e333a4a790e71bee9",
+      "after_sha256": "fb82d4b00529f599042c410960b0b37ac0786f459eebddaa4a35744b4cad5161"
+    },
+    "source/vir/src/infer/goals.rs": {
+      "before_sha256": "a35f572b40025837b042d8ff143f08a95e1442c245910ba6096a95e34ae7bf24",
+      "after_sha256": "7959948f2c070a7de4d146cfb151858252fe4b487bc4ddfcb1329d4a47b1fbb6"
+    },
+    "source/vir/src/infer/registry.rs": {
+      "before_sha256": "34f17f11311da2acda4f6bba21f1421498f96afb1e5a9987e2f5ce1654a2211c",
+      "after_sha256": "bd87dd0762a0bfa0689f5ca0b29b28ccc53209a6d317bc814cf9b85eb80321d0"
+    }
+  },
+  "tools": {
+    "libverus_builtin.rlib": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/libverus_builtin.rlib",
+      "sha256": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+      "bytes": 905856
+    },
+    "libverus_builtin_macros.dylib": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/libverus_builtin_macros.dylib",
+      "sha256": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+      "bytes": 13981424
+    },
+    "libverus_state_machines_macros.dylib": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/libverus_state_machines_macros.dylib",
+      "sha256": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+      "bytes": 9092304
+    },
+    "libvstd.rlib": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/libvstd.rlib",
+      "sha256": "8347f66d96e1b235cd4e5b76b9667ee53824a4923ffa501442c42926b7cb7273",
+      "bytes": 10877896
+    },
+    "rust_verify": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/rust_verify",
+      "sha256": "3083dd76722b09ce7f57656553ded686ff786c7412543ec7cbd17622cdd1f6e2",
+      "bytes": 31156608
+    },
+    "verus": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/verus",
+      "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+      "bytes": 3683824
+    },
+    "vstd.vir": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/vstd.vir",
+      "sha256": "f8f2bd517e6bed6a87425e5002be07b4f8d43ff081fa33bb2b5fe3aaf7cd95c8",
+      "bytes": 33352654
+    },
+    "z3": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/z3",
+      "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "bytes": 26087280
+    },
+    "vstd_build": {
+      "path": "/private/tmp/verus-infer-proof-implementation/tools/vstd_build",
+      "sha256": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+      "bytes": 80848
+    }
+  },
+  "solver": {
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-bc8341ac/source/z3",
+    "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+    "bytes": 26087280
+  },
+  "suite_receipt": {
+    "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/receipt.json",
+    "sha256": "1b45416353ab2b001e980a00595b6d15da9c245bf85c5c64a35dba6509ac6dea",
+    "bytes": 543546
+  },
+  "scenarios": [
+    {
+      "scenario": "redb",
+      "receipt": {
+        "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/receipt.json",
+        "sha256": "30e1c88b881705cb2cbaa4ff5559ccf54393dbeadf3c53b137ad3d9080715be2",
+        "bytes": 2894800
+      },
+      "status": "proved",
+      "native": {
+        "cases": 2097467,
+        "region_cross_product_exhaustive": false,
+        "faithful_mutant_detected": true,
+        "formal_proof": false
+      },
+      "cases": [
+        {
+          "label": "conversion_provider_cold",
+          "classification": "proved",
+          "verified": 8,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_provider_cold.stdout",
+            "sha256": "f88b806d2648100dbcefb62c8c1cf6455814468630e96678ca86c18eec6a821d",
+            "bytes": 76772
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_provider_cold.stderr",
+            "sha256": "d709343597074cd7b5e2836a6f2ed71891c8e09445c4bdee066c409a7f8e98b7",
+            "bytes": 4149
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "conversion_provider::narrow",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "conversion_provider::signed",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "conversion_client_cold",
+          "classification": "proved",
+          "verified": 4,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_cold.stdout",
+            "sha256": "2489d2dc7573e4e5860be8c780b184c14d789ef63f53b1137742203260453990",
+            "bytes": 8549
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_cold.stderr",
+            "sha256": "e88a5c0924dc6cd86f5a5b9a39da5559f3f8386c5174a6f747beeeac41c8a4f1",
+            "bytes": 1694
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "conversion_client::relay",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "conversion_provider_warm",
+          "classification": "proved",
+          "verified": 8,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_provider_warm.stdout",
+            "sha256": "bc1fd96d10d840012a6536c407327ee86269866f1571b151b8f4f7795f2b63c3",
+            "bytes": 76770
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_provider_warm.stderr",
+            "sha256": "d709343597074cd7b5e2836a6f2ed71891c8e09445c4bdee066c409a7f8e98b7",
+            "bytes": 4149
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "conversion_provider::narrow",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "hit"
+            },
+            {
+              "function": "conversion_provider::signed",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "hit"
+            }
+          ]
+        },
+        {
+          "label": "conversion_client_warm",
+          "classification": "proved",
+          "verified": 4,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_warm.stdout",
+            "sha256": "06bb292b35eb012fc1d27588fa11db92fed565cf7e42b27d9558fac75fa68bf1",
+            "bytes": 8549
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_warm.stderr",
+            "sha256": "e88a5c0924dc6cd86f5a5b9a39da5559f3f8386c5174a6f747beeeac41c8a4f1",
+            "bytes": 1694
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "conversion_client::relay",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "conversion_client_metadata_policy",
+          "classification": "frontend_rejection",
+          "verified": null,
+          "errors": null,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_policy.stdout",
+            "sha256": "45a8b6b5c2e3854e45a9cf6dc984ce5c25a19a0fe7d57a38380bf56ddf85f655",
+            "bytes": 2512
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_policy.stderr",
+            "sha256": "38305707d357d64f3d7e67ec3e3cd0be6e72600e8bd222654b77dd1c23d805ec",
+            "bytes": 302
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": []
+        },
+        {
+          "label": "conversion_client_metadata_proof",
+          "classification": "frontend_rejection",
+          "verified": null,
+          "errors": null,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_proof.stdout",
+            "sha256": "20c9c9e9293384ebb4038ee45b32b6bce99b8d6fd533de9921d2d2e3c0850f51",
+            "bytes": 2512
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_proof.stderr",
+            "sha256": "f4c845282dfe0dc473c779dcb8eac004761721f8121955ca45c6d2ac11bbcd25",
+            "bytes": 281
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": []
+        },
+        {
+          "label": "conversion_client_metadata_summary",
+          "classification": "frontend_rejection",
+          "verified": null,
+          "errors": null,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_summary.stdout",
+            "sha256": "e192fa53c7cf5de4b7630d775a52e70077f09a6f3aebb774951304b39e47a7aa",
+            "bytes": 2512
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_summary.stderr",
+            "sha256": "352abf14342c6c827ebafb9470a3a4ab500ef35658c7b6ffe0841ea0a5c67594",
+            "bytes": 284
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": []
+        },
+        {
+          "label": "conversion_client_metadata_model",
+          "classification": "frontend_rejection",
+          "verified": null,
+          "errors": null,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_model.stdout",
+            "sha256": "5a8db401644e95d801d01ed6cb5af4902db2ce7ebe67dadc51d2eea980acb514",
+            "bytes": 2514
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/conversion_client_metadata_model.stderr",
+            "sha256": "d485e34916828293a83097d332973aabd1b647d20a6dcc1a44dace9eb289209f",
+            "bytes": 286
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": []
+        },
+        {
+          "label": "panic_goal_negative",
+          "classification": "caller_obligation_failure",
+          "verified": 8,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/panic_goal_negative.stdout",
+            "sha256": "9c69fa677e766697b9e4250f58ba058ebbd15353cc4bcab3db71bd41c187521c",
+            "bytes": 78207
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/panic_goal_negative.stderr",
+            "sha256": "3dc09eef12c63412ea52e70f7e1271af6981f0d20eba2dfd15d57447131d476b",
+            "bytes": 4498
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "panic_goal::narrow",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "panic_goal::signed",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_cold",
+          "classification": "proved",
+          "verified": 71,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_cold.stdout",
+            "sha256": "ad1c293eedf8eaae0f98dd83111292fb8ff8259af556d71f0962b99273e9018c",
+            "bytes": 138514
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_cold.stderr",
+            "sha256": "254640092af06b2811e7503cafe0a7c7ae7b492a7e8b616089fea9a304345fa7",
+            "bytes": 8378
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_warm",
+          "classification": "proved",
+          "verified": 71,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_warm.stdout",
+            "sha256": "0b1777d18dfeb217fd7781e311f4585ef96f8896ed25ac2821599312c4d142a0",
+            "bytes": 138514
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_warm.stderr",
+            "sha256": "254640092af06b2811e7503cafe0a7c7ae7b492a7e8b616089fea9a304345fa7",
+            "bytes": 8378
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_authored_cold",
+          "classification": "proved",
+          "verified": 68,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_authored_cold.stdout",
+            "sha256": "4ec697e22a906c6c93944249dbedc792929be6c9708e0da41b61b444c0a4e05d",
+            "bytes": 138908
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_authored_cold.stderr",
+            "sha256": "ee0178fa3c38923ae43cf316c48b38b8c680b9e6b478c4ae848b5d8d4d345aea",
+            "bytes": 8558
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_authored::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec_authored::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_authored_warm",
+          "classification": "proved",
+          "verified": 68,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_authored_warm.stdout",
+            "sha256": "2ccc86a6c971da5e248f818f456ef6f7fbc83340e95b9c3dc95cb070b0b8b71a",
+            "bytes": 138909
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_authored_warm.stderr",
+            "sha256": "ee0178fa3c38923ae43cf316c48b38b8c680b9e6b478c4ae848b5d8d4d345aea",
+            "bytes": 8558
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_authored::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec_authored::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_complete_cold",
+          "classification": "proved",
+          "verified": 75,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_complete_cold.stdout",
+            "sha256": "fbfe4313c2c22567d11c8133f0990028556ad155141ca774b64a1db921c91908",
+            "bytes": 149862
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_complete_cold.stderr",
+            "sha256": "1c467b4f75ae97530f311271121831bb18da6e39bfe38fdcbc92ed165cac730b",
+            "bytes": 8558
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_complete::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec_complete::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_provider_cold",
+          "classification": "proved",
+          "verified": 75,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_provider_cold.stdout",
+            "sha256": "7175daeefe724d99b768dc8e7fab5eb8bc5600c28642d873d29cab6478ec8d33",
+            "bytes": 149861
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_provider_cold.stderr",
+            "sha256": "5db090706dabdd6683c93bab5a814a41aa343bc7d0ddf5d2410134282bb30d9c",
+            "bytes": 8418
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_provider::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec_provider::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_client_cold",
+          "classification": "proved",
+          "verified": 12,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_client_cold.stdout",
+            "sha256": "01e590d34a511c913b32bc1a6f422a84cccf8c98f9763ad17b8b9a6eec39b082",
+            "bytes": 82302
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_client_cold.stderr",
+            "sha256": "e0905d1b77940c4279affc2258726b89f09e8c0258918e6fd32d81d2734d7537",
+            "bytes": 4970
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_client::relay",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_complete_warm",
+          "classification": "proved",
+          "verified": 75,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_complete_warm.stdout",
+            "sha256": "08c734c3859514550a24f367ce51607fb525cc4e5f352c3da86b5a4faf99a383",
+            "bytes": 149863
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_complete_warm.stderr",
+            "sha256": "1c467b4f75ae97530f311271121831bb18da6e39bfe38fdcbc92ed165cac730b",
+            "bytes": 8558
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_complete::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec_complete::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_provider_warm",
+          "classification": "proved",
+          "verified": 75,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_provider_warm.stdout",
+            "sha256": "01096803331b0c9a3059a76df7abd81493d3b8f8a954ecfe2bfb69d6a8396358",
+            "bytes": 149861
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_provider_warm.stderr",
+            "sha256": "5db090706dabdd6683c93bab5a814a41aa343bc7d0ddf5d2410134282bb30d9c",
+            "bytes": 8418
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_provider::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "codec_provider::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_client_warm",
+          "classification": "proved",
+          "verified": 12,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_client_warm.stdout",
+            "sha256": "a67a9abc1a1f8662e66a4a8f4137cec4eae5d89a742c12bc70ff5435f045097c",
+            "bytes": 82302
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/codec_client_warm.stderr",
+            "sha256": "e0905d1b77940c4279affc2258726b89f09e8c0258918e6fd32d81d2734d7537",
+            "bytes": 4970
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "codec_client::relay",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "decoder_mutation_negative",
+          "classification": "semantic_goal_failure",
+          "verified": 67,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/decoder_mutation_negative.stdout",
+            "sha256": "acd14b16fd0244c13a6e3c70ecc2efb5d6070e1e760ed5a1ed6222bff2bf7fe5",
+            "bytes": 136096
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/decoder_mutation_negative.stderr",
+            "sha256": "827c473b605b57b0b3b77d85a4470e83e907963a9d3d95d77b3f6435db6a7c1a",
+            "bytes": 9047
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "decoder_mutation::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "decoder_mutation::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "false_goal_negative",
+          "classification": "semantic_goal_failure",
+          "verified": 67,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/false_goal_negative.stdout",
+            "sha256": "2374c14135838a110ef3f16f0469e62399cb041c85ea9f30e98bd2a9cd08a21b",
+            "bytes": 135989
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/false_goal_negative.stderr",
+            "sha256": "c80e7ea89adeb9860a4ccf4f76f1732be419184cbb01833b9a0af5049126f2fa",
+            "bytes": 8921
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "false_goal::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "false_goal::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "decoder_mutation_unaided_negative",
+          "classification": "proof_blocked",
+          "verified": 70,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/decoder_mutation_unaided_negative.stdout",
+            "sha256": "7a5309297d85233c17c6d8b971e9b717d7d412f5d5e210a76778893032525d44",
+            "bytes": 139178
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/decoder_mutation_unaided_negative.stderr",
+            "sha256": "dcdf7e9683d319070fb9e67f0b43ae5bcf92743d48617ef6009767a0062fcf6a",
+            "bytes": 9071
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "decoder_mutation_unaided::PageNumber::from_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            },
+            {
+              "function": "decoder_mutation_unaided::PageNumber::to_le_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "malformed_goal_negative",
+          "classification": "frontend_rejection",
+          "verified": 0,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/malformed_goal_negative.stdout",
+            "sha256": "abbaf37c2e3ca86a5aa9fb96deb027fb655c5f4064eb273aaa5293ebdb5e9d72",
+            "bytes": 4089
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb/redb-codec-tcyxoyyf/malformed_goal_negative.stderr",
+            "sha256": "8ba8a3d91d864a7b9f9072460987b0efd3f382c931ea2da03d66a7da6f581731",
+            "bytes": 1499
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": []
+        }
+      ],
+      "preserved_negative_fixture_hashes": {
+        "decoder_mutation": "90014e4c48b821dacd8d512579db81c753006f5f218184ce4a7de841133294e2",
+        "false_goal": "cee555b826deb272d6a081891a3fbc3989d569591c18bf7d952cd35c54217cc5",
+        "malformed_goal": "c830d3fed6f4cc3b652726e2a627716fe0d392cde8c697da49ee223845964b77"
+      },
+      "generated_fixture_hashes": {
+        "native.rs": "592a51d0b81b7edcc2c916f355c8abd9dbaeb5832308df694fbdcdcced5218d1",
+        "PageNumber.original.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "decoder_mutation.rs": "90014e4c48b821dacd8d512579db81c753006f5f218184ce4a7de841133294e2",
+        "conversion_provider.rs": "0441637ff8aaa799e56d1f09c2484a6b5dcd43287ea526aace86e1e5ee9c69a4",
+        "to_le_bytes.original.rs": "284704938b6d28b2b3ed3719d9a5ac7ba8ff5b7928410d4b407dd03588554534",
+        "native_mutation.rs": "c7952c5a6b26265f387fde6c0400f97b7388ffcd8262e6debab6ccaf52a75eef",
+        "codec_authored.rs": "d3f81b23b6eff088d6d1db4bed9350a72374142608cb45d922c29fee21406e12",
+        "panic_goal.rs": "7acf75ea87bd620c94035b35803ee80870b11bfdc3015fce694a6afe5decde0f",
+        "codec_complete.rs": "3baec2d4e8d21da39378367fb97ef3b82cbb3c0e5ead57345f14dd1f23dcb1a7",
+        "conversion_client.rs": "44bf9f91ebe5ec8f7829bca1751626d0849741cf75d1e1c986bdd38244533513",
+        "malformed_goal.rs": "c830d3fed6f4cc3b652726e2a627716fe0d392cde8c697da49ee223845964b77",
+        "decoder_mutation_unaided.rs": "41e3dfc571a5a0cd126ab5587c580d7da69afcb61b4b45c8f586f8d3fa47015f",
+        "false_goal.rs": "cee555b826deb272d6a081891a3fbc3989d569591c18bf7d952cd35c54217cc5",
+        "from_le_bytes.original.rs": "10423f60e80091cbe34a029b491e53797ac6b63e388892949136bf4bd8e4f02c",
+        "codec.rs": "639d1032cc0fb061cf3e4bf7c8b05b14b13e7d856ce047b09e1f740d6565a3cb",
+        "codec_client.rs": "c8976625ea40bc762b0520776bda77c7bdbcd84ac3485621d4c65336b10ebed5",
+        "codec_provider.rs": "c89cdef08c7dc8a9d72dd435417a1bca4e7ea7d96b7f6c36a98b899c2bed750e"
+      },
+      "proof_seconds": {
+        "conversion_provider_cold": 0.7394122080000001,
+        "conversion_client_cold": 0.4073880000000001,
+        "conversion_provider_warm": 0.704376125,
+        "conversion_client_warm": 0.3913536249999998,
+        "conversion_client_metadata_policy": 0.04164416700000029,
+        "conversion_client_metadata_proof": 0.0418040839999998,
+        "conversion_client_metadata_summary": 0.04129237500000027,
+        "conversion_client_metadata_model": 0.2783960830000005,
+        "panic_goal_negative": 0.8453559579999999,
+        "codec_cold": 1.0183891249999997,
+        "codec_warm": 1.0391199580000006,
+        "codec_authored_cold": 1.0793935829999999,
+        "codec_authored_warm": 1.0962200420000006,
+        "codec_complete_cold": 1.2232835420000008,
+        "codec_provider_cold": 1.2033752080000006,
+        "codec_client_cold": 0.5893570420000014,
+        "codec_complete_warm": 1.1846735419999987,
+        "codec_provider_warm": 1.1689585420000022,
+        "codec_client_warm": 0.586168875000002,
+        "decoder_mutation_negative": 1.0528655840000027,
+        "false_goal_negative": 1.0567251249999998,
+        "decoder_mutation_unaided_negative": 1.030733167000001,
+        "malformed_goal_negative": 0.27087462500000115
+      }
+    },
+    {
+      "scenario": "redb_page_size",
+      "receipt": {
+        "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/receipt.json",
+        "sha256": "3a18aa89dce51ac1fe4536651368b8a6064e2e15784947d88632988c1df79292",
+        "bytes": 359876
+      },
+      "status": "proved",
+      "native": {
+        "canonical_cases": 1548477,
+        "eager_shift_panics": 192,
+        "overflow_panics": 1,
+        "formal_proof": false,
+        "faithful_mutant_detected": true
+      },
+      "cases": [
+        {
+          "label": "page_size_cold",
+          "classification": "proved",
+          "verified": 17,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_cold.stdout",
+            "sha256": "5bfa3bec5ee36ab7912486585d48e0f39e1b80864ba39ab90d33ce8356bca01f",
+            "bytes": 31308
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_cold.stderr",
+            "sha256": "bcec015e79b20ec01c64c01b3e96f43720a1887c1fe59b33164b8c4db8a568e4",
+            "bytes": 2375
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "page_size::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_warm",
+          "classification": "proved",
+          "verified": 17,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_warm.stdout",
+            "sha256": "902fb91996e0e4beaa0535594ded60af8f06e41d8010dde7d85e1ff2b49d2a01",
+            "bytes": 31308
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_warm.stderr",
+            "sha256": "bcec015e79b20ec01c64c01b3e96f43720a1887c1fe59b33164b8c4db8a568e4",
+            "bytes": 2375
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "page_size::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_authored_reference",
+          "classification": "proved",
+          "verified": 12,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_authored_reference.stdout",
+            "sha256": "aa1474c6243775c9beae91e8e0e391cc056d44ad7c17fdeccdaebe33e89c0179",
+            "bytes": 27178
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_authored_reference.stderr",
+            "sha256": "5f8dd1946cd5bcf0fb0bac7f5d2446b9179a1031d364cf5f8cd7dd6312644989",
+            "bytes": 2465
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "page_size_authored::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_provider_cold",
+          "classification": "proved",
+          "verified": 17,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_provider_cold.stdout",
+            "sha256": "0e8a647a2bd45f4c1fc95412b1ef4acd890000d010244e8b1787e34e4bd1b076",
+            "bytes": 31649
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_provider_cold.stderr",
+            "sha256": "4e63da964b592eacd71247d4102304dc5a20de5d4200958289e5d6d5999ead49",
+            "bytes": 2395
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "page_size_provider::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_client_cold",
+          "classification": "proved",
+          "verified": 17,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_client_cold.stdout",
+            "sha256": "bd2063b3443543ee06999be014cb09d947015e202397631ec6340bd642169382",
+            "bytes": 13558
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_client_cold.stderr",
+            "sha256": "c609f07ad0a38da60af0ec9cab1af444817270afbd110f68ab240104d8d7dde1",
+            "bytes": 2207
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "page_size_client::relay",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_client_warm",
+          "classification": "proved",
+          "verified": 17,
+          "errors": 0,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_client_warm.stdout",
+            "sha256": "fa56f598e22a3b1bdfaca07f770f091af7713c562a5e0238e1d1579a05b3f880",
+            "bytes": 13560
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/page_size_client_warm.stderr",
+            "sha256": "c609f07ad0a38da60af0ec9cab1af444817270afbd110f68ab240104d8d7dde1",
+            "bytes": 2207
+          },
+          "stale_export_seeded": false,
+          "artifact_exists": true,
+          "fresh_required_checks": [
+            {
+              "function": "page_size_client::relay",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "shift64_zero_negative",
+          "classification": "caller_obligation_failure",
+          "verified": 3,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/shift64_zero_negative.stdout",
+            "sha256": "9d745e5bb5888ed560e71d1329d5df2bd8199035c43bb8933daea5439b6cf13a",
+            "bytes": 24763
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/shift64_zero_negative.stderr",
+            "sha256": "7d7d6a1c69ea166491c1ce08ebdf8c24bd7e5308bdb3e231fed65ee9d72b1e6c",
+            "bytes": 2986
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "shift64_zero::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "shift255_zero_negative",
+          "classification": "caller_obligation_failure",
+          "verified": 3,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/shift255_zero_negative.stdout",
+            "sha256": "f04169a20483d8e8002e259b9c8c2943043b260af07cb0b90f3d7b4bd6b70885",
+            "bytes": 24773
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/shift255_zero_negative.stderr",
+            "sha256": "8469d9d25236ffeb856ba154525dc5e355173ce9f3ef00d11aa6086b3d92fcb9",
+            "bytes": 2999
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "shift255_zero::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "shift_all_invalid_zero_negative",
+          "classification": "caller_obligation_failure",
+          "verified": 3,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/shift_all_invalid_zero_negative.stdout",
+            "sha256": "2cd71d7e2b02800dbf5c731ec86d40c5a879354382edf20f1aaf9e37fda7fa5a",
+            "bytes": 24862
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/shift_all_invalid_zero_negative.stderr",
+            "sha256": "6119f452f74223ac17aaa8dbef7ff72808c9d01d5129a309a5c1c3c208d8aa14",
+            "bytes": 3051
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "shift_all_invalid_zero::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "multiply_overflow_negative",
+          "classification": "caller_obligation_failure",
+          "verified": 4,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/multiply_overflow_negative.stdout",
+            "sha256": "fac719b1d55a907c471827207a151342c05143cf259bba43361c74717ba56b12",
+            "bytes": 24813
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/multiply_overflow_negative.stderr",
+            "sha256": "5fb1547587b9b5947e5c18ea13464c9f729ee5edd80b21c0771d0762f14bf6ad",
+            "bytes": 3181
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "multiply_overflow::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "false_property_negative",
+          "classification": "semantic_goal_failure",
+          "verified": 11,
+          "errors": 1,
+          "stdout": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/false_property_negative.stdout",
+            "sha256": "e34bea25770801a5bdc3467fa662562f55e6738f83911b8410a0e1f44cb97d3e",
+            "bytes": 27344
+          },
+          "stderr": {
+            "path": "/private/tmp/verus-infer-proof-implementation/final-replays/transfer-suite-sq6epsbg/redb_page_size/redb-page-size-cmh0b273/false_property_negative.stderr",
+            "sha256": "442c2a9caef1e9c3b9516fc05d3946e47798ae6dda1c36d537dbe54f4347e529",
+            "bytes": 3025
+          },
+          "stale_export_seeded": true,
+          "artifact_exists": false,
+          "fresh_required_checks": [
+            {
+              "function": "false_property::PageNumber::page_size_bytes",
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "cache": "miss"
+            }
+          ]
+        }
+      ],
+      "preserved_negative_fixture_hashes": {
+        "false_property": "b95b285290629983845a8d73465c03ed05be4d47f6c30e1641ec8ec42fea9bf7",
+        "shift64_zero": "20008fcda6bbbb4191cfaff3e7091f556cdb11d313f31095bfc8e6fdb98b33d1",
+        "shift255_zero": "86aa79649d55409e2574bbf31863b604f7c03bbd0a76f5ac3b7d20fd3435f115",
+        "shift_all_invalid_zero": "6074ef5baf52e784117fae6ed623f124c9577ee70368031a6e82a580cdf5de2b",
+        "multiply_overflow": "15fdb3f42517d138cb86076c9263cc2d3d212b4504e9ccb2d4554141eaebe83d"
+      },
+      "generated_fixture_hashes": {
+        "PageNumber.original.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "base.original.rs": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+        "false_property.rs": "b95b285290629983845a8d73465c03ed05be4d47f6c30e1641ec8ec42fea9bf7",
+        "multiply_overflow.rs": "15fdb3f42517d138cb86076c9263cc2d3d212b4504e9ccb2d4554141eaebe83d",
+        "native.rs": "eed1f7fb25615e5f415d98710edfab9cd9026c138913719077be8935a89d0a9b",
+        "native_mutation.rs": "de727278bfad08204daf4803bb9fb292ebda5dd80c545f6efeaf3c808bc67e41",
+        "page_size.rs": "3fa39b3bca77c6397ce6d32213565687696b828a8868a0143cbbf75e6993bde7",
+        "page_size_authored.rs": "c87972f28b6e150679749d82007e249969eabe537a337a30a4baee5a555ba27d",
+        "page_size_bytes.original.rs": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+        "page_size_client.rs": "14e9c4aa8397b8c5234b0c108fdeee9925af2192528f4b665cc718839601a453",
+        "page_size_provider.rs": "78d5848d5e911b74b663341b4903fb3d5273d0d9ce6aaf804b6830d939a0a35a",
+        "shift255_zero.rs": "86aa79649d55409e2574bbf31863b604f7c03bbd0a76f5ac3b7d20fd3435f115",
+        "shift64_zero.rs": "20008fcda6bbbb4191cfaff3e7091f556cdb11d313f31095bfc8e6fdb98b33d1",
+        "shift_all_invalid_zero.rs": "6074ef5baf52e784117fae6ed623f124c9577ee70368031a6e82a580cdf5de2b"
+      },
+      "proof_seconds": {
+        "page_size_cold": 0.7779429169999998,
+        "page_size_warm": 0.7484897500000003,
+        "page_size_authored_reference": 0.49647754200000005,
+        "page_size_provider_cold": 0.718962458,
+        "page_size_client_cold": 0.766082291,
+        "page_size_client_warm": 0.9936833749999998,
+        "shift64_zero_negative": 0.4202028750000002,
+        "shift255_zero_negative": 0.4151510830000005,
+        "shift_all_invalid_zero_negative": 0.4231313329999997,
+        "multiply_overflow_negative": 0.4186242499999997,
+        "false_property_negative": 0.49638575000000085
+      }
+    }
+  ],
+  "tests": {
+    "vir_unit": 128,
+    "integration": 83,
+    "integration_binaries": 10,
+    "new_general_integration_tests": 7,
+    "python": {
+      "infer": 119,
+      "redb": 9,
+      "fedimint": 10,
+      "optimized": 11
+    },
+    "vstd_verified": 2221,
+    "vstd_errors": 0
+  },
+  "trust_delta": {
+    "new_application_axioms": 0,
+    "unchecked_hints": 0,
+    "trusted_application_summaries": 0,
+    "vstd_contract_changes": 0,
+    "new_trusted_model_registrations": 0,
+    "rust_standard_library_formally_verified": false,
+    "whole_database_safety_proved": false
+  },
+  "negative_classification": "Frozen semantic/safety controls are unchanged; unaided false-auxiliary rejection is reported separately.",
+  "limits": {
+    "requests": 8,
+    "expression_nodes": 8192,
+    "depth": 64,
+    "statement_visits": 8192,
+    "shared_work": 131072
+  },
+  "build": {
+    "toolchain": "1.99.1",
+    "jobs": 2,
+    "offline": true,
+    "locked": true,
+    "release": true,
+    "target_dir": "/private/tmp/verus-infer-proof-implementation/target",
+    "build_dir": "/private/tmp/verus-infer-proof-implementation/target",
+    "RUST_MIN_STACK": 20971520,
+    "VERUS_IN_VARGO": "1",
+    "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-bc8341ac/source/z3"
+  },
+  "validation_logs": {
+    "build-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/build-final.log",
+      "sha256": "46f68495c92764aa48b7992adf269141909eaef0cd36ac1e4b946756cbf9baa0",
+      "bytes": 251
+    },
+    "vstd-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/vstd-final.log",
+      "sha256": "8fa62328c446b9fbe8d964cc17b69cd5cec68c9171151183050c22c262fc8461",
+      "bytes": 7994
+    },
+    "vir-tests-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/vir-tests-final.log",
+      "sha256": "b85adb6205da774b69d682e038403f4ce3b7e255b1a5dac2d33e6d16b0135ed2",
+      "bytes": 12913
+    },
+    "integration-tests-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/integration-tests-final.log",
+      "sha256": "7cf022cd45edff00397279b5cf87ac334665cb2fe83ffa9ba75dd21e2ea566a4",
+      "bytes": 8242
+    },
+    "python-infer-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/python-infer-final.log",
+      "sha256": "3d3a8eb9840776e1431b92a9f3574f9f09ae83c83d62dcfc6ea8e6f5db0b00db",
+      "bytes": 220
+    },
+    "python-redb-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/python-redb-final.log",
+      "sha256": "31fee74ca91764ff428912a09870cbe01b998b86899b47ff32b2bbbf7fdc0d92",
+      "bytes": 107
+    },
+    "python-fedimint-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/python-fedimint-final.log",
+      "sha256": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068",
+      "bytes": 109
+    },
+    "python-optimized-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/python-optimized-final.log",
+      "sha256": "163ab9999d51af1e59032a4e387bae3965e9557496b5bb1de9128de88d3950d6",
+      "bytes": 110
+    },
+    "frontdoor-final.log": {
+      "path": "/private/tmp/verus-infer-proof-implementation/frontdoor-final.log",
+      "sha256": "6f130991258bb1eaedbf371e5b7c6d136967fe9091c99c1543a77d0c73580b1e",
+      "bytes": 84
+    }
+  },
+  "agents": {
+    "worktree": [],
+    "readonly_application": {
+      "path": "/private/tmp/verus-transfer-redb-miuzm2w3/redb/AGENTS.md",
+      "sha256": "e3f741c483261f4dd66b7f882a496cc7ba2486891b2e558ff6a7dd14b5b70a06",
+      "bytes": 4620
+    }
+  }
+}

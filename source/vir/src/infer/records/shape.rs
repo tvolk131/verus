@@ -4,8 +4,33 @@ use super::*;
 pub(in crate::infer) fn root_type(f: &Function) -> Option<&Typ> {
     match &*f.x.params.first()?.x.typ {
         TypX::MutRef(t) | TypX::Decorate(TypDecoration::Ref, None, t) => Some(t),
+        TypX::Datatype(..) if value_array_receiver(f) => Some(&f.x.params[0].x.typ),
         _ => None,
     }
+}
+pub(in crate::infer) fn value_array_receiver(function: &Function) -> bool {
+    arrays::shape(&function.x.inner_ret.x.typ).is_some()
+        && function.x.params.first().is_some_and(|parameter| {
+            matches!(&*parameter.x.typ, TypX::Datatype(Dt::Path(path), ..)
+                    if matches!(path.krate, CrateId::Id(..)))
+        })
+}
+pub(in crate::infer) fn readonly_integer_bitwise_receiver(function: &Function) -> bool {
+    if bitwise::shape(&function.x.inner_ret.x.typ).is_none()
+        || !function.x.params.first().is_some_and(|parameter| {
+            matches!(&*parameter.x.typ, TypX::Decorate(TypDecoration::Ref, None, _))
+        })
+    {
+        return false;
+    }
+    let mut found = false;
+    if let Some(body) = &function.x.body {
+        crate::ast_visitor::expr_visitor_walk(body, &mut |expression| {
+            found |= matches!(&expression.x, ExprX::Binary(BinaryOp::Bitwise(..), ..));
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+    }
+    found
 }
 pub(super) fn candidate(f: &Function) -> bool {
     root_type(f).is_some_and(|t|matches!(&**t,TypX::Datatype(Dt::Path(p),..)
@@ -16,7 +41,7 @@ pub(in crate::infer) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<
     let TypX::Datatype(dt, args, _) = &**typ else { return None };
     let d = datatypes.iter().find(|d| &d.x.name == dt)?;
     if d.x.mode != Mode::Exec
-        || d.x.proxy.is_some()
+        || d.x.proxy.is_some() && !canonical_range(typ, d)
         || d.x.destructor
         || d.x.user_defined_invariant_fn.is_some()
         || d.x.variants.len() != 1
@@ -46,6 +71,39 @@ pub(in crate::infer) fn fields(typ: &Typ, datatypes: &[Datatype]) -> Option<Vec<
             })
         })
         .collect()
+}
+
+fn canonical_range(typ: &Typ, datatype: &Datatype) -> bool {
+    let TypX::Datatype(Dt::Path(path), arguments, _) = &**typ else { return false };
+    let definition = &datatype.x;
+    models::path_is(path, CrateId::Core, &["ops", "range", "Range"])
+        && arguments.len() == 1
+        && matches!(&*arguments[0], TypX::Int(IntRange::U(64)))
+        && definition.proxy.as_ref().is_some_and(|proxy| {
+            models::path_is(&proxy.x, CrateId::Vstd, &["std_specs", "range", "ExRange"])
+        })
+        && definition.typ_params.len() == 1
+        && definition.sized_constraint.is_none()
+        && definition.typ_bounds.len() == 1
+        && matches!(&*definition.typ_bounds[0], GenericBoundX::Trait(
+            TraitId::Sizedness(Sizedness::Sized), types)
+            if types.len() == 1 && matches!(&*types[0], TypX::TypParam(parameter)
+                if parameter == &definition.typ_params[0].0))
+        && definition.visibility.restricted_to.is_none()
+        && matches!(&definition.transparency, DatatypeTransparency::WhenVisible(visibility)
+            if visibility.restricted_to.is_none())
+        && definition.variants.len() == 1
+        && definition.variants[0].name.as_str() == "Range"
+        && definition.variants[0].fields.len() == 2
+        && ["start", "end"].iter().all(|name| {
+            definition.variants[0].fields.iter().any(|field| {
+                field.name.as_str() == *name
+                    && field.a.1 == Mode::Exec
+                    && field.a.2.restricted_to.is_none()
+                    && matches!(&*field.a.0, TypX::TypParam(parameter)
+                        if parameter == &definition.typ_params[0].0)
+            })
+        })
 }
 /// A bounded value enum. Payload eligibility is checked recursively by value_type,
 /// so this descriptor never grants a heap/reference abstraction by itself.
@@ -120,7 +178,7 @@ pub(in crate::infer) fn value_type(
     if depth == 0 {
         return false;
     }
-    if scalar(t) {
+    if scalar(t) || arrays::shape(t).is_some() {
         return true;
     }
     match &**t {
@@ -199,6 +257,7 @@ pub(in crate::infer) struct Field {
     pub element: Option<Typ>,
     pub view: Option<sequence_views::SequenceView>,
 }
+#[derive(Clone)]
 pub(in crate::infer) struct Shape {
     pub typ: Typ,
     pub fields: Vec<Field>,

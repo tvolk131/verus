@@ -1,0 +1,910 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "scenario": "fedimint-native-deadline",
+  "transfer": {
+    "scenario": "fedimint",
+    "application_commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+    "status": "proved",
+    "source_fidelity": true,
+    "positive_cases": [
+      "native_cold",
+      "native_warm",
+      "followup_cold"
+    ],
+    "semantic_negative_cases": [
+      "regression_cold",
+      "false_goal_cold"
+    ],
+    "stale_export_rejected": true,
+    "limitations": [
+      "Three-field projection, not full gateway/async/database/crypto verification",
+      "Native oracle tests finite inputs; formal policy covers the full scalar domain",
+      "Separate scalar/newtype projection profile is not extended"
+    ],
+    "trust": [
+      "Ordinary Verus backend and existing vstd specifications",
+      "Canonical Rust API-to-checked-bridge correspondence is trusted frontend code; no new assumed specification",
+      "Authored deadline policy is not inferred"
+    ]
+  },
+  "engine": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "working_tree": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131",
+    "cache_version": "verus-infer-v62:native-option:4096",
+    "interface_policy": "candidate-bound-evidence-v56",
+    "commits_created": false,
+    "branches_created": false,
+    "pull_requests_created": false,
+    "subdelegates": false
+  },
+  "integrated_baseline": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "restoration_command": "apply_patch < /private/tmp/verus-transfer-next-baseline-5e1xxkrt/baseline.apply_patch",
+    "snapshot_patch_sha256": "bcaeedd49bb41fb586a8c730b75da533f68b2a8f9ed66458ea37d47015f2ecab",
+    "snapshot_manifest_sha256": "8fe42df873fa3b68b3323980829d079bb34fcbd429655ed69b8741eb1f63a8f3",
+    "all_22_file_hashes_verified_before_edits": true,
+    "initial_file_sha256": {
+      "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+      "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+      "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+      "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+      "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+      "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+      "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+      "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+      "source/docs/guide/src/infer.md": "075c5dac48ab46103e1be1e15986ccd859469918c2c8a567e3ac47eae1ff2c38",
+      "source/rust_verify/src/import_export.rs": "2de220bc155ec7bca4fb2d39b9764d21b3f67cc5efb4a4c756714d4317e934ac",
+      "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+      "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+      "source/rust_verify_test/tests/infer_transfer_composition.rs": "39dbe434c22fc13b6eb971766d17d88e3dd6463f828e4319c2604d0b9fbd8ebc",
+      "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+      "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+      "source/vir/src/infer.rs": "40b9cae83628d5bc75fb665ec6fa11ad628e6ae9f88f46bbaef716b2ba7364eb",
+      "source/vir/src/infer/byte_models.rs": "0998dcdab6c3391105284928a77c6060ab07f6ec7a281bc90a19b6638aee3e6c",
+      "source/vir/src/infer/owned.rs": "461edd730bd00df05699deb8f51915593eeb967a92034e74997e297c21f8c445",
+      "source/vir/src/infer/records.rs": "7e416bed982688d0b22a16c7bddebc80dc1216312b24e61bf63053f5ffabe0db",
+      "source/vir/src/infer/records/tests.rs": "292dc145c0fc2b61ff5a8b42ce1859127ed38c3fa8c271c5f2a2847bf5f4028a",
+      "source/vir/src/infer/registry.rs": "8e50463c6472558dc3460500eb1184b975072a643842cb12092dcad8f9733f3f",
+      "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3"
+    },
+    "six_baseline_files_extended": [
+      "source/rust_verify/src/import_export.rs",
+      "source/vir/src/infer.rs",
+      "source/vir/src/infer/owned.rs",
+      "source/vir/src/infer/records.rs",
+      "source/vir/src/infer/records/tests.rs",
+      "source/vir/src/infer/registry.rs"
+    ],
+    "sixteen_baseline_files_preserved_sha256": {
+      "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+      "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+      "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+      "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+      "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+      "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+      "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+      "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+      "source/docs/guide/src/infer.md": "075c5dac48ab46103e1be1e15986ccd859469918c2c8a567e3ac47eae1ff2c38",
+      "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+      "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+      "source/rust_verify_test/tests/infer_transfer_composition.rs": "39dbe434c22fc13b6eb971766d17d88e3dd6463f828e4319c2604d0b9fbd8ebc",
+      "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+      "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+      "source/vir/src/infer/byte_models.rs": "0998dcdab6c3391105284928a77c6060ab07f6ec7a281bc90a19b6638aee3e6c",
+      "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3"
+    },
+    "note": "Initial HEAD alone is not the baseline. The integrated uncommitted source snapshot was applied first. Existing report, guide, byte model, bytes.rs, early-return runner and related test bytes remain unchanged."
+  },
+  "application": {
+    "commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+    "clean_clone": "/private/tmp/verus-fedimint-early-returns-jyfO2M/fedimint",
+    "full_source_sha256": {
+      "gateway/fedimint-lightning/src/lib.rs": "6922ada049ba83f999937dce687763604c7aa3714df138e26b84b115f1081ebc",
+      "modules/fedimint-gwv2-client/src/lib.rs": "c7475538eac83bc039195b86efe342b0779115c124978bfba1a406f1bbb0ba21"
+    },
+    "impl_sha256": "018b62da6b4e8166972a169ff4bdea762905ea6e466c2fb7e0f4e457281a7b45",
+    "complete_method_item_sha256": {
+      "pub fn incoming_circuit": "670a0625249c5522466b2d9b3b9d215f2c1e045eea984b3d2a29c566901e0fd8",
+      "pub fn lnv2_blocks_to_claim_deadline": "328c1eada09ead864029497765af0ada22c3fdbfe1c2dfd4bf2973343197a2e2"
+    },
+    "constant": "pub const NO_INCOMING_CIRCUIT: (u64, u64) = (0, 0);",
+    "constant_sha256": "8aea74c10377048ced9adb5b2c2b6522764f7835517b46e2429e191f23062e57",
+    "positive_native_bodies_byte_preserved": true,
+    "constant_byte_preserved": true,
+    "hand_desugarings": false,
+    "adaptations": [
+      "Project three read scalar fields, omit serde and unrelated fields",
+      "Insert infer attributes outside byte-preserved method items",
+      "Wrap extracted items in verus!; no source desugarings"
+    ],
+    "source_snapshot": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/source-snapshot",
+    "new_runner_needs_historical_reports_or_receipts": false
+  },
+  "proof_scope": {
+    "intent": "The existing ordinary authored deadline policy, not an inferred intention.",
+    "policy": "Three postconditions: intercepted-forward exclusion, known/unknown-height safety, and two-block coverage.",
+    "preconditions": [],
+    "domain": {
+      "incoming_chan_id": "every u64",
+      "htlc_id": "every u64",
+      "expiry": "every u32",
+      "height": "None or Some(every u32)"
+    },
+    "exact_helpers": [
+      "incoming_circuit",
+      "lnv2_blocks_to_claim_deadline"
+    ],
+    "fresh_required_helper_obligations": 30,
+    "bounded_followup": [
+      "zero budget exactly at expiry",
+      "height monotonicity without preconditions",
+      "eager argument/lazy callback adversarial regressions"
+    ],
+    "native_oracle": {
+      "native_oracle_inputs": 2112,
+      "nonvacuity_witness": 2,
+      "regression_fixed": 0,
+      "regression_mutant": 10
+    },
+    "native_oracle_binary_sha256": "71547f7b526450f8fb07ce4ed16cb7c9baa755315b905ba7be626ef8a30c6265",
+    "guard_deletion_witness": {
+      "incoming_chan_id": 101,
+      "htlc_id": 0,
+      "expiry": 1000,
+      "height": 990,
+      "fixed": 0,
+      "mutant": 10
+    },
+    "native_oracle_is_not_universal_proof": true
+  },
+  "implementation": {
+    "production_files": [
+      "source/rust_verify/src/fn_call_to_vir.rs",
+      "source/rust_verify/src/import_export.rs",
+      "source/rust_verify/src/verus_items.rs",
+      "source/vir/src/ast_simplify.rs",
+      "source/vir/src/ast_to_sst.rs",
+      "source/vir/src/sst_to_air.rs",
+      "source/vir/src/infer.rs",
+      "source/vir/src/infer/owned.rs",
+      "source/vir/src/infer/owned/callbacks.rs",
+      "source/vir/src/infer/record_models.rs",
+      "source/vir/src/infer/records.rs",
+      "source/vir/src/infer/records/shape.rs",
+      "source/vir/src/infer/registry.rs",
+      "source/vstd/native_option.rs",
+      "source/vstd/vstd.rs"
+    ],
+    "test_and_tool_files": [
+      "source/vir/src/infer/record_models/tests.rs",
+      "source/vir/src/infer/records/tests.rs",
+      "source/rust_verify_test/tests/infer_native_option.rs",
+      "source/tools/check_fedimint_native.py",
+      "source/tools/test_fedimint_native.py"
+    ],
+    "native_delta_sha256": {
+      "source/rust_verify/src/fn_call_to_vir.rs": "cfe706fb9eb66fe0f52008f50451858be15006a9e4ced321c766e8f8b1337680",
+      "source/rust_verify/src/import_export.rs": "291730ee08d84b5e9f61aa159081a92c75fabd6ba611be2f10fe07b547ded5f9",
+      "source/rust_verify/src/verus_items.rs": "b3fe47cd8bf1b17269333ffc30dfab69952102e62aec1719cadd85dd480a3292",
+      "source/vir/src/ast_simplify.rs": "73f66dc22910cc3f633353f31cd15e12bcb5a595256f254b7f1ef9fb4f158243",
+      "source/vir/src/ast_to_sst.rs": "51fee513a70e1a98a4ac5f2f5afee96c1933435b5a1da2c1d99e66c52494ce5d",
+      "source/vir/src/sst_to_air.rs": "0202fc4bb56e45c5585b6f08e61091f12aeac9e372f409a6d88fdacfea773797",
+      "source/vir/src/infer.rs": "39f545adb98251c84d8805b3efc3cf28f543022de4f09f6a628ade3514318e5b",
+      "source/vir/src/infer/owned.rs": "b3eaee17fe02ffc98476db6dfbcd34024311653873517055c7f8b2bcfe011c05",
+      "source/vir/src/infer/owned/callbacks.rs": "9380fca55e16bb35baf8ca1424d5695b2a23fe1bde4e1df441564423668e49ba",
+      "source/vir/src/infer/record_models.rs": "6e10116e19a18972fe9084d540d15cb293ba5a465f403aa34989299e596897f5",
+      "source/vir/src/infer/records.rs": "5519a7ee9cf7a77873129c0fd710b30b97a0a5fc1825c25d846b2949a6bb43c4",
+      "source/vir/src/infer/records/shape.rs": "7face03bea15d388bf5a1dc432a93c64aed6857dfaf8c586afd44e33f1e960c4",
+      "source/vir/src/infer/registry.rs": "8c2fcda2672e7a11353cea3262248212f9f2d7f0cbff20403075318ec5443871",
+      "source/vstd/native_option.rs": "76717a77e82eac854296bb5496763bcf31193e33d74d1ad4c8322b1fa1c2c5b6",
+      "source/vstd/vstd.rs": "d9da42ac44e3c47f0a6f225ef6071589b73bd6c987763ac8b44172a67c6dc7da",
+      "source/vir/src/infer/record_models/tests.rs": "f1ed11e8d84db9c3aa4e533ed6c477917d00f9e9bb46f55d76742be78b83f58b",
+      "source/vir/src/infer/records/tests.rs": "c41103b5a3ffe5dc322c9aabd1eeefaa90bca3f796798c7a30120fe7c5c1f5ef",
+      "source/rust_verify_test/tests/infer_native_option.rs": "7c641db55661665ae6ac5e8ff60180b2d216c295aa5933b25cf5835328d0e28c",
+      "source/tools/check_fedimint_native.py": "cb7412a38a9ecf951654a4e6c17a60881944934b78bea1f8e92992caafc9ef06",
+      "source/tools/test_fedimint_native.py": "727e7e8be966fd35186650aa8bb316cf775873fe9c80a660ce271a0462555efc"
+    },
+    "report_readme_sha256": "e775ec9acb0a5a71e2429ef3ca79b05dfffb55a2dd82d9be58f29d18f9c9c5a7",
+    "checked_library_bridges": [
+      "vstd::native_option::then_some",
+      "vstd::native_option::map_or"
+    ],
+    "reused": [
+      "existing Option map and unwrap_or specifications",
+      "existing Option is_some proxy",
+      "existing saturating integer models",
+      "existing owned-callback Plan, annotation/restoration and independent precision obligations"
+    ],
+    "evaluation": "Receiver and ordinary arguments evaluate eagerly in order; callback domain is required only on Some. Callback construction with effects is rejected.",
+    "fail_closed": [
+      "canonical core and vstd identities, diagnostic target, proxy, mode, generic and value type checks",
+      "visible literal scalar/tuple constants only",
+      "literal immutable callbacks only, no authored callback contracts, nested closures or explicit returns",
+      "new callback-domain facts only for exact readonly record summaries",
+      "soundness, maximality, exactness and whole selected crate verification before publication",
+      "negative controls remove a seeded valid native export",
+      "separate scalar/newtype profile is not widened"
+    ]
+  },
+  "trust": {
+    "no_new_axioms": true,
+    "no_new_assume_specification": true,
+    "no_new_external_body_models": true,
+    "no_unchecked_application_contracts": true,
+    "trusted": [
+      "ordinary Verus backend, Rust typing/erasure and existing vstd library specifications",
+      "new narrowly canonical core API-to-checked-bridge frontend correspondence"
+    ],
+    "correspondence_limit": "Checked bridges prove their own bodies, not libcore implementation equivalence. The finite independent Rust oracle is not a formal equivalence proof.",
+    "scope_limitations": [
+      "Three-field projection, not full gateway/async/database/crypto verification",
+      "Native oracle tests finite inputs; formal policy covers the full scalar domain",
+      "Separate scalar/newtype projection profile is not extended",
+      "No full-crate, gateway callsite, async, DB atomicity, crypto, concurrency, recovery or stateful fund-safety claim."
+    ]
+  },
+  "build_isolation": {
+    "target": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+    "build_dir": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+    "seed_command": "cp -cR /private/tmp/verus-infer-integration.EbudBf/target-verus /private/tmp/verus-fedimint-native-11f7f131/target-verus",
+    "solver_copy_command": "cp -c /private/tmp/verus-infer-integration.EbudBf/z3 source/z3",
+    "seed_is_apfs_copy_on_write_copy_not_shared_mutable_link": true,
+    "additional_seed": "Own worktree-local initial cache was copied into this private target after fixing Cargo build-dir configuration.",
+    "cargo_offline": true,
+    "cargo_locked": true,
+    "cargo_build_jobs": 2,
+    "toolchain": "1.99.1",
+    "compiler_version": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "solver_version": "Z3 version 4.16.0 - 64 bit"
+  },
+  "validation": {
+    "engine_build": {
+      "command": "cargo build --offline --locked --release -p rust_verify -p verus -p cargo-verus -p vstd_build",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_JOBS": "2"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/build-final-seal.log",
+      "log_sha256": "202fad9279f8d8afa1e0f0476add401711833ab0b6d3bf4991d5a857828ce706",
+      "exit_code": 0
+    },
+    "checked_library": {
+      "command": "rustup run 1.99.1 /private/tmp/verus-fedimint-native-11f7f131/target-verus/release/vstd_build /private/tmp/verus-fedimint-native-11f7f131/target-verus/release --release --verbose",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/vstd-sealed-checked.log",
+      "log_sha256": "184097c6e9ed9d072b0c8fcf66e4e314dcd9b2ac4f31b257ddb5a25fcc9bbf12",
+      "exit_code": 0,
+      "verified": 2221,
+      "errors": 0,
+      "actual_fresh_verification": true,
+      "includes_checked_bridge_functions": 2,
+      "note": "Direct documented vstd_build invocation bypasses Cargo diagnostic replay; command expands in the raw log."
+    },
+    "vir_units": {
+      "command": "cargo test --offline --locked --release -p vir --lib",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_JOBS": "2",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/vir-sealed.log",
+      "log_sha256": "957973cb3e5da7e9158971d34acba8f06f0bc1e07adafa857b6bbf72747d5c15",
+      "exit_code": 0,
+      "passed": 121,
+      "failed": 0
+    },
+    "focused_integration": {
+      "command": "cargo test --offline --locked --release -p rust_verify_test --test infer_native_option --test infer_record_returns --test infer_transfer_composition --test infer_records --test infer_wrappers --test infer_owned --test infer_error_values --test infer_wrapper_traits --test infer_traversals --test infer_byte_apis",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_JOBS": "2",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/integration-sealed.log",
+      "log_sha256": "9f9bc5d30a7ccbfe1338358b064cda7ba3daa8eaf9c79a6d1d6c24928f5c665d",
+      "exit_code": 0,
+      "passed": 113,
+      "failed": 0,
+      "suites": {
+        "infer_byte_apis": 6,
+        "infer_error_values": 10,
+        "infer_native_option": 9,
+        "infer_owned": 17,
+        "infer_record_returns": 7,
+        "infer_records": 21,
+        "infer_transfer_composition": 1,
+        "infer_traversals": 8,
+        "infer_wrapper_traits": 16,
+        "infer_wrappers": 18
+      }
+    },
+    "root_inference": {
+      "command": "cargo test --offline --locked --release -p rust_verify_test --test infer",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_JOBS": "2",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/infer-root-sealed.log",
+      "log_sha256": "f5628e3cff1c481df9cef789dff1bf1e7175b87867e09b1b3c5659b51e873fc6",
+      "exit_code": 0,
+      "passed": 296,
+      "failed": 0
+    },
+    "python_units": {
+      "command": "python3 -m unittest tools/test_fedimint_native.py tools/test_fedimint_early_returns.py",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+        "CARGO_BUILD_JOBS": "2",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3",
+        "PYTHONPATH": "tools"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/python-sealed-final.log",
+      "log_sha256": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068",
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0,
+      "new_native_tests": 6,
+      "unchanged_early_return_tests": 4
+    },
+    "format": {
+      "command": "rustfmt --check --edition 2024 --config skip_children=true rust_verify/src/fn_call_to_vir.rs rust_verify/src/import_export.rs rust_verify/src/verus_items.rs vir/src/ast_simplify.rs vir/src/ast_to_sst.rs vir/src/sst_to_air.rs vir/src/infer.rs vir/src/infer/owned.rs vir/src/infer/owned/callbacks.rs vir/src/infer/record_models.rs vir/src/infer/record_models/tests.rs vir/src/infer/records.rs vir/src/infer/records/shape.rs vir/src/infer/records/tests.rs vir/src/infer/registry.rs rust_verify_test/tests/infer_native_option.rs vstd/native_option.rs vstd/vstd.rs",
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "log": "/private/tmp/verus-fedimint-native-11f7f131/format-sealed-source-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "note": "Scoped Rust 2024 formatting, skipping unchanged child modules."
+    },
+    "rust_test_total": 530,
+    "proof_count_accounting": "Each case count is its actual verifier result. Thirty fresh helper obligations are included in, not additional to, the five non-frontend case counts. Earlier replay/build/test counts are not added to the sealed counts.",
+    "incremental_diagnostic_replay_not_counted": {
+      "path": "/private/tmp/verus-fedimint-native-11f7f131/vstd-reverified.log",
+      "sha256": "f07e2e2c5d44d44f0abcf48b8b7253fcf2ca6f9b7c9ad5a7c50580574f146c44",
+      "verified_count_present": false
+    }
+  },
+  "replay": {
+    "command": "python3 tools/check_fedimint_native.py --application /private/tmp/verus-fedimint-early-returns-jyfO2M/fedimint --verus /private/tmp/verus-fedimint-native-11f7f131/target-verus/release/verus --solver /Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3 --output /private/tmp/verus-fedimint-native-11f7f131/replays --timeout 120",
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source",
+    "environment": {
+      "RUSTUP_TOOLCHAIN": "1.99.1",
+      "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+      "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-fedimint-native-11f7f131/target-verus",
+      "CARGO_BUILD_JOBS": "2",
+      "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3"
+    },
+    "exit_code": 0,
+    "receipt": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/receipt.json",
+    "receipt_sha256": "4f389cadcf548dd20ec2d163b34ce4c513fa7b00fe04b3ae0f5126b56e6db81a",
+    "controller_success": true,
+    "application_status": "proved",
+    "stdout": {
+      "path": "/private/tmp/verus-fedimint-native-11f7f131/replay-sealed.stdout",
+      "sha256": "20e24823a80f1b574669d37ec9a5ae04d700da5c0d75eadd69e8c4ee509a300e"
+    },
+    "stderr": {
+      "path": "/private/tmp/verus-fedimint-native-11f7f131/replay-sealed.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cases": [
+      {
+        "label": "native_cold",
+        "classification": "byte-preserved native helpers exactly inferred; ordinary authored policy proved",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 8,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "source_sha256": "e3854e4bddeb236b0f018504b09bc62cb74f7ee0ec9072158e7d89591824699c",
+        "helper_names": [
+          "deadline_native::InterceptPaymentRequest::incoming_circuit",
+          "deadline_native::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline"
+        ],
+        "all_helper_requires_true": true,
+        "required_exact_checks_proved": 6,
+        "helpers_exported": [
+          true,
+          true
+        ],
+        "cache": [
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 876,
+            "solver_micros": 618,
+            "requires_nodes": 1,
+            "ensures_nodes": 19
+          },
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1018,
+            "solver_micros": 3563,
+            "requires_nodes": 1,
+            "ensures_nodes": 50
+          }
+        ],
+        "previous_interface": null,
+        "observed_interface": {
+          "sha256": "161fc8b8b769673058f104ef249fa686cc371e4f715bd44337d14c5971369468",
+          "mtime_ns": 1793552424019918588
+        },
+        "interface_exists": true,
+        "stdout": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/native_cold.stdout",
+          "sha256": "225441f35cae71b3620032f70031173affa66a423f2b65ff1c9cd49ce8c48429"
+        },
+        "stderr": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/native_cold.stderr",
+          "sha256": "223dd4f40925ff135efbe7121d84d1e216097608965d52b2b37dfe86cb4598ee"
+        }
+      },
+      {
+        "label": "native_warm",
+        "classification": "byte-preserved native helpers exactly inferred; ordinary authored policy proved",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 8,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "source_sha256": "e3854e4bddeb236b0f018504b09bc62cb74f7ee0ec9072158e7d89591824699c",
+        "helper_names": [
+          "deadline_native::InterceptPaymentRequest::incoming_circuit",
+          "deadline_native::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline"
+        ],
+        "all_helper_requires_true": true,
+        "required_exact_checks_proved": 6,
+        "helpers_exported": [
+          true,
+          true
+        ],
+        "cache": [
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 824,
+            "solver_micros": 732,
+            "requires_nodes": 1,
+            "ensures_nodes": 19
+          },
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 999,
+            "solver_micros": 3749,
+            "requires_nodes": 1,
+            "ensures_nodes": 50
+          }
+        ],
+        "previous_interface": {
+          "sha256": "161fc8b8b769673058f104ef249fa686cc371e4f715bd44337d14c5971369468",
+          "mtime_ns": 1793552424019918588
+        },
+        "observed_interface": {
+          "sha256": "45dde011643f0a903b8da3af0a848def010d895f82b0d3a60cc5ccca4f9de501",
+          "mtime_ns": 1793552424636492515
+        },
+        "interface_exists": true,
+        "stdout": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/native_warm.stdout",
+          "sha256": "e43cb0893242fbc37eb8eced05d1c6b49fbc09b0a5841dfb254057cf4d180315"
+        },
+        "stderr": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/native_warm.stderr",
+          "sha256": "223dd4f40925ff135efbe7121d84d1e216097608965d52b2b37dfe86cb4598ee"
+        }
+      },
+      {
+        "label": "followup_cold",
+        "classification": "byte-preserved native helpers exactly inferred; ordinary authored policy proved",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 10,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "source_sha256": "bf44a801a98d730e3403117c80ce854e299eb37de6f13acfe47a17303af331ce",
+        "helper_names": [
+          "deadline_followup::InterceptPaymentRequest::incoming_circuit",
+          "deadline_followup::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline"
+        ],
+        "all_helper_requires_true": true,
+        "required_exact_checks_proved": 6,
+        "helpers_exported": [
+          true,
+          true
+        ],
+        "cache": [
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 816,
+            "solver_micros": 639,
+            "requires_nodes": 1,
+            "ensures_nodes": 19
+          },
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 990,
+            "solver_micros": 3653,
+            "requires_nodes": 1,
+            "ensures_nodes": 50
+          }
+        ],
+        "previous_interface": null,
+        "observed_interface": {
+          "sha256": "a928ed48b585c0c756a36e4f689308c51103488fb183117b64e8e5032b5a1084",
+          "mtime_ns": 1793552425250712328
+        },
+        "interface_exists": true,
+        "stdout": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/followup_cold.stdout",
+          "sha256": "15598b49e015a0163a5cc495834761d9e06e9d3b82c5b9bc43775c1e5cfdfb51"
+        },
+        "stderr": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/followup_cold.stderr",
+          "sha256": "3456ce013fd5f08ff9126d02f30d3c46436336b80b7fe7833b9a32c3f4f67e8c"
+        }
+      },
+      {
+        "label": "regression_cold",
+        "classification": "semantic authored-policy rejection; inference remains exact",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 7,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "source_sha256": "b7f3aaf8caf016b2e5c9c1210477c1befd2c4233fc60e1652b8f3c52e4d42404",
+        "helper_names": [
+          "deadline_regression::InterceptPaymentRequest::incoming_circuit",
+          "deadline_regression::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline"
+        ],
+        "all_helper_requires_true": true,
+        "required_exact_checks_proved": 6,
+        "helpers_exported": [
+          false,
+          false
+        ],
+        "cache": [
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 842,
+            "solver_micros": 612,
+            "requires_nodes": 1,
+            "ensures_nodes": 19
+          },
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 883,
+            "solver_micros": 2349,
+            "requires_nodes": 1,
+            "ensures_nodes": 30
+          }
+        ],
+        "previous_interface": {
+          "sha256": "45dde011643f0a903b8da3af0a848def010d895f82b0d3a60cc5ccca4f9de501",
+          "mtime_ns": 1793552425380492140
+        },
+        "observed_interface": null,
+        "interface_exists": false,
+        "stdout": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/regression_cold.stdout",
+          "sha256": "9a075838ab5cd08b4702c8219c88449b9603b45b7d8c9fd658cb9078e74c4221"
+        },
+        "stderr": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/regression_cold.stderr",
+          "sha256": "df43071f6bb833f79ec097aede528a923e6a6c8c7eb3a5dc7f5511dbb96884d6"
+        }
+      },
+      {
+        "label": "false_goal_cold",
+        "classification": "semantic authored-policy rejection; inference remains exact",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 7,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "source_sha256": "76dae8730a5dbd0921d27c55f42d786652b882a2ac238bd40e212bbe1c5dbe02",
+        "helper_names": [
+          "deadline_false_goal::InterceptPaymentRequest::incoming_circuit",
+          "deadline_false_goal::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline"
+        ],
+        "all_helper_requires_true": true,
+        "required_exact_checks_proved": 6,
+        "helpers_exported": [
+          false,
+          false
+        ],
+        "cache": [
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 831,
+            "solver_micros": 604,
+            "requires_nodes": 1,
+            "ensures_nodes": 19
+          },
+          {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1034,
+            "solver_micros": 3435,
+            "requires_nodes": 1,
+            "ensures_nodes": 50
+          }
+        ],
+        "previous_interface": {
+          "sha256": "45dde011643f0a903b8da3af0a848def010d895f82b0d3a60cc5ccca4f9de501",
+          "mtime_ns": 1793552425978635923
+        },
+        "observed_interface": null,
+        "interface_exists": false,
+        "stdout": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/false_goal_cold.stdout",
+          "sha256": "61b6b8b55d56af28023add45da5e81cb15fb7bf209a6a4549412df3197a7eaec"
+        },
+        "stderr": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/false_goal_cold.stderr",
+          "sha256": "9103938f7323816081e4eaf17decfb2f35bb0000c7c5e939433ee24e8e48dde3"
+        }
+      },
+      {
+        "label": "malformed_goal_frontend",
+        "classification": "malformed goal; frontend control only",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 0,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "source_sha256": "08cbc951792b7dfba0394bac5e29d9311e4695e13fcdf9bf40ac3854bad706e6",
+        "helper_names": [],
+        "all_helper_requires_true": null,
+        "required_exact_checks_proved": 0,
+        "helpers_exported": [],
+        "cache": [],
+        "previous_interface": {
+          "sha256": "45dde011643f0a903b8da3af0a848def010d895f82b0d3a60cc5ccca4f9de501",
+          "mtime_ns": 1793552426636724910
+        },
+        "observed_interface": null,
+        "interface_exists": false,
+        "stdout": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/malformed_goal_frontend.stdout",
+          "sha256": "acc91acf77a8de8d89705081067445edc5d70d3c7b40d6167f251b34e7af42ad"
+        },
+        "stderr": {
+          "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-0w0g5szc/malformed_goal_frontend.stderr",
+          "sha256": "79ac1dad3051157dba60ed3a6c98098dc706c864397110f23caab15120d5fe40"
+        }
+      }
+    ],
+    "raw_command_ledger": "receipt.json:commands",
+    "generated_source_sha256": {
+      "false_goal-proof.rs": "76dae8730a5dbd0921d27c55f42d786652b882a2ac238bd40e212bbe1c5dbe02",
+      "followup-proof.rs": "bf44a801a98d730e3403117c80ce854e299eb37de6f13acfe47a17303af331ce",
+      "malformed_goal-proof.rs": "08cbc951792b7dfba0394bac5e29d9311e4695e13fcdf9bf40ac3854bad706e6",
+      "native-proof.rs": "e3854e4bddeb236b0f018504b09bc62cb74f7ee0ec9072158e7d89591824699c",
+      "oracle.rs": "7a707f3aff780111b3930f955a8fb6b6f90342c527e707004e67f721eff6b9b3",
+      "original.rs": "9971f993fcd841126b96bede48b6738d9140bee69bd77eb2ee42424f14a459db",
+      "regression-proof.rs": "b7f3aaf8caf016b2e5c9c1210477c1befd2c4233fc60e1652b8f3c52e4d42404",
+      "regression.rs": "1d6447a623de94e080f139be3dda5d0230bb6408e963a79788fd0814a19cdac2"
+    }
+  },
+  "artifact_and_source_guard": {
+    "complete_source_ledger": "receipt.json:engine_source_sha256",
+    "source_file_count": 1294,
+    "complete_before_after_ledgers": [
+      "receipt.json:artifacts_before",
+      "receipt.json:artifacts_after"
+    ],
+    "guarded_file_count": 1313,
+    "all_before_after_hashes_and_metadata_equal": true,
+    "selected_tool_artifacts": {
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustc": {
+        "sha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1",
+        "size": 413480,
+        "mtime_ns": 1792788101094984484,
+        "inode": 151143826
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-11f7f131/source/z3": {
+        "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+        "size": 26087280,
+        "mtime_ns": 1793545778573626946,
+        "inode": 167457951
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/libverus_builtin.rlib": {
+        "sha256": "14a4cbc2b077c78357dee440c657c2388c1d18647b67b26b1a26e010364b9796",
+        "size": 905856,
+        "mtime_ns": 1793549064195956619,
+        "inode": 167455907
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/libverus_builtin_macros.dylib": {
+        "sha256": "011020b748f65ae37183614d59c7a6d1c3dfceb731fdd9f5abdff5d6b0312a67",
+        "size": 13981280,
+        "mtime_ns": 1793549064647242374,
+        "inode": 167455909
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/libverus_state_machines_macros.dylib": {
+        "sha256": "981543eea985d14f09367950aa4337051f99bbe62d69c88af177365965df2fd2",
+        "size": 9092240,
+        "mtime_ns": 1793549064048137936,
+        "inode": 167455900
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/libvstd.rlib": {
+        "sha256": "bba8feee1023301a8d87eb3a849c161afd38e49f1a5255cc5f1ff9383f2beb95",
+        "size": 10877912,
+        "mtime_ns": 1793552169087861318,
+        "inode": 167725566
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/rust_verify": {
+        "sha256": "14eb718576434993fd58444545ce46c8bbb8bb7f466bc80a23207913ba12ad96",
+        "size": 31122720,
+        "mtime_ns": 1793552127491044247,
+        "inode": 167725289
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/verus": {
+        "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+        "size": 3683824,
+        "mtime_ns": 1793548805829389763,
+        "inode": 167724616
+      },
+      "/private/tmp/verus-fedimint-native-11f7f131/target-verus/release/vstd.vir": {
+        "sha256": "879361afb1d770a9aa735ea722fa06d042960d51de5570609344a55fef95b499",
+        "size": 33352654,
+        "mtime_ns": 1793552159415566283,
+        "inode": 167725412
+      }
+    },
+    "tracked_engine_patch_sha256": "f059d558ab271ddd2cd9a3f09192d206b8b1ef40d56e34816861f4db8fe3a524",
+    "untracked_sources_covered_by_complete_source_ledger": true
+  },
+  "cache_accounting": {
+    "native_cold": "two misses, regenerated_state",
+    "native_warm": "two misses, regenerated_state; no proof reuse is claimed",
+    "all_helper_obligations_rechecked": true,
+    "warm_interface_freshly_written": true,
+    "semantic_negative_interfaces_removed": true,
+    "malformed_frontend_control_not_semantic_bug_detection": true
+  },
+  "retained_development": {
+    "log_sha256": {
+      "/private/tmp/verus-fedimint-native-11f7f131/baseline.stderr": "7f8ef7391361f233730196125e17b7a2a3aa7b346ecc073ca92170fc8133355a",
+      "/private/tmp/verus-fedimint-native-11f7f131/baseline.stdout": "520e9a23bf84e24d9ebdf1732d4e029d29e6f85b6e566171d81b46ad94d111ea",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-10.log": "e474f10824ac8b7bc887c2ca3df8daac6dfc25ae3a8c4242cb8187e0f11da0aa",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-2.log": "0b1620fd83502b456fde723bd07b76a5bb7f029d435d35ed5c5f02815093d8e3",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-3.log": "2cd3d561eafc7fd85fff702e7232421cbd9e9bdf8efe102076a69fd0d28ba502",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-4.log": "1123fd5b43609ebca51c558afca3f29cec56557c700ed70c1ef18fceeee40ba4",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-5.log": "3fa5db5fb0560eaf85380846d813748aea90711c23c19ba727644e60646e3797",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-6.log": "6aee024d022d02e4a49aac51ad0d7de137f9d7d93951e556b0002803b30d1a31",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-7.log": "6aee024d022d02e4a49aac51ad0d7de137f9d7d93951e556b0002803b30d1a31",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-8.log": "a6e23a1d33433155faa906206b791c386cbc399114722fd35d78c107524595eb",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-9.log": "9373a84577abde1bf0520911427e99f491aeabebe264861a3977ba9289145da8",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-authoritative.log": "0d8d1b110b88170634f009713a39ce88e8e88de29d6e6f3bd345d9bee918a0ea",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-final-2.log": "663a725c65b81a7369e20455b4c9e784dac1d6027824cc16995f08a783545eb2",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-final-3.log": "9373a84577abde1bf0520911427e99f491aeabebe264861a3977ba9289145da8",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-final.log": "202fad9279f8d8afa1e0f0476add401711833ab0b6d3bf4991d5a857828ce706",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-sealed-source.log": "67da712708887206d64ff6b4367f21d37b75c986da392186c424d520390bf92f",
+      "/private/tmp/verus-fedimint-native-11f7f131/build-sealed.log": "d43c2204d5a22ac76a32d932f842bb18d87276be6c2a4fe637720ccab38349dc",
+      "/private/tmp/verus-fedimint-native-11f7f131/build.log": "6c1f6f99defc6c1995551e740bd837a57eb15b968152ffd4287ac536c34272b7",
+      "/private/tmp/verus-fedimint-native-11f7f131/format-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-fedimint-native-11f7f131/format-sealed-2024.log": "76695a9c32f2c5696e232ab973a56c36e235566bcb623738e1e01adedbd81ad8",
+      "/private/tmp/verus-fedimint-native-11f7f131/format-sealed-final.log": "2fe7b0a4295c64060d182df751610146b64cadeebd689a7963ff4a73e2be7d85",
+      "/private/tmp/verus-fedimint-native-11f7f131/format-sealed.log": "d3b9e57c305433126fce1d364d3a16619731457211c216f76ffc0ba1c9f9a61b",
+      "/private/tmp/verus-fedimint-native-11f7f131/infer-root-final.log": "ed234d143fdaa5e5b0616f4b247d75e95d4a34ef536bf99ae47ebdf586c69565",
+      "/private/tmp/verus-fedimint-native-11f7f131/integration-authoritative.log": "989319eb0b386c772d0cba4a412be6715fa3dec463fdc3c17dd6cec8e3e0b4d4",
+      "/private/tmp/verus-fedimint-native-11f7f131/integration-clean-final.log": "d3023c1788a25f89b179790ccc081836d7b7337a58fa31da05efb8e894300d2c",
+      "/private/tmp/verus-fedimint-native-11f7f131/integration-final.log": "39def40bc29b355be6e8a6e90b1cdf6afe4b135d5bde4af9244981b0b7b840c8",
+      "/private/tmp/verus-fedimint-native-11f7f131/models-unit-2.log": "b21e02ec547b34c1a833aca45936b831542a1e8e6fa8393791315ef3e958feed",
+      "/private/tmp/verus-fedimint-native-11f7f131/models-unit-3.log": "86a4bd6f97f4be2cbe719cb4c7c568f1c687d93220d118b3b7a30880e32f4838",
+      "/private/tmp/verus-fedimint-native-11f7f131/models-unit-4.log": "5192f80d2d5d036fd7e67168e5a532fb66668e11752478f07ddaf6a862809ccf",
+      "/private/tmp/verus-fedimint-native-11f7f131/models-unit.log": "08b3a4261a54ba506e6def103bedf2a562750de85aea0de57819710577c63145",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-2.stderr": "9f7ffb6e053ecffca5a0c1963382207be19c2c97ef88ab6ea97d26395feaf390",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-2.stdout": "d1dbba82509b123e0368fb085953ff65329515e20b5aa1ece0808d9db8131caf",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-3.stderr": "2ef3bf6f6ee97537d8a86bc4c01f935c2af8ec50887caf4f900d86d19ca2bdde",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-3.stdout": "cb5927c3668825b7a6eb4ec84f46b1cca95c9409ad6cb3a5350545986a51d870",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-4.stderr": "797bc63acfae777ad2e5709ff0814cd25b795a7cb254b7ef204967559d93b1e0",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-4.stdout": "26bbc973e977bd762a8016730369dc5f8d7b6ee969512ddf267864002cc445ba",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-6.stderr": "a15e99c6778e4348b0bd7ac07b20e797bfc3beff53c21cc7c03799e259ddde4e",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-6.stdout": "52548a78dc34c4ca345c5472680e9822fb9d8ffcc3527f219d6f0a2c1414914e",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-7.stderr": "1da92aa14eed5012652f6b4046960f0a74dce08348df6869f86f21cc60b6d2e7",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev-7.stdout": "ae197adffd219c52b3e0c16fa57e2e077bf8802ed68aae21efaae2d7cfedf31b",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev.stderr": "2c44ffdf50240b6765435e1f38532f3504366e1ab982c64df8ee3573664aca24",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-dev.stdout": "ca319bbbd5e0dd31ec030a9de6c17aa2ffbadc8959b8635502e21fd3c3ee9238",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-final-2.log": "52c57c8d70efd49e63d2f7ef5b9497cc09866a696cac400f103604dafeb1438b",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-final-3.log": "9881255ca5adf330c4a6aed25d698ec93635c507ecba445824b4d390c86faec5",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-final-4.log": "c06ad76a5ac33a3eb82ace4210b5fb8187aca470537f1b7bb0302469bd3de368",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-final-5.log": "ee8ff5ec1b46c30254e4171baf73b2f2463747bbfc26ff535271729d357a3b63",
+      "/private/tmp/verus-fedimint-native-11f7f131/native-tests-2.log": "770f133e787a9c8472c45a07898eb60b0386b31589505b82dc66310c187b458e",
+      "/private/tmp/verus-fedimint-native-11f7f131/python-final.log": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068",
+      "/private/tmp/verus-fedimint-native-11f7f131/python-sealed.log": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068",
+      "/private/tmp/verus-fedimint-native-11f7f131/replay-final.log": "93409ce435a5f2ab0d13991cf4b25b7b8546ea614df9eeadb7f1a371cb7c269d",
+      "/private/tmp/verus-fedimint-native-11f7f131/replay-final.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-fedimint-native-11f7f131/replay-final.stdout": "d6cbd25c269845d8df526d10bdcce81b1de70d00ba6fa811f821eca5513c4f11",
+      "/private/tmp/verus-fedimint-native-11f7f131/vir-authoritative.log": "30a6f18bedbedadf6c4e2cba37c2c4d50b8ddd7efae139b8d061a9ec4243f6ce",
+      "/private/tmp/verus-fedimint-native-11f7f131/vir-clean-final.log": "26bbc55999f02b2430fd9f8e9fdc4e42348496b2f1556250f761bb70a3e68979",
+      "/private/tmp/verus-fedimint-native-11f7f131/vir-final.log": "e8adf39331d27172411145ca4f3caabd08d70a882db85fd8fe5d5518d3c94465",
+      "/private/tmp/verus-fedimint-native-11f7f131/vstd-authoritative.log": "fe157d6af1af5e638a01cc7d169d88cd011ef4329fad1bb04e128cbee0ecc49e",
+      "/private/tmp/verus-fedimint-native-11f7f131/vstd-build-2.log": "0d25bc6f33db22abe5e0a7192dbba7cf2cea42de0a60823330f6114f04e1bf37",
+      "/private/tmp/verus-fedimint-native-11f7f131/vstd-build.log": "fd3c828d5342863cce35d61b05b467249cacace2ce64dd54d8c3d3ef9ffa6965",
+      "/private/tmp/verus-fedimint-native-11f7f131/vstd-clean-final.log": "a5bb5a406019e7b04ec1157c8282d26cb1d9d7c1a1d355dedcfcee8a93496f2d",
+      "/private/tmp/verus-fedimint-native-11f7f131/vstd-final.log": "6b1ceeb38154256f90364608b68884ad5174b1ee7396751d18ceaf62fe7cea32",
+      "/private/tmp/verus-fedimint-native-11f7f131/vstd-reverified.log": "f07e2e2c5d44d44f0abcf48b8b7253fcf2ca6f9b7c9ad5a7c50580574f146c44"
+    },
+    "receipts": [
+      {
+        "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-04fw_34e/receipt.json",
+        "sha256": "7b024ac22c3e129b628f22b3112b369bf100aa4f5a26811ee5f6ac765c0cecd5",
+        "controller_success": true,
+        "transfer_status": "proved",
+        "failure": null
+      },
+      {
+        "path": "/private/tmp/verus-fedimint-native-11f7f131/replays/run-vix2n996/receipt.json",
+        "sha256": "952d97dcc08e0d64f861965002b482d9ce930ed5d13ea4824a30f202af2352d0",
+        "controller_success": true,
+        "transfer_status": "proved",
+        "failure": null
+      }
+    ],
+    "interpretation": "Retained for transparency, not counted as final successful evidence.",
+    "resolved_failures": [
+      "initial unsupported native then_some/map_or frontend",
+      "restoring unsupported original callee erasure name caused an erasure panic; retained matching bridge resolution",
+      "partial callback tests exposed missing exact callback-domain and necessary-domain gates",
+      "transparent one-field records select a separate scalar profile; explicit fail-closed boundary retained",
+      "temporary malformed raw-string test edits corrected before final tests",
+      "initial Cargo target/build-dir mismatch and later wrong working-directory invocations",
+      "wrong Rust formatting edition/child traversal and two native formatting differences corrected"
+    ],
+    "historical_reports_immutable": true
+  },
+  "next_steps": [
+    "Parent integrates shared transfer front door and reviews the bounded frontend correspondence and callback precision gates.",
+    "Retain both registry callback restoration and cache62/policy56 changes during integration.",
+    "Do not infer whole-flow or stateful fund safety; any later obligation needs a separate authored policy and frozen baseline."
+  ]
+}

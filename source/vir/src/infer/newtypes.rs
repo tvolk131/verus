@@ -190,13 +190,8 @@ impl Newtypes {
         )
     }
 
-    pub(super) fn lift(
-        &self,
-        original: &Function,
-        projected: &Function,
-    ) -> Result<Contract, VirErr> {
-        let span = &original.span;
-        let vars = original
+    fn substitutions(&self, original: &Function) -> HashMap<VarIdent, Term> {
+        original
             .x
             .params
             .iter()
@@ -222,7 +217,49 @@ impl Newtypes {
                 };
                 (p.x.name.clone(), Term { view: None, expr, size: 2 })
             })
-            .collect();
+            .collect()
+    }
+
+    pub(super) fn lift_callbacks(
+        &self,
+        original: &Function,
+        decorated: &Expr,
+    ) -> Result<Expr, VirErr> {
+        let substitutions = self.substitutions(original);
+        let plans = owned::callbacks::plans(decorated)
+            .iter()
+            .map(|plan| {
+                let clauses = |expressions: &Exprs| {
+                    expressions
+                        .iter()
+                        .map(|expression| {
+                            Ok(records::substitute_value(expression, &substitutions)?.expr)
+                        })
+                        .collect::<Result<Vec<_>, VirErr>>()
+                        .map(Arc::new)
+                };
+                Ok(owned::callbacks::Plan {
+                    span: plan.span,
+                    requires: clauses(&plan.requires)?,
+                    ensures: clauses(&plan.ensures)?,
+                })
+            })
+            .collect::<Result<Vec<_>, VirErr>>()?;
+        let body = original
+            .x
+            .body
+            .as_ref()
+            .ok_or_else(|| unsupported(&original.span, "missing wrapper body"))?;
+        owned::callbacks::annotate(original, body, &plans)
+    }
+
+    pub(super) fn lift(
+        &self,
+        original: &Function,
+        projected: &Function,
+    ) -> Result<Contract, VirErr> {
+        let span = &original.span;
+        let vars = self.substitutions(original);
         let pre = instantiate(&projected.x.require[0], &vars)?;
         let ExprX::Binary(BinaryOp::Eq(Mode::Spec), _, output) = &projected.x.ensure.0[0].x else {
             return Err(unsupported(span, "invalid projected wrapper summary"));

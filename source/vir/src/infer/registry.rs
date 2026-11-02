@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v60:checked-byte-spare:4096";
+const VERSION: &str = "verus-infer-v69:checked-goals-shared-option:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -394,7 +394,7 @@ impl Registry {
                 candidates.insert(name, inferred);
                 continue;
             }
-            if records::candidate(f) {
+            if records::candidate(f) || record_models::uses_native_option(f, &all) {
                 let mut dependencies: Vec<_> = keys.values().cloned().collect();
                 dependencies.sort();
                 dependencies.push(format!("{:?}", self.datatypes));
@@ -403,14 +403,12 @@ impl Registry {
                     &dependencies,
                     &self.configuration,
                 );
-                // Record analysis retains application types. Scalar synthesis
-                // temporarily projects wrappers, so lift checked callee formulas
-                // before composing them into a record/query candidate.
                 let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let projected_caller = self.projected.contains(&name);
                 let record_callees = candidates
                     .iter()
                     .map(|(n, c)| {
-                        let c = if self.projected.contains(n) {
+                        let c = if !projected_caller && self.projected.contains(n) {
                             wrappers
                                 .lift(&self.originals[n], c)?
                                 .install_lifted(&self.originals[n], &keys[n])?
@@ -638,7 +636,18 @@ impl Registry {
                                 owned::restore_body(original, f.x.body.as_ref().unwrap())?,
                             );
                     }
-                    if records::has_loops(original) {
+                    if !Arc::ptr_eq(rewritten, projection)
+                        && !owned::callbacks::plans(f.x.body.as_ref().unwrap()).is_empty()
+                    {
+                        return wrappers.lift(original, f)?.install_owned(
+                            original,
+                            f.x.attrs.infer_candidate_id.as_ref().unwrap(),
+                            wrappers.lift_callbacks(original, f.x.body.as_ref().unwrap())?,
+                        );
+                    }
+                    if records::has_loops(original)
+                        || !owned::callbacks::plans(f.x.body.as_ref().unwrap()).is_empty()
+                    {
                         return Contract::new(f.x.require[0].clone(), f.x.ensure.0[0].clone())?
                             .install_owned(
                                 original,

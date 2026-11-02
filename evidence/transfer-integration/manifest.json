@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "classification": "integrated_infer_extensions_with_bounded_application_replays",
+  "worktree": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+  "base_branch": "origin/verus-infer",
+  "base_verified_at_start": true,
+  "metadata_schema": 38,
+  "inference_policy": 55,
+  "candidate_cache_version": 61,
+  "engine": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "source_tree_sha256": "b83d0ad3e9c27afdb5a66538942b22713db3d781aca1279326a015b25eb9c055",
+    "patch_sha256": "1542a91a0a39b120c6a6e16719789c51acdff68e40d728bbdf05c58b00a5324a",
+    "source_file_count": 1552,
+    "production_files": {
+      "source/rust_verify/src/import_export.rs": "2de220bc155ec7bca4fb2d39b9764d21b3f67cc5efb4a4c756714d4317e934ac",
+      "source/vir/src/infer.rs": "40b9cae83628d5bc75fb665ec6fa11ad628e6ae9f88f46bbaef716b2ba7364eb",
+      "source/vir/src/infer/byte_models.rs": "0998dcdab6c3391105284928a77c6060ab07f6ec7a281bc90a19b6638aee3e6c",
+      "source/vir/src/infer/owned.rs": "461edd730bd00df05699deb8f51915593eeb967a92034e74997e297c21f8c445",
+      "source/vir/src/infer/records.rs": "7e416bed982688d0b22a16c7bddebc80dc1216312b24e61bf63053f5ffabe0db",
+      "source/vir/src/infer/registry.rs": "8e50463c6472558dc3460500eb1184b975072a643842cb12092dcad8f9733f3f",
+      "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3"
+    }
+  },
+  "artifacts": {
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/libvstd.rlib": {
+      "sha256": "3a149fafa575f04912248e5fc861c45d188ade86c912bf55a63203f7786ed7d6",
+      "size": 9908016,
+      "mtime_ns": 1793546505377696800,
+      "inode": 167417827
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/rust_verify": {
+      "sha256": "159affb21fc726f8d6c8ce180f6a886096977a3811b8693d66593a0ff2209047",
+      "size": 31217792,
+      "mtime_ns": 1793546697128324600,
+      "inode": 167417819
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/verus": {
+      "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+      "size": 3683824,
+      "mtime_ns": 1793545802581440000,
+      "inode": 167417469
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/vstd.vir": {
+      "sha256": "f673c5eadb06743fe257e3b5524b77b25ac6cb41c04b1259e04cfaee24c4a88f",
+      "size": 32555017,
+      "mtime_ns": 1793546484649884200,
+      "inode": 167414216
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/z3": {
+      "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "size": 26087280,
+      "mtime_ns": 1793546009706885600,
+      "inode": 167406781
+    }
+  },
+  "source_ledger": "/private/tmp/verus-infer-integration.EbudBf/redb-replays/run-_slw3nj7/engine-source.json",
+  "captured_source_patch": "/private/tmp/verus-infer-integration.EbudBf/redb-replays/run-_slw3nj7/engine.patch",
+  "validation": {
+    "vir_unit_tests": 120,
+    "integration_tests": 392,
+    "integration_suites": {
+      "infer": 296,
+      "infer_byte_apis": 6,
+      "infer_record_returns": 7,
+      "infer_transfer_composition": 1,
+      "infer_records": 21,
+      "infer_wrappers": 18,
+      "infer_selection": 9,
+      "infer_error_values": 10,
+      "infer_wrapper_traits": 16,
+      "infer_traversals": 8
+    },
+    "vstd_verified": 2219,
+    "vstd_errors": 0,
+    "shared_python_tests": 108,
+    "replay_python_tests": 4,
+    "optimized_replay_python_tests": 4,
+    "rustfmt_check": true,
+    "verusfmt_check": true,
+    "diff_check": true,
+    "known_unchanged_doctest_failures": 18,
+    "doctest_note": "Disclosed by the isolated byte candidate; parent validation deliberately targets --lib and integration binaries, not a claim of a green complete workspace suite.",
+    "logs": {
+      "compiler": "/private/tmp/verus-infer-integration.EbudBf/combined-compiler.log",
+      "vstd_full_verification": "/private/tmp/verus-infer-integration.EbudBf/combined-vstd.log",
+      "vstd_final_cached_build": "/private/tmp/verus-infer-integration.EbudBf/combined-vstd-final.log",
+      "vir_unit": "/private/tmp/verus-infer-integration.EbudBf/combined-vir-unit.log",
+      "main_infer_and_superseded_fixture_failures": "/private/tmp/verus-infer-integration.EbudBf/combined-integration.log",
+      "final_remaining_integration_suites": "/private/tmp/verus-infer-integration.EbudBf/combined-integration-rerun.log"
+    },
+    "superseded_failures": "Initial solver-location and test-only naming/field-label integration errors were corrected; old logs are retained and are not counted as final passes."
+  },
+  "independent_reviews": {
+    "scope": "Both isolated production candidates; parent then performed local integration cleanup and combined validation.",
+    "readonly_record_returns": "No substantive correctness or soundness findings; additional reviewer scratch checks passed.",
+    "native_byte_models": "No substantive findings in formulas, types, identity/proxy recognition, trust boundary, fingerprints or publication barriers."
+  },
+  "fedimint": {
+    "application_commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+    "receipt": "/private/tmp/verus-infer-integration.EbudBf/fedimint-replays/run-7n_o966_/receipt.json",
+    "receipt_sha256": "dbe2871eb2c068accf9018b96693388b3832045a5aa28881c8565966555787e5",
+    "native_differential_inputs": 2112,
+    "untouched_native_gateway_verified": false,
+    "formal_desugaring_equivalence_proved": false,
+    "controller_success": true,
+    "cases": [
+      {
+        "name": "original",
+        "phase": "frontend",
+        "classification": "unsupported/frontend; not bug detection",
+        "verified": null,
+        "errors": null,
+        "interface_exists": false,
+        "stale_interface_removed": false,
+        "required_checks_passed": []
+      },
+      {
+        "name": "stdlib_lowered",
+        "phase": "unsupported",
+        "classification": "unsupported/infer Option predicate; not bug detection",
+        "verified": null,
+        "errors": null,
+        "interface_exists": false,
+        "stale_interface_removed": false,
+        "required_checks_passed": []
+      },
+      {
+        "name": "option_lowered",
+        "phase": "unsupported",
+        "classification": "unsupported/infer tuple constant; not bug detection",
+        "verified": null,
+        "errors": null,
+        "interface_exists": false,
+        "stale_interface_removed": false,
+        "required_checks_passed": []
+      },
+      {
+        "name": "record_infer",
+        "phase": "cold",
+        "classification": "proved extracted/refactored body, not whole gateway",
+        "verified": 8,
+        "errors": 0,
+        "interface_exists": true,
+        "stale_interface_removed": false,
+        "required_checks_passed": [
+          true,
+          true
+        ]
+      },
+      {
+        "name": "lowered",
+        "phase": "cold",
+        "classification": "proved extracted/refactored body, not whole gateway",
+        "verified": 8,
+        "errors": 0,
+        "interface_exists": true,
+        "stale_interface_removed": false,
+        "required_checks_passed": [
+          true,
+          true
+        ]
+      },
+      {
+        "name": "lowered",
+        "phase": "warm",
+        "classification": "proved extracted/refactored body, not whole gateway",
+        "verified": 8,
+        "errors": 0,
+        "interface_exists": true,
+        "stale_interface_removed": false,
+        "required_checks_passed": [
+          true,
+          true
+        ]
+      },
+      {
+        "name": "regression",
+        "phase": "cold",
+        "classification": "semantic authored-policy rejection; both inferred contracts exactly proved",
+        "verified": 7,
+        "errors": 1,
+        "interface_exists": false,
+        "stale_interface_removed": true,
+        "required_checks_passed": [
+          true,
+          true
+        ]
+      },
+      {
+        "name": "false_goal",
+        "phase": "cold",
+        "classification": "semantic authored-policy rejection; both inferred contracts exactly proved",
+        "verified": 7,
+        "errors": 1,
+        "interface_exists": false,
+        "stale_interface_removed": true,
+        "required_checks_passed": [
+          true,
+          true
+        ]
+      },
+      {
+        "name": "malformed_goal",
+        "phase": "frontend",
+        "classification": "malformed authored goal rejected; not semantic detection",
+        "verified": 0,
+        "errors": 0,
+        "interface_exists": false,
+        "stale_interface_removed": true,
+        "required_checks_passed": []
+      }
+    ]
+  },
+  "redb": {
+    "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "receipt": "/private/tmp/verus-infer-integration.EbudBf/redb-replays/run-_slw3nj7/receipt.json",
+    "receipt_sha256": "5c57bd11abe5c20e5e20464013eb66b7faf7ff22498b7fd6acf53eef46d68a1b",
+    "next_codec_blocker": "Result::unwrap in u32::try_from(...).unwrap()",
+    "false_application_property_semantically_assessed": false,
+    "native_byte_boundary_cases": 6144,
+    "native_page_identifiers": 2097467,
+    "native_composed_address_checks": 12222,
+    "controller_success": true,
+    "application_verification_accepted": false,
+    "frozen_source_comparison": {
+      "extraction_matches": true,
+      "generated_matches": true,
+      "fixtures": {
+        "codec.rs": "639d1032cc0fb061cf3e4bf7c8b05b14b13e7d856ce047b09e1f740d6565a3cb",
+        "false_codec.rs": "0e023d19c7fe79681aaf3b296cbe3dbe66039a331744f54baf0a47efa6880c46",
+        "size.rs": "87195e5d9b9a70cfa8cd4ab627b17465bb9ff8bebb1bffe5fef5f3682f5a89a1",
+        "address.rs": "0243d41662b8d84e0800edd0364a27dcfb22f5b7730408b42382d8d2d0b510d4",
+        "native.rs": "0d8998daa1cecc5f8b2208251ef84d2ab2a8b671c8fa2c2fbf6452c658516cf7",
+        "native_mutated.rs": "7cc34e3b10ee7e7429d18192ced3019e4ceef3671d9b89787acfa052b262c564"
+      },
+      "original_receipt_sha256": "c7e4128927ecb77fa36d3382abc4c4f348ce7c7d19027e95db8f3f00d745877e"
+    },
+    "required_focused_checks": 60,
+    "proved_focused_checks": 60,
+    "cases": [
+      {
+        "label": "codec_cold",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "codec_warm",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "false_codec_cold",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "false_codec_warm",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "size_cold",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "size_warm",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "address_cold",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "address_warm",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "address_release_cold",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      },
+      {
+        "label": "address_release_warm",
+        "classification": "unsupported_source",
+        "primitive_byte_frontend_rejection": false,
+        "artifact_exists": false
+      }
+    ]
+  },
+  "trust": {
+    "new_primitive_assume_specifications": 2,
+    "declarations": [
+      "u64::to_le_bytes(u64) -> [u8; 8]",
+      "u64::from_le_bytes([u8; 8]) -> u64"
+    ],
+    "no_unwind_assumed": true,
+    "rust_std_implementation_verified": false,
+    "new_roundtrip_axioms": 0,
+    "existing_inverse_lemmas_reverified": true,
+    "inventory": "evidence/transfer-redb-byte-apis/TRUST.md"
+  },
+  "original_isolated_manifests_retained": true,
+  "commits_created": false,
+  "pull_requests_created": false
+}

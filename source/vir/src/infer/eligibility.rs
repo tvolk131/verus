@@ -219,6 +219,25 @@ fn validate_root(
         &mut |_, e| {
             let checked = (|| {
                 if !f.x.attrs.infer_allow_approx {
+                    if panics::literal(e, callees).is_some() {
+                        crate::ast_visitor::expr_visitor_check(e, &mut |_, _| {
+                            *remaining = remaining
+                                .checked_sub(1)
+                                .ok_or_else(|| unsupported(&e.span, "analysis budget exceeded"))?;
+                            Ok::<_, VirErr>(())
+                        })?;
+                        return Ok(true);
+                    }
+                    if let Some(operand) = integer_conversions::call(e, callees) {
+                        crate::ast_visitor::expr_visitor_check(e, &mut |_, _| {
+                            *remaining = remaining
+                                .checked_sub(1)
+                                .ok_or_else(|| unsupported(&e.span, "analysis budget exceeded"))?;
+                            Ok::<_, VirErr>(())
+                        })?;
+                        validate_root(operand, f, callees, remaining)?;
+                        return Ok(true);
+                    }
                     if let Some(range) = slices::range_call(e, callees)? {
                         crate::ast_visitor::expr_visitor_check(e, &mut |_, _| {
                             *remaining = remaining

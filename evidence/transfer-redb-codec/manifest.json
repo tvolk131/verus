@@ -1,0 +1,1461 @@
+{
+  "schema_version": 1,
+  "experiment": "redb-source-connected-pagenumber-codec",
+  "date": "2026-11-01",
+  "result": "proved_frozen_domain_codec_roundtrip_and_injectivity",
+  "transfer": {
+    "scenario": "redb",
+    "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "status": "proved",
+    "source_fidelity": true,
+    "positive_cases": [
+      "conversion_provider_cold",
+      "conversion_client_cold",
+      "conversion_provider_warm",
+      "conversion_client_warm",
+      "codec_authored_cold",
+      "codec_authored_warm",
+      "codec_complete_cold",
+      "codec_provider_cold",
+      "codec_client_cold",
+      "codec_complete_warm",
+      "codec_provider_warm",
+      "codec_client_warm"
+    ],
+    "semantic_negative_cases": [
+      "decoder_mutation_negative",
+      "false_goal_negative"
+    ],
+    "stale_export_rejected": true,
+    "limitations": [
+      "extracted codec only; not whole-database correctness"
+    ],
+    "trust": [
+      "ordinary Verus backend and existing vstd contracts",
+      "Rust core primitive implementation bodies are not formally verified"
+    ]
+  },
+  "integrated_baseline": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "manifest": "/private/tmp/verus-transfer-next-baseline-5e1xxkrt/manifest.json",
+    "manifest_sha256": "8fe42df873fa3b68b3323980829d079bb34fcbd429655ed69b8741eb1f63a8f3",
+    "patch_sha256": "bcaeedd49bb41fb586a8c730b75da533f68b2a8f9ed66458ea37d47015f2ecab",
+    "restored_first": true,
+    "verified_file_count": 22,
+    "mismatches_before_extension": [],
+    "preserved_files": {
+      "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+      "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+      "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+      "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+      "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+      "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+      "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+      "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+      "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+      "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+      "source/rust_verify_test/tests/infer_transfer_composition.rs": "39dbe434c22fc13b6eb971766d17d88e3dd6463f828e4319c2604d0b9fbd8ebc",
+      "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+      "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+      "source/vir/src/infer/records/tests.rs": "292dc145c0fc2b61ff5a8b42ce1859127ed38c3fa8c271c5f2a2847bf5f4028a",
+      "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3"
+    }
+  },
+  "engine": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "changed_since_integrated_snapshot": {
+      "source/docs/guide/src/infer.md": "ba7120468f8a08e2004ffee4e7b51be37b0844c3397086f1becb626f86d38267",
+      "source/rust_verify/src/import_export.rs": "291730ee08d84b5e9f61aa159081a92c75fabd6ba611be2f10fe07b547ded5f9",
+      "source/vir/src/infer.rs": "06149abe5abaa049072f016fc9bc34cad31d0979f156308c5784ff8288fcfc88",
+      "source/vir/src/infer/byte_models.rs": "18a50a63029e6443df5e99e0e8c4e1d7aa33b9ac8d17b26bedf05de94cdcbc5f",
+      "source/vir/src/infer/eligibility.rs": "12babbfd3b24f3ff6bd4c3c6fd6c32c5d727d7a5bb84962e5917b99a3a2929c8",
+      "source/vir/src/infer/integer_conversions.rs": "30851566bd5660db69065d68c8ac27e2ee7c47314f503ad8c6147db6a219cabd",
+      "source/vir/src/infer/owned.rs": "6a3d20c25efe1da24658e23d2ca355752832a00347aef262cfd6cfc3579b8304",
+      "source/vir/src/infer/records.rs": "092defcb40cecae09ca1e3ae714d8dc549ba4a4e9db9ca4c6b760cc1992167f7",
+      "source/vir/src/infer/records/shape.rs": "474b81280b659ba4dcaea24357c29b6b6eeeab12cf1342107efba8b43b0c0ca4",
+      "source/vir/src/infer/registry.rs": "e00f8d402c5d1afd88d744135b5e382578b6b4e13f5aeae068736b383f39b81c",
+      "source/vir/src/sst_to_air.rs": "21bc3af554bff23b9489aedb9c7bf32b8fd4bd8cabbada97d1a94611484fe7ce",
+      "source/rust_verify_test/tests/infer_codec_values.rs": "c6eedc131095dd7c15a51deeed8d9429b03ab11d49eca698591a0ed03d22eafe",
+      "source/rust_verify_test/tests/infer_integer_conversions.rs": "060ff314e61e3c46981596fe9cec2bb6f1b870a051c9bab18921a005bc555ac8",
+      "source/tools/check_redb_codec.py": "5498bc0a24b8dc437408165468a8584fe9b9bed4bbdc536137cacc440819d665",
+      "source/tools/test_redb_codec.py": "3526ffbcdbf5565b591ff0f912b32c59f7674887bbe242d04a2a9c49d161c302"
+    },
+    "cache": 62,
+    "policy": 56,
+    "schema": 38,
+    "new_assumed_specifications": 0,
+    "vstd_source_unchanged": true,
+    "complete_source_snapshot_in_receipt": true
+  },
+  "application": {
+    "commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "source": "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+    "base_rs_sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+    "extraction": {
+      "PageNumber": {
+        "sha256": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 34
+      },
+      "to_le_bytes": {
+        "sha256": "284704938b6d28b2b3ed3719d9a5ac7ba8ff5b7928410d4b407dd03588554534",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 90
+      },
+      "from_le_bytes": {
+        "sha256": "10423f60e80091cbe34a029b491e53797ac6b63e388892949136bf4bd8e4f02c",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 97
+      }
+    },
+    "domain": {
+      "region_max": "0xfffff",
+      "order_max": 20,
+      "index_max": "0xfffff >> order",
+      "quantified": "all such values"
+    },
+    "fidelity": {
+      "application_executable_body_edits": 0,
+      "frozen_unaided_wrapper_preserved": true,
+      "authored_wrapper_additions": "checked ghost packing/byte proofs and a name for the intermediate encoding",
+      "public_provider_changes": "visibility only; method bodies unchanged",
+      "manually_assumed_application_summaries": 0,
+      "input_domain_restrictions_added": 0
+    }
+  },
+  "raw_evidence": {
+    "authoritative_replay": "/private/tmp/verus-redb-codec-7597ec83/replays/redb-codec-bp47idhd",
+    "receipt_sha256": "8bd671821879d61c63a382c9947d68fe048ab1a396a23c0f2b3b692530227571",
+    "scratch_root": "/private/tmp/verus-redb-codec-7597ec83",
+    "artifacts_unchanged": true,
+    "retained_exploratory_replays": [
+      "/private/tmp/verus-redb-codec-7597ec83/replays/redb-codec-31ao6u3l",
+      "/private/tmp/verus-redb-codec-7597ec83/replays/redb-codec-p2ncmiza"
+    ],
+    "replay_command": [
+      "python3",
+      "source/tools/check_redb_codec.py",
+      "--application",
+      "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+      "--verus",
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/verus",
+      "--solver",
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/z3",
+      "--output",
+      "/private/tmp/verus-redb-codec-7597ec83/replays",
+      "--timeout",
+      "180"
+    ]
+  },
+  "tool_artifacts": {
+    "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustc": {
+      "sha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1",
+      "size": 413480,
+      "mtime_ns": 1792788101094984484,
+      "inode": 151143826
+    },
+    "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib": {
+      "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395",
+      "size": 83390408,
+      "mtime_ns": 1792788099308080132,
+      "inode": 151143787
+    },
+    "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libcore-3e4eb39a5fe4e537.rlib": {
+      "sha256": "0205c70e6755f55478c511adb5231ff6b10cbd46f4198f0991354d0b20c702a4",
+      "size": 2641088,
+      "mtime_ns": 1792788097941823126,
+      "inode": 151143723
+    },
+    "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libstd-c8df3f17af30326b.rlib": {
+      "sha256": "7421245549290b5b40d81ebdd6dc294a2003b946bebb1ed16d614336226d1dca",
+      "size": 9832968,
+      "mtime_ns": 1792788098130570700,
+      "inode": 151143740
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/libverus_builtin.rlib": {
+      "sha256": "c1eed3cda028e9fb4a91cad77e4222a2cedd5f6c378a7cf489ea56ff345ca4e5",
+      "size": 905856,
+      "mtime_ns": 1793544713542364754,
+      "inode": 167450935
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/libverus_builtin_macros.dylib": {
+      "sha256": "37f2b4c40dd1b4a29b1f04192c58356bba7fae106b418487dc4010186ae77bfe",
+      "size": 13980800,
+      "mtime_ns": 1793544713992555191,
+      "inode": 167450937
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/libverus_state_machines_macros.dylib": {
+      "sha256": "94e7101135ae9b434a87df91bba60c3080181ee61ae3249064afd0cc84b54292",
+      "size": 9092240,
+      "mtime_ns": 1793544713396515067,
+      "inode": 167450928
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/libvstd.rlib": {
+      "sha256": "95fb3ba8479564cd7957c43b9796c9957d773dc20b23a70de78888668e34ebdc",
+      "size": 10867336,
+      "mtime_ns": 1793549144153308108,
+      "inode": 167471622
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/rust_verify": {
+      "sha256": "80be93c19f82cb6ba4f4ecc4d670c816b6d6d3664b80b59db5a1855c9ab67136",
+      "size": 31103936,
+      "mtime_ns": 1793550519137181309,
+      "inode": 167504002
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/verus": {
+      "sha256": "b2a4dcc291113bdf45026086d14a9f9a70ffc3279d408325aa7f9230071d5c51",
+      "size": 3684016,
+      "mtime_ns": 1793548679785479274,
+      "inode": 167466224
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus/release/vstd.vir": {
+      "sha256": "6a60039cc6ad669b17a2cb70242af9fee3de1c0927ad61b624a155c8632a86ad",
+      "size": 33341822,
+      "mtime_ns": 1793549133968823538,
+      "inode": 167471519
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/z3": {
+      "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "size": 26087280,
+      "mtime_ns": 1793545778573626946,
+      "inode": 167452981
+    }
+  },
+  "generated_sources": {
+    "native.rs": "592a51d0b81b7edcc2c916f355c8abd9dbaeb5832308df694fbdcdcced5218d1",
+    "PageNumber.original.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+    "decoder_mutation.rs": "90014e4c48b821dacd8d512579db81c753006f5f218184ce4a7de841133294e2",
+    "conversion_provider.rs": "0441637ff8aaa799e56d1f09c2484a6b5dcd43287ea526aace86e1e5ee9c69a4",
+    "to_le_bytes.original.rs": "284704938b6d28b2b3ed3719d9a5ac7ba8ff5b7928410d4b407dd03588554534",
+    "native_mutation.rs": "c7952c5a6b26265f387fde6c0400f97b7388ffcd8262e6debab6ccaf52a75eef",
+    "codec_authored.rs": "d3f81b23b6eff088d6d1db4bed9350a72374142608cb45d922c29fee21406e12",
+    "panic_goal.rs": "7acf75ea87bd620c94035b35803ee80870b11bfdc3015fce694a6afe5decde0f",
+    "codec_complete.rs": "c3c06e1aec9136959965ab8cd9d4aae4ac29c41730215f393681f078cd31002d",
+    "conversion_client.rs": "44bf9f91ebe5ec8f7829bca1751626d0849741cf75d1e1c986bdd38244533513",
+    "malformed_goal.rs": "c830d3fed6f4cc3b652726e2a627716fe0d392cde8c697da49ee223845964b77",
+    "false_goal.rs": "cee555b826deb272d6a081891a3fbc3989d569591c18bf7d952cd35c54217cc5",
+    "from_le_bytes.original.rs": "10423f60e80091cbe34a029b491e53797ac6b63e388892949136bf4bd8e4f02c",
+    "codec.rs": "639d1032cc0fb061cf3e4bf7c8b05b14b13e7d856ce047b09e1f740d6565a3cb",
+    "codec_client.rs": "70690c69a77b9b69b9c77f3fa7e51aa5d1e2517a120777ea406e214b86f811d3",
+    "codec_provider.rs": "9852f118690d498b19c03e3d32e175d66365a9d5a43cfb1351dddf1d4e177520"
+  },
+  "generated_artifacts": {
+    "codec_authored.vir": "a08bcebcbddf04ae8e6d56b30aa37ca015c5336f60377de8ef030110d29669d4",
+    "summary.vir": "52a32690f5c737d53369ac88da1ae7e6176032a1585d9d83fc029d65a11459ed",
+    "native": "00764564a83160eff850e030cbc905bce04ae97dfb9e69bc7d1d1d4b1b69839f",
+    "libcodec_client.rlib": "0e8e9db0988b152d252ebbfd2e27ce28b8750e1abef4fb95bc672108d512384e",
+    "codec_provider.vir": "de23ec2d2106e4a6d3387fcc00b4dd20b37ab6666816c1600641d1cf61cd86f7",
+    "proof.vir": "69007c54b44ee9b3d635ab5e0e67fb21d20d042d863cc46d230496eba89d30f5",
+    "native_mutation": "0701bf25a83243e094e2a3feb463b7f56f1c97e06b36bd19ea9b552bcfba56e2",
+    "codec_complete.vir": "b087c715d8c0c2d8336c625e2c938c44747eae64e1087910be30ade8d87ebbf4",
+    "model.vir": "b48d488e39c3f24315f7f5d7c4446bfc0db79dc4d626243aa72357f36bd1a4a6",
+    "libconversion_client.rlib": "63d6b29feb4605990fec3df9fcd2583e37b2cff61f346ef735011052a17a903c",
+    "libconversion_provider.rlib": "d9e88f9f5c106f9f084c6777dafc5b9e81d40132386a116783838f684c91a351",
+    "libcodec_authored.rlib": "477b9b885def2e5f39e6edb29bc33855693be55895807bb28a80ccb98adfeff0",
+    "conversion_provider.vir": "6f6e8cd2984360b0b65cb615703d38facb594dd05613713934f7289dae7f0f73",
+    "libcodec_provider.rlib": "99fffa7ae9d2a649297155d8c05670d79debce2805009b49dcff224c44ce5a46",
+    "policy.vir": "913edd37b751c2f79d6f3d7fb7fcedca1a525105ed67a0ad836c705d5f27a5a1",
+    "libcodec_complete.rlib": "a5ffdc79862f984fb08bb3d314dc91190d2af88c132b0aa69560be15ce1cfe9e",
+    "codec_client.vir": "f51c86fd08a8b8b95856a45f42be445c35e4c6461d391c927e26da0df9b157aa"
+  },
+  "build_seed": {
+    "method": "cp -cR APFS copy-on-write; no shared mutable files",
+    "source": "/private/tmp/verus-infer-integration.EbudBf/target-verus",
+    "destination": "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/target-verus",
+    "solver_copy": "/Users/tommyvolk/.t3/worktrees/verus/t3-7597ec83/source/z3",
+    "jobs": 2,
+    "toolchain": "1.99.1",
+    "cargo_working_directory": "source/",
+    "offline": true,
+    "locked": true
+  },
+  "validation": [
+    {
+      "log": "/private/tmp/verus-redb-codec-7597ec83/build-6.log",
+      "sha256": "f6c70ff111a238c72e4083957892e149229eac067eec832b86ca133e96361d7a",
+      "result": "compiler release build passed, offline/locked, two jobs"
+    },
+    {
+      "log": "/private/tmp/verus-redb-codec-7597ec83/vstd.log",
+      "sha256": "2932f8fe9f9d9fa0ade303173f00fdff6546aed916c300546ccc20cda2693c5e",
+      "result": "2219 verified, 0 errors"
+    },
+    {
+      "log": "/private/tmp/verus-redb-codec-7597ec83/vir-unit-final.log",
+      "sha256": "9783d41b05fca882c1dd7778a53c66e8c97d12a97cd9fef643b342613c975251",
+      "result": "122 unit tests passed"
+    },
+    {
+      "log": "/private/tmp/verus-redb-codec-7597ec83/integration-regression-2.log",
+      "sha256": "bfedfd228452a0402128b8e88ececccd4758a26d4699eb94cd1ee8a9d4d1c652",
+      "result": "54 integration tests passed"
+    },
+    {
+      "log": "/private/tmp/verus-redb-codec-7597ec83/python-tests.log",
+      "sha256": "46fa637d3d5ace88eeeecd8a8261b666fc40aea4a400b123a7d0caebbf53be94",
+      "result": "4 replay tests passed"
+    },
+    {
+      "log": "/private/tmp/verus-redb-codec-7597ec83/python-tests-optimized.log",
+      "sha256": "6a6bb11c5bf8f1246b82578a6ca9df700a758711a175497bc1ac50a1d97a25ac",
+      "result": "4 replay tests passed under Python -O"
+    }
+  ],
+  "validation_commands": [
+    "RUSTUP_TOOLCHAIN=1.99.1 CARGO_BUILD_JOBS=2 cargo build --offline --locked --release -p rust_verify",
+    "RUSTUP_TOOLCHAIN=1.99.1 CARGO_BUILD_JOBS=2 cargo test --offline --locked --release -p vir --lib",
+    "RUSTUP_TOOLCHAIN=1.99.1 CARGO_BUILD_JOBS=2 cargo test --offline --locked --release -p rust_verify_test --test infer_integer_conversions --test infer_codec_values --test infer_byte_apis --test infer_record_returns --test infer_transfer_composition --test infer_binary --test infer_records -- --test-threads=2",
+    "RUSTUP_TOOLCHAIN=1.99.1 VERUS_IN_VARGO=1 VERUS_Z3_PATH=$PWD/z3 DYLD_LIBRARY_PATH=$(RUSTUP_TOOLCHAIN=1.99.1 rustc --print sysroot)/lib target-verus/release/vstd_build $PWD/target-verus/release --release",
+    "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s source/tools -p test_redb_codec.py -v",
+    "PYTHONDONTWRITEBYTECODE=1 python3 -O -m unittest discover -s source/tools -p test_redb_codec.py -v"
+  ],
+  "cases": [
+    {
+      "label": "conversion_provider_cold",
+      "classification": "proved",
+      "verified": 8,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "conversion_provider::narrow",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 642,
+            "solver_micros": 11678,
+            "requires_nodes": 3,
+            "ensures_nodes": 4
+          }
+        },
+        {
+          "function": "conversion_provider::signed",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 189,
+            "solver_micros": 9736,
+            "requires_nodes": 7,
+            "ensures_nodes": 4
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "4c129c905d847fad72bd61c3328db2711c3687fe8b3aeb11ed82885e5e63e0de"
+    },
+    {
+      "label": "conversion_client_cold",
+      "classification": "proved",
+      "verified": 4,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "conversion_client::relay",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 385,
+            "solver_micros": 540,
+            "requires_nodes": 3,
+            "ensures_nodes": 4
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "698734c64bfb6e1ddfdd715396a5c25813c35dce93a9f9a391f1493c6f61c059"
+    },
+    {
+      "label": "conversion_provider_warm",
+      "classification": "proved",
+      "verified": 8,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "conversion_provider::narrow",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "hit",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 368,
+            "solver_micros": 8492,
+            "requires_nodes": 3,
+            "ensures_nodes": 4
+          }
+        },
+        {
+          "function": "conversion_provider::signed",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "hit",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 258,
+            "solver_micros": 9538,
+            "requires_nodes": 7,
+            "ensures_nodes": 4
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "81810207281dc5ac54c8fab33fbc83bceb135c7233b3cd9cd7e067fd6db90f5b"
+    },
+    {
+      "label": "conversion_client_warm",
+      "classification": "proved",
+      "verified": 4,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "conversion_client::relay",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 377,
+            "solver_micros": 524,
+            "requires_nodes": 3,
+            "ensures_nodes": 4
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "1257ffa2e3527664ae84562309aa2cfdc0488bcb820b0c19ef1e89728e25ce47"
+    },
+    {
+      "label": "conversion_client_metadata_policy",
+      "classification": "frontend_rejection",
+      "verified": null,
+      "errors": null,
+      "required_proofs": [],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "prior_verified_interface",
+      "report_sha256": "d3f7f4ac6938e568c4cc7dc5ca4f9f1e696acd047976dcc8cb7725a1573d2eb2"
+    },
+    {
+      "label": "conversion_client_metadata_proof",
+      "classification": "frontend_rejection",
+      "verified": null,
+      "errors": null,
+      "required_proofs": [],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "prior_verified_interface",
+      "report_sha256": "99487bb9246c7a37e6c7fd1a6dd535283c1960f78891df9044a5327e617f5780"
+    },
+    {
+      "label": "conversion_client_metadata_summary",
+      "classification": "frontend_rejection",
+      "verified": null,
+      "errors": null,
+      "required_proofs": [],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "prior_verified_interface",
+      "report_sha256": "fb597edd2f2ce90cc99613a9d3e5d9ac266d6bd304c8c9d4fe5d5e0b2aac742b"
+    },
+    {
+      "label": "conversion_client_metadata_model",
+      "classification": "frontend_rejection",
+      "verified": null,
+      "errors": null,
+      "required_proofs": [],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "prior_verified_interface",
+      "report_sha256": "a5bb970d9b5e580e971d8f8ec1ed8427cde477758eab08d9de69735ba09612f2"
+    },
+    {
+      "label": "panic_goal_negative",
+      "classification": "caller_obligation_failure",
+      "verified": 8,
+      "errors": 1,
+      "required_proofs": [
+        {
+          "function": "panic_goal::narrow",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 391,
+            "solver_micros": 7882,
+            "requires_nodes": 3,
+            "ensures_nodes": 4
+          }
+        },
+        {
+          "function": "panic_goal::signed",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "generation_micros": 200,
+            "solver_micros": 8701,
+            "requires_nodes": 7,
+            "ensures_nodes": 4
+          }
+        }
+      ],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "sentinel",
+      "report_sha256": "d8803ff5cf23743582ebb7f87116c72bc7a2635af06328423b8d48a64208b6f2"
+    },
+    {
+      "label": "codec_cold",
+      "classification": "caller_obligation_failure",
+      "verified": 66,
+      "errors": 1,
+      "required_proofs": [
+        {
+          "function": "codec::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1344,
+            "solver_micros": 55904,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1088,
+            "solver_micros": 11773,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": false,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "464bbf10a410ca6db0a22a53c8ea9397dc09454c041579c3994eba7278efcc7b"
+    },
+    {
+      "label": "codec_warm",
+      "classification": "caller_obligation_failure",
+      "verified": 66,
+      "errors": 1,
+      "required_proofs": [
+        {
+          "function": "codec::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1202,
+            "solver_micros": 56464,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 964,
+            "solver_micros": 12391,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": false,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "719d0e42c46c3b4ca8631f835a2dde8b9d71117a263cd63ff1c748cd3b1bbc39"
+    },
+    {
+      "label": "codec_authored_cold",
+      "classification": "proved",
+      "verified": 68,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_authored::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1187,
+            "solver_micros": 63552,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec_authored::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 993,
+            "solver_micros": 12986,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "5bd8337d83dd4b3d07924797dfdbc712ef815dd541c5c70cd63bc1c94d3638ce"
+    },
+    {
+      "label": "codec_authored_warm",
+      "classification": "proved",
+      "verified": 68,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_authored::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1275,
+            "solver_micros": 57835,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec_authored::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1019,
+            "solver_micros": 12975,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "ce7a21902ddc03680d2e8fa171ec2e29f0ff9d14997315937c41f0fb2e9e409a"
+    },
+    {
+      "label": "codec_complete_cold",
+      "classification": "proved",
+      "verified": 71,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_complete::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1368,
+            "solver_micros": 59266,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec_complete::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1116,
+            "solver_micros": 12264,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "5c4115e00b3c54490bd0739ce95205493d378c4267cd3683058d59e1aab02b48"
+    },
+    {
+      "label": "codec_provider_cold",
+      "classification": "proved",
+      "verified": 71,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_provider::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1524,
+            "solver_micros": 61261,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec_provider::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1258,
+            "solver_micros": 12420,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "048c6e1af6db0e32bb18cc5db45c3e9fb549bb100f8ac5731fe5349ed2ea2115"
+    },
+    {
+      "label": "codec_client_cold",
+      "classification": "proved",
+      "verified": 8,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_client::relay",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1344,
+            "solver_micros": 6631,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "0bfdc69132984e6411cf0720b2b5037ee0a13cab64680862b4629cb24026ab9f"
+    },
+    {
+      "label": "codec_complete_warm",
+      "classification": "proved",
+      "verified": 71,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_complete::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1156,
+            "solver_micros": 60208,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec_complete::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 923,
+            "solver_micros": 13285,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "b2f8e1693aa9097e3c85551c81b7b87150a173ee44a81555876b60b9f72e915e"
+    },
+    {
+      "label": "codec_provider_warm",
+      "classification": "proved",
+      "verified": 71,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_provider::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1255,
+            "solver_micros": 57267,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "codec_provider::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1003,
+            "solver_micros": 11811,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "fa2fb13ac72c6f87448a6fe01a7c89f87d69f6814b8d3150de18f9848e9fa30b"
+    },
+    {
+      "label": "codec_client_warm",
+      "classification": "proved",
+      "verified": 8,
+      "errors": 0,
+      "required_proofs": [
+        {
+          "function": "codec_client::relay",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1239,
+            "solver_micros": 6410,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        }
+      ],
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_export_kind": null,
+      "report_sha256": "c1da4a397a796928569d5923fd426223ba08b29ce5ab441a302e19280b990e2a"
+    },
+    {
+      "label": "decoder_mutation_negative",
+      "classification": "semantic_goal_failure",
+      "verified": 67,
+      "errors": 1,
+      "required_proofs": [
+        {
+          "function": "decoder_mutation::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1315,
+            "solver_micros": 56386,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "decoder_mutation::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1095,
+            "solver_micros": 12235,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "sentinel",
+      "report_sha256": "3eca2c6dd6076e7b4d39e8602b6d42bfe18defad0abdaa65041c4cadbbb14262"
+    },
+    {
+      "label": "false_goal_negative",
+      "classification": "semantic_goal_failure",
+      "verified": 67,
+      "errors": 1,
+      "required_proofs": [
+        {
+          "function": "false_goal::PageNumber::from_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1178,
+            "solver_micros": 55353,
+            "requires_nodes": 363,
+            "ensures_nodes": 230
+          }
+        },
+        {
+          "function": "false_goal::PageNumber::to_le_bytes",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 930,
+            "solver_micros": 12007,
+            "requires_nodes": 15,
+            "ensures_nodes": 209
+          }
+        }
+      ],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "sentinel",
+      "report_sha256": "80585be691e28933b0fb99a11e3cb87f02c2830141ec10bb9168b997aaae7980"
+    },
+    {
+      "label": "malformed_goal_negative",
+      "classification": "frontend_rejection",
+      "verified": 0,
+      "errors": 0,
+      "required_proofs": [],
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_export_kind": "prior_verified_interface",
+      "report_sha256": "a1498ad0183daebd0adf08fd9affb926f0d91858ee6cc28313cbb063bc087ca1"
+    }
+  ],
+  "native": {
+    "cases": 2097467,
+    "region_cross_product_exhaustive": false,
+    "faithful_mutant_detected": true,
+    "formal_proof": false
+  },
+  "conversion_oracle_cases": 196608,
+  "total_required_proofs_proved": 90,
+  "evidence_files_excluding_manifest": {
+    "README.md": "68e2746ea7e91ecafa011891e1c7a298c2be81a0f6f3c7207bba61c510f7776b",
+    "TRUST.md": "c428471d501ac8d3129316b7f7c2cfa269f15ed496b1fbdbab7ef9c2ba0548b7",
+    "run.py": "46167c8671f720e467b8ecb2cf4af07add2721d58aa597b55a93f35c57e08870"
+  },
+  "integration_delta": "/private/tmp/verus-redb-codec-7597ec83/integrated-delta.apply_patch",
+  "next_recommendation": "Integrate and replay first; optionally isolate page_size_bytes variable-shift handling. Do not combine debug_assert/panic/address-range or whole-database work.",
+  "committed": false,
+  "branch_created": false,
+  "pull_request_created": false
+}

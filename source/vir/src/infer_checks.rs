@@ -15,6 +15,34 @@ use std::sync::Arc;
 mod state;
 pub(crate) use state::output_equivalence;
 
+fn value_equality(span: &Span, typ: &Typ, other: Exp, actual: Exp) -> Exp {
+    let equality = if matches!(&**typ, crate::ast::TypX::Primitive(crate::ast::Primitive::Array, _))
+    {
+        ExpX::BinaryOpr(crate::ast::BinaryOpr::ExtEq(false, typ.clone()), other, actual)
+    } else {
+        ExpX::Binary(BinaryOp::Eq, other, actual)
+    };
+    SpannedTyped::new(span, &bool_typ(), equality)
+}
+
+fn boxed_value_equality(span: &Span, typ: &Typ, other: Exp, actual: Exp) -> Exp {
+    let boxed = |value: Exp| {
+        if matches!(&**typ, crate::ast::TypX::Primitive(crate::ast::Primitive::Array, _))
+            && !matches!(&*value.typ, crate::ast::TypX::Boxed(inner)
+                if crate::ast_util::types_equal(inner, typ))
+        {
+            SpannedTyped::new(
+                span,
+                &Arc::new(crate::ast::TypX::Boxed(typ.clone())),
+                ExpX::UnaryOpr(crate::ast::UnaryOpr::Box(typ.clone()), value),
+            )
+        } else {
+            value
+        }
+    };
+    value_equality(span, typ, boxed(other), boxed(actual))
+}
+
 #[derive(Clone, Copy, Debug)]
 pub enum PrecisionCheck {
     Maximality,
@@ -291,24 +319,7 @@ fn precision_check_body(
             // ensures lowering already uses Verus's extensional equality for
             // these arrays; use the same whole-value equality for arbitrary y.
             // Opaque SMT array identity would distinguish even empty arrays.
-            let equality =
-                if matches!(&**typ, crate::ast::TypX::Primitive(crate::ast::Primitive::Array, _)) {
-                    let boxed = |value: Exp| {
-                        SpannedTyped::new(
-                            span,
-                            &Arc::new(crate::ast::TypX::Boxed(typ.clone())),
-                            ExpX::UnaryOpr(crate::ast::UnaryOpr::Box(typ.clone()), value),
-                        )
-                    };
-                    ExpX::BinaryOpr(
-                        crate::ast::BinaryOpr::ExtEq(false, typ.clone()),
-                        boxed(other),
-                        boxed(actual),
-                    )
-                } else {
-                    ExpX::Binary(BinaryOp::Eq, other, actual)
-                };
-            let equals_actual = SpannedTyped::new(span, &bool_typ(), equality);
+            let equals_actual = boxed_value_equality(span, typ, other, actual);
             post.ens_exps = Arc::new(vec![SpannedTyped::new(
                 span,
                 &bool_typ(),
