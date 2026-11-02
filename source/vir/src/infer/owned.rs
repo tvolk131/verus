@@ -4,7 +4,7 @@ use super::*;
 use records::{atom, coerce};
 pub(crate) mod array_callbacks;
 pub(crate) mod borrowed;
-mod callbacks;
+pub(in crate::infer) mod callbacks;
 pub(crate) mod error_callbacks;
 pub(crate) mod factory_callbacks;
 pub(in crate::infer) mod loops;
@@ -423,6 +423,8 @@ impl Engine<'_> {
             all: self.all,
             datatypes: self.ds,
             requirements: vec![],
+            exits: vec![],
+            callbacks: vec![],
             remaining: FORMULA_BUDGET,
             plans: vec![],
         }
@@ -1151,6 +1153,16 @@ impl Engine<'_> {
                 }
                 if let Some(m) = model_call(e, self.all) {
                     return self.collection(s, e, m, args);
+                }
+                if let Some(callee) = byte_models::source_call(e, self.all).cloned() {
+                    let input = self.expr(s, &args[0])?.scalar(span)?;
+                    return Ok(Val::atom(byte_models::value(span, &callee, vec![input])?));
+                }
+                if let Some(arg) = integer_conversions::call(e, self.all) {
+                    let input = self.expr(s, arg)?.scalar(span)?;
+                    let (required, output) = integer_conversions::value(span, input, &e.typ)?;
+                    self.require(s, required)?;
+                    return Ok(Val::atom(output));
                 }
                 if let Some(arg) = widening::call(e, self.all) {
                     let a = self.expr(s, arg)?.scalar(span)?;

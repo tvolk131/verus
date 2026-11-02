@@ -1,0 +1,1126 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "experiment": "combined-native-infer-transfers",
+  "result": "all_three_slices_proved",
+  "engine": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "reference": "origin/verus-infer",
+    "branch": "t3/identify-next-priorities",
+    "uncommitted": true,
+    "commits_or_prs_created": false,
+    "cache": 64,
+    "policy": 58,
+    "interface_schema": 38,
+    "guarded_source_files": 1306,
+    "guarded_artifacts": 1314,
+    "source_ledger_sha256": "25ce3f1fade6457e48529c54614828d53815fd0c23efeb1b98efe9dfe7ab9372",
+    "artifacts": {
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/libverus_builtin.rlib": {
+        "sha256": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+        "size": 905856,
+        "mtime_ns": 1793546475206827497,
+        "inode": 167414211
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/libverus_builtin_macros.dylib": {
+        "sha256": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+        "size": 13981424,
+        "mtime_ns": 1793546479409185336,
+        "inode": 167414213
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/libverus_state_machines_macros.dylib": {
+        "sha256": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+        "size": 9092304,
+        "mtime_ns": 1793546478796941868,
+        "inode": 167414204
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/libvstd.rlib": {
+        "sha256": "439dba279ec23a03c502d433f11e995bcca5444b69d721ef6bada5f8934c91c5",
+        "size": 10877896,
+        "mtime_ns": 1793555044643191564,
+        "inode": 167802845
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/rust_verify": {
+        "sha256": "4c6223f2ead27d952677568b37364e2f7d7e1365efd2f90bf3c2ffe0328f3dc1",
+        "size": 31165296,
+        "mtime_ns": 1793554803936663778,
+        "inode": 167773961
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/verus": {
+        "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+        "size": 3683824,
+        "mtime_ns": 1793545802581439896,
+        "inode": 167772753
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/vstd.vir": {
+        "sha256": "f6dc070894b7d9cf768b8cc8befa726c16130f3540bc5cbbaa10b0713e53ec00",
+        "size": 33352654,
+        "mtime_ns": 1793555035158720226,
+        "inode": 167802802
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/z3": {
+        "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+        "size": 26087280,
+        "mtime_ns": 1793546009706885576,
+        "inode": 167406781
+      }
+    }
+  },
+  "build_environment": {
+    "RUSTUP_TOOLCHAIN": "1.99.1",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus",
+    "CARGO_BUILD_BUILD_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus",
+    "VERUS_IN_VARGO": "1",
+    "RUST_MIN_STACK": "20971520",
+    "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/z3",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "baseline": {
+    "manifest": "/private/tmp/verus-transfer-next-baseline-5e1xxkrt/manifest.json",
+    "sha256": "8fe42df873fa3b68b3323980829d079bb34fcbd429655ed69b8741eb1f63a8f3",
+    "preserved_historical_evidence_files": 8,
+    "page_size_handoff": "/private/tmp/verus-redb-page-size-386df3a1/handoff.json",
+    "page_size_handoff_sha256": "48299fc1d34830df76b354cb2f2c0b43365843fda5e7154e6ba03df8435d3f10"
+  },
+  "validation": {
+    "vir_units": 125,
+    "focused_integration": 30,
+    "adjacent_integration": 417,
+    "integration_binaries": 16,
+    "rust_tests_total": 572,
+    "vstd_verified": 2221,
+    "vstd_errors": 0,
+    "python_normal": 138,
+    "python_optimized_executions": 30,
+    "python_counts": {
+      "final-python-infer.log": 119,
+      "final-python-fedimint.log": 10,
+      "final-python-redb.log": 9,
+      "final-python-suite-optimized.log": 11,
+      "final-python-fedimint-optimized.log": 10,
+      "final-python-redb-optimized.log": 9
+    },
+    "formatting": "rustfmt, verusfmt and git diff --check pass",
+    "selected_application_proof_commands": 29,
+    "fresh_required_exact_obligations": 132,
+    "whole_workspace_tested": false,
+    "known_preexisting_excluded": "18 unchanged VIR doctest failures documented by earlier byte-model work; not repaired or rerun as part of passing --lib/integration commands"
+  },
+  "combined_receipt": {
+    "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-frontdoor/transfer-suite-ku9ngqae/receipt.json",
+    "sha256": "f45f055a692279086ebd6c5dbd229cb8652dc3a7ea1a5fc5aecabf86d2553098",
+    "success": true,
+    "application_proofs_proved": true,
+    "source_and_artifact_ledgers_rechecked": true
+  },
+  "applications": [
+    {
+      "scenario": "fedimint",
+      "application_commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+      "receipt": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-frontdoor/transfer-suite-ku9ngqae/fedimint/run-6tx9tvsm/receipt.json",
+      "receipt_sha256": "6b7e83bbde75a986a34ae93742b3a741ffbc84ba253d5c2d29160c112262e9a9",
+      "selected_proofs": [
+        {
+          "label": "native_cold",
+          "expected_success": true,
+          "verified": 8,
+          "errors": 0,
+          "stdout_sha256": "10a5a8c6695b7daab826963b7e2835e73eec66c5cd39c4c848bcf0a3cd748400",
+          "stderr_sha256": "2c3f336dc94d5b607d581a04d34e65e29f2b4f8f72a1212b2a271c75050468aa",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "deadline_native::InterceptPaymentRequest::incoming_circuit",
+              "cache": "miss"
+            },
+            {
+              "function": "deadline_native::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "native_warm",
+          "expected_success": true,
+          "verified": 8,
+          "errors": 0,
+          "stdout_sha256": "3509e2c4fe44b96948ed61a0b3e315c40d4211ccc0e5f6b8d61b1ad495191de0",
+          "stderr_sha256": "2c3f336dc94d5b607d581a04d34e65e29f2b4f8f72a1212b2a271c75050468aa",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "deadline_native::InterceptPaymentRequest::incoming_circuit",
+              "cache": "miss"
+            },
+            {
+              "function": "deadline_native::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "followup_cold",
+          "expected_success": true,
+          "verified": 10,
+          "errors": 0,
+          "stdout_sha256": "b19f7534f96c0e3a265f231c25b14cae395296120a707c41e1c705c1695f5a14",
+          "stderr_sha256": "63294872c6575caccc34f9b0ef1a8f93b1a70a7d5262a59ed3763c1ac6ab26a9",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "deadline_followup::InterceptPaymentRequest::incoming_circuit",
+              "cache": "miss"
+            },
+            {
+              "function": "deadline_followup::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "regression_cold",
+          "expected_success": false,
+          "verified": 7,
+          "errors": 1,
+          "stdout_sha256": "eb11a37d148642343e4d83a9f37f4493b3f4e2b51cbe267b74e537e18e17e4f9",
+          "stderr_sha256": "42801399e8a787fa14fb38237f0c083dafb6c92108867981529292029f25a881",
+          "interface_written": false,
+          "failure_kind": "postcondition",
+          "inference_checks": [
+            {
+              "function": "deadline_regression::InterceptPaymentRequest::incoming_circuit",
+              "cache": "miss"
+            },
+            {
+              "function": "deadline_regression::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "false_goal_cold",
+          "expected_success": false,
+          "verified": 7,
+          "errors": 1,
+          "stdout_sha256": "c1fd824add1bb9cfdba19165adfe50c99942517f03fd25ccef67eb2fa636e39f",
+          "stderr_sha256": "c08f6b5da6079003f89748e86fa4fcc5194b2a62e85966678e597791f4227cbb",
+          "interface_written": false,
+          "failure_kind": "postcondition",
+          "inference_checks": [
+            {
+              "function": "deadline_false_goal::InterceptPaymentRequest::incoming_circuit",
+              "cache": "miss"
+            },
+            {
+              "function": "deadline_false_goal::InterceptPaymentRequest::lnv2_blocks_to_claim_deadline",
+              "cache": "miss"
+            }
+          ]
+        }
+      ],
+      "fresh_exact_checks": 30,
+      "native": null,
+      "limitations": [
+        "Three-field projection, not full gateway/async/database/crypto verification",
+        "Native oracle tests finite inputs; formal policy covers the full scalar domain",
+        "Separate scalar/newtype projection profile is not extended"
+      ],
+      "trust": [
+        "Ordinary Verus backend and existing vstd specifications",
+        "Canonical Rust API-to-checked-bridge correspondence is trusted frontend code; no new assumed specification",
+        "Authored deadline policy is not inferred"
+      ]
+    },
+    {
+      "scenario": "redb",
+      "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+      "receipt": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-frontdoor/transfer-suite-ku9ngqae/redb/redb-codec-rpy0lt8g/receipt.json",
+      "receipt_sha256": "dc92f1cfd6dc39aa726e5fdba77ffa2d28aa0d921565061f1d26fef0ab34baaa",
+      "selected_proofs": [
+        {
+          "label": "conversion_provider_cold",
+          "expected_success": true,
+          "verified": 8,
+          "errors": 0,
+          "stdout_sha256": "c92ee82a5e556b2c5bd072258a6bfc42d5c8dda34e95ed462231351203ba0495",
+          "stderr_sha256": "2e5a760e70ab81eb56a60e75f2c1cceb13e7496447f6c7f73e5b0579386dbcad",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "conversion_provider::narrow",
+              "cache": "miss"
+            },
+            {
+              "function": "conversion_provider::signed",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "conversion_client_cold",
+          "expected_success": true,
+          "verified": 4,
+          "errors": 0,
+          "stdout_sha256": "026a6b894139184733c36f7335dfbfaa90c9d964d589764c943a21a2de54f155",
+          "stderr_sha256": "9d673c17658d2477ced441989deca004fc0776238742d8d3db3624f140f670c8",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "conversion_client::relay",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "conversion_provider_warm",
+          "expected_success": true,
+          "verified": 8,
+          "errors": 0,
+          "stdout_sha256": "297af3cfaa8efd5881ab2887fcce2ba86592a3921e61132f80932ba1797a7182",
+          "stderr_sha256": "2e5a760e70ab81eb56a60e75f2c1cceb13e7496447f6c7f73e5b0579386dbcad",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "conversion_provider::narrow",
+              "cache": "hit"
+            },
+            {
+              "function": "conversion_provider::signed",
+              "cache": "hit"
+            }
+          ]
+        },
+        {
+          "label": "conversion_client_warm",
+          "expected_success": true,
+          "verified": 4,
+          "errors": 0,
+          "stdout_sha256": "d6621495eb55b86a00f19184fa4ec4e6828e9f291e5ce5a5b73d91c6191a4c07",
+          "stderr_sha256": "9d673c17658d2477ced441989deca004fc0776238742d8d3db3624f140f670c8",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "conversion_client::relay",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_authored_cold",
+          "expected_success": true,
+          "verified": 68,
+          "errors": 0,
+          "stdout_sha256": "a856fc2730e70c833f18d8c7e5e2983dcde81809c73237b96ba2cb49864f8a8f",
+          "stderr_sha256": "0499bf9b07dff3db5c5baa9d0ae4d2d24f5a83cca2741863c1af0672bf3a1370",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_authored::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "codec_authored::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_authored_warm",
+          "expected_success": true,
+          "verified": 68,
+          "errors": 0,
+          "stdout_sha256": "e686a36ec3fe9254f50e1f124d784556da5633a32cca45a51677911f1615da48",
+          "stderr_sha256": "0499bf9b07dff3db5c5baa9d0ae4d2d24f5a83cca2741863c1af0672bf3a1370",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_authored::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "codec_authored::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_complete_cold",
+          "expected_success": true,
+          "verified": 71,
+          "errors": 0,
+          "stdout_sha256": "69f40b5df46b8228091fe9d44b13196674e874da6b416a71088f1b58f90f868d",
+          "stderr_sha256": "c27edbeaad0c1174796d51755a9f3e58cbce0a6217f55e1bab7786ac07c08650",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_complete::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "codec_complete::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_provider_cold",
+          "expected_success": true,
+          "verified": 71,
+          "errors": 0,
+          "stdout_sha256": "00526bf7b377e48d10be1e48c83b885722e6969ed9db33c63c40aa40f77471b9",
+          "stderr_sha256": "18b554e237b5839eac1b4f55545c5cc9b5d5c032ec272d618091d15532417a78",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_provider::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "codec_provider::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_client_cold",
+          "expected_success": true,
+          "verified": 8,
+          "errors": 0,
+          "stdout_sha256": "cbdc99e74857b2d1b0b34fd169005aa282b6c0e012373c8525292bf768bd3019",
+          "stderr_sha256": "5126450d2aaa56e891f9d3d9f1e0c3c82201fad0a059567c1163888d60d039b1",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_client::relay",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_complete_warm",
+          "expected_success": true,
+          "verified": 71,
+          "errors": 0,
+          "stdout_sha256": "8f12081db0f78ba9568d96482abc539d1adeb607b9a03ba214f84cc842eb1762",
+          "stderr_sha256": "c27edbeaad0c1174796d51755a9f3e58cbce0a6217f55e1bab7786ac07c08650",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_complete::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "codec_complete::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_provider_warm",
+          "expected_success": true,
+          "verified": 71,
+          "errors": 0,
+          "stdout_sha256": "a441b4d4cb8a96c36dfc8244299e3e5ea8d86f4b537cccd8b41a1a9cfdb52753",
+          "stderr_sha256": "18b554e237b5839eac1b4f55545c5cc9b5d5c032ec272d618091d15532417a78",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_provider::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "codec_provider::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "codec_client_warm",
+          "expected_success": true,
+          "verified": 8,
+          "errors": 0,
+          "stdout_sha256": "b02e3524749c9a09cec1a892766c826f2ec070ce34fba4cf59abb6d7b84c0d32",
+          "stderr_sha256": "5126450d2aaa56e891f9d3d9f1e0c3c82201fad0a059567c1163888d60d039b1",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "codec_client::relay",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "decoder_mutation_negative",
+          "expected_success": false,
+          "verified": 67,
+          "errors": 1,
+          "stdout_sha256": "c7cfa054eddb845df6ddf8943c63b7a0246e95fbe3a85604cfef4bfc92b562e8",
+          "stderr_sha256": "066b960235b4c7933b5bd6f2a19ed202289e3ae2f446273cfcb70732530b2191",
+          "interface_written": false,
+          "failure_kind": "postcondition",
+          "inference_checks": [
+            {
+              "function": "decoder_mutation::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "decoder_mutation::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "false_goal_negative",
+          "expected_success": false,
+          "verified": 67,
+          "errors": 1,
+          "stdout_sha256": "04db23886bb321c4177386a4b1cbaa1433463d76af7332d7180082b8aa59785c",
+          "stderr_sha256": "3b0e4d95e72d7da586c222d8289200ed4bf60fec50a49b56aa3b9c73c81ff803",
+          "interface_written": false,
+          "failure_kind": "postcondition",
+          "inference_checks": [
+            {
+              "function": "false_goal::PageNumber::from_le_bytes",
+              "cache": "miss"
+            },
+            {
+              "function": "false_goal::PageNumber::to_le_bytes",
+              "cache": "miss"
+            }
+          ]
+        }
+      ],
+      "fresh_exact_checks": 72,
+      "native": {
+        "cases": 2097467,
+        "region_cross_product_exhaustive": false,
+        "faithful_mutant_detected": true,
+        "formal_proof": false
+      },
+      "limitations": [
+        "extracted codec only; not whole-database correctness"
+      ],
+      "trust": [
+        "ordinary Verus backend and existing vstd contracts",
+        "Rust core primitive implementation bodies are not formally verified"
+      ]
+    },
+    {
+      "scenario": "redb_page_size",
+      "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+      "receipt": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-frontdoor/transfer-suite-ku9ngqae/redb_page_size/redb-page-size-gb9yr_ui/receipt.json",
+      "receipt_sha256": "d0625b5eae2b40fe9db8b401bacf1372f3a8e9fa16b6242014ad5c8125286bbf",
+      "selected_proofs": [
+        {
+          "label": "page_size_cold",
+          "expected_success": true,
+          "verified": 12,
+          "errors": 0,
+          "stdout_sha256": "1a8cba373debcfb7b5583c5f80502f14f5eca70a2faf38294ded6aa5b8af6412",
+          "stderr_sha256": "187b8d947e7fb93d567e24c1bec23dec2af6e5a775915fdb755b1ca7bb9624a6",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "page_size::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_warm",
+          "expected_success": true,
+          "verified": 12,
+          "errors": 0,
+          "stdout_sha256": "2c03cc5dd9b0b17b359423b995921c96c02824332490af4de9b863067aa15595",
+          "stderr_sha256": "187b8d947e7fb93d567e24c1bec23dec2af6e5a775915fdb755b1ca7bb9624a6",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "page_size::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_provider_cold",
+          "expected_success": true,
+          "verified": 12,
+          "errors": 0,
+          "stdout_sha256": "c2d28d3ecf6039165b2ae6defc574d4ae63ad465e9e90b43b9a0dfe4af28bbe4",
+          "stderr_sha256": "1b26a7610f6bfe3b757d21be0800da1af82917adb0e980c97767487d927f8288",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "page_size_provider::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_client_cold",
+          "expected_success": true,
+          "verified": 12,
+          "errors": 0,
+          "stdout_sha256": "fff9616fdb5235fa00b82c56214d81d6e50e52fec60c13e3f79ce1c47f08347d",
+          "stderr_sha256": "f17da2fabd3942517f3323628a5cb9ed1f525e7d4f1d417d9ce674b9d0f81923",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "page_size_client::relay",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "page_size_client_warm",
+          "expected_success": true,
+          "verified": 12,
+          "errors": 0,
+          "stdout_sha256": "d2e1d64998255629562b21d6b473c6a0139951cf782718396354f60c041f569e",
+          "stderr_sha256": "f17da2fabd3942517f3323628a5cb9ed1f525e7d4f1d417d9ce674b9d0f81923",
+          "interface_written": true,
+          "failure_kind": null,
+          "inference_checks": [
+            {
+              "function": "page_size_client::relay",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "false_property_negative",
+          "expected_success": false,
+          "verified": 11,
+          "errors": 1,
+          "stdout_sha256": "1c89b59001dc99dc0188368fca148b400f1a45753fca6827e864614acb80c07a",
+          "stderr_sha256": "1ea7035ca377bbd4ee5b8ba2a3bbcdc1a8b356d6f93a8cbac2c5d3da9be6f2c5",
+          "interface_written": false,
+          "failure_kind": "postcondition",
+          "inference_checks": [
+            {
+              "function": "false_property::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "shift64_zero_negative",
+          "expected_success": false,
+          "verified": 3,
+          "errors": 1,
+          "stdout_sha256": "06e16ba2acc9e39f9456489c43245b1c7d2fe5bc54abff78370f043f192e7e29",
+          "stderr_sha256": "c028a10d0eb253b26175fef984d2e5ad0ac58ca62436e0bb6c905d0f6145f8a5",
+          "interface_written": false,
+          "failure_kind": "precondition",
+          "inference_checks": [
+            {
+              "function": "shift64_zero::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "shift255_zero_negative",
+          "expected_success": false,
+          "verified": 3,
+          "errors": 1,
+          "stdout_sha256": "c2abef690f69af7b63aed0fb58725e9af427f65aa06e15d01be4d93bad0f70e9",
+          "stderr_sha256": "5bba4d9182e5a835ce555c19da5b8c821d4e1182fe447dc698e82bd15e6e9647",
+          "interface_written": false,
+          "failure_kind": "precondition",
+          "inference_checks": [
+            {
+              "function": "shift255_zero::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "shift_all_invalid_zero_negative",
+          "expected_success": false,
+          "verified": 3,
+          "errors": 1,
+          "stdout_sha256": "99ca822b0aa5be210956b0dd112d720a1f2a569854e30674531443ba56c5882d",
+          "stderr_sha256": "c4c01ff7791a6b947a305b6e8a588848db1d4662ff623cbc485e610143c6fc2c",
+          "interface_written": false,
+          "failure_kind": "precondition",
+          "inference_checks": [
+            {
+              "function": "shift_all_invalid_zero::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        },
+        {
+          "label": "multiply_overflow_negative",
+          "expected_success": false,
+          "verified": 4,
+          "errors": 1,
+          "stdout_sha256": "2018a8011dc8fb986a6aefeb9f4f8f8d8c3197330d0b6363a3454ab8e74b5a82",
+          "stderr_sha256": "c309048c6e0e3b478f3dcaf6741a114f5fc8e6a8ba742b0af160c489385f8650",
+          "interface_written": false,
+          "failure_kind": "precondition",
+          "inference_checks": [
+            {
+              "function": "multiply_overflow::PageNumber::page_size_bytes",
+              "cache": "miss"
+            }
+          ]
+        }
+      ],
+      "fresh_exact_checks": 30,
+      "native": {
+        "canonical_cases": 1548477,
+        "eager_shift_panics": 192,
+        "overflow_panics": 1,
+        "formal_proof": false,
+        "faithful_mutant_detected": true
+      },
+      "limitations": [
+        "extracted page_size_bytes only; no address_range, debug_assert, mutable effects, or database theorem",
+        "native oracle is finite support, not the formal all-u32 domain",
+        "import provider changes pub(crate) to pub solely for cross-crate visibility",
+        "warm invocations regenerate readonly-record candidates; they do not claim candidate-cache hits"
+      ],
+      "trust": [
+        "ordinary Verus verifier, SMT backend, and existing primitive conversion contracts",
+        "explicit checked bit_vector shift-bound and nonlinear_arith multiplication-bound ghost lemma",
+        "no application axioms, trusted specs, assumed order invariant, or suppressed panic obligation"
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "rust_verify",
+        "-p",
+        "verus",
+        "-p",
+        "cargo-verus",
+        "-p",
+        "vstd_build"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-compiler.log",
+      "sha256": "ab74399b05b747d69165420c6c4e2ce89be1ee2118fc93c4c6c235957994e43e"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "vir",
+        "--lib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-vir.log",
+      "sha256": "fb8d85780acaeae4d1c423aa6ba09e827cd775655600fb2b50d2df034cb774d5"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer_codec_values",
+        "--test",
+        "infer_integer_conversions",
+        "--test",
+        "infer_native_option",
+        "--test",
+        "infer_record_shifts",
+        "--test",
+        "infer_transfer_composition"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-focused.log",
+      "sha256": "4f6b60d17c0c634fa8817d8486a0ff92c7c365e67f530b3e23b55d854846f324"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer",
+        "--test",
+        "infer_owned",
+        "--test",
+        "infer_records",
+        "--test",
+        "infer_wrappers",
+        "--test",
+        "infer_selection",
+        "--test",
+        "infer_error_values",
+        "--test",
+        "infer_wrapper_traits",
+        "--test",
+        "infer_traversals",
+        "--test",
+        "infer_byte_apis",
+        "--test",
+        "infer_record_returns",
+        "--test",
+        "infer_binary"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-adjacent.log",
+      "sha256": "95160386f2ec2be23b5765972902864b83eadb44da8484b98d44f4150883bb4b"
+    },
+    {
+      "argv": [
+        "rustup",
+        "run",
+        "1.99.1",
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/vstd_build",
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release",
+        "--release",
+        "--verbose"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-vstd.log",
+      "sha256": "285cd4e10f94af7c42a3771b457b88d5ab81abe3d9ad2633a8b5397c60a2913c"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-rustfmt-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_infer*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-python-infer.log",
+      "sha256": "be1f26dc1e0fe520c604a0644bdfcbe7e1f80d270cc530a6812a302dad92d5d2"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_fedimint*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-python-fedimint.log",
+      "sha256": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_redb*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-python-redb.log",
+      "sha256": "eab4281419f49474c6773f172eab4705e82da9e9196e5418e92a366609bcb99e"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_infer_transfers.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-python-suite-optimized.log",
+      "sha256": "c39db4c78344d9d8a34cf49bb1141157afe35b86db99a9fe7cac2fe25d859cb5"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_fedimint*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-python-fedimint-optimized.log",
+      "sha256": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_redb*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-python-redb-optimized.log",
+      "sha256": "eab4281419f49474c6773f172eab4705e82da9e9196e5418e92a366609bcb99e"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "source/tools/check_infer_transfers.py",
+        "--fedimint",
+        "/private/tmp/verus-fedimint-early-returns-jyfO2M/fedimint",
+        "--redb",
+        "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+        "--verus",
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/target-verus/release/verus",
+        "--solver",
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/z3",
+        "--output",
+        "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-frontdoor",
+        "--timeout",
+        "180",
+        "--scenario-timeout",
+        "1800"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-frontdoor.log",
+      "sha256": "d4a7026bf711e60830b97ff4741fd2fd128299478a2c41870c11875ca5856eba"
+    },
+    {
+      "argv": [
+        "verusfmt",
+        "--check",
+        "source/rust_verify_test/tests/infer_byte_apis.rs",
+        "source/rust_verify_test/tests/infer_record_returns.rs",
+        "source/rust_verify_test/tests/infer_codec_values.rs",
+        "source/rust_verify_test/tests/infer_integer_conversions.rs",
+        "source/rust_verify_test/tests/infer_native_option.rs",
+        "source/rust_verify_test/tests/infer_record_shifts.rs",
+        "source/rust_verify_test/tests/infer_transfer_composition.rs",
+        "source/vstd/bytes.rs",
+        "source/vstd/native_option.rs"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068",
+      "log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/final-verusfmt-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "independent_reviews": {
+    "codec": {
+      "path": "/private/tmp/verus-codec-independent-review-bn4O7m/REVIEW.md",
+      "sha256": "7dc7ecc53729a6862f36193bfc26bf01ad0043bddad82ac693ed523af0fbffe0"
+    },
+    "native_option_replay": {
+      "path": "/private/tmp/verus-native-review-abtf1a/replays/run-xwtlxom5/receipt.json",
+      "sha256": "947048d26133511286d06c18ca6a8911bdfc6641c9a773da833536402288e78e"
+    },
+    "combined_integration": {
+      "path": "/private/tmp/verus-integration-review-V84xf0ow/REVIEW.md",
+      "sha256": "b55a1742ac3e3e46f25a77b7d5b52df316b6457a0660a5d08695af4118f5e966",
+      "limits": "Source review and 42 Python executions; no Cargo/compiler/solver probes. Excludes later page-size and safety-negative additions."
+    },
+    "page_size": {
+      "independent_review": false,
+      "validation": "Parent source audit, unit/integration controls and fresh final application replay; isolated delegate report is not an independent review."
+    }
+  },
+  "integration_corrections": {
+    "nested_locals": {
+      "finding": "Nested blocks discarded scalar local updates; fail-closed original-body proof checks rejected bad candidate",
+      "fix": "Preserve outer locals in by-value record-array blocks; added nested/shadowing/initializer/readonly regressions",
+      "report": "/private/tmp/verus-codec-independent-review-bn4O7m/REVIEW.md"
+    },
+    "callback_restoration": {
+      "finding": "Three-way merge dropped record callback decoration restoration in registry.rs; independent callback completeness correctly rejected affected candidates.",
+      "fix": "Restore the native Option candidate decoration on the original record body. Native Option suite now passes 9/9.",
+      "retained_development_log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-focused-final.log",
+      "composition_test": "Early-return native Option callback with canonical checked narrowing composes with native byte encoding; positive and false-goal checks pass.",
+      "composition_log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-composition-final.log"
+    },
+    "receiver_profile": {
+      "finding": "New by-value record-array recognition intercepted the existing Result-to-array scalar profile; original cross-crate coverage test failed closed.",
+      "fix": "Limit the by-value record receiver to user-defined datatype paths; core enums and tuples no longer enter this record profile.",
+      "regression": "core_enum_array_queries_keep_their_existing_scalar_profile",
+      "retained_development_log": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-broad.log"
+    },
+    "page_size": {
+      "ancestor_hashes_verified": 4,
+      "retained_cache": 64,
+      "retained_policy": 58,
+      "schema": 38,
+      "preserved_parent_fixes": [
+        "nested local updates",
+        "callback decoration restoration",
+        "user-datatype-only by-value array receiver"
+      ],
+      "automation": "Registered redb_page_size using the redb checkout; separate safety-negative and semantic-postcondition lists and enforce distinct diagnostics."
+    }
+  },
+  "development_failure_logs": {
+    "combined-focused.log": {
+      "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-focused.log",
+      "sha256": "790c9be7c7e4855490232868f61d82e0edbd75eb69bad2840464fd89d3e35712"
+    },
+    "combined-focused-final.log": {
+      "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-focused-final.log",
+      "sha256": "25152580476655e954e6ca149ff1843c771473ceb862f328e6e7af45abfec9c0"
+    },
+    "combined-focused-callback-fix.log": {
+      "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-focused-callback-fix.log",
+      "sha256": "9070e0fea3bb813b6dc83e352088349a84dfdafabacb6db0b6f0e4c281e9c9aa"
+    },
+    "combined-broad.log": {
+      "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-broad.log",
+      "sha256": "46f90e32841f0386d54e410695d7a6aa7f2273606b0bf63b9ea961551b98cf76"
+    },
+    "combined-profile-regression.log": {
+      "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-profile-regression.log",
+      "sha256": "3ebb9a916d2d608cc427c950181db936c8e139a29c5d3684961b59607e29425f"
+    },
+    "combined-vstd-preflight-failed.log": {
+      "path": "/private/tmp/verus-transfer-native-integration-y7n_b1i8/combined-vstd-preflight-failed.log",
+      "sha256": "d62a9987a9743e3ad6fd333baba22069f4b9a6110705e51a9b1a5c73a31c84ad"
+    }
+  },
+  "trust": [
+    "Ordinary Verus/Rust/SMT pipeline and imported library contracts.",
+    "Two native u64 byte specifications trust primitive behavior and no_unwind; Rust std bodies are not verified.",
+    "Native Option bridge bodies verify, while frontend correspondence to libcore remains trusted.",
+    "Codec packing/byte inverse and page-size bit-vector/nonlinear-arithmetic ghost facts are explicitly checked, not assumed application specifications."
+  ],
+  "limits": [
+    "Three-field Fedimint helper extraction, not full native gateway types or stateful fund safety.",
+    "Canonical redb codec domain unchanged; unaided caller remains blocked, authored caller supplies checked ghost facts.",
+    "Readonly/owned warm candidates regenerate rather than claiming proof-cache hits.",
+    "No whole-database, concurrency, crash recovery or cryptographic correctness claim.",
+    "Native finite oracles do not establish the formal arbitrary-input domain."
+  ],
+  "changed_files_sha256": {
+    ".github/workflows/ci.yml": "d63c95bab60f0d5ff24c1c90f0f313058fec201e239c66b42559720a8a2303c8",
+    "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+    "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+    "evidence/transfer-fedimint-native/README.md": "e775ec9acb0a5a71e2429ef3ca79b05dfffb55a2dd82d9be58f29d18f9c9c5a7",
+    "evidence/transfer-fedimint-native/manifest.json": "19f43ac0dcf226ef6a0fc73d8e51b397fd724d001628d8f35c534474c1be932b",
+    "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+    "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+    "evidence/transfer-native-integration/README.md": "5a8dac663396962ea3b673d9836d1604536bb55309a0d08fd008531ad5b5cf82",
+    "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+    "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+    "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+    "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+    "evidence/transfer-redb-codec/README.md": "68e2746ea7e91ecafa011891e1c7a298c2be81a0f6f3c7207bba61c510f7776b",
+    "evidence/transfer-redb-codec/TRUST.md": "c428471d501ac8d3129316b7f7c2cfa269f15ed496b1fbdbab7ef9c2ba0548b7",
+    "evidence/transfer-redb-codec/manifest.json": "3c4ee8061eb33b116a86a546c2b6d251314ba71d87db526202f111642b7777f2",
+    "evidence/transfer-redb-codec/run.py": "46167c8671f720e467b8ecb2cf4af07add2721d58aa597b55a93f35c57e08870",
+    "evidence/transfer-redb-page-size/README.md": "31968b37c3110c8d8d004ae510c110836d24c2c16b1beb440415b2c3c291c89f",
+    "evidence/transfer-redb-page-size/manifest.json": "bca2589771530712873c9441e23ee419606cf5f31eecba17e2c999fbd3940715",
+    "source/docs/guide/src/infer.md": "c34a8918c86e3fc47a81b99d6f116f9dfdd7d1f3b7420d1482f69f1f249f4e56",
+    "source/rust_verify/src/fn_call_to_vir.rs": "cfe706fb9eb66fe0f52008f50451858be15006a9e4ced321c766e8f8b1337680",
+    "source/rust_verify/src/import_export.rs": "d6518fa30bdcd79e7e31b9b3c3d9d332fe6878c111bf2e305e117931e653cac0",
+    "source/rust_verify/src/verus_items.rs": "b3fe47cd8bf1b17269333ffc30dfab69952102e62aec1719cadd85dd480a3292",
+    "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+    "source/rust_verify_test/tests/infer_codec_values.rs": "c7f40512f4be222c7813503f211f24598100153a786697b5bd7f1a35f35f6347",
+    "source/rust_verify_test/tests/infer_integer_conversions.rs": "060ff314e61e3c46981596fe9cec2bb6f1b870a051c9bab18921a005bc555ac8",
+    "source/rust_verify_test/tests/infer_native_option.rs": "7c641db55661665ae6ac5e8ff60180b2d216c295aa5933b25cf5835328d0e28c",
+    "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+    "source/rust_verify_test/tests/infer_record_shifts.rs": "38f38896fa07af50822c513bad5f02130066370ccd3e4a210eba45f7f7f2925e",
+    "source/rust_verify_test/tests/infer_transfer_composition.rs": "e24a6c728b9389ac160df4c91670f14d4841ec8982098e7d8e145650fea3c5eb",
+    "source/tools/INFER_TRANSFERS.md": "67953f51f0a369f17cf51b636197537b70690030b41fb6bfa48525e22f5445d0",
+    "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+    "source/tools/check_fedimint_native.py": "cb7412a38a9ecf951654a4e6c17a60881944934b78bea1f8e92992caafc9ef06",
+    "source/tools/check_infer_transfers.py": "44caa9970c694f6944777090755898336048d247ba20cee7478321de6d20a3e5",
+    "source/tools/check_redb_codec.py": "347426170643832dc85ad68ef663d7f7d9b2d8dc6e84fb6fabf2e801b88b4747",
+    "source/tools/check_redb_page_size.py": "98fe9e250c04f60c5ae4fca1f54fc92b8952c664a4c97c01876579fec48d9a99",
+    "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+    "source/tools/test_fedimint_native.py": "727e7e8be966fd35186650aa8bb316cf775873fe9c80a660ce271a0462555efc",
+    "source/tools/test_infer_transfers.py": "77a5ae92df4abcc507998315dc088e82061cf5d7345d8055ac4eb68f162ed4eb",
+    "source/tools/test_redb_codec.py": "456de7b6405180aa920680975c9219c6d3ac14ded67460a37b15bac850a7b737",
+    "source/tools/test_redb_page_size.py": "640b17e80fafb528f49a9aebeeec1ae0771c7fe3284fb05a37a075515a304ef2",
+    "source/vir/src/ast_simplify.rs": "73f66dc22910cc3f633353f31cd15e12bcb5a595256f254b7f1ef9fb4f158243",
+    "source/vir/src/ast_to_sst.rs": "51fee513a70e1a98a4ac5f2f5afee96c1933435b5a1da2c1d99e66c52494ce5d",
+    "source/vir/src/infer.rs": "86a88a19e9fcc8674fcd2d0bce22385fbf5a5683089863e764fd4e0c343c6d55",
+    "source/vir/src/infer/byte_models.rs": "18a50a63029e6443df5e99e0e8c4e1d7aa33b9ac8d17b26bedf05de94cdcbc5f",
+    "source/vir/src/infer/eligibility.rs": "12babbfd3b24f3ff6bd4c3c6fd6c32c5d727d7a5bb84962e5917b99a3a2929c8",
+    "source/vir/src/infer/integer_conversions.rs": "30851566bd5660db69065d68c8ac27e2ee7c47314f503ad8c6147db6a219cabd",
+    "source/vir/src/infer/owned.rs": "f41fa53233fa9f0c3b6e3179c2f5a0991da7d5c745fe88d933f506e70dba8249",
+    "source/vir/src/infer/owned/callbacks.rs": "9380fca55e16bb35baf8ca1424d5695b2a23fe1bde4e1df441564423668e49ba",
+    "source/vir/src/infer/record_models.rs": "6e10116e19a18972fe9084d540d15cb293ba5a465f403aa34989299e596897f5",
+    "source/vir/src/infer/record_models/tests.rs": "f1ed11e8d84db9c3aa4e533ed6c477917d00f9e9bb46f55d76742be78b83f58b",
+    "source/vir/src/infer/records.rs": "e2cab43694acaa74a4635cb3ddd58a9451d87eae9582ea13b2337295f8954e57",
+    "source/vir/src/infer/records/shape.rs": "ac987c62f41d2a5f967433656129ed1168532956fff1b026b68f79c896daa870",
+    "source/vir/src/infer/records/shift_tests.rs": "9d269a85ae166bbdf9df5f36be5bba4b63e8baa1ec11c9b54af5c38ba43a576f",
+    "source/vir/src/infer/records/tests.rs": "c41103b5a3ffe5dc322c9aabd1eeefaa90bca3f796798c7a30120fe7c5c1f5ef",
+    "source/vir/src/infer/registry.rs": "34f17f11311da2acda4f6bba21f1421498f96afb1e5a9987e2f5ce1654a2211c",
+    "source/vir/src/sst_to_air.rs": "ed6ad0da8ec79bb4a7322adfa3edb9178eea309f02e13f1186406bc657266758",
+    "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3",
+    "source/vstd/native_option.rs": "bdb765d1b60e5ad6b1c593fe0163d72b2239e6c26b105cb3b7f684c4228adb70",
+    "source/vstd/vstd.rs": "d9da42ac44e3c47f0a6f225ef6071589b73bd6c987763ac8b44172a67c6dc7da"
+  }
+}

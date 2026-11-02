@@ -363,6 +363,8 @@ pub(crate) enum SetItem {
 
 #[derive(PartialEq, Eq, Debug, Clone, Hash)]
 pub(crate) enum VstdItem {
+    NativeThenSome,
+    NativeMapOr,
     ByteVecAllocate,
     ByteVecAcquire,
     ByteVecWrite,
@@ -740,6 +742,8 @@ fn verus_items_map() -> Vec<(&'static str, VerusItem)> {
         ("verus::vstd::atomic::AtomicUpdate::outer_mask", VerusItem::Vstd(VstdItem::AtomicUpdate(AtomicUpdateItem::AtomicUpdateOuterMask), Some(Arc::new("atomic::AtomicUpdate::outer_mask".to_owned())))),
         ("verus::vstd::atomic::AtomicUpdate::inner_mask", VerusItem::Vstd(VstdItem::AtomicUpdate(AtomicUpdateItem::AtomicUpdateInnerMask), Some(Arc::new("atomic::AtomicUpdate::inner_mask".to_owned())))),
 
+        ("verus::vstd::native_option::then_some", VerusItem::Vstd(VstdItem::NativeThenSome, Some(Arc::new("native_option::then_some".to_owned())))),
+        ("verus::vstd::native_option::map_or", VerusItem::Vstd(VstdItem::NativeMapOr, Some(Arc::new("native_option::map_or".to_owned())))),
         ("verus::vstd::byte_vec::allocate", VerusItem::Vstd(VstdItem::ByteVecAllocate, Some(Arc::new("byte_vec::allocate".to_owned())))),
         ("verus::vstd::byte_vec::acquire", VerusItem::Vstd(VstdItem::ByteVecAcquire, Some(Arc::new("byte_vec::acquire".to_owned())))),
         ("verus::vstd::byte_vec::write", VerusItem::Vstd(VstdItem::ByteVecWrite, Some(Arc::new("byte_vec::write".to_owned())))),

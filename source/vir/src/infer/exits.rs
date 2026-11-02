@@ -12,7 +12,7 @@ impl Exits {
     pub fn for_body(body: &Expr, result_type: &Typ) -> Option<Self> {
         let mut found = false;
         crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
-            found |= matches!(e.x, ExprX::Return(_));
+            found |= matches!(e.x, ExprX::Return(_) | ExprX::NeverToAny(_));
             crate::ast_visitor::VisitorControlFlow::<()>::Recurse
         });
         found.then(|| Self {

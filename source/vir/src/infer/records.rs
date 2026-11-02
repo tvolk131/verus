@@ -6,6 +6,12 @@ use collections::Model;
 
 mod calls;
 pub(super) mod shape;
+#[cfg(test)]
+mod shape_tests;
+#[cfg(test)]
+mod shift_tests;
+#[cfg(test)]
+mod tests;
 mod traversals;
 use shape::{Field, Shape, shape, value_type};
 
@@ -24,6 +30,21 @@ pub(super) fn has_loops(f: &Function) -> bool {
 pub(super) fn validate_source(f: &Function) -> Result<(), VirErr> {
     if let Some(body) = &f.x.body {
         crate::ast_visitor::expr_visitor_check(body, &mut |_, e| {
+            if (shape::value_array_receiver(f) || shape::readonly_integer_bitwise_receiver(f))
+                && matches!(
+                    &e.x,
+                    ExprX::If(..)
+                        | ExprX::Match(..)
+                        | ExprX::Loop { .. }
+                        | ExprX::Return(..)
+                        | ExprX::Logical(..)
+                )
+            {
+                return Err(unsupported(
+                    &e.span,
+                    "record bitwise inference requires straight-line control flow",
+                ));
+            }
             if let ExprX::Loop {
                 invs,
                 decrease,
@@ -69,6 +90,19 @@ fn validate_signature(
     datatypes: &[Datatype],
     all: &HashMap<Fun, Function>,
 ) -> Result<Shape, VirErr> {
+    if !candidate(f) {
+        eligibility::validate_signature(f)?;
+        if f.x.attrs.infer_allow_approx
+            || !record_models::uses_native_option(f, all)
+            || uses_approximate_callee(f, all)
+        {
+            return Err(unsupported(
+                &f.span,
+                "native Option values require exact readonly inference",
+            ));
+        }
+        return Ok(Shape { typ: crate::ast_util::unit_typ(), fields: vec![] });
+    }
     let shape = shape(f, datatypes, all)?;
     let x = &f.x;
     if x.mode != Mode::Exec
@@ -218,11 +252,30 @@ pub(super) struct Interpreter<'a> {
     pub(super) all: &'a HashMap<Fun, Function>,
     pub(super) datatypes: &'a [Datatype],
     pub(super) requirements: Vec<Term>,
+    pub(super) exits: Vec<(Term, Term)>,
+    pub(super) callbacks: Vec<owned::callbacks::Plan>,
     pub(super) remaining: usize,
     pub(super) plans: Vec<owned::loops::Plan>,
 }
 
 impl Interpreter<'_> {
+    fn finish(&self, state: &State, mut result: Term) -> Result<Term, VirErr> {
+        if !mutable(self.function) {
+            let span = &self.function.span;
+            if is_bool(&state.active, false) {
+                result = self
+                    .exits
+                    .last()
+                    .ok_or_else(|| unsupported(span, "missing record query result"))?
+                    .1
+                    .clone();
+            }
+            for (guard, value) in self.exits.iter().rev() {
+                result = conditional(span, guard.clone(), value.clone(), result)?;
+            }
+        }
+        Ok(result)
+    }
     fn spend(&mut self, span: &Span) -> Result<(), VirErr> {
         self.remaining = self
             .remaining
@@ -242,7 +295,13 @@ impl Interpreter<'_> {
     fn path(&self, p: &Place) -> Option<Vec<FieldOpr>> {
         match &p.x {
             PlaceX::Local(n)
-                if !mutable(self.function) && n == &self.function.x.params[0].x.name =>
+                if !mutable(self.function)
+                    && self
+                        .function
+                        .x
+                        .params
+                        .first()
+                        .is_some_and(|parameter| n == &parameter.x.name) =>
             {
                 Some(vec![])
             }
@@ -418,10 +477,19 @@ impl Interpreter<'_> {
     }
     fn readonly(&mut self, s: &mut State, e: &Expr) -> Result<Term, VirErr> {
         let before: Vec<_> = s.fields.iter().map(|v| v.expr.clone()).collect();
+        let locals = s.locals.clone();
         let active = s.active.expr.clone();
         let result = self.expr(s, e)?;
         if !Arc::ptr_eq(&active, &s.active.expr)
             || !before.iter().zip(&s.fields).all(|(a, b)| Arc::ptr_eq(a, &b.expr))
+            || (shape::value_array_receiver(self.function)
+                || shape::readonly_integer_bitwise_receiver(self.function))
+                && (locals.len() != s.locals.len()
+                    || !locals.iter().all(|(name, value)| {
+                        s.locals
+                            .get(name)
+                            .is_some_and(|after| Arc::ptr_eq(&value.expr, &after.expr))
+                    }))
         {
             return Err(unsupported(
                 &e.span,
@@ -519,6 +587,19 @@ impl Interpreter<'_> {
     fn expr(&mut self, s: &mut State, e: &Expr) -> Result<Term, VirErr> {
         self.spend(&e.span)?;
         let span = &e.span;
+        if panics::literal(e, self.all).is_some() {
+            self.require(s, span, boolean(span, false))?;
+            s.active = boolean(span, false);
+            return exits::unit_value(span);
+        }
+        if let Some(callee) = byte_models::source_call(e, self.all).cloned() {
+            if mutable(self.function) {
+                return Err(unsupported(span, "native byte calls require a read-only record"));
+            }
+            let ExprX::Call { args, .. } = &e.x else { unreachable!() };
+            let input = self.readonly(s, &args[0])?;
+            return byte_models::value(span, &callee, vec![input]);
+        }
         if let Some((_getter, spec, types, args)) = trait_getters::source_call(e, self.all) {
             let args = args.iter().map(|a| self.readonly(s, a)).collect::<Result<Vec<_>, _>>()?;
             return trait_getters::instantiate_source(
@@ -528,6 +609,12 @@ impl Interpreter<'_> {
                 &self.function.x.typ_bounds,
                 e,
             );
+        }
+        if let Some(arg) = integer_conversions::call(e, self.all) {
+            let input = self.readonly(s, arg)?;
+            let (required, output) = integer_conversions::value(span, input, &e.typ)?;
+            self.require(s, span, required)?;
+            return Ok(output);
         }
         if let Some(arg) = widening::call(e, self.all) {
             let arg = self.readonly(s, arg)?;
@@ -540,6 +627,30 @@ impl Interpreter<'_> {
             body: None,
         } = &e.x
         {
+            if let Some(model) = self.all.get(name).and_then(record_models::native_option) {
+                if mutable(self.function) || self.function.x.attrs.infer_allow_approx {
+                    return Err(unsupported(
+                        span,
+                        "native Option calls require exact readonly records",
+                    ));
+                }
+                return self.native_option(s, e, model, types, args);
+            }
+            if let Some(callee) = self
+                .all
+                .get(name)
+                .filter(|f| {
+                    !mutable(self.function)
+                        && types.is_empty()
+                        && integer_models::recognize(f)
+                            .is_some_and(|m| m.policy == integer_models::Policy::Saturating)
+                })
+                .cloned()
+            {
+                let values =
+                    args.iter().map(|arg| self.readonly(s, arg)).collect::<Result<Vec<_>, _>>()?;
+                return integer_models::value(span, &callee, values);
+            }
             if let Some(callee) =
                 self.all.get(name).filter(|f| candidate(f) && f.x.attrs.infer).cloned()
             {
@@ -643,19 +754,55 @@ impl Interpreter<'_> {
         }
         match &e.x {
             ExprX::Const(Constant::Bool(_) | Constant::Int(_)) => atom(e.clone()),
+            ExprX::ConstVar(name, _) => {
+                let constant = self
+                    .all
+                    .get(name)
+                    .ok_or_else(|| unsupported(span, "unknown record constant"))?;
+                if !matches!(constant.x.item_kind, ItemKind::Const)
+                    || constant.x.attrs.is_external_body
+                    || constant.x.attrs.is_unsafe
+                    || constant.x.proxy.is_some()
+                    || !constant.x.params.is_empty()
+                    || !constant.x.typ_params.is_empty()
+                    || !same(&constant.x.inner_ret.x.typ, &e.typ)
+                {
+                    return Err(unsupported(
+                        span,
+                        "record constants require visible literal values",
+                    ));
+                }
+                let body = constant
+                    .x
+                    .body
+                    .clone()
+                    .ok_or_else(|| unsupported(span, "opaque record constant"))?;
+                crate::ast_visitor::expr_visitor_check(
+                    &body,
+                    &mut |_, expression| match &expression.x {
+                        ExprX::Const(Constant::Bool(_) | Constant::Int(_))
+                        | ExprX::Ctor(Dt::Tuple(_), _, _, None) => Ok(()),
+                        ExprX::Block(statements, Some(_)) if statements.is_empty() => Ok(()),
+                        _ => Err(unsupported(
+                            &expression.span,
+                            "record constants require literal tuples or scalars",
+                        )),
+                    },
+                )?;
+                self.readonly(s, &body)
+            }
             ExprX::Var(n) => {
                 s.locals.get(n).cloned().ok_or_else(|| {
                     unsupported(span, "record value is not a Copy parameter or local")
                 })
             }
             ExprX::ReadPlace(p, _) => self.place(s, p),
-            ExprX::NeverToAny(inner) if enums::unit(&e.typ) => self.expr(s, inner),
+            ExprX::NeverToAny(inner) => self.expr(s, inner),
             ExprX::Return(e) => {
-                if let Some(e) = e {
-                    let v = self.expr(s, e)?;
-                    if !enums::unit(&v.expr.typ) {
-                        return Err(unsupported(span, "non-unit early returns in record queries"));
-                    }
+                let value =
+                    if let Some(e) = e { self.expr(s, e)? } else { exits::unit_value(span)? };
+                if !mutable(self.function) && !is_bool(&s.active, false) {
+                    self.exits.push((s.active.clone(), value));
                 }
                 s.active = boolean(span, false);
                 exits::unit_value(span)
@@ -708,6 +855,29 @@ impl Interpreter<'_> {
                 let a = self.expr(s, a)?;
                 self.project(span, a, op)
             }
+            ExprX::Binary(op @ BinaryOp::Bitwise(..), left, right)
+                if shape::value_array_receiver(self.function)
+                    || shape::readonly_integer_bitwise_receiver(self.function) =>
+            {
+                let (pure, shift) = bitwise::source(*op, &left.typ, &right.typ, &e.typ)
+                    .ok_or_else(|| unsupported(span, "invalid record-array bitwise operation"))?;
+                if shape::value_array_receiver(self.function)
+                    && shift.is_some()
+                    && !matches!(&right.x, ExprX::Const(Constant::Int(_)))
+                {
+                    return Err(unsupported(span, "record-array shifts require literal amounts"));
+                }
+                let before = self.readonly(s, left)?;
+                let amount = self.readonly(s, right)?;
+                let before = bitwise::coerce(span, &left.typ, before)?;
+                let amount = if let Some(width) = shift {
+                    self.require(s, span, bitwise::shift_safe(span, amount.clone(), width)?)?;
+                    amount
+                } else {
+                    bitwise::coerce(span, &right.typ, amount)?
+                };
+                summary::binary(span, pure, before, amount)
+            }
             ExprX::Binary(op, a, b) => {
                 let a = self.readonly(s, a)?;
                 let b = self.readonly(s, b)?;
@@ -755,9 +925,15 @@ impl Interpreter<'_> {
                 if !Arc::ptr_eq(&active_a, &a.active.expr)
                     || !Arc::ptr_eq(&active_b, &b.active.expr)
                 {
-                    s.active = logical(span, LogicalOp::Or, a.active, b.active)?;
+                    s.active = logical(span, LogicalOp::Or, a.active.clone(), b.active.clone())?;
                 }
-                conditional(span, c, va, vb)
+                if is_bool(&a.active, false) {
+                    Ok(vb)
+                } else if is_bool(&b.active, false) {
+                    Ok(va)
+                } else {
+                    conditional(span, c, va, vb)
+                }
             }
             ExprX::Block(statements, tail) => {
                 let locals = s.locals.clone();
@@ -782,6 +958,8 @@ impl Interpreter<'_> {
                             };
                             if binding.by_ref != ByRef::No
                                 || binding.user_mut == Some(true)
+                                    && !(shape::value_array_receiver(self.function)
+                                        && scalar(&binding.typ))
                                     && !matches!(&*binding.typ, TypX::Int(IntRange::USize))
                                 || !value_type(
                                     &binding.typ,
@@ -811,7 +989,11 @@ impl Interpreter<'_> {
                 } else {
                     exits::unit_value(span)?
                 };
-                s.locals = locals;
+                if shape::value_array_receiver(self.function) {
+                    s.locals.retain(|name, _| locals.contains_key(name));
+                } else {
+                    s.locals = locals;
+                }
                 Ok(value)
             }
             ExprX::Match(p, arms, _) if arms.len() <= 4 => {
@@ -846,20 +1028,20 @@ impl Interpreter<'_> {
                                 conditional(span, selected.clone(), value.clone(), merged.clone())?;
                         }
                     }
+                    if !is_bool(&branch.active, false) {
+                        results.push((selected, result));
+                    }
                     live = logical(span, LogicalOp::Or, live, branch.active)?;
                     seen = logical(span, LogicalOp::Or, seen, condition.clone())?;
-                    results.push((selected, result));
                 }
                 self.require(s, span, seen)?;
                 s.fields = fields;
                 if returns {
                     s.active = live;
                 }
-                let mut out = results
-                    .last()
-                    .ok_or_else(|| unsupported(span, "empty record match"))?
-                    .1
-                    .clone();
+                let Some((_, mut out)) = results.last().cloned() else {
+                    return exits::unit_value(span);
+                };
                 for (c, v) in results.into_iter().rev().skip(1) {
                     out = conditional(span, c, v, out)?;
                 }
@@ -901,6 +1083,29 @@ impl Interpreter<'_> {
             }
             ExprX::Assign { place, rhs, op, resolve: false, .. } => {
                 let value = self.readonly(s, rhs)?;
+                if shape::value_array_receiver(self.function) {
+                    if let PlaceX::Local(name) = &place.x {
+                        let before = s
+                            .locals
+                            .get(name)
+                            .filter(|value| scalar(&value.expr.typ))
+                            .ok_or_else(|| {
+                                unsupported(span, "record-array scalar assignment target")
+                            })?
+                            .clone();
+                        let value = if let Some(operation) = op {
+                            self.binary(s, span, *operation, before.clone(), value)?
+                        } else {
+                            value
+                        };
+                        let value = coerce(span, value, &place.typ)?;
+                        s.locals.insert(
+                            name.clone(),
+                            conditional(span, s.active.clone(), value, before)?,
+                        );
+                        return exits::unit_value(span);
+                    }
+                }
                 if let Some(i) = self.field(place) {
                     if self.shape.fields[i].element.is_some() {
                         return Err(unsupported(span, "whole-vector replacement"));
@@ -1013,6 +1218,204 @@ impl Interpreter<'_> {
             )),
         }
     }
+    fn native_option(
+        &mut self,
+        state: &mut State,
+        expression: &Expr,
+        model: record_models::NativeOption,
+        types: &Typs,
+        args: &Exprs,
+    ) -> Result<Term, VirErr> {
+        use record_models::NativeOption;
+        let span = &expression.span;
+        let invalid = || unsupported(span, "native Option call type, closure or arity");
+        let expected = match model {
+            NativeOption::ThenSome => 2,
+            NativeOption::MapOr => 3,
+            NativeOption::IsSome => 1,
+        };
+        if args.len() != expected
+            || types.len() != if model == NativeOption::MapOr { 3 } else { 1 }
+            || !value_type(&types[0], &self.function.x.typ_params, self.datatypes, 4)
+        {
+            return Err(invalid());
+        }
+        let first = self.readonly(state, &args[0])?;
+        let option_type = |typ: &Typ, payload: &Typ| {
+            let mut typ = typ;
+            while let TypX::Decorate(TypDecoration::Ref, None, inner) = &**typ {
+                typ = inner;
+            }
+            matches!(&**typ, TypX::Datatype(Dt::Path(path), arguments, _) if models::path_is(path, CrateId::Core, &["option", "Option"])
+                && arguments.len() == 1 && same(&arguments[0], payload))
+        };
+        if model == NativeOption::ThenSome {
+            let value = self.readonly(state, &args[1])?;
+            if !same(&first.expr.typ, &bool_typ())
+                || !same(&args[1].typ, &types[0])
+                || !option_type(&expression.typ, &types[0])
+            {
+                return Err(invalid());
+            }
+            let value = coerce(span, value, &types[0])?;
+            let TypX::Datatype(datatype, _, _) = &*expression.typ else { return Err(invalid()) };
+            let some = term(
+                span,
+                &expression.typ,
+                ExprX::Ctor(
+                    datatype.clone(),
+                    Arc::new("Some".into()),
+                    Arc::new(vec![Arc::new(air::ast::BinderX {
+                        name: crate::def::positional_field_ident(0),
+                        a: value.expr,
+                    })]),
+                    None,
+                ),
+                value.size + 1,
+            )?;
+            let none = term(
+                span,
+                &expression.typ,
+                ExprX::Ctor(datatype.clone(), Arc::new("None".into()), Arc::new(vec![]), None),
+                1,
+            )?;
+            return conditional(span, first, some, none);
+        }
+        if !option_type(&first.expr.typ, &types[0]) {
+            return Err(invalid());
+        }
+        let mut plain_type = first.expr.typ.clone();
+        while let TypX::Decorate(TypDecoration::Ref, None, inner) = &*plain_type {
+            plain_type = inner.clone();
+        }
+        let option = coerce(span, first, &plain_type)?;
+        let TypX::Datatype(datatype, _, _) = &*plain_type else { return Err(invalid()) };
+        let variant: Ident = Arc::new("Some".into());
+        let present = term(
+            span,
+            &bool_typ(),
+            ExprX::UnaryOpr(
+                UnaryOpr::IsVariant { datatype: datatype.clone(), variant: variant.clone() },
+                option.expr.clone(),
+            ),
+            option.size + 1,
+        )?;
+        if model == NativeOption::IsSome {
+            if !same(&expression.typ, &bool_typ()) {
+                return Err(invalid());
+            }
+            return Ok(present);
+        }
+        let default = self.readonly(state, &args[1])?;
+        let mut callback = &args[2];
+        while let ExprX::Block(statements, Some(tail)) = &callback.x {
+            self.spend(&callback.span)?;
+            if !statements.is_empty() {
+                return Err(invalid());
+            }
+            callback = tail;
+        }
+        let ExprX::NonSpecClosure {
+            params,
+            proof_fn_modes: None,
+            body,
+            requires,
+            ensures,
+            ret,
+            external_spec: None,
+        } = &callback.x
+        else {
+            return Err(invalid());
+        };
+        if params.len() != 1
+            || !requires.is_empty()
+            || !ensures.is_empty()
+            || !same(&params[0].a, &types[0])
+            || !same(&ret.a, &types[1])
+            || !same(&args[2].typ, &types[2])
+            || !same(&args[1].typ, &types[1])
+            || !same(&expression.typ, &types[1])
+            || !value_type(&types[1], &self.function.x.typ_params, self.datatypes, 4)
+        {
+            return Err(invalid());
+        }
+        let default = coerce(span, default, &types[1])?;
+        crate::ast_visitor::expr_visitor_check(body, &mut |_, expression| {
+            if matches!(&expression.x, ExprX::Return(_) | ExprX::NonSpecClosure { .. }) {
+                Err(invalid())
+            } else {
+                Ok(())
+            }
+        })?;
+        owned::callbacks::validate_body(body, &ret.a, self.all, false)?;
+        let payload = self.project(
+            span,
+            option,
+            &FieldOpr {
+                datatype: datatype.clone(),
+                variant,
+                field: crate::def::positional_field_ident(0),
+                get_variant: false,
+                check: VariantCheck::None,
+            },
+        )?;
+        let mut callback_engine = Interpreter {
+            function: self.function,
+            shape: self.shape.clone(),
+            all: self.all,
+            datatypes: self.datatypes,
+            requirements: vec![],
+            exits: vec![],
+            callbacks: vec![],
+            remaining: self.remaining,
+            plans: vec![],
+        };
+        let mut callback_state = state.clone();
+        callback_state.active = boolean(span, true);
+        callback_state.locals.insert(
+            params[0].name.clone(),
+            atom(SpannedTyped::new(span, &params[0].a, ExprX::Var(params[0].name.clone())))?,
+        );
+        let output = callback_engine.readonly(&mut callback_state, body)?;
+        let output = coerce(span, output, &types[1])?;
+        let mut pre = boolean(span, true);
+        for requirement in callback_engine.requirements {
+            pre = logical(span, LogicalOp::And, pre, requirement)?;
+        }
+        self.remaining = callback_engine.remaining;
+        let returned = atom(SpannedTyped::new(span, &ret.a, ExprX::Var(ret.name.clone())))?;
+        let post = if matches!(&*ret.a, TypX::Primitive(Primitive::Array, _))
+            && arrays::shape(&ret.a).is_some()
+        {
+            term(
+                span,
+                &bool_typ(),
+                ExprX::BinaryOpr(
+                    BinaryOpr::ExtEq(false, ret.a.clone()),
+                    returned.expr,
+                    output.expr.clone(),
+                ),
+                1 + returned.size + output.size,
+            )?
+        } else {
+            equal(span, returned, output.clone())?
+        };
+        if self.callbacks.iter().any(|plan| plan.span == callback.span.id) {
+            return Err(invalid());
+        }
+        self.callbacks.push(owned::callbacks::Plan {
+            span: callback.span.id,
+            requires: Arc::new(vec![pre.expr.clone()]),
+            ensures: Arc::new(vec![post.expr]),
+        });
+        let substitutions = HashMap::from([(params[0].name.clone(), payload)]);
+        let mut invoked = state.clone();
+        invoked.active = logical(span, LogicalOp::And, state.active.clone(), present.clone())?;
+        self.require(&invoked, span, substitute_value(&pre.expr, &substitutions)?)?;
+        let output = substitute_value(&output.expr, &substitutions)?;
+        conditional(span, present, output, default)
+    }
+
     fn binary(
         &mut self,
         s: &State,
@@ -1030,6 +1433,22 @@ impl Interpreter<'_> {
         };
         let a = normalize(a)?;
         let b = normalize(b)?;
+        if shape::value_array_receiver(self.function) {
+            if let BinaryOp::Bitwise(
+                operation @ (BitwiseOp::BitAnd | BitwiseOp::BitOr | BitwiseOp::BitXor),
+                BitshiftBehavior::Allow,
+            ) = op
+            {
+                let right = bitwise::coerce(span, &a.expr.typ, b)?;
+                if !bitwise::pure_valid(operation, &a.expr.typ, &right.expr.typ) {
+                    return Err(unsupported(
+                        span,
+                        "invalid record-array compound bitwise operation",
+                    ));
+                }
+                return summary::binary(span, op, a, right);
+            }
+        }
         if matches!(op, BinaryOp::Eq(_) | BinaryOp::Ne)
             && (same(&a.expr.typ, &b.expr.typ)
                 || eligibility::integer(&a.expr.typ) && eligibility::integer(&b.expr.typ))
@@ -1119,6 +1538,8 @@ pub(super) fn infer(
         all,
         datatypes,
         requirements: vec![],
+        exits: vec![],
+        callbacks: vec![],
         remaining: FORMULA_BUDGET,
         plans: vec![],
     };
@@ -1133,7 +1554,7 @@ pub(super) fn infer(
     let locals =
         f.x.params
             .iter()
-            .skip(1)
+            .skip(usize::from(candidate(f)))
             .map(|p| {
                 Ok((
                     p.x.name.clone(),
@@ -1146,6 +1567,7 @@ pub(super) fn infer(
         &mut state,
         f.x.body.as_ref().ok_or_else(|| unsupported(&f.span, "missing record body"))?,
     )?;
+    let result = engine.finish(&state, result)?;
     let mut pre = boolean(&f.span, true);
     for p in &engine.requirements {
         pre = logical(&f.span, LogicalOp::And, pre, p.clone())?;
@@ -1183,10 +1605,11 @@ pub(super) fn infer(
     // reference wrappers inserted when instantiating standard models.
     let pre = atom(pre.expr)?;
     let post = atom(post.expr)?;
-    let body = if engine.plans.is_empty() {
+    let body = if engine.plans.is_empty() && engine.callbacks.is_empty() {
         None
     } else {
-        Some(owned::loops::annotate(f, &engine.plans)?)
+        let body = owned::loops::annotate(f, &engine.plans)?;
+        Some(owned::callbacks::annotate(f, &body, &engine.callbacks)?)
     };
     Ok((Contract::new(pre.expr, post.expr)?, body))
 }
@@ -1217,6 +1640,8 @@ pub(super) fn validate_summary(
         all,
         datatypes,
         requirements: vec![],
+        exits: vec![],
+        callbacks: vec![],
         remaining: 0,
         plans: vec![],
     };
@@ -1236,6 +1661,12 @@ pub(super) fn validate_summary(
                 _ if arithmetic::arch_constant(e).is_some() => true,
                 ExprX::Const(Constant::Bool(_)) => true,
                 ExprX::Const(Constant::Int(n)) => n.bits() <= 4096,
+                ExprX::ArrayLiteral(elements) => {
+                    arrays::shape(&e.typ).is_some_and(|(element, length)| {
+                        length == elements.len()
+                            && elements.iter().all(|value| same(&element, &value.typ))
+                    })
+                }
                 ExprX::Var(v) => scope.get(v).map_or_else(
                     || f.x.params.iter().any(|p| &p.x.name == v && same(&p.x.typ, &e.typ)),
                     |p| same(&p.typ, &e.typ),
@@ -1336,6 +1767,19 @@ pub(super) fn validate_summary(
                     value_type(&e.typ, &f.x.typ_params, datatypes, 4)
                         && constructor_fields(&f.span, &e.typ, dt, v, datatypes)
                             .is_ok_and(|fs| fs.len() == fields.len())
+                }
+                ExprX::Binary(
+                    BinaryOp::Bitwise(operation, BitshiftBehavior::Allow),
+                    left,
+                    right,
+                ) => bitwise::pure_valid(*operation, &left.typ, &right.typ),
+                ExprX::Binary(
+                    BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow),
+                    array,
+                    index,
+                ) => {
+                    arrays::shape(&array.typ).is_some_and(|(element, _)| same(&element, &e.typ))
+                        && eligibility::integer(&index.typ)
                 }
                 ExprX::Binary(op, _, _) => matches!(
                     op,

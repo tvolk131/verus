@@ -85,6 +85,9 @@ pub(crate) fn fn_call_to_vir<'tcx>(
     if let Some(result) = native_byte_vec_call(bctx, expr, f, &args)? {
         return Ok(result);
     }
+    if let Some(result) = native_option_call(bctx, expr, f, node_substs, &args)? {
+        return Ok(result);
+    }
 
     match rust_item {
         Some(RustItem::BoxNew) if bctx.in_ghost => {
@@ -3252,6 +3255,55 @@ fn strip_two_phase(e: &vir::ast::Expr) -> vir::ast::Expr {
         }
         _ => e.clone(),
     }
+}
+
+fn native_option_call<'tcx>(
+    bctx: &BodyCtxt<'tcx>,
+    expr: &Expr<'tcx>,
+    function: DefId,
+    types: &'tcx rustc_middle::ty::List<GenericArg<'tcx>>,
+    args: &[&'tcx Expr<'tcx>],
+) -> Result<Option<vir::ast::Expr>, VirErr> {
+    let tcx = bctx.ctxt.tcx;
+    let path = bctx.ctxt.def_id_to_vir_path(function);
+    if path.krate != CrateId::Core || path.segments.len() != 3 {
+        return Ok(None);
+    }
+    let module = path.segments[0].as_str();
+    let method = path.segments[2].as_str();
+    if !matches!((module, method), ("bool", "then_some") | ("option", "map_or"))
+        || tcx.trait_of_assoc(function).is_some()
+    {
+        return Ok(None);
+    }
+    let Some(implementation) = tcx.impl_of_assoc(function) else { return Ok(None) };
+    let self_type = tcx.type_of(implementation).instantiate_identity().skip_norm_wip();
+    let valid = match (module, method, self_type.kind()) {
+        ("bool", "then_some", TyKind::Bool) => types.len() == 1 && args.len() == 2,
+        ("option", "map_or", TyKind::Adt(datatype, _)) => {
+            let option = bctx.ctxt.def_id_to_vir_path(datatype.did());
+            option.krate == CrateId::Core
+                && option.segments.iter().map(|part| part.as_str()).eq(["option", "Option"])
+                && types.len() == 3
+                && args.len() == 3
+        }
+        _ => false,
+    };
+    if !valid || types.iter().any(|argument| !matches!(argument.kind(), GenericArgKind::Type(_))) {
+        return err_span(expr.span, "unsupported native Option bridge identity or signature");
+    }
+    let symbol = rustc_span::Symbol::intern(&format!("verus::vstd::native_option::{method}"));
+    let Some(target) = tcx.get_diagnostic_item(symbol) else {
+        return err_span(expr.span, "native Option model unavailable; rebuild matching vstd");
+    };
+    let target_path = bctx.ctxt.def_id_to_vir_path(target);
+    if target_path.krate != CrateId::Vstd
+        || !target_path.segments.iter().map(|part| part.as_str()).eq(["native_option", method])
+    {
+        return err_span(expr.span, "invalid native Option model identity");
+    }
+    let result = fn_call_to_vir(bctx, expr, target, types, expr.span, args.to_vec(), false)?;
+    Ok(Some(result))
 }
 
 /// Resolve an original primitive before attaching the checked byte resource

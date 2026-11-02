@@ -1,0 +1,1489 @@
+{
+  "schema_version": 1,
+  "experiment": "redb-source-connected-page-size",
+  "date": "2026-11-01",
+  "result": "proved_unchanged_method_full_canonical_u32_domain",
+  "transfer": {
+    "scenario": "redb_page_size",
+    "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "status": "proved",
+    "source_fidelity": true,
+    "positive_cases": [
+      "page_size_cold",
+      "page_size_warm",
+      "page_size_provider_cold",
+      "page_size_client_cold",
+      "page_size_client_warm"
+    ],
+    "semantic_negative_cases": [
+      "shift64_zero_negative",
+      "shift255_zero_negative",
+      "shift_all_invalid_zero_negative",
+      "multiply_overflow_negative",
+      "false_property_negative"
+    ],
+    "stale_export_rejected": true,
+    "limitations": [
+      "extracted page_size_bytes only; no address_range, debug_assert, mutable effects, or database theorem",
+      "native oracle is finite support, not the formal all-u32 domain",
+      "import provider changes pub(crate) to pub solely for cross-crate visibility",
+      "warm invocations regenerate readonly-record candidates; they do not claim candidate-cache hits"
+    ],
+    "trust": [
+      "ordinary Verus verifier, SMT backend, and existing primitive conversion contracts",
+      "explicit checked bit_vector shift-bound and nonlinear_arith multiplication-bound ghost lemma",
+      "no application axioms, trusted specs, assumed order invariant, or suppressed panic obligation"
+    ]
+  },
+  "engine": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "cache_version": 63,
+    "policy": "candidate-bound-evidence-v57",
+    "schema": 38
+  },
+  "restored_redb_baseline": {
+    "verified_baseline_files": 22,
+    "verified_codec_files": 19,
+    "snapshot_files": 34,
+    "preserved_files": {
+      "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+      "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+      "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+      "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+      "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+      "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+      "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+      "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+      "evidence/transfer-redb-codec/README.md": "68e2746ea7e91ecafa011891e1c7a298c2be81a0f6f3c7207bba61c510f7776b",
+      "evidence/transfer-redb-codec/TRUST.md": "c428471d501ac8d3129316b7f7c2cfa269f15ed496b1fbdbab7ef9c2ba0548b7",
+      "evidence/transfer-redb-codec/manifest.json": "3c4ee8061eb33b116a86a546c2b6d251314ba71d87db526202f111642b7777f2",
+      "evidence/transfer-redb-codec/run.py": "46167c8671f720e467b8ecb2cf4af07add2721d58aa597b55a93f35c57e08870",
+      "source/docs/guide/src/infer.md": "ba7120468f8a08e2004ffee4e7b51be37b0844c3397086f1becb626f86d38267",
+      "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+      "source/rust_verify_test/tests/infer_codec_values.rs": "c6eedc131095dd7c15a51deeed8d9429b03ab11d49eca698591a0ed03d22eafe",
+      "source/rust_verify_test/tests/infer_integer_conversions.rs": "060ff314e61e3c46981596fe9cec2bb6f1b870a051c9bab18921a005bc555ac8",
+      "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+      "source/rust_verify_test/tests/infer_transfer_composition.rs": "39dbe434c22fc13b6eb971766d17d88e3dd6463f828e4319c2604d0b9fbd8ebc",
+      "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+      "source/tools/check_redb_codec.py": "5498bc0a24b8dc437408165468a8584fe9b9bed4bbdc536137cacc440819d665",
+      "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+      "source/tools/test_redb_codec.py": "3526ffbcdbf5565b591ff0f912b32c59f7674887bbe242d04a2a9c49d161c302",
+      "source/vir/src/infer.rs": "06149abe5abaa049072f016fc9bc34cad31d0979f156308c5784ff8288fcfc88",
+      "source/vir/src/infer/byte_models.rs": "18a50a63029e6443df5e99e0e8c4e1d7aa33b9ac8d17b26bedf05de94cdcbc5f",
+      "source/vir/src/infer/eligibility.rs": "12babbfd3b24f3ff6bd4c3c6fd6c32c5d727d7a5bb84962e5917b99a3a2929c8",
+      "source/vir/src/infer/integer_conversions.rs": "30851566bd5660db69065d68c8ac27e2ee7c47314f503ad8c6147db6a219cabd",
+      "source/vir/src/infer/owned.rs": "6a3d20c25efe1da24658e23d2ca355752832a00347aef262cfd6cfc3579b8304",
+      "source/vir/src/infer/records/tests.rs": "292dc145c0fc2b61ff5a8b42ce1859127ed38c3fa8c271c5f2a2847bf5f4028a",
+      "source/vir/src/sst_to_air.rs": "21bc3af554bff23b9489aedb9c7bf32b8fd4bd8cabbada97d1a94611484fe7ce",
+      "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3"
+    },
+    "delta_base": "hash-verified restored integrated baseline plus completed redb codec; not HEAD",
+    "modified_files_before": {
+      "source/rust_verify/src/import_export.rs": "291730ee08d84b5e9f61aa159081a92c75fabd6ba611be2f10fe07b547ded5f9",
+      "source/vir/src/infer/records.rs": "092defcb40cecae09ca1e3ae714d8dc549ba4a4e9db9ca4c6b760cc1992167f7",
+      "source/vir/src/infer/records/shape.rs": "474b81280b659ba4dcaea24357c29b6b6eeeab12cf1342107efba8b43b0c0ca4",
+      "source/vir/src/infer/registry.rs": "e00f8d402c5d1afd88d744135b5e382578b6b4e13f5aeae068736b383f39b81c"
+    }
+  },
+  "reconstruction": {
+    "entrypoint": "source/tools/check_redb_page_size.py",
+    "historical_receipts_required": false,
+    "external_worktrees_required": false,
+    "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "source_file": "src/tree_store/page_store/base.rs",
+    "source_sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4"
+  },
+  "source_files": {
+    "evidence/transfer-redb-page-size/README.md": "31968b37c3110c8d8d004ae510c110836d24c2c16b1beb440415b2c3c291c89f",
+    "source/rust_verify/src/import_export.rs": "7ee511afb5db6e31361abb89b9314b3270344d8c85ffc88bd9435a9bd6660db5",
+    "source/rust_verify_test/tests/infer_record_shifts.rs": "38f38896fa07af50822c513bad5f02130066370ccd3e4a210eba45f7f7f2925e",
+    "source/tools/check_redb_page_size.py": "9875e5b764b6751ce3e5096b7eb2ce85b1c413c4015933584f89511f14cd0a08",
+    "source/tools/test_redb_page_size.py": "640b17e80fafb528f49a9aebeeec1ae0771c7fe3284fb05a37a075515a304ef2",
+    "source/vir/src/infer/records.rs": "7ebcc977b7291bff6b72d5d78aa381e4e0a71f737fbea1f94ae38bfae932771e",
+    "source/vir/src/infer/records/shape.rs": "459716ebea1c64626f2bde89a2f86347817d3e63852eb0a80a73e60bfd8a1feb",
+    "source/vir/src/infer/records/shift_tests.rs": "9d269a85ae166bbdf9df5f36be5bba4b63e8baa1ec11c9b54af5c38ba43a576f",
+    "source/vir/src/infer/registry.rs": "87effbf9ee4ad93791ec6e7d4375c4f7db3bd391fe71d737bef677c34b597aea"
+  },
+  "extraction": {
+    "PageNumber": {
+      "sha256": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+      "source": "src/tree_store/page_store/base.rs",
+      "line": 34
+    },
+    "page_size_bytes": {
+      "sha256": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+      "source": "src/tree_store/page_store/base.rs",
+      "line": 158
+    }
+  },
+  "receipt": {
+    "directory": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz",
+    "sha256": "082c4d7dcb40937a540fa4f9ac69710bf9d29b56a7fe6a2ce9e5c2c4ce129ed8"
+  },
+  "artifacts": {
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/rust_verify/src/import_export.rs": {
+      "sha256": "7ee511afb5db6e31361abb89b9314b3270344d8c85ffc88bd9435a9bd6660db5",
+      "size": 17965,
+      "mtime_ns": 1793551968301537878,
+      "inode": 167714553
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/libverus_builtin.rlib": {
+      "sha256": "c1eed3cda028e9fb4a91cad77e4222a2cedd5f6c378a7cf489ea56ff345ca4e5",
+      "size": 905856,
+      "mtime_ns": 1793544713542364754,
+      "inode": 167719512
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/libverus_builtin_macros.dylib": {
+      "sha256": "37f2b4c40dd1b4a29b1f04192c58356bba7fae106b418487dc4010186ae77bfe",
+      "size": 13980800,
+      "mtime_ns": 1793544713992555191,
+      "inode": 167719514
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/libverus_state_machines_macros.dylib": {
+      "sha256": "94e7101135ae9b434a87df91bba60c3080181ee61ae3249064afd0cc84b54292",
+      "size": 9092240,
+      "mtime_ns": 1793544713396515067,
+      "inode": 167719505
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/libvstd.rlib": {
+      "sha256": "fa9db92274cffb9db79b8a19fad761c4d6429e23cba1026cc9afa8d519ec72f1",
+      "size": 10867336,
+      "mtime_ns": 1793552272151326379,
+      "inode": 167726037
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/rust_verify": {
+      "sha256": "605340e2c87ee58badc07a66897a41ebed462e82e687e90d5e4d597b88c6b0a5",
+      "size": 31169664,
+      "mtime_ns": 1793552729422344357,
+      "inode": 167735357
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus": {
+      "sha256": "b2a4dcc291113bdf45026086d14a9f9a70ffc3279d408325aa7f9230071d5c51",
+      "size": 3684016,
+      "mtime_ns": 1793552105941417890,
+      "inode": 167735129
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/vstd.vir": {
+      "sha256": "c5efd2ccc6799319d28381121f341d9eed82a029ae8f087c5cfbc447a7ee96dd",
+      "size": 33341822,
+      "mtime_ns": 1793552261475038959,
+      "inode": 167725960
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/tools/check_redb_page_size.py": {
+      "sha256": "9875e5b764b6751ce3e5096b7eb2ce85b1c413c4015933584f89511f14cd0a08",
+      "size": 16111,
+      "mtime_ns": 1793553177201444508,
+      "inode": 167725760
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/tools/infer_eval_support.py": {
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "size": 7981,
+      "mtime_ns": 1793551791521644661,
+      "inode": 167713573
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/tools/infer_experiment.py": {
+      "sha256": "5cd545d5eb3255c7724717a38b1505d1030f9aacf5dd771cae307a192567219d",
+      "size": 6936,
+      "mtime_ns": 1793551791522285123,
+      "inode": 167713621
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/vir/src/infer/bitwise.rs": {
+      "sha256": "7f6fc7ff0e4eee8d3cb577da636c1db2369278be252d6f8d2f4705b3cace9073",
+      "size": 3436,
+      "mtime_ns": 1793551791647039699,
+      "inode": 167714808
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/vir/src/infer/records.rs": {
+      "sha256": "7ebcc977b7291bff6b72d5d78aa381e4e0a71f737fbea1f94ae38bfae932771e",
+      "size": 64565,
+      "mtime_ns": 1793552596640868711,
+      "inode": 167713899
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/vir/src/infer/records/shape.rs": {
+      "sha256": "459716ebea1c64626f2bde89a2f86347817d3e63852eb0a80a73e60bfd8a1feb",
+      "size": 14297,
+      "mtime_ns": 1793552596668151876,
+      "inode": 167713941
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/vir/src/infer/registry.rs": {
+      "sha256": "87effbf9ee4ad93791ec6e7d4375c4f7db3bd391fe71d737bef677c34b597aea",
+      "size": 37806,
+      "mtime_ns": 1793551968300892499,
+      "inode": 167713970
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3": {
+      "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "size": 26087280,
+      "mtime_ns": 1793545778573626946,
+      "inode": 167721629
+    },
+    "/private/tmp/verus-transfer-redb-miuzm2w3/redb/src/tree_store/page_store/base.rs": {
+      "sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+      "size": 14695,
+      "mtime_ns": 1793509262691803860,
+      "inode": 166704878
+    }
+  },
+  "fixture_hashes": {
+    "PageNumber.original.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+    "base.original.rs": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+    "false_property.rs": "b95b285290629983845a8d73465c03ed05be4d47f6c30e1641ec8ec42fea9bf7",
+    "multiply_overflow.rs": "15fdb3f42517d138cb86076c9263cc2d3d212b4504e9ccb2d4554141eaebe83d",
+    "native.rs": "eed1f7fb25615e5f415d98710edfab9cd9026c138913719077be8935a89d0a9b",
+    "native_mutation.rs": "de727278bfad08204daf4803bb9fb292ebda5dd80c545f6efeaf3c808bc67e41",
+    "page_size.rs": "c87972f28b6e150679749d82007e249969eabe537a337a30a4baee5a555ba27d",
+    "page_size_bytes.original.rs": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+    "page_size_client.rs": "f264cce5dd8f76708a29f813f0d9d4239cf4542f4c9cd3f1462fa6d25ca2dd6b",
+    "page_size_provider.rs": "0401bd31a6fb540218cf8c210f67df8430dbdba5e6f8f9dd997247071f8beea1",
+    "shift255_zero.rs": "86aa79649d55409e2574bbf31863b604f7c03bbd0a76f5ac3b7d20fd3435f115",
+    "shift64_zero.rs": "20008fcda6bbbb4191cfaff3e7091f556cdb11d313f31095bfc8e6fdb98b33d1",
+    "shift_all_invalid_zero.rs": "6074ef5baf52e784117fae6ed623f124c9577ee70368031a6e82a580cdf5de2b"
+  },
+  "positive_artifacts": {
+    "page_size_cold.vir": "93db27dcf5b229b7386c3d8ab9eac5477170adfffb099c444227a605d2ef741b",
+    "page_size_warm.vir": "1f2e1897a24fd38afd0a6193684963aa0a14bb838c6c28b42a81a51bc722ca6c",
+    "page_size_provider_cold.vir": "4bb2f2694a72e7816a9e5a067bec82a6833177beede45ca81ca0af09de7231aa",
+    "page_size_client_cold.vir": "f8aec411226be8f6d7cc7d6c5b569e5dced64cb4de2dc3d6c25867df85f7216c",
+    "page_size_client_warm.vir": "fc429893fe118dbe52d45c520cdbdeec9a68f49275007683dc7ebe50b47c6d4b"
+  },
+  "cases": [
+    {
+      "label": "page_size_cold",
+      "classification": "proved",
+      "report_sha256": "ec883ed6ebf6cd11790b645bb2aef771a65b6ad8d51f6bfcf1392a9c1b912c8f",
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_seed_sha256": null,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "page_size::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 1097,
+            "solver_micros": 2169,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "ec883ed6ebf6cd11790b645bb2aef771a65b6ad8d51f6bfcf1392a9c1b912c8f",
+      "stderr_sha256": "2e06aa1c0df7ee8442e0736b80f20e23efc7043aea57b51bd02913c600a3a1d5"
+    },
+    {
+      "label": "page_size_warm",
+      "classification": "proved",
+      "report_sha256": "1242a328c6c959ba360f89aeb7b0cfe5ca0e4c7dd01a57b98cbcf5052042cd04",
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_seed_sha256": null,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "page_size::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 870,
+            "solver_micros": 2015,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "1242a328c6c959ba360f89aeb7b0cfe5ca0e4c7dd01a57b98cbcf5052042cd04",
+      "stderr_sha256": "2e06aa1c0df7ee8442e0736b80f20e23efc7043aea57b51bd02913c600a3a1d5"
+    },
+    {
+      "label": "page_size_provider_cold",
+      "classification": "proved",
+      "report_sha256": "9474beca43951bfeefcc8a2e0530f7d88ffc2796e77d46033cc74e1f0a606c00",
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_seed_sha256": null,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "page_size_provider::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 803,
+            "solver_micros": 1985,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "9474beca43951bfeefcc8a2e0530f7d88ffc2796e77d46033cc74e1f0a606c00",
+      "stderr_sha256": "33d4fb6f6be297c36b8f20e9ae0f19e22f147aad2614cb88a68438aa36f072d2"
+    },
+    {
+      "label": "page_size_client_cold",
+      "classification": "proved",
+      "report_sha256": "8e8c4f816db6114acf6b8b89ab1953d6ce20fc70acf483d7c1c35dce9364e159",
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_seed_sha256": null,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "page_size_client::relay",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 831,
+            "solver_micros": 1001,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "8e8c4f816db6114acf6b8b89ab1953d6ce20fc70acf483d7c1c35dce9364e159",
+      "stderr_sha256": "da5e630ef3ebe1ccf3e48c2fd4c3656b16926329bc83f925afee1457c2177eb2"
+    },
+    {
+      "label": "page_size_client_warm",
+      "classification": "proved",
+      "report_sha256": "e16e6c601217f1bd8da011983d25914af122c3cdf55c28b8cb6fd36cb7ded687",
+      "artifact_exists": true,
+      "stale_export_seeded": false,
+      "stale_seed_sha256": null,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "page_size_client::relay",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 844,
+            "solver_micros": 944,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "e16e6c601217f1bd8da011983d25914af122c3cdf55c28b8cb6fd36cb7ded687",
+      "stderr_sha256": "da5e630ef3ebe1ccf3e48c2fd4c3656b16926329bc83f925afee1457c2177eb2"
+    },
+    {
+      "label": "shift64_zero_negative",
+      "classification": "caller_obligation_failure",
+      "report_sha256": "9e93ac819337a33650d1c196c135db0d3a12e4a2e03317e83851aad833929a2c",
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_seed_sha256": "93db27dcf5b229b7386c3d8ab9eac5477170adfffb099c444227a605d2ef741b",
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "shift64_zero::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 841,
+            "solver_micros": 1938,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "9e93ac819337a33650d1c196c135db0d3a12e4a2e03317e83851aad833929a2c",
+      "stderr_sha256": "774ec04bf732d5766cfa2545d50fe3efae0cfe21e8d889ce67f1e444d8c8a888"
+    },
+    {
+      "label": "shift255_zero_negative",
+      "classification": "caller_obligation_failure",
+      "report_sha256": "fe865c48fd531de34fdf78d1902478a113cdabda989a45fdb492b23c86c96444",
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_seed_sha256": "93db27dcf5b229b7386c3d8ab9eac5477170adfffb099c444227a605d2ef741b",
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "shift255_zero::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 880,
+            "solver_micros": 1931,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "fe865c48fd531de34fdf78d1902478a113cdabda989a45fdb492b23c86c96444",
+      "stderr_sha256": "c65f020fce306dc7b36463f3d532f248fc68be9949ab6b88930bc728b470c254"
+    },
+    {
+      "label": "shift_all_invalid_zero_negative",
+      "classification": "caller_obligation_failure",
+      "report_sha256": "9a32f3630915d268a426f0019411eb487ce8f13c33caa222a9037fe854c61cfa",
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_seed_sha256": "93db27dcf5b229b7386c3d8ab9eac5477170adfffb099c444227a605d2ef741b",
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "shift_all_invalid_zero::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 871,
+            "solver_micros": 1970,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "9a32f3630915d268a426f0019411eb487ce8f13c33caa222a9037fe854c61cfa",
+      "stderr_sha256": "7cb9d558ed273a0c83bfb57c480bd6e2ad03302246ec7d79a90fcd5bdac87873"
+    },
+    {
+      "label": "multiply_overflow_negative",
+      "classification": "caller_obligation_failure",
+      "report_sha256": "eebc5a203d3770eb09dd0efc95fb289a4033b86708450e2c19f014ce4e5c11ab",
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_seed_sha256": "93db27dcf5b229b7386c3d8ab9eac5477170adfffb099c444227a605d2ef741b",
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 4,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "multiply_overflow::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 838,
+            "solver_micros": 2085,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "eebc5a203d3770eb09dd0efc95fb289a4033b86708450e2c19f014ce4e5c11ab",
+      "stderr_sha256": "b24b2baa21d0a3e9b6017a4faa05ac58772a0da32c9cdccc58631bc082717769"
+    },
+    {
+      "label": "false_property_negative",
+      "classification": "semantic_goal_failure",
+      "report_sha256": "18d996e3651de81b87dc4fa3202f450b2ab86591b28102b48f56188290a75dec",
+      "artifact_exists": false,
+      "stale_export_seeded": true,
+      "stale_seed_sha256": "93db27dcf5b229b7386c3d8ab9eac5477170adfffb099c444227a605d2ef741b",
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 11,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "functions": [
+        {
+          "function": "false_property::PageNumber::page_size_bytes",
+          "mode": "exact",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "regenerated_state",
+            "generation_micros": 910,
+            "solver_micros": 1842,
+            "requires_nodes": 29,
+            "ensures_nodes": 9
+          }
+        }
+      ],
+      "stdout_sha256": "18d996e3651de81b87dc4fa3202f450b2ab86591b28102b48f56188290a75dec",
+      "stderr_sha256": "48851cc4f1d83999981eafcc19a77a1b656327946bc7a5ee9daefb75ff539b27"
+    }
+  ],
+  "proof_commands": [
+    {
+      "label": "page_size_cold",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_cold.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.797800958,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size-cache"
+      }
+    },
+    {
+      "label": "page_size_warm",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_warm.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.4589301250000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size-cache"
+      }
+    },
+    {
+      "label": "page_size_provider_cold",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size_provider",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider_cold.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_provider.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.4854630420000001,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider-cache"
+      }
+    },
+    {
+      "label": "page_size_client_cold",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size_client",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client_cold.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_client.rlib",
+        "--extern",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_provider.rlib",
+        "--import",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider_cold.vir"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.45597941600000036,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client-cache"
+      }
+    },
+    {
+      "label": "page_size_client_warm",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size_client",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client_warm.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_client.rlib",
+        "--extern",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_provider.rlib",
+        "--import",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider_cold.vir"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.4064944589999997,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client-cache"
+      }
+    },
+    {
+      "label": "shift64_zero_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift64_zero.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "shift64_zero",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift64_zero_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libshift64_zero.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3779522499999999,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift64_zero-cache"
+      }
+    },
+    {
+      "label": "shift255_zero_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift255_zero.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "shift255_zero",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift255_zero_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libshift255_zero.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3705505000000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift255_zero-cache"
+      }
+    },
+    {
+      "label": "shift_all_invalid_zero_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift_all_invalid_zero.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "shift_all_invalid_zero",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift_all_invalid_zero_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libshift_all_invalid_zero.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3795098330000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift_all_invalid_zero-cache"
+      }
+    },
+    {
+      "label": "multiply_overflow_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/multiply_overflow.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "multiply_overflow",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/multiply_overflow_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libmultiply_overflow.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3932962499999997,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/multiply_overflow-cache"
+      }
+    },
+    {
+      "label": "false_property_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "false_property",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libfalse_property.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.4545735829999993,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property-cache"
+      }
+    }
+  ],
+  "all_replay_commands": [
+    {
+      "label": "application_pin",
+      "argv": [
+        "git",
+        "-C",
+        "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.013784584000000003,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3"
+      }
+    },
+    {
+      "label": "verus_version",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "--version"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.15860579200000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3"
+      }
+    },
+    {
+      "label": "rustc_version",
+      "argv": [
+        "rustc",
+        "-vV"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.04167437500000004,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3"
+      }
+    },
+    {
+      "label": "solver_version",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "-version"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.009577500000000017,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3"
+      }
+    },
+    {
+      "label": "page_size_cold",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_cold.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.797800958,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size-cache"
+      }
+    },
+    {
+      "label": "page_size_warm",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_warm.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.4589301250000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size-cache"
+      }
+    },
+    {
+      "label": "page_size_provider_cold",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size_provider",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider_cold.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_provider.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.4854630420000001,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider-cache"
+      }
+    },
+    {
+      "label": "page_size_client_cold",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size_client",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client_cold.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_client.rlib",
+        "--extern",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_provider.rlib",
+        "--import",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider_cold.vir"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.45597941600000036,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client-cache"
+      }
+    },
+    {
+      "label": "page_size_client_warm",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "page_size_client",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client_warm.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_client.rlib",
+        "--extern",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libpage_size_provider.rlib",
+        "--import",
+        "page_size_provider=/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_provider_cold.vir"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.4064944589999997,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/page_size_client-cache"
+      }
+    },
+    {
+      "label": "shift64_zero_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift64_zero.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "shift64_zero",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift64_zero_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libshift64_zero.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3779522499999999,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift64_zero-cache"
+      }
+    },
+    {
+      "label": "shift255_zero_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift255_zero.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "shift255_zero",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift255_zero_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libshift255_zero.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3705505000000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift255_zero-cache"
+      }
+    },
+    {
+      "label": "shift_all_invalid_zero_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift_all_invalid_zero.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "shift_all_invalid_zero",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift_all_invalid_zero_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libshift_all_invalid_zero.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3795098330000002,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/shift_all_invalid_zero-cache"
+      }
+    },
+    {
+      "label": "multiply_overflow_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/multiply_overflow.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "multiply_overflow",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/multiply_overflow_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libmultiply_overflow.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.3932962499999997,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/multiply_overflow-cache"
+      }
+    },
+    {
+      "label": "false_property_negative",
+      "argv": [
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/target-verus/release/verus",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property.rs",
+        "--crate-type",
+        "lib",
+        "--crate-name",
+        "false_property",
+        "--no-cheating",
+        "--output-json",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property_negative.vir",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/libfalse_property.rlib"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 1,
+      "seconds": 0.4545735829999993,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property-cache"
+      }
+    },
+    {
+      "label": "native_compile",
+      "argv": [
+        "rustc",
+        "--edition=2021",
+        "-O",
+        "-C",
+        "overflow-checks=yes",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/native.rs",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/native"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.18893749999999976,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property-cache"
+      }
+    },
+    {
+      "label": "native_run",
+      "argv": [
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/native"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.22407566700000014,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property-cache"
+      }
+    },
+    {
+      "label": "native_mutation_compile",
+      "argv": [
+        "rustc",
+        "--edition=2021",
+        "-O",
+        "-C",
+        "overflow-checks=yes",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/native_mutation.rs",
+        "-o",
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/native_mutation"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 0,
+      "seconds": 0.09330720899999978,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property-cache"
+      }
+    },
+    {
+      "label": "native_mutation_run",
+      "argv": [
+        "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/native_mutation"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1",
+      "exit_code": 101,
+      "seconds": 0.17812583400000026,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-386df3a1/source/z3",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-redb-page-size-386df3a1/replays/redb-page-size-4axs66bz/false_property-cache"
+      }
+    }
+  ],
+  "native": {
+    "canonical_cases": 1548477,
+    "eager_shift_panics": 192,
+    "overflow_panics": 1,
+    "formal_proof": false,
+    "faithful_mutant_detected": true
+  },
+  "validation": {
+    "required_checks": 30,
+    "exact_inferred_function_reports": 10,
+    "positive_proof_commands": 5,
+    "semantic_negative_commands": 5,
+    "vir_unit_tests_passed": 124,
+    "new_vir_unit_tests": 2,
+    "integration_tests_passed": 50,
+    "new_integration_tests": 5,
+    "python_tests_normal": 8,
+    "python_tests_optimized": 8,
+    "new_python_tests": 4,
+    "vstd_verified": 2219,
+    "vstd_errors": 0,
+    "all_validation_logs": {
+      "build-final.log": {
+        "sha256": "16a836a17e683c429b6974a25c9d4dc5f5a82b68cd65e399c91940eed0d9dd0c",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/build-final.log"
+      },
+      "vstd.log": {
+        "sha256": "1a622b735615f6377252caa35dc07c3d1bb96082f4eb23878e6b95efef7ebe08",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/vstd.log"
+      },
+      "vir-tests-3.log": {
+        "sha256": "f74553ccf78e59d8f120b67e1bb855193bbb830c7c769c091115c736e8e32b5d",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/vir-tests-3.log"
+      },
+      "integration-final.log": {
+        "sha256": "78b445cd517c203a032fb3b69ef69b90a660b6264e45fb6e774b0a93db5378a8",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/integration-final.log"
+      },
+      "python-final.log": {
+        "sha256": "35649ccb7621214ac024bd31428022d326fb76b6926043ad7d6527b41cd3c0f8",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/python-final.log"
+      },
+      "python-final-optimized.log": {
+        "sha256": "35649ccb7621214ac024bd31428022d326fb76b6926043ad7d6527b41cd3c0f8",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/python-final-optimized.log"
+      },
+      "rustfmt-final.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "path": "/private/tmp/verus-redb-page-size-386df3a1/rustfmt-final.log"
+      }
+    }
+  },
+  "scope": {
+    "canonical_requirements": [
+      "page_order <= 20"
+    ],
+    "page_size_domain": "every u32; no additional restriction",
+    "region_and_page_index": "every u32; not constrained by this method",
+    "method_requirements": "0 <= order < 64 and 0 <= ((1u64 << order) * page_size) <= u64::MAX, with mathematical multiplication",
+    "checked_ghost_proofs": [
+      "bit-vector canonical shift bound",
+      "nonlinear-arithmetic multiplication bounds",
+      "bit-vector order-63 witness"
+    ],
+    "warm_cache": "regenerated_state; no candidate-cache-hit claim",
+    "no_commits": true,
+    "no_pull_requests": true,
+    "no_manual_branch_changes": true
+  }
+}

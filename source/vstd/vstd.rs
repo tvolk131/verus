@@ -73,6 +73,7 @@ pub mod multiset;
 pub mod multiset_lib;
 #[cfg(verus_keep_ghost)]
 pub mod mut_ref;
+pub mod native_option;
 pub mod pervasive;
 pub mod predicate;
 pub mod proph;
