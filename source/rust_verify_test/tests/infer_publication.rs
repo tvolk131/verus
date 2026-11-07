@@ -130,6 +130,25 @@ fn late_export_failure_preserves_json_diagnostics_and_withholds_publication() {
 }
 
 #[test]
+fn direct_compilation_preserves_json_artifact_notifications() {
+    let crates = InferCrates::new();
+    let run = raw_publication(
+        &crates,
+        "direct_artifacts",
+        ORDINARY,
+        &crates.vir("direct_artifacts"),
+        &["--compile", "--emit=metadata,link", "--error-format=json", "--json=artifacts"],
+    );
+    assert!(run.status.success(), "{}", String::from_utf8_lossy(&run.stderr));
+    assert!(crates.vir("direct_artifacts").exists());
+    assert!(String::from_utf8_lossy(&run.stderr).lines().any(|line| {
+        serde_json::from_str::<serde_json::Value>(line).is_ok_and(|message| {
+            message["$message_type"] == "artifact" && message["emit"] == "metadata"
+        })
+    }));
+}
+
+#[test]
 fn native_failure_withholds_fresh_and_previously_seeded_inferred_exports() {
     let crates = InferCrates::new();
     let name = "native_failure";
