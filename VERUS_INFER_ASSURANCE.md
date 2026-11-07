@@ -39,9 +39,13 @@ change requiring a documented audit and dependency fingerprints. The active deve
   are withheld on failure, and previous inferred exports are invalidated during
   a rebuild. This includes crates whose inferred helpers are all private: their
   successful exports retain an inference-aware marker after public-API pruning.
-  Early rebuild failures remove marked artifacts. Once local inference is known,
-  generation failures also remove an older unmarked ordinary artifact; a legacy
-  unmarked artifact cannot be identified as inference-aware before that point.
+  All exports, including ordinary feature-disabled interfaces, wait for successful
+  verification and the requested erased-code checks/compilation. Requested VIR
+  paths are cleared without requiring an inference marker: direct `--export`
+  paths before parsing, and Cargo-derived paths when resolved. Failed rebuilds
+  leave no interface at those known paths; stale rlibs are not removed. Successful
+  ordinary exports retain their legacy format and explicit `--no-verify` behavior;
+  they do not acquire an inference certificate or a stronger import-trust claim.
 - Imports validate per-function guarantees, contract fingerprints, dependency
   fingerprints, and standard-model fingerprints. Imported bodies are not
   reverified. This retains Verus's existing trusted-library model; the new

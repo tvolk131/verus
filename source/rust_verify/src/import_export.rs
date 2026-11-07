@@ -4,7 +4,7 @@ use crate::verifier::io_vir_err;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap};
-use std::io::{Read, Seek, SeekFrom, Write};
+use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use vir::ast::{Fun, Krate, Mode, VirErr};
@@ -244,69 +244,17 @@ fn export_path(args: &Args, via_cargo: &Option<PathBuf>) -> Option<PathBuf> {
     args.export.as_ref().map(PathBuf::from).or_else(|| via_cargo.clone())
 }
 
-/// An unsuccessful re-verification must not leave an older certified inference
-/// artifact at the requested output path. Goal-assisted ordinary exports use
-/// the same post-verification barrier; legacy ordinary exports retain their behavior.
-pub(crate) fn invalidate_inferred_export(
-    args: &Args,
-    via_cargo: &Option<PathBuf>,
-) -> Result<(), VirErr> {
-    invalidate_export(args, via_cargo, false)
-}
-
-/// Once local inference is known, invalidate even an older ordinary export.
-/// Private inferred helpers can leave no inferred function in the public API.
-pub(crate) fn invalidate_local_inference_export(
-    args: &Args,
-    via_cargo: &Option<PathBuf>,
-) -> Result<(), VirErr> {
-    invalidate_export(args, via_cargo, true)
-}
-
-fn invalidate_export(
-    args: &Args,
-    via_cargo: &Option<PathBuf>,
-    local_inference: bool,
-) -> Result<(), VirErr> {
+/// An unsuccessful rebuild must not leave an older interface at its requested
+/// output path, including ordinary exports without inference metadata.
+pub(crate) fn invalidate_export(args: &Args, via_cargo: &Option<PathBuf>) -> Result<(), VirErr> {
     let Some(path) = export_path(args, via_cargo) else {
         return Ok(());
     };
-    let mut file = match std::fs::File::open(&path) {
-        Ok(file) => file,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(()),
-        Err(e) => return Err(io_vir_err("open previous inference export".into(), e)),
-    };
-    if args.infer_goals || local_inference {
-        drop(file);
-        std::fs::remove_file(&path)
-            .map_err(|e| io_vir_err("invalidate previous inference-aware export".into(), e))?;
-        return Ok(());
+    match std::fs::remove_file(&path) {
+        Ok(()) => Ok(()),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(e) => Err(io_vir_err("invalidate previous export".into(), e)),
     }
-    if file.metadata().map_err(|e| io_vir_err("stat previous inference export".into(), e))?.len()
-        >= INFER_MAGIC.len() as u64
-    {
-        file.seek(SeekFrom::End(-(INFER_MAGIC.len() as i64)))
-            .map_err(|e| io_vir_err("seek previous inference export".into(), e))?;
-        let mut marker = [0; 8];
-        file.read_exact(&mut marker)
-            .map_err(|e| io_vir_err("read previous inference export".into(), e))?;
-        let mut inference_aware = &marker == INFER_MAGIC;
-        if !inference_aware {
-            file.seek(SeekFrom::Start(0))
-                .map_err(|e| io_vir_err("seek previous inference header".into(), e))?;
-            let decoded: Result<CrateWithMetadata, _> = bincode_next::serde::decode_from_std_read(
-                &mut file,
-                bincode_next::config::legacy(),
-            );
-            inference_aware = decoded.is_ok_and(|c| c.metadata.inference_aware);
-        }
-        if inference_aware {
-            drop(file);
-            std::fs::remove_file(&path)
-                .map_err(|e| io_vir_err("invalidate previous inference export".into(), e))?;
-        }
-    }
-    Ok(())
 }
 
 pub(crate) fn export_crate(

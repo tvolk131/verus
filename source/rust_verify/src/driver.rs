@@ -118,12 +118,16 @@ for all functions (it would only be needed for functions with tracked data in pr
 struct CompilerCallbacksEraseMacro {
     pub do_compile: bool,
     pub override_stability: bool,
+    pub via_cargo: bool,
 }
 
 impl rustc_driver::Callbacks for CompilerCallbacksEraseMacro {
     // Adding `override_stability` and `stable_attr` functions is a hacky solution specifically for verifying core,
     // to fix an issue with stability attributes.
     fn config(&mut self, config: &mut rustc_interface::interface::Config) {
+        if self.via_cargo {
+            config.opts.json_artifact_notifications = false;
+        }
         if self.override_stability {
             config.override_queries = Some(|_session, providers| {
                 providers.queries.hir_attr_map = |tcx, owner_id| {
@@ -169,10 +173,12 @@ pub(crate) fn run_with_erase_macro_compile(
     mut rustc_args: Vec<String>,
     do_compile: bool,
     vstd: Vstd,
+    via_cargo: bool,
 ) -> Result<(), ()> {
     let mut callbacks = CompilerCallbacksEraseMacro {
         do_compile,
         override_stability: matches!(vstd, Vstd::IsCore | Vstd::ImportedViaCore),
+        via_cargo,
     };
     rustc_args.extend(["--cfg", "verus_only", "--cfg", "verus_keep_ghost"].map(|s| s.to_string()));
     if matches!(vstd, Vstd::IsCore | Vstd::ImportedViaCore) {
@@ -305,7 +311,7 @@ pub fn run(
     };
     let status = run_compiler(rustc_args_verify.clone(), true, false, &mut verifier_callbacks);
     let VerifierCallbacksEraseMacro {
-        verifier,
+        mut verifier,
         rust_start_time,
         rust_end_time,
         tc_start_time,
@@ -341,7 +347,12 @@ pub fn run(
             Ok(())
         } else {
             let do_compile = verifier.compile || verifier.via_cargo_args.is_some();
-            run_with_erase_macro_compile(rustc_args, do_compile, verifier.args.vstd)
+            run_with_erase_macro_compile(
+                rustc_args,
+                do_compile,
+                verifier.args.vstd,
+                verifier.via_cargo_args.is_some(),
+            )
         };
 
     let time2 = Instant::now();
@@ -355,6 +366,10 @@ pub fn run(
 
     // Run borrow checker and compiler with #[exec] (not #[proof])
     if let Err(_) = compile_status {
+        return (verifier, stats, Err(()));
+    }
+
+    if verifier.finish_export().is_err() {
         return (verifier, stats, Err(()));
     }
 
