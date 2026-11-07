@@ -305,7 +305,7 @@ pub fn run(
     };
     let status = run_compiler(rustc_args_verify.clone(), true, false, &mut verifier_callbacks);
     let VerifierCallbacksEraseMacro {
-        verifier,
+        mut verifier,
         rust_start_time,
         rust_end_time,
         tc_start_time,
@@ -355,6 +355,10 @@ pub fn run(
 
     // Run borrow checker and compiler with #[exec] (not #[proof])
     if let Err(_) = compile_status {
+        return (verifier, stats, Err(()));
+    }
+
+    if verifier.finish_export().is_err() {
         return (verifier, stats, Err(()));
     }
 
