@@ -16,6 +16,7 @@ mod arithmetic;
 mod arrays;
 mod bitvector_hints;
 mod bitwise;
+mod byte_models;
 mod collections;
 mod contract;
 mod counting_goals;
@@ -31,6 +32,7 @@ pub use exact_hints::opt_in as exact_size_hint_opt_in;
 pub use exact_hints::validate as validate_exact_size_hints;
 mod cloning;
 mod growth_goals;
+mod integer_conversions;
 mod integer_models;
 mod iterators;
 mod local_fold_goals;
@@ -101,13 +103,26 @@ pub fn is_wrapper_trait(f: &Function) -> bool {
 /// Independently recognize the existing core panic model's empty successful
 /// domain. Ordinary soundness still checks its requires-false obligation.
 pub fn is_panic_maximality_model(f: &Function, types: &Typs) -> bool {
-    types.is_empty() && panics::model(f) == Some(panics::Model::Panic)
+    types.is_empty()
+        && matches!(panics::model(f), Some(panics::Model::Panic | panics::Model::LiteralPanic))
 }
 pub fn is_native_iterator_maximality_model(f: &Function, types: &Typs) -> bool {
     iterators::model(f).is_some() && types.len() == f.x.typ_params.len()
 }
 pub fn is_result_map_maximality_model(f: &Function, types: &Typs) -> bool {
     owned::result_map::model(f) && types.len() == f.x.typ_params.len()
+}
+pub fn is_integer_unwrap_maximality_model(function: &Function, types: &Typs) -> bool {
+    integer_conversions::maximality_model(function, types)
+}
+
+pub fn is_option_map_or_maximality_model(function: &Function, types: &Typs) -> bool {
+    record_models::native_option(function) == Some(record_models::NativeOption::MapOr)
+        && types.len() == function.x.typ_params.len()
+}
+
+pub fn checks_exact_callbacks(function: &Function) -> bool {
+    function.x.attrs.infer && !function.x.attrs.infer_allow_approx
 }
 
 pub fn is_inference_contract(f: &Function) -> bool {
@@ -167,6 +182,13 @@ pub fn is_state_summary(function: &Function) -> bool {
 
 pub fn is_record_summary(function: &Function) -> bool {
     function.x.attrs.infer && records::candidate(function) && records::mutable(function)
+}
+
+pub fn is_readonly_record_summary(function: &Function) -> bool {
+    function.x.attrs.infer
+        && !function.x.attrs.infer_allow_approx
+        && records::candidate(function)
+        && !records::mutable(function)
 }
 
 pub(crate) fn is_record_callee(f: &Function, typs: &Typs) -> bool {
@@ -371,6 +393,22 @@ impl Engine<'_> {
         self.spend(&expr.span)?;
         let span = &expr.span;
         let pure = |value| Ok(Summary { safe: boolean(span, true), value: Some(value) });
+        if panics::literal(expr, self.callees).is_some() {
+            let safe = self.require_active(span, boolean(span, false))?;
+            if let Some(exits) = self.exits.as_mut() {
+                exits.active = boolean(span, false);
+            }
+            return Ok(Summary { safe, value: None });
+        }
+        if let Some(arg) = integer_conversions::call(expr, self.callees) {
+            let input = self.expr(arg)?;
+            let (required, output) =
+                integer_conversions::value(span, value(&input, span)?, &expr.typ)?;
+            return Ok(Summary {
+                safe: logical(span, LogicalOp::And, input.safe, required)?,
+                value: Some(output),
+            });
+        }
         if let Some(arg) = widening::call(expr, self.callees) {
             let arg = self.expr(arg)?;
             let TypX::Int(range) = &*expr.typ else { unreachable!() };
@@ -683,9 +721,20 @@ impl Engine<'_> {
                         unsupported(span, "calls require an acyclic same-crate inferred callee or certified imported summary")
                     })?
                     .clone();
-                if integer_models::recognize(&callee).is_some() {
+                let byte_model = byte_models::recognize(&callee).is_some();
+                if integer_models::recognize(&callee).is_some() || byte_model {
                     if args.len() != callee.x.params.len() {
                         return Err(unsupported(span, "integer arithmetic argument count"));
+                    }
+                    if byte_model
+                        && (!crate::ast_util::types_equal(&expr.typ, &callee.x.inner_ret.x.typ)
+                            || args.iter().zip(callee.x.params.iter()).any(
+                                |(argument, parameter)| {
+                                    !crate::ast_util::types_equal(&argument.typ, &parameter.x.typ)
+                                },
+                            ))
+                    {
+                        return Err(unsupported(span, "byte conversion call types"));
                     }
                     let mut safe = boolean(span, true);
                     let mut values = Vec::new();
@@ -696,7 +745,11 @@ impl Engine<'_> {
                     }
                     return Ok(Summary {
                         safe,
-                        value: Some(integer_models::value(span, &callee, values)?),
+                        value: Some(if byte_model {
+                            byte_models::value(span, &callee, values)?
+                        } else {
+                            integer_models::value(span, &callee, values)?
+                        }),
                     });
                 }
                 if args.len() != callee.x.params.len() {
@@ -878,6 +931,11 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                 if widening::call(e, all).is_some() {
                     return Ok(());
                 }
+                if integer_conversions::call(e, all).is_some()
+                    || integer_conversions::conversion(e, all).is_some()
+                {
+                    return Ok(());
+                }
                 let range = slices::range_call(e, all)?;
                 let e = range.as_ref().map(|r| &r.helper).unwrap_or(e);
                 if let ExprX::Call {
@@ -922,6 +980,7 @@ fn order_functions(functions: &[Function], source: bool) -> Result<Vec<Fun>, Vir
                         && models::array_call(e, all)?.is_none()
                         && !collections::source_call(e, all)
                         && !record_models::as_ref(callee)
+                        && record_models::native_option(callee).is_none()
                         && !(records::candidate(f) && records::candidate(callee))
                         && !(is_owned_summary(f)
                             && (is_owned_summary(callee)
@@ -985,7 +1044,9 @@ pub fn is_checked_arithmetic(function: &Function) -> bool {
 }
 
 pub fn is_approved_model(function: &Function) -> bool {
-    wrapper_compare::boundary(function)
+    integer_conversions::unwrap_model(function)
+        || integer_conversions::conversion_model(function)
+        || wrapper_compare::boundary(function)
         || wrapper_traits::binary_boundary(function)
         || wrapper_traits::assignment_boundary(function)
         || owned::result_map::model(function)
@@ -998,8 +1059,10 @@ pub fn is_approved_model(function: &Function) -> bool {
         || owned::model(function).is_some()
         || wrapper_traits::into_model(function)
         || record_models::as_ref(function)
+        || record_models::native_option(function).is_some()
         || collections::model(function).is_some()
         || integer_models::recognize(function).is_some()
+        || byte_models::recognize(function).is_some()
         || models::array_model(function).is_some()
         || propagation::model(function).is_some()
         || arithmetic::division_model(function)
@@ -1030,7 +1093,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                 used.insert(model.x.name.clone(), model.clone());
             }
         }
-        if arrays::shape(&f.x.inner_ret.x.typ).is_some() {
+        if arrays::needs_equality_model(f) {
             for model in available.values().filter(|f| arrays::equality_model(f)) {
                 used.insert(model.x.name.clone(), model.clone());
             }
@@ -1058,6 +1121,7 @@ pub fn trusted_model_dependencies(functions: &[Function], available: &[Function]
                 {
                     if let Some(callee) = available.get(resolved).filter(|f| {
                         widening::model(f)
+                            || integer_conversions::conversion_model(f)
                             || wrapper_traits::into_model(f)
                             || owned::model(f).is_some()
                     }) {

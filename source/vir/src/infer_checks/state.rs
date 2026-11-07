@@ -528,7 +528,7 @@ fn observations(
             observations(ctx, span, &t, a, b, depth - 1, out)?;
         }
     } else {
-        out.push(SpannedTyped::new(span, &bool_typ(), ExpX::Binary(BinaryOp::Eq, a, b)));
+        out.push(super::value_equality(span, typ, a, b));
     }
     Ok(())
 }

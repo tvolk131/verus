@@ -1,0 +1,291 @@
+{
+  "application": {
+    "actual_type": "bitcoin::hashes::sha256::Hash",
+    "adaptations": [
+      "Omit surrounding serde derives outside the extracted struct item",
+      "Insert infer attributes outside byte-preserved helper items",
+      "No local hash substitute and no external type/behavior specification",
+      "Diagnostic subset deletes only payment_hash; this is not the full request"
+    ],
+    "application": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+    "bitcoin_rlib_sha256": "74539e4ad6823e6925b4869c87372df84f1d9b62d82e01350cb1cac21b093a91",
+    "constant_sha256": "8aea74c10377048ced9adb5b2c2b6522764f7835517b46e2429e191f23062e57",
+    "full_request_formally_verified": false,
+    "implementation_sha256": "018b62da6b4e8166972a169ff4bdea762905ea6e466c2fb7e0f4e457281a7b45",
+    "imported_authored_policy_verified": true,
+    "method_sha256": {
+      "pub fn incoming_circuit": "670a0625249c5522466b2d9b3b9d215f2c1e045eea984b3d2a29c566901e0fd8",
+      "pub fn lnv2_blocks_to_claim_deadline": "328c1eada09ead864029497765af0ada22c3fdbfe1c2dfd4bf2973343197a2e2"
+    },
+    "omitted_field_in_subset": "payment_hash: sha256::Hash",
+    "source_sha256": {
+      "gateway/fedimint-lightning/src/lib.rs": "6922ada049ba83f999937dce687763604c7aa3714df138e26b84b115f1081ebc",
+      "modules/fedimint-gwv2-client/src/lib.rs": "c7475538eac83bc039195b86efe342b0779115c124978bfba1a406f1bbb0ba21"
+    },
+    "struct_sha256": "c29581724613471983ca743bcd5f78702684c430d8bba284027514e69da715c6",
+    "subset_exact_functions": 2,
+    "subset_field_count": 6,
+    "subset_guard_deletion_exact": true,
+    "subset_guard_deletion_postcondition_failed": true,
+    "subset_stale_export_removed": true
+  },
+  "application_receipt_sha256": "5999fc8774beba098cd0b5d0b92b412291898adb8d11a225164867454708ddb1",
+  "baseline_file_sha256": {
+    ".github/workflows/ci.yml": "d63c95bab60f0d5ff24c1c90f0f313058fec201e239c66b42559720a8a2303c8",
+    "evidence/transfer-fedimint-early-returns/README.md": "ef13be138c71d237f3e728d11129ec03ee44a72e30d68e45690de358d3afe03f",
+    "evidence/transfer-fedimint-early-returns/manifest.json": "621b5acd0f6de2710905852a3118dec14ec1c7bf3ab4335b475da3442bf33ff8",
+    "evidence/transfer-fedimint-native/README.md": "e775ec9acb0a5a71e2429ef3ca79b05dfffb55a2dd82d9be58f29d18f9c9c5a7",
+    "evidence/transfer-fedimint-native/manifest.json": "19f43ac0dcf226ef6a0fc73d8e51b397fd724d001628d8f35c534474c1be932b",
+    "evidence/transfer-integration/README.md": "3f0305b8b5921ccebd9964bda266977e8957168b1f901ccd4a946cfc1e905433",
+    "evidence/transfer-integration/manifest.json": "09ee18bd623d16f49f7bb93e0a646f75e7623412352cebeae08bb63bba0f52cf",
+    "evidence/transfer-native-integration/README.md": "5a8dac663396962ea3b673d9836d1604536bb55309a0d08fd008531ad5b5cf82",
+    "evidence/transfer-native-integration/manifest.json": "3c85352c6c90a4e68d2b10214bd780471ab721f6425716e48fe5dd8236897051",
+    "evidence/transfer-redb-byte-apis/README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4",
+    "evidence/transfer-redb-byte-apis/TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+    "evidence/transfer-redb-byte-apis/manifest.json": "2a45865dacc8fa68ec69c0551b1782db8e09fc63f510acf8f201b6e72961c0fa",
+    "evidence/transfer-redb-byte-apis/run.py": "4f4f0ce9cabd35da17f443f33aff3c086b133f524ea1d8fbd747a33b0696af97",
+    "evidence/transfer-redb-codec/README.md": "68e2746ea7e91ecafa011891e1c7a298c2be81a0f6f3c7207bba61c510f7776b",
+    "evidence/transfer-redb-codec/TRUST.md": "c428471d501ac8d3129316b7f7c2cfa269f15ed496b1fbdbab7ef9c2ba0548b7",
+    "evidence/transfer-redb-codec/manifest.json": "3c4ee8061eb33b116a86a546c2b6d251314ba71d87db526202f111642b7777f2",
+    "evidence/transfer-redb-codec/run.py": "46167c8671f720e467b8ecb2cf4af07add2721d58aa597b55a93f35c57e08870",
+    "evidence/transfer-redb-page-size/README.md": "31968b37c3110c8d8d004ae510c110836d24c2c16b1beb440415b2c3c291c89f",
+    "evidence/transfer-redb-page-size/manifest.json": "bca2589771530712873c9441e23ee419606cf5f31eecba17e2c999fbd3940715",
+    "source/docs/guide/src/infer.md": "c34a8918c86e3fc47a81b99d6f116f9dfdd7d1f3b7420d1482f69f1f249f4e56",
+    "source/rust_verify/src/fn_call_to_vir.rs": "cfe706fb9eb66fe0f52008f50451858be15006a9e4ced321c766e8f8b1337680",
+    "source/rust_verify/src/import_export.rs": "d6518fa30bdcd79e7e31b9b3c3d9d332fe6878c111bf2e305e117931e653cac0",
+    "source/rust_verify/src/verus_items.rs": "b3fe47cd8bf1b17269333ffc30dfab69952102e62aec1719cadd85dd480a3292",
+    "source/rust_verify_test/tests/infer_byte_apis.rs": "087695df9f7b4387b422de59094e72c39fb9ec72a5a18b1a8f50037ae5fe103f",
+    "source/rust_verify_test/tests/infer_codec_values.rs": "c7f40512f4be222c7813503f211f24598100153a786697b5bd7f1a35f35f6347",
+    "source/rust_verify_test/tests/infer_integer_conversions.rs": "060ff314e61e3c46981596fe9cec2bb6f1b870a051c9bab18921a005bc555ac8",
+    "source/rust_verify_test/tests/infer_native_option.rs": "7c641db55661665ae6ac5e8ff60180b2d216c295aa5933b25cf5835328d0e28c",
+    "source/rust_verify_test/tests/infer_record_returns.rs": "bd8be5088e368e0d7b72c3dfc4fc668c17fa7e10c3c6210662370ff22d16e7ca",
+    "source/rust_verify_test/tests/infer_record_shifts.rs": "38f38896fa07af50822c513bad5f02130066370ccd3e4a210eba45f7f7f2925e",
+    "source/rust_verify_test/tests/infer_transfer_composition.rs": "e24a6c728b9389ac160df4c91670f14d4841ec8982098e7d8e145650fea3c5eb",
+    "source/tools/INFER_TRANSFERS.md": "67953f51f0a369f17cf51b636197537b70690030b41fb6bfa48525e22f5445d0",
+    "source/tools/check_fedimint_early_returns.py": "f1e896102e1914fdaf0ad23fb1129535eb93f3184bbc386262600e1af12c0e8a",
+    "source/tools/check_fedimint_native.py": "cb7412a38a9ecf951654a4e6c17a60881944934b78bea1f8e92992caafc9ef06",
+    "source/tools/check_infer_transfers.py": "44caa9970c694f6944777090755898336048d247ba20cee7478321de6d20a3e5",
+    "source/tools/check_redb_codec.py": "347426170643832dc85ad68ef663d7f7d9b2d8dc6e84fb6fabf2e801b88b4747",
+    "source/tools/check_redb_page_size.py": "98fe9e250c04f60c5ae4fca1f54fc92b8952c664a4c97c01876579fec48d9a99",
+    "source/tools/test_fedimint_early_returns.py": "75994b91a6d50e5be18362bdf69b9564542d408322ac37f55bed4a20587d42e6",
+    "source/tools/test_fedimint_native.py": "727e7e8be966fd35186650aa8bb316cf775873fe9c80a660ce271a0462555efc",
+    "source/tools/test_infer_transfers.py": "77a5ae92df4abcc507998315dc088e82061cf5d7345d8055ac4eb68f162ed4eb",
+    "source/tools/test_redb_codec.py": "456de7b6405180aa920680975c9219c6d3ac14ded67460a37b15bac850a7b737",
+    "source/tools/test_redb_page_size.py": "640b17e80fafb528f49a9aebeeec1ae0771c7fe3284fb05a37a075515a304ef2",
+    "source/vir/src/ast_simplify.rs": "73f66dc22910cc3f633353f31cd15e12bcb5a595256f254b7f1ef9fb4f158243",
+    "source/vir/src/ast_to_sst.rs": "51fee513a70e1a98a4ac5f2f5afee96c1933435b5a1da2c1d99e66c52494ce5d",
+    "source/vir/src/infer.rs": "86a88a19e9fcc8674fcd2d0bce22385fbf5a5683089863e764fd4e0c343c6d55",
+    "source/vir/src/infer/byte_models.rs": "18a50a63029e6443df5e99e0e8c4e1d7aa33b9ac8d17b26bedf05de94cdcbc5f",
+    "source/vir/src/infer/eligibility.rs": "12babbfd3b24f3ff6bd4c3c6fd6c32c5d727d7a5bb84962e5917b99a3a2929c8",
+    "source/vir/src/infer/integer_conversions.rs": "30851566bd5660db69065d68c8ac27e2ee7c47314f503ad8c6147db6a219cabd",
+    "source/vir/src/infer/owned.rs": "f41fa53233fa9f0c3b6e3179c2f5a0991da7d5c745fe88d933f506e70dba8249",
+    "source/vir/src/infer/owned/callbacks.rs": "9380fca55e16bb35baf8ca1424d5695b2a23fe1bde4e1df441564423668e49ba",
+    "source/vir/src/infer/record_models.rs": "6e10116e19a18972fe9084d540d15cb293ba5a465f403aa34989299e596897f5",
+    "source/vir/src/infer/record_models/tests.rs": "f1ed11e8d84db9c3aa4e533ed6c477917d00f9e9bb46f55d76742be78b83f58b",
+    "source/vir/src/infer/records.rs": "e2cab43694acaa74a4635cb3ddd58a9451d87eae9582ea13b2337295f8954e57",
+    "source/vir/src/infer/records/shape.rs": "ac987c62f41d2a5f967433656129ed1168532956fff1b026b68f79c896daa870",
+    "source/vir/src/infer/records/shift_tests.rs": "9d269a85ae166bbdf9df5f36be5bba4b63e8baa1ec11c9b54af5c38ba43a576f",
+    "source/vir/src/infer/records/tests.rs": "c41103b5a3ffe5dc322c9aabd1eeefaa90bca3f796798c7a30120fe7c5c1f5ef",
+    "source/vir/src/infer/registry.rs": "34f17f11311da2acda4f6bba21f1421498f96afb1e5a9987e2f5ce1654a2211c",
+    "source/vir/src/sst_to_air.rs": "ed6ad0da8ec79bb4a7322adfa3edb9178eea309f02e13f1186406bc657266758",
+    "source/vstd/bytes.rs": "df01f584c76816bf68692c9e52f43fd1ea43293d840722aecda317591d9490a3",
+    "source/vstd/native_option.rs": "bdb765d1b60e5ad6b1c593fe0163d72b2239e6c26b105cb3b7f684c4228adb70",
+    "source/vstd/vstd.rs": "d9da42ac44e3c47f0a6f225ef6071589b73bd6c987763ac8b44172a67c6dc7da"
+  },
+  "baseline_manifest_sha256": "093188a64998c13166fa0c575432afbeea8df4a311ddbaabb95aa30a2f34c581",
+  "baseline_tool_sha256": {
+    "libverus_builtin.rlib": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+    "libverus_builtin_macros.dylib": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+    "libverus_state_machines_macros.dylib": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+    "libvstd.rlib": "439dba279ec23a03c502d433f11e995bcca5444b69d721ef6bada5f8934c91c5",
+    "rust_verify": "4c6223f2ead27d952677568b37364e2f7d7e1365efd2f90bf3c2ffe0328f3dc1",
+    "verus": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+    "vstd.vir": "f6dc070894b7d9cf768b8cc8befa726c16130f3540bc5cbbaa10b0713e53ec00",
+    "vstd_build": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+    "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+  },
+  "bundle": {
+    "archive": "/private/tmp/verus-option-unification-2b97c3ad/bundle.tar.gz",
+    "archive_sha256": "a3e56f64417269b76cc6547c102cb8032320a9669aed0d4562472d4e3e08a248",
+    "builtin_provenance": "independent copies of unchanged, hash-verified frozen baseline builtin artifacts",
+    "path": "/private/tmp/verus-option-unification-2b97c3ad/bundle",
+    "sha256": {
+      "libverus_builtin.rlib": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+      "libverus_builtin_macros.dylib": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+      "libverus_state_machines_macros.dylib": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+      "libvstd.rlib": "5f8b92aa9dedb8b1f35398fb3cc108ac4043ca69b560629f575d93744a680113",
+      "rust_verify": "0160d63184eeecf9ace61eea097d1f134ea9ede7eecd146bd1b0048736949e72",
+      "verus": "b2a4dcc291113bdf45026086d14a9f9a70ffc3279d408325aa7f9230071d5c51",
+      "vstd.vir": "f6d1b52cc9b52360c767082f1ce9bde665bb3eb961931887eb5fe41f73780148",
+      "vstd_build": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+      "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+    }
+  },
+  "commands": {
+    "path": "/private/tmp/verus-option-unification-2b97c3ad/commands.jsonl",
+    "sha256": "610af2d1492a9a20f8e1292392f77a36cb3c79ea2c2cd5cc834b42a8a5ed4a3a"
+  },
+  "dependency_comparison": {
+    "path": "/private/tmp/verus-option-unification-2b97c3ad/native-dependency-comparison.json",
+    "sha256": "f7e3926d63dc1762a22437bd3811fee48cfbac708f07b294f37d0893df6f1642"
+  },
+  "engine_head": "55bd67ad980e90e92c77efe4453a927f097c3386",
+  "exclusions": [
+    "Full seven-field native request remains blocked on external SHA-256 type translation",
+    "No new Option specifications or mutable/stateful profile",
+    "No whole-crate external dependency equivalence or gateway funding claim"
+  ],
+  "fresh_vstd": {
+    "errors": 0,
+    "receipt": "vstd_final",
+    "verified": 2221
+  },
+  "normalized_restore_sha256": "9481649540bf22eaa72eb47a5c37e5d24884fd432ba618b955a45efc4ddbdc52",
+  "original_restore_sha256": "03205039c64769315600df825a8f6ff2654200042f3b36ef1fb0ac40ae24097e",
+  "preserved_boundary_sha256": {
+    "source/rust_verify/src/fn_call_to_vir.rs": "cfe706fb9eb66fe0f52008f50451858be15006a9e4ced321c766e8f8b1337680",
+    "source/vir/src/infer/records/shape.rs": "ac987c62f41d2a5f967433656129ed1168532956fff1b026b68f79c896daa870",
+    "source/vir/src/sst_to_air.rs": "ed6ad0da8ec79bb4a7322adfa3edb9178eea309f02e13f1186406bc657266758",
+    "source/vstd/native_option.rs": "bdb765d1b60e5ad6b1c593fe0163d72b2239e6c26b105cb3b7f684c4228adb70"
+  },
+  "python_test_total": 41,
+  "python_tests": {
+    "python_fedimint_final": 10,
+    "python_redb_final": 9,
+    "python_transfer_final": 11,
+    "python_transfer_optimized_final": 11
+  },
+  "refs": {
+    "assigned_branch": "t3/native-option-inference-support",
+    "head": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "local_verus_infer": "bad5b8896274d6df1be70e547eb81b004ab62ba1",
+    "origin_verus_infer": "55bd67ad980e90e92c77efe4453a927f097c3386"
+  },
+  "rust_test_total": 486,
+  "rust_tests": {
+    "infer": {
+      "count": 296,
+      "receipt": "test_infer_attempt2"
+    },
+    "infer_byte_apis": {
+      "count": 6,
+      "receipt": "test_infer_byte_apis_attempt2"
+    },
+    "infer_codec_values": {
+      "count": 9,
+      "receipt": "test_infer_codec_values_attempt2"
+    },
+    "infer_integer_conversions": {
+      "count": 5,
+      "receipt": "test_infer_integer_conversions_attempt2"
+    },
+    "infer_native_option": {
+      "count": 14,
+      "receipt": "test_infer_native_option_attempt5"
+    },
+    "infer_newtypes": {
+      "count": 11,
+      "receipt": "test_infer_newtypes_attempt2"
+    },
+    "infer_owned": {
+      "count": 17,
+      "receipt": "test_infer_owned_attempt2"
+    },
+    "infer_record_returns": {
+      "count": 7,
+      "receipt": "test_infer_record_returns_attempt2"
+    },
+    "infer_record_shifts": {
+      "count": 5,
+      "receipt": "test_infer_record_shifts_attempt2"
+    },
+    "infer_records": {
+      "count": 21,
+      "receipt": "test_infer_records_attempt2"
+    },
+    "infer_transfer_composition": {
+      "count": 2,
+      "receipt": "test_infer_transfer_composition_attempt2"
+    },
+    "vir_infer_units": {
+      "count": 93,
+      "receipt": "test_vir_attempt2"
+    }
+  },
+  "schema_version": 1,
+  "source_delta": {
+    "source/docs/guide/src/infer.md": {
+      "after_sha256": "1acbc68d20b0e006cd20ea2252ac23defa7759d2dc150227663c00260975b81b",
+      "before_sha256": "c34a8918c86e3fc47a81b99d6f116f9dfdd7d1f3b7420d1482f69f1f249f4e56"
+    },
+    "source/rust_verify/src/import_export.rs": {
+      "after_sha256": "53795ff1ffba3d139c849d89d4ac7ae2be00e897edc7c5b9299f6bf1db2b4d80",
+      "before_sha256": "d6518fa30bdcd79e7e31b9b3c3d9d332fe6878c111bf2e305e117931e653cac0"
+    },
+    "source/rust_verify_test/tests/infer_native_option.rs": {
+      "after_sha256": "378c641a584bfc96520a3d498b88d463b564f61ced399194ab55874ee3a6101f",
+      "before_sha256": "7c641db55661665ae6ac5e8ff60180b2d216c295aa5933b25cf5835328d0e28c"
+    },
+    "source/vir/src/ast_simplify.rs": {
+      "after_sha256": "57b39dfdaafe007a4038e82e7badce2f13e4451d979781cd53e94b11f1b6e873",
+      "before_sha256": "73f66dc22910cc3f633353f31cd15e12bcb5a595256f254b7f1ef9fb4f158243"
+    },
+    "source/vir/src/ast_to_sst.rs": {
+      "after_sha256": "831db3e10fdf316f9fab5f4b6098bd2707aea9cd8f8204308a4837476d5f0abb",
+      "before_sha256": "51fee513a70e1a98a4ac5f2f5afee96c1933435b5a1da2c1d99e66c52494ce5d"
+    },
+    "source/vir/src/infer.rs": {
+      "after_sha256": "859adf27e1b315f2e80bf68aca81dfc96888c45d070e86c2d5b812dec5187bdd",
+      "before_sha256": "86a88a19e9fcc8674fcd2d0bce22385fbf5a5683089863e764fd4e0c343c6d55"
+    },
+    "source/vir/src/infer/newtypes.rs": {
+      "after_sha256": "ab1b5b25d1e1c79b18c68dad991a9d53c982d54dd6ca316861b37ffeb733cfd9",
+      "before_sha256": "9cb9cbd92dc62d2a373d67465e34750c7aad4e2340d08d1123222d0c5b1cd5e4"
+    },
+    "source/vir/src/infer/owned/callbacks.rs": {
+      "after_sha256": "af25819e53f880261fdfb9786100ec4f07cef9be5aa4fad0a88d8b08d5901fb4",
+      "before_sha256": "9380fca55e16bb35baf8ca1424d5695b2a23fe1bde4e1df441564423668e49ba"
+    },
+    "source/vir/src/infer/owned/loops.rs": {
+      "after_sha256": "16a0ba2fa63c294afdce08f759597619380a54d78008112bb042989ad701c319",
+      "before_sha256": "5db93f8f15e37a30f7259933ab3781876b8b86a82e8cafb726b6c16646adcbe4"
+    },
+    "source/vir/src/infer/record_models.rs": {
+      "after_sha256": "dc857fbeb367e24334c3024f807fe6f0dba4ad788535908f3011d613d25d6c17",
+      "before_sha256": "6e10116e19a18972fe9084d540d15cb293ba5a465f403aa34989299e596897f5"
+    },
+    "source/vir/src/infer/record_models/tests.rs": {
+      "after_sha256": "b90f5f95eafaba3624d025d1fc12c49415bddc5278682e424c701cf82a5e528c",
+      "before_sha256": "f1ed11e8d84db9c3aa4e533ed6c477917d00f9e9bb46f55d76742be78b83f58b"
+    },
+    "source/vir/src/infer/records.rs": {
+      "after_sha256": "bb03f27daff819923a5655cbcb7bb9996fe22e91b00c26f8a63cafb58729239a",
+      "before_sha256": "e2cab43694acaa74a4635cb3ddd58a9451d87eae9582ea13b2337295f8954e57"
+    },
+    "source/vir/src/infer/registry.rs": {
+      "after_sha256": "37c904603642a97da7e61e578099d5478160037e3065f37e580f51c74265dbfa",
+      "before_sha256": "34f17f11311da2acda4f6bba21f1421498f96afb1e5a9987e2f5ce1654a2211c"
+    }
+  },
+  "source_snapshot": {
+    "count": 1306,
+    "path": "/private/tmp/verus-option-unification-2b97c3ad/source-hashes.json",
+    "sha256": "4447a13a3a968675e59f84d11ad1fb488de82608c74987122565b09c378af0f3"
+  },
+  "versions": {
+    "baseline": {
+      "cache": 64,
+      "policy": 58,
+      "schema": 38
+    },
+    "candidate": {
+      "cache": 66,
+      "policy": 60,
+      "schema": 38
+    },
+    "reserved_parent": {
+      "cache": 67,
+      "policy": 61
+    }
+  }
+}

@@ -85,6 +85,15 @@ test_verify_one_file_with_options! {
                 value.clone()
             }
 
+            fn test_native_option_bridges(condition: bool, value: u64) -> (result: u64)
+                ensures result == if condition { value } else { 0 },
+            {
+                let option = crate::vstd::native_option::then_some(condition, value);
+                crate::vstd::native_option::map_or(option, 0, |payload: u64| -> (output: u64)
+                    ensures output == payload,
+                { payload })
+            }
+
             fn test_ptr_stuff(a: *mut u8, b: *mut [u8; 2]) {
                 let t = a as *mut u16;
                 let s = b as *mut [u8];

@@ -49,6 +49,30 @@ pub(super) fn summary_exp(
         ExprX::UnaryOpr(op @ UnaryOpr::IntegerTypeBound(_), a) => {
             ExpX::UnaryOpr(op.clone(), summary_exp(a, vars, budget)?)
         }
+        ExprX::UnaryOpr(op @ UnaryOpr::Field(_), value) => {
+            ExpX::UnaryOpr(op.clone(), summary_exp(value, vars, budget)?)
+        }
+        ExprX::Ctor(datatype, variant, fields, None) => ExpX::Ctor(
+            datatype.clone(),
+            variant.clone(),
+            Arc::new(
+                fields
+                    .iter()
+                    .map(|field| {
+                        Some(Arc::new(air::ast::BinderX {
+                            name: field.name.clone(),
+                            a: summary_exp(&field.a, vars, budget)?,
+                        }))
+                    })
+                    .collect::<Option<Vec<_>>>()?,
+            ),
+        ),
+        ExprX::ArrayLiteral(elements) => ExpX::ArrayLiteral(Arc::new(
+            elements
+                .iter()
+                .map(|element| summary_exp(element, vars, budget))
+                .collect::<Option<Vec<_>>>()?,
+        )),
         ExprX::If(c, a, Some(b)) => ExpX::If(
             summary_exp(c, vars, budget)?,
             summary_exp(a, vars, budget)?,
@@ -69,6 +93,9 @@ pub(super) fn summary_exp(
                 BinaryOp::Ne => sst::BinaryOp::Ne,
                 BinaryOp::Inequality(op) => sst::BinaryOp::Inequality(*op),
                 BinaryOp::Bitwise(op, _) => sst::BinaryOp::Bitwise(*op),
+                BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow) => {
+                    sst::BinaryOp::Index(ArrayKind::Array)
+                }
                 BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Allow)) => {
                     sst::BinaryOp::Arith(sst::ArithOp::Add)
                 }

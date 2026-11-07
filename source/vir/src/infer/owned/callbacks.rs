@@ -3,7 +3,7 @@
 use super::*;
 
 #[derive(Clone)]
-pub(super) struct Plan {
+pub(in crate::infer) struct Plan {
     pub span: u64,
     pub requires: Exprs,
     pub ensures: Exprs,
@@ -248,7 +248,11 @@ impl Engine<'_> {
     }
 }
 
-pub(super) fn annotate(f: &Function, body: &Expr, plans: &[Plan]) -> Result<Expr, VirErr> {
+pub(in crate::infer) fn annotate(
+    f: &Function,
+    body: &Expr,
+    plans: &[Plan],
+) -> Result<Expr, VirErr> {
     let out = crate::ast_visitor::map_expr_visitor(body, &|e| {
         if let ExprX::NonSpecClosure {
             params,
@@ -335,7 +339,7 @@ fn pure_contract(e: &Expr) -> Result<(), VirErr> {
 pub(super) fn validate(f: &Function, body: &Expr) -> Result<(), VirErr> {
     loops::validate_decoration(f, &strip(body)?)
 }
-pub(super) fn plans(body: &Expr) -> Vec<Plan> {
+pub(in crate::infer) fn plans(body: &Expr) -> Vec<Plan> {
     let mut plans = vec![];
     crate::ast_visitor::expr_visitor_walk(body, &mut |e| {
         if let ExprX::NonSpecClosure { requires, ensures, .. } = &e.x {
@@ -352,7 +356,7 @@ pub(super) fn plans(body: &Expr) -> Vec<Plan> {
     plans
 }
 
-fn validate_body(
+pub(in crate::infer) fn validate_body(
     body: &Expr,
     ret: &Typ,
     all: &HashMap<Fun, Function>,

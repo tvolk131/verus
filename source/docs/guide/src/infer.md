@@ -4,8 +4,8 @@ For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
 
-The current build uses metadata schema **38**, inference policy **54** and
-candidate-cache version **60**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **63** and
+candidate-cache version **69**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -376,8 +376,13 @@ lookups, including shared tuple patterns and `Option::as_ref` through its existi
 vstd specification. These use return-value exactness and report
 `summary_kind = "record_view"`. Returned references are characterized by their
 logical values; lifetimes/ownership use the original Rust/Verus checks. This does
-not establish pointer-address identity. Unit-valued queries and non-unit early
-returns are currently unsupported. Mutable methods still require unit return.
+not establish pointer-address identity. Supported value queries can return early
+from nested branches and matches, with normal tail values on the remaining paths.
+Executed return expressions retain their safety requirements; later operations
+are required only on paths that have not returned. Unit-valued queries remain
+unsupported. Mutable methods still require unit return.
+Readonly queries also consume the existing canonical primitive saturating
+add/subtract/multiply models; their imported specifications remain dependencies.
 
 Aliases, additional mutable/structured reference parameters, general mutable locals, whole-vector
 replacement, general loops, division/remainder and general trait/operator calls remain
@@ -1400,6 +1405,14 @@ auxiliary proof fails verification, as with a handwritten `by(bit_vector)` proof
 Goal-assisted exports wait for complete verification, including for consumers
 with only imported inferred contracts. Previous outputs are invalidated as soon
 as their paths are known (before parsing for direct `--export` paths).
+
+Constant in-bounds projections from literal-array exact results also participate
+when ordinary caller indexing lowers through canonical vstd array views and
+sequence indexing. The recognizer checks identities and concrete types; it does
+not interpret an arbitrary user `view` or `index` method. The resulting scalar
+proposal still passes the same unconditional auxiliary theorem check, and the
+original assertion and executable index-safety obligations remain unchanged.
+Variable or out-of-bounds literal-array projections are not guessed.
 
 This is an opt-in strategy, not yet an ordinary-proof-first retry planner.
 Omitted unsupported context can make it less effective than a manual proof.
@@ -2427,6 +2440,169 @@ conservation, still belongs in explicit caller and system specifications.
 
 The repository-root `VERUS_INFER_ASSURANCE.md` tracks current safeguards,
 near-term consolidation, and longer-term formal verification targets.
+
+## Native u64 little-endian bytes
+
+Native `u64::to_le_bytes() -> [u8; 8]` and
+`u64::from_le_bytes([u8; 8]) -> u64` compose in exact scalar/array inference.
+They use the existing `vstd::bytes` little-endian definitions and proved inverse
+lemma. The two new `assume_specification` declarations in that module trust
+Rust's primitive conversion behavior and absence of unwinding; they do not
+verify Rust's implementation. Their fixed-width array signatures accept every
+`u64` and every eight-byte array, on either target endianness.
+
+Infer recognizes only canonical core numeric identities with the vstd byte proxy,
+unrestricted executable value parameters, matching concrete input/output types,
+and `no_unwind`. It generates ordinary array literals, indexes, casts and finite
+bit operations. Soundness, maximality and exactness still check the original
+body. All eight output bytes participate in equality. Other widths, byte orders,
+slice helpers and application lookalikes acquire no model through this rule.
+The u64 mathematical definitions are now open so the generated relations can be
+checked; their formulas and existing inverse proofs are unchanged.
+
+Policy 58 and cache 64 identify the integrated native-transfer model boundary.
+The metadata representation remains schema 38. Existing model fingerprints bind the complete
+vstd artifact, including spec definitions and lemmas, into cache configuration
+and exported dependency metadata. Warm candidates receive fresh required proofs;
+stale model artifacts or incomplete proof metadata prevent import/publication.
+Literal shifts and scalar accumulator updates also compose in the bounded
+straight-line, by-value transparent-record-to-array profile. Nested straight-line
+blocks retain updates to outer bindings while dropping block-local bindings;
+readonly operands cannot hide such updates. This does not admit
+variable shifts in that array profile, branching local mutation, reference aliases, user type
+invariants or database effects. Readonly records and complete-value constructors
+reuse the same typed byte model; all original-body checks remain mandatory.
+
+Straight-line readonly transparent-record queries returning finite integers
+also support variable shifts through the existing typed finite-bit models.
+Shift amounts must be nonnegative and below the left operand's bit width even
+when a later multiplication is by zero. Multiplication overflow remains a
+separate inferred obligation. Mutable receivers, control flow, and effects in
+operands do not acquire support through this rule. The pinned redb page-size
+runner proves the unchanged method's equation and bound for every `u32` page
+size with order at most 20. Its unaided callers use `--infer-goals` to propose
+independently checked bit-vector bounds instead of supplying handwritten shift
+or nonlinear-product proof blocks. The codec roundtrip and injectivity callers
+likewise omit packing blocks and byte-inverse lemma calls. The original bodies,
+input domains and authored properties are unchanged. Historical assisted
+fixtures remain separate controls. The runners also check unsafe shift and overflow callers;
+these safety negatives remain distinct from the false-postcondition control.
+
+The pinned `address_range` replay composes the original page-size and range
+methods, retaining the native `debug_assert!` and `start..end` expression. A
+closed literal-message panic recognizer reuses the existing requires-false core
+panic specification; it does not suppress panic obligations or evaluate unknown
+message constructors. The transparent-record profile has one tightly checked
+proxy-layout exception for canonical `Range<u64>` using the existing `ExRange`
+specification. Other proxies, destructors and user invariants remain excluded.
+
+The methods infer the successful checked-arithmetic domain of every intermediate
+shift, product and sum, without an order-20 restriction. Actual debug-assertion
+configurations are checked separately: debug-on additionally needs the original
+regional-start guard; debug-off does not. Ordinary callers prove range length,
+the starting-address equation and containment under sufficient end-containment
+and address-space bounds. The guard alone is insufficient: the unchanged method
+also proves the concrete `4090..8186` counterexample for a 4096-byte region.
+This is not a storage-allocation, crash-recovery or whole-database theorem.
+Large generic arithmetic callers currently use ordinary verification, not
+optional universal bit-vector proposals that can exhaust solver resources.
+
+## Checked integer conversion followed by Result unwrap
+
+Exact inference recognizes contiguous `Integer::try_from(value).unwrap()` calls
+for the fixed-width fallible primitive integer conversions already specified in
+`vstd::std_specs::convert`. The canonical `TryFrom` boundary, resolved core numeric
+implementation, concrete `Result<Integer, TryFromIntError>`, Debug implementation,
+and vstd `Result::unwrap` proxy must agree. Application lookalikes and unrelated
+Result methods acquire no model. Pointer-width and infallible conversions are
+not added by this rule, nor are intermediate stored Results.
+
+The candidate requires the evaluated operand to fit the destination integer
+range and preserves all operand safety requirements. Its returned value is the
+ordinary cast, only under that checked success condition. An unrestricted caller
+of a narrowing conversion therefore fails its caller obligation; unwrap success
+is never assumed during soundness. Safe-domain maximality alone may use the
+existing unwrap success requirement to describe successful executions, just as
+the existing closed panic/index models do. Output exactness and soundness still
+check the unchanged executable calls against existing vstd contracts. No new
+assumed specification or application summary is introduced.
+
+`source/tools/check_redb_codec.py` replays the pinned source-connected codec with
+frozen body/domain hashes, fresh cold/warm checks, imported conversion contracts,
+independent negative controls and native differential coverage. A successful
+controller with `transfer.status = "blocked"` is not a proved codec; frontend
+rejection never counts as a semantic counterexample.
+
+## Shared native Option calls in exact readonly values
+
+Scalar, transparent scalar-newtype and readonly-record profiles share the same
+bounded value interpreter for canonical `bool::then_some`, literal
+`Option::map_or` callbacks, and the existing specified `Option::is_some` query.
+Visible literal scalar/tuple constants can participate in those queries; opaque
+initializers and executable constant calls remain unsupported. Scalar/newtype
+admission still requires the existing scalar signature restrictions, exact
+callees, and exact mode. The shared interpreter has no record fields for a
+scalar projection; this does not introduce a record observation or mutable state.
+Newtype contracts and callback captures are lifted back to source field
+projections, then decorations are restored onto the original executable bodies.
+Projected callers and callees stay in the same representation during composition;
+ordinary helper calls inside eager arguments and immutable callbacks retain their
+checked domains rather than receiving a second lift to source wrapper fields.
+
+The frontend maps only matching canonical inherent calls to the diagnostic-bound
+checked definitions in `vstd::native_option`. Those two bridge bodies verify
+normally and add no assumed specification. The correspondence between the Rust
+API and the selected checked definition is trusted frontend code, not a proof
+of Rust core implementation bodies. Canonical identities, signatures and the
+matching library artifact remain required dependencies.
+
+Receiver and ordinary arguments are evaluated eagerly in order. A `map_or`
+default must be safe even for `Some`, and a `then_some` value must be safe even
+when its condition is false. Callback body requirements apply only on the
+`Some` path. Immutable captures, the original callback body and binders, and its
+safe domain/equation are checked independently before exact callback facts are
+available. Sound-only candidates do not acquire exact callback-domain facts.
+Handwritten callback contracts, effects, nesting and nontrivial construction
+blocks remain outside this bounded profile.
+
+The owned callback purity gate is shared, including rejection of mutable calls,
+assignments, nested callbacks and return statements. Pure finite array literals
+are permitted in generated callback equations, so existing byte models can
+compose with checked integer conversion/unwrap and early returns. By-value array
+callback equations use shallow extensional equality over the whole fixed array,
+as does their independently constructed complete-output precision obligation.
+Returned shared references retain the existing identity observation. Callback
+array observations explicitly fingerprint the existing vstd array-equality model,
+including when the enclosing function returns a scalar. No prefix-only observation,
+new axiom or candidate-derived equality choice is introduced. Core
+Option/Result receivers do not enter the by-value record-to-array profile.
+Native value candidates are regenerated, including on warm runs; ordinary
+scalar forwarding candidates may be cached, but all required proofs run again.
+Policy 60 and cache 66 introduced the shared profile; the current reconciled
+boundary is policy 63 and cache 69, with metadata schema 38.
+
+`source/tools/check_fedimint_native.py` checks byte-preserved extracted helper
+bodies and the literal tuple constant against a pinned application. It proves
+an authored policy, not an inferred security intent. The historical three-field
+projection and omission of the surrounding gateway are explicit limitations.
+A separate six-field diagnostic also composes these helpers through imported
+callers; it omits the real external `bitcoin::hashes::sha256::Hash` field because
+that type still blocks frontend translation. It is not a full request proof,
+cryptographic proof or stateful fund-safety result.
+
+## Pinned external transfer regression entry point
+
+`source/tools/check_infer_transfers.py` runs the application replays against one
+selected compiler/library/solver bundle and independently checks their raw
+proof receipts. It requires clean pinned clones, source fidelity, fresh exact
+obligations, positive publication and authored semantic negatives with rejected
+stale exports. A completed controller that reports a blocked application makes
+the suite fail; unsupported syntax and native tests cannot substitute for a
+formal application result. Setup, failure and timeout evidence is retained.
+
+See `source/tools/INFER_TRANSFERS.md` for the one-command workflow, offline replay
+boundary, scenario selection and Python-only CI tests. These are extracted-body
+proofs, not whole-database correctness or end-to-end gateway fund safety.
 
 ## Regression tests
 

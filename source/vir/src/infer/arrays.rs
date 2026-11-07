@@ -129,6 +129,19 @@ impl Engine<'_> {
     }
 }
 
+pub(super) fn needs_equality_model(function: &Function) -> bool {
+    let mut found = shape(&function.x.inner_ret.x.typ).is_some();
+    if let Some(body) = &function.x.body {
+        crate::ast_visitor::expr_visitor_walk(body, &mut |expression| {
+            if let ExprX::NonSpecClosure { ret, .. } = &expression.x {
+                found |= shape(&ret.a).is_some();
+            }
+            crate::ast_visitor::VisitorControlFlow::<()>::Recurse
+        });
+    }
+    found
+}
+
 /// Existing vstd axiom defining equality over every element of a fixed array.
 /// This is an implicit trusted dependency of array-valued inferred interfaces.
 pub(super) fn equality_model(function: &Function) -> bool {

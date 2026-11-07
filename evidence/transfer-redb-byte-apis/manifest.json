@@ -1,0 +1,2165 @@
+{
+  "schema_version": 1,
+  "experiment": "redb-native-u64-le-byte-extension",
+  "date": "2026-11-01",
+  "result": "checked_bounded_engine_extension_application_replay_still_unsupported",
+  "native_byte_apis_accepted": true,
+  "redb_verified": false,
+  "formal_false_redb_property_assessed": false,
+  "engine": {
+    "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "base_tree": "57340006528dc5a6e8cbc85591f007ffaf7a5366",
+    "branch": "t3/infer-u64-le-byte-apis",
+    "dirty": true,
+    "input_tree_sha256": "c42a427dee17539bbf66c82ed2c18d83c8cb1fe083fe8abc28486084fb6c6139",
+    "input_file_count": 1547,
+    "input_snapshot": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/engine-source.json",
+    "input_snapshot_sha256": "96e76327bf5a086909d24c3a2a09677442d2cf784f79dc13013cdce600bb5807",
+    "production_test_guide_patch": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/engine.patch",
+    "patch_sha256": "30f4dba50c242ce6d7b9c42b3389b215c61605760f822b03636af1b129e3e589",
+    "tracked_diff_sha256": "10e8f923f72972ac0a2de141a60b7fb801954474552560dd1a0039a3c63bd3f7",
+    "changed_source_files": {
+      "source/docs/guide/src/infer.md": "1036fa8f735121961d308ab0faa7bfdf840fb5bd69b290d7290280d1942ede73",
+      "source/rust_verify/src/import_export.rs": "2de220bc155ec7bca4fb2d39b9764d21b3f67cc5efb4a4c756714d4317e934ac",
+      "source/vir/src/infer.rs": "d93fb2f416c68d6113a2510cb85b3b34c9ef6d3365899cb4c67bc3527ad915ad",
+      "source/vir/src/infer/registry.rs": "8e50463c6472558dc3460500eb1184b975072a643842cb12092dcad8f9733f3f",
+      "source/vstd/bytes.rs": "5ab0406cd33f4700478a447f13a1f1d4d1e0d7e5deff18563a33ec5f705b3124",
+      "source/vir/src/infer/byte_models.rs": "9f3d8517afd982cd08d9a691b1d53894a49b57f7ea9f6d1dc41bd3f6641bbb7c",
+      "source/rust_verify_test/tests/infer_byte_apis.rs": "7e70bace116b93021ff86820987ad3b326c3db55de171e7db63604ebc2692e02"
+    },
+    "artifacts": {
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustc": {
+        "sha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1",
+        "size": 413480
+      },
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib": {
+        "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395",
+        "size": 83390408
+      },
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libcore-3e4eb39a5fe4e537.rlib": {
+        "sha256": "0205c70e6755f55478c511adb5231ff6b10cbd46f4198f0991354d0b20c702a4",
+        "size": 2641088
+      },
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libstd-c8df3f17af30326b.rlib": {
+        "sha256": "7421245549290b5b40d81ebdd6dc294a2003b946bebb1ed16d614336226d1dca",
+        "size": 9832968
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/libverus_builtin.rlib": {
+        "sha256": "2d28661f1f5605695891c422bfe9cddf00acb3fa2eda4510b0ea9d56ede4b97c",
+        "size": 905856
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/libverus_builtin_macros.dylib": {
+        "sha256": "328562edaea1afe1d3cab839fa05b3792012bbfdfca0c76932715090ef244db4",
+        "size": 13981488
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/libverus_state_machines_macros.dylib": {
+        "sha256": "96f87c72d423eaf700703d79995e901a36f9c24f233808c631eb292552cba519",
+        "size": 9092224
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/libvstd.rlib": {
+        "sha256": "2c4e62e71ce67c03ebe3ccae71e1700f6d35a9b7892436f79688fac22561d040",
+        "size": 9907896
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/rust_verify": {
+        "sha256": "d368f71370c8b243f4a81670296fa504e1fbf85c66b163b80f009d74a5aefbab",
+        "size": 31199520
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus": {
+        "sha256": "c23cd448716fbb618eb72b5025fc8fd334b70a9034b13d2b3c28df54fa6a5cd4",
+        "size": 3683824
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/vstd.vir": {
+        "sha256": "9d64e4713047efa254a3ce42a270a9fce43649af80c686ccd2366c475512732f",
+        "size": 32555009
+      },
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3": {
+        "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+        "size": 26087280
+      }
+    },
+    "versions": {
+      "metadata_schema": 38,
+      "inference_policy": 55,
+      "candidate_cache": 61,
+      "rust": "1.99.1",
+      "solver": "4.16.0"
+    },
+    "builds_and_final_checks": [
+      {
+        "label": "format-rust",
+        "argv": [
+          "rustfmt",
+          "--check",
+          "--edition",
+          "2024",
+          "--config",
+          "skip_children=true",
+          "vir/src/infer/byte_models.rs",
+          "rust_verify_test/tests/infer_byte_apis.rs"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 0.02848737499999998,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      },
+      {
+        "label": "format-vstd",
+        "argv": [
+          "verusfmt",
+          "--check",
+          "vstd/bytes.rs"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 0.11615508399999996,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      },
+      {
+        "label": "engine-source-pinned",
+        "argv": [
+          "cargo",
+          "build",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "rust_verify",
+          "-p",
+          "verus",
+          "-p",
+          "cargo-verus"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 83.6564675,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      },
+      {
+        "label": "vstd-own-artifact-clean",
+        "argv": [
+          "cargo",
+          "clean",
+          "--offline",
+          "--release",
+          "--manifest-path",
+          "vstd/Cargo.toml",
+          "-p",
+          "vstd"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 0.1969375000000042,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      },
+      {
+        "label": "vstd-source-pinned",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/cargo-verus",
+          "build",
+          "--manifest-path",
+          "vstd/Cargo.toml",
+          "--release",
+          "--offline",
+          "-j",
+          "2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 19.145942083999998,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      },
+      {
+        "label": "vir-lib-source-pinned",
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "vir",
+          "--lib",
+          "--",
+          "--test-threads=2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 42.37254404199999,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      },
+      {
+        "label": "byte-tests-source-pinned",
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "rust_verify_test",
+          "--test",
+          "infer_byte_apis",
+          "--",
+          "--test-threads=2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 63.684127042,
+        "environment": {
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "CARGO_TARGET_DIR": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus"
+        }
+      }
+    ],
+    "artifact_seed": "Read/copied only from t3-19207161; all ten frozen artifact hashes remain unchanged; compiler/macros/vstd rebuilt in this worktree.",
+    "concurrent_timings_are_benchmarks": false
+  },
+  "trust": {
+    "new_assume_specifications": [
+      "u64::to_le_bytes(u64) -> [u8;8]",
+      "u64::from_le_bytes([u8;8]) -> u64"
+    ],
+    "additional_clauses": "Both assume no_unwind; every input of the typed signatures is admitted.",
+    "new_external_bodies": 0,
+    "new_roundtrip_axioms": 0,
+    "rust_std_formally_verified": false,
+    "inventory": "TRUST.md",
+    "provider_trusted_models": [
+      [
+        {
+          "path": {
+            "krate": "Core",
+            "segments": [
+              "num",
+              "impl&%9",
+              "from_le_bytes"
+            ]
+          }
+        },
+        "38ed1854f84e0d8cf1dcea4c699a0807cc04f49b745bcc91b66e46a9b13a3ea8"
+      ],
+      [
+        {
+          "path": {
+            "krate": "Core",
+            "segments": [
+              "num",
+              "impl&%9",
+              "to_le_bytes"
+            ]
+          }
+        },
+        "2677b21026481a4b70c21de86119edb33e4260275c7441e094c746a7faea4e20"
+      ],
+      [
+        {
+          "path": {
+            "krate": "Vstd",
+            "segments": [
+              "array",
+              "axiom_array_ext_equal"
+            ]
+          }
+        },
+        "ecfb2bed8aca721471f1b0dddce043c340b19ca0cb4c6f12059ad11211ec6ee1"
+      ]
+    ]
+  },
+  "validation": {
+    "vstd": {
+      "verified": 2219,
+      "errors": 0
+    },
+    "vir_unit": {
+      "passed": 119,
+      "failed": 0
+    },
+    "dedicated_byte_integration": {
+      "passed": 6,
+      "failed": 0
+    },
+    "adjacent": {
+      "ordinary_arrays": 31,
+      "infer_arrays": 32,
+      "infer_integer_operations": 6
+    },
+    "unrelated_doctests": {
+      "failed": 18,
+      "source_files_unchanged": [
+        "source/vir/src/ast.rs",
+        "source/vir/src/ast_to_sst.rs",
+        "source/vir/src/modes.rs",
+        "source/vir/src/resolution_inference.rs"
+      ],
+      "command_result": {
+        "label": "vir-final",
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "vir",
+          "--",
+          "--test-threads=2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 101,
+        "seconds": 94.818413167,
+        "environment": {}
+      },
+      "log": "/private/tmp/verus-redb-bytes-build/vir-final.stdout"
+    },
+    "adjacent_commands": [
+      {
+        "label": "arrays-adjacent",
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "rust_verify_test",
+          "--test",
+          "arrays",
+          "--",
+          "--test-threads=2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 5.528572416000003,
+        "environment": {}
+      },
+      {
+        "label": "infer-arrays-adjacent",
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "rust_verify_test",
+          "--test",
+          "infer",
+          "array",
+          "--",
+          "--test-threads=2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 15.295027915999981,
+        "environment": {}
+      },
+      {
+        "label": "infer-integers-adjacent",
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-j",
+          "2",
+          "-p",
+          "rust_verify_test",
+          "--test",
+          "infer",
+          "integer_operations",
+          "--",
+          "--test-threads=2"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source",
+        "exit_code": 0,
+        "seconds": 69.04627266699998,
+        "environment": {}
+      }
+    ],
+    "focus": [
+      {
+        "label": "byte_provider_cold",
+        "success": true,
+        "required_checks_proved": 18,
+        "interface_written": true,
+        "report_sha256": "d7b9f608057f04bd1df5b2a8d6965b897543e5700c3ef9a732d67f18d0e7a49a",
+        "functions": [
+          {
+            "function": "byte_provider::byte_roundtrip",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::constant",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::decode",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::encode",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::increment",
+            "mode": "exact",
+            "requires": "(x <= 18446744073709551614)",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::word_roundtrip",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          }
+        ]
+      },
+      {
+        "label": "byte_provider_warm",
+        "success": true,
+        "required_checks_proved": 18,
+        "interface_written": true,
+        "report_sha256": "b909c5a4bb656b6029bb8beb09ff7d2658dffcb86652c73852b676e0088444f5",
+        "functions": [
+          {
+            "function": "byte_provider::byte_roundtrip",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::constant",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::decode",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::encode",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::increment",
+            "mode": "exact",
+            "requires": "(x <= 18446744073709551614)",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          },
+          {
+            "function": "byte_provider::word_roundtrip",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          }
+        ]
+      },
+      {
+        "label": "byte_client_cold",
+        "success": true,
+        "required_checks_proved": 6,
+        "interface_written": true,
+        "report_sha256": "23cdac1176dc0678ac6246905c11eb03ee1cd36fd43035bf2ee95ac788fb785b",
+        "functions": [
+          {
+            "function": "byte_client::decode",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          },
+          {
+            "function": "byte_client::relay",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": true
+          }
+        ]
+      },
+      {
+        "label": "byte_client_warm",
+        "success": true,
+        "required_checks_proved": 6,
+        "interface_written": true,
+        "report_sha256": "7a9a886d3b83a35bcfbbb2a44947c4309864fe86bd9d4b8f1cc4c1998f8c3064",
+        "functions": [
+          {
+            "function": "byte_client::decode",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          },
+          {
+            "function": "byte_client::relay",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "[u8; 8]",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "hit",
+            "exported": true
+          }
+        ]
+      },
+      {
+        "label": "reversed_negative",
+        "success": false,
+        "required_checks_proved": 3,
+        "interface_written": false,
+        "report_sha256": "9f6673d736b252d11fb8cf84a6a0d055f3f43ff618f7373705b22ed11302bda8",
+        "functions": [
+          {
+            "function": "reversed::codec",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": false
+          }
+        ]
+      },
+      {
+        "label": "shifted_negative",
+        "success": false,
+        "required_checks_proved": 3,
+        "interface_written": false,
+        "report_sha256": "d0402b364113eb8564bb3db6e64307fc58e603d22fc7e6d89bc9c82a224d36f8",
+        "functions": [
+          {
+            "function": "shifted::codec",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": false
+          }
+        ]
+      },
+      {
+        "label": "replaced_negative",
+        "success": false,
+        "required_checks_proved": 3,
+        "interface_written": false,
+        "report_sha256": "86dd3342236bf4d354c1671fd1bead58a7d079740e59450c377fc921bc0a90a2",
+        "functions": [
+          {
+            "function": "replaced::codec",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": false
+          }
+        ]
+      },
+      {
+        "label": "wrong_goal_negative",
+        "success": false,
+        "required_checks_proved": 3,
+        "interface_written": false,
+        "report_sha256": "e106ba3f3e2ef34dab575cd9bce971ce4451aec51bbc53299a04c1407effc24a",
+        "functions": [
+          {
+            "function": "wrong_goal::codec",
+            "mode": "exact",
+            "requires": "true",
+            "result_type": "u64",
+            "checks": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "cache": "miss",
+            "exported": false
+          }
+        ]
+      },
+      {
+        "label": "metadata_policy",
+        "rejected_for": "incompatible inference schema, safety policy, or producer"
+      },
+      {
+        "label": "metadata_proof",
+        "rejected_for": "incomplete inference proof guarantees"
+      },
+      {
+        "label": "metadata_summary",
+        "rejected_for": "inferred contract fingerprint mismatch"
+      },
+      {
+        "label": "metadata_model",
+        "rejected_for": "stale or missing trusted-model fingerprint"
+      }
+    ],
+    "native_byte_boundary_cases": 6144,
+    "logs": {
+      "/private/tmp/verus-redb-bytes-build/engine-source-pinned.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/engine-source-pinned.stderr": "f7284d6a04c94fd408a6898c16352ecd8076240d251aeeed4448b9ded9404b39",
+      "/private/tmp/verus-redb-bytes-build/vstd-own-artifact-clean.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/vstd-own-artifact-clean.stderr": "f9073f5b053401446cc52b5f83fcb4f441c417905a83568891d15de3cb971333",
+      "/private/tmp/verus-redb-bytes-build/vstd-source-pinned.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/vstd-source-pinned.stderr": "1b173b9ecddf4be591c3f43c443d3460467c8a994ecd7e27d219aa047c9231d2",
+      "/private/tmp/verus-redb-bytes-build/vir-lib-source-pinned.stdout": "145096124fe3f5900be421824a196b0a8469525f0a4cda289ad5c93b9de5dd3b",
+      "/private/tmp/verus-redb-bytes-build/vir-lib-source-pinned.stderr": "de2e146e8a4930210d88aa52187eb2cc2176b7868110a0ba6c7032c92b43684d",
+      "/private/tmp/verus-redb-bytes-build/byte-tests-source-pinned.stdout": "a1cbe4324f1e2a9d47697f7268374d0b9586ebe7cc980eea74d04f4d81322d3f",
+      "/private/tmp/verus-redb-bytes-build/byte-tests-source-pinned.stderr": "dbd31af1de739a597961d17aaa638d18f74664c5ec27abb8d15f4193453d529f",
+      "/private/tmp/verus-redb-bytes-build/vir-final.stdout": "8098ae022d142aef91318cee0a7d05f65d1f9de34a4bf191920498f1c74538d7",
+      "/private/tmp/verus-redb-bytes-build/vir-final.stderr": "5a55b56d6f0a2a00be0ab86a6dcfb47afd8318e7e5142712382d9a18d4d0cb2a",
+      "/private/tmp/verus-redb-bytes-build/byte-integration-final.stdout": "b59d0add6b7058d7d9d9467b88270a9e3c30f42042161d754ee1345cb7a717d9",
+      "/private/tmp/verus-redb-bytes-build/byte-integration-final.stderr": "be47e2cd75f714cacbe929373a689206738ea1a7625c9cbd33595f772d7ef078",
+      "/private/tmp/verus-redb-bytes-build/arrays-adjacent.stdout": "9e527857d5d2e4e2ac62df9dadff03f4fc1f90808f5c74e52ed2f31a3f6ba0cf",
+      "/private/tmp/verus-redb-bytes-build/arrays-adjacent.stderr": "85d21e51ec8b1a4bdec2964f55a9c75afc724c549f82994cf6c8d13e3985856b",
+      "/private/tmp/verus-redb-bytes-build/infer-arrays-adjacent.stdout": "1efcfe64d9744f3095699375c8d48d1da5b60aee11087655e3620279c7bed391",
+      "/private/tmp/verus-redb-bytes-build/infer-arrays-adjacent.stderr": "ec003dd6fb396e57ea5d6c3382211a22ddf5e52751c843f480f21ab60f17c080",
+      "/private/tmp/verus-redb-bytes-build/infer-integers-adjacent.stdout": "9899ea69a051d7d7a18ab5bd0bce26867727e58829461ff845964a5b69434a5f",
+      "/private/tmp/verus-redb-bytes-build/infer-integers-adjacent.stderr": "cef79a3e9ef35d63664a6c94d79227977b6727d3b51b84594f966e521700f8b4",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/format-rust.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/format-rust.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/format-vstd.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/format-vstd.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/engine-source-pinned.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/engine-source-pinned.stderr": "70380bee39c1b874450071352468d050c3e99dba1a4fdb9e73c42c98b18acaa8",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/vstd-own-artifact-clean.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/vstd-own-artifact-clean.stderr": "4334fa77d8f0027ceaf45e7b3683f1c39ad7c38bba606c7bd30c19025f7a7fc5",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/vstd-source-pinned.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/vstd-source-pinned.stderr": "6a228d80b52abe738f215807ab6e6de8479f2df5b1e470d324a2401f03b568e5",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/vir-lib-source-pinned.stdout": "9e794257d495dd80ffff955fd9c81759e154f3a533d51994751029319304650b",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/vir-lib-source-pinned.stderr": "e29f7c8a4b278d7ca6cfcf7a6cde99d63ceedf3bc085d4f6c4c8268602811761",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/byte-tests-source-pinned.stdout": "158fb0559dec94a9aa9405fbef05d5de5ed1407bf34132b7c0c6570a80bf3132",
+      "/private/tmp/verus-redb-bytes-build/repo-format-final/byte-tests-source-pinned.stderr": "72c934cf51ad74435436b8bc276890eef94c0ffaa739b9c3acff24b89b59cb2f"
+    },
+    "raw_log_directory": "/private/tmp/verus-redb-bytes-build/repo-format-final"
+  },
+  "baseline": {
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/evidence/transfer-redb",
+    "commit": "55bd67ad980e90e92c77efe4453a927f097c3386",
+    "manifest_sha256": "5d4426d875772c3fbcfe27c825ffdb2793164a910f2d48e2de49648318a82e2b",
+    "original_receipt_sha256": "c7e4128927ecb77fa36d3382abc4c4f348ce7c7d19027e95db8f3f00d745877e",
+    "frozen_engine_artifacts_unchanged": {
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustc": true,
+      "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/libverus_builtin.rlib": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/libverus_builtin_macros.dylib": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/libverus_state_machines_macros.dylib": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/libvstd.rlib": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/rust_verify": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/verus": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/target-verus/release/vstd.vir": true,
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/source/z3": true
+    }
+  },
+  "application": {
+    "repository": "https://github.com/cberner/redb.git",
+    "pin": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "original_clone": "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+    "replay_clone": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/redb",
+    "source_hashes": {
+      "src/tree_store/page_store/base.rs": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+      "src/tree_store/page_store/layout.rs": "0b559f9a739c6960bfdc0fd84c03f3bd8e083a824a74f9ea41b162f1fb99d670",
+      "src/tree_store/page_store/page_manager.rs": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+      "AGENTS.md": "e3f741c483261f4dd66b7f882a496cc7ba2486891b2e558ff6a7dd14b5b70a06"
+    },
+    "source_hashes_after": {
+      "src/tree_store/page_store/base.rs": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+      "src/tree_store/page_store/layout.rs": "0b559f9a739c6960bfdc0fd84c03f3bd8e083a824a74f9ea41b162f1fb99d670",
+      "src/tree_store/page_store/page_manager.rs": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+      "AGENTS.md": "e3f741c483261f4dd66b7f882a496cc7ba2486891b2e558ff6a7dd14b5b70a06"
+    },
+    "extraction": {
+      "PageNumber": {
+        "sha256": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 34
+      },
+      "to_le_bytes": {
+        "sha256": "284704938b6d28b2b3ed3719d9a5ac7ba8ff5b7928410d4b407dd03588554534",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 90
+      },
+      "from_le_bytes": {
+        "sha256": "10423f60e80091cbe34a029b491e53797ac6b63e388892949136bf4bd8e4f02c",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 97
+      },
+      "address_range": {
+        "sha256": "22beb37e2f40bc1935fd83e046dcf7c631a28eab0ed86f041b5c940b4a9a9829",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 142
+      },
+      "page_size_bytes": {
+        "sha256": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 158
+      },
+      "RegionLayout": {
+        "sha256": "6a06c63951649c9ad04bd8e041140e29f00d3fe0bc9d49d5cb933bbc49f692c3",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 14
+      },
+      "RegionLayout_new": {
+        "sha256": "457626c0683427fb92a4066fd1e17ae151a37f75eb4a678d5d09ca590b8896ec",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 22
+      },
+      "RegionLayout_data_section": {
+        "sha256": "7578738890b3ac92926588da28a7afc901efee88d88e6c9f58ef6ac21e441020",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 48
+      },
+      "RegionLayout_num_pages": {
+        "sha256": "fc68fd1a6130a532f824fb3a8c0a4047d9377ec1ea139e97139d41f0646cf211",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 57
+      },
+      "RegionLayout_page_size": {
+        "sha256": "6abe526a4ec20a35c5b951796c7437f35ab3735afe93c3ea1e0c8b2f8ac67889",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 61
+      },
+      "RegionLayout_len": {
+        "sha256": "ee75cddd9adea5b99d6a91e319d97833ffeb628321a6332e6fdbfa8c6db64e43",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 65
+      },
+      "RegionLayout_usable_bytes": {
+        "sha256": "b9920549aea8a83229215bf6ea1fd25277e27b30e6e3fbd04734d7e9c11230cd",
+        "source": "src/tree_store/page_store/layout.rs",
+        "line": 69
+      }
+    },
+    "frozen_source_comparison": {
+      "extraction_matches": true,
+      "generated_matches": true,
+      "fixtures": {
+        "codec.rs": "639d1032cc0fb061cf3e4bf7c8b05b14b13e7d856ce047b09e1f740d6565a3cb",
+        "false_codec.rs": "0e023d19c7fe79681aaf3b296cbe3dbe66039a331744f54baf0a47efa6880c46",
+        "size.rs": "87195e5d9b9a70cfa8cd4ab627b17465bb9ff8bebb1bffe5fef5f3682f5a89a1",
+        "address.rs": "0243d41662b8d84e0800edd0364a27dcfb22f5b7730408b42382d8d2d0b510d4",
+        "native.rs": "0d8998daa1cecc5f8b2208251ef84d2ab2a8b671c8fa2c2fbf6452c658516cf7",
+        "native_mutated.rs": "7cc34e3b10ee7e7429d18192ced3019e4ceef3671d9b89787acfa052b262c564"
+      },
+      "original_receipt_sha256": "c7e4128927ecb77fa36d3382abc4c4f348ce7c7d19027e95db8f3f00d745877e"
+    },
+    "domain": {
+      "region_max": "0x000fffff",
+      "order_max": 20,
+      "index_max": "0x000fffff >> order",
+      "quantified": "all such values",
+      "reserved_bits": "native-only separate audit; canonical encoding clears them"
+    },
+    "canonical_property": "decode(encode(page)) preserves region, index and order for all values in the stated domain.",
+    "manual_proof_blocks_added_to_redb": 0,
+    "redb_executable_bodies_changed": false,
+    "native": {
+      "positive": true,
+      "identifiers": 2097467,
+      "addresses": 12222,
+      "excluded_overflow_layouts": 3,
+      "decoder_shift_mutation_exit": 101,
+      "mutation_assertion": "region roundtrip",
+      "region_cross_product_exhaustive": false
+    },
+    "next_observed_codec_blocker": "canonical core::result::Result::unwrap in the original u32::try_from(...).unwrap() chain",
+    "other_observed_blockers": [
+      "record variable left shift in page_size_bytes",
+      "core::panicking::panic from debug_assert in address_range"
+    ],
+    "cases": [
+      {
+        "label": "codec_cold",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"result\" :: \"impl&%0\" :: \"unwrap\"]))",
+        "report_sha256": "395dc100623e74358f3b3811b1c93cb70ad741f02905e6d41c410ec63282248e"
+      },
+      {
+        "label": "codec_warm",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"result\" :: \"impl&%0\" :: \"unwrap\"]))",
+        "report_sha256": "7b4398aedcd7b25fdd8d0a1467b12db4004e9aed1f10617ca74ef54bb3ed8758"
+      },
+      {
+        "label": "false_codec_cold",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"result\" :: \"impl&%0\" :: \"unwrap\"]))",
+        "report_sha256": "1a758389f3f5481161bb6409b615f37d215fd48c48644eeef69dd02dd863671f"
+      },
+      {
+        "label": "false_codec_warm",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"result\" :: \"impl&%0\" :: \"unwrap\"]))",
+        "report_sha256": "a6d5555ebc8094e43f0a94d645089d78ee262c44a6cafcc3def9643a4eeff1b6"
+      },
+      {
+        "label": "size_cold",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: record binary operation",
+        "report_sha256": "6335831eec81f491a4b2915b67b9723e38464b28ff531e24ad93322b26e5ea38"
+      },
+      {
+        "label": "size_warm",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: record binary operation",
+        "report_sha256": "8d8aa281e056a6a53775c7f4b8aeff1fea6d7fbb1b4d89ffaad7964f855cf8ce"
+      },
+      {
+        "label": "address_cold",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"panicking\" :: \"panic\"]))",
+        "report_sha256": "ea331b89a227dc2884f9f15a623873900c9744952dc29e65a5632aac1c5cc504"
+      },
+      {
+        "label": "address_warm",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"panicking\" :: \"panic\"]))",
+        "report_sha256": "ebc6634fcb00aea712e082beefa2a2d9c38291a00e3b2b77a680abfc4f21a45f"
+      },
+      {
+        "label": "address_release_cold",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"panicking\" :: \"panic\"]))",
+        "report_sha256": "8d5666de285c69593a6c266004896f2b7229e1ed086eedb48c465f90c8fa9baa"
+      },
+      {
+        "label": "address_release_warm",
+        "classification": "unsupported_source",
+        "status": "unsupported",
+        "generated_functions": 0,
+        "artifact_exists": false,
+        "cache_files": 0,
+        "first_diagnostic": "error: Verus Infer unsupported: calls require an acyclic same-crate inferred callee or certified imported summary: Fun(Path(core, [\"panicking\" :: \"panic\"]))",
+        "report_sha256": "f04d1da13e740319d18b8aebda364508b0eb74fb90f32dc27a2c6d5e9fcdcbd7"
+      }
+    ]
+  },
+  "replay": {
+    "directory": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te",
+    "receipt_sha256": "93c89c9ca0a97cb8234372a75d19898bac3f4623e1423ee2add4b5175feafdde",
+    "controller_commands": [
+      {
+        "label": "replay-source-pinned",
+        "argv": [
+          "python3",
+          "-B",
+          "evidence/transfer-redb-byte-apis/run.py",
+          "--baseline",
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-19207161/evidence/transfer-redb",
+          "--redb-source",
+          "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+          "--output-root",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp",
+          "--timeout",
+          "180"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 19.827558208,
+        "environment": {}
+      }
+    ],
+    "commands": [
+      {
+        "label": "engine_head",
+        "argv": [
+          "git",
+          "-C",
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.009215916000000005,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "source_head",
+        "argv": [
+          "git",
+          "-C",
+          "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.008850625,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "clone",
+        "argv": [
+          "git",
+          "clone",
+          "--local",
+          "--no-hardlinks",
+          "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/redb"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.081726667,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "redb_clean",
+        "argv": [
+          "git",
+          "-C",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/redb",
+          "diff",
+          "--exit-code",
+          "HEAD"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.01772679200000002,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "sysroot",
+        "argv": [
+          "rustc",
+          "--print",
+          "sysroot"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.04081612499999998,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "compiler_version",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "--version"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.03849270799999993,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "rust_version",
+        "argv": [
+          "rustc",
+          "-vV"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.022660541000000034,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "solver_version",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "-version"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.0037725840000000233,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3"
+        }
+      },
+      {
+        "label": "byte_provider_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "byte_provider",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.8255707090000004,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider-cache"
+        }
+      },
+      {
+        "label": "byte_provider_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "byte_provider",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.5934984579999996,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider-cache"
+        }
+      },
+      {
+        "label": "byte_client_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "byte_client",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_client.rlib",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "--import",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.4172765830000005,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client-cache"
+        }
+      },
+      {
+        "label": "byte_client_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "byte_client",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_client.rlib",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "--import",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_provider.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.4117716250000001,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client-cache"
+        }
+      },
+      {
+        "label": "reversed_negative",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/reversed.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "reversed",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/reversed.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libreversed.rlib"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.4730625419999992,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/reversed-cache"
+        }
+      },
+      {
+        "label": "shifted_negative",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/shifted.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "shifted",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/shifted.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libshifted.rlib"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.4828403329999995,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/shifted-cache"
+        }
+      },
+      {
+        "label": "replaced_negative",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/replaced.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "replaced",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/replaced.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libreplaced.rlib"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.46970687499999997,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/replaced-cache"
+        }
+      },
+      {
+        "label": "wrong_goal_negative",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "wrong_goal",
+          "--no-cheating",
+          "--output-json",
+          "--compile",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal.vir",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libwrong_goal.rlib"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.40429979199999977,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "metadata_policy",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "metadata_policy",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/metadata_policy.vir",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "--import",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/policy.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.045217792000000756,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "metadata_proof",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "metadata_proof",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/metadata_proof.vir",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "--import",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/proof.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.08790170799999864,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "metadata_summary",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "metadata_summary",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/metadata_summary.vir",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "--import",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/summary.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.10224724999999957,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "metadata_model",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_client.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "metadata_model",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/metadata_model.vir",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "--import",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/model.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.232940833999999,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "byte_native_compile",
+        "argv": [
+          "rustc",
+          "--edition=2024",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_native.rs",
+          "--extern",
+          "byte_provider=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/libbyte_provider.rlib",
+          "-L",
+          "dependency=/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release",
+          "-L",
+          "dependency=/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_native"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.10281766700000006,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "byte_native_execute",
+        "argv": [
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/byte_native"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.1612319169999985,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "native_compile",
+        "argv": [
+          "rustc",
+          "--edition=2024",
+          "-O",
+          "-C",
+          "debug-assertions=yes",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/native.rs",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/native"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.17077850000000083,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "native_execute",
+        "argv": [
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/native"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.1624109589999989,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "native_mutated_compile",
+        "argv": [
+          "rustc",
+          "--edition=2024",
+          "-O",
+          "-C",
+          "debug-assertions=yes",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/native_mutated.rs",
+          "-o",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/native_mutated"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 0,
+        "seconds": 0.1342110830000003,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "native_mutated_execute",
+        "argv": [
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/native_mutated"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 101,
+        "seconds": 0.16649825000000007,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/wrong_goal-cache"
+        }
+      },
+      {
+        "label": "codec_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/codec.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_codec",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/codec_cold.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.28344866700000004,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/codec-cache"
+        }
+      },
+      {
+        "label": "codec_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/codec.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_codec",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/codec_warm.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.2757497909999991,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/codec-cache"
+        }
+      },
+      {
+        "label": "false_codec_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/false_codec.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_false_codec",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/false_codec_cold.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.2922342499999999,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/false_codec-cache"
+        }
+      },
+      {
+        "label": "false_codec_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/false_codec.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_false_codec",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/false_codec_warm.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.2998090839999996,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/false_codec-cache"
+        }
+      },
+      {
+        "label": "size_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/size.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_size",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/size_cold.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.32184850000000154,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/size-cache"
+        }
+      },
+      {
+        "label": "size_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/size.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_size",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/size_warm.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.3533802080000008,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/size-cache"
+        }
+      },
+      {
+        "label": "address_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_address",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address_cold.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.3298561669999991,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address-cache"
+        }
+      },
+      {
+        "label": "address_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_address",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address_warm.vir"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.3026731660000017,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address-cache"
+        }
+      },
+      {
+        "label": "address_release_cold",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_address_release",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address_release_cold.vir",
+          "-C",
+          "debug-assertions=no"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.3006663329999988,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address_release-cache"
+        }
+      },
+      {
+        "label": "address_release_warm",
+        "argv": [
+          "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/target-verus/release/verus",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address.rs",
+          "--crate-type",
+          "lib",
+          "--crate-name",
+          "redb_address_release",
+          "--infer-goals",
+          "--no-cheating",
+          "--output-json",
+          "--export",
+          "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address_release_warm.vir",
+          "-C",
+          "debug-assertions=no"
+        ],
+        "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4",
+        "exit_code": 1,
+        "seconds": 0.2948257500000011,
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "VERUS_Z3_PATH": "/Users/tommyvolk/.t3/worktrees/verus/t3-66bb70e4/source/z3",
+          "VERUS_INFER_CACHE": "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-8ihte2te/address_release-cache"
+        }
+      }
+    ],
+    "generated_sources": {
+      "native.rs": "0d8998daa1cecc5f8b2208251ef84d2ab2a8b671c8fa2c2fbf6452c658516cf7",
+      "PageNumber.original.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+      "size.rs": "87195e5d9b9a70cfa8cd4ab627b17465bb9ff8bebb1bffe5fef5f3682f5a89a1",
+      "shifted.rs": "afc01f0d7d1690c2f1b0c0b7b120b9bb32f4d9ad13a21b9740c717a608ce4ca1",
+      "byte_provider.rs": "f3f68f4fc385f7734d39cbf2d9a79ff44da5d4c70f0f70c716e253d6b7a8a536",
+      "RegionLayout.original.rs": "6a06c63951649c9ad04bd8e041140e29f00d3fe0bc9d49d5cb933bbc49f692c3",
+      "RegionLayout_len.original.rs": "ee75cddd9adea5b99d6a91e319d97833ffeb628321a6332e6fdbfa8c6db64e43",
+      "to_le_bytes.original.rs": "284704938b6d28b2b3ed3719d9a5ac7ba8ff5b7928410d4b407dd03588554534",
+      "wrong_goal.rs": "fb2da2c7ac01b44c21dbe56d6f251e56aedcca555aca3925096e5846c29e37d4",
+      "address.rs": "0243d41662b8d84e0800edd0364a27dcfb22f5b7730408b42382d8d2d0b510d4",
+      "RegionLayout_page_size.original.rs": "6abe526a4ec20a35c5b951796c7437f35ab3735afe93c3ea1e0c8b2f8ac67889",
+      "RegionLayout_data_section.original.rs": "7578738890b3ac92926588da28a7afc901efee88d88e6c9f58ef6ac21e441020",
+      "byte_native.rs": "765c06dea901ff1158dd5f70a1782e23549470fcd8426c0e3670268adc153d80",
+      "address_range.original.rs": "22beb37e2f40bc1935fd83e046dcf7c631a28eab0ed86f041b5c940b4a9a9829",
+      "page_size_bytes.original.rs": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+      "from_le_bytes.original.rs": "10423f60e80091cbe34a029b491e53797ac6b63e388892949136bf4bd8e4f02c",
+      "byte_client.rs": "6abdcf2f456d9cf0d3bc6b75daf4e4d9d144267f434f3427a501594703e99b45",
+      "codec.rs": "639d1032cc0fb061cf3e4bf7c8b05b14b13e7d856ce047b09e1f740d6565a3cb",
+      "replaced.rs": "53eeebadb0d4f1645b9aafbd4a86ba42d6964af2fae4746bcb10ca8303806685",
+      "false_codec.rs": "0e023d19c7fe79681aaf3b296cbe3dbe66039a331744f54baf0a47efa6880c46",
+      "RegionLayout_new.original.rs": "457626c0683427fb92a4066fd1e17ae151a37f75eb4a678d5d09ca590b8896ec",
+      "native_mutated.rs": "7cc34e3b10ee7e7429d18192ced3019e4ceef3671d9b89787acfa052b262c564",
+      "RegionLayout_usable_bytes.original.rs": "b9920549aea8a83229215bf6ea1fd25277e27b30e6e3fbd04734d7e9c11230cd",
+      "RegionLayout_num_pages.original.rs": "fc68fd1a6130a532f824fb3a8c0a4047d9377ec1ea139e97139d41f0646cf211",
+      "reversed.rs": "f7512fde3dfc1231fc9e81e1c18faa547fca6bafa24f25514330a425ae647d84"
+    },
+    "generated_artifacts": {
+      "libbyte_client.rlib": "a34015a2e4f17556d992db9ffb51b75090126086ccc3a9c47be6d192f04220e6",
+      "summary.vir": "3e2ca00ac72fb3e4e8d09b17dc03de61260e6767076c4b0988c38526245b2e31",
+      "native": "88f94fcfe6eb23fd298e56a0e9b0258f722a8f5c006c66cd94349b5f98b17175",
+      "proof.vir": "b4a9f515f33e1ae265d4129b1f8dbb34ee610ec8392241b7c9305f1cdd8eb7fd",
+      "byte_native": "3fb0daf4582343862775f98bf85e7cd97e8d2cabb376ba53e8112c530867cbba",
+      "byte_provider.vir": "9aef6d3e4b79849b29c2833078d55ade2eea543403673e974ec8201c5a1cb468",
+      "native_mutated": "b75ff86924bb7be3a0b36675a3657820f3e10cfe1d87af20dfa9c39090d0c58b",
+      "byte_client.vir": "6ef635cdf7d9d5055383be20a61ac3146936eb77f363ae3788d04dbc7b6be70f",
+      "libbyte_provider.rlib": "cbfb4bedf269a949c029f3179b527f18f9ba378ace44c5553c8c253fd743f052",
+      "model.vir": "489601a2340f0ddc31beee6d6d4f6b8f14960dde7f04ff88ed5298c00f2e5f70",
+      "policy.vir": "08a34b7101a4bad19b32b800dedcdf0d0944b803549d6b2eff24ffdd6d1edc45"
+    },
+    "controller_success_is_not_redb_verification": true,
+    "retained_prior_extension_runs": [
+      "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-nab5txft",
+      "/private/tmp/verus-redb-byte-extension-v4_rq8wp/run-jz_hpf_c"
+    ]
+  },
+  "evidence_files_excluding_manifest": {
+    "TRUST.md": "327a80f1cb75a960dabf6a7ab4158506d895ded6ca85bea1945d5df9aa188824",
+    "run.py": "9cbcb899a9ad0d096e55f0ed387f513b346156146b0e4d8a024d9d8e34abe8d8",
+    "README.md": "3cc0b7935ff788472c11024475d061ee7f2324afbec4b5729f804873c9654fe4"
+  },
+  "integration_overlap": [
+    "source/vir/src/infer.rs model import/registration and scalar model dispatch",
+    "source/vir/src/infer/registry.rs cache version",
+    "source/rust_verify/src/import_export.rs policy version",
+    "source/docs/guide/src/infer.md version paragraph; no records.rs changes"
+  ],
+  "committed": false,
+  "pull_request_created": false
+}

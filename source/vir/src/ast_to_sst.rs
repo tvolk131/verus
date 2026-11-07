@@ -4749,11 +4749,9 @@ fn exec_closure_body_stms(
 
     // Assert all the requires
 
-    let infer_callback = ctx
-        .fun
-        .as_ref()
-        .is_some_and(|f| f.current_fun_attrs.infer && f.current_fun_attrs.infer_owned)
-        && !state.checking_spec_preconditions(ctx);
+    let infer_callback = ctx.fun.as_ref().is_some_and(|function| {
+        crate::infer::checks_exact_callbacks(&ctx.func_map[&function.current_fun])
+    }) && !state.checking_spec_preconditions(ctx);
     let mut callback_pre = vec![];
     let mut precision_body = None;
     let mut stms = Vec::new();

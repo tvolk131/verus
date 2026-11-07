@@ -192,7 +192,7 @@ pub exec fn u32_to_le_bytes(x: u32) -> (s: alloc::vec::Vec<u8>)
 }
 
 // Conversion between u64 and little-endian byte sequences
-pub closed spec fn spec_u64_to_le_bytes(x: u64) -> Seq<u8> {
+pub open spec fn spec_u64_to_le_bytes(x: u64) -> Seq<u8> {
     #[verusfmt::skip]
     seq![
         (x & 0xff) as u8,
@@ -221,28 +221,12 @@ pub assume_specification[ u64::to_ne_bytes ](x: u64) -> (result: [u8; 8])
         result@ == spec_u64_to_ne_bytes(x),
 ;
 
-// `spec_u64_to_le_bytes_open` is equivalent to `spec_u64_to_le_bytes` but
-// marked open, specifically for callers that need to know the internal
-// details of little-endian encoding.  It's not recommended to use this
-// directly in specifications; instead, use `spec_u64_to_le_bytes` and,
-// in those cases that depend on the low-level details of the encoding,
-// use the `spec_u64_to_le_bytes_to_open` lemma (below) to show equality
-// to `spec_u64_to_le_bytes_open`.
+/// Compatibility alias for callers predating the open primitive byte model.
 pub open spec fn spec_u64_to_le_bytes_open(x: u64) -> Seq<u8> {
-    #[verusfmt::skip]
-    seq![
-        (x & 0xff) as u8,
-        ((x >> 8) & 0xff) as u8,
-        ((x >> 16) & 0xff) as u8,
-        ((x >> 24) & 0xff) as u8,
-        ((x >> 32) & 0xff) as u8,
-        ((x >> 40) & 0xff) as u8,
-        ((x >> 48) & 0xff) as u8,
-        ((x >> 56) & 0xff) as u8,
-    ]
+    spec_u64_to_le_bytes(x)
 }
 
-pub closed spec fn spec_u64_from_le_bytes(s: Seq<u8>) -> u64
+pub open spec fn spec_u64_from_le_bytes(s: Seq<u8>) -> u64
     recommends
         s.len() == 8,
 {
@@ -341,6 +325,18 @@ pub proof fn spec_u64_to_le_bytes_to_open(x: u64)
         spec_u64_to_le_bytes(x) == spec_u64_to_le_bytes_open(x),
 {
 }
+
+pub assume_specification[ u64::to_le_bytes ](value: u64) -> (result: [u8; 8])
+    ensures
+        result@ == spec_u64_to_le_bytes(value),
+    no_unwind
+;
+
+pub assume_specification[ u64::from_le_bytes ](bytes: [u8; 8]) -> (result: u64)
+    ensures
+        result == spec_u64_from_le_bytes(bytes@),
+    no_unwind
+;
 
 #[verifier::external_body]
 pub exec fn u64_from_le_bytes(s: &[u8]) -> (x: u64)

@@ -1239,7 +1239,7 @@ fn simplify_function(
 ) -> Result<Function, VirErr> {
     state.reset_for_function();
     let mut functionx = function.x.clone();
-    state.infer_callback = functionx.attrs.infer && functionx.attrs.infer_owned;
+    state.infer_callback = crate::infer::checks_exact_callbacks(function);
 
     if let Some(r) = functionx.returns.clone() {
         functionx.returns = None;

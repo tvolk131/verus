@@ -106,13 +106,23 @@ verus!{fn policy(h:u16,l:u16)->(r:u16)
         ("pack_overlap", source.replace("l<32", "l<64")),
         ("pack_truncation", source.replace("h<2048", "h<4096")),
     ] {
-        let e =
-            verify_one_file(label, bad, &["vstd", "--infer-goals", "--no-cheating"]).unwrap_err();
+        let e = verify_one_file(
+            label,
+            bad,
+            &["vstd", "--infer-goals", "--no-cheating", "--output-json"],
+        )
+        .unwrap_err();
         assert!(
-            e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")),
+            e.errors.iter().any(|diagnostic| {
+                diagnostic.message.contains("postcondition not satisfied")
+                    || diagnostic.message.contains("bitvector assertion not satisfied")
+            }),
             "{:?}",
             e
         );
+        let report = &e.json_output.as_ref().unwrap()["verus-infer"];
+        common::infer::assert_exact_report(report, 1);
+        assert_eq!(report["interface_written"], false);
     }
 }
 

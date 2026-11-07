@@ -446,10 +446,17 @@ pub(super) fn pure(e: &Expr) -> Result<(), VirErr> {
             | ExprX::Binary(_, _, _)
             | ExprX::Logical(_, _, _)
             | ExprX::Ctor(_, _, _, None)
+            | ExprX::ArrayLiteral(_)
             | ExprX::Closure(_, _)
             | ExprX::Quant(_, _, _)
             | ExprX::WithTriggers { .. }
             | ExprX::If(_, _, Some(_)) => true,
+            ExprX::BinaryOpr(BinaryOpr::ExtEq(false, typ), left, right) => {
+                matches!(&**typ, TypX::Primitive(Primitive::Array, _))
+                    && arrays::shape(typ).is_some()
+                    && crate::ast_util::types_equal(typ, &left.typ)
+                    && crate::ast_util::types_equal(typ, &right.typ)
+            }
             ExprX::Old(a) => matches!(&a.x, ExprX::Var(_)),
             ExprX::ReadPlace(p, _) => pure_place(p),
             ExprX::Call {
