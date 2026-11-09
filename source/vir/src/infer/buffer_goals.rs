@@ -129,7 +129,11 @@ struct Shape {
     payload: Expr,
     radix: Function,
 }
-fn shape(f: &Function, all: &HashMap<Fun, Function>) -> Option<Shape> {
+fn shape(
+    f: &Function,
+    all: &HashMap<Fun, Function>,
+    reason: &mut report::AssistanceSkip,
+) -> Option<Shape> {
     if f.x.mode != Mode::Exec
         || !ordinary(f)
         || f.x.attrs.bit_vector
@@ -148,6 +152,7 @@ fn shape(f: &Function, all: &HashMap<Fun, Function>) -> Option<Shape> {
     {
         return None;
     }
+    *reason = report::AssistanceSkip::SourceBudget;
     let body = f.x.body.as_ref()?;
     let mut budget = NODES;
     expr_visitor_walk(body, &mut |_| {
@@ -160,6 +165,7 @@ fn shape(f: &Function, all: &HashMap<Fun, Function>) -> Option<Shape> {
     if budget == 0 {
         return None;
     }
+    *reason = report::AssistanceSkip::ExpectedSingleNativeFor;
     let mut sources = Vec::new();
     expr_visitor_walk(body, &mut |e| {
         if let Some(s) = source(e) {
@@ -173,6 +179,7 @@ fn shape(f: &Function, all: &HashMap<Fun, Function>) -> Option<Shape> {
         return None;
     }
     let source = sources.pop()?;
+    *reason = report::AssistanceSkip::IteratorProofShape;
     let (iter, args) = call_name(&source.iterator)?;
     let iter = all.get(iter)?;
     // Match the resolved standard slice method, never spelling alone/custom iterators.
@@ -198,6 +205,7 @@ fn shape(f: &Function, all: &HashMap<Fun, Function>) -> Option<Shape> {
     if !matches!(&p.x, PlaceX::Local(v) if *v == f.x.params[1].x.name) {
         return None;
     }
+    *reason = report::AssistanceSkip::UnsupportedIndex;
     let mut writes = Vec::new();
     let mut breaks = 0;
     let mut forbidden = false;
@@ -304,6 +312,7 @@ fn shape(f: &Function, all: &HashMap<Fun, Function>) -> Option<Shape> {
         return None;
     }
     let ExprX::Loop { invs, .. } = &source.loop_expr.x else { return None };
+    *reason = report::AssistanceSkip::MissingFinalStateGoal;
     let mut radices = std::collections::BTreeSet::new();
     for inv in invs.iter() {
         expr_visitor_walk(&inv.inv, &mut |e| {
@@ -575,13 +584,31 @@ pub fn prepare(
     let all = crate::infer::pipeline::function_map(fs, imported);
     fs.iter()
         .map(|f| {
-            let Some(s) = shape(f, &all) else {
+            let decision = |outcome| report::AssistanceDecision {
+                function: f.x.name.clone(),
+                source: f.span.clone(),
+                profile: "mutable_buffer_u64_radix128",
+                outcome,
+            };
+            let mut reason = report::AssistanceSkip::TransportSignature;
+            let Some(s) = shape(f, &all, &mut reason) else {
+                if reason != report::AssistanceSkip::TransportSignature {
+                    report
+                        .assistance_decisions
+                        .push(decision(report::AssistanceOutcome::Skipped(reason)));
+                }
                 return Ok(f.clone());
             };
             let Some((initial, step)) = annotations(&s, &all) else {
+                report.assistance_decisions.push(decision(report::AssistanceOutcome::Error(
+                    "Missing checked arithmetic catalog for mutable-buffer proposal".into(),
+                )));
                 return Ok(f.clone());
             };
             let Some(extra) = invariants(&s, &all) else {
+                report.assistance_decisions.push(decision(report::AssistanceOutcome::Skipped(
+                    report::AssistanceSkip::MissingFinalStateGoal,
+                )));
                 return Ok(f.clone());
             };
             let body = f.x.body.as_ref().unwrap();
