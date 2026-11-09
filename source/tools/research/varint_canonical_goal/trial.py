@@ -22,6 +22,8 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--expect', choices=('success', 'failure', 'frontend'), required=True)
     p.add_argument('--goals', action='store_true')
+    p.add_argument('--exec-bodies', nargs='*', default=['u64'])
+    p.add_argument('--proof-bodies', nargs='*', default=['radix_positive', 'quotient_step', 'byte_step'])
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=True)
     out = Path(tempfile.mkdtemp(prefix=a.source.stem + '-', dir=a.output.resolve()))
@@ -58,7 +60,21 @@ def main():
         require_function_coverage(functions, set())
         require_exact(functions)
         validate_run(result, a.expect == 'success', allow_frontend=a.expect == 'frontend')
-        require(data['verification-results'].get('is-verifying-entire-crate'), 'partial scope')
+        v = data['verification-results']
+        if a.expect != 'frontend':
+            require(v.get('is-verifying-entire-crate') and not v.get('encountered-vir-error'), 'frontend or partial scope')
+            require(not __import__('re').search(r'error\[E[0-9]+\]', result['stderr']), 'Rust frontend failure')
+            if a.expect == 'failure':
+                require(v.get('errors', 0) > 0, 'failure without proof errors')
+        if a.expect == 'success':
+            scope = data['verus-infer']['verification_scope']
+            require(scope['complete_selected_scope_verified'], 'incomplete local scope')
+            for status, expected in [('checked_exec_body', set(a.exec_bodies)),
+                                     ('checked_proof_body', set(a.proof_bodies))]:
+                names = [r['function'].rsplit('::', 1)[-1] for r in scope['native_functions']
+                         if r['body_status'] == status]
+                require(len(names) == len(set(names)) and set(names) == expected,
+                        f'named ordinary body coverage mismatch: {status}: {names}')
         require(not any(flag in command for flag in ('--no-lifetime', '--no-verify',
             '--verify-function', '--verify-root', '--verify-only-module')), 'disabled checks')
         print(result['stderr'])
