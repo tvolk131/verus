@@ -4,13 +4,13 @@ use super::*;
 use records::{atom, coerce};
 pub(crate) mod array_callbacks;
 pub(crate) mod borrowed;
+mod byte_append;
 pub(in crate::infer) mod callbacks;
 pub(crate) mod error_callbacks;
 pub(crate) mod factory_callbacks;
 pub(in crate::infer) mod loops;
 mod models;
 mod mutations;
-mod byte_append;
 pub(in crate::infer) mod native_for;
 pub(crate) mod option_result;
 mod record_views;
@@ -394,8 +394,12 @@ impl Engine<'_> {
             })
             .collect::<Result<Vec<_>, VirErr>>()?;
         let target = if m == Model::SliceView {
-            let FunctionKind::TraitMethodImpl { method, impl_path, trait_typ_args, .. } = &f.x.kind else {
-                return Err(unsupported(s, "slice view requires the canonical trait implementation"));
+            let FunctionKind::TraitMethodImpl { method, impl_path, trait_typ_args, .. } = &f.x.kind
+            else {
+                return Err(unsupported(
+                    s,
+                    "slice view requires the canonical trait implementation",
+                ));
             };
             CallTarget::Fun(
                 CallTargetKind::DynamicResolved {
@@ -405,32 +409,33 @@ impl Engine<'_> {
                     is_trait_default: false,
                 },
                 method.clone(),
-                Arc::new(trait_typ_args.iter().map(|typ| crate::sst_util::subst_typ(&ts, typ)).collect()),
+                Arc::new(
+                    trait_typ_args.iter().map(|typ| crate::sst_util::subst_typ(&ts, typ)).collect(),
+                ),
                 Arc::new(vec![ImplPath::TraitImplPath(impl_path.clone())]),
-                CallTargetAttrs { autospec: AutospecUsage::Final, const_var: false, assume_external_allowed: false },
+                CallTargetAttrs {
+                    autospec: AutospecUsage::Final,
+                    const_var: false,
+                    assume_external_allowed: false,
+                },
             )
         } else {
             CallTarget::Fun(
-                    CallTargetKind::Static,
-                    f.x.name.clone(),
-                    Arc::new(types),
-                    Arc::new(vec![]),
-                    CallTargetAttrs {
-                        autospec: AutospecUsage::Final,
-                        const_var: false,
-                        assume_external_allowed: false,
-                    },
-                )
+                CallTargetKind::Static,
+                f.x.name.clone(),
+                Arc::new(types),
+                Arc::new(vec![]),
+                CallTargetAttrs {
+                    autospec: AutospecUsage::Final,
+                    const_var: false,
+                    assume_external_allowed: false,
+                },
+            )
         };
         atom(SpannedTyped::new(
             s,
             &crate::sst_util::subst_typ(&ts, &f.x.inner_ret.x.typ),
-            ExprX::Call {
-                target,
-                args: Arc::new(args),
-                post_args: None,
-                body: None,
-            },
+            ExprX::Call { target, args: Arc::new(args), post_args: None, body: None },
         ))
     }
     fn standard(
@@ -472,7 +477,12 @@ impl Engine<'_> {
             );
         }
         if byte_append::slice(&e.typ) {
-            return self.lib(&e.span, Model::SliceView, vec![Arc::new(TypX::Int(IntRange::U(8)))], vec![atom(e.clone())?]);
+            return self.lib(
+                &e.span,
+                Model::SliceView,
+                vec![Arc::new(TypX::Int(IntRange::U(8)))],
+                vec![atom(e.clone())?],
+            );
         }
         let view = sequence_views::find(base(&e.typ), self.all, self.ds).ok_or_else(|| {
             unsupported(&e.span, "owned private storage requires a certified direct view")
@@ -1496,8 +1506,12 @@ impl Engine<'_> {
             }
             if self.all.get(resolved).and_then(model) == Some(Model::SliceView) {
                 let value = self.formula(s, &args[0])?;
-                let CallTargetKind::DynamicResolved { typs, is_trait_default: false, .. } = kind else {
-                    return Err(unsupported(&e.span, "slice observation requires a resolved View implementation"));
+                let CallTargetKind::DynamicResolved { typs, is_trait_default: false, .. } = kind
+                else {
+                    return Err(unsupported(
+                        &e.span,
+                        "slice observation requires a resolved View implementation",
+                    ));
                 };
                 return self.lib(&e.span, Model::SliceView, (**typs).clone(), vec![value]);
             }

@@ -415,9 +415,7 @@ impl LocalShifts {
             | ExpX::UnaryOpr(
                 UnaryOpr::HasType(_) | UnaryOpr::IntegerTypeBound(_) | UnaryOpr::ProofNote(_),
                 operand,
-            ) => {
-                self.scan(operand, candidates, depth + 1)
-            }
+            ) => self.scan(operand, candidates, depth + 1),
             ExpX::Binary(operation, left, right) => {
                 if !self.scan(left, candidates, depth + 1)
                     || !self.scan(right, candidates, depth + 1)

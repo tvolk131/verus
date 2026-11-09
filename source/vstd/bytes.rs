@@ -211,8 +211,8 @@ pub proof fn lemma_u32_from_le_bytes_expansion(bytes: Seq<u8>)
     requires
         bytes.len() == 4,
     ensures
-        spec_u32_from_le_bytes(bytes) == (bytes[0] as u32) | ((bytes[1] as u32) << 8)
-            | ((bytes[2] as u32) << 16) | ((bytes[3] as u32) << 24),
+        spec_u32_from_le_bytes(bytes) == (bytes[0] as u32) | ((bytes[1] as u32) << 8) | ((
+        bytes[2] as u32) << 16) | ((bytes[3] as u32) << 24),
 {
 }
 

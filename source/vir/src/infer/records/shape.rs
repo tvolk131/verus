@@ -110,7 +110,8 @@ fn canonical_range(typ: &Typ, datatype: &Datatype) -> bool {
 fn byte_range_endpoint(typ: &Typ) -> bool {
     let byte = |typ: &Typ| matches!(&**typ, TypX::Int(IntRange::U(8)));
     if let Some(arguments) = collections::vec_args(typ) {
-        return byte(&arguments[0]) && matches!(&*arguments[1], TypX::Datatype(Dt::Path(path), types, impls)
+        return byte(&arguments[0])
+            && matches!(&*arguments[1], TypX::Datatype(Dt::Path(path), types, impls)
             if models::path_is(path, CrateId::Alloc, &["alloc", "Global"]) && types.is_empty() && impls.is_empty());
     }
     matches!(&**typ, TypX::Decorate(TypDecoration::Ref, None, inner)
