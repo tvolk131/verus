@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "resolved-frame-v1",
+  "source_sha256": "d92aa4b794288cbca073594c5786e50ca2943809fc0162484d5f49565257881e",
+  "extra_inputs": {},
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_success": false,
+  "expected_failure": "postcondition not satisfied",
+  "checking": "full ordinary, --no-cheating; lifetime and trait checks enabled"
+}

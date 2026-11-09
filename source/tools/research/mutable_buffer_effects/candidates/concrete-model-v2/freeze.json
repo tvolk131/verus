@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "concrete-model-v2",
+  "source_sha256": "70a803dc269f5e3d13cb2d7240fcf31860eea93a0b4dcc2d4f49e9de213f7fb2",
+  "extra_inputs": {},
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_success": true,
+  "expected_failure": null,
+  "checking": "full ordinary, --no-cheating; lifetime and trait checks enabled"
+}

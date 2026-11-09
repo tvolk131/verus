@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "baseline-xor-v1",
+  "source_sha256": "e0188f1a25553c119a3490cc8be533928d415e5ba184e62d51a1b7c325dc77d9",
+  "extra_inputs": {},
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_success": true,
+  "expected_failure": null,
+  "checking": "full ordinary, --no-cheating; lifetime and trait checks enabled"
+}

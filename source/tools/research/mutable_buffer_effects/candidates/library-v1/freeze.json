@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "authored_input": "checked generic observation/prefix laws, no application assumptions",
+  "files": {
+    "mutable_buffer.rs": "3a620b8ca01d94f21254528f98c3799f516548de99aed2b11c495bd01fd40834"
+  },
+  "frozen_before_trials": true
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "zip-resolution-v1",
+  "source_sha256": "26d4d9cbabb72434d157baa222f11a4ea749ee16f9f1ebb38c14312c78e61b18",
+  "extra_inputs": {},
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_success": false,
+  "expected_failure": "postcondition not satisfied",
+  "checking": "full ordinary, --no-cheating; lifetime and trait checks enabled"
+}
