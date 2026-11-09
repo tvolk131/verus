@@ -115,6 +115,29 @@ record dependencies on another worker rather than duplicating their module.
 Do not spend a long run blocked on a sibling: report the minimal missing
 interface/repro and complete independent work. No subdelegation or push/PR.
 
+Completed baseline workers may be followed by focused isolated implementation
+lanes while the parent keeps integration ownership:
+
+- `source/tools/research/native_iterator_refinement/`: investigate checked
+  correspondence for the actual native resolution bridge. The existing concrete
+  model theorem and the unproved native theorem remain distinct.
+- `source/vir/src/infer/native_mutable_for.rs`,
+  `source/vir/src/infer/buffer_observation_goals.rs`,
+  `infer_buffer_observation_goals.rs` and
+  `source/tools/research/buffer_observation_goal/`: develop reusable checked
+  iterator observations, lengths and generated view snapshots for plain and
+  zipped mutable iteration. Do not edit the numeric worker's `buffer_goals.rs`;
+  provide a small shared interface and separate registration hooks for parent
+  reconciliation. This lane cannot assume or silently synthesize the missing
+  unused-tail frame. A prefix-only diagnostic is not full transfer acceptance.
+
+All generated IDs must be fresh relative to original code and preceding passes.
+Each decorator needs an independent full-function projection check restoring
+exactly its own additions, with mutation and insertion-count controls. Existing
+compiler-generated resolution nodes, original invariants and termination data
+must remain intact. Shared automation acceptance requires actual checked proof
+steps on both full goals, not parser reuse or unrelated successful probes.
+
 ## Build, evidence and inherited boundaries
 
 The accepted engine uses Rust 1.99.1, Z3 4.16.0, metadata schema 38, policy 67
