@@ -73,6 +73,14 @@ that simply calls both inner next functions is not the exact selected native
 implementation. Source inspection identifies obligations; it does not discharge
 them or prove correspondence.
 
+The current `zip_iter_fst`/`zip_iter_snd` observations also cannot simply be
+identified with unchanged physical fields throughout specialized iteration.
+The immutable inner Iter's pointer stays fixed while Zip's logical remaining
+sequence shrinks. A correspondence must interpret those accessors using the
+Zip index (or an equivalent logical ownership state), with constructor
+identity and checked evolution. Structural projection to raw native fields
+alone is therefore insufficient even if private-field access were supported.
+
 Native IterMut at `slice/iter.rs:192` holds `NonNull<T>`, a pointer/length,
 and `PhantomData<&mut T>`, not the owned slice field of the checked safe example.
 All fields of native Zip are private (`iter/adapters/zip.rs:13`). Merely letting
@@ -177,3 +185,10 @@ receipts, including under Python -O. The initial freeze-script import generated
 two local Python cache files outside this workstream; those generated files
 were removed and both controllers now disable bytecode generation. No final
 file outside the owned research directory changed.
+
+The final ordinary and goals replays match all five frozen cases (10 accepted
+outcomes total). A separate wrong-solver-path control rejects the artifact
+identity before launching any compiler command and persists its failure
+receipt; it is an artifact/setup control, not semantic evidence. Original
+parent artifacts and the private copies were rehashed after both replays and
+remain identical to the recorded accepted bundle.
