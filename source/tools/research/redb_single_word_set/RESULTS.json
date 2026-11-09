@@ -1,0 +1,314 @@
+{
+  "status": "original_body_authored_invariant_proved",
+  "unaided_baseline": "blocked_at_authored_postconditions",
+  "baseline_freeze_commit": "72898742",
+  "target_freeze_commit": "6a8f807b",
+  "engine_code_base": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "engine_code_unchanged_from_base": true,
+  "engine_source_inventory": {
+    "files": 735,
+    "sha256": "b2313e9b7444dc9993039faa41cbaa87186463416704830686b8ca961664be27"
+  },
+  "application": {
+    "application": "https://github.com/cberner/redb",
+    "pin": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "status": "",
+    "source_path": "src/tree_store/page_store/bitmap.rs",
+    "source_sha256": "d57724dcbc9701e8fb7a2e268febba1fbe2ff2a00e14e000c27a703afe3af9ff",
+    "items": {
+      "struct": {
+        "sha256": "0c87301dce18a42505a105c8bfcf676c6882403c37b7f6738a5bfe0294690105",
+        "line": 232
+      },
+      "data_index_of": {
+        "sha256": "45395cb73a6c7f5252ca1552a4159ea5367fdb40694a06fcf5a982c71896be1d",
+        "line": 299
+      },
+      "select_mask": {
+        "sha256": "1bdfc2ea01eec85ab14fce238c30a7cea534c06f7593a75917a7870b1c184d3a",
+        "line": 303
+      },
+      "get": {
+        "sha256": "277a149cb920efe8f82ba1c28e25073843571c7464dbfd2560216fb755ff2b93",
+        "line": 365
+      },
+      "set": {
+        "sha256": "ae5e8143d3763f71a0440150370a8e578998db6ae884fd0743ce039624ab2d6a",
+        "line": 373
+      }
+    }
+  },
+  "final_receipt": {
+    "path": "/tmp/redb-stateful-research-20261109/single-word-set-37u9m8gf/receipt.json",
+    "sha256": "7d8c6b72dc6f551c0b47fb90328b847b81a699e9c4b05ab2ea8d9a55cef9a05e"
+  },
+  "runs": [
+    {
+      "label": "rustc_version",
+      "returncode": 0,
+      "stdout_sha256": "f22d5e4e9ced367e774ce5bc140d9e6b1235c1882fec80d011044851f3ae6369",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "baseline",
+      "returncode": 1,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "fixture_sha256": "971e33f043379402003b9218b7870ea737adb10dbad09a0ab8da0a6c321b1e34",
+      "stdout_sha256": "7903d53e9bbfc5875178977948cc72a5953758a7f83a02be3abfd38439b59110",
+      "stderr_sha256": "42eceb9ecda082840074ef62b8b0bfa97b15b25bfcfb0e9dd2e6210c06757982"
+    },
+    {
+      "label": "assisted",
+      "returncode": 0,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 8,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "fixture_sha256": "edca78c097217a7bb3f02f88404f370c2cb873c103add8632d681435847a7a75",
+      "stdout_sha256": "9406cbb813f7340452868ead0cc08497f00020e110a3f7c79ab17634f4094149",
+      "stderr_sha256": "06a9595c0fff5ac0dd33051333eec2a6a86c14594cfbfec3c83ada5755aedd6b"
+    },
+    {
+      "label": "semantic_return_mutant",
+      "returncode": 1,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 7,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "fixture_sha256": "1ef6578de2e213a0101284eca39e360fbb0b6e35b883879258798a7a4a52395e",
+      "stdout_sha256": "7a4d569ed419518eb4c406f52ae1f0ec3d524b8ce34ae62f7d83977ef63b8f09",
+      "stderr_sha256": "be05330a50433b5e0628b179ea55d9a05830b6574be4ca2123853a15e1fa7780"
+    },
+    {
+      "label": "unrelated_positive",
+      "returncode": 0,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 6,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "fixture_sha256": "861489fc31755cbd6da07519bbd5d177c5893537572b7de5e3c4d1bc17404bef",
+      "stdout_sha256": "cdf5ee34416bc79e24be3d057431b6959bb3e1ffdbbf71cb564983a909a698b9",
+      "stderr_sha256": "06a9595c0fff5ac0dd33051333eec2a6a86c14594cfbfec3c83ada5755aedd6b"
+    },
+    {
+      "label": "unrelated_negative",
+      "returncode": 1,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 4,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "fixture_sha256": "beaa586f598083f37aca5f78e5752bc7724b42c5e8e136ccb48ffcb726182bf8",
+      "stdout_sha256": "a961b62abf9f2575d94275eb4f9293bd6530aca6e724432a2368bf6ed818a717",
+      "stderr_sha256": "afe45230b9b7c79d1b57b40d1f9b3dc74117c75343784c41dfc23cd270abf9db"
+    },
+    {
+      "label": "original_debug_compile",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "original_debug_run",
+      "returncode": 0,
+      "stdout_sha256": "bbf70d8f2ca59df24818599d156cc8c6b4d1c3d03df3fa9d1a8f94c919c78adb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "erased_debug_compile",
+      "returncode": 0,
+      "stdout_sha256": "dd7509bc0ac9ff84e95879625b1a17c7d40dfe5edc4f7507088ca2bf1b7f3da3",
+      "stderr_sha256": "06a9595c0fff5ac0dd33051333eec2a6a86c14594cfbfec3c83ada5755aedd6b"
+    },
+    {
+      "label": "erased_debug_run",
+      "returncode": 0,
+      "stdout_sha256": "bbf70d8f2ca59df24818599d156cc8c6b4d1c3d03df3fa9d1a8f94c919c78adb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "original_release_compile",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "original_release_run",
+      "returncode": 0,
+      "stdout_sha256": "bbf70d8f2ca59df24818599d156cc8c6b4d1c3d03df3fa9d1a8f94c919c78adb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "erased_release_compile",
+      "returncode": 0,
+      "stdout_sha256": "dd7509bc0ac9ff84e95879625b1a17c7d40dfe5edc4f7507088ca2bf1b7f3da3",
+      "stderr_sha256": "06a9595c0fff5ac0dd33051333eec2a6a86c14594cfbfec3c83ada5755aedd6b"
+    },
+    {
+      "label": "erased_release_run",
+      "returncode": 0,
+      "stdout_sha256": "bbf70d8f2ca59df24818599d156cc8c6b4d1c3d03df3fa9d1a8f94c919c78adb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "native_supporting_only": {
+    "cases_per_executable": 149760,
+    "profiles": [
+      "debug",
+      "release"
+    ],
+    "implementations": [
+      "original",
+      "verus_erased"
+    ],
+    "stdout": "cases=149760 fingerprint=f1599ba3316b42b9\n"
+  },
+  "tool_hashes": {
+    "source/z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+    "source/target-verus/release/verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "source/target-verus/release/rust_verify": "37f8248ffa8b755917b9084b91dfda3c35f4a5a69f9e0f00a297b72a084d79b0",
+    "source/target-verus/release/vstd.vir": "237b1e3a6070da536a5d211c6ce4b15696b2b255c1a79299f29f12e2b786928b",
+    "source/target-verus/release/libvstd.rlib": "a6af8c12717d534c948f26b042c22f6500993a7873c529c1ed07b73fcb379f15",
+    "source/target-verus/release/libverus_builtin.rlib": "0a0ed2e4cb9a6629744b79a09d55a174c5e4d801f74a79a8a3a70c381ed4d36b",
+    "source/target-verus/release/libverus_builtin_macros.so": "d15f1a9167bd4954511779aedcc658fa584b1977d23496f47801efc81155f29c",
+    "source/target-verus/release/libverus_state_machines_macros.so": "71489a12b01b1505978db776e4939a0dc41576145c1be5f8433070dc182b130a"
+  },
+  "source_hashes": {
+    "source/tools/research/redb_single_word_set/native_harness.rs": "841e1265b1d3819927405c0d4648968fdd36e8afcf9eb7b70bb345dc667743da",
+    "source/tools/research/redb_single_word_set/unrelated_positive.rs": "861489fc31755cbd6da07519bbd5d177c5893537572b7de5e3c4d1bc17404bef",
+    "source/tools/research/redb_single_word_set/word_laws.rs": "62f6b681704cda5c34589f4a43fb2a78c3aaae28ebcadee2e468550b5c805409",
+    "source/tools/research/redb_single_word_set/baseline.rs": "971e33f043379402003b9218b7870ea737adb10dbad09a0ab8da0a6c321b1e34",
+    "source/tools/research/redb_single_word_set/assisted.rs": "edca78c097217a7bb3f02f88404f370c2cb873c103add8632d681435847a7a75",
+    "source/tools/research/redb_single_word_set/CONTRACT.md": "7c45aed58f07ce09814c702b4454487064aa4a4094b91ac352f5aff3a426ff7f",
+    "source/tools/research/redb_single_word_set/test_replay.py": "ef61f5004ca7b14d5deaeb75125d778479fcfb2a3eba2ab8667a5efddb3bf4fa",
+    "source/tools/research/redb_single_word_set/freeze.json": "ed83ea64188c181979c331c92d88afde999bf8c95c0bce40a2a888b5d3af00e7",
+    "source/tools/research/redb_single_word_set/replay.py": "c8d0cbfcd1380b31036c3e1c7930541e232224fb53f05468a2d45759009e1230",
+    "source/tools/research/redb_single_word_set/unrelated_negative.rs": "beaa586f598083f37aca5f78e5752bc7724b42c5e8e136ccb48ffcb726182bf8",
+    "source/tools/research/redb_single_word_set/original/data_index_of.rs": "45395cb73a6c7f5252ca1552a4159ea5367fdb40694a06fcf5a982c71896be1d",
+    "source/tools/research/redb_single_word_set/original/set.rs": "ae5e8143d3763f71a0440150370a8e578998db6ae884fd0743ce039624ab2d6a",
+    "source/tools/research/redb_single_word_set/original/struct.rs": "0c87301dce18a42505a105c8bfcf676c6882403c37b7f6738a5bfe0294690105",
+    "source/tools/research/redb_single_word_set/original/get.rs": "277a149cb920efe8f82ba1c28e25073843571c7464dbfd2560216fb755ff2b93",
+    "source/tools/research/redb_single_word_set/original/select_mask.rs": "1bdfc2ea01eec85ab14fce238c30a7cea534c06f7593a75917a7870b1c184d3a"
+  },
+  "builds": [
+    {
+      "command": "PATH=/home/dev/.cargo/bin:$PATH CARGO_BUILD_JOBS=2 cargo build --release -p rust_verify -p verus -p cargo-verus",
+      "cwd": "source",
+      "log": "/tmp/redb-stateful-research-20261109/build.log",
+      "sha256": "49a6d9dd9c433a612d3ab4899d5b21be7c68e74f978eaa05fc78166dfe03ac44",
+      "result": "finished release in 11m 37s"
+    },
+    {
+      "command": "PATH=/home/dev/.cargo/bin:$PATH CARGO_BUILD_JOBS=2 ./target-verus/release/cargo-verus build --release --manifest-path vstd/Cargo.toml",
+      "cwd": "source",
+      "log": "/tmp/redb-stateful-research-20261109/vstd.log",
+      "sha256": "54e2d30629a55d0b0537183779841bf86333182a4acd13c46edc906d8b4a4b9c",
+      "result": "2221 verified; 0 errors; finished release in 1m 55s"
+    }
+  ],
+  "trials": [
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-qrmgbvfn/receipt.json",
+      "sha256": "3f8c249c2e82a65ad346f68d6fb3ac4da4f99a891764c325535f037ee2816553",
+      "application_proof_proved": false,
+      "completed_expected_checks": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "baseline: frontend error"
+      }
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-jttc6vnb/receipt.json",
+      "sha256": "470d0e0ef32eeff67d122816f80d76d6fc6014832bb3f46806780d078b0cf712",
+      "application_proof_proved": false,
+      "completed_expected_checks": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "baseline: frontend error"
+      }
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-s1i60urh/receipt.json",
+      "sha256": "c4ad241b905209ea4a412c92fe3f459403004760685fbcb7bf8272e75e659363",
+      "application_proof_proved": false,
+      "completed_expected_checks": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "baseline: frontend error"
+      }
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-y_lvgvee/receipt.json",
+      "sha256": "d54e0cb8855e24c9b02d48fe78bb67eb3297e5c392fee952c4a277dfa8bba068",
+      "application_proof_proved": false,
+      "completed_expected_checks": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "baseline: frontend error"
+      }
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-4_qqyg_6/receipt.json",
+      "sha256": "59674ed71eabab04fb34022363642b565bc7c98efcd2ed5acb2eb86482229fb3",
+      "application_proof_proved": false,
+      "completed_expected_checks": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "assisted: frontend error"
+      }
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-bq5zbf99/receipt.json",
+      "sha256": "4a7c8834ed5fb82b8228a595118f3d8a5f3854a6ac37ea20075cda6029877019",
+      "application_proof_proved": false,
+      "completed_expected_checks": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "assisted: unexpected proof result"
+      }
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-l3yc0n_y/receipt.json",
+      "sha256": "65547e2c48929d0ad54d872faf2f32803f63642990ffb8b2baf6ee3bdc69627d",
+      "application_proof_proved": true,
+      "completed_expected_checks": true,
+      "failure": null
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-_4bb893p/receipt.json",
+      "sha256": "2a68b925b87524523b8ddd2c94a37e097034dcd4ab3fc86f17d3cb5573359402",
+      "application_proof_proved": true,
+      "completed_expected_checks": true,
+      "failure": null
+    },
+    {
+      "receipt": "/tmp/redb-stateful-research-20261109/single-word-set-37u9m8gf/receipt.json",
+      "sha256": "7d8c6b72dc6f551c0b47fb90328b847b81a699e9c4b05ab2ea8d9a55cef9a05e",
+      "application_proof_proved": true,
+      "completed_expected_checks": true,
+      "failure": null
+    }
+  ]
+}
