@@ -57,17 +57,19 @@ gets past macro syntax using the existing adapter. Exact inference stops at
 `iter_mut`; authored annotations prove full-domain safety/length but not the
 canonical byte property. The [single-word redb transition](source/tools/research/redb_single_word_set/REPORT.md)
 proves an authored membership/count/padding invariant with explicit generic
-word-law assistance; unaided goal assistance still fails its semantic goals.
+word-law assistance; the frozen literal baseline still fails its semantic goals.
 The merged [word-view extension](source/tools/research/word_goal_automation/REPORT.md)
 removes local snapshots/proof blocks/theorem calls when equivalent generic
 representation symbols are supplied, and transfers to permission/count goals.
 The literal old definitions and arbitrary forwarding wrappers remain blockers.
 Combined parent replays and an [independent review](evidence/combined-db26-review/README.md)
-pass after correcting one diagnostic assertion. These are separate results,
-not a relabeling of the frozen baselines. A bounded scalar-tuple follow-on is
-still in progress and is outside that review.
+pass after correcting one diagnostic assertion. These results preserve the
+frozen baselines. The later [scalar-pair extension](source/tools/research/scalar_tuple_output/REPORT.md)
+infers both original bitmap helpers and passes a
+[separate review](evidence/pair-0c00-review/README.md). Its two replay coverage
+and classification findings are corrected and checked by fresh parent replays.
 
-## Active sequence
+## Completed five-step cycle
 
 1. **Completed: validate the integrated transfer work.** Review the production delta and
    trust inventories, build matching compiler/macros/vstd, and replay pinned
@@ -83,20 +85,23 @@ still in progress and is outside that review.
    proof annotations, assumptions and the actual first blocker. The fresh varint
    canonical goal remains blocked; its partial length theorem does not replace
    the required property or qualify as automatic transfer acceptance.
-4. **In progress: remove evidenced mechanical work and demonstrate transfer.** Select one
+4. **Completed: remove evidenced mechanical work and demonstrate transfer.** Select one
    bounded reusable extension from those baselines. Retain original application
    goals/domains, add unrelated positive and negative cases, and replay both the
    motivating and transfer properties. A smaller manual-proof inventory is the
    objective; exact synthesis for every function is not required.
-5. **Authored and bounded automated proofs available: repeat for a stateful property.** Supply a meaningful abstraction/invariant
+5. **Completed for the frozen single-word domain: repeat for a stateful property.** Supply a meaningful abstraction/invariant
    over a small original transition closure, freeze it before proof attempts,
    and measure generated versus authored frames, bounds and induction work.
    A toy replacement implementation or a silently restricted domain does not
    establish the selected application's property.
 
-The current combined checkpoint passes the four standard transfers, the
-generic-word stateful reduction and the full native request transfer. Final
-branch-wide regressions and the separate tuple experiment remain in progress.
+The final combined checkpoint passes the complete Infer regression suite, the
+four standard transfers, the generic-word stateful reduction with both helpers
+inferred, and the full native request transfer. The
+[acceptance record](evidence/infer-cycle-20261109/README.md) binds the matching
+runtime, receipts, authored inputs and remaining limits. Canonical varint
+encoding remains blocked and is explicitly outside accepted application proofs.
 
 Independent worktrees may evaluate the encoder and stateful properties in
 parallel against a fixed engine. Keep their baselines and evidence separate;
@@ -118,12 +123,14 @@ candidates retain all three required checks, cached candidates receive fresh
 proofs, and failed or incomplete required checks prevent publication. Changes
 to trusted library models need an explicit account of the additional assumptions.
 
-## Follow-on candidates
+## Follow-on priorities
 
-Ordinary-proof-first bounded retries, a convenient expected-input-domain goal,
-and shared proof-assistance utilities are candidates for the next decision.
-Backward/mixed hex iteration and fixed-array decoding are bounded application
-extensions. Richer abstractions and loop families remain research directions.
+Mutable-iterator/fixed-buffer effects and written-prefix invariants are the
+strongest next coverage target, measured against the unchanged canonical varint
+goal. Representation-wrapper bridges, multiword stateful collection frames and
+larger proof closures including real application callsites follow. Ordinary-proof-first
+bounded retries and an expected-input-domain goal can improve adoption; backward/mixed
+hex iteration and fixed-array decoding remain bounded application extensions.
 
 Formal verification of the production acceptance component is a separately
 scoped assurance project; see the

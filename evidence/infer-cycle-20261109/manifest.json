@@ -1,0 +1,379 @@
+{
+  "schema": 1,
+  "milestones_complete": true,
+  "date_utc": "2026-11-09",
+  "scope": "bounded checked Infer profiles and frozen extracted application proof closures",
+  "source": {
+    "runtime_commit": "0c00b6ecd10eedf9b6e797e3b95edac66e568a6a",
+    "validation_harness_commit": "04f53748ac0cd4fcfbc3fdd21db7581e59a1f0f4",
+    "rust_and_build_inputs_unchanged_since_runtime_commit": true
+  },
+  "versions": {
+    "schema": 38,
+    "policy": 67,
+    "candidate_cache": 70,
+    "rust_toolchain": "1.99.1",
+    "solver": "Z3 4.16.0"
+  },
+  "runtime_version": "Verus\n  Version: 0.2026.11.09.0c00b6e\n  Profile: release\n  Platform: linux_x86_64\n  Toolchain: 1.99.1-x86_64-unknown-linux-gnu (overridden by environment variable RUSTUP_TOOLCHAIN)",
+  "artifacts": [
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/verus",
+      "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/rust_verify",
+      "sha256": "6c247dde09a5af974e19206268c45175ce72d0e9768cc65c1d28c70fcc83db0d"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/vstd.vir",
+      "sha256": "ef80472659fea445989e6e92b8aa4085f0fadd53d4c84b13967598cdf42aa555"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/libvstd.rlib",
+      "sha256": "e55c6eb7d733e60e1fdff746abf315a34e34450143fc886bd585e4dd55ae4281"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/libverus_builtin.rlib",
+      "sha256": "91fa10aa74d8f5c97b9222565ee0a587622624ae5353fd9f52a26ad3253122ee"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/libverus_builtin_macros.so",
+      "sha256": "0ed00558c4433349941718b8015138f140ce52200e9811b2fdcc1d42647d753e"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/target-verus/release/libverus_state_machines_macros.so",
+      "sha256": "270a5f809f12b2bcf1a0e05565ed230325d128983e6b7033b33d0feba9cb5fdc"
+    },
+    {
+      "path": "/home/dev/projects/verus/source/z3",
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    }
+  ],
+  "validation": {
+    "infer_test_binaries": [
+      "infer",
+      "infer_binary",
+      "infer_byte_apis",
+      "infer_clone",
+      "infer_codec_values",
+      "infer_collections",
+      "infer_compare_derive",
+      "infer_counting",
+      "infer_error_values",
+      "infer_foreign_opaque",
+      "infer_goals",
+      "infer_growth",
+      "infer_integer_conversions",
+      "infer_literal_panic_range",
+      "infer_native_option",
+      "infer_newtypes",
+      "infer_owned",
+      "infer_range",
+      "infer_record_returns",
+      "infer_record_shifts",
+      "infer_records",
+      "infer_relational_goals",
+      "infer_scalar_pairs",
+      "infer_selection",
+      "infer_traits",
+      "infer_transfer_composition",
+      "infer_traversals",
+      "infer_word_goals",
+      "infer_wrapper_traits",
+      "infer_wrappers"
+    ],
+    "infer_tests_passed": 590,
+    "vir_tests_passed": 140,
+    "vstd_verified": 2226,
+    "vstd_errors": 0,
+    "python_general_passed": 138,
+    "python_shared_optimized_passed": 8,
+    "python_transfers_optimized_passed": 12,
+    "research_guard_executions": 62,
+    "pair_expected_outcomes": 48,
+    "independent_pair_audit_outcomes": 48,
+    "word_expected_outcomes": 18,
+    "full_request_expected_outcomes": 9,
+    "standard_transfers": [
+      "fedimint",
+      "redb",
+      "redb_page_size",
+      "redb_address_range"
+    ],
+    "varint_expected_outcomes": 66
+  },
+  "stateful_two_helper_proof": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 20,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "full_request_proofs": [
+    {
+      "name": "bare",
+      "phase": "frontend",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "name": "translated",
+      "phase": "frontend",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "full",
+      "phase": "cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 10,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "full",
+      "phase": "warm",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 10,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "wrong_type",
+      "phase": "identity",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "name": "regression",
+      "phase": "semantic",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 9,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "false_goal",
+      "phase": "semantic",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 9,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "consumer",
+      "phase": "cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "name": "consumer",
+      "phase": "warm",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    }
+  ],
+  "native_supporting_evidence": {
+    "fedimint_comparisons": 8448,
+    "pair_host_64bit_cases": 65538,
+    "varint_debug_release_all_commands_exit_zero": true,
+    "finite_tests_are_not_formal_proof": true
+  },
+  "varint": {
+    "canonical_status": "blocked",
+    "canonical_proved": false,
+    "partial_property": "Every u64 and initialized exclusive arbitrary [u8;10]: returned length 1..=10, original safety/debug assertions; authored invariants and bit-vector lemma required.",
+    "legacy_ordinary_failed_exports": 8,
+    "legacy_ordinary_import_behavior_tested": false
+  },
+  "entrypoint_documentation": {
+    "VERUS_INFER.md": {
+      "historical_lines": 1876,
+      "current_lines": 93
+    },
+    "VERUS_INFER_ASSURANCE.md": {
+      "historical_lines": 2508,
+      "current_lines": 163
+    },
+    "VERUS_INFER_DIRECTION.md": {
+      "historical_lines": 89,
+      "current_lines": 139
+    }
+  },
+  "raw_receipts": {
+    "pairs": {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/pairs/scalar-pairs-a895lcql/receipt.json",
+      "sha256": "cb2bf72d6aa63f43b34c623b4b6777710fe4ccdb5e6ccc5af14c5c0196e544bd"
+    },
+    "word": {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/word/word-goals-nqfleagz/receipt.json",
+      "sha256": "82ca901396965e82477ede879b984e490b534156c4517f38f8a99f6ed8692e6c"
+    },
+    "fedimint_full": {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/fedimint-full/full-request-s9mq14rt/receipt.json",
+      "sha256": "53f4bdf3f118132293c3214ad204c4bf709e0f536f90d714ac217eae2a33698a"
+    },
+    "standard_transfers": {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/transfers/transfer-suite-oc0p4ppu/receipt.json",
+      "sha256": "ba5c1a5aaff13a8e2f7b47242e83cccbb6449c70d625b7d7d4a2418f69753855"
+    },
+    "varint": {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/varint/varint-m1bo2phz/receipt.json",
+      "sha256": "a725d2135ff01a088340f7952d3a0efa66ab4939ecbabd1fb92412704f837ff8"
+    }
+  },
+  "logs_and_checked_results": [
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-build.log",
+      "sha256": "64597fd6c86d8a68af58cc1c913e41f4c2d8c95e2cc402e52595a7a9c14a6b9f"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-vstd.log",
+      "sha256": "9774014dbf6c95c1d8992f29f5c0c1b88c34d7c973a855a53a579cdba3c5a8a0"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-vir.log",
+      "sha256": "95044eb7ca10bad49b8e4ed91e7c0dd849b3819c60591979d8e445b423a17598"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/all-infer-final67.log",
+      "sha256": "ca0d19b1adeaaf20fe721f704bff717177b81817c55dfab81a0407bf6d5f2cdf"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-python.log",
+      "sha256": "0d841c44107a3f447917acc5a4ad04ded793ce0efbec9df381fa22c81f0f9ade"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-python-experiment-optimized.log",
+      "sha256": "174c76a4372a12c5f19152d62970dce296a6319a91296381c7b5dfbae978d551"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-python-transfers-optimized.log",
+      "sha256": "bc1eb76ff74c7e2c9c41fb1c7ab8f433c608f3392c2b7be29d8dfcc00acc7a28"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-guard-tests.log",
+      "sha256": "25ed48a6f261dc911047ba1662487d52662f68054f9723862cae27b44996181c"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-guard-tests.json",
+      "sha256": "6cb79a68ce6ac47ef2fe27371691abc0e8d1cc66c2099d009aedd131abb6e0c9"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-fmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-fmt-vstd.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-pairs-replay.log",
+      "sha256": "22ef678c525655d0abae723e0bd34d5b9aaab395b2585aa564dea19cf8e513d7"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-pairs-independent-audit.json",
+      "sha256": "4ae9b227a50c1f4c52fcaf7f56233e4fce6048bc557b6f0086c4e3b94f12159a"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-word-replay.log",
+      "sha256": "5d26190b1c3b307cdb100ec768c3f8d7c87f1cd61a3099336e839e970d48a17e"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-fedimint-full-replay.log",
+      "sha256": "9b18942fd549f102c3595a535efc856227f3a26b060d9a39a85028a6422df144"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-transfers-replay.log",
+      "sha256": "b2418757330a88da032a179b94df3d423c29bd11f6ff0acde06476738bfd849c"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-varint-replay.log",
+      "sha256": "5f109d5de2f17990e838a6c65f1d38a380226040070f31dab1311eb061910295"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-varint-validation.log",
+      "sha256": "cad3c5e8ad2561bdb28d2ac89566a4580a1b9303a4412ff2418f19451b03fbb7"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/varint-results.json",
+      "sha256": "42d6db74e0ed2d9f8d67e85b87fb1ffe672865cbed43e1d494d8b15e0b362b43"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/native-pair.stdout",
+      "sha256": "ed4df9ee8044c57ef0bcc3759f803516c97cf597b9f617801a4d3c1ce429e9ca"
+    }
+  ],
+  "independent_review_commits": [
+    "d5995630b68ce566f87340d0b58941d85efa88ac",
+    "c381610bc5d8b1543293a0346cb3a1ee93458fd9",
+    "2336f4056710f69fa783ad187e3a993c95cfe852",
+    "fefc9a046c7348f6a1f3ea71623074a143187e40"
+  ],
+  "finding_fixes": [
+    "2c9f016b: diagnostic assertion expectation",
+    "81b3add2: explicit helper coverage and isolated semantic failures",
+    "04f53748: serialized poison status not_proved and required flags"
+  ],
+  "excluded_attempts": [
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/transfers-combined66-replays/transfer-suite-jpljmz5v/receipt.json",
+      "reason": "missing Rust bin directory on parent PATH; subsequent complete rerun passed"
+    },
+    {
+      "path": "/tmp/verus-infer-cycle-20261109/final67-replays/pairs/scalar-pairs-3u8t3iz5/receipt.json",
+      "reason": "strict harness expected failed instead of serialized not_proved; engine correctly rejected poisoned candidate; subsequent full replay and independent audit passed"
+    }
+  ],
+  "not_claimed": [
+    "canonical varint encoding",
+    "multiword bitmap/database invariants",
+    "funding/settlement/cryptographic correctness",
+    "full application callsite wiring",
+    "whole-protocol or arbitrary Rust verification"
+  ],
+  "pushed": false,
+  "pull_request_created": false
+}

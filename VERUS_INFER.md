@@ -66,8 +66,11 @@ are supplied. The [full-request Fedimint transfer](evidence/transfer-fedimint-fu
 retains all seven fields, including the real SHA-256 type through an explicit
 opaque declaration. Both passed combined parent replays and
 [independent review](evidence/combined-db26-review/README.md); the review's sole
-diagnostic assertion finding is corrected. Tuple inference is a separate pending
-follow-on and is outside those reviewed results.
+diagnostic assertion finding is corrected. Exact scalar-pair inference then
+removed both original bitmap helper contracts and passed a
+[separate review](evidence/pair-0c00-review/README.md), with its harness findings
+corrected. The [five-milestone acceptance record](evidence/infer-cycle-20261109/README.md)
+collects final parent validation, remaining authored work and blockers.
 
 Each record retains its own source pin, domain, authored inputs, assumptions,
 validation and exclusions. These are not whole-protocol, whole-gateway or
