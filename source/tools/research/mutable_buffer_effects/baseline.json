@@ -1,0 +1,126 @@
+{
+  "runtime": {
+    "accepted_runtime": "0c00b6ec",
+    "policy": 67,
+    "cache": 70,
+    "schema": 38,
+    "artifacts": {
+      "verus": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/verus",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/verus",
+        "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147"
+      },
+      "rust_verify": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/rust_verify",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/rust_verify",
+        "sha256": "6c247dde09a5af974e19206268c45175ce72d0e9768cc65c1d28c70fcc83db0d"
+      },
+      "vstd.vir": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/vstd.vir",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/vstd.vir",
+        "sha256": "ef80472659fea445989e6e92b8aa4085f0fadd53d4c84b13967598cdf42aa555"
+      },
+      "libvstd.rlib": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libvstd.rlib",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/libvstd.rlib",
+        "sha256": "e55c6eb7d733e60e1fdff746abf315a34e34450143fc886bd585e4dd55ae4281"
+      },
+      "libverus_builtin.rlib": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libverus_builtin.rlib",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/libverus_builtin.rlib",
+        "sha256": "91fa10aa74d8f5c97b9222565ee0a587622624ae5353fd9f52a26ad3253122ee"
+      },
+      "libverus_builtin_macros.so": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libverus_builtin_macros.so",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/libverus_builtin_macros.so",
+        "sha256": "0ed00558c4433349941718b8015138f140ce52200e9811b2fdcc1d42647d753e"
+      },
+      "libverus_state_machines_macros.so": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libverus_state_machines_macros.so",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/libverus_state_machines_macros.so",
+        "sha256": "270a5f809f12b2bcf1a0e05565ed230325d128983e6b7033b33d0feba9cb5fdc"
+      },
+      "z3": {
+        "source": "/home/dev/projects/verus/source/z3",
+        "copy": "/tmp/mutable-buffer-effects-20261109/baseline/z3",
+        "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+      }
+    }
+  },
+  "trials": [
+    {
+      "id": "baseline-prefix-v1",
+      "receipt": "/tmp/mutable-buffer-effects-20261109/baseline-prefix-v1/receipt.json",
+      "success": true,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "commands": [
+        {
+          "label": "baseline-prefix-v1",
+          "argv": [
+            "/tmp/mutable-buffer-effects-20261109/baseline/verus",
+            "/home/dev/.t3/worktrees/verus/t3-4c705011/source/tools/research/mutable_buffer_effects/candidates/baseline-prefix-v1/probe.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "8"
+          ],
+          "cwd": "/home/dev/.t3/worktrees/verus/t3-4c705011",
+          "returncode": 0,
+          "seconds": 1.2688260129652917,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/mutable-buffer-effects-20261109/baseline/z3",
+            "VERUS_INFER_CACHE": "/tmp/mutable-buffer-effects-20261109/baseline-prefix-v1/cache"
+          }
+        }
+      ],
+      "stdout_sha256": "b146ff57181076d578d277f7fd1a88da5c0dfec40d2eedda55dbb95abc550a28",
+      "stderr_sha256": "e89b16b265c3608f130773731a09551770a37f238da1e90e05718301f2d9e188"
+    },
+    {
+      "id": "baseline-unused-frame-v1",
+      "receipt": "/tmp/mutable-buffer-effects-20261109/baseline-unused-frame-v1/receipt.json",
+      "success": true,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "commands": [
+        {
+          "label": "baseline-unused-frame-v1",
+          "argv": [
+            "/tmp/mutable-buffer-effects-20261109/baseline/verus",
+            "/home/dev/.t3/worktrees/verus/t3-4c705011/source/tools/research/mutable_buffer_effects/candidates/baseline-unused-frame-v1/probe.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "8"
+          ],
+          "cwd": "/home/dev/.t3/worktrees/verus/t3-4c705011",
+          "returncode": 1,
+          "seconds": 1.1135088829905726,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/mutable-buffer-effects-20261109/baseline/z3",
+            "VERUS_INFER_CACHE": "/tmp/mutable-buffer-effects-20261109/baseline-unused-frame-v1/cache"
+          }
+        }
+      ],
+      "stdout_sha256": "8ccc12bef6377d61447ed89ae7c1757a842858789f0960ad4a256f30d91f8d3b",
+      "stderr_sha256": "f61223ecef16ed015cc2d6e5d261789501b9f883966aa9b02c742458ed88169e"
+    }
+  ]
+}

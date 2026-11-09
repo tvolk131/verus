@@ -1,0 +1,7 @@
+{
+  "before_trial": true,
+  "change": "remove local helpers in favor of existing scoped library broadcasts, bounded unfolding and checked byte BV queries; semantic content unchanged",
+  "files": {
+    "candidate-005.rs": "2ef67b6fa5ac80e12a404ef63ab37d66ee8c3f88b68855166102de5ec1e9a735"
+  }
+}

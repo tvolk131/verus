@@ -1,0 +1,12 @@
+{
+  "candidate": 1,
+  "before_trials": true,
+  "file": "candidate-01.rs",
+  "sha256": "cf0953a388fc95f69bf89b6dfd34e2f5c38118909fb897a4b7033906fb410679",
+  "semantic_inputs": [
+    "pad_xor unchanged",
+    "processed-pair prefix: final mutable referent equals its initial value XOR immutable key referent"
+  ],
+  "mechanical_inputs": [],
+  "status": "frozen, not yet tested"
+}

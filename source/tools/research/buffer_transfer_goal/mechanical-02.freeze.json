@@ -1,0 +1,19 @@
+{
+  "before_trials": true,
+  "files": {
+    "full-manual-bounds.rs": {
+      "sha256": "6891d3b0e3c56410ce65ba30253e7052b45ba505f8d97124ca6a724c030fad26",
+      "semantic_inputs": "unchanged from full-manual",
+      "mechanical_delta": "snapshot length facts retained in loop invariants"
+    },
+    "partial-prefix-manual-bounds.rs": {
+      "sha256": "1530af19ff3855612c947c69f555db64b32c61ab38c010311adaaafdab8b5759",
+      "semantic_inputs": "unchanged from partial-prefix-manual",
+      "mechanical_delta": "snapshot length facts retained in loop invariants"
+    },
+    "frame-repro.rs": {
+      "sha256": "edbba2a61574ee8ce614aa65b9f69d7a61c1b4df07828e521dbf9de0acfd28f2",
+      "status": "minimal missing-contract diagnostic, not assumed proof or writer domain change"
+    }
+  }
+}

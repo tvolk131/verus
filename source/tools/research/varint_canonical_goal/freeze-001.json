@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "status": "frozen before first trial",
+  "starting_checkout": "bb1e46b3104af838ab8dadbf90f5d68fcdf51777",
+  "files": {
+    "candidate-001.rs": "8f27b883db8c74c8118112ed432a22ca5c5811e88cf1b9bf8f19b9a792c97eb3",
+    "INTERFACE.md": "72152d8df3c0e78a7f805a9e79b7d979c36cd1ed6b35b4abebcb8aee29427cdb"
+  },
+  "expected_inferred_helpers": []
+}
