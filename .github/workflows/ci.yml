@@ -33,6 +33,8 @@ jobs:
         run: python3 -B -m unittest discover -s source/tools -p 'test_infer*.py'
       - name: Optimized Python transfer evidence tests
         run: python3 -B -O -m unittest discover -s source/tools -p 'test_infer_transfers.py'
+      - name: Optimized Python goal evidence tests
+        run: python3 -B -O -m unittest discover -s source/tools -p 'test_infer_goal_runs.py'
       - name: Python redb transfer evidence tests
         run: python3 -B -m unittest discover -s source/tools -p 'test_redb*.py'
       - name: Python Fedimint transfer evidence tests
