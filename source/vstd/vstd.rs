@@ -97,8 +97,8 @@ pub mod thread;
 pub mod tokens;
 pub mod utf8;
 pub mod view;
-pub mod wrapping;
 pub mod word;
+pub mod wrapping;
 
 #[cfg(verus_keep_ghost)]
 pub mod std_specs;

@@ -12,40 +12,57 @@ pub open spec fn view(word: u64, size: nat) -> Seq<bool> {
     Seq::new(size, |j: int| member(word, j))
 }
 
-proof fn or_bits(word: u64, index: u64) by(bit_vector)
-    requires index < 64,
-    ensures forall|j: u64| j < 64 ==>
-        (((word | (1u64 << index)) & (1u64 << j)) != 0)
-            == (j == index || (word & (1u64 << j)) != 0),
-{}
+proof fn or_bits(word: u64, index: u64)
+    by (bit_vector)
+    requires
+        index < 64,
+    ensures
+        forall|j: u64|
+            j < 64 ==> (((word | (1u64 << index)) & (1u64 << j)) != 0) == (j == index || (word & (
+            1u64 << j)) != 0),
+{
+}
 
-proof fn full_bits(word: u64) by(bit_vector)
-    ensures (word == u64::MAX) ==
-        (forall|j: u64| j < 64 ==> (word & (1u64 << j)) != 0),
-{}
+proof fn full_bits(word: u64)
+    by (bit_vector)
+    ensures
+        (word == u64::MAX) == (forall|j: u64| j < 64 ==> (word & (1u64 << j)) != 0),
+{
+}
 
 pub broadcast proof fn lemma_or_member(word: u64, index: u64, j: int)
-    requires index < 64, 0 <= j < 64,
-    ensures #[trigger] member(word | (1u64 << index), j) ==
-        (j == index || member(word, j)),
+    requires
+        index < 64,
+        0 <= j < 64,
+    ensures
+        #[trigger] member(word | (1u64 << index), j) == (j == index || member(word, j)),
 {
     or_bits(word, index);
     assert((j as u64) < 64);
 }
 
 pub broadcast proof fn lemma_or_view(word: u64, index: u64, size: nat)
-    requires index < size <= 64,
+    requires
+        index < size <= 64,
     ensures
-        #[trigger] view(word | (1u64 << index), size) ==
-            view(word, size).update(index as int, true),
-        view(word | (1u64 << index), size).count_prefix(|b: bool| b, size) ==
-            view(word, size).count_prefix(|b: bool| b, size) +
-                if view(word, size)[index as int] { 0nat } else { 1nat },
+        #[trigger] view(word | (1u64 << index), size) == view(word, size).update(
+            index as int,
+            true,
+        ),
+        view(word | (1u64 << index), size).count_prefix(|b: bool| b, size) == view(
+            word,
+            size,
+        ).count_prefix(|b: bool| b, size) + if view(word, size)[index as int] {
+            0nat
+        } else {
+            1nat
+        },
 {
     or_bits(word, index);
-    assert forall|j: int| 0 <= j < size implies
-        view(word | (1u64 << index), size)[j] ==
-            view(word, size).update(index as int, true)[j] by {
+    assert forall|j: int| 0 <= j < size implies view(word | (1u64 << index), size)[j] == view(
+        word,
+        size,
+    ).update(index as int, true)[j] by {
         assert((j as u64) < 64);
     }
     assert(view(word | (1u64 << index), size) =~= view(word, size).update(index as int, true));
@@ -53,12 +70,12 @@ pub broadcast proof fn lemma_or_view(word: u64, index: u64, size: nat)
 }
 
 pub broadcast proof fn lemma_full_view(word: u64, size: nat)
-    requires size <= 64,
+    requires
+        size <= 64,
         forall|j: int| size <= j < 64 ==> #[trigger] member(word, j),
     ensures
         #![trigger view(word, size)]
-        (word == u64::MAX) ==
-        (forall|j: int| 0 <= j < size ==> #[trigger] view(word, size)[j]),
+        (word == u64::MAX) == (forall|j: int| 0 <= j < size ==> #[trigger] view(word, size)[j]),
 {
     full_bits(word);
     if word == u64::MAX {
@@ -67,9 +84,13 @@ pub broadcast proof fn lemma_full_view(word: u64, size: nat)
         }
     } else if forall|j: int| 0 <= j < size ==> view(word, size)[j] {
         assert forall|j: u64| j < 64 implies (word & (1u64 << j)) != 0 by {
-            if j < size { assert(view(word, size)[j as int]); }
-            else { assert(member(word, j as int)); }
+            if j < size {
+                assert(view(word, size)[j as int]);
+            } else {
+                assert(member(word, j as int));
+            }
         }
     }
 }
-}
+
+} // verus!
