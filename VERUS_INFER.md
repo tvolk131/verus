@@ -60,6 +60,15 @@ and an [authored stateful redb bitmap invariant](source/tools/research/redb_sing
 The latter uses explicit reusable proof-library assistance; neither experiment
 is a claim of automatic end-to-end inference for its full application.
 
+The checked [word-view extension](source/tools/research/word_goal_automation/REPORT.md)
+removes local bitmap proof glue when equivalent generic representation symbols
+are supplied. The [full-request Fedimint transfer](evidence/transfer-fedimint-full-request/README.md)
+retains all seven fields, including the real SHA-256 type through an explicit
+opaque declaration. Both passed combined parent replays and
+[independent review](evidence/combined-db26-review/README.md); the review's sole
+diagnostic assertion finding is corrected. Tuple inference is a separate pending
+follow-on and is outside those reviewed results.
+
 Each record retains its own source pin, domain, authored inputs, assumptions,
 validation and exclusions. These are not whole-protocol, whole-gateway or
 whole-database proofs. Use fresh replay receipts to establish current results;

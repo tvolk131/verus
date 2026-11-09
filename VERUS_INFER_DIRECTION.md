@@ -42,14 +42,14 @@ adds bounded native Fedimint deadline and redb codec, page-size and address-rang
 proofs. Checked caller assistance removes packing, byte-inverse and shift-bound
 glue from selected goals. The later [full-request experiment](evidence/transfer-fedimint-full-request/README.md)
 retains the actual seven-field Fedimint request through an explicit opaque
-external type declaration and narrow readonly eligibility. Its merged extension
-still needs combined parent validation; no whole-gateway or database theorem is claimed.
+external type declaration and narrow readonly eligibility. Combined parent
+cold/warm, import and negative-control replays pass; no whole-gateway or database theorem is claimed.
 Use the [transfer front door](source/tools/INFER_TRANSFERS.md) for fresh results.
 
 The experiment harness, integration-test support and ordered assistance pipeline
-have been consolidated. Growth/range assistance explanations are implemented;
-pointwise clone-transport explanations and shared annotation utilities are under
-validation. The transfer changes are integrated locally and have passed fresh
+have been consolidated. Growth/range and pointwise clone-transport explanations
+and shared annotation utilities are implemented and reviewed. The transfer
+changes are integrated locally and have passed fresh
 parent replay and [independent review](evidence/production-transfer-review/README.md).
 
 The [fresh varint experiment](evidence/verus-infer-varint-3b05c191/README.md)
@@ -62,8 +62,10 @@ The merged [word-view extension](source/tools/research/word_goal_automation/REPO
 removes local snapshots/proof blocks/theorem calls when equivalent generic
 representation symbols are supplied, and transfers to permission/count goals.
 The literal old definitions and arbitrary forwarding wrappers remain blockers.
-Combined acceptance is pending; these are separate results, not a relabeling of
-the frozen baselines.
+Combined parent replays and an [independent review](evidence/combined-db26-review/README.md)
+pass after correcting one diagnostic assertion. These are separate results,
+not a relabeling of the frozen baselines. A bounded scalar-tuple follow-on is
+still in progress and is outside that review.
 
 ## Active sequence
 
@@ -71,7 +73,7 @@ the frozen baselines.
    trust inventories, build matching compiler/macros/vstd, and replay pinned
    applications with fresh receipts. Historical test counts do not establish
    current acceptance. Keep semantic, safety and auxiliary controls distinct.
-2. **In progress: consolidate the current workflow.** Keep status and assurance concise,
+2. **Completed: consolidate the current workflow.** Keep status and assurance concise,
    extract genuinely shared assistance utilities, and explain more preparation
    decisions. Preserve profile-specific normalization and independent checks.
    Generation observations must never authorize verification or publication.
@@ -86,11 +88,15 @@ the frozen baselines.
    goals/domains, add unrelated positive and negative cases, and replay both the
    motivating and transfer properties. A smaller manual-proof inventory is the
    objective; exact synthesis for every function is not required.
-5. **Authored proof available; automation pending: repeat for a stateful property.** Supply a meaningful abstraction/invariant
+5. **Authored and bounded automated proofs available: repeat for a stateful property.** Supply a meaningful abstraction/invariant
    over a small original transition closure, freeze it before proof attempts,
    and measure generated versus authored frames, bounds and induction work.
    A toy replacement implementation or a silently restricted domain does not
    establish the selected application's property.
+
+The current combined checkpoint passes the four standard transfers, the
+generic-word stateful reduction and the full native request transfer. Final
+branch-wide regressions and the separate tuple experiment remain in progress.
 
 Independent worktrees may evaluate the encoder and stateful properties in
 parallel against a fixed engine. Keep their baselines and evidence separate;
