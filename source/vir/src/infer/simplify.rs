@@ -352,6 +352,18 @@ impl Simplifier {
                 &e.typ,
                 xs.iter().map(|x| self.go(x, facts)).collect::<Result<Vec<_>, _>>()?,
             )?,
+            ExprX::Ctor(dt, variant, fields, None)
+                if tuples::valid_ctor(&e.typ, dt, variant, fields) =>
+            {
+                tuples::ctor(
+                    span,
+                    &e.typ,
+                    fields.iter().map(|f| self.go(&f.a, facts)).collect::<Result<Vec<_>, _>>()?,
+                )?
+            }
+            ExprX::UnaryOpr(UnaryOpr::Field(op), a) if tuples::index(op, &a.typ).is_some() => {
+                tuples::field(span, self.go(a, facts)?, tuples::index(op, &a.typ).unwrap())?
+            }
             ExprX::Ctor(_, variant, fields, None) => enums::ctor(
                 span,
                 &e.typ,

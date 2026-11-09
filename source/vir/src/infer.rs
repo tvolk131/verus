@@ -167,6 +167,7 @@ mod report;
 mod simplify;
 mod slices;
 mod summary;
+mod tuples;
 mod widening;
 
 pub use pipeline::GoalContext;
@@ -369,6 +370,12 @@ impl Engine<'_> {
             {
                 self.array_index(&place.span, base, index)
             }
+            PlaceX::Field(op, base) if tuples::index(op, &base.typ).is_some() => {
+                let i = tuples::index(op, &base.typ).unwrap();
+                let base = self.place(base)?;
+                let selected = tuples::field(&place.span, value(&base, &place.span)?, i)?;
+                Ok(Summary { safe: base.safe, value: Some(selected) })
+            }
             PlaceX::Field(op, base)
                 if op.check == VariantCheck::None
                     && op.field == crate::def::positional_field_ident(0)
@@ -436,6 +443,19 @@ impl Engine<'_> {
             ExprX::Const(c @ (Constant::Bool(_) | Constant::Int(_))) => {
                 let typ = if matches!(c, Constant::Int(_)) { int_typ() } else { bool_typ() };
                 pure(term(span, &typ, ExprX::Const(c.clone()), 1)?)
+            }
+            ExprX::Ctor(dt, variant, fields, None)
+                if tuples::valid_ctor(&expr.typ, dt, variant, fields) =>
+            {
+                let mut safe = boolean(span, true);
+                let mut values = Vec::new();
+                // Eagerly evaluate EVERY operand, including later-discarded fields.
+                for field in fields.iter() {
+                    let part = self.expr(&field.a)?;
+                    safe = logical(span, LogicalOp::And, safe, part.safe.clone())?;
+                    values.push(value(&part, span)?);
+                }
+                Ok(Summary { safe, value: Some(tuples::ctor(span, &expr.typ, values)?) })
             }
             ExprX::Ctor(dt, variant, fields, None)
                 if matches!(&*expr.typ, TypX::Datatype(actual, ..) if actual == dt)

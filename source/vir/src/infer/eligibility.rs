@@ -27,7 +27,10 @@ pub(super) fn value_type(typ: &Typ, allow_approx: bool) -> bool {
     if allow_approx {
         scalar(typ)
     } else {
-        enums::supported(typ) || arrays::input_type(typ) || slices::input_type(typ)
+        enums::supported(typ)
+            || tuples::shape(typ).is_some()
+            || arrays::input_type(typ)
+            || slices::input_type(typ)
     }
 }
 
@@ -50,7 +53,9 @@ fn readable_place(place: &Place, allow_approx: bool) -> bool {
                 || (!allow_approx && slices::element(&place.typ).is_some())
         }
         PlaceX::Field(op, base) => {
-            !allow_approx && enums::valid_field(op, &base.typ) && readable_place(base, false)
+            !allow_approx
+                && (enums::valid_field(op, &base.typ) || tuples::index(op, &base.typ).is_some())
+                && readable_place(base, false)
         }
         PlaceX::Index(base, index, ArrayKind::Array, BoundsCheck::Error) => {
             !allow_approx
@@ -173,15 +178,19 @@ pub(super) fn validate_signature(function: &Function) -> Result<(), VirErr> {
         ));
     }
     if !(enums::supported(&f.inner_ret.x.typ)
+        || tuples::shape(&f.inner_ret.x.typ).is_some()
         || matches!(&*f.inner_ret.x.typ, TypX::Primitive(Primitive::Array, _))
             && arrays::shape(&f.inner_ret.x.typ).is_some())
-        || f.params
-            .iter()
-            .any(|p| !value_type(&p.x.typ, false) || p.x.mode != Mode::Exec || p.x.user_mut)
+        || f.params.iter().any(|p| {
+            !value_type(&p.x.typ, false)
+                || tuples::shape(&p.x.typ).is_some()
+                || p.x.mode != Mode::Exec
+                || p.x.user_mut
+        })
     {
         return Err(unsupported(
             span,
-            "parameters and return values must be bool, usize/isize, fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads; immutable parameters may also be scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (owned fixed scalar arrays may also be returned; slice returns are also unsupported)",
+            "parameters and return values must be bool, usize/isize, fixed-width unsigned/signed integers (8/16/32/64/128 bits), or core Option/Result with scalar/unit payloads, or exact flat scalar pairs (return/local only); immutable parameters may also be scalar arrays of length 0..=64 or shared references to them, or shared scalar slices (owned fixed scalar arrays may also be returned; slice returns are also unsupported)",
         ));
     }
     if !value_type(&f.inner_ret.x.typ, f.attrs.infer_allow_approx)
@@ -273,6 +282,9 @@ fn validate_root(
                     | ExprX::Var(_)
                     | ExprX::NeverToAny(_)
                     | ExprX::If(..) => {}
+                    ExprX::Ctor(dt, variant, fields, None)
+                        if !f.x.attrs.infer_allow_approx
+                            && tuples::valid_ctor(&e.typ, dt, variant, fields) => {}
                     ExprX::Ctor(dt, variant, fields, None)
                         if !f.x.attrs.infer_allow_approx
                             && enums::supported(&e.typ)

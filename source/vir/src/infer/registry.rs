@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v69:checked-goals-shared-option:4096";
+const VERSION: &str = "verus-infer-v70:flat-scalar-pair:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
@@ -39,6 +39,8 @@ enum Formula {
     IsVariant(String, Box<Formula>),
     Field(String, Box<Formula>),
     Array(enums::ValueType, usize, Vec<Formula>),
+    Pair(Vec<enums::ValueType>, Vec<Formula>),
+    PairField(usize, Box<Formula>),
 }
 #[derive(Clone, Serialize, Deserialize)]
 struct Candidate {
@@ -98,6 +100,21 @@ fn encode(e: &Expr, params: &Params) -> Formula {
         ExprX::Binary(op, a, b) => Formula::Binary(*op, enc(a), enc(b)),
         ExprX::Logical(op, a, b) => Formula::Logical(*op, enc(a), enc(b)),
         ExprX::If(c, a, Some(b)) => Formula::If(enc(c), enc(a), enc(b)),
+        ExprX::Ctor(dt, variant, fields, None)
+            if tuples::valid_ctor(&e.typ, dt, variant, fields) =>
+        {
+            Formula::Pair(
+                tuples::shape(&e.typ)
+                    .unwrap()
+                    .iter()
+                    .map(|t| enums::ValueType::from_typ(t).unwrap())
+                    .collect(),
+                fields.iter().map(|f| encode(&f.a, params)).collect(),
+            )
+        }
+        ExprX::UnaryOpr(UnaryOpr::Field(op), a) if tuples::index(op, &a.typ).is_some() => {
+            Formula::PairField(tuples::index(op, &a.typ).unwrap(), enc(a))
+        }
         ExprX::Ctor(_, variant, fields, None) => Formula::Ctor(
             enums::ValueType::from_typ(&e.typ).unwrap(),
             variant.to_string(),
@@ -156,6 +173,25 @@ fn decode(
                     .map(|e| decode(e, function, remaining, allow_result))
                     .collect::<Result<Vec<_>, _>>()?,
             )
+        }
+        Formula::Pair(types, fields) => {
+            if types.len() != 2 || fields.len() != 2 {
+                return Err(invalid());
+            }
+            let ts =
+                types.iter().map(|t| t.typ().ok_or_else(invalid)).collect::<Result<Vec<_>, _>>()?;
+            let typ = Arc::new(TypX::Datatype(Dt::Tuple(2), Arc::new(ts), Arc::new(vec![])));
+            tuples::ctor(
+                span,
+                &typ,
+                fields
+                    .iter()
+                    .map(|f| decode(f, function, remaining, allow_result))
+                    .collect::<Result<Vec<_>, _>>()?,
+            )
+        }
+        Formula::PairField(i, a) => {
+            tuples::field(span, decode(a, function, remaining, allow_result)?, *i)
         }
         Formula::Ctor(typ, variant, field) => enums::ctor(
             span,
