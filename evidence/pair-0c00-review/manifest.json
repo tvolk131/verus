@@ -1,0 +1,520 @@
+{
+  "review_input": "0c00b6ecd10eedf9b6e797e3b95edac66e568a6a",
+  "versions": {
+    "schema": 38,
+    "policy": 67,
+    "cache": 70
+  },
+  "raw_root": "/tmp/infer-pair-review-0c00-20261109",
+  "build_commands": [
+    {
+      "label": "engine",
+      "argv": [
+        "cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "-p",
+        "rust_verify",
+        "-p",
+        "verus",
+        "-p",
+        "vstd_build",
+        "-p",
+        "verus_builtin",
+        "-p",
+        "verus_builtin_macros",
+        "-p",
+        "verus_state_machines_macros"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-a48de02b/source",
+      "returncode": 0
+    },
+    {
+      "label": "vstd",
+      "argv": [
+        "/tmp/infer-pair-review-0c00-20261109/runtime/target-verus/release/vstd_build",
+        "/tmp/infer-pair-review-0c00-20261109/runtime/target-verus/release",
+        "--release"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-a48de02b/source",
+      "returncode": 0
+    }
+  ],
+  "build_stdout": {
+    "path": "/tmp/infer-pair-review-0c00-20261109/runtime/vstd.stdout",
+    "sha256": "20b61335d2e83c368f0da46d9e6c7e83f7b54fe3976496577fc17500ed3d4f85",
+    "bytes": 47
+  },
+  "bundle_sha256": {
+    "vstd_build": "a851301e7fbf692a369864a7b95964b096315a488c7758999892df0810f1f6d7",
+    "verus": "4c9c000ed06b9f2fa357413663072fcf74ab47b0802faad3de54d9afda7daf83",
+    "libverus_state_machines_macros.so": "4a887deaaac67e3a8d1bc78fb2cd15428ece6cd0e14fad4bc0616e944caa1987",
+    "libverus_builtin.rlib": "3ad88741477cf40597a8fa16a8a9885cb173ec43119a23e14642a22aadef13a3",
+    "libverus_builtin_macros.so": "f11d8912ffb9313fb98206bd0b41a73022b9d739be2f2ae1fc81466eccde7f85",
+    "rust_verify": "4bb93a412b1ddd20a95c9f16fb6265965896b3afd5687e1167d32395c9c480e7",
+    "libvstd.rlib": "3e5ee1a100d1ad93ea61d1f082206cb54f8f6767c328637094756e27bf3dbba8",
+    "vstd.vir": "111f7dbc391bb08b1c34869c7ff69e8539e9b37665060870ef3742b8abd4994c",
+    "verus-root": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fresh_receipts": {
+    "pair_replay": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/replays/scalar-pairs-nkksnqkl/receipt.json",
+      "sha256": "f29e2d489a8399f1e51ad95f1dd25ff57bb60c3514c931231184c5c683ee9e51",
+      "bytes": 1197018,
+      "success": true,
+      "runs": 48,
+      "successes": 18,
+      "expected_rejections": 30,
+      "stateful": [
+        {
+          "label": "stateful",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 20,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "functions": [
+            {
+              "function": "stateful::U64GroupedBitmap::data_index_of",
+              "required_checks_passed": true
+            },
+            {
+              "function": "stateful::U64GroupedBitmap::select_mask",
+              "required_checks_passed": true
+            }
+          ]
+        },
+        {
+          "label": "stateful_xor",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 19,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "functions": [
+            {
+              "function": "stateful_xor::U64GroupedBitmap::data_index_of",
+              "required_checks_passed": true
+            },
+            {
+              "function": "stateful_xor::U64GroupedBitmap::select_mask",
+              "required_checks_passed": true
+            }
+          ]
+        },
+        {
+          "label": "stateful_disabled",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 19,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "functions": [
+            {
+              "function": "stateful_disabled::U64GroupedBitmap::data_index_of",
+              "required_checks_passed": true
+            },
+            {
+              "function": "stateful_disabled::U64GroupedBitmap::select_mask",
+              "required_checks_passed": true
+            }
+          ]
+        }
+      ]
+    },
+    "word_replay": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/replays/word-goals-_gemb0z5/receipt.json",
+      "sha256": "4ae00f8f7a560514c25d9daaf9fcffcc058d934726559c206d84a1469d112ca8",
+      "bytes": 200321,
+      "success": true,
+      "runs": 18,
+      "successes": 9,
+      "expected_rejections": 9
+    },
+    "independent_pairs": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/probes-final2/receipt.json",
+      "sha256": "b8a7abfa51e6db2cc72da79bb8f649a2f964345d197dbe9429bc86dc32403ec7",
+      "bytes": 434593,
+      "success": true,
+      "runs": 37,
+      "successes": 26,
+      "expected_rejections": 11,
+      "cache_attacks": [
+        {
+          "label": "poison_restrictive",
+          "cache": "hit",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "not_proved",
+            "exactness": "proved"
+          },
+          "export_exists": false
+        },
+        {
+          "label": "poison_narrow_domain",
+          "cache": "hit",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "not_proved",
+            "exactness": "proved"
+          },
+          "export_exists": false
+        },
+        {
+          "label": "poison_overpermissive",
+          "cache": "hit",
+          "proofs": {
+            "soundness": "not_proved",
+            "maximality": "proved",
+            "exactness": "not_proved"
+          },
+          "export_exists": false
+        },
+        {
+          "label": "poison_swapped",
+          "cache": "hit",
+          "proofs": {
+            "soundness": "not_proved",
+            "maximality": "proved",
+            "exactness": "not_proved"
+          },
+          "export_exists": false
+        },
+        {
+          "label": "poison_missing",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_projection",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_wrong_scalar",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_nested_type",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_bad_index",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_result_pre",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_oversize",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_deep",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        },
+        {
+          "label": "poison_wrong_version",
+          "cache": "miss",
+          "proofs": {
+            "soundness": "proved",
+            "maximality": "proved",
+            "exactness": "proved"
+          },
+          "export_exists": true
+        }
+      ]
+    },
+    "retained_boundary": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/boundaries/receipt.json",
+      "sha256": "a59015fcbfc08b49c68e425cc9979874f48433c2beb13a48ce5635db3d86e12e",
+      "bytes": 4242008,
+      "success": true,
+      "runs": 84,
+      "successes": 46,
+      "expected_rejections": 38
+    }
+  },
+  "logs": {
+    "vir-tests.log": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/vir-tests.log",
+      "sha256": "a33e4e401ec0c69fd520fea014f09832c5e1fc81eb7a14ba1e6842c3f84ab01a",
+      "bytes": 15407
+    },
+    "integration-tests.log": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/integration-tests.log",
+      "sha256": "510eed95fb48d8bf2d388563ec0e4c0b903c7c0ce7c46a41bd31e20da3bf2cad",
+      "bytes": 2574
+    },
+    "interface-tests.log": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/interface-tests.log",
+      "sha256": "a053a5e3e40aca7eb757625d175571595339b1f4ee6b7819aae0709f8f8a03d5",
+      "bytes": 1059
+    },
+    "shared-tests.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/shared-tests.stdout",
+      "sha256": "418d79a2e4d8a9d244e10ce875129d03dd9aacdde46f3a763705e364dd324277",
+      "bytes": 104
+    },
+    "shared-tests-O.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/shared-tests-O.stdout",
+      "sha256": "91f0cb1d11d28dd49bb46fa5dbd8821df30e827a00b03d3b8a7613edb8afcfc4",
+      "bytes": 104
+    },
+    "guards.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/guards.stdout",
+      "sha256": "c6352adff70a6982c739a1cd77bbb43d2425eefd2dc2112b92b0ceebf2a6ca31",
+      "bytes": 106
+    },
+    "guards-O.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/guards-O.stdout",
+      "sha256": "c57e833f026773c218c965cc8726b7bfb3b9b889adb427cb6bf285f303c799de",
+      "bytes": 106
+    },
+    "word-guards.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/word-guards.stdout",
+      "sha256": "322e9bec5d6bbde47d6476008f309469c1e42048ed96320a3bae52af8811e27a",
+      "bytes": 106
+    },
+    "word-guards-O.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/word-guards-O.stdout",
+      "sha256": "fc23540c8545d4075fe2f0420accd022e74e5566176c3bd4c597964ff02c2e14",
+      "bytes": 106
+    },
+    "native.stdout": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/native.stdout",
+      "sha256": "ed4df9ee8044c57ef0bcc3759f803516c97cf597b9f617801a4d3c1ce429e9ca",
+      "bytes": 41
+    },
+    "harness-normal.json": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/harness-normal.json",
+      "sha256": "046d31080bf2e2ddd39d982412d65ce807830eb2fee394735af4d7e4641f6092",
+      "bytes": 264
+    },
+    "harness-optimized.json": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/harness-optimized.json",
+      "sha256": "046d31080bf2e2ddd39d982412d65ce807830eb2fee394735af4d7e4641f6092",
+      "bytes": 264
+    },
+    "format-audit.json": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/format-audit.json",
+      "sha256": "6c4a28908e0c79d503403da4f40bfd5fefb19498fc92dcffba2e2b19c5430704",
+      "bytes": 92
+    },
+    "pair-receipt-audit.json": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/pair-receipt-audit.json",
+      "sha256": "4ae9b227a50c1f4c52fcaf7f56233e4fce6048bc557b6f0086c4e3b94f12159a",
+      "bytes": 17221
+    },
+    "pair-receipt-audit-O.json": {
+      "path": "/tmp/infer-pair-review-0c00-20261109/pair-receipt-audit-O.json",
+      "sha256": "4ae9b227a50c1f4c52fcaf7f56233e4fce6048bc557b6f0086c4e3b94f12159a",
+      "bytes": 17221
+    }
+  },
+  "exploratory_receipts": [
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/probes-trial/receipt.json",
+      "sha256": "09121abd71d84c8d1945977b3ab426d8c6434b74d494b549c0935f9810147ed7",
+      "bytes": 60776
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/probes-final/receipt.json",
+      "sha256": "97ea44aff92378b4660c5ba95a0fe8a632ad66dfac665ff95d16a17a7d8c8468",
+      "bytes": 242958
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/direct_ground_cast.command.json",
+      "sha256": "d4faa63c55a5db2cdf27cfd09f850e26737a50d36292094d0652cbabd48ddd8d",
+      "bytes": 245
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/direct_ground_cast.stdout",
+      "sha256": "f6a04b1b0a2df9c7c115049f14194fe139330408956f7bf9ab6969155fe313bc",
+      "bytes": 3457
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/direct_ground_cast.stderr",
+      "sha256": "b0269f4471e2361c77d968ff20ceaedd6eaa30b8646c8441cfc8c104c5a29b22",
+      "bytes": 1455
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/bv_ground_cast.command.json",
+      "sha256": "9adab49637152e6ce2b1afcfb8c3596794cd9c83dc6758d46a3df5bda87096ec",
+      "bytes": 241
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/bv_ground_cast.stdout",
+      "sha256": "3c7e47480dc316e46653d9851b4f3269d1e9c6b03cb0637ee05d1447ba79d43d",
+      "bytes": 3363
+    },
+    {
+      "path": "/tmp/infer-pair-review-0c00-20261109/bv_ground_cast.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "source_sha256": {
+    "evidence/combined-db26-review/probe.py": "138bd8b02d7faaaebb77add1dab3b3f7ec5d26c49175c6d21e422a1f699ca736",
+    "evidence/transfer-fedimint-full-request/build.py": "a4520d602c054cb05d669ae08148a959da46bdea213ab3acf693d799440db2f4",
+    "source/rust_verify/src/config.rs": "0e60c61bd07ce25f6d7ea07165ff83a63aee138d69a7570bc3c1634a300423f7",
+    "source/rust_verify/src/import_export.rs": "3a6782f9ddfcc7bd23c351f2f59c36ca594ccb16a06c04f457f4ba9f73fc60a4",
+    "source/rust_verify/src/verifier.rs": "313bc392d3f5bef3290ab0a7b722bbce6c400a40b9d73ebe6dabb98333608c69",
+    "source/rust_verify_test/tests/infer_scalar_pairs.rs": "cb6197f557c3f9bc9f17325d15993a18c6ced4d989f5ee14487e14a48a75b941",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/infer_experiment.py": "5cd545d5eb3255c7724717a38b1505d1030f9aacf5dd771cae307a192567219d",
+    "source/tools/research/scalar_tuple_output/REPORT.md": "4b0f72bded6cf21fb7c342f79cb8ca981ee287137d86f68fabce9976170d1749",
+    "source/tools/research/scalar_tuple_output/RESULTS.json": "0faad3ebc747ab1f51b20ba07683a4887575e82db0e65f3e97dfd7182f520f3c",
+    "source/tools/research/scalar_tuple_output/TARGET.md": "c22138523f35f9fa32b77cbc0484692f132e87ae2731f93d465ffe20ab25242e",
+    "source/tools/research/scalar_tuple_output/automatic_inferred_helpers.rs": "0c15777002cf7d179b8f961d9f9f40ef86154fd97a4f3ba630320b7413028849",
+    "source/tools/research/scalar_tuple_output/freeze.json": "f40e707d84bb5684fbd219363c49acf2cd4eba5bac14d273d33a5e4987cb66fb",
+    "source/tools/research/scalar_tuple_output/native.rs": "1515f42512e83151c704ca36c7886210bcd160a74fa8f5c8524c42c5412c407c",
+    "source/tools/research/scalar_tuple_output/pairs.rs": "bd1b8c846200743909387fdf56928e8742d1826abad1aa98a9e7c1cb99bff319",
+    "source/tools/research/scalar_tuple_output/replay.py": "34e4b6919afe8ee41c9443975dd17114c7a8e08115787b2ddd3b9c0c9cdf6e4f",
+    "source/tools/research/scalar_tuple_output/test_replay.py": "da52c2b0254d928b08c7215ae74d7529b3bff40fddfbbe9c1c4bbc9798cd128b",
+    "source/tools/research/word_goal_automation/replay.py": "a3bc4db966193396d6c78eaf71f98c7fd5fdf5b39a4640127930d44563901ab3",
+    "source/vir/src/infer.rs": "949def8af4078a1568395bf18304a5a0c189ba52c5d6409a7cbf0a7ef8118d32",
+    "source/vir/src/infer/contract.rs": "7feae5e55c41ae5c569cd7bf20341206538bbd14026696fdf030816814fab282",
+    "source/vir/src/infer/eligibility.rs": "b413e0631c23c43f3892e4157e824c6850866a40fa6d53bfd09b010d48386a7c",
+    "source/vir/src/infer/registry.rs": "868e38a6dee4c564ea9154bb8d9efa448c17b21f0e8a9cac33b2442d347ab1c9",
+    "source/vir/src/infer/simplify.rs": "e6d11d718694cf2066aec6c3d6c8721af8d322c0d2725aecc46c11a8d0d84fcf",
+    "source/vir/src/infer/summary.rs": "06e83dca2395ff58e77373eac91927b40403aab85f0a17c1f7eaeb1c6f459532",
+    "source/vir/src/infer/tuples.rs": "27c3592198367db1b3cb3cb8c69b5d76d07162c11572e461015987dd38206930",
+    "source/vir/src/infer_checks.rs": "33e2dd920242441d4041d735bcdb19d14c4a798f9ef57276b04518eed06a17c7",
+    "source/vir/src/infer_checks/tests.rs": "bb8d8ad41002799dc42145090a38058c7ca9a423e2d19a26ad118e711d3048f6",
+    "source/vir/src/infer_proof/policy.rs": "d0517db2dc89d588a02beb8219b2744d0f85f74026da255c7faffadcc67d69a4",
+    "source/vstd/word.rs": "e5e5803c433e767f98d3d65ce1fc8e7a2466a05b9b00ae501aa06d73c6c27b2b"
+  },
+  "review_sha256": {
+    "README.md": "83ed06011b17d0104df5a9e7c56502f709c9e5efc0abefedc892a77dbc26332a",
+    "audit_receipts.py": "d1bbb8db0a03ba4ef280c594a8384370bdd1679ed1cf273cc0df9e6ee20356e3",
+    "boundary_probe.py": "9ddf2fee9f035b115d4d2776ef1b496119d5a40667816857084fa83aac1a36e0",
+    "harness_probe.py": "81111122c530e8e115aa52ff0b093fc3f5eb790a1d5b88ba34e298e6ce341da8",
+    "probe.py": "3175f836c15b9161c77bd0333d3ba1ae8bf35e23116166eae1835ab065420b45"
+  },
+  "test_commands": {
+    "cwd": "/home/dev/.t3/worktrees/verus/t3-a48de02b/source",
+    "environment": {
+      "PATH_prefix": "/home/dev/.cargo/bin",
+      "CARGO_BUILD_JOBS": "2",
+      "CARGO_TARGET_DIR": "/tmp/infer-pair-review-0c00-20261109/runtime/target",
+      "CARGO_BUILD_BUILD_DIR": "/tmp/infer-pair-review-0c00-20261109/runtime/build",
+      "VERUS_Z3_PATH": "/home/dev/.t3/worktrees/verus/t3-a48de02b/source/z3"
+    },
+    "argv": [
+      [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "--config",
+        "profile.release.package.vir.opt-level=0",
+        "-p",
+        "vir",
+        "--lib"
+      ],
+      [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "--config",
+        "profile.release.package.vir.opt-level=0",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer_scalar_pairs",
+        "--test",
+        "infer_goals",
+        "--test",
+        "infer_word_goals",
+        "--",
+        "--test-threads=2"
+      ],
+      [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "--config",
+        "profile.release.package.vir.opt-level=0",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer",
+        "interface_cases::",
+        "--",
+        "--test-threads=2"
+      ]
+    ]
+  },
+  "test_counts": {
+    "vir": 140,
+    "precision_subset": 25,
+    "focused_integration": 21,
+    "interfaces": 7,
+    "python_guards_in_both_modes": 44,
+    "native_host_cases": 65538
+  }
+}
