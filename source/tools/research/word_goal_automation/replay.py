@@ -63,6 +63,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--verus', type=Path, default=ROOT / 'source/target-verus/release/verus')
+    p.add_argument('--expect-tuple-supported', action='store_true',
+                   help='require exact scalar-pair support; omit only for the historical pre-pair engine')
     a = p.parse_args()
     fidelity()
     out = Path(tempfile.mkdtemp(prefix='word-goals-', dir=a.output.resolve()))
@@ -127,7 +129,11 @@ def replay(a, out, receipt):
     run('padding_negative', automatic.replace('forall|j: int| self.len <= j < 64 ==> member(self.data@[0], j)', 'true'), False, goals, 'postcondition not satisfied')
     run('return_negative', automatic.replace('group == u64::MAX', 'group != u64::MAX'), False, goals, 'postcondition not satisfied')
     run('count_negative', permission.replace('{ 0nat } else { 1nat }', '{ 1nat } else { 0nat }'), False, goals, 'postcondition not satisfied')
-    run('helper_tuple', (HERE/'helper_tuple.rs').read_text(), False, goals, 'Verus Infer unsupported')
+    if a.expect_tuple_supported:
+        d = run('helper_tuple', (HERE/'helper_tuple.rs').read_text(), True, goals)
+        require(len(d['verus-infer']['functions']) == 1, 'missing exact pair helper')
+    else:
+        run('helper_tuple', (HERE/'helper_tuple.rs').read_text(), False, goals, 'Verus Infer unsupported')
     run('helper_shift', (HERE/'helper_shift.rs').read_text(), True, goals)
     provider = (HERE/'provider.rs').read_text()
     for label in ('provider_cold', 'provider_warm'):

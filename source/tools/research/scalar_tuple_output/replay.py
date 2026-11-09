@@ -1,38 +1,63 @@
 #!/usr/bin/env python3
 """Fresh exact pair checks. All generated artifacts are private to --output."""
-import argparse, hashlib, json, os, subprocess
+import argparse, hashlib, json, os, sys, tempfile
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
+sys.path.insert(0, str(ROOT/'source/tools'))
+from infer_eval_support import ArtifactGuard, tool_artifacts
+from infer_experiment import (LoggedCommands, replay_receipt, require,
+                              require_exact, require_publication, validate_run)
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
-def fidelity():
+def fidelity(stateful=None):
     frozen=json.loads((HERE/'freeze.json').read_text())
-    for p,h in frozen['inputs'].items(): assert sha(ROOT/p)==h,p
+    for p,h in frozen['inputs'].items(): require(sha(ROOT/p)==h, f'frozen input changed: {p}')
     old=(HERE.parent/'word_goal_automation/automatic_inferred_mask.rs').read_text()
     old=old.replace('    fn data_index_of(bit: u32) -> (r: (usize, usize))\n        ensures r.0 == (bit as usize) / 64, r.1 == (bit as usize) % 64,','    #[verifier::infer]\n    fn data_index_of(bit: u32) -> (r: (usize, usize))')
-    assert old==(HERE/'automatic_inferred_helpers.rs').read_text()
+    require(old==(stateful or HERE/'automatic_inferred_helpers.rs').read_text(), 'stateful helper adaptation changed')
+
+def check_run(result, success, error=None):
+    semantic = error in ('postcondition not satisfied', 'precondition not satisfied', 'assertion failed')
+    data = validate_run(result, success, allow_frontend=bool(error) and not semantic)
+    if error:
+        require(error in result['stderr'], 'expected diagnostic missing')
+    if success or semantic:
+        require(data['verification-results'].get('is-verifying-entire-crate') is True,
+                'incomplete verifier scope')
+    if success:
+        info = data['verus-infer']
+        require(info['verification_scope']['complete_selected_scope_verified'] is True,
+                'incomplete verification scope')
+        require_exact(info['functions'])
+    return data
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--verus',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
-    fidelity();out=a.output.resolve();out.mkdir(mode=0o700,parents=True,exist_ok=True)
-    env=dict(os.environ,PATH='/home/dev/.cargo/bin:'+os.environ['PATH'],VERUS_Z3_PATH=str(ROOT/'source/z3'),VERUS_INFER_CACHE=str(out/'cache'))
-    receipt={'runs':[], 'tools':{str(f):sha(f) for f in a.verus.resolve().parent.iterdir() if f.is_file() and f.name in ['verus','rust_verify','vstd.vir','libvstd.rlib','libverus_builtin.rlib','libverus_builtin_macros.so','libverus_state_machines_macros.so']},'sources':{str(f.relative_to(ROOT)):sha(f) for f in HERE.glob('*') if f.is_file()}}
-    def run(label,s,success=True,opts=(),error=None,name=None,checks=True):
+    fidelity()
+    a.output.mkdir(parents=True, exist_ok=True)
+    out=Path(tempfile.mkdtemp(prefix='scalar-pairs-',dir=a.output.resolve()))
+    os.chmod(out, 0o700)
+    receipt={'runs':[], 'commands':[], 'sources':{str(f.relative_to(ROOT)):sha(f) for f in HERE.glob('*') if f.is_file()}}
+    with replay_receipt(out, receipt):
+        replay(a, out, receipt)
+    print(out/'receipt.json')
+
+def replay(a, out, receipt):
+    env=dict(os.environ,PATH='/home/dev/.cargo/bin:'+os.environ['PATH'],RUSTUP_TOOLCHAIN='1.99.1',VERUS_Z3_PATH=str(ROOT/'source/z3'),VERUS_INFER_CACHE=str(out/'cache'))
+    guard=ArtifactGuard(tool_artifacts(a.verus.resolve(), ROOT/'source/z3',
+        extra=[*(ROOT/p for p in receipt['sources']), HERE/'freeze.json']))
+    receipt['tools']=guard.initial
+    invoke=LoggedCommands(out,out,receipt['commands'],timeout=240,guard=guard,status_key='returncode')
+    def run(label,s,success=True,opts=(),error=None,name=None):
         path=out/((name or label)+'.rs');path.write_text(s)
         cmd=[str(a.verus.resolve()),str(path),'--no-cheating','--output-json','--multiple-errors','20',*map(str,opts)]
-        r=subprocess.run(cmd,cwd=out,env=env,capture_output=True,text=True,timeout=240)
-        (out/(label+'.stdout')).write_text(r.stdout);(out/(label+'.stderr')).write_text(r.stderr)
-        try:d=json.loads(r.stdout)
-        except json.JSONDecodeError:d={}
-        receipt['runs'].append(dict(label=label,command=cmd,returncode=r.returncode,stdout_sha256=sha(out/(label+'.stdout')),stderr_sha256=sha(out/(label+'.stderr')),result=d))
+        rc=invoke(label,cmd,env)
+        result=dict(returncode=rc,stdout=(out/(label+'.stdout')).read_text(),stderr=(out/(label+'.stderr')).read_text())
+        d=json.loads(result['stdout'])
+        receipt['runs'].append(dict(label=label,command=cmd,returncode=rc,stdout_sha256=sha(out/(label+'.stdout')),stderr_sha256=sha(out/(label+'.stderr')),result=d))
         (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-        assert (r.returncode==0)==success,(label,r.stderr)
-        assert not any(x in r.stderr.lower() for x in ['panicked at','resource limit','timed out']),(label,r.stderr)
-        if error:assert error in r.stderr,(label,r.stderr)
-        if success and checks:
-            for f in d.get('verus-infer',{}).get('functions',[]):
-                assert f['required_checks_passed'],(label,f)
-                assert all(c['required'] and c['status']=='proved' for c in f['proofs'].values()),(label,f)
-        print(label,r.returncode,d.get('verification-results',{}),flush=True)
+        check_run(result,success,error)
+        print(label,rc,d.get('verification-results',{}),flush=True)
         return d
     pairs=(HERE/'pairs.rs').read_text()
     run('pairs_portable',pairs)
@@ -58,10 +83,11 @@ def main():
     popts=['--crate-type=lib','--crate-name=provider','--compile','--export',out/'provider.vir','-o',out/'libprovider.rlib']
     for label in ['cold','warm']:
         d=run('provider_'+label,provider,opts=popts,name='provider')
-        assert d['verus-infer']['functions'][0]['metrics']['cache']==('hit' if label=='warm' else 'miss')
+        require(d['verus-infer']['functions'][0]['metrics']['cache']==('hit' if label=='warm' else 'miss'), 'incorrect cache provenance')
+        require_publication(d, True, out/'provider.vir')
     consumer='extern crate provider; use vstd::prelude::*;verus!{#[verifier::infer]fn composed(x:u32)->usize{let p=provider::split(x);p.1} fn check(x:u32){let r=composed(x);assert(r==(x as usize)%64);}}fn main(){}'
     copts=['-L','dependency='+str(out),'--extern','provider='+str(out/'libprovider.rlib'),'--import','provider='+str(out/'provider.vir')]
-    d=run('consumer',consumer,opts=copts);assert d['verus-infer']['imported_inference_dependencies']
+    d=run('consumer',consumer,opts=copts);require(d['verus-infer']['imported_inference_dependencies'], 'missing checked import dependency')
     original=(out/'provider.vir').read_bytes();start=original.rindex(b'{"schema":');meta=json.loads(original[start:-8])
     for key,value in [('policy','candidate-bound-evidence-v66'),('schema',37),('soundness',False),('maximality',False),('exactness',False),('producer','poison'),('summaries','0'*64),('dependencies',[])]:
         # Empty dependencies might be the genuine value; mutate an existing fingerprint instead.
@@ -78,7 +104,7 @@ def main():
     leaf='extern crate bridge;use vstd::prelude::*;verus!{fn check(x:u32){let r=bridge::composed(x);assert(r==(x as usize)%64);}}fn main(){}'
     leafopts=[*copts,'--extern','bridge='+str(out/'libbridge.rlib'),'--import','bridge='+str(out/'bridge.vir')]
     run('transitive_consumer',leaf,opts=leafopts)
-    bridge=(out/'bridge.vir').read_bytes();pos=bridge.rindex(b'{"schema":');bm=json.loads(bridge[pos:-8]);assert bm['dependencies']
+    bridge=(out/'bridge.vir').read_bytes();pos=bridge.rindex(b'{"schema":');bm=json.loads(bridge[pos:-8]);require(bm['dependencies'], 'missing transitive dependency')
     bm['dependencies'][0]['fingerprint']='0'*64
     (out/'bridge.vir').write_bytes(bridge[:pos]+json.dumps(bm,separators=(',',':')).encode()+b'VRINFER1')
     run('transitive_dependency_poison',leaf,False,leafopts,error='rebuild the library')
@@ -88,7 +114,7 @@ def main():
     selected=[f for f in files if json.loads(f.read_text()).get('post',{}).get('Binary')]
     # Find the provider output's pair rather than arbitrary other fixture entries.
     selected=[f for f in selected if 'Pair' in json.dumps(json.loads(f.read_text())['post']) and 'USize' in json.dumps(json.loads(f.read_text())['post'])]
-    assert selected
+    require(selected, 'provider pair cache entry missing')
     for kind in ['weak','swapped','malformed','wrong_type','wrong_key','wrong_dependencies']:
         saved={f:f.read_bytes() for f in selected}
         for f in selected:
@@ -113,13 +139,16 @@ def main():
         run('cache_'+kind,provider,kind!='swapped',popts,error='postcondition not satisfied' if kind=='swapped' else None,name='provider')
         for f,b in saved.items():f.write_bytes(b)
     d=run('changed_body',provider.replace('%64','%32'),opts=popts,name='provider')
-    assert d['verus-infer']['functions'][0]['metrics']['cache']=='miss'
+    require(d['verus-infer']['functions'][0]['metrics']['cache']=='miss', 'changed body used stale cache')
     d=run('changed_type',provider.replace('usize','u64'),opts=popts,name='provider')
-    assert d['verus-infer']['functions'][0]['metrics']['cache']=='miss'
+    require(d['verus-infer']['functions'][0]['metrics']['cache']=='miss', 'changed type used stale cache')
     run('restore_provider',provider,opts=popts,name='provider')
     failed=out/'failed.vir';failed.write_bytes(original)
-    run('failed_export',provider+'verus!{fn bad(){assert(false);}}',False,['--crate-type=lib','--crate-name=failed','--export',failed],error='assertion failed');assert not failed.exists()
+    d=run('failed_export',provider+'verus!{fn bad(){assert(false);}}',False,['--crate-type=lib','--crate-name=failed','--export',failed],error='assertion failed')
+    require_publication(d, False, failed)
     failed.write_bytes(original)
-    run('no_verify_export',provider,False,['--no-verify','--crate-type=lib','--crate-name=failed','--export',failed],error='Verus Infer');assert not failed.exists()
-    print(out/'receipt.json')
+    d=run('no_verify_export',provider,False,['--no-verify','--crate-type=lib','--crate-name=failed','--export',failed],error='Verus Infer')
+    require_publication(d, False, failed)
+    guard.check()
+    receipt['artifacts_after']=guard.snapshot()
 if __name__=='__main__':main()

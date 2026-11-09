@@ -6,17 +6,18 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **38**, inference policy **66** and
-candidate-cache version **69**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **67** and
+candidate-cache version **70**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
-Policy 66 requires complete verification and normal lifetime/trait checking
+Since policy 66, complete verification and normal lifetime/trait checking are required
 for every `--infer-goals` provider, including ordinary-only crates where no
 assistance profile applies. Disabled checks and function/module filters are
-rejected. Earlier inference-aware metadata, including policy 64, is incompatible
-and providers must be rebuilt. Candidate-cache version 69 still requires fresh
-proofs; readonly record templates regenerate as documented below.
+rejected. Earlier inference-aware metadata, including policy 66, is incompatible
+and providers must be rebuilt. Policy 67 and cache version 70 add exact flat
+scalar-pair values. Candidates still require fresh proofs; readonly record
+templates regenerate as documented below.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
@@ -52,6 +53,31 @@ expansion. The [macro-loop adapter](macro_loop_adapter.md) gives an ordinary
 verified example, native-erasure guidance and remaining limitations. This is
 not iterator-inference support: contracts, invariants, safety and application
 goals still need independent checks, with all certification gates unchanged.
+
+## Exact flat scalar pairs
+
+Exact inference supports return values and immutable locals of type `(A, B)`
+when both components are supported integers or Booleans. Native constructors,
+field projections, supported branches and inferred calls compose normally:
+
+```rust
+#[verifier::infer]
+fn data_index_of(bit: u32) -> (usize, usize) {
+    ((bit as usize) / 64, (bit as usize) % 64)
+}
+```
+
+The contract describes the whole native pair. Soundness, safe-domain maximality
+and exactness are checked independently against the original executable body.
+Both constructor operands contribute safety requirements even if the caller
+later discards one field. Tuple parameters, nested tuples, other tuple arities
+and sound-only pair inference are outside this profile. Portable `usize` proofs
+remain distinct from callers explicitly restricted to a 32-bit or 64-bit model.
+
+The [frozen stateful experiment](../../../../source/tools/research/scalar_tuple_output/REPORT.md)
+uses this profile to infer both original bitmap helper contracts. It retains
+authored semantic invariants and equivalent generic representation definitions;
+the historical literal baseline and forwarding-wrapper blockers remain.
 
 ## Scalar wrappers and inherent methods
 

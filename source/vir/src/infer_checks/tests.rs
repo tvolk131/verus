@@ -1575,9 +1575,7 @@ fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
                         a: (
                             Arc::new(TypX::TypParam(Arc::new(format!("T{i}")))),
                             Mode::Exec,
-                            Visibility {
-                                restricted_to: None,
-                            },
+                            Visibility { restricted_to: None },
                         ),
                     })
                 })
@@ -1629,10 +1627,8 @@ fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
         ),
     );
     let eq = crate::sst::BinaryOp::Eq;
-    let clauses = vec![
-        encode(binary(eq, field(0), x.clone())),
-        encode(binary(eq, field(1), integer(7))),
-    ];
+    let clauses =
+        vec![encode(binary(eq, field(0), x.clone())), encode(binary(eq, field(1), integer(7)))];
     check.reqs = Arc::new(vec![]);
     check.local_decls = Arc::new(
         vars.iter()
@@ -1666,11 +1662,7 @@ fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
     });
     let pars = Arc::new(vec![Spanned::new(
         span(),
-        ParX {
-            name: var("x"),
-            typ: byte.clone(),
-            mode: Mode::Exec,
-        },
+        ParX { name: var("x"), typ: byte.clone(), mode: Mode::Exec },
     )]);
     let exact = |c: &FuncCheckSst| {
         precision_check_body(&span(), &typ, c, PrecisionCheck::Exactness).unwrap()
@@ -1678,11 +1670,8 @@ fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
     assert!(verifies(&ctx, &pars, &check));
     assert!(verifies(&ctx, &pars, &exact(&check)));
     let mut restrictive = check.clone();
-    restrictive.reqs = Arc::new(vec![SpannedTyped::new(
-        &span(),
-        &bool_typ(),
-        ExpX::Const(Constant::Bool(false)),
-    )]);
+    restrictive.reqs =
+        Arc::new(vec![SpannedTyped::new(&span(), &bool_typ(), ExpX::Const(Constant::Bool(false)))]);
     assert!(verifies(&ctx, &pars, &restrictive));
     assert!(!verifies(
         &ctx,
@@ -1694,26 +1683,17 @@ fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
         Arc::make_mut(&mut weak.post_condition).ens_exps =
             Arc::new(vec![clauses[1 - missing].clone()]);
         assert!(verifies(&ctx, &pars, &weak));
-        assert!(
-            !verifies(&ctx, &pars, &exact(&weak)),
-            "missing component {missing}"
-        );
+        assert!(!verifies(&ctx, &pars, &exact(&weak)), "missing component {missing}");
     }
     let mut loose = check.clone();
     Arc::make_mut(&mut loose.post_condition).ens_exps = Arc::new(vec![
         clauses[0].clone(),
-        encode(binary(
-            crate::sst::BinaryOp::Inequality(InequalityOp::Le),
-            field(1),
-            integer(7),
-        )),
+        encode(binary(crate::sst::BinaryOp::Inequality(InequalityOp::Le), field(1), integer(7))),
     ]);
     assert!(verifies(&ctx, &pars, &loose));
     assert!(!verifies(&ctx, &pars, &exact(&loose)));
     let mut swapped = check.clone();
-    Arc::make_mut(&mut swapped.post_condition).ens_exps = Arc::new(vec![
-        encode(binary(eq, field(0), integer(7))),
-        encode(binary(eq, field(1), x)),
-    ]);
+    Arc::make_mut(&mut swapped.post_condition).ens_exps =
+        Arc::new(vec![encode(binary(eq, field(0), integer(7))), encode(binary(eq, field(1), x))]);
     assert!(!verifies(&ctx, &pars, &exact(&swapped)));
 }

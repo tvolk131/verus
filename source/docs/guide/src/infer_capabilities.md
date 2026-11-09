@@ -14,6 +14,7 @@ inference candidate.
 | Area | Implemented automation | Inputs that remain authored |
 | --- | --- | --- |
 | [Scalar arithmetic and control flow](infer.md#supported-code-and-safety-policy) | Exact bounded integer/Boolean summaries, supported branches, casts and arithmetic policies; explicit bounded sound approximations | Required input coverage and intended behavior; handling of inputs outside the checked safe domain |
+| [Flat scalar-pair outputs](infer.md#exact-flat-scalar-pairs) | Whole-pair exact contracts, immutable pair locals/projections and eager safety for both operands | The meaning and required domain of the two outputs; tuple inputs and nested tuples remain unsupported |
 | [Scalar wrappers and operators](infer.md#scalar-wrappers-and-inherent-methods) | Supported projections, conversions, assignment/binary operators and explicit native derives, checked against actual implementations | Public abstraction and trait meaning beyond supported structural models; required domain |
 | [Arrays and shared slices](infer.md#supported-code-and-safety-policy) | Supported finite values, indices, subslices and complete output observations | Semantic meaning of contents; goals connecting representation to that meaning |
 | [Option/Result and callbacks](infer.md#shared-native-option-calls-in-exact-readonly-values) | Bounded tagged values, shared projections, readonly native Option callbacks and selected typed error-mapping assistance | Success/error policy, error priority and dependency/clone laws needed by the application |

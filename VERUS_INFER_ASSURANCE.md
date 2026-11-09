@@ -28,7 +28,7 @@ behavior; the [direction document](VERUS_INFER_DIRECTION.md) sets priorities.
   the feature reference.
 - Every `--infer-goals` provider requires complete body checking, even with no
   inferred helper or applicable assistance profile. Disabled/partial checking
-  is rejected before certification and independently at export. Policy 66
+  is rejected before certification and independently at export. Policy 67
   invalidates earlier inference-aware interfaces; candidate formulas remain
   untrusted and freshly proved under the unchanged cache policy.
 - Ordinary-only providers must also retain normal lifetime and trait-consistency

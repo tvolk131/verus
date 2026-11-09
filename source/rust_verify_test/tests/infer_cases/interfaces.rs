@@ -170,7 +170,11 @@ fn ordinary_goal_providers_require_full_proofs_and_reject_previous_policy() {
     }
 
     let caller = "pub fn caller(){let r=ordinary_goal_provider::omitted::value(); assert(r==0);}";
-    for old_policy in ["candidate-bound-evidence-v63", "candidate-bound-evidence-v64"] {
+    for old_policy in [
+        "candidate-bound-evidence-v63",
+        "candidate-bound-evidence-v64",
+        "candidate-bound-evidence-v66",
+    ] {
         let provider = crates.build("ordinary_goal_provider", &valid, &[], &options);
         assert!(provider.status.success(), "{}", String::from_utf8_lossy(&provider.stderr));
         let checked =
