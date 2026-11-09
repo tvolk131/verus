@@ -1,0 +1,77 @@
+# Checked native byte-iterator certificate requirements
+
+This is an implementation target, not an accepted bridge. The frozen full
+HMAC byte-writer property/domain in `transfer-freeze.json` remains required.
+The [native-source investigation](../native_iterator_refinement/REPORT.md)
+establishes useful source facts and a checked abstract countermodel; it does not
+prove correspondence to the native implementation or the full writer theorem.
+
+## Required source connection
+
+Start from the actual unchanged local writer and resolve the monomorphized
+Rust 1.99.1 IterMut<u8>/Iter<u8>/Zip path and target layout. Enumerate the actual
+constructor, specialized next/indexed getters, relevant pointer operations,
+constants and drop behavior. Retain typed operation/control-flow evidence,
+source/instance fingerprints and a complete reachable-call inventory.
+
+Names and hashes bind an identity; neither proves an effect. The checker must
+validate the operations and transitions against a supported typed semantics,
+rejecting unknown calls, writes, pointer origins, layouts and exceptional paths.
+Do not interpret a hand-authored value-level trace as the native source.
+
+The real specialized Zip advances its own index and uses indexed getters;
+physical inner cursors need not advance. Logical projections must account for
+that index. Identifying a spec projection with the raw inner field is insufficient.
+
+## Ownership and proof obligations
+
+The u8/128 case is sufficient initially; it retains every byte value and every
+key length, including zero and lengths greater than 128. A checked certificate
+must establish at least:
+
+1. The original exclusive array borrow supplies all 128 owned slots, with the
+   exact initial values and valid pointer origins/bounds. No permission may be
+   invented from a duplicable spec observation.
+2. A successful native indexed yield transfers exactly the corresponding slot
+   and immutable key observation. Bounds, pointer arithmetic, alias separation,
+   current/future values and eventual resolution must be justified.
+3. All unissued slots remain owned through every actual source transition.
+   The truncated logical pair sequence alone is not an ownership inventory.
+4. A None transition preserves those slots, including empty-key behavior;
+   native drop has the checked effect used by the certificate. Account for
+   specialization and any side-effect flags rather than assuming cursor behavior.
+5. Resolving all issued loans and releasing the retained tail reconstructs the
+   original array borrow. This derives the unchanged suffix and output views;
+   it is not an axiom stating the requested postcondition.
+6. The actual source-to-certificate refinement and the value/ownership theorem
+   are checked. An unrelated safe iterator model, finite native tests, a source
+   hash allowlist or an assumed external contract is not that refinement.
+
+The existing ordinary verifier/SMT and typed memory/borrow semantics remain the
+checking boundary. Any new lowering/checking rule needs explicit soundness
+obligations, narrow eligibility, independent review and false-certificate controls.
+Do not silently add a trusted native resolution/frame fact or bypass ordinary
+checking. Keep the original executable body as input; proof translation must
+carry its correspondence rather than substituting an indexed algorithm.
+
+## Staged implementation and acceptance
+
+An initial standalone extractor/checker may live in
+`source/tools/research/native_iterator_certificate/`. It must not install facts
+in production. Its first milestone is executable typed-source extraction and
+conservative rejection of unsupported effects. A subsequent milestone must
+prove conservation/refinement obligations under normal checking. These are
+partial infrastructure milestones, not a completed native bridge.
+
+Tests must reject an omitted/changed tail write, wrong origin/index, lost slot,
+incorrect Zip projection, unexamined helper/drop effect, layout/type mismatch,
+forged source binding and incomplete/failed/resource-limited proof. Test source
+variants independently of fingerprint mismatch so identity is not mistaken for
+semantic checking.
+
+Production integration is allowed only after the native correspondence and
+full original writer theorem are established with the stated checks. Bind
+certificates to source, type, layout, dependency and proof identities and preserve
+failed-proof publication barriers. The parent owns policy/cache/schema changes.
+Shared automation, cold/warm/import/adversarial replays, source fidelity and a
+fresh independent review remain necessary for the overall active goal.

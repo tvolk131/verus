@@ -121,6 +121,10 @@ lanes while the parent keeps integration ownership:
 - `source/tools/research/native_iterator_refinement/`: investigate checked
   correspondence for the actual native resolution bridge. The existing concrete
   model theorem and the unproved native theorem remain distinct.
+- `source/tools/research/native_iterator_certificate/`: implement the diagnostic
+  native-body extraction/checking stages in
+  [NATIVE_CERTIFICATE.md](NATIVE_CERTIFICATE.md). No proof fact may be installed
+  merely from an identity/hash match or an unchecked ownership declaration.
 - `source/vir/src/infer/native_mutable_for.rs`,
   `source/vir/src/infer/buffer_observation_goals.rs`,
   `infer_buffer_observation_goals.rs` and
