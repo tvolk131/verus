@@ -150,6 +150,9 @@ def validate_goal_run(run, expected, *, expected_functions, exec_bodies,
     require(scope.get("native_collection_completed") is True,
             "goal native body inventory is incomplete")
     bodies = scope["native_functions"]
+    require(not any(body.get("selected") is True and body.get("body_status") in (
+                "unverified_body_with_contract", "external_specification", "interface_without_checked_body")
+                for body in bodies), "a selected local contract has no checked body")
     if expected:
         require(scope.get("complete_selected_scope_verified") is True,
                 "goal body checking is incomplete")
@@ -162,6 +165,10 @@ def validate_goal_run(run, expected, *, expected_functions, exec_bodies,
                     "checked body count disagrees with the named inventory")
     else:
         require_failure_kind(run["stderr"], failure_kind)
+        require(not any(message in run["stderr"] for message in (
+                    "possible arithmetic underflow/overflow", "invariant not satisfied",
+                    "recommendation not met", "error[E")),
+                "goal control includes a different failure kind")
         selected = [body for body in bodies
                     if body.get("body_status") == "selected_body_not_certified_by_successful_full_run"]
         require(all(body.get("selected") is True for body in selected),
