@@ -1,0 +1,71 @@
+{
+  "retained_initial_runs": [
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-ezn3jxb3/receipt.json",
+      "sha256": "c995da417d09addc581c77761c7fcdf7e3ec038b029b8ed4a4f1f0f11d8cf8a1",
+      "stage": "baseline",
+      "cases": 24
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-9en_2_e9/receipt.json",
+      "sha256": "ade226db97e75caa401f567b1f7e85d70b404f3b348307ff0b0a1c13ab962ba5",
+      "stage": "diagnostics",
+      "cases": 26
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-gl65bbaj/receipt.json",
+      "sha256": "dd091b683b3eed04a859b9fb116584bf9a21175d1e1b8841601b48cfbb02153f",
+      "stage": "native",
+      "cases": 0
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-99bnv7_5/receipt.json",
+      "sha256": "7d3d3b984a244da52fe7951df4bc27c29d63b3fd4449144dee9680ab4cbc6765",
+      "stage": "manual",
+      "cases": 8
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-_qtjx0_e/receipt.json",
+      "sha256": "0926f223ebdb0ccb8a5ba036d3b09e783f4043664eeaf5d87b437470d6e2e1ce",
+      "stage": "manual",
+      "cases": 8
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-ns_4s_qj/receipt.json",
+      "sha256": "6a7f50cac42506d1694f8331edc2abe61aac9511832c2c19523d886197afe479",
+      "stage": "diagnostics",
+      "cases": 2
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-bwdtvwvb/receipt.json",
+      "sha256": "584d33367e8961eea46d80f7912614186e3850225a657dd39a56e9a7a1b3f2b9",
+      "stage": "manual",
+      "cases": 8
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-orr8cve9/receipt.json",
+      "sha256": "a78f250e3a96f01618753822e24b81d901c325eab1235523b06dbdb5157cd227",
+      "stage": "native",
+      "cases": 0
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-vl0orbb0/receipt.json",
+      "sha256": "fb45a12de8d894e5cb8e058b380f5d5c2e3eedf01e1a5ab1e784b2a5e7068088",
+      "stage": "manual",
+      "cases": 4
+    },
+    {
+      "receipt": "/tmp/verus-varint-3b05c191-research/varint-7_2ccz1a/receipt.json",
+      "sha256": "31042bd4a605c695de620dc977584b7c5acae02f2176079ee46178ca7af2eaeb",
+      "stage": "publication",
+      "cases": 4
+    }
+  ],
+  "selection_rule": "Final results will be a fresh single complete replay. These earlier runs remain historical attempts, including missing predicate proofs, initial loop-spec ordering errors, the initial shift identity obligation, and the frozen no-cheating layout rejection. None is discarded or recast as proof.",
+  "superseded_source_snapshots": [
+    "/tmp/verus-varint-3b05c191-research/semantic-positive-initial.rs",
+    "/tmp/verus-varint-3b05c191-research/initial-parse-canonical-attempt.rs",
+    "/tmp/verus-varint-3b05c191-research/initial-parse-length-attempt.rs"
+  ],
+  "later_manual_source_snapshots": "Per-phase .source.rs in each raw case directory"
+}
