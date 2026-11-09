@@ -1023,9 +1023,16 @@ impl Analyzer<'_> {
                         return Err(unsupported(s, "integer model argument count"));
                     }
                     let mut safe = boolean(s, true);
-                    for arg in args.iter() {
+                    for (index, arg) in args.iter().enumerate() {
                         let arg = self.expr(arg, checked)?;
                         safe = logical(s, LogicalOp::And, safe, arg.safe)?;
+                        if model.operation == integer_models::Operation::Div && index == 1 {
+                            let zero = Numeric::range(Range::Int(0.into(), 0.into()));
+                            let valid =
+                                Numeric::compare(s, BinaryOp::Ne, &arg.value.number(s)?, &zero)?
+                                    .yes;
+                            safe = logical(s, LogicalOp::And, safe, valid)?;
+                        }
                     }
                     return Ok(Checked {
                         safe,

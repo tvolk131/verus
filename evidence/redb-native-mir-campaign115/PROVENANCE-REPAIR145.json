@@ -1,0 +1,38 @@
+{
+  "record": "parent145-source-only-provenance-repair",
+  "root": "/private/tmp/redb-provenance-repair145-20261108-R61d8D",
+  "status": "SOURCE_ONLY_STAGED_UNBUILT_UNTESTED_NOT_ADOPTED",
+  "baseline140_native_rs_sha256": "85ef1774e8d2790a91d08801479b736217b86d9179f5242ff9fab3f1d74ed7cd",
+  "source_sha256": "f05872a5d642ed028145f605e24d849c362863c1cc1a48baea989d69a923f720",
+  "patch_sha256": "841c2f730da91130b1860a2f8ae8f4f1d792c15cfc11ba3100d4e2e2abb16fc2",
+  "manifest_sha256": "f55358676b799b34f50cd9b4bb50aaf2d3cf51063de466d47cac31e2a2804081",
+  "retained_archive": "PROVENANCE-REPAIR145.tar.gz",
+  "retained_archive_sha256": "5c30fc5e0ddc67fb666093d1315667099263b4587c765cc76eadc9e22d726218",
+  "retained_archive_bytes": 18976,
+  "retained_archive_payload_bytes": 86871,
+  "retained_archive_regular_unique_members_byte_identical": 5,
+  "changes": [
+    "Full Place-keyed pending provenance and exact projected/type operand lookup.",
+    "Shared destructive assignment and call transfer, including unknown destinations, aggregate moves and reused storage.",
+    "Pending result retains its origin loan; no fresh authority inferred.",
+    "Shared end transfer before every statement and terminator, including empty cleanup endpoints, with explicit OPEN writeback/resumption/frame obligations.",
+    "Header normal and cleanup traversal shares transfer/end logic; header obligations are retained."
+  ],
+  "synthetic_regressions_authored": 10,
+  "synthetic_regressions_executed": 0,
+  "compiler_formatter_cargo_verifier_or_native_runs": 0,
+  "finding_closure": "NOT_CLAIMED; actual port/build/targeted regression validation remains required.",
+  "native_semantics": "Pending serialized/debug provenance is not compiler-owned authority, a multi-resource ledger, returned-loan proof or byte-writeback proof.",
+  "delivery_to143": {
+    "status_observed": "STEERED_EXISTING_RUNNING_RUN",
+    "message_id": "message:mcp:8e0b49bf-52cf-472f-bc8a-1703e3df6abe:thread-send:0f3cd0a5-6485-4632-8c0e-f572e86cde21",
+    "budget": "143 limits unchanged; validation/incorporation only if useful within existing allowance.",
+    "instruction": "Do not overwrite evolving143 sources blindly. Port equivalent rules into actual compiler-owned proof lowering where needed; do not rebuild a diagnostic solely for counts."
+  },
+  "immutable140_source_reauthenticated_unchanged": true,
+  "live143_artifacts_inspected_or_edited": false,
+  "new_delegate_started_for_repair": false,
+  "parent_native_integration_or_primitive_adoption": "NONE",
+  "all18": "OPEN",
+  "native_resource_trust_proof_credit_added": [0, 0, 0, 0]
+}

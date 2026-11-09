@@ -75,6 +75,32 @@ pub proof fn lemma_auto_spec_u16_to_from_le_bytes()
     }
 }
 
+pub proof fn lemma_u16_to_le_bytes_expansion(value: u16)
+    ensures
+        spec_u16_to_le_bytes(value) == seq![(value & 0xff) as u8, ((value >> 8) & 0xff) as u8],
+{
+}
+
+pub proof fn lemma_u16_from_le_bytes_expansion(bytes: Seq<u8>)
+    requires
+        bytes.len() == 2,
+    ensures
+        spec_u16_from_le_bytes(bytes) == (bytes[0] as u16) | ((bytes[1] as u16) << 8),
+{
+}
+
+pub assume_specification[ u16::to_le_bytes ](value: u16) -> (result: [u8; 2])
+    ensures
+        result@ == spec_u16_to_le_bytes(value),
+    no_unwind
+;
+
+pub assume_specification[ u16::from_le_bytes ](bytes: [u8; 2]) -> (result: u16)
+    ensures
+        result == spec_u16_from_le_bytes(bytes@),
+    no_unwind
+;
+
 #[verifier::external_body]
 pub exec fn u16_from_le_bytes(s: &[u8]) -> (x: u16)
     requires
@@ -169,6 +195,38 @@ pub proof fn lemma_auto_spec_u32_to_from_le_bytes()
         assert_seqs_equal!(spec_u32_to_le_bytes(spec_u32_from_le_bytes(s)) == s);
     }
 }
+
+pub proof fn lemma_u32_to_le_bytes_expansion(value: u32)
+    ensures
+        spec_u32_to_le_bytes(value) == seq![
+            (value & 0xff) as u8,
+            ((value >> 8) & 0xff) as u8,
+            ((value >> 16) & 0xff) as u8,
+            ((value >> 24) & 0xff) as u8,
+        ],
+{
+}
+
+pub proof fn lemma_u32_from_le_bytes_expansion(bytes: Seq<u8>)
+    requires
+        bytes.len() == 4,
+    ensures
+        spec_u32_from_le_bytes(bytes) == (bytes[0] as u32) | ((bytes[1] as u32) << 8)
+            | ((bytes[2] as u32) << 16) | ((bytes[3] as u32) << 24),
+{
+}
+
+pub assume_specification[ u32::to_le_bytes ](value: u32) -> (result: [u8; 4])
+    ensures
+        result@ == spec_u32_to_le_bytes(value),
+    no_unwind
+;
+
+pub assume_specification[ u32::from_le_bytes ](bytes: [u8; 4]) -> (result: u32)
+    ensures
+        result == spec_u32_from_le_bytes(bytes@),
+    no_unwind
+;
 
 #[verifier::external_body]
 pub exec fn u32_from_le_bytes(s: &[u8]) -> (x: u32)
@@ -524,6 +582,18 @@ pub proof fn lemma_auto_spec_u128_to_from_le_bytes()
         assert_seqs_equal!(spec_u128_to_le_bytes(spec_u128_from_le_bytes(s)) == s);
     }
 }
+
+pub assume_specification[ u128::to_le_bytes ](value: u128) -> (result: [u8; 16])
+    ensures
+        result@ == spec_u128_to_le_bytes(value),
+    no_unwind
+;
+
+pub assume_specification[ u128::from_le_bytes ](bytes: [u8; 16]) -> (result: u128)
+    ensures
+        result == spec_u128_from_le_bytes(bytes@),
+    no_unwind
+;
 
 #[verifier::external_body]
 pub exec fn u128_from_le_bytes(s: &[u8]) -> (x: u128)

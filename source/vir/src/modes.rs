@@ -225,7 +225,8 @@ impl Proph {
 
 /// For any expression that can't be allowed in prophecy-conditional context
 /// i.e., if it should be an error to do this:
-/// ```
+/// (prophecy-dependent VIR pseudocode, not a Rust example):
+/// ```text
 /// if proph_value() {
 ///    e;
 /// }

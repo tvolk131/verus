@@ -1,0 +1,1028 @@
+[
+  {
+    "attempt": "attempt-002",
+    "result": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 1
+    },
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 1,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_proof_body",
+          "function": "branch_leaf_client::meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-002/input.rs:11:1: 11:44"
+        }
+      ]
+    }
+  },
+  {
+    "attempt": "attempt-003",
+    "result": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 3
+    },
+    "scope": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 2,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::interval",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "interval",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:19:1: 19:98"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_proof_body",
+          "function": "branch_leaf_client::matching_child",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "matching_child",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:41:1: 41:157"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::meaning",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:15:1: 15:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_proof_body",
+          "function": "branch_leaf_client::meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:8:1: 8:44"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "branch_leaf_client::route_then_search",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "route_then_search",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:65:1: 66:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::supplied",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "supplied",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:25:1: 25:108"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::union_has",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "union_has",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-003/input.rs:35:1: 35:109"
+        }
+      ]
+    }
+  },
+  {
+    "attempt": "attempt-004",
+    "result": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 3,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 3
+    },
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::branch_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "branch_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:118:1: 118:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixed_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:198:1: 198:89"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_lawful",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_lawful",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:130:1: 131:72"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::interval",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "interval",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:19:1: 19:98"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::leaf_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "leaf_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:122:1: 122:90"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::matching_child",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "matching_child",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:41:1: 41:157"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::meaning",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:15:1: 15:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:8:1: 8:44"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::route_then_search",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "route_then_search",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:65:1: 66:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::supplied",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "supplied",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:25:1: 25:108"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::union_has",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "union_has",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:35:1: 35:109"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::variable_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-004/input.rs:259:1: 259:92"
+        }
+      ]
+    }
+  },
+  {
+    "attempt": "attempt-005",
+    "result": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "branch_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "branch_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:118:1: 118:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "fixed_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:200:1: 200:89"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "fixed_witness::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness::__VERUS_REVEAL_INTERNAL__",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:209:9: 209:15"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "fixed_witness::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness::__VERUS_REVEAL_INTERNAL__",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:210:9: 210:15"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "fixture_lawful",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_lawful",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:130:1: 131:72"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "fixture_lawful::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_lawful::__VERUS_REVEAL_INTERNAL__",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:142:5: 142:11"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "fixture_lawful::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_lawful::__VERUS_REVEAL_INTERNAL__",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:143:5: 143:11"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "interval",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "interval",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:19:1: 19:98"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "leaf_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "leaf_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:122:1: 122:90"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "matching_child",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "matching_child",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:41:1: 41:157"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "meaning",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:15:1: 15:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:8:1: 8:44"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "route_then_search",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "route_then_search",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:65:1: 66:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "supplied",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "supplied",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:25:1: 25:108"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "union_has",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "union_has",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:35:1: 35:109"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "variable_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:265:1: 265:92"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "variable_witness::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness::__VERUS_REVEAL_INTERNAL__",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:274:9: 274:15"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "variable_witness::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness::__VERUS_REVEAL_INTERNAL__",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-005/input.rs:275:9: 275:15"
+        }
+      ]
+    }
+  },
+  {
+    "attempt": "attempt-006",
+    "result": {
+      "encountered-error": true,
+      "encountered-vir-error": true,
+      "success": false
+    },
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::branch_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "branch_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:118:1: 118:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixed_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:229:1: 229:89"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_key",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_key",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:130:1: 130:64"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_lawful",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_lawful",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:181:1: 182:72"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_leaf",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_leaf",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:136:1: 136:92"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::interval",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "interval",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:19:1: 19:98"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::leaf_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "leaf_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:122:1: 122:90"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::matching_child",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "matching_child",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:41:1: 41:157"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::meaning",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:15:1: 15:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:8:1: 8:44"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::route_then_search",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "route_then_search",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:65:1: 66:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::supplied",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "supplied",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:25:1: 25:108"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::union_has",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "union_has",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:35:1: 35:109"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::variable_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-006/input.rs:292:1: 292:92"
+        }
+      ]
+    }
+  },
+  {
+    "attempt": "attempt-007",
+    "result": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 4,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 3
+    },
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::branch_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "branch_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:118:1: 118:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixed_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:232:1: 232:89"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_key",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_key",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:133:1: 133:64"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_kw",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_kw",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:130:1: 130:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_lawful",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_lawful",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:184:1: 185:72"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_leaf",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_leaf",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:139:1: 139:92"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_vw",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_vw",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:131:1: 131:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::interval",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "interval",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:19:1: 19:98"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::leaf_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "leaf_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:122:1: 122:90"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::matching_child",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "matching_child",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:41:1: 41:157"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::meaning",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:15:1: 15:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:8:1: 8:44"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::route_then_search",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "route_then_search",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:65:1: 66:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::supplied",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "supplied",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:25:1: 25:108"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::union_has",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "union_has",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:35:1: 35:109"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::variable_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-007/input.rs:295:1: 295:92"
+        }
+      ]
+    }
+  },
+  {
+    "attempt": "attempt-008",
+    "result": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 4,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 4
+    },
+    "scope": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::branch_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "branch_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:126:1: 126:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::decoded_four",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "decoded_four",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:19:1: 19:42"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixed_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixed_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:243:1: 243:89"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_key",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_key",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:141:1: 141:64"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_kw",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_kw",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:138:1: 138:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_lawful",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_lawful",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:195:1: 196:72"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::fixture_leaf",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fixture_leaf",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:147:1: 147:92"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::fixture_vw",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "fixture_vw",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:139:1: 139:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::interval",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "interval",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:27:1: 27:98"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::leaf_image",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "leaf_image",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:130:1: 130:90"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::matching_child",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "matching_child",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:49:1: 49:157"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::meaning",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "meaning",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:15:1: 15:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::meaning_bridge",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "meaning_bridge",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:8:1: 8:44"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::route_then_search",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "route_then_search",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:73:1: 74:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::supplied",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "supplied",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:33:1: 33:108"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "branch_leaf_client::union_has",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "union_has",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:43:1: 43:109"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "branch_leaf_client::variable_witness",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "variable_witness",
+          "selected": true,
+          "source": "/private/tmp/branch-leaf-composition102-impl-SqXAof8z/attempt-008/input.rs:306:1: 306:92"
+        }
+      ]
+    }
+  }
+]

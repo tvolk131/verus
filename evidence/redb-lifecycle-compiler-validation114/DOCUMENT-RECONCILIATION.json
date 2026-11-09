@@ -1,0 +1,63 @@
+{
+  "all18": "OPEN",
+  "changed_or_added_status_fields": [
+    "active_goal_blocker",
+    "active_goal_state",
+    "lifecycle_compiler_validation114_actual_mir_capture_exercised",
+    "lifecycle_compiler_validation114_authentication",
+    "lifecycle_compiler_validation114_build_metadata",
+    "lifecycle_compiler_validation114_compiler_commands_max",
+    "lifecycle_compiler_validation114_compiler_commands_used",
+    "lifecycle_compiler_validation114_engine_executable_built",
+    "lifecycle_compiler_validation114_ledger",
+    "lifecycle_compiler_validation114_native_bodies_checked",
+    "lifecycle_compiler_validation114_next_boundary",
+    "lifecycle_compiler_validation114_result",
+    "lifecycle_compiler_validation114_review",
+    "lifecycle_compiler_validation114_review_report",
+    "writablepage_lifecycle113_repaired_source_review_superseded_by",
+    "writablepage_lifecycle113_repaired_source_validation_superseded_by"
+  ],
+  "entry_baseline_records": 1478,
+  "goal_service_observed": "BLOCKED",
+  "native_runs": 0,
+  "new_trust_or_source_integration": false,
+  "only_two_disclosed_document_changes": [
+    {
+      "after": {
+        "bytes": 24727,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+        "sha256": "ee958813f378dc446e26d9c2dcad10764bd6e7c1621e7d304359e9f461caa847"
+      },
+      "before": {
+        "bytes": 22745,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+        "sha256": "18dbbec218a1c1e087e8415ccb2162d4f3b74bfb1f6d64b524782497dbc9f9d1"
+      },
+      "previous_bytes_at": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-lifecycle-compiler-validation114/PRE-FINAL-GOAL.md"
+    },
+    {
+      "after": {
+        "bytes": 29066,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+        "sha256": "8f7ce51019f2fb45886a2914a917918a50f6939647711249bf9035f25b5f8a66"
+      },
+      "before": {
+        "bytes": 27477,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+        "sha256": "e80936b054e155ade87320e1cc18a6acf7db1824af1d9848abe3865e8fd21fbc"
+      },
+      "previous_bytes_at": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-lifecycle-compiler-validation114/PRE-FINAL-STATUS.json"
+    }
+  ],
+  "parent_compiler_test_runs": 0,
+  "sealed113_manifest_unchanged": {
+    "bytes": 5114,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-writablepage-lifecycle113/ROUND-MANIFEST.json",
+    "sha256": "a4cfa51212f0a684d418b4d722e5a701eed897052b6437060c334589b8c2c3fe"
+  },
+  "unchanged_records": 1476,
+  "unchanged_source_records": 1474,
+  "utc": "2026-11-08T15:35:52.268545+00:00",
+  "whole_goal_acceptance": false
+}

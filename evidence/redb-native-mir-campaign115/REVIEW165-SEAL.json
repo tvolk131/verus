@@ -1,0 +1,31 @@
+{
+  "archive": "none; minimal report/hash/accounting seal",
+  "authentication_failures": [],
+  "files": [
+    {
+      "bytes": 4354,
+      "path": "HANDOFF165.json",
+      "sha256": "ceec8d1ddd6d84b6d50c3c2cace26517b891f6b30cecec3d1ca3b55f75260c90"
+    },
+    {
+      "bytes": 25137,
+      "path": "REPORT165.md",
+      "sha256": "222bc82035c9a7bcb0464c81412c4b7a72e55ad6e344c9010a67b05fc2c83875"
+    },
+    {
+      "bytes": 733,
+      "path": "SETUP-FAILURE165.txt",
+      "sha256": "d10987213e905ec63f713da147af398f969b77ff9f6bec39c6e8b9b7a82191be"
+    },
+    {
+      "bytes": 7647,
+      "path": "seal165.py",
+      "sha256": "a4c02be88e23c810630bd5396056032cd30bc189ce1eca8c5120afc7760bc021"
+    }
+  ],
+  "review": 165,
+  "scratch_limit_bytes": 2097152,
+  "self_excluded": "SEAL165.json",
+  "status": "SEALED",
+  "utc": "2026-11-09T01:59:17.684011+00:00"
+}

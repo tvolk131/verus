@@ -85,6 +85,7 @@ pub enum VarIdentDisambiguate {
     ExpandErrorsDecl(u64),
     BitVectorToAirDecl(u64),
     ResInfTemp(u64),
+    NativeResource(u64),
 }
 
 /// A local variable name, possibly renamed for disambiguation
@@ -1356,9 +1357,9 @@ pub enum ModeWrapperMode {
 /// for the implicit dereferences that might be applied on top.
 ///
 /// Example: Suppose x is a local of type `Box<(&T, &T)>` and the expression `*(*x).0`.
-/// Conceptually, this would be:
+/// Conceptually, this would be (VIR tree pseudocode, not Rust):
 ///
-/// ```
+/// ```text
 /// ImmutableDeref(typ = T,
 ///    Field("0", typ = &T,
 ///        BoxDeref(typ = (&T, &T),
@@ -1366,9 +1367,10 @@ pub enum ModeWrapperMode {
 /// )))
 /// ```
 ///
-/// Since box and immutable deref are implicit, the "real" representation is:
+/// Since box and immutable deref are implicit, the "real" representation is
+/// (also VIR tree pseudocode):
 ///
-/// ```
+/// ```text
 /// Field("0", typ = &T,
 ///     Local("x", typ = Box<(&T, &T)>)
 /// )

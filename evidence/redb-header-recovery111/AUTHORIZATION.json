@@ -1,0 +1,27 @@
+{
+  "all18": "OPEN",
+  "authorization": "STANDING_ROUTINE_PROOF_DEBUG_REVIEW_PERMISSION_DISTINCT_CONSUMER_COMPOSITION_NOT_OLD_ALLOWANCE_RESET",
+  "clarification": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-storage-composition110/CONTINUATION-AUTHORIZATION.md",
+  "excluded_work_authorized": false,
+  "free_bytes_at_freeze": 77516488704,
+  "global_free_floor_bytes": 17179869184,
+  "hard_deadline_utc": "2026-11-08T06:14:18Z",
+  "inputs": {
+    "bytes": 328068,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-header-recovery111/INPUTS.json",
+    "sha256": "9fae5c40b2e2a49cc50b69533325efd00a0f5c385ff384236a5a234ad54273e3"
+  },
+  "new_builds_authorized": false,
+  "new_trust_adoption_authorized": false,
+  "optional_work_stop_utc": "2026-11-08T06:02:18Z",
+  "parent_application_cap": 4,
+  "parent_source_integration_authorized": false,
+  "plan": {
+    "bytes": 7273,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-header-recovery111/PLAN.md",
+    "sha256": "df54d19d300c2393f6ebf40c68e0a3300f7db5856c58dbbb995845c4652fb1db"
+  },
+  "round_start_utc": "2026-11-08T05:14:18Z",
+  "schema": "redb-header-recovery111-standing-scope-v1",
+  "scratch_cap_bytes": 4294967296
+}

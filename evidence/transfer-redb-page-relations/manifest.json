@@ -1,0 +1,1276 @@
+{
+  "date": "2026-11-01",
+  "scenario": "redb_page_relations",
+  "status": "proved",
+  "base": "55bd67ad980e90e92c77efe4453a927f097c3386",
+  "baseline": {
+    "manifest": {
+      "path": "/private/tmp/verus-infer-proof-assistance-0d9p49mm/final-package/manifest.json",
+      "sha256": "1a52b38c47530e13bf056c0be1c4b0af5635e8236469ec4767f5c248ecee7894",
+      "bytes": 11192
+    },
+    "restore": {
+      "path": "/private/tmp/verus-infer-proof-assistance-0d9p49mm/final-package/restore.apply_patch",
+      "sha256": "41488a401abde86ffa6d09a054750fc5bbb14bf2588c2ea00d35112b38c3398e",
+      "bytes": 1214190
+    },
+    "files_verified": 87,
+    "tools_verified": 9,
+    "identity": {
+      "cache": 69,
+      "policy": 63,
+      "schema": 38
+    }
+  },
+  "candidate": {
+    "cache": 70,
+    "policy": 64,
+    "schema": 38,
+    "parent_reservation": {
+      "cache": 72,
+      "policy": 66
+    },
+    "fedimint_reservation": {
+      "cache": 71,
+      "policy": 65
+    },
+    "no_wire_change": true
+  },
+  "source_hashes": {
+    "source/rust_verify/src/import_export.rs": "e5a762ba57d8d7dae383b93465e963f55339d2325504ebdadffe72a64889da57",
+    "source/vir/src/infer/registry.rs": "eb52ae5ea521f64d4b3cb465488c6c4bc2c9438185fd4a308c44504b5a945150",
+    "source/vir/src/infer/goals.rs": "354ada2fc7c8c78a91621f3ffd974f48832eb8924f74226ee85bd8d6f5142860",
+    "source/vir/src/infer/goals/polynomial.rs": "8431d6339cc8ed52fe29e9384134d0eb8b38208cc4a79e30183bc74d80881b53",
+    "source/tools/check_redb_page_relations.py": "76884454a6fda8a2fad59acd1bf044117897f3a9c016da3c8b5031a079d3c701",
+    "source/tools/test_redb_page_relations.py": "9cc4c5d3d34d52e42c983855c2ac30dcd30b270daf7fcbf40da3a9b2a8597835",
+    "source/rust_verify_test/tests/infer_page_relations.rs": "b755ec2e6cdda910347bcaadb88fc5549edab3d5faadd95d3e90cad75a833829",
+    "source/rust_verify_test/tests/infer_cases/redb_page_relations.rs": "1533f937689b2e9824c383ae96b440eba4a31f79158fb7bceb648bf87d3fd1ee"
+  },
+  "compiler_source_ledger": {
+    "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/compiler_sealed.json",
+    "sha256": "10afa6e0b9b6535fa0c6de7f8f7a05c91f125efd649ac326f23aeff7a62fb739",
+    "bytes": 176492
+  },
+  "cargo_artifact_fingerprints": {
+    "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/cargo-artifacts.json",
+    "sha256": "e3192bc51c3c02a3624db640b0c6bc2ac061579487b256db115054d03f103234",
+    "bytes": 151533
+  },
+  "runtime": {
+    "libverus_builtin.rlib": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libverus_builtin.rlib",
+      "sha256": "a22442215430766337da5d19a88566fa15e3a24fcc4de812effd46fa7084e71b",
+      "bytes": 905856
+    },
+    "libverus_builtin_macros.dylib": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libverus_builtin_macros.dylib",
+      "sha256": "bb64aa1870ec6be736108895dfc024e633d0bd7e20f4ca67a7ef27cb6f17da81",
+      "bytes": 13981424
+    },
+    "libverus_state_machines_macros.dylib": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libverus_state_machines_macros.dylib",
+      "sha256": "c170da454904a2a3a82ee97d26901d68a2e6525ffffb422039e098381dc1a66b",
+      "bytes": 9092304
+    },
+    "libvstd.rlib": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libvstd.rlib",
+      "sha256": "9f825f6f2a1bb25ec6d2dc1de0c4af742f97ea1b2c55838fbe50f47fd82eb047",
+      "bytes": 10877896
+    },
+    "rust_verify": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/rust_verify",
+      "sha256": "1aa2dc6a63fc66fdd012e13a5ed4c526a42116d2f08327067b120e2ca966191a",
+      "bytes": 31218240
+    },
+    "verus": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/verus",
+      "sha256": "b2a4dcc291113bdf45026086d14a9f9a70ffc3279d408325aa7f9230071d5c51",
+      "bytes": 3684016
+    },
+    "vstd.vir": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/vstd.vir",
+      "sha256": "c96631fcd811721bac6bd583683c7d7137d2228f58dd7c340c89abd6ce84a03d",
+      "bytes": 33352654
+    },
+    "vstd_build": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/vstd_build",
+      "sha256": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+      "bytes": 80848
+    },
+    "z3": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/z3",
+      "sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "bytes": 26087280
+    }
+  },
+  "immutable_macro_sources": {
+    "source/builtin_macros/Cargo.toml": "2d26f34ea555473e53ad8d41628b255e47e3ab53792096b37b9b039337cb0b50",
+    "source/builtin_macros/src/attr_rewrite.rs": "52beb114749d6d203c64d4c321b76422e07d41ebc7162680af78fbf2b4201a1e",
+    "source/builtin_macros/src/infer_derive_ops.rs": "091237e7a6354ae664b2232576d2bb01ed3c95508f46a7272b93a6fc40bc9885",
+    "source/builtin_macros/src/infer_clone.rs": "e0ac2c1dc74759edc998ade6ea0aff3abc5e40631b26c31a696791cc4c12ae70",
+    "source/builtin_macros/src/struct_decl_inv.rs": "44f17d24fefbe10d3e0dec20d1ba11a6d6e951a4eeb05c4aa7c94ba26fe8fb61",
+    "source/builtin_macros/src/rustdoc.rs": "691e3b7aea7f7780b54509dda1d2f64e1c927ee8429546e9347d0e672e610d6b",
+    "source/builtin_macros/src/infer_compare.rs": "362527eb3a0d2542dce9b2fa58cd3236fd6dda52121453456da919994b26c373",
+    "source/builtin_macros/src/byte_buffer.rs": "52b3c3f76a37059e55edb23ec605f3a6b7f51008d5a40c99b6388ab48b64cdd6",
+    "source/builtin_macros/src/lib.rs": "6a1668fcc5bae9ea39f1283f8a18d56856bb99dd59a03abba0f772fda4a90c0e",
+    "source/builtin_macros/src/unerased_proxies.rs": "dc591aa4864ddc692d4c55e8308b74d40a9cca886651e3e03b0dac8687f4531b",
+    "source/builtin_macros/src/enum_synthesize.rs": "04feadfdf38715334ce64490c2711527c50098523c9186dbac8dc76c6aec0d5f",
+    "source/builtin_macros/src/syntax_trait.rs": "0b31b0d0645c682ae560b2664f11d3ff1037c101974085b8c20d7024c7c750fd",
+    "source/builtin_macros/src/attr_block_trait.rs": "29b8ebb529232c94223b59ae6d5fdc037fdea4504b4d1f7c87c9e24971c52a77",
+    "source/builtin_macros/src/topological_sort.rs": "aa53f630cc04e1ae852ff6d04307ed2e62d0b81d281b4063a2f2460ee516a28d",
+    "source/builtin_macros/src/atomic_ghost.rs": "a3aa5d05dea856478fa154a167143692d94d68869cd4d05f7c6108379dabdc39",
+    "source/builtin_macros/src/structural.rs": "2fb24f5280ea10dd5c0975a51e9c602faf4e9e68b328d16d84aa767485554475",
+    "source/builtin_macros/src/fndecl.rs": "690f82bd9cc743e770266a6cf552a2cc2c6f4364ea044727237b19580af5b052",
+    "source/builtin_macros/src/is_variant.rs": "9922c1c1105408bf03589831b8b17265e1599107352f2a444ee6b151e1f7c363",
+    "source/builtin_macros/src/infer_binary.rs": "bb318f2fefa15d92fdfef20d801707b0fb81266257a35b726b145b9773751dad",
+    "source/builtin_macros/src/infer_wrapper.rs": "6ecec08658b1d84617c18d068a1181ab30393025e3dc208e8f9b2ad13cd5550f",
+    "source/builtin_macros/src/calc_macro.rs": "61c24635c9a716758faf949cec928d37f77c9a3b220567e7d7c11f885f95a701",
+    "source/builtin_macros/src/syntax.rs": "a0d8edf38d8799676a85935e1ac60bb1aeacd859c4fe6450456fb6b957951af0",
+    "source/builtin_macros/src/infer_factory.rs": "9e58959a7d02c98e3f65af238b1145dff6d82c665735bea7e34eca36b83d0970",
+    "source/builtin_macros/src/contrib/set_build.rs": "74519b1949aff41ec53a8375e752f156f71d261aa0b3d402688957d7fc240a69",
+    "source/builtin_macros/src/contrib/spec_derive.rs": "c665223a9c4292f374c44453e84544687066acbf055e5bd9682a7f613718c490",
+    "source/builtin_macros/src/contrib/exec_spec.rs": "bb54104e0cd1a405a4fe12fcf47ec823889b6d22cd3c62917a89e34840df2f3b",
+    "source/builtin_macros/src/contrib/hooks.rs": "85e506a308c248d8c61d487a0fe99acfe4c7169340f28042f1640269b8a3b82a",
+    "source/builtin_macros/src/contrib/mod.rs": "81ca1752441848172d9dd797856c0dbca3ed84c3b4e15afb92b01056b75eb452",
+    "source/builtin_macros/src/contrib/auto_spec.rs": "b82e9d2b39b98a337a82572f9c41806f3a68516a9b7a5dc829462f18d5b9909d",
+    "source/state_machines_macros/Cargo.toml": "46f97a4539c1f39c5e22ea6f2bae1b4568fa838fc6dd64bc8e324b1467cc79bf",
+    "source/state_machines_macros/src/safety_conditions.rs": "cdf13157d41bb13d2b1b894828bd0baa03ab6b6fd767ba00289b364f7483edfa",
+    "source/state_machines_macros/src/check_birds_eye.rs": "be37b59402ac1b6b36cc27c4ecc5d227878b43551f352d89df6331bad3f5f0f9",
+    "source/state_machines_macros/src/parse_transition.rs": "0c388a90c541a1d8690b3accc0d4b616ce72524437bf9ebd30a0ceb44573f68c",
+    "source/state_machines_macros/src/util.rs": "84dd9fb542efbdac191a8e00c8cdf356e2b57575b53347a2c30c2ce0c83a3edb",
+    "source/state_machines_macros/src/inherent_safety_conditions.rs": "895f50162be7cbb116feb5063a50c20b866d1fcd67844ffb2cec6e117f3a66ad",
+    "source/state_machines_macros/src/to_token_stream.rs": "b4ba6a7770d6001f1cf1107f486f34c1babf566777363f8942dc90c35bd778e8",
+    "source/state_machines_macros/src/self_type_visitor.rs": "48be3128d0c4d63ab24c6b33da04269e5c8146121e8e41cfee632740ca29d2dd",
+    "source/state_machines_macros/src/lib.rs": "ffc2ffb9c10d1e7a3dee384d47e752e0c5fe7296dd0adfb93e24c64c2a05ec5d",
+    "source/state_machines_macros/src/token_transition_checks.rs": "4472eabe7ef4caf0916ba3bf70c56c94c98c5d5f809ebd3c08c9687cb6ecea82",
+    "source/state_machines_macros/src/to_relation.rs": "4ceb47a4368020b9ca3ef4244b19fb86d46b23b588fddcc29c114da9c22ef52e",
+    "source/state_machines_macros/src/ident_visitor.rs": "4de85499e977ef297abaf37be4dad6e5ddc26b604bc0b0eaf24386525961fa46",
+    "source/state_machines_macros/src/check_bind_stmts.rs": "ae7299ac81ca536246ee6ec7b6ecee0de45f36373c05c3f1a9df1529c69f6512",
+    "source/state_machines_macros/src/field_access_visitor.rs": "e6e837cdd247f09fd7615069c123da653ca54752ac668d139f46f11de77f00ec",
+    "source/state_machines_macros/src/simplification.rs": "e59c37aaeaa238fceb4d49d3f72dfa0f072fe6e2e5402b46a00af67ba219f079",
+    "source/state_machines_macros/src/vstd_path.rs": "87b22bcd4cb72f5ee5a0aea2bac6b61d73d4959cdffbeb3016b354e9b2cdb653",
+    "source/state_machines_macros/src/concurrency_tokens.rs": "9bffc1a514ff424b654a125219a337cc48317a2a31b28a80d91582c306ffd6eb",
+    "source/state_machines_macros/src/case_macro.rs": "4c6c6fac464c76d049fb12e8bd5adf122025d451c35c9cab9d653ccf462fb41e",
+    "source/state_machines_macros/src/simplify_asserts.rs": "2366adf1d55b994eff114494c578315185ac5916a2345fef499e272ee35476e7",
+    "source/state_machines_macros/src/lemmas.rs": "19934ac7a5902379e2e2c5068ecbdfd588091dfa4d960e8092f5776da5dbdcdf",
+    "source/state_machines_macros/src/ast.rs": "b81ac60e2c2e984be7c288c1c9e2ed3ac46b47794525fd67a7f9bff7973970d4",
+    "source/state_machines_macros/src/transitions.rs": "18078adb29c30a6c76beb5a326137b8126bf8e9a10fb6a8e3c1c78ddcf16de10",
+    "source/state_machines_macros/src/parse_token_stream.rs": "4d8bcc32b34de2940e23db7adbf36e30c7c049d711f561d27ed2572b3e18a36c",
+    "source/builtin/Cargo.toml": "07f62c0599a0d65cb50fd7afbb2177e45237ff662ac257a2b2ba8bad07966f57",
+    "source/builtin/src/lib.rs": "c7c63e9327358ae3c6f4038927fb3ce01d08238a31f50b93b7c521a80d072e2e"
+  },
+  "macro_artifact_provenance": "Independent copies of supplied immutable baseline libraries; macro/builtin sources unchanged. Verifier, launcher and vstd_build built here; vstd freshly verified/compiled here.",
+  "application": {
+    "commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "path": "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+    "source": "src/tree_store/page_store/base.rs",
+    "source_sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+    "extraction": {
+      "PageNumber": {
+        "sha256": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 34
+      },
+      "page_size_bytes": {
+        "sha256": "2a0e31afa33b709b29c216b83b73ad5f69eb5501b8a3330a819996581573b5b8",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 158
+      },
+      "address_range": {
+        "sha256": "22beb37e2f40bc1935fd83e046dcf7c631a28eab0ed86f041b5c940b4a9a9829",
+        "source": "src/tree_store/page_store/base.rs",
+        "line": 142
+      }
+    },
+    "clean_pin_checks": [
+      "application_before_pin",
+      "application_before_clean",
+      "application_after_pin",
+      "application_after_clean"
+    ]
+  },
+  "fidelity": {
+    "original_methods_and_struct_item_byte_preserved": true,
+    "original_Range_return_and_debug_assert_retained": true,
+    "provider_adaptation": "pub(crate) declarations become pub; preceding derive attribute is outside the established struct-item extraction",
+    "authored_ordinary_goals": true,
+    "all_intermediate_checked_domains_explicit": true,
+    "order20_restriction": false,
+    "caller_solver_ghost_blocks": false
+  },
+  "acceptance": {
+    "dedicated_receipt": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-replays/redb-page-relations-nc9rwpwz/receipt.json",
+      "sha256": "c4a15a4a963584d31891d78efc7f5baff63c770059513782ba7d2c7ac98b6f6b",
+      "bytes": 3128189
+    },
+    "common_controller_check": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/new-scenario-acceptance.json",
+      "sha256": "dec8493e5b14670b1b0b690e16dade7bdbf8da800b4a216b6e2b3e5b0bd60863",
+      "bytes": 16879
+    },
+    "four_frontdoor_receipt": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-frontdoor/transfer-suite-xxwyd4pc/receipt.json",
+      "sha256": "6de64716a457ef5b8a418851dce5bc0a281d3545171f063e84c584ee0156c572",
+      "bytes": 582279
+    },
+    "four_scenarios": [
+      {
+        "scenario": "fedimint",
+        "status": "proved",
+        "declared_controls": 5
+      },
+      {
+        "scenario": "redb",
+        "status": "proved",
+        "declared_controls": 16
+      },
+      {
+        "scenario": "redb_page_size",
+        "status": "proved",
+        "declared_controls": 11
+      },
+      {
+        "scenario": "redb_address_range",
+        "status": "proved",
+        "declared_controls": 29
+      }
+    ],
+    "cases": [
+      {
+        "label": "relations_cold",
+        "classification": "proved",
+        "verified": 24,
+        "errors": 0,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "a064caafebdcbdc1e278bf9359c9fe515db2023b536530a002d27200e718fa26",
+        "stderr_sha256": "c0ae137e573b06d84256e3786612e9b2016423d4b4fee2a7357851ac87907ca0",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "relations_warm",
+        "classification": "proved",
+        "verified": 24,
+        "errors": 0,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "c066a74fdee6d0d4dd7a58e247e70cc4e90990b1a7c9d7c39d7384b6eaf902c8",
+        "stderr_sha256": "c0ae137e573b06d84256e3786612e9b2016423d4b4fee2a7357851ac87907ca0",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "relations_poisoned_cache",
+        "classification": "proved",
+        "verified": 24,
+        "errors": 0,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "88a238723192aac3ce00ea7b3215efc0ddca6242b3394fe51f7f4f8c71af3701",
+        "stderr_sha256": "c0ae137e573b06d84256e3786612e9b2016423d4b4fee2a7357851ac87907ca0",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "zero_ordinary",
+        "classification": "proved",
+        "verified": 7,
+        "errors": 0,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "3df1d67bb8804c465d4e51c51928fa0dca20f82e1eb0a6f897eb5e97c7e64351",
+        "stderr_sha256": "b80f0c07a79f1c70808c5c2aef90df719b10a38efd3ead8c34a463d56d287723",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "witnesses_checked",
+        "classification": "proved",
+        "verified": 22,
+        "errors": 0,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "ecc608f36da3a2382a8c9bd865764367c9c12c5b8c033376c1c5f4ccee744676",
+        "stderr_sha256": "48aacdd6178ff74767c5298abd74ef3a4bb6431e4a9894a2e6f03f92a7271e56",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "provider_cold",
+        "classification": "proved",
+        "verified": 6,
+        "errors": 0,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "57febe96655ce05a7305de7874c8161fabd50ebbc30023f5bab72075da975366",
+        "stderr_sha256": "7d5f40adf2ca16beb36b821aeceb29380343714d1fa593b22066bee6bc7cfa59",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "client_cold",
+        "classification": "proved",
+        "verified": 21,
+        "errors": 0,
+        "inference_functions": 1,
+        "exact_checks": 3,
+        "stdout_sha256": "b6c41855fc36699a95387ccffe90f09ecc0bc3303f64a46f00f761bfa93a1947",
+        "stderr_sha256": "f8dd200d35298344a1b0f74a51ad74e665dc01425fd5128a5ba672b1bd90ac7a",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "client_warm",
+        "classification": "proved",
+        "verified": 21,
+        "errors": 0,
+        "inference_functions": 1,
+        "exact_checks": 3,
+        "stdout_sha256": "48ac42906b6cfa20205550be180102f3c4f2bebc37f4fb4e0350374ed530640c",
+        "stderr_sha256": "f8dd200d35298344a1b0f74a51ad74e665dc01425fd5128a5ba672b1bd90ac7a",
+        "seeded": false,
+        "interface_exists": true
+      },
+      {
+        "label": "false_strict_zero_negative",
+        "classification": "semantic_goal_failure",
+        "verified": 22,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "dd3cf8d4a65c87a74558adc6d27744631fac1111f8b2a746224c3aa3db723612",
+        "stderr_sha256": "45b7d759463b10869949ad5b6a4069b401946390942e4441b5443d46263df212",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "false_injective_zero_negative",
+        "classification": "semantic_goal_failure",
+        "verified": 22,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "3249f6b7d4fed95344814ab9f12dacff84224226d05db48f414cba37c858d2c3",
+        "stderr_sha256": "bc3fa4edecad484efbbac80a84ee0197f927d4e027e929d13eacc9a1a50c3270",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "false_mixed_nonoverlap_negative",
+        "classification": "semantic_goal_failure",
+        "verified": 22,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "c8d9ff9f5a6460dd66f153f347140d98bbdbf939a87185a69fc460b8b4980c90",
+        "stderr_sha256": "59adc1497f068129da4ab7a7fccfdaf06d8962385eec84903ce2674ba5c424c8",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "shift64_zero_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "4b313219166617dbad0cbb2e8fec18605590ae974dfba36581efc24db96acbf9",
+        "stderr_sha256": "6acdfb7822c9d374aaa95bc669cb4d79aef4ed6656e10098916681e8bc6f7884",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "shift255_zero_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "fff0edc682038d4caa3a5308a7ecd148ae89a8c4aceca466316fe2ecf1297659",
+        "stderr_sha256": "9c76db7d21a0a1ab9b492f6d926621958fe910d394905bf23eeff8935d4d76c9",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "page_multiply_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "7baa8d2221ea84710df9b602e9d3712d2e773773fa958715963a7b0e1d9f8901",
+        "stderr_sha256": "9fca37e14be5b76fb12419690664b3a8062fd2864a1392cd672069e6b13d6b39",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "index_multiply_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "6d382945464a49b6accb1071438d909866e33b3be2b8485ed23c1e15cfceba07",
+        "stderr_sha256": "17c85c6b884bec07575e291d45f6ba48c261b11cb9a9922930cc221ae4c8a14c",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "regional_add_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "add22a6d634ff24a9c5a392e4620d438a716049f5f315dc2fc2c8f6cdf38d7a1",
+        "stderr_sha256": "34261168f1d8b4248c68f79f13e1fee3e1101bc87e8187895327fe2dbe439775",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "region_multiply_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "8095b9deaf14d280a287b94779d8088d0718a075b53e4be818e82022b678e4b6",
+        "stderr_sha256": "27a72d93a43f2e836c3e90cfd2151fa753e64f0f777d8636ca1a30b07ebbf029",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "base_add_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "b7a4de7f8fe2621e1fa8f0f9300d9dc6b2c730dea7dc5c21074428ad3ab9fdc8",
+        "stderr_sha256": "f6441228fe3147e2f67e6655eb6c3ccb13aaafb82ce13ba5e19ac325b567ab32",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "start_add_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "08e88d68963c82db131961af0158e25989863c018a2cffb181cd3887107ad5eb",
+        "stderr_sha256": "607324483b7c3c588493a5b90518feaddee9e7898a61ffdc41deb255fc430de4",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "end_add_overflow_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "da98d27e5a2857f3c3e184599c3078e5ab980b4da9a915d67af79d6864114fe3",
+        "stderr_sha256": "d0aa21486e89bda502cfa086d71850bf98588af56e3d2ba6d193f08de417d1d8",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "guard_violation_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "4aef7c5d1a6a0e4e579f85871fcb2a88b251db2739853b9272a2035d9a2c1d85",
+        "stderr_sha256": "1ac189994448ac2ce364341f1725ad9690568dc69361ba544dadefa90f9d01c6",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "empty_region_negative",
+        "classification": "caller_obligation_failure",
+        "verified": 6,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "38969b590253177a66060a1a811175730379f086a4476c5380f97b5b0ced78b7",
+        "stderr_sha256": "0b3cefa7f1520eac36f253a200009b85af8285176f1487ac3eafcad178b4f50b",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "false_polynomial_negative",
+        "classification": "auxiliary_theorem_failure",
+        "verified": 9,
+        "errors": 1,
+        "inference_functions": 2,
+        "exact_checks": 6,
+        "stdout_sha256": "b8b735062682913c46595f340ab98b6e38d5bed1ed03491c14b3ffdf6ec71ae2",
+        "stderr_sha256": "484f2d7086c70fa7bf6f421d91bda8a3905aedd862033d95d600513bdfbf885c",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "client_metadata_policy",
+        "classification": "frontend_rejection",
+        "verified": null,
+        "errors": null,
+        "inference_functions": 0,
+        "exact_checks": 0,
+        "stdout_sha256": "91c34cb5e1f37794cad169f822afb06436593c0a9bd688cc26c6f61dc9fa05df",
+        "stderr_sha256": "4b32b402ef3c79496102428602a370b7bf3eacd9f96dab3d5c391644e312f69d",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "client_metadata_exactness",
+        "classification": "frontend_rejection",
+        "verified": null,
+        "errors": null,
+        "inference_functions": 0,
+        "exact_checks": 0,
+        "stdout_sha256": "7e7293140c900e4d2eeca3edae29adcd125131e6a7017814278fbe851d1cdd3b",
+        "stderr_sha256": "fe0a7405d0035e6d2fbd84a2c705d42d0f95468ea42fa88386707e07e6315de0",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "client_metadata_summaries",
+        "classification": "frontend_rejection",
+        "verified": null,
+        "errors": null,
+        "inference_functions": 0,
+        "exact_checks": 0,
+        "stdout_sha256": "95869c534f7fc7c2b733e8f8dcd14cf768e1b2e96007499fae07b71d541e5685",
+        "stderr_sha256": "d3448315a8e57e9743845109c9f78bff8e6471e8203e0a50efc6f5fdee0cd636",
+        "seeded": true,
+        "interface_exists": false
+      },
+      {
+        "label": "client_metadata_trusted_model",
+        "classification": "frontend_rejection",
+        "verified": null,
+        "errors": null,
+        "inference_functions": 0,
+        "exact_checks": 0,
+        "stdout_sha256": "547f44cc89b9e844bbca19405ce32889d2b2dd34f4cc40b693aa875b4e2c5d30",
+        "stderr_sha256": "469b1a5c725a1ac6fbd12f2a8180c9203278d93973707de4bc6db4a459a939df",
+        "seeded": true,
+        "interface_exists": false
+      }
+    ],
+    "positive": 8,
+    "semantic": 3,
+    "safety": 11,
+    "polynomial_auxiliary": 1,
+    "metadata": 4,
+    "seeded_negative_exports_removed": 19,
+    "repeated_required_inference_checks": 132
+  },
+  "validation": {
+    "compiler_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/compiler_sealed.json",
+        "sha256": "10afa6e0b9b6535fa0c6de7f8f7a05c91f125efd649ac326f23aeff7a62fb739",
+        "bytes": 176492
+      },
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify",
+        "-p",
+        "verus",
+        "-p",
+        "vstd_build"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 91.59424345800001,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "compiler_sealed.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compiler_sealed.stderr": "dcd4f16b358338c70a3b7803ad0cbdb277cc2d5af7c7ded38450b41e08874a40"
+      }
+    },
+    "vstd_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/vstd_sealed.json",
+        "sha256": "61523f874324ec4b4e8eef04d3f26388b94008ffad9bcb89ff4af06305773350",
+        "bytes": 177311
+      },
+      "command": [
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/rust_verify",
+        "--internal-test-mode",
+        "--extern",
+        "verus_builtin=/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libverus_builtin.rlib",
+        "--extern",
+        "verus_builtin_macros=/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libverus_builtin_macros.dylib",
+        "--extern",
+        "verus_state_machines_macros=/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/libverus_state_machines_macros.dylib",
+        "--crate-type=lib",
+        "--export",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/vstd.vir",
+        "--out-dir",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools",
+        "--multiple-errors",
+        "2",
+        "--is-vstd",
+        "--compile",
+        "-C",
+        "opt-level=3",
+        "--cfg",
+        "feature=\"std\"",
+        "--cfg",
+        "feature=\"alloc\"",
+        "--cfg",
+        "feature=\"nonzero_internals\"",
+        "vstd/vstd.rs"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib",
+        "VSTD_KIND": "IsVstd"
+      },
+      "seconds": 17.694321291999998,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "vstd_sealed.stdout": "f169b0baebd66878cca99e2c4debad8751ecbd9a9c50fa615d2aee3c4945d363",
+        "vstd_sealed.stderr": "ced98505be2b7b37e346b06af041a773da3c7001ac1f1dbbe5e8467439d35103"
+      }
+    },
+    "vir_units_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/vir_units_sealed.json",
+        "sha256": "91d331109da5471d589dae275a8156975e8827a425101c9280bc868bcc6cc21a",
+        "bytes": 176481
+      },
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "vir",
+        "--lib",
+        "--",
+        "--test-threads=2"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 53.50096258400001,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "vir_units_sealed.stdout": "864d5d1a3cbf8f6e8c2a4fe693bf41da53408b4524a118b413d3b2c1715f5433",
+        "vir_units_sealed.stderr": "7dd8c59e67c49f4df4bee9bd72878a199bedd00b5297973d6c9a0a491268f843"
+      }
+    },
+    "all_infer_integrations": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/all_infer_integrations.json",
+        "sha256": "26f02bfecbfc0a475fd06f70a34e3999bdcb2f241fc3792ed30450f1d57d6d9a",
+        "bytes": 177560
+      },
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline",
+        "--locked",
+        "-p",
+        "rust_verify_test",
+        "--test",
+        "infer",
+        "--test",
+        "infer_binary",
+        "--test",
+        "infer_byte_apis",
+        "--test",
+        "infer_clone",
+        "--test",
+        "infer_codec_values",
+        "--test",
+        "infer_collections",
+        "--test",
+        "infer_compare_derive",
+        "--test",
+        "infer_counting",
+        "--test",
+        "infer_error_values",
+        "--test",
+        "infer_goals",
+        "--test",
+        "infer_growth",
+        "--test",
+        "infer_integer_conversions",
+        "--test",
+        "infer_literal_panic_range",
+        "--test",
+        "infer_native_option",
+        "--test",
+        "infer_newtypes",
+        "--test",
+        "infer_owned",
+        "--test",
+        "infer_page_relations",
+        "--test",
+        "infer_range",
+        "--test",
+        "infer_record_returns",
+        "--test",
+        "infer_record_shifts",
+        "--test",
+        "infer_records",
+        "--test",
+        "infer_relational_goals",
+        "--test",
+        "infer_selection",
+        "--test",
+        "infer_traits",
+        "--test",
+        "infer_transfer_composition",
+        "--test",
+        "infer_traversals",
+        "--test",
+        "infer_wrapper_traits",
+        "--test",
+        "infer_wrappers",
+        "--",
+        "--test-threads=2"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 452.396729833,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "all_infer_integrations.stdout": "82b213edbde8e0e4646d3412ef6012b338ce8fd3c8c0edbdd98179ee84437fac",
+        "all_infer_integrations.stderr": "9b4c803ed5a19f783d52b993bd854dd453e3764fc7441528a17c7fcaad06bfb5"
+      }
+    },
+    "python_test_infer": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/python_test_infer.json",
+        "sha256": "5f4815264cd63705b31e818d06a59d6e75cf34b5aa17701219357a96f17cc702",
+        "bytes": 176456
+      },
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_infer*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 42.59155075,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "python_test_infer.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "python_test_infer.stderr": "368c110aba16bed0037af5abb6ad348d57404f93ebf7fcaa9b241ef9d69db456"
+      }
+    },
+    "python_redb": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/python_redb.json",
+        "sha256": "62b48681672784473759d73b34a4b7e1a8ecee21f10c5ffb9639e843be3a6807",
+        "bytes": 176366
+      },
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_redb*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 0.19293829199999998,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "python_redb.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "python_redb.stderr": "3adb5d5b1d02ecd3b14c597f77cdda1e82e381541c2ae294f7f404037b1334c2"
+      }
+    },
+    "python_test_fedimint": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/python_test_fedimint.json",
+        "sha256": "95070b2996440c2847b790a15d421ba87d87922d09b8548b359cf0f9471ed45e",
+        "bytes": 176473
+      },
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_fedimint*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 0.13629254199999963,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "python_test_fedimint.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "python_test_fedimint.stderr": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068"
+      }
+    },
+    "python_optimized_test_infer": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/python_optimized_test_infer.json",
+        "sha256": "37f7b59a2186cd9242f6bde55a2904faa282a6c3fbe5394c80957a7f91329425",
+        "bytes": 176487
+      },
+      "command": [
+        "python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_infer*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 43.188114667,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "python_optimized_test_infer.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "python_optimized_test_infer.stderr": "efe3064ef74da2fe97c8be2a23c1764925a47109838ca2a0d04f6ccf639f9fc0"
+      }
+    },
+    "python_optimized_test_redb": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/python_optimized_test_redb.json",
+        "sha256": "49c9a2e723fb3178ff01ebc6619510d0e74548971157aaa4573629ce7afc7d9b",
+        "bytes": 176490
+      },
+      "command": [
+        "python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_redb*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 0.3370528749999977,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "python_optimized_test_redb.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "python_optimized_test_redb.stderr": "4a524af42e7f5852f848bfb98b06317d148e05d14568e5b3e389b188d1061d43"
+      }
+    },
+    "python_optimized_test_fedimint": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/python_optimized_test_fedimint.json",
+        "sha256": "baed4706f4ea550d5197a46011fef1ac7fccc72f30bc604d06afd00050b15ec3",
+        "bytes": 176503
+      },
+      "command": [
+        "python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_fedimint*.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 0.20914450000000784,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "python_optimized_test_fedimint.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "python_optimized_test_fedimint.stderr": "cf8d3a2572a7898fcf32a4c2dd1445509b3d59e66061853243c4627f80695068"
+      }
+    },
+    "page_relations_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/page_relations_sealed.json",
+        "sha256": "9683a575d6a7078117e4a40f8b4eba9c3c72e131abc6cad0240872df56cd44f9",
+        "bytes": 176780
+      },
+      "command": [
+        "python3",
+        "-B",
+        "tools/check_redb_page_relations.py",
+        "--application",
+        "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+        "--verus",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/verus",
+        "--solver",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/z3",
+        "--output",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-replays",
+        "--timeout",
+        "90"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 24.390739999999997,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "page_relations_sealed.stdout": "e5c08526c9f0405709af99bdfd592fc1dfd01e2b3fc9a819b42e1340551bbecd",
+        "page_relations_sealed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "four_frontdoors_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/four_frontdoors_sealed.json",
+        "sha256": "38b0ca29758d5541789766f2d9b4af65ddfdb64a9a263a311ac50a579dabd8e3",
+        "bytes": 176821
+      },
+      "command": [
+        "python3",
+        "-B",
+        "tools/check_infer_transfers.py",
+        "--fedimint",
+        "/private/tmp/verus-fedimint-early-returns-jyfO2M/fedimint",
+        "--redb",
+        "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+        "--verus",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/verus",
+        "--solver",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-tools/z3",
+        "--output",
+        "/private/tmp/verus-redb-page-relations-dbt1g78j/sealed-frontdoor"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 72.9118335,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "four_frontdoors_sealed.stdout": "f78811555a8f253d9a98ed82729635ca4c840c06deedfb991d3ea08280d2fa5f",
+        "four_frontdoors_sealed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "formatting_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/formatting_sealed.json",
+        "sha256": "e36343160e6bd3d44733092d6198d85ef8ef77403a3c689a6846201b3d4ae4be",
+        "bytes": 176394
+      },
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3/source",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 5.6466895,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "formatting_sealed.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "formatting_sealed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "diff_check_sealed": {
+      "receipt": {
+        "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/validation/diff_check_sealed.json",
+        "sha256": "836bb31b131284eb969caa5dafe3fbe49586c3ac3393a371ed08b1066b4aec51",
+        "bytes": 176372
+      },
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-d21688d3",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "CARGO_BUILD_BUILD_DIR": "/private/tmp/verus-redb-page-relations-dbt1g78j/target",
+        "VERUS_IN_VARGO": "1",
+        "RUST_MIN_STACK": "20971520",
+        "VERUS_Z3_PATH": "/private/tmp/verus-redb-page-relations-dbt1g78j/tools/z3",
+        "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib"
+      },
+      "seconds": 0.4357104170000001,
+      "result": 0,
+      "source_unchanged": true,
+      "logs": {
+        "diff_check_sealed.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "diff_check_sealed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "validation_counts": {
+    "vir_units": 138,
+    "integration_binaries": 28,
+    "integration_passed": 576,
+    "integration_ignored": 0,
+    "python_normal": 149,
+    "python_optimized": 149,
+    "vstd_verified": 2221,
+    "vstd_errors": 0
+  },
+  "baseline_blocker": {
+    "directory": "/private/tmp/verus-redb-page-relations-dbt1g78j/probes",
+    "smallest_source_repro": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/probes/strict.rs",
+      "sha256": "8b774046e858dee6f20a7ba1797f2684f63d59443a291bbb3984d19e668dbcab",
+      "bytes": 2808
+    },
+    "ordinary_commands": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/probes/commands.json",
+      "sha256": "9bef8fc1fac0421e4ae6debe4e9ac337b0436a0b3d3da7acce827d63553c76b2",
+      "bytes": 1339
+    },
+    "assisted_commands": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/probes/assisted-commands.json",
+      "sha256": "bf0869be1130831b6804eb48405b42f12c9456138d80afd4f9915b0f8048ad60",
+      "bytes": 1058
+    },
+    "classification": "Valid generic caller properties remain unproved by baseline ordinary solver; baseline BV rlimit failures are resource diagnostics, not counterexamples"
+  },
+  "work_limits": {
+    "requests": 8,
+    "expansion_nodes": 8192,
+    "depth": 64,
+    "statement_visits": 8192,
+    "shared_work": 131072,
+    "maximum_polynomial_degree": 4,
+    "maximum_shift_occurrences_per_request": 4,
+    "maximum_BV_and_NIA_checks_per_polynomial_request": [
+      4,
+      1
+    ],
+    "time_bound": false
+  },
+  "cache": {
+    "observed_policy": "regenerated_state",
+    "cold": "miss",
+    "warm": "miss",
+    "poisoned": "miss",
+    "new_arithmetic_proposals_cached": false,
+    "cache_hits_claimed": false
+  },
+  "followup": {
+    "receipt": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/followup_sealed/receipt.json",
+      "sha256": "ebf08f53324307d669e2d66854dfffd0211e816193909b22a47e3d22b33b7c16",
+      "bytes": 334306
+    },
+    "inventory": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/followup_sealed/caller-inventory.json",
+      "sha256": "11774ec283449ce6767f5af1f06243f183f5f57bd2dec633a2456b01f2a3cd48",
+      "bytes": 544
+    },
+    "source_prefix": {
+      "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/followup_sealed/get_page_prefix.original.rs",
+      "sha256": "736042c5874ec5fb2cc02da02d3cb248dcb81a426e5027fe3feb8ed7e5c5b152",
+      "bytes": 273
+    },
+    "ordinary_prefix_baseline_and_final": [
+      7,
+      0
+    ],
+    "adaptation": "Preserve the original get_page address/length statements via three-field readonly AccessConfig projection and appended len return, with exact usize representability premise; no full receiver/type correspondence claimed.",
+    "next_actual_frontend_blocker": "self.page_size.into(): only static, nongeneric inferred calls are supported",
+    "stateful_blocker": "storage.read/write, mutex/map reference tracking and buddy-allocator mixed-order occupancy invariant"
+  },
+  "trust": {
+    "new_application_axioms": 0,
+    "new_unchecked_summaries": 0,
+    "new_vstd_contracts": 0,
+    "new_opaque_external_correspondences": 0,
+    "existing_external_correspondence": "Canonical transparent core Range<u64>/ExRange model retained as a trust boundary",
+    "trusted_foundation": [
+      "Rust/Verus frontend and backend",
+      "BV/NIA solver checks",
+      "existing conversion and requires-false panic specs"
+    ],
+    "not_proved": [
+      "Rust std/libcore implementations",
+      "full TransactionalMemory::get_page",
+      "allocator invariant",
+      "database/concurrency/crash recovery"
+    ]
+  },
+  "proposed_registration": {
+    "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/PROPOSED_REGISTRATION.md",
+    "sha256": "7944ce1038302a2801170cd0bb54135d87c0b95eee89597fe6225440e3e98d47",
+    "bytes": 2263
+  },
+  "proposed_shared_guide": {
+    "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/PROPOSED_GUIDE.md",
+    "sha256": "5d5dc6cd13aaedac5d294d44f2f6435d46c39bf8347e50abedb9263a622e624c",
+    "bytes": 2203
+  },
+  "discarded_setup_attempts": {
+    "path": "/private/tmp/verus-redb-page-relations-dbt1g78j/diagnostic-attempts.json",
+    "sha256": "d3af416d739e8b54575b31c219f46136b709aa46da9b7384042ad05db8c963a5",
+    "bytes": 3109
+  },
+  "protected_baseline_sha256": {
+    "source/tools/check_infer_transfers.py": "b80efce1742835f79ba32321787cf330fb00ec8fcd10af25d7f9a392c2ec8642",
+    "source/tools/INFER_TRANSFERS.md": "7d87958c84e6c0c3e36aecd4d3cfc1711a190df83c8c5853f781bb9e71ff9118",
+    "source/docs/guide/src/infer.md": "b3b0a4bdb842c7aa1ed39813a5259fc88020ceec04ca17c20a90daac9cf99c09",
+    ".github/workflows/ci.yml": "d63c95bab60f0d5ff24c1c90f0f313058fec201e239c66b42559720a8a2303c8"
+  },
+  "no_parent_CI_or_preparation_delta": true,
+  "no_commits_PRs_manual_branches_subdelegation_or_application_edits": true,
+  "report_sha256": "5de2a726d22cfdf6b8f8e8a07bc006acf65ce3afcb07ecf2aa7e4b0ce8f8dc2f",
+  "patch_and_replay_receipt": "/private/tmp/verus-redb-page-relations-dbt1g78j/handoff.json",
+  "self_hash_excluded": true
+}

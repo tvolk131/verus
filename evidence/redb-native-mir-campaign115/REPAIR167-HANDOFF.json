@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "utc": "2026-11-09T02:03:36.582508+00:00",
+    "status": "SOURCE_ONLY_UNCOMPILED_UNEXECUTED",
+    "finding": "F165-1",
+    "patch_sha256": "779921543a427f0ffe13ee3b4129f670364410cb972f57a476ee9d48c1f700db",
+    "authored_tests": 2,
+    "expression_locations": 13,
+    "compiler_commands": 0,
+    "heavy_slot": "NOT_ACQUIRED_166_EXCLUSIVE",
+    "all18": "OPEN",
+    "operative_laws": 0,
+    "issuance": 0,
+    "original_native_acceptance": 0
+  },
+  "root": "/private/tmp/redb-quarantine167",
+  "archive_sha256": "ddbe05e21018057a4af112ce35d383d74cd4249319c3f2b46106c3b7c51027a6",
+  "manifest_sha256": "73912d7e96e1da76a46d787f385fd6cec8dd87c8bfeea994c807034dc5433529",
+  "archive_members": 9,
+  "input_endpoint_mismatches": [],
+  "qualification": "Source-only correction; tests not executed and baseline copy not separately timestamped"
+}

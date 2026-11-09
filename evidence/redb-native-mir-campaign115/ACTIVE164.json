@@ -1,0 +1,34 @@
+{
+  "record": "integrated-native-allocation-adapter164-after-sealed-parent-repair163",
+  "authority": "AUTHORIZATION139.md; FIRST-CELL139.md; ALLOCATOR-LAW-DISPOSITION159.md",
+  "first_cell": "original full two-phase acknowledged durability",
+  "implementation164": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A5466666b-dddb-4864-be05-14e3e9bb79e1",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A5466666b-dddb-4864-be05-14e3e9bb79e1>",
+    "last_observed_status": "RUNNING_STEERED_WITH_SEALED163_AND_EXCLUSIVE_HEAVY_SLOT",
+    "bounds": {"original_total_minutes": 90, "charged_commands": 64, "hard_scratch_bytes": 2147483648, "minimum_free_bytes_strict": 17179869184},
+    "scope": "Actual Alignment value, native dynamic event/full-spec-pointer provenance, initialized affine resource continuation and interpreted actual MIR control-flow/resource effects; no metadata substitution",
+    "prohibited_until_independent_producer_review_and_explicit_disposition": "Unreviewed operative issuer use, solver/native acceptance or export; no new event/pointer/frame assumptions",
+    "cleanup_grant": "NONE; exact162 cleanup completed, not inherited"
+  },
+  "repair163": {
+    "status": "SEALED_SIX_CHARGED_COMMANDS_ALL_REAPED",
+    "tests": "27 passed, 0 failed, 204 filtered; executable structural controls only",
+    "build": "Final corrected compiler build exit0; prior monitor/Git-setup failures preserved",
+    "handoff": "REPAIR163-HANDOFF.json",
+    "handoff_sha256": "c7ae28ecad4600e67be80e457e9f730a72ba331e6dd48f1b036a7dcdadf5b37b",
+    "archive": "REPAIR163-HANDOFF.tar.gz",
+    "archive_sha256": "9c8a92df19596a535a4a89dcec3ae7d4d27cd016de6265c2cd4da55392ad6989",
+    "archive_members": 29,
+    "patch_sha256": "91e4dd9fbefe4708d711078ace350c21c452f69175be1dc7c2d862bde086fffb",
+    "qualification": "Structural F161-1 repair tested; F161-2 path-collapse repair compiles, original ambiguity execution unobserved; neither repairs F161-3/F4 core"
+  },
+  "review161": "COMPLETED_DIRECT_TEXT; REVIEW161-PARENT-DISPOSITION.md",
+  "cleanup162": "COMPLETED_EXACT_APPROVED_SCOPE; no remaining general deletion authority",
+  "heavy_slot": "164_EXCLUSIVE; parent163 released after final build/reap/seal",
+  "historical_allowances": {"160": "SEALED19/32_GLOBAL_DISK_FAILURE_UNCHANGED", "158": "SEALED17/32_STRICT2GiB_FAILURE_UNCHANGED", "116": "INTERRUPTED_UNCHANGED"},
+  "counts": {"conditionally_adopted_mathematical_schemas": 1, "operative_native_laws": 0, "actual_resource_issuance": 0, "accepted_original_allocations": 0, "accepted_original_stores": 0, "original_whole_bodies_verified": 0},
+  "native_export": "REFUSED",
+  "all18": "OPEN",
+  "goal_service": "LAST_OBSERVED_BLOCKED; no resume/reset/replacement or fabricated ACTIVE"
+}

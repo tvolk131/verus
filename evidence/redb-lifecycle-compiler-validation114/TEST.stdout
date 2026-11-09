@@ -1,0 +1,10 @@
+
+running 5 tests
+test checked_normal_drop::origin_capture_status_tests::completed_capture_without_matching_local_is_explicit ... ok
+test checked_normal_drop::origin_capture_status_tests::completed_empty_capture_is_not_missing ... ok
+test checked_normal_drop::origin_capture_status_tests::matching_observations_do_not_establish_a_unique_occurrence ... ok
+test checked_normal_drop::origin_capture_status_tests::missing_capture_is_explicit ... ok
+test checked_normal_drop::origin_capture_status_tests::unfinished_capture_is_not_completed_capture ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+

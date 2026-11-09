@@ -1,0 +1,54 @@
+{
+  "initial_shell_check": "set-e stopped after first normal no-index diff exit1; no whitespace diagnostic; all three checks now captured explicitly",
+  "integrated_identities_unchanged": true,
+  "native_acceptance": false,
+  "redb_open_cells": 18,
+  "scope": "THREE_NEW_OPT_IN_TOOLING_FILES_ONLY",
+  "tests": {
+    "all_final_exit_codes": 0,
+    "parent_unit_tests": 40,
+    "scratch_reviewer_checks": 13,
+    "scratch_unit_tests": 40
+  },
+  "whitespace_checks": [
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "source/tools/capture_provenance_receipt.py"
+      ],
+      "exit_code": 1,
+      "output": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "source/tools/test_capture_provenance_receipt.py"
+      ],
+      "exit_code": 1,
+      "output": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--no-index",
+        "--check",
+        "--",
+        "/dev/null",
+        "source/tools/PROVENANCE_RECEIPTS.md"
+      ],
+      "exit_code": 1,
+      "output": ""
+    }
+  ]
+}

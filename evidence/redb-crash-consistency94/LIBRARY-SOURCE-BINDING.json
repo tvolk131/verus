@@ -1,0 +1,94 @@
+{
+  "all_eighteen_property_history_cells": "OPEN",
+  "archive": {
+    "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1.tar.xz",
+    "sha256": "e485a88c45db546b73571df7bebfcb4454ba4fb552c492e25fc5b00eeb5bf22d",
+    "size": 5863216
+  },
+  "compiler_builds": 0,
+  "installed_manifest": {
+    "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/multirust-channel-manifest.toml",
+    "sha256": "48419307eb32e389a25ac360b6bccd4d196f3c4f35ce9d67a223319eff017c6c",
+    "size": 1086673
+  },
+  "library_root": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library",
+  "native_target_executions": 0,
+  "new_trust": 0,
+  "prior_toolchain_binding": {
+    "path": "/private/tmp/verus-redb-growth049-independent-3VahHb/TOOLCHAIN-BINDINGS.json",
+    "sha256": "e6c34eae9abe310efdb9d7562f14898bb7482000f730e10f115e5a1a6a8d1687",
+    "size": 715164
+  },
+  "qualifications": [
+    "Archive digest matches the installed release manifest; no detached signature was newly verified.",
+    "Only selected runtime inputs were rehashed; this is not full toolchain reauthentication.",
+    "Release/package association is not a source-to-binary reproducible build theorem.",
+    "Installed 1.99.0 source was rejected as a substitute for the pinned 1.99.1 source.",
+    "No implementation semantics, primitive schema, native resource theorem, or database cell is certified.",
+    "The earlier tomllib metadata probe failed; this script validates only explicit known manifest sections."
+  ],
+  "rust_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "rust_release": "1.99.1",
+  "selected_runtime_inputs_match_prior": {
+    "toolchain/bin/rustc": {
+      "sha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1",
+      "size": 413480
+    },
+    "toolchain/lib/librustc_driver-451a19fa7a19fc36.dylib": {
+      "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395",
+      "size": 83390408
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/liballoc-2ce5006d2257bd69.rlib": {
+      "sha256": "36ff6b263aced406c2e8026cf5ee40d48182683d5e9e5ad6deeb41f3b351612e",
+      "size": 849720
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/liballoc-2ce5006d2257bd69.rmeta": {
+      "sha256": "dbae6dbab8d27299e3b26d21b7bed538f39968c592738e0c192c971f89ab1a76",
+      "size": 8801821
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/libcore-3e4eb39a5fe4e537.rlib": {
+      "sha256": "0205c70e6755f55478c511adb5231ff6b10cbd46f4198f0991354d0b20c702a4",
+      "size": 2641088
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/libcore-3e4eb39a5fe4e537.rmeta": {
+      "sha256": "01cda310e4092da62e7c59dc957349ae1e6950501a92f33878a3dfd44c81b39e",
+      "size": 67014957
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/libpanic_abort-4484cc89514c4237.rlib": {
+      "sha256": "3a8da2365ca39a4624dd69e2cec1c792869313846c27f260c3aaa5eff1d222d7",
+      "size": 10128
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/libpanic_abort-4484cc89514c4237.rmeta": {
+      "sha256": "fa0eed17b663182704607d01144be315b89ea05c697319e2dcf58c06b77ec0a4",
+      "size": 2741
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib": {
+      "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395",
+      "size": 83390408
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/libstd-c8df3f17af30326b.rlib": {
+      "sha256": "7421245549290b5b40d81ebdd6dc294a2003b946bebb1ed16d614336226d1dca",
+      "size": 9832968
+    },
+    "toolchain/lib/rustlib/aarch64-apple-darwin/lib/libstd-c8df3f17af30326b.rmeta": {
+      "sha256": "20567b63988fd381811378358ecb21fb76a65874ed6ead77ee4fc04ced63d40e",
+      "size": 7480348
+    }
+  },
+  "source_bytes": 73147458,
+  "source_inventory": {
+    "directories": 948,
+    "files": 3701,
+    "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/SOURCE-INVENTORY.json",
+    "sha256": "c99b07945ae7eee666e3a4abd1681832a141297ccdf34a30a899e39263c2d80f",
+    "size": 754770
+  },
+  "source_url": "https://static.rust-lang.org/dist/2026-10-15/rust-src-1.99.1.tar.xz",
+  "status": "EXACT_RELEASE_SOURCE_PACKAGE_AVAILABLE_NOT_IMPLEMENTATION_PROOF",
+  "verifier_solver_runs": 0,
+  "version_only_metadata_query": {
+    "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rustc-version.txt",
+    "sha256": "e003fd3d385fcd0de16bc6b049124efb20207831dd810fd4ab39ff079bbb12a5",
+    "size": 192
+  }
+}

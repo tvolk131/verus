@@ -1,0 +1,50 @@
+{
+  "all_eighteen_property_history_cells": "OPEN",
+  "archive": "INDEPENDENT-REVIEW-HANDOFF.tar.gz",
+  "archive_members": 125,
+  "archive_members_verified_against_source": true,
+  "archive_sha256": "b095526d99d4d1f2f205a3f5daea1aabf86f7e1cb867544d77230f4ffa6df33b",
+  "classification": "CONDITIONAL_PROOF_REPAIR_AND_PARTITION_PAIRED_CONTROL_CONFIRMED",
+  "fresh_review_verifier_applications": 3,
+  "handoff_sha256": "be27248f6d298b1c1259dcd258f106bcb4a22dba4355e6bf22be7ec673b2e44f",
+  "historical_applications_reviewed": 5,
+  "inherited_midpoint_and_six_LE_boundaries": "CONDITIONAL_UNCHANGED",
+  "manifest_sha256": "a2015201f9b7c23cb360a23ce1468c39e934d7b7b34550b6af9c23647d5c934f",
+  "metadata_caveat": "Original exception tracebacks are absent. Reviewer scratch reproductions are not historical raw logs.",
+  "new_trust_or_runtime_adopted": false,
+  "original_failed_supplemental013_unchanged": true,
+  "original_native_git_continuity": "UNAVAILABLE",
+  "original_native_path_preservation": "FAILED",
+  "parent_raw_control_checks": [
+    {
+      "checked_exec_bodies": 3,
+      "errors": 0,
+      "infer_interface_written": false,
+      "kind": "positive",
+      "ordinary_requested_export_exists": true,
+      "verified": 3
+    },
+    {
+      "checked_exec_bodies": 0,
+      "errors": 1,
+      "infer_interface_written": false,
+      "kind": "negative",
+      "ordinary_requested_export_exists": false,
+      "verified": 2
+    },
+    {
+      "checked_exec_bodies": 3,
+      "errors": 0,
+      "infer_interface_written": false,
+      "kind": "restored",
+      "ordinary_requested_export_exists": true,
+      "verified": 3
+    }
+  ],
+  "parent_verifier_applications": 0,
+  "report_sha256": "f773414fc098a4141233002e071f135b97353602f2f34fd003c306097a0d9f9b",
+  "review_payloads_authenticated": 123,
+  "seal_sha256": "cc52a6e03a159e175b05da5ebd9e50c60a2232904a2f1149efa7cfac802d958a",
+  "shared_status_reconciliation": "RECONCILED_AFTER_ADMISSION101_HANDOFF",
+  "whole_goal_acceptance": false
+}

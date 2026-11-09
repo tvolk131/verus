@@ -1,0 +1,33 @@
+{
+  "start_epoch": 1794104092,
+  "absolute_deadline_epoch": 1794104572,
+  "optional_analysis_cutoff_epoch": 1794104452,
+  "source_inspection_finished_no_later_than_epoch": 1794104333,
+  "finalization_recorded_epoch": 1794104485.0252988,
+  "elapsed_seconds": 393.02529883384705,
+  "reserved_finalization_seconds": 239,
+  "report_bytes": 16245,
+  "report_limit_bytes": 16384,
+  "scratch_limit_bytes": 8388608,
+  "free_bytes_at_finalization": 57500368896,
+  "required_free_bytes": 17179869184,
+  "supplied_entry_matches": 212,
+  "supplied_exit_matches": 212,
+  "supplemental_entry_count": 4,
+  "supplemental_exit_matches": 4,
+  "target_verifier_solver_compiler_build_test_native_runs": 0,
+  "network_operations": 0,
+  "git_writes": 0,
+  "parent_provider_runtime_edits": 0,
+  "subdelegations": 0,
+  "proof_credit": 0,
+  "new_trust": 0,
+  "adoption": 0,
+  "acceptance": 0,
+  "all_eighteen_cells": "OPEN",
+  "limitations": [
+    "Endpoint hashes are sequential, not an atomic snapshot or continuous monitoring.",
+    "Full bookkeeping shell environments were not separately recorded.",
+    "Recovered Rust source content pins do not certify selected sysroot binary correspondence."
+  ]
+}

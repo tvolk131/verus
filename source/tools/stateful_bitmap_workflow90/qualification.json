@@ -1,0 +1,218 @@
+{
+  "baseline_vstd_sha256": "5338ee8b4aa0cfb8912c0a53d585e2ccd6e0ed89b2cd5e698d28af4708798ff2",
+  "candidate_vstd_sha256": "8017cdac8cbc55979129802085c6b47f7d966d3e63017bed6b480a498699ec13",
+  "compiler_sources_sha256": "b6294b48c66cb799b0793b2bdbddc02ff489f23084eaee4eb7464ffcbdd94337",
+  "identical_logical_payload_bytes": 33347277,
+  "identical_logical_payload_sha256": "18c39d82d6bc823552fa397bda0958edcffe34e884c23aea4f796f6688855c3e",
+  "independent_review_artifacts": {
+    "SEAL.json": {
+      "path": "/private/tmp/workflow90-independent-review.R9LE55/SEAL.json",
+      "sha256": "e616e0b1d78555d156a0092218664f37acdf3aceb5de1666979843330af1bcd7"
+    },
+    "independently-derived-baseline-models.json": {
+      "path": "/private/tmp/workflow90-independent-review.R9LE55/independently-derived-baseline-models.json",
+      "sha256": "d86c334d89064348e61d1fab03978fb593e69a29906273da1e9682fc71f4107b"
+    },
+    "independently-derived-candidate-models.json": {
+      "path": "/private/tmp/workflow90-independent-review.R9LE55/independently-derived-candidate-models.json",
+      "sha256": "85f437ea16ea36b93b0354a739df58c1493718c4d224407410f2775375046856"
+    },
+    "model-derivation.json": {
+      "path": "/private/tmp/workflow90-independent-review.R9LE55/model-derivation.json",
+      "sha256": "a8c9c9a62e0997e2dbf81508d5b2caf700d447b2d95a63e65231b74f2ebcddd6"
+    },
+    "wire-artifact-comparison.json": {
+      "path": "/private/tmp/workflow90-independent-review.R9LE55/wire-artifact-comparison.json",
+      "sha256": "9187f5021abe95f5d4c382d228c6f2c61273cb6861681ca014022049e2eceb5f"
+    }
+  },
+  "loader": {
+    "DYLD_LIBRARY_PATH": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib:/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib",
+    "files": [
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/libLLVM.dylib",
+        "sha256": "2a8a4612d921ac0bd6be3b7b601f9a71d93b8cdf0a23f36d4c2df15cb616c981"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc-stable_rt.asan.dylib",
+        "sha256": "08e463f55752b17f85b2ee08e70d54b43fe358554fc8f0f96c467dab3b7d6538"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc-stable_rt.lsan.dylib",
+        "sha256": "af88c6b07081dd43db5748c611fbb41e8e4d1a845fa47dbd77fe0c840d4bf46e"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc-stable_rt.rtsan.dylib",
+        "sha256": "26804211fa9fcb2fe683b5ee89fecba6368466a88dccbd7867079dc22d85fb14"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc-stable_rt.tsan.dylib",
+        "sha256": "33e6217a6eedba6714fe9695248549e37e07ed6db45b9937517c2531a2161df2"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib",
+        "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libLLVM.dylib",
+        "sha256": "2a8a4612d921ac0bd6be3b7b601f9a71d93b8cdf0a23f36d4c2df15cb616c981"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libdarling_macro-9b4c8482ba70ab8e.dylib",
+        "sha256": "367048c2f1ad03d7dd7d8683c457460536a07ed29e02e713a75b02e631f93e0d"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libderive_setters-2b936ea27ef367b4.dylib",
+        "sha256": "6f69da9fb346d949e5fceb4175a8326be9f2544475c59715f4655e3c0cfe0dce"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libderive_where-8221ccb69568778a.dylib",
+        "sha256": "b404fee27a9592144430e4e168afad359229c99515e69b7448606d1eb477a38a"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libdisplaydoc-63c74ef49c3980ab.dylib",
+        "sha256": "8f23efb266cda37881f15d2a63ed5831d53aca0f315f7b929b7bf434077824df"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libproc_macro_hack-634300ab4e58797b.dylib",
+        "sha256": "f302b5c2e9fc90eb718f0cff55461ea69d65e7da475568b3c2a6c50a21b0bc0c"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libref_cast_impl-1aa0f49e987fcb9d.dylib",
+        "sha256": "449d494bf35a7ed49cda8c84ed3590dcd91e9023247381869e3f9d745e837cd7"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-stable_rt.asan.dylib",
+        "sha256": "08e463f55752b17f85b2ee08e70d54b43fe358554fc8f0f96c467dab3b7d6538"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-stable_rt.lsan.dylib",
+        "sha256": "af88c6b07081dd43db5748c611fbb41e8e4d1a845fa47dbd77fe0c840d4bf46e"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-stable_rt.rtsan.dylib",
+        "sha256": "26804211fa9fcb2fe683b5ee89fecba6368466a88dccbd7867079dc22d85fb14"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-stable_rt.tsan.dylib",
+        "sha256": "33e6217a6eedba6714fe9695248549e37e07ed6db45b9937517c2531a2161df2"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc_driver-451a19fa7a19fc36.dylib",
+        "sha256": "ebf983c7473eac96e90a4201ca969801ac53a3cf4abc8f27b0021d53fb148395"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc_index_macros-becfdaaefd9e8463.dylib",
+        "sha256": "43c41a0e4d3d07b8a2158ffc9bf051569f633563f899c7713c8409477755a993"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc_macros-b3db6900f388a560.dylib",
+        "sha256": "0336d7787b58eb84b81fae817980d8b95dfc929cd88d665522ffad4647fd2ed0"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc_type_ir_macros-43e642f7ad9e4ea2.dylib",
+        "sha256": "692e66bcb8e8055eed690ef928a15634dbf3c2f75abe634743f63a165cdc949a"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libschemars_derive-ffd707128fef3042.dylib",
+        "sha256": "3dec84df476d0d767a9f26e1a458ad25583a72301474656bc3d3479979088895"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libserde_derive-1aa4d5d633b24147.dylib",
+        "sha256": "3ab86f6824cc027985fecfbcbef56f74fa1d8af25c12008446af01a03cb78026"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libstd-c8df3f17af30326b.dylib",
+        "sha256": "35a8aa1172c2d0d6900730aef1bb12774b1bc32d6783b10304358721d2871348"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libthiserror_impl-5e4d14511c8d3002.dylib",
+        "sha256": "64da5d89779b6861a97d05255a4db849bb0632d3e73f2f43fce323f7dfafac5a"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libtracing_attributes-18843d6ab23da3f3.dylib",
+        "sha256": "1b2494a75515a497047c2f5ca5cf4b163841b10fc9c153ef4a0114e1c75253af"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libunic_langid_macros_impl-5028a17436550d38.dylib",
+        "sha256": "5c6c4bdd6a71a4d8203902c14e6ee0ba77a51b91b7fa46920b271274d16a5560"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libyoke_derive-72b6d1bd06357736.dylib",
+        "sha256": "711a5b7b47f57ec3f5370c6678c6aabe747da19077892ca8f5b31dcbbc292699"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libzerofrom_derive-f208ee2d4dab27ac.dylib",
+        "sha256": "7d12d7d37a684a04ec558f29c7a2a68a825c9737a5465cf89c21256d8fc70c2e"
+      },
+      {
+        "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/libzerovec_derive-19560cbc7c683099.dylib",
+        "sha256": "d23da18a5b5316b838a763b284ed748f8d2369b177fa043afdd855799aeae22a"
+      }
+    ]
+  },
+  "original_trusted_models_sha256": "62713b5aaac6741035e5b8097d136853c9f44c759921a9e22d3fa58d89efa326",
+  "runtime": {
+    "libverus_builtin.rlib": "941acbc2b162f5d94508af7dc3123ba8b427a22582ce105eafc21fe36ead2935",
+    "libverus_builtin_macros.dylib": "a183d6ad52cac685b97f30a7cea8d6ccbe05d31c8d2a0c157441a46107ff9dd5",
+    "libverus_state_machines_macros.dylib": "8a9744e44216b0a1a7e99156aa9a1706bdfa0856b5d75c9870b39bf51305c1bf",
+    "libvstd.rlib": "48daa990c92f620393b69f1469858f1264d9c0f6365615d0a324bad14ab16e18",
+    "rust_verify": "468229c6de195c436973a2a1fdd0b7744eb0a1099f3f659ce282831556536e5f",
+    "verus": "819f6665ed710b7c9a7f641ff499c104eba32e4c6da3f7cfe802676f967294e0",
+    "vstd.vir": "8017cdac8cbc55979129802085c6b47f7d966d3e63017bed6b480a498699ec13",
+    "vstd_build": "14a7df403de736cd53e507a380dd1a83d3603d7fab1f0c4b319c4a952bfab306",
+    "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+  },
+  "rustc": {
+    "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustc",
+    "sha256": "1ba7bb8e273bd64125f4048d2ecce530e0a6470e565ab1b3aecf0b82b532f7b1"
+  },
+  "rustup": {
+    "path": "/Users/tommyvolk/.cargo/bin/rustup",
+    "sha256": "f7c7e11eb2e07f006e532a8aaac77b32f4527d305ac386c0c633ca6133d35ca9"
+  },
+  "scope": "Exact campaign91 source-built matched runtime; metadata-order-only vstd comparison; no general fingerprint normalization",
+  "source_runtime_qualification_artifacts": {
+    "compiler-source-comparison.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/compiler-source-comparison.json",
+      "sha256": "b09b8dce17d4d9c80071e5ca07a1b281e9233091f598a20b54af378a189419a5"
+    },
+    "derived-fresh-models.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/derived-fresh-models.json",
+      "sha256": "8a4a8b92bd87ed2cd9fddf1dcda63a1d30d765981354d685e4007881515558a8"
+    },
+    "freeze.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/freeze.json",
+      "sha256": "a907570b4f30ea2fff70a2e12dd17aa8e75fbd25dcad9a0eb4a5fb1152ec426d"
+    },
+    "logical-payload-comparison.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/logical-payload-comparison.json",
+      "sha256": "ba4dd0e147281a70172b0fdd5a2542257633a7ec992f1f87f9aad865f911d1fb"
+    },
+    "model-derivation.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/model-derivation.json",
+      "sha256": "d8652c4f1b82252a4da6fd7d42f86d4e388ff204ff068fd31459836e2b32e585"
+    },
+    "model-functions.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/model-functions.json",
+      "sha256": "0bbc673757c71230a633ed0c2efb6e1890d12e7358ba5cbb8e323f7ac088b1e0"
+    },
+    "runtime-manifest.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/runtime-manifest.json",
+      "sha256": "1fa38f105d5b9fda9bda2ad3b0ee4518f083f917bc77dcbce6585ff152e476a3"
+    },
+    "test-executable-bindings.json": {
+      "path": "/private/tmp/verus-operational91-runtime.q91/test-executable-bindings.json",
+      "sha256": "618a631054f160ce7539440c1cea9d430250f61ce573c8e58d415c5e258feac6"
+    }
+  },
+  "test_executables": {
+    "infer_entry_goals": "5f2b542edf124cb508166b7e8ed475b4dc82e4b47fa5f82eccfcbb7d6bfbaf7b",
+    "infer_loop_points": "ecfa31d4c3f08a7a79c1a3cb065721922c45c4de38e40770aa9c49065463a523"
+  },
+  "test_only_source": "source/rust_verify_test/tests/infer_loop_points.rs",
+  "trusted_models_sha256": {
+    "native": "f2e52fa93f23698d9f937d42b89a4fcd53b3e16be06f217527200a7b6207499b",
+    "tree": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+}

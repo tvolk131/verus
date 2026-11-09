@@ -1,0 +1,18 @@
+{
+  "record": "ALLOCATION156-REVIEW157",
+  "root": "/private/tmp/redb-review157-20261108-234518",
+  "handoff_sha256": "a3d4a20911a091eb75ea4db3d633034a8bcff962f5142e80be52cbd80f2e8ec0",
+  "manifest_sha256": "3e0d200c0648490342386be1fb605214f536712274c502a789885a2528d21f59",
+  "seal_sha256": "2cd96f96995b8d52d3dba40a4e77ac40a78d1319208c96f6924f181a7b5ffeed",
+  "retained_archive": "ALLOCATION156-REVIEW157.tar.gz",
+  "retained_archive_sha256": "5ca316a082dc1c59c51b7f049a0a38daad580431186ebb982c93ed0b7b41d7e9",
+  "manifested_payloads": 10,
+  "regular_unique_byte_identical_members": 11,
+  "entry_utc": "2026-11-08T23:55:14.609132+00:00",
+  "exit_utc": "2026-11-08T23:55:14.615639+00:00",
+  "qualification": "Supplied archive pin; metadata self-consistency and current selected endpoints/byte readback only. No full runtime/source/bootstrap or historical continuity.",
+  "disposition": "RETAIN_GENERATED_SUBSET_ONLY_NO_NATIVE_ISSUANCE_OR_LAW_ADOPTION_SEE_ALLOCATION156_DISPOSITION157",
+  "laws_adopted": 0,
+  "original_native_bodies_verified": 0,
+  "all18": "OPEN"
+}

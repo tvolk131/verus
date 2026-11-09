@@ -1,0 +1,22 @@
+{
+  "accepted_outcomes": 98,
+  "compiler_invocations": 101,
+  "findings": [],
+  "head": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "identity": [
+    79,
+    73,
+    38
+  ],
+  "immutable_entries": 11736,
+  "no_fixes_or_delegation": true,
+  "parent_native80_and_compatibility_excluded": true,
+  "recorded_suites_audited_not_rerun": {
+    "Rust": 96,
+    "VIR": 150,
+    "vstd": 2221
+  },
+  "uncredited_harness_attempts": 3,
+  "verdict": "NO_FINDINGS_IN_BOUNDED_PRODUCTION_DELTA",
+  "whole_application_and_storage_proof": false
+}

@@ -1,0 +1,31 @@
+{
+  "record": "original-allocation151-parent-retention",
+  "root": "/private/tmp/redb-allocation151-20261108-cyzsxn1u",
+  "handoff_sha256": "963ca3bb336696f7247cc7707adedcfc706740976c695b27ea84edc9c3530e54",
+  "manifest_sha256": "6cd2fef505065c7179bc33f1d608bf3b34e62821b49c031122581b961d9d073a",
+  "seal_sha256": "d42a78c271e41809dcaac5f587116ce885d4eef4065f5afc5baed8bbfe2f4a13",
+  "retained_archive": "IMPLEMENTATION151-HANDOFF.tar.gz",
+  "retained_archive_sha256": "b6f483772602746145d9ae5514a1e27e467edd7fd9288e029906de0709caa408",
+  "retained_archive_bytes": 9479244,
+  "regular_unique_byte_identical_members": 1601,
+  "authentication": {
+    "entry_utc": "2026-11-08T22:29:44.795611+00:00",
+    "exit_utc": "2026-11-08T22:29:45.360346+00:00",
+    "qualification": "Current1598 manifested payloads plus three seal records and archive readback. Pins derived from locally supplied HANDOFF151 metadata, not independent historical pins. No complete target/runtime/bootstrap or continuous-custody claim."
+  },
+  "results": {
+    "authored_conditional_proofs": 3,
+    "original_native_bodies_verified": 0,
+    "laws_adopted": 0,
+    "native_export": "REFUSED"
+  },
+  "disposition": "RETAIN_UNADOPTED_PENDING_INDEPENDENT_EXACT_STORE_PERMISSION_REVIEW",
+  "charged": 29,
+  "limit": 36,
+  "compiler_slot": "RELEASED_NO_ALLOWANCE_REUSE",
+  "all18": "OPEN",
+  "parent_discovery_failures": [
+    "Tried absent SEAL151.json; actual SEAL.json discovered",
+    "Tried absent MANIFEST.json; actual MANIFEST151.json discovered"
+  ]
+}

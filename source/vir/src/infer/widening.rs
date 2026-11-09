@@ -53,6 +53,9 @@ pub(super) fn model(f: &Function) -> bool {
 }
 
 pub(super) fn call<'a>(e: &'a Expr, all: &HashMap<Fun, Function>) -> Option<&'a Expr> {
+    if let Some(operand) = numeric_into::operand(e, all, false) {
+        return Some(operand);
+    }
     let ExprX::Call {
         target: CallTarget::Fun(kind, name, typs, impls, _),
         args,

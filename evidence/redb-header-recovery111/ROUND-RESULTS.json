@@ -1,0 +1,146 @@
+{
+  "H_authored_exec_bodies": 2,
+  "H_charged_applications": 12,
+  "H_proof_bodies": 3,
+  "H_verified_obligations": 9,
+  "P_charged_applications": 13,
+  "P_full_harness_verified_obligations": 71,
+  "S0_infer_full_scope_import_export_barriers": "UNCHANGED_FAIL_CLOSED",
+  "acceptance": false,
+  "active_finalization_streams_not_in_controller_archive": [
+    "finalization-live.stdout",
+    "finalization-live.stderr"
+  ],
+  "adoption": false,
+  "authenticated_candidate_payloads_and_archive_members": {
+    "H": {
+      "archive_members_compared": 127,
+      "payloads": 125
+    },
+    "P": {
+      "archive_members_compared": 217,
+      "payloads": 215
+    },
+    "combined": {
+      "archive_members_compared": 24,
+      "payloads": 22
+    },
+    "controls": {
+      "archive_members_compared": 44,
+      "payloads": 43
+    }
+  },
+  "builds": 0,
+  "caveats": [
+    "PARENT-OPERATION-CAVEATS.md",
+    "PRESERVATION-QUALIFICATION.md",
+    "NATIVE-CLOSURE-LEDGER.md",
+    "INDEPENDENT-REVIEW.md",
+    "POST-REVIEW-OPERATION-CAVEATS.md"
+  ],
+  "combined_checked_authored_exec_bodies": 4,
+  "combined_checked_local_proof_bodies": 59,
+  "combined_contains_separate_P_witness_and_control_harnesses": false,
+  "combined_inference_status": "no_inference",
+  "combined_verified_obligations": 80,
+  "compiler_source_correspondence": "UNESTABLISHED",
+  "completed_utc": "2026-11-08T06:03:59.718391+00:00",
+  "composition_inputs_unchanged": 351,
+  "controller_archive": {
+    "bytes": 88292,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-header-recovery111/PARENT-CONTROLLERS.tar.gz",
+    "sha256": "013222df5d960409c7597a980e7065842b7f7441b5564a0f45a11438a516ed54"
+  },
+  "elapsed_seconds": 2981.718391,
+  "final_cells_closed": 0,
+  "finalization_metadata_tests": 12,
+  "finalization_test_logs": [
+    {
+      "bytes": 0,
+      "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/finalization-tests.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 956,
+      "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/finalization-tests.stderr",
+      "sha256": "011f141fe760ec0ca19b1699a76d2ce16c769f7c563e642914e29ba828882bfd"
+    }
+  ],
+  "finalization_tests_are_native_proof": false,
+  "finite_controls_are_native_semantics": false,
+  "goal_service_status_last_observed": "ACTIVE",
+  "hard_deadline_utc": "2026-11-08T06:14:18+00:00",
+  "integration": false,
+  "native_application_runs": 0,
+  "native_git_continuity": "UNAVAILABLE",
+  "native_header_cache_backend_callback_resource_history_bindings": "OPEN",
+  "native_path_preservation": "FAILED",
+  "new_original_native_executable_bodies_checked": 0,
+  "new_trusted_assumptions_adopted": 0,
+  "parent_charged_applications": 3,
+  "parent_finite_projection_cases": 144,
+  "parent_fresh_python_tests": 13,
+  "parent_paired_semantic_controls": 6,
+  "redb_open_cells": 18,
+  "resource_sampling_limit": "Boundary observations, not continuous peak measurements or OS quotas",
+  "review_charged_applications": 6,
+  "review_verdict": "NO_NEW_BLOCKING_CONDITIONAL_CONTRACT_DEFECT",
+  "review_verifier_launches": 5,
+  "sampled_file_bytes_by_root": {
+    "H": 38764335,
+    "P": 15366894,
+    "independent_review": 38351780,
+    "parent_controllers": 6172565,
+    "retained_evidence": 14223140
+  },
+  "sampled_free_disk_bytes": 70258810880,
+  "sampled_total_file_bytes": 112878714,
+  "schema": "redb-header-recovery111-completed-round-v1",
+  "selected_inputs": {
+    "expected_document_updates": [
+      {
+        "frozen": {
+          "bytes": 13644,
+          "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+          "sha256": "71e8120aa931d5023548c73fe11d95a2d9bf01f0207718017d3c63ea0acd77bb"
+        },
+        "reason": "Explicit post-review parent documentation reconciliation",
+        "reconciled": {
+          "bytes": 15372,
+          "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+          "sha256": "efa3c8dcf4d54d5f3a1ee4afa9585ce953e4356d0c0f1290ac0515d97951e764"
+        },
+        "snapshot": "HISTORICAL-GOAL.md"
+      },
+      {
+        "frozen": {
+          "bytes": 24330,
+          "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+          "sha256": "b04cebf661bdad760a42faa6356628d7ee5b3f1985f30bf351dcca1b1f502431"
+        },
+        "reason": "Explicit post-review parent documentation reconciliation",
+        "reconciled": {
+          "bytes": 24966,
+          "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+          "sha256": "8b617fa153cc3277041f919f95dc5c25c3e2edaef67725a1893b3e81e33e4654"
+        },
+        "snapshot": "HISTORICAL-STATUS.json"
+      }
+    ],
+    "frozen_count": 1416,
+    "unchanged_after_reconciliation": 1414,
+    "unexpected_mismatches": 0
+  },
+  "single_independent_review_completed": true,
+  "start_utc": "2026-11-08T05:14:18+00:00",
+  "status": "BOUNDED_ROUND_COMPLETE_DATABASE_GOAL_OPEN",
+  "symbolic_test_fixtures_not_archived_as_links": [
+    {
+      "path": "finalization-tests/test_symlink_payload_refused/alias.txt",
+      "target": "/private/tmp/redb-header-recovery111-20261108T051418Z/finalization-tests/test_symlink_payload_refused/payload.txt"
+    }
+  ],
+  "task_allowances_reset": false,
+  "total_charged_applications": 34,
+  "within_original_round_deadline": true
+}

@@ -10,11 +10,13 @@ pub(crate) mod factory_callbacks;
 pub(in crate::infer) mod loops;
 mod models;
 mod mutations;
+mod byte_append;
 pub(in crate::infer) mod native_for;
 pub(crate) mod option_result;
 mod record_views;
 pub(crate) mod result_map;
 mod sums;
+mod value_records;
 mod variants;
 pub(in crate::infer) use models::Model;
 pub(crate) use models::{call as model_call, model};
@@ -70,6 +72,8 @@ fn result_query(f: &Function) -> bool {
 fn structured_return(f: &Function, ds: &[Datatype]) -> bool {
     matches!(f.x.kind, FunctionKind::Static)
         && (identity_borrow_return(f)
+            || value_records::option_record(&f.x.inner_ret.x.typ, ds)
+            || value_records::shared_roots(f, ds)
             || records::shape::fields(&f.x.inner_ret.x.typ, ds).is_some_and(|fs| {
                 fs.len() > 1
                     || records::candidate(f)
@@ -389,11 +393,24 @@ impl Engine<'_> {
                 }
             })
             .collect::<Result<Vec<_>, VirErr>>()?;
-        atom(SpannedTyped::new(
-            s,
-            &crate::sst_util::subst_typ(&ts, &f.x.inner_ret.x.typ),
-            ExprX::Call {
-                target: CallTarget::Fun(
+        let target = if m == Model::SliceView {
+            let FunctionKind::TraitMethodImpl { method, impl_path, trait_typ_args, .. } = &f.x.kind else {
+                return Err(unsupported(s, "slice view requires the canonical trait implementation"));
+            };
+            CallTarget::Fun(
+                CallTargetKind::DynamicResolved {
+                    resolved: f.x.name.clone(),
+                    typs: Arc::new(types),
+                    impl_paths: Arc::new(vec![]),
+                    is_trait_default: false,
+                },
+                method.clone(),
+                Arc::new(trait_typ_args.iter().map(|typ| crate::sst_util::subst_typ(&ts, typ)).collect()),
+                Arc::new(vec![ImplPath::TraitImplPath(impl_path.clone())]),
+                CallTargetAttrs { autospec: AutospecUsage::Final, const_var: false, assume_external_allowed: false },
+            )
+        } else {
+            CallTarget::Fun(
                     CallTargetKind::Static,
                     f.x.name.clone(),
                     Arc::new(types),
@@ -403,7 +420,13 @@ impl Engine<'_> {
                         const_var: false,
                         assume_external_allowed: false,
                     },
-                ),
+                )
+        };
+        atom(SpannedTyped::new(
+            s,
+            &crate::sst_util::subst_typ(&ts, &f.x.inner_ret.x.typ),
+            ExprX::Call {
+                target,
                 args: Arc::new(args),
                 post_args: None,
                 body: None,
@@ -447,6 +470,9 @@ impl Engine<'_> {
                 (**args).clone(),
                 vec![atom(e.clone())?],
             );
+        }
+        if byte_append::slice(&e.typ) {
+            return self.lib(&e.span, Model::SliceView, vec![Arc::new(TypX::Int(IntRange::U(8)))], vec![atom(e.clone())?]);
         }
         let view = sequence_views::find(base(&e.typ), self.all, self.ds).ok_or_else(|| {
             unsupported(&e.span, "owned private storage requires a certified direct view")
@@ -508,6 +534,8 @@ impl Engine<'_> {
                     })
                     .collect::<Result<_, VirErr>>()?,
             )
+        } else if byte_append::slice(&e.typ) {
+            Node::Atom(atom(e)?)
         } else {
             if !records::shape::value_type(&e.typ, &self.f.x.typ_params, self.ds, 5)
                 && !sums::flat_enum(&typ, self.ds)
@@ -1158,6 +1186,36 @@ impl Engine<'_> {
                     let input = self.expr(s, &args[0])?.scalar(span)?;
                     return Ok(Val::atom(byte_models::value(span, &callee, vec![input])?));
                 }
+                if let Some(callee) = self
+                    .all
+                    .get(name)
+                    .filter(|callee| {
+                        types.is_empty()
+                            && matches!(
+                                &e.x,
+                                ExprX::Call {
+                                    target: CallTarget::Fun(CallTargetKind::Static, ..),
+                                    ..
+                                }
+                            )
+                            && same(&e.typ, &callee.x.inner_ret.x.typ)
+                            && integer_models::recognize(callee).is_some_and(|model| {
+                                matches!(
+                                    model.policy,
+                                    integer_models::Policy::Saturating
+                                        | integer_models::Policy::Checked
+                                )
+                            })
+                    })
+                    .cloned()
+                {
+                    let values = args
+                        .iter()
+                        .map(|argument| self.expr(s, argument)?.scalar(span))
+                        .collect::<Result<Vec<_>, VirErr>>()?;
+                    self.require(s, integer_models::safety(span, &callee, &values)?)?;
+                    return Ok(Val::atom(integer_models::value(span, &callee, values)?));
+                }
                 if let Some(arg) = integer_conversions::call(e, self.all) {
                     let input = self.expr(s, arg)?.scalar(span)?;
                     let (required, output) = integer_conversions::value(span, input, &e.typ)?;
@@ -1241,6 +1299,7 @@ impl Engine<'_> {
     ) -> Result<Val, VirErr> {
         let span = &e.span;
         match m {
+            Model::ExtendBytes => self.extend_bytes(s, e, args),
             Model::New | Model::Capacity => {
                 for a in args.iter() {
                     self.expr(s, a)?;
@@ -1435,6 +1494,13 @@ impl Engine<'_> {
                     .collect::<Result<Vec<_>, _>>()?;
                 return trait_getters::instantiate(spec, types, values, &self.f.x.typ_bounds);
             }
+            if self.all.get(resolved).and_then(model) == Some(Model::SliceView) {
+                let value = self.formula(s, &args[0])?;
+                let CallTargetKind::DynamicResolved { typs, is_trait_default: false, .. } = kind else {
+                    return Err(unsupported(&e.span, "slice observation requires a resolved View implementation"));
+                };
+                return self.lib(&e.span, Model::SliceView, (**typs).clone(), vec![value]);
+            }
             if self.all.get(resolved).is_some_and(|f| f.x.attrs.infer_sequence_view)
                 || self.all.get(resolved).and_then(collections::model)
                     == Some(collections::Model::View)
@@ -1469,6 +1535,7 @@ impl Engine<'_> {
             }
             if let Some(
                 m @ (Model::Empty
+                | Model::Concat
                 | Model::Take
                 | Model::SeqPush
                 | Model::SeqFilter
@@ -1766,7 +1833,14 @@ impl Engine<'_> {
                     out.clone()
                 };
                 let rhs = find_rhs(&lhs, clauses)?;
-                let t = self.formula(s, &rhs)?;
+                let t = if matches!(layout.node, Node::Atom(_))
+                    && value_records::option_record(&layout.typ, self.ds)
+                {
+                    validate_formula(&rhs, self.all)?;
+                    records::substitute_value(&rhs, &s.objects)?
+                } else {
+                    self.formula(s, &rhs)?
+                };
                 if matches!(layout.node, Node::Seq(_)) { Node::Seq(t) } else { Node::Atom(t) }
             }
             Node::Fields(_) if clauses.iter().any(|e|matches!(&e.x,ExprX::Binary(BinaryOp::Eq(Mode::Spec),a,_) if skeleton(a)==skeleton(out))) => {

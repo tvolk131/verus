@@ -1,0 +1,47 @@
+{
+  "branch": "refs/heads/t3/review-cycle79-compatibility",
+  "candidate_relative_delta_files": 10,
+  "candidate_relative_delta_sha256": "1e637a6c1aacdb3f0f982c69866ed583cea46ee968095e04737bad81a16fa351",
+  "combined_patch_applied_exactly_once": true,
+  "combined_patch_sha256": "1e6884c7a7dc762796fc172e8e0caedb6e818037fc23fb3c7b952b2dd323561d",
+  "complete_snapshot_files_verified": 2136,
+  "external_native_toolchain_inputs_guarded": 1425,
+  "failures": [],
+  "head": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "historical_original_worktree_ledger_not_claimed_current": 2122,
+  "index_sha256": "779877edb638f5659b78254d12a95a331dbabe5094fe0d2e4727b663ac0e81df",
+  "native": {
+    "fedimint": {
+      "head": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+      "status": ""
+    },
+    "redb": {
+      "head": "c82ab865bb362bc4af067d332adc44978ff64813",
+      "status": ""
+    }
+  },
+  "native_heads_status_and_source_hashes_unchanged": true,
+  "no_cargo_builds_commits_ref_writes_pushes_pr_actions_or_network": true,
+  "no_native_original_parent_edits": true,
+  "own_head_index_branch_unchanged": true,
+  "package_file_hashes_guarded": 2148,
+  "production_build_input_entries_verified": 1088,
+  "production_rust_identical_to_sealed_candidate": true,
+  "runtime_ledger_entries_verified": 8,
+  "sealed_delivery_file_hashes_guarded": 6353,
+  "shared_ref_deltas_observed_only_no_attribution": {
+    "refs/t3/orchestration-v2/checkpoints/MTc2ODBlNGY3MGMyYzM5MzBjYjdmYTRiOWI4OThjZDI/ordinal/74": {
+      "after": "eac538fff885c0a891548071c9971f9954c3985e",
+      "before": null
+    },
+    "refs/t3/orchestration-v2/checkpoints/NGNhYWQ4MzQ4NDEyMTczOWUzMWI2MzNhM2Q2YmMzM2E/ordinal/1": {
+      "after": "b7883799e7bb2d72d8b5d56b12591d626444555a",
+      "before": null
+    }
+  },
+  "snapshot_inventory_exact": true,
+  "source_ledger_entries_verified": 1579,
+  "success": true,
+  "timestamp": 1793666472.159335,
+  "toolchain_ledger_entries_verified": 61
+}

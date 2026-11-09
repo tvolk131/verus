@@ -1,0 +1,5117 @@
+{
+  "dependencies": [],
+  "exactness": true,
+  "maximality": true,
+  "policy": "candidate-bound-evidence-v76",
+  "producer": "0.2026.11.01.3b05c19.dirty:/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN):3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "proofs": [
+    [
+      {
+        "path": {
+          "krate": {
+            "Id": [
+              "provider",
+              17333577649204380365
+            ]
+          },
+          "segments": [
+            "impl&%8",
+            "eq"
+          ]
+        }
+      },
+      {
+        "exactness": true,
+        "maximality": true,
+        "soundness": true
+      }
+    ]
+  ],
+  "schema": 38,
+  "soundness": true,
+  "summaries": "e25583ba30beb05ea5a539a7567e841c751e93f325622bf903179fefbf155844",
+  "trusted_models": [
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "array",
+            "impl&%7",
+            "try_from"
+          ]
+        }
+      },
+      "c6d5c5d6d297a1df27739f473caec1d362a24723c2e235af0b42028041dee91b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "cmp",
+            "PartialEq",
+            "eq"
+          ]
+        }
+      },
+      "3e344c72bf3026ed0c6fdfe297f85e8d6424c54a7bdd8880fa598a26c05f1da8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "cmp",
+            "PartialEq",
+            "ne"
+          ]
+        }
+      },
+      "8150f1f0066e6ce71b38d98496f70ae0df3622263ebe3ff3d3e604a48548b472"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "cmp",
+            "PartialOrd",
+            "ge"
+          ]
+        }
+      },
+      "ee37eef9cc3822c684f2022dafc2b3a4234b64afcd85ab2d8cb8b86c44e7e03f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "cmp",
+            "PartialOrd",
+            "gt"
+          ]
+        }
+      },
+      "db4e1dea9e2d9d01b18876ef2c45983d6c49dd0067123cad53ad83bc9946efe3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "cmp",
+            "PartialOrd",
+            "le"
+          ]
+        }
+      },
+      "8982090e5997c037c4fb814d092229348c2aa448f90f05204a06d18f9a9a2155"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "cmp",
+            "PartialOrd",
+            "lt"
+          ]
+        }
+      },
+      "1be7e5bc8be332043d9b5b54013fb57c2790db1fdaf68fb906298423b7fadc1a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "From",
+            "from"
+          ]
+        }
+      },
+      "4be0b21ce3ffe6ad8a06721e1c1ea6df1ce7ec0cd8f5991d0a5032c757a0965b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "Into",
+            "into"
+          ]
+        }
+      },
+      "752eee434f851bece16c7fbc6289324852465058f52b7958d0893546918ff6bf"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "TryFrom",
+            "try_from"
+          ]
+        }
+      },
+      "b1d6d70876aa20454d770b0d9f951d8eb2a9d3c494ab1540b03b231a6ab46d41"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "TryInto",
+            "try_into"
+          ]
+        }
+      },
+      "7ecc4e176779dbb57efe1721dfef2e840750e0df89958bccf68a81e794393b94"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "impl&%3",
+            "into"
+          ]
+        }
+      },
+      "e32da6295ca39f10a7b5f5df726fb05d9cd4667690d2961c63f4ff87eead5581"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "impl&%6",
+            "try_into"
+          ]
+        }
+      },
+      "875d18cd945335d151129a8ae7e844af8d7e5dd6e9c5db9465bfa873518cfd7f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%135",
+            "try_from"
+          ]
+        }
+      },
+      "23bf20643a73ce9dae8679de2cecd484098709007a856152a17af9710444ffe8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%136",
+            "try_from"
+          ]
+        }
+      },
+      "17c6163765366c29041f92d4d04c67eb5e559b95b4abb4fdd010fc9ed378dbe1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%137",
+            "try_from"
+          ]
+        }
+      },
+      "0adffc6135f85c73c10d3f59e5dc0c1a826c918ac2e90d0c8a921480f72e96cd"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%138",
+            "try_from"
+          ]
+        }
+      },
+      "2484f7bf563b5572c43b90bbbd2109bc9895c0a645bd6b247e15915059ce7ed0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%139",
+            "try_from"
+          ]
+        }
+      },
+      "b1737520d79d011d35209ede539e0440fd28f4ab7f3e7c3a46db9add7b273bbf"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%140",
+            "try_from"
+          ]
+        }
+      },
+      "e497e320cbcc33e9cebbb77e1668b6f26eb6034a96fd014b1a1d14b21a031169"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%141",
+            "try_from"
+          ]
+        }
+      },
+      "30ed60052981a8d1c928b3f623ff2628ed54d4a43a9b41abfc9576183048edd0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%142",
+            "try_from"
+          ]
+        }
+      },
+      "e78bf68082adda6b80b7caf77976b2ab7eb9bb59627f71bc4c85488114a276de"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%143",
+            "try_from"
+          ]
+        }
+      },
+      "26726479e82bb0ad651cccd8b94180a954cc4cf594e4d4955fcb9d231a964208"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%144",
+            "try_from"
+          ]
+        }
+      },
+      "3f050aa73ceffdb602cd056d76488f8334bda29b3cdb5a6c9b449900ad901b91"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%145",
+            "try_from"
+          ]
+        }
+      },
+      "c0480f169f87d52d58c4de7407984ff0be7d4d60f780d749108d2fee2aac6b35"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%146",
+            "try_from"
+          ]
+        }
+      },
+      "f6e7b35cb93ac75375548ac32cbd6419548df3a02682dcc4c9a4e5a17e40f1d5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%147",
+            "try_from"
+          ]
+        }
+      },
+      "8276b639b4d43de2b30d1c044ca633c6049de7d396d876296d220eb752895a64"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%148",
+            "try_from"
+          ]
+        }
+      },
+      "38deea086f8a7ccc842bfaa7963db47abd699c4506e909504c9e0a296550bcc5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%149",
+            "try_from"
+          ]
+        }
+      },
+      "98a3871456d31e9fe1d41e97e520640eaeae1cfda6b30691df8c755444d2751d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%150",
+            "try_from"
+          ]
+        }
+      },
+      "63bde6d0be5c7103244b8b065e316705d1f12f05efc2cb72e81e337851d8b380"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%151",
+            "try_from"
+          ]
+        }
+      },
+      "9759d37bf9ecd44e7a8da8c3020cf4c07e8a67871614020dd71bc48ce765aa0c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%152",
+            "try_from"
+          ]
+        }
+      },
+      "035c7adfb2352292ddba29eeff0c5f4736be9c06331d68022946d877874a7541"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%153",
+            "try_from"
+          ]
+        }
+      },
+      "f50437dfd702e2df53521e61bb72f17882e0442e06b636e1e934649c06b63cd9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%154",
+            "try_from"
+          ]
+        }
+      },
+      "fcfb097da7777e1a4eb86c394d0e88ae2525cd7ecfc32db305fe7dc4f867eab5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%155",
+            "try_from"
+          ]
+        }
+      },
+      "0697d0e96474ebe026d32d7dbc7e00ce0479a2c8184d9fb56e739ea2a61be634"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%156",
+            "try_from"
+          ]
+        }
+      },
+      "06619a0d78a2ba87f40f1262f2a2d84dfe035c04fdf26ccd8fde81ae9a25c411"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%157",
+            "try_from"
+          ]
+        }
+      },
+      "e322ed39cb380f324d242c60a4b9ac00e01cf9303015d467751b863bb3cfff6f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%158",
+            "try_from"
+          ]
+        }
+      },
+      "d2fa40b0925f7d565d45e5237d74e1131c989be6f8280a6d7f09e68a8defda02"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%159",
+            "try_from"
+          ]
+        }
+      },
+      "15284deedb5ac7b42fba5e40a652cc75425a533679216c941022d4bf2cf33494"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%160",
+            "try_from"
+          ]
+        }
+      },
+      "19df7bbb45abe20e1171ead482612122b0d841e2a04bdfabc5561a45a8179ad7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%161",
+            "try_from"
+          ]
+        }
+      },
+      "c2b2a924c8369a0cb7d0080e9e3d831c3e4d75d1677f75d473d923fd3fa34a30"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%162",
+            "try_from"
+          ]
+        }
+      },
+      "ff5f1657d95ec1dc7051a5be5fb7a292da6ad65ed217b7b3fc94378d771ffef3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%163",
+            "try_from"
+          ]
+        }
+      },
+      "7ec122c04bfc0f4830b3a8ebbabb0eb3e2ae40c42fbe70c6817f9fc21568d58e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%164",
+            "try_from"
+          ]
+        }
+      },
+      "f4f0941a6dfd23aa3657a2979c5d379bebd0728f52093f4e8c842b650c97e89a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%165",
+            "try_from"
+          ]
+        }
+      },
+      "0a88ddda74b0582f027b12cbf2dd5b97f5853170e5bff93c9df752f708788abe"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%166",
+            "try_from"
+          ]
+        }
+      },
+      "d9c8376e3fc2222f7740af2a00455857b4c4e473e5fdfe7eca4a0fb704959cd2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%167",
+            "try_from"
+          ]
+        }
+      },
+      "af1c1d467d999721324dd3ab4d9b1fa67643208e48c24afe4555213c8c5e7a6c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%168",
+            "try_from"
+          ]
+        }
+      },
+      "cfc7bdba049981df24712761620ac14fa524acbd22858a45dee650def5219d33"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%169",
+            "try_from"
+          ]
+        }
+      },
+      "e6589ff9324d3e1383bf54b7a285dce3ddb4b5658b5920a3a5eda62f4ae2a327"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%170",
+            "try_from"
+          ]
+        }
+      },
+      "3d40303c72d04c523afc77407595ca672f2ae10815d9effcb1251f616f2b80b7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%171",
+            "try_from"
+          ]
+        }
+      },
+      "193dab15cb1cffeb91d7af99e82e2755355e2f46655bfe0dbbbcfee4736c5709"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%172",
+            "try_from"
+          ]
+        }
+      },
+      "b57188137f216e8c40defa4d8105fcdf774a3023ca35f5b5c9f227ccc9d2952f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%173",
+            "try_from"
+          ]
+        }
+      },
+      "be11e774530cc7b4acb7a70ae495744a8e1c6136c874b50ad960df29aba839e1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%174",
+            "try_from"
+          ]
+        }
+      },
+      "71da875367cdd5db892348af38c29c4c26e2822d1e70b58608b5127474e91d65"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%175",
+            "try_from"
+          ]
+        }
+      },
+      "78305c079e73aff1c1f6e46c83ede3b2bfb5120d8382ce00d2ca81b01071b9b1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%176",
+            "try_from"
+          ]
+        }
+      },
+      "068ff0c5dfe904f6eb832de3bc2beb0cc8b92f0ec4c29f35fc46ce2f356ee503"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%177",
+            "try_from"
+          ]
+        }
+      },
+      "e14904c599f1962503ae302a2851c51ea1678a7cc0db1960663ce51074c13f05"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%178",
+            "try_from"
+          ]
+        }
+      },
+      "b96f4d1eab5c534cf7213072d4976b9df625fb111e00ba3b9e3f02ed7e4e85c7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%179",
+            "try_from"
+          ]
+        }
+      },
+      "623e6acabe731834d765214caf442fa12a5a01545a2145ddb82cb873c1ff467a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%180",
+            "try_from"
+          ]
+        }
+      },
+      "f12b98718075d24aaabeddc10e699a5673d693d30614c2222147846de34c2141"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%181",
+            "try_from"
+          ]
+        }
+      },
+      "16fbe934d2649004e80f2987bbf9868d558b504dd30c8495379a9079714aed9c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%182",
+            "try_from"
+          ]
+        }
+      },
+      "ec6bedfd3834d461e9443c07498d024cbf339d8e10a6b6e11d0002c74b2a8284"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%183",
+            "try_from"
+          ]
+        }
+      },
+      "2077e3a00603c21827ac8dacba0f6d9fb669c16d2d7e24a491c87540a74e62f6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%184",
+            "try_from"
+          ]
+        }
+      },
+      "92df36eaba4ef6f5e2cf12438ca4344f668362de8aec4fd190ad893097933a68"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%185",
+            "try_from"
+          ]
+        }
+      },
+      "dc23ed1b9499455e831de459a6dbdabc21d92871495c3a730c7d0eb271858e57"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%186",
+            "try_from"
+          ]
+        }
+      },
+      "95bdc265b4edbecb83514dcbce609d6360afcafe80294787d5a45123fbf4577c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%187",
+            "try_from"
+          ]
+        }
+      },
+      "f378a565940ae29e21d8105d15044d72b5843e151d938f6244e930cec0071d5e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%188",
+            "try_from"
+          ]
+        }
+      },
+      "40b5cbb8bbad0c169e2837c109627c891287b10f3c81df96fad9b0f7519e0ae8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%189",
+            "try_from"
+          ]
+        }
+      },
+      "cf5fd97c7cdb68dfa2db59e098367a4487db123edb7220a63fcd9ea9342d02f1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%190",
+            "try_from"
+          ]
+        }
+      },
+      "f61582a69d793fc1d6cf5cb5b34ed87987b96a683cd09ac4e8110b145a6206eb"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%191",
+            "try_from"
+          ]
+        }
+      },
+      "f91a40c6a93a3c4e004b6501c332417c41e3ced17c73761941445f3c9f6b6c23"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%192",
+            "try_from"
+          ]
+        }
+      },
+      "c987de6c067fdbbf4153e8a7543d914cd2c16cfd373851050eb614ca858cc41c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%193",
+            "try_from"
+          ]
+        }
+      },
+      "50ad5cb57786f6676018a87cda1b7be586497fed18947b1656726f0326cc451b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%194",
+            "try_from"
+          ]
+        }
+      },
+      "b40f0d52b3926382dd3b88713603858597e2800a3e660447652ed13734727dd9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%195",
+            "try_from"
+          ]
+        }
+      },
+      "55207d8702efb5a3829903af7a7d6a4e0585624dd43d437db31d3d73ef53ffe5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%196",
+            "try_from"
+          ]
+        }
+      },
+      "c8db04ef5378faeb17326daf9aca013246d5b636693ecef50af760bf4f603c46"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%60",
+            "from"
+          ]
+        }
+      },
+      "430ee581fc215690b254efd153cb364d9945eb1fe460610ebc20170b5cb0dd8c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%61",
+            "from"
+          ]
+        }
+      },
+      "4e4567223e7335edfe0aa02f78e18aa23cadd69409abd753a82fc9e3b259e7da"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%62",
+            "from"
+          ]
+        }
+      },
+      "0e95f9f6755946b86e196dfb451a07129d1bb978ce9b13def26ba1ddc5ce4d4d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%63",
+            "from"
+          ]
+        }
+      },
+      "3c4bdc79da8304888280e5b5a7ef2a2deb80fc548cef329669f18b40ef9bafc5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%64",
+            "from"
+          ]
+        }
+      },
+      "e5399b649e0dab508cb35efda3eeef008909d6e264f289011c4b491e4d94506b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%65",
+            "from"
+          ]
+        }
+      },
+      "1903c733c12400f1fed01e3db38905bfa1a75c400d8fa129d7149a49c0de60a3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%66",
+            "from"
+          ]
+        }
+      },
+      "d3f80085ff405291a15ff08d9b61d27f9da3f847ec2c52d0a0f94010af48b4bd"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%67",
+            "from"
+          ]
+        }
+      },
+      "e69769883b2f92b0f40696d8dce71a623f25d0e11164e2735c240b3f94946687"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%68",
+            "from"
+          ]
+        }
+      },
+      "c1d3cc8ab7dc292d5cc198e41745c1b472f3fa7ac1855a136c770885cdb23f8a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%69",
+            "from"
+          ]
+        }
+      },
+      "28926b7c45f28d5fd4d9aebad29392b52f6df1e45bdc53fe092208c7203621c8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%70",
+            "from"
+          ]
+        }
+      },
+      "8754cd5d9076ff358a34e9974a038f9958c93a26d51e360b522aee2e66eb3614"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%71",
+            "from"
+          ]
+        }
+      },
+      "61a66c3acd3cd9bdddd7c1d89b1855b3b051dc253d68cf0e28d9b49a1126f9c9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%72",
+            "from"
+          ]
+        }
+      },
+      "b7b31016da82d2fccdedcd4c5224da2f408736ab4b4f97fe85c71d6a337cbc77"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%73",
+            "from"
+          ]
+        }
+      },
+      "6959c9c4e0b541d851e45b2e595e910ddd37d4ef638850e2bb027068e7677bae"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%74",
+            "from"
+          ]
+        }
+      },
+      "feff5a7fe6487864a698dbe4c5329b820997ba01c26d18c779ecc552309b9a98"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%75",
+            "from"
+          ]
+        }
+      },
+      "197841ebf0cdbab480e43c77de1456a4d29ef465d738bc8a04829ad803f8777a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%76",
+            "from"
+          ]
+        }
+      },
+      "a7e843780e1ff3db2352dfb1ada0ef8619406d734140c7aa6fe8dec4a9c131f0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%77",
+            "from"
+          ]
+        }
+      },
+      "72908ad3a19df957f060729b8ada8f87b9c07b6c5c858f42cd61d8704d0feb08"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%78",
+            "from"
+          ]
+        }
+      },
+      "68633599f0d7cef2ecde07fecb3184e82ee16100b781a10a52afe01303a0dbc6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%79",
+            "from"
+          ]
+        }
+      },
+      "e261faec085770452af589128f0d98af06446c82dd8b45a46317904788133e8d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%80",
+            "from"
+          ]
+        }
+      },
+      "6f8bc46517d8b59c46301fc8c5f8cb9888c587091e57d8ec5f0bb8840c05a5b1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%81",
+            "from"
+          ]
+        }
+      },
+      "17da1e49c2738ac8f518286db1629821c023f5bfe2902cc1ebf621abaa9ac828"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%82",
+            "from"
+          ]
+        }
+      },
+      "33013f19cdd32de0a57bd02317d9d1fb40abfb409b3c4b292a34a5044cd3030b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%83",
+            "from"
+          ]
+        }
+      },
+      "4cf96c7f36454ecbca1fb222cca767ec03f7709de835a6cb19be101c013358f6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%84",
+            "from"
+          ]
+        }
+      },
+      "a8cdb59d79e61c04d31f13a49cc98a410d25c028e5e6177836eaf40be1cdf8eb"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%85",
+            "from"
+          ]
+        }
+      },
+      "d45464d3813ced052aeca1817176c65095c477a702bd86c3c7490ce030e6fe27"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%86",
+            "from"
+          ]
+        }
+      },
+      "3efdef15f0b4833a5aaebcfa665a74ba4dbb0b2c647c76e94af66d7225532730"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%87",
+            "from"
+          ]
+        }
+      },
+      "de0637898113bb51324550e1480f0260c02fe73b59f4500eee4d25a7e8e7921b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%88",
+            "from"
+          ]
+        }
+      },
+      "5d40cd6d3fcab3272b318923fe6b352473ab3b99094ae7c3f37708088f3be0ed"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%89",
+            "from"
+          ]
+        }
+      },
+      "daf929925a5be70dc44d346af41ae95f21a1f6ef8f7c119b68e9e4fedcf96ca7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%90",
+            "from"
+          ]
+        }
+      },
+      "fe79a0d400bf4577dd7cf3793ed0922b056895a9da4f3c451c49e27ab0057c81"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%91",
+            "from"
+          ]
+        }
+      },
+      "7ae22e81a2b59f152f5dc35ae4eddb12c3f5b064e2c5ace2903aca6065181849"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%92",
+            "from"
+          ]
+        }
+      },
+      "df6f3f6ff48243e8a418429b49bdc43bd989cc985b84868b07c2a2b5be382326"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%93",
+            "from"
+          ]
+        }
+      },
+      "0ce104d902e8716c4b3cc9555045f132f05e54ef7f100016f5564d7676c0f667"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "impl&%94",
+            "from"
+          ]
+        }
+      },
+      "006644fd9287c9eb877d9323fbfd01827733a03e3a27bf446be40781f86ee072"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%20",
+            "try_from"
+          ]
+        }
+      },
+      "79c24bd57ba3e7048756865804f2833f463abc38f0b78334e9e6f4a6fc90310d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%21",
+            "try_from"
+          ]
+        }
+      },
+      "4239b500d8552a40c12023ea272473d242777c260c8ba872230dd20a989a59cf"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%22",
+            "try_from"
+          ]
+        }
+      },
+      "c1ee1bea55567610793e1c1d0127ed98102533b22e7a770cd687d5b5a4d89ffc"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%23",
+            "try_from"
+          ]
+        }
+      },
+      "3e206dc044a2de4a2b4382f87ea87546da19ce3eeddd5b91266920f1c8bf761a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%24",
+            "try_from"
+          ]
+        }
+      },
+      "90da942c913ab4a5022de0c7905a0616097763490c511ecd0ed568fccd8062ab"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%25",
+            "try_from"
+          ]
+        }
+      },
+      "cbea02be7c7ab531a9afae881bb884c49c1665a0cb78d154f12a934a09c9610f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%26",
+            "try_from"
+          ]
+        }
+      },
+      "a3272a5efd30e1a7f09da55c69acde262c1716436aeab157b6c669ba6c23cac6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "convert",
+            "num",
+            "ptr_try_from_impls",
+            "impl&%27",
+            "try_from"
+          ]
+        }
+      },
+      "f292751bc7092d77374da9e154ea94b6274a4bb0e95f060eaaa9f3ba2bd63708"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "fmt",
+            "impl&%6",
+            "from_str"
+          ]
+        }
+      },
+      "f614d11273ef2abc2801cac7aa5cab0b36e04fffa064a7770101ddbb2a991fe3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "iter",
+            "traits",
+            "iterator",
+            "Iterator",
+            "any"
+          ]
+        }
+      },
+      "4bb4c3f75c85553d4d8fb71c928cb73b94f1159f0fdb435d3fe440350b219454"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "iter",
+            "traits",
+            "iterator",
+            "Iterator",
+            "count"
+          ]
+        }
+      },
+      "b9366a5534620b5bf6445938a03f841cb70f76ef9e78ddbb059fde4958ad208b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "iter",
+            "traits",
+            "iterator",
+            "Iterator",
+            "filter"
+          ]
+        }
+      },
+      "74e2c6a88fc07ea5db8e31326abc9403e3826a3aa41156776f6583861efa0ab9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_add"
+          ]
+        }
+      },
+      "03c9213a8adc272d1007a2b62234eb9d60ce5565ac7a1199fdb1e9067f21affb"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_add_unsigned"
+          ]
+        }
+      },
+      "8576c7c51118d173fe1da0da488897bca2fb542631b798b8424037de8784b662"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_div"
+          ]
+        }
+      },
+      "ea9e66fdeb4ab7987f28a8aa5e607746f6cb40cfd0d3116f9ae3539ca7d55b64"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "20d7dc92990d79d62494b6609842f449d9f5faaf90a5b530583a1590de9f33c7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_mul"
+          ]
+        }
+      },
+      "c182ed5c58aa670a33e91cdf16c38b1fdb7a60d7c86c9c652e82dd5913434a7c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_neg"
+          ]
+        }
+      },
+      "2a464fddfdbce08f0426733238d7a236f5f46e74f90f9d993490402d39141d78"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_rem"
+          ]
+        }
+      },
+      "8b2f51181ea35ce3dbeea1a4fe12844fd96efcb5d0e3ed7022162749edd598f8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "7bafe37171a75728792c96e7385a4b1ca607e24bebd0e93959e12bafad86c8dc"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_sub"
+          ]
+        }
+      },
+      "b36c37144980ba9ff3d3a5f5eb3d8197601eeaba5ec1f1164964576b244ac449"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "checked_sub_unsigned"
+          ]
+        }
+      },
+      "0789bddc055b4f01b8583317d3e2ab918146d77aa3d93a1b0e6fc824a767d0ea"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "saturating_add"
+          ]
+        }
+      },
+      "337378f04a5ffd3dc54d40ba8fc9b56855fa31a1557216a71f067ae89be93794"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "saturating_mul"
+          ]
+        }
+      },
+      "4e7d8f406398b31717d60956632ec62cf9d101b03f93ad51a22bdbef8f206631"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "saturating_sub"
+          ]
+        }
+      },
+      "8a7d3c536012a7f442dc6b8a4f2790e2c7b94f770eb15f6b3274d93aac3b0e3b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "wrapping_add"
+          ]
+        }
+      },
+      "57961511e01618ae0736e9fa3cd5bc2f42212fc77070fc15f798b2aeeb98d95d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "0e5224f00f550e174a40445e557468d3d4c2155bcfcd96fea5cbe37ee491b23d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%0",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "f29abb7bf725b88d3fe56b670c98bda8c8196056149b1199ad764a9169130f7b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_add"
+          ]
+        }
+      },
+      "a8b7c62d92483a6f150ebc130ba180e70b3ada29aac9d4f28085e859dcb6edd4"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_add_unsigned"
+          ]
+        }
+      },
+      "95c3efcd951a59687fa717db922c23dbc8caa14975e9e523392a1789f020aad3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_div"
+          ]
+        }
+      },
+      "a55ea3ccc958c14ad3df4cfa90d1f74885e1242d9c091580112e1f403c0b4f3b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "39e34d79f3bc3901da70720328a8e1a86582804c6b91b0d87380279948a24390"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_mul"
+          ]
+        }
+      },
+      "e5e79b1810c60449de715e497d86ec9fe99d41fe1b39072f428cd6ca311622a1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_neg"
+          ]
+        }
+      },
+      "519b9bcf964c19a13aba51c07d016ca4f59ed8b13f409f0b5f482be09583ba8b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_rem"
+          ]
+        }
+      },
+      "78dedca47672b6bd248a700d4fd76c8f8c79ab7889a163fc41e43736bd4de50f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "d3533484db1d94800e4d15c283f81babcf46cf85c22ef4e48144dcce2b26187e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_sub"
+          ]
+        }
+      },
+      "e07a0e9b0601f43f59dfb45c73742737099b40b76706a6fcf5593ebf623223c2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "checked_sub_unsigned"
+          ]
+        }
+      },
+      "12848b4ed57306f0d4f54114e3e36d6dfa1a4e0471f72188503685e9ef291068"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "saturating_add"
+          ]
+        }
+      },
+      "39bf63100bfab2037ba4b492c79560bd333e61c5806764976821ace0c7b5d3d7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "saturating_mul"
+          ]
+        }
+      },
+      "d2d1ec570802d1c9e619d3b35b5a7135e7ce7d24ed7ed42c9ea8a2daf5385e40"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "saturating_sub"
+          ]
+        }
+      },
+      "0600b87052afd063e10d54a46f234f6c462b2ab6cefca96d286fbdee245b7498"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "wrapping_add"
+          ]
+        }
+      },
+      "c145941382b73ffa63e9c736b8271027ba88fe9ebb5edca59b84e70f7e9e0ba3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "dd178f830415e3cf47a2d0f77c8cafca1e996d490e22cd984c69020429f7e410"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%1",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "23d0db3cb0f3b739d087ddaaa12f9770f7932697afbedd1dd8f6c47f6c01d99f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_add"
+          ]
+        }
+      },
+      "f30f555d7ca92421745c30506169e7cb00e14fbd3b9f285aaf2827bcefcff215"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_add_signed"
+          ]
+        }
+      },
+      "c04bf313992d943f175496e204ef0ff6fccd07a17958800b39283496b293120b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_div"
+          ]
+        }
+      },
+      "1518058e9cd572a9cf2647f0693f963b3a0e8a83292b755b1d903bea9c137127"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "a4b02ee81fae16307aa6e7a10002cc713346848d104aa20730ff9689adc0dd96"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_mul"
+          ]
+        }
+      },
+      "fb6bd89cfeeb273a96202d62ea408639aae21442e5e78c9997f27af16810695f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_neg"
+          ]
+        }
+      },
+      "ff478e3ef3c3cb6b5d11f20390276c4064a63543627b17a810043255e25834f1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_rem"
+          ]
+        }
+      },
+      "ed6b94ba1628940c5667789147093b4703f4163a2a00301978573cd8e7d17fc4"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "25f75f8de04ab69f12fd85f656c6e3c79bf614c0cbbb22f37c3877ba025fdd43"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_sub"
+          ]
+        }
+      },
+      "9e888cd40021829fc08fbe30aa956950fd945063e4ad47890a7f7467898f1d97"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "checked_sub_signed"
+          ]
+        }
+      },
+      "c6de3fe6e9f9300d3a34367424ffe7bf14a5a9e156dedf2e6a6d6abf850c4d53"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "saturating_add"
+          ]
+        }
+      },
+      "34bdd81278882e9761e59e77641b3c271b96a0504826b521cea7371f764c23a2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "saturating_div"
+          ]
+        }
+      },
+      "321c851f513ad81285603899ce5f7ebff847baa1fb9c519a0cd2cd20f47422be"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "saturating_mul"
+          ]
+        }
+      },
+      "c6155aa55dfcb4088cfea9bb8fcae44efdfa05b07336b0a2852fc3da0cab6e8a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "saturating_sub"
+          ]
+        }
+      },
+      "cfd258bae92c6163a46a90d23d4a4915360e1d0efe51882a6945c13f5b8352aa"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "wrapping_add"
+          ]
+        }
+      },
+      "8b8d7bfeba1b3d85eb403e7a8d6439cf2592d0a2e26cbf59d1703a3ea97615e3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "e14ddd73e463b5dd6c520eea8b8bd8377314df930e8b2f0fd691ffed64aae3e6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%10",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "e8d839d90457afd41233ef4168be44de3766c046ee1a7c477f5082d2333d53b0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_add"
+          ]
+        }
+      },
+      "41d4594c4e5b15bf4f92165baea23e2b3797188f9cf43a1d2a96563e86632753"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_add_signed"
+          ]
+        }
+      },
+      "56f29faba86c9ff8b82b95addbb83d7af5db02009f8f2813439ce9c1c9da6b3c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_div"
+          ]
+        }
+      },
+      "919d2d09e29df862c832a77d6aded7a266b11f7ab1f9702eaaa50e2360a87731"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "478645b6473729c08bcd49f5480548edfb73b9af09515643506a776dcff24f8b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_mul"
+          ]
+        }
+      },
+      "3a9fd83702102793d6777c518541399af820d655d36170ad51d2ee4cd59e14a1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_neg"
+          ]
+        }
+      },
+      "38809d1a4a3278927467eea767af6dc8d05b38695cdc2598f220d6e0638ac41c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_rem"
+          ]
+        }
+      },
+      "0a30ffd71dd4d7be78a6849271863ee0972d6dce630a95f73a49db9310d94f45"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "5226ef95d2de096684d3205a51edba3e4afb9fb69990571a87239a060eff92b3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_sub"
+          ]
+        }
+      },
+      "ab75ea5205da849f272a5d52444d9bcc37103deb7e83a4447951e4d87fa2cc04"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "checked_sub_signed"
+          ]
+        }
+      },
+      "32fa5352d29155a40bdc101367d3670ecdb43c499e4f6c6c058b2ff04698b6f7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "saturating_add"
+          ]
+        }
+      },
+      "e80ca93acd9040cbeee6980808f10ac0731cf43be96f7cb635495d60c0e682a1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "saturating_div"
+          ]
+        }
+      },
+      "125e0436b92b5a49162ad34f04398afabd0ed63e839002edfafa93fc2c6d8d26"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "saturating_mul"
+          ]
+        }
+      },
+      "6b16632aa8da40463e4cd814816b757fad4fe233b9feaedec9eae4c89c3ddb6b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "saturating_sub"
+          ]
+        }
+      },
+      "c58bd00fa827307b8018f5f8f6afb821ac98fccba39d347130841e9e5b8ab428"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "wrapping_add"
+          ]
+        }
+      },
+      "204efe560a430bf4859327e6d69de84aa1fea58527629596ee2ca1abd3a0888f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "fe9643dba4913db6413c6c3017687d354c55e09e4ddb1aecf6846f38af8a2bb7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%11",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "de846fbb8a5ccd88a4f9b90325403ba473f67140fdbaf6c1a6872b4a0fe01aa8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_add"
+          ]
+        }
+      },
+      "4248205ea67e434da01bb02a70280d8662f09b614e142fcd9fecc8d16716f772"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_add_unsigned"
+          ]
+        }
+      },
+      "5940f1b367736ac610ca9ec0e40b7af8bc2eb288fd4197565fc294023f558a25"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_div"
+          ]
+        }
+      },
+      "54ee2c5c3876b5274a9d29d1648faa433392e6fca6078d481d8773d6ef6f0ca1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "4a395ffadb61d20793039935ef0d386dea86403f5d1fcc197ea0ddfc57aabf90"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_mul"
+          ]
+        }
+      },
+      "dd4de4b64eb394a361b4a38bd4fcfc9e0b15a8a5a868040ab197b7ef2cfb28b9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_neg"
+          ]
+        }
+      },
+      "624debb22b35f44dca7b3968f326658feee31d9fd66e7acac113392f87360da3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_rem"
+          ]
+        }
+      },
+      "dbcce9604c2f20057139f3791ed2f4b9082c13a0c306d63b9c6771a0184c76f5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "9dca19287d2c057eb57ec509f580481987f4567affb892c49751f9210fc9ed9a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_sub"
+          ]
+        }
+      },
+      "d53fe9a44c0e650cc968ce02321b887e296ab840527f880591cd21e25897982f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "checked_sub_unsigned"
+          ]
+        }
+      },
+      "ce92df1934266003601e08627a361e6344f9fade5af80cf743ae9b67c3335c6c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "saturating_add"
+          ]
+        }
+      },
+      "56f7fcc6eb1ff29b83350f4d533ff2da027e3a9c7979cb5fb5d3e46b161088c6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "saturating_mul"
+          ]
+        }
+      },
+      "ebbf5d1247569c22b33a8453efc067c96655d6b3528f762fc33fd4d20cfab5d5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "saturating_sub"
+          ]
+        }
+      },
+      "3ceac02ebdd5ef92277a9683f002ae66a1f4254d914da9ec9c192ce50905df15"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "wrapping_add"
+          ]
+        }
+      },
+      "745da3555f0c25f96a358ec0a68bd08a8813505032e620f3c43917d96cf5b46f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "6d12d71071f4ffd3d90813dbb7bf91b2e0c6e3561f4328afd7d4381927ca9196"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%2",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "a49cc434c6da2e525f9061527fbb5cc1e5fc453eb2fa3400d13121b1c61d7756"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_add"
+          ]
+        }
+      },
+      "20602d7aee20dab090f5bdbb8025d6b25cf647ceb3cbd4ed6a8bc53fffcd5e12"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_add_unsigned"
+          ]
+        }
+      },
+      "0f58250f829e4b68bcaef6dba8bde3392d8d977d5085a7e689899b521f1825c5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_div"
+          ]
+        }
+      },
+      "cee44466a5305e134031e2def345f28ea313d3bad84903d5b8eda0b47d1346a8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "e2fdafab48516c6b4805f289942b4dfc0327dec627b1b8c2de16f1d6f4dad5a1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_mul"
+          ]
+        }
+      },
+      "dce77314d53434095cb0b9dcee1713ff400d3c3a5e38f2e69fbc20f314c3bed5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_neg"
+          ]
+        }
+      },
+      "5d894de1e250c49c15213022bd97ecf21c071d51f85cde3cc2756c4ac72200a3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_rem"
+          ]
+        }
+      },
+      "f758f510deac13c39d8aea0eadc401c90a265fe51e2b65789c216354f03c1a70"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "4a341421fc27b241205c895bf2a5f53adf2b176a9fa7ddf9647a8d2e14ecba06"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_sub"
+          ]
+        }
+      },
+      "27b23742d495e129ea819fe65eb0f68ec2e48ea1e37b89c30cb4b24e00a04f65"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "checked_sub_unsigned"
+          ]
+        }
+      },
+      "f050d525b8d71b7104b9d722d26d4d58d93eff7d324e94aded007eb389dbefa0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "saturating_add"
+          ]
+        }
+      },
+      "432e1290fe2e3a17c6d380fe3cb21a214e8314958f4ec0ba69ebf8e71f363622"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "saturating_mul"
+          ]
+        }
+      },
+      "9eed2d353139e56225a2c478a9cc356529a6b8d34b9fed88a23a183fe5fddc20"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "saturating_sub"
+          ]
+        }
+      },
+      "f65a569155ebba09fa4dd42cb78c2a8035ed376ce085cb3e2f1ea99185a28ed5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "wrapping_add"
+          ]
+        }
+      },
+      "a4088e8e4e4a269519f9a3b68d80a40c0b1f8387615d527d440588c3627dccde"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "0ba2b113d130af04c894c25e566f0c40830a35c190c8994ee5381006af817e20"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%3",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "c9b63fe92cf5c355560b0b150f405d85d6f77780d16cd19988dca65ff9344b30"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_add"
+          ]
+        }
+      },
+      "a0356e86fae57016c234f86584b75e81ae0dc2d67ef155262b0fbeb63618831b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_add_unsigned"
+          ]
+        }
+      },
+      "a0614c0024dfb311722bdfe73e4564e8b57be58ea389d31e28f6c327f30b9449"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_div"
+          ]
+        }
+      },
+      "7fe06b5f3dbf5d01dfbcfab91f8dc69bc14d2d9576e11900550d4b2e279c284e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "476a3ac8cdf86ab9d5b64af06c0a2e8f05e262b8d64a93480805da892eaacd82"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_mul"
+          ]
+        }
+      },
+      "81de32e853b4bd449c44bd5165d46b57d2459159ed366a613a25d7aaa9b0c98b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_neg"
+          ]
+        }
+      },
+      "c9c113d1e1e1a9bf266c5115140fa58c685dbe22adbd3de8c5a7dd5157b4b60b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_rem"
+          ]
+        }
+      },
+      "a4d1eb70d95cb52eb261c5cd2be1f82c9e90b25181978f6a839820f8ac7c8635"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "2989bfad54d33971365b86a4981734c2c5f864e5db6e7d088b1dbd2a53577f50"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_sub"
+          ]
+        }
+      },
+      "317632bef851cfc42459bd5d7a978ff8d368703de5745edbee835c0d952ed3c9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "checked_sub_unsigned"
+          ]
+        }
+      },
+      "10812dacafa65a04cc174ba20da62bd17faae9da8d0e96e7d34ef93c5ac1a25c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "saturating_add"
+          ]
+        }
+      },
+      "579e5eae859844149b675b47aca0ee864ca57e375edae5e7685c75481205f75b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "saturating_mul"
+          ]
+        }
+      },
+      "394b862a61543535b993a871229e1463952b5b0047e2fb69082f659e2bf68f29"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "saturating_sub"
+          ]
+        }
+      },
+      "dea20b2985eabb274cd10873eb8d24cf1af56bc453ac9e1901a0d02f87e1826a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "wrapping_add"
+          ]
+        }
+      },
+      "2d5b1c43934b53193ebcbfdba7907c9f70f8a8f84086935f32d99552c98f126a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "68d734419dd9bf14b827df79be5ef9a695182d84672fbd413bc6d614bcf3d768"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%4",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "4cbd90df95005e2b2d08969d12c54c826f143e7d797f164454dad6a45dd48256"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_add"
+          ]
+        }
+      },
+      "ae7ad21686be788b756cd33ed8ae4949eb9a4f7093dea7f9e284a48cfc85f289"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_add_unsigned"
+          ]
+        }
+      },
+      "052f333bb0c76fd34f69f38ae5113465d61d312c88b500e0eb70907e5b4d015d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_div"
+          ]
+        }
+      },
+      "0a2425dc441f12b7ca15ac8d63c95103f44307f0837122b0370c9a7d2fa67000"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "6867dd50a57043c7e0b67a6ad7469f6c174f8171a3fe12ef0d3ad0ac3189fc2d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_mul"
+          ]
+        }
+      },
+      "f1a83d091ac78ca190298e624e87db50f03f3dd044223129ce01b85ee21569e0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_neg"
+          ]
+        }
+      },
+      "e6ef46733602db22f2e9c49a1b0ac3556dba42d2d0c23bbbc3131a4e1a90d57b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_rem"
+          ]
+        }
+      },
+      "a18dc20cf041373154c2d9246ad317733c4005362d7d3fceafc29340833b6eaf"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "afb29d0ef5713f4ef653db577fc4a641a634e50fd40950758d3d4f4924e0856e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_sub"
+          ]
+        }
+      },
+      "8a296cf91d57c69aab1dee5749863ec77b0299bcc38c4360712e1e14c2693e66"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "checked_sub_unsigned"
+          ]
+        }
+      },
+      "7f1d4167378f05de5ea8324b0cec2ea3212a45795326e3ff7ed2a83c114cd3e2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "saturating_add"
+          ]
+        }
+      },
+      "1219ea5e9dbf9535de385f3d23998b7112eb1f0a9da0f6e03079c76a25f2e4dd"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "saturating_mul"
+          ]
+        }
+      },
+      "2842f621231840d0bea8fe448420dfec42d4c5eabc51ce535efc7b67db98065c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "saturating_sub"
+          ]
+        }
+      },
+      "ea3289f778e0b0b917b862f0c90716abf5e6e6bf2819381fae013d9268a70465"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "wrapping_add"
+          ]
+        }
+      },
+      "4a6f71d3a6398ed12c3bd8dad5985a9cc6746e84bf6d98773a76d3627ccc0a41"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "76c8063528fb4b8019672ef3866e4d39946ecfc585721aceda3b4296ea6d45f9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%5",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "8e2a3b91510ce6fd557601b3293ab71a9a8dd5cf578cc58c2d1442dc9411af6f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_add"
+          ]
+        }
+      },
+      "82d61c68cde1796845aca2cd81322fb5544a315d6f80fdf60a9a1a049f3cccf5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_add_signed"
+          ]
+        }
+      },
+      "ca1f913f11633dde4bbccdd89e6438d5c70c5cd253780f0e7708f74e1ed3898d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_div"
+          ]
+        }
+      },
+      "74d36fd3ada35cdef6bb0d99368a3a7e59ee5c71f5f228e97cf1f6904cbcf916"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "63706be49e5f32b81079936ed4fe55b8f9fa86f77e0882c06b40e628744f92b2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_mul"
+          ]
+        }
+      },
+      "4a1af07a7059be5895abf7d92467fdf578a8c64d212bb637ec8ef92bcd7a510a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_neg"
+          ]
+        }
+      },
+      "b5277f3132c7fdf135f5683dc40e880ec72a42506a0a88484330b8fa1a4e5caa"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_rem"
+          ]
+        }
+      },
+      "d2144c62e50f04f2c0f5ed215e481e5ec61d8509fbd62e6e47be627d99a675c7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "09c3228d49398f9db1ccc6b73ce1c58aa28ee169cd9b61aa9285ecf0720527ac"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_sub"
+          ]
+        }
+      },
+      "194b5aa7aec33be3e47be03a770886fe76134d236296f1fca62599509784f629"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "checked_sub_signed"
+          ]
+        }
+      },
+      "2aa1b3c1a21dc84763d650b37d808c09e62613ae5fc0775cb5cf65d87209db63"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "saturating_add"
+          ]
+        }
+      },
+      "5341cf07843807c5c7f1629accb7af4b31bf1144eed10fd268a20410712cb534"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "saturating_div"
+          ]
+        }
+      },
+      "b0d4c6bf3fb4a31dc1c31ead9329fc6dc79c34b4592250279b318bd037257456"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "saturating_mul"
+          ]
+        }
+      },
+      "afe6bc2dc2361e75c6a19b393264fbf6ed138563c826d3c99349865753157e6f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "saturating_sub"
+          ]
+        }
+      },
+      "4c9b8f35c47b1f7ad000a100ae4164b5fb23b4593e5355a0f1290d1a6cd782aa"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "wrapping_add"
+          ]
+        }
+      },
+      "24cde5300a22b0624692b84ec5f2ae22c9278f80b1818a89ee8781a3f831f020"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "74a55bc049d811c96f975a5a2994923884d67bce75c77f964d3ebb0bf2adb609"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%6",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "51e5a52b16f9bf3921a9479b46cc28263bdb7ac3f8c0e681988909a4d65c8d1b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_add"
+          ]
+        }
+      },
+      "66a5bd6fab056ddb413410d8032687451a046c790636557479ab7c01ce638b1d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_add_signed"
+          ]
+        }
+      },
+      "09044df7123528cb16e0ae4a9e0164cf274cd75ef8559285d52c1613f9068bee"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_div"
+          ]
+        }
+      },
+      "23ab940d26edf6a76d9a2a8652c51184f01694c6c04ed08f8c2e3cf2a3858e0b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "5c819712b7d62a50b13749554301e4a15b64b8df94d208f4b80371d9d74f9446"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_mul"
+          ]
+        }
+      },
+      "119672c3a3d5fd196cfcd32283a0745caf00bd98c947fa59338f27c4a9e342f1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_neg"
+          ]
+        }
+      },
+      "31eeeed9764b1897f0c59a417ae2042d4a63b22c7fe0dee5bd38b2feb51a56e8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_rem"
+          ]
+        }
+      },
+      "242d3fcc94c49268936a9645aed783f22eb6d2bcf1f7306d5a03f9b2e55d4a8e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "df866b80b2341efe3c4626696e76d03bb409e7b95f66b9ac22963399d5182832"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_sub"
+          ]
+        }
+      },
+      "34f5fc5385979753919690d2cdf034ccf4eb8812a300a427c7f962512171c009"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "checked_sub_signed"
+          ]
+        }
+      },
+      "d3be0fe6f05fa729c21122d0271e3a83b8f97f549151fafc11dabff8c80a4422"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "saturating_add"
+          ]
+        }
+      },
+      "6fa08910823808f7b38c3abca61c699e77d564d42b47a83120285c5300a37d0a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "saturating_div"
+          ]
+        }
+      },
+      "d1080491423447f2ec720d47bb24c422e085bc6c9d3ad49a679ae7c206411f37"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "saturating_mul"
+          ]
+        }
+      },
+      "1a1ed188d63067ca58b293e23ef5eb00b06209c2bad1fee61b592ecf880b7437"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "saturating_sub"
+          ]
+        }
+      },
+      "75278887d7e8ec6bd4f8085a9c895f545f914afb3b91abad4d0126d60addb9cd"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "wrapping_add"
+          ]
+        }
+      },
+      "4d697cd47c994ae7d90c4057021193b665e35e916831ccf18312698e78c56dae"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "a7b81c00868cada0f436e7cb2f4ad8e9f8313e993e6bdc0c8614a9096a54d219"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%7",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "741e5df480d86f39520e6d41b5816be928de47162b31bc1051ee0f90cf9d41cb"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_add"
+          ]
+        }
+      },
+      "821a71a04aba23247f3bc45912d8c5c57d6d3d1762f799ac006795e041f58c74"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_add_signed"
+          ]
+        }
+      },
+      "3b272a9ce3d6e61f822e7f52acd5c050894e9c9f312a17b325c3fc7e3c81c243"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_div"
+          ]
+        }
+      },
+      "ac8a01d972c3888913ef8e666218f74aff76ed74e9a58bf49a171959e219bdaa"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "08e072499c1cc6c5ffafbd9caa76edc90ba42811046b9d4cad9180368efb3fce"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_mul"
+          ]
+        }
+      },
+      "1538a07fabf232a0a99deb7e46e2a77678b7f1c325d15e6199f6a4f3a9975aac"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_neg"
+          ]
+        }
+      },
+      "dbe36b63ac9aea94c988e4c24672df0cbd840bbfc809ce3c5530c23859aa01e0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_rem"
+          ]
+        }
+      },
+      "2fdfe6189637d46a380db1d80fac6ed42d15dce89a88c7cb563274e5051931a1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "c89c4e4f10b725f189f10c549fa36672b9e000737c06928f3def92bfd890b7a9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_sub"
+          ]
+        }
+      },
+      "2b33b821b749ccee6c6d5831265b7a71751b50691657cc151960fff245f2f8c1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "checked_sub_signed"
+          ]
+        }
+      },
+      "d1af4b672ed2729ec468ba633b0c9e8dcf2b4595d738d9ba08e970e96d57d70c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "saturating_add"
+          ]
+        }
+      },
+      "a753291cb14357e7d98d93f8efa6b3054a8ad89c35569d371814a17206fa24a5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "saturating_div"
+          ]
+        }
+      },
+      "fe79892bbaa8205d3af84a3b3804d8e00eaddc0d4ad32693ba985e910390a051"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "saturating_mul"
+          ]
+        }
+      },
+      "66c7c4ea3967a127301245c7d144f8f3478fa57a57adb629a4671b96c4989b92"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "saturating_sub"
+          ]
+        }
+      },
+      "4eef561cb9e3870a4fd1fe4818ef8cbe878ab38ffc7566fb04af7d1a9fbf8e98"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "wrapping_add"
+          ]
+        }
+      },
+      "6fea09266858faca6fc3844534bfbda0341ab394c1f3015b2dfd5c2cf221d1dd"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "436816d3053d0a16f3c9f03e92a84c830f29a9da3a5d82577393a5f9e4bd619c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%8",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "d457ceea47ba49e7c383b1d043d018d337aa0f16d8d02ac06ac412f83ccc25e1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_add"
+          ]
+        }
+      },
+      "08f70b3a4cb84c407fa82d4c52c5a1f90bb4dfe5031c9d749840213948e6522d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_add_signed"
+          ]
+        }
+      },
+      "a34013c63aa6e667a9fc9d6caf28c11ee4bd48e2413dc4c3d1807c371770d07e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_div"
+          ]
+        }
+      },
+      "65389eff7c50bc9c60c2bfa03d972f9d5ca442e3d9892b43bad69c8964357102"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_div_euclid"
+          ]
+        }
+      },
+      "fc5591ce70bbf70aca5e683765f49f1294ec959653ec30559a99908dbe8a46f3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_mul"
+          ]
+        }
+      },
+      "04c5b0a00de382fd1270e65aa416624d26c07490d878e3a48f14273cc1c5d605"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_neg"
+          ]
+        }
+      },
+      "c16fdc07757c0d58034efd5be41be06071b6ebd46288c5466deb4bbdf7ffd349"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_rem"
+          ]
+        }
+      },
+      "4b02e5e078e0ed1257ea19d6b0d3bfc18356be013f4ea5d16b5ed547f8d2d20a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_rem_euclid"
+          ]
+        }
+      },
+      "61ad328fda469368335a196a673c32aee7afc80132f331e0f8d51ec1d21396b3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_sub"
+          ]
+        }
+      },
+      "70141ec04961095ac46753c3998295b8b6d4479a11974bb89f389acaa17027d2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "checked_sub_signed"
+          ]
+        }
+      },
+      "0db68f98d543f88804a669a2a0b3ead4fb5dc272e1a3fb772f23f9c366499f1e"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "from_le_bytes"
+          ]
+        }
+      },
+      "c7e0b2ac4b94a997ce216a1625bce0943846d0df30265d2d12e55566deca716c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "saturating_add"
+          ]
+        }
+      },
+      "1c4a35c93ee430f886798e2c65a4360d68234d0107eca303fc86ec878b301fd9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "saturating_div"
+          ]
+        }
+      },
+      "5ea866fcd4db8c05587958318b9982534e8bbbf892e9c649b8d4c4303746ac6c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "saturating_mul"
+          ]
+        }
+      },
+      "cc2c2037acb7a84ef56bd017ca87160ecb4e644ea0b2124c59d04173048a35d6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "saturating_sub"
+          ]
+        }
+      },
+      "b15313ac2c2e188b3ed035407d5449a9ebd1ca07fcd5def42593bf0c1ab8cf7f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "to_le_bytes"
+          ]
+        }
+      },
+      "8de9830dee2f8e74314b3d99371928a9fd8757fbbb599497c003526793d424bf"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "wrapping_add"
+          ]
+        }
+      },
+      "2c7135ac87d186b4f48116595b39ecd74679d458db5afec7d4a142923cebd792"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "wrapping_mul"
+          ]
+        }
+      },
+      "00565a452fe63d75566cf6a33e40171708862413e587d7ff3f67c418285ee182"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "num",
+            "impl&%9",
+            "wrapping_sub"
+          ]
+        }
+      },
+      "9b37b06de2ab12506e6976e2f85ecc7ca23b53ced42962b540bfdae4880932eb"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "ops",
+            "arith",
+            "Add",
+            "add"
+          ]
+        }
+      },
+      "fd190518113437bede1d9f0531bc135af93f456cfbf879a742bd0cacdbeaa34b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "ops",
+            "arith",
+            "AddAssign",
+            "add_assign"
+          ]
+        }
+      },
+      "4a1dd743f229626912cb46d41d704dfbf7207d5676dda9fd0e2949e703b9b3eb"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "ops",
+            "arith",
+            "Div",
+            "div"
+          ]
+        }
+      },
+      "94307ce6dc221e61cfd6be718113bcc160239ab3fb5fe57f93fc4bfe3afe002d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "ops",
+            "arith",
+            "Mul",
+            "mul"
+          ]
+        }
+      },
+      "ad40f9db85cd1836eb50a06fcbcb3b8b2b5d391430d82e31a874c1082f0bb7d6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "ops",
+            "arith",
+            "Rem",
+            "rem"
+          ]
+        }
+      },
+      "14e817a22b39e74ef86773d78c44d88cf1760ebf8a260832a577a7a5c63aa3c1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "ops",
+            "arith",
+            "Sub",
+            "sub"
+          ]
+        }
+      },
+      "a32e65bd22b4016f95c6ac96ff77413b09e48f5476dad8d69e54e6d477a7be8a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "option",
+            "impl&%0",
+            "as_ref"
+          ]
+        }
+      },
+      "5e4e8929cecf763e888ef5ef8f00fb75e427a978f6dd4e0b71afe7a2741227b5"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "option",
+            "impl&%0",
+            "is_some"
+          ]
+        }
+      },
+      "a18e95d5d58a7d7c8a7a19f627abd67b6993e3c4d159925379536c9527f13bad"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "option",
+            "impl&%0",
+            "ok_or"
+          ]
+        }
+      },
+      "af629c9c7d998ad17c0bf3a33b38294f3850cf8fd0c74ad6f3833ce956ae3003"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "option",
+            "impl&%47",
+            "branch"
+          ]
+        }
+      },
+      "330b55efc90aa21d2206d519aa1286b0cd8d3c387f8a0300d0f5910337e7bd7c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "option",
+            "impl&%48",
+            "from_residual"
+          ]
+        }
+      },
+      "9222f1170c394da9bcb46e23f8f323fe0cecab7eaf33dec9f2629d59307a5076"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "panicking",
+            "panic"
+          ]
+        }
+      },
+      "9499c64f8691359100736033757fe929401c79ddd95486e8f3c622196e6b38cd"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "panicking",
+            "panic_fmt"
+          ]
+        }
+      },
+      "57ec8149e1e611274701b86e97b74816dacd1442d27cc66944d4243e32443994"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "result",
+            "impl&%0",
+            "map_err"
+          ]
+        }
+      },
+      "fde0581b809bb788481e0016194552ad77c94d21747664607811dd3e59a855ed"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "result",
+            "impl&%0",
+            "unwrap"
+          ]
+        }
+      },
+      "85f3c40e159b5268a3b35cfd792ecc96c638b1d65bf7ee81d69fcdc4617548fe"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "result",
+            "impl&%27",
+            "branch"
+          ]
+        }
+      },
+      "66d9a43448c77aced3f7324bb0f17372634c7092586f96252e8011c66282214c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "result",
+            "impl&%28",
+            "from_residual"
+          ]
+        }
+      },
+      "74b86ec6ebee8bc4e4f258501edbf906c16e8e40f4c9b3e5ed076601557f2316"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "slice",
+            "impl&%0",
+            "len"
+          ]
+        }
+      },
+      "034555e0c4bcc4efd0fa3f380c7bce9b12f27092783e761ff4b106ed09050f01"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Core",
+          "segments": [
+            "slice",
+            "index",
+            "impl&%0",
+            "index"
+          ]
+        }
+      },
+      "b609fd3f5cb3a4e1b1f149124bbddcac498c77aa01b8b81a6b5e30bfe89202e6"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "from_elem"
+          ]
+        }
+      },
+      "74fea40037aa9ec193e71b068a441b08c6a829293e8ce19668a942773bce2c1b"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%0",
+            "new"
+          ]
+        }
+      },
+      "8c0a76bc4d645d0e90614e22714637ff01c56aad262204a7c581a758aef8862f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%0",
+            "with_capacity"
+          ]
+        }
+      },
+      "74d6feaa1ca0136c9529e5edbb2f2eb4db83a4d5f005753cc88d0d9553adf55d"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%1",
+            "len"
+          ]
+        }
+      },
+      "a35c42d4d8a53748648f7305e2697fdf5abbf2515827edf1e526cacb64b025e0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%10",
+            "deref"
+          ]
+        }
+      },
+      "9576e86cd641a817b5a9ea5f6b1f49cc8a85c20dbbb46863e8fca1938956e2df"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%13",
+            "clone"
+          ]
+        }
+      },
+      "33e8e10425c428782448068087bf580bec407e794dcc08d9e54db04c7c068cf7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%3",
+            "extend_from_slice"
+          ]
+        }
+      },
+      "fc0e327eed3b1641fbe3b0267a1ade25069a4127d1ed7c31c11e048c134b20ae"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Alloc",
+          "segments": [
+            "vec",
+            "impl&%44",
+            "push"
+          ]
+        }
+      },
+      "7fb26f9db9f2b28e218c70e133d8ea9efb37de7f512b5fff09b43c751c53aaff"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "arithmetic",
+            "div_mod",
+            "rust_div"
+          ]
+        }
+      },
+      "a39a7f9d97094f29434949d4be818c5b10ca070500b572705c3335f8a0a514e0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "arithmetic",
+            "div_mod",
+            "rust_rem"
+          ]
+        }
+      },
+      "deff3f40ca98b49904e1ad480db4f878a671b837f1443d35d705808bbf6ea6e1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "array",
+            "array_as_slice"
+          ]
+        }
+      },
+      "2f77c1a43b44d32bebec91d53dd6cb0f8819df0463347afcb0053cd2b4d7c5b9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "array",
+            "array_fill_for_copy_types"
+          ]
+        }
+      },
+      "f3c5c70ad97c2fb16e2b0597cf5e5bed39ef8a407e3e7ec1c71c42cef3495ce3"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "array",
+            "axiom_array_ext_equal"
+          ]
+        }
+      },
+      "19aaab94afd7c2496166de0c50e474042cf0da35e30759b1df8dba7c67e9d457"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "native_option",
+            "map_or"
+          ]
+        }
+      },
+      "40976323e9d3d279775d570c7ee1e58548aac1717f0973ae6f235ca0d3581662"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "native_option",
+            "then_some"
+          ]
+        }
+      },
+      "94b0f26e395eb864ff66a42fd362437632debb73fb8d208c62e4da96beebbf6f"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "pervasive",
+            "cloned"
+          ]
+        }
+      },
+      "89ef9b43811f08d86df1f7337f1c340ac10f3ebc9dba5e6b94d69fd4cb32c124"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "add"
+          ]
+        }
+      },
+      "cf33ea0ec8c19994ce699e7f54a3f9c6f41bcecf0a07aeb883266be26e94fd1a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "empty"
+          ]
+        }
+      },
+      "454cf92155265ecb1d2ec24679cea03e20fae3eedb9eefc46632ef0deee481e8"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "index"
+          ]
+        }
+      },
+      "e0980b9fa29f76a5622fc5811395a1fe89df9fdaa9c28fa16c3eae48b1d2fea4"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "len"
+          ]
+        }
+      },
+      "9bee6421146979a746d4d3a75a311d7f52550de3f7b1b0a88e7b7d9ae4bd8aa4"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "new"
+          ]
+        }
+      },
+      "aee09dd8879c1032a6286cfa4e0a927e1449e74c6f327521e5a375d43b0de9ff"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "push"
+          ]
+        }
+      },
+      "a3239f2606d8a24e4e57c7aeb8ea166fcc2ea9d5a798fe7d0bde27d44aa60dd1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "Seq",
+            "update"
+          ]
+        }
+      },
+      "93a606d53361643d9c9990ab95de349e5f270e9581ec088b5adc4038fa630dd7"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq",
+            "impl&%2",
+            "take"
+          ]
+        }
+      },
+      "db3bdf84a8a73008f159f09cb900353f752fce7adad544a05607070999b704c9"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq_lib",
+            "impl&%0",
+            "filter"
+          ]
+        }
+      },
+      "8c09c46c655cfa2f5b4e00afff9eb12b6413f70fa4f69051152760606b7e44f2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq_lib",
+            "impl&%0",
+            "fold_left"
+          ]
+        }
+      },
+      "5f785605180ca399d30e95aa3ae1762bf7876d29dab664ae027e41fabba15e45"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "seq_update",
+            "scatter"
+          ]
+        }
+      },
+      "f42acaf26f2b0eb7cf521e4a1d344f517187efac746cef1987b34b94296eceaa"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "slice",
+            "impl&%0",
+            "view"
+          ]
+        }
+      },
+      "11a4a493036d048d606adc2dab2a95ab13bb691a94305920fa608d2be4ae69b2"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "slice",
+            "spec_slice_index"
+          ]
+        }
+      },
+      "aea01e3e8b2a537687ec8e7d94378b4854501fc86db00dc7845290b4586dcf78"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "slice",
+            "spec_slice_len"
+          ]
+        }
+      },
+      "381d9278e058eb2195f1aa282cbb1055ae967d0602ba6d7bd1f2d103b23fb47c"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "clone",
+            "tuple_clone_1"
+          ]
+        }
+      },
+      "3727085acc29c09fe2400a2bb1d70cdc348f49f2993011a1371ec7d6313fd20a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "clone",
+            "tuple_clone_2"
+          ]
+        }
+      },
+      "834f750eebaccd25fc78b5b7bddf8de76a39b491ce37bd01dc67805f831b3a21"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "clone",
+            "tuple_clone_3"
+          ]
+        }
+      },
+      "64e86754e28b8771f14bfcc2500cae7777a2ba4a8749301d490623622261c1e0"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "clone",
+            "tuple_clone_4"
+          ]
+        }
+      },
+      "ed6bcaf5759b088d14f99f7842bd874588035b6fce2333a24829431e25c36588"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "iter",
+            "impl&%11",
+            "index"
+          ]
+        }
+      },
+      "c22df28413ecb460ac20164808d788f812f558ef5c0f21bc319e2ef1a3638b49"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "iter",
+            "impl&%11",
+            "seq"
+          ]
+        }
+      },
+      "b3098908c674ba89c52c61df0275754978178cfcd4013c6b93d67cd033cf73ca"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "vec",
+            "axiom_spec_len"
+          ]
+        }
+      },
+      "3cdc75e692e1f7edd478868979ce9e92bf47e8432aeda997fb89f98693c3d9d1"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "vec",
+            "spec_vec_len"
+          ]
+        }
+      },
+      "3bf2b17f7c34d84ce574836bf1e562bc5a16a3e96ce1a6a48205238cf00450be"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "vec",
+            "vec_index"
+          ]
+        }
+      },
+      "4cc8c9fb62c7db88b1278c7f8d9785530f94cf1b4ccbd99f6d2a8fe05cf113ee"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "std_specs",
+            "vec",
+            "vec_index_mut"
+          ]
+        }
+      },
+      "488151cad6fc388a7352c0c3730dc3a6cba8570cbb06285f09fa1a6d35e81b9a"
+    ],
+    [
+      {
+        "path": {
+          "krate": "Vstd",
+          "segments": [
+            "view",
+            "impl&%8",
+            "view"
+          ]
+        }
+      },
+      "5a6210097a5d2917f71e83f386167dd7b99f27c790116e90344075009d1ea81b"
+    ]
+  ]
+}

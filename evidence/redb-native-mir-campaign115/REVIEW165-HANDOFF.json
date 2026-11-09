@@ -1,0 +1,124 @@
+{
+  "accounting": {
+    "cleanup": 0,
+    "command4_result": "LOST_UNESTABLISHED",
+    "compiler_build_verifier_solver_application_executions": 0,
+    "deadline_utc": "2026-11-09T02:03:10+00:00",
+    "elapsed_seconds_at_authentication": 607.682998,
+    "free_bytes_entry_df": 22769778688,
+    "free_bytes_required_strictly_above": 17179869184,
+    "free_bytes_seal_after": 21764792320,
+    "free_bytes_seal_before": 21764784128,
+    "fresh_scratch": "/private/tmp/redb-native-review165-20261109-014910",
+    "git_operations": 0,
+    "heavy_commands": 0,
+    "heavy_slot_acquisition": 0,
+    "live166_inspection_or_polling": 0,
+    "network": 0,
+    "original_parent_candidate_edits": 0,
+    "scratch_enforced_upper_bound_bytes": 131072,
+    "scratch_limit_bytes": 2097152,
+    "seal_authentication_end_utc": "2026-11-09T01:59:17.682998+00:00",
+    "sealed164_commands_unchanged": "39/64",
+    "setup_failures": [
+      "SETUP-FAILURE165.txt: initial shell exit127; retained"
+    ],
+    "start_utc": "2026-11-09T01:49:10+00:00",
+    "subdelegation": 0
+  },
+  "authentication": {
+    "archive_members": 1508,
+    "candidate_files": 1120,
+    "endpoint_only": true,
+    "entry": "all supplied pins,1507 payloads,1120 candidate files,1508 unique regular archive/current members and runtime matched",
+    "exit_failures": [],
+    "exit_pins": {
+      "HANDOFF164.json": "ca8691451a59a2ce81acd3e0b438b443dfbcb684fb44fa0b2dd40d1f8cc1357e",
+      "HANDOFF164.tar.gz": "3bd20e516bfda56de3377caf29637e1796cb1cc4179db450445e8d69f0a9b133",
+      "MANIFEST164.json": "d4042d23dea2fcaf56af5fa6f7bfeef303ec66ea6bceb3b7f5a21370efeef7c4",
+      "distinct164-on-repair163.patch": "dcd9bbf884c52f628daf2125b6fc2ccd290b866f8f0421490f835abee5bb75e7",
+      "final-source164.json": "55dfcba0c24fe60598d7fb3234768a04d6548d8645bcd18298cfec5d24f6f47b",
+      "runtime/native-adapter164-built33": "7a68ac1999cad3f6088fc6cb4004295d309a2b6de6c8643d570ef085e90b5962"
+    },
+    "external_pins": {
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-native-mir-campaign115/ALLOCATOR-LAW-DISPOSITION159.md": "338b4acea0d19c6474b3258193a94319f67038f7e858cb71f198535f565a928b",
+      "/private/tmp/redb-primitive158-20261108-234646/LAW158.md": "0e95e3c2a8182c12573c57d71d4b93162a1162de343580ff896b45f5bdf8443f"
+    },
+    "manifest_files": 1507,
+    "raw_final_receipts": [
+      {
+        "reaped": true,
+        "receipt": "native-build33.receipt.json",
+        "returncode": 0,
+        "source_unchanged": true
+      },
+      {
+        "reaped": true,
+        "receipt": "native-subset34.receipt.json",
+        "returncode": 0,
+        "source_unchanged": true
+      },
+      {
+        "reaped": true,
+        "receipt": "vir-semantics35.receipt.json",
+        "returncode": 1,
+        "source_unchanged": true
+      },
+      {
+        "reaped": true,
+        "receipt": "structural36.receipt.json",
+        "returncode": 0,
+        "source_unchanged": true
+      },
+      {
+        "reaped": true,
+        "receipt": "parent-regressions37.receipt.json",
+        "returncode": 0,
+        "source_unchanged": true
+      },
+      {
+        "reaped": true,
+        "receipt": "default-off38.receipt.json",
+        "returncode": 0,
+        "source_unchanged": true
+      },
+      {
+        "reaped": true,
+        "receipt": "vir-semantics39.receipt.json",
+        "returncode": 0,
+        "source_unchanged": true
+      }
+    ]
+  },
+  "boundary": {
+    "G1": "OPEN",
+    "G2": "OPEN",
+    "accepted_original_allocations_stores_bodies": [
+      0,
+      0,
+      0
+    ],
+    "all18": "OPEN",
+    "automatic_followup": false,
+    "first_cell": "two-phase acknowledged durability",
+    "genuine_issuance": 0,
+    "issuer_approval": false,
+    "mathematical_schemas_conditionally_adopted": 1,
+    "native_export": "REFUSED",
+    "operative_laws": 0
+  },
+  "findings": {
+    "P1_established": 0,
+    "P2": [
+      "F165-1 body-only serialized-opcode quarantine"
+    ],
+    "scoped_objections": [
+      "O165-2 validity-changing scalar transmutes are not safety-checked"
+    ]
+  },
+  "report": "REPORT165.md",
+  "report_sha256": "222bc82035c9a7bcb0464c81412c4b7a72e55ad6e344c9010a67b05fc2c83875",
+  "result": "RETAIN_DISABLED_SCALAR_SUBSET_ONLY; P2_QUARANTINE_REPAIR_NEEDED; NO_NATIVE_PROOF_OR_ISSUER_APPROVAL",
+  "review": 165,
+  "subject": "sealed164 only; not live166"
+}

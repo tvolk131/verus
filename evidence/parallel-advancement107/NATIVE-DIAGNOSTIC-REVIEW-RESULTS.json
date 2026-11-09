@@ -1,0 +1,36 @@
+{
+  "archive_members": 5,
+  "archive_sha256": "e51edaff4808e741faa528e09451d8a0333385612d2c559653d633ffd3f6288a",
+  "compiler_builds_in_review": 0,
+  "compiler_source_correspondence_established": false,
+  "current_supplied_input_matches": 32,
+  "current_supplied_input_mismatches": [],
+  "decision": "NO_GO_EXECUTION_PENDING_SEPARATE_EXPLICIT_AUTHORIZATION",
+  "native_acceptance": false,
+  "native_producer_established": false,
+  "nominal_codec_relation_established": false,
+  "proposal": {
+    "companion_vstd_nonverifying_build_attempts": 1,
+    "engine_build_attempts": 1,
+    "frontend_cases": 6,
+    "maximum_build_jobs": 2,
+    "name": "diagnostic107-D1",
+    "new_trust_or_admission_changes": false,
+    "repeat_frontend_invocations": 2,
+    "scratch_limit_gib": 8,
+    "solver_or_native_application_runs": 0,
+    "total_minutes": 45
+  },
+  "proposal_authorized": false,
+  "proposal_executed": false,
+  "redb_open_cells": 18,
+  "retention_byte_comparison": true,
+  "review_limitations": {
+    "atomic_snapshot_or_historical_custody": false,
+    "hashes_not_all_before_first_read": true,
+    "historical_235_input_reauthentication": false
+  },
+  "schema": "native-diagnostic107-d1-review-retention-v1",
+  "source_manifest_sha256": "4a1d54242c3b52eed7c70f0c3b1158e93214f2aaaaadec7d2e15ace2f9a57ad4",
+  "source_report_sha256": "cf1e25294ae5d1d2ca82b847f79ef8be4cd10150c8d43ea7ffb218d2a5e76c25"
+}

@@ -1,0 +1,41 @@
+{
+  "all18": "OPEN",
+  "archive": "HANDOFF157.tar.gz",
+  "archive_sha256": "5ca316a082dc1c59c51b7f049a0a38daad580431186ebb982c93ed0b7b41d7e9",
+  "compiler_slot": "NOT_USED_NO_OWNED_COMPILER_CHILDREN_CREATED",
+  "completion_utc": "2026-11-08T23:54:02.630654+00:00",
+  "elapsed_seconds_from_first_observation": 524.630655,
+  "findings": "FINDINGS157.json",
+  "followup_subdelegation_integration": false,
+  "fresh_resources_before_handoff": {
+    "allocated_bytes": 180224,
+    "free_bytes": 27492552704,
+    "label": "pre_handoff",
+    "logical_bytes": 160282,
+    "utc": "2026-11-08T23:54:02.630657+00:00"
+  },
+  "input_archive156_sha256": "1d49f719b9d15749aa741ce9b2aa7c629867abc191639526fdb1b5278cd64095",
+  "input_handoff156_sha256": "3b7a3fb633dc793c16a441f30fbafa8b1e875c9f2ef53ac6ac53ea2cf84df582",
+  "interrupted116": "PRESERVED",
+  "manifest_sha256": "3e0d200c0648490342386be1fb605214f536712274c502a789885a2528d21f59",
+  "new_laws_adopted": 0,
+  "original156": "EXHAUSTED36/36_PRESERVED",
+  "original_allocation_store_whole_body_credits": [
+    0,
+    0,
+    0
+  ],
+  "parent_continues_independently": true,
+  "positive_restoration_byte_identical": true,
+  "primitive_boundary": "PRIMITIVE-BOUNDARY157.md",
+  "report": "REPORT157.md",
+  "resource_qualification": "Endpoint samples only; final small handoff and checksum files are checked immediately after writing; no continuous global resource assertion",
+  "result": "CONDITIONAL_GENERATED_SUBSET_RETAINED_G1_G2_OPEN_NO_NATIVE_ACCEPTANCE",
+  "review_archive_regular_unique_byte_identical_members": 11,
+  "root": "/private/tmp/redb-review157-20261108-234518",
+  "seal_sha256": "2cd96f96995b8d52d3dba40a4e77ac40a78d1319208c96f6924f181a7b5ffeed",
+  "selected_input_payloads_authenticated": 199,
+  "semantic_controls": "unknown/incomplete quantifiers, NOT SAT",
+  "seven_units": "2 constants +5 generated executable bodies,4 new",
+  "task": "campaign94-review157"
+}

@@ -1,0 +1,23 @@
+{
+  "all18": "OPEN",
+  "allocated_bytes_before_seal": 434176,
+  "compiler_correspondence": "UNESTABLISHED",
+  "content_manifest_sha256": "4d44e481b849531f15b77a9eeadd568da5bc022400182d859d2da47881ae9e97",
+  "disk_free_bytes": 67507154944,
+  "elapsed_seconds": 455.624319,
+  "final_utc": "2026-11-08T15:29:24.624319+00:00",
+  "first_clock_utc": "2026-11-08T15:21:49+00:00",
+  "git": "UNAVAILABLE",
+  "goal_service": "BLOCKED",
+  "hard_handoff_deadline_utc": "2026-11-08T15:29:49+00:00",
+  "logical_bytes_before_seal": 413060,
+  "minimum_free_bytes": 17179869184,
+  "native": 0,
+  "no_automatic_continuation": true,
+  "payload_count": 7,
+  "reviewer_compiler_test_verifier_native_network_delegation_counts": 0,
+  "scratch_cap_bytes": 67108864,
+  "source_path": "FAILED",
+  "trust": 0,
+  "verdict": "BOUNDED_SOURCE_RECEIPT_ACCEPTANCE_ONE_NONBLOCKING_P3_OBSERVATION"
+}

@@ -1,0 +1,18 @@
+{
+  "bridge": {"verified": 3, "exec": ["exact", "qualified", "extremes"]},
+  "reference": {
+    "verified": 22,
+    "native_exec": ["bits_in_range", "U64GroupedBitmap::required_words", "U64GroupedBitmap::data_index_of", "U64GroupedBitmap::select_mask", "U64GroupedBitmap::len", "U64GroupedBitmap::resize", "U64GroupedBitmap::get", "U64GroupedBitmap::set", "U64GroupedBitmap::clear"],
+    "authored_exec": ["resize_read", "set_get_clear", "shrink_regrow", "resize_update"],
+    "proof": ["mask_transition", "default_word", "access_word_update"],
+    "spec": ["live", "word_count", "resized", "U64GroupedBitmap::model_len", "U64GroupedBitmap::words", "U64GroupedBitmap::well_formed"]
+  },
+  "import": {"verified": 4, "exec": ["imported_resize", "imported_access", "imported_shrink_regrow", "imported_resize_update"]},
+  "trust": {
+    "new": "Exactly core u32::div_ceil, nonzero u32 divisor, all u32 numerators, result = (int(numerator) + int(divisor) - 1) / int(divisor). Trusted correspondence, not proof of core.",
+    "existing": "Existing matched-vstd assumptions for Vec, indexing and mutable references, integer saturating_sub/min, inclusive range iterator, Clone and arithmetic/BV infrastructure; Rust/Verus/Z3/compiler/target and allocation boundary.",
+    "application": "No assumes, admits, external-body helpers, application correspondence axioms, or unchecked summaries.",
+    "inference": "None requested or credited. All application contracts, invariants, snapshots and lemmas are authored; imports are ordinary checked contracts."
+  },
+  "acceptance": "Implementation only. Parent source qualification and a NEW independent review remain required; R2 cannot be completed here."
+}

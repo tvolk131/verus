@@ -1,0 +1,28 @@
+{
+  "items": {
+    "database_key": {
+      "item_sha256": "acc42e62e0c552044aaac13f09fe4765b3e6a71921c0d196d2a53727f58bf830"
+    },
+    "database_record": {
+      "item_sha256": "176cd3e2e6488bf661772fcd18c73c23f6e9aad798adf96e78c4e5fdaf73ccd0"
+    },
+    "token": {
+      "item_sha256": "f2dc9b11f20100f9334380f08c824346f67d02a569cbefdc6abebb8f5f11f5fb"
+    },
+    "transaction_key": {
+      "item_sha256": "acc42e62e0c552044aaac13f09fe4765b3e6a71921c0d196d2a53727f58bf830"
+    },
+    "transaction_range": {
+      "item_sha256": "2f918a955652251fa51716580f37ef2848c29f3fdec3421dad2edf6f6170ee94"
+    },
+    "transaction_record": {
+      "item_sha256": "22c2f20e0fba19b73230af246a62241c14c7492ef4dad8eb7343d864aaa871ab"
+    }
+  },
+  "pin": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+  "sources": {
+    "fedimint-core/src/db/mod.rs": "a44f6b54cae3033e1a5896c09bdff9f737dd1af7419ac14d406bf0ed2043377b",
+    "fedimint-core/src/encoding/mod.rs": "eb9c00e5384ed3d917dd53ad21edd4ceca3bda8180c42f7a014e4e00cc1c6788",
+    "fedimint-server/src/consensus/engine.rs": "dffbb300941944f3360ec15377f86f6befd203319de321b52c7e924f901323d1"
+  }
+}

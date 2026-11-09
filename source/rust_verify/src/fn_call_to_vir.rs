@@ -376,6 +376,20 @@ fn fn_call_or_assoc_const_to_vir<'tcx>(
     let call_target_attrs =
         vir::ast::CallTargetAttrs { autospec: autospec_usage, assume_external_allowed, const_var };
     let target = CallTarget::Fun(target_kind, name, typ_args, impl_paths, call_target_attrs);
+    if vir_args.is_empty()
+        && call_body.is_none()
+        && node_substs.len() == 1
+        && crate::native_const::size_function(&bctx.ctxt, f)
+    {
+        let ty = node_substs[0].expect_ty();
+        if let Some(size) = crate::native_const::fixed_size(&bctx.ctxt, bctx.fun_id, ty) {
+            return Ok(bctx.spanned_typed_new(
+                expr.span,
+                &expr_typ()?,
+                ExprX::Const(Constant::Int(size.into())),
+            ));
+        }
+    }
     Ok(bctx.spanned_typed_new(
         expr.span,
         &expr_typ()?,
@@ -405,6 +419,9 @@ pub(crate) fn const_var_to_vir<'tcx>(
         return fn_call_or_assoc_const_to_vir(bctx, expr, id, node_substs, span, None, None, true);
     }
     let typ = typ_of_node_unadjusted(bctx, span, hir_id)?;
+    if let Some(value) = crate::native_const::scalar(&bctx.ctxt, id) {
+        return Ok(bctx.spanned_typed_new(span, &typ, ExprX::Const(value)));
+    }
     let path = bctx.ctxt.def_id_to_vir_path(id);
     let fun = FunX { path };
     let autospec_usage = if bctx.in_ghost { AutospecUsage::IfMarked } else { AutospecUsage::Final };

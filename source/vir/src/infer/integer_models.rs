@@ -69,8 +69,10 @@ pub(super) fn recognize(function: &Function) -> Option<Model> {
         "neg" => Operation::Neg,
         _ => return None,
     };
+    let saturating_div = policy == Policy::Saturating && operation == Operation::Div;
     if policy != Policy::Checked
         && (!matches!(operation, Operation::Add | Operation::Sub | Operation::Mul)
+            && !saturating_div
             || mixed.is_some())
     {
         return None;
@@ -86,13 +88,26 @@ pub(super) fn recognize(function: &Function) -> Option<Model> {
         || !f.typ_params.is_empty()
         || !f.typ_bounds.is_empty()
         || f.params.len() != arity
-        || !f.require.is_empty()
+        || (!saturating_div && !f.require.is_empty())
         || !matches!(f.unwind_spec, Some(UnwindSpec::NoUnwind))
         || f.params.iter().any(|p| p.x.mode != Mode::Exec || p.x.user_mut)
     {
         return None;
     }
     let TypX::Int(range) = &*f.params[0].x.typ else { return None };
+    if saturating_div
+        && (!matches!(range, IntRange::U(8 | 16 | 32 | 64 | 128) | IntRange::USize)
+            || segments.len() != 3
+            || !segments[1].starts_with("impl")
+            || !matches!(f.item_kind, ItemKind::Function)
+            || f.attrs.infer
+            || f.attrs.is_unsafe
+            || f.attrs.is_async
+            || f.body.is_some()
+            || !nonzero_divisor_requirement(function))
+    {
+        return None;
+    }
     let (.., signed) = bitwise::shape(&f.params[0].x.typ)?;
     if mixed.is_some_and(|required_signed| signed != required_signed) {
         return None;
@@ -123,10 +138,51 @@ pub(super) fn recognize(function: &Function) -> Option<Model> {
         _ => return None,
     };
     let proxy = &f.proxy.as_ref()?.x;
-    if !models::spec_proxy(proxy, &["std_specs", "num", &module], "") {
+    if !models::spec_proxy(
+        proxy,
+        &["std_specs", "num", &module],
+        if saturating_div { "_saturating__div" } else { "" },
+    ) {
         return None;
     }
     Some(Model { operation, policy, range: *range })
+}
+
+fn nonzero_divisor_requirement(function: &Function) -> bool {
+    let data = &function.x;
+    let [required] = data.require.as_slice() else { return false };
+    let (divisor, zero) = match &required.x {
+        ExprX::Binary(BinaryOp::Ne, divisor, zero) => (divisor, zero),
+        ExprX::Unary(UnaryOp::Not, equality) => match &equality.x {
+            ExprX::Binary(BinaryOp::Eq(Mode::Spec), divisor, zero) => (divisor, zero),
+            _ => return false,
+        },
+        _ => return false,
+    };
+    let variable = match &divisor.x {
+        ExprX::Var(name) => Some(name),
+        ExprX::ReadPlace(place, _) => match &place.x {
+            PlaceX::Local(name) => Some(name),
+            _ => None,
+        },
+        _ => None,
+    };
+    variable == Some(&data.params[1].x.name)
+        && matches!(&zero.x, ExprX::Const(Constant::Int(value)) if value == &0.into())
+        && crate::ast_util::types_equal(&divisor.typ, &data.params[1].x.typ)
+}
+
+pub(super) fn safety(span: &Span, function: &Function, args: &[Term]) -> Result<Term, VirErr> {
+    let model =
+        recognize(function).ok_or_else(|| unsupported(span, "unapproved integer safety model"))?;
+    if model.policy == Policy::Saturating && model.operation == Operation::Div {
+        if args.len() != 2 {
+            return Err(unsupported(span, "division safety argument count"));
+        }
+        arithmetic::division_valid(span, args[0].clone(), args[1].clone(), None)
+    } else {
+        Ok(boolean(span, true))
+    }
 }
 pub(super) fn value(span: &Span, f: &Function, args: Vec<Term>) -> Result<Term, VirErr> {
     let model =
@@ -240,6 +296,9 @@ pub(super) fn value(span: &Span, f: &Function, args: Vec<Term>) -> Result<Term, 
             scalar(wrapped)
         }
         Policy::Saturating => {
+            if model.operation == Operation::Div {
+                return scalar(math);
+            }
             let min = arithmetic::minimum(span, model.range)?;
             let max = arithmetic::maximum(span, model.range)?;
             let below = summary::binary(

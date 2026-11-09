@@ -1,0 +1,188 @@
+{
+  "access": {
+    "bodies": {
+      "stateful_access::U64GroupedBitmap::clear": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::data_index_of": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::get": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::len": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::model_len": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::select_mask": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::set": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::well_formed": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_access::U64GroupedBitmap::words": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_access::access_word_update": {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::bits_in_range": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_access::live": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_access::set_get_clear": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      }
+    },
+    "dependencies": {},
+    "helpers": {},
+    "interface_written": false,
+    "trusted_models": [],
+    "verified": 11
+  },
+  "access_negative_mask": {
+    "bodies": {
+      "access_negative_mask::U64GroupedBitmap::clear": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::data_index_of": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::get": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::len": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::model_len": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::select_mask": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::set": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::well_formed": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "access_negative_mask::U64GroupedBitmap::words": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "access_negative_mask::bits_in_range": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "access_negative_mask::live": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      }
+    },
+    "dependencies": {},
+    "helpers": {},
+    "interface_written": true,
+    "trusted_models": [],
+    "verified": 7
+  }
+}

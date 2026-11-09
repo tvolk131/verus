@@ -382,7 +382,10 @@ Executed return expressions retain their safety requirements; later operations
 are required only on paths that have not returned. Unit-valued queries remain
 unsupported. Mutable methods still require unit return.
 Readonly queries also consume the existing canonical primitive saturating
-add/subtract/multiply models; their imported specifications remain dependencies.
+add/subtract/multiply models and unsigned `saturating_div`; their imported
+specifications remain dependencies. Unsigned saturating division requires a
+nonzero divisor. The same gated numeric models compose through owned record
+results, with safety requirements retained.
 
 Aliases, additional mutable/structured reference parameters, general mutable locals, whole-vector
 replacement, general loops, division/remainder and general trait/operator calls remain
@@ -980,6 +983,29 @@ justify equating arbitrary `Clone` results: a custom Clone can differ from a
 Copy. An explicit indexed copy loop remains useful for opaque Copy payloads.
 Alternatively, a checked `CloneIdentity` bound supplies the needed law, as below.
 A clone candidate is withheld unless ordinary Verus proves its contents equation.
+
+The owned-value path also supports canonical `Vec<u8>` byte appends to a local
+vector, using an immutable slice local as the argument:
+
+```rust
+#[verus_infer]
+fn prefixed(prefix: &Vec<u8>, suffix: &[u8]) -> Vec<u8> {
+    let mut key = prefix.clone();
+    key.extend_from_slice(suffix);
+    key
+}
+```
+
+This infers `requires true` and the complete sequence equation
+`result@ == prefix@ + suffix@`. Successive appends retain their order. Existing
+vstd clone/extend contracts and primitive byte clone semantics justify the
+proposal; arbitrary `T: Clone`, custom allocators, nonlocal mutable receivers,
+and effectful append arguments are not admitted by this profile. Contents do
+not establish allocation behavior, capacity, or object identity. The canonical
+transparent range profile additionally accepts `Range<&[u8]>` and
+`Range<Vec<u8>>`, allowing exact endpoint composition through inferred helpers.
+Every candidate still requires independent soundness, safe-domain maximality,
+and output-exactness checks; owned candidates regenerate even on warm runs.
 
 One loop is supported per function, in either of these forms:
 
@@ -2173,6 +2199,14 @@ mathematical result to the receiver's `MIN..=MAX`. Their total semantics admit
 all inputs, while preserving safety checks of argument expressions. They do not
 change the overflow policy of ordinary `+`, `-`, or `*`.
 
+Unsigned `saturating_div` is supported for `u8`, `u16`, `u32`, `u64`, `u128`,
+and `usize`. Its successful-return domain is exactly `divisor != 0`, and its
+result is the unsigned quotient. Saturation does not make zero division safe.
+The native identity, unsigned widths, exact vstd proxy, signature, nonzero
+precondition and conditional `no_unwind` specification are checked before
+admission. Signed saturating division and arbitrary user-defined division
+contracts are not admitted by this model.
+
 Sound scalar mode uses bounded numeric transfers: `x & 15` has range `0..=15`,
 and `(x & 15) >> 1` has range `0..=7`, across signed/unsigned supported widths.
 Branch guards can tighten shift operands. Wrapping casts and wrapping/saturating
@@ -2193,7 +2227,12 @@ specifications are explicit trusted vstd additions, audited in the repository's
 `VERUS_INFER_ASSURANCE.md`. Other supported numeric methods reuse existing models.
 Models require canonical core identities, matching receiver/argument/return types,
 a vstd proxy, empty preconditions, and `no_unwind`; their declarations and entire
-artifacts are fingerprinted. Rebuild vstd when using the added models.
+artifacts are fingerprinted. The unsigned saturating-division model is the
+narrow exception to empty preconditions: both sufficiency and necessity of its
+nonzero-divisor normal-return condition are explicit native-library trust.
+Soundness and ordinary callers must still establish that condition; only the
+counterfactual maximality check uses its necessity. This is not a proof of the
+Rust standard-library implementation. Rebuild vstd when using the added models.
 
 This batch does not add rotate/count methods, wrapping/saturating mixed-sign
 methods, explicit wrapping shifts, or general user-defined integer models.
@@ -2509,13 +2548,16 @@ optional universal bit-vector proposals that can exhaust solver resources.
 
 ## Checked integer conversion followed by Result unwrap
 
-Exact inference recognizes contiguous `Integer::try_from(value).unwrap()` calls
-for the fixed-width fallible primitive integer conversions already specified in
-`vstd::std_specs::convert`. The canonical `TryFrom` boundary, resolved core numeric
+Exact inference recognizes contiguous `Integer::try_from(value).unwrap()` and
+canonical `value.try_into().unwrap()` calls for the fallible primitive integer
+conversions already specified in `vstd::std_specs::convert`, including supported
+pointer-width conversions. The canonical `TryFrom`/`TryInto` boundary, resolved core numeric
 implementation, concrete `Result<Integer, TryFromIntError>`, Debug implementation,
 and vstd `Result::unwrap` proxy must agree. Application lookalikes and unrelated
-Result methods acquire no model. Pointer-width and infallible conversions are
-not added by this rule, nor are intermediate stored Results.
+Result methods acquire no model. Intermediate stored Results are not added by
+this rule. Canonical primitive `value.into()` separately delegates to the existing
+recognized `From` model; arbitrary application conversion implementations are
+not admitted.
 
 The candidate requires the evaluated operand to fit the destination integer
 range and preserves all operand safety requirements. Its returned value is the
@@ -2526,6 +2568,17 @@ existing unwrap success requirement to describe successful executions, just as
 the existing closed panic/index models do. Output exactness and soundness still
 check the unchanged executable calls against existing vstd contracts. No new
 assumed specification or application summary is introduced.
+
+For example, `fn widen(value: u32) -> u64 { value.into() }` keeps the operand's
+value, while `fn length(value: u64) -> usize { value.try_into().unwrap() }`
+requires representability in the configured `usize` range. Pointer width remains
+part of the verification configuration, not an assumed 64-bit target. The pinned
+redb access-prefix replay proves portable range/length consistency with
+`--no-cheating` and native compilation. Its supplementary explicit 32/64-bit
+configurations skip native erasure checking and are not 32-bit native execution.
+The extraction retains three readonly configuration fields and the original
+conversion syntax, but stops before storage IO; it is not a whole-`get_page`
+or database theorem.
 
 `source/tools/check_redb_codec.py` replays the pinned source-connected codec with
 frozen body/domain hashes, fresh cold/warm checks, imported conversion contracts,
@@ -2866,6 +2919,18 @@ safety requirement and truncating semantics. Ordinary body soundness, maximality
 and output exactness independently check the original function. This adds no
 new assumed library specification or first-party equation.
 
+Checked bitvector proposals also handle computed shift amounts such as
+`u64::MAX >> (64 - hi)`. The bounded normalizer inserts unsigned clips only in
+the proposed theorem; both its BV check and ordinary use receive the same
+expression. The original summary, authored goal, and shift/subtraction safety
+obligations remain unchanged. A clipped proposal does not establish that a
+negative or oversized source shift is safe. Ordinary-goal expansion still
+declines unbounded or architecture-dependent input variables and mathematical
+amounts whose conservative width estimate exceeds 128 bits. Inference's
+existing pointer-sized range proposals retain their previous scope. This
+extension uses candidate-cache version 75 and metadata policy 69; rebuild
+inferred providers and dependents together.
+
 With `--infer-goals`, an ordinary caller of an exact inferred function can receive
 an arithmetic packing lemma for a constant unsigned `(high << k) | low`
 expression in that function's summary. The bounded profile handles widths 8, 16
@@ -2990,3 +3055,108 @@ and failed/no-verify/filtered/no-lifetime controls are inference regressions.
 restored proofs and native feature/MSRV behavior. See
 `evidence/verus-infer-hex-v3/assumptions.md` for the trust, erasure and domain
 inventory; earlier accepted source/archive pins remain immutable.
+
+### Inert borrowed byte-vector append arguments (policy 73 / cache 79)
+
+Owned byte append inference also accepts an immutable borrow of an inert local
+or record field of exactly `Vec<u8, Global>` as the `extend_from_slice` argument.
+The coercion must resolve to the canonical standard `Vec::Deref` implementation,
+whose existing vstd specification equates the slice and vector views. This is a
+new recognized behavioral model, not a new assumed specification. The generated
+contents equation uses the source vector view; original-body safety, exactness,
+safe-domain maximality and publication checks still run independently.
+
+This rule applies only at a supported local byte-vector append. It does not
+support general dereferencing, custom allocators, mutable aliases, arbitrary
+`Clone`, effectful arguments, or temporary vectors produced by calls. Source
+and destination must have distinct syntactic roots; no reference/object identity,
+capacity or allocation theorem follows from contents equality. Unsupported
+coercions elsewhere in helper arguments or slice-valued local initializers still
+decline rather than acquiring an unchecked summary.
+Locally bound reference aliases and reference-valued field traversals also decline;
+only immutable reference parameters may serve as borrowed roots. Normal lifetime
+and native compilation checks remain part of the supported validation path.
+
+### Composed native byte and record mechanics (policy 76 / cache 82)
+
+The bounded scalar-leaf record profile also covers readonly queries with multiple
+shared record parameters and record-valued `Option` results. Each root retains its
+own complete value; shared arguments may alias. Native checked arithmetic and
+`?` preserve ordinary overflow-to-`None` behavior rather than adding a no-overflow
+precondition. The existing complete-value interpreter is bounded to eight
+parameters, four record levels and sixteen scalar leaves. Destructors, custom
+invariants, effects and unsupported field types remain outside this profile.
+Cross-crate summaries retain the tagged Option equations and still undergo
+the same coverage, source-identity and fresh mandatory-check validation.
+
+Checked comparison derives support a singleton named integer field as well as
+the existing tuple representation. This does not enable arbitrary derive macros
+or assume their laws: the actual selected generated comparison bodies are checked.
+Arithmetic and conversion derive restrictions do not change.
+
+Canonical immutable slice-to-array conversion can compose with existing integer
+little-endian models. Inference recognizes the exact standard implementation,
+its guarded existing vstd correspondence and its typed forwarding scaffold;
+an identically named custom conversion is not eligible. Conversion requires
+the exact array length. A native helper that first takes an eight-byte subslice
+can therefore infer the original domain of input length at least eight, including
+longer slices, without imposing a whole-input length of eight. The scalar array
+representation remains bounded to 64 elements; this is not a bound on input
+slice lengths or a new specification of arbitrary decoders.
+
+Source-backed closed `usize` constants and zero-argument const helpers can supply
+native offsets without replacing their declarations by handwritten literals.
+The evaluator accepts a bounded local, non-generic dependency graph of literals,
+checked addition/subtraction/multiplication and canonical `size_of` for whitelisted
+fixed-width primitive types. It rejects effects, unsupported calls, external-body
+declarations and platform-dependent layouts. Every intermediate is portable to
+32-bit `usize`, and the source evaluation must agree with rustc's value. This is
+not general compile-time execution or a theorem about native record layout.
+
+With `--infer-goals`, bounded borrowed array literals can retain their definitions
+through canonical shared array/slice coercions and array fills. Available pure
+specification bodies may be expanded within the existing work/depth limits.
+Closed bitwise subterms in callee contracts can propose concrete equalities;
+each complete equality is checked by the isolated bit-vector backend before
+the ordinary query uses that identical expression. The evaluator's numerical
+guess is not an assumption. Original caller assertions, contracts and executable
+safety obligations remain in place. Unsupported bodies, owned boxes, effects,
+cycles and exhausted budgets decline rather than gain a trusted summary.
+
+These mechanics do not infer application policy, representation relations,
+checksum correctness or storage semantics. The selected redb and Fedimint
+compositions retain authored intent and explicit native-caller/block boundaries;
+see `evidence/two-project-mechanical-automation` for the frozen scope and current
+acceptance status. A universal equation may verify while a separately phrased
+concrete numeric corollary still needs unsupported automation. Report those
+declines rather than narrowing the original domain or claiming arbitrary
+mechanical Rust is now automatic.
+
+### Stateful authored loop points (workflow90 candidate)
+
+The bounded experimental `--infer-goals` path can prepare checked instances of
+existing quantified at-entry loop invariants at exact authored `assert forall`
+proof locals. It retains ordered let wrappers, guards and trigger groups and
+captures only typed, initialized free logical root values. Capture assignments
+use the existing location initializer. Both reconstructed invariant facts and
+their guarded point instances are asserted before the identical expression is
+assumed. Original invariants, proof statements, safety and termination remain.
+
+The new ordinary-goal eligibility is separate from candidate discovery: a safe
+synchronous constructor or function with mutable scalar bindings may receive
+authored-goal help without becoming an inferred constructor. Feature OFF is
+unchanged. Report `loop_point_preparation` entries describe preparation or an
+explicit decline, never proof success or an inferred-cache hit.
+
+Capture precedes the entire lowered body of a complex loop. A simple while is
+eligible only when its condition setup is recursively empty and its condition
+is supported and pure. Nested loops mask inherited premises, including declined
+inner loops; ended loops and unsupported proof/effect scopes cannot lend their
+captures to later goals. Existing first-order opaque and associated logical sorts
+can be captured at their exact backend sort; this is not a Rust deep copy. Raw
+reference/location/future-state expressions, unsupported effects and exhausted
+transactional budgets decline rather than acquiring a new model or axiom.
+
+This candidate is not feature acceptance or a whole-bitmap automation claim.
+See `source/tools/STATEFUL_BITMAP.md` and `evidence/stateful-workflow90` for the
+two frozen native targets, retained authorship, reproduction and cycle status.

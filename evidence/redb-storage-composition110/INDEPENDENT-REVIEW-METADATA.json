@@ -1,0 +1,48 @@
+{
+  "acceptance": false,
+  "accounting": {
+    "bytes": 1252,
+    "path": "/private/tmp/redb-review110-LwF1feEi/ACCOUNTING.json",
+    "realpath": "/private/tmp/redb-review110-LwF1feEi/ACCOUNTING.json",
+    "sha256": "d8e40a9dbeb1169ec5d116b336ab1c2dca6deea1e371db03f53c3797f7297e75"
+  },
+  "all18": "OPEN",
+  "application_cap": 6,
+  "applications_charged": 6,
+  "archive": {
+    "bytes": 1710104,
+    "path": "/private/tmp/redb-review110-LwF1feEi/handoff.tar.gz",
+    "realpath": "/private/tmp/redb-review110-LwF1feEi/handoff.tar.gz",
+    "sha256": "2512cbd9a31dc0b783a9c1e685f788d556a90ac35a014f2c0dfdf5fd28c9f2cd"
+  },
+  "archive_regular_members_byte_compared": 209,
+  "bounded_model_reproduced": true,
+  "elapsed_seconds": 710.485008,
+  "free_bytes": 78938619904,
+  "manifest": {
+    "bytes": 36016,
+    "path": "/private/tmp/redb-review110-LwF1feEi/MANIFEST.json",
+    "realpath": "/private/tmp/redb-review110-LwF1feEi/MANIFEST.json",
+    "sha256": "e038aadce103e545c457e154f3691ffc46eeb61999544b3082bf77127adda534"
+  },
+  "native_adapter_R": "OPEN",
+  "native_linkage_integration_ready": false,
+  "no_further_delegate_requested": true,
+  "own_hard_deadline": "2026-11-08T05:12:56+00:00",
+  "payload_count": 207,
+  "report": {
+    "bytes": 14645,
+    "path": "/private/tmp/redb-review110-LwF1feEi/REPORT.md",
+    "realpath": "/private/tmp/redb-review110-LwF1feEi/REPORT.md",
+    "sha256": "3014f3877599290e700288c2964317d06e04345411d45faf655a028348b7147d"
+  },
+  "root": "/private/tmp/redb-review110-LwF1feEi",
+  "scratch_bytes_including_archive_before_handoff": 16969703,
+  "seal": {
+    "bytes": 458,
+    "path": "/private/tmp/redb-review110-LwF1feEi/SEAL.json",
+    "realpath": "/private/tmp/redb-review110-LwF1feEi/SEAL.json",
+    "sha256": "50ce2aaafff45d2c5e6de15ce7584e6de809fe0274be85f8c7f6e61833b02ea9"
+  },
+  "utc": "2026-11-08T05:09:46.484093+00:00"
+}

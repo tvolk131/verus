@@ -1,0 +1,23 @@
+--- sealed/generic_adversarial.rs
++++ draft-001-repaired.rs
+@@ -11,6 +11,20 @@
+     proof { assert(accessor.sorted_for::<u32>()); }
+     let (index, present) = accessor.position::<u32>(query);
+     assert(0 <= index <= leaf::pair_count(page@));
++    proof {
++        assert forall|before: int| 0 <= before < index
++            implies <u32 as Value>::meaning(#[trigger] leaf::encoded_key(page@, key_width, value_width, before))
++                < <u32 as Value>::meaning(query@) by {
++            assert(<u32 as Value>::meaning(accessor.key_bytes_at(before))
++                < <u32 as Value>::meaning(query@));
++        }
++        assert forall|after: int| index as int + (if present { 1int } else { 0int }) <= after < leaf::pair_count(page@)
++            implies <u32 as Value>::meaning(#[trigger] leaf::encoded_key(page@, key_width, value_width, after))
++                > <u32 as Value>::meaning(query@) by {
++            assert(<u32 as Value>::meaning(accessor.key_bytes_at(after))
++                > <u32 as Value>::meaning(query@));
++        }
++    }
+     assert(forall|before: int| 0 <= before < index
+         ==> <u32 as Value>::meaning(#[trigger] leaf::encoded_key(page@, key_width, value_width, before))
+             < <u32 as Value>::meaning(query@));

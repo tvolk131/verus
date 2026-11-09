@@ -1,0 +1,107 @@
+{
+  "acceptance": false,
+  "acknowledgement_proof_bodies": 15,
+  "acknowledgement_verified_obligations": 16,
+  "admission_or_export_gate_changes": false,
+  "buffered_proof_bodies": 26,
+  "buffered_verified_obligations": 31,
+  "charged_attempts": {
+    "acknowledgement": 14,
+    "buffered": 13,
+    "review": 6,
+    "total": 33
+  },
+  "compiler_runtime_vstd_cargo_builds": 0,
+  "completed_utc": "2026-11-08T04:23:53.980565+00:00",
+  "elapsed_seconds": 2907.980565,
+  "final_cells_closed": 0,
+  "final_payloads_authenticated": {
+    "acknowledgement": 111,
+    "buffered": 93,
+    "controls": 133,
+    "review": 90
+  },
+  "finite_controls": {
+    "byte_identical_regenerated_products": 7,
+    "commit_or_opaque_cases": 195,
+    "crash_observations": 12644,
+    "independent_replay_tests_pass": 21,
+    "storage_cases": 844,
+    "tests_pass": 21,
+    "universal_proof": false
+  },
+  "hard_deadline_utc": "2026-11-08T04:35:26+00:00",
+  "historical_publication_correction_preserved": true,
+  "independent_review_checks": {
+    "requested_exports_refused": 2,
+    "requested_exports_written": 4,
+    "semantic_negative": 2,
+    "successful_positive_or_restored": 4
+  },
+  "integration": false,
+  "native_application_executions": 0,
+  "native_executable_bodies_checked": 0,
+  "new_trusted_assumptions_adopted": 0,
+  "no_new_follow_on_work_authorized": true,
+  "open_native_dependencies": [
+    "actual_admission_and_eviction",
+    "backend_and_crash_semantics",
+    "opaque_callback_and_durable_history_frames",
+    "stateful_cross_model_native_adapter_R",
+    "resource_allocator_and_abnormal_bindings",
+    "compiler_source_correspondence",
+    "all_eighteen_complete_property_history_cells"
+  ],
+  "parent_controller_archive_sha256": "f773846aafe36e9556bcd671bc43cfda11ca02e18d1a6221278b63b4df434a9c",
+  "parent_source_integration": false,
+  "redb_open_cells": 18,
+  "resources": {
+    "global_free_bytes": 54020354048,
+    "global_free_floor_bytes": 17179869184,
+    "qualification": "Boundary samples and logical file bytes, not continuous quotas, peak memory, allocated filesystem blocks or exhaustive dependency closure; results/manifest add small final metadata after this sample",
+    "sample_utc": "2026-11-08T04:23:53.980565+00:00",
+    "scratch_cap_bytes": 4294967296,
+    "scratch_file_bytes_by_root": {
+      "acknowledgement": 5263601,
+      "buffered": 24652306,
+      "controls": 6574221,
+      "parent_controllers": 30715,
+      "retained_evidence": 5755963,
+      "review": 13014233
+    },
+    "scratch_file_bytes_total": 55291039
+  },
+  "schema": "redb-storage109-completed-round-v1",
+  "selected_inputs": {
+    "earlier_historical_drifts_still_disclosed": 5,
+    "expected_post_review_document_updates": [
+      {
+        "frozen_sha256": "c98118382feb05e5262db6d3a151322099f36ee395b4950eada988e78a5541c0",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+        "reason": "Parent documentation reconciliation after all implementation/review exits",
+        "reconciled_sha256": "5f7e3b66649be415c551f18e26ae241413b9de026abf70971708f3d7430fb66c",
+        "snapshot": "HISTORICAL-GOAL.md"
+      },
+      {
+        "frozen_sha256": "bf189af264f8f3d93279144192322b7fbdd15a7240ed538fc3b5c3f66695d99e",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+        "reason": "Parent documentation reconciliation after all implementation/review exits",
+        "reconciled_sha256": "806b64fdeb022b7133820fb1a483e664e74bf876d16d17b43a778389eaf7e14e",
+        "snapshot": "HISTORICAL-STATUS.json"
+      }
+    ],
+    "total": 369,
+    "unchanged": 367,
+    "unexpected_mismatches": 0
+  },
+  "single_independent_review_completed": true,
+  "start_utc": "2026-11-08T03:35:26+00:00",
+  "status": "BOUNDED_ROUND_COMPLETE_DATABASE_GOAL_OPEN",
+  "verifier_launches": {
+    "acknowledgement": 14,
+    "buffered": 12,
+    "review": 6,
+    "total": 32
+  },
+  "within_authorized_deadline": true
+}

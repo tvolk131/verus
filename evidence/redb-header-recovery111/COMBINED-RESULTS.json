@@ -1,0 +1,179 @@
+{
+  "H_and_P_sources_unchanged": true,
+  "P_separate_witness_and_control_sources_not_in_parent_combined_crate": true,
+  "acceptance": false,
+  "adoption": false,
+  "all18": "OPEN",
+  "independent_review": "PENDING_SINGLE_COMBINED_REVIEW",
+  "inherited_boundary": "EXPLICIT_INHERITED_STD_BOOL_TCB_NOT_RUST_CORE_PROOF",
+  "integration": false,
+  "native_supplied_slice_binding": "CALLER_PREMISE_NOT_NATIVE_FETCH",
+  "new_native_bodies_checked": 0,
+  "one_parent_application_reserved_for_small_review_findings": true,
+  "parent_application_cap": 4,
+  "parent_applications_charged": 3,
+  "result": {
+    "completed_zero_exit": true,
+    "export": {
+      "bytes": 2381874,
+      "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/parent-check-03-combined/candidate.vir",
+      "sha256": "2b515936d2277e0ced8f196565c0e7f8aef1dc577fc57923a98f861d07796226"
+    },
+    "export_present": true,
+    "interrupted": false,
+    "launch_error": null,
+    "number": 3,
+    "source_after": {
+      "bytes": 3602,
+      "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/parent-check-03-combined/combined111.rs",
+      "sha256": "d590effe76335c59044da26cdd51486e0aa87e1dd175eff2f88a9fc8de58c673"
+    },
+    "status": 0,
+    "timed_out": false,
+    "utc": "2026-11-08T05:44:38.062208+00:00",
+    "verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 80
+    }
+  },
+  "schema": "redb111-parent-combined-proof-v1",
+  "selected_frozen_records": 1416,
+  "source": {
+    "bytes": 3602,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined111.rs",
+    "sha256": "d590effe76335c59044da26cdd51486e0aa87e1dd175eff2f88a9fc8de58c673"
+  },
+  "source_declaration_audit_not_compiler_body_counter": [
+    {
+      "public_exec_declarations": [
+        "stage_and_recover"
+      ],
+      "public_proof_declarations": [],
+      "source": {
+        "bytes": 3602,
+        "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined111.rs",
+        "sha256": "d590effe76335c59044da26cdd51486e0aa87e1dd175eff2f88a9fc8de58c673"
+      }
+    },
+    {
+      "public_exec_declarations": [
+        "stage_two_phase",
+        "executable_witness"
+      ],
+      "public_proof_declarations": [
+        "prepared_shape",
+        "stage_nonvacuity",
+        "canonical_root_nonvacuity"
+      ],
+      "source": {
+        "bytes": 7424,
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs",
+        "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+      }
+    },
+    {
+      "public_exec_declarations": [
+        "decode_expected_header"
+      ],
+      "public_proof_declarations": [
+        "expected_encoding_is_parsed",
+        "encoded_origin_is_accepted",
+        "encoded_origin_selects_payload",
+        "public_ok_recovers_expected"
+      ],
+      "source": {
+        "bytes": 7823,
+        "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs",
+        "sha256": "f091f82098b565a863f0f32cf01dd17d46b31ee167fc6d0588a5399a0de928b1"
+      }
+    },
+    {
+      "public_exec_declarations": [],
+      "public_proof_declarations": [
+        "flush_checked",
+        "complete_header",
+        "initial_invariant",
+        "step_invariant",
+        "checked_run",
+        "public_ok_composes",
+        "success_signals",
+        "nonvacuous_symbolic_success",
+        "nonvacuous_post_publication_error",
+        "callback_mismatch_stops_open",
+        "error_keeps_actual_complete_flush"
+      ],
+      "source": {
+        "bytes": 19396,
+        "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs",
+        "sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e"
+      }
+    },
+    {
+      "public_exec_declarations": [],
+      "public_proof_declarations": [
+        "clean_valid",
+        "write_valid",
+        "sync_valid",
+        "concat_no_sync",
+        "check_entries",
+        "check_stripes",
+        "flush_refinement",
+        "same_offset_coalesces",
+        "localized_partial_error_control",
+        "successful_prefix_retained",
+        "shifted_decisions",
+        "entries_preserve_address",
+        "entries_reflect_last_cover",
+        "stripe_drains_only_after_writes",
+        "all_entries_succeed",
+        "all_stripes_succeed",
+        "arbitrary_successful_flush",
+        "unbounded_pending_coalescing",
+        "stripes_preserve_address",
+        "stripes_reflect_last_cover",
+        "visible_entries_length",
+        "arbitrary_order_nonoverlapping_byte",
+        "coalesced_pending_flush",
+        "localized_sync_error_control",
+        "flush_sync_order",
+        "abnormal_is_not_an_acknowledgement"
+      ],
+      "source": {
+        "bytes": 37587,
+        "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs",
+        "sha256": "29485224c99ba2f994012ff53b2ddc98c9cab79daaf7b3fc2a855b952d2fdc4f"
+      }
+    },
+    {
+      "public_exec_declarations": [],
+      "public_proof_declarations": [
+        "initial_invariant",
+        "step_preserves_invariant",
+        "run_invariant",
+        "public_ok_has_two_successful_barriers",
+        "terminal_outcomes_are_absorbing",
+        "later_error_does_not_erase_publication",
+        "early_crash_preserves_possibly_stale_secondary",
+        "successful_prefix_reaches_pc",
+        "reachable_post_publication_error_witness",
+        "reachable_stale_secondary_crash_witness",
+        "reachable_public_ok_witness",
+        "explicit_mode_frontiers",
+        "interrupts_are_separate_unestablished_outcomes",
+        "actual_assertion_failures_are_not_result_errors",
+        "disabled_call_is_not_a_result_error"
+      ],
+      "source": {
+        "bytes": 14077,
+        "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs",
+        "sha256": "447a7fcfa23fcdec6114be0ec4eb27274ed4133efbc7d81fdac896dffd9306a2"
+      }
+    }
+  ],
+  "supplemental_records": 351,
+  "utc": "2026-11-08T05:46:33.208723+00:00"
+}

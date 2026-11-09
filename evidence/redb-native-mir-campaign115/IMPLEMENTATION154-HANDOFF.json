@@ -1,0 +1,25 @@
+{
+  "record": "native-store-permission154-parent-retention",
+  "root": "/private/tmp/redb-permission154-20261108-223323",
+  "handoff_sha256": "e3dffb88881a4c9b3db6d0f1bdf50674361af575f3df8c549577092579d33756",
+  "manifest_sha256": "6082b546b89c7364f228f9d564d9dda5a4d5dfd3bd606b965a09b2804f2abfb2",
+  "seal_sha256": "0ad4de2d25f48330ca53784f42a5eedf3b0fd392bc013a304df4101039294cbe",
+  "retained_archive": "IMPLEMENTATION154-HANDOFF.tar.gz",
+  "retained_archive_sha256": "2e8a8848e3dac8e9703d1d3c7cafd74473933f2b121b41dac89b5055087be564",
+  "regular_unique_byte_identical_members": 1587,
+  "entry_utc": "2026-11-08T22:59:16.123616+00:00",
+  "exit_utc": "2026-11-08T22:59:16.761181+00:00",
+  "qualification": "Archive pin supplied in completion; manifest and postarchive metadata checked for consistency. Current1586 manifested payloads plus manifest, not complete target/runtime/bootstrap or historical continuity.",
+  "disposition": "RETAIN_CONDITIONAL_PERMISSION_TRANSFER_PENDING_INDEPENDENT_REVIEW",
+  "results": {
+    "conditional_transfer_bodies": 1,
+    "original_whole_bodies": 0,
+    "accepted_original_store_occurrences": 0,
+    "native_export": "REFUSED"
+  },
+  "charged": 28,
+  "limit": 32,
+  "compiler_slot": "RELEASED_NO_ALLOWANCE_REUSE",
+  "laws_adopted": 0,
+  "all18": "OPEN"
+}

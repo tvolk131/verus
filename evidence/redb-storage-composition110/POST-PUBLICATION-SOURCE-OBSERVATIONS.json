@@ -1,0 +1,27 @@
+{
+  "all18": "OPEN",
+  "native_proof_credit": 0,
+  "observations": [
+    {
+      "body": "\n        if self.write_buffer_bytes.load(Ordering::Acquire) > 0 {\n            self.committed_pages_buffered.store(true, Ordering::Release);\n        }\n    ",
+      "end_line": 616,
+      "path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/recovered-native/redb/src/tree_store/page_store/cached_file.rs",
+      "selected_body_tokens_match": true,
+      "sha256": "cb901d44531b23f87d1bd31f72a24f1dc69308b5417db2167b7508921ffda486",
+      "start_line": 612,
+      "target": "write_barrier"
+    },
+    {
+      "body": "\n        // All mutable pages must be dropped, this ensures that when a transaction completes\n        // no more writes can happen to the pages it allocated. Thus it is safe to make them visible\n        // to future read transactions\n        self.debug_assert_no_dirty_pages();\n        self.storage.check_io_errors()?;\n\n        self.unpersisted.lock().unwrap().extend(newly_unpersisted);\n        self.storage.write_barrier();\n\n        let mut state = self.state.lock().unwrap();\n        state\n            .header\n            .write_secondary_slot(transaction_id, data_root, system_root);\n        state.read_from_secondary = true;\n\n        Ok(())\n    ",
+      "end_line": 1920,
+      "path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/recovered-native/redb/src/tree_store/page_store/page_manager.rs",
+      "selected_body_tokens_match": true,
+      "sha256": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+      "start_line": 1897,
+      "target": "non_durable_commit"
+    }
+  ],
+  "qualification": "Exact selected-body lexical observation only; not Rust resolution, callee effect closure, atomic semantics or native proof",
+  "selected_inputs_match": 838,
+  "utc": "2026-11-08T04:49:39.353884+00:00"
+}

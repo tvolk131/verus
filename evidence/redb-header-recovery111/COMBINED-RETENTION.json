@@ -1,0 +1,27 @@
+{
+  "acceptance": false,
+  "adoption": false,
+  "all18": "OPEN",
+  "archive": {
+    "bytes": 233897,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-header-recovery111/COMBINED-CONSUMER-HANDOFF.tar.gz",
+    "sha256": "36e06855dc656b67075eb37c4acbd2c2d36f6721ed4ed054d8ffdf5026a465ed"
+  },
+  "archive_members_compared": 24,
+  "handoff": {
+    "bytes": 791,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined-retained/HANDOFF.json",
+    "sha256": "2c36396afce1fff2977ac24bbe97bebe07994dd7085c664a38dc269ece21c971"
+  },
+  "integration": false,
+  "manifest": {
+    "bytes": 3691,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined-retained/MANIFEST.json",
+    "sha256": "2e32a972ecb8d0d64da00654b4117df85261af2450f2e63f84ba04f173d1c2c1"
+  },
+  "new_native_bodies_checked": 0,
+  "payloads": 22,
+  "source": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined-retained",
+  "utc": "2026-11-08T05:46:33.704666+00:00",
+  "verified_obligations": 80
+}

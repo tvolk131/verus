@@ -9,6 +9,10 @@ pub(crate) enum Model {
     Push,
     Repeat,
     Clone,
+    ExtendBytes,
+    BorrowedBytes,
+    SliceView,
+    Concat,
     Empty,
     SeqNew,
     Take,
@@ -33,6 +37,15 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
         return None;
     }
     let p = &x.name.path;
+    if byte_append::slice_view(f) {
+        return Some(Model::SliceView);
+    }
+    if byte_append::extend_model(f) {
+        return Some(Model::ExtendBytes);
+    }
+    if byte_append::borrowed_model(f) {
+        return Some(Model::BorrowedBytes);
+    }
     if x.mode == Mode::Spec
         && x.typ_params.len() == 1
         && x.params.len() == 1
@@ -67,6 +80,8 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
         Some(Model::Take)
     } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "push"]) {
         Some(Model::SeqPush)
+    } else if models::path_is(p, CrateId::Vstd, &["seq", "Seq", "add"]) {
+        Some(Model::Concat)
     } else if p.krate == CrateId::Vstd
         && p.segments.len() == 3
         && p.segments[0].as_str() == "seq_lib"
@@ -111,6 +126,17 @@ pub(crate) fn model(f: &Function) -> Option<Model> {
                 x.params.len() == 2
                     && same(&x.params[0].x.typ, &seq)
                     && same(&x.params[1].x.typ, &t)
+            }
+            Model::Concat => {
+                matches!(x.kind, FunctionKind::Static)
+                    && x.ensure.0.is_empty()
+                    && x.inner_ret.x.mode == Mode::Spec
+                    && x.params.len() == 2
+                    && same(&x.params[0].x.typ, &seq)
+                    && same(&x.params[1].x.typ, &seq)
+                    && same(&x.inner_ret.x.typ, &x.outer_ret.x.typ)
+                    && x.typ_bounds.len() == 1
+                    && matches!(&*x.typ_bounds[0], GenericBoundX::Trait(TraitId::Sizedness(Sizedness::Sized), args) if args.len() == 1 && same(&args[0], &t))
             }
             Model::SeqFold => {
                 let b = Arc::new(TypX::TypParam(x.typ_params[1].clone()));

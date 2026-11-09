@@ -1,0 +1,148 @@
+use std::collections::BTreeMap;
+use std::future::{Future, pending};
+use std::pin::pin;
+use std::sync::{Arc, Mutex};
+use std::task::{Context, Poll, Wake, Waker};
+
+type DatabaseResult<Value> = Result<Value, &'static str>;
+trait MaybeSend: Send {}
+impl<Value: Send> MaybeSend for Value {}
+pub struct GlobalDBTxAccessToken(u32);
+@@RECORD@@
+impl<Inner> PrefixDatabaseTransaction<Inner> {
+@@KEY@@
+}
+trait IDatabaseTransactionOpsCore: MaybeSend {
+@@DECLARATION@@
+}
+impl<Inner> IDatabaseTransactionOpsCore for PrefixDatabaseTransaction<Inner>
+where
+    Inner: IDatabaseTransactionOpsCore,
+{
+@@INSERT@@
+}
+
+#[derive(Clone, Copy, PartialEq)]
+enum Behavior { Success, ErrorBefore, ErrorAfter, PendingBefore, PendingAfter, ExtraWrite }
+#[derive(Default)]
+struct Observed {
+    entries: BTreeMap<Vec<u8>, Vec<u8>>,
+    calls: Vec<(Vec<u8>, Vec<u8>)>,
+}
+struct Backend {
+    observed: Arc<Mutex<Observed>>,
+    behavior: Behavior,
+}
+impl IDatabaseTransactionOpsCore for Backend {
+    async fn raw_insert_bytes(&mut self, key: &[u8], value: &[u8]) -> DatabaseResult<Option<Vec<u8>>> {
+        self.observed.lock().unwrap().calls.push((key.to_vec(), value.to_vec()));
+        if self.behavior == Behavior::PendingBefore { pending::<()>().await; }
+        if self.behavior == Behavior::ErrorBefore { return Err("backend"); }
+        let previous = self.observed.lock().unwrap().entries.insert(key.to_vec(), value.to_vec());
+        if self.behavior == Behavior::ExtraWrite {
+            self.observed.lock().unwrap().entries.insert(vec![7], vec![99]);
+        }
+        if self.behavior == Behavior::PendingAfter { pending::<()>().await; }
+        if self.behavior == Behavior::ErrorAfter { return Err("backend"); }
+        Ok(previous)
+    }
+}
+struct Noop;
+impl Wake for Noop { fn wake(self: Arc<Self>) {} }
+fn poll_once<Output>(future: &mut std::pin::Pin<&mut impl Future<Output = Output>>) -> Poll<Output> {
+    let waker = Waker::from(Arc::new(Noop));
+    future.as_mut().poll(&mut Context::from_waker(&waker))
+}
+fn transaction(prefix: &[u8], behavior: Behavior) -> (PrefixDatabaseTransaction<Backend>, Arc<Mutex<Observed>>) {
+    let observed = Arc::new(Mutex::new(Observed::default()));
+    (PrefixDatabaseTransaction {
+        inner: Backend { observed: observed.clone(), behavior },
+        global_dbtx_access_token: None,
+        prefix: prefix.to_vec(),
+    }, observed)
+}
+
+#[test]
+fn forwarding_matrix() {
+    let prefixes = [vec![], vec![0], vec![255, 0], vec![255, 252], vec![255, 253, 0, 253]];
+    let keys = [vec![], vec![0], vec![1, 2], vec![255, 253, 0, 253]];
+    let values = [vec![], vec![0], vec![9, 8]];
+    let mut checked = 0;
+    for prefix in &prefixes {
+        for key in &keys {
+            for value in &values {
+                for prior in [None, Some(vec![3, 4])] {
+                    let (mut transaction, observed) = transaction(prefix, Behavior::Success);
+                    let target = [prefix.as_slice(), key.as_slice()].concat();
+                    if let Some(previous) = &prior {
+                        observed.lock().unwrap().entries.insert(target.clone(), previous.clone());
+                    }
+                    observed.lock().unwrap().entries.insert(vec![8, 8, 8], vec![4]);
+                    let before = observed.lock().unwrap().entries.clone();
+                    let mut future = pin!(transaction.raw_insert_bytes(key, value));
+                    assert_eq!(poll_once(&mut future), Poll::Ready(Ok(prior)));
+                    let observed = observed.lock().unwrap();
+                    assert_eq!(observed.calls, vec![(target.clone(), value.clone())]);
+                    let mut expected = before;
+                    expected.insert(target, value.clone());
+                    assert_eq!(observed.entries, expected);
+                    checked += 1;
+                }
+            }
+        }
+    }
+    assert_eq!(checked, 120);
+}
+
+#[test]
+fn unpolled_future_has_no_dispatch() {
+    let (mut transaction, observed) = transaction(&[1], Behavior::Success);
+    let future = transaction.raw_insert_bytes(&[2], &[3]);
+    drop(future);
+    assert!(observed.lock().unwrap().calls.is_empty());
+    assert!(observed.lock().unwrap().entries.is_empty());
+}
+
+#[test]
+fn cancellation_does_not_imply_rollback() {
+    for behavior in [Behavior::PendingBefore, Behavior::PendingAfter] {
+        let (mut transaction, observed) = transaction(&[1], behavior);
+        {
+            let mut future = pin!(transaction.raw_insert_bytes(&[2], &[3]));
+            assert_eq!(poll_once(&mut future), Poll::Pending);
+        }
+        let observed = observed.lock().unwrap();
+        assert_eq!(observed.calls, vec![(vec![1, 2], vec![3])]);
+        assert_eq!(observed.entries.contains_key(&vec![1, 2]), behavior == Behavior::PendingAfter);
+    }
+}
+
+#[test]
+fn error_result_does_not_imply_rollback() {
+    for behavior in [Behavior::ErrorBefore, Behavior::ErrorAfter] {
+        let (mut transaction, observed) = transaction(&[1], behavior);
+        let mut future = pin!(transaction.raw_insert_bytes(&[2], &[3]));
+        assert_eq!(poll_once(&mut future), Poll::Ready(Err("backend")));
+        let observed = observed.lock().unwrap();
+        assert_eq!(observed.calls, vec![(vec![1, 2], vec![3])]);
+        assert_eq!(observed.entries.contains_key(&vec![1, 2]), behavior == Behavior::ErrorAfter);
+    }
+}
+
+#[test]
+fn arbitrary_prefixes_can_overlap() {
+    let (mut transaction, observed) = transaction(&[1], Behavior::Success);
+    let mut future = pin!(transaction.raw_insert_bytes(&[2], &[3]));
+    assert_eq!(poll_once(&mut future), Poll::Ready(Ok(None)));
+    assert_eq!(observed.lock().unwrap().entries.get(&vec![1, 2]), Some(&vec![3]));
+    assert!(vec![1, 2].starts_with(&[1, 2]));
+}
+
+#[test]
+fn unconstrained_backend_can_escape_namespace() {
+    let (mut transaction, observed) = transaction(&[1], Behavior::ExtraWrite);
+    let mut future = pin!(transaction.raw_insert_bytes(&[2], &[3]));
+    assert_eq!(poll_once(&mut future), Poll::Ready(Ok(None)));
+    assert_eq!(observed.lock().unwrap().entries.get(&vec![7]), Some(&vec![99]));
+    assert!(![7u8].starts_with(&[1]));
+}

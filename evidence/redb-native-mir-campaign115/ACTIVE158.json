@@ -1,0 +1,30 @@
+{
+  "record": "original-event-allocator-boundary158-and-independent156-review157",
+  "authority": "AUTHORIZATION139.md; CONTINUATION158.md",
+  "first_cell": "Original native two-phase acknowledged durability; no weaker substitution",
+  "review157": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A60f72478-9031-4cfc-b534-c9cc7ea2d2f3",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A60f72478-9031-4cfc-b534-c9cc7ea2d2f3>",
+    "last_observed_status": "COMPLETED_SEALED_PARENT_RETAINED",
+    "parent_disposition": "ALLOCATION156-DISPOSITION157.md: retain generated conditional subset only; reject native issuance credit. Seven units comprise two constants and five generated bodies, four new. No new generated-normal-helper bug alleged; G1/G2 and native composition remain blocking.",
+    "retained_archive_sha256": "5ca316a082dc1c59c51b7f049a0a38daad580431186ebb982c93ed0b7b41d7e9",
+    "compiler_slot": "NONE",
+    "bounds": {"minutes_including_seal": 15, "fresh_scratch_mib": 4},
+    "scope": "Independent review of sealed156 generated proofs/resources, same-original-event gap and minimum primitive boundary. No execution, adoption or integration."
+  },
+  "implementation158": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3Ae7f15559-a30f-4adc-b196-2bbe558dcb4b",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3Ae7f15559-a30f-4adc-b196-2bbe558dcb4b>",
+    "last_observed_status": "COMPLETED_SEALED_PARTIAL_UNCOMPILED_FAILED_STRICT_SCRATCH_LIMIT",
+    "compiler_slot": "RELEASED_COMPILER_CHILDREN_REAPED_OWNED_GROUPS_ABSENT",
+    "charged_commands": "17/32_SEALED_NO_REMAINDER_REUSE",
+    "scratch_failure": "2174758912 allocated bytes observed against strict2147483648; final2175164416. Failed watchdog build; normal receipt/raw exit not retained. No binary/tests/solver; failure preserved.",
+    "parent_disposition": "Retain source-only fixed law proposal and pending static selector, NOT actual dynamic event/resource lowering. No original issuance or trust adoption. See CONTINUATION160.md; independent159 and genuinely distinct resource-lowering160 started.",
+    "bounds": {"minutes_including_seal": 40, "charged_commands": 32, "fresh_scratch_gib": 2, "jobs": 1, "minimum_free_disk_gib_strictly_above": 16},
+    "scope": "Exact fixed new allocator primitive TCB candidate plus actual compiler-owned occurrence/resource bridge; PENDING independent exact-law review and explicit parent disposition; no solver credit using unadopted law or native acceptance."
+  },
+  "prior156": "SEALED_EXHAUSTED36/36_SLOT_RELEASED_PARENT_RETAINED_GENERATED_ONLY_G1_G2_OPEN",
+  "parent_policy": "Completion wake; no polling/live artifacts/overlapping heavy work. Review exact law independently then explicitly dispose before any internal adoption. Preserve historical failures/allowances and interrupted116.",
+  "counts": {"original_whole_bodies_verified": 0, "accepted_native_allocations": 0, "accepted_unconditional_native_stores": 0, "new_laws_adopted": 0},
+  "all18": "OPEN"
+}

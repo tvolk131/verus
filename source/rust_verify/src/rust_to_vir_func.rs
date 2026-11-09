@@ -3531,6 +3531,19 @@ pub(crate) fn finish_const_or_static<'tcx>(
         return err_span(span, "const cannot have `returns` unless it is `exec const`");
     }
 
+    if !is_static
+        && body_mode == Mode::Exec
+        && !vattrs.external_body
+        && header.ensure.0.is_empty()
+        && header.ensure.1.is_empty()
+        && header.returns.is_none()
+    {
+        if let Some(value) = crate::native_const::scalar(ctxt, id) {
+            vir_body =
+                ctxt.spanned_typed_new(span, &outer_ret.x.typ, vir::ast::ExprX::Const(value));
+        }
+    }
+
     let inner_ret = outer_ret.clone();
     let ensure = clean_ensures_for_unit_return(
         ctxt,

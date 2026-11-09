@@ -1,0 +1,52 @@
+{
+  "baseline_patch_sha256": "545e330ee87d539aa727154a6121f251f557a18867be62517a9867592a372e12",
+  "date": "2026-11-02",
+  "decision": "Reviewed bounded milestones accepted; not whole-application or storage durability approval",
+  "fedimint_delta_sha256": "a694f5a3b672595ef4df34f011954a5eef7d323cf6a89c00e3efd405eb537f65",
+  "git_commits_or_pr_actions": false,
+  "hosted_ci": false,
+  "identity": [
+    77,
+    71,
+    38
+  ],
+  "originals": {
+    "fedimint-review-integrity.json": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/integrity-final.json",
+      "sha256": "1acecf14751061228c267e1b7e5e9db57747ce57ad752d87ca86977eef286bc1"
+    },
+    "fedimint-review-validation.json": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/focused-complete.json",
+      "sha256": "70af69a444b9e616d714e2bd2d54bda34e0a2ffee475af629ab8c8be1f06e355"
+    },
+    "fedimint-review.md": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/REPORT.md",
+      "sha256": "abd19e98aaad0a9afbe9af0aae684f26062a5868101fbbb846292873f5e7dccb"
+    },
+    "parent-validation.json": {
+      "path": "/private/tmp/verus-cycle77-storage-integration.PYURYB/parent-integration-audit.json",
+      "sha256": "5a15cd5c1d4cf4b17b9f9e22412572e4f2b08bf0f0b2c7bf6e83956881bbc15f"
+    },
+    "redb-review-evidence.json": {
+      "path": "/private/tmp/verus-candidate77-independent-review.yhn1ot/EVIDENCE.json",
+      "sha256": "48372da194b93e068a5ec4985e6ae4e5e8d3f3ecde2b9686330c37e68a46c7ba"
+    },
+    "redb-review-integrity.json": {
+      "path": "/private/tmp/verus-candidate77-independent-review.yhn1ot/immutable-result.json",
+      "sha256": "0ab177a239d1429c1b8160efb0c3f3c42ab858fc289c73978d8731e5ec896b98"
+    },
+    "redb-review.md": {
+      "path": "/private/tmp/verus-candidate77-independent-review.yhn1ot/REPORT.md",
+      "sha256": "13b8964f82f4d96b8bfb85bad32426b02c2abc5d7b1b5b0aa318dd4bd1eadb80"
+    }
+  },
+  "redb_delta_sha256": "4477566c5f11d2d5ef41bd0c334fb614e74b1a3583aa6663c2ef80ad3ed53459",
+  "runtime": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77",
+  "scopes": {
+    "fedimint": "Checked conditional model-only; zero native correspondences proved",
+    "redb": "Reduced-error source-connected scaffold only",
+    "repairs": "F1-F3 approved"
+  },
+  "supplemental_opaque_error_probe": "Exploratory and excluded from acceptance",
+  "vstd": "Reused unchanged cycle76 verified artifact; not freshly verified"
+}

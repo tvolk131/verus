@@ -1,0 +1,130 @@
+{
+  "authored_baseline_inputs": {
+    "abstraction.verus.rs": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/transfer-redb-bitmap-state77/abstraction.verus.rs",
+      "sha256": "0e6b6080d143ddffb79a2b313504c9584c1b153bc322764ab599b95276de07df"
+    },
+    "contracts.json": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/transfer-redb-bitmap-state77/contracts.json",
+      "sha256": "61c9deeeb409656b0d05a710be7c9e3b67583575046362d5d8760f7e7f32c18f"
+    },
+    "word_facts.verus.rs": {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/transfer-redb-bitmap-state77/word_facts.verus.rs",
+      "sha256": "03b97fc0268fdba4a69501402c4f8cfec407039604c07fef4641db56e00342bd"
+    }
+  },
+  "authored_baseline_low_level_lemmas": [
+    "word_facts::set_bit_frame",
+    "word_facts::clear_bit_frame"
+  ],
+  "existing_method_proof_kind": "ordinary verified authored contracts; not inferred mutable-record summaries",
+  "existing_scalar_inferred_helper": "U64GroupedBitmap::select_mask",
+  "full_stored_frame_required": true,
+  "items": {
+    "U64GroupedBitmap": {
+      "body_bytes": 37,
+      "body_sha256": "b93a4f7182c55cda941e79ca66709f6f95648d70b6473129769d7d77e5764d3a",
+      "item_sha256": "bc87504c87831eb045b73c298532f4568b1ae0f9f90592666d0f0da6471ed3b1",
+      "native_body_modified": false,
+      "source_bytes": 72,
+      "source_line": 232,
+      "source_offset": 7055
+    },
+    "bits_in_range": {
+      "body_bytes": 243,
+      "body_sha256": "a95f2a403edb811c9d9030a998a683c082f47a3abe8c89dc8a0e304345831854",
+      "item_sha256": "8a82d1bece1894362fc84d5409de85bbc483b4fb62c04b413c9d4b1811b8aa7c",
+      "native_body_modified": false,
+      "source_bytes": 285,
+      "source_line": 223,
+      "source_offset": 6705
+    },
+    "clear": {
+      "body_bytes": 198,
+      "body_sha256": "c5321e37a5439f8d08b31d4ce289ef76b908d5e771b11c00be8da04472eac664",
+      "item_sha256": "081f5a30c6d2c8d4138b1edcf737801bc1ee68c46a7d3421eb573f5149e5e34f",
+      "native_body_modified": false,
+      "source_bytes": 236,
+      "source_line": 383,
+      "source_offset": 11932
+    },
+    "data_index_of": {
+      "body_bytes": 58,
+      "body_sha256": "8e543eb9e7afe6bf3323813d78e0869a6e920ad0289eb42cfa9609f1c9524a44",
+      "item_sha256": "81f5777e3811b541f744f8f21602f1c542340404f19217ad5cabf3f87d767c45",
+      "native_body_modified": false,
+      "source_bytes": 107,
+      "source_line": 299,
+      "source_offset": 9225
+    },
+    "get": {
+      "body_bytes": 199,
+      "body_sha256": "3c6f9a6fd3a26b2feb602451248ab1a360d0cf2ae7ef76833639999b348d86ac",
+      "item_sha256": "1f3f7a72b83e5fcf3474a9ee5385f5dffa717e30754f55e461cb24904b190256",
+      "native_body_modified": false,
+      "source_bytes": 239,
+      "source_line": 365,
+      "source_offset": 11345
+    },
+    "len": {
+      "body_bytes": 24,
+      "body_sha256": "def1443eb4bf70242958cb207555a0d25c49c353777f9ed0d6b9972b3921b555",
+      "item_sha256": "2895b21020d2ecaf928da6f5216053a7926a7b5b9c7346fe17d6ac99ad60a2d8",
+      "native_body_modified": false,
+      "source_bytes": 53,
+      "source_line": 331,
+      "source_offset": 10116
+    },
+    "required_words": {
+      "body_bytes": 73,
+      "body_sha256": "420b19c0de459062241ef898e8d41475114c8febf97c49f4b989092030356f81",
+      "item_sha256": "a4158d198670779060119e58dc73de41884d79712b7b02602c2ed617436bf6a0",
+      "native_body_modified": false,
+      "source_bytes": 119,
+      "source_line": 238,
+      "source_offset": 7153
+    },
+    "resize": {
+      "body_bytes": 1117,
+      "body_sha256": "7e3677ff7654dd9751673aace2ecab2dd83b4bd5824cf61b8291497afe983947",
+      "item_sha256": "86ae414048e0692fa17f1f6dffcdc7c6dd5552c56b418dbebbb7284f2a0d48f3",
+      "native_body_modified": false,
+      "source_bytes": 1172,
+      "source_line": 335,
+      "source_offset": 10171
+    },
+    "select_mask": {
+      "body_bytes": 36,
+      "body_sha256": "47b8283ddbe8656f81a3c58a5912c97764c852553499c3d475e98749100ad684",
+      "item_sha256": "4924c1862fd3f81eedb56dc56bf0b5a5cc79d593303c7e63d81fef65a8e009a0",
+      "native_body_modified": false,
+      "source_bytes": 74,
+      "source_line": 303,
+      "source_offset": 9334
+    },
+    "set": {
+      "body_bytes": 249,
+      "body_sha256": "26fb3a49b569eb62d2777c744c2eeb32d7d5c996bbe0d366ec55820a4e999de1",
+      "item_sha256": "300c64d8fcaeaf2a6a9c1dac1e2b52278904b0224d0363d3dbe059d2bf959c56",
+      "native_body_modified": false,
+      "source_bytes": 293,
+      "source_line": 373,
+      "source_offset": 11637
+    }
+  },
+  "native_pin": "c82ab865bb362bc4af067d332adc44978ff64813",
+  "native_source": "/private/tmp/verus-transfer-redb-miuzm2w3/redb/src/tree_store/page_store/bitmap.rs",
+  "native_source_sha256": "d57724dcbc9701e8fb7a2e268febba1fbe2ff2a00e14e000c27a703afe3af9ff",
+  "new_engine_features": [],
+  "preserved_native_constructs": [
+    "original inclusive range loop",
+    "original Vec growth",
+    "original mutable element borrow",
+    "original debug/unconditional assertions",
+    "original saturating subtraction, minimum, division and casts"
+  ],
+  "proof_claims": [],
+  "source_fidelity_limit": "Hash-bound source capture and later insertion accounting are not a verified extraction compiler.",
+  "status": "SOURCE_CAPTURE_ONLY_NOT_A_SCOPE_FREEZE",
+  "whole_database_allocator_storage_or_durability_claim": false
+}

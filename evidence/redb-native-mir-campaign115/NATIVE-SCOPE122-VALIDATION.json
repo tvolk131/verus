@@ -1,0 +1,46 @@
+{
+  "utc": "2026-11-08T18:02:51.327096+00:00",
+  "source_root": "/private/tmp/redb-scope-validation122-20261108T174715Z",
+  "supplied_manifest_sha256": "a27928a39bc5a6f08e5958f7520d5328c4e26a7167664fd30841964bc7ffc65f",
+  "sealed_payloads_currently_authenticated": 455,
+  "archive": "NATIVE-SCOPE122-VALIDATION.tar.gz",
+  "archive_bytes": 1542513,
+  "archive_sha256": "8659a9332f7310743b809ed286ec3c91639ac5e17b04ca7db21a17ba79ecb8fb",
+  "members": 196,
+  "readback_matches": 196,
+  "excluded_records": 260,
+  "exclusions": "Targets/executables, duplicate stage sources, and temporary output tree remain pinned in place by the retained complete manifest; none copied or removed.",
+  "status": "DIRECT_TEMPORARY_SCOPE_JOIN_NOT_OBSERVED_PENDING_INDEPENDENT_REVIEW",
+  "header": {
+    "exit": 2,
+    "expressions": 109,
+    "scope_edges": 37,
+    "temporary_observations": 30,
+    "drop_sites": [
+      16,
+      19
+    ],
+    "calls": 11,
+    "expression": 78,
+    "local": 20,
+    "scope": null,
+    "exact_incoming_scope_edges": 0
+  },
+  "consequence": "No HirId/region follows from the direct Scope.value==e78 join. No span, lifetime-node, neighbor or wrapper-peeling substitute is accepted.",
+  "build_launches": 1,
+  "outer_diagnostic_applications": 6,
+  "conservative_applications_including_helper_sessions": 8,
+  "unvalidated": [
+    "genuine incomplete",
+    "full-arena empty",
+    "ambiguous edge",
+    "key mismatch",
+    "equal THIR spans"
+  ],
+  "compiler_slot": "RELEASED_BY_AUTHOR_NOW_OWNED_BY_DISTINCT_REVIEW125",
+  "all18": "OPEN",
+  "native_proof_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "source_integrated": false
+}

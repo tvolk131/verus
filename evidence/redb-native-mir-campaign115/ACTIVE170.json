@@ -1,0 +1,81 @@
+{
+  "record": "approved-native-compiler-semantics169-implementation170",
+  "authority": "AUTHORIZATION169.md; NATIVE-SEMANTICS-BOUNDARY168.md; AUTHORIZATION139.md; FIRST-CELL139.md; ALLOCATOR-LAW-DISPOSITION159.md",
+  "boundary169": {
+    "status": "USER_APPROVED_REVIEWED_NATIVE_COMPILER_TCB_ROUTE; NO_CODE_ACTIVATION",
+    "scope": "Partial native MIR/heap/full-pointer interpretation plus integrated affine-flow checker as explicit trusted compiler implementation, not a claimed machine-checked native simulation",
+    "pre_activation": "NEW independent exact-code review and explicit pinned disposition before any operative issuer/solver/native proof use",
+    "excluded": "Additional allocator/frame axioms, trusted application/caller summaries, weaker admission, blanket cleanup/network/integration approval"
+  },
+  "implementation170": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3Af293281f-bdde-418e-8ee3-faf36368ba5e",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3Af293281f-bdde-418e-8ee3-faf36368ba5e>",
+    "last_observed_status": "COMPLETED_PARTIAL_UNSEALED",
+    "previous_observed_status": "LAUNCHED_RUNNING",
+    "parent_preservation": "GIT-BACKUP.md; GIT-BACKUP-SNAPSHOT.json; not a retroactive worker seal",
+    "contract": "IMPLEMENTATION-CONTRACT170.md",
+    "baseline": "/private/tmp/redb-native-implementation166-20261109-015200",
+    "baseline_handoff_sha256": "f625a93c7c638f9f8ce961c40abfca9bb1d411eb5d3713d44d177419343a5cd1",
+    "baseline_archive_sha256": "3cf3f6f5ec4f5219da9d1434c5d33fe373caabcf17a7a5ee8d52328ba611f662",
+    "scope": "Implement actual interpreted native activation/pointer/frontier, same-return raw/Dealloc initialization, integrated affine-flow and candidate AIR kernel, linked to original allocation route",
+    "bounds": {"minutes_including_seal": 90, "charged_invocations": 64, "expected_scratch_bytes": 1610612736, "hard_scratch_bytes": 2147483648, "minimum_free_strict_bytes": 17179869184, "jobs": 1},
+    "heavy_slot": "RELEASED; parent holds none",
+    "cleanup_authority": "User separately approved selective target164/166/170 cache cleanup for this Git backup; no general cleanup authority",
+    "operative_use": "FORBIDDEN_PENDING_INDEPENDENT_REVIEW_AND_PINNED_DISPOSITION",
+    "next": "No worker retry or allowance reset. Preserve unsealed candidate; independent exact-code review and pinned disposition required before activation."
+  },
+  "other_active_delegates": [],
+  "completed_delegates": [
+    {
+      "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A6c90b7e5-4866-4640-a0d2-77cd6f8beb42",
+      "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A6c90b7e5-4866-4640-a0d2-77cd6f8beb42>",
+      "contract": "LAYOUT-APPLICABILITY171.md",
+      "last_observed_status": "COMPLETED_SOURCE_ONLY; terminal task_status consumed after completion notification",
+      "scope": "SOURCE_ONLY original Arc layout success-guard proof module and minimal156 consumer delta; not a new law or native issuer",
+      "heavy_slot": "NONE; no compiler/build/test/verifier/solver/native execution permitted",
+      "bounds": {"minutes_including_seal": 20, "hard_logical_and_allocated_scratch_bytes": 262144},
+      "parent_intake": "LAYOUT171-PARENT-DISPOSITION.md; LAYOUT171-PARENT-AUTHENTICATION.json",
+      "staged_consumer": "/private/tmp/redb-parent-layout171-20261109T0318Z/consumer171.rs",
+      "staged_consumer_sha256": "a43fae6ae6b29a12041dd102600f47affb1f037ae56c99b399442f124b3f4876",
+      "next": "Validate scalar proof/cases/consumer only when permitted slot is available; native dynamic guard wiring remains OPEN; no activation or automatic followup"
+    }
+  ],
+  "historical": "166 conservative60/64 and receipt gaps,16439/64,158 strict2GiB failure,160 disk failure, interrupted116 and all exhausted histories unchanged; no remainder reused",
+  "first_cell": "Full original two-phase acknowledged durability, not a local allocation/model/header milestone",
+  "counts": {"approved_native_semantics_tcb_envelopes": 1, "operative_new_compiler_components": 0, "conditionally_adopted_mathematical_allocator_schemas": 1, "operative_native_laws": 0, "actual_resource_issuance": 0, "accepted_original_allocations": 0, "accepted_original_stores": 0, "original_whole_bodies_verified": 0},
+  "g1": "OPEN", "g2": "OPEN", "all18": "OPEN", "native_export": "REFUSED",
+  "goal_service": "Direct get_goal after171 completion reports BLOCKED for the unchanged objective; no parent goal mutation in this intake; older observations remain historical",
+  "goal_service_after_layout171": {
+    "operation": "get_goal",
+    "status": "blocked",
+    "service_updated_at_unix": 1794193503,
+    "parent_goal_mutation_in_this_intake": false,
+    "standing_authority": "169 and171 permit delivered-source intake; no fabricated service resume"
+  },
+  "goal_service_observation": {
+    "operation": "get_goal",
+    "status": "active",
+    "service_updated_at_unix": 1794192724,
+    "tokens_used": 3688863,
+    "time_used_seconds": 19940,
+    "previous_observation": "BLOCKED before this continuation; retained as historical, not erased or retroactively ACTIVE",
+    "parent_goal_mutation": false
+  },
+  "parent_continuation": {
+    "source_recheck_utc": "2026-11-09T02:53:37.867486+00:00",
+    "source_baseline": "ENTRY-PARENT-INPUTS.json",
+    "source_baseline_sha256": "b2dc7597c1aa2090082c3d6d27ce66ef2221156a885a60482b42e86e00ba163c",
+    "source_records_checked": 1474,
+    "source_bytes_checked": 26442177,
+    "source_mismatches": [],
+    "missing_rg_visible_paths": [],
+    "unexpected_rg_visible_paths": [],
+    "source_recheck_scope": "Current endpoint sizes/hashes and rg-visible inventory only, not continuous custody",
+    "existing_dependency_reused": "CALLER-RELY-AUDIT.json and its retained source-only report; no duplicate audit launched",
+    "next_original_dependency": "After reviewed170 applicability, establish actual allocation-to-store authority and the original header caller's checkout/reservation/loan/Drop/cache-return chain; no assumed vacant cache or trusted caller summary",
+    "additional_delegates_launched": 0,
+    "running170_polled_or_waited": false,
+    "compiler_slot_claimed": false,
+    "native_or_solver_runs": 0
+  }
+}

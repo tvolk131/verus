@@ -1,0 +1,19 @@
+{
+  "record": "IMPLEMENTATION158-HANDOFF",
+  "root": "/private/tmp/redb-primitive158-20261108-234646",
+  "handoff_sha256": "8edfd8ddb0d47676d205d72deb78da9104b12fa95708ddc6679a9e2aa0853587",
+  "manifest_sha256": "15830282f6d57f4ac989d419f53c9f103a98802f8584c0f716c1032563265437",
+  "seal_sha256": "8293349cf457213d4833be5d873288e4505c57ad05009c5e04b4b38625ae0d14",
+  "retained_archive": "IMPLEMENTATION158-HANDOFF.tar.gz",
+  "retained_archive_sha256": "94df662fb942f9ec69f55f9b83828750591dbe741e6ea2afebe57bd8ccc350c2",
+  "manifested_payloads": 65,
+  "regular_unique_byte_identical_members": 66,
+  "entry_utc": "2026-11-08T23:59:36.992845+00:00",
+  "exit_utc": "2026-11-08T23:59:37.021720+00:00",
+  "qualification": "Supplied archive pin; metadata self-consistency and current selected endpoints/byte readback only. No full runtime/source/bootstrap or historical continuity.",
+  "disposition": "RETAIN_UNCOMPILED_SOURCE_ONLY_STRICT_RESOURCE_FAILURE_PRESERVED_159_SCHEMA_CONDITIONALLY_DISPOSED_PRODUCER_BLOCKED",
+  "scope_disposition": "No actual dynamic occurrence/full spec-pointer/affine issuance implemented, no compiled158binary, tests or solver. Strict2GiB violation retained;17/32 sealed, no remainder repurposed. No law adopted or original acceptance.",
+  "laws_adopted": 0,
+  "original_native_bodies_verified": 0,
+  "all18": "OPEN"
+}

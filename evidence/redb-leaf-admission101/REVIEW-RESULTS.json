@@ -1,0 +1,33 @@
+{
+  "all_eighteen_property_history_cells": "OPEN",
+  "archive": "INDEPENDENT-REVIEW-HANDOFF.tar.gz",
+  "archive_members": 12,
+  "archive_members_verified_against_source": true,
+  "archive_sha256": "867c46aa34a0c7004f5b5032af177cbb305709ae58aa03fcfb72cad5110f703a",
+  "both_native_helper_bodies_preserved": true,
+  "candidate_archive_retained_separately": true,
+  "candidate_files_authenticated_by_reviewer_each_endpoint": 91,
+  "candidate_source_sha256": "dbde2c19907bb6e579b593f8a0bc148f0e9325a8fcfc012999a5eed1895445ee",
+  "historical_parent_status_drift": {
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json": {
+      "current": "fda4a95fe0cd18e180b86f405414f44ffffbde392c020f247316003f34164057",
+      "historical": "47203c55ea283ba70e7a092965b5182e607070a60ed05bf6c3ad16cbee7573bb"
+    }
+  },
+  "immutable_bindings_authenticated_by_reviewer_each_endpoint": 3516,
+  "new_trust_or_runtime_adopted": false,
+  "original_native_git_continuity": "UNAVAILABLE",
+  "original_native_path_preservation": "FAILED",
+  "parent_verifier_executions": 0,
+  "recorded_historical_bindings": 3517,
+  "review_executions": 0,
+  "review_handoff_sha256": "839142da909ecb7dd2e14d7cb7ab8d2e53072cd67a12943182ae1f5c27471d0a",
+  "review_manifest_sha256": "7a3d4dcc76fa43b29308ec3db0e3bfeb1a96aadd93ea798ef0f9aa72e7b98323",
+  "review_payloads_authenticated_by_parent": 10,
+  "review_report_sha256": "cc83a8a1e04b2e7325c4abb4b6058b369b299ce06d9a9d664a893c09b8d148e8",
+  "review_seal_sha256": "8c9c056851fa101b3aa4bd1f1122a300ac052665de73f035afa7dc5d781dc7c9",
+  "review_type": "SOURCE_EVIDENCE_ONLY_NO_PROOF_REPLAY",
+  "shared_status_and_readme_reconciliation": "APPLIED_AFTER_COMPOSITION102_SEALED_PARTIAL_HANDOFF_HISTORICAL_BYTES_RETAINED_IN_COMPLETION103",
+  "verdict": "NO_NEW_BLOCKING_SOURCE_EVIDENCE_MISMATCH_FOR_CONDITIONAL_BRIDGE_ONLY",
+  "whole_goal_acceptance": false
+}

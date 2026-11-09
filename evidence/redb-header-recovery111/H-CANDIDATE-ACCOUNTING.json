@@ -1,0 +1,805 @@
+{
+  "absolute_lane_deadline_utc": "2026-11-08T05:54:18Z",
+  "applications": [
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial",
+      "label": "initial",
+      "number": 1,
+      "utc": "2026-11-08T05:26:27.140844+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix",
+      "label": "primitive-bv-fix",
+      "number": 2,
+      "utc": "2026-11-08T05:27:05.968587+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete",
+      "label": "positive-complete",
+      "number": 3,
+      "utc": "2026-11-08T05:27:43.714447+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode",
+      "label": "mutant-premature-mode",
+      "number": 4,
+      "utc": "2026-11-08T05:28:02.926762+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order",
+      "label": "corrected-mode-order",
+      "number": 5,
+      "utc": "2026-11-08T05:28:30.191121+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte",
+      "label": "mutant-first-selector-byte",
+      "number": 6,
+      "utc": "2026-11-08T05:29:13.879128+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte",
+      "label": "corrected-first-selector-byte",
+      "number": 7,
+      "utc": "2026-11-08T05:29:41.946656+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion",
+      "label": "mutant-mode-assertion",
+      "number": 8,
+      "utc": "2026-11-08T05:31:03.647479+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix",
+      "label": "mutant-mode-header-fix",
+      "number": 9,
+      "utc": "2026-11-08T05:31:59.352786+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position",
+      "label": "mutant-mode-header-position",
+      "number": 10,
+      "utc": "2026-11-08T05:32:34.021227+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position",
+      "label": "corrected-mode-header-position",
+      "number": 11,
+      "utc": "2026-11-08T05:32:47.491927+00:00"
+    },
+    {
+      "charged": true,
+      "directory": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive",
+      "label": "restored-positive",
+      "number": 12,
+      "utc": "2026-11-08T05:33:15.694264+00:00"
+    }
+  ],
+  "boundary_samples_not_continuous_peaks": true,
+  "charged_applications": 12,
+  "charged_cap": 16,
+  "elapsed_seconds": 692.173912,
+  "first_clock_utc": "2026-11-08T05:24:00+00:00",
+  "global_free_strict_floor_bytes": 17179869184,
+  "hard_own_deadline_utc": "2026-11-08T05:49:00+00:00",
+  "maximum_application_seconds": 17.828905625,
+  "observed_global_free_min_bytes": 72038068224,
+  "observed_scratch_max_bytes": 38673597,
+  "one_worker": true,
+  "optional_own_cutoff_utc": "2026-11-08T05:46:00Z",
+  "resource_samples": [
+    {
+      "global_free_bytes": 73435545600,
+      "scratch_bytes": 38673597,
+      "utc": "2026-11-08T05:35:32.100566+00:00"
+    },
+    {
+      "global_free_bytes": 73000869888,
+      "scratch_bytes": 3052522,
+      "utc": "2026-11-08T05:26:29.408552+00:00"
+    },
+    {
+      "global_free_bytes": 73014222848,
+      "scratch_bytes": 1002437,
+      "utc": "2026-11-08T05:26:27.861446+00:00"
+    },
+    {
+      "global_free_bytes": 73015234560,
+      "scratch_bytes": 15255,
+      "utc": "2026-11-08T05:26:27.840074+00:00"
+    },
+    {
+      "global_free_bytes": 73013268480,
+      "scratch_bytes": 1008851,
+      "utc": "2026-11-08T05:26:28.248444+00:00"
+    },
+    {
+      "global_free_bytes": 73001852928,
+      "scratch_bytes": 2073031,
+      "utc": "2026-11-08T05:26:29.395912+00:00"
+    },
+    {
+      "global_free_bytes": 73504976896,
+      "scratch_bytes": 6300168,
+      "utc": "2026-11-08T05:27:08.773098+00:00"
+    },
+    {
+      "global_free_bytes": 73092927488,
+      "scratch_bytes": 4040781,
+      "utc": "2026-11-08T05:27:06.808188+00:00"
+    },
+    {
+      "global_free_bytes": 73093955584,
+      "scratch_bytes": 3053624,
+      "utc": "2026-11-08T05:27:06.793225+00:00"
+    },
+    {
+      "global_free_bytes": 73092837376,
+      "scratch_bytes": 4047366,
+      "utc": "2026-11-08T05:27:07.150077+00:00"
+    },
+    {
+      "global_free_bytes": 73505959936,
+      "scratch_bytes": 5320677,
+      "utc": "2026-11-08T05:27:08.760602+00:00"
+    },
+    {
+      "global_free_bytes": 73483243520,
+      "scratch_bytes": 9584631,
+      "utc": "2026-11-08T05:27:45.579250+00:00"
+    },
+    {
+      "global_free_bytes": 73485348864,
+      "scratch_bytes": 7290790,
+      "utc": "2026-11-08T05:27:44.082937+00:00"
+    },
+    {
+      "global_free_bytes": 73486348288,
+      "scratch_bytes": 6302708,
+      "utc": "2026-11-08T05:27:44.068540+00:00"
+    },
+    {
+      "global_free_bytes": 73485627392,
+      "scratch_bytes": 7297394,
+      "utc": "2026-11-08T05:27:44.428232+00:00"
+    },
+    {
+      "global_free_bytes": 73484079104,
+      "scratch_bytes": 8605140,
+      "utc": "2026-11-08T05:27:45.564704+00:00"
+    },
+    {
+      "global_free_bytes": 73486991360,
+      "scratch_bytes": 12625477,
+      "utc": "2026-11-08T05:28:22.047371+00:00"
+    },
+    {
+      "global_free_bytes": 73084002304,
+      "scratch_bytes": 10574423,
+      "utc": "2026-11-08T05:28:03.316202+00:00"
+    },
+    {
+      "global_free_bytes": 73085009920,
+      "scratch_bytes": 9586297,
+      "utc": "2026-11-08T05:28:03.300887+00:00"
+    },
+    {
+      "global_free_bytes": 73082748928,
+      "scratch_bytes": 10581104,
+      "utc": "2026-11-08T05:28:03.670750+00:00"
+    },
+    {
+      "global_free_bytes": 73487978496,
+      "scratch_bytes": 11645985,
+      "utc": "2026-11-08T05:28:22.032248+00:00"
+    },
+    {
+      "global_free_bytes": 73483468800,
+      "scratch_bytes": 15910801,
+      "utc": "2026-11-08T05:28:32.072697+00:00"
+    },
+    {
+      "global_free_bytes": 73485672448,
+      "scratch_bytes": 13615227,
+      "utc": "2026-11-08T05:28:30.562978+00:00"
+    },
+    {
+      "global_free_bytes": 73486675968,
+      "scratch_bytes": 12626927,
+      "utc": "2026-11-08T05:28:30.546819+00:00"
+    },
+    {
+      "global_free_bytes": 73485660160,
+      "scratch_bytes": 13621889,
+      "utc": "2026-11-08T05:28:30.911045+00:00"
+    },
+    {
+      "global_free_bytes": 73484460032,
+      "scratch_bytes": 14931309,
+      "utc": "2026-11-08T05:28:32.057464+00:00"
+    },
+    {
+      "global_free_bytes": 73660682240,
+      "scratch_bytes": 18951774,
+      "utc": "2026-11-08T05:29:29.167220+00:00"
+    },
+    {
+      "global_free_bytes": 73800232960,
+      "scratch_bytes": 16900931,
+      "utc": "2026-11-08T05:29:14.564493+00:00"
+    },
+    {
+      "global_free_bytes": 73801236480,
+      "scratch_bytes": 15912538,
+      "utc": "2026-11-08T05:29:14.548176+00:00"
+    },
+    {
+      "global_free_bytes": 73800183808,
+      "scratch_bytes": 16907707,
+      "utc": "2026-11-08T05:29:14.922872+00:00"
+    },
+    {
+      "global_free_bytes": 73661673472,
+      "scratch_bytes": 17972282,
+      "utc": "2026-11-08T05:29:29.151222+00:00"
+    },
+    {
+      "global_free_bytes": 73456594944,
+      "scratch_bytes": 21992402,
+      "utc": "2026-11-08T05:29:56.524263+00:00"
+    },
+    {
+      "global_free_bytes": 73486553088,
+      "scratch_bytes": 19941475,
+      "utc": "2026-11-08T05:29:42.295737+00:00"
+    },
+    {
+      "global_free_bytes": 73487556608,
+      "scratch_bytes": 18953077,
+      "utc": "2026-11-08T05:29:42.280261+00:00"
+    },
+    {
+      "global_free_bytes": 73486692352,
+      "scratch_bytes": 19948308,
+      "utc": "2026-11-08T05:29:42.614433+00:00"
+    },
+    {
+      "global_free_bytes": 73457610752,
+      "scratch_bytes": 21012910,
+      "utc": "2026-11-08T05:29:56.508314+00:00"
+    },
+    {
+      "global_free_bytes": 73445502976,
+      "scratch_bytes": 25021782,
+      "utc": "2026-11-08T05:31:05.495242+00:00"
+    },
+    {
+      "global_free_bytes": 73447571456,
+      "scratch_bytes": 22982345,
+      "utc": "2026-11-08T05:31:04.271444+00:00"
+    },
+    {
+      "global_free_bytes": 73448574976,
+      "scratch_bytes": 21993833,
+      "utc": "2026-11-08T05:31:04.255546+00:00"
+    },
+    {
+      "global_free_bytes": 73447542784,
+      "scratch_bytes": 22989026,
+      "utc": "2026-11-08T05:31:04.595024+00:00"
+    },
+    {
+      "global_free_bytes": 73446490112,
+      "scratch_bytes": 24042290,
+      "utc": "2026-11-08T05:31:05.480130+00:00"
+    },
+    {
+      "global_free_bytes": 73450848256,
+      "scratch_bytes": 28050960,
+      "utc": "2026-11-08T05:32:01.274816+00:00"
+    },
+    {
+      "global_free_bytes": 73452986368,
+      "scratch_bytes": 26011495,
+      "utc": "2026-11-08T05:32:00.012665+00:00"
+    },
+    {
+      "global_free_bytes": 73453989888,
+      "scratch_bytes": 25022981,
+      "utc": "2026-11-08T05:31:59.996361+00:00"
+    },
+    {
+      "global_free_bytes": 73452974080,
+      "scratch_bytes": 26018195,
+      "utc": "2026-11-08T05:32:00.342085+00:00"
+    },
+    {
+      "global_free_bytes": 73451831296,
+      "scratch_bytes": 27071468,
+      "utc": "2026-11-08T05:32:01.258233+00:00"
+    },
+    {
+      "global_free_bytes": 72038068224,
+      "scratch_bytes": 31091762,
+      "utc": "2026-11-08T05:32:36.271423+00:00"
+    },
+    {
+      "global_free_bytes": 72782778368,
+      "scratch_bytes": 29040648,
+      "utc": "2026-11-08T05:32:34.428405+00:00"
+    },
+    {
+      "global_free_bytes": 72783777792,
+      "scratch_bytes": 28052150,
+      "utc": "2026-11-08T05:32:34.407195+00:00"
+    },
+    {
+      "global_free_bytes": 72593977344,
+      "scratch_bytes": 29047444,
+      "utc": "2026-11-08T05:32:34.783278+00:00"
+    },
+    {
+      "global_free_bytes": 72039055360,
+      "scratch_bytes": 30112270,
+      "utc": "2026-11-08T05:32:36.252089+00:00"
+    },
+    {
+      "global_free_bytes": 73439862784,
+      "scratch_bytes": 34383970,
+      "utc": "2026-11-08T05:32:50.079644+00:00"
+    },
+    {
+      "global_free_bytes": 73442316288,
+      "scratch_bytes": 32081515,
+      "utc": "2026-11-08T05:32:48.108935+00:00"
+    },
+    {
+      "global_free_bytes": 73443319808,
+      "scratch_bytes": 31093047,
+      "utc": "2026-11-08T05:32:48.091159+00:00"
+    },
+    {
+      "global_free_bytes": 73444016128,
+      "scratch_bytes": 32088368,
+      "utc": "2026-11-08T05:32:48.441106+00:00"
+    },
+    {
+      "global_free_bytes": 73440849920,
+      "scratch_bytes": 33404478,
+      "utc": "2026-11-08T05:32:50.061734+00:00"
+    },
+    {
+      "global_free_bytes": 73434497024,
+      "scratch_bytes": 37667229,
+      "utc": "2026-11-08T05:33:17.474268+00:00"
+    },
+    {
+      "global_free_bytes": 73436807168,
+      "scratch_bytes": 35373384,
+      "utc": "2026-11-08T05:33:16.053834+00:00"
+    },
+    {
+      "global_free_bytes": 73437814784,
+      "scratch_bytes": 34385301,
+      "utc": "2026-11-08T05:33:16.035518+00:00"
+    },
+    {
+      "global_free_bytes": 73436770304,
+      "scratch_bytes": 35379990,
+      "utc": "2026-11-08T05:33:16.377130+00:00"
+    },
+    {
+      "global_free_bytes": 73435492352,
+      "scratch_bytes": 36687737,
+      "utc": "2026-11-08T05:33:17.455637+00:00"
+    }
+  ],
+  "results": [
+    {
+      "duration_seconds": 0.780276625,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/candidate.vir",
+      "export_present": false,
+      "number": 1,
+      "resources": {
+        "global_free_bytes": 73000869888,
+        "scratch_bytes": 3052522,
+        "utc": "2026-11-08T05:26:29.408552+00:00"
+      },
+      "source_after": {
+        "bytes": 6546,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/staging111.rs",
+        "sha256": "effce7327d3b6aaa9b198b62e92ad7550357f75175dea75eb26fa418a27bd9cb"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:26:29.407693+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "duration_seconds": 1.2171715840000001,
+      "error": null,
+      "export": {
+        "bytes": 210766,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/candidate.vir",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/candidate.vir",
+        "sha256": "1cb131f3faa879c8bd8e4bca3570342197df0e2c1f7d20a9d088d232678b0e0d"
+      },
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/candidate.vir",
+      "export_present": true,
+      "number": 2,
+      "resources": {
+        "global_free_bytes": 73504976896,
+        "scratch_bytes": 6300168,
+        "utc": "2026-11-08T05:27:08.773098+00:00"
+      },
+      "source_after": {
+        "bytes": 6501,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/staging111.rs",
+        "sha256": "2ea76c77845203d94138441dc2f84a9a7173585bbf2799e2211f7430fdfbbeaf"
+      },
+      "status": 0,
+      "timed_out": false,
+      "utc": "2026-11-08T05:27:08.771831+00:00",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 8
+      }
+    },
+    {
+      "duration_seconds": 0.7853063750000001,
+      "error": null,
+      "export": {
+        "bytes": 244592,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/candidate.vir",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/candidate.vir",
+        "sha256": "fa9896aefc451793248d0be5c01b704d8e2384ac2c6a7b30d1ecafd29e7b5bae"
+      },
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/candidate.vir",
+      "export_present": true,
+      "number": 3,
+      "resources": {
+        "global_free_bytes": 73483243520,
+        "scratch_bytes": 9584631,
+        "utc": "2026-11-08T05:27:45.579250+00:00"
+      },
+      "source_after": {
+        "bytes": 7424,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/staging111.rs",
+        "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+      },
+      "status": 0,
+      "timed_out": false,
+      "utc": "2026-11-08T05:27:45.577103+00:00",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 9
+      }
+    },
+    {
+      "duration_seconds": 17.828905625,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/candidate.vir",
+      "export_present": false,
+      "number": 4,
+      "resources": {
+        "global_free_bytes": 73486991360,
+        "scratch_bytes": 12625477,
+        "utc": "2026-11-08T05:28:22.047371+00:00"
+      },
+      "source_after": {
+        "bytes": 7460,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/staging111.rs",
+        "sha256": "f9c82f4464ae511e84f0769948dff3604b317c1f464cda2a1fd6b44ccfe36f3c"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:28:22.044749+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 8
+      }
+    },
+    {
+      "duration_seconds": 0.7800324579999999,
+      "error": null,
+      "export": {
+        "bytes": 246247,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/candidate.vir",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/candidate.vir",
+        "sha256": "c85f4df9b352194a23133570d653e04b0421f78879183b65ea654d89e49d0668"
+      },
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/candidate.vir",
+      "export_present": true,
+      "number": 5,
+      "resources": {
+        "global_free_bytes": 73483468800,
+        "scratch_bytes": 15910801,
+        "utc": "2026-11-08T05:28:32.072697+00:00"
+      },
+      "source_after": {
+        "bytes": 7635,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/staging111.rs",
+        "sha256": "36180c8a4f74191068a5ac06e5a12aaa90c7b5eba04e8421bdc2babd5173b08b"
+      },
+      "status": 0,
+      "timed_out": false,
+      "utc": "2026-11-08T05:28:32.069091+00:00",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 9
+      }
+    },
+    {
+      "duration_seconds": 13.84855,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/candidate.vir",
+      "export_present": false,
+      "number": 6,
+      "resources": {
+        "global_free_bytes": 73660682240,
+        "scratch_bytes": 18951774,
+        "utc": "2026-11-08T05:29:29.167220+00:00"
+      },
+      "source_after": {
+        "bytes": 7716,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/staging111.rs",
+        "sha256": "28a4840d8acf88fbcbe91d122009d7a0076c1f1d1e2d2adb322fe4432cef9d00"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:29:29.163042+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 8
+      }
+    },
+    {
+      "duration_seconds": 13.544934084,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/candidate.vir",
+      "export_present": false,
+      "number": 7,
+      "resources": {
+        "global_free_bytes": 73456594944,
+        "scratch_bytes": 21992402,
+        "utc": "2026-11-08T05:29:56.524263+00:00"
+      },
+      "source_after": {
+        "bytes": 7715,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/staging111.rs",
+        "sha256": "ab78b3f1c10e5684ece97e078bb62c28684b15f76ecc4396baddd64d99f3bc03"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:29:56.519881+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 8
+      }
+    },
+    {
+      "duration_seconds": 0.552636,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/candidate.vir",
+      "export_present": false,
+      "number": 8,
+      "resources": {
+        "global_free_bytes": 73445502976,
+        "scratch_bytes": 25021782,
+        "utc": "2026-11-08T05:31:05.495242+00:00"
+      },
+      "source_after": {
+        "bytes": 7845,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/staging111.rs",
+        "sha256": "6b7137f2c5f3b8b3b9d8eaa35aae0d3079db2039145bbd4e20d168c7089e57dd"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:31:05.490830+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "duration_seconds": 0.572549542,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/candidate.vir",
+      "export_present": false,
+      "number": 9,
+      "resources": {
+        "global_free_bytes": 73450848256,
+        "scratch_bytes": 28050960,
+        "utc": "2026-11-08T05:32:01.274816+00:00"
+      },
+      "source_after": {
+        "bytes": 7845,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/staging111.rs",
+        "sha256": "25e6eab471a9782d8e509861ba0c6d62a9644bc25fda16db7b326e74e496ee09"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:32:01.270132+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "duration_seconds": 1.0981440409999998,
+      "error": null,
+      "export": null,
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/candidate.vir",
+      "export_present": false,
+      "number": 10,
+      "resources": {
+        "global_free_bytes": 72038068224,
+        "scratch_bytes": 31091762,
+        "utc": "2026-11-08T05:32:36.271423+00:00"
+      },
+      "source_after": {
+        "bytes": 7819,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/staging111.rs",
+        "sha256": "3f782ebfcbabc7bcbcbc8d14a20eafe910aba708d25a6cab22cadce62a3db665"
+      },
+      "status": 1,
+      "timed_out": false,
+      "utc": "2026-11-08T05:32:36.266128+00:00",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 8
+      }
+    },
+    {
+      "duration_seconds": 1.2664949170000002,
+      "error": null,
+      "export": {
+        "bytes": 251834,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/candidate.vir",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/candidate.vir",
+        "sha256": "60060dd935f443aa8137e779a356a360c03b1e2396220e0adf4192fbc458512e"
+      },
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/candidate.vir",
+      "export_present": true,
+      "number": 11,
+      "resources": {
+        "global_free_bytes": 73439862784,
+        "scratch_bytes": 34383970,
+        "utc": "2026-11-08T05:32:50.079644+00:00"
+      },
+      "source_after": {
+        "bytes": 7783,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/staging111.rs",
+        "sha256": "4ccd39a72cac229aa68ea73c574551a94e9808e7cd72a0ed3a10a6e44b3070ac"
+      },
+      "status": 0,
+      "timed_out": false,
+      "utc": "2026-11-08T05:32:50.072644+00:00",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 9
+      }
+    },
+    {
+      "duration_seconds": 0.7227672500000001,
+      "error": null,
+      "export": {
+        "bytes": 244592,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/candidate.vir",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/candidate.vir",
+        "sha256": "bea80ceb4149adc51900b7fc5cc4211ebbe71a18d94c9527d186016cc213b718"
+      },
+      "export_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/candidate.vir",
+      "export_present": true,
+      "number": 12,
+      "resources": {
+        "global_free_bytes": 73434497024,
+        "scratch_bytes": 37667229,
+        "utc": "2026-11-08T05:33:17.474268+00:00"
+      },
+      "source_after": {
+        "bytes": 7424,
+        "mode": "0o644",
+        "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/staging111.rs",
+        "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/staging111.rs",
+        "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+      },
+      "status": 0,
+      "timed_out": false,
+      "utc": "2026-11-08T05:33:17.467126+00:00",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 9
+      }
+    }
+  ],
+  "scratch_cap_bytes": 805306368,
+  "seal_utc": "2026-11-08T05:35:32.173910+00:00"
+}

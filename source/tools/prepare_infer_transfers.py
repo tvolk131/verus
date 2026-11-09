@@ -40,6 +40,10 @@ def git_environment():
     return environment
 
 
+def nonsymlinked(path):
+    require(not Path(path).is_symlink(), "destination must not be a symlink")
+
+
 def check_repository_root(run, checkout, application, environment, phase):
     label = checkout + "_" + phase + "_root"
     require(run(label, ["git", "-C", str(application), "rev-parse", "--show-toplevel"],

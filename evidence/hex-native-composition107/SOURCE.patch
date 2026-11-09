@@ -1,0 +1,52 @@
+--- a/src/encoding_spec.rs
++++ b/src/encoding_spec.rs
+@@ -47,4 +47,14 @@
+     case.table().byte_to_hex_chars(byte)
+ }
+ 
++pub(crate) proof fn canonical_digit_decodes(nibble: u8, case: crate::Case)
++    requires nibble < 16,
++    ensures crate::decoding_spec::digit(required_digit_ascii(nibble as int, case) as u8) == Some(nibble),
++{
++    match case {
++        crate::Case::Lower => {},
++        crate::Case::Upper => {},
++    }
+ }
++
++}
+--- a/src/iter.rs
++++ b/src/iter.rs
+@@ -349,6 +349,32 @@
+     let hih = Char::decode_nibble(hi).ok_or((hi, true))?;
+     let loh = Char::decode_nibble(lo).ok_or((lo, false))?;
+     Ok((hih << 4) | loh)
++}
++
++#[cfg(verus_keep_ghost)]
++verus! {
++fn native_single_byte_roundtrip(byte: u8, case: Case) -> (result: Result<u8, (u8, bool)>)
++    ensures result == Ok(byte),
++{
++    let encoded = case.table().byte_to_hex_chars(byte);
++    proof {
++        crate::encoding_spec::encoding_index_facts(byte);
++        crate::encoding_spec::canonical_digit_decodes(byte / 16, case);
++        crate::encoding_spec::canonical_digit_decodes(byte % 16, case);
++        assert(((byte / 16) << 4) | (byte % 16) == byte) by(bit_vector);
++    }
++    hex_chars_to_byte(encoded[0] as u8, encoded[1] as u8)
++}
++
++fn native_nibble_swap_control(case: Case) {
++    let encoded = case.table().byte_to_hex_chars(0xabu8);
++    proof {
++        crate::encoding_spec::canonical_digit_decodes(10, case);
++        crate::encoding_spec::canonical_digit_decodes(11, case);
++    }
++    let decoded = hex_chars_to_byte(encoded[1] as u8, encoded[0] as u8);
++    assert(decoded == Ok(0xbau8));
++}
+ }
+ 
+ /// Iterator over bytes which encodes the bytes and yields `[Char; 2]` pairs of hex characters.

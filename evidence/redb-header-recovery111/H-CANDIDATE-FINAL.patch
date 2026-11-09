@@ -1,0 +1,159 @@
+--- /dev/null
++++ staging111.rs
+@@ -0,0 +1,156 @@
++#![doc = "Conditional on EXPLICIT_INHERITED_STD_BOOL_TCB_NOT_RUST_CORE_PROOF; no trust adoption and no additional native body proof credit."]
++#![allow(dead_code, unused_imports)]
++use vstd::prelude::*;
++use recovery_reencoding021::*;
++use recovery_roundtrip021::*;
++use rootcodec94::BtreeHeader;
++#[path = "/private/tmp/redb-header-recovery111-20261108T051418Z/shared/contract111.rs"]
++pub mod contract111;
++use contract111::*;
++
++verus! {
++
++pub proof fn prepared_shape(before: DatabaseHeader, after: DatabaseHeader,
++    transaction_id: TransactionId, user_root: Option<BtreeHeader>, system_root: Option<BtreeHeader>)
++    requires
++        stage_domain(before, transaction_id, user_root, system_root),
++        metadata(after) == metadata(before),
++        after.transaction_slots@ == before.transaction_slots@.update(
++            (before.primary_slot ^ 1) as int, TransactionHeader {
++                version: before.transaction_slots@[(before.primary_slot ^ 1) as int].version,
++                user_root, system_root, transaction_id, corrupt_bytes: None }),
++    ensures
++        after == prepared_header(before, transaction_id, user_root, system_root),
++        header_roundtrip_domain(after),
++        after.transaction_slots@[before.primary_slot as int]
++            == before.transaction_slots@[before.primary_slot as int],
++{
++    let primary = before.primary_slot;
++    other_slot_bounds(primary);
++    if primary == 0 {
++        assert(primary ^ 1 == 1) by(bit_vector)
++            requires primary == 0;
++    } else {
++        assert(primary == 1);
++        assert(primary ^ 1 == 0) by(bit_vector)
++            requires primary == 1;
++    }
++    let expected = prepared_header(before, transaction_id, user_root, system_root);
++    assert(after.transaction_slots@ == expected.transaction_slots@);
++    assert(after.transaction_slots == expected.transaction_slots);
++}
++
++pub fn stage_two_phase(header: &mut DatabaseHeader, transaction_id: TransactionId,
++    user_root: Option<BtreeHeader>, system_root: Option<BtreeHeader>)
++    -> (result: ([u8; 320], [u8; 320]))
++    requires stage_domain(*old(header), transaction_id, user_root, system_root),
++    ensures
++        *final(header) == committed_header(prepared_header(*old(header),
++            transaction_id, user_root, system_root)),
++        result.0@ == database_bytes(prepared_header(*old(header),
++            transaction_id, user_root, system_root), true),
++        result.1@ == database_bytes(*final(header), true),
++        header_roundtrip_domain(prepared_header(*old(header), transaction_id, user_root, system_root)),
++        header_roundtrip_domain(*final(header)),
++        final(header).transaction_slots@[old(header).primary_slot as int]
++            == old(header).transaction_slots@[old(header).primary_slot as int],
++        prepared_header(*old(header), transaction_id, user_root, system_root).two_phase_commit
++            == old(header).two_phase_commit,
++        prepared_header(*old(header), transaction_id, user_root, system_root).primary_unflushed
++            == old(header).primary_unflushed,
++        final(header).two_phase_commit,
++        !final(header).primary_unflushed,
++        final(header).primary_slot == old(header).primary_slot ^ 1,
++        final(header).transaction_slots@[final(header).primary_slot as int].transaction_id == transaction_id,
++        final(header).transaction_slots@[final(header).primary_slot as int].user_root == user_root,
++        final(header).transaction_slots@[final(header).primary_slot as int].system_root == system_root,
++{
++    let ghost before = *header;
++    header.write_secondary_slot(transaction_id, user_root, system_root);
++    proof {
++        prepared_shape(before, *header, transaction_id, user_root, system_root);
++    }
++    let first = header.to_bytes(true);
++    let ghost prepared = *header;
++    header.swap_primary_slot();
++    header.two_phase_commit = true;
++    header.primary_unflushed = false;
++    proof {
++        assert(header.transaction_slots@ == prepared.transaction_slots@);
++        assert(header.transaction_slots == prepared.transaction_slots);
++        assert(*header == committed_header(prepared));
++        other_slot_bounds(before.primary_slot);
++    }
++    let final_bytes = header.to_bytes(true);
++    (first, final_bytes)
++}
++
++pub open spec fn witness_header(primary: usize, previous_mode: bool,
++    previous_unflushed: bool, recovery: bool) -> DatabaseHeader {
++    DatabaseHeader {
++        primary_slot: primary, recovery_required: recovery, two_phase_commit: previous_mode,
++        primary_unflushed: previous_unflushed, page_size: 4096, region_header_pages: 1,
++        region_max_data_pages: 1, full_regions: 1, trailing_partial_region_pages: 0,
++        transaction_slots: [
++            TransactionHeader { version: 3, user_root: None, system_root: None,
++                transaction_id: TransactionId(0), corrupt_bytes: None },
++            TransactionHeader { version: 3, user_root: None, system_root: None,
++                transaction_id: TransactionId(1), corrupt_bytes: None },
++        ],
++    }
++}
++
++pub proof fn stage_nonvacuity(primary: usize, previous_mode: bool,
++    previous_unflushed: bool, recovery: bool)
++    requires primary < 2,
++    ensures stage_domain(witness_header(primary, previous_mode, previous_unflushed, recovery),
++        TransactionId(2), None, None),
++        witness_header(primary, previous_mode, previous_unflushed, recovery).primary_slot == primary,
++        witness_header(primary, previous_mode, previous_unflushed, recovery).two_phase_commit == previous_mode,
++        witness_header(primary, previous_mode, previous_unflushed, recovery).primary_unflushed == previous_unflushed,
++{
++    if primary == 0 {
++    } else {
++        assert(primary == 1);
++    }
++}
++
++pub proof fn canonical_root_nonvacuity(primary: usize, previous_mode: bool,
++    previous_unflushed: bool, recovery: bool, transaction_id: TransactionId,
++    user_root: Option<BtreeHeader>, system_root: Option<BtreeHeader>)
++    requires primary < 2, transaction_id.0 > 1, root_domain(user_root), root_domain(system_root),
++    ensures stage_domain(witness_header(primary, previous_mode, previous_unflushed, recovery),
++        transaction_id, user_root, system_root),
++{
++    if primary == 0 {
++    } else {
++        assert(primary == 1);
++    }
++}
++
++pub fn executable_witness() -> (result: ([u8; 320], [u8; 320]))
++    ensures
++        result.0@ == database_bytes(prepared_header(witness_header(0, false, true, false),
++            TransactionId(2), None, None), true),
++        result.1@ == database_bytes(committed_header(prepared_header(
++            witness_header(0, false, true, false), TransactionId(2), None, None)), true),
++{
++    let mut header = DatabaseHeader {
++        primary_slot: 0, recovery_required: false, two_phase_commit: false,
++        primary_unflushed: true, page_size: 4096, region_header_pages: 1,
++        region_max_data_pages: 1, full_regions: 1, trailing_partial_region_pages: 0,
++        transaction_slots: [
++            TransactionHeader { version: 3, user_root: None, system_root: None,
++                transaction_id: TransactionId(0), corrupt_bytes: None },
++            TransactionHeader { version: 3, user_root: None, system_root: None,
++                transaction_id: TransactionId(1), corrupt_bytes: None },
++        ],
++    };
++    proof {
++        stage_nonvacuity(0, false, true, false);
++        assert(header == witness_header(0, false, true, false));
++    }
++    stage_two_phase(&mut header, TransactionId(2), None, None)
++}
++
++}

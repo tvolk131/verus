@@ -42,6 +42,13 @@ pub(super) fn summary_exp(
     *budget = budget.checked_sub(1)?;
     let x = match &e.x {
         ExprX::Var(v) => return vars.get(v).cloned(),
+        ExprX::ReadPlace(place, _) => match &place.x {
+            PlaceX::Local(name) => return vars.get(name).cloned(),
+            _ => return None,
+        },
+        ExprX::Block(statements, Some(tail)) if statements.is_empty() => {
+            return summary_exp(tail, vars, budget);
+        }
         ExprX::Const(c @ (Constant::Int(_) | Constant::Bool(_))) => ExpX::Const(c.clone()),
         ExprX::Unary(op @ (UnaryOp::Not | UnaryOp::Clip { .. } | UnaryOp::BitNot(_)), a) => {
             ExpX::Unary(*op, summary_exp(a, vars, budget)?)
@@ -49,8 +56,32 @@ pub(super) fn summary_exp(
         ExprX::UnaryOpr(op @ UnaryOpr::IntegerTypeBound(_), a) => {
             ExpX::UnaryOpr(op.clone(), summary_exp(a, vars, budget)?)
         }
-        ExprX::UnaryOpr(op @ UnaryOpr::Field(_), value) => {
-            ExpX::UnaryOpr(op.clone(), summary_exp(value, vars, budget)?)
+        ExprX::UnaryOpr(
+            op @ (UnaryOpr::Field(_) | UnaryOpr::Box(_) | UnaryOpr::Unbox(_)),
+            value,
+        ) => ExpX::UnaryOpr(op.clone(), summary_exp(value, vars, budget)?),
+        ExprX::Call {
+            target: CallTarget::Fun(kind, name, types, _, _),
+            args,
+            post_args: None,
+            body: None,
+        } => {
+            let resolved = match kind {
+                CallTargetKind::Static => None,
+                CallTargetKind::DynamicResolved {
+                    resolved, typs, is_trait_default: false, ..
+                } => Some((resolved.clone(), typs.clone())),
+                _ => return None,
+            };
+            ExpX::Call(
+                sst::CallFun::Fun(name.clone(), resolved),
+                types.clone(),
+                Arc::new(
+                    args.iter()
+                        .map(|argument| summary_exp(argument, vars, budget))
+                        .collect::<Option<Vec<_>>>()?,
+                ),
+            )
         }
         ExprX::Ctor(datatype, variant, fields, None) => ExpX::Ctor(
             datatype.clone(),
@@ -93,9 +124,7 @@ pub(super) fn summary_exp(
                 BinaryOp::Ne => sst::BinaryOp::Ne,
                 BinaryOp::Inequality(op) => sst::BinaryOp::Inequality(*op),
                 BinaryOp::Bitwise(op, _) => sst::BinaryOp::Bitwise(*op),
-                BinaryOp::Index(ArrayKind::Array, BoundsCheck::Allow) => {
-                    sst::BinaryOp::Index(ArrayKind::Array)
-                }
+                BinaryOp::Index(kind, BoundsCheck::Allow) => sst::BinaryOp::Index(*kind),
                 BinaryOp::Arith(ArithOp::Add(OverflowBehavior::Allow)) => {
                     sst::BinaryOp::Arith(sst::ArithOp::Add)
                 }
@@ -185,6 +214,34 @@ fn bounds(e: &Exp, env: &Env, bits: u32, budget: &mut usize) -> Option<Bounds> {
 
 // Only a small pure fragment is passed to the BV converter. In particular,
 // never reinterpret a call, array access, snapshot, or unbounded integer variable.
+pub(super) fn shift_amount(value: Exp, width: u64, budget: &mut usize) -> Option<(Exp, u64)> {
+    let range = match &*value.typ {
+        TypX::Int(IntRange::U(bits @ (8 | 16 | 32 | 64 | 128))) => {
+            if matches!(
+                &value.x,
+                ExpX::Var(_)
+                    | ExpX::Const(_)
+                    | ExpX::Unary(UnaryOp::Clip { range: IntRange::U(_), .. }, _)
+            ) {
+                return Some((value, width));
+            }
+            IntRange::U(*bits)
+        }
+        TypX::Int(IntRange::I(bits @ (8 | 16 | 32 | 64 | 128))) => IntRange::U(*bits),
+        TypX::Int(IntRange::Int | IntRange::Nat) if width <= 128 => IntRange::U(128),
+        _ => return None,
+    };
+    *budget = budget.checked_sub(1)?;
+    Some((
+        SpannedTyped::new(
+            &value.span,
+            &Arc::new(TypX::Int(range)),
+            ExpX::Unary(UnaryOp::Clip { range, truncate: true }, value.clone()),
+        ),
+        width.max(128),
+    ))
+}
+
 fn normalize(e: &Exp, leaves: &mut Vec<Exp>, budget: &mut usize) -> Option<Exp> {
     *budget = budget.checked_sub(1)?;
     let x = match &e.x {
@@ -206,22 +263,21 @@ fn normalize(e: &Exp, leaves: &mut Vec<Exp>, budget: &mut usize) -> Option<Exp> 
             let left = normalize(a, leaves, budget)?;
             let mut right = normalize(b, leaves, budget)?;
             if matches!(op, sst::BinaryOp::Bitwise(BitwiseOp::Shl(..) | BitwiseOp::Shr)) {
-                let range = match &*right.typ {
-                    TypX::Int(IntRange::I(bits)) => Some(IntRange::U(*bits)),
-                    TypX::Int(IntRange::ISize) => Some(IntRange::USize),
-                    _ => None,
-                };
-                if let Some(range) = range {
-                    // BV translation requires an unsigned shift amount. This
-                    // changes the proposed theorem on BOTH check and use sides.
-                    // The ordinary source proof must still connect its original
-                    // amount to this cast using the existing shift safety check.
-                    right = SpannedTyped::new(
+                right = match &*right.typ {
+                    TypX::Int(IntRange::ISize) => SpannedTyped::new(
                         &right.span,
-                        &Arc::new(TypX::Int(range)),
-                        ExpX::Unary(UnaryOp::Clip { range, truncate: true }, right.clone()),
-                    );
-                }
+                        &Arc::new(TypX::Int(IntRange::USize)),
+                        ExpX::Unary(
+                            UnaryOp::Clip { range: IntRange::USize, truncate: true },
+                            right.clone(),
+                        ),
+                    ),
+                    TypX::Int(IntRange::USize) => right,
+                    _ => {
+                        let (low, high) = bounds(&right, &Env::new(), 64, budget)?;
+                        shift_amount(right, low.bits().max(high.bits()) + 1, budget)?.0
+                    }
+                };
             }
             ExpX::Binary(*op, left, right)
         }

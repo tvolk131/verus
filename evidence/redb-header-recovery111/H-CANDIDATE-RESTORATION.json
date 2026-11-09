@@ -1,0 +1,24 @@
+{
+  "baseline": {
+    "bytes": 7424,
+    "mode": "0o644",
+    "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/staging111.rs",
+    "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/staging111.rs",
+    "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+  },
+  "byte_identical": true,
+  "final": {
+    "bytes": 7424,
+    "mode": "0o644",
+    "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs",
+    "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs",
+    "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+  },
+  "restored_snapshot": {
+    "bytes": 7424,
+    "mode": "0o644",
+    "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/staging111.rs",
+    "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/staging111.rs",
+    "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+  }
+}

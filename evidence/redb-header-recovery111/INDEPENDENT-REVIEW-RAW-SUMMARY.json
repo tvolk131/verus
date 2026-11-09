@@ -1,0 +1,144 @@
+[
+  {
+    "application": {
+      "charged": true,
+      "elapsed_seconds": 0.003460333999999954,
+      "error_qualification": "Original launcher_error field is overbroad: Popen returned a process; sandbox denied process-monitoring ps; exception path killed and reaped that process. No verifier semantic result.",
+      "expected": "positive80",
+      "export_sha256": null,
+      "folder": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-01-combined-positive",
+      "label": "combined-positive",
+      "launcher_error": "PermissionError(1, 'Operation not permitted')",
+      "number": 1,
+      "original": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined111.rs",
+      "returncode": -9,
+      "state": "inconclusive",
+      "termination_reason": null,
+      "utc": "2026-11-08T05:51:00.796276+00:00"
+    },
+    "diagnostics": "",
+    "raw_verification": null
+  },
+  {
+    "application": {
+      "charged": true,
+      "elapsed_seconds": 7.496405542000001,
+      "expected": "positive80",
+      "export_sha256": "bbed6c10d25ecad651d87978c8ebe926940cf404810cd9c8e47cce6f711e1954",
+      "folder": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-02-combined-positive-retry",
+      "label": "combined-positive-retry",
+      "launcher_error": null,
+      "number": 2,
+      "original": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined111.rs",
+      "returncode": 0,
+      "state": "completed",
+      "termination_reason": null,
+      "utc": "2026-11-08T05:51:48.712364+00:00"
+    },
+    "diagnostics": "",
+    "raw_verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 80
+    }
+  },
+  {
+    "application": {
+      "charged": true,
+      "elapsed_seconds": null,
+      "expected": "backend-assertion-failure",
+      "folder": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-03-H-old-mode-negative",
+      "label": "H-old-mode-negative",
+      "number": 3,
+      "original": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/source-snapshot.rs",
+      "returncode": null,
+      "setup_error": "FileNotFoundError: H snapshots use staging111.rs, not source-snapshot.rs",
+      "state": "setup_failure",
+      "utc": "2026-11-08T05:52:40.061256+00:00",
+      "verifier_started": false
+    },
+    "diagnostics": null,
+    "raw_verification": null
+  },
+  {
+    "application": {
+      "charged": true,
+      "elapsed_seconds": 6.8821298330000005,
+      "expected": "three-intended-backend-assertions",
+      "export_sha256": null,
+      "folder": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-04-H-mode-and-P-roots-negative",
+      "label": "H-mode-and-P-roots-negative",
+      "launcher_error": null,
+      "number": 4,
+      "original": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/combined-negatives111.rs",
+      "returncode": 1,
+      "state": "completed",
+      "termination_reason": null,
+      "utc": "2026-11-08T05:53:45.204733+00:00"
+    },
+    "diagnostics": "error: assertion failed\n  --> /private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-04-H-mode-and-P-roots-negative/review_source.rs:12:12\n   |\n12 |     assert(actual.transaction_slots@[1].user_root == Some(witnesses::witness_system_root()));\n   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n\nerror: assertion failed\n  --> /private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-04-H-mode-and-P-roots-negative/review_source.rs:18:12\n   |\n18 |     assert(actual.transaction_slots@[1].system_root == Some(witnesses::witness_user_root()));\n   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n\nerror: assertion failed\n  --> /private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/staging111.rs:77:16\n   |\n77 |         assert(header.two_phase_commit == before.two_phase_commit);\n   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n\nerror: aborting due to 3 previous errors\n\n",
+    "raw_verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 3,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 78
+    }
+  },
+  {
+    "application": {
+      "charged": true,
+      "elapsed_seconds": 6.395359625,
+      "expected": "positive71",
+      "export_sha256": "9960f2213649d14589a86eb5818cd3d866b67fa3c3b69560103dc6d24584af30",
+      "folder": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-05-P-full-positive-witnesses",
+      "label": "P-full-positive-witnesses",
+      "launcher_error": null,
+      "number": 5,
+      "original": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/semantic_controls111.rs",
+      "returncode": 0,
+      "state": "completed",
+      "termination_reason": null,
+      "utc": "2026-11-08T05:54:24.330033+00:00"
+    },
+    "diagnostics": "",
+    "raw_verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 71
+    }
+  },
+  {
+    "application": {
+      "charged": true,
+      "elapsed_seconds": 7.125595917,
+      "expected": "positive80-restoration",
+      "export_sha256": "024c9f546285cc10893902cdefde7c9fe447d307a7610049245e8ec83e468984",
+      "folder": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/check-06-combined-byte-identical-restoration",
+      "label": "combined-byte-identical-restoration",
+      "launcher_error": null,
+      "number": 6,
+      "original": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined111.rs",
+      "returncode": 0,
+      "state": "completed",
+      "termination_reason": null,
+      "utc": "2026-11-08T05:55:22.505617+00:00"
+    },
+    "diagnostics": "",
+    "raw_verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 80
+    }
+  }
+]

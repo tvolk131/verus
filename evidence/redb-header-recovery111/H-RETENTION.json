@@ -1,0 +1,36 @@
+{
+  "acceptance": false,
+  "adoption": false,
+  "all18": "OPEN",
+  "archive": {
+    "bytes": 3763306,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-header-recovery111/H-CANDIDATE-HANDOFF.tar.gz",
+    "sha256": "4400adfbc685989d7c170c5c7cd67c54eea11ef922b3e06cd8b2c7943eb32f8f"
+  },
+  "archive_members_byte_compared": 127,
+  "expected": {
+    "additional_copies": [
+      "FINAL.patch",
+      "ACCOUNTING.json",
+      "RESTORATION.json"
+    ],
+    "all18": "OPEN",
+    "charged_applications": 12,
+    "handoff_sha256": "615ba834c3ee57e7584091c49aa8b556e208efb5250f3607eed28819805b2e60",
+    "label": "H",
+    "manifest_sha256": "74f9c69f848a3ed7342bce0a8ebc523e53fbe929576a55b50a89c2b06a044211",
+    "report_sha256": "bfbcaf8f359ac5c02c153762cfbe9cacd0e19a6ba905410af5e1b7fb2e241175",
+    "root": "/private/tmp/redb-header-recovery111-H-20261108T052400Z",
+    "source": "staging111.rs",
+    "source_sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31",
+    "verified_obligations": 9
+  },
+  "independent_review": "PENDING_SINGLE_COMBINED_REVIEW",
+  "integration": false,
+  "new_native_body_proof_credit": false,
+  "payload_matches": 125,
+  "schema": "redb111-candidate-retention-v1",
+  "selected_input_matches_entry_and_exit": 1416,
+  "source": "/private/tmp/redb-header-recovery111-H-20261108T052400Z",
+  "utc": "2026-11-08T05:37:33.336208+00:00"
+}

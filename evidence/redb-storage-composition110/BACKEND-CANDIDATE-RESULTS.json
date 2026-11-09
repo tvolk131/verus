@@ -1,0 +1,505 @@
+{
+  "acceptance": false,
+  "all18": "OPEN",
+  "application_cap": 16,
+  "applications_charged": 10,
+  "attempts": [
+    {
+      "checked_functions": [],
+      "diagnostic_kind": "native_frontend_unsupported_type",
+      "elapsed_seconds": 0.5655338764190674,
+      "export_exists": false,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-01/native_probe.vir",
+      "export_sha256": null,
+      "failed_functions": [],
+      "kind": "native-binding-probe",
+      "number": 1,
+      "sample": {
+        "elapsed_seconds": 146.98897194862366,
+        "free_bytes": 53150359552,
+        "scratch_bytes": 626201,
+        "utc": "2026-11-08T04:41:22.988958+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": false,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "ef8523987acdf33d39672e7adf0eb0a7fd6a64d20f1e555d34ce3b4df46be561",
+      "status": 1,
+      "stderr_sha256": "80d6c867fe64d8b17b57cce43c9c806d57a0be10fbebdf8f7e32a1a9e83ed1b2",
+      "stdout_sha256": "eb3b5e1651ba2fdeb151fd0b9705405e5c1ec4ee18fbf178e489420001fa0879",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "checked_functions": [],
+      "diagnostic_kind": "semantic_postcondition_failure",
+      "elapsed_seconds": 0.894744873046875,
+      "export_exists": false,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-02/backend_control110.vir",
+      "export_sha256": null,
+      "failed_functions": [
+        "backend_control110::nonvacuous_witnesses"
+      ],
+      "kind": "extracted-initial-positive",
+      "number": 2,
+      "sample": {
+        "elapsed_seconds": 284.2388050556183,
+        "free_bytes": 53148344320,
+        "scratch_bytes": 975147,
+        "utc": "2026-11-08T04:43:40.238788+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": false,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "5399e522077749189530e5ebeeb06afc6a3de758b3199331d87cede0a766f074",
+      "status": 1,
+      "stderr_sha256": "a903b0f6fa072b3f464ed85175b643296256df9c2c201a6d7ea240b0143b37d8",
+      "stdout_sha256": "c5aca4fac8350acf2a8fb2afc963c9df68a0a29025876c22203ef7ccf642a904",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    {
+      "checked_functions": [
+        "backend_control110::continuation_contract",
+        "backend_control110::error_payload_transport",
+        "backend_control110::exact_precedence",
+        "backend_control110::failure_then_arbitrary_suffix",
+        "backend_control110::first_error_order",
+        "backend_control110::history_contract",
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract"
+      ],
+      "diagnostic_kind": "full_crate_positive",
+      "elapsed_seconds": 0.4563891887664795,
+      "export_exists": true,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-03/backend_control110.vir",
+      "export_sha256": "f06ef7ed33dfa25aecf6f7ca59f7fc5d552ee514bc8c9156657040e8b1400c54",
+      "failed_functions": [],
+      "kind": "extracted-corrected-positive",
+      "number": 3,
+      "sample": {
+        "elapsed_seconds": 302.72592782974243,
+        "free_bytes": 53145460736,
+        "scratch_bytes": 1673842,
+        "utc": "2026-11-08T04:43:58.725920+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 9,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "b108c30b6bb0a77310ff2efe986e31c3bfa8183360f63399de3bd50a22b3830c",
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "64be9936a2399ebbbe88e4c779aaaed95d80a721d32c9315629986d5d1631c61",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 11
+      }
+    },
+    {
+      "checked_functions": [],
+      "diagnostic_kind": "semantic_postcondition_failure",
+      "elapsed_seconds": 0.5131080150604248,
+      "export_exists": false,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-04/backend_control110.vir",
+      "export_sha256": null,
+      "failed_functions": [
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract"
+      ],
+      "kind": "semantic-negative-normal-error-nonlatching",
+      "number": 4,
+      "sample": {
+        "elapsed_seconds": 311.2881360054016,
+        "free_bytes": 53141790720,
+        "scratch_bytes": 2009661,
+        "utc": "2026-11-08T04:44:07.288126+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": false,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "1372855c73487d34a0aa46df0263448cc9959aa406b231cb434e10fe61efb9cf",
+      "status": 1,
+      "stderr_sha256": "6d5be05d61c7a3e83819df21cc0a5c91d645d021222bf9070c0c7c9e5a9494a5",
+      "stdout_sha256": "630aba04c03a8a302e66f90b8d85610e95f7bfcdb98920fe0d5cccfc1a586b40",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 3,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 8
+      }
+    },
+    {
+      "checked_functions": [
+        "backend_control110::continuation_contract",
+        "backend_control110::error_payload_transport",
+        "backend_control110::exact_precedence",
+        "backend_control110::failure_then_arbitrary_suffix",
+        "backend_control110::first_error_order",
+        "backend_control110::history_contract",
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract"
+      ],
+      "diagnostic_kind": "full_crate_positive",
+      "elapsed_seconds": 0.45998692512512207,
+      "export_exists": true,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-05/backend_control110.vir",
+      "export_sha256": "7f9dcbb22bd97e79e6517ede490ec294d479171e4a6c4e7930a5901beb61bcd4",
+      "failed_functions": [],
+      "kind": "semantic-corrected-counterpart",
+      "number": 5,
+      "sample": {
+        "elapsed_seconds": 318.7006719112396,
+        "free_bytes": 53140922368,
+        "scratch_bytes": 2708361,
+        "utc": "2026-11-08T04:44:14.700661+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 9,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "b108c30b6bb0a77310ff2efe986e31c3bfa8183360f63399de3bd50a22b3830c",
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "9e60b66fee322ff5a6098361b1f3a795733052ed1421c62ad0ccc35ab4837753",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 11
+      }
+    },
+    {
+      "checked_functions": [
+        "backend_control110::continuation_contract",
+        "backend_control110::error_payload_transport",
+        "backend_control110::exact_precedence",
+        "backend_control110::failure_then_arbitrary_suffix",
+        "backend_control110::first_error_order",
+        "backend_control110::history_contract",
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract"
+      ],
+      "diagnostic_kind": "full_crate_positive",
+      "elapsed_seconds": 0.45543718338012695,
+      "export_exists": true,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-06/backend_control110.vir",
+      "export_sha256": "f18cb3bb446f3d43ec904b3bbce73e4fc6b38e08337c93f0a536844763b7e1cc",
+      "failed_functions": [],
+      "kind": "byte-identical-restored-positive",
+      "number": 6,
+      "sample": {
+        "elapsed_seconds": 319.53791403770447,
+        "free_bytes": 53139238912,
+        "scratch_bytes": 3407055,
+        "utc": "2026-11-08T04:44:15.537904+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 9,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "b108c30b6bb0a77310ff2efe986e31c3bfa8183360f63399de3bd50a22b3830c",
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "63fdd0e204e471141cd1924a330b834f89cf3861ea514653ec7a4a2cba9bff04",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 11
+      }
+    },
+    {
+      "checked_functions": [
+        "backend_control110::callback_error_transport",
+        "backend_control110::close_store_order",
+        "backend_control110::continuation_contract",
+        "backend_control110::error_payload_transport",
+        "backend_control110::exact_precedence",
+        "backend_control110::failure_then_arbitrary_suffix",
+        "backend_control110::first_error_order",
+        "backend_control110::history_contract",
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract",
+        "backend_control110::successful_guarded_prefix",
+        "backend_control110::successful_prefix_error_progress"
+      ],
+      "diagnostic_kind": "full_crate_positive",
+      "elapsed_seconds": 1.2526061534881592,
+      "export_exists": true,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-07/backend_control110.vir",
+      "export_sha256": "4a818c5556101ccf80cb356fea8d968a001de34bf19d8396fc1af684a6b72345",
+      "failed_functions": [],
+      "kind": "extended-positive",
+      "number": 7,
+      "sample": {
+        "elapsed_seconds": 390.8575417995453,
+        "free_bytes": 48771522560,
+        "scratch_bytes": 4261020,
+        "utc": "2026-11-08T04:45:26.857526+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 13,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "149da8096fcbcc95a329c3cd01bca9007def9461145a5f31f0ed2e590feeae07",
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "2b05010632463b3192175c56f4ab917a21f8aa603f2d1699c80bcfe1bb91f0c6",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 15
+      }
+    },
+    {
+      "checked_functions": [],
+      "diagnostic_kind": "semantic_postcondition_failure",
+      "elapsed_seconds": 0.5136609077453613,
+      "export_exists": false,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-08/backend_control110.vir",
+      "export_sha256": null,
+      "failed_functions": [
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract"
+      ],
+      "kind": "semantic-negative-best-effort-latches",
+      "number": 8,
+      "sample": {
+        "elapsed_seconds": 419.3706748485565,
+        "free_bytes": 53035278336,
+        "scratch_bytes": 4603742,
+        "utc": "2026-11-08T04:45:55.370667+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": false,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "34d8550b449bc64026b99be1d112ea6b2f48b1fb58b7cd656b3104b0f90434a8",
+      "status": 1,
+      "stderr_sha256": "00efe2ef97003e6a32293a2d62ba3b74dc66f26fa818e90b7cada5af892d0f62",
+      "stdout_sha256": "e509a07474b8fc9f4818d24cdcd733cc7549b5e4168603417758d111e8cb273e",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 3,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 12
+      }
+    },
+    {
+      "checked_functions": [
+        "backend_control110::callback_error_transport",
+        "backend_control110::close_store_order",
+        "backend_control110::continuation_contract",
+        "backend_control110::error_payload_transport",
+        "backend_control110::exact_precedence",
+        "backend_control110::failure_then_arbitrary_suffix",
+        "backend_control110::first_error_order",
+        "backend_control110::history_contract",
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract",
+        "backend_control110::successful_guarded_prefix",
+        "backend_control110::successful_prefix_error_progress"
+      ],
+      "diagnostic_kind": "full_crate_positive",
+      "elapsed_seconds": 1.1157090663909912,
+      "export_exists": true,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-09/backend_control110.vir",
+      "export_sha256": "64ced7465b117a2176e8725665b6d12a12943aa9a7b1ea94e55c69aef822f1f5",
+      "failed_functions": [],
+      "kind": "extended-corrected-counterpart",
+      "number": 9,
+      "sample": {
+        "elapsed_seconds": 442.2461450099945,
+        "free_bytes": 53031411712,
+        "scratch_bytes": 5453341,
+        "utc": "2026-11-08T04:46:18.246131+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 13,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "149da8096fcbcc95a329c3cd01bca9007def9461145a5f31f0ed2e590feeae07",
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6434aa3b3d32c122739176e3aed0829606ca2eab0f7a591d01eca06b5b6e3105",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 15
+      }
+    },
+    {
+      "checked_functions": [
+        "backend_control110::callback_error_transport",
+        "backend_control110::close_store_order",
+        "backend_control110::continuation_contract",
+        "backend_control110::error_payload_transport",
+        "backend_control110::exact_precedence",
+        "backend_control110::failure_then_arbitrary_suffix",
+        "backend_control110::first_error_order",
+        "backend_control110::history_contract",
+        "backend_control110::nonvacuous_witnesses",
+        "backend_control110::source_negative_counterparts",
+        "backend_control110::step_contract",
+        "backend_control110::successful_guarded_prefix",
+        "backend_control110::successful_prefix_error_progress"
+      ],
+      "diagnostic_kind": "full_crate_positive",
+      "elapsed_seconds": 0.5636560916900635,
+      "export_exists": true,
+      "export_path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-10/backend_control110.vir",
+      "export_sha256": "f5c9874ca11713df9fe03cbbf855f4d91043a890e1687214a95f6bff92ffed37",
+      "failed_functions": [],
+      "kind": "extended-byte-identical-restored-positive",
+      "number": 10,
+      "sample": {
+        "elapsed_seconds": 443.23756217956543,
+        "free_bytes": 53030608896,
+        "scratch_bytes": 6302975,
+        "utc": "2026-11-08T04:46:19.237550+00:00"
+      },
+      "scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 13,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true
+      },
+      "solver_assertion_total": null,
+      "solver_assertion_total_note": "Not exposed by this existing verifier; verified is retained exactly, not relabeled as an SMT assertion count.",
+      "source_sha256": "149da8096fcbcc95a329c3cd01bca9007def9461145a5f31f0ed2e590feeae07",
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "77a7b6436828f881e645907ea1c6fdcb586344198035183a1fda8f896887f6fa",
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 15
+      }
+    }
+  ],
+  "final_sample": {
+    "elapsed_seconds": 724.3011908531189,
+    "free_bytes": 51398680576,
+    "scratch_bytes": 6764389,
+    "utc": "2026-11-08T04:51:00.301187+00:00"
+  },
+  "lane": "B",
+  "native_applications": 1,
+  "native_cap": 3,
+  "native_checked_original_bodies": 0,
+  "restored_groups": [
+    {
+      "byte_identical_sources": true,
+      "corrected": 5,
+      "initial": 3,
+      "negative": 4,
+      "restored": 6
+    },
+    {
+      "byte_identical_sources": true,
+      "corrected": 9,
+      "initial": 7,
+      "negative": 8,
+      "restored": 10
+    }
+  ],
+  "schema": "round110-lane-B-results-v1",
+  "source_sha256": "149da8096fcbcc95a329c3cd01bca9007def9461145a5f31f0ed2e590feeae07"
+}

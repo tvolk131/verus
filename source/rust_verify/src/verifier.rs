@@ -620,6 +620,9 @@ impl Verifier {
 
     /// merges two verifiers by summing up times and verified stats from other into self.
     pub fn merge(&mut self, other: Self) {
+        self.inference_generation
+            .loop_point_preparation
+            .extend(other.inference_generation.loop_point_preparation);
         self.count_verified += other.count_verified;
         self.count_errors += other.count_errors;
         self.func_fails.extend(other.func_fails);
@@ -1513,6 +1516,9 @@ impl Verifier {
                 let Some(op) = next_op else {
                     break;
                 };
+                self.inference_generation
+                    .loop_point_preparation
+                    .extend(op.loop_point_preparation.iter().cloned());
                 match &op.kind {
                     OpKind::Context(_context_op, commands) => {
                         let batch = CommandBatch::new(op.to_air_comment(), commands.clone());
@@ -2905,6 +2911,8 @@ impl Verifier {
         let local_crate = query.get_exportable_crate();
         self.inference_generation = query.inference_generation.clone();
         let local_crate = local_crate.map_err(map_query_err)?;
+        vir::native_resource::reject_crate(&local_crate, "native source admission")
+            .map_err(map_err_diagnostics)?;
         if self.args.no_lifetime
             && (local_crate.functions.iter().any(vir::infer::uses_byte_vec_resources)
                 || !self.imported_inference_dependencies.is_empty())

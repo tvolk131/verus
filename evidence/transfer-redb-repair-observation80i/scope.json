@@ -1,0 +1,209 @@
+[
+  {
+    "function": "<StorageError as std::fmt::Debug>::fmt",
+    "rust_function": "<StorageError as std::fmt::Debug>::fmt",
+    "automatically_derived": true,
+    "selected": false,
+    "body_status": "outside_selected_scope",
+    "inference_candidate": false,
+    "ordinary_contract": false
+  },
+  {
+    "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+    "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "selected_item_without_translated_body",
+    "inference_candidate": false,
+    "ordinary_contract": false
+  },
+  {
+    "function": "observation::StorageError::arrow_Corrupted_0",
+    "rust_function": "StorageError::arrow_Corrupted_0",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::StorageError::arrow_Io_0",
+    "rust_function": "StorageError::arrow_Io_0",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::StorageError::arrow_LockPoisoned_0",
+    "rust_function": "StorageError::arrow_LockPoisoned_0",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::StorageError::arrow_ValueTooLarge_0",
+    "rust_function": "StorageError::arrow_ValueTooLarge_0",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::UnrepairedDatabaseHeader::finalize_transaction_slots",
+    "rust_function": "UnrepairedDatabaseHeader::finalize_transaction_slots",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::accepted_gate",
+    "rust_function": "accepted_gate",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::corrupted_observation",
+    "rust_function": "corrupted_observation",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::corruption_is_not_success",
+    "rust_function": "corruption_is_not_success",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_proof_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::false_observation",
+    "rust_function": "false_observation",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::gate_post",
+    "rust_function": "gate_post",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": false
+  },
+  {
+    "function": "observation::invalid_index_is_not_validated",
+    "rust_function": "invalid_index_is_not_validated",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::io_is_not_boolean",
+    "rust_function": "io_is_not_boolean",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_proof_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::io_observation",
+    "rust_function": "io_observation",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::noncorrupt_error",
+    "rust_function": "noncorrupt_error",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::noncorruption_result",
+    "rust_function": "noncorruption_result",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": false
+  },
+  {
+    "function": "observation::normalize_observation",
+    "rust_function": "normalize_observation",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::normalized",
+    "rust_function": "normalized",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "specification_definition_or_declaration",
+    "inference_candidate": false,
+    "ordinary_contract": false
+  },
+  {
+    "function": "observation::poisoned_observation",
+    "rust_function": "poisoned_observation",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::rejected_gate",
+    "rust_function": "rejected_gate",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::true_is_not_false",
+    "rust_function": "true_is_not_false",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_proof_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  },
+  {
+    "function": "observation::true_observation",
+    "rust_function": "true_observation",
+    "automatically_derived": false,
+    "selected": true,
+    "body_status": "checked_exec_body",
+    "inference_candidate": false,
+    "ordinary_contract": true
+  }
+]

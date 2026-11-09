@@ -1,0 +1,212 @@
+{
+  "accepted_baseline": {
+    "files": 2209,
+    "identity": [
+      82,
+      76,
+      38
+    ],
+    "immutable_paths": 1401,
+    "seal_sha256": "d686767f32149fc4a73311b7339ddb61599b5b973a821ee087f89361e44a0e22"
+  },
+  "author_budget": {
+    "authored_abstraction_and_high_level_operation_contracts": true,
+    "engine_generated_checked_erased_annotations": true,
+    "entry_ghost_snapshots_max": 1,
+    "exceptions": "Parent must explicitly approve any relaxed freeze; no silent grandfathering of tuple contracts or prior word lemmas.",
+    "executable_body_edits": 0,
+    "flattened_semantic_loop_clauses_max": 3,
+    "ghost_cursor_bindings_max": 1,
+    "handwritten_auxiliary_lemmas": 0,
+    "handwritten_broadcast_registrations": 0,
+    "handwritten_local_assertions": 0,
+    "handwritten_local_proof_blocks": 0,
+    "handwritten_routine_helper_contracts": 0,
+    "semantic_loop_predicates_max": 1
+  },
+  "baseline_root": "/private/tmp/verus-bitmap-stateful-goal.IR9WYXR2/baseline82",
+  "before_accounting_sha256": "ee192c901e0ed39e8aa586ea932da774aa7164beac0fd8ae70e0eee0d46a3820",
+  "completed_implementation_review_cycles": 0,
+  "completion_matrix": [
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-SOURCE",
+      "requirement": "Pinned native struct and all nine bodies (bits_in_range, required_words, data_index_of, select_mask, len, resize, get, set, clear); keep inclusive for, Vec growth, mutable slot borrow, arithmetic and assertions; audit erased annotations."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-DOMAIN",
+      "requirement": "valid iff len<=64*stored_len; unrestricted u32 old/new, arbitrary words/padding/spares; qualified 32/64 and debug/release, existing allocation/abort treatment."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-LENGTH",
+      "requirement": "Native universal theorem: valid result, logical len=n, stored len=max(old_storage,ceil(n/64))."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-PREFIX",
+      "requirement": "For every live bit below min(old_len,n), preserve value; direct native get composition."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-INIT",
+      "requirement": "Every old_len<=q<n equals full, including partial words and preexisting spare storage."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-FRAME",
+      "requirement": "All original stored bits outside [old_len,n) unchanged; every appended word exactly default including padding."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-REGROW",
+      "requirement": "Native shrink-to-zero and arbitrary shrink/regrow compositions reinitialize hidden bits, with exact storage frame."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-UPDATE",
+      "requirement": "Native get/set/clear compose after resize; selected-bit and full stored frame; set returns entire selected u64==MAX."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-AUTO",
+      "requirement": "Same executable body, full domain, no replacement helper; remove measured routine proof work with generic production assistance."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-INVARIANT",
+      "requirement": "One authored semantic predicate/three flattened clauses, one entry snapshot, one cursor label; zero authored routine proof plumbing."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-GENERIC",
+      "requirement": "Nonbitmap unsigned scalar/pair, Vec-growth/range/frame and bit-observation regressions; intended false-property controls."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-IMPORT",
+      "requirement": "Real local/provider/imported native proofs and dependency hashes; distinguish ordinary contracts, sound summaries and exact synthesis."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-CACHE",
+      "requirement": "Cold/warm mandatory checks; seeded semantic/safety/resource/import failures; distinguish failed interface removal from stale rlib."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-CONTROLS",
+      "requirement": "Wrong native updates/range/prefix/padding/length/regrowth/flag and weak/missing domains rejected with intended diagnostics."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-RUNTIME",
+      "requirement": "Matching production source/runtime/vstd/toolchain identity; immutable inventory and integrated build attestation."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-REGRESS",
+      "requirement": "Focused production Rust/VIR/Python normal and -O checks plus previous accepted targets/common frontdoors."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-GATES",
+      "requirement": "Real composed acceptance receipts and guards tested with malformed inputs and isolated guard removals."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-REVIEW",
+      "requirement": "Fresh independent review of mechanics, native theorem, integration, source fidelity and author budget; findings resolved."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-PRESERVE",
+      "requirement": "Exact accepted tree reconstruction and baseline-relative deltas, immutable pins, unchanged own Git state, qualified shared refs."
+    },
+    {
+      "goal_completion_status": "OPEN_NOT_DISCHARGED_BY_FEASIBILITY",
+      "id": "S-HANDOFF",
+      "requirement": "Per-row final audit, reproducible artifacts/commands, honest automation and outstanding-boundary accounting."
+    }
+  ],
+  "date": "2026-11-03",
+  "domain": {
+    "allocation": "existing vstd returning-call/resource/abort treatment; no OOM recovery or availability theorem",
+    "architectures": "Verus Either32Or64 or explicitly accepted proof configuration; native execution qualified separately",
+    "live_indices": "bit < logical len for get/set/clear",
+    "new_len": "all u32",
+    "old_len": "all u32",
+    "representation": "len as int <= 64 * data@.len()",
+    "stored_words": "arbitrary valid Vec<u64>, including spare words and arbitrary padding"
+  },
+  "format": "native-bitmap-stateful-goal-freeze-v1",
+  "grandfathered_state77_word_lemmas_allowed": false,
+  "implementation_cycle_starting": 1,
+  "manual_auxiliary_lemmas_allowed": [],
+  "manual_native_helper_contracts_allowed": [],
+  "maximum_implementation_review_cycles": 3,
+  "native_source_ledger_sha256": "63f73472cb24677415420b71981effd92ec1753c5045349cdd36183dbab2f74a",
+  "new_trusted_correspondence_authorized": {
+    "conditions": [
+      "actual resolved std/type identity",
+      "exact ceiling equation",
+      "divisor nonzero remains required",
+      "per-type declaration audit",
+      "no application axioms or assumed mutable-state summaries"
+    ],
+    "family": "native unsigned div_ceil",
+    "implemented_declarations": [],
+    "kind": "trusted Rust standard-library correspondence, not verified std implementation"
+  },
+  "no_scope_relaxation_without_explicit_recorded_parent_decision": true,
+  "operation_intent": {
+    "appended_words": "forall j in [old.data.len,after.data.len): after.data[j] == (u64::MAX if full else 0)",
+    "logical_length": "new_len",
+    "original_stored_bits": "forall q in [0,64*old.data.len): after_bit(q) == (full if old.len<=q<new_len else old_bit(q))",
+    "set_return": "entire final selected stored word == u64::MAX",
+    "stored_length": "max(old.data.len,ceil(new_len/64))",
+    "valid": true
+  },
+  "precision_policy": {
+    "bounded_target": "ordinary authored high-level contracts proved by reusable assistance",
+    "exact_state_inference_claim_allowed": false,
+    "exact_state_synthesis_expansion": "requires explicit additional parent scope; ordinary theorem completeness is not synthesis exactness",
+    "sound_mutation_summaries": "permitted only with soundness label and actual certified contracts"
+  },
+  "prohibited_narrowing": [
+    "fixed/reduced logical lengths",
+    "minimal storage equality or zero padding",
+    "growth-only proof",
+    "while or array replacement",
+    "checked arithmetic helper replacement counted as native",
+    "assumed bitmap summaries/axioms or external_body wrappers",
+    "standalone existing math or finite oracle counted as new inference"
+  ],
+  "research": {
+    "root": "/private/tmp/bitmap-cycle0-uq87zf_q",
+    "scope_proposal_sha256": "85a906d5fc0ce3ab2e6068e144fbc5205bbd33831e0b19f5278e20a23a03e554",
+    "seal_sha256": "d483b1f90924ce2261fd919ce221f59f3c8164f3abdce0b1f5243dbf21ac62dd"
+  },
+  "scope_document_sha256": "70011746116d11409823d741fd024ea63396c67d3872acbbec547345f067a8af",
+  "semantic_invariant": {
+    "M": "max(E.data@.len(),ceil(new_len/64))",
+    "clauses": [
+      "self.len == new_len",
+      "self.data@.len() == M",
+      "forall q in [0,64*M): self_bit(q) == (full if E.len<=q<new_len && q<64*k else E_bit(q) if q<64*E.data@.len() else full)"
+    ],
+    "cursor": "original RangeInclusive ghost cursor",
+    "entry": "E=*old(self) ghost snapshot",
+    "k": "(E.len as int)/64 + cursor.index()",
+    "routine_generated_obligations": [
+      "old_len and endpoint equalities",
+      "iterator index relations",
+      "word and window safety",
+      "Vec bounds/clone/pre-loop-growth relations",
+      "pre-borrow sequence snapshots",
+      "bit instantiation/update/frame induction"
+    ]
+  },
+  "status": "FROZEN_IMPLEMENTATION_AUTHORIZED_NOT_PROVED_OR_ACCEPTED",
+  "whole_application_or_durability_claim": false
+}

@@ -1,0 +1,164 @@
+{
+  "schema": "infer-consolidation-hardening95-results-v1",
+  "date": "2026-11-07",
+  "classification": "qualified-reviewed engineering milestone, not native proof acceptance",
+  "baseline_head": "b32846b61dcf724618f7345e219e5007a0c79643",
+  "baseline_file_count": 2369,
+  "changed_baseline_files": {
+    "README.md": {
+      "baseline_sha256": "c3417bb55ded0caa0052aab63964f5e7f6bc61b8c60a18d48e5aeb6e22a5632f",
+      "final_sha256": "b0ffd2c07d7476634e9ee1c972ccd5907c9db38cda31a8a4e892459fc616ffbb"
+    },
+    "evidence/redb-crash-consistency94/GOAL.md": {
+      "baseline_sha256": "79c162917ab06796b79cf3c8fdd9250f925144f87cdee029ecb6f3a71def9a51",
+      "final_sha256": "c98118382feb05e5262db6d3a151322099f36ee395b4950eada988e78a5541c0"
+    },
+    "evidence/redb-crash-consistency94/STATUS.json": {
+      "baseline_sha256": "681f2ab2e8127c0e08c2ab19c4ccb063da25c58bb0bd7a3116ae1e96fa7e13be",
+      "final_sha256": "0f199526c83577df4931f94e55ecc3e4c0524c9730fc078d1f99f117f467bb92"
+    },
+    "evidence/redb-crash-consistency94/TAKEOVER.md": {
+      "baseline_sha256": "dc44e7c6628d8d0b3bdbc369b9ef12feea6f960791550ee9abc04ea74e5561fb",
+      "final_sha256": "bd25a5132abba458388f95a1e0543f2695b89cedc5d00df289479137025366c9"
+    },
+    "source/Cargo.lock": {
+      "baseline_sha256": "30cd48d355d863cc714c0768bb1b69adb618d77fcd395c916acedb8e63456bc4",
+      "final_sha256": "d7027da39db272c32cedb76629d812879719e129bd2a9091ebc1166e89a71190"
+    },
+    "source/rust_verify/Cargo.toml": {
+      "baseline_sha256": "e5142aef4cdcde1e4f43cc67e1fa234470381d7187b99bd5bb154ef1194930c8",
+      "final_sha256": "0ef388007ba78f9a331deedeb2ec0db0e1dde97df4b06be9ef43ad4bbbf2400d"
+    },
+    "source/rust_verify/src/import_export.rs": {
+      "baseline_sha256": "b8113d55555fdbb9f450f256456ea29f0982cd39991bcae5c2b9ddb60b36ece2",
+      "final_sha256": "f3e2427390ab3e14c644d8c773f0397fc7be43bc1f6106230abcec9f2a899c50"
+    },
+    "source/tools/INFER_TRANSFERS.md": {
+      "baseline_sha256": "8f442554f69e6a0a342558542de9db5e1fa1c10948742e1a325d7e80794ed4db",
+      "final_sha256": "6c1c4f76877f686e843d65b9752142974dc77c5910196e823ad7206cef7dea25"
+    },
+    "source/tools/test_fedimint_insert_link80a.py": {
+      "baseline_sha256": "794de6e32cc024f6c0cd9f8d754d9542bd98a30617440fdae39e947b092f0299",
+      "final_sha256": "ca1b791dd37f63836494efa9128d9508a969389884e9e4cbbbc52901019b4f0c"
+    },
+    "source/vir/NATIVE_RESOURCE_IR.md": {
+      "baseline_sha256": "0feb6028ea15460120a3c978dc6e70a1f37ac8de93d5e96e47f68a7a6ca2a18a",
+      "final_sha256": "b74399cd858faa5e00a948885ea9f1e0bb965168a4fcafed17ec1ef53442e07e"
+    }
+  },
+  "unrelated_baseline_files_unchanged": 2359,
+  "unexpected_baseline_changes": [],
+  "new_candidate_files": [
+    "VERUS_INFER_STATUS.md",
+    "evidence/infer-consolidation95/README.md",
+    "source/rust_verify/src/import_export/native_resource_boundary_tests.rs",
+    "source/tools/check_native_resource_boundaries.py",
+    "source/tools/fixtures/fedimint_insert_link80a.rs",
+    "source/tools/test_native_resource_boundaries.py"
+  ],
+  "reviewed_manifest_sha256": "6ad85bcda481a15479d073c6f1f93b210a6c2b0dfbe809e9c4adab197df4d001",
+  "reviewed_archive": {
+    "path": "REVIEWED-CANDIDATE.tar.gz",
+    "sha256": "4524798261c3a18b2e80da0b41b4f05254b29e4e259ca5bb52f875052901268c",
+    "authenticated_regular_file_count": 289
+  },
+  "review": {
+    "path": "INDEPENDENT-REVIEW.md",
+    "sha256": "09495f11b1e04784eda432d5101556e9448bd08072876e9e64aba064b2dc1da5",
+    "verdict": "qualified support; no blocking narrow implementation defect",
+    "execution_by_reviewer": false
+  },
+  "post_review_changes": {
+    "documentation_only": [
+      "VERUS_INFER_STATUS.md",
+      "evidence/infer-consolidation95/README.md",
+      "evidence/redb-crash-consistency94/GOAL.md",
+      "evidence/redb-crash-consistency94/STATUS.json",
+      "evidence/redb-crash-consistency94/TAKEOVER.md"
+    ],
+    "production_test_replay_sources_unchanged": true,
+    "added_evidence": [
+      "REVIEWED-CANDIDATE.tar.gz",
+      "INDEPENDENT-REVIEW.md",
+      "RESULTS.json"
+    ],
+    "final_candidate_hashes": {
+      "README.md": "b0ffd2c07d7476634e9ee1c972ccd5907c9db38cda31a8a4e892459fc616ffbb",
+      "VERUS_INFER_STATUS.md": "0142604fcbe3c222a678a0dccc05809e4a1e879a972420336dd5c20765ca3154",
+      "evidence/infer-consolidation95/README.md": "8cd402ad0e89795c80ddebe38286f1c4b3ccdb749db050918620782785d9779f",
+      "evidence/redb-crash-consistency94/GOAL.md": "c98118382feb05e5262db6d3a151322099f36ee395b4950eada988e78a5541c0",
+      "evidence/redb-crash-consistency94/STATUS.json": "0f199526c83577df4931f94e55ecc3e4c0524c9730fc078d1f99f117f467bb92",
+      "evidence/redb-crash-consistency94/TAKEOVER.md": "bd25a5132abba458388f95a1e0543f2695b89cedc5d00df289479137025366c9",
+      "source/Cargo.lock": "d7027da39db272c32cedb76629d812879719e129bd2a9091ebc1166e89a71190",
+      "source/rust_verify/Cargo.toml": "0ef388007ba78f9a331deedeb2ec0db0e1dde97df4b06be9ef43ad4bbbf2400d",
+      "source/rust_verify/src/import_export.rs": "f3e2427390ab3e14c644d8c773f0397fc7be43bc1f6106230abcec9f2a899c50",
+      "source/rust_verify/src/import_export/native_resource_boundary_tests.rs": "970dfdaff86799fcb7a328529182dc1f388fd70564d2aeefe8a55983de2133de",
+      "source/tools/INFER_TRANSFERS.md": "6c1c4f76877f686e843d65b9752142974dc77c5910196e823ad7206cef7dea25",
+      "source/tools/check_native_resource_boundaries.py": "0da54b8fb6455a7becb837a5f01299720042b772989964d7fd76891e2b5640e1",
+      "source/tools/test_native_resource_boundaries.py": "66696743b3dc31c3ee29e5c3fff1631d5b1c15b3b4ab5fcb563ed1cbeaf2a636",
+      "source/tools/test_fedimint_insert_link80a.py": "ca1b791dd37f63836494efa9128d9508a969389884e9e4cbbbc52901019b4f0c",
+      "source/tools/fixtures/fedimint_insert_link80a.rs": "feb2c3567a90fe754bc435b556a484ce74b39c1f3899add3c3b34aa16e1037a7",
+      "source/vir/NATIVE_RESOURCE_IR.md": "b74399cd858faa5e00a948885ea9f1e0bb965168a4fcafed17ec1ef53442e07e"
+    }
+  },
+  "validation": {
+    "boundary_replays": [
+      {
+        "receipt_in_reviewed_archive": "evidence/replay2/receipt.json",
+        "receipt_sha256": "f35788692f2eb1495e87696a274e9ab48318ce96f4159350dc05619c90f61007",
+        "success": true,
+        "profiles": [
+          "default-off",
+          "feature-on"
+        ],
+        "named_tests_per_profile": 5,
+        "ignored_tests_per_profile": 0,
+        "selected_input_count": 245,
+        "selected_inputs_match_final": true
+      },
+      {
+        "receipt_in_reviewed_archive": "evidence/replay3/receipt.json",
+        "receipt_sha256": "5dc2a04c4a3563128f8bb95e646b385d0f686e93f799ea530c1101774d444cca",
+        "success": true,
+        "profiles": [
+          "default-off",
+          "feature-on"
+        ],
+        "named_tests_per_profile": 5,
+        "ignored_tests_per_profile": 0,
+        "selected_input_count": 245,
+        "selected_inputs_match_final": true
+      }
+    ],
+    "python_tooling": {
+      "tests_run": 622,
+      "passed": 621,
+      "skipped": 1,
+      "log_in_reviewed_archive": "evidence/python-tooling-2.log",
+      "log_sha256": "5725f896b243bec68145f40fa8a4317a77d03e3a1aa7779f99372033cce8d8a8"
+    }
+  },
+  "native_proof_credit_added": 0,
+  "final_redb_obligations_open": 18,
+  "trust_scope_or_admission_changed": false,
+  "historical_cycle1_allowances": {
+    "compile_commands_used": 4,
+    "compile_commands_max": 4,
+    "test_commands_used": 6,
+    "test_commands_max": 6,
+    "resource_solver_submissions_accounted": 91,
+    "resource_solver_submissions_explicitly_traced": 70,
+    "resource_solver_submissions_max": 96,
+    "correction_rounds_used": 3,
+    "correction_rounds_max": 3
+  },
+  "remaining_limits": [
+    "no marked local Rust producer, actual lowerer matrix or full Cargo driver run",
+    "actual-driver unmarked control covers only no-verify",
+    "metadata precedence source-proven, not enforced by appended suffix alone",
+    "selected input provenance is not complete runtime or hermetic environment provenance",
+    "synthetic Fedimint unit fixture is not a restored original checkout or native proof",
+    "historical goal service remains blocked; no refused or exhausted task is resumed",
+    "independent frozen-engine hex experiment stopped at frontend visibility, not an accepted proof"
+  ]
+}

@@ -1,0 +1,896 @@
+{
+  "after": {
+    "checkpoint": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+    "counts": {
+      "fedimint_native_sources": 1199,
+      "file-hashes.json": 1976,
+      "guarded-inputs.json": 3395,
+      "redb_native_sources": 132,
+      "runtime-hashes.json": 9,
+      "rust-build-input-hashes.json": 1085,
+      "source-hashes.json": 1566,
+      "toolchain-hashes.json": 61
+    },
+    "frozen_patch_sha256": "545e330ee87d539aa727154a6121f251f557a18867be62517a9867592a372e12",
+    "identity": [
+      77,
+      71,
+      38
+    ],
+    "inspected_dependencies_sha256": {
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/db/c.cc": "330132ac83bb4117bcbe4e061b16e05ab515c1e0e471c04c1b4d56776a9a721a",
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/utilities/transactions/optimistic_transaction.cc": "64594ef0b918f336e041749b2c4eb2d1da3c020a2b0ea446814fd141b97e185b",
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/utilities/transactions/transaction_base.cc": "a2f12ccc091a038f4bef887bff3242b0ec987db050770b08b7f449c38567c82d",
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rocksdb-0.24.0/src/transactions/transaction.rs": "efa74ea401a3557a0cd4d374287774871b93edfbd5c9c03e34ae39d0a1c64a87"
+    },
+    "ledger_sha256": {
+      "file-hashes.json": "173bdc3ccbac0d4d4d5b41d7b7c0a0d90d8b00549aff711af194aad7c3d355e8",
+      "guarded-inputs.json": "a762b8e2af1607b1b20ddc4be7b3b63f77464dea3a7aec45957d539893eface7",
+      "native-hashes.json": "88612d38fd7784d065e0b2ee2468ed785fb399ed653912683bd522f84251cdb6",
+      "runtime-hashes.json": "6049c563cd2310d3faf890b6c1a61b83e0acc27eb1c5ca3d2e12904e598c4f86",
+      "rust-build-input-hashes.json": "663e7236003edf574149f491b1a99764785a65a05833961af3d2b99232fc6c43",
+      "source-hashes.json": "ad1c39377607b3b6b53ea9eb97dd0fe80d393ea6490a5d4d1c6c88b516777743",
+      "toolchain-hashes.json": "367af9e5ee0e1be37bb1582f562dcf929f4eaf3c4acad6805f0d4c0b37f1f596"
+    },
+    "native_pin": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+    "source_sha256": {
+      "fedimint-core/src/db/mod.rs": "a44f6b54cae3033e1a5896c09bdff9f737dd1af7419ac14d406bf0ed2043377b",
+      "fedimint-core/src/session_outcome.rs": "8a41d99350451f9fc5609a661d513069bdc751a38b003097026ededbac8cbdba",
+      "fedimint-rocksdb/src/lib.rs": "5c46f4346f5c869b22f4ae8894c93178323f9fc42e459ec8ce415f53b1e4cf25",
+      "fedimint-server/src/consensus/db.rs": "b1e896c16e027af6fa6fb01188e918df29480a3d44be0a909717008f3bd1ed05",
+      "fedimint-server/src/consensus/engine.rs": "dffbb300941944f3360ec15377f86f6befd203319de321b52c7e924f901323d1"
+    }
+  },
+  "before": {
+    "checkpoint": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+    "counts": {
+      "fedimint_native_sources": 1199,
+      "file-hashes.json": 1976,
+      "guarded-inputs.json": 3395,
+      "redb_native_sources": 132,
+      "runtime-hashes.json": 9,
+      "rust-build-input-hashes.json": 1085,
+      "source-hashes.json": 1566,
+      "toolchain-hashes.json": 61
+    },
+    "frozen_patch_sha256": "545e330ee87d539aa727154a6121f251f557a18867be62517a9867592a372e12",
+    "identity": [
+      77,
+      71,
+      38
+    ],
+    "inspected_dependencies_sha256": {
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/db/c.cc": "330132ac83bb4117bcbe4e061b16e05ab515c1e0e471c04c1b4d56776a9a721a",
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/utilities/transactions/optimistic_transaction.cc": "64594ef0b918f336e041749b2c4eb2d1da3c020a2b0ea446814fd141b97e185b",
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/utilities/transactions/transaction_base.cc": "a2f12ccc091a038f4bef887bff3242b0ec987db050770b08b7f449c38567c82d",
+      "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rocksdb-0.24.0/src/transactions/transaction.rs": "efa74ea401a3557a0cd4d374287774871b93edfbd5c9c03e34ae39d0a1c64a87"
+    },
+    "ledger_sha256": {
+      "file-hashes.json": "173bdc3ccbac0d4d4d5b41d7b7c0a0d90d8b00549aff711af194aad7c3d355e8",
+      "guarded-inputs.json": "a762b8e2af1607b1b20ddc4be7b3b63f77464dea3a7aec45957d539893eface7",
+      "native-hashes.json": "88612d38fd7784d065e0b2ee2468ed785fb399ed653912683bd522f84251cdb6",
+      "runtime-hashes.json": "6049c563cd2310d3faf890b6c1a61b83e0acc27eb1c5ca3d2e12904e598c4f86",
+      "rust-build-input-hashes.json": "663e7236003edf574149f491b1a99764785a65a05833961af3d2b99232fc6c43",
+      "source-hashes.json": "ad1c39377607b3b6b53ea9eb97dd0fe80d393ea6490a5d4d1c6c88b516777743",
+      "toolchain-hashes.json": "367af9e5ee0e1be37bb1582f562dcf929f4eaf3c4acad6805f0d4c0b37f1f596"
+    },
+    "native_pin": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+    "source_sha256": {
+      "fedimint-core/src/db/mod.rs": "a44f6b54cae3033e1a5896c09bdff9f737dd1af7419ac14d406bf0ed2043377b",
+      "fedimint-core/src/session_outcome.rs": "8a41d99350451f9fc5609a661d513069bdc751a38b003097026ededbac8cbdba",
+      "fedimint-rocksdb/src/lib.rs": "5c46f4346f5c869b22f4ae8894c93178323f9fc42e459ec8ce415f53b1e4cf25",
+      "fedimint-server/src/consensus/db.rs": "b1e896c16e027af6fa6fb01188e918df29480a3d44be0a909717008f3bd1ed05",
+      "fedimint-server/src/consensus/engine.rs": "dffbb300941944f3360ec15377f86f6befd203319de321b52c7e924f901323d1"
+    }
+  },
+  "cases": [
+    {
+      "acceptance": {
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 16,
+        "inference": false,
+        "specification_definitions": 15,
+        "verified": 18,
+        "whole_selected_scope": true
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_debug/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_debug/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_debug/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "8c4cd19836dbb0a6e81610d31691bbd82435d25a4870d31a7ea0b487e7c3472f",
+        "model.rlib": "63d6eb3c0a78fcd8b5b9f0c5017ebc9104cf0b94f033aca2fceeca6420fd343d",
+        "model.rs": "e373a378184c79523b32d134a8ba61a04c5210adb9a1bfa935fcacd9d86bdb4c",
+        "model.vir": "e4ec32d5fce2d4e85d2bff8273520438b45de5bdb3481fb25c2549e98513ec8f",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.json": "3fdf48859ea11d48197327c8c4adc631673f4cd5e6bbfeb8f8a59cf7f4a49793"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_debug",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "positive",
+      "imports": [],
+      "label": "positive_debug",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "e4ec32d5fce2d4e85d2bff8273520438b45de5bdb3481fb25c2549e98513ec8f"
+      },
+      "no_cheating": true,
+      "returncode": 0,
+      "seconds": 0.4844124590000001,
+      "seeded_export_sha256": null,
+      "source_sha256": "e373a378184c79523b32d134a8ba61a04c5210adb9a1bfa935fcacd9d86bdb4c"
+    },
+    {
+      "acceptance": {
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 16,
+        "inference": false,
+        "specification_definitions": 15,
+        "verified": 18,
+        "whole_selected_scope": true
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_release/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_release/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_release/model.rlib",
+        "-C",
+        "debug-assertions=no"
+      ],
+      "artifacts": {
+        "command.json": "04b476ce7b63929ff51ed7928ecf7ef3ee2f0ccd253c928eb807396871788a58",
+        "model.rlib": "b23aabdd903b84bf74e4f4698bb6e64c71dedce79c5794043db6c219aa0f058b",
+        "model.rs": "e373a378184c79523b32d134a8ba61a04c5210adb9a1bfa935fcacd9d86bdb4c",
+        "model.vir": "c37d102a874711e7e4e25356bf9c7b477f0c9528fb278036ba37e395f3a9f352",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.json": "648f228aa7b32a35213927e274fd721c8f1ce57c76c15f997f65c929e8da97e3"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/positive_release",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "positive",
+      "imports": [],
+      "label": "positive_release",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "c37d102a874711e7e4e25356bf9c7b477f0c9528fb278036ba37e395f3a9f352"
+      },
+      "no_cheating": true,
+      "returncode": 0,
+      "seconds": 0.4683674590000002,
+      "seeded_export_sha256": null,
+      "source_sha256": "e373a378184c79523b32d134a8ba61a04c5210adb9a1bfa935fcacd9d86bdb4c"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/marker_only/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/marker_only/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/marker_only/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "00e116504bfdf95bbbdc9c30641264393de11951de2848c0b409c32cffe81661",
+        "model.rs": "bb7eea7068dd6978611418e2dcc2c89753c506519ff04b85abaabb378853b35f",
+        "model.vir": "18efdd9c9c3d5312b90b5875fc2b6ba5ed6561267030abc645e9b48a7fbd9d86",
+        "stderr.txt": "8de6a9bfe3e6ce588d89bdc93a5fcfe47a35338ba44fe2eb2dee8d3f9ad11f92",
+        "stdout.json": "137171148b8017e68e47f12fdda5f97644828240cd11ac2c614579f8093c6bd4"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/marker_only",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "marker_only",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "18efdd9c9c3d5312b90b5875fc2b6ba5ed6561267030abc645e9b48a7fbd9d86"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.43679316700000026,
+      "seeded_export_sha256": null,
+      "source_sha256": "bb7eea7068dd6978611418e2dcc2c89753c506519ff04b85abaabb378853b35f"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/effects_only/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/effects_only/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/effects_only/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "4a76ca637b0a099864714c11b89a670845ece06a5c5ff11cd36a86cf6cf18392",
+        "model.rs": "9c9a9f4e21a36d87ffae14fe8b4f0e436fafb5a849589f5bc1884331768a0f0e",
+        "model.vir": "1e07eb9831a0da799ba674c8aaf9fdd5dc0a7598d2f1ce9367e9c78bd817c0f7",
+        "stderr.txt": "dc5546f90d34334c11fc6992018a699fe65bcf81845c6fb7310144a983a99335",
+        "stdout.json": "4dd718174469c0f3635a1b35999c1b67d90788937cc732bf8b0bb4a2bf68403b"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/effects_only",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "effects_only",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "1e07eb9831a0da799ba674c8aaf9fdd5dc0a7598d2f1ce9367e9c78bd817c0f7"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.4402795840000002,
+      "seeded_export_sha256": null,
+      "source_sha256": "9c9a9f4e21a36d87ffae14fe8b4f0e436fafb5a849589f5bc1884331768a0f0e"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/missing_dedup/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/missing_dedup/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/missing_dedup/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "d16777438ac4b62a7ea78a8686fa1fdd95baa060cf1d7edd6a70a22f18898c18",
+        "model.rs": "f56e0706c25b44c9c759a6f32ea9c8cea61e3574624aacd956e3e0fabf15c101",
+        "model.vir": "a7e4ed5e7abe9d552e2527b3e9e144895682ffa2eb1e1e7b853a4766dd7e8ffc",
+        "stderr.txt": "db1a457f2a383f9429d56040dfe69f61feb466267b93c89c61ee17bf7e0e92f7",
+        "stdout.json": "4c518a34693592d599ff31924357f90295fc9b8de6830cd38b8c68644ed3715a"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/missing_dedup",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "missing_dedup",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "a7e4ed5e7abe9d552e2527b3e9e144895682ffa2eb1e1e7b853a4766dd7e8ffc"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.4399263750000002,
+      "seeded_export_sha256": null,
+      "source_sha256": "f56e0706c25b44c9c759a6f32ea9c8cea61e3574624aacd956e3e0fabf15c101"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_peer/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_peer/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_peer/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "6cb035d116f544c9587b571e7d27e15faea4c854880ebb13e7e2bbfd49ac889d",
+        "model.rs": "f7123b7446f31e048ff4ef6f5d384629278d3220fb7fa94a2cb4131f4982d3d0",
+        "model.vir": "383283f4a13615dce30e764f83c2659f3fe4fa71e50b9266096c186e74991bb6",
+        "stderr.txt": "41e9121372ea8fca1e4b0d474d83f3ff82d381504f2921fdeadfe22cd49e40f3",
+        "stdout.json": "93a242b3781c9a8da279e271517b5ebc3d60313b926bf6b48bfeef689d469fa2"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_peer",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "different_peer",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "383283f4a13615dce30e764f83c2659f3fe4fa71e50b9266096c186e74991bb6"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.4407914580000001,
+      "seeded_export_sha256": null,
+      "source_sha256": "f7123b7446f31e048ff4ef6f5d384629278d3220fb7fa94a2cb4131f4982d3d0"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_item/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_item/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_item/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "f2df7eb817fb21fe0b806cf5b6a609b2036780645f4d24c2a892d84ef3d02435",
+        "model.rs": "2ed748e4b57b0b49b85ef7adfc7c7182919aafb7d6a8e1ac926048216818e9ba",
+        "model.vir": "988fd27a165283b83e9b8971d764f4358bd709b60012b0b59d569e680a4c7b1c",
+        "stderr.txt": "65f6534ade52a6033c6f81699783c0d7d2f938c3caa7a07cc5746f768815daad",
+        "stdout.json": "b461f4ce218974f80d1b7afb1e4f6d799850f85f71cc08350a4466b0b82be4d6"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/different_item",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "different_item",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "988fd27a165283b83e9b8971d764f4358bd709b60012b0b59d569e680a4c7b1c"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.45638362499999996,
+      "seeded_export_sha256": null,
+      "source_sha256": "2ed748e4b57b0b49b85ef7adfc7c7182919aafb7d6a8e1ac926048216818e9ba"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/precommit_leak/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/precommit_leak/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/precommit_leak/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "a2070060ff393624f0a3f86ab60d07a7d1c663c7d0a507989196b9a217e12c10",
+        "model.rs": "80fb8c49220931280133df4db4e8b39119b71038a83c476b74b1ba8d356b57e3",
+        "model.vir": "b6c940964226d416741c2138276f1f63543adea4e30050b7460db916191317fe",
+        "stderr.txt": "af046030089ef2be5d228dc21a8f2cbc102d2a86834b29cb5ffcc188e41e8afd",
+        "stdout.json": "21a75de52d767c075c95e2c8712ca3ec6477f66c8ab03bc2a56773af0c91dbfe"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/precommit_leak",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "precommit_leak",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "b6c940964226d416741c2138276f1f63543adea4e30050b7460db916191317fe"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.44287516599999943,
+      "seeded_export_sha256": null,
+      "source_sha256": "80fb8c49220931280133df4db4e8b39119b71038a83c476b74b1ba8d356b57e3"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/lost_ack_reexec/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/lost_ack_reexec/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/lost_ack_reexec/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "84972c5db627b35cc9063922e5065ca6a21d4bfc56852353f51140ba74030341",
+        "model.rs": "0d4260bf0b9b0cb93ff67ae797bbdd5b7e7eb57fbf8f8d5b3bedcbe94e8b2da0",
+        "model.vir": "3c8b9139c38b36aadfe2f25a33ec158aa188d05b127cc66994556f845a4e49f4",
+        "stderr.txt": "67c7e81d69a7f0c740df71bd7828375b29b1bbeebaf8bea4c8c774deb603bf2e",
+        "stdout.json": "d5b200c180e4c77c4f4003b5f0a343f770ad9625bee1f631cdac499c79df2d0b"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/lost_ack_reexec",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "lost_ack_reexec",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "3c8b9139c38b36aadfe2f25a33ec158aa188d05b127cc66994556f845a4e49f4"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.5051219170000003,
+      "seeded_export_sha256": null,
+      "source_sha256": "0d4260bf0b9b0cb93ff67ae797bbdd5b7e7eb57fbf8f8d5b3bedcbe94e8b2da0"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "safety",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/safety_overflow/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/safety_overflow/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/safety_overflow/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "40e645be5c514a24137e3a568717edf90dcd5f12c0a3e79b9cc0bf31f865c984",
+        "model.rs": "b5fa3fc7ddbdbdd2c8ac6266e886211408adc905b48409eba7ce7cebfe5ec78f",
+        "model.vir": "9d28356cb4b8f5e6766030ea399853aa27ed61764ff4e47e5bffcb238f50b798",
+        "stderr.txt": "a49ae17124b8c79c43990ae0e623690de892f6c6ee2321067fb8f538d5ccb071",
+        "stdout.json": "940eee5a19c2d0a2ea5111af6a4c03ecdc356a3975232720323f7f1a4d0b58dd"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/safety_overflow",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "safety",
+      "imports": [],
+      "label": "safety_overflow",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "sha256": "9d28356cb4b8f5e6766030ea399853aa27ed61764ff4e47e5bffcb238f50b798"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.49261179199999994,
+      "seeded_export_sha256": null,
+      "source_sha256": "b5fa3fc7ddbdbdd2c8ac6266e886211408adc905b48409eba7ce7cebfe5ec78f"
+    },
+    {
+      "acceptance": {
+        "errors": 1,
+        "failure": "semantic",
+        "verified": 18
+      },
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/legacy_seeded_failure/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--compile",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/legacy_seeded_failure/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/legacy_seeded_failure/model.rlib",
+        "-C",
+        "debug-assertions=yes"
+      ],
+      "artifacts": {
+        "command.json": "730b21a59a089a25be627d2bca67e6defa997e6f3e78fafc7bdd2e215202e910",
+        "model.rs": "bb7eea7068dd6978611418e2dcc2c89753c506519ff04b85abaabb378853b35f",
+        "model.vir": "0a47cc56d33a5a276fadb956bfc39f24687245271ee4c56c5cf25935d71170f6",
+        "stderr.txt": "2c7449c20c2c732aee972103e7750c5a0a534fe2003b5773a3ff8dea966b1d17",
+        "stdout.json": "a6e3e3fec57bee11854d056d1e362d376adeaf34553e9755d7d3b599d260ca6f"
+      },
+      "cwd": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/legacy_seeded_failure",
+      "default_erasure": true,
+      "environment": {
+        "CARGO_HOME": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-home",
+        "CARGO_TARGET_DIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-cargo-target",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized",
+        "VERUS_INFER_CACHE": "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/unused-model-cache",
+        "VERUS_IN_VARGO": "1",
+        "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3"
+      },
+      "expected": "semantic",
+      "imports": [],
+      "label": "legacy_seeded_failure",
+      "legacy_export": {
+        "exists": true,
+        "interface_written": false,
+        "seed_replaced_before_failed_proof": true,
+        "sha256": "0a47cc56d33a5a276fadb956bfc39f24687245271ee4c56c5cf25935d71170f6"
+      },
+      "no_cheating": true,
+      "returncode": 1,
+      "seconds": 0.5284319999999996,
+      "seeded_export_sha256": "e4ec32d5fce2d4e85d2bff8273520438b45de5bdb3481fb25c2549e98513ec8f",
+      "source_sha256": "bb7eea7068dd6978611418e2dcc2c89753c506519ff04b85abaabb378853b35f"
+    }
+  ],
+  "classification": "CHECKED CONDITIONAL MODEL-ONLY",
+  "export_qualification": "Legacy ordinary exports only; no inference-aware publication, cache, import, or stale cleanup claim",
+  "imports": [],
+  "inference": false,
+  "runner_sha256": "660db5dd1a80ac859494e46cbaee95ca9f7a6c8229cef1c5b09b473b35d557e4",
+  "source_inventory": {
+    "functions": {
+      "fedimint_atomic_replay::abort": {
+        "body_sha256": "e0ada92fbcb59b443be2ca1e66ffb3860657ba7d9d4d14e484036fcf1f142ef8",
+        "item_sha256": "8eeb12d3e298032dfe2bc3c2c72d288172c7474b985492e13b969e1098563b21",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::abort_preserves": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "7e682bfbe64d5e6731b19341e43f6b8743f156ca5bb9e51685863c10fb732d9e",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::all_or_none_commit": {
+        "body_sha256": "44eb3b5ddd9473231c906a35e708073d6f2f42f717a783aca11a855bc1992461",
+        "item_sha256": "c282b344e101224c733e51979d6e428ab7655b66f62a7e7bf9a81eb1c5e8104c",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::commit": {
+        "body_sha256": "141caf8e00cb7baea8f817d074e06313c91942d30d1f56e86475ec7bf708a8f9",
+        "item_sha256": "841e9be69e188a320abff71ecbe900f2b4d58e7e05939021041dc8294e80ae23",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::commit_preserves": {
+        "body_sha256": "1dcdd9dbbdeb5c7000dc5abfc989242663c57535233aa40d401588ff9f37c802",
+        "item_sha256": "951943f82c9d279583cc54b04cdaa032d0110962224fd5eec5808e0f02fbb2b7",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::conflicting_replay_rejected": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "2436cc989193755ac31dd2f53c5c339d50c9c498804fb5b98bdc2473ab8bc8c5",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::crash": {
+        "body_sha256": "faf26792fcbfe904f992f6daa15294b25e8530f40ea345316a26515a56f7e211",
+        "item_sha256": "10f9119581adc05879d712402ec4c06ccf49233e0767eff72b035e9e6d5adefc",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::crash_preserves": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "c1d92726646535b3e14d40f4c0b8d4d102c29335274e2021e16db522065fd227",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::decision": {
+        "body_sha256": "446dcb73b18b4f7acce2cdca03e2408d7520a4e888e8333a652bc137f93cdf7e",
+        "item_sha256": "329d4ed5bb91e2fd6912cf694e1d58d6adb5d83cd83da16c932b0eff62ee3e11",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::initial": {
+        "body_sha256": "bd68a4803968e11b1c1e2fea7707bfc1de3a2ea0b96e6db8c10f6b4ccc93f5df",
+        "item_sha256": "e1c1e49d30a38c8401f2bef03a620f395a92b1e584cbdeb822da71ca18f2640e",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::initial_invariant": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "f22ac9f3ac3efb19b44f87302858b3592b965f43e6b9f214a2bb2b2732e18167",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::lost_ack_retry": {
+        "body_sha256": "172c0e3bd2d31996bf8baaf3b0739ad86a17ee3436c71df9f7225cb6c1b9a4cc",
+        "item_sha256": "86039c8fc80e207b0a5119572d5792b6db9de015a4c9932747d29aa74d873bc9",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::matching_replay_no_effect": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "924436d33ca57795c9b67e70d533203948ec4a9dbfd5f6c0224d5b6254ba7ffa",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::missing_dedup_counterexample": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "c1f26ebcc9b496123dbc83d579025ef2516f474e7881ed8d355e9f1d61b060fc",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::non_atomic_counterexamples": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "ab5d84ce771e8a61ecbb3f0210c35f4c3a8758499b8ebcd8980fc83d8bb52ba9",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::non_atomic_effects": {
+        "body_sha256": "725c58b39c2bcbb8ab46cc93df5fad8a43610ea1b518c28e688c8071bc99b6fb",
+        "item_sha256": "16ef0d47bb41230957474dc84c869f3259c47084a13d30ead50f2752c62e5db9",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::non_atomic_marker": {
+        "body_sha256": "cf20060d2b59151cf5ff65305c90ffc36879121ca59c6f4033e0e9fa39ad6ed6",
+        "item_sha256": "ce07d00986dfa7125b8b5d5260330797bd734f22793daac475d10d20bbf9067c",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::paired": {
+        "body_sha256": "bcd5eaea06971d807f9f96ddc3f39fec647ed42885f56edfd831a85cbdc519f7",
+        "item_sha256": "e22735383d1d95037e5926aa41dc28d7cdfb03dad90f51adf55db31b5d7fa5e0",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::precommit_crash": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "d66489005508aa2bca0c1f3e14e5b072283d4baf860636442eb5e0f24282f35e",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::reachable": {
+        "body_sha256": "238fc173b81bc48d5530d8ed1ce44ed8aa4fc1a426944a76a63cf0ff4cfba371",
+        "item_sha256": "38f9b242fe2fb39e629ea16df009023572817da3bff9c8256eb43a2639671953",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::reachable_invariant": {
+        "body_sha256": "a66bd818e17a9a2901f2a013a6a6afe375d00d10ffffd39898a1edeff2a4abae",
+        "item_sha256": "9e86414c2c90404958e31ee9c0a38055d5b29a57b6982ced1792e598eb63f591",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::recovered_pairing": {
+        "body_sha256": "6970694b60d0c059f949e19bf1792f3f8a177453681806743da8d65ecd0a15ee",
+        "item_sha256": "ecf65b2aa83bd922cffab95ce86df850313aa9faa4e28b751a4300fb545e15e7",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::replay_decision": {
+        "body_sha256": "393f5a5eb2d85b97d074333fffa7cef6943c87fc5afd1fb8f3f3c08c78fd036d",
+        "item_sha256": "77610993fb1eeb7af9b14531e3e7dc6cfb8d622c72c0db27b042f99d9c987618",
+        "kind": "exec"
+      },
+      "fedimint_atomic_replay::stage_effects": {
+        "body_sha256": "159476c7fe7c7688fa3b8ed145099e9efd14abd18c3da008bc2051c2d7dc3732",
+        "item_sha256": "dc0262ef2ec070addc2a73811640200236a7c202c3d4a485eb71182346e75833",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::stage_marker": {
+        "body_sha256": "3eb1a7f6f498e87ed463c5c5b558be4e707f770e8e6cc6864626d45e2da08777",
+        "item_sha256": "a2ebc55af7918e0dec3a076e1ef15259d62432d4e452c0454586c5f66b5ba421",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::staging_preserves": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "10e8f00844838185656eb99d5571ec19038470859876a3bcc76563dfa2aa263e",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::start": {
+        "body_sha256": "29e91d1cccaab20a079b511843b9badf7caec3cd2eb5d654dd8f88ee4966f5b8",
+        "item_sha256": "0634b50e0b41760ce2a04d148178abef81587ebe800c8cb81d52c5095509e745",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::start_preserves": {
+        "body_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "item_sha256": "516777920c6fd21d7d041e568eb445d41da04ac62680e6455cdd01709b5bf59a",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::step": {
+        "body_sha256": "feecb2576de35b30a74395e3ab4cc835cbfd3f1896244d384488f6a1d3a910bf",
+        "item_sha256": "f01e731b8822cada7ea9c1dda6b7568d8630b6ffb55e20d36643d298bbb6177f",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::step_preserves": {
+        "body_sha256": "2eb08578ad0b0310ba843a518384b6537de843ef4059071ac292ed4918a8d308",
+        "item_sha256": "a1464c09d97e9477db8478fb21b74ecb48c787698adad0b8249d47242bba6f49",
+        "kind": "proof"
+      },
+      "fedimint_atomic_replay::valid_state": {
+        "body_sha256": "7d8faa9908e070c923982524350d1492664ee4aab2d7572f5f496c5136270dc4",
+        "item_sha256": "89fd722ef3d935862632be27f15a52ede27a0845bd00bf67475cb4b4cf8b5150",
+        "kind": "open spec"
+      },
+      "fedimint_atomic_replay::without_dedup": {
+        "body_sha256": "544fe9e093af22f18101a20337b33d852044a287fb0352d06d962a8d2f91c80d",
+        "item_sha256": "a272b972917c33f9661f25108be12e7858f693f8f3d8436e1d2a49aa0ee50e95",
+        "kind": "open spec"
+      }
+    },
+    "model_sha256": "e373a378184c79523b32d134a8ba61a04c5210adb9a1bfa935fcacd9d86bdb4c"
+  },
+  "source_refinement": false,
+  "success": true
+}

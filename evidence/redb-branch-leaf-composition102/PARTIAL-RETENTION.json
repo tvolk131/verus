@@ -1,0 +1,23 @@
+{
+  "all_eighteen_property_history_cells": "OPEN",
+  "archive": "PARTIAL-HANDOFF.tar.gz",
+  "archive_bytes": 264651,
+  "archive_members": 80,
+  "archive_members_byte_identical": true,
+  "archive_sha256": "edbe0bc3eb6a1db955d04c8f872b50392b3e7e952569a96d8a782941e99ce7ab",
+  "authenticated_payloads": 78,
+  "authenticated_manifest_and_seal": 2,
+  "manifest_file_count_semantics": "78_PAYLOADS_EXCLUDES_MANIFEST_AND_SEAL_80_TOTAL_MEMBERS_NO_UNLISTED_FILES",
+  "manifest_sha256": "fd1a195803665011a015fc32856cd613924a806177d65e26615f73629473b281",
+  "seal_sha256": "b07c4ee24d953eedb23f30da01a53e93e43c273a8cf3fe90adebda834b0256d8",
+  "report_sha256": "5293986a707572d383b586af8765c95454ec05b2d9dbfe054bd675110b33a61f",
+  "accounting_sha256": "4130ec3834de14f03253b1a8fe08b032909c01d1c0968000dfe7c87ec677f6e0",
+  "checked_generic_source_sha256": "e15f151f0211c269531c016cdd6956aba8de0ea5bdd08c472783a064fda10538",
+  "unverified_expanded_source_sha256": "ac01b16051af9832722603305e52b750fbebc8c22a44705d8d1f11fe04fbb71a",
+  "parent_verifier_applications": 0,
+  "independent_review": "REQUIRED_NOT_RUN",
+  "parent_reconnaissance_error": "ZSH_LOOP_VARIABLE_PATH_OVERWROTE_COMMAND_LOOKUP_IN_ONE_READ_ONLY_SHELL_RETRIED_WITH_FILEPATH_NO_PROOF_EXECUTION",
+  "state": "PARTIAL_NOT_ACCEPTED",
+  "new_trust_or_runtime_adopted": false,
+  "whole_goal_acceptance": false
+}

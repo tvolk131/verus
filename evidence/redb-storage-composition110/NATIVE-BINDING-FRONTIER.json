@@ -1,0 +1,47 @@
+{
+  "all18": "OPEN",
+  "atomic_load_declaration": {
+    "end_line": 71,
+    "sha256": "ac4ed770312ace6a62d0b0d8afad33e62a4a9b9f370879c684f60b77863c74ef",
+    "start_line": 66,
+    "text": "        pub assume_specification [ <$at>::load ](atomic: &$at, order: Ordering) -> $ty\n            requires\n                order != Ordering::Release,\n                order != Ordering::AcqRel,\n            no_unwind;\n\n"
+  },
+  "atomic_source": {
+    "bytes": 4168,
+    "path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/source/vstd/std_specs/atomic.rs",
+    "round109_frozen_sha256": "146999c62edcd4c9fa032445492408605fe57b6f6dfd2279434e7c44b046d2b5",
+    "sha256": "146999c62edcd4c9fa032445492408605fe57b6f6dfd2279434e7c44b046d2b5"
+  },
+  "atomic_source_preamble": "#![allow(unused_imports)]\nuse super::super::prelude::*;\nuse core::sync::atomic::*;\n\n// Supports the core::sync::atomic functions\n// This provides NO support for reasoning about the values inside the atomics.\n// If you need to do that, see `vstd::atomic` or `vstd::atomic_ghost` instead.\n#[verifier::external_type_specification]\n#[verifier::external_body]\n#[verifier::reject_recursive_types(T)]\npub struct ExAtomic<T: AtomicPrimitive>(Atomic<T>);\n\n#[verifier::external_trait_specification]\npub trait ExAtomicPrimitive: Sized + Copy {\n    type ExternalTraitSpecificationFor: AtomicPrimitive;\n}\n\n#[verifier::external_type_specification]\npub struct ExOrdering(Ordering);\n",
+  "atomic_store_declaration": {
+    "end_line": 77,
+    "sha256": "98ff79a5b531dd4510c79e40ca6367630ab0d9f5b900a3effabf30f717e8afe9",
+    "start_line": 72,
+    "text": "        pub assume_specification [ <$at>::store ](atomic: &$at, val: $ty, order: Ordering)\n            requires\n                order != Ordering::Acquire,\n                order != Ordering::AcqRel,\n            no_unwind;\n\n"
+  },
+  "executed_native_frontend_blockers": [
+    "core::io::error::Error",
+    "core::panic::location::Location"
+  ],
+  "native_probe_stderr": {
+    "path": "/private/tmp/redb-backend110-B-cCGFf2VR/attempt-01/stderr.txt",
+    "sha256": "80d6c867fe64d8b17b57cce43c9c806d57a0be10fbebdf8f7e32a1a9e83ed1b2"
+  },
+  "new_trust_adopted": 0,
+  "new_verifier_applications": 0,
+  "next_action_change": "Do not budget another type-only probe as a route to native error-history closure; opaque-type admission, atomic state correspondence, and backend/callback semantics are independent dependency cuts.",
+  "not_established": [
+    "actual frozen-engine instance resolution",
+    "native sequential atomic state correspondence",
+    "concurrency observation law",
+    "dynamic backend effects",
+    "native callback/history frame",
+    "compiler/source correspondence"
+  ],
+  "qualification": "Source observations only; no additional verifier invocation, library adoption, or instance-resolution claim.",
+  "schema": "redb-composition110-source-observed-native-frontier-v1",
+  "selected_inputs_entry_matches": 838,
+  "selected_inputs_exit_matches": 838,
+  "unexecuted_source_observed_gap": "The inspected std Atomic load/store declarations impose ordering/no-unwind conditions but provide no stored-value postcondition or history relation.",
+  "utc": "2026-11-08T05:02:05.032049+00:00"
+}

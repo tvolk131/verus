@@ -1,0 +1,39 @@
+{
+  "fixtures": {
+    "consumer.rs": {
+      "reference_seal_sha256": "4dab8f40bd33e72cfa813fcae5d6d13708ee03bf6327034dac39abfad231230f",
+      "sealed_source": "/private/tmp/verus-bounded-allocation92-QFQIcB/consumer.rs",
+      "sha256": "a371b8890ac2534a8ff7dd9dd9143a29c228ba6561fce92c52451009d4149728"
+    },
+    "consumer_extra.rs": {
+      "reference_seal_sha256": "4dab8f40bd33e72cfa813fcae5d6d13708ee03bf6327034dac39abfad231230f",
+      "sealed_source": "/private/tmp/verus-bounded-allocation92-QFQIcB/consumer_extra.rs",
+      "sha256": "624b264f82b34550e2898405ff03c53aa0487de0931e1d1a2c266ee9591e59f4"
+    },
+    "generic_mask_manual.rs": {
+      "reference_seal_sha256": "4dab8f40bd33e72cfa813fcae5d6d13708ee03bf6327034dac39abfad231230f",
+      "sealed_source": "/private/tmp/verus-bounded-allocation92-QFQIcB/ablations/generic-mask-bridge.rs",
+      "sha256": "81a09c16ad4b7039f47060d8fe84cb95dbed607dcf0bc7952cac48c28c63bfa3"
+    },
+    "generic_mask_reduced.rs": {
+      "reference_seal_sha256": "4dab8f40bd33e72cfa813fcae5d6d13708ee03bf6327034dac39abfad231230f",
+      "sealed_source": "/private/tmp/verus-bounded-allocation92-QFQIcB/ablations/generic-mask-ablated.rs",
+      "sha256": "c68bf8ddff7bde5137b2b75cc6de289ff241099d576f286f5ce51de3311f3cd8"
+    },
+    "native_alloc_manual.rs": {
+      "reference_seal_sha256": "4dab8f40bd33e72cfa813fcae5d6d13708ee03bf6327034dac39abfad231230f",
+      "sealed_source": "/private/tmp/verus-bounded-allocation92-QFQIcB/full.rs",
+      "sha256": "cbb38db06fe5328499b57c455b599772af41df8a7dc05b615c59f9d5484a265d"
+    },
+    "native_alloc_reduced.rs": {
+      "reference_seal_sha256": "4dab8f40bd33e72cfa813fcae5d6d13708ee03bf6327034dac39abfad231230f",
+      "sealed_source": "/private/tmp/verus-bounded-allocation92-QFQIcB/ablations/mask-equality-only.rs",
+      "sha256": "e2df54bc3500819149ac25002b8755cbb3eb3d90ee40133c0abec98e9e1d7cdc"
+    }
+  },
+  "full_caller_established": false,
+  "independent_reference_gate_seal_sha256": "2a9612bd18c42480757af86d7f55e7d8ea5fceaffe39dcec04d827c0187394a7",
+  "inference_implementation_accepted": false,
+  "native_reduction": "Delete only the exact local bit-vector shift bridge; all other native/manual annotations unchanged.",
+  "scope_sha256": "1697fe194ef15a3dd1772eb22e3458f0bd1bc5d57f0c336f20d4d1aea489e296"
+}

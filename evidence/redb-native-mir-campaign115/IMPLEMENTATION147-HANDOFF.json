@@ -1,0 +1,59 @@
+{
+  "record": "implementation147-parent-retention",
+  "root": "/private/tmp/implementation147-20261108-FkC98LCT",
+  "seal_json_sha256": "87c3ca9a5a331d7ce7d654c89e256f9f5ac39b2487dc7be687cc16ea08204c10",
+  "candidate_inventory_sha256": "25a7e31d181427d70313c9460b93016af9f3e6e530e58ab56cf9d1a7517b1b62",
+  "parent_authentication": {
+    "entry_endpoint_utc": "2026-11-08T21:38:51.544929+00:00",
+    "exit_endpoint_utc": "2026-11-08T21:38:52.742060+00:00",
+    "sealed_payloads": 260,
+    "candidate_sources": 1107,
+    "qualification": "Selected current endpoint authentication. Worker seal was authenticated before parent report/law inspection; candidate-wide authentication occurred later. No historical continuous custody, complete target artifact or compiler/bootstrap correspondence."
+  },
+  "retained_archive": "IMPLEMENTATION147-HANDOFF.tar.gz",
+  "retained_archive_sha256": "6f83fd4a00b42a7fe48cd58a1f197de1a850104bed0176c8b77bf7a720739e53",
+  "retained_archive_bytes": 5947311,
+  "retained_regular_unique_byte_identical_members": 268,
+  "changed_candidate_sources": 6,
+  "retention_scope": "All260 sealed payloads including sealed executable test controls, two seal files and six changed candidate sources. Whole baseline/candidate and target directory excluded; source inventories/delta retained.",
+  "worker_accounting": {
+    "adopted_laws": 0,
+    "all18": "OPEN",
+    "charged": 30,
+    "limit": 32,
+    "native_bodies_proved": 0,
+    "owned_groups_absent": true,
+    "resources": {
+      "allocated": 1035661312,
+      "deadline_remaining_seconds": 291.992155790329,
+      "free": 32387481600,
+      "logical": 1028105876,
+      "utc": "2026-11-08T21:32:14.007826+00:00"
+    },
+    "sst_air_smt_runs": 0,
+    "state": "RELEASED",
+    "task": "implementation147",
+    "utc": "2026-11-08T21:32:13.972471+00:00"
+  },
+  "results": {
+    "build": "SUCCESS",
+    "executable_control_tests": 18,
+    "changed_source_machine_mutants": 4,
+    "typed_original_occurrence_fault_injections": 5,
+    "restoration": "PASS",
+    "native_checkout_byte_authority_and_export": "REFUSED",
+    "original_native_bodies_proved": 0,
+    "sst_air_smt_runs": 0
+  },
+  "disposition": "UNADOPTED_PENDING_INDEPENDENT_EXACT_LAW_REVIEW149",
+  "r146": "OPEN;148 unconsumed",
+  "candidate141": "REJECTED_NOT_ADOPTED",
+  "all18": "OPEN",
+  "adopted_laws": 0,
+  "native_resource_trust_proof_credit_added": [
+    0,
+    0,
+    0,
+    0
+  ]
+}

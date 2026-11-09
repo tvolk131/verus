@@ -1,0 +1,5 @@
+{
+  "database_key": "    pub fn get_full_key(&self, key: &[u8]) -> (full_key: Vec<u8>)\n        ensures full_key@ == prefix_view(self.prefix@, key@),\n    ",
+  "transaction_key": "    pub fn get_full_key(&self, key: &[u8]) -> (full_key: Vec<u8>)\n        ensures full_key@ == prefix_view(self.prefix@, key@),\n    ",
+  "transaction_range": "    pub fn get_full_range(&self, range: Range<&[u8]>) -> (full_range: Range<Vec<u8>>)\n        ensures full_range.start@ == prefix_view(self.prefix@, range.start@),\n            full_range.end@ == prefix_view(self.prefix@, range.end@),\n    "
+}

@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "fedimint": {
+      "count": 1199,
+      "differences": [],
+      "pin": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+      "status": ""
+    },
+    "guarded-inputs.json": {
+      "count": 3395,
+      "differences": []
+    },
+    "redb": {
+      "count": 132,
+      "differences": [],
+      "pin": "c82ab865bb362bc4af067d332adc44978ff64813",
+      "status": ""
+    },
+    "runtime": {
+      "count": 9,
+      "differences": []
+    },
+    "toolchain-hashes.json": {
+      "count": 61,
+      "differences": []
+    }
+  },
+  "shared_package_hashes": {
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/combined.apply_patch": "545e330ee87d539aa727154a6121f251f557a18867be62517a9867592a372e12",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/correction-delta.json": "7180da46fe578ffd6a6942352e18758382433482ebc82609571f6b410540a63e",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/file-hashes.json": "173bdc3ccbac0d4d4d5b41d7b7c0a0d90d8b00549aff711af194aad7c3d355e8",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/git-state.json": "482858a80b4c0d65cbaa1311471b09af6f15a9b40dc0868e987602209ac71ad1",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/guarded-inputs.json": "a762b8e2af1607b1b20ddc4be7b3b63f77464dea3a7aec45957d539893eface7",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/inventory.json": "46009116f47e45716d6b64d621d3a391c2452e2ac0bd010de9ca8c62da5f46e8",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/manifest.json": "69e7ba03dfeaf1f15421f4864b3ddd3605067f1a3c05b695bdbd05a36d92dc19",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/native-hashes.json": "88612d38fd7784d065e0b2ee2468ed785fb399ed653912683bd522f84251cdb6",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/runtime-hashes.json": "6049c563cd2310d3faf890b6c1a61b83e0acc27eb1c5ca3d2e12904e598c4f86",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/rust-build-input-hashes.json": "663e7236003edf574149f491b1a99764785a65a05833961af3d2b99232fc6c43",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/source-hashes.json": "ad1c39377607b3b6b53ea9eb97dd0fe80d393ea6490a5d4d1c6c88b516777743",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/handoff/toolchain-hashes.json": "367af9e5ee0e1be37bb1582f562dcf929f4eaf3c4acad6805f0d4c0b37f1f596",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/libverus_builtin.rlib": "812ab23861713fea67824289d861f32adf793c2094238447c6603d3e324e9b39",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/libverus_builtin_macros.dylib": "46f4d0398606e81451d89f7641b7d7698ca3be85d4cf8a0c3355723e84428c64",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/libverus_state_machines_macros.dylib": "4922b2b7797f6fdb8e74b7da13320f08fd165528f951cba4177905c40a521406",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/libvstd.rlib": "6e211bde4d3f974c8e73be4be20685259aece5858dba2bfa9fe103339452476a",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/rust_verify": "73f0232cac22dc7f82306f00b8895b02375120d1c88b1c835a4fb494bb8da154",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus": "4c9d239c1862f718937f14c44205a06cd0c39ce240d96946bb6113c8cf581e25",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/vstd.vir": "0378d6d08d0781e138ae8a49df32096e474a384a6174d56a802d4c519b3cca75",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/vstd_build": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+    "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+    "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery/dirty77-relative.apply_patch": "a694f5a3b672595ef4df34f011954a5eef7d323cf6a89c00e3efd405eb537f65",
+    "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery/dirty77-relative.apply_patch.sha256": "72f325db4960c22bc7a07aa1d1066ea32c36eb78063d3181d85cb123af5f9a94",
+    "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery/final-audit-attempts.json": "7a604c124cb1bc44cc140eb8c7ed0f322572043ec0c8494a8baafcddaf64e6d2",
+    "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery/final-audit.json": "c73c5264f1c99e69b13d4060b97d4403f55340ca225898724cb44906fde332ad",
+    "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery/inventory.json": "0b315b0f00fbe4cb3d8a91043d6445481ef4efbe8bdfd34586f8e0c8b9a3f044",
+    "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery/reconstruction.json": "fe6825ef00771d97ef3255f9a4eeaf3d51b709730b8fbe3be5bb4da007fd9c01"
+  }
+}

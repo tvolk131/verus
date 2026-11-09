@@ -1302,6 +1302,9 @@ pub fn unique_var_name(
             out.push_str(RES_INF_TEMP_SEPARATOR);
             write!(&mut out, "{}", id).unwrap();
         }
+        VarIdentDisambiguate::NativeResource(id) => {
+            write!(&mut out, "$native_resource${}", id).unwrap();
+        }
     }
     out
 }

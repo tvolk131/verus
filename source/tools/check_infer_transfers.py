@@ -19,6 +19,7 @@ from infer_experiment import (
     require_publication,
     validate_run,
 )
+from infer_transfer_receipts import check_full_request, check_page_relations, read_json
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -43,6 +44,16 @@ SCENARIOS = {
         "commit": "c82ab865bb362bc4af067d332adc44978ff64813",
         "runner": "source/tools/check_redb_address_range.py",
     },
+    "redb_page_relations": {
+        "checkout": "redb",
+        "commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+        "runner": "source/tools/check_redb_page_relations.py",
+    },
+    "fedimint-full-request": {
+        "checkout": "fedimint",
+        "commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+        "runner": "source/tools/check_fedimint_full_request.py",
+    },
 }
 
 
@@ -64,7 +75,8 @@ def command_for(receipt, label):
     return commands[0]
 
 
-def check_proof(directory, receipt, label, expected, verifier, failure_kind="postcondition"):
+def check_proof(directory, receipt, label, expected, verifier, failure_kind="postcondition",
+                *, import_only=False):
     command = command_for(receipt, label)
     argv = command["argv"]
     require(isinstance(argv, list) and argv and Path(argv[0]).resolve() == verifier.resolve(),
@@ -78,12 +90,16 @@ def check_proof(directory, receipt, label, expected, verifier, failure_kind="pos
     artifact = Path(argv[artifact_index])
     if not artifact.is_absolute():
         artifact = Path(command["cwd"]) / artifact
+    require(not artifact.is_symlink(), "interface must not be a symlink")
     artifact = artifact.resolve()
     require(artifact.is_relative_to(directory.resolve()), "export escapes run directory")
     stdout = contained_file(directory, label + ".stdout")
     stderr = contained_file(directory, label + ".stderr")
     returncode = command.get("exit_code", command.get("returncode"))
     require(type(returncode) is int, "proof command has no integer exit status")
+    require(returncode == 0 if expected else returncode > 0,
+            "proof command did not exit with its expected ordinary status")
+    read_json(stdout)
     data = validate_run(dict(returncode=returncode, stdout=stdout.read_text(),
                              stderr=stderr.read_text()), expected)
     result = data["verification-results"]
@@ -92,19 +108,41 @@ def check_proof(directory, receipt, label, expected, verifier, failure_kind="pos
             and inference.get("interface_written") is expected,
             "proof and publication status fields must be booleans")
     functions = inference["functions"]
-    require(functions, "proof receipt has no inferred functions")
+    require(isinstance(functions, list) and (not functions if import_only else bool(functions)),
+            "wrong local inference scope")
     require_exact(functions)
+    require(all(function.get("required_checks_passed") is True for function in functions),
+            "mandatory inference check status must be a boolean")
+    require(result.get("encountered-vir-error", False) is False
+            and type(result.get("encountered-error", False)) is bool,
+            "frontend failure is not proof evidence")
+    diagnostic_text = stderr.read_text()
+    require("error[E" not in diagnostic_text and not any(message in diagnostic_text.lower() for message in
+            ("out of memory", "killed by signal")), "frontend/resource failure is not proof evidence")
     require_publication(data, expected, artifact)
     require(result.get("is-verifying-entire-crate") is True,
             "partial verification is not transfer evidence")
+    require(type(result.get("verified")) is int and result["verified"] >= 0,
+            "verification count must be an integer")
     if expected:
         require(type(result.get("verified")) is int and result["verified"] > 0
-                and result.get("errors") == 0, "positive proof has no verified obligations")
+                and type(result.get("errors")) is int and result["errors"] == 0,
+                "positive proof has no verified obligations")
     else:
-        require(failure_kind in ("postcondition", "precondition", "auxiliary"), "unknown negative control kind")
-        diagnostic = "bitvector assertion not satisfied" if failure_kind == "auxiliary" else failure_kind + " not satisfied"
+        require(failure_kind in ("postcondition", "precondition", "auxiliary", "polynomial_auxiliary", "arithmetic"),
+                "unknown negative control kind")
+        diagnostic = {"auxiliary": "bitvector assertion not satisfied",
+                      "polynomial_auxiliary": "Verus Infer: polynomial proposal not satisfied",
+                      "arithmetic": "possible arithmetic underflow/overflow"}.get(
+                          failure_kind, failure_kind + " not satisfied")
         others = (["precondition not satisfied", "postcondition not satisfied"] if failure_kind == "auxiliary" else
                   [("precondition" if failure_kind == "postcondition" else "postcondition") + " not satisfied"])
+        if failure_kind in ("polynomial_auxiliary", "arithmetic"):
+            others = ["precondition not satisfied", "postcondition not satisfied", "bitvector assertion not satisfied"]
+        if failure_kind not in ("auxiliary", "polynomial_auxiliary"):
+            others += ["Verus Infer: polynomial proposal not satisfied", "bitvector assertion not satisfied"]
+        if failure_kind != "arithmetic":
+            others.append("possible arithmetic underflow/overflow")
         status = "verification_failed" if failure_kind == "auxiliary" else "caller_proof_failed"
         require(inference.get("status") == status
                 and type(result.get("errors")) is int and result["errors"] > 0
@@ -120,7 +158,7 @@ def check_proof(directory, receipt, label, expected, verifier, failure_kind="pos
 
 
 def check_receipt(path, scenario, verifier):
-    receipt = json.loads(path.read_text())
+    receipt = read_json(path)
     require(receipt.get("success") is True, "scenario controller did not complete successfully")
     transfer = receipt["transfer"]
     require(transfer.get("scenario") == scenario
@@ -136,6 +174,9 @@ def check_receipt(path, scenario, verifier):
     summary = dict(scenario=scenario, application_commit=transfer["application_commit"],
                    status=status, source_fidelity=True, limitations=transfer["limitations"],
                    trust=transfer["trust"], receipt=str(path), receipt_sha256=digest(path))
+    if scenario == "fedimint-full-request":
+        require(status == "proved", "full request helper transfer must be proved; funding remains blocked")
+        return dict(summary, **check_full_request(path, receipt, verifier, ROOT, check_proof))
     if status == "blocked":
         require(isinstance(transfer.get("blocker"), str) and transfer["blocker"].strip(),
                 "blocked transfer must identify the actual blocker")
@@ -145,12 +186,14 @@ def check_receipt(path, scenario, verifier):
     negatives = transfer.get("semantic_negative_cases")
     safety = transfer.get("safety_negative_cases", [])
     auxiliary = transfer.get("auxiliary_negative_cases", [])
+    polynomial = transfer.get("polynomial_auxiliary_negative_cases", [])
     require(isinstance(positives, list) and positives
             and isinstance(negatives, list) and negatives,
             "proved transfer needs positive and semantic negative controls")
     require(isinstance(safety, list), "safety negative controls must be a list")
     require(isinstance(auxiliary, list), "auxiliary negative controls must be a list")
-    labels = positives + negatives + safety + auxiliary
+    require(isinstance(polynomial, list), "polynomial auxiliary controls must be a list")
+    labels = positives + negatives + safety + auxiliary + polynomial
     require(all(isinstance(label, str) for label in labels) and len(set(labels)) == len(labels),
             "proof cases must have distinct string labels")
     require(transfer.get("stale_export_rejected") is True,
@@ -160,9 +203,12 @@ def check_receipt(path, scenario, verifier):
                              (True, positives, "postcondition"),
                              (False, negatives, "postcondition"),
                              (False, safety, "precondition"),
-                             (False, auxiliary, "auxiliary"))
+                             (False, auxiliary, "auxiliary"),
+                             (False, polynomial, "polynomial_auxiliary"))
                          for label in cases]
     summary["stale_export_rejected"] = True
+    if scenario == "redb_page_relations":
+        summary.update(check_page_relations(path, receipt, verifier, ROOT))
     return summary
 
 
@@ -191,7 +237,9 @@ def run_suite(args):
     output = Path(tempfile.mkdtemp(prefix="transfer-suite-", dir=args.output.resolve()))
     receipt = dict(schema_version=1, host=host_info(), commands=[], scenarios=[],
                    application_proofs_proved=False)
-    environment = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", VERUS_Z3_PATH=str(args.solver.resolve()))
+    environment = {name: value for name, value in os.environ.items() if not name.startswith("GIT_")}
+    environment.update(PYTHONDONTWRITEBYTECODE="1", VERUS_Z3_PATH=str(args.solver.resolve()),
+                       GIT_TERMINAL_PROMPT="0", GIT_CONFIG_GLOBAL=os.devnull, GIT_CONFIG_NOSYSTEM="1")
     scenarios = args.scenario or list(SCENARIOS)
     try:
         with replay_receipt(output, receipt):
@@ -221,6 +269,8 @@ def run_suite(args):
                             "--application", str(application), "--verus", str(args.verus.resolve()),
                             "--solver", str(args.solver.resolve()), "--output", str(destination),
                             "--timeout", str(args.timeout)]
+                    if scenario == "fedimint-full-request" and getattr(args, "dependency_home", None):
+                        argv += ["--dependency-home", str(args.dependency_home.resolve())]
                     code = run(scenario, argv, environment)
                     require(code == 0, "scenario runner failed: " + scenario)
                     path = receipt_from_stdout((output / (scenario + ".stdout")).read_text(), destination)
@@ -250,6 +300,8 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--timeout", type=positive_timeout, default=180)
     parser.add_argument("--scenario-timeout", type=positive_timeout, default=1800)
+    parser.add_argument("--dependency-home", type=Path,
+                        help="explicitly prepared Cargo registry home for the offline full-request build")
     run_suite(parser.parse_args())
 
 

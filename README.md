@@ -20,6 +20,8 @@ This branch develops experimental contract inference and checked proof assistanc
 Start with the [direction and active roadmap](VERUS_INFER_DIRECTION.md),
 [adoption guide](source/docs/guide/src/infer_adoption.md), or
 [feature reference](source/docs/guide/src/infer.md).
+The [Infer integration status](VERUS_INFER_STATUS.md) separates application
+milestones, working-tree research, and remaining certification boundaries.
 
 ## Status
 

@@ -1,0 +1,29 @@
+{
+  "record": "cell-directed-implementation143-and-review144-launch",
+  "implementation143": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A4bd967e6-68e9-4318-9f66-6df01e5c5ef4",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A4bd967e6-68e9-4318-9f66-6df01e5c5ef4>",
+    "last_observed_status": "COMPLETED_PARTIAL",
+    "compiler_build_verifier_slot": "RELEASED",
+    "result": "36/36 exhausted; compiler-owned occurrence and pending full-Place/NLL constraints implemented. Six ordinary bodies translate; no full WF/modes/SST/AIR/SMT verification and zero native bodies proved. Original checkout, byte authority, writeback and cleanup lowering remain OPEN.",
+    "retained_index": "IMPLEMENTATION143-HANDOFF.json",
+    "objective": "Actual original-body occurrence/resource proof lowering and checkout/returned-loan ledger, not another capture interface.",
+    "bounds": {"minutes_including_seal": 60, "charged_commands": 36, "fresh_scratch_gib": 4, "jobs": 1, "build_seconds": 600, "proof_or_diagnostic_seconds": 120, "minimum_free_disk_gib_strictly_above": 16}
+  },
+  "review144": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A350bcd35-97aa-484b-848d-9e1973e5db6f",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A350bcd35-97aa-484b-848d-9e1973e5db6f>",
+    "last_observed_status": "COMPLETED",
+    "result": "Two P2 findings: stale overwrite/call provenance and omitted terminator loan ends. No P1 boundary bypass found. Parent prepared unbuilt/unexecuted repair145 and steered143; no finding closure or native proof claimed.",
+    "retained_index": "IMPLEMENTATION140-REVIEW144.json",
+    "scope": "Independent source/receipt-only review of sealed140; no compiler/build/proof/native execution or live143 inspection.",
+    "bounds": {"minutes_including_seal": 15, "fresh_scratch_mib": 2}
+  },
+  "parent_policy": "Completion wakes the parent; no polling/wait loops. Reconcile new findings into the active implementation without resetting its allowance.",
+  "authorization": "AUTHORIZATION139.md and NEXT-NATIVE-LOWERING143.md under standing user permission; unchanged trust/admission/integration/network/destructive restrictions.",
+  "historical_allowances": "140 remains exhausted24/24 and sealed;116 remains interrupted. Neither is reset.",
+  "primitive_candidate141": "REJECTED_FOR_CONSUMPTION_AND_ADOPTION",
+  "continuation": "CONTINUATION147.md and ACTIVE147.json; independent review146 and distinct closed native byte-loan rule development147, not a reset of143.",
+  "all18": "OPEN",
+  "native_resource_trust_proof_credit_added": [0, 0, 0, 0]
+}

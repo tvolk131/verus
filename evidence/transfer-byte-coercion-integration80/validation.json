@@ -1,0 +1,65 @@
+{
+  "crossqualification_setup_attempts": {
+    "classification": "parent Python attribute and frontend report fixture setup mistakes; not theorem failures",
+    "credit": false,
+    "logs": [
+      "cross-qualify.stderr",
+      "cross-qualify2.stderr"
+    ]
+  },
+  "first_common_attempt": {
+    "classification": "offline dependency setup: wrong dependency-home directory",
+    "credit": false,
+    "path": "/private/tmp/verus-cycle80-parent.rwZwT3/shared-current/transfer-suite-mf09pu_f/receipt.json"
+  },
+  "review_artifacts": {
+    "compatibility-review.json": {
+      "original": "/private/tmp/verus-cycle80-complete-review.eaqa9w7s/receipt.json",
+      "sha256": "feb5cd54e2a10f245cd8766daf4926b2108c8dc4627724e38cc29568bdeabe00"
+    },
+    "compatibility-review.md": {
+      "original": "/private/tmp/verus-cycle80-complete-review.eaqa9w7s/REPORT.md",
+      "sha256": "485b234b42a59674f706ebbb90cb3c6fce5c01c59f4b13a4f1ebd4e28f844768"
+    },
+    "production-review.json": {
+      "original": "/private/tmp/verus-borrowed-vec80-review.p1jy7qLO/sealed/review.json",
+      "sha256": "c25f4f878e9e345cbecefba5ebd4f3dbfe32c3cd7f2b4dcfa1b0d9a2ef739d48"
+    },
+    "production-review.md": {
+      "original": "/private/tmp/verus-borrowed-vec80-review.p1jy7qLO/sealed/REVIEW.md",
+      "sha256": "591d6559ca6c8004d27c8c327929745a5a4d0ffdd0e358aeacf069d49e1ac897"
+    },
+    "redb-repair-review.md": {
+      "original": "/private/tmp/verus-redb-p2-recheck.EmdqR2/REPORT.md",
+      "sha256": "0322300fa7b41b53dcf146573ba0de63a0fcc99ad72f2fc6324de142806e8207"
+    },
+    "redb-review-probes.json": {
+      "original": "/private/tmp/verus-redb-p2-recheck.EmdqR2/probe-runs.json",
+      "sha256": "c906b9177a71137d2ee3406bf23fee214d8ff238d85397db390c96870983517e"
+    }
+  },
+  "root": "/private/tmp/verus-cycle80-parent.rwZwT3",
+  "rust_vstd_suites": "Matched implementation source/build/runtime and audited authoritative logs; parent did not rebuild or rerun them",
+  "sha256": {
+    "compatibility/qualification.json": "6500f42b49c6da80dd52d2ffe46177ebb9a50e8e17ae52ec54d8b70980f5a83f",
+    "cross-qualify3-O.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-qualify3-O.stdout": "748ba165281b32612e47176a449f6bc3855c475ff9128bea3a7f556876a0df8d",
+    "cross-qualify3.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cross-qualify3.stdout": "24f283d1b638e1003fb3d018c014d46b91df7e346a2b256ccce9063b99952dfa",
+    "cross_qualify_native80.py": "c2fa6113b197bdfb5a46fb0c8f01b974c943c80320a08e021cc90e5d154b8d1b",
+    "fedimint-gate-mutations-O.json": "079d29145f1c5f44648de9582f26e143e9be5511b0539d7b237c7b839f2449a3",
+    "fedimint-gate-mutations.json": "079d29145f1c5f44648de9582f26e143e9be5511b0539d7b237c7b839f2449a3",
+    "native80-runtime79-dlxr91jx/receipt.json": "437c6d9cb547ca03589294f5fa44e2ca686f97c718caa5d3a4f2e1a9871dbdb6",
+    "native80-runtime79-j01brk6j/receipt.json": "f387c773f9b762b3063a0a40808f7efc5b9237ed1cb491806f13d7e15a6a0607",
+    "opaque-current-O/receipt.json": "2268d8c5cb4d21ef712b34de5005428ecdc2cbbeda8937f4fe93970ec3706323",
+    "opaque-current/receipt.json": "61a3765fa3f0e3419a3b5e2a3073792600fa979d4d408c60c6ee6cd9c1b63a85",
+    "prefix-current-O/receipt.json": "17b26982de862c54c9faf0460d28643343bb1d62285b94d9a32523b153f540e5",
+    "prefix-current/receipt.json": "c1be80b39f893aaacc5a47000562e7d4f76df5dd030c4154e9166f54f0894dc6",
+    "python-all-O.stderr": "ceaa7022e1c956d57fe0e051ce6e3f7ab6cc8b2a87924368ac2d53f9895c7b3d",
+    "python-all.stderr": "c5de80ba3e71ed926230bd8c1c6679921aa10c1935569a6fb80dd581faa24063",
+    "qualify_compatibility.py": "745adfbf01307daa3ab9765bc6808c8dc126ef21d5d1b52c70ade8b8404ad443",
+    "redb-guard-mutations-O.json": "7023aa99380da5bfc6c3185f857fe187e9c8acb2c92ecfb724415549224a3bf9",
+    "redb-guard-mutations.json": "7023aa99380da5bfc6c3185f857fe187e9c8acb2c92ecfb724415549224a3bf9",
+    "shared-current-corrected/transfer-suite-3fqj57ma/receipt.json": "22b5411a604c2e46a021b27bc44cc588bdf5d3e0fc250e7bc4283bcb8ec43cbe"
+  }
+}

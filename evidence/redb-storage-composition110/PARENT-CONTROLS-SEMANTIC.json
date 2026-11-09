@@ -1,0 +1,118 @@
+[
+  {
+    "before": {
+      "calls": [],
+      "closed": false,
+      "effect": 0,
+      "failed": false
+    },
+    "corrected_violations": [],
+    "mutation": "skip_normal_latch",
+    "negative_violations": [
+      "selected_latch_rule"
+    ],
+    "operation": "write",
+    "outcome": {
+      "effect": 1,
+      "ok": false
+    }
+  },
+  {
+    "before": {
+      "calls": [],
+      "closed": false,
+      "effect": 0,
+      "failed": false
+    },
+    "corrected_violations": [],
+    "mutation": "latch_best_effort",
+    "negative_violations": [
+      "selected_latch_rule"
+    ],
+    "operation": "best_effort",
+    "outcome": {
+      "effect": 1,
+      "ok": false
+    }
+  },
+  {
+    "before": {
+      "calls": [],
+      "closed": true,
+      "effect": 0,
+      "failed": false
+    },
+    "corrected_violations": [],
+    "mutation": "closed_first",
+    "negative_violations": [
+      "call_admission",
+      "backend_result_transport",
+      "opaque_effect_not_rollback",
+      "exact_callback_count"
+    ],
+    "operation": "sync",
+    "outcome": {
+      "effect": 1,
+      "ok": true
+    }
+  },
+  {
+    "before": {
+      "calls": [],
+      "closed": false,
+      "effect": 0,
+      "failed": false
+    },
+    "corrected_violations": [],
+    "mutation": "close_flags_after_error",
+    "negative_violations": [
+      "close_flags_even_on_error",
+      "close_flags_before_callback"
+    ],
+    "operation": "close",
+    "outcome": {
+      "effect": 1,
+      "ok": false
+    }
+  },
+  {
+    "before": {
+      "calls": [],
+      "closed": true,
+      "effect": 0,
+      "failed": true
+    },
+    "corrected_violations": [],
+    "mutation": "refuse_reclose",
+    "negative_violations": [
+      "call_admission",
+      "backend_result_transport",
+      "opaque_effect_not_rollback",
+      "exact_callback_count",
+      "close_flags_before_callback"
+    ],
+    "operation": "close",
+    "outcome": {
+      "effect": 1,
+      "ok": true
+    }
+  },
+  {
+    "before": {
+      "calls": [],
+      "closed": false,
+      "effect": 0,
+      "failed": false
+    },
+    "corrected_violations": [],
+    "mutation": "rollback_error_effect",
+    "negative_violations": [
+      "opaque_effect_not_rollback"
+    ],
+    "operation": "sync",
+    "outcome": {
+      "effect": 1,
+      "ok": false
+    }
+  }
+]
