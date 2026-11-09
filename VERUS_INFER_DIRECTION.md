@@ -1,9 +1,9 @@
 # Verus Infer: direction and active roadmap
 
-Working direction, October 31, 2026. This document sets current priorities;
+Working direction, November 9, 2026. This document sets current priorities;
 [the feature reference](source/docs/guide/src/infer.md) defines supported behavior.
-The [RFC and implementation history](VERUS_INFER.md) preserve earlier designs
-and milestone context.
+The [project entry point](VERUS_INFER.md) links adoption, assurance, application
+evidence and the archived RFC; ordinary work need not load the historical journals.
 
 ## Goal and division of responsibility
 
@@ -37,27 +37,48 @@ Each acceptance record defines its own source, assumptions and finite scope:
 [Aleph v4](evidence/verus-infer-validation-v4/README.md),
 [hex v3](evidence/verus-infer-hex-v3/README.md).
 
+The later [integrated transfer checkpoint](evidence/infer-proof-composition/README.md)
+adds bounded native Fedimint deadline and redb codec, page-size and address-range
+proofs. Checked caller assistance removes packing, byte-inverse and shift-bound
+glue from selected goals. The full seven-field Fedimint request remains blocked
+by its external hash type; no whole-gateway or database theorem is claimed.
+Use the [transfer front door](source/tools/INFER_TRANSFERS.md) for fresh results.
+
 The experiment harness, integration-test support and ordered assistance pipeline
-have been consolidated. The next cycle should make those capabilities easier
-to diagnose and evaluate on another application.
+have been consolidated. Growth/range assistance explanations are implemented;
+other strategies still need broader diagnostic coverage. The transfer changes
+are integrated locally; current-cycle review and replay remain required.
 
 ## Active sequence
 
-1. **Explain assistance decisions.** Extend structured reports with what the
-   tool considered, applied or skipped. Give concrete reasons where a profile
-   can identify a missing condition, unsupported shape or exhausted budget.
-   Distinguish generation observations from checked proof outcomes. Done means
-   deterministic reporting, positive and negative regressions, and unchanged
-   verification and publication rules for existing inputs.
-2. **Measure transfer to an unrelated application.** Select a small existing
-   parser or encoder and pin its source and one useful property. First try the
-   current engine without changes. Record executable adaptations, authored
-   contracts/views/proofs, assumptions, blockers and proof time. Freeze that
-   baseline before extending the engine; an unsupported case is a useful result.
-3. **Resolve one evidenced blocker.** Use the transfer report to select a bounded
-   automation extension or consolidation. Require reuse beyond the motivating
-   fixture, semantic negative controls and a fresh application replay. Update
-   this sequence from the result before committing to another feature batch.
+1. **Validate the integrated transfer work.** Review the production delta and
+   trust inventories, build matching compiler/macros/vstd, and replay pinned
+   applications with fresh receipts. Historical test counts do not establish
+   current acceptance. Keep semantic, safety and auxiliary controls distinct.
+2. **Consolidate the current workflow.** Keep status and assurance concise,
+   extract genuinely shared assistance utilities, and explain more preparation
+   decisions. Preserve profile-specific normalization and independent checks.
+   Generation observations must never authorize verification or publication.
+3. **Freeze another end-to-end property.** Pin one unfamiliar encoder/parser,
+   original bodies, intended domain and authored semantics before extending the
+   engine. First measure the existing automation, recording adapters, remaining
+   proof annotations, assumptions and the actual first blocker. The prior
+   unsigned-varint frontend failure is historical evidence, not a result for
+   the current macro-loop adapter or inference profiles.
+4. **Remove evidenced mechanical work and demonstrate transfer.** Select one
+   bounded reusable extension from those baselines. Retain original application
+   goals/domains, add unrelated positive and negative cases, and replay both the
+   motivating and transfer properties. A smaller manual-proof inventory is the
+   objective; exact synthesis for every function is not required.
+5. **Repeat for a stateful property.** Supply a meaningful abstraction/invariant
+   over a small original transition closure, freeze it before proof attempts,
+   and measure generated versus authored frames, bounds and induction work.
+   A toy replacement implementation or a silently restricted domain does not
+   establish the selected application's property.
+
+Independent worktrees may evaluate the encoder and stateful properties in
+parallel against a fixed engine. Keep their baselines and evidence separate;
+integrate useful improvements only after review and combined validation.
 
 Keep each step reviewable on its own. Historical milestone documents and frozen
 evidence retain their original claims and pins.
