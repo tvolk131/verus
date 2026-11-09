@@ -1,0 +1,273 @@
+{
+  "compatibility_review": {
+    "audited_not_freshly_rerun": {
+      "parent_python_tests_per_mode": 455,
+      "shared_scenarios": 6
+    },
+    "decision": "NO_ACTIONABLE_COMPATIBILITY_FINDINGS",
+    "fresh_per_mode": {
+      "independent_probes": 845,
+      "isolated_guard_removal_controls": 12,
+      "opaque_cases": 47,
+      "prefix_tests": 18,
+      "rejection_checks": 830,
+      "slot_tests": 65
+    },
+    "integrity_receipt": {
+      "archive": "evidence/transfer-prefix-integration79/compatibility-review-integrity.json",
+      "original": "/private/tmp/verus-cycle79-compat-review.D2kMfI/integrity-receipt.json",
+      "sha256": "686624103558c97eb374a9057a3ac517160dd21053e108caedd7cfef5e94c8ff"
+    },
+    "no_production_loader_change": true,
+    "no_whole_module_or_storage_claim": true,
+    "report": {
+      "archive": "evidence/transfer-prefix-integration79/compatibility-review.md",
+      "original": "/private/tmp/verus-cycle79-compat-review.D2kMfI/REPORT.md",
+      "sha256": "9f82d27a0e4085862feb1e4782665faeb20fcef2ebcf6f47ff883c2dbe773c26"
+    },
+    "scope": "10-file parent compatibility delta; production reviewed separately",
+    "seal": {
+      "path": "/private/tmp/verus-cycle79-compat-review.D2kMfI/SHA256SUMS",
+      "sha256": "aa73d640adcab2a5286b244b8beabb3c67d0ab90227dcb55171428ef142e8488",
+      "verified_artifacts": 413
+    }
+  },
+  "date": "2026-11-02",
+  "decision": "ACCEPTED_BOUNDED_NATIVE_PREFIX_INFERENCE_AND_COMPATIBILITY",
+  "earlier_attempts": [
+    "Preintegration audit used hashlib.file_digest unavailable in system Python3.9; no edits occurred.",
+    "First discovery after the central identity update exposed27 stale redb fixture errors; new current fixtures preserve originals.",
+    "First common-suite attempt was invalidated by parent documentation edits during its input guard; retained, not passing evidence.",
+    "First compatibility reconstruction copied read-only modes and could not apply; new reconstruction2 changes only private copies.",
+    "Initial current-certificate test fixture sorted JSON schema away from byte-parser prefix; test encoding corrected, parser/gates unchanged."
+  ],
+  "identity": [
+    78,
+    72,
+    38
+  ],
+  "implementation_logs_audited_not_rerun_by_parent": {
+    "build-final.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/build-final.stderr",
+      "sha256": "7ccc453981921c8c4a2c564b6b3b587e41d23438ce58ffd0442c70e65bc00924"
+    },
+    "build-final.stdout": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/build-final.stdout",
+      "sha256": "6b5cc2f8a1a13ba2a8d518226d72beaff200603d279beaeb66c06f38c93cd1f8"
+    },
+    "python-all-final.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/python-all-final.stderr",
+      "sha256": "fb27cda781eca4ac693a498bee1749708ddb962712bc25b78922b8583995a589"
+    },
+    "python-all-optimized.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/python-all-optimized.stderr",
+      "sha256": "481947518206bc8d44fa82ba3238d83c864820587b85138f44d88116d5f01c21"
+    },
+    "python-new-final.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/python-new-final.stderr",
+      "sha256": "6a56d146011e58b03562cab5d16249f529c0f7071ed51e86f8c139a020e9638a"
+    },
+    "rust-focused-compiler10-2.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/rust-focused-compiler10-2.stderr",
+      "sha256": "a69ce0e67e01a8db4238786690373e65f19959d71d53959fb6bbb1590df8ea65"
+    },
+    "rust-focused-compiler10-2.stdout": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/rust-focused-compiler10-2.stdout",
+      "sha256": "03f4f160fc34dc09611cdd9c57187c9bf5095d3791695217711b231c0448231e"
+    },
+    "vir-unit-4.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/vir-unit-4.stderr",
+      "sha256": "495cf8eeb0758e60c4afa653ef6bd04515c9b71540ac41f94b39553014482a72"
+    },
+    "vir-unit-4.stdout": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/vir-unit-4.stdout",
+      "sha256": "bdc8681595716c714c108bdff06b59480e7464f4705fcf435577589889c94d73"
+    },
+    "vstd-compiler10.stderr": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/vstd-compiler10.stderr",
+      "sha256": "881fb90d50ffe7c2384bab84e19aaa55366f37230a9a40f343d1649493544306"
+    },
+    "vstd-compiler10.stdout": {
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/attempts/vstd-compiler10.stdout",
+      "sha256": "f169b0baebd66878cca99e2c4debad8751ecbd9a9c50fa615d2aee3c4945d363"
+    }
+  },
+  "implementation_validation": {
+    "matched_final_compiler": true,
+    "rust_integration": 93,
+    "vir": 148,
+    "vstd_errors": 0,
+    "vstd_verified": 2221
+  },
+  "no_application_or_storage_durability_claim": true,
+  "no_commits_pushes_manual_ref_writes_or_pr_actions": true,
+  "no_new_behavioral_standard_library_spec_or_application_axiom": true,
+  "parent_audit": {
+    "historical_decision": "Awaiting review when recorded; both independent reviews are now complete.",
+    "path": "/private/tmp/verus-prefix-infer79.1eVEuO/parent-validation-audit.json",
+    "sha256": "5bc8fa7455b4f6fd14aae641ad1c563d39a788948fd6670092a604ad4463c089"
+  },
+  "parent_validation": {
+    "logs": {
+      "dependencies-commands.json": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/dependencies-commands.json",
+        "sha256": "c5525587b5dcd285e08bc77147bd0f6f2f39b2dd92638943cdade0db58dcf8bf"
+      },
+      "dependencies.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/dependencies.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "dependencies.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/dependencies.stdout",
+        "sha256": "325d705c934879709ff424c9036e11f3c149ccb5ff6a79a5f1bb241e2cfbad31"
+      },
+      "new-prefix-commands.json": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/new-prefix-commands.json",
+        "sha256": "bad3d4cfb051cc6f2381b1f307d16da70b774e313f8dd72a5f8aaa2b8aabb7f9"
+      },
+      "prefix-new-O.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/prefix-new-O.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "prefix-new-O.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/prefix-new-O.stdout",
+        "sha256": "762ccb198e976b617f7ab770c7cd3d979050d816e7b32d1027d7c506e8d01c09"
+      },
+      "prefix-new.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/prefix-new.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "prefix-new.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/prefix-new.stdout",
+        "sha256": "762ccb198e976b617f7ab770c7cd3d979050d816e7b32d1027d7c506e8d01c09"
+      },
+      "python-all-O.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/python-all-O.stderr",
+        "sha256": "09337c7bb3ec392fa052f3129c1e3d7cb95bad169d68be5dcccf1a243eb073cf"
+      },
+      "python-all-O.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/python-all-O.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "python-all.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/python-all.stderr",
+        "sha256": "95dcb20b0bfc96bc70d84bbca9eacc685dade7d844380907ee6a5be5e38ef5b0"
+      },
+      "python-all.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/python-all.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "python-commands.json": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/python-commands.json",
+        "sha256": "d2a73372e2dac79430ce9a85a9f45788839d75aee0d5f7c2abde4db5b17adf27"
+      },
+      "redb-selection-O.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection-O.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "redb-selection-O.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection-O.stdout",
+        "sha256": "7bc2b8464a148edfe5f834171b73a85756fc9ca9e7ddfae3e00ffab8bfff3ca5"
+      },
+      "redb-selection-commands.json": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection-commands.json",
+        "sha256": "b0302ca9c5246dfa2158f44a4ab869af3a00bef789c1fed0dad60bd23ab9c527"
+      },
+      "redb-selection.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "redb-selection.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection.stdout",
+        "sha256": "b0f75602fa5c76392630495cdb0d21f0b124ad349cb18ebdef14c3dc3d2a344b"
+      },
+      "shared-commands.json": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/shared-commands.json",
+        "sha256": "f16d8ded68ac7f3fd326134c7ca9a44338dda5f9c0096ab393c16389250190b2"
+      },
+      "six-scenarios.stderr": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/six-scenarios.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "six-scenarios.stdout": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/six-scenarios.stdout",
+        "sha256": "135f17e7ea0e8b8e3440b7cb3e4ac9d8baae5cb63811f6083fb6e3b621a0774f"
+      }
+    },
+    "python_tests_per_mode": 455,
+    "replays": {
+      "prefix-new": {
+        "cases": 30,
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/prefix-new/receipt.json",
+        "sha256": "36649fa8e8148b52c8a81261be74ce79c1d2dee8fdebd61b6206cc656e3b7df0"
+      },
+      "prefix-new-O": {
+        "cases": 30,
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/prefix-new-O/receipt.json",
+        "sha256": "53a88858610ba70b00a3c73fc0415d1715378488f84b6244f5ac2510d58b4115"
+      },
+      "redb-selection": {
+        "cases": 47,
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection/receipt.json",
+        "sha256": "970173999f09ce05ee7396ee8b12ab8ccc2a06a1680cea692a5f392170ec4c90"
+      },
+      "redb-selection-O": {
+        "cases": 47,
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/redb-selection-O/receipt.json",
+        "sha256": "3fe4da836eea4a9f18bb6b7c451ef745c00226d4df54651d9d8043bed68fd60c"
+      },
+      "six-scenarios": {
+        "path": "/private/tmp/verus-prefix-infer79.1eVEuO/final-validation/six-scenarios/transfer-suite-xov99kix/receipt.json",
+        "scenario_proof_rows": {
+          "fedimint": 5,
+          "fedimint-full-request": 8,
+          "redb": 16,
+          "redb_address_range": 29,
+          "redb_page_relations": 23,
+          "redb_page_size": 11
+        },
+        "scenarios": 6,
+        "sha256": "78b2a9939349d9c22a5e17c90a6d9d0b16d89156c602e0339c79491b68bfe695"
+      }
+    }
+  },
+  "production_review": {
+    "decision": "PASS_BOUNDED_CANDIDATE_NO_NEW_BLOCKER_FOUND",
+    "fresh_review": {
+      "acceptance_tests_per_mode": 18,
+      "classified_compiler_probes": 35,
+      "runner_cases_per_mode": 30
+    },
+    "live_parent_observations": "The13 changed parent paths in the report match deliberate production integration plus parent-owned compatibility changes. Native, frozen source and matched runtime inputs remain unchanged. Shared-ref additions are not attributed.",
+    "no_whole_application_or_storage_claim": true,
+    "parent_followup": "Separate10-file compatibility review running. Parent already has fresh455 Python tests/mode,6 shared scenarios,30 prefix cases/mode and47 redb selection cases/mode; this original report does not review that delta.",
+    "review_receipt": {
+      "archive": "evidence/transfer-prefix-integration79/production-review-receipt.json",
+      "original": "/private/tmp/verus-cycle79-independent-review.5GYSxK/review-receipt.json",
+      "sha256": "a69ad0a11e5c76c4c44a8ed9b12f64b92e7a7f07bd4b043d868bc24ce7612fe4"
+    },
+    "review_report": {
+      "archive": "evidence/transfer-prefix-integration79/production-review.md",
+      "original": "/private/tmp/verus-cycle79-independent-review.5GYSxK/REPORT.md",
+      "sha256": "6be4171948ace1d77bdb4fe668e78cf1d3b6fbb6570870613161c052b4e860fa"
+    },
+    "scope": "Bounded17-file production candidate only; no parent compatibility approval",
+    "seal": {
+      "path": "/private/tmp/verus-cycle79-independent-review.5GYSxK/SHA256SUMS",
+      "sha256": "145988d27eb8253bb55498c3c6d2f30548dfab18f612049f193e032650bf0b7e",
+      "verified_artifacts": 418
+    }
+  },
+  "production_source_and_build_inputs_unchanged_after_review": true,
+  "runtime_hashes": {
+    "libverus_builtin.rlib": "e4d659d79b2135fb1839d01032044bae2c4013f99d1be943ecf8be1fac77ad5d",
+    "libverus_builtin_macros.dylib": "4d8c4fe46313e45841bf64a3cad23dd928c3b8cd8eb6c499cf539cb21245933c",
+    "libverus_state_machines_macros.dylib": "b5631a0304709155570f6f8270e2ceb5c8bd67cde099959f99f2ffb483fe7499",
+    "libvstd.rlib": "e107f079b8a6d8e761a690c36dd4f37fdffb27248fe6762a876e4a5676fd2846",
+    "rust_verify": "2dc428e7717fb2ba77b6640a7aed18dae5c7ecd44265046898ec2637627355e6",
+    "verus": "93b2d370189f3b529908bbfad0fad80285c9a166546f2a813a853fce80303700",
+    "vstd.vir": "a05d9a5b1a81b7ba4e5f18ab48706564a30367457a1842e687e9865989957f29",
+    "vstd_build": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+    "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+  }
+}

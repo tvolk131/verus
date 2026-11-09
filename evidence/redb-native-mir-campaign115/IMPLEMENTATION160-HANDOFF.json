@@ -1,0 +1,21 @@
+{
+  "record": "IMPLEMENTATION160-HANDOFF",
+  "root": "/private/tmp/redb-continuation160-20261109-001100",
+  "handoff_sha256": "be55df205b4506ddcc30fbe60a7e1fb1bd26b191a9e5853be369d44d1bc2ca5e",
+  "manifest_sha256": "82abdfba68793fee0be21ba1eacca3a2ce4c5f73887e37239b3457506998a1b5",
+  "seal_sha256": "d3941c9a9bd00909b6d0b5b8ef2ce00ee516e61598a10d3270c4e9062ef8453d",
+  "retained_archive": "IMPLEMENTATION160-HANDOFF.tar.gz",
+  "retained_archive_sha256": "bdfae6498df1a48822229657fca60ece8e1a424eab80fa32cdea4883a69fd1dd",
+  "manifested_payloads": 1171,
+  "regular_unique_byte_identical_members": 1172,
+  "entry_utc": "2026-11-09T00:27:45.893575+00:00",
+  "exit_utc": "2026-11-09T00:27:46.268120+00:00",
+  "qualification": "Supplied archive pin; metadata self-consistency and current selected endpoints/byte readback only. No full runtime/source/bootstrap or historical continuity.",
+  "disposition": "RETAIN_COMPILED_PARTIAL_TYPED_COMPONENT_ONLY_G1_G2_OPEN_READ_ONLY161_PENDING",
+  "laws_adopted": 1,
+  "law_count_scope": "ONE_CONDITIONALLY_ADOPTED_MATHEMATICAL_SCHEMA_ONLY",
+  "operative_native_laws_installed": 0,
+  "actual_resource_issuances": 0,
+  "original_native_bodies_verified": 0,
+  "all18": "OPEN"
+}

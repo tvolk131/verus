@@ -1,0 +1,17 @@
+{
+  "record": "allocation151-independent-review153-parent-retention",
+  "root": "/private/tmp/redb-review153-20261108-m75vzQWZ",
+  "handoff_sha256": "eea0544dfd366c15b26b062263c478c2ef98fc977d2408b06b86a1dc538599a1",
+  "manifest_sha256": "5a8c22c19226da4292400dbffac272c9511a57426c8b63f6325e4fce8195a946",
+  "seal_sha256": "86f50608922bebc943664c8b55ba78ac17b82a30c094ae52c1d36e6715ed6136",
+  "retained_archive": "ALLOCATION151-REVIEW153.tar.gz",
+  "retained_archive_sha256": "adc2fdcfdd5758fa89afd8029b1f9a935780688ae4a7ecba16041ed4825b7d0e",
+  "regular_unique_byte_identical_members": 19,
+  "entry_utc": "2026-11-08T22:43:43.338691+00:00",
+  "exit_utc": "2026-11-08T22:43:43.346367+00:00",
+  "qualification": "Current selected output endpoints and archive readback. Pins derived from local HANDOFF153 metadata, not independently supplied historical pins; no full runtime/source/bootstrap continuity.",
+  "disposition": "CONDITIONAL_REUSE_OF_EXACT_INHERITED_U8_POINTSTO_STORE_PERMITTED_NO_NEW_LAW;_NATIVE_CORRESPONDENCE_AND_CALLER_ISSUANCE_OPEN;_RAW_ALLOCATION_A_UNADOPTED",
+  "laws_adopted": 0,
+  "native_bodies_verified": 0,
+  "all18": "OPEN"
+}

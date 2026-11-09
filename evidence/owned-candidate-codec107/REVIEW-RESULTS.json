@@ -1,0 +1,31 @@
+{
+  "original_review_verdict": "REQUEST_CHANGES",
+  "original_reviewer_test_result": {
+    "cargo_exit": 101,
+    "failed": 2,
+    "passed": 13
+  },
+  "redb_open_cells": 18,
+  "repair_archive": {
+    "bytes": 119950,
+    "path": "/private/tmp/verus-codec-repair108-EaGK5X/REPAIR-HANDOFF.tar.gz",
+    "sha256": "12117c020a87600568795490abf37e757ff70edb8dfc0b0c6ff9f295c04dda37"
+  },
+  "repair_archive_members_byte_compared": 41,
+  "repair_independently_reviewed": false,
+  "repair_payloads": 40,
+  "repair_source_integration": false,
+  "review_archive": {
+    "bytes": 92504,
+    "path": "/private/tmp/verus-codec107-review-20261107-t9U1yK/REVIEW-HANDOFF.tar.gz",
+    "sha256": "8910f176847c87ed3f69dc6729a0c60bc815f754bbfaa7e7915e8609dc94e27c"
+  },
+  "review_archive_members_byte_compared": 20,
+  "review_findings_parent_repaired": true,
+  "review_report": {
+    "bytes": 12772,
+    "path": "/private/tmp/verus-codec107-review-20261107-t9U1yK/REVIEW.md",
+    "sha256": "8b3b3025e740d7a23c822eaf2ea6823e8f2d2ce4abbcf834477e1c8d02aa90e7"
+  },
+  "warm_cache_gate": "UNMET"
+}

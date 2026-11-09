@@ -20,6 +20,7 @@ vir-macros = { workspace = true }
 
 [features]
 singular = ["air/singular"]
+experimental-native-resource = []
 
 [lints]
 workspace = true

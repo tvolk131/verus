@@ -1,0 +1,221 @@
+{
+  "absolute_deadline_epoch": 1794102871.0,
+  "actual_verifier_launches": 10,
+  "additional_conservatively_charged_exploratory_metadata_failure": 1,
+  "additional_conservatively_charged_finalization_check_failure": 1,
+  "all_eighteen_cells": "OPEN",
+  "all_pre_post_entry_exit_auth_match": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "elapsed_seconds": 39.92774724960327,
+      "end": 1794102167.188116,
+      "label": "split-concrete-fixtures",
+      "returncode": 1,
+      "source_sha256": "39a083d085a88624d899fbb4d015eecfb318160c75126ea4842a9399c8e6b2f2",
+      "start": 1794102127.2603688,
+      "summary": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 14
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 2,
+      "elapsed_seconds": 26.001391887664795,
+      "end": 1794102228.323081,
+      "label": "split-branch-layout-and-intervals",
+      "returncode": 1,
+      "source_sha256": "fd1152a31fd699a52cb3a4d46a1befca914d5185458d22b7de1ab0c29ec12401",
+      "start": 1794102202.3216891,
+      "summary": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 3,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 16
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 3,
+      "elapsed_seconds": 36.131919145584106,
+      "end": 1794102295.8792262,
+      "label": "explicit-branch-finite-order",
+      "returncode": 1,
+      "source_sha256": "d06930a3e8f204b801a11cc6a34d8c18e6b22221ea8f993bedcfa18a840a1dd2",
+      "start": 1794102259.747307,
+      "summary": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 3,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 16
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 4,
+      "elapsed_seconds": 25.21237015724182,
+      "end": 1794102351.771491,
+      "label": "abstract-two-separator-layout",
+      "returncode": 1,
+      "source_sha256": "0785747e3a00f788d38b3642a9f9a0439723535c83d630a47e9636b35c79fbe8",
+      "start": 1794102326.559121,
+      "summary": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 19
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 5,
+      "elapsed_seconds": 4.442379951477051,
+      "end": 1794102390.268033,
+      "label": "independent-query-callers",
+      "returncode": 0,
+      "source_sha256": "1e501a924f43adf863a80dc1454fdb1e506f071ed74caf79e02b02868bf5fcaf",
+      "start": 1794102385.825653,
+      "summary": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 38
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 6,
+      "elapsed_seconds": 5.082249164581299,
+      "end": 1794102452.172517,
+      "label": "semantic-control-wrong-child",
+      "returncode": 1,
+      "source_sha256": "7ad4249add65940d7cf0ddc70326ebb817894827021d157287de8cf105c5a91e",
+      "start": 1794102447.090268,
+      "summary": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 38
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 7,
+      "elapsed_seconds": 5.258389711380005,
+      "end": 1794102478.735803,
+      "label": "semantic-control-wrong-value",
+      "returncode": 1,
+      "source_sha256": "b9ac093ebf21494f999e31badbce931891a5ec3daac7f1801e5124fc72e5cccb",
+      "start": 1794102473.4774132,
+      "summary": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 38
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 8,
+      "elapsed_seconds": 5.364535808563232,
+      "end": 1794102528.4947898,
+      "label": "matched-wrong-child-corrected",
+      "returncode": 0,
+      "source_sha256": "c99c86ce67d4478cccf6dc0e09c21e877ff9f508017bcb899f4ade006b571811",
+      "start": 1794102523.130254,
+      "summary": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 39
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 9,
+      "elapsed_seconds": 4.489993095397949,
+      "end": 1794102560.289149,
+      "label": "matched-wrong-value-corrected",
+      "returncode": 0,
+      "source_sha256": "1fdcd78ff49414ec2d5633f5ba6dc063ba7edfec95acd33259ee2b06c6ea4349",
+      "start": 1794102555.799156,
+      "summary": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 39
+      },
+      "timed_out": false
+    },
+    {
+      "attempt": 10,
+      "elapsed_seconds": 4.04874587059021,
+      "end": 1794102596.563266,
+      "label": "byte-identical-full-positive-restoration",
+      "returncode": 0,
+      "source_sha256": "1e501a924f43adf863a80dc1454fdb1e506f071ed74caf79e02b02868bf5fcaf",
+      "start": 1794102592.5145202,
+      "summary": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 38
+      },
+      "timed_out": false
+    }
+  ],
+  "authentication_snapshots": 22,
+  "bindings_per_authentication": 320,
+  "cap": 16,
+  "corrected_counterparts_checked": 2,
+  "elapsed_seconds_at_record": 789.5283441543579,
+  "finalization_record_epoch": 1794102760.5283442,
+  "free_disk_floor_bytes": 17179869184,
+  "fresh_independent_review_required": true,
+  "full_positive_errors": 0,
+  "full_positive_restoration_recheck": true,
+  "full_positive_sha256": "1e501a924f43adf863a80dc1454fdb1e506f071ed74caf79e02b02868bf5fcaf",
+  "full_positive_verified": 38,
+  "inherited102": {
+    "charged": 9,
+    "launches": 7,
+    "prior_research_wall_violation_retained": true,
+    "restoration": false,
+    "semantic_negatives": 0
+  },
+  "max_actual_application_seconds": 39.92774724960327,
+  "maximum_recorded_scratch_bytes": 4475260,
+  "minimum_recorded_free_bytes": 56282161152,
+  "numbered_attempts": 10,
+  "scratch_limit_bytes": 134217728,
+  "semantic_negatives_launched": 2,
+  "semantic_negatives_localized": 2,
+  "start_epoch": 1794101971.0,
+  "status": "BOUNDED_CHECKED_PROOF_GATES_COMPLETED_NOT_ACCEPTED_ALL18OPEN",
+  "stop_new_applications_epoch": 1794102691.0,
+  "timeouts": 0,
+  "total_charged_attempts": 12
+}

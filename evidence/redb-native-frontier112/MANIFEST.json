@@ -1,0 +1,47 @@
+{
+  "all18": "OPEN",
+  "current_parent_receipt_hashes_match_existing_integration": true,
+  "files": [
+    {
+      "bytes": 8357,
+      "path": "DECISION-AUTHENTICATION.json",
+      "sha256": "6a7b9f4c25d4b6af3533acd88a8c7375b9cd178a779de6d2de5eedd4937f634d"
+    },
+    {
+      "bytes": 13957,
+      "path": "DECISION-REPORT.md",
+      "sha256": "6fedab0f000c9785a0846b447c8a039180e1df554c74c22e728562a0b6d7cff9"
+    },
+    {
+      "bytes": 44186,
+      "path": "DUPLICATE-RECEIPT-SCRATCH.tar.gz",
+      "sha256": "4dad7f2fe6ca7d402d0d6714e26cd7ae2276bf4f2e5b873ad990f568d62c21d7"
+    },
+    {
+      "bytes": 15372,
+      "path": "PRE112-GOAL.md",
+      "sha256": "efa3c8dcf4d54d5f3a1ee4afa9585ce953e4356d0c0f1290ac0515d97951e764"
+    },
+    {
+      "bytes": 24966,
+      "path": "PRE112-STATUS.json",
+      "sha256": "8b617fa153cc3277041f919f95dc5c25c3e2edaef67725a1893b3e81e33e4654"
+    },
+    {
+      "bytes": 4208,
+      "path": "README.md",
+      "sha256": "1210ee97e4d8bee69b6a5851b5427c4e79689e1b01c52373abb4d5bd38c7e8e7"
+    },
+    {
+      "bytes": 1282,
+      "path": "RECEIPT-RETENTION.json",
+      "sha256": "ea78bb6cf53a3572fd01b093f00f85f6d9e66d68e1f5c2fa746615d92014239f"
+    }
+  ],
+  "free_bytes": 73395990528,
+  "native_proof_credit": false,
+  "schema": "native-frontier112-content-integrity-only-v1",
+  "scope_reversal_authorized": false,
+  "sealed111_payloads_reauthenticated": 52,
+  "utc": "2026-11-08T06:20:31.400989+00:00"
+}

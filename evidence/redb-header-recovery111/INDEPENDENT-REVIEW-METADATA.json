@@ -1,0 +1,45 @@
+{
+  "accounting": {
+    "bytes": 4637,
+    "executable": false,
+    "mode": "0o644",
+    "path": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/ACCOUNTING.json",
+    "resolved": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/ACCOUNTING.json",
+    "sha256": "d85d7f568d01bb7920be38fff3068d832179b6e67ffc5415025b79a710119fcb"
+  },
+  "adoption": false,
+  "all18": "OPEN",
+  "automatic_followup": false,
+  "charged_applications": 6,
+  "compiler_source_correspondence": "UNESTABLISHED",
+  "fresh_combined": "80/0 twice; source bytes identical",
+  "fresh_negative": "78/3; intended H mode, user-root, system-root assertions",
+  "fresh_p_full": "71/0",
+  "inherited_boundary": "EXPLICIT_INHERITED_STD_BOOL_TCB_NOT_RUST_CORE_PROOF",
+  "integration": false,
+  "manifest": {
+    "bytes": 143629,
+    "executable": false,
+    "mode": "0o644",
+    "path": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/MANIFEST.json",
+    "resolved": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/MANIFEST.json",
+    "sha256": "659858690ee445742d451a03f469a9c09658dc99e0eb420fc63ed23d60d00e2b"
+  },
+  "native_acceptance": false,
+  "native_git": "UNAVAILABLE",
+  "native_path_preservation": "FAILED",
+  "parent_applications_used": 0,
+  "payloads": 279,
+  "report": {
+    "bytes": 8700,
+    "executable": false,
+    "mode": "0o644",
+    "path": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/REPORT.md",
+    "resolved": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c/REPORT.md",
+    "sha256": "05ff68c5b4e7eef13cab0785804e05d40da0565e794d1877edb166ca87ff535a"
+  },
+  "reviewer_errors": "one monitor-denied killed/reaped process; one prelaunch source-path error",
+  "root": "/private/tmp/redb-header-recovery111-independent-6VYnqG7c",
+  "utc": "2026-11-08T05:58:55.497271+00:00",
+  "verdict": "NO_NEW_BLOCKING_CONDITIONAL_CONTRACT_DEFECT"
+}

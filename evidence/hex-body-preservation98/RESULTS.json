@@ -1,0 +1,151 @@
+{
+  "archive": "AUDIT-HANDOFF.tar.gz",
+  "archive_member_sha256": {
+    "delegated/REPORT.md": "52782004ae3dc74d650ab9ce610765a46d6c1e35ece8ceb82c771d0ececb0c9a",
+    "delegated/audit-authentication-entry.json": "5337052fc5964ad58f37c0a283adeb088b092523cffa7a44d68e43c53c1d54e5",
+    "delegated/audit-authentication-exit.json": "4e80c5b7e63e10e3dc4196c901465016a900c69a9a1f25ebaf43fcfc0af4ecd4",
+    "delegated/audit-run.log": "1d62aaf60c89b6138cbf016349e6af8467f18ce4bae57b9ea2a92dda3c49b1f3",
+    "delegated/audit.py": "56dba3a0baa1c0ef869d96e4cb17a4dc4c2c3bb4942ec9efdc224e4b4d666ca6",
+    "delegated/authentication-entry.json": "a31fc5a4cf019fb89fabc7305b170a54b1a8246decb7c7c7bc20adf7770f10b5",
+    "delegated/authentication-handoff-final.json": "d22ecd3b335b7ede5518e24b142f3f3dd46be60c2884699e59407abbb97f67cf",
+    "delegated/commands.json": "51ccc26f45844da789f02738e6a7f9b753363197ab77ad09cc00a886f490d830",
+    "delegated/finalize.py": "a90512cb9994b1c08df57c3442a1fbce6b032e336b5171e0a4e61d0e73d87d54",
+    "delegated/handoff.json": "99a653db32c7e3eb79ba82433a26430fefed38fa9b68c401812015d2319f6112",
+    "delegated/line-mapping.json": "ad865ef5bbb9a43bf9ce673bbeb4d89d682ed5b038a40e040e277af9eb5c5a35",
+    "delegated/matches.json": "21f3baa51d47e0c82f6305a8386c2abd8bc00f9f8b712f9130e30bbfc162bb18",
+    "delegated/output-manifest.json": "026030e30be4d6c66371b65c7756ed624ba986f0f8b674e76bd184ab34e6d809",
+    "delegated/results.json": "e22a11926349104627a0ec19f8e0f5abe8ee928002a896f07220709d107c70d8",
+    "delegated/source-comparison.json": "2711346bf6487eda130b0687eb2c30761e43c41ba0be3bf13fe4bc09406cdd14",
+    "delegated/test-results.json": "ca4427770d215ee3d734f158c59f42b6603591d0d339c15180cadab48dd0d541",
+    "delegated/test_audit.py": "8c18f4195729d11379f6c562654b46a3a0c246134a10b2a6aa86db54a102c858",
+    "delegated/unit-tests.log": "99b18fe3b441f321128db61459b1bc4cdc25e20e8e238b0ffcec73e4e6f3cb0f",
+    "delegated/validate.py": "f77986f1e726f87a304cd0b1e2c7deb88b13a022e6c100bf34900e9c8cf35ce8",
+    "parent-validation/audit-authentication-entry.json": "9b8cbe2777777b77b00c5cc190a425c03c4f1abe1733bf81ab5017c3e90c40d4",
+    "parent-validation/audit-authentication-exit.json": "15c5d49607688c179272f50aa91ecbeec510f51c20315f8ddc52ec9c2fdf491e",
+    "parent-validation/audit.log": "1d62aaf60c89b6138cbf016349e6af8467f18ce4bae57b9ea2a92dda3c49b1f3",
+    "parent-validation/audit.py": "56dba3a0baa1c0ef869d96e4cb17a4dc4c2c3bb4942ec9efdc224e4b4d666ca6",
+    "parent-validation/line-mapping.json": "ad865ef5bbb9a43bf9ce673bbeb4d89d682ed5b038a40e040e277af9eb5c5a35",
+    "parent-validation/matches.json": "21f3baa51d47e0c82f6305a8386c2abd8bc00f9f8b712f9130e30bbfc162bb18",
+    "parent-validation/parent-validation.json": "97ac706e9098a7375a69185487cd305cfd556897122ccfd2dc90ebae56a4e980",
+    "parent-validation/results.json": "32e1ad5acea506e41d64ca8492058b95ee3db62265e3916f4a93761243403158",
+    "parent-validation/source-comparison.json": "2711346bf6487eda130b0687eb2c30761e43c41ba0be3bf13fe4bc09406cdd14",
+    "parent-validation/test_audit.py": "8c18f4195729d11379f6c562654b46a3a0c246134a10b2a6aa86db54a102c858",
+    "parent-validation/unit-tests.log": "fd8f079b9c72d83f4b74e29b01489efdfd6a5bd1446a52e4e9a8dc893666baac"
+  },
+  "archive_members": 30,
+  "archive_members_verified_against_source": true,
+  "archive_sha256": "34dfd18396d8ec8e938be1de0f60f861f8fec54374959384ab45537be8e4bf75",
+  "both_same_label_overloads_matched_individually": true,
+  "candidate_result": {
+    "both_overloads_individually_matched_per_positive": true,
+    "classification": "AUDIT/METADATA",
+    "entry_exit_authenticated": true,
+    "final_acceptance": false,
+    "final_handoff_authentication": "PASS",
+    "limits_entry": {
+      "audit_elapsed_seconds": 0.0002417499999999989,
+      "free_bytes": 56219848704,
+      "scratch_bytes": 290099
+    },
+    "limits_exit": {
+      "audit_elapsed_seconds": 0.074519084,
+      "free_bytes": 56219844608,
+      "scratch_bytes": 290099
+    },
+    "matched_original_rows_per_positive": 32,
+    "metadata_unit_tests": {
+      "classification": "AUDIT/METADATA",
+      "raw_log": "unit-tests.log",
+      "results_file": "test-results.json",
+      "status": "PASS",
+      "test_count": 23
+    },
+    "native_execution": false,
+    "normalization": {
+      "current_root": "/private/tmp/verus-hex130-privacy-repair-20261107-zm5hKz/native",
+      "historical_root": "/Users/tommyvolk/Documents/GitHub/hex-conservative",
+      "span_coordinates": "original lib.rs forwarded into final-source coordinates; columns unchanged"
+    },
+    "parent_integration": false,
+    "positive_invocations": [
+      "03",
+      "05",
+      "06"
+    ],
+    "redb_tasks_open": 18,
+    "review_read_only_context": {
+      "derived_matches_used_as_oracle": false,
+      "evidence_top_level_keys": [
+        "archive_files",
+        "final_native_files",
+        "final_source_sha256",
+        "full_patch_independently_reproduced",
+        "historical_baseline_exactly_bound_to_restored_case",
+        "historical_exec_rows",
+        "historical_unique_function_labels",
+        "invocations",
+        "original_constant_sha256",
+        "original_signatures_and_erased_bodies",
+        "source_only_insertions"
+      ],
+      "report_characters": 19044
+    },
+    "status": "PASS",
+    "strict_persisted_warm_cache_gate": "UNMET",
+    "total_independent_row_matches": 96,
+    "trust_admission": "UNCHANGED"
+  },
+  "classification": "AUDIT/METADATA_ONLY_NOT_NATIVE_PROOF_OR_EXECUTABLE_EQUIVALENCE",
+  "delegated_manifest_entries": 18,
+  "delegated_manifest_sha256": "026030e30be4d6c66371b65c7756ed624ba986f0f8b674e76bd184ab34e6d809",
+  "final_acceptance": false,
+  "historical_native_proof_evidence_unchanged": true,
+  "individual_body_matches": 96,
+  "matched_original_bodies_per_positive": 32,
+  "new_native_verifier_runs": 0,
+  "original_name_set_harness_unchanged": true,
+  "parent_application_source_integrated": false,
+  "parent_validation": {
+    "classification": "AUDIT/METADATA; parent replay of the delegated audit, not native proof",
+    "commands": [
+      {
+        "argv": [
+          "/Library/Developer/CommandLineTools/usr/bin/python3",
+          "-B",
+          "audit.py"
+        ],
+        "cwd": "/private/tmp/verus-hex-preservation98-parent-qloa5ri6",
+        "exit_code": 0,
+        "log": "audit.log",
+        "seconds": 0.3095015
+      },
+      {
+        "argv": [
+          "/Library/Developer/CommandLineTools/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "-v",
+          "test_audit"
+        ],
+        "cwd": "/private/tmp/verus-hex-preservation98-parent-qloa5ri6",
+        "exit_code": 0,
+        "log": "unit-tests.log",
+        "seconds": 0.19203183299999999
+      }
+    ],
+    "final_acceptance": false,
+    "matches_equal_to_delegated_result": true,
+    "native_execution": false,
+    "original_audit_manifest_entries": 18,
+    "original_audit_manifest_sha256": "026030e30be4d6c66371b65c7756ed624ba986f0f8b674e76bd184ab34e6d809",
+    "strict_cache_gate": "UNMET"
+  },
+  "parent_validation_unit_tests": 23,
+  "product_tooling_integration": false,
+  "redb_final_cells_open": 18,
+  "same_23_tests_rerun_not_46_distinct_tests": true,
+  "separate_independent_review_of_new_audit": false,
+  "strict_persisted_warm_cache_gate": "UNMET",
+  "trust_adoption": false
+}

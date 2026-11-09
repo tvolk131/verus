@@ -1,0 +1,34 @@
+{
+  "archive": "HANDOFF157.tar.gz",
+  "archive_bytes": 32199,
+  "archive_sha256": "5ca316a082dc1c59c51b7f049a0a38daad580431186ebb982c93ed0b7b41d7e9",
+  "manifest_sha256": "3e0d200c0648490342386be1fb605214f536712274c502a789885a2528d21f59",
+  "manifested_payloads": 10,
+  "postarchive_utc": "2026-11-08T23:54:02.630467+00:00",
+  "qualification": "Postarchive endpoint evidence; archive does not contain this seal or future handoff. Selected input authentication only; no continuous/bootstrap custody.",
+  "regular_unique_byte_identical_members": 11,
+  "samples": [
+    {
+      "allocated_bytes": 135168,
+      "free_bytes": 27493326848,
+      "label": "seal_entry",
+      "logical_bytes": 123328,
+      "utc": "2026-11-08T23:54:02.426895+00:00"
+    },
+    {
+      "allocated_bytes": 135168,
+      "free_bytes": 27492646912,
+      "label": "all_selected_endpoints_rechecked",
+      "logical_bytes": 123328,
+      "utc": "2026-11-08T23:54:02.620948+00:00"
+    },
+    {
+      "allocated_bytes": 176128,
+      "free_bytes": 27492560896,
+      "label": "archive_all_member_readback_complete",
+      "logical_bytes": 159082,
+      "utc": "2026-11-08T23:54:02.630213+00:00"
+    }
+  ],
+  "task": "review157"
+}

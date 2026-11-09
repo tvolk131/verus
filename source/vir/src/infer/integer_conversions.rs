@@ -15,7 +15,7 @@ fn clean(function: &Function) -> bool {
 }
 
 fn integer(typ: &Typ) -> bool {
-    matches!(&**typ, TypX::Int(range) if arithmetic::bounds(*range).is_some())
+    matches!(&**typ, TypX::Int(range) if arithmetic::exact_range(*range))
 }
 
 fn error_type(typ: &Typ) -> bool {
@@ -84,11 +84,18 @@ pub(super) fn conversion_model(function: &Function) -> bool {
             });
     }
     path.krate == CrateId::Core
-        && path.segments.len() == 4
+        && path.segments.len() >= 4
         && path.segments[0].as_str() == "convert"
         && path.segments[1].as_str() == "num"
-        && path.segments[2].starts_with("impl")
-        && path.segments[3].as_str() == "try_from"
+        && ((path.segments.len() == 4
+            && path.segments[2].starts_with("impl")
+            && path.segments[3].as_str() == "try_from")
+            || (path.segments.len() == 5
+                && path.segments[2].as_str() == "ptr_try_from_impls"
+                && path.segments[3].starts_with("impl")
+                && path.segments[4].as_str() == "try_from"
+                && result(&data.inner_ret.x.typ)
+                    .is_some_and(|(output, _)| matches!(&**output, TypX::Int(IntRange::USize)))))
         && data.typ_params.is_empty()
         && data.typ_bounds.is_empty()
         && integer(&data.params[0].x.typ)
@@ -107,6 +114,9 @@ pub(super) fn conversion<'a>(
     expression: &'a Expr,
     functions: &HashMap<Fun, Function>,
 ) -> Option<&'a Expr> {
+    if let Some(operand) = numeric_into::operand(expression, functions, true) {
+        return Some(operand);
+    }
     let ExprX::Call {
         target:
             CallTarget::Fun(
@@ -209,6 +219,30 @@ pub(super) fn maximality_model(function: &Function, types: &Typs) -> bool {
 mod tests {
     use super::*;
     use crate::infer::tests::{Value, evaluate_integer, function, input, span};
+
+    #[test]
+    fn pointer_conversion_domain_matches_independent_32_and_64_bit_oracles() {
+        let output_type = Arc::new(TypX::Int(IntRange::USize));
+        let input = Term { expr: input("x"), size: 1, view: None };
+        let (safe, output) = value(&span(), input, &output_type).unwrap();
+        for bits in [32, 64] {
+            for number in [-1, 0, 1, (1i128 << 32) - 1, 1i128 << 32, (1i128 << 64) - 1, 1i128 << 64]
+            {
+                let expected = if bits == 32 {
+                    u32::try_from(number).map(u128::from).ok()
+                } else {
+                    u64::try_from(number).map(u128::from).ok()
+                };
+                let evaluate = |expression: &Expr| {
+                    crate::infer::tests::evaluate_on_arch(expression, &|_| Value::Int(number), bits)
+                };
+                assert_eq!(evaluate(&safe.expr), Value::Bool(expected.is_some()));
+                if let Some(expected) = expected {
+                    assert_eq!(evaluate(&output.expr), Value::Int(expected as i128));
+                }
+            }
+        }
+    }
 
     #[test]
     fn independent_native_oracle_checks_success_domain_and_value() {

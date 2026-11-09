@@ -1,0 +1,141 @@
+{
+  "all18": "OPEN",
+  "applications": [
+    {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "classification": "SETUP_DUPLICATE_VSTD_IMPORT_COMPILER_PANIC_NOT_SEMANTIC_NEGATIVE",
+      "exit_code": 1,
+      "fresh_export_absent": true,
+      "inference_generated_functions": 0,
+      "inference_requested_functions": 0,
+      "inference_status": "verification_failed",
+      "invocation": {
+        "bytes": 3535,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-01-baseline-native/invocation.json",
+        "sha256": "b49bd742b9a732f97792ad945c9ea202c88bc30908dc83bd8514e222413690c8"
+      },
+      "number": 1,
+      "stderr": {
+        "bytes": 200,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-01-baseline-native/stderr.txt",
+        "sha256": "c4ba1e97fc15b7400122fc9701c3ab4281a6b6ee1d0bc7657573711ec387c583"
+      },
+      "stdout": {
+        "bytes": 10343,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-01-baseline-native/stdout.txt",
+        "sha256": "4d1b119e4c479e3f338da8e6799d374e07394be851f97120a9eb78ac50ca4b7c"
+      }
+    },
+    {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "classification": "FRONTEND_NATIVE_TYPE_ADMISSION_REFUSAL_NOT_SEMANTIC_NEGATIVE",
+      "exit_code": 1,
+      "fresh_export_absent": true,
+      "inference_generated_functions": 0,
+      "inference_requested_functions": 0,
+      "inference_status": "verification_failed",
+      "invocation": {
+        "bytes": 3460,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-02-automatic-vstd-native/invocation.json",
+        "sha256": "a28a2f90b285bd038ce9a3e8ff794a93bee72ed3904795b4e37b6b93c7f945a5"
+      },
+      "number": 2,
+      "stderr": {
+        "bytes": 1038,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-02-automatic-vstd-native/stderr.txt",
+        "sha256": "944341d7bf67b249920e4984e5f6108b203bb787855133b90c37db7608d33b6c"
+      },
+      "stdout": {
+        "bytes": 10267,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-02-automatic-vstd-native/stdout.txt",
+        "sha256": "03f262ffcda282a5ea5e07e3f9c64bbe29760eb16eeede62dcc06c596143b908"
+      }
+    },
+    {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "classification": "FRONTEND_NATIVE_TYPE_ADMISSION_REFUSAL_NOT_SEMANTIC_NEGATIVE",
+      "exit_code": 1,
+      "fresh_export_absent": true,
+      "inference_generated_functions": 0,
+      "inference_requested_functions": 0,
+      "inference_status": "verification_failed",
+      "invocation": {
+        "bytes": 3455,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-03-annotated-native/invocation.json",
+        "sha256": "670f5f85f93221ab890546a50865fa8435517a481314924f12069c37dc13c27b"
+      },
+      "number": 3,
+      "stderr": {
+        "bytes": 1058,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-03-annotated-native/stderr.txt",
+        "sha256": "73d00f855a0de3f02f4028ded0d732dba3cffaefc50ce14808d457bc3774057c"
+      },
+      "stdout": {
+        "bytes": 10409,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-03-annotated-native/stdout.txt",
+        "sha256": "440a3849489433597ad4bbb546eefb55a6a7742ab4093f05677a1418c66f8ffa"
+      }
+    },
+    {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "classification": "FRONTEND_NATIVE_TYPE_ADMISSION_REFUSAL_NOT_SEMANTIC_NEGATIVE",
+      "exit_code": 1,
+      "fresh_export_absent": true,
+      "inference_generated_functions": 0,
+      "inference_requested_functions": 0,
+      "inference_status": "verification_failed",
+      "invocation": {
+        "bytes": 3508,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-04-restored-baseline-native/invocation.json",
+        "sha256": "00ad248c37f3a2c001e1ca7853984a3b4287795fb205dea2d66a6518298055cc"
+      },
+      "number": 4,
+      "stderr": {
+        "bytes": 1056,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-04-restored-baseline-native/stderr.txt",
+        "sha256": "d51df59ba8af044d1b466af1215b2ef160b9e078bc2322bb5c9c34a89efdb5df"
+      },
+      "stdout": {
+        "bytes": 10393,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-04-restored-baseline-native/stdout.txt",
+        "sha256": "8a3e58b43b18ffb9eae90f4d181160cf899e21e26aa63b7378753b0c5360f394"
+      }
+    },
+    {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "classification": "FRONTEND_NATIVE_TYPE_ADMISSION_REFUSAL_NOT_SEMANTIC_NEGATIVE",
+      "exit_code": 1,
+      "fresh_export_absent": true,
+      "inference_generated_functions": 0,
+      "inference_requested_functions": 0,
+      "inference_status": "verification_failed",
+      "invocation": {
+        "bytes": 3542,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-05-exact-namespace-annotated/invocation.json",
+        "sha256": "fefa3bc9b200d9c28ecb73db2e31a80c44ece094136cfad481a9456ba75991d5"
+      },
+      "number": 5,
+      "stderr": {
+        "bytes": 1074,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-05-exact-namespace-annotated/stderr.txt",
+        "sha256": "cfaed761108d1453242cbde6ec104dbce9ee371bd22efa98ef5b08fe1d4ef99d"
+      },
+      "stdout": {
+        "bytes": 11779,
+        "path": "/private/tmp/redb-writablepage113-A-20261108T143038Z-ti8KsKPj/attempt-05-exact-namespace-annotated/stdout.txt",
+        "sha256": "d4707f765b79eca5149f808964566e5d453db70a3afbf5ea41ebd7a7caf3d3a5"
+      }
+    }
+  ],
+  "charged": 5,
+  "classification": "RAW_EVIDENCE_AUDIT_NOT_INDEPENDENT_REPLAY",
+  "native_bodies_checked": 0,
+  "native_correspondence": false,
+  "new_replays": 0,
+  "utc": "2026-11-08T14:49:44.672049+00:00"
+}

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "retained_utc": "2026-11-08T16:24:34.803169+00:00",
+  "manifest_sha256": "cea98f9eebef712762785f34c8ecfa97da433b0059ac29a2b45a8a0bc9354a87",
+  "payloads_verified": 8,
+  "archive_members": 10,
+  "archive_bytes": 26922,
+  "archive_sha256": "bc48cfd74d7abd2b3800e866e9eab9158a9aea424e8e027ab770c4cc95e635a6",
+  "synthetic_tests_reported": 30,
+  "real_MIR_evidence": false,
+  "all18": "OPEN"
+}

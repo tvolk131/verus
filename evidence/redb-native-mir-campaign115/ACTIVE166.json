@@ -1,0 +1,51 @@
+{
+  "record": "native-allocator-issuance166-and-independent-scalar-review165",
+  "authority": "AUTHORIZATION139.md; FIRST-CELL139.md; ALLOCATOR-LAW-DISPOSITION159.md",
+  "implementation164": {
+    "status": "SEALED39/64_PARTIAL_MISSING_REQUESTED_NATIVE_ISSUANCE_CORE",
+    "handoff": "IMPLEMENTATION164-HANDOFF.json",
+    "handoff_sha256": "ca8691451a59a2ce81acd3e0b438b443dfbcb684fb44fa0b2dd40d1f8cc1357e",
+    "archive_sha256": "3bd20e516bfda56de3377caf29637e1796cb1cc4179db450445e8d69f0a9b133",
+    "parent_authentication": "1508 archive/current regular unique members; 1120 candidate files; final runtime digest matched; endpoint-only",
+    "actual_progress": "Scalar Alignment/finite holder-loan-CFG interpretation through canonical WF/modes/SST; seven positives, eight refusals, 50 serialized-VIR evaluations, three structural plus27 parent plus1 default-off tests",
+    "missing": "Same-native-event/full-pointer interpretation and genuine initialized once-only affine raw/Dealloc continuation; AIR unconditionally refuses allocator instruction",
+    "qualification": "No solver or original native analysis; command4 actual root exit/test result LOST and all setup/build/fixture failures retained"
+  },
+  "review165": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A69deae70-f337-4927-8375-847d091134b3",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A69deae70-f337-4927-8375-847d091134b3>",
+    "status": "COMPLETED_SEALED_SOURCE_ONLY; report/four seal records authenticated; no heavy slot",
+    "scope": "Independent exact-code scalar/CFG/refusal review of sealed164, not live166 or issuer approval",
+    "bounds": "14 minutes including seal, 2MiB fresh scratch, no execution",
+    "report": "REVIEW165-REPORT.md",
+    "report_sha256": "222bc82035c9a7bcb0464c81412c4b7a72e55ad6e344c9010a67b05fc2c83875",
+    "findings": "P2 F165-1 serialized-opcode quarantine scans body only; scoped validity-strengthening transmute objection; no native proof/issuer approval"
+  },
+  "implementation166": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A786e1e1f-190d-4a63-a06e-0c00b6d28b6a",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A786e1e1f-190d-4a63-a06e-0c00b6d28b6a>",
+    "status": "LAUNCHED_RUNNING_EXCLUSIVE_HEAVY_SLOT",
+    "scope": "Genuine canonical same-original-native-event/full-pointer/initialized affine allocation continuation; no additional metadata milestone",
+    "bounds": "80 minutes including seal;64 charged commands; fresh expected1.5GiB/hard2GiB; jobs1 offline locked; sampled free strictly>16GiB plus build margin",
+    "pre_review_gate": "Build/WF/mode/structural/AIR-shape development only; no unreviewed operative issuer, solver/native acceptance or export",
+    "cleanup_authority": "NONE;162 grant complete"
+  },
+  "heavy_slot": "166_EXCLUSIVE;164_RELEASED",
+  "parent_repair167": {
+    "status": "SEALED_SOURCE_ONLY_UNCOMPILED_UNEXECUTED; immutable pins steered to166",
+    "scope": "Canonical whole-function quarantine; two authored tests, 13 expression locations, serialized import/export/native-admission cases",
+    "handoff": "REPAIR167-HANDOFF.json",
+    "handoff_sha256": "697779aba9a49c0bca85ee8eda5c41eb03c53eea7cd228080db9c0a0c068a7b2",
+    "archive_sha256": "ddbe05e21018057a4af112ce35d383d74cd4249319c3f2b46106c3b7c51027a6",
+    "patch_sha256": "779921543a427f0ffe13ee3b4129f670364410cb972f57a476ee9d48c1f700db",
+    "compiler_commands": 0,
+    "heavy_slot": "NOT_ACQUIRED",
+    "validation_gate": "166 requested to consume correction/equivalent and run feature-on/default-off regression tests within original allowance; no runtime P2 closure yet"
+  },
+  "parent_intake_failure": "Wrong candidate/source inventory root initially asserted; original script/failure retained, corrected candidate root authenticates1120/1120 with no extras or omissions",
+  "next": "166 completion wakes parent; do not poll. Review165 and source-only167 immutable pins already steered. On166 check actual final quarantine/validity test coverage and require NEW independent operative-code review then explicit disposition before any real issuer use.",
+  "first_cell": "Original full two-phase acknowledged durability; downstream original checkout/copy/cleanup/cache/buffer/barrier/public-ack/tree/recovery still checked work",
+  "counts": {"conditionally_adopted_mathematical_schemas": 1, "operative_native_laws": 0, "actual_resource_issuance": 0, "accepted_original_allocations": 0, "accepted_original_stores": 0, "original_whole_bodies_verified": 0},
+  "g1": "OPEN", "g2": "OPEN", "all18": "OPEN", "native_export": "REFUSED",
+  "goal_service": "Last observed BLOCKED, untouched; direct standing user authority continues"
+}

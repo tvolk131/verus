@@ -1,0 +1,66 @@
+{
+  "schema": "campaign94.drop-identity129.preexecution-expectations.v1",
+  "purpose": "Prospective diagnostic controls; not native semantics or an approved mapping oracle",
+  "source_review": {
+    "manifest_sha256": "2890e04af62bde2f494c4e5b613882f3829651745ec62c03aefcf1aec2d6b1e2",
+    "verdict": "NO_NEW_P1_P2_ESTABLISHED_SOURCE_ONLY",
+    "main_sha256": "b03b2bc43440a36bd87280d8f38139fe8f4ec71f05f6f126e6d1840a4f9c7830",
+    "identity_sha256": "a2c81a5e084bbeca67c390c69ce0a4b84b607e52c1b408457ebe2dd7e9718d7f",
+    "helper_sha256": "1aa55b6d95997e1950cc548119ae6b9b83ff3c69af98c36f0790cff895c0ca79"
+  },
+  "execution_gate": {
+    "source_bound_build": "REQUIRED_NOT_INFERRED",
+    "compiler_slot_release": "REQUIRED_FROM_BUILD127",
+    "tested_binary_binding": "SEPARATE_PREEXECUTION_RECORD_REQUIRED",
+    "tested_sources": "MUST_MATCH_REVIEWED_BYTES_OR_RECEIVE_SEPARATE_EXPLICIT_SOURCE_DISPOSITION",
+    "existing_outputs": "REFUSE_REUSE_NO_CLEANUP",
+    "all_raw_streams": "PRESERVE_WITH_EXTERNAL_CLOCKS_AND_STATUS"
+  },
+  "cases": [
+    {
+      "name": "old_five_pair_mode",
+      "expected_exit": 2,
+      "expected": ["one original header capture", "optional_identity absent", "proof refused", "no optional raw/start/sidecar outputs"]
+    },
+    {
+      "name": "exact_header_identity",
+      "expected_exit": 2,
+      "expected": ["raw and explicit refusal durably published before started record", "started binds complete exact raw bytes", "resolver invoked once after durable gate", "nonempty glue for exact WritablePage", "actual destructor definition separately observed", "two distinct CFG contexts retained", "immutable callback snapshots remain compiler PENDING", "final compiler outcome externally recorded", "proof refused and no interface export"],
+      "failure_policy": "Unresolved, mismatched, partial, error, missing or incomplete outcomes fail this expectation; do not relabel as a positive"
+    },
+    {
+      "name": "wrong_qualified_target",
+      "expected_exit": 65,
+      "expected": ["raw/refusal and selection mismatch retained", "no started file", "resolver invocation count zero", "proof refused"]
+    },
+    {
+      "name": "seeded_sidecar",
+      "expected_exit": 64,
+      "expected": ["seed bytes unchanged", "no compiler callback", "no raw/start/final report publication"]
+    },
+    {
+      "name": "aliased_report_and_raw",
+      "expected_exit": 64,
+      "expected": ["preflight refusal", "no compiler callback", "no output publication"]
+    },
+    {
+      "name": "raw_publication_permission_failure",
+      "expected_exit": 70,
+      "setup": "Fresh owned canonical nonwritable directory for raw only; other destinations fresh and writable",
+      "expected": ["raw persistence IO_FAILURE", "resolver invocation count zero", "no started file", "sidecar or final report explicitly retains query refusal", "no source or seeded input mutation"],
+      "failure_policy": "If permissions do not prevent publication, the failure control is NOT REPRODUCED; do not inject a compiler query failure or claim coverage"
+    },
+    {
+      "name": "extra_link_argument",
+      "expected_exit": 64,
+      "expected": ["exact grammar refusal before compiler callback", "no output publication"]
+    }
+  ],
+  "not_covered": ["genuine resolver Err or panic", "fatal query after durable start", "hostile directory replacement", "actual resource effects or ownership", "HIR/VIR mapping approval", "bootstrap correspondence", "native theorem admission"],
+  "historical116": "INTERRUPTED_ALLOWANCES_UNCHANGED",
+  "all18": "OPEN",
+  "native_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "oracle_verdict": "NOT_REQUESTED_NOT_GRANTED"
+}

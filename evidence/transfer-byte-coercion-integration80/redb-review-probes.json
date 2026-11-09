@@ -1,0 +1,50 @@
+[
+  {
+    "exit_code": 0,
+    "label": "near-misses-normal-normal"
+  },
+  {
+    "exit_code": 0,
+    "label": "guard-removals-normal-normal"
+  },
+  {
+    "exit_code": 0,
+    "label": "parent-examples-fresh-normal-normal"
+  },
+  {
+    "exit_code": 0,
+    "label": "near-misses-normal-optimized"
+  },
+  {
+    "exit_code": 0,
+    "label": "guard-removals-normal-optimized"
+  },
+  {
+    "exit_code": 0,
+    "label": "parent-examples-fresh-normal-optimized"
+  },
+  {
+    "exit_code": 0,
+    "label": "near-misses-optimized-normal"
+  },
+  {
+    "exit_code": 0,
+    "label": "guard-removals-optimized-normal"
+  },
+  {
+    "exit_code": 0,
+    "label": "parent-examples-fresh-optimized-normal"
+  },
+  {
+    "exit_code": 0,
+    "label": "near-misses-optimized-optimized"
+  },
+  {
+    "exit_code": 0,
+    "label": "guard-removals-optimized-optimized"
+  },
+  {
+    "exit_code": 0,
+    "label": "parent-examples-fresh-optimized-optimized"
+  }
+]

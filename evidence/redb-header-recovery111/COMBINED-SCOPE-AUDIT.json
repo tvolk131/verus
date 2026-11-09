@@ -1,0 +1,707 @@
+{
+  "acceptance": false,
+  "all18": "OPEN",
+  "audit_setup_caveats": [
+    "First read used nonexistent stdout instead of stdout.txt; no verifier application or source mutation resulted",
+    "First audit script rejected the per-invocation source snapshot because it is outside the two frozen input lists; preserved initial script and tool diagnostic, then authenticated snapshot through the already-sealed combined-retention manifest; no verifier application occurred"
+  ],
+  "checked_authored_exec_bodies": 4,
+  "checked_bodies": [
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "function": "header_bridge111::recovery::decode_expected_header",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::decode_expected_header",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs:97:1: 98:62"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::encoded_origin_is_accepted",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::encoded_origin_is_accepted",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs:64:1: 64:97"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::encoded_origin_selects_payload",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::encoded_origin_selects_payload",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs:80:1: 81:56"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::expected_encoding_is_parsed",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::expected_encoding_is_parsed",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs:44:1: 44:67"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::actual_assertion_failures_are_not_result_errors",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::actual_assertion_failures_are_not_result_errors",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:317:1: 317:91"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::disabled_call_is_not_a_result_error",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::disabled_call_is_not_a_result_error",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:324:1: 324:79"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::early_crash_preserves_possibly_stale_secondary",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::early_crash_preserves_possibly_stale_secondary",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:229:1: 229:90"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::explicit_mode_frontiers",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::explicit_mode_frontiers",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:300:1: 300:67"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::initial_invariant",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::initial_invariant",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:170:1: 170:47"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::interrupts_are_separate_unestablished_outcomes",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::interrupts_are_separate_unestablished_outcomes",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:310:1: 310:90"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::later_error_does_not_erase_publication",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::later_error_does_not_erase_publication",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:220:1: 220:82"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::public_ok_has_two_successful_barriers",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::public_ok_has_two_successful_barriers",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:198:1: 198:86"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::reachable_post_publication_error_witness",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::reachable_post_publication_error_witness",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:262:1: 262:56"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::reachable_public_ok_witness",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::reachable_public_ok_witness",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:291:1: 291:43"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::reachable_stale_secondary_crash_witness",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::reachable_stale_secondary_crash_witness",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:277:1: 277:55"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::run_invariant",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::run_invariant",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:187:1: 187:62"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::step_preserves_invariant",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::step_preserves_invariant",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:174:1: 174:81"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::successful_prefix_reaches_pc",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::successful_prefix_reaches_pc",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:247:1: 247:54"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::acknowledgement::terminal_outcomes_are_absorbing",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::acknowledgement::terminal_outcomes_are_absorbing",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs:215:1: 215:88"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::callback_mismatch_stops_open",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::callback_mismatch_stops_open",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:376:1: 376:107"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::checked_run",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::checked_run",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:255:1: 255:96"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::complete_header",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::complete_header",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:199:1: 199:78"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::error_keeps_actual_complete_flush",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::error_keeps_actual_complete_flush",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:384:1: 384:112"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::flush_checked",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::flush_checked",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:179:1: 179:59"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::initial_invariant",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::initial_invariant",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:216:1: 217:86"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::nonvacuous_post_publication_error",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::nonvacuous_post_publication_error",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:346:1: 347:51"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::nonvacuous_symbolic_success",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::nonvacuous_symbolic_success",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:322:1: 323:51"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::public_ok_composes",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::public_ok_composes",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:274:1: 274:103"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::step_invariant",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::step_invariant",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:225:1: 225:93"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::abnormal_is_not_an_acknowledgement",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::abnormal_is_not_an_acknowledgement",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:758:1: 759:94"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::all_entries_succeed",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::all_entries_succeed",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:552:1: 552:94"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::all_stripes_succeed",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::all_stripes_succeed",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:562:1: 562:87"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::arbitrary_order_nonoverlapping_byte",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::arbitrary_order_nonoverlapping_byte",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:671:1: 672:61"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::arbitrary_successful_flush",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::arbitrary_successful_flush",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:573:1: 573:81"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::check_entries",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::check_entries",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:260:1: 261:58"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::check_stripes",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::check_stripes",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:313:1: 314:46"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::clean_valid",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::clean_valid",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:205:1: 205:41"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::coalesced_pending_flush",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::coalesced_pending_flush",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:691:1: 691:90"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::concat_no_sync",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::concat_no_sync",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:249:1: 249:65"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::entries_preserve_address",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::entries_preserve_address",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:489:1: 489:90"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::entries_reflect_last_cover",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::entries_reflect_last_cover",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:506:1: 506:107"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::flush_refinement",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::flush_refinement",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:385:1: 386:82"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::flush_sync_order",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::flush_sync_order",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:730:1: 731:82"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::localized_partial_error_control",
+      "inference_candidate": false,
+      "ordinary_contract": false,
+      "rust_function": "recovery::product::storage::localized_partial_error_control",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:419:1: 419:47"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::localized_sync_error_control",
+      "inference_candidate": false,
+      "ordinary_contract": false,
+      "rust_function": "recovery::product::storage::localized_sync_error_control",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:716:1: 716:44"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::same_offset_coalesces",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::same_offset_coalesces",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:411:1: 412:39"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::shifted_decisions",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::shifted_decisions",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:469:1: 470:70"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::stripe_drains_only_after_writes",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::stripe_drains_only_after_writes",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:532:1: 533:46"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::stripes_preserve_address",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::stripes_preserve_address",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:602:1: 602:95"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::stripes_reflect_last_cover",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::stripes_reflect_last_cover",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:625:1: 626:61"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::successful_prefix_retained",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::successful_prefix_retained",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:434:1: 435:71"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::sync_valid",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::sync_valid",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:232:1: 232:70"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::unbounded_pending_coalescing",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::unbounded_pending_coalescing",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:585:1: 585:95"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::visible_entries_length",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::visible_entries_length",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:662:1: 662:74"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::storage::write_valid",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::storage::write_valid",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs:211:1: 211:74"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::product::success_signals",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::product::success_signals",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs:300:1: 300:90"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::recovery::public_ok_recovers_expected",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "recovery::public_ok_recovers_expected",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs:125:1: 127:45"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "function": "header_bridge111::stage_and_recover",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "stage_and_recover",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-20261108T051418Z/parent-check-03-combined/combined111.rs:14:1: 20:62"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::staging::canonical_root_nonvacuity",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "staging::canonical_root_nonvacuity",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs:118:1: 120:70"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "function": "header_bridge111::staging::executable_witness",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "staging::executable_witness",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs:131:1: 131:63"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::staging::prepared_shape",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "staging::prepared_shape",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs:13:1: 14:101"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "function": "header_bridge111::staging::stage_nonvacuity",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "staging::stage_nonvacuity",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs:103:1: 104:46"
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "function": "header_bridge111::staging::stage_two_phase",
+      "inference_candidate": false,
+      "ordinary_contract": true,
+      "rust_function": "staging::stage_two_phase",
+      "selected": true,
+      "source": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs:43:1: 45:39"
+    }
+  ],
+  "checked_local_proof_bodies": 59,
+  "complete_selected_scope_verified": true,
+  "generated_inference_functions": 0,
+  "inference_status": "no_inference",
+  "interpretation": "Ordinary Verus proof composition with existing imported contracts; no local inference requested or generated",
+  "new_original_native_executable_bodies_checked": 0,
+  "raw_stdout": {
+    "bytes": 182808,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/parent-check-03-combined/stdout.txt",
+    "sha256": "1edaf83d5174bd28763d3ed48e6db0cc7c40ae9924953cd55ed059f1e67679c9"
+  },
+  "requested_inference_functions": 0,
+  "result": {
+    "bytes": 858,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/parent-check-03-combined/result.json",
+    "sha256": "9432a183b2eb9b40c52ea12663ced2cca4b01912e977ffeeb00aad78267aafc7"
+  },
+  "schema": "redb111-parent-combined-raw-scope-audit-v1",
+  "scope_limits": [
+    "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+    "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+    "A checked body is not a claim that unverified callers satisfy its preconditions.",
+    "This report does not certify a requested application property or replace an authored scope/trust inventory."
+  ],
+  "separate_P_witness_and_control_harnesses_in_combined_check": false,
+  "source_bindings": [
+    {
+      "bytes": 7823,
+      "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/recovery_product111.rs",
+      "sha256": "f091f82098b565a863f0f32cf01dd17d46b31ee167fc6d0588a5399a0de928b1"
+    },
+    {
+      "bytes": 14077,
+      "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/ack_cfg.rs",
+      "sha256": "447a7fcfa23fcdec6114be0ec4eb27274ed4133efbc7d81fdac896dffd9306a2"
+    },
+    {
+      "bytes": 19396,
+      "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/composition110.rs",
+      "sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e"
+    },
+    {
+      "bytes": 37587,
+      "path": "/private/tmp/redb-header-recovery111-P-cPSXKcfk/modules/buffered_flush109.rs",
+      "sha256": "29485224c99ba2f994012ff53b2ddc98c9cab79daaf7b3fc2a855b952d2fdc4f"
+    },
+    {
+      "bytes": 3602,
+      "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/parent-check-03-combined/combined111.rs",
+      "sha256": "d590effe76335c59044da26cdd51486e0aa87e1dd175eff2f88a9fc8de58c673"
+    },
+    {
+      "bytes": 7424,
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs",
+      "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+    }
+  ],
+  "utc": "2026-11-08T06:00:18.030554+00:00",
+  "verification": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "errors": 0,
+    "is-verifying-entire-crate": true,
+    "success": true,
+    "verified": 80
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "record": "implementation147-review149-parent-retention",
+  "root": "/private/tmp/review149-20261108-st0I07Ni",
+  "seal_json_sha256": "62c9134422917a3b00731517e35e39e3c8f000def92177231c461babf462a45a",
+  "retained_archive": "IMPLEMENTATION147-REVIEW149.tar.gz",
+  "retained_archive_sha256": "c7cc249c3b43afdaf812c076097954eedc0e2bf6e5718b30d68c0f58a51be298",
+  "retained_regular_unique_byte_identical_members": 9,
+  "parent_entry_utc": "2026-11-08T21:54:13.290893+00:00",
+  "parent_exit_utc": "2026-11-08T21:54:13.303242+00:00",
+  "selected_endpoint_qualification": "Current selected endpoints only; no historical, full target, compiler/source or bootstrap continuity.",
+  "disposition": "147_RETAIN_UNADOPTED_H1_H2_BLOCK_ADOPTION",
+  "findings": {
+    "H1": "No enforced normal byte/length/frame equation for native CopyOf",
+    "H2": "No checked unchanged-effect frame or precise interprocedural caller-loan linkage"
+  },
+  "narrow_relations": "Source-supported conditional Arc Some/None and nominal Some unwrap remain future candidates; no native law installed.",
+  "next_application": "Checked original fresh-overwrite checkout-to-mem_mut; no assumed caller invariant or trusted cache method.",
+  "historical_allowances": {
+    "implementation143": "EXHAUSTED36/36",
+    "implementation147": "SEALED30/32_NO_RESET",
+    "validation150": "EXHAUSTED8/8",
+    "worker116": "INTERRUPTED_UNCHANGED"
+  },
+  "all18": "OPEN",
+  "laws_adopted": 0,
+  "native_bodies_proved": 0
+}

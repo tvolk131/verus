@@ -1,0 +1,2872 @@
+{
+  "qualification": "Reduced-error scaffold checked; full native declaration/refinement blocked; no independently accepted baseline or recovery theorem",
+  "identity": [
+    77,
+    71,
+    38
+  ],
+  "validation": [
+    {
+      "mode": "normal",
+      "task": "unit",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_redb_slot_selection.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-e661febe",
+      "returncode": 0,
+      "seconds": 0.142185208,
+      "stdout": "/private/tmp/redb-slot-selection77-aofyb_lo/normal-unit.stdout",
+      "stderr": "/private/tmp/redb-slot-selection77-aofyb_lo/normal-unit.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "95a9e3c75b285ba1a383f2c51eeb039bbb597be0221694332e55b315725d2011"
+    },
+    {
+      "mode": "normal",
+      "task": "replay",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "source/tools/check_redb_slot_selection.py",
+        "--application",
+        "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+        "--verus",
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "--output",
+        "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-e661febe",
+      "returncode": 0,
+      "seconds": 21.662720584,
+      "stdout": "/private/tmp/redb-slot-selection77-aofyb_lo/normal-replay.stdout",
+      "stderr": "/private/tmp/redb-slot-selection77-aofyb_lo/normal-replay.stderr",
+      "stdout_sha256": "c1f68ee8b66e7256adf7bf967fb6f7311c9e9af5005287e52f817e3e9850fbdc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "mode": "optimized",
+      "task": "unit",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source/tools",
+        "-p",
+        "test_redb_slot_selection.py"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-e661febe",
+      "returncode": 0,
+      "seconds": 0.2632370420000001,
+      "stdout": "/private/tmp/redb-slot-selection77-aofyb_lo/optimized-unit.stdout",
+      "stderr": "/private/tmp/redb-slot-selection77-aofyb_lo/optimized-unit.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "d23132a0dd6a35aef237aa3396956afc292da6bec580a389218bfff53d6ef7cb"
+    },
+    {
+      "mode": "optimized",
+      "task": "replay",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "source/tools/check_redb_slot_selection.py",
+        "--application",
+        "/private/tmp/verus-transfer-redb-miuzm2w3/redb",
+        "--verus",
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "--output",
+        "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-e661febe",
+      "returncode": 0,
+      "seconds": 19.007363,
+      "stdout": "/private/tmp/redb-slot-selection77-aofyb_lo/optimized-replay.stdout",
+      "stderr": "/private/tmp/redb-slot-selection77-aofyb_lo/optimized-replay.stderr",
+      "stdout_sha256": "68d81cc254c34355e54bd12608aba10517ad8363d49d97b498bfa53779dd659b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "runs": {
+    "normal": {
+      "receipt": {
+        "path": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/receipt.json",
+        "sha256": "537cb532050f7ad9813da160737893fe22602db1f57c9418311a880aca504543",
+        "size_bytes": 2872593
+      },
+      "artifacts": {
+        "path": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/artifacts.json",
+        "sha256": "4106b33cf921a6700ef92e48029425a4083c7305a93dc49c9dc4cd314a2196d9",
+        "size_bytes": 14257
+      },
+      "status": "bounded_scaffold_verified_native_declaration_blocked",
+      "success": true,
+      "python_optimized": false,
+      "native_selection_proved": false,
+      "baseline_independently_accepted": false,
+      "category_counts": {
+        "positive": 6,
+        "semantic": 10,
+        "safety": 2,
+        "import": 8,
+        "legacy": 2,
+        "frontend": 1
+      },
+      "body_correspondence": {
+        "primary_slot": {
+          "native_body_sha256": "ab3a269dcc0825255802e91e4f87498ffc95bb55ffe86621a67e2804eea6ea05",
+          "checked_body_sha256": "ab3a269dcc0825255802e91e4f87498ffc95bb55ffe86621a67e2804eea6ea05",
+          "byte_identical": true
+        },
+        "secondary_slot": {
+          "native_body_sha256": "7fa74d5c73be0b645e2c69261ab7549f4b803a2faa13300c0e7e367c5d8292b4",
+          "checked_body_sha256": "7fa74d5c73be0b645e2c69261ab7549f4b803a2faa13300c0e7e367c5d8292b4",
+          "byte_identical": true
+        },
+        "swap_primary_slot": {
+          "native_body_sha256": "82f38f51d6e369a11d719ef5d06f4622b4e6314d7590e70e3d2d17a5d87750ac",
+          "checked_body_sha256": "82f38f51d6e369a11d719ef5d06f4622b4e6314d7590e70e3d2d17a5d87750ac",
+          "byte_identical": true
+        },
+        "select_primary_slot": {
+          "native_body_sha256": "1972ed031e1b2b905ab9deeb8b62fe2f2725824c4c5509f299e4fdde10ec195b",
+          "checked_body_sha256": "1972ed031e1b2b905ab9deeb8b62fe2f2725824c4c5509f299e4fdde10ec195b",
+          "byte_identical": true
+        }
+      },
+      "authored_body_sha256": {
+        "slot_bits::two_slot_toggle": "889989ea62018c4fc3f22ed00cb91ff25e40840763df402bd7a98e4b2f6c34e7",
+        "two_phase_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "both_corrupt_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "fallback_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "newer_secondary_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "equal_or_stale_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "corrupt_secondary_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "selected_observation_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "ordering": "1438368c60046635c3133a98ae3530ac1772370d300bd6528085bff2e03862d1",
+        "imported_selection": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "imported_order_goal": "f358a0da5e7205881f163336199dee935a8f32d0518c4fbe9b2b725218ad5416"
+      },
+      "proof_input_sha256": {
+        "source/tools/check_redb_slot_selection.py": "004639e55c6031a181f9769a74262ae3a94ca74fce9ce52d9f383069af0dab10",
+        "source/tools/test_redb_slot_selection.py": "6b40a24412df009336039e05573f923180898cb7973627058506a2bfa8f1cfe4",
+        "evidence/transfer-redb-slot-selection/contracts.json": "943c5f8e926e72a112e2d0329cf12f1b0b8eee660d6579476ba3f25c22908094",
+        "evidence/transfer-redb-slot-selection/selection.spec.rs": "99772ae20db1a533501cc6fdeba8d380229f26ac1b2b1e737bd7a72b9762606d",
+        "evidence/transfer-redb-slot-selection/goals.verus.rs": "c1cdb44099f8c729089c871fa1f37b71053d67fb0da322197dd8997482c87ddd",
+        "evidence/transfer-redb-slot-selection/consumer.verus.rs": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+        "evidence/transfer-redb-slot-selection/native_tests.rs": "6ed55350946b3f20e8b6d8e5f92074e37fda2cdc23a3c0dd3bfd1a86348df494",
+        "evidence/transfer-redb-slot-selection/source-ledger.json": "5ce9fdda888001bc156df542e7c11e9abd80cdbda1b203cc68b2a1d6d94aacfd",
+        "evidence/transfer-redb-slot-selection/expected-scope.json": "b5c646f3703de466da58c18c7f09db00c1ad3be98c4bcd2cd834ef969e5132cc",
+        "evidence/transfer-redb-slot-selection/certificate-expectations.json": "340d98816e75a7cd39da48d635a05d6cca0e424bdfcbf0f533c47331a9357438",
+        "evidence/transfer-redb-slot-selection/native-items/BtreeHeader.rs": "33ff5c55fb38e168c55fc10af8ce7fd0e9e3a7f8c5d66a49d343fe27d9f487e3",
+        "evidence/transfer-redb-slot-selection/native-items/DatabaseHeader.rs": "f2c03f2d4035e6e4d952a95437ae81169d7c15102144f5b44d2d830dbaf17701",
+        "evidence/transfer-redb-slot-selection/native-items/PageNumber.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "evidence/transfer-redb-slot-selection/native-items/StorageError.rs": "451130bfe2ca578849e18e8ca380e108af505fa213a52eeb141f9f9b360af08c",
+        "evidence/transfer-redb-slot-selection/native-items/TransactionHeader.rs": "ea2dac13f3f3fa4a8292097291e3679e405597f2a0b0aa34b501c804d8bf1ab9",
+        "evidence/transfer-redb-slot-selection/native-items/TransactionId.rs": "f18de262c5f4e1251d867704c3734d94fd88cca3733463a6dd2321fa4793af31",
+        "evidence/transfer-redb-slot-selection/native-items/UnrepairedDatabaseHeader.rs": "c970a71cc8709077015041719b8027e26871c22f19c0a5ba2414d832f836aea6",
+        "evidence/transfer-redb-slot-selection/native-items/primary_slot.rs": "5c1ef7d49d9102fecbfc1c25289a5b1549288e62b55938ea8a93591be51acadb",
+        "evidence/transfer-redb-slot-selection/native-items/secondary_slot.rs": "9f9fe0f0a2799047c16ce65049eb31ff48ccf7342e0af78d92e0b2aebf8e600b",
+        "evidence/transfer-redb-slot-selection/native-items/select_primary_slot.rs": "002f74ca0e5f47f22c50b58e1e546be199ffcfe39e48a39861e4532047796cc0",
+        "evidence/transfer-redb-slot-selection/native-items/swap_primary_slot.rs": "9d112e161aef761f216697228d337141a9d3a48f892d3d2e7a57f48a38e503fb"
+      },
+      "native_finite_tests": {
+        "cases_per_build": 1600,
+        "builds": [
+          "debug",
+          "release"
+        ],
+        "formal_refinement_proved": false,
+        "source_sha256": "439cf232ce65c723caaf331c6e35da42e54a861fde7c09725b5bca19cf0efaf6"
+      },
+      "cases": [
+        {
+          "label": "provider_debug_cold",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "7ccb15d9f5973685576453bf6220ce9718b3b4ee217e05470b7cf3926aa02857",
+          "stderr_sha256": "5565d331355b064e3d591c7aadff6d3a39b40dad7a6c478bb3981c6ce1960f1f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_cold/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "685b74295b039328fe894c8db3037724d1a3b3424020ce6d649ef0efed4b21f5",
+          "library_sha256": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "ff349d0c9bb1eacf3d8312ee4afaf54badc125a1faf45d28c3e705dbb5e768d4",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 539,
+                "solver_micros": 868,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "provider_debug_repeat",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "bfa40412cf147dfc0114468da04763039c0cd60b9019cbe13589b2cf6f5e8eca",
+          "stderr_sha256": "5565d331355b064e3d591c7aadff6d3a39b40dad7a6c478bb3981c6ce1960f1f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "library_sha256": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "fdc206736d3ed8200862d5c6417541965392c5da083913f5f71c7471bd428a1d",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 3661,
+                "solver_micros": 726,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "consumer_debug",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "3776d58271ec28daeeefac33cf016d93af3b5a474a46144ab7d39014356c748e",
+          "stderr_sha256": "6d8c28ed51f079592db1687ca6b3576c6c3d62dc958b88eb57e83a24eb854fdc",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer_debug/consumer.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "d95e3c956a09162b58f5769b2da25f7fbeaf50279076248dcc3cb5df5b1f8a36",
+          "library_sha256": "ebcc15ca0d8ed6064244c977a6ae96a9db85623aa1c7ca41dc29af9f44af12b5",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 5,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 3,
+            "checked_proof_bodies": 0
+          },
+          "inferred_functions": [
+            {
+              "function": "consumer::ordering",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs:6:1: 6:69 (#0)",
+              "candidate_id": "2cef1eedbd54f770b0e4df612c28988e7d7b3dd85ca63c6df36382093ff16087",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "first",
+                  "type": "provider::TransactionId"
+                },
+                {
+                  "name": "second",
+                  "type": "provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 401,
+                "solver_micros": 1456,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/provider.vir": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/libprovider.rlib": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6"
+          }
+        },
+        {
+          "label": "wrong_kept_flag_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/wrong_kept_flag_debug.rs",
+          "source_sha256": "bb90981b41adbb5a87799ed3d75e9d06a15284fcc810536ca66006e53047e5c3",
+          "stdout_sha256": "cbec18451ed783ee1c028e5b50201326ffeece500de470ffc61aeb8248901f78",
+          "stderr_sha256": "aa99d4829de85f49e7bd61789f49b94b620226a5e8856c584e419677795ce6be",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/wrong_kept_flag_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "ignore_two_phase_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/ignore_two_phase_debug.rs",
+          "source_sha256": "07c2c18a37f831d9998819a583d7b770796d3753e893c1f37e266f12e3f043d0",
+          "stdout_sha256": "69202855db518fb0feb6f7a893baae2a59222aaefe8429a8287960d01ff50ff9",
+          "stderr_sha256": "b154520bffd062cf3c2ab0c454cf7a0b24362201ffec48d1666ff5864f9cf404",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/ignore_two_phase_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "equal_counts_as_newer_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/equal_counts_as_newer_debug.rs",
+          "source_sha256": "cbbca8e9b5c1dcf3d48295ae0b9cba18e367eec7bd23e54709da3db6686d7c19",
+          "stdout_sha256": "9604c403a0957aa79df8236dc81b87958dde90c0ea9a6d5fca3fb31af53397bb",
+          "stderr_sha256": "57c8317d8427f7c57dc4261e8843e8454713f8aeaf6af3938439bdf615a45a56",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/equal_counts_as_newer_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "trust_corrupt_secondary_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/trust_corrupt_secondary_debug.rs",
+          "source_sha256": "b7163d591d5b83c980e243aae4374c95de094ae202526ebc72bc3db48a400a23",
+          "stdout_sha256": "ded4ac33e88ed4817148e60ebe65fe9c4afb51ea30256b0edeb10cee2e189bcf",
+          "stderr_sha256": "fb3bc8c8727526b9af090235e6ffef464ce546766a39048d2f51b4246b21aab7",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/trust_corrupt_secondary_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "break_state_frame_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/break_state_frame_debug.rs",
+          "source_sha256": "32cac541da5f656be5e19f94e816b66b38e937cc65f52ab995afbd37e0caa6c1",
+          "stdout_sha256": "7250c9e3cc79d19697b7231df108a179ffe1bd60b84149addc7ca7cb6ba930f5",
+          "stderr_sha256": "41df4db988f04d210c4383b521c5cdef334a056b6384e68642b5aaa35c2e2a7f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/break_state_frame_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "missing_representation_debug",
+          "category": "safety",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/missing_representation_debug.rs",
+          "source_sha256": "6ee9146744abb78b5c113fdf4c7004475860693a945369c6e6a16f8efc83271b",
+          "stdout_sha256": "61cf00eddc19ecaa99ab6b2f475a4fd579951b6648bc6bc089f8f5de8bd7e650",
+          "stderr_sha256": "c3eed6f5701ac9541a9c49e55d518cef8ecd5fcacff1825b0b0d11b583f3060a",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/missing_representation_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 23,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "import_debug_policy",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "41fd938e3455b599dfb4f5ffeaac89bac8b6782896402fd8065c2dd9b2e40719",
+          "stderr_sha256": "75dfbf172549bd340616cdfe54c148cfb6e618296ac29fd4da9cb73d98882adc",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_debug_policy/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_debug_policy.vir": "cd3ec51454e9f9ec1c7f5fd9e1155891c7f9640c04547e9f3c10f7040d7968c2",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/libprovider.rlib": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6"
+          }
+        },
+        {
+          "label": "import_debug_proof",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "7615f26c26053eb1767cdb904ed29694dbcbca52707c4373d68af4cc88c84821",
+          "stderr_sha256": "8ed7059ac65ca25833aeb22e3fc1c9dedd0cd4c0f82c82e2c09f72ca9831e8ba",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_debug_proof/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_debug_proof.vir": "73f2f003f6fedddb2b2fae341577dcf3a0a32e35932115ebbb01dd8e2e8f1fa8",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/libprovider.rlib": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6"
+          }
+        },
+        {
+          "label": "import_debug_summaries",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "92b8815df9278b8361e0282716a685f87708e61eb9e5e548c0981203f16c2370",
+          "stderr_sha256": "b67cea292b8ff738b8ed554d7fc9d333688cecbc0506292604ed5236aa4fe564",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_debug_summaries/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_debug_summaries.vir": "40bae6fbc359205a0b2c6baac28d3b1862c40f1d887282e7dd9269f4296866a5",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/libprovider.rlib": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6"
+          }
+        },
+        {
+          "label": "import_debug_trusted_models",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "e7448f52fcd3a2720dce42a352fa7bf3e983d2e35dea0d1e1212126bfbf811f7",
+          "stderr_sha256": "f64c63bdfb3be97d4ce845cdb6d595a5e1572cc683f88df731bd8de77a2cdf9c",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_debug_trusted_models/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_debug_trusted_models.vir": "8e9ff261440b22b38739e9546ea2599f93fda04b6ac0831e488091b97d35851c",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_debug_repeat/libprovider.rlib": "703e3220b90a808a2df63bc3f2570d6f597ef455abf7e6f6f8fb85a6490b73c6"
+          }
+        },
+        {
+          "label": "legacy_noninfer_debug",
+          "category": "legacy",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/legacy_debug.rs",
+          "source_sha256": "2ebf09f3a9cc6c078424c7deb09df65d760efd8715966d6bd2d5c2ed5e19ed12",
+          "stdout_sha256": "84f1617b63d369b0f49564327c6f0d1d01eb6f8a3df04b2b1b38f74302a52ab5",
+          "stderr_sha256": "501010cdb8d31e8ccb9791e9b9edb98cc220376f9f81f0f186809d1564a36abd",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/legacy_noninfer_debug/legacy.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "af94447f872515f2ace194477e65097e74df531b5c60b2054f5ce819780cd610",
+          "library_sha256": null,
+          "seeded_export_sha256": "a6a11ca85cbc1771f220ee206b31aae0c4d0289282af90486951e55966cf14a2",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "legacy_observation": "Failed non-Infer run replaced the seeded export with a new legacy artifact; no cleanup guarantee"
+        },
+        {
+          "label": "provider_release_cold",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "f26600fb9fb97d2b05ce79f4dc84bee6f1e4f1d334c6260a092aa858ea6ea3cd",
+          "stderr_sha256": "5565d331355b064e3d591c7aadff6d3a39b40dad7a6c478bb3981c6ce1960f1f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_cold/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "b8d1e95b50e64bd211efe4c43fe70bf8a1a3977123c5d85cfe5823cb412fab47",
+          "library_sha256": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "7678999364a48c6909b49ba83e90a9371a1b0265f9305f9e0dcd6d416793dcc8",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 426,
+                "solver_micros": 647,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "provider_release_repeat",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "d5c771ef77aca3632a6b3185218df5890ac5e6622754db69f462680f097609c5",
+          "stderr_sha256": "5565d331355b064e3d591c7aadff6d3a39b40dad7a6c478bb3981c6ce1960f1f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "library_sha256": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "257008c35666938940b835c72d52b89d3c51323551d27215be3ada97b6258d44",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 418,
+                "solver_micros": 696,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "consumer_release",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "c68a2ffc6d4e924d5e28693f5372e3c8e5bfdecc5473eeb588669a3db99ae44b",
+          "stderr_sha256": "6d8c28ed51f079592db1687ca6b3576c6c3d62dc958b88eb57e83a24eb854fdc",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer_release/consumer.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "51d558908b93d105781669c53d135e13b9718f71ee71e907bcb8006ed489f14c",
+          "library_sha256": "54c61cb64320929b1dd6932f30843fa6ce63a3f3fd6c0599cf7cf22af33fb6ae",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 5,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 3,
+            "checked_proof_bodies": 0
+          },
+          "inferred_functions": [
+            {
+              "function": "consumer::ordering",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs:6:1: 6:69 (#0)",
+              "candidate_id": "166ddefbba23c82d424479688eaf576fdf2a8d65fa55953b2ce64dff4d9664a7",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "first",
+                  "type": "provider::TransactionId"
+                },
+                {
+                  "name": "second",
+                  "type": "provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 438,
+                "solver_micros": 1277,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/provider.vir": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/libprovider.rlib": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6"
+          }
+        },
+        {
+          "label": "wrong_kept_flag_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/wrong_kept_flag_release.rs",
+          "source_sha256": "bb90981b41adbb5a87799ed3d75e9d06a15284fcc810536ca66006e53047e5c3",
+          "stdout_sha256": "4debb14c511063c75224cd923c2d4fc813a8ed70d8044178ad5797e0f08b53c1",
+          "stderr_sha256": "5d40bbd7b36d458ae862bcb9bebe100e097aad1ca4d1214d2cb5e941033db254",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/wrong_kept_flag_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "ignore_two_phase_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/ignore_two_phase_release.rs",
+          "source_sha256": "07c2c18a37f831d9998819a583d7b770796d3753e893c1f37e266f12e3f043d0",
+          "stdout_sha256": "0b5fe3eff2b83f48a24cd3c8956001d41e5f0e3a9bb97273b24e6ab7f0164201",
+          "stderr_sha256": "d1a1a3fc7b682dadf8db83f0b5c49786aa9067a62ff412b42642a4738e77e7c0",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/ignore_two_phase_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "equal_counts_as_newer_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/equal_counts_as_newer_release.rs",
+          "source_sha256": "cbbca8e9b5c1dcf3d48295ae0b9cba18e367eec7bd23e54709da3db6686d7c19",
+          "stdout_sha256": "aa07c347d345d08d877c8496f60a2be91b476e94a75082a72e3e122d171f4248",
+          "stderr_sha256": "b9d49ce5125ba0406bd8f5f1c6943ff22aedc2096f853ada3862bb433998db0f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/equal_counts_as_newer_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "trust_corrupt_secondary_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/trust_corrupt_secondary_release.rs",
+          "source_sha256": "b7163d591d5b83c980e243aae4374c95de094ae202526ebc72bc3db48a400a23",
+          "stdout_sha256": "bf789f2779ea85fc6bbfe3351b52cf897e6dcca43734a8d6b1c338ccc1825bb8",
+          "stderr_sha256": "11679c745ba12f0f2104b96a1ea7186c221664a938ba8249f92b7d1d87341e8c",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/trust_corrupt_secondary_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "break_state_frame_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/break_state_frame_release.rs",
+          "source_sha256": "32cac541da5f656be5e19f94e816b66b38e937cc65f52ab995afbd37e0caa6c1",
+          "stdout_sha256": "bc5086a0234b1dff30a308cb243e00e5217b75fe99cec49fecc94e8ca1894bd2",
+          "stderr_sha256": "3683a06ca6e06b6e4a7e0f9fff06099fa039af8406a41ca49c31579918d24ca0",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/break_state_frame_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "missing_representation_release",
+          "category": "safety",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/missing_representation_release.rs",
+          "source_sha256": "6ee9146744abb78b5c113fdf4c7004475860693a945369c6e6a16f8efc83271b",
+          "stdout_sha256": "2b0cb7ad0e03cfa8c0cc22f64d1d7ed415454d13417b7c052ffcf80ecbdc262b",
+          "stderr_sha256": "c352e9752c244dc216b88fb9d09072674d62951f13062c9ba78dfc7794573331",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/missing_representation_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 23,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "import_release_policy",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "b5a7240af81d2a2b86bc33ff0851661b375747924b17d62acd47918c2d424ce6",
+          "stderr_sha256": "e87d8de9060be4e7960436351caf3b5acba056251ec7d5778f15cb0989cad393",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_release_policy/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_release_policy.vir": "962afd5c894bfef4e4894d5862e6f13d8b0068aae93fd232f25ee8933ab9c299",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/libprovider.rlib": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6"
+          }
+        },
+        {
+          "label": "import_release_proof",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "648c9422fc163e2761bf5f3c8aa08adef784f5c4762eae4823dc6e9d7a77b73d",
+          "stderr_sha256": "b69dfdd0b39c4e0e5924706bdf8829ed768fa74deaef79b2ce9d05a78414b483",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_release_proof/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_release_proof.vir": "65cc556b0bb2d94803d247d61bc866c5de945bf9088fa04a17ad813f6f279c25",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/libprovider.rlib": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6"
+          }
+        },
+        {
+          "label": "import_release_summaries",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "8596b00e955bde493121907ca9ddbdc100253579cd3b39b437981b19f37b3535",
+          "stderr_sha256": "4cd4e8b23f90f8294cd045d8bdd2ae64e63e402f3adc1dc4f12c3afc28d40ff3",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_release_summaries/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_release_summaries.vir": "5733c1949bdc0f3a369a79f8559805d2f908221768e1dafcc60613abee439965",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/libprovider.rlib": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6"
+          }
+        },
+        {
+          "label": "import_release_trusted_models",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "bf8a131b094a004e778b61394be9a5284528d6fb357e478382ab4a6888249808",
+          "stderr_sha256": "433f2cafff0f3023aee0728e9e2d12258b92b9d01885eb79e5457839e44ee8c7",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/import_release_trusted_models/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/dependency_release_trusted_models.vir": "e4ff64a583cffca34e22659aed4a737ee341d8583e99c5afc01855f5a03cdf5b",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/provider_release_repeat/libprovider.rlib": "df26013d0a071fb1032e0d7a765d92649b48b5a91b1e922a643a23fb2a0a5bd6"
+          }
+        },
+        {
+          "label": "legacy_noninfer_release",
+          "category": "legacy",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/legacy_release.rs",
+          "source_sha256": "2ebf09f3a9cc6c078424c7deb09df65d760efd8715966d6bd2d5c2ed5e19ed12",
+          "stdout_sha256": "9f731748e4cb659255279b55e79d5d6ff20dcb48cc4d9afd7857b0a951ef91ae",
+          "stderr_sha256": "27024f1b0fad6219497f214d588e11702aa6dc7ce48e32a3f9f675aacabe192d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/legacy_noninfer_release/legacy.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "7a5a1fde366f4329f0e98ada56d3fd3f30cca43a5a6a240daa9b9441b639e6fa",
+          "library_sha256": null,
+          "seeded_export_sha256": "c3a908f46ba8d21f948b4d6a505a054a448f44ec43373a0bae92f6c806c2194c",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "legacy_observation": "Failed non-Infer run replaced the seeded export with a new legacy artifact; no cleanup guarantee"
+        },
+        {
+          "label": "full_native_error_blocker",
+          "category": "frontend",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs",
+          "source_sha256": "ed59b48e8e2303187532e228063cbc7e1793d3b243c019217fe53c58c3fbd2fe",
+          "stdout_sha256": "0bd349f607d5a8694dc2bbe4d1fac62107cde6774d1a9faf9665698675581701",
+          "stderr_sha256": "cb58e91a4c830b7a972ef5eb26bef8237491567566db600916b872ab439ca4f6",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_blocker/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        }
+      ],
+      "baseline_ledger_counts": {
+        "file-hashes": 1976,
+        "source-hashes": 1566,
+        "rust-build-input-hashes": 1085,
+        "runtime-hashes": 9,
+        "toolchain-hashes": 61,
+        "guarded-inputs": 3395,
+        "native-fedimint": 1199,
+        "native-redb": 132
+      },
+      "baseline_ledger_sha256": {
+        "correction-delta.json": "7180da46fe578ffd6a6942352e18758382433482ebc82609571f6b410540a63e",
+        "file-hashes.json": "173bdc3ccbac0d4d4d5b41d7b7c0a0d90d8b00549aff711af194aad7c3d355e8",
+        "git-state.json": "482858a80b4c0d65cbaa1311471b09af6f15a9b40dc0868e987602209ac71ad1",
+        "guarded-inputs.json": "a762b8e2af1607b1b20ddc4be7b3b63f77464dea3a7aec45957d539893eface7",
+        "inventory.json": "46009116f47e45716d6b64d621d3a391c2452e2ac0bd010de9ca8c62da5f46e8",
+        "manifest.json": "69e7ba03dfeaf1f15421f4864b3ddd3605067f1a3c05b695bdbd05a36d92dc19",
+        "native-hashes.json": "88612d38fd7784d065e0b2ee2468ed785fb399ed653912683bd522f84251cdb6",
+        "runtime-hashes.json": "6049c563cd2310d3faf890b6c1a61b83e0acc27eb1c5ca3d2e12904e598c4f86",
+        "rust-build-input-hashes.json": "663e7236003edf574149f491b1a99764785a65a05833961af3d2b99232fc6c43",
+        "source-hashes.json": "ad1c39377607b3b6b53ea9eb97dd0fe80d393ea6490a5d4d1c6c88b516777743",
+        "toolchain-hashes.json": "367af9e5ee0e1be37bb1582f562dcf929f4eaf3c4acad6805f0d4c0b37f1f596"
+      },
+      "local_refs_before_after_sha256": "0672dbe61098c0d3c115583bf16c385fa2cb9d7fcf5faa1f54d1a258b3c451e9"
+    },
+    "optimized": {
+      "receipt": {
+        "path": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/receipt.json",
+        "sha256": "1ddf405bf8c879dfd86d95e8bf12d1d5e6b9664815506d06cc32a055b1169909",
+        "size_bytes": 2875471
+      },
+      "artifacts": {
+        "path": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/artifacts.json",
+        "sha256": "37fb3f156244b9adda324c4325e260b79fd9b053aaf29a52dafb57adafcc7d17",
+        "size_bytes": 14257
+      },
+      "status": "bounded_scaffold_verified_native_declaration_blocked",
+      "success": true,
+      "python_optimized": true,
+      "native_selection_proved": false,
+      "baseline_independently_accepted": false,
+      "category_counts": {
+        "positive": 6,
+        "semantic": 10,
+        "safety": 2,
+        "import": 8,
+        "legacy": 2,
+        "frontend": 1
+      },
+      "body_correspondence": {
+        "primary_slot": {
+          "native_body_sha256": "ab3a269dcc0825255802e91e4f87498ffc95bb55ffe86621a67e2804eea6ea05",
+          "checked_body_sha256": "ab3a269dcc0825255802e91e4f87498ffc95bb55ffe86621a67e2804eea6ea05",
+          "byte_identical": true
+        },
+        "secondary_slot": {
+          "native_body_sha256": "7fa74d5c73be0b645e2c69261ab7549f4b803a2faa13300c0e7e367c5d8292b4",
+          "checked_body_sha256": "7fa74d5c73be0b645e2c69261ab7549f4b803a2faa13300c0e7e367c5d8292b4",
+          "byte_identical": true
+        },
+        "swap_primary_slot": {
+          "native_body_sha256": "82f38f51d6e369a11d719ef5d06f4622b4e6314d7590e70e3d2d17a5d87750ac",
+          "checked_body_sha256": "82f38f51d6e369a11d719ef5d06f4622b4e6314d7590e70e3d2d17a5d87750ac",
+          "byte_identical": true
+        },
+        "select_primary_slot": {
+          "native_body_sha256": "1972ed031e1b2b905ab9deeb8b62fe2f2725824c4c5509f299e4fdde10ec195b",
+          "checked_body_sha256": "1972ed031e1b2b905ab9deeb8b62fe2f2725824c4c5509f299e4fdde10ec195b",
+          "byte_identical": true
+        }
+      },
+      "authored_body_sha256": {
+        "slot_bits::two_slot_toggle": "889989ea62018c4fc3f22ed00cb91ff25e40840763df402bd7a98e4b2f6c34e7",
+        "two_phase_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "both_corrupt_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "fallback_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "newer_secondary_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "equal_or_stale_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "corrupt_secondary_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "selected_observation_goal": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "ordering": "1438368c60046635c3133a98ae3530ac1772370d300bd6528085bff2e03862d1",
+        "imported_selection": "130dcb2e85edd5f16f1f3865dcc51d611ace645cb914e644973d1a21f07a54a7",
+        "imported_order_goal": "f358a0da5e7205881f163336199dee935a8f32d0518c4fbe9b2b725218ad5416"
+      },
+      "proof_input_sha256": {
+        "source/tools/check_redb_slot_selection.py": "004639e55c6031a181f9769a74262ae3a94ca74fce9ce52d9f383069af0dab10",
+        "source/tools/test_redb_slot_selection.py": "6b40a24412df009336039e05573f923180898cb7973627058506a2bfa8f1cfe4",
+        "evidence/transfer-redb-slot-selection/contracts.json": "943c5f8e926e72a112e2d0329cf12f1b0b8eee660d6579476ba3f25c22908094",
+        "evidence/transfer-redb-slot-selection/selection.spec.rs": "99772ae20db1a533501cc6fdeba8d380229f26ac1b2b1e737bd7a72b9762606d",
+        "evidence/transfer-redb-slot-selection/goals.verus.rs": "c1cdb44099f8c729089c871fa1f37b71053d67fb0da322197dd8997482c87ddd",
+        "evidence/transfer-redb-slot-selection/consumer.verus.rs": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+        "evidence/transfer-redb-slot-selection/native_tests.rs": "6ed55350946b3f20e8b6d8e5f92074e37fda2cdc23a3c0dd3bfd1a86348df494",
+        "evidence/transfer-redb-slot-selection/source-ledger.json": "5ce9fdda888001bc156df542e7c11e9abd80cdbda1b203cc68b2a1d6d94aacfd",
+        "evidence/transfer-redb-slot-selection/expected-scope.json": "b5c646f3703de466da58c18c7f09db00c1ad3be98c4bcd2cd834ef969e5132cc",
+        "evidence/transfer-redb-slot-selection/certificate-expectations.json": "340d98816e75a7cd39da48d635a05d6cca0e424bdfcbf0f533c47331a9357438",
+        "evidence/transfer-redb-slot-selection/native-items/BtreeHeader.rs": "33ff5c55fb38e168c55fc10af8ce7fd0e9e3a7f8c5d66a49d343fe27d9f487e3",
+        "evidence/transfer-redb-slot-selection/native-items/DatabaseHeader.rs": "f2c03f2d4035e6e4d952a95437ae81169d7c15102144f5b44d2d830dbaf17701",
+        "evidence/transfer-redb-slot-selection/native-items/PageNumber.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+        "evidence/transfer-redb-slot-selection/native-items/StorageError.rs": "451130bfe2ca578849e18e8ca380e108af505fa213a52eeb141f9f9b360af08c",
+        "evidence/transfer-redb-slot-selection/native-items/TransactionHeader.rs": "ea2dac13f3f3fa4a8292097291e3679e405597f2a0b0aa34b501c804d8bf1ab9",
+        "evidence/transfer-redb-slot-selection/native-items/TransactionId.rs": "f18de262c5f4e1251d867704c3734d94fd88cca3733463a6dd2321fa4793af31",
+        "evidence/transfer-redb-slot-selection/native-items/UnrepairedDatabaseHeader.rs": "c970a71cc8709077015041719b8027e26871c22f19c0a5ba2414d832f836aea6",
+        "evidence/transfer-redb-slot-selection/native-items/primary_slot.rs": "5c1ef7d49d9102fecbfc1c25289a5b1549288e62b55938ea8a93591be51acadb",
+        "evidence/transfer-redb-slot-selection/native-items/secondary_slot.rs": "9f9fe0f0a2799047c16ce65049eb31ff48ccf7342e0af78d92e0b2aebf8e600b",
+        "evidence/transfer-redb-slot-selection/native-items/select_primary_slot.rs": "002f74ca0e5f47f22c50b58e1e546be199ffcfe39e48a39861e4532047796cc0",
+        "evidence/transfer-redb-slot-selection/native-items/swap_primary_slot.rs": "9d112e161aef761f216697228d337141a9d3a48f892d3d2e7a57f48a38e503fb"
+      },
+      "native_finite_tests": {
+        "cases_per_build": 1600,
+        "builds": [
+          "debug",
+          "release"
+        ],
+        "formal_refinement_proved": false,
+        "source_sha256": "439cf232ce65c723caaf331c6e35da42e54a861fde7c09725b5bca19cf0efaf6"
+      },
+      "cases": [
+        {
+          "label": "provider_debug_cold",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "96cda5de88ce656e3bff76d2afc46bfcd21ace28c5760cb3a732c7dfc3380618",
+          "stderr_sha256": "63e95b758999d654cf8be2bdfdcd83e752127d447561d5256b21c86137f3167d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_cold/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "0ebf9b37400799ab2558b52d2f55810e7d60f0ef99707f501244b56fb04c24a6",
+          "library_sha256": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "c89b65a0305129d8a41e2d96ef3ae80cdb5090897d1ace6351696254f1fa6312",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 389,
+                "solver_micros": 756,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "provider_debug_repeat",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "86d3fd8fbb516141f55504d0e6fb37c1355203f44640a78a5c7f5e34eba5fa3d",
+          "stderr_sha256": "63e95b758999d654cf8be2bdfdcd83e752127d447561d5256b21c86137f3167d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "library_sha256": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "9507b7fe2a8d37308820f8d231bac3d79dad92b0cdcb7b906722fcd815b627c4",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 382,
+                "solver_micros": 645,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "consumer_debug",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "f9379013e73385e81f2b2bb28be6ec04af80c65f627a111fa21c679eb6c3bcd8",
+          "stderr_sha256": "9d18b98454108ac90d1b72ae7ec9d174f6f4c0c0d5167995781f342ade7cbc6c",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer_debug/consumer.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "1b23dfbbd746f2f24faf8df2a5e2c3827ba56bb88d32793362054f51fcf7848f",
+          "library_sha256": "6e8cbc681b79207c8e8b7596e069d0e70ca8b5d2a0cbcfd1ed1da2df67f2d6ce",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 5,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 3,
+            "checked_proof_bodies": 0
+          },
+          "inferred_functions": [
+            {
+              "function": "consumer::ordering",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs:6:1: 6:69 (#0)",
+              "candidate_id": "42fbf74ed16238fd7d8c27a8869a43b0390ed668896e70f4847d33310ae463ea",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "first",
+                  "type": "provider::TransactionId"
+                },
+                {
+                  "name": "second",
+                  "type": "provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 393,
+                "solver_micros": 1471,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/provider.vir": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/libprovider.rlib": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241"
+          }
+        },
+        {
+          "label": "wrong_kept_flag_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/wrong_kept_flag_debug.rs",
+          "source_sha256": "bb90981b41adbb5a87799ed3d75e9d06a15284fcc810536ca66006e53047e5c3",
+          "stdout_sha256": "9d38b83186ad0811d63d25fa10b635cd591f1f0673c89797aaa0571a55ddc61d",
+          "stderr_sha256": "5546292b911dd0c4032c201dc5d50ee28a681a6c93d5643fc08d230120515754",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/wrong_kept_flag_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "ignore_two_phase_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/ignore_two_phase_debug.rs",
+          "source_sha256": "07c2c18a37f831d9998819a583d7b770796d3753e893c1f37e266f12e3f043d0",
+          "stdout_sha256": "5f8cc965f36fc55dc7cd65d864b65ca368699331f9246aa3f6777535e0f573bd",
+          "stderr_sha256": "d08e1cb9863f9ca7308fc2c35a6bad67387a8994edfe4c6ffdca86ec85c79cb8",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/ignore_two_phase_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "equal_counts_as_newer_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/equal_counts_as_newer_debug.rs",
+          "source_sha256": "cbbca8e9b5c1dcf3d48295ae0b9cba18e367eec7bd23e54709da3db6686d7c19",
+          "stdout_sha256": "fde43cee3276546434f49ee1d321c85534aaaaee549a53823694b09440b14807",
+          "stderr_sha256": "dbfeaf3c9bf540c137ea26d9e4621c0fcdf87bc20ea5d57eb62e0515fea17e7d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/equal_counts_as_newer_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "trust_corrupt_secondary_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/trust_corrupt_secondary_debug.rs",
+          "source_sha256": "b7163d591d5b83c980e243aae4374c95de094ae202526ebc72bc3db48a400a23",
+          "stdout_sha256": "46c92e0ec9bba6c398322c769bf75b69d29384e24d9a28547ccf04fb41f533ca",
+          "stderr_sha256": "d610e01ab656f20a0b1326762dceef2d106d861efdba32696a6e96bd0ea28cd6",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/trust_corrupt_secondary_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "break_state_frame_debug",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/break_state_frame_debug.rs",
+          "source_sha256": "32cac541da5f656be5e19f94e816b66b38e937cc65f52ab995afbd37e0caa6c1",
+          "stdout_sha256": "276ffa7d7ac6d515ffa144734881bb3dd1f5f3119e9c68270923aff71475d54c",
+          "stderr_sha256": "0f8b3a0533f4e6052d51c8894796bb283e9cf0ddfbb7e95076b1ca4688c7a177",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/break_state_frame_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "missing_representation_debug",
+          "category": "safety",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/missing_representation_debug.rs",
+          "source_sha256": "6ee9146744abb78b5c113fdf4c7004475860693a945369c6e6a16f8efc83271b",
+          "stdout_sha256": "5e055384637629745f31a7ebdc54fae6b4eb8c0c9d38d34fb18c1e053c1440bf",
+          "stderr_sha256": "a5717106aa11a99516b06c326db14384e08ce0eceb5b490e7ae7d0d9b2641082",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/missing_representation_debug/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 23,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "import_debug_policy",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "3aed39a3a1f3f073c1b8c558e9d82b2b53dc30162e0b47c9c0a33266a5f321e8",
+          "stderr_sha256": "ad9a4c03004bc1b2bbbc5f213d30ba00eb2218a5adaf4c6a2c26e5b43ee49292",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_debug_policy/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_debug_policy.vir": "d5229a8cb3821999d924fae3d6cef374fe1056a9d52b09a173d57010321a63d7",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/libprovider.rlib": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241"
+          }
+        },
+        {
+          "label": "import_debug_proof",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "3d5cf43a611b367af72d1f546a365dae8b8765742f871d0ca45ecccbc516eebc",
+          "stderr_sha256": "c578d1d3d8a16d85e222ba3291ba740fab124a0c210b3acc455ad5c0cd4f3c47",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_debug_proof/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_debug_proof.vir": "072b691a7df069b12de9413873c0099574564c9f2a15c924d58ffc6cd1618333",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/libprovider.rlib": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241"
+          }
+        },
+        {
+          "label": "import_debug_summaries",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "df386186711846b08a7d518bf5c23ce0495f44de2f3d019209093ce753e93bee",
+          "stderr_sha256": "767f6644cd85960cfb2794666f2ab9647320ddd7f177fedda6166dc5d349847a",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_debug_summaries/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_debug_summaries.vir": "69ce61cd53f910273e64350b840c1c919021e8eb7040315d194fa5b0f31390ad",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/libprovider.rlib": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241"
+          }
+        },
+        {
+          "label": "import_debug_trusted_models",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "272ac1ef75ba9cc5abd01dce4322b1efd89d5c0f0eae74cbfdaa9594da277a1b",
+          "stderr_sha256": "daf7e409a4faddf655add3b1e4d70097361808bc80f47c626209ceb0b159c3a7",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_debug_trusted_models/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_debug_trusted_models.vir": "f808b986b2eb90ee5d47153b1eab1cd2078731668760f77b24df3f01585ab87a",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_debug_repeat/libprovider.rlib": "3847891d50f51ac82b329dbe9ebd6aa7b9e819f1678392f5de71ccca4355b241"
+          }
+        },
+        {
+          "label": "legacy_noninfer_debug",
+          "category": "legacy",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/legacy_debug.rs",
+          "source_sha256": "2ebf09f3a9cc6c078424c7deb09df65d760efd8715966d6bd2d5c2ed5e19ed12",
+          "stdout_sha256": "030aab4b11be47d64a1327dcc0b4f6eb6a1952cac41d5e9f61df7ecd2576484a",
+          "stderr_sha256": "c342d6730ef8684aa2d8f7fed26e4453d4faf310cee69ecbaa05c05ca74b0744",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/legacy_noninfer_debug/legacy.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "d69eaa1d296ac340078a0cee1d06c2fde08b8155e868c9cf16a02e23745ede66",
+          "library_sha256": null,
+          "seeded_export_sha256": "9f7fd3bf5905eb275073c583feb1c1e840e84e133e865a60826a0a53d8eb5735",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "legacy_observation": "Failed non-Infer run replaced the seeded export with a new legacy artifact; no cleanup guarantee"
+        },
+        {
+          "label": "provider_release_cold",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "076d39bdee82811b31eb4bd92429458017ed1d3237c106453105586f3efe5f86",
+          "stderr_sha256": "63e95b758999d654cf8be2bdfdcd83e752127d447561d5256b21c86137f3167d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_cold/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "db4064d36b16eec946a1236cc69cbbc020deae3a55bb7e9e6c15568143c8ea02",
+          "library_sha256": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "706f554b09113f3d5d7d5892c77c3cab71f2c669becc13909baabb7472201fb9",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 434,
+                "solver_micros": 811,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "provider_release_repeat",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs",
+          "source_sha256": "28f129242d169e914d0368d838e5385ad3632e03e1f07d1dcb382bab2ac34401",
+          "stdout_sha256": "529eb5aa620cf88b3722d542f0df913763cfbb88a81ac1e3fa786d2ba23642d4",
+          "stderr_sha256": "63e95b758999d654cf8be2bdfdcd83e752127d447561d5256b21c86137f3167d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/provider.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "library_sha256": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 23,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 15,
+            "checked_proof_bodies": 1
+          },
+          "inferred_functions": [
+            {
+              "function": "provider::TransactionId::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider.rs:4:50: 4:59 (#21)",
+              "candidate_id": "0e72e021e1bc75a37458a41f9189bb913f91d39631913f9ff38cae96e6ab1e1d",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "self",
+                  "type": "&provider::TransactionId"
+                },
+                {
+                  "name": "other",
+                  "type": "&provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 440,
+                "solver_micros": 703,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "consumer_release",
+          "category": "positive",
+          "returncode": 0,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "cb7dbb5861e5cd53916f5f1ed7707b1e752a74f04855eb92d16c5198d4f6e9a5",
+          "stderr_sha256": "9d18b98454108ac90d1b72ae7ec9d174f6f4c0c0d5167995781f342ade7cbc6c",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer_release/consumer.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "6e21a6475ad5d045c419d4d7d4a50b233b17c641cba80643799e7a90a5ef5d5d",
+          "library_sha256": "6562a6d655a81f7621eec1b558b7d4482af31535dbfd6129a174c59b59877da7",
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 5,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": true,
+          "crate_success": true,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 3,
+            "checked_proof_bodies": 0
+          },
+          "inferred_functions": [
+            {
+              "function": "consumer::ordering",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs:6:1: 6:69 (#0)",
+              "candidate_id": "a90a65113d78110b888dd4559ac1a0cb9aa408e8a5e7eade9304c30584a8f68c",
+              "mode": "exact",
+              "summary_kind": "value",
+              "parameters": [
+                {
+                  "name": "first",
+                  "type": "provider::TransactionId"
+                },
+                {
+                  "name": "second",
+                  "type": "provider::TransactionId"
+                }
+              ],
+              "result_type": "bool",
+              "contract": {
+                "requires": "true",
+                "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)"
+              },
+              "loop_proofs": [],
+              "proofs": {
+                "soundness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "maximality": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                },
+                "exactness": {
+                  "status": "proved",
+                  "required": true,
+                  "reason": null
+                }
+              },
+              "required_checks_passed": true,
+              "available_to_same_crate_callers": true,
+              "exported": true,
+              "dependencies": [],
+              "metrics": {
+                "cache": "miss",
+                "cache_policy": "candidate_cache",
+                "generation_micros": 431,
+                "solver_micros": 1283,
+                "requires_nodes": 1,
+                "ensures_nodes": 7
+              }
+            }
+          ],
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/provider.vir": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/libprovider.rlib": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d"
+          }
+        },
+        {
+          "label": "wrong_kept_flag_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/wrong_kept_flag_release.rs",
+          "source_sha256": "bb90981b41adbb5a87799ed3d75e9d06a15284fcc810536ca66006e53047e5c3",
+          "stdout_sha256": "617840faa629b44d0ab8c4adc13c58bb4a604d9f0a68dfdf6aaf581d527a5686",
+          "stderr_sha256": "ef126db899a51c27e7591a630d6c50475540dae9bf02e51b12d4c778dbc6115b",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/wrong_kept_flag_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "ignore_two_phase_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/ignore_two_phase_release.rs",
+          "source_sha256": "07c2c18a37f831d9998819a583d7b770796d3753e893c1f37e266f12e3f043d0",
+          "stdout_sha256": "624b1adaa60188be7a17611a98db118f62cea2eb5f3b2513a542c7b17174b6ae",
+          "stderr_sha256": "d0c84d1183a1fe9d723c846722f61d3a9c365a8517904c6c0649e28fbe653e40",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/ignore_two_phase_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "equal_counts_as_newer_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/equal_counts_as_newer_release.rs",
+          "source_sha256": "cbbca8e9b5c1dcf3d48295ae0b9cba18e367eec7bd23e54709da3db6686d7c19",
+          "stdout_sha256": "61764ba4a8e8cc633be9c05afcc3b4f52e5e04aa4a7d7157078b5c5890d8f7e2",
+          "stderr_sha256": "75a8597aff38a7262552e2043274a9b043809cd5d759bc04d702cbbda8305ac6",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/equal_counts_as_newer_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "trust_corrupt_secondary_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/trust_corrupt_secondary_release.rs",
+          "source_sha256": "b7163d591d5b83c980e243aae4374c95de094ae202526ebc72bc3db48a400a23",
+          "stdout_sha256": "7957caef6154aea9a4f8e73395f082614338402b03a956db77848569687e1f60",
+          "stderr_sha256": "67a8d3968884fd9f1380038dd61d40fe5eda2b6a5025edcbe86a3e1888bb1a85",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/trust_corrupt_secondary_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "break_state_frame_release",
+          "category": "semantic",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/break_state_frame_release.rs",
+          "source_sha256": "32cac541da5f656be5e19f94e816b66b38e937cc65f52ab995afbd37e0caa6c1",
+          "stdout_sha256": "d40bae754d217b07e14374c09f0dec7a1690b08fd34c135bc4628a798e481945",
+          "stderr_sha256": "1e702ec74c07272f11b29ed43c9775b3d5bb6c839d0453ff8783d6fe2b5574d3",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/break_state_frame_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 22,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "missing_representation_release",
+          "category": "safety",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/missing_representation_release.rs",
+          "source_sha256": "6ee9146744abb78b5c113fdf4c7004475860693a945369c6e6a16f8efc83271b",
+          "stdout_sha256": "fcae5c203d09c3933dc5d2cffe2b4ac3d4337b4bd9eb163f671de3b75162303a",
+          "stderr_sha256": "5ab3ab5ca2aefe88353d2f9ad6bceb7604593ba8a1451d8e3db29478b2cabe46",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/missing_representation_release/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 23,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        },
+        {
+          "label": "import_release_policy",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "d65e2aeb527cb0efd2ac07680b55cfb598f0edf330c728bf494e5554b63330d7",
+          "stderr_sha256": "e67d002abc53288815188893682eb825b533914163b7b433125fc31ea1b2eb66",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_release_policy/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_release_policy.vir": "6fefa7f37827f7023241cc5522314b4b14b8ed7a143f684cdd4651e93da4872f",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/libprovider.rlib": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d"
+          }
+        },
+        {
+          "label": "import_release_proof",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "7d5a17979f6f640625df52870d4ae0ce38ddd5bc2f34aee6a577bde973d83c83",
+          "stderr_sha256": "9e57a2a8a596a2d0d99fe0e43a4d4c1d42d54565103967e98ba168fcd4ca7741",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_release_proof/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_release_proof.vir": "84c2a49a6739f9d3b9c8f193a2afd41ccca876c43b1fc4a04135cdf1dd101f81",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/libprovider.rlib": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d"
+          }
+        },
+        {
+          "label": "import_release_summaries",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "f233a64447f2b792cc1de9daefbc7fc93c3d7cbb653167873330217007131ca1",
+          "stderr_sha256": "05a46a7a41ad387a0122192f240df9f424d17d2dee06143ae345da294c740d4d",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_release_summaries/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_release_summaries.vir": "a4609cd92fa3db37850026cc042135ea71b37b121c8d46265674ec7ba6ee02ec",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/libprovider.rlib": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d"
+          }
+        },
+        {
+          "label": "import_release_trusted_models",
+          "category": "import",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/consumer.rs",
+          "source_sha256": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+          "stdout_sha256": "ab681ef86f79e60da7257882954fa1f210316635123fadf7406b4863fbe7ef63",
+          "stderr_sha256": "17d44ed32baa1a1f91938d627d4c7039eb70f3cbc159ed100c25d58b603dd9b9",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/import_release_trusted_models/consumer.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": false,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "imports": {
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/dependency_release_trusted_models.vir": "259fa336783e0dc08b8862534e94016b9a33ee72f8342c6e335b699fa7208cb2",
+            "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/provider_release_repeat/libprovider.rlib": "67b0b387af77aa8449d9365f8ad55431f700ff6e13a9c36a09dce1190546d22d"
+          }
+        },
+        {
+          "label": "legacy_noninfer_release",
+          "category": "legacy",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/legacy_release.rs",
+          "source_sha256": "2ebf09f3a9cc6c078424c7deb09df65d760efd8715966d6bd2d5c2ed5e19ed12",
+          "stdout_sha256": "b62efe4c18249d8b4acfdf39d2977da48c0fd736995bb8d9e3d68a09714f63b8",
+          "stderr_sha256": "a28caf2fa406abf1758f36414c27e7c57aa4ce050d8aaec86619957d4603f253",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/legacy_noninfer_release/legacy.vir",
+          "artifact_exists": true,
+          "artifact_sha256": "00333cbe79bc7d0e67e55c990f049dbe413556aef7fdd7e74717a75ce2da74c3",
+          "library_sha256": null,
+          "seeded_export_sha256": "1788141f0365127e1e3f3572d39ad1f0911d83b74982db942f793a37c6be93b6",
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "legacy_observation": "Failed non-Infer run replaced the seeded export with a new legacy artifact; no cleanup guarantee"
+        },
+        {
+          "label": "full_native_error_blocker",
+          "category": "frontend",
+          "returncode": 1,
+          "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/full_native_error_probe.rs",
+          "source_sha256": "ed59b48e8e2303187532e228063cbc7e1793d3b243c019217fe53c58c3fbd2fe",
+          "stdout_sha256": "10866430ac77036b942b67d23052f51fe7496865cad58dfe422b0b0cee6eab33",
+          "stderr_sha256": "82529841983777deb82ffeaf20cb0039cce5afbec222c2523074785127782d8f",
+          "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-optimized/full_native_error_blocker/provider.vir",
+          "artifact_exists": false,
+          "artifact_sha256": null,
+          "library_sha256": null,
+          "seeded_export_sha256": null,
+          "default_erasure": true,
+          "no_cheating": true,
+          "verification_results": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "interface_written": false,
+          "crate_success": false,
+          "checked_scope": {
+            "native_collection_completed": true,
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          }
+        }
+      ],
+      "baseline_ledger_counts": {
+        "file-hashes": 1976,
+        "source-hashes": 1566,
+        "rust-build-input-hashes": 1085,
+        "runtime-hashes": 9,
+        "toolchain-hashes": 61,
+        "guarded-inputs": 3395,
+        "native-fedimint": 1199,
+        "native-redb": 132
+      },
+      "baseline_ledger_sha256": {
+        "correction-delta.json": "7180da46fe578ffd6a6942352e18758382433482ebc82609571f6b410540a63e",
+        "file-hashes.json": "173bdc3ccbac0d4d4d5b41d7b7c0a0d90d8b00549aff711af194aad7c3d355e8",
+        "git-state.json": "482858a80b4c0d65cbaa1311471b09af6f15a9b40dc0868e987602209ac71ad1",
+        "guarded-inputs.json": "a762b8e2af1607b1b20ddc4be7b3b63f77464dea3a7aec45957d539893eface7",
+        "inventory.json": "46009116f47e45716d6b64d621d3a391c2452e2ac0bd010de9ca8c62da5f46e8",
+        "manifest.json": "69e7ba03dfeaf1f15421f4864b3ddd3605067f1a3c05b695bdbd05a36d92dc19",
+        "native-hashes.json": "88612d38fd7784d065e0b2ee2468ed785fb399ed653912683bd522f84251cdb6",
+        "runtime-hashes.json": "6049c563cd2310d3faf890b6c1a61b83e0acc27eb1c5ca3d2e12904e598c4f86",
+        "rust-build-input-hashes.json": "663e7236003edf574149f491b1a99764785a65a05833961af3d2b99232fc6c43",
+        "source-hashes.json": "ad1c39377607b3b6b53ea9eb97dd0fe80d393ea6490a5d4d1c6c88b516777743",
+        "toolchain-hashes.json": "367af9e5ee0e1be37bb1582f562dcf929f4eaf3c4acad6805f0d4c0b37f1f596"
+      },
+      "local_refs_before_after_sha256": "0672dbe61098c0d3c115583bf16c385fa2cb9d7fcf5faa1f54d1a258b3c451e9"
+    }
+  }
+}

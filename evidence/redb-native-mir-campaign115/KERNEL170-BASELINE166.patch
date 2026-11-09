@@ -1,0 +1,878 @@
+diff --git a/source/rust_verify/Cargo.toml b/source/rust_verify/Cargo.toml
+index 2d2051e00..56836307e 100644
+--- a/source/rust_verify/Cargo.toml
++++ b/source/rust_verify/Cargo.toml
+@@ -36,6 +36,7 @@ rust_verify_test_macros = { path = "../rust_verify_test_macros" }
+ cargo-verus-toolchains = { workspace = true }
+ 
+ [features]
++native-semantics170-inspect = ["native-resource-adapter164", "native-resource-continuation160", "vir/native-semantics170-inspect"]
+ native-allocator-primitive158-proposal = []
+ native-resource-continuation160 = ["vir/native-resource-continuation160"]
+ native-resource-adapter164 = ["vir/native-resource-adapter164"]
+diff --git a/source/rust_verify/src/bin/continuation160.rs b/source/rust_verify/src/bin/continuation160.rs
+index f8ce37581..4d209551c 100644
+--- a/source/rust_verify/src/bin/continuation160.rs
++++ b/source/rust_verify/src/bin/continuation160.rs
+@@ -19,6 +19,7 @@ struct Callbacks {
+     output: PathBuf,
+     pending: bool,
+     source_root: PathBuf,
++    kernel170: Option<(PathBuf, String)>,
+ }
+ 
+ struct TypedStore<'tcx> {
+@@ -233,6 +234,50 @@ impl rustc_driver::Callbacks for Callbacks {
+         assert_eq!(stores.len(), 1, "one actual resolved source-connected native occurrence required");
+         let store = stores.remove(0);
+         let allocation = allocation_cut156(tcx, &store);
++        #[cfg(feature = "native-semantics170-inspect")]
++        if let Some((library, library_sha256)) = &self.kernel170 {
++            let selected = select_original160(tcx, &store, &allocation);
++            let body = tcx.instance_mir(selected.owner.def);
++            let runtime_path = PathBuf::from("/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib");
++            let mut runtimes = std::fs::read_dir(runtime_path).unwrap().map(|entry| entry.unwrap().path())
++                .filter(|path| path.file_name().unwrap().to_string_lossy().starts_with("liballoc-")
++                    && path.extension().is_some_and(|extension| extension == "rlib")).collect::<Vec<_>>();
++            assert_eq!(runtimes.len(), 1);
++            let runtime = runtimes.pop().unwrap();
++            let align_type = instantiate(tcx, selected.owner, selected.align.ty(&body.local_decls, tcx));
++            let alignment_method_mir_sha256 = rust_verify::native_adapter164::interpret_alignment170(tcx, align_type)
++                .expect("interpret actual Alignment::as_usize MIR before numeric semantic operand");
++            let abi = format!("{:?}",tcx.fn_sig(selected.callee.def_id()).instantiate(tcx,selected.callee.args).skip_binder().abi());
++            assert_eq!(abi, "Rust");
++            assert_eq!(tcx.crate_name(selected.callee.def_id().krate).as_str(), "alloc");
++            assert_eq!(tcx.item_name(selected.callee.def_id()).as_str(), "__rust_alloc");
++            let source = vir::native_resource::kernel170::Source170 {
++                root_source_sha256: digest(&std::fs::read(&root_path).unwrap()),
++                owner_mir_sha256: digest(format!("{body:#?}").as_bytes()),
++                owner: format!("{:?}", selected.owner), callee: "alloc::alloc::__rust_alloc".into(),
++                runtime_sha256: digest(&std::fs::read(&runtime).unwrap()),
++                target: tcx.sess.opts.target_triple.to_string(),
++                abi: format!("{abi}; usize, core::mem::Alignment -> *mut u8"),
++                alignment: "core::mem::Alignment::as_usize(actual operand)".into(),
++                alignment_method_mir_sha256,
++                block: selected.block.as_usize(), normal: selected.continuation.as_usize(),
++                native_destination: selected.result.as_local().expect("plain selected native result").as_usize(),
++                size_operand: format!("{:?}", selected.size), align_operand: format!("{:?}", selected.align),
++            };
++            let inspection = rust_verify::native_kernel170::inspect170(source, library, library_sha256);
++            let mut report = match inspection { Ok(report) => report,
++                Err(error) => json!({"inspection_error": error, "native_export":"REFUSED", "operative_issuance":0}) };
++            report["original_source_linkage"] = json!({"root_path":root_path,
++                "root_instance":format!("{root:?}"),"root_mir":format!("{root_body:#?}"),
++                "original_allocation_and_payload_projection":allocation.record,
++                "actual_store_projection":store.record,"selected_owner_mir":format!("{body:#?}"),
++                "selected_callee":format!("{:?}",selected.callee),"actual_abi":abi,
++                "actual_unwind":selected.unwind,"runtime_alloc_rlib":runtime,
++                "scope":"conditional selected primitive; actual caller/frontier/non-null/layout flow not accepted"});
++            std::fs::write(self.output.with_extension("kernel170.json"), serde_json::to_vec_pretty(&report).unwrap()).unwrap();
++            compiler.sess.dcx().err("NATIVE170_EXPORT_REFUSED: pre-review structural candidate only; no solver, original permission or native body credit");
++            return rustc_driver::Compilation::Stop;
++        }
+         let pending = lower_original160(tcx, &store, &allocation, self.pending);
+         std::fs::write(self.output.with_extension("pending.json"), serde_json::to_vec_pretty(&pending).unwrap()).unwrap();
+         compiler.sess.dcx().err("CONTINUATION160_EXPORT_REFUSED: typed candidate only; native dynamic event/spec-pointer interpretation unavailable; PENDING_REVIEW; no resource authority or theorem credit");
+@@ -249,7 +294,13 @@ fn main() -> std::process::ExitCode {
+         arguments.remove(1);
+         true
+     } else { false };
++    let kernel170 = if arguments.get(1).is_some_and(|argument| argument == "--inspect-kernel170-vstd") {
++        arguments.remove(1);
++        let path = PathBuf::from(arguments.remove(1));
++        let digest = arguments.remove(1);
++        Some((path, digest))
++    } else { None };
+     let source_root = PathBuf::from(arguments.last().unwrap()).parent().unwrap().canonicalize().unwrap();
+-    let result = rustc_driver::catch_fatal_errors(|| rustc_driver::run_compiler(&arguments, &mut Callbacks { output, pending, source_root }));
++    let result = rustc_driver::catch_fatal_errors(|| rustc_driver::run_compiler(&arguments, &mut Callbacks { output, pending, source_root, kernel170 }));
+     if result.is_ok() { std::process::ExitCode::SUCCESS } else { std::process::ExitCode::FAILURE }
+ }
+diff --git a/source/rust_verify/src/import_export.rs b/source/rust_verify/src/import_export.rs
+index b10f791a3..3dfd3eed7 100644
+--- a/source/rust_verify/src/import_export.rs
++++ b/source/rust_verify/src/import_export.rs
+@@ -32,6 +32,23 @@ pub(crate) struct CrateWithMetadata {
+     metadata: CrateMetadata,
+ }
+ 
++#[cfg(feature = "native-semantics170-inspect")]
++pub(crate) fn load_native170_inspection(path: &Path) -> Result<Krate, String> {
++    if path.extension().is_some_and(|extension| extension == "json") {
++        let input = std::io::BufReader::new(std::fs::File::open(path).map_err(|error| error.to_string())?);
++        let krate: Krate = serde_json::from_reader(input).map_err(|error| error.to_string())?;
++        vir::native_resource::reject_crate(&krate, "native170 genuine retained canonical AST compatibility inspection")
++            .map_err(|error| error.note.clone())?;
++        return Ok(krate);
++    }
++    let mut input = std::io::BufReader::new(std::fs::File::open(path).map_err(|error| error.to_string())?);
++    let value: CrateWithMetadata = bincode_next::serde::decode_from_std_read(
++        &mut input, bincode_next::config::legacy()).map_err(|error| error.to_string())?;
++    vir::native_resource::reject_crate(&value.krate, "native170 canonical inspection")
++        .map_err(|error| error.note.clone())?;
++    Ok(value.krate)
++}
++
+ #[derive(Clone, Debug, Deserialize, Serialize)]
+ pub(crate) struct InferenceDependency {
+     pub crate_id: u64,
+diff --git a/source/rust_verify/src/lib.rs b/source/rust_verify/src/lib.rs
+index adfaa0bf7..7f323f52d 100644
+--- a/source/rust_verify/src/lib.rs
++++ b/source/rust_verify/src/lib.rs
+@@ -53,6 +53,8 @@ mod fn_call_to_vir;
+ mod hir_hide_reveal_rewrite;
+ mod import_export;
+ mod native_const;
++#[cfg(feature = "native-semantics170-inspect")]
++pub mod native_kernel170;
+ #[cfg(feature = "native-resource-adapter164")]
+ pub mod native_adapter164;
+ mod native_exact_hints;
+diff --git a/source/rust_verify/src/native_adapter164.rs b/source/rust_verify/src/native_adapter164.rs
+index c926ad5bc..3d61a93bf 100644
+--- a/source/rust_verify/src/native_adapter164.rs
++++ b/source/rust_verify/src/native_adapter164.rs
+@@ -8,6 +8,28 @@ use vir::native_resource::adapter164;
+ 
+ mod scalar;
+ 
++#[cfg(feature = "native-semantics170-inspect")]
++pub fn interpret_alignment170<'tcx>(tcx: TyCtxt<'tcx>, typ: Ty<'tcx>) -> Result<String, String> {
++    use sha2::{Digest, Sha256};
++    let ty::Adt(definition, arguments) = *typ.kind() else { return Err("actual nominal Alignment required".into()); };
++    if tcx.crate_name(definition.did().krate).as_str() != "core"
++        || tcx.item_name(definition.did()).as_str() != "Alignment"
++    { return Err("wrong nominal alignment definition".into()); }
++    let methods = tcx.inherent_impls(definition.did()).iter().flat_map(|implementation|
++        tcx.associated_items(*implementation).in_definition_order()).filter(|item|
++            item.name().as_str() == "as_usize").collect::<Vec<_>>();
++    if methods.len() != 1 { return Err("ambiguous actual Alignment::as_usize".into()); }
++    let method = ty::Instance::try_resolve(tcx, ty::TypingEnv::fully_monomorphized(), methods[0].def_id, arguments)
++        .map_err(|_| "alignment method resolution failed")?.ok_or("alignment method absent")?;
++    let name = VarIdent(Arc::new("actual_nominal_alignment_word170".into()), VarIdentDisambiguate::NativeResource(170));
++    let actual = variable(&name, &usize_type());
++    let interpreted = scalar::evaluate_method(tcx, method, actual, 0)?;
++    if !matches!(&interpreted.x, ExprX::Var(result) if *result == name)
++        || !types_equal(&interpreted.typ, &usize_type())
++    { return Err("actual Alignment::as_usize not interpreted as the numeric operand word".into()); }
++    Ok(hex::encode(Sha256::digest(format!("{:#?}",tcx.instance_mir(method.def)).as_bytes())))
++}
++
+ fn span() -> vir::messages::Span {
+     vir::messages::Span { raw_span: Arc::new(()), id: 164, data: vec![],
+         as_string: "checked native MIR subset164 (not admitted)".into() }
+diff --git a/source/rust_verify/src/native_kernel170.rs b/source/rust_verify/src/native_kernel170.rs
+new file mode 100644
+index 000000000..2d9d11dba
+--- /dev/null
++++ b/source/rust_verify/src/native_kernel170.rs
+@@ -0,0 +1,168 @@
++use std::path::Path;
++use std::sync::{Arc, Mutex};
++use std::collections::{HashMap, HashSet};
++use sha2::{Digest, Sha256};
++use serde_json::{json, Value};
++use vir::ast::*;
++use vir::context::{Ctx, GlobalCtx, WarningCtx};
++use vir::def::Spanned;
++use vir::native_resource::kernel170::*;
++use vir::sst::{Exp, ExpX, StmX};
++
++fn digest(bytes: &[u8]) -> String { hex::encode(Sha256::digest(bytes)) }
++
++fn variable(span: &vir::messages::Span, name: &str, identity: u64, typ: Typ) -> Exp {
++    SpannedTyped::new(span, &typ, ExpX::Var(VarIdent(Arc::new(name.into()),
++        VarIdentDisambiguate::NativeResource(identity))))
++}
++
++fn globals(krate: &Krate, span: &vir::messages::Span, simplified: bool) -> Result<GlobalCtx, String> {
++    GlobalCtx::new(krate, CrateId::Vstd, span.clone(), 10.0,
++        Arc::new(Mutex::new(None)), Arc::new(Mutex::new(None)),
++        Arc::new(WarningCtx { fun_warn_configs: HashMap::new() }), air::context::SmtSolver::Z3,
++        simplified, false, false, false, false).map_err(|error| error.note.clone())
++}
++
++pub fn inspect170(source: Source170, library: &Path, expected_library_sha256: &str) -> Result<Value, String> {
++    let bytes = std::fs::read(library).map_err(|error| error.to_string())?;
++    let library_sha256 = digest(&bytes);
++    if library_sha256 != expected_library_sha256 || library_sha256 != "353ef06dd082872df52191eb4587232ac6507ba097862e186152056a2a0d2ce4" {
++        return Err("fixed genuine canonical AST byte digest mismatch; supplied nominal datatypes refused".into());
++    }
++    let loaded = crate::import_export::load_native170_inspection(library)?;
++    let canonical = Canonical170::from_authenticated_library(&loaded, library_sha256.clone())
++        .map_err(|error| format!("loaded canonical: {error:?}; allocate signatures: {:?}",
++            loaded.functions.iter().filter(|function| function.x.name.path.segments.last()
++                .is_some_and(|name| name.as_str() == "allocate")).map(|function|
++                    (&function.x.name, &function.x.outer_ret, function.x.require.len(), function.x.ensure.0.len())).collect::<Vec<_>>()))?;
++    let span = vir::messages::Span { raw_span: Arc::new(()), id: 170, data: vec![],
++        as_string: "native semantic170 pre-review structural inspection".into() };
++    let mut initial = globals(&loaded, &span, false)?;
++    let simplified = vir::ast_simplify::simplify_krate(&mut initial, &loaded).map_err(|error| error.note.clone())?;
++    let module = Spanned::new(span.clone(), ModuleX { path: Arc::new(PathX { krate: CrateId::Vstd,
++        segments: Arc::new(vec![]) }), reveals: None });
++    let context = Ctx::new(&simplified, globals(&simplified, &span, true)?, module,
++        vec![], vec![], HashSet::new(), vir::prune::UsedBuiltins { uses_array: false,
++            uses_bytestr: false, uses_pointee_metadata: false, uses_ieee_float: false }, vec![], vec![])
++        .map_err(|error| error.note.clone())?;
++    let word = Arc::new(TypX::Int(IntRange::USize));
++    let size = variable(&span, &format!("actual_size_operand:{}", source.size_operand), 1701, word.clone());
++    let align = variable(&span, &format!("actual_alignment_as_usize:{}", source.align_operand), 1702, word.clone());
++    let frontier = variable(&span, "complete_incoming_native_frontier_is_empty", 1703, Arc::new(TypX::Bool));
++    let enter = || Kernel170::enter(source.clone(), Incoming170::ConditionalEmpty {
++        complete_native_frontier_is_empty: frontier.clone() });
++    let binder = VarIdent(Arc::new("same_selected_native_call_result".into()), VarIdentDisambiguate::NativeResource(1704));
++    let instruction = make_instruction170(&span, &canonical, binder.clone(), size.clone(), align.clone());
++    let mut kernel = enter().map_err(|error| format!("enter: {error:?}"))?;
++    let call = kernel.prepare_call(instruction.clone(), 1, Outcome170::NormalNonNull).map_err(|error| format!("prepare: {error:?}"))?;
++    let (transition, air) = inspect_native170_to_air(&context, &mut kernel,
++        &canonical, &call, &instruction).map_err(|error| error.note.clone())?;
++    let mut controls = Vec::new();
++    let mut check = |name: &str, passed: bool, detail: String| {
++        controls.push(json!({"name": name,"passed":passed,"detail":detail,"kind":"structural_no_solver_no_native_credit"}));
++    };
++    check("same_full_native_return", Arc::ptr_eq(&kernel.native_return().unwrap(), &transition.native_return),
++        format!("{:?}", transition.native_return));
++    check("canonical_initialized_raw_dealloc", kernel.live_count() == 1 && air.iter().any(|statement|
++        matches!(&**statement, air::ast::StmtX::Havoc(_))), format!("raw={:?};dealloc={:?}",transition.raw, transition.dealloc));
++    check("mandatory_frontier_assertion", matches!(&*air[0], air::ast::StmtX::Assert(..)), format!("{:?}",air[0]));
++    check("nonnull_is_checked_not_gifted",air.iter().filter(|statement|matches!(&***statement,air::ast::StmtX::Assert(..))).count()==3,
++        "incoming frontier, actual layout/positive size, and SAME full-return nonnull must be established".into());
++    check("initialized_result_has_canonical_declaration",transition.air_local_decls.len()==1,format!("{:?}",transition.air_local_decls));
++    check("default_off_review_gate", operative_admission170().err() == Some(Refusal170::ReviewRequired), "never activated".into());
++    check("replayed_issuance", kernel.allocate(&canonical,&call,&instruction).err() == Some(Refusal170::Replay), "same activation/evaluation".into());
++    check("duplicate_resources", kernel.copy_resources(1).err() == Some(Refusal170::DuplicateResource), "real canonical value holder".into());
++    check("live_frontier_activation_refused",kernel.enter_activation(source.block).err()==Some(Refusal170::NonemptyFrontier),"no prior-live-memory or ambient frame".into());
++    check("drop_live_resources", kernel.overwrite(1).err() == Some(Refusal170::ResourceLeak), "live pair not discarded".into());
++    check("untransferred_return", kernel.return_resources(&[]).err() == Some(Refusal170::ResourceLeak), "pair must be returned or consumed".into());
++    check("duplicate_return", kernel.return_resources(&[1,1]).err() == Some(Refusal170::DuplicateResource), "same generated canonical bundle".into());
++    for (name,incoming,expected) in [("unknown_frontier",Incoming170::Unknown,Refusal170::UnknownFrontier),
++        ("nonempty_frontier",Incoming170::Nonempty,Refusal170::NonemptyFrontier)] {
++        check(name,Kernel170::enter(source.clone(),incoming).err()==Some(expected),"incoming environment, not local absence".into());
++    }
++    for outcome in [Outcome170::Null,Outcome170::Error,Outcome170::Unwind,Outcome170::Abort,Outcome170::Divergence] {
++        let mut alternative=enter().unwrap();
++        let alternative_call=alternative.prepare_call(instruction.clone(),1,outcome).unwrap();
++        let refused=alternative.allocate(&canonical,&alternative_call,&instruction).err()==Some(Refusal170::UnsupportedOutcome);
++        check(&format!("outcome_{outcome:?}"),refused && alternative.live_count()==0,"no success pair".into());
++    }
++    let wrong_size=variable(&span,"substituted_size",1710,word.clone());
++    let wrong_align=variable(&span,"substituted_align",1711,word);
++    for (name,other_size,other_align,expected) in [
++        ("substituted_size",wrong_size.clone(),align.clone(),Refusal170::SubstitutedSize),
++        ("substituted_align",size.clone(),wrong_align.clone(),Refusal170::SubstitutedAlign),
++    ] {
++        let changed=make_instruction170(&span,&canonical,binder.clone(),other_size,other_align);
++        let mut alternative=enter().unwrap();
++        check(name,alternative.allocate(&canonical,&call,&changed).err()==Some(expected),"registered instruction operands cannot be replaced".into());
++    }
++    let changed=make_instruction170(&span,&canonical,VarIdent(Arc::new("substituted_return".into()),
++        VarIdentDisambiguate::NativeResource(1712)),size.clone(),align.clone());
++    check("substituted_native_return",enter().unwrap().allocate(&canonical,&call,&changed).err()==Some(Refusal170::SubstitutedReturn),"no second symbolic pointer/address equation".into());
++    let alias=kernel.alias_pointer(1,9).unwrap();
++    check("pointer_alias_no_duplicate_authority",Arc::ptr_eq(&alias,&transition.native_return) && kernel.live_count()==1,"pointer alias does not clone resources".into());
++    kernel.borrow(1,11).unwrap();
++    check("move_borrowed",kernel.move_holder(1,2).err()==Some(Refusal170::Borrowed),"canonical pair frozen by loan".into());
++    check("destroy_borrowed",kernel.deallocate(&canonical,1,&transition.native_return,&size,&align).err()==Some(Refusal170::Borrowed),"cannot consume loaned pair".into());
++    kernel.end_loan(11).unwrap();kernel.move_holder(1,2).unwrap();
++    check("overwrite_live_moved_destination",kernel.move_holder(2,2).err()==Some(Refusal170::LiveDestination),"no holder overwrite or self-move duplication".into());
++    check("moved_holder_stale",kernel.copy_resources(1).err()==Some(Refusal170::StaleHolder),"destructive transfer".into());
++    let other_pointer=variable(&span,"other_full_pointer",1713,transition.native_return.typ.clone());
++    check("wrong_full_pointer_provenance",kernel.deallocate(&canonical,2,&other_pointer,&size,&align).err()==Some(Refusal170::WrongProvenance),"numeric equality cannot restore authority".into());
++    check("destroy_wrong_size",kernel.deallocate(&canonical,2,&transition.native_return,&wrong_size,&align).err()==Some(Refusal170::SubstitutedSize),"same actual size".into());
++    check("destroy_wrong_alignment",kernel.deallocate(&canonical,2,&transition.native_return,&size,&wrong_align).err()==Some(Refusal170::SubstitutedAlign),"same numeric alignment".into());
++    check("unsupported_cleanup",kernel.goto(source.normal,source.block,true).err()==Some(Refusal170::UnsupportedCleanup),"no rollback/frame".into());
++    let branch_condition=variable(&span,"actual_supported_branch_discriminant",1715,Arc::new(TypX::Bool));
++    let branch_scenario=|| {
++        let mut alternative=enter().unwrap();
++        let alternative_call=alternative.prepare_call(instruction.clone(),1,Outcome170::NormalNonNull).unwrap();
++        alternative.allocate(&canonical,&alternative_call,&instruction).unwrap();
++        alternative.move_holder(1,2).unwrap();
++        alternative
++    };
++    let branch=branch_scenario().branch(&context,branch_condition.clone(),12,
++        |state| {state.move_holder(2,3)?;Ok(vec![])}, |state| {state.move_holder(2,3)?;Ok(vec![])});
++    check("exclusive_branch_join_and_air",branch.as_ref().is_ok_and(|(_,air)|matches!(&**air,air::ast::StmtX::Switch(_))),
++        "actual guard and complementary guard in exclusive AIR Switch; no public context Clone".into());
++    let branch=branch_scenario().branch(&context,branch_condition,13,
++        |state| {state.move_holder(2,3)?;Ok(vec![])}, |_|Ok(vec![]));
++    check("incompatible_branch_holders",branch.err()==Some(Refusal170::BranchMismatch),"no dropped/duplicated branch resource".into());
++    let destroy=kernel.deallocate(&canonical,2,&transition.native_return,&size,&align).unwrap();
++    check("canonical_destroy_consumes_both",matches!(&destroy.x,StmX::Call { args,.. } if args.len()==5) && kernel.live_count()==0,format!("{destroy:?}"));
++    check("stale_generation_alias",kernel.read_alias(9).err()==Some(Refusal170::StaleHolder),"deallocation invalidates provenance generation".into());
++    check("destroy_twice",kernel.deallocate(&canonical,2,&transition.native_return,&size,&align).err()==Some(Refusal170::StaleHolder),"no reused canonical tokens".into());
++    kernel.enter_activation(source.block).unwrap();
++    let fresh_instruction=make_instruction170(&span,&canonical,VarIdent(Arc::new("next_activation_native_result".into()),VarIdentDisambiguate::NativeResource(1714)),size.clone(),align.clone());
++    let fresh_call=kernel.prepare_call(fresh_instruction.clone(),4,Outcome170::NormalNonNull).unwrap();
++    let (fresh_transition,fresh_air)=inspect_native170_to_air(&context,&mut kernel,&canonical,&fresh_call,&fresh_instruction).map_err(|error|error.note.clone())?;
++    check("repeated_static_site_distinct_activation",fresh_transition.allocation!=transition.allocation && !fresh_air.is_empty(),"new native semantic evaluation, not static-site identity".into());
++    check("initialized_tracked_return",kernel.return_resources(&[4]).is_ok(),"returns actual generated canonical tuple".into());
++    for (name,runtime) in [("substituted_valid_source_digest",false),("substituted_valid_runtime_digest",true)] {
++        let mut changed_source=source.clone();
++        if runtime {changed_source.runtime_sha256="0000000000000000000000000000000000000000000000000000000000000000".into();}
++        else {changed_source.root_source_sha256="0000000000000000000000000000000000000000000000000000000000000000".into();}
++        let mut other=Kernel170::enter(changed_source,Incoming170::ConditionalEmpty {complete_native_frontier_is_empty:frontier.clone()}).unwrap();
++        check(name,other.allocate(&canonical,&call,&instruction).err()==Some(Refusal170::WrongSource),"valid-format changed origin cannot consume the selected original call witness".into());
++    }
++    for (name,change,expected) in [
++        ("wrong_source",0,Refusal170::WrongSource),("wrong_callee",1,Refusal170::WrongCallee),
++        ("wrong_runtime",2,Refusal170::WrongRuntime),("wrong_abi",3,Refusal170::WrongAbi),
++        ("wrong_alignment_interpretation",4,Refusal170::WrongAlignmentInterpretation)] {
++        let mut changed_source=source.clone();
++        match change {0=>changed_source.root_source_sha256.clear(),1=>changed_source.callee="other_allocator".into(),
++            2=>changed_source.target="other_target".into(),3=>changed_source.abi="usize erasure".into(),
++            _=>changed_source.alignment="hardcoded8".into()}
++        check(name,Kernel170::enter(changed_source,Incoming170::ConditionalEmpty {complete_native_frontier_is_empty:frontier.clone()}).err()==Some(expected),"actual source/runtime/ABI gates".into());
++    }
++    let failures=controls.iter().filter(|control|control["passed"]!=true).count();
++    Ok(json!({"schema":"native-semantics170-structural-inspection-v1","law":LAW170,"disposition":DISPOSITION170,
++        "loaded_vstd":library,"loaded_vstd_sha256":library_sha256,"canonical_allocate":format!("{:?}",canonical.allocate),
++        "canonical_raw":format!("{:?}",canonical.raw),"canonical_dealloc":format!("{:?}",canonical.dealloc),
++        "source_binding":format!("{source:?}"),"native_sst":format!("{instruction:?}"),
++        "canonical_sst":format!("{:?}",transition.canonical_call),"air":format!("{air:#?}"),
++        "conditional_native_cut_parameters":format!("{:?}",[size,align,frontier]),
++        "air_initialized_result_declarations":format!("{:?}",transition.air_local_decls),
++        "controls":controls,"control_failures":failures,"operative_issuance":0,"solver_runs":0,
++        "accepted_original_allocations":0,"accepted_original_stores":0,"accepted_original_bodies":0,
++        "native_export":"REFUSED","all18":"OPEN","original_applicability":"OPEN: complete incoming frontier, layout, nonnull branch, caller flow and runtime selection obligations"}))
++}
+diff --git a/source/rust_verify/src/selection160.rs b/source/rust_verify/src/selection160.rs
+index d3520c4d8..5b0211036 100644
+--- a/source/rust_verify/src/selection160.rs
++++ b/source/rust_verify/src/selection160.rs
+@@ -64,7 +64,7 @@ fn select_original160<'tcx>(tcx: TyCtxt<'tcx>, store: &TypedStore<'tcx>, allocat
+         assert_eq!(instantiate(tcx, owner, args[1].node.ty(&body.local_decls, tcx)), alignment_type);
+         let ty::Adt(alignment_definition, _) = *alignment_type.kind() else { panic!("pinned alignment operand must retain its nominal type") };
+         assert_eq!(tcx.crate_name(alignment_definition.did().krate).as_str(), "core");
+-        assert_eq!(tcx.def_path_str(alignment_definition.did()), "core::mem::alignment::Alignment");
++        assert_eq!(tcx.item_name(alignment_definition.did()).as_str(), "Alignment");
+         assert_eq!(instantiate(tcx, owner, destination.ty(&body.local_decls, tcx).ty), Ty::new_mut_ptr(tcx, tcx.types.u8));
+         assert!(!data.is_cleanup);
+         let continuation = target.expect("normal return edge required");
+diff --git a/source/vir/Cargo.toml b/source/vir/Cargo.toml
+index 3fe7bc4d8..32fab6591 100644
+--- a/source/vir/Cargo.toml
++++ b/source/vir/Cargo.toml
+@@ -19,6 +19,7 @@ sise = { workspace = true }
+ vir-macros = { workspace = true }
+ 
+ [features]
++native-semantics170-inspect = ["native-resource-adapter164"]
+ singular = ["air/singular"]
+ experimental-native-resource = []
+ native-resource-continuation160 = ["experimental-native-resource"]
+diff --git a/source/vir/src/native_resource/kernel170.rs b/source/vir/src/native_resource/kernel170.rs
+new file mode 100644
+index 000000000..a38e8f07c
+--- /dev/null
++++ b/source/vir/src/native_resource/kernel170.rs
+@@ -0,0 +1,428 @@
++use crate::ast::*;
++use crate::ast_util::{mk_tuple_field_opr, types_equal};
++use crate::def::Spanned;
++use crate::messages::Span;
++use crate::sst::{self, Dest, Exp, ExpX, Stm, StmX};
++use std::collections::{BTreeMap, BTreeSet};
++use std::sync::Arc;
++
++pub const LAW170: &str = "NATIVE_RAW_ALLOC_NORMAL158_V1";
++pub const DISPOSITION170: &str = "PRE_REVIEW_CANDIDATE_INSPECTION_ONLY";
++
++pub use crate::sst_to_air::inspect_native170_to_air;
++
++#[derive(Debug, Clone, PartialEq, Eq)]
++pub enum Refusal170 {
++    ReviewRequired, WrongCanonicalLibrary, MissingCanonicalDefinition, WrongSource,
++    WrongCallee, WrongRuntime, WrongAbi, WrongAlignmentInterpretation, UnknownFrontier,
++    NonemptyFrontier, Replay, WrongInstruction, SubstitutedReturn, SubstitutedSize,
++    SubstitutedAlign, UnsupportedOutcome, UnsupportedCleanup, WrongControl,
++    StaleHolder, LiveDestination, Borrowed, DuplicateResource, WrongProvenance,
++    ResourceLeak, BranchMismatch, InvalidFrontierCondition, WrongType,
++}
++
++pub fn operative_admission170() -> Result<(), Refusal170> { Err(Refusal170::ReviewRequired) }
++
++pub struct Canonical170 {
++    pub allocate: Function,
++    pub deallocate: Function,
++    pub address: Function,
++    pub result: Typ,
++    pub raw: Typ,
++    pub dealloc: Typ,
++    pub artifact_sha256: String,
++}
++
++fn canonical_path(function: &Function, name: &str) -> bool {
++    function.x.name.path.krate == CrateId::Vstd
++        && function.x.name.path.segments.iter().map(|segment| segment.as_str()).eq(["raw_ptr", name])
++}
++
++impl Canonical170 {
++    pub fn from_authenticated_library(krate: &Krate, artifact_sha256: String)
++        -> Result<Self, Refusal170>
++    {
++        if artifact_sha256.len() != 64 || !artifact_sha256.bytes().all(|byte| byte.is_ascii_hexdigit()) {
++            return Err(Refusal170::WrongCanonicalLibrary);
++        }
++        let find = |name| {
++            let matches = krate.functions.iter().filter(|function| canonical_path(function, name)).collect::<Vec<_>>();
++            if matches.len() != 1 { return Err(Refusal170::MissingCanonicalDefinition); }
++            Ok(matches[0].clone())
++        };
++        let allocate = find("allocate")?;
++        let deallocate = find("deallocate")?;
++        let address = krate.functions.iter().filter(|function|
++            function.x.name.path.krate == CrateId::Vstd && function.x.name.path.segments.iter()
++                .map(|part|part.as_str()).eq(["raw_ptr","ptr_mut_specs","spec_addr"]))
++            .collect::<Vec<_>>();
++        if address.len()!=1 || address[0].x.mode!=Mode::Spec || address[0].x.params.len()!=1 {
++            return Err(Refusal170::MissingCanonicalDefinition);
++        }
++        let address=address[0].clone();
++        let find_resource = |name| {
++            let matches = krate.datatypes.iter().filter(|datatype| match &datatype.x.name {
++                Dt::Path(path) => path.krate == CrateId::Vstd
++                    && path.segments.iter().map(|segment| segment.as_str()).eq(["raw_ptr", name])
++                    && datatype.x.mode == Mode::Proof,
++                _ => false,
++            }).collect::<Vec<_>>();
++            if matches.len() != 1 { return Err(Refusal170::MissingCanonicalDefinition); }
++            Ok(Arc::new(TypX::Datatype(matches[0].x.name.clone(), Arc::new(vec![]), Arc::new(vec![]))))
++        };
++        let raw = find_resource("PointsToRaw")?;
++        let dealloc = find_resource("Dealloc")?;
++        if allocate.x.mode != Mode::Exec || allocate.x.params.len() != 2
++            || allocate.x.require.len() != 2 || allocate.x.ensure.0.len() != 5 || !allocate.x.ensure.1.is_empty()
++            || allocate.x.params.iter().any(|parameter| !matches!(&*parameter.x.typ, TypX::Int(IntRange::USize)))
++            || !types_equal(&allocate.x.outer_ret.x.typ, &super::adapter164::result_type())
++            || deallocate.x.params.len() != 5 || deallocate.x.mode != Mode::Exec
++        { return Err(Refusal170::WrongCanonicalLibrary); }
++        Ok(Self { result: allocate.x.outer_ret.x.typ.clone(), allocate, deallocate, address, raw, dealloc, artifact_sha256 })
++    }
++}
++
++#[derive(Debug, Clone, PartialEq, Eq)]
++pub struct Source170 {
++    pub root_source_sha256: String,
++    pub owner_mir_sha256: String,
++    pub owner: String,
++    pub callee: String,
++    pub runtime_sha256: String,
++    pub target: String,
++    pub abi: String,
++    pub alignment: String,
++    pub alignment_method_mir_sha256: String,
++    pub block: usize,
++    pub normal: usize,
++    pub native_destination: usize,
++    pub size_operand: String,
++    pub align_operand: String,
++}
++
++impl Source170 {
++    fn validate(&self) -> Result<(), Refusal170> {
++        let digest = |text: &str| text.len() == 64 && text.bytes().all(|byte| byte.is_ascii_hexdigit());
++        if !digest(&self.root_source_sha256) || !digest(&self.owner_mir_sha256)
++            || !self.owner.contains("alloc_impl_runtime") || self.size_operand.is_empty() || self.align_operand.is_empty()
++        { return Err(Refusal170::WrongSource); }
++        if self.callee != "alloc::alloc::__rust_alloc" { return Err(Refusal170::WrongCallee); }
++        if !digest(&self.runtime_sha256) || self.target != "aarch64-apple-darwin" { return Err(Refusal170::WrongRuntime); }
++        if self.abi != "Rust; usize, core::mem::Alignment -> *mut u8" { return Err(Refusal170::WrongAbi); }
++        if self.alignment != "core::mem::Alignment::as_usize(actual operand)" || !digest(&self.alignment_method_mir_sha256) {
++            return Err(Refusal170::WrongAlignmentInterpretation);
++        }
++        Ok(())
++    }
++}
++
++pub enum Incoming170 {
++    Unknown,
++    Nonempty,
++    ConditionalEmpty { complete_native_frontier_is_empty: Exp },
++}
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq)]
++pub enum Outcome170 { NormalNonNull, Null, Error, Unwind, Abort, Divergence }
++
++#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
++pub struct Allocation170 { activation: u64, evaluation: u64, path: Vec<(u64, bool)> }
++
++#[derive(Clone)]
++struct Resource170 {
++    allocation: Allocation170, pointer: Exp, raw: Exp, dealloc: Exp, bundle: Exp,
++    size: Exp, align: Exp, loans: BTreeSet<u64>,
++}
++
++#[derive(Clone)]
++struct Heap170 { native_pointer: Exp, generation: Allocation170, live: bool }
++
++pub struct Kernel170 {
++    source: Source170, activation: Vec<u64>, next_activation: u64, evaluation: u64,
++    pc: usize, path: Vec<(u64, bool)>, issued: BTreeSet<Allocation170>,
++    holders: BTreeMap<usize, Resource170>, heap: BTreeMap<Allocation170, Heap170>,
++    native_locals: BTreeMap<usize, Exp>, aliases: BTreeMap<usize, Allocation170>,
++    loans: BTreeMap<u64, (usize, Allocation170)>, incoming_empty: Exp,
++    frontier_obligation_pending: bool, returned: bool,
++}
++
++pub struct Call170 {
++    source: Source170, activation: u64, evaluation: u64, path: Vec<(u64, bool)>,
++    instruction: Stm, size: Exp, align: Exp, holder: usize, outcome: Outcome170,
++}
++
++pub struct Transition170 {
++    pub canonical_call: Stm,
++    pub incoming_empty_obligation: Option<Exp>,
++    pub native_return: Exp,
++    pub raw: Exp,
++    pub dealloc: Exp,
++    pub allocation: Allocation170,
++    pub air_local_decls: Vec<air::ast::Decl>,
++}
++
++fn identical(left: &Exp, right: &Exp) -> bool { Arc::ptr_eq(left, right) }
++
++fn read_destination(destination: &Dest) -> Result<Exp, Refusal170> {
++    if !destination.is_init { return Err(Refusal170::LiveDestination); }
++    let ExpX::VarLoc(name) = &destination.dest.x else { return Err(Refusal170::WrongInstruction); };
++    Ok(SpannedTyped::new(&destination.dest.span, &destination.dest.typ, ExpX::Var(name.clone())))
++}
++
++fn component(bundle: &Exp, typ: Typ, field: usize) -> Exp {
++    SpannedTyped::new(&bundle.span, &typ, ExpX::UnaryOpr(UnaryOpr::Field(mk_tuple_field_opr(3, field)), bundle.clone()))
++}
++
++impl Kernel170 {
++    fn exclusive_alternative(&self) -> Self {
++        Self { source: self.source.clone(), activation: self.activation.clone(), next_activation: self.next_activation,
++            evaluation: self.evaluation, pc: self.pc, path: self.path.clone(), issued: self.issued.clone(),
++            holders: self.holders.clone(), heap: self.heap.clone(), native_locals: self.native_locals.clone(),
++            aliases: self.aliases.clone(), loans: self.loans.clone(), incoming_empty: self.incoming_empty.clone(),
++            frontier_obligation_pending: self.frontier_obligation_pending, returned: self.returned }
++    }
++    pub fn enter(source: Source170, incoming: Incoming170) -> Result<Self, Refusal170> {
++        source.validate()?;
++        let incoming_empty = match incoming {
++            Incoming170::Unknown => return Err(Refusal170::UnknownFrontier),
++            Incoming170::Nonempty => return Err(Refusal170::NonemptyFrontier),
++            Incoming170::ConditionalEmpty { complete_native_frontier_is_empty: condition } => {
++                if !matches!(&*condition.typ, TypX::Bool) || !matches!(&condition.x, ExpX::Var(_)) {
++                    return Err(Refusal170::InvalidFrontierCondition);
++                }
++                condition
++            }
++        };
++        Ok(Self { pc: source.block, source, activation: vec![1], next_activation: 2,
++            evaluation: 0, path: vec![], issued: BTreeSet::new(), holders: BTreeMap::new(),
++            heap: BTreeMap::new(), native_locals: BTreeMap::new(), aliases: BTreeMap::new(),
++            loans: BTreeMap::new(), incoming_empty, frontier_obligation_pending: true, returned: false })
++    }
++
++    pub fn prepare_call(&self, instruction: Stm, holder: usize, outcome: Outcome170) -> Result<Call170, Refusal170> {
++        if self.returned || self.pc != self.source.block { return Err(Refusal170::WrongControl); }
++        let StmX::Call { fun: sst::CallTarget::NativeAllocator164, args, dest: Some(destination),
++            mode: Mode::Exec, body: None, typ_args, resolved_method: None,
++            is_trait_default: None, split: None, .. } = &instruction.x
++        else { return Err(Refusal170::WrongInstruction); };
++        if args.len() != 2 || !typ_args.is_empty() || !destination.is_init
++            || args.iter().any(|value| !matches!(&*value.typ, TypX::Int(IntRange::USize)))
++        { return Err(Refusal170::WrongInstruction); }
++        Ok(Call170 { source: self.source.clone(), activation: *self.activation.last().unwrap(),
++            evaluation: self.evaluation, path: self.path.clone(), size: args[0].clone(),
++            align: args[1].clone(), instruction, holder, outcome })
++    }
++
++    pub fn allocate(&mut self, canonical: &Canonical170, call: &Call170, instruction: &Stm)
++        -> Result<Transition170, Refusal170>
++    {
++        if call.source != self.source { return Err(Refusal170::WrongSource); }
++        if call.outcome != Outcome170::NormalNonNull { return Err(Refusal170::UnsupportedOutcome); }
++        if call.activation != *self.activation.last().unwrap() || call.evaluation != self.evaluation
++            || call.path != self.path || self.pc != self.source.block { return Err(Refusal170::Replay); }
++        let StmX::Call { args, dest: Some(destination), .. } = &instruction.x else { return Err(Refusal170::WrongInstruction); };
++        if args.len() != 2 { return Err(Refusal170::WrongInstruction); }
++        if !identical(&args[0], &call.size) { return Err(Refusal170::SubstitutedSize); }
++        if !identical(&args[1], &call.align) { return Err(Refusal170::SubstitutedAlign); }
++        if !Arc::ptr_eq(instruction, &call.instruction) { return Err(Refusal170::SubstitutedReturn); }
++        if !types_equal(&destination.dest.typ, &canonical.result) { return Err(Refusal170::WrongType); }
++        if self.holders.contains_key(&call.holder) { return Err(Refusal170::LiveDestination); }
++        if !self.holders.is_empty() || self.heap.values().any(|entry| entry.live) || !self.loans.is_empty() {
++            return Err(Refusal170::NonemptyFrontier);
++        }
++        let allocation = Allocation170 { activation: call.activation, evaluation: call.evaluation, path: self.path.clone() };
++        if self.issued.contains(&allocation) { return Err(Refusal170::Replay); }
++        let bundle = read_destination(destination)?;
++        let pointer_type = Arc::new(TypX::Primitive(Primitive::Ptr, Arc::new(vec![Arc::new(TypX::Int(IntRange::U(8)))])));
++        let native_return = component(&bundle, pointer_type, 0);
++        let raw = component(&bundle, Arc::new(TypX::Decorate(TypDecoration::Tracked, None, canonical.raw.clone())), 1);
++        let dealloc = component(&bundle, Arc::new(TypX::Decorate(TypDecoration::Tracked, None, canonical.dealloc.clone())), 2);
++        let canonical_call = Spanned::new(instruction.span.clone(), StmX::Call {
++            fun: sst::CallTarget::Fun(canonical.allocate.x.name.clone()), resolved_method: None,
++            mode: Mode::Exec, is_trait_default: None, typ_args: Arc::new(vec![]),
++            args: Arc::new(vec![call.size.clone(), call.align.clone()]), split: None,
++            dest: Some(destination.clone()), assert_id: None, body: None,
++        });
++        self.issued.insert(allocation.clone());
++        self.heap.insert(allocation.clone(), Heap170 { native_pointer: native_return.clone(), generation: allocation.clone(), live: true });
++        self.native_locals.insert(self.source.native_destination, native_return.clone());
++        self.holders.insert(call.holder, Resource170 { allocation: allocation.clone(), pointer: native_return.clone(),
++            raw: raw.clone(), dealloc: dealloc.clone(), bundle, size: call.size.clone(), align: call.align.clone(), loans: BTreeSet::new() });
++        self.evaluation += 1;
++        self.pc = self.source.normal;
++        let incoming_empty_obligation = self.frontier_obligation_pending.then(|| self.incoming_empty.clone());
++        self.frontier_obligation_pending = false;
++        Ok(Transition170 { canonical_call, incoming_empty_obligation, native_return, raw, dealloc, allocation, air_local_decls: vec![] })
++    }
++
++    fn resource(&self, holder: usize) -> Result<&Resource170, Refusal170> {
++        let resource = self.holders.get(&holder).ok_or(Refusal170::StaleHolder)?;
++        let entry = self.heap.get(&resource.allocation).ok_or(Refusal170::WrongProvenance)?;
++        if !entry.live || entry.generation != resource.allocation || !identical(&entry.native_pointer, &resource.pointer) {
++            return Err(Refusal170::WrongProvenance);
++        }
++        Ok(resource)
++    }
++
++    fn movable(&self, holder: usize) -> Result<&Resource170, Refusal170> {
++        let resource = self.resource(holder)?;
++        if !resource.loans.is_empty() { return Err(Refusal170::Borrowed); }
++        Ok(resource)
++    }
++
++    pub fn move_holder(&mut self, source: usize, destination: usize) -> Result<(), Refusal170> {
++        self.movable(source)?;
++        if source == destination || self.holders.contains_key(&destination) { return Err(Refusal170::LiveDestination); }
++        let resource = self.holders.remove(&source).unwrap();
++        self.holders.insert(destination, resource);
++        Ok(())
++    }
++
++    pub fn copy_resources(&self, holder: usize) -> Result<(), Refusal170> {
++        self.resource(holder)?;
++        Err(Refusal170::DuplicateResource)
++    }
++
++    pub fn overwrite(&self, holder: usize) -> Result<(), Refusal170> {
++        if self.holders.contains_key(&holder) { return Err(Refusal170::ResourceLeak); }
++        Ok(())
++    }
++
++    pub fn alias_pointer(&mut self, holder: usize, local: usize) -> Result<Exp, Refusal170> {
++        let resource = self.resource(holder)?.clone();
++        if self.holders.contains_key(&local) { return Err(Refusal170::LiveDestination); }
++        self.aliases.insert(local, resource.allocation);
++        self.native_locals.insert(local, resource.pointer.clone());
++        Ok(resource.pointer)
++    }
++
++    pub fn read_alias(&self, local: usize) -> Result<Exp, Refusal170> {
++        let allocation = self.aliases.get(&local).ok_or(Refusal170::StaleHolder)?;
++        let entry = self.heap.get(allocation).ok_or(Refusal170::WrongProvenance)?;
++        if !entry.live { return Err(Refusal170::StaleHolder); }
++        Ok(entry.native_pointer.clone())
++    }
++
++    pub fn borrow(&mut self, holder: usize, loan: u64) -> Result<(), Refusal170> {
++        let allocation = self.movable(holder)?.allocation.clone();
++        if self.loans.contains_key(&loan) { return Err(Refusal170::Borrowed); }
++        self.loans.insert(loan, (holder, allocation));
++        self.holders.get_mut(&holder).unwrap().loans.insert(loan);
++        Ok(())
++    }
++
++    pub fn end_loan(&mut self, loan: u64) -> Result<(), Refusal170> {
++        let (holder, generation) = self.loans.get(&loan).ok_or(Refusal170::StaleHolder)?.clone();
++        if self.resource(holder)?.allocation != generation { return Err(Refusal170::WrongProvenance); }
++        self.loans.remove(&loan);
++        self.holders.get_mut(&holder).unwrap().loans.remove(&loan);
++        Ok(())
++    }
++
++    pub fn deallocate(&mut self, canonical: &Canonical170, holder: usize, native_pointer: &Exp,
++        size: &Exp, align: &Exp) -> Result<Stm, Refusal170>
++    {
++        let resource = self.movable(holder)?.clone();
++        if !identical(native_pointer, &resource.pointer) { return Err(Refusal170::WrongProvenance); }
++        if !identical(size, &resource.size) { return Err(Refusal170::SubstitutedSize); }
++        if !identical(align, &resource.align) { return Err(Refusal170::SubstitutedAlign); }
++        let statement = Spanned::new(native_pointer.span.clone(), StmX::Call {
++            fun: sst::CallTarget::Fun(canonical.deallocate.x.name.clone()), resolved_method: None,
++            mode: Mode::Exec, is_trait_default: None, typ_args: Arc::new(vec![]),
++            args: Arc::new(vec![resource.pointer.clone(), resource.size.clone(), resource.align.clone(), resource.raw.clone(), resource.dealloc.clone()]),
++            split: None, dest: None, assert_id: None, body: None,
++        });
++        self.holders.remove(&holder);
++        self.heap.get_mut(&resource.allocation).unwrap().live = false;
++        Ok(statement)
++    }
++
++    fn fork(self, decision: u64) -> Result<(Self, Self), Refusal170> {
++        if self.path.iter().any(|(previous, _)| *previous == decision) { return Err(Refusal170::BranchMismatch); }
++        let mut positive = self.exclusive_alternative();
++        let mut negative = self;
++        positive.path.push((decision, true));
++        negative.path.push((decision, false));
++        Ok((positive, negative))
++    }
++
++    fn join(mut positive: Self, negative: Self) -> Result<Self, Refusal170> {
++        let positive_edge = positive.path.pop().ok_or(Refusal170::BranchMismatch)?;
++        let mut negative_path = negative.path.clone();
++        let negative_edge = negative_path.pop().ok_or(Refusal170::BranchMismatch)?;
++        if positive_edge.0 != negative_edge.0 || !positive_edge.1 || negative_edge.1
++            || positive.path != negative_path || positive.pc != negative.pc
++            || positive.activation != negative.activation || positive.evaluation != negative.evaluation
++            || positive.returned != negative.returned || positive.loans != negative.loans
++            || positive.holders.len() != negative.holders.len()
++            || positive.holders.iter().any(|(holder, resource)| negative.holders.get(holder)
++                .is_none_or(|other| resource.allocation != other.allocation || !identical(&resource.bundle, &other.bundle) || resource.loans != other.loans))
++            || positive.heap.len() != negative.heap.len()
++            || positive.heap.iter().any(|(allocation, entry)| negative.heap.get(allocation).is_none_or(|other| entry.live != other.live))
++        { return Err(Refusal170::BranchMismatch); }
++        positive.issued.extend(negative.issued);
++        Ok(positive)
++    }
++
++    pub fn branch<Positive, Negative>(self, ctx: &crate::context::Ctx, condition: Exp, decision: u64,
++        positive: Positive, negative: Negative) -> Result<(Self, air::ast::Stmt), Refusal170>
++    where Positive: FnOnce(&mut Self) -> Result<Vec<air::ast::Stmt>, Refusal170>,
++        Negative: FnOnce(&mut Self) -> Result<Vec<air::ast::Stmt>, Refusal170>
++    {
++        if !matches!(&*condition.typ, TypX::Bool) { return Err(Refusal170::WrongType); }
++        let (mut positive_state, mut negative_state) = self.fork(decision)?;
++        let positive_air = positive(&mut positive_state)?;
++        let negative_air = negative(&mut negative_state)?;
++        let merged = Self::join(positive_state, negative_state)?;
++        let air = crate::sst_to_air::native170_branch_air(ctx, &condition, positive_air, negative_air)
++            .map_err(|_| Refusal170::WrongInstruction)?;
++        Ok((merged, air))
++    }
++
++    pub fn enter_activation(&mut self, entry: usize) -> Result<(), Refusal170> {
++        if self.returned || entry != self.source.block { return Err(Refusal170::WrongControl); }
++        if !self.holders.is_empty() || !self.loans.is_empty() || self.heap.values().any(|entry| entry.live) { return Err(Refusal170::NonemptyFrontier); }
++        self.activation.push(self.next_activation);
++        self.next_activation += 1;
++        self.pc = entry;
++        Ok(())
++    }
++
++    pub fn goto(&mut self, expected: usize, successor: usize, cleanup: bool) -> Result<(), Refusal170> {
++        if cleanup { return Err(Refusal170::UnsupportedCleanup); }
++        if self.pc != expected || self.returned || expected != self.source.block || successor != self.source.normal {
++            return Err(Refusal170::WrongControl);
++        }
++        self.pc = successor;
++        Ok(())
++    }
++
++    pub fn return_resources(&mut self, holders: &[usize]) -> Result<Vec<Exp>, Refusal170> {
++        let unique = holders.iter().copied().collect::<BTreeSet<_>>();
++        if unique.len() != holders.len() { return Err(Refusal170::DuplicateResource); }
++        if self.returned { return Err(Refusal170::Replay); }
++        if !self.loans.is_empty() { return Err(Refusal170::Borrowed); }
++        if unique.len() != self.holders.len() || self.holders.keys().any(|holder| !unique.contains(holder)) { return Err(Refusal170::ResourceLeak); }
++        let mut outputs = Vec::new();
++        for holder in holders {
++            self.movable(*holder)?;
++            outputs.push(self.holders.remove(holder).unwrap().bundle);
++        }
++        self.returned = true;
++        Ok(outputs)
++    }
++
++    pub fn native_return(&self) -> Result<Exp, Refusal170> {
++        self.native_locals.get(&self.source.native_destination).cloned().ok_or(Refusal170::StaleHolder)
++    }
++
++    pub fn live_count(&self) -> usize { self.holders.len() }
++}
++
++pub fn make_instruction170(span: &Span, canonical: &Canonical170, binder: VarIdent, size: Exp, align: Exp) -> Stm {
++    Spanned::new(span.clone(), StmX::Call { fun: sst::CallTarget::NativeAllocator164,
++        resolved_method: None, mode: Mode::Exec, is_trait_default: None, typ_args: Arc::new(vec![]),
++        args: Arc::new(vec![size, align]), split: None,
++        dest: Some(Dest { dest: SpannedTyped::new(span, &canonical.result, ExpX::VarLoc(binder)), is_init: true }),
++        assert_id: None, body: None })
++}
+diff --git a/source/vir/src/native_resource.rs b/source/vir/src/native_resource.rs
+index 1ea280d0e..3e141f9b7 100644
+--- a/source/vir/src/native_resource.rs
++++ b/source/vir/src/native_resource.rs
+@@ -5,6 +5,9 @@ const MARKER_PREFIX: &str = "experimental-native-resource-ir:";
+ 
+ pub mod adapter164;
+ 
++#[cfg(feature = "native-semantics170-inspect")]
++pub mod kernel170;
++
+ #[cfg(feature = "native-resource-continuation160")]
+ pub mod continuation160;
+ 
+diff --git a/source/vir/src/sst_to_air.rs b/source/vir/src/sst_to_air.rs
+index 85fdce071..9dc99ed23 100644
+--- a/source/vir/src/sst_to_air.rs
++++ b/source/vir/src/sst_to_air.rs
+@@ -2594,6 +2594,62 @@ fn stm_to_stmts(ctx: &Ctx, state: &mut State, stm: &Stm) -> Result<Vec<Stmt>, Vi
+     Ok(result)
+ }
+ 
++#[cfg(feature = "native-semantics170-inspect")]
++pub(crate) fn native170_branch_air(ctx: &Ctx, condition: &Exp, mut positive: Vec<Stmt>, mut negative: Vec<Stmt>) -> Result<Stmt, VirErr> {
++    let condition = exp_to_expr(ctx, condition, &ExprCtxt::new())?;
++    positive.insert(0, Arc::new(StmtX::Assume(condition.clone())));
++    negative.insert(0, Arc::new(StmtX::Assume(mk_not(&condition))));
++    Ok(Arc::new(StmtX::Switch(Arc::new(vec![one_stmt(positive), one_stmt(negative)]))))
++}
++
++#[cfg(feature = "native-semantics170-inspect")]
++pub fn inspect_native170_to_air(
++    ctx: &Ctx,
++    kernel: &mut crate::native_resource::kernel170::Kernel170,
++    canonical: &crate::native_resource::kernel170::Canonical170,
++    call: &crate::native_resource::kernel170::Call170,
++    instruction: &Stm,
++) -> Result<(crate::native_resource::kernel170::Transition170, Vec<Stmt>), VirErr> {
++    let mut transition = kernel.allocate(canonical, call, instruction)
++        .map_err(|refusal| error(&instruction.span, format!("native170: {refusal:?}")))?;
++    let StmX::Call { args, dest: Some(destination), .. } = &transition.canonical_call.x else {
++        return Err(error(&instruction.span, "native170 internal canonical call mismatch"));
++    };
++    if !ctx.func_map.contains_key(&canonical.allocate.x.name) {
++        return Err(error(&instruction.span, "native170 canonical function not loaded"));
++    }
++    let mut statements = Vec::new();
++    if let Some(condition) = &transition.incoming_empty_obligation {
++        statements.push(Arc::new(StmtX::Assert(None,
++            error(&instruction.span, "native170 complete incoming native frontier must be empty"),
++            None, exp_to_expr(ctx, condition, &ExprCtxt::new())?)));
++    }
++    let argument_expressions = args.iter().map(|argument| exp_to_expr(ctx, argument, &ExprCtxt::new()))
++        .collect::<Result<Vec<_>, _>>()?;
++    let function = fun_to_air_ident(&ctx.name_ctxt, &canonical.allocate.x.name);
++    statements.push(Arc::new(StmtX::Assert(None,
++        error(&instruction.span, "native170 actual positive size and valid numeric alignment"), None,
++        Arc::new(ExprX::Apply(prefix_requires(&function), Arc::new(argument_expressions.clone()))))));
++    let destination_name = suffix_local_unique_id(&get_loc_var(&destination.dest));
++    transition.air_local_decls.push(Arc::new(DeclX::Var(destination_name.clone(),typ_to_air(ctx,&destination.dest.typ))));
++    statements.push(Arc::new(StmtX::Havoc(destination_name.clone())));
++    if let Some(invariant) = typ_invariant(ctx, &destination.dest.typ, &ident_var(&destination_name)) {
++        statements.push(Arc::new(StmtX::Assume(invariant)));
++    }
++    let address = SpannedTyped::new(&instruction.span, &Arc::new(TypX::Int(IntRange::USize)),
++        ExpX::Call(CallFun::Fun(canonical.address.x.name.clone(),None),
++            Arc::new(vec![Arc::new(TypX::Int(IntRange::U(8)))]),Arc::new(vec![transition.native_return.clone()])));
++    let address = exp_to_expr(ctx,&address,&ExprCtxt::new())?;
++    statements.push(Arc::new(StmtX::Assert(None,
++        error(&instruction.span,"native170 SAME actual native normal-return full pointer must be nonnull"),
++        None,mk_not(&mk_eq(&address,&mk_nat(0))))));
++    let mut ensures_arguments = argument_expressions;
++    ensures_arguments.push(ident_var(&destination_name));
++    statements.push(Arc::new(StmtX::Assume(Arc::new(ExprX::Apply(
++        prefix_ensures(&function), Arc::new(ensures_arguments))))));
++    Ok((transition, statements))
++}
++
+ fn loop_to_stmts(
+     ctx: &Ctx,
+     state: &mut State,

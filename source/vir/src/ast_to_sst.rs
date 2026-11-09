@@ -22,8 +22,8 @@ use crate::messages::{
 };
 use crate::sst;
 use crate::sst::{
-    Bnd, BndX, CallFun, Dest, Exp, ExpX, Exps, InternalFun, LocalDecl, LocalDeclKind, LocalDeclX,
-    Pars, Stm, StmX, Stms, UniqueIdent,
+    AssertByProvenance, Bnd, BndX, CallFun, Dest, Exp, ExpX, Exps, InternalFun, LocalDecl,
+    LocalDeclKind, LocalDeclX, Pars, Stm, StmX, Stms, UniqueIdent,
 };
 use crate::sst_util::{
     exp_with_vars_at_pre_state, sst_bitwidth, sst_conjoin, sst_disjoin, sst_equal,
@@ -824,7 +824,9 @@ impl Sequencer {
     /// Such a case is *usually* caught by borrow-checking, but there are some cases
     /// that rustc accepts which our encoding doesn't handle properly, e.g.,
     ///
-    /// ```rust
+    /// Two-phase borrow notation below is compiler pseudocode, not Rust syntax:
+    ///
+    /// ```text
     /// let mut r: &mut T = ...;
     /// f(&mut[two_phase] *r, { r = something; true });
     /// ```
@@ -2368,7 +2370,7 @@ pub(crate) fn expr_to_stm_opt(
             // Translate proof into a dead-end ending with an assert
             state.push_scope();
             let mut body: Vec<Stm> = Vec::new();
-            let mut locals: Vec<VarIdent> = Vec::new();
+            let mut locals: Vec<LocalDecl> = Vec::new();
             for var in vars.iter() {
                 let x = state.declare_imm_var_stm(
                     &var.name,
@@ -2377,7 +2379,11 @@ pub(crate) fn expr_to_stm_opt(
                     true,
                 );
                 body.push(assume_has_typ(&x, &var.a, &require.span));
-                locals.push(x);
+                locals.push(Arc::new(LocalDeclX {
+                    ident: x,
+                    typ: var.a.clone(),
+                    kind: LocalDeclKind::AssertByVar { native: false },
+                }));
             }
             let (mut proof_stms, e) = expr_to_stm_opt(ctx, state, proof)?;
             if let Maybe::Some(Value::Exp(_)) = e {
@@ -2391,6 +2397,7 @@ pub(crate) fn expr_to_stm_opt(
             let assume = Spanned::new(require.span.clone(), StmX::Assume(require_exp));
             body.push(assume);
             body.append(&mut proof_stms);
+            let mut assert_id = None;
             if state.checking_spec_preconditions(ctx) {
                 body.extend(check_pure_expr(ctx, state, &ensure)?);
             } else {
@@ -2401,9 +2408,10 @@ pub(crate) fn expr_to_stm_opt(
                     crate::heuristics::maybe_insert_auto_ext_equal(ctx, &ensure_exp, |x| {
                         x.assert_by
                     });
+                assert_id = state.next_assert_id();
                 let assert = Spanned::new(
                     ensure.span.clone(),
-                    StmX::Assert(state.next_assert_id(), None, ensure_exp),
+                    StmX::Assert(assert_id.clone(), None, ensure_exp),
                 );
                 body.push(assert);
             }
@@ -2422,7 +2430,9 @@ pub(crate) fn expr_to_stm_opt(
             let imply_exp = expr_to_pure_exp_skip_checks(ctx, state, &imply)?;
             state.pop_scope();
             let trigs = Arc::new(vec![]); // real triggers will be set by finalize_exp
-            let bndx = BndX::Quant(QUANT_FORALL, vars.clone(), trigs, Some(Arc::new(locals)));
+            let provenance =
+                AssertByProvenance { locals: Arc::new(locals), binders: vars.clone(), assert_id };
+            let bndx = BndX::Quant(QUANT_FORALL, vars.clone(), trigs, Some(Arc::new(provenance)));
             let bnd = Spanned::new(ensure.span.clone(), bndx);
             let forall_exp = mk_exp(ExpX::Bind(bnd, imply_exp));
             let forall_exp = mk_exp(ExpX::Unary(UnaryOp::MustBeElaborated, forall_exp));
@@ -4227,10 +4237,17 @@ struct BorrowMutSst {
 /// they are executed apart. So for example, if we have a two-phase borrow in:
 ///
 /// ```rust
-/// let mut a = ...;
-/// foo(&mut a, a.x); // imagine this is de-sugared from `a.foo(a.x)` or something that
-///                   // actually creates a two-phase borrow
+/// struct Value { x: u64 }
+/// impl Value {
+///     fn foo(&mut self, old_x: u64) { self.x = old_x + 1; }
+/// }
+/// let mut a = Value { x: 7 };
+/// a.foo(a.x);
+/// assert_eq!(a.x, 8);
 /// ```
+///
+/// The method call is conceptually `foo(&mut[two_phase] a, a.x)` in compiler
+/// notation; an explicit `foo(&mut a, a.x)` is not valid Rust borrowing.
 ///
 /// The first phase would be the evaluation of `&mut a`, while the second phase (updating
 /// the value of local variable `a`) would take place *after* the evaluation of `a.x`.

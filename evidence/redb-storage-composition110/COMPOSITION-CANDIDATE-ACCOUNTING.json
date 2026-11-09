@@ -1,0 +1,571 @@
+{
+  "additional_final_obligations_not_body_count": 14,
+  "application_cap": 16,
+  "applications_charged": 8,
+  "attempts": [
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 0,
+        "original_A": 0,
+        "original_B": 0
+      },
+      "checked_proof_body_groups": {
+        "new_product": [],
+        "original_A": [],
+        "original_B": []
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-01-candidate-01",
+      "failed_functions": [],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-01-candidate-01/invocation.json",
+      "label": "candidate-01",
+      "number": 1,
+      "process": {
+        "elapsed_seconds": 0.13236775,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-01-candidate-01/composition110.vir",
+        "export_bytes": null,
+        "export_exists": false,
+        "export_sha256": null,
+        "status": 1,
+        "timed_out": false,
+        "utc": "2026-11-08T04:44:25.522948+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-01-candidate-01/composition110.rs",
+      "source_sha256": "b8b53b540209349963b2d4604a5897616fc0e48f51f3d0de1c18c42660a49afe",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 0,
+        "original_A": 0,
+        "original_B": 0
+      },
+      "checked_proof_body_groups": {
+        "new_product": [],
+        "original_A": [],
+        "original_B": []
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-02-candidate-02",
+      "failed_functions": [],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-02-candidate-02/invocation.json",
+      "label": "candidate-02",
+      "number": 2,
+      "process": {
+        "elapsed_seconds": 0.35244637500000003,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-02-candidate-02/composition110.vir",
+        "export_bytes": null,
+        "export_exists": false,
+        "export_sha256": null,
+        "status": 1,
+        "timed_out": false,
+        "utc": "2026-11-08T04:44:42.864848+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-02-candidate-02/composition110.rs",
+      "source_sha256": "d700c808e223d9213d8cfd69e80b968c33ed637760065365b68b4a2f633bb74e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 0,
+        "original_A": 0,
+        "original_B": 0
+      },
+      "checked_proof_body_groups": {
+        "new_product": [],
+        "original_A": [],
+        "original_B": []
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-03-candidate-03",
+      "failed_functions": [
+        "composition110::error_keeps_actual_complete_flush",
+        "composition110::nonvacuous_post_publication_error",
+        "composition110::nonvacuous_symbolic_success",
+        "composition110::public_ok_composes"
+      ],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-03-candidate-03/invocation.json",
+      "label": "candidate-03",
+      "number": 3,
+      "process": {
+        "elapsed_seconds": 3.292322167,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-03-candidate-03/composition110.vir",
+        "export_bytes": null,
+        "export_exists": false,
+        "export_sha256": null,
+        "status": 1,
+        "timed_out": false,
+        "utc": "2026-11-08T04:45:01.803758+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-03-candidate-03/composition110.rs",
+      "source_sha256": "e88d4d287f09dc0b2ecc4a67bc46d52928fcf52d262a95b64dc5a7ec9f2d4a17",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 4,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 57
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 11,
+        "original_A": 26,
+        "original_B": 15
+      },
+      "checked_proof_body_groups": {
+        "new_product": [
+          "composition110::callback_mismatch_stops_open",
+          "composition110::checked_run",
+          "composition110::complete_header",
+          "composition110::error_keeps_actual_complete_flush",
+          "composition110::flush_checked",
+          "composition110::initial_invariant",
+          "composition110::nonvacuous_post_publication_error",
+          "composition110::nonvacuous_symbolic_success",
+          "composition110::public_ok_composes",
+          "composition110::step_invariant",
+          "composition110::success_signals"
+        ],
+        "original_A": [
+          "composition110::storage::abnormal_is_not_an_acknowledgement",
+          "composition110::storage::all_entries_succeed",
+          "composition110::storage::all_stripes_succeed",
+          "composition110::storage::arbitrary_order_nonoverlapping_byte",
+          "composition110::storage::arbitrary_successful_flush",
+          "composition110::storage::check_entries",
+          "composition110::storage::check_stripes",
+          "composition110::storage::clean_valid",
+          "composition110::storage::coalesced_pending_flush",
+          "composition110::storage::concat_no_sync",
+          "composition110::storage::entries_preserve_address",
+          "composition110::storage::entries_reflect_last_cover",
+          "composition110::storage::flush_refinement",
+          "composition110::storage::flush_sync_order",
+          "composition110::storage::localized_partial_error_control",
+          "composition110::storage::localized_sync_error_control",
+          "composition110::storage::same_offset_coalesces",
+          "composition110::storage::shifted_decisions",
+          "composition110::storage::stripe_drains_only_after_writes",
+          "composition110::storage::stripes_preserve_address",
+          "composition110::storage::stripes_reflect_last_cover",
+          "composition110::storage::successful_prefix_retained",
+          "composition110::storage::sync_valid",
+          "composition110::storage::unbounded_pending_coalescing",
+          "composition110::storage::visible_entries_length",
+          "composition110::storage::write_valid"
+        ],
+        "original_B": [
+          "composition110::acknowledgement::actual_assertion_failures_are_not_result_errors",
+          "composition110::acknowledgement::disabled_call_is_not_a_result_error",
+          "composition110::acknowledgement::early_crash_preserves_possibly_stale_secondary",
+          "composition110::acknowledgement::explicit_mode_frontiers",
+          "composition110::acknowledgement::initial_invariant",
+          "composition110::acknowledgement::interrupts_are_separate_unestablished_outcomes",
+          "composition110::acknowledgement::later_error_does_not_erase_publication",
+          "composition110::acknowledgement::public_ok_has_two_successful_barriers",
+          "composition110::acknowledgement::reachable_post_publication_error_witness",
+          "composition110::acknowledgement::reachable_public_ok_witness",
+          "composition110::acknowledgement::reachable_stale_secondary_crash_witness",
+          "composition110::acknowledgement::run_invariant",
+          "composition110::acknowledgement::step_preserves_invariant",
+          "composition110::acknowledgement::successful_prefix_reaches_pc",
+          "composition110::acknowledgement::terminal_outcomes_are_absorbing"
+        ]
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-04-candidate-04",
+      "failed_functions": [],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-04-candidate-04/invocation.json",
+      "label": "candidate-04",
+      "number": 4,
+      "process": {
+        "elapsed_seconds": 1.6122865409999998,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-04-candidate-04/composition110.vir",
+        "export_bytes": 1811583,
+        "export_exists": true,
+        "export_sha256": "d4a1724dc01ec6b5c2fcd25479650a5219e108aa026bba67294094fb6c04d894",
+        "status": 0,
+        "timed_out": false,
+        "utc": "2026-11-08T04:45:38.324850+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-04-candidate-04/composition110.rs",
+      "source_sha256": "2b814a085b5fb7c52fd8b92ca775be0c7841bd5e560f4b3219e11a86a6deae4f",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 61
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 11,
+        "original_A": 26,
+        "original_B": 15
+      },
+      "checked_proof_body_groups": {
+        "new_product": [
+          "composition110::callback_mismatch_stops_open",
+          "composition110::checked_run",
+          "composition110::complete_header",
+          "composition110::error_keeps_actual_complete_flush",
+          "composition110::flush_checked",
+          "composition110::initial_invariant",
+          "composition110::nonvacuous_post_publication_error",
+          "composition110::nonvacuous_symbolic_success",
+          "composition110::public_ok_composes",
+          "composition110::step_invariant",
+          "composition110::success_signals"
+        ],
+        "original_A": [
+          "composition110::storage::abnormal_is_not_an_acknowledgement",
+          "composition110::storage::all_entries_succeed",
+          "composition110::storage::all_stripes_succeed",
+          "composition110::storage::arbitrary_order_nonoverlapping_byte",
+          "composition110::storage::arbitrary_successful_flush",
+          "composition110::storage::check_entries",
+          "composition110::storage::check_stripes",
+          "composition110::storage::clean_valid",
+          "composition110::storage::coalesced_pending_flush",
+          "composition110::storage::concat_no_sync",
+          "composition110::storage::entries_preserve_address",
+          "composition110::storage::entries_reflect_last_cover",
+          "composition110::storage::flush_refinement",
+          "composition110::storage::flush_sync_order",
+          "composition110::storage::localized_partial_error_control",
+          "composition110::storage::localized_sync_error_control",
+          "composition110::storage::same_offset_coalesces",
+          "composition110::storage::shifted_decisions",
+          "composition110::storage::stripe_drains_only_after_writes",
+          "composition110::storage::stripes_preserve_address",
+          "composition110::storage::stripes_reflect_last_cover",
+          "composition110::storage::successful_prefix_retained",
+          "composition110::storage::sync_valid",
+          "composition110::storage::unbounded_pending_coalescing",
+          "composition110::storage::visible_entries_length",
+          "composition110::storage::write_valid"
+        ],
+        "original_B": [
+          "composition110::acknowledgement::actual_assertion_failures_are_not_result_errors",
+          "composition110::acknowledgement::disabled_call_is_not_a_result_error",
+          "composition110::acknowledgement::early_crash_preserves_possibly_stale_secondary",
+          "composition110::acknowledgement::explicit_mode_frontiers",
+          "composition110::acknowledgement::initial_invariant",
+          "composition110::acknowledgement::interrupts_are_separate_unestablished_outcomes",
+          "composition110::acknowledgement::later_error_does_not_erase_publication",
+          "composition110::acknowledgement::public_ok_has_two_successful_barriers",
+          "composition110::acknowledgement::reachable_post_publication_error_witness",
+          "composition110::acknowledgement::reachable_public_ok_witness",
+          "composition110::acknowledgement::reachable_stale_secondary_crash_witness",
+          "composition110::acknowledgement::run_invariant",
+          "composition110::acknowledgement::step_preserves_invariant",
+          "composition110::acknowledgement::successful_prefix_reaches_pc",
+          "composition110::acknowledgement::terminal_outcomes_are_absorbing"
+        ]
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-05-full-positive",
+      "failed_functions": [],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-05-full-positive/invocation.json",
+      "label": "full-positive",
+      "number": 5,
+      "process": {
+        "elapsed_seconds": 2.179557291,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-05-full-positive/composition110.vir",
+        "export_bytes": 1824392,
+        "export_exists": true,
+        "export_sha256": "b45d63d5efb447ea7f1ede4aa9d115e05c831dad9b2f29423b5c7145c252bf18",
+        "status": 0,
+        "timed_out": false,
+        "utc": "2026-11-08T04:47:39.530573+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-05-full-positive/composition110.rs",
+      "source_sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 61
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 0,
+        "original_A": 0,
+        "original_B": 0
+      },
+      "checked_proof_body_groups": {
+        "new_product": [],
+        "original_A": [],
+        "original_B": []
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-06-negative-bypass-second",
+      "failed_functions": [
+        "composition110::error_keeps_actual_complete_flush",
+        "composition110::step_invariant"
+      ],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-06-negative-bypass-second/invocation.json",
+      "label": "negative-bypass-second",
+      "number": 6,
+      "process": {
+        "elapsed_seconds": 1.8798898750000002,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-06-negative-bypass-second/composition110.vir",
+        "export_bytes": null,
+        "export_exists": false,
+        "export_sha256": null,
+        "status": 1,
+        "timed_out": false,
+        "utc": "2026-11-08T04:48:01.236120+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-06-negative-bypass-second/composition110.rs",
+      "source_sha256": "b671e42e45781f01258dda4e4205fdc98b954e8806937b7e125ceabc0f1578be",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 59
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 11,
+        "original_A": 26,
+        "original_B": 15
+      },
+      "checked_proof_body_groups": {
+        "new_product": [
+          "composition110::callback_mismatch_stops_open",
+          "composition110::checked_run",
+          "composition110::complete_header",
+          "composition110::error_keeps_actual_complete_flush",
+          "composition110::flush_checked",
+          "composition110::initial_invariant",
+          "composition110::nonvacuous_post_publication_error",
+          "composition110::nonvacuous_symbolic_success",
+          "composition110::public_ok_composes",
+          "composition110::step_invariant",
+          "composition110::success_signals"
+        ],
+        "original_A": [
+          "composition110::storage::abnormal_is_not_an_acknowledgement",
+          "composition110::storage::all_entries_succeed",
+          "composition110::storage::all_stripes_succeed",
+          "composition110::storage::arbitrary_order_nonoverlapping_byte",
+          "composition110::storage::arbitrary_successful_flush",
+          "composition110::storage::check_entries",
+          "composition110::storage::check_stripes",
+          "composition110::storage::clean_valid",
+          "composition110::storage::coalesced_pending_flush",
+          "composition110::storage::concat_no_sync",
+          "composition110::storage::entries_preserve_address",
+          "composition110::storage::entries_reflect_last_cover",
+          "composition110::storage::flush_refinement",
+          "composition110::storage::flush_sync_order",
+          "composition110::storage::localized_partial_error_control",
+          "composition110::storage::localized_sync_error_control",
+          "composition110::storage::same_offset_coalesces",
+          "composition110::storage::shifted_decisions",
+          "composition110::storage::stripe_drains_only_after_writes",
+          "composition110::storage::stripes_preserve_address",
+          "composition110::storage::stripes_reflect_last_cover",
+          "composition110::storage::successful_prefix_retained",
+          "composition110::storage::sync_valid",
+          "composition110::storage::unbounded_pending_coalescing",
+          "composition110::storage::visible_entries_length",
+          "composition110::storage::write_valid"
+        ],
+        "original_B": [
+          "composition110::acknowledgement::actual_assertion_failures_are_not_result_errors",
+          "composition110::acknowledgement::disabled_call_is_not_a_result_error",
+          "composition110::acknowledgement::early_crash_preserves_possibly_stale_secondary",
+          "composition110::acknowledgement::explicit_mode_frontiers",
+          "composition110::acknowledgement::initial_invariant",
+          "composition110::acknowledgement::interrupts_are_separate_unestablished_outcomes",
+          "composition110::acknowledgement::later_error_does_not_erase_publication",
+          "composition110::acknowledgement::public_ok_has_two_successful_barriers",
+          "composition110::acknowledgement::reachable_post_publication_error_witness",
+          "composition110::acknowledgement::reachable_public_ok_witness",
+          "composition110::acknowledgement::reachable_stale_secondary_crash_witness",
+          "composition110::acknowledgement::run_invariant",
+          "composition110::acknowledgement::step_preserves_invariant",
+          "composition110::acknowledgement::successful_prefix_reaches_pc",
+          "composition110::acknowledgement::terminal_outcomes_are_absorbing"
+        ]
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-07-corrected-second-flush",
+      "failed_functions": [],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-07-corrected-second-flush/invocation.json",
+      "label": "corrected-second-flush",
+      "number": 7,
+      "process": {
+        "elapsed_seconds": 1.713936334,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-07-corrected-second-flush/composition110.vir",
+        "export_bytes": 1889003,
+        "export_exists": true,
+        "export_sha256": "711499a27fcca3542024768e0c5c9651f02d7dc10d1e42003b438d3e811fa788",
+        "status": 0,
+        "timed_out": false,
+        "utc": "2026-11-08T04:48:18.693561+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-07-corrected-second-flush/composition110.rs",
+      "source_sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 61
+      }
+    },
+    {
+      "charged": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_body_counts": {
+        "new_product": 11,
+        "original_A": 26,
+        "original_B": 15
+      },
+      "checked_proof_body_groups": {
+        "new_product": [
+          "composition110::callback_mismatch_stops_open",
+          "composition110::checked_run",
+          "composition110::complete_header",
+          "composition110::error_keeps_actual_complete_flush",
+          "composition110::flush_checked",
+          "composition110::initial_invariant",
+          "composition110::nonvacuous_post_publication_error",
+          "composition110::nonvacuous_symbolic_success",
+          "composition110::public_ok_composes",
+          "composition110::step_invariant",
+          "composition110::success_signals"
+        ],
+        "original_A": [
+          "composition110::storage::abnormal_is_not_an_acknowledgement",
+          "composition110::storage::all_entries_succeed",
+          "composition110::storage::all_stripes_succeed",
+          "composition110::storage::arbitrary_order_nonoverlapping_byte",
+          "composition110::storage::arbitrary_successful_flush",
+          "composition110::storage::check_entries",
+          "composition110::storage::check_stripes",
+          "composition110::storage::clean_valid",
+          "composition110::storage::coalesced_pending_flush",
+          "composition110::storage::concat_no_sync",
+          "composition110::storage::entries_preserve_address",
+          "composition110::storage::entries_reflect_last_cover",
+          "composition110::storage::flush_refinement",
+          "composition110::storage::flush_sync_order",
+          "composition110::storage::localized_partial_error_control",
+          "composition110::storage::localized_sync_error_control",
+          "composition110::storage::same_offset_coalesces",
+          "composition110::storage::shifted_decisions",
+          "composition110::storage::stripe_drains_only_after_writes",
+          "composition110::storage::stripes_preserve_address",
+          "composition110::storage::stripes_reflect_last_cover",
+          "composition110::storage::successful_prefix_retained",
+          "composition110::storage::sync_valid",
+          "composition110::storage::unbounded_pending_coalescing",
+          "composition110::storage::visible_entries_length",
+          "composition110::storage::write_valid"
+        ],
+        "original_B": [
+          "composition110::acknowledgement::actual_assertion_failures_are_not_result_errors",
+          "composition110::acknowledgement::disabled_call_is_not_a_result_error",
+          "composition110::acknowledgement::early_crash_preserves_possibly_stale_secondary",
+          "composition110::acknowledgement::explicit_mode_frontiers",
+          "composition110::acknowledgement::initial_invariant",
+          "composition110::acknowledgement::interrupts_are_separate_unestablished_outcomes",
+          "composition110::acknowledgement::later_error_does_not_erase_publication",
+          "composition110::acknowledgement::public_ok_has_two_successful_barriers",
+          "composition110::acknowledgement::reachable_post_publication_error_witness",
+          "composition110::acknowledgement::reachable_public_ok_witness",
+          "composition110::acknowledgement::reachable_stale_secondary_crash_witness",
+          "composition110::acknowledgement::run_invariant",
+          "composition110::acknowledgement::step_preserves_invariant",
+          "composition110::acknowledgement::successful_prefix_reaches_pc",
+          "composition110::acknowledgement::terminal_outcomes_are_absorbing"
+        ]
+      },
+      "directory": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-08-restored-full-positive",
+      "failed_functions": [],
+      "invocation_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-08-restored-full-positive/invocation.json",
+      "label": "restored-full-positive",
+      "number": 8,
+      "process": {
+        "elapsed_seconds": 1.599084541,
+        "exact_export": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-08-restored-full-positive/composition110.vir",
+        "export_bytes": 1889003,
+        "export_exists": true,
+        "export_sha256": "01f656c29c1f3c4bd7eae23f51e60f07246e03c3455617a6053d818f2f345411",
+        "status": 0,
+        "timed_out": false,
+        "utc": "2026-11-08T04:48:58.921401+00:00"
+      },
+      "source_path": "/private/tmp/redb-storage110-laneA-LBwsoPMW/check-08-restored-full-positive/composition110.rs",
+      "source_sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 61
+      }
+    }
+  ],
+  "checked_native_exec_bodies": 0,
+  "final_checked_proof_bodies": {
+    "new_product": 11,
+    "original_A": 26,
+    "original_B": 15
+  },
+  "final_source_sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e",
+  "final_verified_obligations": 61,
+  "first_clock": "2026-11-08T04:38:49+00:00",
+  "free_disk_floor_strictly_greater_than_bytes": 17179869184,
+  "original_reviewed_obligations": {
+    "A": 31,
+    "B": 16
+  },
+  "own_deadline": "2026-11-08T05:03:49+00:00",
+  "patch_applied_to_parent": false,
+  "positive_corrected_restored_sources_byte_identical": true,
+  "proposed_additive_patch_destination": "evidence/redb-storage-composition110/laneA",
+  "publication_destination": "/private/tmp/redb-storage110-laneA-LBwsoPMW/publication/laneA",
+  "repeated_checks_are_not_new_bodies": true,
+  "report_bytes": 12278,
+  "scratch_cap_bytes": 805306368,
+  "timeout_seconds_per_application": 90,
+  "worker_count_this_lane": 1
+}

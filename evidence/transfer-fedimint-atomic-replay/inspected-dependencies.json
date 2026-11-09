@@ -1,0 +1,6 @@
+{
+  "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rocksdb-0.24.0/src/transactions/transaction.rs": "efa74ea401a3557a0cd4d374287774871b93edfbd5c9c03e34ae39d0a1c64a87",
+  "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/db/c.cc": "330132ac83bb4117bcbe4e061b16e05ab515c1e0e471c04c1b4d56776a9a721a",
+  "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/utilities/transactions/optimistic_transaction.cc": "64594ef0b918f336e041749b2c4eb2d1da3c020a2b0ea446814fd141b97e185b",
+  "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/librocksdb-sys-0.17.3+10.4.2/rocksdb/utilities/transactions/transaction_base.cc": "a2f12ccc091a038f4bef887bff3242b0ec987db050770b08b7f449c38567c82d"
+}

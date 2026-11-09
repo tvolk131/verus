@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-08T18:48:34.779648+00:00",
+  "source_root": "/private/tmp/redb-native-mutex-atomic-review131-20261108T183548Z",
+  "manifest": "SEAL.sha256",
+  "manifest_sha256": "dbf741b429690c5792e8c203b31fdd7bfc83efd7712b15480ea81ec4e6a71d25",
+  "supplied_manifest_pin": null,
+  "manifest_authentication": "current_observation_only",
+  "archive": "PINNED-MUTEX-ATOMIC131-SOURCE-REVIEW.tar.gz",
+  "archive_bytes": 15678,
+  "archive_sha256": "52f1b6b76b1e5d3620aedbdf1f6f5157e57dcfc3111247d01080edf13582e011",
+  "members": 5,
+  "readback_matches": 5,
+  "disposition": "SOURCE_ONLY_NATIVE_PRIMITIVE_HISTORY_AND_RESERVATION_CORRESPONDENCE_OPEN",
+  "authentication_scope": "listed_payloads_currently_observed_not_historical_custody",
+  "all18": "OPEN",
+  "native_proof_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "source_integrated": false,
+  "mapping_approved": false
+}

@@ -1,0 +1,885 @@
+{
+  "excludes": [
+    "MANIFEST.json",
+    "HANDOFF.json"
+  ],
+  "files": [
+    {
+      "bytes": 27583,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/ACCOUNTING.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/ACCOUNTING.json",
+      "sha256": "f7409351e798cb1522a5447fdb67e4d5e93c0001fdfa48e5cc7e8a9fc8f549c1"
+    },
+    {
+      "bytes": 2888,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/APPLICATIONS.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/APPLICATIONS.json",
+      "sha256": "981b11e336bb642147c2e03cd78873c7d9a3b62949dd6d11148c6c6c8af478f3"
+    },
+    {
+      "bytes": 9148,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/AUTHENTICATION-SUMMARY.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/AUTHENTICATION-SUMMARY.json",
+      "sha256": "cac84a60085840efadf9d4e49b6e957fc31afd46dfb386093686050c7b5a0993"
+    },
+    {
+      "bytes": 299,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/CONTROL-MUTANT-CORRECTION.patch",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/CONTROL-MUTANT-CORRECTION.patch",
+      "sha256": "bc69d803a033d2a72d988482eaac6e7c4410db976a6945a8d99e3585a5a514cf"
+    },
+    {
+      "bytes": 7630,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/FINAL.patch",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/FINAL.patch",
+      "sha256": "45c69b9bf8b67ed2992e138c15665583044eae11330b4169da87244b1d7e0444"
+    },
+    {
+      "bytes": 481,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/FIRST-CLOCK.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/FIRST-CLOCK.txt",
+      "sha256": "d3f32718ec63170909e37dc5dd593c2cb35731548e26216b3b32d704da9a7fd6"
+    },
+    {
+      "bytes": 9200,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/REPORT.md",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/REPORT.md",
+      "sha256": "bfbcaf8f359ac5c02c153762cfbe9cacd0e19a6ba905410af5e1b7fb2e241175"
+    },
+    {
+      "bytes": 1114,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/RESTORATION.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/RESTORATION.json",
+      "sha256": "bcf250e376376368d7ea714830019f68fa87d570ff2bbde3583a92cea9e96bbf"
+    },
+    {
+      "bytes": 979489,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/authentication-entry.json",
+      "sha256": "10654e5b7d2b8c8d99deacc0c12e818610068dbba434f76533325c9f9810782c"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/authentication-exit.json",
+      "sha256": "a3bccd7cd4d211d1629072416257dc2b42ac28b055ab177208f18bcf8fd6a7ab"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/authentication-preexecution.json",
+      "sha256": "084578c4ef6ab38f28f8368a4d7246bf682bb02893a43e6490cb154cbb86bb1a"
+    },
+    {
+      "bytes": 6414,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/invocation.json",
+      "sha256": "f6f903d9ed907e738f7c9c62c572ea3d3413467a7d651b69faa7b72b12ce313d"
+    },
+    {
+      "bytes": 917,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/result.json",
+      "sha256": "8bbbd3130647897f00e60c573fc356f5e490af54c4216e4ef953d0496c02a864"
+    },
+    {
+      "bytes": 1147,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/scope.json",
+      "sha256": "808119d08090310f62df9151aa836a88121fc952bc85dd050c0a2d76386f2083"
+    },
+    {
+      "bytes": 6546,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/staging111.rs",
+      "sha256": "effce7327d3b6aaa9b198b62e92ad7550357f75175dea75eb26fa418a27bd9cb"
+    },
+    {
+      "bytes": 1618,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/stderr.txt",
+      "sha256": "46f7039032ff4b1dd55049a9b7d88cc2e10c17c5766bcc11108c08d8ebdae2ab"
+    },
+    {
+      "bytes": 83071,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-01-initial/stdout.txt",
+      "sha256": "01961ea3522433c285a4550752b27581491936a931111fa220fbf2b2c1ceb22b"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/authentication-entry.json",
+      "sha256": "12b0c810592f9bd39977de7c3c3fc49e0cdafe8b2bc56a17e458b3f877f8dc85"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/authentication-exit.json",
+      "sha256": "eecd45be6cfee7fad96ead40ad4eaa800251391b0df53425040ea1738eaccf59"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/authentication-preexecution.json",
+      "sha256": "fdb3d90c440287a89e5caad63621943909e2ea7212d43e3d297386611269bd65"
+    },
+    {
+      "bytes": 210766,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/candidate.vir",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/candidate.vir",
+      "sha256": "1cb131f3faa879c8bd8e4bca3570342197df0e2c1f7d20a9d088d232678b0e0d"
+    },
+    {
+      "bytes": 6585,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/invocation.json",
+      "sha256": "d26bb812be8dbd13692d31689735739e42c609ce1f075aef1eec0b1b58d568f6"
+    },
+    {
+      "bytes": 1385,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/result.json",
+      "sha256": "72b303a6a88d9371ff2c7d4c63e81b994099d583e722d7fd314c076537c6bc3e"
+    },
+    {
+      "bytes": 1165,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/scope.json",
+      "sha256": "a5f7cd3cac33725e1a578f15ebaad6b6c86d20c8e61f628f77963c75aeaabd76"
+    },
+    {
+      "bytes": 6501,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/staging111.rs",
+      "sha256": "2ea76c77845203d94138441dc2f84a9a7173585bbf2799e2211f7430fdfbbeaf"
+    },
+    {
+      "bytes": 0,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 83054,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-02-primitive-bv-fix/stdout.txt",
+      "sha256": "3f5f1309346dde83460124c8b9597aac3bc100a808f5a7f40722935d272cd646"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/authentication-entry.json",
+      "sha256": "f9129f32a1331dcf5e4d28b32ae6acd8d47178d8e6743716347ca3df2826e5ca"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/authentication-exit.json",
+      "sha256": "e78781f7cb4eafa36a2f65d145085d8679cbbc9ae8748b8a317f273c1d65bed5"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/authentication-preexecution.json",
+      "sha256": "970b52260ca1cdc506797b8c5652cd151cdb88d11c28d845cd06443231572aaf"
+    },
+    {
+      "bytes": 244592,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/candidate.vir",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/candidate.vir",
+      "sha256": "fa9896aefc451793248d0be5c01b704d8e2384ac2c6a7b30d1ecafd29e7b5bae"
+    },
+    {
+      "bytes": 6604,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/invocation.json",
+      "sha256": "144a0796aff1e37f9de2c3d87148c3d2be8823c3f570170ea7dba3f596316ed8"
+    },
+    {
+      "bytes": 1390,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/result.json",
+      "sha256": "1a2b65827cb5423f49d9e840d12b6ce628a1737c11d2f082ba8f0a614ec55d84"
+    },
+    {
+      "bytes": 1167,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/scope.json",
+      "sha256": "52c4e985556858c1dfbb016d059d4442da6f6658e4d910c76a6942016de463b9"
+    },
+    {
+      "bytes": 7424,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/staging111.rs",
+      "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+    },
+    {
+      "bytes": 0,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 83663,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-03-positive-complete/stdout.txt",
+      "sha256": "31573fc50280c0e96bf2f266b3b9861cdd3ab9264de07ae72f4067af6719282d"
+    },
+    {
+      "bytes": 979491,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/authentication-entry.json",
+      "sha256": "f19a8b39b5577357c8daecba4c2b35768be05312aaba4e24db26736a31dbf7ff"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/authentication-exit.json",
+      "sha256": "f522bd74f2c2c0fc710495984726cc093a5a72239ea381712f950df2e9cf53a8"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/authentication-preexecution.json",
+      "sha256": "e0a303f42816ce9eab5420f823ecc4005b5507b0762212c0265bf96e35152772"
+    },
+    {
+      "bytes": 6681,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/invocation.json",
+      "sha256": "ad0248adcfe3da8112f49c73bf382df0ca7e0be7de6aa75bd925a6bf1642823c"
+    },
+    {
+      "bytes": 1037,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/result.json",
+      "sha256": "07609a8668b0f1fa89dedf363b3cebce44e0b1085ea2ca8e25de310ff5714796"
+    },
+    {
+      "bytes": 1175,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/scope.json",
+      "sha256": "08904bf1943e7414dcf0fdae15004608702c17055b1e1e4f99609784f9f6fbdb"
+    },
+    {
+      "bytes": 7460,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/staging111.rs",
+      "sha256": "f9c82f4464ae511e84f0769948dff3604b317c1f464cda2a1fd6b44ccfe36f3c"
+    },
+    {
+      "bytes": 1480,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/stderr.txt",
+      "sha256": "41ae8adbfbb136f2e5d2627f964d7ce1ef64949626b4ad1f81b86f818f3b121e"
+    },
+    {
+      "bytes": 83909,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-04-mutant-premature-mode/stdout.txt",
+      "sha256": "f82bb578c035e28d70871ed64a37cde5c5e92eb5af5693339a3ab30444d756b6"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/authentication-entry.json",
+      "sha256": "93a60031cc60c14cc565c4a9874cb453a2cabc969f43dcbef4977e477c21ac12"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/authentication-exit.json",
+      "sha256": "e05d80a1fbc0e9f58a069dd998966ffad30304b8a372b79b19779d29f1a81520"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/authentication-preexecution.json",
+      "sha256": "a7f32916220602662f3974c44a210719e04e50a98514b71e4e3e2c7ccb52a8e2"
+    },
+    {
+      "bytes": 246247,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/candidate.vir",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/candidate.vir",
+      "sha256": "c85f4df9b352194a23133570d653e04b0421f78879183b65ea654d89e49d0668"
+    },
+    {
+      "bytes": 6662,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/invocation.json",
+      "sha256": "76d049c5cd877635bc88622aa69320e4153d02db5da1f8b77198454eac90142b"
+    },
+    {
+      "bytes": 1406,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/result.json",
+      "sha256": "41ee35cb81bdd9869295e13cdaa6aee7017f4337082f71def54c22a770ccb594"
+    },
+    {
+      "bytes": 1173,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/scope.json",
+      "sha256": "cb50c3a786f01dabcf3ae25016a641ff740c12c5017d94d369476af3897316d7"
+    },
+    {
+      "bytes": 7635,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/staging111.rs",
+      "sha256": "36180c8a4f74191068a5ac06e5a12aaa90c7b5eba04e8421bdc2babd5173b08b"
+    },
+    {
+      "bytes": 0,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 83681,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-05-corrected-mode-order/stdout.txt",
+      "sha256": "de67b19eee08d006808db2039e6a330dfdb47f6bb7230e446202fb1d7631b35e"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/authentication-entry.json",
+      "sha256": "9295fa06f2fa28a4a4fedb42f43067422e5b026720a206b13ba395f9db4d332a"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/authentication-exit.json",
+      "sha256": "22ed273e8f4d09427eb06c59d1407c017a0d797871e272df1e40c5e060e5b3e5"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/authentication-preexecution.json",
+      "sha256": "0c32f0839098fd5877060916e9ffb154da7fabbadf67e4907f87325a40d6c051"
+    },
+    {
+      "bytes": 6776,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/invocation.json",
+      "sha256": "05ff3cc6f01d2f107a6648a41697a6d0c88c204bd3cba4df49b77df03f619c1d"
+    },
+    {
+      "bytes": 1048,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/result.json",
+      "sha256": "65650c9bcee736efaf8fc7c3f49ede7c8bb3ac059b3b36d1daae862fb7e2cb33"
+    },
+    {
+      "bytes": 1185,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/scope.json",
+      "sha256": "43f03dddcff84e34d784158e650b573009ec868b0f512c311f84328e2dbd4241"
+    },
+    {
+      "bytes": 7716,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/staging111.rs",
+      "sha256": "28a4840d8acf88fbcbe91d122009d7a0076c1f1d1e2d2adb322fe4432cef9d00"
+    },
+    {
+      "bytes": 1141,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/stderr.txt",
+      "sha256": "5a72e8ca2628b9069bf16628c01f32662a90c94cc5495bacb86e51b71f11015a"
+    },
+    {
+      "bytes": 83942,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-06-mutant-first-selector-byte/stdout.txt",
+      "sha256": "d65f537309fcbc4406b1abe1b30658d21b7bde457985df1ee1c8de444a1f9ec7"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/authentication-entry.json",
+      "sha256": "df43ce1d98a13d3753252f5ac0f1158e2ca956dcf9654b423dfccb1addc067b0"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/authentication-exit.json",
+      "sha256": "ddac302a3700eb16b31a101ef832ac9c29495b88df7b6eb963eef9e197deb982"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/authentication-preexecution.json",
+      "sha256": "71367fed0a7e83cef6bc123ffdef11c1537ffaaf00ff30daeafeff8b888ab557"
+    },
+    {
+      "bytes": 6833,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/invocation.json",
+      "sha256": "4a4252953df2a937c268e7719e6c43c65bbe38f478ecf201ad07b450013888c9"
+    },
+    {
+      "bytes": 1061,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/result.json",
+      "sha256": "c9c874b0034fe7e445409aa6a147689ff14808c0de561d16e717758a19ebb3ca"
+    },
+    {
+      "bytes": 1191,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/scope.json",
+      "sha256": "892eb33b8f478fc3b919359e6f7d126acf8c5c5cc1acc566813d126c01ef0f20"
+    },
+    {
+      "bytes": 7715,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/staging111.rs",
+      "sha256": "ab78b3f1c10e5684ece97e078bb62c28684b15f76ecc4396baddd64d99f3bc03"
+    },
+    {
+      "bytes": 1150,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/stderr.txt",
+      "sha256": "94e83c6ba359a1c49dcb8fd9fb96fa75b4875697f57b8c63c1734b1786487af4"
+    },
+    {
+      "bytes": 83960,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-07-corrected-first-selector-byte/stdout.txt",
+      "sha256": "10f01c5e2b46ee4359da856b71eef35274da909e62183bfe28fc0fe2fdabb863"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/authentication-entry.json",
+      "sha256": "379caa466338e619a6145c5e98723fcf95a54bdcb9b4a0c56977c80eae1d7f0a"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/authentication-exit.json",
+      "sha256": "c885cc9b35ec2f2b72b7b32d7fe45e14346c98f974cfbee7b917007349a156f8"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/authentication-preexecution.json",
+      "sha256": "618f5142fd47131057093def6203be7cb666dfc7eac3dd01b4915f2b1dfe5ba7"
+    },
+    {
+      "bytes": 6681,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/invocation.json",
+      "sha256": "ea0c5ff7b89496a7ed2e49172b1c3e201eb1edb4caccda709880cf8ebb3912f7"
+    },
+    {
+      "bytes": 957,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/result.json",
+      "sha256": "48ce967485c243311b1859095062dc56f3ef0370a529b575e0d3f29d5a821020"
+    },
+    {
+      "bytes": 1175,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/scope.json",
+      "sha256": "839f7e6e768f1450abc002e9cea43c4957b9fdb3f2abae071dc38b9a6fb88d5d"
+    },
+    {
+      "bytes": 7845,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/staging111.rs",
+      "sha256": "6b7137f2c5f3b8b3b9d8eaa35aae0d3079db2039145bbd4e20d168c7089e57dd"
+    },
+    {
+      "bytes": 413,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/stderr.txt",
+      "sha256": "7b069326d84be0a6cd7c6f3e5e39317b3012462d662e4ea2a5c8bdcc9dcd8188"
+    },
+    {
+      "bytes": 73359,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-08-mutant-mode-assertion/stdout.txt",
+      "sha256": "d88f228432c73999c2cd0769db68f465cbd6ff6ae66773a494fbbb720dfaa6a3"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/authentication-entry.json",
+      "sha256": "40673a41e45bd80f544423109cc3800fda7dad9aa112ad62ddf6bb36e3805428"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/authentication-exit.json",
+      "sha256": "9f1004349b0da0d59332800f12a1b176735ead3b40520d5fb2606fce7762a70d"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/authentication-preexecution.json",
+      "sha256": "f0d71baffd2ae08d4f4754928cd5d80176d24eea966aace83c362be78e50eb94"
+    },
+    {
+      "bytes": 6700,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/invocation.json",
+      "sha256": "29321fd17401ca733355f3fcbe86f7a8bc2774b2f2a7331f70b25fcc0af5496c"
+    },
+    {
+      "bytes": 963,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/result.json",
+      "sha256": "d4436f1e680b3cab35eaa296060c478ff45971aa56c31b43d1d0b1a11b8c81e1"
+    },
+    {
+      "bytes": 1177,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/scope.json",
+      "sha256": "a026955f9d7b55272f9aa376defd1c9b0a66d831efcfe6ade7db356d0756e122"
+    },
+    {
+      "bytes": 7845,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/staging111.rs",
+      "sha256": "25e6eab471a9782d8e509861ba0c6d62a9644bc25fda16db7b326e74e496ee09"
+    },
+    {
+      "bytes": 414,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/stderr.txt",
+      "sha256": "7ab688a119f559ed59d4329116cba2e213d3377d16a1eeceb7f63ef03d29833c"
+    },
+    {
+      "bytes": 73367,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-09-mutant-mode-header-fix/stdout.txt",
+      "sha256": "ca9ded236c1a9195b7bc24f019ac545734dcaacc17b54fe4b15aeeb43cb87252"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/authentication-entry.json",
+      "sha256": "0ce4f90c2fd83460728b1b77b2338799f2445825e75c986d5eb22ffeeca3f772"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/authentication-exit.json",
+      "sha256": "c6005a558a914e0f3609c3606f9553b29467819b674cbacde783f7c52343fd3f"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/authentication-preexecution.json",
+      "sha256": "517693382e6757a6fa4dcbefdb682c4588d3e38073c312f08c823a43135eae81"
+    },
+    {
+      "bytes": 6796,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/invocation.json",
+      "sha256": "91ea0aadef3f20fb33020b328d557245a7025dc685bca23e26540f6369b6c56e"
+    },
+    {
+      "bytes": 1062,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/result.json",
+      "sha256": "d645996b1f308e630c9db74ad5e5db4a76a5a97aa371727dfc828a727910a249"
+    },
+    {
+      "bytes": 1187,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/scope.json",
+      "sha256": "518ff254d58adef532d826963d3f58950bae58010510883b7242cf2a47df5454"
+    },
+    {
+      "bytes": 7819,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/staging111.rs",
+      "sha256": "3f782ebfcbabc7bcbcbc8d14a20eafe910aba708d25a6cab22cadce62a3db665"
+    },
+    {
+      "bytes": 353,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/stderr.txt",
+      "sha256": "b937f0c05684f02f661d8034b2389117503f66663e0e037fc1165c6a12e47c15"
+    },
+    {
+      "bytes": 84981,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-10-mutant-mode-header-position/stdout.txt",
+      "sha256": "e320fd8931fb22c062315cbab6e6272c69ebdf99eecc31ad65f73feb936a41a3"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/authentication-entry.json",
+      "sha256": "8750142b111f21e661d7e40336c1ffef4ae4ee1c950e5c023ee47d9a3f17cef3"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/authentication-exit.json",
+      "sha256": "c117369471c5f15db23cfd58ccf80d9199a107785aa2901604e1af6d1c640814"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/authentication-preexecution.json",
+      "sha256": "b4762c2366793a763ba1c2e49d112cbd3b69f13b2470e145df4535923d77e446"
+    },
+    {
+      "bytes": 251834,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/candidate.vir",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/candidate.vir",
+      "sha256": "60060dd935f443aa8137e779a356a360c03b1e2396220e0adf4192fbc458512e"
+    },
+    {
+      "bytes": 6853,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/invocation.json",
+      "sha256": "275c94bd1f4d6a68f77c101af4cc1bd79d0f31b4df427af82e2f38a43250bfbe"
+    },
+    {
+      "bytes": 1457,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/result.json",
+      "sha256": "c72e66c52b7362802d99b68007f15401cdc0e3067e759595203100113b00e90c"
+    },
+    {
+      "bytes": 1193,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/scope.json",
+      "sha256": "b1c580fc9d0888b95e16a06bb94858ded314783b312b725a4be8d4587f587ef2"
+    },
+    {
+      "bytes": 7783,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/staging111.rs",
+      "sha256": "4ccd39a72cac229aa68ea73c574551a94e9808e7cd72a0ed3a10a6e44b3070ac"
+    },
+    {
+      "bytes": 0,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 84784,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-11-corrected-mode-header-position/stdout.txt",
+      "sha256": "f4c83e1827c27dc01082cb1d34ee7e4eb18bb3ff04bdc148ee6eeeae5fbe78f1"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/authentication-entry.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/authentication-entry.json",
+      "sha256": "de00f53c84f137754f8a93e337649747b11e4259c38ce4faa51314ea3e398812"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/authentication-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/authentication-exit.json",
+      "sha256": "845c8687d3181e5916ed8a87a2531144cfc8c02ebd619d69ebd2d86c4c93ee2f"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/authentication-preexecution.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/authentication-preexecution.json",
+      "sha256": "ed10820bbc8c55fb811532112acca1aa4a52c4fcf678a5643162157f45d6b6a6"
+    },
+    {
+      "bytes": 244592,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/candidate.vir",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/candidate.vir",
+      "sha256": "bea80ceb4149adc51900b7fc5cc4211ebbe71a18d94c9527d186016cc213b718"
+    },
+    {
+      "bytes": 6606,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/invocation.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/invocation.json",
+      "sha256": "09866626d4d9b27636b51b522f63b1cca9e49557d4d88e430ae745d0ce4014d6"
+    },
+    {
+      "bytes": 1392,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/result.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/result.json",
+      "sha256": "2a9fac8ed09598a7c8babbf1c65ac7af701632a70354476aa5cea127c244455b"
+    },
+    {
+      "bytes": 1167,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/scope.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/scope.json",
+      "sha256": "c0fa7a25b307964bb0aa25e5743e4eb012789668c0fac052de2d53d9f67cd4eb"
+    },
+    {
+      "bytes": 7424,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/staging111.rs",
+      "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+    },
+    {
+      "bytes": 0,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/stderr.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 83663,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/stdout.txt",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/attempt-12-restored-positive/stdout.txt",
+      "sha256": "9e5eeb189b1af2f234af2379af12e441e671b45b99487e837b755518da6c936e"
+    },
+    {
+      "bytes": 979492,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/authentication-task-exit.json",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/authentication-task-exit.json",
+      "sha256": "84259533f63016a3317e6124a17e5c0044113eb88c024c32d3040a3794288631"
+    },
+    {
+      "bytes": 8494,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/runner.py",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/runner.py",
+      "sha256": "fbefd8ba9e5492f94fdfc33071f72079388f608ae920d0cd45f5ba695df20eca"
+    },
+    {
+      "bytes": 6760,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/seal.py",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/seal.py",
+      "sha256": "62afd962561fe1d9df125da158ebf808244fad21e926215bc288c436d5b93b26"
+    },
+    {
+      "bytes": 7424,
+      "mode": "0o644",
+      "path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs",
+      "resolved_path": "/private/tmp/redb-header-recovery111-H-20261108T052400Z/staging111.rs",
+      "sha256": "0d894c65c6315d1c0de84c6f06a797b9b448d55b9539c542d020502345b6bc31"
+    }
+  ],
+  "root": "/private/tmp/redb-header-recovery111-H-20261108T052400Z",
+  "utc": "2026-11-08T05:35:32.204893+00:00"
+}

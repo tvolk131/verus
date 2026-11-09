@@ -1,0 +1,135 @@
+{
+  "all18": "OPEN",
+  "baseline_records": 1483,
+  "classification": "UNBUILT_SOURCE_AND_FORMATTER_SYNTAX_CHECKS_ONLY",
+  "compiler_builds": 0,
+  "compiler_typecheck_or_verifier_runs": 0,
+  "expected_parent_document_updates": 2,
+  "formatter": {
+    "bytes": 4474088,
+    "path": "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustfmt",
+    "sha256": "fae904bce0d6e9fcdd0ac4a4b597bdec4e571133dc7e9e9527b3e54bf5008a8d"
+  },
+  "formatter_provenance": "DIRECT_TOOL_ENDPOINT_HASHES_AFTER_DISCOVERY_NOT_OS_OR_SHARED_LIBRARY_CLOSURE",
+  "formatter_runs": [
+    {
+      "argv": [
+        "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustfmt",
+        "--edition",
+        "2024",
+        "--emit",
+        "stdout",
+        "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/candidate/rustc_mir_build/src/builder/checked_drop_origins.rs"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "TZ": "UTC"
+      },
+      "exit_code": 0,
+      "source": {
+        "bytes": 3093,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/candidate/rustc_mir_build/src/builder/checked_drop_origins.rs",
+        "sha256": "979a58c3e5661570bfac88d3d3273173d802b4eea0efd9b8defae3107ac2ae1d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/syntax-0.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 3597,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/syntax-0.stdout",
+        "sha256": "22c8e59f6cba9f60f95cc1779ce92a0bf92eae99256a1989c7b2d7e95c397677"
+      }
+    },
+    {
+      "argv": [
+        "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustfmt",
+        "--edition",
+        "2024",
+        "--emit",
+        "stdout",
+        "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/candidate/rustc_mir_build/src/builder/expr/as_temp.rs"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "TZ": "UTC"
+      },
+      "exit_code": 0,
+      "source": {
+        "bytes": 6410,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/candidate/rustc_mir_build/src/builder/expr/as_temp.rs",
+        "sha256": "c674be953e7d416a7894b78163b711059cc5d1665863f5910a114caec42d73b6"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/syntax-1.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 7153,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/syntax-1.stdout",
+        "sha256": "4753fbe47922e49331d542f0f830053868522a84412b5cfeeec8055ea343da30"
+      }
+    },
+    {
+      "argv": [
+        "/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin/bin/rustfmt",
+        "--edition",
+        "2024",
+        "--emit",
+        "stdout",
+        "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/candidate/rust_verify/src/checked_normal_drop.rs"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "TZ": "UTC"
+      },
+      "exit_code": 0,
+      "source": {
+        "bytes": 50215,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/candidate/rust_verify/src/checked_normal_drop.rs",
+        "sha256": "3d615317eeb24e3b9f189e7d9ec80be3db7924dd417496eedeef28fc8b8998c9"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/syntax-2.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 59502,
+        "path": "/private/tmp/redb-lifecycle113-origin-revision2-20261108T145432Z/syntax-2.stdout",
+        "sha256": "b76abe9f789df717916843f49dca22863390bbc1d9397a4ef670d660fc960155"
+      }
+    }
+  ],
+  "free_bytes": 63601614848,
+  "function_preservation_oracle": "TARGETED_EXACT_SOURCE_BODY_COMPARISON_NOT_AST_EQUIVALENCE",
+  "native_original_bodies_checked": 0,
+  "new_rust_status_tests_authored_but_not_executed": 5,
+  "new_trust": false,
+  "parent_exact_matches": 1481,
+  "review_findings_parent_source_repaired_not_re_reviewed": [
+    "P1",
+    "P2_identity_labels",
+    "P2_missing_capture_status"
+  ],
+  "revision": 2,
+  "semantic_controls_run": 0,
+  "source_only_assertions_passed": true,
+  "unchanged_legacy_functions": [
+    "supported_type",
+    "drop_impl",
+    "normalize",
+    "account",
+    "rewrite_block",
+    "checked_reference_frames",
+    "prepare",
+    "check_native",
+    "elaborated"
+  ],
+  "utc": "2026-11-08T14:58:03.817941+00:00"
+}

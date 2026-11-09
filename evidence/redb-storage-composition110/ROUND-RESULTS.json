@@ -1,0 +1,103 @@
+{
+  "acceptance": false,
+  "admission_or_export_gate_changes": false,
+  "authenticated_payloads": {
+    "backend": 104,
+    "composition": 104,
+    "parent_controls": 32,
+    "review": 207
+  },
+  "backend_charged_attempts": 10,
+  "backend_proof_bodies": 13,
+  "backend_verified_obligations": 15,
+  "checked_original_native_executable_bodies": 0,
+  "compiler_runtime_vstd_cargo_builds": 0,
+  "compiler_source_correspondence": "UNESTABLISHED",
+  "completed_utc": "2026-11-08T05:13:08.779171+00:00",
+  "composition_charged_attempts": 8,
+  "composition_new_authored_proof_bodies": 11,
+  "composition_proof_bodies": 52,
+  "composition_verified_obligations": 61,
+  "elapsed_seconds": 2382.779171,
+  "final_cells_closed": 0,
+  "goal_service_status_last_observed": "ACTIVE",
+  "hard_deadline_utc": "2026-11-08T05:33:26+00:00",
+  "integration": false,
+  "native_adapter_R": "OPEN",
+  "native_application_executions": 0,
+  "native_atomic_state_and_backend_callback_history_bindings": "OPEN",
+  "native_git_continuity": "UNAVAILABLE",
+  "new_trusted_assumptions_adopted": 0,
+  "original_native_path_preservation": "FAILED",
+  "parent_additional_verifier_applications": 0,
+  "parent_controls_tests": 13,
+  "parent_finite_control_steps": 51264,
+  "parent_finite_histories": 17476,
+  "parent_source_integration": false,
+  "redb_open_cells": 18,
+  "resource_sampling_limit": "Selected boundaries only; not a hard OS quota or continuous peak measurement.",
+  "review_charged_attempts": 6,
+  "review_verdict": "NO_NEW_BOUNDED_MODEL_DEFECT_IDENTIFIED_NATIVE_LINKAGE_INTEGRATION_NOT_READY",
+  "review_verifier_launches": 6,
+  "routine_continuation_requires_recurring_user_approval": false,
+  "sampled_file_bytes_by_root": {
+    "backend": 7959528,
+    "composition": 13180441,
+    "parent_controllers_and_controls": 1184643,
+    "retained_evidence": 4721293,
+    "review": 16971570
+  },
+  "sampled_free_disk_bytes": 78884376576,
+  "sampled_total_file_bytes": 44017475,
+  "schema": "redb-storage-composition110-completed-round-v1",
+  "selected_inputs": {
+    "expected_post_review_document_updates": [
+      {
+        "frozen_sha256": "d9ca9ca4d1830385cc114ce519906f92ee94b6c573a80ec452a9844404fb70c1",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+        "reason": "Parent documentation reconciliation after all implementation and review exits",
+        "reconciled_sha256": "8db082e3d03cb72ba2abbe3ba2271e4c6b2bd064e0d02163f4a22af63e060c0c",
+        "snapshot": "HISTORICAL-GOAL.md"
+      },
+      {
+        "frozen_sha256": "6d1d96bac71b81940f44d3ca1a91fb19af80d92fda2ec1b0c081016f4d08e27c",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+        "reason": "Parent documentation reconciliation after all implementation and review exits",
+        "reconciled_sha256": "e2fd07944959f4bf40aee35083da2d1bc3bf01774fdf1de463ba232f82ec9122",
+        "snapshot": "HISTORICAL-STATUS.json"
+      }
+    ],
+    "frozen_count": 838,
+    "inherited_document_reconciliations": [
+      {
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+        "reason": "Documented round109 reconciliation followed by fresh round110 authorization entry",
+        "round109_final_sha256": "5f7e3b66649be415c551f18e26ae241413b9de026abf70971708f3d7430fb66c",
+        "round109_frozen_sha256": "c98118382feb05e5262db6d3a151322099f36ee395b4950eada988e78a5541c0",
+        "round110_current_sha256": "d9ca9ca4d1830385cc114ce519906f92ee94b6c573a80ec452a9844404fb70c1"
+      },
+      {
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+        "reason": "Documented round109 reconciliation followed by fresh round110 authorization entry",
+        "round109_final_sha256": "806b64fdeb022b7133820fb1a483e664e74bf876d16d17b43a778389eaf7e14e",
+        "round109_frozen_sha256": "bf189af264f8f3d93279144192322b7fbdd15a7240ed538fc3b5c3f66695d99e",
+        "round110_current_sha256": "6d1d96bac71b81940f44d3ca1a91fb19af80d92fda2ec1b0c081016f4d08e27c"
+      }
+    ],
+    "inherited_historical_drifts": [
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-branch-leaf-composition102/README.md",
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-branch-leaf-composition102/RESULTS.json",
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-branch-leaf-completion103/README.md",
+      "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/VERUS_INFER_STATUS.md"
+    ],
+    "unchanged_after_reconciliation": 836,
+    "unexpected_mismatches": 0
+  },
+  "single_independent_review_completed": true,
+  "start_utc": "2026-11-08T04:33:26+00:00",
+  "status": "BOUNDED_ROUND_COMPLETE_DATABASE_GOAL_OPEN",
+  "task_allowances_reset": false,
+  "total_charged_attempts": 24,
+  "within_original_round_deadline": true
+}

@@ -1,0 +1,29 @@
+{
+  "producer": "0.2026.11.01.3b05c19.dirty:/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN):3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "proofs": [
+    [
+      {
+        "path": {
+          "krate": {
+            "Id": [
+              "provider",
+              17333577649204380365
+            ]
+          },
+          "segments": [
+            "impl&%8",
+            "eq"
+          ]
+        }
+      },
+      {
+        "exactness": true,
+        "maximality": true,
+        "soundness": true
+      }
+    ]
+  ],
+  "summaries_note": "Path-sensitive producer output: bound by the exact artifact hash and fresh successful import, not a golden across scratch roots",
+  "trusted_model_fingerprints": 382,
+  "trusted_models_sha256": "e64f615d9e35b2b15cfc22b383d9fa85e9e3bd1d8d0154b4db637f843f72bbce"
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "backend_assertion_failures": 1,
+    "corrected_attempt": 8,
+    "counterpart_source_sha256": "c99c86ce67d4478cccf6dc0e09c21e877ff9f508017bcb899f4ade006b571811",
+    "intended_assertion": "assert(hit.is_some() == union_has(leaves@, kw, vw, query@));",
+    "label": "wrong-child",
+    "matched_single_assertion_line": true,
+    "negative_attempt": 6,
+    "negative_source_sha256": "7ad4249add65940d7cf0ddc70326ebb817894827021d157287de8cf105c5a91e",
+    "positive_entities_preserved": true,
+    "unrelated_failures": 0
+  },
+  {
+    "backend_assertion_failures": 1,
+    "corrected_attempt": 9,
+    "counterpart_source_sha256": "1fdcd78ff49414ec2d5633f5ba6dc063ba7edfec95acd33259ee2b06c6ea4349",
+    "intended_assertion": "assert(result.2.unwrap().1@ == seq![first]);",
+    "label": "wrong-value",
+    "matched_single_assertion_line": true,
+    "negative_attempt": 7,
+    "negative_source_sha256": "b9ac093ebf21494f999e31badbce931891a5ec3daac7f1801e5124fc72e5cccb",
+    "positive_entities_preserved": true,
+    "unrelated_failures": 0
+  }
+]

@@ -93,3 +93,64 @@ fn only_canonical_transparent_range_proxy_layout_is_admitted() {
         Arc::new(TypX::Datatype(name.clone(), Arc::new(vec![bool_typ()]), implementations.clone()));
     assert!(shape::fields(&other, &[original]).is_none());
 }
+
+#[test]
+fn unused_external_identity_is_neither_a_value_nor_a_layout_model() {
+    let (_, template) = canonical_range();
+    let krate = CrateId::Id(Arc::new("external_test".into()), 91);
+    let name = path(krate.clone(), &["Opaque"]);
+    let proxy = path(krate.clone(), &["ExOpaque"]);
+    let mut definition = template.x.clone();
+    definition.name = Dt::Path(name.clone());
+    definition.proxy.as_mut().unwrap().x = proxy;
+    definition.owning_module = Some(path(krate.clone(), &[]));
+    definition.transparency = DatatypeTransparency::Never;
+    definition.typ_params = Arc::new(vec![]);
+    definition.typ_bounds = Arc::new(vec![]);
+    Arc::make_mut(&mut definition.variants)[0].fields = Arc::new(vec![]);
+    let typ = Arc::new(TypX::Datatype(Dt::Path(name.clone()), Arc::new(vec![]), Arc::new(vec![])));
+    let original = template.new_x(definition);
+    assert!(shape::unused_external_value(&typ, &[original.clone()]));
+    assert!(!shape::opaque_value(&typ, &[original.clone()], &None));
+    assert!(!shape::value_type(&typ, &[], &[original.clone()], 4));
+    assert!(shape::fields(&typ, &[original.clone()]).is_none());
+    for fault in 0..15 {
+        let mut definition = original.x.clone();
+        match fault {
+            0 => definition.proxy = None,
+            1 => definition.proxy.as_mut().unwrap().x = name.clone(),
+            2 => definition.proxy.as_mut().unwrap().x = path(CrateId::Core, &["Fake"]),
+            3 => definition.owning_module = Some(path(CrateId::Core, &[])),
+            4 => definition.owning_module = None,
+            5 => definition.mode = Mode::Spec,
+            6 => {
+                definition.transparency =
+                    DatatypeTransparency::WhenVisible(definition.visibility.clone())
+            }
+            7 => definition.destructor = true,
+            8 => definition.ext_equal = true,
+            9 => definition.typ_bounds = template.x.typ_bounds.clone(),
+            10 => definition.typ_params = template.x.typ_params.clone(),
+            11 => definition.sized_constraint = Some(bool_typ()),
+            12 => definition.visibility.restricted_to = Some(path(krate.clone(), &[])),
+            13 => definition.variants = template.x.variants.clone(),
+            14 => {
+                definition.user_defined_invariant_fn = Some(FunWithVis {
+                    visibility: definition.visibility.clone(),
+                    fun: Arc::new(FunX { path: path(krate.clone(), &["invariant"]) }),
+                })
+            }
+            _ => unreachable!(),
+        }
+        assert!(
+            !shape::unused_external_value(&typ, &[original.new_x(definition)]),
+            "fault {fault}"
+        );
+    }
+    let other = Arc::new(TypX::Datatype(
+        Dt::Path(path(krate, &["Other"])),
+        Arc::new(vec![]),
+        Arc::new(vec![]),
+    ));
+    assert!(!shape::unused_external_value(&other, &[original]));
+}

@@ -1,0 +1,15 @@
+{
+  "utc": "2026-11-08T17:34:04.222431+00:00",
+  "source_root": "/private/tmp/redb-receipt-cancellation118-revision2",
+  "manifest_sha256": "6ead302a866a8beac0118f65482cf643fa4588d71a75eb7d13b3fc68525f64b7",
+  "archive": "RECEIPT-CANCELLATION118-REVISION2.tar.gz",
+  "archive_sha256": "9225021d11cd374f2a2f41bd1b4e1ea785c030fdb1880137fc28e80ea8a20c9a",
+  "archive_bytes": 84619,
+  "members": 84,
+  "readback_matches": 84,
+  "status": "PENDING_INDEPENDENT_FINAL_REVIEW_NOT_INTEGRATED",
+  "all18": "OPEN",
+  "native_credit": 0,
+  "trust": 0,
+  "source_integrated": false
+}

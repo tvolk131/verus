@@ -1,0 +1,92 @@
+{
+  "candidate_patch": {
+    "bytes": 71607,
+    "path": "/private/tmp/verus-codec-repair108-EaGK5X/candidate.patch",
+    "sha256": "ed0e7ad34c0dde77e288374a179f09a54c4212da1bcc420cca357bf50cb35f0a"
+  },
+  "cargo_invocations": 3,
+  "compiler_builds": 0,
+  "diagnostic107_D1_authorized": false,
+  "direct_unit_executions": 1,
+  "final_codec_passes": 19,
+  "final_inference_tests_filtered_out": 37,
+  "final_inference_tests_passed": 174,
+  "findings": [
+    "R1_STATIC_OBSERVATION_DEFINITION",
+    "R2_RESOLVED_SELF_TARGET",
+    "R3_MEMOIZED_TYPE_HEIGHT"
+  ],
+  "full_vir_suite": "NOT_COMPLETED_MISSING_Z3_EXIT128",
+  "green_focused_passes": 18,
+  "independent_repair_review": false,
+  "native_storage_refinement108_authorized": false,
+  "original_independent_review_verdict": "REQUEST_CHANGES",
+  "parent_source_integration": false,
+  "persistence_wiring": false,
+  "red_regression_failures": 5,
+  "redb_open_cells": 18,
+  "repair_delta": {
+    "bytes": 27608,
+    "path": "/private/tmp/verus-codec-repair108-EaGK5X/repair-only.patch",
+    "sha256": "58d588fd7c08353b3107b397a31a643b4d16ba15dfb03fa179b06d624f1f686a"
+  },
+  "runs": {
+    "broad": {
+      "cargo_child_exit": 128,
+      "elapsed_seconds": 18.553507041,
+      "free_bytes": 48247988224,
+      "scratch_kib": 330300,
+      "source_reauthenticated": 192,
+      "tools_reauthenticated": 3
+    },
+    "final": {
+      "cargo_child_exit": null,
+      "elapsed_seconds": 4.518181708,
+      "free_bytes": 47399645184,
+      "scratch_kib": 330376,
+      "source_reauthenticated": 192,
+      "test_child_exit": 0,
+      "tools_reauthenticated": 4
+    },
+    "green": {
+      "cargo_child_exit": 0,
+      "elapsed_seconds": 13.286107,
+      "free_bytes": 47395049472,
+      "scratch_kib": 330212,
+      "source_reauthenticated": 192,
+      "tools_reauthenticated": 3
+    },
+    "red": {
+      "cargo_child_exit": 101,
+      "elapsed_seconds": 31.437766541000002,
+      "free_bytes": 49320964096,
+      "scratch_kib": 330132,
+      "source_reauthenticated": 191,
+      "tools_reauthenticated": 3
+    }
+  },
+  "schema": "owned-codec108-parent-repair-v1",
+  "solver_proof_credit": 0,
+  "source": [
+    {
+      "bytes": 108296,
+      "path": "/private/tmp/verus-codec-repair108-EaGK5X/source/vir/src/infer/owned.rs",
+      "sha256": "e67316d07dc90162c05decc1950e4aed9715913f212a725712170d933cbef64c"
+    },
+    {
+      "bytes": 51696,
+      "path": "/private/tmp/verus-codec-repair108-EaGK5X/source/vir/src/infer/owned/candidate_data.rs",
+      "sha256": "88216c1bb90a815c2bd553fe452e66bd7bbb856ca7ed5b3b44d2998897e837a6"
+    },
+    {
+      "bytes": 17510,
+      "path": "/private/tmp/verus-codec-repair108-EaGK5X/source/vir/src/infer/owned/candidate_data_regressions.rs",
+      "sha256": "ac0c20164d64ebe97c9c6711207131a763162a705a7eb01a870dcd4db5e199b5"
+    }
+  ],
+  "status": "PARENT_SCRATCH_REPAIR_VALIDATED_NOT_INTEGRATED",
+  "three_fresh_certificates_required": true,
+  "trust_adoption": false,
+  "vstd_builds": 0,
+  "warm_cache_gate": "UNMET"
+}

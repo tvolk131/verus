@@ -1,0 +1,170 @@
+{
+  "all18": "OPEN",
+  "authority": "User approved focused preservation of locally unique inputs and a portable new-thread handoff",
+  "created_utc": "2026-11-09T04:53:01.231680+00:00",
+  "excluded_rebuildable_items": [
+    "Ordinary Rust toolchain, target sysroot and LLVM/compiler-development components",
+    "Cargo registry/git caches and libc registry package",
+    "Platform-specific verifier/observer/compatibility-converter executables and native rlibs",
+    "Z3 solver and build caches"
+  ],
+  "format": 1,
+  "inputs": [
+    {
+      "bytes": 11192476,
+      "classification": "Unique authored source, canonical JSON and retained observations; worker remains unsealed",
+      "destination": "kernel170",
+      "id": "kernel170",
+      "kind": "tar",
+      "path": "evidence/redb-native-mir-campaign115/KERNEL170-PARENT-SNAPSHOT.tar.gz",
+      "sha256": "474b660e10adb2448655d6e36228b9c88cf43e6904a05a2b2d92ee15e1efdd0d"
+    },
+    {
+      "bytes": 550404,
+      "classification": "Exact selected application source snapshot; no network fetch required",
+      "destination": "redb115",
+      "id": "original-redb115",
+      "kind": "tar",
+      "path": "evidence/redb-native-mir-campaign115/ORIGINAL-CRATE-PREFLIGHT.tar.gz",
+      "sha256": "32de7461e670779abf275ebcca8e12658e5e1c03c1c5b60502b60fee4e235cb8"
+    },
+    {
+      "bytes": 5863216,
+      "classification": "Exact selected source input; local hash binding only, not upstream/bootstrap authentication",
+      "destination": "rust-source",
+      "id": "rust-library128",
+      "kind": "tar",
+      "path": "evidence/redb-native-mir-campaign115/portable-inputs/rust-src-1.99.1.tar.xz",
+      "sha256": "e485a88c45db546b73571df7bebfcb4454ba4fb552c492e25fc5b00eeb5bf22d"
+    },
+    {
+      "bytes": 2370479,
+      "classification": "Preserved exact serialized historical library artifact; not a new certificate or native approval",
+      "destination": "inputs/vstd156.vir",
+      "id": "historical-vstd156",
+      "kind": "gzip",
+      "path": "evidence/redb-native-mir-campaign115/portable-inputs/vstd156.vir.gz",
+      "sha256": "4a00597eafd3e0aaaba73fbd97e1eacd22a749258d09a30b0b9efad896dfc9e5",
+      "uncompressed": {
+        "bytes": 33396967,
+        "sha256": "022fd17a42e801080dcb9593c1085a7832754eb3ded7aeaa4645bf6428453cb8"
+      }
+    },
+    {
+      "bytes": 188125,
+      "classification": "Historical source inventory; paths are observations, not reconstruction dependencies",
+      "destination": "provenance/SOURCE-INVENTORY128.json",
+      "id": "source-inventory128",
+      "kind": "gzip",
+      "path": "evidence/redb-native-mir-campaign115/portable-inputs/SOURCE-INVENTORY.json.gz",
+      "sha256": "4bd75dd5874f3a131d130f11ece5874db0c9a7b65a20d305da16f19cfd72ef7b",
+      "uncompressed": {
+        "bytes": 754770,
+        "sha256": "c99b07945ae7eee666e3a4abd1681832a141297ccdf34a30a899e39263c2d80f"
+      }
+    },
+    {
+      "bytes": 4560,
+      "classification": "Historical provenance, not an executable portability recipe",
+      "destination": "provenance/SOURCE-BINDING.json",
+      "id": "source128-SOURCE-BINDING.json",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/portable-inputs/SOURCE-BINDING.json",
+      "sha256": "69765c446f5044ae605ea418556011fefb2436d172c7fff9580d7ee4e06c5e70"
+    },
+    {
+      "bytes": 6581,
+      "classification": "Historical provenance, not an executable portability recipe",
+      "destination": "provenance/bind_sources.py",
+      "id": "source128-bind_sources.py",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/portable-inputs/bind_sources.py",
+      "sha256": "a9b40d13f3df1f41b678421c2e6b5f48827e6955a74370b0a5e0fdf9691e56e9"
+    },
+    {
+      "bytes": 192,
+      "classification": "Historical provenance, not an executable portability recipe",
+      "destination": "provenance/rustc-version.txt",
+      "id": "source128-rustc-version.txt",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/portable-inputs/rustc-version.txt",
+      "sha256": "e003fd3d385fcd0de16bc6b049124efb20207831dd810fd4ab39ff079bbb12a5"
+    },
+    {
+      "bytes": 5098,
+      "classification": "Uncompiled/unverified staged scalar candidate or its retained source authentication",
+      "destination": "layout171/AUTHENTICATION171.json",
+      "id": "layout171-AUTHENTICATION171.json",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/candidates/layout171/AUTHENTICATION171.json",
+      "sha256": "7ebc3d0d23bce25aedf74622fd0781707d5eaa5bafd1eb54a39c484e84b90371"
+    },
+    {
+      "bytes": 5760,
+      "classification": "Uncompiled/unverified staged scalar candidate or its retained source authentication",
+      "destination": "layout171/authenticate171.py",
+      "id": "layout171-authenticate171.py",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/candidates/layout171/authenticate171.py",
+      "sha256": "8590aa81874b49e6c062a2bb72a3bcd2a7c60737f89f9e249daec45cfd5d8c7e"
+    },
+    {
+      "bytes": 8618,
+      "classification": "Uncompiled/unverified staged scalar candidate or its retained source authentication",
+      "destination": "layout171/consumer171.rs",
+      "id": "layout171-consumer171.rs",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/candidates/layout171/consumer171.rs",
+      "sha256": "a43fae6ae6b29a12041dd102600f47affb1f037ae56c99b399442f124b3f4876"
+    },
+    {
+      "bytes": 5383,
+      "classification": "Uncompiled/unverified staged scalar candidate or its retained source authentication",
+      "destination": "layout171/g3_cases171.rs",
+      "id": "layout171-g3_cases171.rs",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/candidates/layout171/g3_cases171.rs",
+      "sha256": "b11250a3911c2091b4b0bd8d43fdb113167c8daa93f847f9e306f3251897fc54"
+    },
+    {
+      "bytes": 9757,
+      "classification": "Uncompiled/unverified staged scalar candidate or its retained source authentication",
+      "destination": "layout171/g3_scalar171.rs",
+      "id": "layout171-g3_scalar171.rs",
+      "kind": "file",
+      "path": "evidence/redb-native-mir-campaign115/candidates/layout171/g3_scalar171.rs",
+      "sha256": "b40a1fd8b4c4601bbd79558418fb67a5d2b92efac75f70a0c6af776e74a8281b"
+    },
+    {
+      "bytes": 16632322,
+      "classification": "Reconstruction source/receipts for historical verifier, vstd and converter; not extracted by default",
+      "id": "baseline156",
+      "kind": "reference",
+      "path": "evidence/redb-native-mir-campaign115/IMPLEMENTATION156-HANDOFF.tar.gz",
+      "sha256": "1d49f719b9d15749aa741ce9b2aa7c629867abc191639526fdb1b5278cd64095"
+    },
+    {
+      "bytes": 51200,
+      "classification": "Original source-only seven-member handoff; staged consumer is separately preserved",
+      "id": "layout171-original",
+      "kind": "reference",
+      "path": "evidence/redb-native-mir-campaign115/LAYOUT171-HANDOFF.tar",
+      "sha256": "71d2bf2fd4329518dd846ee1b5e15e33f89006f34a075398c1c948a1189c7330"
+    }
+  ],
+  "native_export": "REFUSED",
+  "parent_checkpoint": "e64321b13a1d2258f46ebdac99fbd3cb729bd25a",
+  "portable_runtime_patch": true,
+  "prepared_paths": {
+    "canonical_vstd_json": "kernel170/runtime/canonical-vstd170.json",
+    "historical_vstd_vir": "inputs/vstd156.vir",
+    "kernel_evidence": "kernel170/evidence",
+    "kernel_source": "kernel170/candidate",
+    "layout171": "layout171",
+    "original_redb": "redb115/redb",
+    "rust_library": "rust-source/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library"
+  },
+  "qualification": "Endpoint preservation and preparation only; no review/adoption/bootstrap/current-source native proof credit",
+  "reconstruction_policy": "Use archived candidate sources and recorded commands with fresh tool bindings and output paths; source availability is not a successful clean-machine build or permission to activate a native issuer",
+  "scope": "Current eighteen-cell redb campaign and latest kernel170/layout171 development; not a replay closure for every historical pilot"
+}

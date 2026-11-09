@@ -1,0 +1,24 @@
+{
+  "actual_default_std_library_resolution": "SUCCESS_ORIGINAL_PACKAGE_AS_PATH_DEPENDENCY",
+  "all18": "OPEN",
+  "archive": {
+    "bytes": 550404,
+    "members_byte_compared": 165,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-native-mir-campaign115/ORIGINAL-CRATE-PREFLIGHT.tar.gz",
+    "sha256": "32de7461e670779abf275ebcca8e12658e5e1c03c1c5b60502b60fee4e235cb8"
+  },
+  "canonical_workspace_resolution": "OFFLINE_PYO3_MISSING",
+  "content_manifest_sha256": "59a73d009ddbd80ede7a1a32bbf9a0029ff459c249cdd8d476095d2c5b3cdc24",
+  "external_package": {
+    "manifest_path": "/Users/tommyvolk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libc-0.2.191/Cargo.toml",
+    "name": "libc",
+    "version": "0.2.191"
+  },
+  "external_package_files_authenticated": 453,
+  "metadata_only_no_compiler_or_native_execution": true,
+  "new_trust": false,
+  "original_package_and_sources_unchanged": true,
+  "original_source_files_authenticated": 132,
+  "source_records_unchanged": 1474,
+  "utc": "2026-11-08T16:16:07.660778+00:00"
+}

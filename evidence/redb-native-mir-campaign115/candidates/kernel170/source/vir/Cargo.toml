@@ -1,0 +1,32 @@
+[package]
+name = "vir"
+version = "0.1.0"
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# Note: do not add any dependencies on rustc -- VIR deliberately abstracts away from rustc's internals
+[dependencies]
+air = { workspace = true }
+im = { workspace = true }
+indexmap = { workspace = true }
+num-bigint = { workspace = true }
+num-traits = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+sise = { workspace = true }
+vir-macros = { workspace = true }
+
+[features]
+native-semantics170-inspect = ["native-resource-adapter164"]
+singular = ["air/singular"]
+experimental-native-resource = []
+native-resource-continuation160 = ["experimental-native-resource"]
+native-resource-adapter164 = ["native-resource-continuation160"]
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+tempfile = { workspace = true }

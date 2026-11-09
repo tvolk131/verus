@@ -1,0 +1,273 @@
+--- a/source/rustc_mir_build/src/builder/checked_drop_origins.rs
++++ b/source/rustc_mir_build/src/builder/checked_drop_origins.rs
+@@ -1,6 +1,8 @@
+ use rustc_hir::HirId;
+ use rustc_hir::def_id::LocalDefId;
++use rustc_middle::middle::region::{Scope, TempLifetime};
+ use rustc_middle::mir::Local;
++use rustc_middle::thir::ExprId;
+ use std::collections::HashMap;
+ use std::sync::Mutex;
+ use std::sync::atomic::{AtomicBool, Ordering};
+@@ -8,9 +10,32 @@
+ static ENABLED: AtomicBool = AtomicBool::new(false);
+ static NATIVE: AtomicBool = AtomicBool::new(false);
+ static ORIGINS: Mutex<Option<HashMap<LocalDefId, Vec<(HirId, Local)>>>> = Mutex::new(None);
++static TEMPORARIES: Mutex<Option<HashMap<LocalDefId, TemporaryCapture>>> = Mutex::new(None);
++
++#[derive(Clone, Debug, Default)]
++pub struct TemporaryCapture {
++    pub complete: bool,
++    pub origins: Vec<TemporaryOrigin>,
++}
++
++#[derive(Clone, Debug)]
++pub struct TemporaryOrigin {
++    pub expression: ExprId,
++    pub local: Local,
++    pub temp_lifetime: TempLifetime,
++    pub scope: Option<TemporaryScope>,
++}
++
++#[derive(Clone, Debug)]
++pub struct TemporaryScope {
++    pub hir_id: HirId,
++    pub nested_expression: ExprId,
++    pub region_scope: Scope,
++}
+ 
+ pub fn begin(native: bool) {
+     *ORIGINS.lock().unwrap() = Some(HashMap::new());
++    *TEMPORARIES.lock().unwrap() = Some(HashMap::new());
+     NATIVE.store(native, Ordering::SeqCst);
+     ENABLED.store(true, Ordering::SeqCst);
+ }
+@@ -21,6 +46,41 @@
+ 
+ pub fn get(def: LocalDefId) -> Option<Vec<(HirId, Local)>> {
+     ORIGINS.lock().unwrap().as_ref()?.get(&def).cloned()
++}
++
++pub fn get_temporaries(def: LocalDefId) -> Option<TemporaryCapture> {
++    TEMPORARIES.lock().unwrap().as_ref()?.get(&def).cloned()
++}
++
++pub(super) fn retain_temporary(
++    def: LocalDefId, expression: ExprId, local: Local, temp_lifetime: TempLifetime,
++) {
++    if !ENABLED.load(Ordering::SeqCst) {
++        return;
++    }
++    TEMPORARIES.lock().unwrap().as_mut().unwrap().entry(def).or_default()
++        .origins.push(TemporaryOrigin { expression, local, temp_lifetime, scope: None });
++}
++
++pub(super) fn retain_temporary_scope(
++    def: LocalDefId,
++    expression: ExprId,
++    nested_expression: ExprId,
++    local: Local,
++    hir_id: HirId,
++    region_scope: Scope,
++    temp_lifetime: TempLifetime,
++) {
++    if !ENABLED.load(Ordering::SeqCst) {
++        return;
++    }
++    TEMPORARIES.lock().unwrap().as_mut().unwrap().entry(def).or_default()
++        .origins.push(TemporaryOrigin {
++            expression,
++            local,
++            temp_lifetime,
++            scope: Some(TemporaryScope { hir_id, nested_expression, region_scope }),
++        });
+ }
+ 
+ pub(super) fn retain(builder: &super::Builder<'_, '_>) {
+@@ -35,4 +95,6 @@
+     }).collect();
+     let previous = ORIGINS.lock().unwrap().as_mut().unwrap().insert(builder.def_id, origins);
+     assert!(previous.is_none());
++    TEMPORARIES.lock().unwrap().as_mut().unwrap().entry(builder.def_id).or_default()
++        .complete = true;
+ }
+--- a/source/rustc_mir_build/src/builder/expr/as_temp.rs
++++ b/source/rustc_mir_build/src/builder/expr/as_temp.rs
+@@ -39,11 +39,15 @@
+         let expr_span = expr.span;
+         let source_info = this.source_info(expr_span);
+         if let ExprKind::Scope { region_scope, hir_id, value } = expr.kind {
+-            return this.in_scope(
++            let temporary = this.in_scope(
+                 (region_scope, source_info),
+                 LintLevel::Explicit(hir_id),
+                 |this| this.as_temp(block, temp_lifetime, value, mutability),
+             );
++            crate::builder::checked_drop_origins::retain_temporary_scope(
++                this.def_id, expr_id, value, temporary.1, hir_id, region_scope, temp_lifetime,
++            );
++            return temporary;
+         }
+ 
+         let expr_ty = expr.ty;
+@@ -125,6 +129,9 @@
+         }
+ 
+         block = this.expr_into_dest(temp_place, block, expr_id).into_block();
++        crate::builder::checked_drop_origins::retain_temporary(
++            this.def_id, expr_id, temp, temp_lifetime,
++        );
+ 
+         if let Some(temp_lifetime) = temp_lifetime.temp_lifetime {
+             this.schedule_drop_value(expr_span, temp_lifetime, temp);
+--- a/source/rust_verify/src/checked_normal_drop.rs
++++ b/source/rust_verify/src/checked_normal_drop.rs
+@@ -57,6 +57,125 @@
+ struct Capture {
+     program: Result<Program, String>,
+     origins: HashMap<HirId, usize>,
++    unestablished_drop_sites: Vec<UnestablishedDropSite>,
++}
++
++#[derive(Clone, Debug)]
++struct UnestablishedDropSite {
++    block: usize,
++    cleanup: bool,
++    native_phase: bool,
++    mir_phase: String,
++    local: usize,
++    place: String,
++    projections: Vec<String>,
++    root_type: String,
++    binder_status: OriginCaptureStatus,
++    temporary_status: OriginCaptureStatus,
++    builder_origins: Vec<checked_drop_origins::TemporaryOrigin>,
++    destructor_identity_status: &'static str,
++    drop_glue_identity_status: &'static str,
++    normal_target: usize,
++    replace_assignment_origin: bool,
++    async_cancellation_cleanup_target: Option<usize>,
++    unwind_action: String,
++    unwind_cleanup_target: Option<usize>,
++}
++
++#[derive(Clone, Debug, PartialEq, Eq)]
++enum OriginCaptureStatus {
++    MissingCapture,
++    IncompleteCapture { observations: usize },
++    CompleteEmpty,
++    CompleteWithoutLocalMatch { observations: usize },
++    CompleteWithLocalMatches { observations: usize, matches: usize },
++}
++
++fn origin_status(observation: Option<(bool, usize, usize)>) -> OriginCaptureStatus {
++    match observation {
++        None => OriginCaptureStatus::MissingCapture,
++        Some((false, observations, _)) => OriginCaptureStatus::IncompleteCapture { observations },
++        Some((true, 0, _)) => OriginCaptureStatus::CompleteEmpty,
++        Some((true, observations, 0)) => OriginCaptureStatus::CompleteWithoutLocalMatch { observations },
++        Some((true, observations, matches)) => OriginCaptureStatus::CompleteWithLocalMatches { observations, matches },
++    }
++}
++
++#[cfg(test)]
++mod origin_capture_status_tests {
++    use super::{OriginCaptureStatus, origin_status};
++
++    #[test]
++    fn missing_capture_is_explicit() {
++        assert_eq!(origin_status(None), OriginCaptureStatus::MissingCapture);
++    }
++
++    #[test]
++    fn unfinished_capture_is_not_completed_capture() {
++        assert_eq!(origin_status(Some((false, 2, 1))),
++            OriginCaptureStatus::IncompleteCapture { observations: 2 });
++    }
++
++    #[test]
++    fn completed_empty_capture_is_not_missing() {
++        assert_eq!(origin_status(Some((true, 0, 0))), OriginCaptureStatus::CompleteEmpty);
++    }
++
++    #[test]
++    fn completed_capture_without_matching_local_is_explicit() {
++        assert_eq!(origin_status(Some((true, 2, 0))),
++            OriginCaptureStatus::CompleteWithoutLocalMatch { observations: 2 });
++    }
++
++    #[test]
++    fn matching_observations_do_not_establish_a_unique_occurrence() {
++        assert_eq!(origin_status(Some((true, 2, 2))),
++            OriginCaptureStatus::CompleteWithLocalMatches { observations: 2, matches: 2 });
++    }
++}
++
++fn unestablished_drop_sites<'tcx>(def: LocalDefId, body: &Body<'tcx>)
++    -> Vec<UnestablishedDropSite>
++{
++    let bindings = checked_drop_origins::get(def);
++    let temporaries = checked_drop_origins::get_temporaries(def);
++    let mut captured = Vec::new();
++    for (block, data) in body.basic_blocks.iter_enumerated() {
++        let TerminatorKind::Drop { place, target, unwind, replace, drop } = &data.terminator().kind else {
++            continue;
++        };
++        if bindings.as_ref().is_some_and(|origins| origins.iter().any(|(_, local)| *local == place.local)) {
++            continue;
++        }
++        let builder_origins = temporaries.as_ref().map(|capture| capture.origins.iter()
++            .filter(|origin| origin.local == place.local).cloned().collect::<Vec<_>>());
++        captured.push(UnestablishedDropSite {
++            block: block.as_usize(),
++            cleanup: data.is_cleanup,
++            native_phase: checked_drop_origins::native(),
++            mir_phase: format!("{:?}", body.phase),
++            local: place.local.as_usize(),
++            place: format!("{place:?}"),
++            projections: place.projection.iter().map(|projection| format!("{projection:?}")).collect(),
++            root_type: format!("{:?}", body.local_decls[place.local].ty),
++            binder_status: origin_status(bindings.as_ref().map(|origins|
++                (true, origins.len(), origins.iter().filter(|(_, local)| *local == place.local).count()))),
++            temporary_status: origin_status(temporaries.as_ref().map(|capture|
++                (capture.complete, capture.origins.len(), builder_origins.as_ref().map_or(0, |origins| origins.len())))),
++            builder_origins: builder_origins.unwrap_or_default(),
++            destructor_identity_status: "NOT_QUERIED_UNESTABLISHED_RESOURCE_EFFECTS",
++            drop_glue_identity_status: "NOT_QUERIED_NO_RESOLVED_INSTANCE_OR_SHIM_IDENTITY",
++            normal_target: target.as_usize(),
++            replace_assignment_origin: *replace,
++            async_cancellation_cleanup_target: drop.map(|target| target.as_usize()),
++            unwind_action: format!("{unwind:?}"),
++            unwind_cleanup_target: match unwind {
++                mir::UnwindAction::Cleanup(target) => Some(target.as_usize()),
++                _ => None,
++            },
++        });
++    }
++    captured
+ }
+ 
+ #[derive(Default)]
+@@ -412,14 +531,20 @@
+     if !enabled() {
+         return;
+     }
+-    let normalized = normalize(tcx, body);
++    let unestablished_drop_sites = unestablished_drop_sites(def, body);
++    let normalized = if unestablished_drop_sites.is_empty() {
++        normalize(tcx, body)
++    } else {
++        Err(format!("destruction site captured but declined: binding/temporary provenance, native resource, field glue and successor effects are not established: {unestablished_drop_sites:?}"))
++    };
+     let capture = match normalized {
+         Ok((program, locals)) => Capture {
+             program: Ok(program),
++            unestablished_drop_sites,
+             origins: checked_drop_origins::get(def).unwrap_or_default().into_iter()
+                 .filter_map(|(hir, local)| locals.get(&local).map(|index| (hir, *index))).collect(),
+         },
+-        Err(error) => Capture { program: Err(error), origins: HashMap::new() },
++        Err(error) => Capture { program: Err(error), origins: HashMap::new(), unestablished_drop_sites },
+     };
+     STATE.lock().unwrap().as_mut().unwrap().captures.insert(identity(tcx, def.to_def_id()), capture);
+ }

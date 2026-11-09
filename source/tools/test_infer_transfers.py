@@ -255,7 +255,8 @@ class SuiteTests(unittest.TestCase):
                 solver = root / "z3"
                 verifier.write_text("verifier")
                 solver.write_text("solver")
-                args = argparse.Namespace(output=root / "output", scenario=None, verus=verifier,
+                original_scenarios = ["fedimint", "redb", "redb_page_size", "redb_address_range"]
+                args = argparse.Namespace(output=root / "output", scenario=original_scenarios, verus=verifier,
                                           solver=solver, fedimint=root / "fedimint", redb=root / "redb",
                                           timeout=1, scenario_timeout=2)
                 attempts = []
@@ -304,7 +305,7 @@ class SuiteTests(unittest.TestCase):
                             transfers.run_suite(args)
                         output = next(args.output.iterdir())
                 receipt = json.loads((output / "receipt.json").read_text())
-                self.assertEqual(attempts, list(transfers.SCENARIOS))
+                self.assertEqual(attempts, original_scenarios)
                 self.assertEqual(receipt["success"], first_outcome == "proved")
                 self.assertEqual(receipt["application_proofs_proved"], first_outcome == "proved")
                 self.assertEqual(receipt["scenarios"][1]["status"], "proved")

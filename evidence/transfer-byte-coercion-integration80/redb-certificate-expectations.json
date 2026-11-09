@@ -1,0 +1,29 @@
+{
+  "producer": "0.2026.11.01.3b05c19.dirty:1.99.1-aarch64-apple-darwin (overridden by '/Users/tommyvolk/.t3/worktrees/verus/t3-b56fdfe3/rust-toolchain.toml'):3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "proofs": [
+    [
+      {
+        "path": {
+          "krate": {
+            "Id": [
+              "provider",
+              17333577649204380365
+            ]
+          },
+          "segments": [
+            "impl&%8",
+            "eq"
+          ]
+        }
+      },
+      {
+        "exactness": true,
+        "maximality": true,
+        "soundness": true
+      }
+    ]
+  ],
+  "summaries_note": "Path-sensitive producer output: bound by the exact artifact hash and fresh successful import, not a golden across scratch roots",
+  "trusted_model_fingerprints": 381,
+  "trusted_models_sha256": "0e5a381fa4e1ef178b7729da4e7cbab1f3c827e91ba34b4a91d5cf8530d16f8f"
+}

@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-08T18:48:34.776653+00:00",
+  "source_root": "/private/tmp/verus-source-only-review130-20261108-qyL0Cg",
+  "manifest": "SEAL.sha256",
+  "manifest_sha256": "248682a0a18630fd12781eaa3b116a7184cfee5c2ce20f4aef50e0be475ca1ad",
+  "supplied_manifest_pin": null,
+  "manifest_authentication": "current_observation_only",
+  "archive": "PINNED-ARC130-SOURCE-REVIEW.tar.gz",
+  "archive_bytes": 13585,
+  "archive_sha256": "6c9f63b703ffa19c66d19caea15eb5de72b656894de6c1932c40fe45903116b7",
+  "members": 4,
+  "readback_matches": 4,
+  "disposition": "SOURCE_ONLY_NORMAL_TRANSITIONS_QUALIFIED_TOTALITY_AND_TERMINAL_CLOSURE_OPEN",
+  "authentication_scope": "listed_payloads_currently_observed_not_historical_custody",
+  "all18": "OPEN",
+  "native_proof_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "source_integrated": false,
+  "mapping_approved": false
+}

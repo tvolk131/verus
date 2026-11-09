@@ -1,0 +1,29 @@
+{
+  "producer": "0.2026.11.01.3b05c19.dirty:1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN):3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "trusted_model_fingerprints": 377,
+  "trusted_models_sha256": "676ba31b43183dac21a4863e549c53b2daae45d5cd041b1c889ee322105b0246",
+  "proofs": [
+    [
+      {
+        "path": {
+          "krate": {
+            "Id": [
+              "provider",
+              17333577649204380365
+            ]
+          },
+          "segments": [
+            "impl&%8",
+            "eq"
+          ]
+        }
+      },
+      {
+        "soundness": true,
+        "maximality": true,
+        "exactness": true
+      }
+    ]
+  ],
+  "summaries_note": "Path-sensitive producer output: bound by the exact artifact hash and fresh successful import, not a golden across scratch roots"
+}

@@ -1,0 +1,22 @@
+{
+  "acceptance": false,
+  "all18": "OPEN",
+  "errors": 0,
+  "manifest": {
+    "bytes": 3691,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined-retained/MANIFEST.json",
+    "sha256": "2e32a972ecb8d0d64da00654b4117df85261af2450f2e63f84ba04f173d1c2c1"
+  },
+  "results": {
+    "bytes": 6141,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined-retained/RESULTS.json",
+    "sha256": "7c549204907f3f47acc618413315938907ada0be59b7568716707f4444c54915"
+  },
+  "schema": "redb111-parent-combined-handoff-v1",
+  "source": {
+    "bytes": 3602,
+    "path": "/private/tmp/redb-header-recovery111-20261108T051418Z/combined-retained/combined111.rs",
+    "sha256": "d590effe76335c59044da26cdd51486e0aa87e1dd175eff2f88a9fc8de58c673"
+  },
+  "verified": 80
+}

@@ -1,0 +1,129 @@
+{
+  "utc": "2026-11-09T03:21:33.439052+00:00",
+  "scope": "Post-discovery current endpoint authentication and text-only staging, not execution or continuous custody",
+  "initial_discovery_and_source_reads_preceded_full_parent_authentication": true,
+  "artifacts": [
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/g3_scalar171.rs",
+      "bytes": 9757,
+      "sha256": "b40a1fd8b4c4601bbd79558418fb67a5d2b92efac75f70a0c6af776e74a8281b"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/consumer156.patch",
+      "bytes": 2807,
+      "sha256": "4ac3e2ab9af2a3337a7e4a0c4f6f79a14b16f8a355c9c0bf9ccf393e6671f0c1"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/g3_cases171.rs",
+      "bytes": 5383,
+      "sha256": "b11250a3911c2091b4b0bd8d43fdb113167c8daa93f847f9e306f3251897fc54"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/README171.md",
+      "bytes": 14491,
+      "sha256": "5e8128d22490b4d6bca8f57c72e4edca66b4804aceece2c41dbf3427579e3014"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/manifest171.json",
+      "bytes": 8181,
+      "sha256": "8600cfb4f7f5f625a1deae19dfc3448bfe96ff4adf4e45e426c56116e69a7f0e"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/accounting171.json",
+      "bytes": 1064,
+      "sha256": "0358cf6b64834ec5037ca18366ffed51ca171969173cf1cc9a1ce090f0f894e3"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/SEAL_FAILURE171.txt",
+      "bytes": 489,
+      "sha256": "ef6d51518bef6c97be17f979baef51179cacb7fdfe996cec3f623919ac045bbf"
+    },
+    {
+      "path": "/private/tmp/redb-g3-scalar171-20261108-dtCiyX/redb-g3-scalar171-20261108-dtCiyX.tar",
+      "bytes": 51200,
+      "sha256": "71d2bf2fd4329518dd846ee1b5e15e33f89006f34a075398c1c948a1189c7330"
+    }
+  ],
+  "archive_unique_regular_byte_matches": 7,
+  "inputs": [
+    {
+      "path": "/private/tmp/redb-allocation156-20261108-230238/proof/restored-cut.rs",
+      "bytes": 7724,
+      "sha256": "013748d956cbc3654815b82caf64d70e4848dc5241584d511f8d0fd391af4e63",
+      "matched": true
+    },
+    {
+      "path": "/private/tmp/redb-allocation156-20261108-230238/proof/restored-cut.binding.json",
+      "bytes": 257304,
+      "sha256": "5a2d1f3f9bab0723035e13bd285acdfbf6f4daa4097c1f110293b0c0683be232",
+      "matched": true
+    },
+    {
+      "path": "/private/tmp/redb-allocation156-20261108-230238/BRIDGE156.md",
+      "bytes": 5283,
+      "sha256": "08eb8e710c8a312582d3b064333f1428f7f93e6aa9d18247478ce18e949ff893",
+      "matched": true
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/alloc/src/sync.rs",
+      "bytes": 179132,
+      "sha256": "b2f806b0f696a181018072625dceed25304aa97dfef6a79bac9800d529afdd0e",
+      "matched": true
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/alloc/layout.rs",
+      "bytes": 28427,
+      "sha256": "f6011e23c99a46ebf8bfed5142b1d2185284889e13ac5188b9772319b8c02c3c",
+      "matched": true
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/tree_store/page_store/cached_file.rs",
+      "bytes": 56801,
+      "sha256": "cb901d44531b23f87d1bd31f72a24f1dc69308b5417db2167b7508921ffda486",
+      "matched": true
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/layout.rs",
+      "bytes": 15816,
+      "sha256": "5f4e11bc6b6342d81696fc13e73117e7b0e3fef79a1e6d44a037955553a1e273",
+      "matched": true
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/arithmetic/div_mod.rs",
+      "bytes": 51086,
+      "sha256": "8f061edfcf84e8f6aa6cf4a3184f00add6fce4939d5477524f0bde9a9cf39f4b",
+      "matched": true
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/arithmetic/power2.rs",
+      "bytes": 9689,
+      "sha256": "5cd80489ce538a59a9bb2d7ea8fd493450576d65eabef0255e99d3d5fef91fbd",
+      "matched": true
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/bits.rs",
+      "bytes": 18868,
+      "sha256": "26e3203a9ff20ca4f4862c2fecd1a914963c60c0981a637f15f38e5b2e920a48",
+      "matched": true
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/arithmetic/mul.rs",
+      "bytes": 15541,
+      "sha256": "5e70abd01449b207f358ec69e6f83760ccfc2fa32aa08d32ca168db53ec5ca04",
+      "matched": true
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/AGENTS.md",
+      "bytes": 4620,
+      "sha256": "e3f741c483261f4dd66b7f882a496cc7ba2486891b2e558ff6a7dd14b5b70a06",
+      "matched": true
+    }
+  ],
+  "patch_hunks": 5,
+  "consumer_sha256": "a43fae6ae6b29a12041dd102600f47affb1f037ae56c99b399442f124b3f4876",
+  "errors": [],
+  "compiler_slot_acquired": false,
+  "compiler_verifier_solver_native_runs": 0,
+  "operative_or_native_credit": 0,
+  "all18": "OPEN"
+}

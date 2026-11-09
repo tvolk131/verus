@@ -1,0 +1,283 @@
+{
+  "consumer": {
+    "checked_exec_bodies": 1,
+    "checked_proof_bodies": 1,
+    "items": [
+      {
+        "automatically_derived": false,
+        "body_sha256": "193d6b6eb8b9816e3b3433f8ed28a0395667e9c0ba18a17278157f5ce110e8dc",
+        "body_status": "checked_proof_body",
+        "function": "insert_consumer80a::imported_peer_frame",
+        "inference_candidate": false,
+        "item_sha256": "8c6293a960f99fa15fc73cfd49b5c8f4a3c5d27807eb15f2a53a0b68ddd78fcb",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "imported_peer_frame",
+        "selected": true,
+        "source": "{source}:12:1: 15:2"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "9a411572751c568381b2b280afb22e2736565b20adb1ce919a4c0572c0b78d3b",
+        "body_status": "checked_exec_body",
+        "function": "insert_consumer80a::imported_preparation",
+        "inference_candidate": false,
+        "item_sha256": "b886310a6d36b04a1a3a515e8b6793cf86ff98db7e63e032531aa1e8e2e0fbc8",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "imported_preparation",
+        "selected": true,
+        "source": "{source}:4:1: 4:92"
+      }
+    ],
+    "source_sha256": "e5c906371dae7fe374cc3f2bc27a48af4320c9efd0b52e5fdb2759ca379f0157",
+    "verified_obligations": 2
+  },
+  "inferred_contracts": [
+    {
+      "contract": {
+        "ensures": "((result)@ == vstd::seq::Seq::add(((self)->PrefixDatabaseTransaction_prefix)@, (key)@))",
+        "requires": "true"
+      },
+      "function": "insert_link80a::PrefixDatabaseTransaction::get_full_key",
+      "proofs": {
+        "exactness": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        },
+        "maximality": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        },
+        "soundness": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        }
+      }
+    },
+    {
+      "contract": {
+        "ensures": "((result)@ == vstd::seq::Seq::add((prefix)@, (key)@))",
+        "requires": "true"
+      },
+      "function": "insert_link80a::key_contents",
+      "proofs": {
+        "exactness": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        },
+        "maximality": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        },
+        "soundness": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        }
+      }
+    }
+  ],
+  "native_async_executed_method_items": 1,
+  "native_async_verified_bodies": 0,
+  "native_harness_rust_tests": 6,
+  "native_harness_scenarios": 127,
+  "new_assumed_application_contracts": 0,
+  "new_inferred_capabilities": 0,
+  "provider": {
+    "checked_exec_bodies": 3,
+    "checked_proof_bodies": 5,
+    "items": [
+      {
+        "automatically_derived": false,
+        "body_sha256": "83ae7b53a60df5ab339cc91cd12539c8bceb91877ba0bd6613e05ac0077bb704",
+        "body_status": "checked_exec_body",
+        "function": "insert_link80a::PrefixDatabaseTransaction::get_full_key",
+        "inference_candidate": true,
+        "item_sha256": "0a740f853251c1c3f2132278ed9ea40440f3ecb81e3f54a3f9db6405764593b3",
+        "ordinary_contract": false,
+        "provenance": "original native generic method; pre-existing inference",
+        "rust_function": "PrefixDatabaseTransaction::<Inner>::get_full_key",
+        "selected": true,
+        "source": "{source}:11:5: 11:50"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "4602be1674249462bb212afa6b56f29ce9aaca95feb9ad97a22a85d9ed592846",
+        "body_status": "specification_definition_or_declaration",
+        "function": "insert_link80a::backend_insert",
+        "inference_candidate": false,
+        "item_sha256": "0c0ecdf1419511869769164b678de28e74efa7a79d2d9a98bb479768f5d11653",
+        "ordinary_contract": false,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "backend_insert",
+        "selected": true,
+        "source": "{source}:40:1: 43:10"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "86ff0da3241d154d71b95f85387edb4e3a1d9c35ddd6ce7837c311fc4dd52c0e",
+        "body_status": "specification_definition_or_declaration",
+        "function": "insert_link80a::incomparable",
+        "inference_candidate": false,
+        "item_sha256": "f44b34e53bfb896b55e9632190fb8194ad4d8c468374137f344eb21f352e2060",
+        "ordinary_contract": false,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "incomparable",
+        "selected": true,
+        "source": "{source}:32:1: 32:69"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "b0d8636106926a23ccb3dfa09e08a67adbc86dcf56b0842bb47d0df31b02535a",
+        "body_status": "checked_proof_body",
+        "function": "insert_link80a::incomparable_target",
+        "inference_candidate": false,
+        "item_sha256": "77c0cd7beb8936e9f0290ad0f6b824b9177fa2b5981020030e427791acc3484a",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "incomparable_target",
+        "selected": true,
+        "source": "{source}:74:1: 74:79"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "871ee0f9e0b0fbd152ad946ff2e50a86a71b50f40983449ad7c2426119455d09",
+        "body_status": "specification_definition_or_declaration",
+        "function": "insert_link80a::inside_frame",
+        "inference_candidate": false,
+        "item_sha256": "2e9c3e25075e3a10d7b11133841f2a92e2fe0884b9bb9a22156636e190e68076",
+        "ordinary_contract": false,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "inside_frame",
+        "selected": true,
+        "source": "{source}:53:1: 55:10"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "1338a14bff69f600091fca41fe2baf070e00d493f07163282149a9f5fd7fe225",
+        "body_status": "specification_definition_or_declaration",
+        "function": "insert_link80a::is_prefix",
+        "inference_candidate": false,
+        "item_sha256": "de5549f4e987a77858886bb1f96d290199086d0dd177bcd87b856089ec1098ee",
+        "ordinary_contract": false,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "is_prefix",
+        "selected": true,
+        "source": "{source}:27:1: 27:66"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "c49df8f29a8804640ce7a3e12f22e4b55e8b357bffb7fea670df4fca3b59ae81",
+        "body_status": "checked_exec_body",
+        "function": "insert_link80a::key_contents",
+        "inference_candidate": true,
+        "item_sha256": "a622702981da47a7ad96c9dc55987846cd647bd88f8868d367aae5c168927e92",
+        "ordinary_contract": false,
+        "provenance": "auxiliary inferred wrapper; pre-existing capability",
+        "rust_function": "key_contents",
+        "selected": true,
+        "source": "{source}:19:1: 19:61"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "de3b4a569fd8cd821b71110bae74bd1f3afc1789e7e0530e9077120904aff34b",
+        "body_status": "specification_definition_or_declaration",
+        "function": "insert_link80a::lookup",
+        "inference_candidate": false,
+        "item_sha256": "2792a49eb4773d49182d82fb61cd5b7d4a1c2214cab30c44a42f11439eb74320",
+        "ordinary_contract": false,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "lookup",
+        "selected": true,
+        "source": "{source}:36:1: 36:87"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "dc30380594b38a0e92a7881ad14b89cecb9c4c7b07752d8746981be3a52cdb49",
+        "body_status": "specification_definition_or_declaration",
+        "function": "insert_link80a::outside_frame",
+        "inference_candidate": false,
+        "item_sha256": "4fd8334597b3b7a45193fb7389de4d9d88ff801579dec33593c113822461b453",
+        "ordinary_contract": false,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "outside_frame",
+        "selected": true,
+        "source": "{source}:47:1: 49:10"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "541a06d5664ea2449c184b09d82dd96849c87f17208d3b9acad6cab5b0edd36b",
+        "body_status": "checked_proof_body",
+        "function": "insert_link80a::overlapping_namespace_witness",
+        "inference_candidate": false,
+        "item_sha256": "83697ab8106b04741f85e3e664ae813d87679e2e4506f6ec52af43e79ee639a1",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "overlapping_namespace_witness",
+        "selected": true,
+        "source": "{source}:119:1: 119:45"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "bd6242ab9562fe28fe78b2b6dba92a0652de25d784ac2b5b65cef720cc3a77c9",
+        "body_status": "checked_proof_body",
+        "function": "insert_link80a::peer_insert_frame",
+        "inference_candidate": false,
+        "item_sha256": "4f4ef10e0fd56ad2dd1ae2257f602d399ad597ef2567aa00fa26aff3351c0b4e",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "peer_insert_frame",
+        "selected": true,
+        "source": "{source}:93:1: 96:2"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "60dcb16e9f5f47c76227eadca6ac8a45c0719f6960f3bbd4885e409ff5448292",
+        "body_status": "checked_exec_body",
+        "function": "insert_link80a::prepare_insert",
+        "inference_candidate": false,
+        "item_sha256": "5416e972d4ab6fae0b535c22a81a4d28c10330f06c8bea5e614ff4e41b53138f",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "prepare_insert",
+        "selected": true,
+        "source": "{source}:104:1: 104:86"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "12c1054dce7bd77596e85f7fd70d7d78380566be0b2427ea5f8ba5a720c0e7f0",
+        "body_status": "checked_proof_body",
+        "function": "insert_link80a::prepared_insert_frame",
+        "inference_candidate": false,
+        "item_sha256": "709852b73230a2fd09d669b82bc89ad70b75cf79bf8fdf380a0447c369098680",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "prepared_insert_frame",
+        "selected": true,
+        "source": "{source}:59:1: 62:2"
+      },
+      {
+        "automatically_derived": false,
+        "body_sha256": "71e01fb92defb6be3b4b7b907cafe3f5d4b98ef4de7dba1b3325d99b6bc953cf",
+        "body_status": "checked_proof_body",
+        "function": "insert_link80a::unframed_backend_witness",
+        "inference_candidate": false,
+        "item_sha256": "55430344c6c42f547ab1270554e7c04691f147d2cb826bf65ec443556af9cd93",
+        "ordinary_contract": true,
+        "provenance": "authored conditional goal/definition",
+        "rust_function": "unframed_backend_witness",
+        "selected": true,
+        "source": "{source}:129:1: 129:40"
+      }
+    ],
+    "source_sha256": "a17563503e480a93ab370ecd5ef5b0c76a3d0506f649ca474d2eb3204d013549",
+    "verified_obligations": 12
+  },
+  "standard_models_reported": 380
+}

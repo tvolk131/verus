@@ -375,6 +375,9 @@ For a Cargo project, follow [Cargo setup](cargo_verus.md) using the matching for
 tools and dependencies. Keep both native build/tests and full verification in
 your development workflow. Inferred and assisted interfaces require complete
 verification before certification; partial/unchecked runs do not certify them.
+Requested native compilation and erasure checks must also succeed before an
+inferred, imported-inference-dependent or goal-assisted interface is written.
+Successful helper proofs do not certify a run that fails in a later native pass.
 
 Inspect the process exit status and the structured report. Check crate success,
 the inferred domain, each function's required proof results, and interface export
@@ -396,7 +399,81 @@ codec interfaces, lock adaptation and quorum correction are documented explicitl
 They are selected source-connected experiments, not verification of the whole
 crate or consensus protocol.
 
+## Source-connected page and request milestones
+
+The [shared external-transfer frontdoor](https://github.com/tvolk131/verus/blob/verus-infer/source/tools/INFER_TRANSFERS.md)
+registers six selected source-connected slices. The pinned redb page-relations
+slice keeps the original `PageNumber`, `page_size_bytes`, `address_range`,
+`Range<u64>` and active `debug_assert!`. Common region/order/configuration and
+positive page size imply strict/injective starts and ordered endpoint nonoverlap
+over the full checked domain, not an order-at-most-20 restriction. Zero-size
+equal starts and mixed-order overlaps are separately verified boundaries, not
+an allocator-state or whole-database theorem.
+
+The additional dedicated `check_redb_access_prefix.py` replay is not yet a seventh
+registered common-frontdoor/CI scenario. It retains the original `.into()` and
+`.try_into().unwrap()` syntax and proves range/length consistency under the exact
+arithmetic and `usize` representability conditions, without an order-20 shortcut.
+It projects three readonly configuration fields, appends a length return, and
+stops before `storage.read`; omitted checks, storage, locks and allocator state
+are not verified. Portable no-cheating/native proofs and supplementary configured
+32/64-bit proofs are reported separately; the latter are not native 32-bit runs.
+
+With `--infer-goals`, degree-three/four pure unsigned polynomial proposals use
+the existing NIA checker. Shift facts are independently checked by BV with empty
+requires, and the complete conditional NIA theorem has an assertion-only body
+without copied caller proof context. Checked facts and installed facts coincide;
+caller conditions appear as explicit premises, under ordinary backend type
+invariants and global declarations/fuel. This is not a theorem over unrestricted
+integers. Degree-two packing/page-size proposals retain BV. Original calls,
+arithmetic/debug checks, authored goals, exactness checks and publication barriers
+remain. A failed polynomial auxiliary theorem is not an authored semantic
+counterexample, even when its coarse status is `caller_proof_failed`.
+Unsupported shapes and work exhaustion supply no facts. Existing bounds remain
+eight requests, 8,192 expression nodes, depth 64, 8,192 statement visits and
+131,072 shared work; a polynomial request has at most four BV shift checks and
+one NIA check, and accepted premises have degree at most four. These are work
+bounds, not wall-clock guarantees.
+
+The pinned `fedimint-full-request` slice preserves all seven request fields and
+both complete helper items. It omits adjacent derives, adds attributes outside
+methods, wraps the items in `verus!` and explicitly declares opaque external-type
+identity correspondence for real pinned `bitcoin_hashes::sha256::Hash`. This
+audited boundary transports an unused immutable field in an exact shared-borrowed
+readonly record; it asserts no hash, byte, layout, constructor, trait or invariant
+laws. Reads, aliases, mutable/by-value observations, traits and invariant-bearing
+shapes remain rejected. The authored deadline policy, coverage, boundary,
+monotonicity and independence from unread fields prove over the native
+scalar/Option domain. Providers regenerate/reprove cold and warm; import-only
+clients use checked exported equations. Guard deletion fails the original
+intercepted-forward postcondition, while arithmetic/panic safety and frontend or
+metadata rejection remain distinct evidence classes.
+
+The actual funding caller remains blocked at an async persistent contract
+lookup, followed by operation-state, RPC, federation and transaction effects.
+Its source trace is not a proof of amount/origin authenticity, fees, stateful
+fund safety, cryptography or whole-gateway correctness. Dependency fetching is
+explicit setup; proofs build the exact pinned native dependency offline in
+fresh evidence, without claiming full application feature equivalence.
+
 ## Ownership of the specification
+
+The composed byte-decoding/slot-selection and fee-validation targets in
+`evidence/two-project-mechanical-automation` make this division concrete.
+Infer supplies the supported native slice conversion, offset constants,
+checked record addition, nested Option propagation and shared comparison
+interfaces. Authors still choose the fee decision policy and component-bound
+theorem, or the relation between physical slots, transaction IDs and the returned
+clean flag. Native executable items remain unchanged. The redb target also
+contains three exact native contiguous blocks, not whole decoder/finalize
+methods; Fedimint uses an explicitly authored pure adapter for the real caller's
+validation order, not a proof of its surrounding async workflow.
+
+Those boundaries are part of the theorem, not boilerplate to hide. Neither
+composition establishes filesystem/RocksDB durability, recovery after a crash,
+transaction-wide framing, consensus safety or funds safety. Completion and
+independent review status belong to the frozen goal's requirement matrix, not
+to the mere existence of an extracted fixture or a successful helper report.
 
 Authors control abstraction choices, application requirements and the input
 domain clients must support. Library providers own reusable contracts and their

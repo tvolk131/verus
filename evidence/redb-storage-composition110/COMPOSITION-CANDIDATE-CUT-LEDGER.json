@@ -1,0 +1,66 @@
+{
+  "scope": "checked authored model-to-model product; not native adapter R",
+  "all18": "OPEN",
+  "cuts": [
+    {
+      "id": "M1",
+      "status": "CHECKED",
+      "claim": "Product.control equals the actual unchanged acknowledgement::run over signals generated from each preceding product state, for arbitrary finite Action sequences.",
+      "bodies": ["checked_run", "step_invariant"]
+    },
+    {
+      "id": "M2",
+      "status": "CHECKED_MODEL_ONLY",
+      "claim": "PC24/28 signal is exactly the complete unchanged storage::model_flush result.ok, including drain and sync. Every attempt retains before-image, pending stripes, decisions, sync outcome, persisted set and exact result.",
+      "bodies": ["flush_checked", "error_keeps_actual_complete_flush"],
+      "used_original_lemmas": ["storage::flush_refinement", "storage::check_stripes", "acknowledgement::public_ok_has_two_successful_barriers"],
+      "native_backend_crash_semantics": "OPEN"
+    },
+    {
+      "id": "M3",
+      "status": "CHECKED_AUTHORED_ADMISSION_NATIVE_OPEN",
+      "claim": "Successful PC23/27 appends a last stripe containing the complete corresponding independent symbolic 320-byte header at offset zero, preserving previous arbitrary pending stripes. Last-cover proof establishes every header byte after successful complete flush.",
+      "bodies": ["complete_header", "step_invariant"],
+      "used_original_lemmas": ["storage::stripes_reflect_last_cover"],
+      "native_cache_admission_and_serialization": "OPEN",
+      "missing_lifecycle_binding": "OPEN_NOT_INVESTIGATED"
+    },
+    {
+      "id": "M4",
+      "status": "CHECKED_EXPLICIT_FRAME_GATE_NATIVE_OPEN",
+      "claim": "Every nonflush action supplies an arbitrary image/pending effect function. A mismatch stops with B status9 and stores the rejected effect. No native callback frame is proved; the retained image on a mismatch is a pre-gate snapshot, not an assertion about post-callback physical state.",
+      "bodies": ["callback_mismatch_stops_open", "step_invariant"],
+      "native_callback_history_resources_abnormal_effects": "OPEN"
+    },
+    {
+      "id": "M5",
+      "status": "CHECKED_CONDITIONAL_HISTORY_AND_BYTES",
+      "claim": "Public Ok entails two ordered successful complete flush certificates, full first/second barrier-time byte evidence and drained final pending stripes. Current physical modeled image equality is conditional on every intervening frame gate passing; no native callback inertness is inferred.",
+      "bodies": ["public_ok_composes", "checked_run"],
+      "native_public_return_and_durable_history": "OPEN"
+    },
+    {
+      "id": "M6",
+      "status": "CHECKED_NONVACUOUS_SYMBOLIC_WITNESSES",
+      "claim": "Arbitrary valid images, finite valid pending stripes and independent complete headers reach actual B public Ok under successful decisions; an actual B PC35 Err after publication preserves both barrier history and modeled bytes. B old-secondary 1 differs from new-slot 3; neither old secondary nor first header is required to equal newly prepared/final header bytes.",
+      "bodies": ["success_signals", "nonvacuous_symbolic_success", "nonvacuous_post_publication_error"]
+    },
+    {
+      "id": "N1",
+      "status": "OPEN",
+      "claim": "Native objects, branches, geometry/ownership/resource admission, backend byte/crash laws, callbacks, concurrency, abnormal paths and complete native adapter R are not bound by this product. Equal events or bytes do not establish R. No producer/trust adoption or final-cell promotion."
+    },
+    {
+      "id": "N2",
+      "status": "OPEN_PARENT_OBSERVATION_NOT_NATIVE_PROOF",
+      "claim": "Parent reports non_durable_commit installs a newer in-memory secondary/root and calls write_barrier, not physical header admission or flush/sync. Product flushes only at PC24/28. No newer in-memory root is identified with the final durable image; the native epilogue and all other callback effects remain unbound. Native source was not newly inspected for this observation."
+    }
+  ],
+  "unchanged_global_status": {
+    "compiler_source_correspondence": "UNESTABLISHED",
+    "original_native_path_preservation": "FAILED",
+    "native_git_continuity": "UNAVAILABLE",
+    "all18": "OPEN",
+    "native_adapter_R": "OPEN"
+  }
+}

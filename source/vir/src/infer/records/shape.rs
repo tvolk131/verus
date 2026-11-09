@@ -78,7 +78,8 @@ fn canonical_range(typ: &Typ, datatype: &Datatype) -> bool {
     let definition = &datatype.x;
     models::path_is(path, CrateId::Core, &["ops", "range", "Range"])
         && arguments.len() == 1
-        && matches!(&*arguments[0], TypX::Int(IntRange::U(64)))
+        && (matches!(&*arguments[0], TypX::Int(IntRange::U(64)))
+            || byte_range_endpoint(&arguments[0]))
         && definition.proxy.as_ref().is_some_and(|proxy| {
             models::path_is(&proxy.x, CrateId::Vstd, &["std_specs", "range", "ExRange"])
         })
@@ -104,6 +105,17 @@ fn canonical_range(typ: &Typ, datatype: &Datatype) -> bool {
                         if parameter == &definition.typ_params[0].0)
             })
         })
+}
+
+fn byte_range_endpoint(typ: &Typ) -> bool {
+    let byte = |typ: &Typ| matches!(&**typ, TypX::Int(IntRange::U(8)));
+    if let Some(arguments) = collections::vec_args(typ) {
+        return byte(&arguments[0])
+            && matches!(&*arguments[1], TypX::Datatype(Dt::Path(path), types, impls)
+            if models::path_is(path, CrateId::Alloc, &["alloc", "Global"]) && types.is_empty() && impls.is_empty());
+    }
+    matches!(&**typ, TypX::Decorate(TypDecoration::Ref, None, inner)
+        if matches!(&**inner, TypX::Primitive(Primitive::Slice, types) if types.len() == 1 && byte(&types[0])))
 }
 /// A bounded value enum. Payload eligibility is checked recursively by value_type,
 /// so this descriptor never grants a heap/reference abstraction by itself.
@@ -289,6 +301,36 @@ pub(in crate::infer) fn opaque_value(t: &Typ, ds: &[Datatype], owner: &Option<Pa
             if crate::ast_util::is_visible_to_opt(vis,owner))
     })
 }
+
+/// An explicit external_type_specification + external_body correspondence may
+/// retain a monomorphic opaque identity in an unused readonly record field.
+/// This is not a representation model: neither value_type nor opaque_value is
+/// extended, and the interpreter rejects executable observations of this leaf.
+/// The frontend checks the proxy's actual Rust type and records its destructor;
+/// the declaration and complete datatype remain certificate/cache dependencies.
+pub(in crate::infer) fn unused_external_value(t: &Typ, ds: &[Datatype]) -> bool {
+    let TypX::Datatype(Dt::Path(path), args, _) = &**t else { return false };
+    ds.iter().any(|d| {
+        d.x.name == Dt::Path(path.clone())
+            && args.is_empty()
+            && d.x.typ_params.is_empty()
+            && d.x.typ_bounds.is_empty()
+            && d.x.mode == Mode::Exec
+            && matches!(d.x.transparency, DatatypeTransparency::Never)
+            && !d.x.destructor
+            && !d.x.ext_equal
+            && d.x.user_defined_invariant_fn.is_none()
+            && d.x.sized_constraint.is_none()
+            && d.x.visibility.restricted_to.is_none()
+            && d.x.variants.len() == 1
+            && d.x.variants[0].fields.is_empty()
+            && d.x.proxy.as_ref().is_some_and(|proxy| {
+                proxy.x != *path
+                    && matches!(proxy.x.krate, CrateId::Id(..))
+                    && d.x.owning_module.as_ref().is_some_and(|owner| owner.krate == proxy.x.krate)
+            })
+    })
+}
 pub(super) fn shape(
     f: &Function,
     datatypes: &[Datatype],
@@ -334,6 +376,19 @@ pub(super) fn shape(
         };
         if depth == 0 || out.len() >= 16 {
             return Err(bad());
+        }
+        if unused_external_value(t, ds) {
+            if !matches!(&*f.x.params[0].x.typ, TypX::Decorate(TypDecoration::Ref, None, _))
+                || path.is_empty()
+                || f.x.attrs.infer_allow_approx
+            {
+                return Err(unsupported(
+                    &f.span,
+                    "opaque external fields require an exact borrowed readonly record and must remain unused",
+                ));
+            }
+            out.push(Field { path, typ: t.clone(), element: None, view: None });
+            return Ok(());
         }
         if let Some(ts) = collections::vec_args(t) {
             // Readonly queries can retain a hidden first-party element as a

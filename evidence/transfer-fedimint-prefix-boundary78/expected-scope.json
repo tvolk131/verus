@@ -1,0 +1,32 @@
+{
+  "prefix_consumer": {
+    "checked_exec_bodies": 3,
+    "checked_proof_bodies": 0,
+    "functions": {
+      "imported_keys": "exec",
+      "imported_range": "exec",
+      "imported_separation": "exec"
+    },
+    "verified": 3
+  },
+  "prefix_provider": {
+    "checked_exec_bodies": 5,
+    "checked_proof_bodies": 5,
+    "functions": {
+      "PrefixDatabase::get_full_key": "exec",
+      "PrefixDatabaseTransaction::get_full_key": "exec",
+      "PrefixDatabaseTransaction::get_full_range": "exec",
+      "comparable_namespace_overlap": "proof",
+      "concatenation_has_prefix": "proof",
+      "disjoint_namespaces": "proof",
+      "equal_keys_comparable": "proof",
+      "is_prefix": "spec",
+      "prefix_incomparable": "spec",
+      "prefix_view": "spec",
+      "same_prefix_keys": "exec",
+      "separate_namespace_keys": "exec",
+      "suffix_cancellation": "proof"
+    },
+    "verified": 10
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "entry_utc": "2026-11-08T18:48:34.221073+00:00",
+  "exit_utc": "2026-11-08T18:48:34.787266+00:00",
+  "runtime_archive": {
+    "members": 236,
+    "sha256": "9b3a53d589b5b7b02cede0c6a15838e8c166289a51330a2d740d73d2e421d830",
+    "manifest_sha256": "4ee3238b3b88be7b0adf79216cba52ea17dab55e40f74fd828271a856b9c0404"
+  },
+  "arc_inputs": [
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-native-mir-campaign115/LOCAL-PINNED-LIBRARY128.json",
+      "sha256": "3b059411090302d0108c029c2923e59a6fbf33a030c27207e8a161520fece68b"
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/NATIVE-RESOURCE-CONTRACT-REVIEW.md",
+      "sha256": "de1f160eff7e32699a9117c2a1c1acea26a6a17623e665a345038d0717ed0f33"
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/NATIVE-RESOURCE-DESIGN-AMENDMENT.md",
+      "sha256": "9cb267013c6c687d5db5791d6a39af03ec66bc60541f41abdff746bf6f5849e5"
+    },
+    {
+      "path": "/private/tmp/verus-native-slice-primitive-proposal043-0ywdS3/PROPOSAL.md",
+      "sha256": "74b1e00d75c9a0963bef6690e7f0fd1e6f09eaa0b4d9f508bb212e7eec09e821"
+    },
+    {
+      "path": "/private/tmp/verus-native-slice-testprep042-I01FH1HU/RESOURCE-CONTRACT.md",
+      "sha256": "37b6b86b96845f95202599a91f0277cc6586700f0369b064f3003919205a6583"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1.tar.xz",
+      "sha256": "e485a88c45db546b73571df7bebfcb4454ba4fb552c492e25fc5b00eeb5bf22d"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/alloc/src/sync.rs",
+      "sha256": "b2f806b0f696a181018072625dceed25304aa97dfef6a79bac9800d529afdd0e"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/hash/mod.rs",
+      "sha256": "3670a47bcf646bbcc69e1f70131df6c0093f12b0602be614ac828266f19e2a1f"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/alloc/src/alloc.rs",
+      "sha256": "3949baaebc3310d1a88a097d3b31b02445bfcad74b196ea4f6ea776de368ab97"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/option.rs",
+      "sha256": "2dab92cdbec51b006307496b24cc757d7b2bc4056eff156d0fff445f66c1d2f5"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/mem/mod.rs",
+      "sha256": "b228dd0cf7c720240757e4c67cdf8a3c37d65cb46a198d9b92a559d6a6a98a78"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/slice/mod.rs",
+      "sha256": "8026ddec62fb732d01dc6fcb700fbf109aa5dd94d2391387db3202f405669d43"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/slice/index.rs",
+      "sha256": "8c2d4f2dd29808136d4a45878010f2edb7c64c3c197d564f86d034b33df4e8ec"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/sync/atomic.rs",
+      "sha256": "cec944d1305f81be719caf639e8dce2f8aaba9a3d7751cb48f2bbf22096e4d2e"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/panicking.rs",
+      "sha256": "081682fb78841132b5d7a44ccaecbfe0f3c03869ac59226751d8d9d3de9457a5"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/panicking.rs",
+      "sha256": "6df1452561cb85a8334a5c48fcfc2e60f58509ddc8f9d1bdc4d0862ba39cf4a7"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/ptr/mod.rs",
+      "sha256": "26ae83efd6c6a25ded03dcde647502f4a243c0d237a05e0316340b3d3625f8e2"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/ptr/non_null.rs",
+      "sha256": "e113a530bc193a2092d58bf954df9dc6d5050327a1f2e5c8afde8affb75cb8d2"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/alloc/src/rc.rs",
+      "sha256": "34317c854ee831c21877200c5e234b829a3560ae5ff6caa9bb7ddc45d2214791"
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/std_specs/atomic.rs",
+      "sha256": "146999c62edcd4c9fa032445492408605fe57b6f6dfd2279434e7c44b046d2b5"
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/std_specs/smart_ptrs.rs",
+      "sha256": "d0a510399b7334ec6f62aa5a007fb91dd2c43f5c38b6b0f9a713f39f2c3fa547"
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/std_specs/slice.rs",
+      "sha256": "55d58a124105edb29507ca9d397aafa34cb243d6d79a50ac0339af5d3a24e8a4"
+    },
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/vstd/std_specs/option.rs",
+      "sha256": "d5c9275fa3cb63aeeeb0a84d5257c539cd8df6bcb53e39089783aea802283b33"
+    }
+  ],
+  "mutex_atomic_inputs": [
+    {
+      "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-native-mir-campaign115/LOCAL-PINNED-LIBRARY128.json",
+      "sha256": "3b059411090302d0108c029c2923e59a6fbf33a030c27207e8a161520fece68b"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1.tar.xz",
+      "sha256": "e485a88c45db546b73571df7bebfcb4454ba4fb552c492e25fc5b00eeb5bf22d"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/tree_store/page_store/cached_file.rs",
+      "sha256": "cb901d44531b23f87d1bd31f72a24f1dc69308b5417db2167b7508921ffda486"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/sync.rs",
+      "sha256": "933159b9b6b93500df1d517f961fe8c07c3fc07ed54aa2527a0f95a4ffea5016"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/db.rs",
+      "sha256": "65c3107446039a3dacba03dae0b2a21c88109562ba81d7cadda0a8ea8c7a6169"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sync/poison/mutex.rs",
+      "sha256": "5e45f2804aaee6b2dd24af91b471757cd15010058b03b39b4cbba90809e3fb8c"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sync/poison.rs",
+      "sha256": "4a66d88019ac53f7930459910b803f7195c02a1e05df147d4da51bdb8d4ca2b2"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sys/sync/mutex/mod.rs",
+      "sha256": "db759f97076823e18c8174a7a98a183f4068667c681230761606b756aa630a78"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sys/sync/mutex/pthread.rs",
+      "sha256": "1aa80435780abe34a365179635e92fb5935894fb9b4f615eb45b336958c28035"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sys/pal/unix/sync/mutex.rs",
+      "sha256": "ce966ba5ed9833cbbea00c32b9a538e1a1ae86d46c17b161c34103dafdc0b156"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/sync/atomic.rs",
+      "sha256": "cec944d1305f81be719caf639e8dce2f8aaba9a3d7751cb48f2bbf22096e4d2e"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs",
+      "sha256": "4e5636408e09e41733b37bb5d9fa2f1c6a12ff60cb46099bc8d04284af427289"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/core/src/result.rs",
+      "sha256": "b7a1da21e96c0fbb74af31dfcf4904c8f74a974733aa62a69b0ae41c2107a196"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sys/pal/mod.rs",
+      "sha256": "251dee50eff49b81ae5283ffd9871635dc63c316e0156a0f6f69672657ddbec3"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sys/pal/unix/mod.rs",
+      "sha256": "6c706c9a79d6a6ca3870a605800d7a74ba98cf41764c12cd4538a37812bba6aa"
+    },
+    {
+      "path": "/private/tmp/verus-pinned-rust-source-20261107-9FT58F/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library/std/src/sys/pal/unix/sync/mod.rs",
+      "sha256": "2ca4f192847d5205bd07b6795f42d22ebe95c05110ac94ee1de40abd31406c36"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/std_specs/atomic.rs",
+      "sha256": "146999c62edcd4c9fa032445492408605fe57b6f6dfd2279434e7c44b046d2b5"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/std_specs/mod.rs",
+      "sha256": "9ba349c21947e9309aed99d8de20017219df95bcf44a6f48757417236628120a"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/std_specs/result.rs",
+      "sha256": "c0d32562ba5b25d9d7a1d5425e9b0ef848c1ab800e1ebba47737d89868b456ff"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/atomic.rs",
+      "sha256": "218c3aea79efd986faa9984458cbdd45a699c788d8cab462b09b5accd3eba7ea"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/atomic_ghost.rs",
+      "sha256": "11175cf002e2705e54b527f107f3e993db129d248502d9bc3dce3ee562212c89"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/rwlock.rs",
+      "sha256": "c446b95579438647f328324a9a4ab6d6081be1d09f8152b2edbed68ebc602493"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/thread.rs",
+      "sha256": "7735376abf8a7c09cb3f8adc7be6763519d2bceed3bafd84df1de1c205bd30f5"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/resource/mod.rs",
+      "sha256": "b01248633eca91747849fd0d83bedec011d1771f6199d6fa98a87c3611d5b514"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/resource/storage_protocol.rs",
+      "sha256": "0d8486deb1748f5cbfe5908026245c1b6a48e52fa4326d4632e31df683303d60"
+    },
+    {
+      "path": "/private/tmp/redb-compiler-validation114-worker-20261108T151020Z/snapshot/source/vstd/invariant.rs",
+      "sha256": "c2287017433f259de1e870833d330d7a31f6ed73c3f321e72aa9c14b70f6d501"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/tree_store/page_store/file_backend/mod.rs",
+      "sha256": "bb7a2e1ac88d3c2cbf9045266c7122ce7768dea456aa2ceeb89d39d097daf441"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/tree_store/page_store/file_backend/optimized.rs",
+      "sha256": "c1b8ad3c235be3d778f54861f7e21c0f4b0c8114989172459c7ce7f7db18c182"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/tree_store/page_store/file_backend/fallback.rs",
+      "sha256": "95df75e618e6817b169b716248414fe90843706396755ded380a33411336d5a7"
+    },
+    {
+      "path": "/private/tmp/redb-original-crate-preflight115/redb/src/tree_store/page_store/file_backend/range_lock.rs",
+      "sha256": "e9ee9a0278eb37302ad9d1c22c0d0cee7f1fb7f9e04cfad5dec1a0a3516dd746"
+    }
+  ],
+  "script_sha256": "1e35b8f3ad5b22fe89a12704b692941c265ead2401fff8d53b0f658ff648caac",
+  "authentication_scope": "current_endpoint_equality_not_historical_custody",
+  "source_edits": false,
+  "law_adoption": false,
+  "native_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "proof_credit": 0,
+  "all18": "OPEN"
+}

@@ -1,0 +1,546 @@
+{
+  "cases": {
+    "native_ablated": {
+      "failed_functions": [
+        "native_ablated::U64GroupedBitmap::resize"
+      ],
+      "selected_identities": {
+        "U64GroupedBitmap::clear": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::clear",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:252:5: 252:38"
+        },
+        "U64GroupedBitmap::data_index_of": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::data_index_of",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:112:5: 112:58"
+        },
+        "U64GroupedBitmap::get": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::get",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:226:5: 226:49"
+        },
+        "U64GroupedBitmap::len": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::len",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:126:5: 126:38"
+        },
+        "U64GroupedBitmap::model_len": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::model_len",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:99:5: 99:47"
+        },
+        "U64GroupedBitmap::required_words": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::required_words",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:105:5: 105:55"
+        },
+        "U64GroupedBitmap::resize": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::resize",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:132:5: 132:55"
+        },
+        "U64GroupedBitmap::select_mask": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::select_mask",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:119:5: 119:47"
+        },
+        "U64GroupedBitmap::set": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::set",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:236:5: 236:53"
+        },
+        "U64GroupedBitmap::well_formed": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::well_formed",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:101:5: 101:50"
+        },
+        "U64GroupedBitmap::words": {
+          "automatically_derived": false,
+          "function": "native_ablated::U64GroupedBitmap::words",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:100:5: 100:48"
+        },
+        "access_word_update": {
+          "automatically_derived": false,
+          "function": "native_ablated::access_word_update",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:64:1: 64:71"
+        },
+        "bits_in_range": {
+          "automatically_derived": false,
+          "function": "native_ablated::bits_in_range",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:82:1: 82:51"
+        },
+        "default_word": {
+          "automatically_derived": false,
+          "function": "native_ablated::default_word",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:48:1: 48:62"
+        },
+        "live": {
+          "automatically_derived": false,
+          "function": "native_ablated::live",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:5:1: 5:58"
+        },
+        "mask_transition": {
+          "automatically_derived": false,
+          "function": "native_ablated::mask_transition",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:26:1: 26:84"
+        },
+        "resize_read": {
+          "automatically_derived": false,
+          "function": "native_ablated::resize_read",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:264:1: 265:38"
+        },
+        "resize_update": {
+          "automatically_derived": false,
+          "function": "native_ablated::resize_update",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:323:1: 324:44"
+        },
+        "resized": {
+          "automatically_derived": false,
+          "function": "native_ablated::resized",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:14:1: 14:108"
+        },
+        "set_get_clear": {
+          "automatically_derived": false,
+          "function": "native_ablated::set_get_clear",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:277:1: 277:95"
+        },
+        "shrink_regrow": {
+          "automatically_derived": false,
+          "function": "native_ablated::shrink_regrow",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:309:1: 310:38"
+        },
+        "word_count": {
+          "automatically_derived": false,
+          "function": "native_ablated::word_count",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:9:1: 9:61"
+        }
+      }
+    },
+    "native_manual": {
+      "failed_functions": [],
+      "selected_identities": {
+        "U64GroupedBitmap::clear": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::clear",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:255:5: 255:38"
+        },
+        "U64GroupedBitmap::data_index_of": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::data_index_of",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:112:5: 112:58"
+        },
+        "U64GroupedBitmap::get": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::get",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:229:5: 229:49"
+        },
+        "U64GroupedBitmap::len": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::len",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:126:5: 126:38"
+        },
+        "U64GroupedBitmap::model_len": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::model_len",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:99:5: 99:47"
+        },
+        "U64GroupedBitmap::required_words": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::required_words",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:105:5: 105:55"
+        },
+        "U64GroupedBitmap::resize": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::resize",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:132:5: 132:55"
+        },
+        "U64GroupedBitmap::select_mask": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::select_mask",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:119:5: 119:47"
+        },
+        "U64GroupedBitmap::set": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::set",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:239:5: 239:53"
+        },
+        "U64GroupedBitmap::well_formed": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::well_formed",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:101:5: 101:50"
+        },
+        "U64GroupedBitmap::words": {
+          "automatically_derived": false,
+          "function": "native_manual::U64GroupedBitmap::words",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:100:5: 100:48"
+        },
+        "access_word_update": {
+          "automatically_derived": false,
+          "function": "native_manual::access_word_update",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:64:1: 64:71"
+        },
+        "bits_in_range": {
+          "automatically_derived": false,
+          "function": "native_manual::bits_in_range",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:82:1: 82:51"
+        },
+        "default_word": {
+          "automatically_derived": false,
+          "function": "native_manual::default_word",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:48:1: 48:62"
+        },
+        "live": {
+          "automatically_derived": false,
+          "function": "native_manual::live",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:5:1: 5:58"
+        },
+        "mask_transition": {
+          "automatically_derived": false,
+          "function": "native_manual::mask_transition",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:26:1: 26:84"
+        },
+        "resize_read": {
+          "automatically_derived": false,
+          "function": "native_manual::resize_read",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:267:1: 268:38"
+        },
+        "resize_update": {
+          "automatically_derived": false,
+          "function": "native_manual::resize_update",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:326:1: 327:44"
+        },
+        "resized": {
+          "automatically_derived": false,
+          "function": "native_manual::resized",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:14:1: 14:108"
+        },
+        "set_get_clear": {
+          "automatically_derived": false,
+          "function": "native_manual::set_get_clear",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:280:1: 280:95"
+        },
+        "shrink_regrow": {
+          "automatically_derived": false,
+          "function": "native_manual::shrink_regrow",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:312:1: 313:38"
+        },
+        "word_count": {
+          "automatically_derived": false,
+          "function": "native_manual::word_count",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:9:1: 9:61"
+        }
+      }
+    },
+    "tree_ablated": {
+      "failed_functions": [
+        "tree_ablated::bitmap::BtreeBitmap::new"
+      ],
+      "selected_identities": {
+        "bitmap::BtreeBitmap::layers": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::BtreeBitmap::layers",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:53:5: 53:62"
+        },
+        "bitmap::BtreeBitmap::new": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::BtreeBitmap::new",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:55:5: 55:78"
+        },
+        "bitmap::U64GroupedBitmap::model_len": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::U64GroupedBitmap::model_len",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:12:5: 12:47"
+        },
+        "bitmap::U64GroupedBitmap::new_full": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::U64GroupedBitmap::new_full",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:22:5: 22:62"
+        },
+        "bitmap::U64GroupedBitmap::required_words": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::U64GroupedBitmap::required_words",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:15:5: 15:55"
+        },
+        "bitmap::U64GroupedBitmap::words": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::U64GroupedBitmap::words",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:13:5: 13:48"
+        },
+        "bitmap::expected_layer": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::expected_layer",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:47:1: 47:93"
+        },
+        "bitmap::layer": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::layer",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:43:1: 43:88"
+        },
+        "bitmap::reduced": {
+          "automatically_derived": false,
+          "function": "tree_ablated::bitmap::reduced",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:36:1: 36:59"
+        }
+      }
+    },
+    "tree_manual": {
+      "failed_functions": [],
+      "selected_identities": {
+        "bitmap::BtreeBitmap::layers": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::BtreeBitmap::layers",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:53:5: 53:62"
+        },
+        "bitmap::BtreeBitmap::new": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::BtreeBitmap::new",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:55:5: 55:78"
+        },
+        "bitmap::U64GroupedBitmap::model_len": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::U64GroupedBitmap::model_len",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:12:5: 12:47"
+        },
+        "bitmap::U64GroupedBitmap::new_full": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::U64GroupedBitmap::new_full",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:22:5: 22:62"
+        },
+        "bitmap::U64GroupedBitmap::required_words": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::U64GroupedBitmap::required_words",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "source": "{input}:15:5: 15:55"
+        },
+        "bitmap::U64GroupedBitmap::words": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::U64GroupedBitmap::words",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:13:5: 13:48"
+        },
+        "bitmap::expected_layer": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::expected_layer",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:47:1: 47:93"
+        },
+        "bitmap::layer": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::layer",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:43:1: 43:88"
+        },
+        "bitmap::reduced": {
+          "automatically_derived": false,
+          "function": "tree_manual::bitmap::reduced",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "source": "{input}:36:1: 36:59"
+        }
+      }
+    }
+  },
+  "native": {
+    "baseline_manual_verified": 22,
+    "baseline_reduced_errors": 1,
+    "baseline_reduced_verified": 21,
+    "checked_bodies": {
+      "U64GroupedBitmap::clear": "checked_exec_body",
+      "U64GroupedBitmap::data_index_of": "checked_exec_body",
+      "U64GroupedBitmap::get": "checked_exec_body",
+      "U64GroupedBitmap::len": "checked_exec_body",
+      "U64GroupedBitmap::required_words": "checked_exec_body",
+      "U64GroupedBitmap::resize": "checked_exec_body",
+      "U64GroupedBitmap::select_mask": "checked_exec_body",
+      "U64GroupedBitmap::set": "checked_exec_body",
+      "access_word_update": "checked_proof_body",
+      "bits_in_range": "checked_exec_body",
+      "default_word": "checked_proof_body",
+      "mask_transition": "checked_proof_body",
+      "resize_read": "checked_exec_body",
+      "resize_update": "checked_exec_body",
+      "set_get_clear": "checked_exec_body",
+      "shrink_regrow": "checked_exec_body"
+    },
+    "checked_exec_bodies": 13,
+    "checked_proof_bodies": 3,
+    "generated_functions": 0,
+    "negative_stderr": "error: assertion failed\n   --> {input}:210:21\n    |\n210 | /                     #[trigger] live(self.data@, query) ==\n211 | |                         (if old_len <= query < new_len && query < 64 * (word as int + 1) { full }\n212 | |                          else if query < 64 * entry.len() { live(entry, query) } else { full })\n    | |_______________________________________________________________________________________________^ assertion failed\n\nerror: aborting due to 1 previous error\n\n",
+    "original_reduced_failure_line": 210,
+    "requested_functions": 0,
+    "selected_items": {
+      "U64GroupedBitmap::clear": "checked_exec_body",
+      "U64GroupedBitmap::data_index_of": "checked_exec_body",
+      "U64GroupedBitmap::get": "checked_exec_body",
+      "U64GroupedBitmap::len": "checked_exec_body",
+      "U64GroupedBitmap::model_len": "specification_definition_or_declaration",
+      "U64GroupedBitmap::required_words": "checked_exec_body",
+      "U64GroupedBitmap::resize": "checked_exec_body",
+      "U64GroupedBitmap::select_mask": "checked_exec_body",
+      "U64GroupedBitmap::set": "checked_exec_body",
+      "U64GroupedBitmap::well_formed": "specification_definition_or_declaration",
+      "U64GroupedBitmap::words": "specification_definition_or_declaration",
+      "access_word_update": "checked_proof_body",
+      "bits_in_range": "checked_exec_body",
+      "default_word": "checked_proof_body",
+      "live": "specification_definition_or_declaration",
+      "mask_transition": "checked_proof_body",
+      "resize_read": "checked_exec_body",
+      "resize_update": "checked_exec_body",
+      "resized": "specification_definition_or_declaration",
+      "set_get_clear": "checked_exec_body",
+      "shrink_regrow": "checked_exec_body",
+      "word_count": "specification_definition_or_declaration"
+    },
+    "trusted_model_count": 382,
+    "trusted_models_sha256": "62713b5aaac6741035e5b8097d136853c9f44c759921a9e22d3fa58d89efa326"
+  },
+  "tree": {
+    "baseline_manual_verified": 5,
+    "baseline_reduced_errors": 1,
+    "baseline_reduced_verified": 4,
+    "checked_bodies": {
+      "bitmap::BtreeBitmap::new": "checked_exec_body",
+      "bitmap::U64GroupedBitmap::new_full": "checked_exec_body",
+      "bitmap::U64GroupedBitmap::required_words": "checked_exec_body"
+    },
+    "checked_exec_bodies": 3,
+    "checked_proof_bodies": 0,
+    "generated_functions": 0,
+    "negative_stderr": "error: assertion failed\n  --> {input}:93:21\n   |\n93 | /                     #[trigger] layer(heights@, query) ==\n94 | |                         expected_layer(entry_pages as int, entry_capacity as int, query)\n   | |________________________________________________________________________________________^ assertion failed\n\nerror: aborting due to 1 previous error\n\n",
+    "original_reduced_failure_line": 93,
+    "requested_functions": 0,
+    "selected_items": {
+      "bitmap::BtreeBitmap::layers": "specification_definition_or_declaration",
+      "bitmap::BtreeBitmap::new": "checked_exec_body",
+      "bitmap::U64GroupedBitmap::model_len": "specification_definition_or_declaration",
+      "bitmap::U64GroupedBitmap::new_full": "checked_exec_body",
+      "bitmap::U64GroupedBitmap::required_words": "checked_exec_body",
+      "bitmap::U64GroupedBitmap::words": "specification_definition_or_declaration",
+      "bitmap::expected_layer": "specification_definition_or_declaration",
+      "bitmap::layer": "specification_definition_or_declaration",
+      "bitmap::reduced": "specification_definition_or_declaration"
+    },
+    "trusted_model_count": 0,
+    "trusted_models_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+}

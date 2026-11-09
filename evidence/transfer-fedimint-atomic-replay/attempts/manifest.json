@@ -1,0 +1,72 @@
+{
+  "attempts": [
+    {
+      "label": "reserved-name",
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-15575fc5/evidence/transfer-fedimint-atomic-replay/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--infer-goals",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-dev-5fc5mmuo/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-dev-5fc5mmuo/model.rlib"
+      ],
+      "cwd": "/private/tmp/verus-fedimint-atomic-dev-5fc5mmuo",
+      "returncode": 1,
+      "source_sha256_reconstructed_from_edit_sequence": "d684a17b00a92800fd964f216c0bb82b5613be81cac6edacb4b6717ef2e79e82",
+      "contemporaneous_source_snapshot": false,
+      "counted_as_passing": false,
+      "stdout_sha256": "226e22a9e46395bf81c622667ecab8dd346571862e3b25ee9dac4e4c0142242a",
+      "stderr_sha256": "d44e7fb872bdb8e536a92a493662d1886743b426c5804f4dccd213bbdb8d3ed3"
+    },
+    {
+      "label": "tuple-choice",
+      "argv": [
+        "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+        "/Users/tommyvolk/.t3/worktrees/verus/t3-15575fc5/evidence/transfer-fedimint-atomic-replay/model.rs",
+        "--crate-type=lib",
+        "--crate-name",
+        "fedimint_atomic_replay",
+        "--output-json",
+        "--no-cheating",
+        "--num-threads",
+        "1",
+        "--infer-goals",
+        "--export",
+        "/private/tmp/verus-fedimint-atomic-dev-rub_15ty/model.vir",
+        "-o",
+        "/private/tmp/verus-fedimint-atomic-dev-rub_15ty/model.rlib"
+      ],
+      "cwd": "/private/tmp/verus-fedimint-atomic-dev-rub_15ty",
+      "returncode": 1,
+      "source_sha256_reconstructed_from_edit_sequence": "0f41a699654897b606d2eff881ddf832cabd2d2d116753099886e49f5acb7126",
+      "contemporaneous_source_snapshot": false,
+      "counted_as_passing": false,
+      "stdout_sha256": "57bebe952f63e2dd57ead8c8b684eb3c8156f9224970c31dcd2cd85ef3e8ed29",
+      "stderr_sha256": "974aa0cc8b949516ffe05c0ff6a87a560c3d24d7c57e6dbbbd451cbd4a44a246"
+    },
+    {
+      "label": "reader-status",
+      "returncode": 1,
+      "counted_as_passing": false,
+      "argv": [
+        "python3",
+        "-B",
+        "source/tools/check_fedimint_atomic_replay.py",
+        "--output",
+        "/private/tmp/verus-fedimint-atomic-cycle-q1z97f34/normal"
+      ],
+      "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-15575fc5",
+      "runner_sha256": "c246e89a60a6e25a02633821ae0695af13cf955339bdb9da97d098b687f00093",
+      "qualification": "Compiler rejected the false goal correctly; reader expected no_inference instead of caller_proof_failed"
+    }
+  ],
+  "qualification": "Two early compiler failures and one reader failure, none counted as passing. Early source snapshots reconstructed from edits, not captured contemporaneously. Reader snapshot matches its recorded SHA."
+}

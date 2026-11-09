@@ -2510,3 +2510,49 @@ Authors still choose semantic views, validity, interfaces and policies. The
 normal compiler/solver/library trust boundary and unverified protocol, signed
 validation, cryptography, cache consistency and broader Rust profiles remain
 explicit. This completes the finite v3 milestone. Nothing is pushed.
+
+## Unsigned saturating division and bounded application follow-ups
+
+The cache76/policy70/schema38 extension adds a closed native model for unsigned
+`saturating_div` on u8/u16/u32/u64/u128/usize. The new vstd assumed specification
+requires a nonzero divisor and returns its unsigned quotient, with `no_unwind`
+conditional on that requirement. Zero division is not suppressed or treated as
+total. Signed division and arbitrary user preconditions are not admitted.
+
+Native identity, exact unsigned parameter/result types, vstd proxy suffix,
+closed precondition shape, calling mode and declaration attributes gate this
+model. Owned-result, readonly-record, scalar and sound-mode transfers propagate
+its safety requirement. Required soundness and ordinary caller checks assert
+the precondition. Maximality alone uses the trusted necessity of that exact
+native normal-return condition. Proving the Rust standard library itself is
+outside scope: both this normal-return correspondence and the vstd behavior
+are explicit trust additions, not consequences of the application proof.
+
+The source-connected Fedimint pilot preserves the actual extracted nested
+Amount/PaymentFee declarations and fee bodies. Its arithmetic specification
+models saturation before division, and its authored goals are checked over
+full u64 inputs. No application axiom or assumed fee-policy summary is added.
+The separate redb bitmap pilot checks an authored representation, live-bit
+view, operation contracts and two generic bit-vector lemmas against the
+original extracted get/set/clear bodies. Only scalar mask plumbing is inferred;
+the abstraction and mutable-operation semantics are not synthesized by Infer.
+
+Application intent and extraction/refinement boundaries remain explicit in
+`evidence/transfer-fedimint-paymentfee76/REPORT.md` and
+`evidence/transfer-redb-bitmap-state77/README.md`. Those reports preserve their
+candidate identities and validation provenance. Neither pilot establishes
+whole-crate, allocator, storage, consensus, durability, authentication or funds
+safety. Independent review of the combined follow-up is a separate acceptance
+step; implementation/test completion alone does not constitute that approval.
+
+The independent GPT 6.1 Sol cycle76 review requested changes: nested record
+quotient summaries published but failed the closed import grammar; bitmap
+positive receipts did not bind checked method/proof scope; the promoted private
+fee positive did not bind its helper identity. The cache77/policy71/schema38
+correction admits the already checked quotient form during record import,
+retains its nonzero-divisor requirement, and binds those replay readers to exact
+body identities, completion flags and proof counts. Strict positive booleans,
+domains and work metrics reject malformed bitmap success reports. These are
+compatibility and evidence-validation corrections, not new application axioms
+or wider native arithmetic specifications. Regression tests and parent replay
+do not substitute for the subsequent independent review.

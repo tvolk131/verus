@@ -14,7 +14,7 @@ use vir::infer::ProofStatus;
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
 const INFER_SCHEMA: u32 = 38;
-const INFER_POLICY: &str = "candidate-bound-evidence-v63";
+const INFER_POLICY: &str = "candidate-bound-evidence-v76";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -113,6 +113,8 @@ pub(crate) fn import_crates(
         ).map_err(|_| crate::util::error(format!(
             "failed to deserialize imported library file `{file_path}` - it may need to be rebuilt by Verus"
         )))?;
+        vir::native_resource::reject_crate(&krate, "import")
+            .map_err(|error| crate::util::error(error.note.clone()))?;
         let models: Vec<_> =
             krate.functions.iter().filter(|f| vir::infer::is_approved_model(f)).collect();
         if !models.is_empty() {
@@ -272,6 +274,7 @@ pub(crate) fn export_crate(
     let Some(file_path) = export_path(args, export_vir_path_via_cargo) else {
         return Ok(());
     };
+    vir::native_resource::reject_crate(&vir_crate, "export")?;
     if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))
         && verified_inference.is_none()
     {
@@ -360,6 +363,9 @@ fn atomic_export(
     }
     result
 }
+
+#[cfg(test)]
+mod native_resource_boundary_tests;
 
 #[cfg(test)]
 mod infer_arch_tests {

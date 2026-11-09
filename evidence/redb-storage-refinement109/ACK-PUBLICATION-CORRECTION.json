@@ -1,0 +1,93 @@
+{
+  "correction": "The two root .vir files are sealed binary payloads. The report/handoff statement that no .vir was emitted is incorrect; per-attempt interface_written=false did not inspect the requested export destinations.",
+  "finding": "RUNNER_SCANS_ATTEMPT_DIRECTORY_BUT_EXPORT_ARGUMENT_TARGETS_ROOT",
+  "fresh_review_check": "Use fresh explicit export destinations on positive/negative/restored verifier rechecks and record those exact paths.",
+  "negative_control_limit": "The four semantic negative invocations did not request export. They establish localized verification failures, not fresh requested-export refusal. No earlier root-artifact creation timestamp or historical rewrite status is reconstructed from this final observation.",
+  "observed_root_interfaces": [
+    {
+      "bytes": 375929,
+      "path": "/private/tmp/redb-storage109-lane2-wqh8Ege8/ack_cfg109.vir",
+      "sha256": "93b9d3a9843929aa9a4d595ed7bd8b63ef970bf34b07b0451e8cf35143a0cb18"
+    },
+    {
+      "bytes": 391362,
+      "path": "/private/tmp/redb-storage109-lane2-wqh8Ege8/consumer109.vir",
+      "sha256": "dbb0708408f59d64f9926f50aa534426a30a0da70db70d9c9885c6f8bc55643d"
+    }
+  ],
+  "original_candidate_and_report_unchanged": true,
+  "publication_rows": [
+    {
+      "attempt": "attempt-001",
+      "export_requested": "/private/tmp/redb-storage109-lane2-wqh8Ege8/ack_cfg109.vir",
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-002",
+      "export_requested": "/private/tmp/redb-storage109-lane2-wqh8Ege8/ack_cfg109.vir",
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-003",
+      "export_requested": "/private/tmp/redb-storage109-lane2-wqh8Ege8/ack_cfg109.vir",
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-004",
+      "export_requested": "/private/tmp/redb-storage109-lane2-wqh8Ege8/ack_cfg109.vir",
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-005",
+      "export_requested": "/private/tmp/redb-storage109-lane2-wqh8Ege8/ack_cfg109.vir",
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-006",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-007",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-008",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-009",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-010",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-011",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-012",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-013",
+      "export_requested": null,
+      "historical_interface_written": false
+    },
+    {
+      "attempt": "attempt-014",
+      "export_requested": "/private/tmp/redb-storage109-lane2-wqh8Ege8/consumer109.vir",
+      "historical_interface_written": false
+    }
+  ],
+  "schema": "redb-storage109-parent-publication-correction-v1",
+  "scope_unchanged": "No .rlib or binary-import check established. Public source-module consumer is checked; root .vir presence is not native acceptance, trusted producer, native body verification or a complete artifact pair."
+}

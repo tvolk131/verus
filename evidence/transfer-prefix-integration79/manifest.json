@@ -1,0 +1,44 @@
+{
+  "accepted_compatibility_files": 10,
+  "accepted_production_files": 17,
+  "branch": "t3/infer-reviewed-transfer-followups",
+  "compatibility_delta_sha256": "1e637a6c1aacdb3f0f982c69866ed583cea46ee968095e04737bad81a16fa351",
+  "date": "2026-11-02",
+  "decision": "ACCEPTED_BOUNDED_NATIVE_PREFIX_INFERENCE_AND_COMPATIBILITY",
+  "fresh_parent_prefix_cases_per_mode": 30,
+  "fresh_parent_python_tests_per_mode": 455,
+  "fresh_parent_redb_cases_per_mode": 47,
+  "fresh_parent_shared_scenarios": 6,
+  "head": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "identity": [
+    78,
+    72,
+    38
+  ],
+  "implementation_delivery_seal_sha256": "f8f4a94d10ebaa3b489abb0d562fd9194fcfdcb08f1fe533e947fe3303d2afa0",
+  "implementation_digest_names": "The delivery seal digest identifies SHA256SUMS, not a nonexistent manifest.json.",
+  "no_new_claim_from_historical_evidence": true,
+  "originals": {
+    "compatibility-review-integrity.json": {
+      "path": "/private/tmp/verus-cycle79-compat-review.D2kMfI/integrity-receipt.json",
+      "sha256": "686624103558c97eb374a9057a3ac517160dd21053e108caedd7cfef5e94c8ff"
+    },
+    "compatibility-review.md": {
+      "path": "/private/tmp/verus-cycle79-compat-review.D2kMfI/REPORT.md",
+      "sha256": "9f82d27a0e4085862feb1e4782665faeb20fcef2ebcf6f47ff883c2dbe773c26"
+    },
+    "production-review-receipt.json": {
+      "path": "/private/tmp/verus-cycle79-independent-review.5GYSxK/review-receipt.json",
+      "sha256": "a69ad0a11e5c76c4c44a8ed9b12f64b92e7a7f07bd4b043d868bc24ce7612fe4"
+    },
+    "production-review.md": {
+      "path": "/private/tmp/verus-cycle79-independent-review.5GYSxK/REPORT.md",
+      "sha256": "6be4171948ace1d77bdb4fe668e78cf1d3b6fbb6570870613161c052b4e860fa"
+    }
+  },
+  "production_delta_sha256": "0b5fa2b368840f0e3254692f1ff903e8127527c5b99cac9049f33b1df52d3636",
+  "readme_sha256": "73711851eeee9f501f7742b747ddd5ffe69e6a150d90255fe526aa25d2723f20",
+  "runtime": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/runtime78",
+  "seal_package": "/private/tmp/verus-prefix-infer79.1eVEuO/final-package",
+  "validation_sha256": "7ebb2b3afb3ff78da5a90998be776fc21feffc312d87948140a71633fd02db7a"
+}

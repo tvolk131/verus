@@ -1,0 +1,15 @@
+error: postcondition not satisfied
+   --> /private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/optimized/lost_ack_reexec/model.rs:269:13
+    |
+268 |   pub proof fn false_lost_ack_reexec()
+    |   ------------------------------------ at the end of the function body
+269 |       ensures ({
+    |  _____________^
+270 | |         let request = Payload { item: 1, peer: 2 };
+271 | |         let ready = stage_marker(stage_effects(start(initial(0, 0), request)));
+272 | |         start(crash(commit(ready, true, false)), request).disk.effects.len() == 2
+273 | |     }),
+    | |______^ failed this postcondition
+
+error: aborting due to 1 previous error
+

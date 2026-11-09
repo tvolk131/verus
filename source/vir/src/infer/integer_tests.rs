@@ -149,6 +149,115 @@ fn model_term(f: &Function) -> Term {
             .collect();
     integer_models::value(&span(), f, args).unwrap()
 }
+
+fn saturating_div_model(range: IntRange) -> Function {
+    let original = model("saturating_div", range, Some(range), false);
+    let mut data = original.x.clone();
+    Arc::make_mut(&mut Arc::make_mut(&mut data.proxy.as_mut().unwrap().x).segments)[3] =
+        Arc::new("_verus_external_fn_specification_test_saturating__div".into());
+    let divisor = SpannedTyped::new(
+        &span(),
+        &data.params[1].x.typ,
+        ExprX::Var(data.params[1].x.name.clone()),
+    );
+    let required = summary::binary(
+        &span(),
+        BinaryOp::Ne,
+        Term { expr: divisor, size: 1, view: None },
+        term(&span(), &int_typ(), ExprX::Const(Constant::Int(0.into())), 1).unwrap(),
+    )
+    .unwrap();
+    data.require = Arc::new(vec![required.expr]);
+    original.new_x(data)
+}
+
+#[test]
+fn unsigned_saturating_div_exhaustive_u8_and_zero_safety() {
+    let function = saturating_div_model(IntRange::U(8));
+    assert!(integer_models::recognize(&function).is_some());
+    let output = model_term(&function);
+    let args = function
+        .x
+        .params
+        .iter()
+        .map(|param| Term {
+            expr: SpannedTyped::new(&span(), &param.x.typ, ExprX::Var(param.x.name.clone())),
+            size: 1,
+            view: None,
+        })
+        .collect::<Vec<_>>();
+    let safe = integer_models::safety(&span(), &function, &args).unwrap();
+    for left in 0u8..=255 {
+        for right in 0u8..=255 {
+            assert_eq!(eval(&safe.expr, left.into(), right.into()), Value::Bool(right != 0));
+            if right != 0 {
+                assert_eq!(
+                    eval(&output.expr, left.into(), right.into()),
+                    Value::Int(left.saturating_div(right).into())
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn unsigned_saturating_div_identity_type_and_requirement_near_misses() {
+    for range in [IntRange::I(8), IntRange::I(64), IntRange::ISize, IntRange::Int] {
+        if range != IntRange::Int {
+            assert!(integer_models::recognize(&saturating_div_model(range)).is_none());
+        }
+    }
+    let original = saturating_div_model(IntRange::U(64));
+    for mutation in 0..13 {
+        let mut data = original.x.clone();
+        match mutation {
+            0 => data.require = Arc::new(vec![]),
+            1 => data.require = Arc::new(vec![boolean(&span(), true).expr]),
+            2 => data.require = Arc::new(vec![data.require[0].clone(), data.require[0].clone()]),
+            3 => {
+                let ExprX::Binary(_, left, right) = &data.require[0].x else { panic!() };
+                data.require = Arc::new(vec![SpannedTyped::new(
+                    &span(),
+                    &bool_typ(),
+                    ExprX::Binary(BinaryOp::Eq(Mode::Spec), left.clone(), right.clone()),
+                )]);
+            }
+            4 => Arc::make_mut(&mut Arc::make_mut(&mut data.name).path).krate = CrateId::Vstd,
+            5 => {
+                Arc::make_mut(
+                    &mut Arc::make_mut(&mut Arc::make_mut(&mut data.name).path).segments,
+                )[1] = Arc::new("other".into())
+            }
+            6 => {
+                Arc::make_mut(&mut Arc::make_mut(&mut data.proxy.as_mut().unwrap().x).segments)[2] =
+                    Arc::new("i64_specs_tmp".into())
+            }
+            7 => Arc::make_mut(&mut data.attrs).infer = true,
+            8 => data.body = Some(input("x")),
+            9 => data.unwind_spec = None,
+            10 => {
+                let mut parameter = data.params[1].x.clone();
+                parameter.typ = Arc::new(TypX::Int(IntRange::U(32)));
+                let mut parameters = data.params.as_ref().clone();
+                parameters[1] = data.params[1].new_x(parameter);
+                data.params = Arc::new(parameters);
+            }
+            11 => {
+                let ExprX::Binary(op, _, right) = &data.require[0].x else { panic!() };
+                data.require = Arc::new(vec![SpannedTyped::new(
+                    &span(),
+                    &bool_typ(),
+                    ExprX::Binary(*op, input("x"), right.clone()),
+                )]);
+            }
+            _ => {
+                Arc::make_mut(&mut Arc::make_mut(&mut data.proxy.as_mut().unwrap().x).segments)[0] =
+                    Arc::new("application".into())
+            }
+        }
+        assert!(integer_models::recognize(&original.new_x(data)).is_none(), "{mutation}");
+    }
+}
 fn option(n: Option<i128>) -> Value {
     match n {
         Some(n) => Value::Enum("Some".into(), Some(Box::new(Value::Int(n)))),

@@ -1,0 +1,96 @@
+{
+  "generic": {
+    "bodies": {
+      "stateful_generic::observed32": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_generic::residue": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_generic::selective_replace": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_generic::toggle_cell": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_generic::toggle_fact": {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      }
+    },
+    "dependencies": {},
+    "helpers": {},
+    "interface_written": true,
+    "trusted_models": [],
+    "verified": 4
+  },
+  "transition": {
+    "bodies": {
+      "stateful_transition::bits_in_range": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": true,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_transition::live": {
+        "automatically_derived": false,
+        "body_status": "specification_definition_or_declaration",
+        "inference_candidate": false,
+        "ordinary_contract": false,
+        "selected": true
+      },
+      "stateful_transition::mask_transition": {
+        "automatically_derived": false,
+        "body_status": "checked_proof_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      },
+      "stateful_transition::native_step": {
+        "automatically_derived": false,
+        "body_status": "checked_exec_body",
+        "inference_candidate": false,
+        "ordinary_contract": true,
+        "selected": true
+      }
+    },
+    "dependencies": {},
+    "helpers": {
+      "stateful_transition::bits_in_range": {
+        "cache": "miss",
+        "contract": {
+          "ensures": "result == (((18446744073709551615 as u64) << lo) & ((18446744073709551615 as u64) >> (64 - hi)))",
+          "requires": "((if !(((lo < hi) && (hi <= 64))) { ((lo < hi) && (hi <= 64)) } else { true } && (lo <= 63)) && ((hi <= 64) && (hi >= 1)))"
+        },
+        "exported": true
+      }
+    },
+    "interface_written": true,
+    "trusted_models": [
+      {
+        "function": "core::panicking::panic"
+      }
+    ],
+    "verified": 18
+  }
+}

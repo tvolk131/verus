@@ -20,6 +20,23 @@ pub open spec fn next_multiple_of(x: int, y: int) -> int
     }
 }
 
+pub open spec fn u32_div_ceil(x: u32, y: u32) -> int
+    recommends
+        y != 0,
+{
+    (x as int + y as int - 1) / (y as int)
+}
+
+#[cfg(not(verus_verify_core))]
+pub assume_specification[ u32::div_ceil ](x: u32, y: u32) -> (result: u32)
+    requires
+        y != 0,
+    ensures
+        result as int == u32_div_ceil(x, y),
+    opens_invariants none
+    no_unwind
+;
+
 } // verus!
 macro_rules! num_specs {
     ($uN: ty, $iN: ty, $mod_u_tmp:ident, $mod_i_tmp:ident, $mod_u:ident, $mod_i:ident, $range:expr) => {
@@ -307,6 +324,13 @@ macro_rules! num_specs {
                         (x * y) as $uN
                     }
                 )
+                no_unwind;
+
+            #[verifier::allow_in_spec]
+            #[cfg(not(verus_verify_core))]
+            pub assume_specification[<$uN>::saturating_div](x: $uN, y: $uN) -> $uN
+                requires y != 0,
+                returns ((x / y) as $uN)
                 no_unwind;
 
             #[verifier::allow_in_spec]

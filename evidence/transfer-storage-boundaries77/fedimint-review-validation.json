@@ -1,0 +1,98 @@
+[
+  {
+    "label": "tests-normal",
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "source/tools",
+      "-p",
+      "test_fedimint_atomic_replay.py",
+      "-v"
+    ],
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-6f7dfdb2",
+    "returncode": 0,
+    "seconds": 0.068674,
+    "stdout": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/tests-normal.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/tests-normal.stderr",
+      "sha256": "e65d0482c020e88d341ddbe027863a73efc35b3e29fb6da5f388525c56a4f1b1"
+    }
+  },
+  {
+    "label": "replay-normal",
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "-B",
+      "source/tools/check_fedimint_atomic_replay.py",
+      "--output",
+      "/private/tmp/verus-fedimint-review-LTo4Vkt6/replay-normal"
+    ],
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-6f7dfdb2",
+    "returncode": 0,
+    "seconds": 8.768125999999999,
+    "stdout": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/replay-normal.stdout",
+      "sha256": "71b568ee645f542a9d533e1c7a79ca703d7e84520bff0214ed4bf4c5d7b3485c"
+    },
+    "stderr": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/replay-normal.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "tests-optimized",
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "-B",
+      "-O",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "source/tools",
+      "-p",
+      "test_fedimint_atomic_replay.py",
+      "-v"
+    ],
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-6f7dfdb2",
+    "returncode": 0,
+    "seconds": 0.18311833299999947,
+    "stdout": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/tests-optimized.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/tests-optimized.stderr",
+      "sha256": "e65d0482c020e88d341ddbe027863a73efc35b3e29fb6da5f388525c56a4f1b1"
+    }
+  },
+  {
+    "label": "replay-optimized",
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "-B",
+      "-O",
+      "source/tools/check_fedimint_atomic_replay.py",
+      "--output",
+      "/private/tmp/verus-fedimint-review-LTo4Vkt6/replay-optimized"
+    ],
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-6f7dfdb2",
+    "returncode": 0,
+    "seconds": 6.989457,
+    "stdout": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/replay-optimized.stdout",
+      "sha256": "1d87f8ca65c4987a9254a2735b627c17aae96f60e216a7356e7d210886ba4af1"
+    },
+    "stderr": {
+      "path": "/private/tmp/verus-fedimint-review-LTo4Vkt6/replay-optimized.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+]

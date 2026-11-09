@@ -1,0 +1,31 @@
+{
+  "record": "AUTHORIZED-CLEANUP162",
+  "authorization": "User Yes to exact CLEANUP-PROPOSAL161",
+  "archive": "evidence/redb-native-mir-campaign115/AUTHORIZED-CLEANUP162.tar.gz",
+  "archive_sha256": "ee928e80136150ec1e4b8b0ee982a17282e361642ec4a0dfeee9372db1ed7c89",
+  "archive_members": 6,
+  "manifest_sha256": "6da49b606d08d116752073166964cff2b5642b84de881f129b288fb73bd8f213",
+  "artifacts_retained_at_original_paths_and_verified_hardlink_backups": true,
+  "backup_root": "/private/tmp/redb-authorized-cleanup162/retained",
+  "result": {
+    "all18": "OPEN",
+    "completed": "2026-11-09T00:37:33.566970+00:00",
+    "free_after": 20571766784,
+    "free_before": 16744243200,
+    "native_acceptance": 0,
+    "operative_laws": 0,
+    "protected_files": 6984,
+    "qualification": "Required artifacts remain at original paths and verified hardlink backups; no source/log/proof/archive/history deletion; disk samples not causal filesystem theorem",
+    "removed_files": 9280,
+    "retained_files": 919,
+    "schema_count": 1,
+    "started": "2026-11-09T00:37:22.290139+00:00",
+    "targets": [
+      "/private/tmp/redb-primitive158-20261108-234646/target",
+      "/private/tmp/implementation140-20261108-RdrUQDUb/target",
+      "/private/tmp/implementation143-20261108-LpJjrIbt/target",
+      "/private/tmp/implementation147-20261108-FkC98LCT/target",
+      "/private/tmp/redb-allocation151-20261108-cyzsxn1u/target"
+    ]
+  }
+}

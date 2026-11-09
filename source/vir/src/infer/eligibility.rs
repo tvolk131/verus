@@ -228,7 +228,9 @@ fn validate_root(
                         })?;
                         return Ok(true);
                     }
-                    if let Some(operand) = integer_conversions::call(e, callees) {
+                    if let Some(operand) = integer_conversions::call(e, callees)
+                        .or_else(|| slice_array::call(e, callees))
+                    {
                         crate::ast_visitor::expr_visitor_check(e, &mut |_, _| {
                             *remaining = remaining
                                 .checked_sub(1)
@@ -465,6 +467,22 @@ pub(super) fn loop_assistance(f: &Function) -> Option<super::report::AssistanceS
         Some(MutableParameterBinding)
     } else if !f.x.params.first().is_some_and(|p| matches!(&*p.x.typ, TypX::MutRef(_))) {
         Some(MissingMutableReceiver)
+    } else {
+        None
+    }
+}
+
+pub(super) fn authored_loop_points(f: &Function) -> Option<&'static str> {
+    if f.x.attrs.infer {
+        Some("inferred_function")
+    } else if f.x.mode != Mode::Exec {
+        Some("non_executable")
+    } else if f.x.attrs.is_external_body || f.x.body.is_none() {
+        Some("missing_ordinary_body")
+    } else if f.x.attrs.is_unsafe || f.x.attrs.is_async {
+        Some("unsafe_or_async")
+    } else if f.x.attrs.exec_assume_termination || f.x.attrs.exec_allows_no_decreases_clause {
+        Some("termination_suppressed")
     } else {
         None
     }

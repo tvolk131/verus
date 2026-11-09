@@ -1,0 +1,27 @@
+{
+  "record": "native-law-review149-and-parent-bookkeeping-validation150",
+  "review149": {
+    "task_id": "node:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A2473fb16-c5f2-49e5-94df-5e02da07a1ff",
+    "link": "<t3-thread://v2/ada676bc-6e81-41ae-be29-6dc09bd928c8/thread:delegated-task:command%3Amcp%3A8e0b49bf-52cf-472f-bc8a-1703e3df6abe%3Adelegate-task%3A2473fb16-c5f2-49e5-94df-5e02da07a1ff>",
+    "last_observed_status": "COMPLETED_SEALED_PARENT_RETAINED",
+    "scope": "Independent exact-law/source/receipt review of sealed147; no compiler slot or execution.",
+    "bounds": {"minutes_including_seal": 18, "fresh_scratch_mib": 4}
+  },
+  "parent_validation150": {
+    "root": "/private/tmp/redb-parent-validation150-20261108-vumyv529",
+    "runner": "/private/tmp/redb-parent-validation150.py",
+    "last_observed_status": "COMPLETED_SEALED_8_OF_8_EXHAUSTED",
+    "compiler_build_verifier_slot": "RELEASED",
+    "objective": "Compile/run parent-authored148 holder/injectivity regressions and compiler-only original refusal; not an original resource proof or a reset of broad143.",
+    "bounds": {"minutes_including_seal": 20, "charged_commands": 8, "fresh_scratch_gib": 2, "jobs": 1, "build_seconds": 600, "other_seconds": 120, "minimum_free_disk_gib_strictly_above": 16},
+    "source_scope": "Authenticated143 candidate plus exactly the two parent148 staged sources;147 law not consumed or adopted. No source integration or original native application execution."
+  },
+  "historical_allowances": {"implementation140": "EXHAUSTED24/24", "implementation143": "EXHAUSTED36/36", "implementation147": "SEALED30/32_RELEASED_NO_RESET", "worker116": "INTERRUPTED_UNCHANGED"},
+  "parent_policy": "Review completion wakes parent; no polling or live delegate reads. Parent supervises only its own bounded subprocesses. Reconcile actual results before any exact-law disposition or native proof claim.",
+  "candidate141": "REJECTED_NOT_ADOPTED",
+  "primitive147": "RETAIN_UNADOPTED_REVIEW149_H1_H2_BLOCK_ADOPTION",
+  "all18": "OPEN",
+  "native_bodies_proved": 0,
+  "laws_adopted": 0,
+  "native_resource_trust_proof_credit_added": [0, 0, 0, 0]
+}

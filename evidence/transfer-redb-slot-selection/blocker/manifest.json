@@ -1,0 +1,548 @@
+{
+  "case": {
+    "label": "full_native_error_blocker",
+    "category": "frontend",
+    "returncode": 1,
+    "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs",
+    "source_sha256": "ed59b48e8e2303187532e228063cbc7e1793d3b243c019217fe53c58c3fbd2fe",
+    "stdout_sha256": "0bd349f607d5a8694dc2bbe4d1fac62107cde6774d1a9faf9665698675581701",
+    "stderr_sha256": "cb58e91a4c830b7a972ef5eb26bef8237491567566db600916b872ab439ca4f6",
+    "artifact": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_blocker/provider.vir",
+    "artifact_exists": false,
+    "artifact_sha256": null,
+    "library_sha256": null,
+    "seeded_export_sha256": null,
+    "default_erasure": true,
+    "no_cheating": true,
+    "report": {
+      "func-details": {},
+      "verification-results": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "verus-infer": {
+        "schema_version": 1,
+        "verification_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "<TransactionId as std::clone::Clone>::clone",
+              "rust_function": "<TransactionId as std::clone::Clone>::clone",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:16: 4:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:46: 4:48",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::Ord>::cmp",
+              "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:29: 4:32",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::PartialEq>::eq",
+              "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:50: 4:59",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+              "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:34: 4:44",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::fmt::Debug>::fmt",
+              "rust_function": "<TransactionId as std::fmt::Debug>::fmt",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:61: 4:66",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as std::hash::Hash>::hash",
+              "rust_function": "<TransactionId as std::hash::Hash>::hash",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:4:23: 4:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as vstd::std_specs::cmp::OrdSpecImpl>::cmp_spec",
+              "rust_function": "<TransactionId as vstd::std_specs::cmp::OrdSpecImpl>::cmp_spec",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as vstd::std_specs::cmp::OrdSpecImpl>::obeys_cmp_spec",
+              "rust_function": "<TransactionId as vstd::std_specs::cmp::OrdSpecImpl>::obeys_cmp_spec",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+              "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+              "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as vstd::std_specs::cmp::PartialOrdSpecImpl>::obeys_partial_cmp_spec",
+              "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialOrdSpecImpl>::obeys_partial_cmp_spec",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<TransactionId as vstd::std_specs::cmp::PartialOrdSpecImpl>::partial_cmp_spec",
+              "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialOrdSpecImpl>::partial_cmp_spec",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::frame",
+              "rust_function": "DatabaseHeader::frame",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:79:5: 79:62",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::primary_slot",
+              "rust_function": "DatabaseHeader::primary_slot",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:142:5: 142:62",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::representation_valid",
+              "rust_function": "DatabaseHeader::representation_valid",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:75:5: 75:56",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::secondary_slot",
+              "rust_function": "DatabaseHeader::secondary_slot",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:148:5: 148:64",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "DatabaseHeader::swap_primary_slot",
+              "rust_function": "DatabaseHeader::swap_primary_slot",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:154:5: 154:40",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_Corrupted_0",
+              "rust_function": "StorageError::arrow_Corrupted_0",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:9:1: 11:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_Io_0",
+              "rust_function": "StorageError::arrow_Io_0",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:9:1: 14:17",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_LockPoisoned_0",
+              "rust_function": "StorageError::arrow_LockPoisoned_0",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:9:1: 19:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "StorageError::arrow_ValueTooLarge_0",
+              "rust_function": "StorageError::arrow_ValueTooLarge_0",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:9:1: 13:24",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "TransactionId::__verus_infer_derived_cmp",
+              "rust_function": "TransactionId::__verus_infer_derived_cmp",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "TransactionId::__verus_infer_derived_eq",
+              "rust_function": "TransactionId::__verus_infer_derived_eq",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "TransactionId::__verus_infer_derived_partial_cmp",
+              "rust_function": "TransactionId::__verus_infer_derived_partial_cmp",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:3:1: 3:58",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::choose_secondary",
+              "rust_function": "UnrepairedDatabaseHeader::choose_secondary",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:110:5: 110:52",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::representation_valid",
+              "rust_function": "UnrepairedDatabaseHeader::representation_valid",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:93:5: 93:56",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::secondary_newer",
+              "rust_function": "UnrepairedDatabaseHeader::secondary_newer",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:105:5: 105:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::select_primary_slot",
+              "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:164:5: 164:67",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::selection_post",
+              "rust_function": "UnrepairedDatabaseHeader::selection_post",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:121:5: 121:93",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::selection_success",
+              "rust_function": "UnrepairedDatabaseHeader::selection_success",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:97:5: 97:53",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "UnrepairedDatabaseHeader::slot_admissible",
+              "rust_function": "UnrepairedDatabaseHeader::slot_admissible",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:115:5: 115:65",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+              "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:8:1: 8:30",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "_::__VERUS_REVEAL_INTERNAL__",
+              "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:72:1: 72:42",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "both_corrupt_goal",
+              "rust_function": "both_corrupt_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:213:1: 213:89",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "corrupt_secondary_goal",
+              "rust_function": "corrupt_secondary_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:249:1: 249:94",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "equal_or_stale_goal",
+              "rust_function": "equal_or_stale_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:240:1: 240:91",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "fallback_goal",
+              "rust_function": "fallback_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:221:1: 221:85",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "newer_secondary_goal",
+              "rust_function": "newer_secondary_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:230:1: 230:92",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "selected_observation_goal",
+              "rust_function": "selected_observation_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:258:1: 258:97",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "slot_bits::two_slot_toggle",
+              "rust_function": "slot_bits::two_slot_toggle",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:62:1: 62:53",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "two_phase_goal",
+              "rust_function": "two_phase_goal",
+              "source": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs:204:1: 204:86",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "status": "verification_failed",
+        "crate_success": false,
+        "requested_functions": 0,
+        "generated_functions": 0,
+        "generation_failure": null,
+        "assistance_explanations": {
+          "enabled": false,
+          "profiles": [
+            "growth_loop",
+            "range_loop"
+          ],
+          "preparation_started": false,
+          "preparation_completed": false,
+          "decisions": []
+        },
+        "range_loop_assistance": [],
+        "pointwise_assistance": [],
+        "sequence_pattern_assistance": [],
+        "mutable_selector_assistance": [],
+        "growth_loop_assistance": [],
+        "local_fold_assistance": [],
+        "factory_assistance": [],
+        "error_callback_assistance": [],
+        "array_callback_assistance": [],
+        "type_invariant_entry_assistance": [],
+        "goal_assistance": [],
+        "failed_functions": [],
+        "functions": [],
+        "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+        "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+        "imported_inference_dependencies": [],
+        "trusted_models": [],
+        "interface_written": false,
+        "metrics": {
+          "generation_micros": 0,
+          "total_micros": 254707
+        }
+      },
+      "verus": {
+        "profile": "release",
+        "version": "0.2026.11.01.3b05c19.dirty",
+        "platform": {
+          "os": "macos",
+          "arch": "aarch64"
+        },
+        "toolchain": "1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN)",
+        "commit": "3b05c1912b9d7314ad00c832c4065f4362562e02"
+      }
+    }
+  },
+  "command": {
+    "label": "full_native_error_blocker",
+    "argv": [
+      "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/verus",
+      "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs",
+      "--crate-type",
+      "lib",
+      "--crate-name",
+      "provider",
+      "--edition=2021",
+      "--no-cheating",
+      "--output-json",
+      "--num-threads",
+      "1",
+      "--compile",
+      "--export",
+      "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_blocker/provider.vir",
+      "-o",
+      "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_blocker/libprovider.rlib",
+      "-C",
+      "debug-assertions=yes"
+    ],
+    "cwd": "/Users/tommyvolk/.t3/worktrees/verus/t3-e661febe",
+    "exit_code": 1,
+    "seconds": 0.30372537500000263,
+    "environment": {
+      "VERUS_Z3_PATH": "/private/tmp/verus-cycle77-review-fixes.XCkOUU/tools77/z3",
+      "VERUS_INFER_CACHE": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_blocker/cache",
+      "CARGO_TARGET_DIR": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/unused-cargo-target"
+    }
+  },
+  "qualification": "Full original native error declaration; zero certified checked executable/proof bodies, frontend rejection, no seed, no native theorem",
+  "source": {
+    "path": "/private/tmp/redb-slot-selection77-aofyb_lo/final-normal/full_native_error_probe.rs",
+    "sha256": "ed59b48e8e2303187532e228063cbc7e1793d3b243c019217fe53c58c3fbd2fe",
+    "size_bytes": 10851
+  }
+}

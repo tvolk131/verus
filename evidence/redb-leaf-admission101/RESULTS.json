@@ -1,0 +1,20 @@
+{
+  "state": "CONDITIONAL_SOURCE_EVIDENCE_REVIEW_NO_NEW_BLOCKING_MISMATCH",
+  "design_only": false,
+  "design_report_sha256": "f754863bad0ec406f837aeccb8bd154c5b0130ed776726273e94c4bc195d1d5e",
+  "design_inputs_sha256": "f07a77740a208cc7304709cef3e42f8b0bb5124ad93ec7bc3bdd10228ef08300",
+  "design_input_count": 25,
+  "parent_design_input_authentication": "ALL_MATCH_BEFORE_PARENT_LEDGER_WRITES",
+  "target": "NATIVE_LEAF_FIT_COUNT_ADMISSION_TO_AUTHORED_BUILDER_LOOKUP_CLIENT",
+  "native_caller_proved": false,
+  "direct_verifier_applications_in_parent": 0,
+  "delegated_verifier_applications": 9,
+  "conditional_candidate_proof_pass": true,
+  "candidate_retention": "CANDIDATE-RETENTION.json",
+  "independent_review": "SOURCE_EVIDENCE_ONLY_NO_REPLAY; see REVIEW-STATUS.md and REVIEW-RESULTS.json",
+  "proof_success_claim": true,
+  "new_trust": false,
+  "runtime_adoption": false,
+  "final_acceptance": false,
+  "all_eighteen_property_history_cells": "OPEN"
+}

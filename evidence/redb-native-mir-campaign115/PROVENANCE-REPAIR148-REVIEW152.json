@@ -1,0 +1,16 @@
+{
+  "record": "parent-repair148-independent-review152-retention",
+  "root": "/private/tmp/review152-20261108-yB2rKJYT",
+  "seal_json_sha256": "80a06e4978e2a27398c522ad8503c935b466f8a64a43c3d93690483da21048a4",
+  "retained_archive": "PROVENANCE-REPAIR148-REVIEW152.tar.gz",
+  "retained_archive_sha256": "eb3c69438ff86ce1b7fe401b318646f96dee7394d6605cda5f237bb7438c6f08",
+  "retained_regular_unique_byte_identical_members": 12,
+  "parent_entry_utc": "2026-11-08T22:07:17.829634+00:00",
+  "parent_exit_utc": "2026-11-08T22:07:17.838519+00:00",
+  "selected_endpoint_qualification": "Current selected sealed output endpoints only; not historical, full target, compiler/source or bootstrap continuity.",
+  "review_verdict": "NO_NEW_BLOCKING_SCOPED_SOURCE_DEFECT_DEMONSTRATED; STRUCTURAL_REMEDIATION_OBSERVED; NOT_ADOPTED; NATIVE_RESOURCE_TRUST_PROOF_ACCEPTANCE0",
+  "disposition": "SCOPED_STRUCTURAL_REMEDIATION_SUPPORTED_NOT_FULL_R146_CLOSURE_OR_ADOPTION",
+  "all18": "OPEN",
+  "laws_adopted": 0,
+  "native_bodies_proved": 0
+}

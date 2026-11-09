@@ -1,0 +1,622 @@
+{
+  "base_inputs": {
+    "evidence/transfer-redb-slot-selection-opaque78/fixtures.json": "74bb8c3dd107949fb93d0853071ca86da76143cd88ab3253d4b20afed4b272cc",
+    "evidence/transfer-redb-slot-selection/certificate-expectations.json": "340d98816e75a7cd39da48d635a05d6cca0e424bdfcbf0f533c47331a9357438",
+    "evidence/transfer-redb-slot-selection/consumer.verus.rs": "8823aeee88bf4603000c494d218d1eff5e344509eab8f9770a6972f3be88d741",
+    "evidence/transfer-redb-slot-selection/contracts.json": "943c5f8e926e72a112e2d0329cf12f1b0b8eee660d6579476ba3f25c22908094",
+    "evidence/transfer-redb-slot-selection/goals.verus.rs": "c1cdb44099f8c729089c871fa1f37b71053d67fb0da322197dd8997482c87ddd",
+    "evidence/transfer-redb-slot-selection/native-items/BtreeHeader.rs": "33ff5c55fb38e168c55fc10af8ce7fd0e9e3a7f8c5d66a49d343fe27d9f487e3",
+    "evidence/transfer-redb-slot-selection/native-items/DatabaseHeader.rs": "f2c03f2d4035e6e4d952a95437ae81169d7c15102144f5b44d2d830dbaf17701",
+    "evidence/transfer-redb-slot-selection/native-items/PageNumber.rs": "2f35314985c2cba913372168d6fc73f5633b0de1bfc720f73fc5418460b9d867",
+    "evidence/transfer-redb-slot-selection/native-items/StorageError.rs": "451130bfe2ca578849e18e8ca380e108af505fa213a52eeb141f9f9b360af08c",
+    "evidence/transfer-redb-slot-selection/native-items/TransactionHeader.rs": "ea2dac13f3f3fa4a8292097291e3679e405597f2a0b0aa34b501c804d8bf1ab9",
+    "evidence/transfer-redb-slot-selection/native-items/TransactionId.rs": "f18de262c5f4e1251d867704c3734d94fd88cca3733463a6dd2321fa4793af31",
+    "evidence/transfer-redb-slot-selection/native-items/UnrepairedDatabaseHeader.rs": "c970a71cc8709077015041719b8027e26871c22f19c0a5ba2414d832f836aea6",
+    "evidence/transfer-redb-slot-selection/native-items/primary_slot.rs": "5c1ef7d49d9102fecbfc1c25289a5b1549288e62b55938ea8a93591be51acadb",
+    "evidence/transfer-redb-slot-selection/native-items/secondary_slot.rs": "9f9fe0f0a2799047c16ce65049eb31ff48ccf7342e0af78d92e0b2aebf8e600b",
+    "evidence/transfer-redb-slot-selection/native-items/select_primary_slot.rs": "002f74ca0e5f47f22c50b58e1e546be199ffcfe39e48a39861e4532047796cc0",
+    "evidence/transfer-redb-slot-selection/native-items/swap_primary_slot.rs": "9d112e161aef761f216697228d337141a9d3a48f892d3d2e7a57f48a38e503fb",
+    "evidence/transfer-redb-slot-selection/provider-certificate.json": "edc03a60a96853644cead9eed6d10bad95c3a91858bff8e70c01bee3cd815991",
+    "evidence/transfer-redb-slot-selection/selection.spec.rs": "99772ae20db1a533501cc6fdeba8d380229f26ac1b2b1e737bd7a72b9762606d",
+    "evidence/transfer-redb-slot-selection/source-ledger.json": "5ce9fdda888001bc156df542e7c11e9abd80cdbda1b203cc68b2a1d6d94aacfd",
+    "source/tools/check_redb_page_size.py": "60cb8621563dcd306c9b1e23ce9e50462a8049f6bed825729f1bd596f36ec61e",
+    "source/tools/check_redb_slot_selection.py": "eed58be0214806b434d0842be64ce4072802f96f2e0455bf1ccf5bcb53d0c6ea",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/infer_experiment.py": "5cd545d5eb3255c7724717a38b1505d1030f9aacf5dd771cae307a192567219d",
+    "source/tools/infer_transfer_identity.py": "449c8db0a22a61ba8bff0f617b3908e26c7835e136342749eeb9c4fbd435e997"
+  },
+  "boundaries": {
+    "error_operation": "pub fn error_operation(error: &std::io::Error) -> Option<i32> { error.raw_os_error() }\n",
+    "explicit_drop": "pub fn explicit_drop(error: std::io::Error) { std::mem::drop(error); }\n",
+    "identity": "pub fn error_identity(error: std::io::Error) -> (result: std::io::Error)\n    ensures result == error,\n{ error }\npub fn location_identity<'a>(location: &'a std::panic::Location<'a>) -> (result: &'a std::panic::Location<'a>)\n    ensures result == location,\n{ location }\n",
+    "implicit_drop": "pub fn implicit_drop(error: std::io::Error) { }\n",
+    "lifetime_escape": "pub fn lifetime_escape<'a>(location: &'a std::panic::Location<'a>) -> &'static std::panic::Location<'static> { location }\n",
+    "location_operation": "pub fn location_operation(location: &std::panic::Location) -> u32 { location.line() }\n"
+  },
+  "certificate": {
+    "producer": "0.2026.11.01.3b05c19.dirty:/Users/tommyvolk/.rustup/toolchains/1.99.1-aarch64-apple-darwin (overridden by environment variable RUSTUP_TOOLCHAIN):3b05c1912b9d7314ad00c832c4065f4362562e02",
+    "proofs": [
+      [
+        {
+          "path": {
+            "krate": {
+              "Id": [
+                "provider",
+                17333577649204380365
+              ]
+            },
+            "segments": [
+              "impl&%8",
+              "eq"
+            ]
+          }
+        },
+        {
+          "exactness": true,
+          "maximality": true,
+          "soundness": true
+        }
+      ]
+    ],
+    "summaries_note": "Path-sensitive producer output: bound by the exact artifact hash and fresh successful import, not a golden across scratch roots",
+    "trusted_model_fingerprints": 382,
+    "trusted_models_sha256": "1c5754cb229575e59bd5c18b63ce13d90bbc8d6dc4d0e6f36eff8f6dcef6a505"
+  },
+  "derivation": {
+    "accepted_scope": "unchanged independently accepted native 43-row fixture",
+    "models": "382 actual final pins; 381 retained model identities plus one existing canonical slice-to-array correspondence; all 7440 exported vstd definitions identical",
+    "qualification": "fresh matching final82 runtime; independent integrated acceptance remains required",
+    "qualified_source_sha256": "2b90f69970adb8c0424c7d15b0766b168984bc0388cc23b2ed7b69a0619fc35c"
+  },
+  "expected": {
+    "boundary_identity": {
+      "checked_exec_bodies": 5,
+      "checked_proof_bodies": 0,
+      "contract": {
+        "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)",
+        "requires": "true"
+      },
+      "inferred_suffix": "::ordering",
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::error_identity",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "error_identity",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::imported_order_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "imported_order_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::imported_selection",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "imported_selection",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::location_identity",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "location_identity",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::ordering",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "ordering",
+          "selected": true
+        }
+      ],
+      "verified": 7
+    },
+    "boundary_implicit_drop": {
+      "checked_exec_bodies": 4,
+      "checked_proof_bodies": 0,
+      "contract": {
+        "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)",
+        "requires": "true"
+      },
+      "inferred_suffix": "::ordering",
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::implicit_drop",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "implicit_drop",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::imported_order_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "imported_order_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::imported_selection",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "imported_selection",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::ordering",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "ordering",
+          "selected": true
+        }
+      ],
+      "verified": 6
+    },
+    "consumer": {
+      "checked_exec_bodies": 3,
+      "checked_proof_bodies": 0,
+      "contract": {
+        "ensures": "result == ((first)->TransactionId_0 > (second)->TransactionId_0)",
+        "requires": "true"
+      },
+      "inferred_suffix": "::ordering",
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::imported_order_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "imported_order_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::imported_selection",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "imported_selection",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "consumer::ordering",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "ordering",
+          "selected": true
+        }
+      ],
+      "verified": 5
+    },
+    "provider": {
+      "checked_exec_bodies": 15,
+      "checked_proof_bodies": 1,
+      "contract": {
+        "ensures": "(result == ((self)->TransactionId_0 == (other)->TransactionId_0))",
+        "requires": "true"
+      },
+      "inferred_suffix": "::TransactionId::eq",
+      "native_functions": [
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<StorageError as std::fmt::Debug>::fmt",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<StorageError as std::fmt::Debug>::fmt",
+          "selected": false
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<TransactionId as std::fmt::Debug>::fmt",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as std::fmt::Debug>::fmt",
+          "selected": false
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<TransactionId as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__TRANSACTION_SIZE",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "_::__VERUS_REVEAL_INTERNAL__",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::DatabaseHeader::frame",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "DatabaseHeader::frame",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::DatabaseHeader::primary_slot",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "DatabaseHeader::primary_slot",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::DatabaseHeader::representation_valid",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "DatabaseHeader::representation_valid",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::DatabaseHeader::secondary_slot",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "DatabaseHeader::secondary_slot",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::DatabaseHeader::swap_primary_slot",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "DatabaseHeader::swap_primary_slot",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::StorageError::arrow_Corrupted_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "StorageError::arrow_Corrupted_0",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::StorageError::arrow_Io_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "StorageError::arrow_Io_0",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::StorageError::arrow_LockPoisoned_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "StorageError::arrow_LockPoisoned_0",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::StorageError::arrow_ValueTooLarge_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "StorageError::arrow_ValueTooLarge_0",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::__verus_infer_derived_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "TransactionId::__verus_infer_derived_cmp",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::__verus_infer_derived_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "TransactionId::__verus_infer_derived_eq",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::__verus_infer_derived_partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "TransactionId::__verus_infer_derived_partial_cmp",
+          "selected": true
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "provider::TransactionId::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<TransactionId as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "provider::TransactionId::cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as std::cmp::Ord>::cmp",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as vstd::std_specs::cmp::OrdSpecImpl>::cmp_spec",
+          "selected": true
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "provider::TransactionId::eq",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as std::cmp::PartialEq>::eq",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::obeys_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as vstd::std_specs::cmp::OrdSpecImpl>::obeys_cmp_spec",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::obeys_eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::obeys_partial_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialOrdSpecImpl>::obeys_partial_cmp_spec",
+          "selected": true
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "provider::TransactionId::partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as std::cmp::PartialOrd>::partial_cmp",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::TransactionId::partial_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<TransactionId as vstd::std_specs::cmp::PartialOrdSpecImpl>::partial_cmp_spec",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::UnrepairedDatabaseHeader::choose_secondary",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "UnrepairedDatabaseHeader::choose_secondary",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::UnrepairedDatabaseHeader::representation_valid",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "UnrepairedDatabaseHeader::representation_valid",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::UnrepairedDatabaseHeader::secondary_newer",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "UnrepairedDatabaseHeader::secondary_newer",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::UnrepairedDatabaseHeader::select_primary_slot",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "UnrepairedDatabaseHeader::select_primary_slot",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::UnrepairedDatabaseHeader::selection_post",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "UnrepairedDatabaseHeader::selection_post",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::UnrepairedDatabaseHeader::selection_success",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "UnrepairedDatabaseHeader::selection_success",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "provider::UnrepairedDatabaseHeader::slot_admissible",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "UnrepairedDatabaseHeader::slot_admissible",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::both_corrupt_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "both_corrupt_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::corrupt_secondary_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "corrupt_secondary_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::equal_or_stale_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "equal_or_stale_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::fallback_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "fallback_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::newer_secondary_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "newer_secondary_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::selected_observation_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "selected_observation_goal",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_proof_body",
+          "function": "provider::slot_bits::two_slot_toggle",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "slot_bits::two_slot_toggle",
+          "selected": true
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "provider::two_phase_goal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "two_phase_goal",
+          "selected": true
+        }
+      ],
+      "verified": 23
+    }
+  },
+  "identity": [
+    82,
+    76,
+    38
+  ],
+  "opaque_declarations": "verus! {\n#[verifier::external_type_specification]\n#[verifier::external_body]\npub struct ExIoError(std::io::Error);\n#[verifier::external_type_specification]\n#[verifier::external_body]\npub struct ExLocation<'a>(std::panic::Location<'a>);\n}\n"
+}

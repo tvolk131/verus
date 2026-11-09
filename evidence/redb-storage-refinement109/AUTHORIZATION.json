@@ -1,0 +1,23 @@
+{
+  "all18": "OPEN",
+  "diagnostic107_D1_authorized": false,
+  "global_free_bytes_at_freeze": 38795415552,
+  "hard_deadline_utc": "2026-11-08T04:35:26Z",
+  "inputs": {
+    "bytes": 132415,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-storage-refinement109/INPUTS.json",
+    "sha256": "ed423164d494ad5176e3fd04ddee983153fc7e29b4a7d43e1cebe7efac063bb4"
+  },
+  "no_compiler_runtime_builds": true,
+  "no_new_trust_adoption": true,
+  "no_weakened_gates": true,
+  "optional_work_stop_utc": "2026-11-08T04:23:26Z",
+  "plan": {
+    "bytes": 6683,
+    "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-storage-refinement109/PLAN.md",
+    "sha256": "ecc47ad6648c025d6ee5d0d6698ff6fc9f0afda18e79f30f7e40f60dbc1fac90"
+  },
+  "round_start_utc": "2026-11-08T03:35:26Z",
+  "scope": "60min_4GiB_scratch_only_native_storage_refinement_implementation_review",
+  "user_approval": "Absolutely!"
+}

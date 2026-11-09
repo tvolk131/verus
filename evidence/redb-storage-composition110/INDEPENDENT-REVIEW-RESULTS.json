@@ -1,0 +1,131 @@
+{
+  "acceptance": false,
+  "archive_members_byte_compared": 209,
+  "archive_sha256": "2512cbd9a31dc0b783a9c1e685f788d556a90ac35a014f2c0dfdf5fd28c9f2cd",
+  "atomic_frontier_independently_inspected": true,
+  "authenticated_payloads": 207,
+  "bootstrap_provenance": "QUALIFIED_NO_EXHAUSTIVE_OR_ATOMIC_FIRST_USE_CLAIM",
+  "charged_attempts": 6,
+  "checks": [
+    {
+      "export_present": true,
+      "label": "A-positive",
+      "number": 1,
+      "source_sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e",
+      "status": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 61
+      }
+    },
+    {
+      "export_present": false,
+      "label": "A-second-flush-bypass",
+      "number": 2,
+      "source_sha256": "b671e42e45781f01258dda4e4205fdc98b954e8806937b7e125ceabc0f1578be",
+      "status": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 59
+      }
+    },
+    {
+      "export_present": true,
+      "label": "A-restored",
+      "number": 3,
+      "source_sha256": "00289ba9a9189b9b24491ef68ae84fa74e75a04d1c19277db4e6bafa26456f5e",
+      "status": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 61
+      }
+    },
+    {
+      "export_present": true,
+      "label": "B-extended-positive",
+      "number": 4,
+      "source_sha256": "149da8096fcbcc95a329c3cd01bca9007def9461145a5f31f0ed2e590feeae07",
+      "status": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 15
+      }
+    },
+    {
+      "export_present": false,
+      "label": "B-best-effort-latch",
+      "number": 5,
+      "source_sha256": "34d8550b449bc64026b99be1d112ea6b2f48b1fb58b7cd656b3104b0f90434a8",
+      "status": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 3,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 12
+      }
+    },
+    {
+      "export_present": true,
+      "label": "B-restored",
+      "number": 6,
+      "source_sha256": "149da8096fcbcc95a329c3cd01bca9007def9461145a5f31f0ed2e590feeae07",
+      "status": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 15
+      }
+    }
+  ],
+  "controls_tests_replayed": 13,
+  "current_frozen_input_matches_before_parent_reconciliation": 838,
+  "finite_histories_reproduced": 17476,
+  "header_artifact_preflight_independently_reviewed": false,
+  "historical_documents_before_reconciliation": {
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md": {
+      "sha256": "d9ca9ca4d1830385cc114ce519906f92ee94b6c573a80ec452a9844404fb70c1",
+      "snapshot": "HISTORICAL-GOAL.md"
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json": {
+      "sha256": "6d1d96bac71b81940f44d3ca1a91fb19af80d92fda2ec1b0c081016f4d08e27c",
+      "snapshot": "HISTORICAL-STATUS.json"
+    }
+  },
+  "integration": false,
+  "manifest_sha256": "e038aadce103e545c457e154f3691ffc46eeb61999544b3082bf77127adda534",
+  "native_adapter_R": "OPEN",
+  "native_executable_bodies_checked": 0,
+  "redb_open_cells": 18,
+  "report_sha256": "3014f3877599290e700288c2964317d06e04345411d45faf655a028348b7147d",
+  "retained_utc": "2026-11-08T05:12:16.947869+00:00",
+  "review_completed": true,
+  "review_exit_authenticated_paths": 838,
+  "review_exit_mismatches": 0,
+  "review_exit_supplemental_paths": 119,
+  "schema": "redb-composition110-combined-review-retention-v1",
+  "source": "/private/tmp/redb-review110-LwF1feEi",
+  "trust_adoption": false,
+  "verdict": "NO_NEW_BOUNDED_MODEL_DEFECT_IDENTIFIED_NATIVE_LINKAGE_INTEGRATION_NOT_READY",
+  "verifier_launches": 6
+}

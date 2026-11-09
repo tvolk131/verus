@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-09T01:47:09.688727+00:00",
+  "pins": {
+    "HANDOFF164.json": "ca8691451a59a2ce81acd3e0b438b443dfbcb684fb44fa0b2dd40d1f8cc1357e",
+    "HANDOFF164.tar.gz": "3bd20e516bfda56de3377caf29637e1796cb1cc4179db450445e8d69f0a9b133",
+    "MANIFEST164.json": "d4042d23dea2fcaf56af5fa6f7bfeef303ec66ea6bceb3b7f5a21370efeef7c4"
+  },
+  "archive_members": 1508,
+  "payloads": 1507,
+  "source_files": 1120,
+  "runtime_binary_sha256": "7a68ac1999cad3f6088fc6cb4004295d309a2b6de6c8643d570ef085e90b5962",
+  "mismatches": [],
+  "qualification": "Parent intake endpoint and archive consistency only; not continuous custody, loaded-library or bootstrap correspondence",
+  "all18": "OPEN",
+  "operative_laws": 0,
+  "issuance": 0,
+  "original_native_acceptance": 0
+}

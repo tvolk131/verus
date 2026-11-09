@@ -1,0 +1,64 @@
+{
+  "status": "proved",
+  "identity": {
+    "cache": 73,
+    "policy": 67,
+    "schema": 38
+  },
+  "baseline_receipt_sha256": "1537cdfde66bbb8c8c254b384e6ec3ba27698998c962851934718f4bc84035fb",
+  "baseline_manifest_sha256": "d6739baa54b7873e5cee89251bfaf3f88b92f15b8222cbe02d15ada04b1478cd",
+  "baseline_archive_sha256": "8a83ababc5c6b86f745914dabdcd7a958b24c8fcbdf2279e09055f374304be6d",
+  "reviewed_input_delta_sha256": "2f9f7f5e5944252e2dec7425651a3345834814ba4516b13511401b83c30a38ef",
+  "runtime_sha256": {
+    "rust_verify": "dbf57a6a7a570414940b621147aa7012600fdca0bf072d8d3f0f8a72cf0dd4e9",
+    "verus": "ed4b18682a6e5e14b06924cff10eb8a9f0ef063ef23ae4bafd4e64864448b24c",
+    "vstd_build": "f8fba6e3ce82ad1c0267ec1483ac5b455a4aac43e347df42c81d54da6a6f4865",
+    "libverus_builtin.rlib": "3e8fba04f95e7a2073ecf0748396b7d8ff827d2e7a695bb5c1c7bc2177ac1952",
+    "libverus_builtin_macros.dylib": "345e94078d3b7302defc72070aee3f532924bfd677b2852acd5fdb2b7e0dd335",
+    "libverus_state_machines_macros.dylib": "415190daf44bba7fa9a4a1e16d615ff7843d95dc3a47bb710384135f15c57ec7",
+    "libvstd.rlib": "91a2f68c2917a5afa4cb5ff98d26972d26a92ed65636d35ad0f5c193dd7b0221",
+    "vstd.vir": "f78f6d0838a0ee8a127fc51711092eb3177206169a8ce2f54f756a683ed08a38",
+    "z3": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb"
+  },
+  "accepted_commands": {
+    "final-compiler": "f582017bec708d45e7bea202aa35fd9ea2792ad505b48bf1bf8c7be5ec717218",
+    "final-vstd": "d25fe5434814c38327b7f89a602dc326010d2bd63717e886bca6a6c73f167e1d",
+    "final-rust-focused": "636b3aeefe563ed68c7c664a41913a064f4b9e5e2bd6a615a835342a2349c699",
+    "final-vir-units": "840634884a6d0638f5dd31a4f1fdf2cecb2b73b820c2f138fcd5df715f515f6a",
+    "final-python": "3666aa88a0cb69266bc5d40e5c3518ee877c16aed3cb769ad28df261e983a20f",
+    "final-python-O": "710ff92c951c877dfd934162fa990c6d56a721a49f42af84b3b94c1f4e96ad54",
+    "final-format": "c9cc165b8bfaba4ddd52535f9ebed75e72ca4e7fdfeff9b87bddfbe65bcd37e8",
+    "final-diff": "b61eff8f3794c7f355cc8aabb23e504006fb6fae40798620617fd31af1c43405",
+    "final-rustc-version": "70742f8d2d4656246f8139bd960f746545c08b3b808c99293613a4918d1e09e3",
+    "final-z3-version": "669024601ef1b82ef536d3597970df8a707e028e62330028aacdab4379173db5",
+    "final-access": "8585d208b5f5d3d4eb3019a4bab5427527a025d635ac23ef9e4743406785b78d",
+    "final-relations": "c80c2d9b271efb8d4d7a9ed3fbf6097375e9d4844fa721f6908c9313c664b8ec",
+    "final-frontdoors": "4b2b57ab028ec1396aae107e1c103c6363d79feb0930e56f49c02988b9e1f616"
+  },
+  "proof_receipts": {
+    "/private/tmp/verus-redb-access-next-wi5hgrfz/final-access/receipt.json": "729eff2afeb1c9a61c91a6973d438a38a4383d8f8878d6e280f6ec1b802bbc96",
+    "/private/tmp/verus-redb-access-next-wi5hgrfz/final-relations/redb-page-relations-a1agw4c2/receipt.json": "b2fe0d209dccd86bbda0dc8e03967f54babb88ca13789727b363a83a2968e2b3",
+    "/private/tmp/verus-redb-access-next-wi5hgrfz/final-frontdoors/transfer-suite-u1ojtnfg/receipt.json": "5c0db37af68143771f677cd829dfd86ee05d1ad7b50e5f92f0f408a698cb7a2a"
+  },
+  "access_controls": {
+    "proved": 10,
+    "semantic_goal_failure": 4,
+    "safety_failure": 21,
+    "frontend_rejection": 4
+  },
+  "repeated_required_checks": 267,
+  "removed_seeded_exports": 29,
+  "protected_originals_verified": 1659,
+  "source_projection": {
+    "application_commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+    "manager_sha256": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+    "get_page_sha256": "e0f6ec1a8eccd73586155c6d6eea115ecd7ee2e37a2c391005a40e7b5f29d5b8",
+    "prefix_sha256": "736042c5874ec5fb2cc02da02d3cb248dcb81a426e5027fe3feb8ed7e5c5b152",
+    "method_line": 1922,
+    "prefix_line": 1924,
+    "next_blocker": "self.storage.read(range.start, len, hint)?; no storage/state model attempted",
+    "adaptation": "Three-field readonly AccessConfig; prefix copied verbatim; append len return; omit check_page_order, storage.read, tracking and PageImpl construction"
+  },
+  "report": "/private/tmp/verus-redb-access-next-wi5hgrfz/handoff/REPORT.md",
+  "report_sha256": "90417441d870fc0413c2967ed5d0a6a47acfcf83fce80b7ae05da5a6a7b931cb"
+}

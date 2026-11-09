@@ -1,0 +1,174 @@
+{
+  "aborted_exploratory_invocations_excluded_from_primary_count": 7,
+  "audited_not_fresh": {
+    "delivery_final_replay_cases_per_mode": 30,
+    "final_runtime_rust_integration": 93,
+    "full_python_discovery_failures_per_mode": 2,
+    "full_python_discovery_pass_per_mode": 451,
+    "full_python_discovery_run_per_mode": 453,
+    "matched_vstd_errors": 0,
+    "matched_vstd_verified": 2221,
+    "model_oracle_pairs": 14641,
+    "source_identical_vir_unit_tests": 148
+  },
+  "compiler_label": "compiler10",
+  "created_utc": "2026-11-03T00:34:39.016725+00:00",
+  "decision": "PASS_BOUNDED_CANDIDATE_NO_NEW_BLOCKER_FOUND",
+  "exploratory_hypotheses_reclassified_without_masking": [
+    {
+      "export_absent": true,
+      "generated_functions": 0,
+      "label": "reset-local-good",
+      "observed_status": "unsupported",
+      "original_expected": "positive"
+    },
+    {
+      "export_absent": true,
+      "generated_functions": 0,
+      "label": "reset-local-wrong",
+      "observed_status": "unsupported",
+      "original_expected": "semantic"
+    },
+    {
+      "export_absent": true,
+      "generated_functions": 0,
+      "label": "private-native-not-public",
+      "observed_status": "verification_failed",
+      "original_expected": "decline"
+    }
+  ],
+  "focused_initial_expectations_matched": 32,
+  "focused_observed_outcomes": {
+    "exact_success": 5,
+    "frontend_unsupported": 17,
+    "import_consistency_rejection": 8,
+    "intended_semantic_wrong_goal_failure": 4,
+    "rust_privacy_error": 1
+  },
+  "fresh_acceptance_tests_per_mode": 18,
+  "fresh_focused_compiler_invocations": 35,
+  "fresh_guard_removal_sweeps_per_mode": 6,
+  "fresh_receipt_mutations_per_mode": 18,
+  "fresh_runners": {
+    "replay": {
+      "cases": 30,
+      "decision": "PASS",
+      "receipt": "/private/tmp/verus-cycle79-independent-review.5GYSxK/replay/receipt.json",
+      "receipt_sha256": "c7c0ae898ac1bbac0df9cfa09a3f853c65d5bd62e94147eec462a180a04de029"
+    },
+    "replay-optimized": {
+      "cases": 30,
+      "decision": "PASS",
+      "receipt": "/private/tmp/verus-cycle79-independent-review.5GYSxK/replay-optimized/receipt.json",
+      "receipt_sha256": "f5fbbb560f30e6922f01501c42693a497d874cda3c26f8a0d1668ba823ee35d7"
+    }
+  },
+  "frozen_source_runtime_toolchain_solver_native_ledgers_matched": true,
+  "head": "3b05c1912b9d7314ad00c832c4065f4362562e02",
+  "independent": true,
+  "limitations": [
+    "Not shared integration approval; two known identity-reader failures and nested loader issue remain parent-owned.",
+    "Correct unsupported shapes are completeness frontiers, not successful semantic controls.",
+    "No whole-application, namespace incomparability, confinement, storage, durability, allocator/capacity, callback-generalization or external exactly-once theorem.",
+    "No compiler/Cargo/vstd/Rust rebuild; matched logs are audited not fresh.",
+    "Frozen candidate is exact despite separately observed changes to live parent paths/shared refs; no attribution.",
+    "No cryptographic authenticity or hostile-cache-decoder claim."
+  ],
+  "matched_after_files": 2133,
+  "matched_before_files": 2122,
+  "matched_build_inputs": 1088,
+  "matched_delivery_seal_files": 6351,
+  "matched_source_files": 1579,
+  "new_blocking_findings": [],
+  "no_candidate_or_parent_fixes": true,
+  "no_commit_branch_ref_push_pr_actions": true,
+  "no_shared_cargo_home_toolchain_native_edits": true,
+  "no_subdelegation": true,
+  "observed_live_parent_path_changes_without_attribution": {
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/docs/guide/src/infer.md": {
+      "final": {
+        "actual": "ec667b99931ce6f7d4465b4bc04e7238139d92764c672b33dc856b41750827c4",
+        "expected": "c7c02554d8ffcaa16a3b1e586b4fffc9219411842951238ba910a7601187a2ee",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/docs/guide/src/infer.md"
+      },
+      "initial": null
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/INFER_TRANSFERS.md": {
+      "final": {
+        "actual": "bc3f79dc5628cf2edf4d97832491c256c52d9cdc520966f708df63cb2e8d256a",
+        "expected": "bb1581fdcbad0be01cd1623f006fdb59235d7c7cfef5fe32ad005ad41d406a33",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/INFER_TRANSFERS.md"
+      },
+      "initial": null
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/check_redb_slot_selection.py": {
+      "final": {
+        "actual": "6c15270214a52fbeec0831507f406fe2a13dac828f6b3fec051f5fecc33ce09b",
+        "expected": "004639e55c6031a181f9769a74262ae3a94ca74fce9ce52d9f383069af0dab10",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/check_redb_slot_selection.py"
+      },
+      "initial": null
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/check_redb_slot_selection_opaque.py": {
+      "final": {
+        "actual": "a5292dc45485992bcfdc581e024d3d03d4c9a0395ba97070679bcf536a8a8ccb",
+        "expected": "6011eb2d7dc0505a9d513658e356116b188cef74211ad2deae2e092aeecec5ad",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/check_redb_slot_selection_opaque.py"
+      },
+      "initial": null
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/test_redb_slot_selection.py": {
+      "final": {
+        "actual": "bd5f2d75c05188794dd2d767d624db44a8d9fd3f14d1093bcac57323aaa394c6",
+        "expected": "6b40a24412df009336039e05573f923180898cb7973627058506a2bfa8f1cfe4",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/test_redb_slot_selection.py"
+      },
+      "initial": null
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/test_redb_slot_selection_opaque.py": {
+      "final": {
+        "actual": "95e6d1509c0d91462ff4c558a2b3ca9319b882d786eaf04b8da8401a4b0207bc",
+        "expected": "c71aa10c61a44d5fd6d5ad2609a86f9f9908450576a2be1dcc2a3d85b80f0376",
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/source/tools/test_redb_slot_selection_opaque.py"
+      },
+      "initial": null
+    }
+  },
+  "original_live_parent_ledger_final_differences": 13,
+  "original_live_parent_ledger_initial_differences": 7,
+  "own_branch": "refs/heads/t3/review-cycle79-candidate",
+  "own_head_branch_index_unchanged": true,
+  "patch_applications": [
+    {
+      "count": 1,
+      "path": "/private/tmp/verus-storage-cycle78.G9sUIt/final-package/combined.apply_patch",
+      "sha256": "b9df7a504753f419997ec8ae0fa35e37f28de165e37dfd39d604c79993420f75"
+    },
+    {
+      "count": 1,
+      "path": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/baseline-relative.apply_patch",
+      "sha256": "0b5fa2b368840f0e3254692f1ff903e8127527c5b99cac9049f33b1df52d3636"
+    }
+  ],
+  "report": "/private/tmp/verus-cycle79-independent-review.5GYSxK/REPORT.md",
+  "report_sha256": "6be4171948ace1d77bdb4fe668e78cf1d3b6fbb6570870613161c052b4e860fa",
+  "reproduction_command_ledger": "/private/tmp/verus-cycle79-independent-review.5GYSxK/replay-commands.json",
+  "reproduction_command_ledger_sha256": "95532a4cc8659f7c1d02727326dd692ae21b14998608962ff4517d0b823713c3",
+  "runtime": "/private/tmp/verus-prefix-infer79-impl.Ks6IeN/delivery/runtime78",
+  "schema": "bounded-cycle79-independent-review-v1",
+  "shared_integration": "NOT_APPROVED_PARENT_OWNS_IDENTITY_READERS_AND_NESTED_LOADER",
+  "shared_ref_observations_without_attribution": {
+    "refs/heads/t3/review-cycle79-compatibility": [
+      null,
+      "3b05c1912b9d7314ad00c832c4065f4362562e02"
+    ],
+    "refs/t3/orchestration-v2/checkpoints/MTc2ODBlNGY3MGMyYzM5MzBjYjdmYTRiOWI4OThjZDI/ordinal/73": [
+      null,
+      "dd05e934fa714fcf296fef369eed8e5f052e82c2"
+    ],
+    "refs/t3/orchestration-v2/checkpoints/NDUxZTRmNDkyODZlNWFhYzgxY2ExYzRlMWVkMjJlYTg/ordinal/0": [
+      null,
+      "b2837798b6cb4ea3513f29dd7217a4f2880a75d6"
+    ]
+  }
+}

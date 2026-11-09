@@ -1,0 +1,18 @@
+{
+  "acceptance": false,
+  "all18": "OPEN",
+  "archive": "/private/tmp/redb-storage109-review-QFf6FvBP/handoff.tar.gz",
+  "archive_members": 92,
+  "archive_sha256": "6e390c54f0c89696be954839cb1079f5a03cbf0c6465cba9b3b05959c4559b5d",
+  "ended_at_handoff": true,
+  "manifest_sha256": "575e83132a3d0d99cbfd85e12635c3a17a9aa4e2591200ea6bb4367d8b4f8499",
+  "report": "/private/tmp/redb-storage109-review-QFf6FvBP/REPORT.md",
+  "root": "/private/tmp/redb-storage109-review-QFf6FvBP",
+  "sample": {
+    "elapsed_seconds": 703.8849279880524,
+    "free_bytes": 54180085760,
+    "scratch_bytes": 13013500,
+    "utc": "2026-11-08T04:19:05.884921+00:00"
+  },
+  "seal_sha256": "73424b8851182acc7a4ae9852b47ae09f1039c9501f0a13ddb5dbaaf5d5ea45c"
+}

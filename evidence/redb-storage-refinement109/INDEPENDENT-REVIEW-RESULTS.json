@@ -1,0 +1,201 @@
+{
+  "acceptance": false,
+  "acknowledgement_proof_bodies": 15,
+  "acknowledgement_verified_obligations": 16,
+  "archive_members_byte_compared": 92,
+  "archive_sha256": "6e390c54f0c89696be954839cb1079f5a03cbf0c6465cba9b3b05959c4559b5d",
+  "authenticated_payloads": 90,
+  "bootstrap_provenance": "QUALIFIED_NO_EXHAUSTIVE_OR_ATOMIC_FIRST_USE_CLAIM",
+  "buffered_proof_bodies": 26,
+  "buffered_verified_obligations": 31,
+  "charged_attempts": 6,
+  "checks": [
+    {
+      "check": "check-01",
+      "elapsed_seconds": 1.3727989196777344,
+      "export_bytes": 847390,
+      "export_exists": true,
+      "export_sha256": "ad7628de372e6a82bb0d2169e500eb0640ca61442a1ff26e43b7684858ada6f6",
+      "launched": true,
+      "requested_export": "/private/tmp/redb-storage109-review-QFf6FvBP/check-01/buffered_flush109.vir",
+      "returncode": 0,
+      "rlibs": [],
+      "sample": {
+        "elapsed_seconds": 176.27958607673645,
+        "free_bytes": 54418456576,
+        "scratch_bytes": 1740830,
+        "utc": "2026-11-08T04:10:18.279569+00:00"
+      },
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 31
+      }
+    },
+    {
+      "check": "check-02",
+      "elapsed_seconds": 0.7946169376373291,
+      "export_bytes": 0,
+      "export_exists": false,
+      "export_sha256": null,
+      "launched": true,
+      "requested_export": "/private/tmp/redb-storage109-review-QFf6FvBP/check-02/buffered_flush109.vir",
+      "returncode": 1,
+      "rlibs": [],
+      "sample": {
+        "elapsed_seconds": 177.31889009475708,
+        "free_bytes": 54418026496,
+        "scratch_bytes": 2081412,
+        "utc": "2026-11-08T04:10:19.318862+00:00"
+      },
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 30
+      }
+    },
+    {
+      "check": "check-03",
+      "elapsed_seconds": 0.7840499877929688,
+      "export_bytes": 847390,
+      "export_exists": true,
+      "export_sha256": "601996bbb9c3d60fd6d8a8bc81a7bb60e8b8930a2de82b1832ec9dca73f56f53",
+      "launched": true,
+      "requested_export": "/private/tmp/redb-storage109-review-QFf6FvBP/check-03/buffered_flush109.vir",
+      "returncode": 0,
+      "rlibs": [],
+      "sample": {
+        "elapsed_seconds": 178.30302500724792,
+        "free_bytes": 54419779584,
+        "scratch_bytes": 3267899,
+        "utc": "2026-11-08T04:10:20.303001+00:00"
+      },
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 31
+      }
+    },
+    {
+      "check": "check-04",
+      "elapsed_seconds": 0.45998597145080566,
+      "export_bytes": 375929,
+      "export_exists": true,
+      "export_sha256": "76b675b9f655e0059b0d498ee87047497101a041398e2780a0a167c53c974cbf",
+      "launched": true,
+      "requested_export": "/private/tmp/redb-storage109-review-QFf6FvBP/check-04/ack_cfg109.vir",
+      "returncode": 0,
+      "rlibs": [],
+      "sample": {
+        "elapsed_seconds": 178.9650580883026,
+        "free_bytes": 54419152896,
+        "scratch_bytes": 3934107,
+        "utc": "2026-11-08T04:10:20.965031+00:00"
+      },
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 16
+      }
+    },
+    {
+      "check": "check-05",
+      "elapsed_seconds": 0.504734992980957,
+      "export_bytes": 0,
+      "export_exists": false,
+      "export_sha256": null,
+      "launched": true,
+      "requested_export": "/private/tmp/redb-storage109-review-QFf6FvBP/check-05/ack_cfg109.vir",
+      "returncode": 1,
+      "rlibs": [],
+      "sample": {
+        "elapsed_seconds": 179.69631695747375,
+        "free_bytes": 54418472960,
+        "scratch_bytes": 4226738,
+        "utc": "2026-11-08T04:10:21.696283+00:00"
+      },
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 14
+      }
+    },
+    {
+      "check": "check-06",
+      "elapsed_seconds": 0.5099499225616455,
+      "export_bytes": 375929,
+      "export_exists": true,
+      "export_sha256": "d83d912b6623ee76d5e84e9c156a93be6295a7c8a1e70cdc2f1fd466898a7d2b",
+      "launched": true,
+      "requested_export": "/private/tmp/redb-storage109-review-QFf6FvBP/check-06/ack_cfg109.vir",
+      "returncode": 0,
+      "rlibs": [],
+      "sample": {
+        "elapsed_seconds": 180.41377592086792,
+        "free_bytes": 54417952768,
+        "scratch_bytes": 4892870,
+        "utc": "2026-11-08T04:10:22.413753+00:00"
+      },
+      "timed_out": false,
+      "verification_results": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 16
+      }
+    }
+  ],
+  "conditional_models_have_identical_transition_domains": false,
+  "consumer_proof_bodies_historically_checked_not_fresh_replayed": 17,
+  "consumer_verified_obligations_historically_checked": 18,
+  "controls_regenerated_products_byte_identical": 7,
+  "controls_tests_replayed": 21,
+  "current_frozen_input_matches_before_parent_reconciliation": 369,
+  "historical_documents_before_reconciliation": {
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md": {
+      "sha256": "c98118382feb05e5262db6d3a151322099f36ee395b4950eada988e78a5541c0",
+      "snapshot": "HISTORICAL-GOAL.md"
+    },
+    "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json": {
+      "sha256": "bf189af264f8f3d93279144192322b7fbdd15a7240ed538fc3b5c3f66695d99e",
+      "snapshot": "HISTORICAL-STATUS.json"
+    }
+  },
+  "integration": false,
+  "manifest_sha256": "575e83132a3d0d99cbfd85e12635c3a17a9aa4e2591200ea6bb4367d8b4f8499",
+  "native_adapter_R": "OPEN",
+  "native_executable_bodies_checked": 0,
+  "publication_correction": "ACK-PUBLICATION-CORRECTION.json",
+  "redb_open_cells": 18,
+  "report_sha256": "2335cb6006c9957ad4d696f0b41f33f4a788069677a7f430b03b66b39a995a8f",
+  "retained_utc": "2026-11-08T04:21:43.635573+00:00",
+  "review_exit_authenticated_paths": 783,
+  "review_exit_mismatches": 0,
+  "schema": "redb-storage109-combined-review-retention-v1",
+  "source": "/private/tmp/redb-storage109-review-QFf6FvBP",
+  "trust_adoption": false,
+  "verdict": "NO_INVALID_BOUNDED_MODEL_THEOREM_IDENTIFIED_NATIVE_LINKAGE_OPEN",
+  "verifier_launches": 6
+}

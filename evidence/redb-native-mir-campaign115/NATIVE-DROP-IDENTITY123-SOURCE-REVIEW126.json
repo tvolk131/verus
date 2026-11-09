@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-08T18:20:31.958263+00:00",
+  "source_root": "/private/tmp/candidate123-independent-review-20261108T1810-L5OBoz",
+  "manifest": "MANIFEST.sha256",
+  "manifest_sha256": "2890e04af62bde2f494c4e5b613882f3829651745ec62c03aefcf1aec2d6b1e2",
+  "supplied_manifest_pin": "2890e04af62bde2f494c4e5b613882f3829651745ec62c03aefcf1aec2d6b1e2",
+  "manifest_authentication": "supplied_pin",
+  "archive": "NATIVE-DROP-IDENTITY123-SOURCE-REVIEW126.tar.gz",
+  "archive_bytes": 12869,
+  "archive_sha256": "38b4739b406130e937c9da553551538b5e1692f5160bb1fd27c59536329f398b",
+  "members": 16,
+  "readback_matches": 16,
+  "disposition": "NO_NEW_P1_P2_SOURCE_ONLY_NOT_RUNTIME_VALIDATION",
+  "authentication_scope": "listed_payloads_currently_observed_not_historical_custody",
+  "all18": "OPEN",
+  "native_proof_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "source_integrated": false,
+  "mapping_approved": false
+}

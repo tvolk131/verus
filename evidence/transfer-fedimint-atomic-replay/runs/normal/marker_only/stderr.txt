@@ -1,0 +1,10 @@
+error: postcondition not satisfied
+   --> /private/tmp/verus-fedimint-atomic-cycle-q1z97f34/delivery-validation/normal/marker_only/model.rs:269:13
+    |
+268 | pub proof fn false_marker_only()
+    | -------------------------------- at the end of the function body
+269 |     ensures paired(crash(non_atomic_marker(start(initial(0, 0), Payload { item: 1, peer: 2 }))).disk),
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: aborting due to 1 previous error
+

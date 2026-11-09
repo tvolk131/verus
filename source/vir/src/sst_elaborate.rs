@@ -67,18 +67,20 @@ fn elaborate_one_exp<D: Diagnostics + ?Sized>(
                 let trigs = build_triggers(ctx, &exp.span, &vars, &body, false)?;
                 if let Some(assert_by_vars) = assert_by_vars {
                     let natives = crate::triggers::native_quant_vars(bs, &trigs);
-                    assert!(assert_by_vars.len() == bs.len());
-                    for (x, b) in assert_by_vars.iter().zip(bs.iter()) {
+                    assert!(assert_by_vars.locals.len() == bs.len());
+                    for (local, b) in assert_by_vars.locals.iter().zip(bs.iter()) {
                         let native = natives.contains(&b.name);
                         if let Some(is_native) = is_native {
-                            if let Some(n) = is_native.insert(x.clone(), native) {
+                            if let Some(n) = is_native.insert(local.ident.clone(), native) {
                                 assert!(n == native);
                             }
                         }
                     }
                 }
-                let bnd =
-                    Spanned::new(bnd.span.clone(), BndX::Quant(*quant, bs.clone(), trigs, None));
+                let bnd = Spanned::new(
+                    bnd.span.clone(),
+                    BndX::Quant(*quant, bs.clone(), trigs, assert_by_vars.clone()),
+                );
                 Ok(SpannedTyped::new(&exp.span, &exp.typ, ExpX::Bind(bnd, body.clone())))
             }
             BndX::Choose(bs, trigs, cond) => {

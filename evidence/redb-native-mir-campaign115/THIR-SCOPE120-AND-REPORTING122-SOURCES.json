@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-08T17:49:51.449964+00:00",
+  "source_roots": {
+    "scope120": "/private/tmp/redb-thir-scope-capture-20261108T173322Z",
+    "reporting122": "/private/tmp/redb-thir-scope122-parent-source"
+  },
+  "archive": "THIR-SCOPE120-AND-REPORTING122-SOURCES.tar.gz",
+  "archive_bytes": 21444,
+  "archive_sha256": "c50f283420d148e168ea09168691ebc96ca8d329ed1969c2a1895305814715de",
+  "members": 10,
+  "readback_matches": 10,
+  "scope120_identity_sha256": "8c57dd21d736bd999bf82461e521457737f51114a00c07d6e06bb57bb1aaf44e",
+  "reporting122_manifest_sha256": "18e3567fb7660e704500b75f0b6a493a49ea38c63a31c9605947a571967ff3b7",
+  "selected120_inputs_currently_reauthenticated": 8,
+  "status": "SOURCE_ONLY_INPUTS_FOR_DISTINCT_RUNTIME122_VALIDATION",
+  "source120_syntax_only_parses": 3,
+  "parent_classification_correction_built_at_retention": false,
+  "runtime122_result": "PENDING_NOT_INFERRED",
+  "earlier_parent_discovery_failure": "An attempted SEAL.json read failed: source120 supplies SOURCE-IDENTITY.json, not a final SEAL.json. The actual supplied identity and all five listed payloads were authenticated before use.",
+  "all18": "OPEN",
+  "native_proof_credit": 0,
+  "resource_credit": 0,
+  "trust_credit": 0,
+  "source_integrated": false
+}

@@ -1,0 +1,31 @@
+{
+  "updates": [
+    {
+      "after_final": {
+        "bytes": 21684,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/GOAL.md",
+        "sha256": "ba2ce9225e712415f9bb5bbd4c6555740cd7b2ad57edb833822e2b208bfd1047"
+      },
+      "before_final": {
+        "bytes": 19376,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-writablepage-lifecycle113/PRE-FINAL-GOAL.md",
+        "sha256": "b5eb3a41a5eb9248572bf5be2747c2af6cf41b8f5b00dc872f5cefcbd750abb2"
+      },
+      "reason": "ALL_DELEGATES_TERMINAL_PARTIAL_ROUND_RECONCILIATION"
+    },
+    {
+      "after_final": {
+        "bytes": 27042,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-crash-consistency94/STATUS.json",
+        "sha256": "03330f9a10b988dbd3e0373e304f8c42228ba9cf6b77ded52c3f14bc11fe5dba"
+      },
+      "before_final": {
+        "bytes": 25984,
+        "path": "/Users/tommyvolk/.t3/worktrees/verus/t3-60978068/evidence/redb-writablepage-lifecycle113/PRE-FINAL-STATUS.json",
+        "sha256": "094e972a33e0fe300c512e998aefbf28db39db89bf4c75af9bf6a8d4c91df240"
+      },
+      "reason": "ALL_DELEGATES_TERMINAL_PARTIAL_ROUND_RECONCILIATION"
+    }
+  ],
+  "utc": "2026-11-08T15:03:54.550930+00:00"
+}

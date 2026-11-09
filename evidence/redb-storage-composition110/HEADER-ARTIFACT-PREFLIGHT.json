@@ -1,0 +1,129 @@
+{
+  "all18": "OPEN",
+  "compiler_source_correspondence": "UNESTABLISHED",
+  "decision": "Do not mix the header artifact pairs with round110 midpoint vstd. A future scratch-only composition must use the exact historical matched runtime/vstd and reverify source-module copies of round110 libraries, or separately establish another complete matching binding. No execution or adoption occurs in this preflight.",
+  "historical_artifact_reused_now": false,
+  "historical_manifest_sha256": "474753727618543b4bcf102250557aa4ca302118c21968306c1245dc5f68ff35",
+  "historical_payload_matches": 315,
+  "historical_root": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021",
+  "historical_trust_boundary": "EXPLICIT_INHERITED_STD_BOOL_TCB_NOT_RUST_CORE_PROOF",
+  "new_builds": 0,
+  "new_verifier_invocations": 0,
+  "preserved_exclusions": [
+    "mutation030",
+    "refused_padding95",
+    "Drop_lifecycle_pipeline"
+  ],
+  "provider_pairs": [
+    {
+      "artifacts": [
+        {
+          "path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/artifacts/recovery_reencoding021.vir",
+          "sha256": "06ad69cf1e0779c47c4f9fb7883498b6bcc575d97cde8891f2cd3e70ba5d67c6"
+        },
+        {
+          "path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/artifacts/librecovery_reencoding021.rlib",
+          "sha256": "9e4a09990a8f4732b80881cb81f95ac7206319b1f833118b70c20306d62ae0b6"
+        }
+      ],
+      "crate": "recovery_reencoding021",
+      "positive_attempt": "001",
+      "source": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/reencoding-001.rs",
+      "source_sha256": "772e12e6d6da508e00f2ac26129c7a65d2f80f9144cadadf0959a5518459b759"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/artifacts/recovery_roundtrip021.vir",
+          "sha256": "f14bc273af279407344afbf4fd3b1d95dd7d9ce682722b5b946bb4b5fd073b0d"
+        },
+        {
+          "path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/artifacts/librecovery_roundtrip021.rlib",
+          "sha256": "451f71ebda52facc9f480a8886de3848560dfd76985c2be91b4982784de03ad5"
+        }
+      ],
+      "crate": "recovery_roundtrip021",
+      "positive_attempt": "006",
+      "source": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/roundtrip-005.rs",
+      "source_sha256": "c93f31d41d6affafa39eea680fef7d1771c24b73bd83abc4eff503b8a513466d"
+    }
+  ],
+  "runtime_comparisons": [
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/libverus_builtin.rlib",
+      "current_sha256": "941acbc2b162f5d94508af7dc3123ba8b427a22582ce105eafc21fe36ead2935",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/libverus_builtin.rlib",
+      "historical_sha256": "941acbc2b162f5d94508af7dc3123ba8b427a22582ce105eafc21fe36ead2935",
+      "name": "libverus_builtin.rlib"
+    },
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/libverus_builtin_macros.dylib",
+      "current_sha256": "5292f70af0af16cac8ae67f569a6c564e897033a64d72836174b2e14bfc68dc9",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/libverus_builtin_macros.dylib",
+      "historical_sha256": "5292f70af0af16cac8ae67f569a6c564e897033a64d72836174b2e14bfc68dc9",
+      "name": "libverus_builtin_macros.dylib"
+    },
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/libverus_state_machines_macros.dylib",
+      "current_sha256": "01bd79661de4e3a0a625abdbdb2eae0ce50ab69349ca467b07c31995401e6aaa",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/libverus_state_machines_macros.dylib",
+      "historical_sha256": "01bd79661de4e3a0a625abdbdb2eae0ce50ab69349ca467b07c31995401e6aaa",
+      "name": "libverus_state_machines_macros.dylib"
+    },
+    {
+      "byte_identical": false,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/libvstd.rlib",
+      "current_sha256": "72cf74bc8a82d1bef2f2ba6621f34f72c72bcc68a84ecc714ac7b2def7d32b44",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/libvstd.rlib",
+      "historical_sha256": "6a304d1023dbef7a7acde3dd5764adb674407c6f7541f04af909c90f89333242",
+      "name": "libvstd.rlib"
+    },
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/rust_verify",
+      "current_sha256": "7596883c92ef9a8eecc298ebbd9106b564cc9baef6e9f54de40f4f87c56e4395",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/rust_verify",
+      "historical_sha256": "7596883c92ef9a8eecc298ebbd9106b564cc9baef6e9f54de40f4f87c56e4395",
+      "name": "rust_verify"
+    },
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/verus",
+      "current_sha256": "da0aad5ec3359b3037f522f3153570242a65529d8696b2b7209fd48599046628",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/verus",
+      "historical_sha256": "da0aad5ec3359b3037f522f3153570242a65529d8696b2b7209fd48599046628",
+      "name": "verus"
+    },
+    {
+      "byte_identical": false,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/vstd.vir",
+      "current_sha256": "435eb70a7160c85911ef391a1a02f49cb63f4dd60b8079decd495f6e4adafd82",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/vstd.vir",
+      "historical_sha256": "92a3978710077fe3ed4c93997497573f001e7667dc26c2a3ece85a05d09cbf1b",
+      "name": "vstd.vir"
+    },
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/vstd_build",
+      "current_sha256": "14a7df403de736cd53e507a380dd1a83d3603d7fab1f0c4b319c4a952bfab306",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/vstd_build",
+      "historical_sha256": "14a7df403de736cd53e507a380dd1a83d3603d7fab1f0c4b319c4a952bfab306",
+      "name": "vstd_build"
+    },
+    {
+      "byte_identical": true,
+      "current_path": "/private/tmp/verus-crash-consistency94-20261105/native-leaf-lookup-007/midpoint-runtime-proposal/runtime/z3",
+      "current_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "historical_path": "/private/tmp/verus-crash-consistency94-20261105/native-recovery-reencoding-021/runtime/z3",
+      "historical_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+      "name": "z3"
+    }
+  ],
+  "schema": "redb-composition110-existing-header-artifact-preflight-v1",
+  "selected_inputs_entry_matches": 838,
+  "selected_inputs_exit_matches": 838,
+  "utc": "2026-11-08T05:04:44.437656+00:00"
+}
