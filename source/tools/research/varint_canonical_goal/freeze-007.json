@@ -1,0 +1,7 @@
+{
+  "before_trial": true,
+  "change": "remove all local mechanical proof blocks; retain three mechanical loop invariants pending engine installation",
+  "files": {
+    "candidate-007.rs": "fdfecdb42d081024548f4e2ba618c6a8b58129b678cad5def17ed6b674a523c2"
+  }
+}

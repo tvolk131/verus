@@ -1,0 +1,7 @@
+{
+  "before_trial": true,
+  "change": "remove all 3 mechanical loop invariants as well as local proof blocks; semantic content unchanged",
+  "files": {
+    "candidate-008.rs": "4c11f4c1fa9705ef96e98d9b321fde7271da5e950ab84e74e6bae6003de1b4d5"
+  }
+}
