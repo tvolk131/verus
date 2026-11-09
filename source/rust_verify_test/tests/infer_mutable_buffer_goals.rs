@@ -12,6 +12,7 @@ fn check(name: &str, text: String, goals: bool, success: bool) {
     } else {
         vec!["vstd", "--no-cheating"]
     };
+    let text = text.replace("#![feature(proc_macro_hygiene)]", "");
     let result = verify_one_file(name, text, &options);
     assert_eq!(result.is_ok(), success, "{name}: {result:?}");
 }

@@ -188,7 +188,7 @@ fn shape(
             .x
             .proxy
             .as_ref()
-            .is_some_and(|p| models::spec_proxy(&p.x, &["std_specs", "slice"], "iter_mut"))
+            .is_some_and(|p| models::spec_proxy(&p.x, &["std_specs", "slice"], "iter__mut"))
     {
         return None;
     }
