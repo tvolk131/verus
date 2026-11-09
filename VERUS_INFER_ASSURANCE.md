@@ -28,9 +28,13 @@ behavior; the [direction document](VERUS_INFER_DIRECTION.md) sets priorities.
   the feature reference.
 - Every `--infer-goals` provider requires complete body checking, even with no
   inferred helper or applicable assistance profile. Disabled/partial checking
-  is rejected before certification and independently at export. Policy 64
+  is rejected before certification and independently at export. Policy 66
   invalidates earlier inference-aware interfaces; candidate formulas remain
   untrusted and freshly proved under the unchanged cache policy.
+- Ordinary-only providers must also retain normal lifetime and trait-consistency
+  checking. In particular, disabling lifetimes cannot certify a proof function
+  that duplicates a generic tracked resource. Goal-assisted exports conservatively
+  bind standard-library model artifacts even when no executable is inferred.
 - Legacy ordinary Verus exports without inference or `--infer-goals` can be
   written before proof checking. Their presence does not establish verification;
   the [fresh varint experiment](evidence/verus-infer-varint-3b05c191/README.md)

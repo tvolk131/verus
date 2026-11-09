@@ -40,8 +40,10 @@ Each acceptance record defines its own source, assumptions and finite scope:
 The later [integrated transfer checkpoint](evidence/infer-proof-composition/README.md)
 adds bounded native Fedimint deadline and redb codec, page-size and address-range
 proofs. Checked caller assistance removes packing, byte-inverse and shift-bound
-glue from selected goals. The full seven-field Fedimint request remains blocked
-by its external hash type; no whole-gateway or database theorem is claimed.
+glue from selected goals. The later [full-request experiment](evidence/transfer-fedimint-full-request/README.md)
+retains the actual seven-field Fedimint request through an explicit opaque
+external type declaration and narrow readonly eligibility. Its merged extension
+still needs combined parent validation; no whole-gateway or database theorem is claimed.
 Use the [transfer front door](source/tools/INFER_TRANSFERS.md) for fresh results.
 
 The experiment harness, integration-test support and ordered assistance pipeline
@@ -56,7 +58,12 @@ gets past macro syntax using the existing adapter. Exact inference stops at
 canonical byte property. The [single-word redb transition](source/tools/research/redb_single_word_set/REPORT.md)
 proves an authored membership/count/padding invariant with explicit generic
 word-law assistance; unaided goal assistance still fails its semantic goals.
-These frozen baselines guide the next automation decision.
+The merged [word-view extension](source/tools/research/word_goal_automation/REPORT.md)
+removes local snapshots/proof blocks/theorem calls when equivalent generic
+representation symbols are supplied, and transfers to permission/count goals.
+The literal old definitions and arbitrary forwarding wrappers remain blockers.
+Combined acceptance is pending; these are separate results, not a relabeling of
+the frozen baselines.
 
 ## Active sequence
 

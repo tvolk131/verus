@@ -14,7 +14,7 @@ use vir::infer::ProofStatus;
 // metadata is an optional trailer, required whenever an inferred API is present.
 const INFER_MAGIC: &[u8; 8] = b"VRINFER1";
 const INFER_SCHEMA: u32 = 38;
-const INFER_POLICY: &str = "candidate-bound-evidence-v64";
+const INFER_POLICY: &str = "candidate-bound-evidence-v66";
 const MAX_INFER_METADATA: u64 = 1024 * 1024;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -324,9 +324,9 @@ pub(crate) fn export_crate(
     let Some(file_path) = export_path(args, export_vir_path_via_cargo) else {
         return Ok(());
     };
-    if verified_inference.is_some() && !args.checks_entire_crate() {
+    if verified_inference.is_some() && !args.can_certify_inference() {
         return Err(crate::util::error(
-            "Verus Infer: cannot export an inference-aware interface without full-crate verification",
+            "Verus Infer: cannot export an inference-aware interface without full-crate verification and normal lifetime/trait checks",
         ));
     }
     if vir_crate.functions.iter().any(|f| f.x.attrs.infer || vir::infer::is_inference_contract(f))

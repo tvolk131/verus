@@ -2924,13 +2924,13 @@ impl Verifier {
             )));
         }
 
-        let incomplete_inference_scope = !self.args.checks_entire_crate();
+        let incomplete_inference_scope = !self.args.can_certify_inference();
         // --infer-goals also certifies ordinary-only providers. The absence of
         // inferred helpers or a matching preparation profile must not let an
         // unchecked/filtered crate acquire inference-aware metadata.
         if self.args.infer_goals && incomplete_inference_scope {
             return Err(map_err_diagnostics(vir::messages::error_bare(
-                "Verus Infer requires full-crate verification with --infer-goals; --no-verify and function/module filters are unsupported",
+                "Verus Infer requires full-crate verification with --infer-goals and normal lifetime/trait checks; disabled checks and function/module filters are unsupported",
             )));
         }
         if !self.imported_inference_dependencies.is_empty() && incomplete_inference_scope {
@@ -3013,19 +3013,21 @@ impl Verifier {
         let merged_crate = query.get_merged_crate().map_err(map_query_err)?;
         let mut models: std::collections::BTreeMap<_, _> =
             self.inference_trusted_models.iter().cloned().collect();
-        if local_crate.functions.iter().any(|f| {
-            f.x.attrs.infer_trait_getter
-                || f.x.attrs.infer_iterator_factory
-                || f.x.attrs.infer_clone_contract
-                || vir::infer::is_wrapper_trait(f)
-                || vir::infer::is_inference_contract(f)
-                || vir::infer::is_owned_summary(f)
-                || vir::infer::uses_byte_vec_resources(f)
-                || vir::infer::exact_size_hint_opt_in(f)
-        }) {
-            // Ordinary implementation proofs can use library models even when
-            // this provider contains no inferred executable. Bind their model
-            // artifacts conservatively before certifying the trait interface.
+        if self.args.infer_goals
+            || local_crate.functions.iter().any(|f| {
+                f.x.attrs.infer_trait_getter
+                    || f.x.attrs.infer_iterator_factory
+                    || f.x.attrs.infer_clone_contract
+                    || vir::infer::is_wrapper_trait(f)
+                    || vir::infer::is_inference_contract(f)
+                    || vir::infer::is_owned_summary(f)
+                    || vir::infer::uses_byte_vec_resources(f)
+                    || vir::infer::exact_size_hint_opt_in(f)
+            })
+        {
+            // Ordinary goal-assisted proofs can use checked library laws even
+            // without inferred executables or specially annotated interfaces.
+            // Bind the library artifacts conservatively for their consumers.
             models
                 .extend(self.available_trusted_models.iter().map(|(f, s)| (f.clone(), s.clone())));
         }

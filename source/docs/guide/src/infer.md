@@ -6,16 +6,17 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **38**, inference policy **64** and
+The current build uses metadata schema **38**, inference policy **66** and
 candidate-cache version **69**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
-Policy 64 requires complete verification for every `--infer-goals` provider,
-including ordinary-only crates where no assistance profile applies.
-`--no-verify` and function/module filters are rejected. Earlier inference-aware
-metadata is incompatible and providers must be rebuilt. Candidate formulas are
-unchanged by this publication fix; cache version 69 still requires fresh proofs.
+Policy 66 requires complete verification and normal lifetime/trait checking
+for every `--infer-goals` provider, including ordinary-only crates where no
+assistance profile applies. Disabled checks and function/module filters are
+rejected. Earlier inference-aware metadata, including policy 64, is incompatible
+and providers must be rebuilt. Candidate-cache version 69 still requires fresh
+proofs; readonly record templates regenerate as documented below.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
@@ -445,6 +446,28 @@ an experiment-only regression oracle separately retains the original behavioral
 clauses. The counting equivalence, other state contracts, loop annotations and
 transition equality assertion remain supplied. This is the existing manual
 collector core, not clean main's `NodeMap`/`Unit`/`Hasher` implementation.
+
+### Declared opaque foreign fields in readonly queries
+
+An exact shared-reference record query can retain an explicitly declared,
+monomorphic opaque foreign type as a whole nested leaf. The outer record must
+still satisfy the visible bounded record profile. The foreign descriptor must
+be always-sized, executable, field-opaque and connected to its checked external
+type proxy, without a destructor, invariant, type bounds or extensional-equality
+declaration. No field representation or method semantics is inferred for it.
+
+Use the existing `external_type_specification` mechanism to declare the real
+external type. That declaration is an explicit type-correspondence trust input;
+it does not replace the field with a local stand-in or supply a cryptographic
+law. Root opaque receivers, mutable/by-value receivers, sound-only inference and
+generic foreign leaves do not gain this eligibility path. Original bodies and
+all independent exact checks remain mandatory.
+
+The [full Fedimint request transfer](https://github.com/tvolk131/verus/blob/verus-infer/evidence/transfer-fedimint-full-request/README.md)
+retains all seven native fields, including the real SHA-256 type, while inferring
+the original deadline helpers. Its source adapters, omitted derives, supplied
+opaque declaration and scope remain explicit; it proves no cryptography or
+funding/settlement policy.
 
 ### Transparent wrapper composition
 
@@ -2602,8 +2625,9 @@ new axiom or candidate-derived equality choice is introduced. Core
 Option/Result receivers do not enter the by-value record-to-array profile.
 Native value candidates are regenerated, including on warm runs; ordinary
 scalar forwarding candidates may be cached, but all required proofs run again.
-Policy 60 and cache 66 introduced the shared profile; the current reconciled
-boundary is policy 63 and cache 69, with metadata schema 38.
+Policy 60 and cache 66 introduced the shared profile. The original reconciled
+transfer checkpoint used policy 63/cache 69/schema 38; use the version identities
+at the top of this chapter for the current build.
 
 `source/tools/check_fedimint_native.py` checks byte-preserved extracted helper
 bodies and the literal tuple constant against a pinned application. It proves
