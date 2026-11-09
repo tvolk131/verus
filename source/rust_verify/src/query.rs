@@ -729,6 +729,26 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 Err(_) => unreachable!(),
             }
         }
+        // Snapshot proposals introduce ghost bindings/temporary places. Recheck
+        // their entire decorated function and use the resulting resolution maps;
+        // the original maps cannot describe newly generated locals or read IDs.
+        let mut krate = krate;
+        if !self.inference_generation.buffer_observations.is_empty() {
+            let stubs = Arc::new(krate.functions.iter().map(|f|
+                (f.x.name.clone(), vir::ast_util::function_to_stub(f))).collect());
+            let wf = self.get_initial_wf_results()?;
+            for f in &mut Arc::make_mut(&mut krate).functions {
+                if self.inference_generation.buffer_observations.iter().any(|(n, _)| n == &f.x.name) {
+                    let (checked, _, resolution) = vir::modes::check_function(
+                        stubs.clone(), wf.lookup.clone(), f, &demote_trait_lookup,
+                    ).map_err(|e| self.emit_errors(e))?;
+                    if let Some(info) = resolution {
+                        res_infos.insert(f.x.name.clone(), Arc::new(info));
+                    }
+                    *f = checked;
+                }
+            }
+        }
         let assisted_loops = self
             .inference_generation
             .growth_loops
