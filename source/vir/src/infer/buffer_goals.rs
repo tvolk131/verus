@@ -9,7 +9,15 @@ use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor
 const NODES: usize = 8192;
 fn plain(e: &Expr) -> &Expr {
     match &e.x {
-        ExprX::Block(ss, Some(t)) if ss.is_empty() => plain(t),
+        ExprX::Block(ss, Some(t))
+            if ss.iter().all(|s| {
+                matches!(&s.x,
+            StmtX::Expr(e) if matches!(&e.x, ExprX::AssertAssume { is_assume:true,expr,.. }
+                if matches!(&expr.x, ExprX::UnaryOpr(UnaryOpr::HasResolved(_),_))))
+            }) =>
+        {
+            plain(t)
+        }
         ExprX::EvalAndResolve(e, _) | ExprX::NeverToAny(e) => plain(e),
         _ => e,
     }
@@ -108,7 +116,7 @@ fn source(e: &Expr) -> Option<Source> {
     Some(Source {
         loop_expr: loop_expr.clone(),
         iterator: iterator.clone(),
-        body: body.clone(),
+        body: plain(body).clone(),
         wrapper: wrapper.clone(),
     })
 }
