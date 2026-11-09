@@ -2,7 +2,8 @@
 use super::*;
 
 /// Reporting coverage, never a registry of enabled or verified proof strategies.
-pub const EXPLAINED_PROFILES: &[&str] = &["growth_loop", "pointwise_transport", "range_loop"];
+pub const EXPLAINED_PROFILES: &[&str] =
+    &["growth_loop", "pointwise_transport", "range_loop", "mutable_buffer_u64_radix128"];
 
 #[derive(Clone)]
 pub struct GeneratedCandidate {
