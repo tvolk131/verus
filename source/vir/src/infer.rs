@@ -26,6 +26,7 @@ mod equality;
 mod exact_hints;
 mod exits;
 mod fold_goals;
+mod word_goals;
 mod goals;
 mod type_invariant_goals;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;

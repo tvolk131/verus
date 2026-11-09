@@ -1,0 +1,777 @@
+{
+  "schema": 1,
+  "frozen_target_commit": "d3bbd34e",
+  "initial_fixture_commit": "4ea46ae1",
+  "historical_commit": "4c501fd19f51ae8cfa1f5033c5316769b622a413",
+  "baseline_receipt": "/tmp/infer-word-automation-20261109/single-word-set-vwms4mym/receipt.json",
+  "fresh_receipt": "/tmp/infer-word-automation-20261109/word-goals-rxf1dufs/receipt.json",
+  "fresh_receipt_sha256": "0dcd40ac4026b6c417bd5939435d842abd80f5fff68f2e8fb39d30ee55605025",
+  "tool_hashes": {
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/rust_verify": "13e053f21c950f125def64a9a1b2bdb2a7b571353a265fba814ed00c405b18c2",
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/vstd.vir": "6cfb10b71c6d5908670a5c22d48676eb4a3ad837e0c3447b984972c3d9fc831d",
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/libvstd.rlib": "36b1aa4b6bf60c995dc6934877c3bf55da9624204cabd2f773fc96a6b3a7fee0",
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/libverus_builtin.rlib": "1003329b710d79dfceaad3283d9de44d074ab5c35ee9245c77363556d095bdd7",
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/libverus_builtin_macros.so": "810749dd6655b212a20703a10aa8da5ce55f33f9274603bf900c2d64576d156c",
+    "/home/dev/.t3/worktrees/verus/t3-3493b107/source/target-verus/release/libverus_state_machines_macros.so": "5081a064f9fbebbcb2b45121522a8f3f8a13d91aa7bc8b0734c9f527e096fb8f"
+  },
+  "vstd_verification": {
+    "verified": 2226,
+    "errors": 0,
+    "log": "/tmp/infer-word-automation-20261109/vstd-word-3.log"
+  },
+  "runs": [
+    {
+      "label": "historical_baseline",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 5,
+      "fixture_sha256": "971e33f043379402003b9218b7870ea737adb10dbad09a0ab8da0a6c321b1e34",
+      "stdout_sha256": "8b599e4b745500980e818ef46d2a8492aa5f487268dcaa7c4c17924e7e4bf760",
+      "stderr_sha256": "94b0d55a785f7a851e2ac0f8515261e0bee4fd9572cbf4635d7a25b547447a19",
+      "selected_word_laws": [],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "representation_equivalence",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "1316af38fcef86f55b60a2d6c8218d60b8179c4280922fc2247434727401cbd2",
+      "stdout_sha256": "60796e5502dbea86c4134b42f6eee20fb10573041c3d412c74da8e725793f948",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selected_word_laws": [],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "forwarding_wrapper",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 2,
+      "fixture_sha256": "350f47744ba41f17ffd5493bb05ec024705e7e1ecab748341d231696513cdbd1",
+      "stdout_sha256": "8e0a1d6541b618e3f3981f4d77f9d3faa642a9df472560061ff25d6d22078b38",
+      "stderr_sha256": "659e44cc15da9052d46c72e004ad625324b2edeecadf6a7cda253172a0d88880",
+      "selected_word_laws": [
+        {
+          "function": "forwarding_wrapper::U64GroupedBitmap::get",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "forwarding_wrapper::U64GroupedBitmap::set",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "automatic",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 4,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "1323f409be8290d61c61e2e9b0082d06893252d761be1820add2511d6a51eeb4",
+      "stdout_sha256": "52c4543b83a797f2d0ef678a4e902453403dbe94435d8720177b26c79ce824ef",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selected_word_laws": [
+        {
+          "function": "automatic::U64GroupedBitmap::get",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "automatic::U64GroupedBitmap::set",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "disabled",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 5,
+      "fixture_sha256": "1323f409be8290d61c61e2e9b0082d06893252d761be1820add2511d6a51eeb4",
+      "stdout_sha256": "18f88cdea58d07cf5a0d119c24cd558b4fba3cba4b7d84f56a24e4cf0ea8db6a",
+      "stderr_sha256": "7feab76e716b0d5efaa63de332660b64ff0effbd15f372ef0f9788330199aed9",
+      "selected_word_laws": [],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "permission",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "996cca8641509cb1f0a4c9dd23a788ee98a8ffcd3cc249362b214a3136105d7e",
+      "stdout_sha256": "305f43d29ad6d7cd5f3640ce1e04c4367fbeb4d60417b7715465733ad0ef8b26",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selected_word_laws": [
+        {
+          "function": "permission::grant",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "permission::already_granted",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "automatic_inferred_mask",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 18,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "7a48fc5dcaf2657051865a562da11ce20585e6e0e95bc81bedbfd98bc58b595c",
+      "stdout_sha256": "ce474b615ec932030b877ed4435eddbbd82f94962168a7b4d3cb2be41d18a9b7",
+      "stderr_sha256": "f40ffd3dc4ecc3f07de34cf3c3affea85b95fddc74ff2363c69e78e4f2e35ce2",
+      "selected_word_laws": [
+        {
+          "function": "automatic_inferred_mask::U64GroupedBitmap::get",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "automatic_inferred_mask::U64GroupedBitmap::set",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "function": "automatic_inferred_mask::U64GroupedBitmap::select_mask",
+          "cache": "miss",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "candidate_id": "9684cc451fda02a067ab744ca87b668ffe62a6cbaa24937a8d36e2eac5dd67f3"
+        }
+      ],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "xor",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 4,
+      "fixture_sha256": "5540f6ba3550a4b4ca6fec89eff74b4cdc0a78f06a19cd300941e3f9bcb0d6eb",
+      "stdout_sha256": "beb3d9e7d932ed2f9ec0732b4eacdb43798b8716f19dbf201fb4fa9cf9486f9b",
+      "stderr_sha256": "8963eb12e5f51ad0b45c01ede59d0f36b69860f10a410ff7b98f013c973c7980",
+      "selected_word_laws": [
+        {
+          "function": "xor::grant",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "xor::already_granted",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "stateful_xor",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 5,
+      "fixture_sha256": "5748754cb9f336efa85c9285e38949f13e5c140b77ab3759835e8624318ab1c7",
+      "stdout_sha256": "86600e2dbf8dbb69678005888e1c33b03864201cadde6c4b30a0549cc942ca17",
+      "stderr_sha256": "a53dfc27cbc2e70ba2ed69e4328be360085ce5be1633f1434e33a6a6a53d4b09",
+      "selected_word_laws": [
+        {
+          "function": "stateful_xor::U64GroupedBitmap::get",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "stateful_xor::U64GroupedBitmap::set",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "padding_negative",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 1,
+      "fixture_sha256": "d3d23dc0938a40025d35d87f1ee1fa483096d478863ddedd79f6a65b07d59892",
+      "stdout_sha256": "3b3f6aa9327c62923658972cec1b8de368764e5d3cb5b04e5b26ec241fa0fbd7",
+      "stderr_sha256": "6055114c931ada8f2c7039e15bdfdad18dda9085c2931de3895b8348084c43ce",
+      "selected_word_laws": [
+        {
+          "function": "padding_negative::U64GroupedBitmap::get",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "padding_negative::U64GroupedBitmap::set",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "return_negative",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 1,
+      "fixture_sha256": "2d8fe9ffab29b7984d229a1458ceb2be4fb174b9aa218670801f696588756e81",
+      "stdout_sha256": "6a288b6a9e84d10e6021c93c85305f3037ce0758f46a51b4fabb1dce74436a17",
+      "stderr_sha256": "27de9c19b814de0cb23706e504be1c4f518d456bb85e745ca66da819fa1d0bd8",
+      "selected_word_laws": [
+        {
+          "function": "return_negative::U64GroupedBitmap::get",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "return_negative::U64GroupedBitmap::set",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "count_negative",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 1,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 1,
+      "fixture_sha256": "ccc5329619cdecfcd3ee594b183553f57852ae6310b81af30ff856b728a943e6",
+      "stdout_sha256": "d1813af4cdca4315ffd006501605f920f886525988b7afefb57d4ff8224d32f3",
+      "stderr_sha256": "a224c010e57464eaa56959db137a89867c247b119f71e3e839945d69f5cf51b9",
+      "selected_word_laws": [
+        {
+          "function": "count_negative::grant",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        },
+        {
+          "function": "count_negative::already_granted",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "helper_tuple",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "2892a69370afab3b4a9e74fb5066e8df4795d81fdf50787ed8801aa93e61ed9f",
+      "stdout_sha256": "751d836a6aad0c9df24df9477cbf516f77234ae325def5a538696decf38c9c7c",
+      "stderr_sha256": "ed7725d115f02f6aec8c492fde919e138bbc6f1624c18e76f99e77391b4f1822",
+      "selected_word_laws": [],
+      "candidates": [],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "helper_shift",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 16,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "c31068b9e173559fa0feceb34381c6754f7f6777037587edb2e3bf42cf3d3f16",
+      "stdout_sha256": "30140fba76079680efb7d9dbeab1595813454a4591a40aebf0bda885729d3ce0",
+      "stderr_sha256": "a3d73a5fa0a48dee1b99fbaac427c2f82d5256c12d611fc2fca8cb04b9cce8b3",
+      "selected_word_laws": [],
+      "candidates": [
+        {
+          "function": "helper_shift::select_mask",
+          "cache": "miss",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "candidate_id": "acfd710606f30325dcefa31f5d31778e15d5fce30e3b99ab7d01105645c4c1c9"
+        }
+      ],
+      "imported_dependencies": [],
+      "interface_written": false
+    },
+    {
+      "label": "provider_cold",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "174d49723e3cd489a9fa4b12f329850dd94a43fe151f4ab2792eae25fa82a83b",
+      "stdout_sha256": "83d6bdd750a7d7a98b1a1aa6b55807f409871a9d21a80ee918f5611458c90b5c",
+      "stderr_sha256": "66f81d4b8559465057c12a9064475b4511c0ce20c42c5a463dd69d2714c801ea",
+      "selected_word_laws": [],
+      "candidates": [
+        {
+          "function": "provider::identity",
+          "cache": "miss",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "candidate_id": "99755071c4d32bdc1ba28bf0c57f43dede2d1d70df2dd0d0a076fdf3c0a2e67a"
+        }
+      ],
+      "imported_dependencies": [],
+      "interface_written": true
+    },
+    {
+      "label": "provider_warm",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "174d49723e3cd489a9fa4b12f329850dd94a43fe151f4ab2792eae25fa82a83b",
+      "stdout_sha256": "8784a4ff5be0971c345094afa7717fed017c0d6419e200e144f4b388dec4ab29",
+      "stderr_sha256": "66f81d4b8559465057c12a9064475b4511c0ce20c42c5a463dd69d2714c801ea",
+      "selected_word_laws": [],
+      "candidates": [
+        {
+          "function": "provider::identity",
+          "cache": "hit",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "candidate_id": "ae4f678983da64093fd3ce8bdd499f23e09f6b2c6be973310a6bad24235046fa"
+        }
+      ],
+      "imported_dependencies": [],
+      "interface_written": true
+    },
+    {
+      "label": "consumer",
+      "returncode": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "ffecf93d1e4419926877e9eb0daf8652b2d43e34511e523a8fe9ca865d4e3c11",
+      "stdout_sha256": "d20b59d0efafa665a0ea8fe803c1c23bc729ba6bb0de5e68b3eb325509fa48b9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "selected_word_laws": [
+        {
+          "function": "consumer::grant",
+          "strategy": "word_view_broadcast",
+          "lemmas": [
+            "vstd::word::lemma_or_member",
+            "vstd::word::lemma_or_view",
+            "vstd::word::lemma_full_view"
+          ]
+        }
+      ],
+      "candidates": [],
+      "imported_dependencies": [
+        {
+          "crate_id": 17333577649204380365,
+          "fingerprint": "6bf16a8e4e0003f9918df30fb4d175ecb508f59a29b83aacb9c0b2b6fd5ccc10"
+        }
+      ],
+      "interface_written": false
+    },
+    {
+      "label": "publication_negative",
+      "returncode": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "postcondition_diagnostics": 0,
+      "fixture_sha256": "d32dae6ad20834eab46d180ac19ef0705979cc51f135100b16d69a35400fe3ae",
+      "stdout_sha256": "be0fb1fdfec93e6e60280ceb5f51023f01981b7e78c822fc4d4aeb99bb9d5c3b",
+      "stderr_sha256": "bbc88893121ade87dd36ddd787b04f3813b0a559e2fc9eb98692420ac63201ef",
+      "selected_word_laws": [],
+      "candidates": [
+        {
+          "function": "failed::identity",
+          "cache": "miss",
+          "proofs": {
+            "soundness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "maximality": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            },
+            "exactness": {
+              "status": "proved",
+              "required": true,
+              "reason": null
+            }
+          },
+          "required_checks_passed": true,
+          "candidate_id": "71d33eae03862385823c1b5c640652d853bc1815620226d14ec22f687329be8a"
+        }
+      ],
+      "imported_dependencies": [],
+      "interface_written": false
+    }
+  ],
+  "unit_tests": {
+    "word_profile": 3,
+    "projection_safeguards": 5,
+    "registry_and_cache": 7,
+    "proof_evidence": 9,
+    "failures": 0
+  },
+  "integration_tests": {
+    "infer_counting": 13,
+    "infer_goals": 12,
+    "infer_word_goals": 3,
+    "failures": 0
+  },
+  "guard_tests": {
+    "historical": 5,
+    "automation": 2,
+    "failures": 0
+  },
+  "build_and_test_logs": {
+    "build-baseline.log": "5640a7ee1073b4e143fc8ec17b0e840f3dc23847f41efb5eab6b1b4fcf4fc712",
+    "vstd-baseline.log": "ffaa2efb0e58ca61c79a801b2bd83e706b5713322f81db415503b55d09bc5bfa",
+    "build-word.log": "e1555c0087e79d5474f13572968ae2c5900987ba35b855586add5a4376b57e77",
+    "vstd-word.log": "1df15ec2a320f5746459eca877b7681de60ff04a7fe83d3039a63bf343f9db88",
+    "vstd-word-2.log": "2fbd412a14f8f62c83eac6bb3dbcee808000594190d2c1fada94e06a0f89b610",
+    "vstd-word-3.log": "2fe5c52c678e603bb1815405a342b1c40b3120095184ba9ca237f0d2459d0e17",
+    "unit-word.log": "676cbb133f8a1b496b89a7da4875290a0a0c69a57e8bd4c52cf6510d0a4537f2",
+    "unit-word-2.log": "1908929b3a58e849df6eac4dbe151fe6b57b9b7ef00f4081e2ede29c40b27dcd",
+    "unit-projection.log": "de4b8d8008f0144c72713387550fce0decb9469d729e909e2e6eeed9d418d5d8",
+    "unit-registry.log": "1288ab0f57ff990d2ac2cc0b4aafb196b2742767bdccaa1f44cc541b586b31b2",
+    "unit-infer_proof.log": "efe06b949fad3cf4582280dabb2641651d87532c74e30d14398126b779a696bd",
+    "integration-word.log": "ab2db9a27748de1bc184476c719994b59a11a284aa1e2455f9d2461f1a99ad99",
+    "integration-word-2.log": "92cbc8462016c9c508c1245c6adcd39e7a418125e55f040108ba08460684ce73",
+    "replay-word.log": "178f564fc9c1833bfa1b4045bd0878bd3ac8cb9520e04ea32e27392e7355d043"
+  },
+  "test_commands": [
+    "CARGO_BUILD_JOBS=2 cargo test --release -p vir --lib --config 'profile.release.package.vir.opt-level=0' infer::word_goals -- --test-threads=2",
+    "CARGO_BUILD_JOBS=2 cargo test --release -p rust_verify_test --config 'profile.release.package.vir.opt-level=0' --test infer_word_goals --test infer_goals --test infer_counting -- --test-threads=2",
+    "CARGO_BUILD_JOBS=2 cargo test --release -p rust_verify_test --config 'profile.release.package.vir.opt-level=0' --test infer_word_goals -- --test-threads=2"
+  ],
+  "implementation_source_hashes": {
+    "source/vir/src/infer.rs": "49d4389e6e2d75f632bd7b0c33212f3f6a3052ee5e749ff3bc43a8c81ae15427",
+    "source/vir/src/infer/pipeline.rs": "612033c3f886ce45adb7c5ecc2e8ea15eed662b42b60595d3f6cd8ce8c51f559",
+    "source/vir/src/infer/report.rs": "d24ae05cb338e11f5eff2da6cd33a1697a3276f9ea2bf8d112ce585ae89a2f2f",
+    "source/vir/src/infer/word_goals.rs": "fccae58a61360d1273fb71427f759a8cd6d212693b0184ff9091600786e8622c",
+    "source/rust_verify/src/infer_report.rs": "22f4dc9a9311271a1b451515c665dc37843bddab8bc61ff442a388ac58848117",
+    "source/vstd/vstd.rs": "689afc7b4c5d8c8f1846fcf11b3eae8255a729d1d149c0b70cfacc4483aed9e0",
+    "source/vstd/word.rs": "ce0750d4ee99ee53d9582aee20317386740334b2ca866c3209bdd84769e134e5",
+    "source/rust_verify_test/tests/infer_word_goals.rs": "88b5d4a436ac4cdd7de15b33fad34305f50dc1681b77511a9fabe9a519466f56",
+    "source/tools/research/word_goal_automation/replay.py": "8b7a0471433fd282e46399fdfc0b38622997b85e29017b9dfaef0746ef67c142",
+    "source/tools/research/word_goal_automation/test_replay.py": "97978be2301278bc0883e4ba38f5af0e2c34c0162d956557457a4656aac77cfc"
+  },
+  "exploratory_trials": [
+    {
+      "log": "library-check.stderr",
+      "outcome": "frontend: missing full-view broadcast trigger; corrected"
+    },
+    {
+      "log": "library-check-2.stdout",
+      "outcome": "five library proof bodies verified standalone"
+    },
+    {
+      "log": "scoped-diagnostic.stdout",
+      "outcome": "forwarding wrapper leaves invariant and return unproved"
+    },
+    {
+      "log": "scoped-diagnostic-2.stdout",
+      "outcome": "exploratory conditional padding proof rejected; discarded"
+    },
+    {
+      "log": "scoped-alias.stdout",
+      "outcome": "canonical alias proves 9/0 with explicit diagnostic broadcasts; not the accepted automatic fixture"
+    },
+    {
+      "log": "vstd-word.log",
+      "outcome": "missing explicit internal sequence theory import"
+    },
+    {
+      "log": "vstd-word-2.log",
+      "outcome": "attempt loaded source before sequence import fix"
+    },
+    {
+      "log": "unit-word.log",
+      "outcome": "test-only missing Arc clone; corrected"
+    },
+    {
+      "log": "integration-word.log",
+      "outcome": "25 existing plus 1 new test pass; two negative harness markers corrected without changing proof expectations"
+    }
+  ]
+}

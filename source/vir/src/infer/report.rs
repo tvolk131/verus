@@ -27,6 +27,7 @@ pub struct GenerationReport {
     pub goal_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub view_bound_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub fold_lemmas: Vec<(Fun, Vec<Fun>)>,
+    pub word_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub factory_callbacks: Vec<(Fun, usize)>,
     pub error_callbacks: Vec<(Fun, usize)>,
     pub array_callbacks: Vec<(Fun, usize)>,
