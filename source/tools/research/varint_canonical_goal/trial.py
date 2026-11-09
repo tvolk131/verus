@@ -12,7 +12,7 @@ ROOT = HERE.parents[3]
 sys.path.insert(0, str(ROOT / 'source/tools'))
 from infer_eval_support import ArtifactGuard, digest, tool_artifacts
 from infer_experiment import (LoggedCommands, replay_receipt, require,
-    require_exact, require_function_coverage, validate_run)
+    require_exact, require_function_coverage, validate_goal_run, validate_run)
 
 
 def main():
@@ -59,7 +59,11 @@ def main():
         functions = data.get('verus-infer', {}).get('functions', [])
         require_function_coverage(functions, set())
         require_exact(functions)
-        validate_run(result, a.expect == 'success', allow_frontend=a.expect == 'frontend')
+        if a.expect == 'success':
+            validate_goal_run(result, True, expected_functions=set(),
+                exec_bodies=set(a.exec_bodies), proof_bodies=set(a.proof_bodies))
+        else:
+            validate_run(result, False, allow_frontend=a.expect == 'frontend')
         v = data['verification-results']
         if a.expect != 'frontend':
             require(v.get('is-verifying-entire-crate') and not v.get('encountered-vir-error'), 'frontend or partial scope')
