@@ -51,9 +51,11 @@ def check_run(result, success, error=None, *, expected_functions, helper_checks=
     if helper_checks == 'proved':
         require_exact(functions)
     elif helper_checks == 'rejected':
-        require(not success and any(all(f.get('proofs', {}).get(p, {}).get('status') == 'failed'
-                    for p in ('soundness', 'exactness')) for f in functions),
-                'poisoned pair did not fail independent soundness and exactness')
+        require(not success and any(f.get('required_checks_passed') is False and
+                    all(f.get('proofs', {}).get(p, {}).get('status') == 'not_proved' and
+                        f['proofs'][p].get('required') is True
+                        for p in ('soundness', 'exactness')) for f in functions),
+                'poisoned pair did not reject required soundness and exactness')
     else:
         require(helper_checks == 'skipped' and not success, 'invalid helper-check expectation')
     if success:

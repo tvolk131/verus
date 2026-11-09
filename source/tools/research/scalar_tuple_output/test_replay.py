@@ -91,7 +91,7 @@ class Guards(unittest.TestCase):
             function = data['verus-infer']['functions'][0]
             function['required_checks_passed'] = False
             for proof in function['proofs'].values():
-                proof['status'] = 'failed'
+                proof['status'] = 'not_proved'
         result.update(returncode=1, stdout=json.dumps(data), stderr='postcondition not satisfied')
         if mixed:
             result['stderr'] += '\nprecondition not satisfied'
@@ -112,8 +112,17 @@ class Guards(unittest.TestCase):
     def test_cache_poison_rejection_has_an_explicit_separate_expectation(self):
         replay.check_run(self.semantic_negative(failed_helper=True), False,
             'postcondition not satisfied', expected_functions={'split'}, helper_checks='rejected')
-        with self.assertRaisesRegex(ValueError, 'poisoned pair did not fail'):
+        with self.assertRaisesRegex(ValueError, 'poisoned pair did not reject'):
             replay.check_run(self.semantic_negative(), False, 'postcondition not satisfied',
+                expected_functions={'split'}, helper_checks='rejected')
+
+    def test_poison_rejection_cannot_drop_a_required_obligation(self):
+        result = self.semantic_negative(failed_helper=True)
+        data = json.loads(result['stdout'])
+        data['verus-infer']['functions'][0]['proofs']['exactness']['required'] = False
+        result['stdout'] = json.dumps(data)
+        with self.assertRaisesRegex(ValueError, 'poisoned pair did not reject'):
+            replay.check_run(result, False, 'postcondition not satisfied',
                 expected_functions={'split'}, helper_checks='rejected')
 
     def test_unknown_scenario_cannot_default_to_zero_helpers(self):
