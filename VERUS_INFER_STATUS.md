@@ -1,5 +1,10 @@
 # Infer integration status — November 7, 2026
 
+For the later committed checkpoint, preserved local inputs and current new-thread
+instructions, see [the portable research handoff](RESEARCH_HANDOFF.md). The dated
+integration account below remains historical; it is not a statement that the
+later checkpoint is still uncommitted or that any native cell is now closed.
+
 This is a working integration map, not an acceptance certificate. Consolidation
 started at HEAD `b32846b61dcf724618f7345e219e5007a0c79643` with substantial inherited,
 uncommitted implementation, tests and evidence. This summary does not imply that

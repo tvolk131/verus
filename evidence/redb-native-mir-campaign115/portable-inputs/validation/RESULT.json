@@ -1,0 +1,46 @@
+{
+  "all18": "OPEN",
+  "completed_utc": "2026-11-09T04:58:23.173415+00:00",
+  "elapsed_seconds": 4.739,
+  "existing_output_refused": true,
+  "free_bytes_before": 12396163072,
+  "free_bytes_before_test_workspace_removal": 11922771968,
+  "inputs_verified": 15,
+  "native_export": "REFUSED",
+  "network_or_compiler_or_solver_or_native_application_executed": false,
+  "prepared_report": {
+    "all18": "OPEN",
+    "compiler_solver_or_application_executed": false,
+    "manifest_sha256": "2e9ac2011ee23801b403f1c68b6a23806a1db676fad0baa5bbe290f6f0578140",
+    "native_export": "REFUSED",
+    "paths": {
+      "canonical_vstd_json": "kernel170/runtime/canonical-vstd170.json",
+      "historical_vstd_vir": "inputs/vstd156.vir",
+      "kernel_evidence": "kernel170/evidence",
+      "kernel_source": "kernel170/candidate",
+      "layout171": "layout171",
+      "original_redb": "redb115/redb",
+      "rust_library": "rust-source/rust-src-1.99.1/rust-src/lib/rustlib/src/rust/library"
+    },
+    "prepared_bytes_before_path_adapter": 215090710,
+    "runtime_path_adapter": {
+      "after_sha256": "f3abcb5569e774f9a874f9ce484b804dc119c738e6fb84a48831d5e3859a60ab",
+      "before_sha256": "4cd4391c96c0ded221a7ce6aad1d65e579f7e0bcbe84863f98d4573ababee14b",
+      "path": "kernel170/candidate/source/rust_verify/src/bin/continuation160.rs",
+      "status": "SOURCE_ONLY_UNCOMPILED_UNREVIEWED_PATH_ADAPTER"
+    },
+    "status": "PREPARED_NOT_BUILT_NOT_APPROVED"
+  },
+  "prepared_source_change_reason": "Explicit source-only runtime-directory environment adapter",
+  "prepared_source_changed_files": [
+    "source/rust_verify/src/bin/continuation160.rs"
+  ],
+  "prepared_source_files": 1122,
+  "raw_vstd_and_canonical_json_hashes_match": true,
+  "restored_input_verified": true,
+  "selected_rust_library_members_checked": 4,
+  "source": "Disposable relocation copied exclusively from the staged Git index, with empty HOME and unrelated CWD; not a second physical-machine build",
+  "tampered_input_refused": true,
+  "temporary_export_and_prepared_copy_discarded_after_validation": true,
+  "unit_tests_passed": 11
+}
