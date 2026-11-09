@@ -89,14 +89,24 @@ class GoalRunTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'coverage mismatch'):
             self.check(data, False)
 
+    def test_extra_unverified_local_contract_is_not_body_coverage(self):
+        for status in ('unverified_body_with_contract', 'external_specification', 'interface_without_checked_body'):
+            data = self.report()
+            data['verus-infer']['verification_scope']['native_functions'].append(
+                dict(function='unchecked', selected=True, body_status=status))
+            with self.subTest(status=status), self.assertRaisesRegex(ValueError, 'no checked body'):
+                self.check(data)
+
     def test_frontend_resource_mixed_or_filtered_failure_is_not_a_semantic_control(self):
-        for kind in ('frontend', 'resource', 'mixed', 'filtered', 'zero_errors'):
+        for kind in ('frontend', 'resource', 'mixed', 'filtered', 'zero_errors', 'arithmetic', 'invariant'):
             data = self.report(False)
             changes = {}
             if kind == 'frontend': data['verification-results']['encountered-vir-error'] = True
             elif kind == 'resource': changes['stderr'] = 'postcondition not satisfied: resource limit'
             elif kind == 'mixed': changes['stderr'] = 'postcondition not satisfied\nprecondition not satisfied'
             elif kind == 'filtered': data['verification-results']['is-verifying-entire-crate'] = False
+            elif kind == 'arithmetic': changes['stderr'] = 'postcondition not satisfied\npossible arithmetic underflow/overflow'
+            elif kind == 'invariant': changes['stderr'] = 'postcondition not satisfied\ninvariant not satisfied'
             else: data['verification-results']['errors'] = 0
             with self.subTest(kind=kind), self.assertRaises(ValueError):
                 self.check(data, False, run_changes=changes)
