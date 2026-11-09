@@ -5,6 +5,17 @@ Working direction, November 9, 2026. This document sets current priorities;
 The [project entry point](VERUS_INFER.md) links adoption, assurance, application
 evidence and the archived RFC; ordinary work need not load the historical journals.
 
+## Active next goal: canonical mutable-buffer proving
+
+The [goal charter](source/tools/research/mutable_buffer_goal/TARGET.md) freezes
+the unchanged full-domain varint canonical theorem as the next acceptance target.
+The parent integrates three isolated workers: checked mutable observation/frame
+laws, ordinary-proof-first mechanical assistance, and an independently frozen
+second real buffer writer. Authored semantic definitions/invariants remain
+explicit; application-local mechanical proof glue must be removed. Fresh
+independent review and combined validation follow integration. This goal is
+active; the completed cycle below remains its accepted starting point.
+
 ## Goal and division of responsibility
 
 Make existing Rust code easier to verify through reusable, checked automation.
