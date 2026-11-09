@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "checkout_head": "85e2ee4535868422cfe2e74bd35fe40139e245a4",
+  "rust_source_root": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust",
+  "native_files": {
+    "library/core/src/slice/iter.rs": "8f169b9da7f4226497e894409a0535a907a0f0f9660c916fb6b7732cd450345f",
+    "library/core/src/slice/iter/macros.rs": "8db181ab6087b436dcc4c350efc7283ecc4912e34ca20d8bf7460fca5084c26c",
+    "library/core/src/iter/adapters/zip.rs": "0c7f9a5a00af318a1262d3505b440c102db0dce2756f35fbb95f176a6cdc8ce9",
+    "library/core/src/iter/traits/iterator.rs": "73b8d516443f0e73a1b1f59c94215e2dd5b6d2ec482c91f245b61e21edac46fb",
+    "library/core/src/slice/mod.rs": "8026ddec62fb732d01dc6fcb700fbf109aa5dd94d2391387db3202f405669d43"
+  },
+  "repository_files": {
+    "source/vir/src/resolve_axioms.rs": "cd1b995e352b6403ce54541623a342a3cc254fb3900f7afdb583434378db27ef",
+    "source/vir/src/resolution_types.rs": "23c5f57911554469f94d0f9fcfcbb96d39a08f214680c113d6db379668719da8",
+    "source/vir/src/resolution_inference.rs": "2b7150725b324ef82ca263b2644d7896d04e835db9217e88021db51a83b8d7ec",
+    "source/rust_verify/src/rust_to_vir_adts.rs": "1f055314da1d21a3b2bffe0bfdfc9cd2f3bc111e8bc9640feb42c470c356ad50",
+    "source/rust_verify/src/rust_to_vir_func.rs": "47c2cb37694d0e6e25a18b3f98576181ccdddefc96bc4d165730e4f07c0ca46a",
+    "source/rust_verify/src/rust_to_vir.rs": "b7c6bfe4f46f2a5643746cee683a08771db800041d4e38f12c595b102f3bda72",
+    "source/vstd/std_specs/slice.rs": "55d58a124105edb29507ca9d397aafa34cb243d6d79a50ac0339af5d3a24e8a4",
+    "source/vstd/std_specs/iter.rs": "8c36a7c39e5cf6f977d71b0023d7652e9ed2a42f051a043352392e319895f933",
+    "source/vstd/mut_ref.rs": "9ad87cacf9c62277f3dad59624eebb27f3c6a3a917206eb05c91e51d9286eba7",
+    "source/vir/src/modes.rs": "51699040d63c88312a8367521c35b0bf83f6c9d20626092248494539e9175b2a",
+    "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/research/mutable_buffer_goal/transfer-freeze.json": "49fffebaf78f3e2202ed2473937de199226074c31b4e782e23d11d61d5b6c85d",
+    "source/tools/research/buffer_transfer_goal/freeze.json": "192aec08fc8af9ec290464a1d344fd8b54903469ad978e79ebfa9d90b206dc16",
+    "source/tools/research/buffer_transfer_goal/baseline.rs": "e1638e5face915de217d13532f1053b33a677a1657d30849315fa81d4cf6137d"
+  },
+  "installed_component": "rust-src toolchain 1.99.1 only",
+  "raw_evidence": "/tmp/native-iterator-refinement-20261109-fa70fa8e"
+}
