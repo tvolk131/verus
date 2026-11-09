@@ -119,6 +119,59 @@ def require_publication(data, expected, artifact):
         raise ValueError("verification and interface publication disagree")
 
 
+def validate_goal_run(run, expected, *, expected_functions, exec_bodies,
+                      proof_bodies, failure_kind=None, artifact=None):
+    """Check an ordinary goal proof/control with an explicit local body inventory.
+
+    Scenario code still binds the semantic property, input domain and source
+    projection. Frontend/resource and intentionally poisoned-helper rejections
+    use separate validators; they cannot count as ordinary semantic controls.
+    """
+    require(isinstance(expected, bool), "a goal outcome must be explicit")
+    require((expected and failure_kind is None)
+            or (not expected and failure_kind is not None),
+            "a negative goal needs its intended failure kind")
+    executable, proofs = set(exec_bodies), set(proof_bodies)
+    require(bool(executable | proofs) and not executable.intersection(proofs),
+            "an unambiguous nonempty body inventory is required")
+    data = validate_run(run, expected)
+    verification = data["verification-results"]
+    require(verification.get("is-verifying-entire-crate") is True,
+            "goal verification must cover the entire selected crate")
+    errors = verification.get("errors")
+    require(type(errors) is int and (errors == 0 if expected else errors > 0),
+            "goal error count disagrees with the expected outcome")
+    inference = data["verus-infer"]
+    require(inference.get("crate_success") is expected, "goal crate status disagrees")
+    functions = inference.get("functions", [])
+    require_function_coverage(functions, expected_functions)
+    require_exact(functions)
+    scope = inference["verification_scope"]
+    require(scope.get("native_collection_completed") is True,
+            "goal native body inventory is incomplete")
+    bodies = scope["native_functions"]
+    if expected:
+        require(scope.get("complete_selected_scope_verified") is True,
+                "goal body checking is incomplete")
+        for kind, names in (("exec", executable), ("proof", proofs)):
+            checked = [body for body in bodies if body.get("body_status") == f"checked_{kind}_body"]
+            require(all(body.get("selected") is True for body in checked),
+                    "an unselected body was reported as checked")
+            require_function_coverage(checked, names)
+            require(scope.get(f"checked_{kind}_bodies") == len(checked),
+                    "checked body count disagrees with the named inventory")
+    else:
+        require_failure_kind(run["stderr"], failure_kind)
+        selected = [body for body in bodies
+                    if body.get("body_status") == "selected_body_not_certified_by_successful_full_run"]
+        require(all(body.get("selected") is True for body in selected),
+                "negative goal body selection is incomplete")
+        require_function_coverage(selected, executable | proofs)
+    if artifact is not None:
+        require_publication(data, expected, artifact)
+    return data
+
+
 def save_results(output, result):
     (Path(output) / "results.json").write_text(json.dumps(result, indent=2) + "\n")
 
