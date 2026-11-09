@@ -1,0 +1,255 @@
+{
+  "runtime_copy": {
+    "accepted_runtime": "0c00b6ec",
+    "policy": 67,
+    "cache": 70,
+    "schema": 38,
+    "files": {
+      "verus": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/verus",
+        "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/verus"
+      },
+      "rust_verify": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/rust_verify",
+        "sha256": "6c247dde09a5af974e19206268c45175ce72d0e9768cc65c1d28c70fcc83db0d",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/rust_verify"
+      },
+      "vstd.vir": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/vstd.vir",
+        "sha256": "ef80472659fea445989e6e92b8aa4085f0fadd53d4c84b13967598cdf42aa555",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/vstd.vir"
+      },
+      "libvstd.rlib": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libvstd.rlib",
+        "sha256": "e55c6eb7d733e60e1fdff746abf315a34e34450143fc886bd585e4dd55ae4281",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/libvstd.rlib"
+      },
+      "libverus_builtin.rlib": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libverus_builtin.rlib",
+        "sha256": "91fa10aa74d8f5c97b9222565ee0a587622624ae5353fd9f52a26ad3253122ee",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/libverus_builtin.rlib"
+      },
+      "libverus_builtin_macros.so": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libverus_builtin_macros.so",
+        "sha256": "0ed00558c4433349941718b8015138f140ce52200e9811b2fdcc1d42647d753e",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/libverus_builtin_macros.so"
+      },
+      "libverus_state_machines_macros.so": {
+        "source": "/home/dev/projects/verus/source/target-verus/release/libverus_state_machines_macros.so",
+        "sha256": "270a5f809f12b2bcf1a0e05565ed230325d128983e6b7033b33d0feba9cb5fdc",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/libverus_state_machines_macros.so"
+      },
+      "z3": {
+        "source": "/home/dev/projects/verus/source/z3",
+        "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+        "copied": "/tmp/varint-canonical-proof-assistance/accepted-bundle/z3"
+      }
+    }
+  },
+  "successful_candidate": "candidate-004.rs",
+  "expected_helpers": [],
+  "checked_exec_bodies": [
+    "u64"
+  ],
+  "checked_proof_bodies": [
+    "byte_step",
+    "quotient_step",
+    "radix_positive"
+  ],
+  "outcomes": [
+    {
+      "source": "candidate-001.rs",
+      "source_sha256": "8f27b883db8c74c8118112ed432a22ca5c5811e88cf1b9bf8f19b9a792c97eb3",
+      "raw_receipt": "/tmp/varint-canonical-proof-assistance/trials/candidate-001-78p9lfr7/receipt.json",
+      "receipt_sha256": "282c5bdf81ab5f48d5fc29724083a614e3550e8f236ffc098cf9fdbd6958bcc5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "gate_success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frontend failure is not a semantic negative control"
+      },
+      "commands": [
+        {
+          "label": "verify",
+          "argv": [
+            "/tmp/varint-canonical-proof-assistance/accepted-bundle/verus",
+            "/tmp/varint-canonical-proof-assistance/trials/candidate-001-78p9lfr7/candidate.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "20"
+          ],
+          "cwd": "/tmp/varint-canonical-proof-assistance/trials/candidate-001-78p9lfr7",
+          "returncode": 1,
+          "seconds": 1.1517987790284678,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/varint-canonical-proof-assistance/accepted-bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/varint-canonical-proof-assistance/trials/candidate-001-78p9lfr7/cache"
+          }
+        }
+      ]
+    },
+    {
+      "source": "candidate-002.rs",
+      "source_sha256": "d8934f5cdeff0a221fe2ca631e941e85fa87209be9a2a9d8a6fd3098faa68b31",
+      "raw_receipt": "/tmp/varint-canonical-proof-assistance/trials/candidate-002-kws28m03/receipt.json",
+      "receipt_sha256": "da6006b8355a1ad8c7673b7e29e8cff159dea4babbcc5ddb2f1826d098a83d6b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 7,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "gate_success": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "verify",
+          "argv": [
+            "/tmp/varint-canonical-proof-assistance/accepted-bundle/verus",
+            "/tmp/varint-canonical-proof-assistance/trials/candidate-002-kws28m03/candidate.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "20"
+          ],
+          "cwd": "/tmp/varint-canonical-proof-assistance/trials/candidate-002-kws28m03",
+          "returncode": 1,
+          "seconds": 1.7970441920333542,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/varint-canonical-proof-assistance/accepted-bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/varint-canonical-proof-assistance/trials/candidate-002-kws28m03/cache"
+          }
+        }
+      ]
+    },
+    {
+      "source": "candidate-003.rs",
+      "source_sha256": "55a9833104cb07ed2ca296b269764ad7094ec51df8de60fd01955334f71c911d",
+      "raw_receipt": "/tmp/varint-canonical-proof-assistance/trials/candidate-003-yb1o130z/receipt.json",
+      "receipt_sha256": "0313a0b135eee124f74ffc37ac274d5794a39a5012dfd04c9df49411fa0f8d9a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "gate_success": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "verify",
+          "argv": [
+            "/tmp/varint-canonical-proof-assistance/accepted-bundle/verus",
+            "/tmp/varint-canonical-proof-assistance/trials/candidate-003-yb1o130z/candidate.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "20"
+          ],
+          "cwd": "/tmp/varint-canonical-proof-assistance/trials/candidate-003-yb1o130z",
+          "returncode": 1,
+          "seconds": 0.11516760801896453,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/varint-canonical-proof-assistance/accepted-bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/varint-canonical-proof-assistance/trials/candidate-003-yb1o130z/cache"
+          }
+        }
+      ]
+    },
+    {
+      "source": "candidate-004.rs",
+      "source_sha256": "a8de5ba6a08bfa8f56bd28926693e247e4fca24d7e0c576dcb214968ae051e77",
+      "raw_receipt": "/tmp/varint-canonical-proof-assistance/trials/candidate-004-78d0rkkc/receipt.json",
+      "receipt_sha256": "63112e337e2a3e6e589e02756c0a0b52900c061e9895a32302415a4b27766ebc",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 9,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "gate_success": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "verify",
+          "argv": [
+            "/tmp/varint-canonical-proof-assistance/accepted-bundle/verus",
+            "/tmp/varint-canonical-proof-assistance/trials/candidate-004-78d0rkkc/candidate.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "20"
+          ],
+          "cwd": "/tmp/varint-canonical-proof-assistance/trials/candidate-004-78d0rkkc",
+          "returncode": 0,
+          "seconds": 1.4720978930126876,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/varint-canonical-proof-assistance/accepted-bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/varint-canonical-proof-assistance/trials/candidate-004-78d0rkkc/cache"
+          }
+        }
+      ]
+    },
+    {
+      "source": "candidate-005.rs",
+      "source_sha256": "2ef67b6fa5ac80e12a404ef63ab37d66ee8c3f88b68855166102de5ec1e9a735",
+      "raw_receipt": "/tmp/varint-canonical-proof-assistance/trials/candidate-005-1pa_fm4t/receipt.json",
+      "receipt_sha256": "a5a6640501e2df9321a676295691761610b8f5367c6d3cf3e7e3ca379141e1f2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 4,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "gate_success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "panic or resource exhaustion is not semantic evidence"
+      },
+      "commands": [
+        {
+          "label": "verify",
+          "argv": [
+            "/tmp/varint-canonical-proof-assistance/accepted-bundle/verus",
+            "/tmp/varint-canonical-proof-assistance/trials/candidate-005-1pa_fm4t/candidate.rs",
+            "--crate-type=lib",
+            "--no-cheating",
+            "--output-json",
+            "--multiple-errors",
+            "20"
+          ],
+          "cwd": "/tmp/varint-canonical-proof-assistance/trials/candidate-005-1pa_fm4t",
+          "returncode": 1,
+          "seconds": 29.604086551989894,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/varint-canonical-proof-assistance/accepted-bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/varint-canonical-proof-assistance/trials/candidate-005-1pa_fm4t/cache"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "before_trial": true,
+  "change": "correct name of existing lemma_basic_div; no semantic changes",
+  "files": {
+    "candidate-004.rs": "a8de5ba6a08bfa8f56bd28926693e247e4fca24d7e0c576dcb214968ae051e77"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "before_trial": true,
+  "change": "explicit imported division laws, reveal opaque pow; semantic inputs unchanged",
+  "files": {
+    "candidate-003.rs": "55a9833104cb07ed2ca296b269764ad7094ec51df8de60fd01955334f71c911d"
+  }
+}
