@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "zip-prefix-v2",
+  "source_sha256": "756ad8830d7938ea5aba0a1ac16d8ce7f04eec40a9cb66ab572cd9268ec0b2f8",
+  "extra_inputs": {},
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_success": true,
+  "expected_failure": null,
+  "checking": "full ordinary, --no-cheating; lifetime and trait checks enabled"
+}

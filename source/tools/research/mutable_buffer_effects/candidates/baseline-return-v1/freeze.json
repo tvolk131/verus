@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "baseline-return-v1",
+  "source_sha256": "7e91604d9c80a269ac40c88f227abc473dcc20c2eff69f211e24188dcf3b0422",
+  "extra_inputs": {},
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_success": true,
+  "expected_failure": null,
+  "checking": "full ordinary, --no-cheating; lifetime and trait checks enabled"
+}

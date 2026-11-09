@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+import re
 import textwrap
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
@@ -27,6 +28,23 @@ def fidelity():
     end = baseline.index('\n}', start)
     require(textwrap.dedent(selected).strip() == textwrap.dedent(baseline[start:end]).strip(),
             'loop source mismatch')
+    # Explicit erasure check for the positive intended/manual fixtures: only
+    # registered ghost snapshots and the for-loop annotations may disappear.
+    expected = textwrap.dedent(selected).strip()
+    for filename in ['candidate-01.rs', 'partial-prefix.rs', 'partial-prefix-manual.rs',
+                     'partial-prefix-manual-bounds.rs', 'full-manual.rs', 'full-manual-bounds.rs']:
+        source = (HERE / filename).read_text()
+        body = source[source.index('\n{', source.index('pub fn xor_key')) + 2:]
+        body = body[:body.rindex('\n}\n}')].strip()
+        body = body.replace('    let ghost before = ipad@;\n', '')
+        body = body.replace('    let ghost future = final(ipad)@;\n', '')
+        body = body.removeprefix('let ghost before = ipad@;\n')
+        body = body.removeprefix('let ghost future = final(ipad)@;\n')
+        body = re.sub(r'for \(b_i, b_h\) in it: ipad.iter_mut\(\).zip\(key\)\n.*?\n    \{',
+                      'for (b_i, b_h) in ipad.iter_mut().zip(key) {', body, count=1, flags=re.S)
+        require(re.sub(r'\s+', '', body) == re.sub(r'\s+', '', expected),
+                'executable source adaptation changed: ' + filename)
+
 
 
 def main():
@@ -38,7 +56,7 @@ def main():
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=True)
     out = Path(tempfile.mkdtemp(prefix='baseline-', dir=a.output.resolve()))
-    receipt = {'commands': [], 'runs': [], 'goal_complete': False}
+    receipt = {'commands': [], 'runs': [], 'frozen_trials': [], 'goal_complete': False}
     with replay_receipt(out, receipt):
         fidelity()
         # Retain each authored-input freeze; never rewrite earlier candidates.
@@ -60,6 +78,9 @@ def main():
             status_key='returncode')
         require(call('version', [str(a.verus.resolve()), '--version'], env) == 0, 'version failed')
         receipt['version'] = (out / 'version.stdout').read_text()
+        require(call('solver_version', [str(a.solver.resolve()), '--version'], env) == 0,
+                'solver version failed')
+        receipt['solver_version'] = (out / 'solver_version.stdout').read_text()
         receipt['frozen_source_commit'] = '7fe03428'
         def run(label, text, expected, flags, error=None, cache='none', counts=None):
             path = out / (label + '.rs')
@@ -67,7 +88,13 @@ def main():
             cmd = [str(a.verus.resolve()), str(path), '--no-cheating', '--output-json',
                    '--multiple-errors', '20', *flags]
             env['VERUS_INFER_CACHE'] = str(out / ('cache-' + cache))
+            source_guard = ArtifactGuard([path])
+            receipt['frozen_trials'].append(dict(label=label, source_sha256=digest(path),
+                expected_helpers=[], expected_success=expected, expected_error=error,
+                expected_query_counts=counts, before_invocation=True))
+            (out / 'frozen-trials.json').write_text(json.dumps(receipt['frozen_trials'], indent=2) + '\n')
             rc = call(label, cmd, env)
+            source_guard.check()
             result = dict(returncode=rc, stdout=(out / (label + '.stdout')).read_text(),
                 stderr=(out / (label + '.stderr')).read_text())
             record = dict(label=label, returncode=rc, source_sha256=digest(path),
@@ -106,9 +133,9 @@ def main():
             for phase in ['cold', 'warm']:
                 run(f'full_goals_{goals}_{phase}', baseline, False,
                     ['--infer-goals'] if goals else [], 'postcondition not satisfied',
-                    cache=str(goals))
+                    cache=str(goals), counts=(1, 1))
         safety = baseline.replace('    ensures pad_xor(old(ipad)@, key@, final(ipad)@),\n', '')
-        run('safety_only', safety, True, ['--infer-goals'])
+        run('safety_only', safety, True, ['--infer-goals'], counts=(2, 0))
         # False semantic goal on a concrete instance, separated from writer safety.
         model = baseline[:baseline.index('pub fn xor_key')]
         model += '''proof fn literal_empty_key(before: Seq<u8>)
@@ -120,10 +147,10 @@ proof fn wrong_frame() {
 }
 } fn main() {}
 '''
-        run('semantic_wrong_frame', model, False, ['--infer-goals'], 'assertion failed')
+        run('semantic_wrong_frame', model, False, ['--infer-goals'], 'assertion failed', counts=(1, 1))
         # Overflow is a safety control, explicitly not a semantic rejection.
         run('safety_overflow', safety.replace('*b_i ^= *b_h;', '*b_i += *b_h;'),
-            False, ['--infer-goals'], 'possible arithmetic underflow/overflow')
+            False, ['--infer-goals'], 'possible arithmetic underflow/overflow', counts=(1, 1))
         if a.stage == 'all':
             run('candidate_01', (HERE / 'candidate-01.rs').read_text(), False, [],
                 'postcondition not satisfied', counts=(1, 1))
