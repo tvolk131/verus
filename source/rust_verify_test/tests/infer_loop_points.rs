@@ -192,11 +192,15 @@ pub fn use_checked(values: &mut Vec<u16>, chosen: u16)
     for empty in ["proofs", "dependencies", "trusted_models"] {
         assert!(certificate[empty].as_array().unwrap().is_empty());
     }
-    assert_eq!(report["imported_inference_dependencies"], serde_json::json!([{
-        "crate_id": metadata["crate_id"], "fingerprint": metadata["fingerprint"]
-    }]));
+    assert_eq!(
+        report["imported_inference_dependencies"],
+        serde_json::json!([{
+            "crate_id": metadata["crate_id"], "fingerprint": metadata["fingerprint"]
+        }])
+    );
     crates.edit_metadata("loop_provider", |certificate| certificate["soundness"] = false.into());
-    let rejected = crates.build_source("loop_consumer", consumer, &["loop_provider"], &options, true);
+    let rejected =
+        crates.build_source("loop_consumer", consumer, &["loop_provider"], &options, true);
     assert!(!rejected.status.success());
     assert!(!crates.vir("loop_consumer").exists());
     assert!(!String::from_utf8_lossy(&rejected.stderr).contains("panicked"));
