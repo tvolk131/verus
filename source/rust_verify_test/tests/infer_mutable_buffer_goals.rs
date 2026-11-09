@@ -101,3 +101,15 @@ fn unsupported_width_step_and_capacity_do_not_claim_generality() {
         check(name, text, true, false);
     }
 }
+
+#[test]
+fn generic_semantic_radix_is_rejected_without_type_confusion() {
+    let source = AUTOMATIC.replace(
+        "pub open spec fn radix_power(exponent:",
+        "pub open spec fn radix_power<T>(exponent:",
+    );
+    let source = source
+        .replace("radix_power(", "radix_power::<u8>(")
+        .replace("128 * radix_power::<u8>", "128 * radix_power::<T>");
+    check("generic_radix", source, true, false);
+}
