@@ -30,6 +30,8 @@ mod fold_goals;
 mod goals;
 mod type_invariant_goals;
 mod word_goals;
+mod native_mutable_for;
+mod buffer_observation_goals;
 pub use exact_hints::opt_in as exact_size_hint_opt_in;
 pub use exact_hints::validate as validate_exact_size_hints;
 mod cloning;

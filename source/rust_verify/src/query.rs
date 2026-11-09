@@ -734,6 +734,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             .growth_loops
             .iter()
             .chain(self.inference_generation.range_loops.iter())
+            .chain(self.inference_generation.buffer_observations.iter())
             .chain(self.inference_generation.local_folds.iter())
             .map(|(f, _)| f.clone())
             .collect();
