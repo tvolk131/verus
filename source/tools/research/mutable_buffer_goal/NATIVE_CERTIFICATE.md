@@ -6,6 +6,20 @@ The [native-source investigation](../native_iterator_refinement/REPORT.md)
 establishes useful source facts and a checked abstract countermodel; it does not
 prove correspondence to the native implementation or the full writer theorem.
 
+## Parent-checked extraction milestone
+
+The diagnostic extractor in `f76fe2a6` was rebuilt and replayed from the parent
+checkout under Python `-B -O`. It reproduces 25 distinct concrete instances,
+401 statements/terminators, 31 resolved call/drop edges and layouts for 163
+locals; every resolved edge is present in the inventory and no work item remains
+pending. The pointer-distance intrinsic and two unavailable panic bodies remain
+explicit semantic blockers. `native_bridge_proved` is false. This establishes
+an executable native call inventory, not operation checking, ownership
+conservation, a native correspondence theorem or the full writer theorem.
+
+Raw parent receipt:
+`/tmp/verus-infer-buffer-cycle-20261109/parent-native-extraction-e4011e16/receipt.json`.
+
 ## Required source connection
 
 Start from the actual unchanged local writer and resolve the monomorphized
