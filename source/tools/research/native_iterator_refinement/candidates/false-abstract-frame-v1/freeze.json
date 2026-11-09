@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "id": "false-abstract-frame-v1",
+  "before_first_trial": true,
+  "source_sha256": "0299cce61783454445d1173e6441d5c79293de8e1995fdd3a21bd8cdf1d59141",
+  "classification": "semantic-negative",
+  "exec_bodies": [],
+  "proof_bodies": [
+    "toggle_changes",
+    "checked_constructor_and_prefix",
+    "checked_successful_steps",
+    "checked_terminal_step",
+    "checked_history",
+    "false_abstract_frame"
+  ],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_failure_kind": "postcondition not satisfied",
+  "expected_frontend_message": null,
+  "full_checking": [
+    "--no-cheating",
+    "entire crate",
+    "lifetime",
+    "trait",
+    "body"
+  ],
+  "scope": "Abstract observation equations or rejected bridge mechanisms; never the frozen native theorem",
+  "target_source_map_sha256": "8132d029fcc0256d1444188bee67d51d37d241bdf6e7e79b86fadffd5bf97317"
+}

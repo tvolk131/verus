@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "tracked-observation-v1",
+  "before_first_trial": true,
+  "source_sha256": "4821426a9e9c6b48f86caec1ed0a45f0bddb76984fd6bb48bc5087652044ef7d",
+  "classification": "frontend-rejection",
+  "exec_bodies": [
+    "witness_from_observation"
+  ],
+  "proof_bodies": [],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "expected_failure_kind": null,
+  "expected_frontend_message": "expression has mode spec, expected mode proof",
+  "full_checking": [
+    "--no-cheating",
+    "entire crate",
+    "lifetime",
+    "trait",
+    "body"
+  ],
+  "scope": "Abstract observation equations or rejected bridge mechanisms; never the frozen native theorem",
+  "target_source_map_sha256": "8132d029fcc0256d1444188bee67d51d37d241bdf6e7e79b86fadffd5bf97317"
+}
