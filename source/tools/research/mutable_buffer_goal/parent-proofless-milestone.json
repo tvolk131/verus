@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "goal_complete": false,
+  "stage": "parent-replayed canonical assistance; production integration, full transfer and independent review pending",
+  "engine_commits": [
+    "a4479a6e",
+    "3e3b4e4c"
+  ],
+  "source": "source/tools/research/varint_canonical_goal/candidate-008.rs",
+  "source_sha256": "4c11f4c1fa9705ef96e98d9b321fde7271da5e950ab84e74e6bae6003de1b4d5",
+  "source_fidelity": "unchanged macro executable tokens, semantic definitions, signature, postcondition and domain",
+  "expected_inferred_helpers": [],
+  "positive_checked_exec_bodies": [
+    "u64"
+  ],
+  "positive_checked_proof_bodies": [],
+  "application_local_mechanical_proofs": false,
+  "application_local_snapshots": false,
+  "raw_receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-proofless-5u02xpwx/receipt.json",
+  "controller": "/tmp/verus-infer-buffer-cycle-20261109/parent-proofless-replay.py",
+  "controller_execution": "Python -B -O; shared strict validate_goal_run gates",
+  "artifact_hashes": {
+    "infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "fidelity.py": "f00ba930eb3e7774ede97efd4113072d2ebadbfbb6f6e313ab1dfcf14b8147bd",
+    "libverus_builtin.rlib": "ef8b0ad99ac2b762888c546fa0ff855c8a04fe8dac202f4176c3cda190a2d057",
+    "libverus_builtin_macros.so": "bbd326222f57039e4e0c91c8327e230dbf5c548a3b32af39da76a5b3a991f1f7",
+    "libverus_state_machines_macros.so": "bcda952bfc4c66ebeb1cdcf8c14027603f1a831d5fe31b6cc8c3ffe804cf1c23",
+    "libvstd.rlib": "494e7884ad93732ed72156c43274367bab55465ca9c7366cfbf098811c7ff5e0",
+    "rust_verify": "72edfce6439e9701c1cb4d40a49af459c2c2477e270aa5c37f578d99969d61de",
+    "verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "vstd.vir": "757083d427e385fafee19690a967c3dc28c6b163f6cd29f437ddc367f661881e",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+    "canonical.rs": "4c11f4c1fa9705ef96e98d9b321fde7271da5e950ab84e74e6bae6003de1b4d5",
+    "false_caller.rs": "d170d74e34582789f5806622ae327df9dcc6601f6dd3720bb767aea08c436082",
+    "parent-proofless-replay.py": "c7b79cb8190724787b5c04064ff06b331b9937fbfd588322317e7a9a9462c52f"
+  },
+  "runs": [
+    {
+      "label": "goals_cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 6,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "source_sha256": "4c11f4c1fa9705ef96e98d9b321fde7271da5e950ab84e74e6bae6003de1b4d5",
+      "inferred_helpers": [],
+      "numeric_proposals": [
+        {
+          "profile": "mutable_buffer_u64_radix128",
+          "function": "canonical_parent::u64",
+          "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-proofless-5u02xpwx/canonical.rs:28:9: 54:10 (#15)",
+          "status": "applied",
+          "reason": null,
+          "message": "Proof annotations were proposed; ordinary verification must still establish the function's obligations."
+        }
+      ],
+      "complete_selected_scope_verified": true,
+      "interface_written": true,
+      "stdout_sha256": "bf87cd04b9c3e6c308cde858ef6881de776a562ae543536a9e900a11c3694eca",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "goals_warm",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 6,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "source_sha256": "4c11f4c1fa9705ef96e98d9b321fde7271da5e950ab84e74e6bae6003de1b4d5",
+      "inferred_helpers": [],
+      "numeric_proposals": [
+        {
+          "profile": "mutable_buffer_u64_radix128",
+          "function": "canonical_parent::u64",
+          "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-proofless-5u02xpwx/canonical.rs:28:9: 54:10 (#15)",
+          "status": "applied",
+          "reason": null,
+          "message": "Proof annotations were proposed; ordinary verification must still establish the function's obligations."
+        }
+      ],
+      "complete_selected_scope_verified": true,
+      "interface_written": true,
+      "stdout_sha256": "d070a70aee58de51209b0628cdfd76822e274d4ab7508256b18b89cc95e2409b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "false_caller_seeded",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 6,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "source_sha256": "d170d74e34582789f5806622ae327df9dcc6601f6dd3720bb767aea08c436082",
+      "inferred_helpers": [],
+      "numeric_proposals": [
+        {
+          "profile": "mutable_buffer_u64_radix128",
+          "function": "canonical_parent::u64",
+          "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-proofless-5u02xpwx/false_caller.rs:28:9: 54:10 (#15)",
+          "status": "applied",
+          "reason": null,
+          "message": "Proof annotations were proposed; ordinary verification must still establish the function's obligations."
+        }
+      ],
+      "complete_selected_scope_verified": false,
+      "interface_written": false,
+      "stdout_sha256": "e1c22e1edb948d706b0aa77fcce0eb33a07a3b09860929103db63bba4939372b",
+      "stderr_sha256": "ac578a6d5b69ed1f9d4ca125d194baf2f1161ca17168f61b467d3ec2adc376a4"
+    }
+  ],
+  "seeded_failed_export_removed": true,
+  "excluded_attempts": [
+    {
+      "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-proofless-p8uhe4ie/receipt.json",
+      "reason": "Controller treated list-valued goal_assistance as a mapping after the first successful 6/0 run. Entire attempt excluded; corrected controller reran all cases in a fresh directory."
+    }
+  ],
+  "remaining": [
+    "worker full controls and manifest",
+    "production integration with shared observation pass",
+    "full original HMAC XOR-prefix and unchanged-suffix theorem",
+    "shared proof-producing automation on both full properties",
+    "combined replay/regressions and fresh independent review"
+  ]
+}

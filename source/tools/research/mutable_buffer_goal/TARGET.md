@@ -13,8 +13,14 @@ ordinarily (9 verified, zero errors) using explicit checked diagnostic mechanica
 helpers. Parent cold/warm replays with and without goal assistance reproduce
 that result and reject a false caller while removing its seeded export.
 `49235d23` removes the helper definitions using directed existing library laws
-and freezes a proofless fixture; its new engine pass remains under validation.
-These milestones do not establish final automation acceptance.
+and freezes a proofless fixture. The proposed `a4479a6e`/`3e3b4e4c` engine now
+verifies candidate 008 with no application-local mechanical proofs or snapshots.
+The [parent proofless replay](parent-proofless-milestone.json) reproduces cold/warm
+6/0 runs with checked executable `{u64}`, proof `{}` and inferred-helper `{}`
+inventories; a healthy-encoder false caller rejects and removes its seeded export.
+Production integration, the complete worker control manifest, shared transfer
+and fresh independent review remain pending. These are milestones, not final
+automation acceptance.
 
 The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
 HMAC ipad-XOR loop, with arbitrary initialized `[u8;128]` and arbitrary key length.
@@ -139,7 +145,10 @@ All generated IDs must be fresh relative to original code and preceding passes.
 Each decorator needs an independent full-function projection check restoring
 exactly its own additions, with mutation and insertion-count controls. Existing
 compiler-generated resolution nodes, original invariants and termination data
-must remain intact. Shared automation acceptance requires actual checked proof
+must remain intact. A decorator adding body statements or bindings must rerun
+full function well-formedness and mode checks, then refresh resolution maps for
+all generated locals and expression IDs. Contract-only checking does not cover
+new body expressions. Shared automation acceptance requires actual checked proof
 steps on both full goals, not parser reuse or unrelated successful probes.
 
 ## Build, evidence and inherited boundaries
