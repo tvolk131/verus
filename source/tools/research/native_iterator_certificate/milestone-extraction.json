@@ -1,0 +1,150 @@
+{
+  "native_bridge_proved": false,
+  "root": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+  "target": "x86_64-unknown-linux-gnu",
+  "pointer_bits": 64,
+  "instances": 25,
+  "operations": 401,
+  "extraction_blockers": [
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11680587208108537958))::Instance { def: Intrinsic(DefId(2:2322 ~ core[efd5]::intrinsics::ptr_offset_from_unsigned)), args: [u8] }",
+      "kind": "intrinsic_semantics"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 3997620028659250384))::Instance { def: Item(DefId(2:12171 ~ core[efd5]::panicking::panic)), args: [] }",
+      "kind": "unavailable_mir"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 3506540437646736838))::Instance { def: Item(DefId(2:12170 ~ core[efd5]::panicking::panic_nounwind_fmt)), args: [] }",
+      "kind": "unavailable_mir"
+    }
+  ],
+  "calls": [
+    {
+      "display": "Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "kind": "mir",
+      "blocks": 9
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+      "kind": "mir",
+      "blocks": 2
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10929 ~ core[efd5]::iter::traits::iterator::Iterator::zip)), args: [std::slice::IterMut<'{erased}, u8>, &'{erased} [u8]] }",
+      "kind": "mir",
+      "blocks": 6
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10729 ~ core[efd5]::iter::traits::collect::{impl#0}::into_iter)), args: [std::iter::Zip<std::slice::IterMut<'{erased}, u8>, std::slice::Iter<'{erased}, u8>>] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10040 ~ core[efd5]::iter::adapters::zip::{impl#1}::next)), args: [std::slice::IterMut<'{erased}, u8>, std::slice::Iter<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 2
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "kind": "mir",
+      "blocks": 4
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:14845 ~ core[efd5]::slice::iter::{impl#1}::into_iter)), args: ['{erased}, u8] }",
+      "kind": "mir",
+      "blocks": 4
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10085 ~ core[efd5]::iter::adapters::zip::{impl#5}::new)), args: [std::slice::IterMut<'{erased}, u8>, std::slice::Iter<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 7
+    },
+    {
+      "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::slice::IterMut<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10086 ~ core[efd5]::iter::adapters::zip::{impl#5}::next)), args: [std::slice::IterMut<'{erased}, u8>, std::slice::Iter<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 8
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10137 ~ core[efd5]::iter::adapters::zip::TrustedRandomAccessNoCoerce::size)), args: [std::slice::IterMut<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 2
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:10137 ~ core[efd5]::iter::adapters::zip::TrustedRandomAccessNoCoerce::size)), args: [std::slice::Iter<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 2
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:3719 ~ core[efd5]::cmp::Ord::min)), args: [usize] }",
+      "kind": "mir",
+      "blocks": 9
+    },
+    {
+      "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::slice::Iter<'{erased}, u8>] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:55475 ~ core[efd5]::slice::iter::{impl#178}::__iterator_get_unchecked)), args: ['{erased}, u8] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:55416 ~ core[efd5]::slice::iter::{impl#171}::__iterator_get_unchecked)), args: ['{erased}, u8] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [&'{erased} mut u8] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:55452 ~ core[efd5]::slice::iter::{impl#178}::size_hint)), args: ['{erased}, u8] }",
+      "kind": "mir",
+      "blocks": 11
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:55393 ~ core[efd5]::slice::iter::{impl#171}::size_hint)), args: ['{erased}, u8] }",
+      "kind": "mir",
+      "blocks": 11
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:40156 ~ core[efd5]::cmp::impls::{impl#58}::lt)), args: [] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [usize] }",
+      "kind": "mir",
+      "blocks": 1
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:39537 ~ core[efd5]::ptr::const_ptr::{impl#0}::offset_from_unsigned::precondition_check)), args: [] }",
+      "kind": "mir",
+      "blocks": 3
+    },
+    {
+      "display": "Instance { def: Intrinsic(DefId(2:2322 ~ core[efd5]::intrinsics::ptr_offset_from_unsigned)), args: [u8] }",
+      "kind": "intrinsic",
+      "blocks": 0
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:12171 ~ core[efd5]::panicking::panic)), args: [] }",
+      "kind": "unavailable",
+      "blocks": 0
+    },
+    {
+      "display": "Instance { def: Item(DefId(2:12170 ~ core[efd5]::panicking::panic_nounwind_fmt)), args: [] }",
+      "kind": "unavailable",
+      "blocks": 0
+    }
+  ],
+  "evidence_sha256": "403a7f1447f9eed3c8e05ee61fce215ec8eeaa7e957e5d261149e0f53e0af951"
+}
