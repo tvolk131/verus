@@ -1,0 +1,463 @@
+{
+  "schema": 1,
+  "goal_complete": false,
+  "stage": "full canonical ordinary manual proof; automation/transfer still pending",
+  "source_commit": "e8ad009b",
+  "runtime": "0c00b6ec/policy67/cache70/schema38",
+  "accepted_tool_hashes_match": true,
+  "source_sha256": "a8de5ba6a08bfa8f56bd28926693e247e4fca24d7e0c576dcb214968ae051e77",
+  "expected_inferred_helpers": [],
+  "checked_exec_bodies": [
+    "u64"
+  ],
+  "checked_proof_bodies": [
+    "radix_positive",
+    "quotient_step",
+    "byte_step"
+  ],
+  "manual_mechanical_helpers_present": true,
+  "runs": [
+    {
+      "label": "plain_cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 9,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 3,
+        "native_functions": [
+          {
+            "function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "rust_function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:118:1: 118:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::byte_step",
+            "rust_function": "byte_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:59:1: 59:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::canonical",
+            "rust_function": "canonical",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:12:1: 12:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::quotient_step",
+            "rust_function": "quotient_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:33:1: 33:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:43:5: 43:11",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::radix_positive",
+            "rust_function": "radix_positive",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:26:1: 26:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::radix_power",
+            "rust_function": "radix_power",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:6:1: 6:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::u64",
+            "rust_function": "u64",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:113:1: 113:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    {
+      "label": "plain_warm",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 9,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 3,
+        "native_functions": [
+          {
+            "function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "rust_function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:118:1: 118:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::byte_step",
+            "rust_function": "byte_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:59:1: 59:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::canonical",
+            "rust_function": "canonical",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:12:1: 12:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::quotient_step",
+            "rust_function": "quotient_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:33:1: 33:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:43:5: 43:11",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::radix_positive",
+            "rust_function": "radix_positive",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:26:1: 26:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::radix_power",
+            "rust_function": "radix_power",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:6:1: 6:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::u64",
+            "rust_function": "u64",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:113:1: 113:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    {
+      "label": "goals_cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 9,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 3,
+        "native_functions": [
+          {
+            "function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "rust_function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:118:1: 118:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::byte_step",
+            "rust_function": "byte_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:59:1: 59:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::canonical",
+            "rust_function": "canonical",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:12:1: 12:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::quotient_step",
+            "rust_function": "quotient_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:33:1: 33:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:43:5: 43:11",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::radix_positive",
+            "rust_function": "radix_positive",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:26:1: 26:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::radix_power",
+            "rust_function": "radix_power",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:6:1: 6:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::u64",
+            "rust_function": "u64",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:113:1: 113:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    {
+      "label": "goals_warm",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 9,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 3,
+        "native_functions": [
+          {
+            "function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "rust_function": "VERUS_UNERASED_PROXY__U64_LEN",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:118:1: 118:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::byte_step",
+            "rust_function": "byte_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:59:1: 59:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::canonical",
+            "rust_function": "canonical",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:12:1: 12:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::quotient_step",
+            "rust_function": "quotient_step",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:33:1: 33:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "quotient_step::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:43:5: 43:11",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::radix_positive",
+            "rust_function": "radix_positive",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:26:1: 26:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "canonical_parent::radix_power",
+            "rust_function": "radix_power",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:6:1: 6:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "canonical_parent::u64",
+            "rust_function": "u64",
+            "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/canonical.rs:113:1: 113:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    {
+      "label": "false_caller_seeded",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 9,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "export_exists": false
+    }
+  ],
+  "raw_receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-checked-rm9cre2z/receipt.json",
+  "raw_receipt_sha256": "c433a6abc76308bbf795dc8071294a7ce28743b7723c0733e95c684156d8574c",
+  "excluded_parent_trial": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-canonical-manual-zy82kusn/receipt.json",
+    "reason": "four canonical positives passed but direct false encoder postcondition produced a cast-recommendation note; strict negative gate rejected the attempt; replaced with a healthy encoder and false caller"
+  }
+}

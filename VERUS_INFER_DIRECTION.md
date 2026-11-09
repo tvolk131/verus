@@ -15,6 +15,10 @@ second real buffer writer. Authored semantic definitions/invariants remain
 explicit; application-local mechanical proof glue must be removed. Fresh
 independent review and combined validation follow integration. This goal is
 active; the completed cycle below remains its accepted starting point.
+An ordinary full canonical proof is now available with inventoried diagnostic
+mechanical steps. Automation is under validation. The frozen second writer's
+full XOR-prefix/unchanged-suffix property is blocked by the inherited opaque
+iterator resolution model; its domain and full property remain unchanged.
 
 ## Goal and division of responsibility
 

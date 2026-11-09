@@ -6,6 +6,34 @@ The parent is integration lead. Three isolated workers cover mutable effects,
 proof assistance and an independently frozen real transfer. A fresh independent
 review follows integration. This goal has not been achieved at this checkpoint.
 
+## Frozen workstream milestones
+
+The canonical worker's `e8ad009b` milestone proves the unchanged full predicate
+ordinarily (9 verified, zero errors) using explicit checked diagnostic mechanical
+helpers. Parent cold/warm replays with and without goal assistance reproduce
+that result and reject a false caller while removing its seeded export.
+`49235d23` removes the helper definitions using directed existing library laws
+and freezes a proofless fixture; its new engine pass remains under validation.
+These milestones do not establish final automation acceptance.
+
+The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
+HMAC ipad-XOR loop, with arbitrary initialized `[u8;128]` and arbitrary key length.
+Its property includes both the XOR prefix and the unchanged suffix. The complete
+property remains unproved under the inherited native IterMut/Zip model, while
+manual prefix-only proofs and concrete-model frame laws pass. Preserve this
+property/domain and the distinction between concrete-model evidence and a law
+for the actual native opaque types. [transfer-freeze.json](transfer-freeze.json)
+binds the original pretrial source freeze; this is a byte-writer theorem, not an
+HMAC/security claim.
+
+The remaining model task is a checked native-resolution bridge, with no assumed
+final/current equation, executable rewrite or new unchecked dependency law.
+Source-aware refinement/ghost instrumentation may be investigated separately;
+acceptance requires checked derivation and source correspondence within the
+stated trust boundary. A concrete-model theorem alone does not supply the
+missing native bridge. Shared automation must remove actual proof work on both
+accepted applications; parser reuse alone is not a transfer result.
+
 ## Required property and domain
 
 Prove the existing unsigned-varint 0.8.0 canonical encoder property for **every
