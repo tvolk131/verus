@@ -144,4 +144,7 @@ immutable artifact guards and command/failure receipts. It validates expected
 failures, not completion of the full goal. It includes a healthy partial export
 seed followed by failed full-goal publication/removal. `results.json` records
 compact accepted outcomes, hashes, raw receipt paths and excluded development
-failures. Raw JSON/logs/binaries stay under private `/tmp`; nothing was pushed.
+failures. During controller development a script edit overlapped an active replay;
+the artifact guard correctly rejected that entire batch. It is excluded, and
+the final controller was committed before the accepted rerun. Raw JSON/logs/
+binaries stay under private `/tmp`; nothing was pushed.
