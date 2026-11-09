@@ -41,6 +41,7 @@ jobs:
         run: |
           python3 -B source/tools/research/redb_single_word_set/test_replay.py
           python3 -B source/tools/research/word_goal_automation/test_replay.py
+          python3 -B -O source/tools/research/word_goal_automation/test_replay.py
           python3 -B -m unittest discover -s evidence/transfer-fedimint-full-request -p test_replay.py
           python3 -B - <<'PY'
           import runpy
