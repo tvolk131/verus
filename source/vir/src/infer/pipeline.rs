@@ -41,6 +41,7 @@ impl<'a> GoalContext<'a> {
         functions = view_bounds_goals::prepare(&functions, self.imported, report);
         functions = fold_goals::prepare(&functions, self.imported, report);
         functions = word_goals::prepare(&functions, self.imported, report);
+        functions = buffer_goals::prepare(&functions, self.imported, report)?;
         let functions = sequence_triggers::prepare(&functions, report)?;
         report.assistance_preparation_completed = true;
         Ok(functions)

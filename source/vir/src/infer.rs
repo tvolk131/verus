@@ -18,6 +18,7 @@ mod assistance;
 mod bitvector_hints;
 mod bitwise;
 mod byte_models;
+mod buffer_goals;
 mod collections;
 mod contract;
 mod counting_goals;
