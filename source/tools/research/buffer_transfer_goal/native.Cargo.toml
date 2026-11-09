@@ -1,0 +1,6 @@
+[package]
+name = "buffer-transfer-native"
+version = "0.0.0"
+edition = "2021"
+[dependencies]
+bitcoin_hashes = { path = "../upstream-crate/bitcoin_hashes-0.14.0" }

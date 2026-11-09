@@ -1,0 +1,17 @@
+{
+  "candidate": 2,
+  "before_trials": true,
+  "file": "candidate-02.rs",
+  "sha256": "27f8acb369dbbce93a97e0c2ab18b067c59058d37245b30aad4292ece1637bed",
+  "semantic_inputs": [
+    "pad_xor unchanged",
+    "processed-prefix XOR directly over original/final array"
+  ],
+  "mechanical_inputs": [
+    "zip length",
+    "initial array/key referent bridges",
+    "eventual array/referent bridge",
+    "diagnostic prefix-only assert while retaining full postcondition"
+  ],
+  "status": "frozen before trial"
+}

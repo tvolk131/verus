@@ -1,0 +1,16 @@
+{
+  "before_trials": true,
+  "file": "partial-prefix-manual.rs",
+  "sha256": "e35abe77135c8ec828fbb0f994df466f84de19a7018a2e11c902df3227d6bd30",
+  "status": "partial diagnostic, never replaces full property",
+  "semantic_inputs": [
+    "unchanged processed-prefix invariant",
+    "prefix-only postcondition"
+  ],
+  "mechanical_inputs": [
+    "two ghost sequence snapshots before/future",
+    "zip min-length invariant",
+    "explicit initial/final observation bridges"
+  ],
+  "domain": "all arbitrary pad/key, no requires"
+}
