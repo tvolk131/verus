@@ -364,8 +364,8 @@ fn failed_growth_preparation_reports_the_error_without_claiming_later_attempts()
     let explanations = &report["assistance_explanations"];
     assert_eq!(explanations["preparation_started"], true);
     assert_eq!(explanations["preparation_completed"], false);
-    assert!(
-        explanations["decisions"].as_array().unwrap().iter().all(|d| d["profile"] == "growth_loop")
-    );
+    let decisions = explanations["decisions"].as_array().unwrap();
+    assert!(decisions.iter().any(|d| d["profile"] == "pointwise_transport"));
+    assert!(decisions.iter().all(|d| d["profile"] != "range_loop"));
     assert_eq!(report["interface_written"], false);
 }

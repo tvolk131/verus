@@ -1,5 +1,6 @@
 //! Checked pointwise transport proposals for a returned record containing a
 //! checked clone. No invariant or clone relation is assumed by this pass.
+use super::report::AssistanceSkip;
 use super::*;
 use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor_env};
 
@@ -172,27 +173,40 @@ fn rewrite(e: &Expr, pairs: &[(VarIdent, Vec<FieldOpr>, Expr)]) -> Result<Expr, 
         &|_, _, p| Ok(p.clone()),
     )
 }
-fn proposal(f: &Function, all: &HashMap<Fun, Function>) -> Result<Vec<Expr>, VirErr> {
-    if f.x.attrs.infer
-        || f.x.mode != Mode::Exec
-        || f.x.attrs.is_external_body
-        || f.x.attrs.is_unsafe
-        || f.x.attrs.is_async
-        || f.x.attrs.prophecy_dependent
-        || f.x.params.len() != 1
+fn proposal(
+    f: &Function,
+    all: &HashMap<Fun, Function>,
+) -> Result<(Vec<Expr>, AssistanceOutcome), VirErr> {
+    let skipped = |reason| Ok((vec![], AssistanceOutcome::Skipped(reason)));
+    if f.x.attrs.infer {
+        return skipped(AssistanceSkip::InferredFunction);
+    }
+    if f.x.mode != Mode::Exec {
+        return skipped(AssistanceSkip::NonExecutable);
+    }
+    if f.x.attrs.is_external_body {
+        return skipped(AssistanceSkip::ExternalBody);
+    }
+    if f.x.attrs.is_unsafe || f.x.attrs.is_async {
+        return skipped(AssistanceSkip::UnsafeOrAsync);
+    }
+    if f.x.attrs.prophecy_dependent {
+        return skipped(AssistanceSkip::ProphecyDependent);
+    }
+    if f.x.params.len() != 1
         || !trait_getters::shared(&f.x.params[0].x.typ)
             .is_some_and(|t| crate::ast_util::types_equal(t, &f.x.inner_ret.x.typ))
     {
-        return Ok(vec![]);
+        return skipped(AssistanceSkip::TransportSignature);
     }
     let Some(body) = &f.x.body else {
-        return Ok(vec![]);
+        return skipped(AssistanceSkip::MissingBody);
     };
     let ExprX::Block(stmts, Some(tail)) = &body.x else {
-        return Ok(vec![]);
+        return skipped(AssistanceSkip::TransportBody);
     };
     let Some((out, _)) = key(tail).filter(|(_, p)| p.is_empty()) else {
-        return Ok(vec![]);
+        return skipped(AssistanceSkip::TransportResult);
     };
     let Some(init) = stmts.iter().find_map(|s| {
         let StmtX::Decl { pattern, init: Some(p), .. } = &s.x else { return None };
@@ -202,7 +216,7 @@ fn proposal(f: &Function, all: &HashMap<Fun, Function>) -> Result<Vec<Expr>, Vir
         let PlaceX::Temporary(e) = &p.x else { return None };
         matches!(&plain(e).x, ExprX::Ctor(_, _, _, None)).then_some(e)
     }) else {
-        return Ok(vec![]);
+        return skipped(AssistanceSkip::TransportConstructor);
     };
     let ExprX::Ctor(dt, variant, fields, None) = &plain(init).x else { unreachable!() };
     let mut pairs = vec![];
@@ -236,11 +250,11 @@ fn proposal(f: &Function, all: &HashMap<Fun, Function>) -> Result<Vec<Expr>, Vir
         pairs.push((root, path, target));
     }
     if pairs.is_empty() || pairs.len() > 4 {
-        return Ok(vec![]);
+        return skipped(AssistanceSkip::TransportFields);
     }
     let mut posts = vec![];
     for e in f.x.ensure.0.iter() {
-        growth_goals::clauses(e, &mut posts);
+        assistance::clauses(e, &mut posts);
     }
     let mut facts = vec![];
     for post in posts {
@@ -262,7 +276,7 @@ fn proposal(f: &Function, all: &HashMap<Fun, Function>) -> Result<Vec<Expr>, Vir
         }
         let expanded = expand(input, &f.x.owning_module, all)?;
         let mut clauses = vec![];
-        growth_goals::clauses(plain(&expanded), &mut clauses);
+        assistance::clauses(plain(&expanded), &mut clauses);
         for q in clauses {
             let ExprX::Quant(kind, vars, body) = &q.x else {
                 continue;
@@ -308,11 +322,20 @@ fn proposal(f: &Function, all: &HashMap<Fun, Function>) -> Result<Vec<Expr>, Vir
                 ExprX::Logical(LogicalOp::Implies, input.clone(), quantified),
             ));
             if facts.len() == 4 {
-                return facts.iter().map(growth_goals::current).collect();
+                return Ok((
+                    facts.iter().map(assistance::current).collect::<Result<_, _>>()?,
+                    AssistanceOutcome::Applied,
+                ));
             }
         }
     }
-    facts.iter().map(growth_goals::current).collect()
+    if facts.is_empty() {
+        return skipped(AssistanceSkip::TransportGoal);
+    }
+    Ok((
+        facts.iter().map(assistance::current).collect::<Result<_, _>>()?,
+        AssistanceOutcome::Applied,
+    ))
 }
 /// Independently project away only new, pure checked assertions. In particular,
 /// neither the executable statements, return expression, nor contracts may change.
@@ -345,7 +368,7 @@ fn validate_decoration(
         {
             return Err(bad());
         }
-        growth_goals::pure(expr, all)?;
+        assistance::pure(expr, all)?;
     }
     let mut projected = candidate.x.clone();
     projected.body =
@@ -368,8 +391,8 @@ fn install(
     let ExprX::Block(original, tail) = &body.x else { unreachable!() };
     let mut stmts = (**original).clone();
     for fact in facts {
-        growth_goals::pure(fact, all)?;
-        let fact = growth_goals::fresh(fact, id)?;
+        assistance::pure(fact, all)?;
+        let fact = assistance::fresh(fact, id)?;
         let mut span = fact.span.clone();
         span.id = *id;
         *id -= 1;
@@ -394,17 +417,15 @@ pub fn prepare(
 ) -> Result<Vec<Function>, VirErr> {
     let all = crate::infer::pipeline::function_map(fs, imported);
     let mut id = u64::MAX / 4;
-    fs.iter()
-        .map(|f| {
-            let facts = proposal(f, &all)?;
-            if facts.is_empty() {
-                return Ok(f.clone());
-            }
-            let candidate = install(f, &facts, &all, &mut id)?;
-            report.pointwise_facts.push((f.x.name.clone(), facts.len()));
-            Ok(candidate)
-        })
-        .collect()
+    report.observe_assistance(fs, "pointwise_transport", |f, report| {
+        let (facts, outcome) = proposal(f, &all)?;
+        if facts.is_empty() {
+            return Ok((f.clone(), outcome));
+        }
+        let candidate = install(f, &facts, &all, &mut id)?;
+        report.pointwise_facts.push((f.x.name.clone(), facts.len()));
+        Ok((candidate, outcome))
+    })
 }
 
 #[cfg(test)]

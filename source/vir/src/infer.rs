@@ -14,6 +14,7 @@ use std::sync::Arc;
 mod abstract_infer;
 mod arithmetic;
 mod arrays;
+mod assistance;
 mod bitvector_hints;
 mod bitwise;
 mod byte_models;
@@ -168,7 +169,7 @@ mod summary;
 mod widening;
 
 pub use pipeline::GoalContext;
-pub use report::{AssistanceOutcome, GeneratedCandidate, GenerationReport};
+pub use report::{AssistanceOutcome, EXPLAINED_PROFILES, GeneratedCandidate, GenerationReport};
 
 pub(crate) use bitvector_hints::decorate as bitvector_hints;
 pub use goals::prepare as prepare_proof_goals;

@@ -272,7 +272,7 @@ impl Verifier {
             "generation_failure": generation.failure,
             "assistance_explanations": {
                 "enabled":self.args.infer_goals,
-                "profiles":["growth_loop","range_loop"],
+                "profiles":vir::infer::EXPLAINED_PROFILES,
                 "preparation_started":generation.assistance_preparation_started,
                 "preparation_completed":generation.assistance_preparation_completed,
                 "decisions":decisions,

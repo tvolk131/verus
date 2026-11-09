@@ -148,7 +148,7 @@ fn native_clone_view_law_rejects_changed_abstract_values() {
 }"#;
     let e = verify_one_file("dishonest_clone_view", source.into(), &["vstd", "--no-cheating"])
         .unwrap_err();
-    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{e:?}");
+    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{:?}", e);
 }
 
 #[test]
@@ -159,7 +159,7 @@ fn plain_clone_does_not_supply_a_deep_view_preservation_law() {
 }"#;
     let e = verify_one_file("plain_clone_no_view_law", source.into(), &["vstd", "--no-cheating"])
         .unwrap_err();
-    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{e:?}");
+    assert!(e.errors.iter().any(|d| d.message.contains("postcondition not satisfied")), "{:?}", e);
 }
 
 // The authored invariant and transition remain ordinary goals. The assistance
@@ -199,6 +199,10 @@ fn ordinary_clone_transition_transports_a_hidden_pointwise_invariant() {
     let report = &d.json_output.unwrap()["verus-infer"];
     assert_eq!(report["pointwise_assistance"].as_array().unwrap().len(), 1, "{report}");
     assert_eq!(report["pointwise_assistance"][0]["facts"], 1, "{report}");
+    let decision = common::infer::assistance_decision(report, "pointwise_transport", "::advance");
+    assert_eq!(decision["status"], "applied", "{report}");
+    assert!(decision["reason"].is_null());
+    assert_eq!(report["crate_success"], true);
     assert!(report["functions"].as_array().unwrap().is_empty());
 }
 
@@ -226,6 +230,60 @@ fn pointwise_transport_does_not_assume_the_invariant_or_change_the_transition() 
             "{:?}",
             e
         );
-        assert_eq!(e.json_output.unwrap()["verus-infer"]["interface_written"], false);
+        let output = e.json_output.unwrap();
+        let report = &output["verus-infer"];
+        let decision =
+            common::infer::assistance_decision(report, "pointwise_transport", "::advance");
+        assert_eq!(decision["status"], if index == 1 { "skipped" } else { "applied" });
+        assert_eq!(report["crate_success"], false);
+        assert_eq!(report["interface_written"], false);
     }
+}
+
+#[test]
+fn pointwise_explanations_distinguish_missing_goals_and_preparation_errors() {
+    let source = format!("{WRAPPER}{}", TRANSPORT.replace("previous.valid() ==> r.valid(),", ""));
+    let d = verify_one_file(
+        "clone_transport_without_goal",
+        source,
+        &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+    )
+    .unwrap();
+    let output = d.json_output.unwrap();
+    let report = &output["verus-infer"];
+    let decision = common::infer::assistance_decision(report, "pointwise_transport", "::advance");
+    assert_eq!(decision["status"], "skipped", "{report}");
+    assert_eq!(decision["reason"], "missing_transport_goal");
+    assert!(report["pointwise_assistance"].as_array().unwrap().is_empty());
+
+    let source = format!(
+        "{WRAPPER}{}",
+        TRANSPORT.replace(
+            "self@.0[i].unwrap().1<self@.1",
+            "self@.0[i].unwrap().1<(choose|epoch:u16| epoch==self@.1)",
+        )
+    );
+    let e = verify_one_file(
+        "clone_transport_preparation_error",
+        source,
+        &["vstd", "--no-cheating", "--infer-goals", "--output-json"],
+    )
+    .unwrap_err();
+    let output = e.json_output.unwrap();
+    let report = &output["verus-infer"];
+    let decision = common::infer::assistance_decision(report, "pointwise_transport", "::advance");
+    assert_eq!(decision["status"], "error", "{report}");
+    assert_eq!(decision["reason"], "preparation_error");
+    assert!(decision["message"].as_str().unwrap().contains("annotation"));
+    let explanations = &report["assistance_explanations"];
+    assert_eq!(explanations["preparation_started"], true);
+    assert_eq!(explanations["preparation_completed"], false);
+    assert!(
+        explanations["decisions"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|d| d["profile"] == "pointwise_transport")
+    );
+    assert_eq!(report["interface_written"], false);
 }

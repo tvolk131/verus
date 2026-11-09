@@ -46,31 +46,40 @@ Use the [transfer front door](source/tools/INFER_TRANSFERS.md) for fresh results
 
 The experiment harness, integration-test support and ordered assistance pipeline
 have been consolidated. Growth/range assistance explanations are implemented;
-other strategies still need broader diagnostic coverage. The transfer changes
-are integrated locally; current-cycle review and replay remain required.
+pointwise clone-transport explanations and shared annotation utilities are under
+validation. The transfer changes are integrated locally and have passed fresh
+parent replay and [independent review](evidence/production-transfer-review/README.md).
+
+The [fresh varint experiment](evidence/verus-infer-varint-3b05c191/README.md)
+gets past macro syntax using the existing adapter. Exact inference stops at
+`iter_mut`; authored annotations prove full-domain safety/length but not the
+canonical byte property. The [single-word redb transition](source/tools/research/redb_single_word_set/REPORT.md)
+proves an authored membership/count/padding invariant with explicit generic
+word-law assistance; unaided goal assistance still fails its semantic goals.
+These frozen baselines guide the next automation decision.
 
 ## Active sequence
 
-1. **Validate the integrated transfer work.** Review the production delta and
+1. **Completed: validate the integrated transfer work.** Review the production delta and
    trust inventories, build matching compiler/macros/vstd, and replay pinned
    applications with fresh receipts. Historical test counts do not establish
    current acceptance. Keep semantic, safety and auxiliary controls distinct.
-2. **Consolidate the current workflow.** Keep status and assurance concise,
+2. **In progress: consolidate the current workflow.** Keep status and assurance concise,
    extract genuinely shared assistance utilities, and explain more preparation
    decisions. Preserve profile-specific normalization and independent checks.
    Generation observations must never authorize verification or publication.
-3. **Freeze another end-to-end property.** Pin one unfamiliar encoder/parser,
+3. **Completed baseline: freeze another end-to-end property.** Pin one unfamiliar encoder/parser,
    original bodies, intended domain and authored semantics before extending the
    engine. First measure the existing automation, recording adapters, remaining
-   proof annotations, assumptions and the actual first blocker. The prior
-   unsigned-varint frontend failure is historical evidence, not a result for
-   the current macro-loop adapter or inference profiles.
-4. **Remove evidenced mechanical work and demonstrate transfer.** Select one
+   proof annotations, assumptions and the actual first blocker. The fresh varint
+   canonical goal remains blocked; its partial length theorem does not replace
+   the required property or qualify as automatic transfer acceptance.
+4. **In progress: remove evidenced mechanical work and demonstrate transfer.** Select one
    bounded reusable extension from those baselines. Retain original application
    goals/domains, add unrelated positive and negative cases, and replay both the
    motivating and transfer properties. A smaller manual-proof inventory is the
    objective; exact synthesis for every function is not required.
-5. **Repeat for a stateful property.** Supply a meaningful abstraction/invariant
+5. **Authored proof available; automation pending: repeat for a stateful property.** Supply a meaningful abstraction/invariant
    over a small original transition closure, freeze it before proof attempts,
    and measure generated versus authored frames, bounds and induction work.
    A toy replacement implementation or a silently restricted domain does not

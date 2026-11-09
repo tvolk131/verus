@@ -143,6 +143,7 @@
   - [Spec and proof attributes for exec functions](exec_attr.md)
     - [Automatic exec to spec functions](exec_to_spec.md)
     - [Experimental contract inference](infer.md)
+      - [Capabilities and authored inputs](infer_capabilities.md)
       - [Adopting inference in an existing codebase](infer_adoption.md)
       - [Loops produced by Rust macros](macro_loop_adapter.md)
 - [Specification language](./reference-specification-language.md)

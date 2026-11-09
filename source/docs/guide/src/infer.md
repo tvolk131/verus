@@ -3,6 +3,8 @@
 For a practical workflow, including authored views, application contracts,
 explicit proofs and dependency boundaries, start with
 [adopting inference in an existing codebase](infer_adoption.md).
+Use the [capability map](infer_capabilities.md) to locate a profile and identify
+which semantic inputs remain authored without reading every checkpoint below.
 
 The current build uses metadata schema **38**, inference policy **63** and
 candidate-cache version **69**. Rebuild compiler/macros/vstd and providers
@@ -1645,7 +1647,12 @@ inferred functions passed the required-check barrier. `exported` additionally
 requires successful interface writing and public visibility. A later ordinary
 caller failure can leave valid inference proofs visible while preventing
 interface export. The crate-level `interface_written` reports the actual export
-action; an invocation without an export path leaves it false.
+action of the inference-aware post-verification exporter; an invocation without
+an export path leaves it false. Legacy ordinary Verus exports without inference
+or `--infer-goals` are outside this gate and can be written before proof checking.
+Their physical presence is not a successful proof receipt, and this flag does
+not report that legacy export action. Check process success and the selected
+verification scope as well.
 
 Crate-level `status` distinguishes `verified`, `no_inference`, `unsupported`,
 `analysis_incomplete`, `generation_failed`, `required_proof_failed`,
@@ -1682,8 +1689,8 @@ includes dependency ordering and failed work. See the
 ### Assistance explanations
 
 With `--infer-goals --output-json`, `verus-infer.assistance_explanations`
-explains decisions made during ordinary-body preparation. The initial coverage
-is the top-level `growth_loop` and `range_loop` profiles; `profiles` lists that
+explains decisions made during ordinary-body preparation. Coverage includes
+`pointwise_transport` and the top-level `growth_loop` and `range_loop` profiles; `profiles` lists that
 coverage explicitly. Other strategies retain their existing assistance fields.
 An absent decision for another strategy does not mean it failed or was attempted.
 
@@ -1718,6 +1725,17 @@ earlier selector or local-fold pass may already have prepared the function;
 its observations remain in the corresponding existing assistance fields.
 Internal selector analysis projections do not create additional explanation
 rows. Existing annotations and native iterator scaffolding retain their checks.
+
+Pointwise clone transport reports entry restrictions, unsupported result/body
+shapes, missing constructor or cloned fields, and `missing_transport_goal`.
+It requires one shared input, a returned local of the same underlying type,
+one to four recognized cloned fields, and a supported quantified
+invariant-preservation postcondition. A skipped profile installs no facts;
+an `applied` row records only proposed checked assertions. Expansion or
+annotation errors retain their existing failure behavior and are now visible
+as preparation errors. Because this pass precedes growth/range preparation,
+its decisions remain visible if a later pass fails, while profiles not reached
+have no decision rows.
 
 For example, inspect decisions that need attention with:
 

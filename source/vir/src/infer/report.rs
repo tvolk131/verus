@@ -1,6 +1,9 @@
 //! Observations of candidate generation, never proof evidence or cache inputs.
 use super::*;
 
+/// Reporting coverage, never a registry of enabled or verified proof strategies.
+pub const EXPLAINED_PROFILES: &[&str] = &["growth_loop", "pointwise_transport", "range_loop"];
+
 #[derive(Clone)]
 pub struct GeneratedCandidate {
     pub function: Function,
@@ -113,12 +116,47 @@ pub enum AssistanceSkip {
     UnsupportedRange,
     UnsupportedIndex,
     MissingFinalStateGoal,
+    ProphecyDependent,
+    TransportSignature,
+    TransportBody,
+    TransportResult,
+    TransportConstructor,
+    TransportFields,
+    TransportGoal,
 }
 
 impl AssistanceSkip {
     /// Stable reason keys and profile requirements for presentation only.
     pub fn diagnostic(self) -> (&'static str, &'static str) {
         match self {
+            Self::ProphecyDependent => (
+                "prophecy_dependent_function",
+                "Pointwise clone transport requires a function without prophecy-dependent semantics.",
+            ),
+            Self::TransportSignature => (
+                "unsupported_transport_signature",
+                "Pointwise clone transport requires one shared input and a returned value of the same underlying type.",
+            ),
+            Self::TransportBody => (
+                "unsupported_transport_body",
+                "Pointwise clone transport requires a block with a returned local value.",
+            ),
+            Self::TransportResult => (
+                "missing_transport_result_local",
+                "Pointwise clone transport requires returning a local value without a field projection.",
+            ),
+            Self::TransportConstructor => (
+                "missing_transport_constructor",
+                "Pointwise clone transport requires that returned local to be initialized by a direct record constructor.",
+            ),
+            Self::TransportFields => (
+                "unsupported_transport_fields",
+                "Pointwise clone transport requires one to four recognized cloned fields from the shared input.",
+            ),
+            Self::TransportGoal => (
+                "missing_transport_goal",
+                "No supported quantified invariant-preservation postcondition requires transport through the cloned fields.",
+            ),
             Self::InferredFunction => (
                 "inference_candidate",
                 "This assistance profile targets ordinary executable functions; inferred functions use their own contract-generation path.",
