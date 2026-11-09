@@ -257,7 +257,8 @@ fn ordinary_word_goal_exports_bind_standard_library_models() {
     let stale = crates.build("word_goal_consumer", caller, &["word_goal_provider"], &options);
     assert!(!stale.status.success());
     assert!(
-        String::from_utf8_lossy(&stale.stderr).contains("stale or missing trusted-model fingerprint"),
+        String::from_utf8_lossy(&stale.stderr)
+            .contains("stale or missing trusted-model fingerprint"),
         "{}",
         String::from_utf8_lossy(&stale.stderr)
     );
