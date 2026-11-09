@@ -2924,13 +2924,16 @@ impl Verifier {
             )));
         }
 
-        if !self.imported_inference_dependencies.is_empty()
-            && (self.args.no_verify
-                || self.args.verify_root
-                || self.args.verify_function.is_some()
-                || !self.args.verify_module.is_empty()
-                || !self.args.verify_only_module.is_empty())
-        {
+        let incomplete_inference_scope = !self.args.checks_entire_crate();
+        // --infer-goals also certifies ordinary-only providers. The absence of
+        // inferred helpers or a matching preparation profile must not let an
+        // unchecked/filtered crate acquire inference-aware metadata.
+        if self.args.infer_goals && incomplete_inference_scope {
+            return Err(map_err_diagnostics(vir::messages::error_bare(
+                "Verus Infer requires full-crate verification with --infer-goals; --no-verify and function/module filters are unsupported",
+            )));
+        }
+        if !self.imported_inference_dependencies.is_empty() && incomplete_inference_scope {
             return Err(map_err_diagnostics(vir::messages::error_bare(
                 "Verus Infer requires full-crate verification for consumers of certified inference dependencies; --no-verify and function/module filters are unsupported",
             )));
@@ -2958,12 +2961,7 @@ impl Verifier {
                     .chain(self.inference_generation.local_folds.iter())
                     .any(|(name, _)| name == &f.x.name)
         }) {
-            if self.args.no_verify
-                || self.args.verify_root
-                || self.args.verify_function.is_some()
-                || !self.args.verify_module.is_empty()
-                || !self.args.verify_only_module.is_empty()
-            {
+            if incomplete_inference_scope {
                 return Err(map_err_diagnostics(vir::messages::error(
                     &inferred.span,
                     "Verus Infer requires full-crate verification; --no-verify and function/module filters are unsupported",

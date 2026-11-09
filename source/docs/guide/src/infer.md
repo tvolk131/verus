@@ -6,10 +6,16 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **38**, inference policy **63** and
+The current build uses metadata schema **38**, inference policy **64** and
 candidate-cache version **69**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
+
+Policy 64 requires complete verification for every `--infer-goals` provider,
+including ordinary-only crates where no assistance profile applies.
+`--no-verify` and function/module filters are rejected. Earlier inference-aware
+metadata is incompatible and providers must be rebuilt. Candidate formulas are
+unchanged by this publication fix; cache version 69 still requires fresh proofs.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:

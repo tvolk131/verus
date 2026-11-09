@@ -133,3 +133,60 @@ fn ordinary_library_exports_remain_compatible() {
         &["ordinary_base"],
     );
 }
+
+#[test]
+fn ordinary_goal_providers_require_full_proofs_and_reject_previous_policy() {
+    let crates = InferCrates::new();
+    let invalid = "pub fn selected(){} pub mod omitted {pub fn value()->(r:u8) ensures r==1, {0}}";
+    let valid = invalid.replace("r==1", "r==0");
+    let options = ["--infer-goals", "--output-json"];
+    for bypass in [
+        vec!["--no-verify"],
+        vec!["--verify-root"],
+        vec!["--verify-root", "--verify-function", "selected"],
+        vec!["--verify-only-module", "omitted"],
+        vec!["--verify-module", "omitted"],
+    ] {
+        // Seed a genuinely checked ordinary-only interface before each failed
+        // rebuild. No inferred helper or recognized assistance profile can
+        // accidentally trigger the older, narrower scope guard in this case.
+        let seed = crates.build("ordinary_goal_provider", &valid, &[], &options);
+        assert!(seed.status.success(), "{}", String::from_utf8_lossy(&seed.stderr));
+        let report = json_inference(&seed);
+        assert!(report["functions"].as_array().unwrap().is_empty());
+        assert_eq!(report["interface_written"], true);
+        assert!(crates.vir("ordinary_goal_provider").exists());
+        let flags: Vec<_> = options.iter().copied().chain(bypass.iter().copied()).collect();
+        let run = crates.build("ordinary_goal_provider", invalid, &[], &flags);
+        assert!(!run.status.success(), "bypass accepted: {:?}", bypass);
+        assert!(
+            String::from_utf8_lossy(&run.stderr).contains("requires full-crate verification"),
+            "{}",
+            String::from_utf8_lossy(&run.stderr)
+        );
+        let report = json_inference(&run);
+        assert_eq!(report["interface_written"], false);
+        assert!(!crates.vir("ordinary_goal_provider").exists());
+    }
+
+    let provider = crates.build("ordinary_goal_provider", &valid, &[], &options);
+    assert!(provider.status.success(), "{}", String::from_utf8_lossy(&provider.stderr));
+    let caller = "pub fn caller(){let r=ordinary_goal_provider::omitted::value(); assert(r==0);}";
+    let checked =
+        crates.build("ordinary_goal_consumer", caller, &["ordinary_goal_provider"], &options);
+    assert!(checked.status.success(), "{}", String::from_utf8_lossy(&checked.stderr));
+    assert!(crates.vir("ordinary_goal_consumer").exists());
+    crates.edit_metadata("ordinary_goal_provider", |metadata| {
+        assert_ne!(metadata["policy"], "candidate-bound-evidence-v63");
+        metadata["policy"] = serde_json::json!("candidate-bound-evidence-v63");
+    });
+    let stale =
+        crates.build("ordinary_goal_consumer", caller, &["ordinary_goal_provider"], &options);
+    assert!(!stale.status.success());
+    assert!(
+        String::from_utf8_lossy(&stale.stderr).contains("incompatible inference schema"),
+        "{}",
+        String::from_utf8_lossy(&stale.stderr)
+    );
+    assert!(!crates.vir("ordinary_goal_consumer").exists());
+}

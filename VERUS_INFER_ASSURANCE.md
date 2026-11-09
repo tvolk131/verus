@@ -23,9 +23,19 @@ behavior; the [direction document](VERUS_INFER_DIRECTION.md) sets priorities.
 - Candidate caches store formulas, not proof results. Eligibility is checked
   again and every required proof is fresh, including on cache hits.
 - Inferred dependents wait for required checks. Full selected-crate verification
-  is required for publication. Failure invalidates inference-aware stale
+  is required for inference-aware publication. Failure invalidates inference-aware stale
   interfaces; older unmarked artifacts have the detection limits described in
   the feature reference.
+- Every `--infer-goals` provider requires complete body checking, even with no
+  inferred helper or applicable assistance profile. Disabled/partial checking
+  is rejected before certification and independently at export. Policy 64
+  invalidates earlier inference-aware interfaces; candidate formulas remain
+  untrusted and freshly proved under the unchanged cache policy.
+- Legacy ordinary Verus exports without inference or `--infer-goals` can be
+  written before proof checking. Their presence does not establish verification;
+  the [fresh varint experiment](evidence/verus-infer-varint-3b05c191/README.md)
+  records failed ordinary runs with physical exports separately from the gated
+  inference-aware publication controls.
 - Imports validate guarantees and contract, dependency and model fingerprints.
   Imported bodies are not reverified. Metadata is enforcement and provenance,
   not a standalone independently checkable proof certificate.
