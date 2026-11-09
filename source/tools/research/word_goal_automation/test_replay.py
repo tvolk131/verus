@@ -36,7 +36,7 @@ class Guards(unittest.TestCase):
             'verification-results': {'success': True, 'is-verifying-entire-crate': True},
             'verus-infer': {
                 'verification_scope': {'complete_selected_scope_verified': True},
-                'functions': [{'mode': 'exact', 'required_checks_passed': True,
+                'functions': [{'function': 'probe::identity', 'mode': 'exact', 'required_checks_passed': True,
                     'proofs': {p: {'required': True, 'status': 'proved'}
                                for p in ('soundness', 'maximality', 'exactness')}}]}}))
 
@@ -46,7 +46,7 @@ class Guards(unittest.TestCase):
         del data['verus-infer']['functions'][0]['proofs']['exactness']
         result['stdout'] = json.dumps(data)
         with self.assertRaisesRegex(ValueError, 'mandatory exact inference checks'):
-            replay.check_run(result, True)
+            replay.check_run(result, True, expected_functions={'identity'})
 
     def test_incomplete_scope_rejected(self):
         result = self.checked_run()
@@ -54,13 +54,13 @@ class Guards(unittest.TestCase):
         data['verus-infer']['verification_scope']['complete_selected_scope_verified'] = False
         result['stdout'] = json.dumps(data)
         with self.assertRaisesRegex(ValueError, 'incomplete verification scope'):
-            replay.check_run(result, True)
+            replay.check_run(result, True, expected_functions={'identity'})
 
     def test_failed_proof_cannot_count_as_success(self):
         result = self.checked_run()
         result['returncode'] = 1
         with self.assertRaisesRegex(ValueError, 'unexpected verification outcome'):
-            replay.check_run(result, True)
+            replay.check_run(result, True, expected_functions={'identity'})
 
     def test_expected_negative_requires_its_diagnostic(self):
         result = self.checked_run()
@@ -68,10 +68,18 @@ class Guards(unittest.TestCase):
         data['verification-results']['success'] = False
         result.update(returncode=1, stdout=json.dumps(data))
         with self.assertRaisesRegex(ValueError, 'expected diagnostic missing'):
-            replay.check_run(result, False, 'postcondition not satisfied')
+            replay.check_run(result, False, 'postcondition not satisfied', expected_functions={'identity'})
 
     def test_checked_run_accepted(self):
-        replay.check_run(self.checked_run(), True)
+        replay.check_run(self.checked_run(), True, expected_functions={'identity'})
+
+    def test_missing_inferred_helper_rejected(self):
+        result = self.checked_run()
+        data = json.loads(result['stdout'])
+        data['verus-infer']['functions'] = []
+        result['stdout'] = json.dumps(data)
+        with self.assertRaisesRegex(ValueError, 'coverage mismatch'):
+            replay.check_run(result, True, expected_functions={'identity'})
 
 if __name__ == '__main__':
     unittest.main()

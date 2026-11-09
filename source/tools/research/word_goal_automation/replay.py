@@ -14,7 +14,8 @@ HISTORY = HERE.parent / 'redb_single_word_set'
 sys.path.insert(0, str(ROOT / 'source/tools'))
 from infer_eval_support import ArtifactGuard, tool_artifacts
 from infer_experiment import (LoggedCommands, replay_receipt, require,
-                              require_exact, require_publication, validate_run)
+                              require_exact, require_failure_kind, require_function_coverage,
+                              require_publication, validate_run)
 
 def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -42,7 +43,7 @@ def fidelity():
         require(not any(x in s for x in ('proof {', 'let ghost', 'word_laws', 'lemma_', 'assume(', 'admit(', 'external_body')),
                 f'local proof assistance or trust added: {name}')
 
-def check_run(result, success, expected_error=None):
+def check_run(result, success, expected_error=None, *, expected_functions):
     data = validate_run(result, success, allow_frontend=expected_error == 'Verus Infer unsupported')
     verification = data['verification-results']
     info = data.get('verus-infer', {})
@@ -52,11 +53,13 @@ def check_run(result, success, expected_error=None):
         require(not verification.get('encountered-vir-error') and verification.get('is-verifying-entire-crate'),
                 'frontend failure or partial verification')
     if expected_error == 'postcondition not satisfied':
-        require(not any(x in result['stderr'] for x in ('precondition not satisfied', 'assertion failed')),
-                'mixed failure kinds')
+        require_failure_kind(result['stderr'], expected_error)
+    if expected_error == 'assertion failed':
+        require_failure_kind(result['stderr'], expected_error)
+    require_function_coverage(info.get('functions', []), expected_functions)
+    require_exact(info.get('functions', []))
     if success:
         require(info['verification_scope']['complete_selected_scope_verified'], 'incomplete verification scope')
-        require_exact(info['functions'])
     return data
 
 def main():
@@ -109,7 +112,10 @@ def replay(a, out, receipt):
                    imported_inference_dependencies=info.get('imported_inference_dependencies'))
         receipt['runs'].append(rec)
         (out/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n')
-        check_run(result, success, expected_error)
+        helpers = ({'select_mask'} if label in ('automatic_inferred_mask', 'helper_shift') else
+                   {'data_index_of'} if label == 'helper_tuple' and success else
+                   {'identity'} if label in ('provider_cold', 'provider_warm', 'publication_negative') else set())
+        check_run(result, success, expected_error, expected_functions=helpers)
         print(label, v.get('verified'), v.get('errors'), flush=True)
         return d
     automatic = (HERE/'automatic_alias.rs').read_text()

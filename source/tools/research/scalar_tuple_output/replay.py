@@ -7,7 +7,8 @@ ROOT = HERE.parents[3]
 sys.path.insert(0, str(ROOT/'source/tools'))
 from infer_eval_support import ArtifactGuard, tool_artifacts
 from infer_experiment import (LoggedCommands, replay_receipt, require,
-                              require_exact, require_publication, validate_run)
+                              require_exact, require_failure_kind, require_function_coverage,
+                              require_publication, validate_run)
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def fidelity(stateful=None):
     frozen=json.loads((HERE/'freeze.json').read_text())
@@ -16,19 +17,48 @@ def fidelity(stateful=None):
     old=old.replace('    fn data_index_of(bit: u32) -> (r: (usize, usize))\n        ensures r.0 == (bit as usize) / 64, r.1 == (bit as usize) % 64,','    #[verifier::infer]\n    fn data_index_of(bit: u32) -> (r: (usize, usize))')
     require(old==(stateful or HERE/'automatic_inferred_helpers.rs').read_text(), 'stateful helper adaptation changed')
 
-def check_run(result, success, error=None):
+PAIR_NAMES = {'data_index_of', 'signed', 'slice_pair', 'arithmetic', 'composed',
+              'branch', 'ignored_left', 'ignored_right'}
+
+def expected_helpers(label):
+    if label in ('pairs_portable', 'model_32', 'model_64') or label.startswith('unsafe_'):
+        return PAIR_NAMES
+    if label in ('stateful', 'stateful_xor', 'stateful_disabled'):
+        return {'data_index_of', 'select_mask'}
+    if label in ('consumer', 'bridge_provider'):
+        return {'composed'}
+    if label.startswith(('provider_', 'cache_', 'changed_')) or label in ('restore_provider', 'failed_export', 'no_verify_export'):
+        return {'split'}
+    if label.startswith(('metadata_', 'reject_')) or label in (
+            'historical_baseline', 'forwarding_wrapper', 'representation_equivalence',
+            'transitive_consumer', 'transitive_dependency_poison'):
+        return set()
+    raise ValueError('unknown pair replay case: '+label)
+
+def check_run(result, success, error=None, *, expected_functions, helper_checks='proved'):
     semantic = error in ('postcondition not satisfied', 'precondition not satisfied', 'assertion failed')
     data = validate_run(result, success, allow_frontend=bool(error) and not semantic)
     if error:
         require(error in result['stderr'], 'expected diagnostic missing')
+    if semantic and helper_checks != 'rejected':
+        require_failure_kind(result['stderr'], error)
     if success or semantic:
         require(data['verification-results'].get('is-verifying-entire-crate') is True,
                 'incomplete verifier scope')
+    info = data.get('verus-infer', {})
+    functions = info.get('functions', [])
+    require_function_coverage(functions, expected_functions)
+    if helper_checks == 'proved':
+        require_exact(functions)
+    elif helper_checks == 'rejected':
+        require(not success and any(all(f.get('proofs', {}).get(p, {}).get('status') == 'failed'
+                    for p in ('soundness', 'exactness')) for f in functions),
+                'poisoned pair did not fail independent soundness and exactness')
+    else:
+        require(helper_checks == 'skipped' and not success, 'invalid helper-check expectation')
     if success:
-        info = data['verus-infer']
         require(info['verification_scope']['complete_selected_scope_verified'] is True,
                 'incomplete verification scope')
-        require_exact(info['functions'])
     return data
 
 def main():
@@ -56,7 +86,8 @@ def replay(a, out, receipt):
         d=json.loads(result['stdout'])
         receipt['runs'].append(dict(label=label,command=cmd,returncode=rc,stdout_sha256=sha(out/(label+'.stdout')),stderr_sha256=sha(out/(label+'.stderr')),result=d))
         (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-        check_run(result,success,error)
+        checks = 'rejected' if label == 'cache_swapped' else 'skipped' if label == 'no_verify_export' else 'proved'
+        check_run(result,success,error,expected_functions=expected_helpers(label),helper_checks=checks)
         print(label,rc,d.get('verification-results',{}),flush=True)
         return d
     pairs=(HERE/'pairs.rs').read_text()

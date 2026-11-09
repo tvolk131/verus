@@ -97,6 +97,19 @@ def require_exact(functions):
             raise ValueError("missing mandatory exact inference checks")
 
 
+def require_function_coverage(functions, expected):
+    """Bind checks to the scenario's explicit helper identities, including zero."""
+    names = [function.get("function", "").rsplit("::", 1)[-1] for function in functions]
+    require(len(names) == len(set(names)) and set(names) == set(expected),
+            "inferred-function coverage mismatch")
+
+
+def require_failure_kind(stderr, expected):
+    kinds = ("postcondition not satisfied", "precondition not satisfied", "assertion failed")
+    require(expected in kinds and expected in stderr, "expected semantic diagnostic missing")
+    require(not any(kind in stderr for kind in kinds if kind != expected), "mixed failure kinds")
+
+
 def require_publication(data, expected, artifact):
     inference = data["verus-infer"]
     if (data["verification-results"].get("success", False) != expected
