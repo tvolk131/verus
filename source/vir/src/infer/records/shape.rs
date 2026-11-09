@@ -358,7 +358,9 @@ pub(super) fn shape(
             });
             return Ok(());
         }
-        if opaque_value(t, ds, &f.x.owning_module) {
+        if opaque_value(t, ds, &f.x.owning_module)
+            || super::foreign_opaque::readonly_field(f, t, ds, !path.is_empty())
+        {
             // Whole opaque values can be framed inside a visible record.
             // Mutating an opaque root needs a supported state interface.
             if path.is_empty() && mutable(f) {
