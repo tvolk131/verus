@@ -3014,3 +3014,31 @@ and failed/no-verify/filtered/no-lifetime controls are inference regressions.
 restored proofs and native feature/MSRV behavior. See
 `evidence/verus-infer-hex-v3/assumptions.md` for the trust, erasure and domain
 inventory; earlier accepted source/archive pins remain immutable.
+
+## Bounded u64 word-view assistance
+
+With `--infer-goals`, ordinary executable functions whose supplied contracts or
+assertions observe `vstd::word::view` or `vstd::word::member` receive scoped
+broadcasts of three checked representation laws: OR-singleton membership,
+sequence update/count, and full-word equivalence under allocated padding.
+Supplied spec wrappers may expose that vocabulary. Quantified membership goals
+may require a direct alias of the generic `member` symbol; discovering a
+forwarding wrapper does not synthesize new quantifier bridges. Discovery stops without
+adding assistance after 4,096 expression nodes or 32 wrapper spec functions.
+The complete fixed vstd lemma catalog must be present with the expected safe
+proof signatures. Library proofs, inferred candidates, external bodies and
+functions suppressing termination checks are excluded.
+
+This profile supplies representation reasoning, not semantic intent. Authors
+still define the application invariant, logical view, bounds, update/count
+policy and return meaning. The generic view is a `Seq<bool>` of u64 memberships;
+its update law requires `index < size <= 64`, and the full-view law explicitly
+requires all physical padding bits allocated. Application bodies and goals are
+unchanged and undergo ordinary verification. No application identity, assumed
+update summary, theorem call, or proof receipt is manufactured. The JSON
+`goal_assistance` strategy `word_view_broadcast` records lemma selection only.
+
+The frozen research replay in `source/tools/research/word_goal_automation`
+retains the original stateful experiment separately and measures the reduction
+from explicit snapshots/representation proof glue. The profile does not extend
+scalar inference eligibility or certify an entire allocator.

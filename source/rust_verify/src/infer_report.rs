@@ -305,6 +305,9 @@ impl Verifier {
             }))).chain(generation.fold_lemmas.iter().map(|(function, lemmas)| json!({
                 "function": name(function), "strategy": "sequence_fold_observation",
                 "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
+            }))).chain(generation.word_lemmas.iter().map(|(function, lemmas)| json!({
+                "function": name(function), "strategy": "word_view_broadcast",
+                "lemmas": lemmas.iter().map(name).collect::<Vec<_>>(),
             }))).collect::<Vec<_>>(),
             "failed_functions": failed_functions,
             "functions": functions,
