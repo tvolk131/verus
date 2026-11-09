@@ -623,15 +623,21 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 stubs.insert(f.x.name.clone(), vir::ast_util::function_to_stub(f));
             }
             let stubs = Arc::new(stubs);
+            let lookup = self.get_demote_trait_lookup()?;
             for f in &cratex.functions {
-                let (wf, errors, diags) = vir::well_formed::check_generated_contracts(
+                let (wf, errors, diags) = if self.inference_generation.buffer_observations.iter().any(|(n,_)| n == &f.x.name) {
+                    vir::well_formed::check_function(
+                        &pre_crate.krate_without_funs, stubs.clone(), initial_wf_results.lookup.clone(),
+                        &lookup, f, &warning_ctx, self.args.no_cheating, self.args.no_verify,
+                    )
+                } else { vir::well_formed::check_generated_contracts(
                     &pre_crate.krate_without_funs,
                     stubs.clone(),
                     initial_wf_results.lookup.clone(),
                     f,
                     &warning_ctx,
                     self.args.no_cheating,
-                );
+                ) };
                 self.emit_non_blocking_errors(errors);
                 self.emit_diags(diags);
                 let wf = wf.map_err(|e| {
@@ -734,7 +740,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         // the original maps cannot describe newly generated locals or read IDs.
         let mut krate = krate;
         if !self.inference_generation.buffer_observations.is_empty() {
-            let stubs = Arc::new(krate.functions.iter().map(|f|
+            let stubs: Arc<HashMap<Fun, vir::ast::FunctionStub>> = Arc::new(krate.functions.iter().map(|f|
                 (f.x.name.clone(), vir::ast_util::function_to_stub(f))).collect());
             let wf = self.get_initial_wf_results()?;
             for f in &mut Arc::make_mut(&mut krate).functions {
