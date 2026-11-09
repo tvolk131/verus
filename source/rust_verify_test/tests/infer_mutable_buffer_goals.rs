@@ -15,6 +15,27 @@ fn check(name: &str, text: String, goals: bool, success: bool) {
     let text = text.replace("#![feature(proc_macro_hygiene)]", "");
     let result = verify_one_file(name, text, &options);
     assert_eq!(result.is_ok(), success, "{name}: {result:?}");
+    if let Err(error) = result {
+        assert!(error.errors.iter().all(|d| d.code.is_none()), "{name}: Rust frontend rejection");
+        assert!(
+            error.errors.iter().any(|d| [
+                "postcondition not satisfied",
+                "precondition not satisfied",
+                "invariant not satisfied",
+                "assertion failed",
+                "possible arithmetic underflow/overflow"
+            ]
+            .iter()
+            .any(|k| d.message.contains(k))),
+            "{name}: no ordinary proof rejection: {error:?}"
+        );
+        assert!(
+            !error
+                .errors
+                .iter()
+                .any(|d| d.message.contains("Resource limit") || d.message.contains("timed out"))
+        );
+    }
 }
 
 #[test]
