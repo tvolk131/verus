@@ -71,7 +71,16 @@
     "source/rust_verify/src/query.rs": "87b32963a7ceefff37267d5eb6835b442c06db758706cda59bfcda575fd5815d",
     "source/rust_verify/src/import_export.rs": "887196d254f46baac080109d8e1b3f8407fa314128f3fdc261ebf5902e90fd62"
   },
-  "focused_compiler_tests": "17 combined tests running; not yet evidence",
+  "focused_compiler_tests": {
+    "passed": 17,
+    "failed": 0,
+    "binaries": {
+      "infer_buffer_observation_goals": 9,
+      "infer_mutable_buffer_goals": 8
+    },
+    "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-focused.log",
+    "sha256": "fa0a08fcef2dc3457c8ed4c603ec9c5ef9c14db8d6f95e32ec54b190f82802db"
+  },
   "independent_canonical_review": {
     "commit": "4d53db35",
     "recommendation": "accept scoped canonical integration; no blocking findings",
@@ -82,5 +91,19 @@
     "actual shared proof-producing step on both full frozen properties",
     "full HMAC XOR-prefix and unchanged-suffix theorem",
     "broader combined regression/replay and fresh independent combined acceptance"
-  ]
+  ],
+  "python_unit_tests": {
+    "normal": {
+      "passed": 148,
+      "failed": 0,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-python.log",
+      "sha256": "fc7f0ad6bc7864c150b280fc96a68f83e5202ea68922720d01412b0a17148fc4"
+    },
+    "optimized": {
+      "passed": 148,
+      "failed": 0,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-python-opt.log",
+      "sha256": "ea99d2f2be9020e33da9ac476edcfc09f8122372e998317835d8fabc914a8fb8"
+    }
+  }
 }
