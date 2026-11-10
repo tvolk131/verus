@@ -31,7 +31,10 @@
   "full_constructor_support": "36/0 checked manual packing support; not a full constructor proof",
   "bool_conversion": "actual From<bool>0/1; optimized MIR one Bool->U64 cast thenReturn; local1/0mirror is NOT a foreign-body proof",
   "foreign_bridge_proposal": "../item_tag_constructor_composition/proposal.md",
-  "excluded_parent_controller": "../tmp/constructor-parent-replay log naming mismatch; exact failed receipt /tmp/verus-infer-buffer-cycle-20261109/item-tag-parent/receipt.json retained",
+  "excluded_parent_controller": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/item-tag-parent/receipt.json",
+    "reason": "Parent log-name adapter missing; verifier succeeded but controller failed before body acceptance. Fresh v2 replay passed."
+  },
   "accepted_engine": "3aa7f49a policy69/cache72/schema38 unchanged",
   "native_correspondences": 0,
   "full_HMAC": "1/1 UNPROVED",
