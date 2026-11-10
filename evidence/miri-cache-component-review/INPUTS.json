@@ -1,0 +1,563 @@
+{
+  "schema": 1,
+  "final_frozen_inputs": [
+    {
+      "path": "/home/dev/.cargo/bin/rustup",
+      "sha256": "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55",
+      "bytes": 21347088,
+      "delivered_epoch_label": "/home/dev/.cargo/bin/rustup"
+    },
+    {
+      "path": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+      "sha256": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+      "bytes": 648536,
+      "delivered_epoch_label": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc"
+    },
+    {
+      "path": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so",
+      "sha256": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+      "bytes": 158240640,
+      "delivered_epoch_label": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/evidence/miri-cache-component-review/SCOPE.json",
+      "sha256": "4857113258e331aafd177bc5b4ba13421bd09e70b37fdbada8232ffeecf7fa8e",
+      "bytes": 1853
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/evidence/miri-cache-component-review/review.py",
+      "sha256": "da144e72e4a4715fa71e894de7bb708e9bf8cca7cdf138a7c349aa3a8856726c",
+      "bytes": 14062
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/evidence/miri-cache-component-review/terminal.py",
+      "sha256": "2fe7e260acb44392c0cfe41df7454e7efbd630848b9630179f88f7cfc9cab14e",
+      "bytes": 905
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/infer_eval_support.py",
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "bytes": 7981,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/infer_eval_support.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/infer_experiment.py",
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+      "bytes": 11144,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/infer_experiment.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/ATTEMPTS.json",
+      "sha256": "689f41593a2d848b7e70f3612d4a3f8cc7c45900d2f292e69c2bafe57c16a8b9",
+      "bytes": 35785
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/INTERFACE.md",
+      "sha256": "c13cc7f1ba3ec9b5a10d2ec685715363a053b30c65f0a8432ee9e18333379c01",
+      "bytes": 3381,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/INTERFACE.md"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/INVENTORY.json",
+      "sha256": "bc0174006be2438044352d9a2bb6614340bfab0fee2a404577681abdb0e3323c",
+      "bytes": 8898
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/NEEDS.json",
+      "sha256": "65330cf72944af0a9f063bf1953bb8565f1c75e8e190ac348b1983b5172db310",
+      "bytes": 2205
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/REPORT.md",
+      "sha256": "fc4369bf111e6e579512abc3ef2308ddeec37028535403bdf5bed7f3b764c8ad",
+      "bytes": 12071
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/RESULTS.json",
+      "sha256": "2372710cf5aa3648364af88adcf416e5e6f2703c6ac1401ed3d376ba2ae59293",
+      "bytes": 3646
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/SOURCE_FREEZE.json",
+      "sha256": "06aaa41f186b6a5c10341cd6f07ea841998bc81d9e9ba4528770e6b8ee58d242",
+      "bytes": 2737,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/SOURCE_FREEZE.json"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/SOURCE_POLICY.json",
+      "sha256": "bc81bb2a170f5e449047ac6059882667edd6a1d4d7db98570ec4c028b93c32c2",
+      "bytes": 566,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/SOURCE_POLICY.json"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/accept.py",
+      "sha256": "4a516d8e67e912e298cc3e3e068a498db97bf7a25458157e53e8ac7360fdc2fa",
+      "bytes": 7655,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/accept.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/cache_component.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/cache_component.rs"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/fidelity.py",
+      "sha256": "f60355ea1bd7e319d9ce4ab4d78c277eb5864f5fd3081bd6a270b95a06d271b6",
+      "bytes": 2372,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/fidelity.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/final_plan.py",
+      "sha256": "1b9a9211866880995324b3708ed1c85817b54fb3a02e4243667ea31aee3e5aad",
+      "bytes": 2187,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/final_plan.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/prepare.py",
+      "sha256": "f173dae2c44d385def6be8cfc193e93f344a157a8909aeeec374072c0a71fd50",
+      "bytes": 4238,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/prepare.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/replay.py",
+      "sha256": "1c6093155c783d25cce193978f7caa0861fa468c6e58417996160ca501c358be",
+      "bytes": 6084,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/replay.py"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_policy_pin/pins.json",
+      "sha256": "6d26b722a7f9f656d36942ae836326e8e656ff2613ad381fc41c4ba52e174e2c",
+      "bytes": 4507,
+      "delivered_epoch_label": "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_policy_pin/pins.json"
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-auth001/authentication.json",
+      "sha256": "198760b47aa05a2f03b007a70a785e7e9867a3b6aaf4b7cfab2da98ac34c991c",
+      "bytes": 38334
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-assistance-off.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-enabled-cold.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-enabled-warm.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-false-preservation-property.rs",
+      "sha256": "94bdd2b53b969b1fcfd8450fb7ab6db37081c4ad0cbf0b66a385b812dcc3c2ff",
+      "bytes": 3966
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-invalid-initial-index.rs",
+      "sha256": "7504c9a976732f0263b2c7b53aa87c9a1b5297c2923641dbdc51f7a37bdc85cf",
+      "bytes": 3927
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-short-index-shift.rs",
+      "sha256": "7150af1df047f3eff9d5cd44049cde9d970fc11640849fdd590e9913ffa663d2",
+      "bytes": 3927
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/cache-wrong-index-head.rs",
+      "sha256": "62a8115e99a7ba38892516af7f87c548772b6c7ba131e80df9529c579e621e9d",
+      "bytes": 3925
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/literal-enabled-off.rs",
+      "sha256": "174f9d4760a7144e5bd53ecc684c39098411d6249e966dde64b5e5ca42430f82",
+      "bytes": 8433
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/literal-enabled-on.rs",
+      "sha256": "174f9d4760a7144e5bd53ecc684c39098411d6249e966dde64b5e5ca42430f82",
+      "bytes": 8433
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/plan.json",
+      "sha256": "ffd27a3fcc7b691561bb6e50d241d871f768cd45049152f6bcc3d5162e12fe6c",
+      "bytes": 3743
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/reverse-for-diagnostic.rs",
+      "sha256": "a1ca930657b6031378cd411dacb79eaff2dc57fc6f913f4ac3f3bd2727e85501",
+      "bytes": 304
+    },
+    {
+      "path": "/tmp/native-miri-cache-component-review-20261110-proof003/reverse-laws-diagnostic.rs",
+      "sha256": "4ddef0ae66c615aa60e6624dd514305505a6b52637856c3f6e976429c6656975",
+      "bytes": 301
+    },
+    {
+      "path": "/tmp/native-miri-feature-inspection-accepted002/receipt.json",
+      "sha256": "9769699a1ff9d110861b6ccc39db5c507b36d009c89d6720d269149963d6ab27",
+      "bytes": 1538,
+      "delivered_epoch_label": "/tmp/native-miri-feature-inspection-accepted002/receipt.json"
+    },
+    {
+      "path": "/tmp/native-miri-feature-policy-lqm1ib7w/Cargo.toml",
+      "sha256": "88e5f72e9e0368b933e065e56e80ddcfb7433f1615688edb364cefb184f7aff5",
+      "bytes": 2514,
+      "delivered_epoch_label": "/tmp/native-miri-feature-policy-lqm1ib7w/Cargo.toml"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-assistance-off.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-assistance-off.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-enabled-cold.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-enabled-cold.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-enabled-warm.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-enabled-warm.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-false-preservation-property.rs",
+      "sha256": "94bdd2b53b969b1fcfd8450fb7ab6db37081c4ad0cbf0b66a385b812dcc3c2ff",
+      "bytes": 3966,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-false-preservation-property.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-invalid-initial-index.rs",
+      "sha256": "7504c9a976732f0263b2c7b53aa87c9a1b5297c2923641dbdc51f7a37bdc85cf",
+      "bytes": 3927,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-invalid-initial-index.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-short-index-shift.rs",
+      "sha256": "7150af1df047f3eff9d5cd44049cde9d970fc11640849fdd590e9913ffa663d2",
+      "bytes": 3927,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-short-index-shift.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-wrong-index-head.rs",
+      "sha256": "62a8115e99a7ba38892516af7f87c548772b6c7ba131e80df9529c579e621e9d",
+      "bytes": 3925,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/cache-wrong-index-head.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/INTERFACE.md",
+      "sha256": "c13cc7f1ba3ec9b5a10d2ec685715363a053b30c65f0a8432ee9e18333379c01",
+      "bytes": 3381
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/SOURCE_FREEZE.json",
+      "sha256": "06aaa41f186b6a5c10341cd6f07ea841998bc81d9e9ba4528770e6b8ee58d242",
+      "bytes": 2737
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/SOURCE_POLICY.json",
+      "sha256": "bc81bb2a170f5e449047ac6059882667edd6a1d4d7db98570ec4c028b93c32c2",
+      "bytes": 566
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/accept.py",
+      "sha256": "4a516d8e67e912e298cc3e3e068a498db97bf7a25458157e53e8ac7360fdc2fa",
+      "bytes": 7655
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/cache_component.rs",
+      "sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "bytes": 3927
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/fidelity.py",
+      "sha256": "f60355ea1bd7e319d9ce4ab4d78c277eb5864f5fd3081bd6a270b95a06d271b6",
+      "bytes": 2372
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/final_plan.py",
+      "sha256": "1b9a9211866880995324b3708ed1c85817b54fb3a02e4243667ea31aee3e5aad",
+      "bytes": 2187
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/prepare.py",
+      "sha256": "f173dae2c44d385def6be8cfc193e93f344a157a8909aeeec374072c0a71fd50",
+      "bytes": 4238
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/completed-own-helper-snapshot/replay.py",
+      "sha256": "1c6093155c783d25cce193978f7caa0861fa468c6e58417996160ca501c358be",
+      "bytes": 6084
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/freeze.json",
+      "sha256": "9c75f4c548c20d8783591ba41cf383ac1878e48e8f6924f28d15994f747aa3f3",
+      "bytes": 12141
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/literal-enabled-off.rs",
+      "sha256": "174f9d4760a7144e5bd53ecc684c39098411d6249e966dde64b5e5ca42430f82",
+      "bytes": 8433,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/literal-enabled-off.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/literal-enabled-on.rs",
+      "sha256": "174f9d4760a7144e5bd53ecc684c39098411d6249e966dde64b5e5ca42430f82",
+      "bytes": 8433,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/literal-enabled-on.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-assistance-off.stderr",
+      "sha256": "c3f49f3940b9802ccbd0f820ae1ad591db6070822cc43bf5081c91a9a94812e9",
+      "bytes": 2267
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-assistance-off.stdout",
+      "sha256": "53fb10e92329a205c286212702c7720c830e08b7b2002851f352eea226df0af9",
+      "bytes": 37523
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-enabled-cold.stderr",
+      "sha256": "80a2f1795cd7043f3bfd1ca18c33149821e2cf95dd2b12c0e5e075d28cd42eb5",
+      "bytes": 2257
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-enabled-cold.stdout",
+      "sha256": "1c02adea557b1370214cd91b284766072877b582fa185a0a6fa54d764ffce6f3",
+      "bytes": 119866
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-enabled-warm.stderr",
+      "sha256": "bd48195d96e8d305b413fe7ca411cd5619b4495c2803f722268a51b540864c1b",
+      "bytes": 2257
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-enabled-warm.stdout",
+      "sha256": "9eff884d16cd50613733a2bd56a7014882ad78d48a7fa4dd42807521a07c08b3",
+      "bytes": 119866
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-false-preservation-property.stderr",
+      "sha256": "bdfc4a4f3e498fad437ada62553814e89dd70de83660a7d0ea45a0cbe45848b6",
+      "bytes": 2843
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-false-preservation-property.stdout",
+      "sha256": "43fe6b4160309335a1a37a1be117c8fa570b25f16eca23f87516b470ea8e3b4b",
+      "bytes": 122934
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-invalid-initial-index.stderr",
+      "sha256": "e874819d523457e76c0853e69d7060750b046cc695c2c3cc2f08037d9397c40b",
+      "bytes": 2978
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-invalid-initial-index.stdout",
+      "sha256": "823b1782ad6c6d2533ad7936d9e2925da1b746b2054a1cf2b89d857e75e29efe",
+      "bytes": 121820
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-short-index-shift.stderr",
+      "sha256": "6f859e18822e0de694f116991aa78e1a5c0c82af036b85c8238b04c1a9493c11",
+      "bytes": 2756
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-short-index-shift.stdout",
+      "sha256": "8c702a5b78162b3b7aa61401ce1be771cb8c766cd4d71477cc9f25ce65fbdc83",
+      "bytes": 121097
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-wrong-index-head.stderr",
+      "sha256": "7bdeb8de7823ed63f42a221877ff389f438d16f5628a3938a234d1b180c87b39",
+      "bytes": 2750
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/cache-wrong-index-head.stdout",
+      "sha256": "19a8bc3f0d7c2b8fb7acb12ae210c9fd52bab66ac4359cb087a60d02f933f012",
+      "bytes": 120915
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/literal-enabled-off.stderr",
+      "sha256": "51e3b276c7346f39b9795688c50ca949b497a3119d1f4d2ad6da4ed74edfd39d",
+      "bytes": 2876
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/literal-enabled-off.stdout",
+      "sha256": "7354cf2b1c08a95131d0dbf0001bd2a20fbe3cd773e50b4874b0ca42e0fd28b7",
+      "bytes": 25957
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/literal-enabled-on.stderr",
+      "sha256": "da9afa6de7a3c81b23577bf9b878d6583d3e22a6aa3fc418d17a8cbcb845a3ae",
+      "bytes": 2872
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/literal-enabled-on.stdout",
+      "sha256": "de6c4950a8df2a536329e409f062786c85b12f99019aeb9208d980d629570ed3",
+      "bytes": 25887
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/receipt.json",
+      "sha256": "297c67eae1dc1242ad0c1f08175548fc16b2167f6c267fdf8b0a5e15ef1e0075",
+      "bytes": 897921
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/reverse-for-diagnostic.stderr",
+      "sha256": "32872d55da9fd68bd8804116900cd1655f4ba0ed8c99b93a40b902c2699ec6c9",
+      "bytes": 1563
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/reverse-for-diagnostic.stdout",
+      "sha256": "88a33fd8dcb0caa007a0e10a4e42d973f4fdcc43baa788fd11389da292ca99c5",
+      "bytes": 82806
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/reverse-laws-diagnostic.stderr",
+      "sha256": "feb85b24a6ed1866d27ef3fdf1fd7219862a464e23c6c5cbeb577e9707b75ec4",
+      "bytes": 263
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/output/reverse-laws-diagnostic.stdout",
+      "sha256": "b4805d3816a7ae319b88c9ce396c70f9f2e2f7bfa837bae46dd08871bbd2f713",
+      "bytes": 75618
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/plan.json",
+      "sha256": "521015ef0b54430cd34a085afafc0b03081f8f1c43077e2aff3d9a58491e9ab7",
+      "bytes": 3762,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/plan.json"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/reverse-for-diagnostic.rs",
+      "sha256": "a1ca930657b6031378cd411dacb79eaff2dc57fc6f913f4ac3f3bd2727e85501",
+      "bytes": 304,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/reverse-for-diagnostic.rs"
+    },
+    {
+      "path": "/tmp/native-miri-find-granting-20261110-impl-final008/reverse-laws-diagnostic.rs",
+      "sha256": "4ddef0ae66c615aa60e6624dd514305505a6b52637856c3f6e976429c6656975",
+      "bytes": 301,
+      "delivered_epoch_label": "/tmp/native-miri-find-granting-20261110-impl-final008/reverse-laws-diagnostic.rs"
+    },
+    {
+      "path": "/tmp/native-miri-fx-policy-bh1euu8m/fx.rs",
+      "sha256": "c9fb0941b0b346c4f250641d8f9437fd219969c57daa25ebfa6058a7fd3ef49f",
+      "bytes": 1672,
+      "delivered_epoch_label": "/tmp/native-miri-fx-policy-bh1euu8m/fx.rs"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/mod.rs",
+      "sha256": "8dec93f2a161caff23bbae3d52ee95eaf690d5d921d46847caf80ceb5d29a896",
+      "bytes": 19743,
+      "delivered_epoch_label": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/mod.rs"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs",
+      "sha256": "a6c597296ed545bd76c8367c21ba807847290b196ead1aec38123efdc243c289",
+      "bytes": 3381,
+      "delivered_epoch_label": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs",
+      "sha256": "079a54f8d8bd0845afd5a81c61f2c6c9f1fb4bc401de1c69336ddf9626e16cd6",
+      "bytes": 42904,
+      "delivered_epoch_label": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs",
+      "sha256": "f4f4fec8b6cc874a88a9e0c7619ca0f5c336767d9504d2ede31df29e544ca7ee",
+      "bytes": 20832,
+      "delivered_epoch_label": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/machine.rs",
+      "sha256": "307479153dfc9800330a8b3573b70067b232a0066d5469fb88018f72d9050ccf",
+      "bytes": 88401,
+      "delivered_epoch_label": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/machine.rs"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin.rlib",
+      "sha256": "37ea321a744186f0cb5464295c9ff56dc470341d028246a189053a8b49ad47be",
+      "bytes": 957086,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin.rlib"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin_macros.so",
+      "sha256": "56f614d61874170ddd5b043f93d53d2eb14ea4e7d59fe3d21b0c43388fdfaff4",
+      "bytes": 15430608,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin_macros.so"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_state_machines_macros.so",
+      "sha256": "2d90bd7974349dc201a305590e3f99c55b975866ef936372855e25d04e666bb6",
+      "bytes": 9725248,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_state_machines_macros.so"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libvstd.rlib",
+      "sha256": "b80f671bec239239dbf5c01dd9eac99141b92ee78c007c7642cd1c13c728f3a2",
+      "bytes": 10289426,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libvstd.rlib"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/rust_verify",
+      "sha256": "c06517e336994e6f1cea0a30815d90407d7699d6fe64a1c2f6c668562a77ba94",
+      "bytes": 36140968,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/rust_verify"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+      "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+      "bytes": 4682296,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/vstd.vir",
+      "sha256": "008baf00ba274705253e5f9b79e4b25dd6d9a8e13738a0e974641ce18a69dba9",
+      "bytes": 32918636,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/vstd.vir"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+      "bytes": 34954456,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/canonical/canonical-zgtzh85h/receipt.json",
+      "sha256": "2dda5d93603528fe2623f4e37bc7cbaa48a537e3184c653a1abe1a4028f4ed3a",
+      "bytes": 1870209,
+      "delivered_epoch_label": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/canonical/canonical-zgtzh85h/receipt.json"
+    },
+    {
+      "path": "/usr/bin/python3.12",
+      "sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "bytes": 8020928,
+      "delivered_epoch_label": "/usr/bin/python3.12"
+    }
+  ],
+  "explicit_identical_byte_rebindings": {
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/infer_eval_support.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/infer_eval_support.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/infer_experiment.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/infer_experiment.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/INTERFACE.md": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/INTERFACE.md",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/SOURCE_FREEZE.json": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/SOURCE_FREEZE.json",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/SOURCE_POLICY.json": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/SOURCE_POLICY.json",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/accept.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/accept.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/cache_component.rs": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/cache_component.rs",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/fidelity.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/fidelity.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/final_plan.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/final_plan.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/prepare.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/prepare.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_find_granting/replay.py": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_find_granting/replay.py",
+    "/home/dev/.t3/worktrees/verus/t3-4855bc31/source/tools/research/native_miri_policy_pin/pins.json": "/home/dev/.t3/worktrees/verus/t3-02ff399c/source/tools/research/native_miri_policy_pin/pins.json"
+  },
+  "delivered_epoch_inputs_authenticated": 45,
+  "delivered_helper_snapshots_authenticated": 9,
+  "final_epoch_input_count": 99,
+  "no_historical_checkout_path_opened_for_authentication": true
+}

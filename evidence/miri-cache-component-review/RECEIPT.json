@@ -1,0 +1,461 @@
+{
+  "schema": 1,
+  "success": true,
+  "recommendation": "accept_bounded_cache_component_only",
+  "blocking_findings": [],
+  "own_review_base": "bc3317f327f99b2f8b18d1268c8e1a8e0c844445",
+  "named_immutable_milestones": [
+    {
+      "commit": "e57ea436d1a83f4b4ab53f995ee488bc0bf39d56",
+      "component_present": false,
+      "component_sha256": null
+    },
+    {
+      "commit": "cf61f45f657f3b5debd6d0a52a9fbad6c192d683",
+      "component_present": true,
+      "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a"
+    },
+    {
+      "commit": "7789ce2f97a16f66905e4717295afbbd56ef27c9",
+      "component_present": true,
+      "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a"
+    },
+    {
+      "commit": "4ec2ecaa102091138600c24d167814ebeaf8102c",
+      "component_present": false,
+      "component_sha256": null
+    },
+    {
+      "commit": "bf1a18d234e0bbc1440f5c980428665dfb06dd95",
+      "component_present": true,
+      "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a"
+    },
+    {
+      "commit": "0e00fe65298eb246190acf6741448cd22c0427e4",
+      "component_present": true,
+      "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a"
+    },
+    {
+      "commit": "bc3317f327f99b2f8b18d1268c8e1a8e0c844445",
+      "component_present": true,
+      "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a"
+    }
+  ],
+  "source_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "compiler_toolchain": "Rust 1.99.1; exact rustc/rustup/driver hashes in INPUTS.json",
+  "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+  "delivered_receipt_sha256": "297c67eae1dc1242ad0c1f08175548fc16b2167f6c267fdf8b0a5e15ef1e0075",
+  "delivered_freeze_sha256": "9c75f4c548c20d8783591ba41cf383ac1878e48e8f6924f28d15994f747aa3f3",
+  "canonical_receipt_sha256": "2dda5d93603528fe2623f4e37bc7cbaa48a537e3184c653a1abe1a4028f4ed3a",
+  "canonical_receipt_success_authenticated": true,
+  "authenticated_verifier_bundle": {
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/rust_verify": "c06517e336994e6f1cea0a30815d90407d7699d6fe64a1c2f6c668562a77ba94",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/vstd.vir": "008baf00ba274705253e5f9b79e4b25dd6d9a8e13738a0e974641ce18a69dba9",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libvstd.rlib": "b80f671bec239239dbf5c01dd9eac99141b92ee78c007c7642cd1c13c728f3a2",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin.rlib": "37ea321a744186f0cb5464295c9ff56dc470341d028246a189053a8b49ad47be",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin_macros.so": "56f614d61874170ddd5b043f93d53d2eb14ea4e7d59fe3d21b0c43388fdfaff4",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_state_machines_macros.so": "2d90bd7974349dc201a305590e3f99c55b975866ef936372855e25d04e666bb6",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "final_own_epoch": {
+    "epoch": "proof003",
+    "receipt": "/tmp/native-miri-cache-component-review-20261110-proof003/output/receipt.json",
+    "receipt_sha256": "293bafc3d5ffdcc58817283366331fd36aabd2f7fa264cdf7a57f8ca64c9018b",
+    "freeze": "/tmp/native-miri-cache-component-review-20261110-proof003/freeze.json",
+    "freeze_sha256": "4c1e3bebd9caf8d007412da4bc61bf29c54be408ffcaa28b6544728031573226",
+    "proof_run_count": 11,
+    "execution_completed": true,
+    "all_final_guards_passed": true,
+    "final_accepted": true
+  },
+  "final_acceptance": {
+    "path": "/tmp/native-miri-cache-component-review-20261110-proof003/acceptance.json",
+    "sha256": "6e31f83069294d9cfcfb4b59a7268a092b993c5534db55d355904e9d2fcd7da1",
+    "exit_code": 0,
+    "python_flags": [
+      "-B",
+      "-O"
+    ],
+    "gate": "inspected identical delivered acceptance with explicit byte mapping; independent full selected/excluded body inventory and status checks"
+  },
+  "final_commands": [
+    {
+      "label": "cache-enabled-cold",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-enabled-cold.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 0,
+      "seconds": 2.485875602986198,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-enabled",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 17,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "ordinary_success",
+      "failed_target": null,
+      "purpose": "positive"
+    },
+    {
+      "label": "cache-enabled-warm",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-enabled-warm.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 0,
+      "seconds": 2.78147958999034,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-enabled",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 17,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "ordinary_success",
+      "failed_target": null,
+      "purpose": "positive"
+    },
+    {
+      "label": "cache-assistance-off",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-assistance-off.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 0,
+      "seconds": 1.5710350070148706,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-assistance-off",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 17,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "ordinary_success",
+      "failed_target": null,
+      "purpose": "positive"
+    },
+    {
+      "label": "cache-wrong-index-head",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-wrong-index-head.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 2.43313688703347,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-wrong-index-head",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "62a8115e99a7ba38892516af7f87c548772b6c7ba131e80df9529c579e621e9d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 16,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "proof_failure",
+      "failed_target": "StackCache::add",
+      "purpose": "semantic_control"
+    },
+    {
+      "label": "cache-short-index-shift",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-short-index-shift.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 3.451224534015637,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-short-index-shift",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "7150af1df047f3eff9d5cd44049cde9d970fc11640849fdd590e9913ffa663d2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 16,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "proof_failure",
+      "failed_target": "StackCache::add",
+      "purpose": "semantic_control"
+    },
+    {
+      "label": "cache-invalid-initial-index",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-invalid-initial-index.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 3.575433038000483,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-invalid-initial-index",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "7504c9a976732f0263b2c7b53aa87c9a1b5297c2923641dbdc51f7a37bdc85cf",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 16,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "proof_failure",
+      "failed_target": "Stack::new",
+      "purpose": "semantic_control"
+    },
+    {
+      "label": "cache-false-preservation-property",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/cache-false-preservation-property.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 4.8457496050396,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/cache-false-preservation-property",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "94bdd2b53b969b1fcfd8450fb7ab6db37081c4ad0cbf0b66a385b812dcc3c2ff",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 16,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "proof_failure",
+      "failed_target": "add_effect_preserves_consistency",
+      "purpose": "semantic_control"
+    },
+    {
+      "label": "literal-enabled-on",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/literal-enabled-on.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--cfg",
+        "feature=\"stack-cache\"",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 1.8274845179985277,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/literal-enabled-on",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "174f9d4760a7144e5bd53ecc684c39098411d6249e966dde64b5e5ca42430f82",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "classification": "frontend_failure",
+      "failed_target": null,
+      "purpose": "frontend_diagnostic"
+    },
+    {
+      "label": "literal-enabled-off",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/literal-enabled-off.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--cfg",
+        "feature=\"stack-cache\""
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 1.5373637469601817,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/literal-enabled-off",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "174f9d4760a7144e5bd53ecc684c39098411d6249e966dde64b5e5ca42430f82",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "classification": "frontend_failure",
+      "failed_target": null,
+      "purpose": "frontend_diagnostic"
+    },
+    {
+      "label": "reverse-laws-diagnostic",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/reverse-laws-diagnostic.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 3.9482321940013207,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/reverse-laws-diagnostic",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "4ddef0ae66c615aa60e6624dd514305505a6b52637856c3f6e976429c6656975",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "proof_failure",
+      "failed_target": null,
+      "purpose": "support_diagnostic"
+    },
+    {
+      "label": "reverse-for-diagnostic",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/native-miri-cache-component-review-20261110-proof003/reverse-for-diagnostic.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/native-miri-cache-component-review-20261110-proof003/output",
+      "exit_code": 1,
+      "seconds": 4.74375018797582,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3",
+        "VERUS_INFER_CACHE": "/tmp/native-miri-cache-component-review-20261110-proof003/output/cache/reverse-for-diagnostic",
+        "CARGO_TARGET_DIR": "/tmp/native-miri-cache-component-review-20261110-proof003/output/target"
+      },
+      "source_sha256": "a1ca930657b6031378cd411dacb79eaff2dc57fc6f913f4ac3f3bd2727e85501",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 1,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "classification": "proof_failure",
+      "failed_target": null,
+      "purpose": "support_diagnostic"
+    }
+  ],
+  "native_correspondences": 0,
+  "canonical": "6/0 previously accepted; receipt/bundle authenticated only",
+  "full_HMAC": "1/1 UNPROVED; arbitrary initialized [u8;128], all lawful key lengths incl 0/>128, both XOR-prefix and unchanged-suffix goal unchanged",
+  "open_obligations": "44 minimal + 3 phase / 101 writer effects OPEN",
+  "fresh_combined_independent_goal_acceptance": false,
+  "publication": false,
+  "goal_complete": false
+}

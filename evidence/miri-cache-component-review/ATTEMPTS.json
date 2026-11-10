@@ -1,0 +1,784 @@
+{
+  "schema": 1,
+  "delivered_epochs": [
+    {
+      "epoch": "literal001",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-literal001/output/receipt.json",
+      "sha256": "0e226dcf6f04f1ec53e654541df280a72bafad4ef1f46932581d682771247aa7",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "literal-enabled",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "literal-no-cache",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "setup_generated_cfg_error"
+        },
+        {
+          "name": "literal-tag",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "cache-add-literal",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "iterator-isolation",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        }
+      ]
+    },
+    {
+      "epoch": "literal002",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-literal002/output/receipt.json",
+      "sha256": "689d18bd2a43d58c4ef38e973c6ab30df94a7d5ef5146c6155d96ad0f4f0d6e5",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "literal-enabled",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "literal-no-cache",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "literal-tag",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "cache-add-literal",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "iterator-isolation",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-contract",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "setup_authored_annotation_error"
+        }
+      ]
+    },
+    {
+      "epoch": "contract003",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-contract003/output/receipt.json",
+      "sha256": "4280a1609ce0cbc0e937c3a1f2b533a270cc62813af19f44cccd29f05f539306",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "cache-contract",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "tag-closure-translation",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "tagged-no-cache-translation-baseline",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "slice-swap-isolation",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "some-and-isolation",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        }
+      ]
+    },
+    {
+      "epoch": "init004",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-init004/output/receipt.json",
+      "sha256": "9ba02eef466ab829ce540e62036f4e01ee2db517b72abd4348aafd071e32eea4",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "cache-init-contract",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "setup_authored_annotation_error"
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "setup_authored_annotation_error"
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "setup_authored_annotation_error"
+        }
+      ]
+    },
+    {
+      "epoch": "init005",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-init005/output/receipt.json",
+      "sha256": "53220173d8dde14ac7a9b8cb5a30c57e6b6461f4b647a0d6bb6e44dba458d34c",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "cache-init-contract",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "setup_authored_annotation_error"
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        }
+      ]
+    },
+    {
+      "epoch": "init006",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-init006/output/receipt.json",
+      "sha256": "658060adf0f0b9767407cfde79287b34a942f292d95c5a9f7753cab7e63dbc47",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "cache-init-contract",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        }
+      ]
+    },
+    {
+      "epoch": "final007",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-final007/output/receipt.json",
+      "sha256": "9da5710a0bec4bef6d25666944b587322aa5298e3d6d4176be0cc250b78c31e0",
+      "accepted_final": false,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "cache-enabled-cold",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-enabled-warm",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-assistance-off",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-wrong-index-head",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "cache-short-index-shift",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "cache-invalid-initial-index",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "cache-false-preservation-property",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "literal-enabled-on",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "literal-enabled-off",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        }
+      ]
+    },
+    {
+      "epoch": "final008",
+      "receipt": "/tmp/native-miri-find-granting-20261110-impl-final008/output/receipt.json",
+      "sha256": "297c67eae1dc1242ad0c1f08175548fc16b2167f6c267fdf8b0a5e15ef1e0075",
+      "accepted_final": true,
+      "success": true,
+      "failure": null,
+      "runs": [
+        {
+          "name": "cache-enabled-cold",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-enabled-warm",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-assistance-off",
+          "exit_code": 0,
+          "recorded": "ordinary_success",
+          "corrected": "ordinary_success"
+        },
+        {
+          "name": "cache-wrong-index-head",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "cache-short-index-shift",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "cache-invalid-initial-index",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "cache-false-preservation-property",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "literal-enabled-on",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "literal-enabled-off",
+          "exit_code": 1,
+          "recorded": "frontend_failure",
+          "corrected": "frontend_failure"
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "recorded": "proof_failure",
+          "corrected": "proof_failure"
+        }
+      ]
+    }
+  ],
+  "delivered_verifier_runs": 45,
+  "own_epochs": [
+    {
+      "epoch": "proof001",
+      "receipt": "/tmp/native-miri-cache-component-review-20261110-proof001/output/receipt.json",
+      "receipt_sha256": "8a23c34e7ae792ab42441e136a0f4674407741f6d880b8cfe085d0ef35b35d17",
+      "freeze": "/tmp/native-miri-cache-component-review-20261110-proof001/freeze.json",
+      "freeze_sha256": "29eb2fc4d995794edd0b1acfc5863d41d5d8f676406e38bc3c9eb47a6510e8af",
+      "proof_run_count": 11,
+      "execution_completed": true,
+      "all_final_guards_passed": true,
+      "final_accepted": false,
+      "controller_snapshot": {
+        "path": "/tmp/native-miri-cache-component-review-20261110-proof001/completed-review-controller.py",
+        "sha256": "e344f485c3363382ac37dccb80130b5c1e92d993729c8aa6bbb47e9bf9d21814"
+      },
+      "acceptance_failure": {
+        "argv": [
+          "python3",
+          "-B",
+          "-O",
+          "/home/dev/.t3/worktrees/verus/t3-02ff399c/evidence/miri-cache-component-review/review.py",
+          "accept",
+          "/tmp/native-miri-cache-component-review-20261110-proof001"
+        ],
+        "exit_code": 1,
+        "classification": "acceptance_controller_setup_error",
+        "diagnostic": "ValueError: unmapped historical checkout",
+        "cause": "rebind rejected the own checkout path while validating fresh frozen inputs",
+        "proof_runs_unchanged": true,
+        "proof_receipt_sha256": "8a23c34e7ae792ab42441e136a0f4674407741f6d880b8cfe085d0ef35b35d17",
+        "controller_snapshot": "/tmp/native-miri-cache-component-review-20261110-proof001/completed-review-controller.py",
+        "controller_sha256": "e344f485c3363382ac37dccb80130b5c1e92d993729c8aa6bbb47e9bf9d21814",
+        "raw_traceback_location": "private tool transcript session 77563/chunk bcb53e"
+      },
+      "runs": [
+        {
+          "name": "cache-enabled-cold",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-enabled-warm",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-assistance-off",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-wrong-index-head",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-short-index-shift",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-invalid-initial-index",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-false-preservation-property",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "literal-enabled-on",
+          "exit_code": 1,
+          "classification": "frontend_failure",
+          "query_result": [
+            null,
+            null
+          ],
+          "frontend_error": true
+        },
+        {
+          "name": "literal-enabled-off",
+          "exit_code": 1,
+          "classification": "frontend_failure",
+          "query_result": [
+            null,
+            null
+          ],
+          "frontend_error": true
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            0,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            1,
+            1
+          ],
+          "frontend_error": false
+        }
+      ]
+    },
+    {
+      "epoch": "proof002",
+      "receipt": "/tmp/native-miri-cache-component-review-20261110-proof002/output/receipt.json",
+      "receipt_sha256": "60a226292af439c16168378519694aec43cf81baa7219e67aa611569f495fc19",
+      "freeze": "/tmp/native-miri-cache-component-review-20261110-proof002/freeze.json",
+      "freeze_sha256": "044c3b469a8948e7627783a8d0845f0db94d0184acc7d6236d6cbd970aa7a2af",
+      "proof_run_count": 11,
+      "execution_completed": true,
+      "all_final_guards_passed": true,
+      "final_accepted": false,
+      "controller_snapshot": {
+        "path": "/tmp/native-miri-cache-component-review-20261110-proof002/completed-review-controller.py",
+        "sha256": "8c4cc1fe7936a46890c193805c113947f5b18f26ab5994bd3a3d6c6561cb3236"
+      },
+      "acceptance_failure": {
+        "classification": "acceptance_controller_setup_error",
+        "cause": "no_inference required for negative controls; actual correct status caller_proof_failed, helpers empty",
+        "terminal": "/tmp/native-miri-cache-component-review-20261110-control001/accept002.json",
+        "delivered_gate_passed": true,
+        "proof_sources_unchanged": true,
+        "controller_snapshot": "/tmp/native-miri-cache-component-review-20261110-proof002/completed-review-controller.py",
+        "controller_sha256": "8c4cc1fe7936a46890c193805c113947f5b18f26ab5994bd3a3d6c6561cb3236"
+      },
+      "runs": [
+        {
+          "name": "cache-enabled-cold",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-enabled-warm",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-assistance-off",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-wrong-index-head",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-short-index-shift",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-invalid-initial-index",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-false-preservation-property",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "literal-enabled-on",
+          "exit_code": 1,
+          "classification": "frontend_failure",
+          "query_result": [
+            null,
+            null
+          ],
+          "frontend_error": true
+        },
+        {
+          "name": "literal-enabled-off",
+          "exit_code": 1,
+          "classification": "frontend_failure",
+          "query_result": [
+            null,
+            null
+          ],
+          "frontend_error": true
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            0,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            1,
+            1
+          ],
+          "frontend_error": false
+        }
+      ]
+    },
+    {
+      "epoch": "proof003",
+      "receipt": "/tmp/native-miri-cache-component-review-20261110-proof003/output/receipt.json",
+      "receipt_sha256": "293bafc3d5ffdcc58817283366331fd36aabd2f7fa264cdf7a57f8ca64c9018b",
+      "freeze": "/tmp/native-miri-cache-component-review-20261110-proof003/freeze.json",
+      "freeze_sha256": "4c1e3bebd9caf8d007412da4bc61bf29c54be408ffcaa28b6544728031573226",
+      "proof_run_count": 11,
+      "execution_completed": true,
+      "all_final_guards_passed": true,
+      "final_accepted": true,
+      "runs": [
+        {
+          "name": "cache-enabled-cold",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-enabled-warm",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-assistance-off",
+          "exit_code": 0,
+          "classification": "ordinary_success",
+          "query_result": [
+            17,
+            0
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-wrong-index-head",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-short-index-shift",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-invalid-initial-index",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "cache-false-preservation-property",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            16,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "literal-enabled-on",
+          "exit_code": 1,
+          "classification": "frontend_failure",
+          "query_result": [
+            null,
+            null
+          ],
+          "frontend_error": true
+        },
+        {
+          "name": "literal-enabled-off",
+          "exit_code": 1,
+          "classification": "frontend_failure",
+          "query_result": [
+            null,
+            null
+          ],
+          "frontend_error": true
+        },
+        {
+          "name": "reverse-laws-diagnostic",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            0,
+            1
+          ],
+          "frontend_error": false
+        },
+        {
+          "name": "reverse-for-diagnostic",
+          "exit_code": 1,
+          "classification": "proof_failure",
+          "query_result": [
+            1,
+            1
+          ],
+          "frontend_error": false
+        }
+      ]
+    }
+  ],
+  "own_verifier_runs": 33,
+  "sole_final_accepted_own_epoch": "proof003",
+  "note": "Execution receipt success means commands completed, not every proof succeeded or acceptance passed. All failed and superseded trials remain distinct.",
+  "setup_events": [
+    {
+      "classification": "sandbox_startup_failure",
+      "command": "initial own-checkout inventory",
+      "exit_code": 1,
+      "diagnostic": "bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted",
+      "resolution": "exact exec_command require_escalated mechanism; no host/network modification"
+    },
+    {
+      "classification": "procedural_instruction_discovery_deviation",
+      "command": "rg --files -g AGENTS.md -g '!target' -g '!dependencies' . /home/dev/.t3 2>/dev/null | head -60",
+      "exit_code": 130,
+      "interrupted": true,
+      "output_paths_returned": 0,
+      "results_consumed": false,
+      "limitation": "Search extended beyond own checkout; no returned sibling data was consumed. Subsequent discovery used explicit ancestor paths and own source/evidence only."
+    }
+  ]
+}
