@@ -79,6 +79,8 @@ Three further proofs use those delivered types:
   with original merge, same pending future and separate pending release. It
   returns the entire original future and initialized original-subobject bytes.
   A future HMAC simulation can supply its exact full prefix/suffix vector here.
+  It needs an effectful writer simulation; the constructor no-write certificate
+  cannot certify the XOR writer.
 * `conditional_source_drop_exit` uses `entry_normal_bytes` and `V_entry`'s
   actual operand1 reference, preserving the full certificate's fault exclusion.
   Its normal-return observation is conditional on the still-unproved actual
