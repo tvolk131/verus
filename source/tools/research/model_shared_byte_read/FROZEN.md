@@ -57,3 +57,18 @@ separate frozen statements; no claim of exclusive key extraction.
 Actual native correspondences ZERO; 44 minimal + 3 phase / 101 writer effects
 remain open. Canonical 6/0 and frozen full HMAC prefix+suffix 1/1 inherited,
 not evidence supplied by this work. Publication and full-goal completion false.
+
+## Additional scope, frozen before its trials
+
+`shared_key_heap_observe` takes the genuine `heap_ctx σ`, ordinary E/L,
+capability, arbitrary Frame and g+1 credits. For each i<n it returns all of
+these (same σ) and `∃ z r, byte_list n x !! i = Some z /\
+σ.1 !! (q +ₗ i) = Some (RSt r,#z) /\ 0 <= z < 256`.
+It executes zero program steps and uses baseline `atomic_read` to inspect the
+same authoritative non-atomic map. The read state r is existential, not forced
+to zero. This is observation with a restored heap, never exclusive extraction.
+
+Checked specializations will cover empty-index impossibility, depth-zero
+impossibility, capability duplication, arbitrary-list input through the pinned
+ModelInputContext.vector representation, explicit same-key alias framing and a
+129-byte/index-128 read. They do not change the generic law or native scope.
