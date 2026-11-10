@@ -13,7 +13,7 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 RESEARCH = ROOT/'source/tools/research'
-RAW = Path('/tmp/source-replay-exit-review-bc2a0b37')
+RAW = Path('/tmp/source-replay-exit-review-bc2a0b37-002')
 LANES = {
     'constructor': ('native_constructor_erasure', 'integration001-freeze.json', 'NativeConstructorErasure', ['Interface','Graph','Composition','Boundary']),
     'pointer': ('native_pointer_distance', 'integration003-freeze.json', 'NativePointerDistance', ['distance','branches']),
@@ -132,7 +132,7 @@ def prepare():
         # Historical /home/... checkout labels are remapped; never traversed.
         remapped={}
         for p,facts in integrated['inputs'].items():
-            if '/.t3/worktrees/' in p:
+            if not p.startswith('/tmp/') and re.search(r'/(source|evidence)/',p):
                 m=re.search(r'/(source|evidence)/',p)
                 require(m is not None,'unrecognized historical checkout label')
                 current_path=ROOT/p[m.start()+1:]
