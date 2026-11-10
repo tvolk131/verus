@@ -33,7 +33,13 @@
   "exact_returned_outside_frame_observed": true,
   "termination_or_all_forks_return_required": false,
   "independent_review": {
-    "status": "pending"
+    "status": "accept exact MODEL prerequisite",
+    "commit": "760976e03d4ba9fd80c13942c2ebcd45c50780bd",
+    "fresh_normal_compilation": true,
+    "fresh_recursive_kernel_check": true,
+    "all_four_objects_match_worker": true,
+    "all_twenty_constants_closed": true,
+    "findings": []
   },
   "resource_valued_typed_setup": "under implementation",
   "actual_Rust_entry_or_CF_import_proved": false,
