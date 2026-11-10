@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "before_first_inspector_trial": true,
+  "source_acquisition_already_completed": true,
+  "files": {
+    "check.py": "7d0879f41258ecfbf3303904a734b296ccd13a043062c8425bda8a64075e2cff",
+    "INTERFACE.md": "1e4e2df3216f882bc3af7c2a37c5ef0acbdc67aefb900286c88e9f6d623bae17",
+    "pins.json": "b782583c35bc8115bcb262a1eb74b7e72142e38b100f1c20bf591dc9efc75cc0"
+  }
+}

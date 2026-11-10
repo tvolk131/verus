@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "compiler_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "sources": {
+    "miri_cargo": {
+      "path": "/tmp/native-miri-feature-policy-lqm1ib7w/Cargo.toml",
+      "sha256": "88e5f72e9e0368b933e065e56e80ddcfb7433f1615688edb364cefb184f7aff5",
+      "git_blob": "e0547a453961269e48af19ed2c48e2b8d93854f3",
+      "url": "https://api.github.com/repos/rust-lang/rust/contents/src/tools/miri/Cargo.toml?ref=58cf8f9c35b355199727627d07ae34a4e2846d67",
+      "acquisition_receipt": "/tmp/native-miri-feature-policy-lqm1ib7w/receipt.json",
+      "acquisition_receipt_sha256": "9e309956f119ad1f21386ae2a55ce00ff16e22fa2f73218e86ae72f10aec2535"
+    },
+    "fx_reexport": {
+      "path": "/tmp/native-miri-fx-policy-bh1euu8m/fx.rs",
+      "sha256": "c9fb0941b0b346c4f250641d8f9437fd219969c57daa25ebfa6058a7fd3ef49f",
+      "git_blob": "cad775cc9864196c7f7f8fad1590ea5ce7232a39",
+      "url": "https://api.github.com/repos/rust-lang/rust/contents/compiler/rustc_data_structures/src/fx.rs?ref=58cf8f9c35b355199727627d07ae34a4e2846d67",
+      "acquisition_receipt": "/tmp/native-miri-fx-policy-bh1euu8m/receipt.json",
+      "acquisition_receipt_sha256": "46abc091c06c38d9ff725fa3b2017e491eb74593a302d184987674731fab26e8"
+    }
+  },
+  "classification": "primary source inspection only",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
