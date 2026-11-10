@@ -13,9 +13,13 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
 BRIDGE = HERE.parent/'native_semantic_bridge'
+GOAL_DIR = HERE.parent/'mutable_buffer_goal'
+TARGET = GOAL_DIR/'TARGET.md'
 sys.path[:0] = [str(HERE), str(ROOT/'source/tools'), str(BRIDGE)]
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, replay_receipt, require
+sys.path.insert(0, str(GOAL_DIR))
+from goal_scope import goal_scope_sha256, check_goal_snapshot
 from source import sites_source, GRAPH
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 READY = BASE/'rocq-toolchain/baseline-ready.json'
@@ -60,14 +64,14 @@ def printed_declarations(text):
 
 def inputs():
     parent = HERE.parent/'native_constructor_erasure'
-    return [HERE/'check.py', HERE/'source.py', HERE/'INTERFACE.md', HERE/'pins.json',
+    return [GOAL_DIR/'goal_scope.py', HERE/'check.py', HERE/'source.py', HERE/'INTERFACE.md', HERE/'pins.json',
         *[HERE/'candidates'/(n+'.v') for n in MODULES], GRAPH,
         *[parent/'candidates'/(n+'.v') for n in PARENTS], parent/'results.json',
         parent/'INTERFACE.md', parent/'REPORT.md',
         BRIDGE/'baseline-bindings.json', BRIDGE/'source-bindings.json',
         HERE.parent/'mutable_buffer_goal/foundation-baseline.json',
         HERE.parent/'mutable_buffer_goal/foundation-pin.json',
-        *[HERE.parent/'mutable_buffer_goal'/n for n in ['TARGET.md','NATIVE_CERTIFICATE.md','FACT_PROVENANCE.md']],
+        *[HERE.parent/'mutable_buffer_goal'/n for n in ['NATIVE_CERTIFICATE.md','FACT_PROVENANCE.md']],
         ROOT/'evidence/native-functional-boundary-audit/REPORT.md',
         HERE.parent/'native_pointer_distance/pins.json', *support_artifacts()]
 
@@ -82,6 +86,7 @@ def main():
         require(not a.freeze.exists(),'freeze already exists')
         a.freeze.write_text(json.dumps(dict(before_first_trial=True,
             classification='MODEL_partial_operational_storage_not_Rust_certificate',
+            goal_requirements_sha256=goal_scope_sha256(TARGET.read_bytes()),
             files={str(f.relative_to(ROOT)):digest(f) for f in inputs()},
             constants={n:declarations(HERE/'candidates'/(n+'.v')) for n in MODULES}),indent=2)+'\n')
         return
@@ -112,13 +117,16 @@ def main():
         lib=Path(pins['coq_library_dependency_pin']['root'])
         dependencies=sorted([*list((lib/'coq/theories').rglob('*.v')),*list((lib/'coq/theories').rglob('*.vo')),*list((lib/'coq-core/plugins').rglob('*.cmxs'))])
         objects=list((BUILD/'src').rglob('*.vo'))
-        paths=[*inputs(),a.freeze,READY,baseline_receipt,completed_receipt,gmp,
+        target_snapshot=TARGET.read_bytes()
+        paths=[TARGET,*inputs(),a.freeze,READY,baseline_receipt,completed_receipt,gmp,
             *tools.values(),BUILD/'_CoqProject', *[BUILD/n for n in base['copied_sources']],
             *objects,*dependencies,*[Path(x['archive']) for x in gmp_data['packages']],*[Path(x['path']) for x in pins['rust_sources']],
             *[Path(x) for x in pins['completed_extraction']],
             *[Path(x) for x in prior['proof_artifacts']]]
         guard=ArtifactGuard(paths)
         def retained(path):return guard.initial[str(path.resolve())]['sha256']
+        receipt['goal_requirements_sha256']=check_goal_snapshot(
+            target_snapshot,retained(TARGET),freeze.get('goal_requirements_sha256'))
         for path,data in loaded.items():
             require(retained(path)==hashlib.sha256(data).hexdigest(),'input changed while loading '+str(path))
         for n,h in freeze['files'].items():require(retained(ROOT/n)==h,'freeze mismatch '+n)
