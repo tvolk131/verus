@@ -28,7 +28,8 @@ Section payload_recovery.
     wp_bind (Skip;; (Newlft;; ReBor;; Endlft;; Skip);; Skip)%E.
     iApply (wp_wand with "[L I Reference Frame]").
     { iApply (initialized_nested_no_write with "LFT TIME PROPH UNIQ E L I Reference Frame"). }
-    iIntros (w) "[Frame [L [%ξi [%ζi [%idx [#Resolved [_ Back]]]]]]]]".
+    iIntros (w) "[Frame [L Result]]".
+    iDestruct "Result" as (ξi ζi idx) "[#Resolved [_ Back]]".
     wp_seq.
     iDestruct "L" as "[Root _]".
     iDestruct "Root" as (κ0) "[%Eq [Alive %Nonempty]]".
@@ -48,7 +49,7 @@ Section payload_recovery.
     iMod (proph_obs_sat with "PROPH Both") as %[π [Resolved Equal]]; first solve_ndisj.
     unfold uniq_bor_future in Resolved. simpl in Resolved, Equal.
     have Current : x' = bytes_of_list zs.
-    { apply (bytes_observed_injective _ _ _ π). congruence. }
+    { apply (bytes_observed_injective _ _ _ π). exact (eq_trans (eq_sym Equal) Resolved). }
     subst x'.
     wp_seq. wp_seq. iFrame "Frame".
     iEval (rewrite bytes_current_physical heap_complete_mapsto_fancy_fmap_eq
@@ -78,4 +79,38 @@ Proof.
   iDestruct "Payload" as "[First Rest]".
   iApply (wp_read_sc with "First"); first done.
   iNext. iIntros "First". done.
+Qed.
+
+Corollary raw_model_nested_read10 h p (zs : list Z) (z : Z) :
+  length zs = 10%nat → Forall (λ z, 0 ≤ z < 256) zs →
+  (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
+  zs !! 0%nat = Some z →
+  adequate NotStuck
+    (Skip;; (((Skip;; (Newlft;; ReBor;; Endlft;; Skip);; Skip);; Endlft);; Read ScOrd #p))
+    (initialized_state h) (λ w _, w = #z).
+Proof. intros _ Range Cells Head. by apply (raw_model_nested_read_adequacy h p zs). Qed.
+
+Corollary raw_model_nested_read128 h p (zs : list Z) (z : Z) :
+  length zs = 128%nat → Forall (λ z, 0 ≤ z < 256) zs →
+  (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
+  zs !! 0%nat = Some z →
+  adequate NotStuck
+    (Skip;; (((Skip;; (Newlft;; ReBor;; Endlft;; Skip);; Skip);; Endlft);; Read ScOrd #p))
+    (initialized_state h) (λ w _, w = #z).
+Proof. intros _ Range Cells Head. by apply (raw_model_nested_read_adequacy h p zs). Qed.
+
+Theorem strict_interior_nested_read base (prefix suffix : list val) (zs : list Z) f (z : Z) :
+  prefix ≠ [] → suffix ≠ [] →
+  interval_map base (prefix ++ ((λ z : Z, LitV (LitInt z)) <$> zs) ++ suffix) ##ₘ f →
+  Forall (λ z, 0 ≤ z < 256) zs → zs !! 0%nat = Some z →
+  adequate NotStuck
+    (Skip;; (((Skip;; (Newlft;; ReBor;; Endlft;; Skip);; Skip);; Endlft);;
+      Read ScOrd #(base +ₗ length prefix)))
+    (initialized_state
+      (interval_map base (prefix ++ ((λ z : Z, LitV (LitInt z)) <$> zs) ++ suffix) ∪ f))
+    (λ w _, w = #z).
+Proof.
+  intros _ _ Disjoint Range Head.
+  apply (raw_model_nested_read_adequacy _ _ zs); [done| |done].
+  by apply strict_interior_byte_lookup.
 Qed.

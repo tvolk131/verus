@@ -1,5 +1,6 @@
 From ModelNestedBorrowContext Require Export protocol.
 From ModelInputContext Require Import instances.
+From NativeSemanticBridge Require Import borrow_handoff.
 From lrust.typing Require Import soundness inv_context programs_util.
 From lrust.lifetime Require Import lifetime_full.
 From guarding Require Import guard tactics.
@@ -70,7 +71,8 @@ Section initialized.
         ⊤ [] -[m'] with "LFT TIME PROPH UNIQ E L I [Parent] []").
       - simpl. iFrame.
       - iApply (proph_obs_impl with "Recovered"). intros π Eq Resolved.
-        rewrite uniq_observation in Eq.
+        destruct m' as [[[[[l y] yi] dy] gy] i].
+        unfold uniq_bor_future, uniq_bor_current in Resolved. simpl in Eq, Resolved.
         inversion Eq. congruence. }
     iIntros (v') "[%xl [L [_ [_ #Resolved]]]]".
     iFrame "Frame L". iExists ξi, ζi, idx. iFrame "Resolved Obs Back".
@@ -97,14 +99,14 @@ Corollary raw_model_nested10 h p (zs : list Z) :
   (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
   adequate NotStuck (Skip;; (Skip;; (Newlft;; ReBor;; Endlft;; Skip);; Skip))
     (initialized_state h) (λ _ _, True).
-Proof. intros _ Range Cells. by apply (raw_model_nested_adequacy _ _ zs). Qed.
+Proof. intros _ Range Cells. by apply (raw_model_nested_adequacy h p zs). Qed.
 
 Corollary raw_model_nested128 h p (zs : list Z) :
   length zs = 128%nat → Forall (λ z, 0 ≤ z < 256) zs →
   (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
   adequate NotStuck (Skip;; (Skip;; (Newlft;; ReBor;; Endlft;; Skip);; Skip))
     (initialized_state h) (λ _ _, True).
-Proof. intros _ Range Cells. by apply (raw_model_nested_adequacy _ _ zs). Qed.
+Proof. intros _ Range Cells. by apply (raw_model_nested_adequacy h p zs). Qed.
 
 Theorem strict_interior_nested base (prefix suffix : list val) (zs : list Z) f :
   prefix ≠ [] → suffix ≠ [] →
