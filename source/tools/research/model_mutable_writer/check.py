@@ -13,14 +13,15 @@ from proof_checks import parse_axioms, parse_kernel_summary
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['resource_protocol', 'child', 'initialized', 'transform']
+MODULES = ['resource_protocol', 'child', 'initialized', 'transform', 'observed']
 HEAP = BASE/'parent-heap-init-3d799b38'
 SEM = BASE/'semantic-guard-validation-1efbd004/proofs'
 INP = BASE/'parent-model-input-94b87742/proofs'
 OBS = BASE/'model-observation-trial017'
 NEST = Path('/tmp/model-nested-borrow-context-trial-053')
+SETUP = BASE/'input-observation-trial005'
 LIBS = [(NEST, 'ModelNestedBorrowContext'), (HEAP, 'NativeHeapInitialization'), (SEM, 'NativeSemanticBridge'),
-        (INP, 'ModelInputContext'), (OBS, 'ModelStateObservation')]
+        (INP, 'ModelInputContext'), (OBS, 'ModelStateObservation'), (SETUP, 'ModelInputObservation')]
 
 def declarations(path):
     return re.findall(r'^\s*(?:Definition|Fixpoint|Lemma|Theorem|Corollary)\s+(\w+)', path.read_text(), re.M)
@@ -35,6 +36,7 @@ def inputs():
             HERE.parent/'mutable_buffer_goal/parent-model-input-context.json',
             HERE.parent/'model_state_observation/results.json',
             HERE.parent/'model_nested_borrow_context/results.json',
+            HERE.parent/'model_input_observation/results.json',
             *support_artifacts(), *[HERE/'candidates'/(n+'.v') for n in MODULES]]
 
 def main():
@@ -72,6 +74,7 @@ def main():
         input_pin = load(HERE.parent/'mutable_buffer_goal/parent-model-input-context.json')
         observer_pin = load(HERE.parent/'model_state_observation/results.json')
         nested_pin = load(HERE.parent/'model_nested_borrow_context/results.json')
+        setup_pin = load(HERE.parent/'model_input_observation/results.json')
         trusted = load(HERE.parent/'mutable_buffer_goal/foundation-baseline.json')
         binding = load(BRIDGE/'baseline-bindings.json')
         pin = load(HERE.parent/'mutable_buffer_goal/foundation-pin.json')
@@ -99,6 +102,7 @@ def main():
         require(retained(INP/'receipt.json') == input_pin['proof_receipt']['sha256'], 'typed input receipt mismatch')
         require(retained(OBS/'receipt.json') == observer_pin['receipt']['sha256'], 'observer receipt mismatch')
         require(retained(NEST/'receipt.json') == nested_pin['receipt']['sha256'], 'nested protocol receipt mismatch')
+        require(retained(SETUP/'receipt.json') == setup_pin['receipt']['sha256'], 'resource setup receipt mismatch')
         for d,_ in LIBS:
             lib = library_receipts[str(d)]
             require(lib['success'] is True and lib['model_proofs_kernel_checked'] is True, 'unchecked prerequisite')

@@ -41,3 +41,32 @@ Actual Rust entry, provenance, ancestor loans, native operations/retags/phases
 and C/F import remain unproved. Native correspondences are zero, full original
 HMAC remains 1/1 and publication/goal completion remain false. Production,
 original executable bodies and their domains are unchanged.
+
+
+## Public one-buffer model observation
+
+Trial016 passed normal compilation, all seven individual assumption reports and
+full recursive kernel checking. `raw_model_transform_observed` composes the
+existing internally supplied initialized-reference setup with the changing
+parent recovery and the actual final-heap observer. Its callback must separately
+prove the physical transformation; the public adequacy theorem assumes only
+initial raw lookups/ranges and that checked WP law, not supplied ownership,
+permissions, guards or credits. Setup supplies the internal 2+k credit budget.
+The post observes exactly the new byte vector and the unchanged outside map in
+the same actual final model heap, including executions with live forked threads.
+This is partial-correctness adequacy, not termination or native Rust execution.
+
+`observation-results.json` binds exact seven-constant assumptions/object hashes.
+All four prior source objects are byte-identical to trial014. Trial015 is a
+retained notation/elaboration failure, not semantic evidence. This one-buffer
+model theorem does not yet instantiate the full pair/shared-key writer or prove
+its actual Rust source correspondence. The five-law checkpoint has independent
+acceptance; the later two wrappers still need combined independent review.
+
+Replay into a fresh private directory:
+
+```sh
+python3 -B source/tools/research/model_mutable_writer/check.py \
+  --freeze source/tools/research/model_mutable_writer/trial016-freeze.json \
+  --output /tmp/model-mutable-writer-observation-NEW
+```
