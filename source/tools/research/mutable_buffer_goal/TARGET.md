@@ -44,13 +44,21 @@ Checked model prerequisites are recorded separately from native correctness:
 | Actual final model heap observation | [20-law observer](parent-model-state-observation.json); exact interval/frame in the same heap, without requiring all forked threads to terminate. |
 | Nested/changing borrow and payload recovery | [24-law nested model](parent-nested-borrow.json); [independently accepted seven-law changing-buffer observation](parent-model-transformation-observation.json). |
 | Concrete model XOR and selected instruction fragments | [Full-byte XOR model](parent-byte-xor.json), [primitive fragments](parent-native-primitive-refinement.json), [register segment](parent-native-register-segment.json), [word/cell XOR](parent-native-byte-xor.json). Source selection is not a native execution proof. |
-| Same-heap mutable pad and shared key | [18-law pair setup](parent-model-pair-input.json) and [19-law shared reader](parent-model-shared-byte-read.json), with matching replays and independent acceptance. [Fixed-budget reader16](../model_pair_reader/results.json) and [shared XOR loop12](../model_shared_xor_loop/EVIDENCE.json) are now kernel checked; combined review and writer integration remain open. |
+| Same-heap mutable pad and shared key | [18-law pair setup](parent-model-pair-input.json), [19-law shared reader](parent-model-shared-byte-read.json), [fixed-budget reader16](../model_pair_reader/results.json), and [shared XOR loop12](../model_shared_xor_loop/EVIDENCE.json), with matching replays and independent acceptance. |
+| Ordinary model memory and loop | [Nine primitive/cell laws](parent-model-ordinary-access.json) and [21-declaration shared reader/loop](parent-model-ordinary-shared-xor.json), with matching replays and independent acceptance. These do not establish native load/store simulation. |
+| Complete initialized ordinary-memory model writer | [25-declaration composition](../model_ordinary_full_writer/REPORT.md), worker kernel checked at `d7156dec`; parent replay and fresh independent review are running. Its public theorem derives resources internally and observes the actual final pad, complete key, and outside frame. |
+| Writer in an existing model caller context | [Nine-declaration caller procedure](../model_caller_writer/REPORT.md), worker kernel checked at `2c4795b5`; fresh independent review is running. It preserves the original parent future and ancestor frame while changing the parent's current bytes. |
 
-A physical transformation WP remains an explicit proof obligation of the generic
-model wrapper. Full initialization, shared-key loop, original-parent recovery
-and actual final pad/key/frame observation must still be composed. Ordinary
-memory accesses also need their checked correspondence; SC model steps are not
-silently native ordinary accesses.
+A physical transformation WP remains an explicit premise of the generic model
+wrapper. The concrete ordinary-memory writer discharges it using the checked
+Na loop; its public theorem has only raw byte ranges, initialized lookups, and
+accessed-interval disjointness as premises. This composes model initialization,
+the shared-key loop, original-parent recovery, and actual final pad/key/frame
+observation. The separate caller procedure preserves an existing typed model
+context rather than initializing a fresh world. Neither theorem interprets an
+actual Rust input or proves that native iterator instructions execute this
+model program. Ordinary native-access correspondence remains required; an SC
+model proof is not silently an ordinary-access proof.
 
 **Native correspondences remain zero:** all44 minimal operations plus3 phase
 obligations and all101 writer effects remain open. The
