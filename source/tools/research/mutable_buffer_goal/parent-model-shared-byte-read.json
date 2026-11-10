@@ -22,7 +22,26 @@
     "session.vo": "86f19f7339c043f65ec1c76d400a5e167801e133634319848d4488ced42b6796",
     "shared_read.vo": "94d7a4eee5a80e72dd6d778e5701310f3c848d036de0d89aea20c20bf4098282"
   },
-  "independent_review": "running in separate combined pair/shared review",
+  "independent_review": {
+    "commit": "04667a3b",
+    "scope": "Exact individual pair18/shared19 MODEL libraries",
+    "accepted": true,
+    "findings": [],
+    "combined_writer_certified": false,
+    "depth_budget_normalization_proved": false,
+    "fresh_receipts": [
+      {
+        "path": "/tmp/pair-shared-reader-review-xDbehgWZ/pair/receipt.json",
+        "sha256": "9c33aecb66467cb929a5ab87ca39053d6fa8af66ac593b3f0a0f272f93529b1d",
+        "constant_count": 18
+      },
+      {
+        "path": "/tmp/pair-shared-reader-review-xDbehgWZ/shared/receipt.json",
+        "sha256": "5cae394e8b1a66983f68fe375b103643e19ff4a39f7e7ee8b955e63ed665fb69",
+        "constant_count": 19
+      }
+    ]
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false

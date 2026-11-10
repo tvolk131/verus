@@ -20,7 +20,26 @@
     "controls.vo": "46729ceb85fbaeab045cbe1f15ad57cc37239f714ae845295574c701a7e6504b",
     "setup.vo": "71e173b0fd36ea86a12325f7c0de2d77bd526fadaa6f88afa6ab7ba6e3d3bd95"
   },
-  "independent_review": "running in separate combined pair/shared review",
+  "independent_review": {
+    "commit": "04667a3b",
+    "scope": "Exact individual pair18/shared19 MODEL libraries",
+    "accepted": true,
+    "findings": [],
+    "combined_writer_certified": false,
+    "depth_budget_normalization_proved": false,
+    "fresh_receipts": [
+      {
+        "path": "/tmp/pair-shared-reader-review-xDbehgWZ/pair/receipt.json",
+        "sha256": "9c33aecb66467cb929a5ab87ca39053d6fa8af66ac593b3f0a0f272f93529b1d",
+        "constant_count": 18
+      },
+      {
+        "path": "/tmp/pair-shared-reader-review-xDbehgWZ/shared/receipt.json",
+        "sha256": "5cae394e8b1a66983f68fe375b103643e19ff4a39f7e7ee8b955e63ed665fb69",
+        "constant_count": 19
+      }
+    ]
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false

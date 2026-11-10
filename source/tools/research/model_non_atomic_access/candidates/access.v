@@ -13,7 +13,7 @@ Lemma sc_read_one_step σ p r v :
   nsteps silent_step 1 (Read ScOrd (Lit (LitLoc p)),σ) (of_val v,σ).
 Proof.
   intros Lookup. econstructor; last constructor.
-  apply base_prim_step. by apply ReadScS.
+  apply base_prim_step. eapply ReadScS. exact Lookup.
 Qed.
 
 Lemma na_read_two_steps σ p r v :
@@ -22,9 +22,9 @@ Lemma na_read_two_steps σ p r v :
 Proof.
   destruct σ as [h f]. simpl. intros Lookup.
   econstructor.
-  - apply base_prim_step. by apply ReadNa1S.
+  - apply base_prim_step. eapply ReadNa1S. exact Lookup.
   - econstructor.
-    + apply base_prim_step. apply ReadNa2S. by rewrite /= lookup_insert.
+    + apply base_prim_step. eapply ReadNa2S. by rewrite /= lookup_insert.
     + rewrite /= insert_insert (insert_id _ _ _ Lookup). constructor.
 Qed.
 
