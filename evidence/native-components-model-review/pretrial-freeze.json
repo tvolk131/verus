@@ -1,0 +1,37 @@
+{
+  "before_first_review_replay": true,
+  "input_count": 2611,
+  "input_map_sha256": "7edf61745ccc93a8e970947a187500a342785cee4a3031b1f7acee97482de6c2",
+  "manifest_sha256": "bcfb05f9b931be33b4787de18f1e58da31fc15a1ec057232a9e8a292271536a8",
+  "prepared_head": "3f865efc",
+  "raw": "/tmp/native-components-model-review-3f865efc",
+  "scopes": {
+    "caller": {
+      "frozen_files": 28,
+      "replay_root": "/home/dev/.t3/worktrees/verus/t3-1fd8a144",
+      "sha256": "1b9063d276c3ef505562143614531a0191230ee91bf3ca07d5b2c63d2af82f4c",
+      "source_declarations": 5,
+      "worker_inputs": 2266,
+      "worker_products": 8,
+      "worker_receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/receipt.json"
+    },
+    "constructor": {
+      "frozen_files": 27,
+      "replay_root": "/tmp/native-components-model-review-3f865efc/constructor-delivered-root",
+      "sha256": "2f9679b44cded4fcb68052c062b8a6a4942b92d99bc099f2cac4d07625e84cb3",
+      "source_declarations": 96,
+      "worker_inputs": 857,
+      "worker_products": 206,
+      "worker_receipt": "/tmp/native-constructor-erasure-6bb72bfb-trial006/receipt.json"
+    },
+    "distance": {
+      "frozen_files": 15,
+      "replay_root": "/home/dev/.t3/worktrees/verus/t3-1fd8a144",
+      "sha256": "04aedea513457712d9afaf49addbf694c7d33f2676408adec426b19ba6dca47b",
+      "source_declarations": 77,
+      "worker_inputs": 867,
+      "worker_products": 6,
+      "worker_receipt": "/tmp/native-pointer-distance-efea4e77-trial011/receipt.json"
+    }
+  }
+}
