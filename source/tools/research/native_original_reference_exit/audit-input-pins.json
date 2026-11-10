@@ -39,7 +39,12 @@
     "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/proofs/interface.vo": "34e2cb2ac11992529e4701282f304fde4de24fe6b50bb9cfebcd157e236f2558",
     "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/proofs/caller.v": "218ab8b1ebb2972b746f14da214e14c25b5fda6030f7ef4ac6603f8b1b590c68",
     "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/proofs/caller.vo": "ea039510c544a9375577825db1994da1c1cdd2f3940f78bf4817543d16da8daa",
-    "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/receipt.json": "1b9063d276c3ef505562143614531a0191230ee91bf3ca07d5b2c63d2af82f4c"
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/receipt.json": "1b9063d276c3ef505562143614531a0191230ee91bf3ca07d5b2c63d2af82f4c",
+    "/tmp/native-constructor-erasure-6bb72bfb-trial006/receipt.json": "2f9679b44cded4fcb68052c062b8a6a4942b92d99bc099f2cac4d07625e84cb3",
+    "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/Interface.v": "7081211bc52d95b3a3f5d8052284d0ef885be730b6fb68d0a3bf63eec5451db5",
+    "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/Interface.vo": "478f9d14eb16ffa81235964987b079ef32a74bfb575a926182fd892a4b648efb",
+    "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/Composition.v": "ab60813b9b6912775d747e9468f92757e57557a551cb1366e1aa083223875245",
+    "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/Composition.vo": "2725d37bcf390d96bdef9866b223db0fc4df37583f94e7a0a791b601c91e8580"
   },
   "notes": [
     "Historical checkout strings inside source receipts are labels; those checkouts were not accessed.",
@@ -58,5 +63,14 @@
     "independent_acceptance": "pending",
     "used_as_proof_import": false,
     "role": "Inspected completed ordinary caller MODEL support; source binding remains unproved"
+  },
+  "constructor_erasure": {
+    "source_commit": "3d668d29",
+    "namespace": "NativeConstructorErasure",
+    "proofs": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs",
+    "receipt": "/tmp/native-constructor-erasure-6bb72bfb-trial006/receipt.json",
+    "actual_source_instance": false,
+    "actual_source_certificate": false,
+    "role": "Only the delivered Interface and Composition are imported; actual source binding is UNPROVED"
   }
 }

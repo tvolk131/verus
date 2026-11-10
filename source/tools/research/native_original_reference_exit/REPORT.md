@@ -60,16 +60,70 @@ The incoming argument B0, internal reborrow A, and caller parent P are distinct.
 At native normal exit the desired equation concerns F(B0); recovering a live P
 changes C(P) while preserving its independent original F(P).
 
+## Composition with the delivered constructor interface
+
+After the split MODEL/algebra version passed trial009, the parent delivered
+constructor-erasure commit `3d668d29`. `candidates/source.v` imports only its
+completed `Interface` and `Composition`, from the receipt pinned at
+`/tmp/native-constructor-erasure-6bb72bfb-trial006/receipt.json` (SHA256
+`2f9679b44cded4fcb68052c062b8a6a4942b92d99bc099f2cac4d07625e84cb3`).
+These modules supply the small explicit source data signature, not an actual
+Rust semantics or certificate. No generic source signature is duplicated here.
+
+Three further proofs use those delivered types:
+
+* `initialized_bytes_unique` obtains equality of complete equal-length vectors
+  from initialized lookups in the same source heap at the same tagged reference's
+  allocation/offset addresses. No new abstract observation relation is defined.
+* `conditional_source_final_vector` combines that CURRENT/physical agreement
+  with original merge, same pending future and separate pending release. It
+  returns the entire original future and initialized original-subobject bytes.
+  A future HMAC simulation can supply its exact full prefix/suffix vector here.
+* `conditional_source_drop_exit` uses `entry_normal_bytes` and `V_entry`'s
+  actual operand1 reference, preserving the full certificate's fault exclusion.
+  Its normal-return observation is conditional on the still-unproved actual
+  source certificate and original-entry/pending-exit C/F bindings. No lawful
+  input or execution is filtered by future definedness or promised normal return.
+
+The entry certificate is a proof argument. This lane constructs no actual
+`source_semantics` instance or certificate; `root_reborrow_need` and source
+storage-prefix/phase work remain unproved. The record's field types do not bind
+it to real Rust or to the frozen body. That source interpretation and the
+syntax-indexed compiler transport remain separate missing theorems. Neither
+source selection nor receipt/hash/flag matching proves them. All native counts
+and publication remain unchanged. Pointer-distance2c0b8f23 is not needed by drop
+and is not imported; its lawful-source-to-span and intrinsic interpretation
+remain obligations of the HMAC extension.
+
 ## Remaining source premises and integration
 
 No inspected existing mechanized definition interprets actual lawful Rust entry,
 original operand evaluation, runtime provenance/history, and frontend C/F values
-together. The source worker must supply a syntax-indexed derivation for the
-unchanged function, evaluating original MIR `_1` into the same interior subobject
-and dynamic loan. Its reborrow/merge proof must retain the original future and
-caller continuations. Its normal-exit case must prove the whole pending current
-is the actual final bytes and the pending value/loans are eligible for the
-checked release; physical preservation alone does not prove that case.
+together. The early `UNPROVED_source_erasure_and_observation` name in
+`INTERFACE.md` denotes the **joint** missing theorem bundle. Its complete list
+must not be treated as work already assigned to, or supplied by, constructor
+erasure. The minimal constructor-erasure dependency is only:
+
+```
+UNPROVED_SourceErase_drop(actual_function_syntax, original_operand)
+  independently lawful entry -> actual operand/subobject/initial bytes;
+  every run including faults -> source validity/phase preservation;
+  every normal exit -> same original subobject's bytes unchanged;
+  cleanup/unwind handled explicitly, preserving caller access/continuations.
+```
+
+This lane still separately owes `UNPROVED_OriginalOperandCF` (source entry
+current and original future interpretation through reborrow/merge) and
+`UNPROVED_PendingExitCF` (last physical bytes to pending-current interpretation,
+same future, and release eligibility/no-escape at the actual normal-exit cut).
+Those are not consequences of constructor erasure's byte stuttering. The
+checked algebra/resource laws here identify their exact required outputs, but
+cannot prove these source bindings without the missing source interpretation.
+They remain this handoff's explicit unresolved observation obligations for
+parent integration, not obligations silently transferred to the other worker.
+All three names specify proof obligations; none is a new Coq axiom or predicate
+installed into production. Root must reconcile the concrete semantic types
+before any native theorem can be claimed.
 
 Retag/protector, two-phase activation, unsize, storage, FakeRead, optimized-phase,
 empty-glue and cleanup/unwind obligations remain separate. Lawful entry must be

@@ -106,6 +106,31 @@
       "source_or_native_evidence": false,
       "note": "Checker whitespace cleanup replay passed. Same unsuitable combined WP wrapper as trial007; removed before final trial009.",
       "failure": null
+    },
+    {
+      "trial": 9,
+      "receipt": "/tmp/native-original-reference-exit-trial009/receipt.json",
+      "sha256": "9b7f12846af11228e36929948aa157f899589cf9d3c256c3f2595e5299cb4cf6",
+      "success": true,
+      "classification": "successful predecessor",
+      "semantic_negative": false,
+      "source_or_native_evidence": false,
+      "note": "Split MODEL/algebra version passed all normal and recursive checks; superseded only to add the later parent-delivered source-semantics interface.",
+      "failure": null
+    },
+    {
+      "trial": 10,
+      "receipt": "/tmp/native-original-reference-exit-trial010/receipt.json",
+      "sha256": "320ae68c1b5c151707ef2645053fdd38d8bb629cbbc42c6c4a3a0897bd57e81a",
+      "success": false,
+      "classification": "proof-development failure",
+      "semantic_negative": false,
+      "source_or_native_evidence": false,
+      "note": "Proof-development syntax failure in new source module: used ssreflect-style first/last without importing it. Corrected to standard Ltac branch syntax; no theorem premise changed.",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: source"
+      }
     }
   ],
   "experiments_on_source_runtime": false,

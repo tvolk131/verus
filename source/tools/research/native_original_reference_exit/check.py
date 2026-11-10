@@ -14,7 +14,7 @@ from acceptance_inputs import require_pinned_environment
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['frontend', 'resources']
+MODULES = ['frontend', 'resources', 'source']
 DEPS = json.loads((HERE/'dependency-pins.json').read_text())
 LIBS = [(Path(p), d['namespace']) for p,d in DEPS.items()]
 AUDIT = json.loads((HERE/'audit-input-pins.json').read_text())
@@ -170,6 +170,7 @@ def main():
         # Rocq/lia auxiliary artifacts stay in the private trial directory.
         run.cwd = work
         for d,namespace in LIBS: args += ['-Q',str(d/'proofs'),namespace]
+        args += ['-Q',AUDIT['constructor_erasure']['proofs'],AUDIT['constructor_erasure']['namespace']]
         args += ['-Q',str(work),'NativeOriginalReferenceExit']
         held = []
         def hold(path, expected):

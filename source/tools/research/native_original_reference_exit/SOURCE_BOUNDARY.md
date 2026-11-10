@@ -141,3 +141,26 @@ independent acceptance is pending. It removes the former ordinary-access support
 gap for a future HMAC composition, not the source entry/exit binding. It is not
 imported by the bounded drop adapter, which needs no XOR computation. The complete
 ordinary25 observed model result and accepted caller9 remain separately scoped.
+
+## Delivered typed source interface (3d668d29)
+
+The later parent-delivered `NativeConstructorErasure.Interface` supplies the
+uninstantiated `source_semantics`, `source_heap`, tagged `reference`,
+`ref_address`, independent `V_entry` and `execution` with Continue/Normal/Unwind/
+Fault outcomes. This replaces generic notation for the dependency's concrete
+types; it supplies NO actual source instance or certificate. Its
+`Composition.entry_normal_bytes` is conditional on a source_entry_certificate.
+Only these two completed modules are imported by `candidates/source.v`.
+
+`initialized_bytes_unique` proves whole-vector agreement at the SAME physical
+subobject from actual lookup uniqueness and equal length. The final-vector
+adapter combines physical interpretations of pending CURRENT and final bytes
+with the existing merge/same-future/typed release equations. The drop theorem
+uses entry_normal_bytes on the same original operand from V_entry and retains
+full-certificate fault exclusion. The original entry-C/F and pending-exit
+bindings remain explicit UNPROVED source obligations; they are not obtained
+from the record signature, source selection, hashes or certificate flags.
+No normal-run-only safety restriction is introduced. Root storage-prefix work
+and the still-unproved root reborrow cannot be bypassed by this composition.
+Pointer-distance component2c0b8f23 is not needed for drop and is not imported;
+its lawful-source-to-span/intrinsic interpretation remains future HMAC work.
