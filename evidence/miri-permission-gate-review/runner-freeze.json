@@ -1,0 +1,10 @@
+{
+  "before_first_verifier_trial": true,
+  "excluded_setup_attempt": "replay001/receipt.json: no commands or runs",
+  "inputs": {
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/run_independent.py": "42da5a923038068e8c1426d11b0dee27ff014ff0f06e643f5ef07797b1222370",
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/freeze-own.json": "7c450a4258aee4fd59e136254a47b397c477f9395660b4ca003511299149202b",
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/pretrial-inventory.json": "b4edc6d000db01578be93f52df1500910a7f022bd509018b5f7b2c223bd39111",
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/SCOPE.md": "fef2cefac0bd556d3b54f6c17436907c69fe1293ba428a6c569684ccec2a53ed"
+  }
+}

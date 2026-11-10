@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "classification": "ordinary_source_component_only",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false,
+  "commands": [],
+  "runs": [],
+  "success": false,
+  "failure": {
+    "type": "KeyError",
+    "message": "'/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/infer_eval_support.py'"
+  }
+}
