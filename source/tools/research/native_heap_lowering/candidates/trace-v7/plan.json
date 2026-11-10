@@ -1,0 +1,602 @@
+{
+  "schema": 1,
+  "source_sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+  "native_ir_sha256": "4b430accfb1a06785d5887b83042cb9eb4c27a4e92e1207b1f2af51d59f6f339",
+  "borrowck_sha256": "743c35156a338115f386d87357df4235c9cb10707e7761af596528565be3cb87",
+  "coverage": [
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": 0,
+      "payload_sha256": "9a0b51f46eb7169dac4e2319065343a716798c8aaf15e0b9d4a04a30bdcb1b97",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": 1,
+      "payload_sha256": "b0df088ed9aa8d0c17c7e772d95cf5eacbf9633f939c31f1cf972cbaf654d50a",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": 2,
+      "payload_sha256": "ff4ce04cbf3f5262a55e4fd7d4b0def34f7c2877ab9bdbe1b55bca76e2d6dd61",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": 3,
+      "payload_sha256": "0a05f1af92ca40f3ee1d590ae2083aceb720c96f6c2c582d87624c6af839bdbf",
+      "rule": "assign"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": 4,
+      "payload_sha256": "855aa2c63c8e7afd3218303f84eb7909f64648b1359a3384cd019df5b2938f69",
+      "rule": "assign"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": 5,
+      "payload_sha256": "9031b4507dc0cde0475235f838cf4d0f397057b15fefe1999e65c37003fc39ce",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "a1ff8f6d473e0bbb4d7bc962f36c86d8c8392b5488ab52c705d7af72da8fdd03",
+      "rule": "call"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 715777318511364689))::Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "4031cd23e975896d6367022b948dde71aa19f9e0b3fc8fbfbb58dc5f20bcc8a9",
+      "rule": "call"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 0,
+      "payload_sha256": "9a0b51f46eb7169dac4e2319065343a716798c8aaf15e0b9d4a04a30bdcb1b97",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 1,
+      "payload_sha256": "fbe0d2a923fab22d940ac414e18631b74638f615cd1e929dd406c22d8480b9a2",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 2,
+      "payload_sha256": "b0df088ed9aa8d0c17c7e772d95cf5eacbf9633f939c31f1cf972cbaf654d50a",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 3,
+      "payload_sha256": "ff4ce04cbf3f5262a55e4fd7d4b0def34f7c2877ab9bdbe1b55bca76e2d6dd61",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 4,
+      "payload_sha256": "55dbe8ba2b0e55ccf663ac243885e29788fa3865db473c2a56e942c77aa17802",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 5,
+      "payload_sha256": "b18b6c485afdfb400b326f01f52510e3396987e25cf6c2dda16fc2680b4e33f4",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 6,
+      "payload_sha256": "77825efeac0f890a4c231a2347503b968ac5317c89ec388c1327d1fe7ddd13cc",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 7,
+      "payload_sha256": "5150ed8b7f73dfeb6e97796e51b96a7ee9834846bc978c60dd90be8820133079",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 8,
+      "payload_sha256": "07c01329c8992b1cf1e87787c02d62ae8b25bc22e00b1eff4d911ea3d039bdfb",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 9,
+      "payload_sha256": "1de76dc492776dbfea4c76a26cacd5d937b31119336c45c609d62d451fb01527",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 10,
+      "payload_sha256": "726789182bbe3851156c736c4432af276a93c67a8084f9dd610874983162378a",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 11,
+      "payload_sha256": "ecee847c9354d9eec1e67bce19df92e9edf24dbc34f2d5978ba6781c38e3bb7e",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 12,
+      "payload_sha256": "3277fd7f75802ff2a412f25a50f8fad6c396fb52581776517b854b1017b40071",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 13,
+      "payload_sha256": "5aa2d4703b520dc02b50cb13f914941cf0d5376344dae2f7b26de2483bf1cbdc",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 14,
+      "payload_sha256": "06d6560bbb0f3a30c4e9652992c04643888d45a28b9c5f45833e3b88fc601ae3",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": 15,
+      "payload_sha256": "9031b4507dc0cde0475235f838cf4d0f397057b15fefe1999e65c37003fc39ce",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "7a2dd59fbbe01c64e7391369fc188d77f02d6f632e8ee5452b88df7c17e36146",
+      "rule": "switch"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "location": 0,
+      "payload_sha256": "44f1adb27502c13a4d1e622026917fca43b212b31c678bf4dba0fe90556c878c",
+      "rule": "storage_live"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "location": 1,
+      "payload_sha256": "42f16306662f2ab2e72996e2eadca84a6c2c46fddfe4c8a672f356b8f1966024",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "location": 2,
+      "payload_sha256": "4ff654ac1262be17833970e8435bb250444a47e5210fec1a98b4181ee673a4b9",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "location": 3,
+      "payload_sha256": "477892561c11b8393afbec9045c6dea5216972a9c8b84157cf206b1979b8900b",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "location": "term",
+      "payload_sha256": "dba41cc191ea4d3523e98761b48f70ad7b5f2e5cc632698d23b41656356e8d00",
+      "rule": "goto"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "location": 0,
+      "payload_sha256": "064fe6dce1a4648960f5328c493bf78da4d68a58fade94e8468dd1db35cc6355",
+      "rule": "assign"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "location": 1,
+      "payload_sha256": "b3314a75fa1e72749b80a1509e19aa9689696d3a75db5deec031b5ad2d52a5e2",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "location": 2,
+      "payload_sha256": "9db96525c0831457c68f8b8c0fb7d05a2a0d39fac4313084cb03b9e1886007e3",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "rule": "return"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 715777318511364689))::Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+      "bb": 1,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "rule": "return"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "location": 0,
+      "payload_sha256": "b3314a75fa1e72749b80a1509e19aa9689696d3a75db5deec031b5ad2d52a5e2",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "location": 1,
+      "payload_sha256": "0cb5c74c4eb787f72a387600ec7df9dcffcf36e2b2f13dfed1a6241483f77f60",
+      "rule": "assign"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "location": 2,
+      "payload_sha256": "9db96525c0831457c68f8b8c0fb7d05a2a0d39fac4313084cb03b9e1886007e3",
+      "rule": "storage_dead"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "rule": "return"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<[u8]>] }",
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "rule": "empty_drop_return"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<u8>] }",
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "rule": "empty_drop_return"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::slice::IterMut<'{erased}, u8>] }",
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "rule": "empty_drop_return"
+    }
+  ],
+  "excluded": [
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 1,
+      "reason": "CTFE_unreachable",
+      "payload_sha256": "83449b746105005541882f6f3f2340484d16fde319e861ea1011900b907c8d54"
+    }
+  ],
+  "steps": [
+    {
+      "op": "Clear",
+      "args": [
+        2
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        3
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        4
+      ]
+    },
+    {
+      "op": "Reborrow",
+      "args": [
+        4,
+        1
+      ]
+    },
+    {
+      "op": "Unsize",
+      "args": [
+        3,
+        4
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        4
+      ]
+    },
+    {
+      "op": "Move",
+      "args": [
+        101,
+        3
+      ]
+    },
+    {
+      "op": "Enter",
+      "args": [
+        1,
+        101
+      ]
+    },
+    {
+      "op": "Move",
+      "args": [
+        201,
+        101
+      ]
+    },
+    {
+      "op": "Enter",
+      "args": [
+        2,
+        201
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        202
+      ]
+    },
+    {
+      "op": "Metadata",
+      "args": [
+        202,
+        201
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        203
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        204
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        207
+      ]
+    },
+    {
+      "op": "Raw",
+      "args": [
+        207,
+        201
+      ]
+    },
+    {
+      "op": "Wrap",
+      "args": [
+        204,
+        207
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        207
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        208
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        209
+      ]
+    },
+    {
+      "op": "Unwrap",
+      "args": [
+        209,
+        204
+      ]
+    },
+    {
+      "op": "Thin",
+      "args": [
+        208,
+        209
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        209
+      ]
+    },
+    {
+      "op": "Wrap",
+      "args": [
+        203,
+        208
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        208
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        204
+      ]
+    },
+    {
+      "op": "Num",
+      "args": [
+        10001,
+        0
+      ]
+    },
+    {
+      "op": "Test",
+      "args": [
+        10001,
+        0
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        206
+      ]
+    },
+    {
+      "op": "Unwrap",
+      "args": [
+        206,
+        203
+      ]
+    },
+    {
+      "op": "Offset",
+      "args": [
+        205,
+        206,
+        202
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        206
+      ]
+    },
+    {
+      "op": "Iter",
+      "args": [
+        200,
+        203,
+        205
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        203
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        202
+      ]
+    },
+    {
+      "op": "Leave",
+      "args": [
+        2,
+        200
+      ]
+    },
+    {
+      "op": "Move",
+      "args": [
+        100,
+        200
+      ]
+    },
+    {
+      "op": "Leave",
+      "args": [
+        1,
+        100
+      ]
+    },
+    {
+      "op": "Move",
+      "args": [
+        2,
+        100
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        3
+      ]
+    },
+    {
+      "op": "Unit",
+      "args": [
+        10002
+      ]
+    },
+    {
+      "op": "Copy",
+      "args": [
+        0,
+        10002
+      ]
+    },
+    {
+      "op": "Clear",
+      "args": [
+        2
+      ]
+    }
+  ],
+  "operation_count": 44,
+  "publication": false,
+  "unproved": [
+    "Rust_reference_embedding",
+    "MIR_primitive_simulation_and_retags",
+    "call_and_empty_drop_loan_interpretation",
+    "final_original_array_observation"
+  ]
+}
