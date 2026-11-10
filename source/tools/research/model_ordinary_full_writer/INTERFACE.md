@@ -28,3 +28,15 @@ complete declaration/obligation assumptions inventory, full recursive kernel
 check, compact source/object/receipt pins. No baseline/compiler/vstd/shared or
 sibling edits, live parent/sibling reads, subdelegates or push/PR. This remains
 MODEL adequacy; native0,44+3/101open,HMAC1/1,pubfalse,goal incomplete.
+
+## Typed implementation boundary
+
+`candidates/interface.v` fixes `ordinary_writer`, `ordinary_post`, the sufficient
+`ordinary_budget = 3 + 3*min(padlen,keylen) + keylen`, and the proposition
+`ordinary_writer_claim` before trials. The expression is pair setup followed by
+original-parent/nested-child mutation and parent release. The post observes the
+actual final pad as `xor_result`, its exact XOR prefix and untouched suffix,
+the original key with arbitrary `RSt r`, and the exact pair outside frame.
+The implementation will prove this claim from initialized ranges/lookups and
+accessed-interval disjointness only. No root vectors or writer are imported;
+small dependent-length cast helpers will be defined and inventoried locally.
