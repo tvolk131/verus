@@ -1,0 +1,10 @@
+{
+  "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf": {
+    "count": 1200,
+    "verbatim": "Closed under the global context\n"
+  },
+  "fb283571ce2d6579196e5ca61ba29594819850ddb2a97dc0cad2bfdff2a8785d": {
+    "count": 62,
+    "verbatim": "Axioms:\nJMeq.JMeq_eq : forall (A : Type@{Coq.Logic.JMeq.9}) (x y : A)\n                 (_ : @JMeq.JMeq A x A y), @eq A x y\n"
+  }
+}

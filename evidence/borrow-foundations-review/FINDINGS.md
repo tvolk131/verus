@@ -44,3 +44,40 @@ requires a live call, existing parent, freshness, child-creation effect and
 retag read (or the separately specified no-op case). No original Rust source
 safety or native correspondence follows from these model results. Both delivered
 reports correctly retain this boundary. No native/application runs are in scope.
+
+## Final disposition
+
+Both exact mathematical checkpoints are ACCEPTED relative to their complete
+reported assumptions after terminal independent normal builds and recursive
+kernels were reauthenticated. The medium Tree Borrows finding remains a
+**delivery inventory/controller documentation limitation**, not a mathematical
+defect or kernel failure. No delivered implementation was edited.
+
+The independent typed structural walk expands56,837 Stacked Borrows and61,887
+Tree Borrows fields, including lexical functor contexts, nested modules/types,
+constructors and sealed interfaces. All model global bindings are separately
+queried:1,262 SB /2,753 TB. The exact sets, individual assumption classes,
+query/source/plugin/loader hashes and full private manifests are bound by
+RESULTS.json and MANIFESTS.json. The inspection plugin does not replace kernel
+checking. Parent can integrate the compact supplemental coverage and correct
+its delivered nested-signature claim without changing mathematical source.
+
+## Informational — explicit individual index supplements
+
+Location: source/tools/research/stbor_checked_foundation/inventory.py:46–61,
+REPORT.md inventory section; Tree inventory.py:10–28.
+
+The1,247 SB query entries do not independently name two generated nested graph
+inductives and13 constructors. All15 names already occur in its43 full block
+prints, so this is not evidence of missing compiled proofs. Independent
+supplemental `Check`/`Print Assumptions`/`Print` queries for all15 passed and are
+closed. The complete explicit SB binding index has1,262 entries (1,200 closed,
+62 JMeq-only); the original1,247-entry assumption counts remain correct.
+
+TB's2,399 ordinary constant queries and529 root constant queries are correct.
+They do not constitute an individual index for all inductives/constructors.
+The independent complete index adds82 inductives and272 constructors:329 from
+the first independent discovery and25 further constructors from the typed
+structural walk. All354 additions are closed. The total2,753-binding index is
+2,722 closed plus the same31 nonclosed constants in the original five classes.
+Neither supplement changes the broader dependency context or native status.

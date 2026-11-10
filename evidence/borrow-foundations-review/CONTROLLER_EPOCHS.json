@@ -1,0 +1,140 @@
+{
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/controller-authentication.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/controllers.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/1b215119549b9533df67d75815495f7c27e84c97de9b4a2e957dbe458032a6f0.py",
+    "sha256": "1b215119549b9533df67d75815495f7c27e84c97de9b4a2e957dbe458032a6f0"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/postguards.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/postguards.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/7fbd7fedf5f06a006b25a8e04bd03df5b8d1164097864033bb64740371e72ad4.py",
+    "sha256": "7fbd7fedf5f06a006b25a8e04bd03df5b8d1164097864033bb64740371e72ad4"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/inductive-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/inductives.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/a2fae0067d91cf6a88b67e8b634226b486d369e3ac2e4cc083657b123b1c8e13.py",
+    "sha256": "a2fae0067d91cf6a88b67e8b634226b486d369e3ac2e4cc083657b123b1c8e13"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/inventory-v2-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/resume.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/fb4513661bc202be6c3198e8d7a6dc17ff7f06de43bc95bfb04dcc8d9b21214e.py",
+    "sha256": "fb4513661bc202be6c3198e8d7a6dc17ff7f06de43bc95bfb04dcc8d9b21214e"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/inventory-v2-pretrial.json:original_controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/review.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69.py",
+    "sha256": "52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/nested-pretrial.json:controller_sha256": {
+    "git_commit": "4f660c458b02b3abc4e070fe2dfd6780572e53d6",
+    "git_path": "evidence/borrow-foundations-review/nested.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/7cb231ac8593ff80c614acfb3972dd4ddf148958e479d8efb0f7d6164e8d7d2d.py",
+    "sha256": "7cb231ac8593ff80c614acfb3972dd4ddf148958e479d8efb0f7d6164e8d7d2d"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/nested-pretrial.json:review_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/review.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69.py",
+    "sha256": "52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/nested-v2-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/nested.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/4f06a030b9e85e8bb186e7ca7dff5d53568abf961663abd1d38e84a0154ed785.py",
+    "sha256": "4f06a030b9e85e8bb186e7ca7dff5d53568abf961663abd1d38e84a0154ed785"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/nested-v2-pretrial.json:review_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/review.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69.py",
+    "sha256": "52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/review.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69.py",
+    "sha256": "52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/signature-api-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/signatures.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/48d41a969195ad093aaee4b893c4766bd3b067862bc618f9b784465c1142c76b.py",
+    "sha256": "48d41a969195ad093aaee4b893c4766bd3b067862bc618f9b784465c1142c76b"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/signature-api-pretrial.json:template_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/signature_walk.template",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/77a93171d880ff6e17b0fe77b909d3bbe2952ed7b12b5d0fc0d5cceb369a8397.template",
+    "sha256": "77a93171d880ff6e17b0fe77b909d3bbe2952ed7b12b5d0fc0d5cceb369a8397"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/tool-query-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/tools.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/e62577531787ec793be42c26bfe7445088d88cb5aca255b7d8602dc66cd34fc6.py",
+    "sha256": "e62577531787ec793be42c26bfe7445088d88cb5aca255b7d8602dc66cd34fc6"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/inductive-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/inductives.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/a2fae0067d91cf6a88b67e8b634226b486d369e3ac2e4cc083657b123b1c8e13.py",
+    "sha256": "a2fae0067d91cf6a88b67e8b634226b486d369e3ac2e4cc083657b123b1c8e13"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/inventory-query-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/resume.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/fb4513661bc202be6c3198e8d7a6dc17ff7f06de43bc95bfb04dcc8d9b21214e.py",
+    "sha256": "fb4513661bc202be6c3198e8d7a6dc17ff7f06de43bc95bfb04dcc8d9b21214e"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/inventory-query-pretrial.json:original_controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/review.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69.py",
+    "sha256": "52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/review.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69.py",
+    "sha256": "52329818834f258c147706ee152e226073f86e7ceeedab149ee9f19fa0caaa69"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/signature-api-loader-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/rocq_loader.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/98eb826e421fa0c78c54a14ec35fc9ae6702b603173d31886e17ad4666845836.py",
+    "sha256": "98eb826e421fa0c78c54a14ec35fc9ae6702b603173d31886e17ad4666845836"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/signature-api-loader-pretrial.json:generator_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/signatures.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/48d41a969195ad093aaee4b893c4766bd3b067862bc618f9b784465c1142c76b.py",
+    "sha256": "48d41a969195ad093aaee4b893c4766bd3b067862bc618f9b784465c1142c76b"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/signature-api-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/signatures.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/48d41a969195ad093aaee4b893c4766bd3b067862bc618f9b784465c1142c76b.py",
+    "sha256": "48d41a969195ad093aaee4b893c4766bd3b067862bc618f9b784465c1142c76b"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/signature-api-pretrial.json:template_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/signature_walk.template",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/77a93171d880ff6e17b0fe77b909d3bbe2952ed7b12b5d0fc0d5cceb369a8397.template",
+    "sha256": "77a93171d880ff6e17b0fe77b909d3bbe2952ed7b12b5d0fc0d5cceb369a8397"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/signature-api-v2-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/rocq_signature_v2.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/da0130a859957065486438d78592a1b3847274aecc1bd305820946a7be135309.py",
+    "sha256": "da0130a859957065486438d78592a1b3847274aecc1bd305820946a7be135309"
+  },
+  "/tmp/borrow-foundations-review-20261110-ba6890b6/tb/tool-query-pretrial.json:controller_sha256": {
+    "git_commit": "360d72dd70bd4d3d93950dd68de52387e12b2af4",
+    "git_path": "evidence/borrow-foundations-review/tools.py",
+    "private_copy": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs/e62577531787ec793be42c26bfe7445088d88cb5aca255b7d8602dc66cd34fc6.py",
+    "sha256": "e62577531787ec793be42c26bfe7445088d88cb5aca255b7d8602dc66cd34fc6"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf": {
+    "count": 2722,
+    "verbatim": "Closed under the global context\n"
+  },
+  "1fc2292d4e79d6b2f53ee8b99ccd6395fd47711cf5ac7860052663c1575cdd8a": {
+    "count": 16,
+    "verbatim": "Axioms:\nIndefiniteDescription.constructive_indefinite_description : forall (A : Type) (P : forall _ : A, Prop) (_ : @ex A (fun x : A => P x)), @sig A (fun x : A => P x)\n"
+  },
+  "a6641b89d24df83df10e01c0153f6836e75e0185a7ed2195cb4802d918982db3": {
+    "count": 2,
+    "verbatim": "Axioms:\nFunctionalExtensionality.functional_extensionality_dep : forall (A : Type) (B : forall _ : A, Type) (f g : forall x : A, B x) (_ : forall x : A, @eq (B x) (f x) (g x)), @eq (forall x : A, B x) f g\n"
+  },
+  "c0667eab99b063f5d67699c9e3c154b4a8e38dec6cfc44e15a14dbd8c187261e": {
+    "count": 8,
+    "verbatim": "Axioms:\nClassical_Prop.classic : forall P : Prop, or P (not P)\n"
+  },
+  "c6252e654c2d172271fe935d0e3b16b7320bf862501b5d27fcedbe6e30873845": {
+    "count": 5,
+    "verbatim": "Axioms:\nIndefiniteDescription.constructive_indefinite_description : forall (A : Type) (P : forall _ : A, Prop) (_ : @ex A (fun x : A => P x)), @sig A (fun x : A => P x)\nClassical_Prop.classic : forall P : Prop, or P (not P)\n"
+  }
+}

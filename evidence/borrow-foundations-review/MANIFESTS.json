@@ -1,0 +1,74 @@
+{
+  "indices": {
+    "accepted-result.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/accepted-result.json",
+      "sha256": "a6a62534aba852b121b3633e1dc57f72fec49b61a638d58338c6f782aec8d6d4"
+    },
+    "assessment.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/assessment.json",
+      "sha256": "0f579dba752606d7b5b2594de12b765d1430239aee5d7b97ff1d574a09eea4e3"
+    },
+    "authentication.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/authentication.json",
+      "sha256": "3a034f0e3b39061952677feeee09e6e4c8bdbbc194ea1d743a960fa630acb4f8"
+    },
+    "complete-pretrial.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/complete-pretrial.json",
+      "sha256": "ba98bd150ebcea4bacd1499efcc3dd9cfa8ee3acda52d9c9c7069f5e6407bd8a"
+    },
+    "complete-receipt.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/complete-receipt.json",
+      "sha256": "a14ff4e66c16d00891a2714831ce4be52803f06123599584b74014ad1ba1b6fc"
+    },
+    "complete-v2-pretrial.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/complete-v2-pretrial.json",
+      "sha256": "5a9cd043d786743fb1aa7b19bc48913821ea8f4d31a84afdd54aba3e399689b1"
+    },
+    "complete-v2-receipt.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/complete-v2-receipt.json",
+      "sha256": "2e738af49a4afa86e9ed36e6d7fda17cfba399b82016ca3b1d75f96224e97d48"
+    },
+    "controller-epochs.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/controller-epochs.json",
+      "sha256": "918ff4d9d66a706cd1e4042b79b8d15fc6acbe16e75e8facd87ae083ef3df9ad"
+    },
+    "final-assessment.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/final-assessment.json",
+      "sha256": "d67c891b0ca6e7931cff7b586f5ec544d95f2a7b90e436dea7b149030ad113cb"
+    },
+    "finalize-receipt.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/finalize-receipt.json",
+      "sha256": "79c7d4e5c2b62035bc3f788dc0807bc804dd28dcce09543ae0886cc81c407c2d"
+    },
+    "frozen-private-inputs.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/frozen-private-inputs.json",
+      "sha256": "9ebfd408977244fe994970cc710dee75948c8a8185fdf16bd2195e18bb9c183f"
+    },
+    "predecessor-files.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/predecessor-files.json",
+      "sha256": "0e0b874e4836ac48f30e12e070d49c7235146f27108e7373154ed0e6082bc6b6"
+    },
+    "pretrial.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/pretrial.json",
+      "sha256": "982e90314eb0db8ce7fdc9c8415a4e579bacbd904b0f42130499cd8d91752eaf"
+    },
+    "query-authentication.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/query-authentication.json",
+      "sha256": "378792d31254cba649ee201d13bbb190762e291112a24260c3434fbc2f8bb428"
+    },
+    "receipts.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/receipts.json",
+      "sha256": "c327a27d58aec1e0fb2e9ae9800b9d791d4453e7620ede5c47e119d325f50e7a"
+    },
+    "support.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/support.json",
+      "sha256": "b7abd9317d0fd4c2b0971dba7bc4d8f58cb4556631c82dd01baaeb3548ea75be"
+    },
+    "verified-files.json": {
+      "path": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be/verified-files.json",
+      "sha256": "aa0964710bd8fb2e60968faaae601d163804deb6645395693b3e48a7505ad19c"
+    }
+  },
+  "notice": "Full private indices contain every predecessor file and every rehashed source/tool/dependency/receipt identity. Historical checkout strings are labels, never followed.",
+  "private_root": "/tmp/borrow-foundations-review-resume-20261110-e2ece9be"
+}
