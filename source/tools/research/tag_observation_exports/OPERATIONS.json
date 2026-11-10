@@ -1,0 +1,26 @@
+{
+  "startup": {
+    "classification": "sandbox_setup_failure",
+    "exit": 1,
+    "diagnostic": "bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted",
+    "recovery": "exact require_escalated tool permission mechanism",
+    "host_or_network_modifications": false
+  },
+  "initial_direct_audit": {
+    "classification": "controller_validation_failure_metadata_schema_evolution",
+    "exit": 1,
+    "diagnostic": "RuntimeError: exact source/body identity",
+    "log_provenance": "tool transcript only; no durable private file log captured",
+    "completed_verifier_evidence_changed": false
+  },
+  "durable_audit_ledger": "audits.jsonl",
+  "native_marker_audit_failure": "exact HIR client scope: missing expected broadcast expansion marker; corrected by explicit full set, not omission",
+  "discovery_signature_inspection_failure": "pure read inspection asked for absent opaqueness field; corrected to available body_visibility; not verifier evidence",
+  "missing_product_glob_inspection": "rg named completed client*/*equal* logs: no such files; read receipt product names instead",
+  "old_writer_executed": false,
+  "read_scope": "own checkout/history, pinned sources and named completed artifacts only",
+  "production_changes": false,
+  "subdelegation": false,
+  "push_PR": false,
+  "publication": false
+}

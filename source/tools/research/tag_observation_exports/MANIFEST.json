@@ -1,0 +1,20 @@
+{
+  "kind": "posthoc_compact_delivery_hashes_not_a_new_proof_epoch",
+  "files": {
+    "BASELINE.json": "2ad20951e5fd1c7e441fec0b66aef67c73034b06a0d4e9a0037629917678d4f9",
+    "CONTRACT.json": "382f0f0cd129cce0dadceb2a3f1f1cc6aac5a1578129e58fa78d67ec314d3f45",
+    "MANUAL.md": "6cd5bd2db044c491fe56d28d59d55da5817b5ca9cb4275a7e51a190e489fdad5",
+    "OPERATIONS.json": "6f0c5eebedae29291378e6ef4e5ec15e7c9201ed6584a7d9481eef41a5d644e6",
+    "REPORT.md": "49ad6b84741b589613dd55b26494caa4ec0cdd0896dbf5a5590fce2973a32fc7",
+    "RESULTS.json": "4f3ab32b3c9015fccc20dfcd67328fb91bb734238f7fddcba3eeee55c2248944",
+    "SCOPE.md": "2ba17ddf3c9c9ba31bc72630509efbd12aa0fb449dc7adc69066e5e64d521c59",
+    "attempts.jsonl": "4642e3d69547ad40a2f98299de3607b19dd70609264ab11a05233665dcd252ce",
+    "audit.py": "bf97dca2a859459c96a2919240fdb59b86b4b37b9fe1f280974fb484a6300b2b",
+    "audit_run.py": "06ecad93abbdb2cc7535905a9ab505cd185f41e98d12d3c16c870dbe70632c26",
+    "audits.jsonl": "a48c28d920536286da4617f11a5b9cc2f49df35b0419aee0122aa8f9d0762e81",
+    "identities.json": "5a6fefb39c5492d1578111984a38e3eed929458eb6f4e72f38ef85008b9f8623",
+    "pins.json": "7bf5b4be2311c8acb85eb699a25b9e4d49dcae1dea2d6f3dc5ff7d3b10ba92f2",
+    "replay.py": "7f83163131e1f7a1153c6ffe089725e8b9922ae7735495a43a724c79cbf367cb",
+    "source.py": "7203a9e26c6d3fdc4c3c14d6d87f69455138906ee88c9cf9df554cb1ae963664"
+  }
+}

@@ -1,0 +1,3 @@
+{"path": "/tmp/tag-observation-audit-zujo3ely", "receipt_sha256": "e4d6ac5b010eb8ddfc3993f68dca4ebe9ea5e7870aa10a54e5ca2b8511dfea4b", "exit": 1, "guards": true}
+{"path": "/tmp/tag-observation-audit-cserbzxh", "receipt_sha256": "ceb0210ff287e6f80dad3705afb89f6b8eaec1e4eee1b028af72e2828cf8b380", "exit": 0, "guards": true}
+{"path": "/tmp/tag-observation-audit-u6xcdfve", "receipt_sha256": "b8909f3fd1aa5a6c017f51b0e13c446c3e140b78c716ed36d6fcaca6f26e3785", "exit": 0, "guards": true}

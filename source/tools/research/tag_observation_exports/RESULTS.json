@@ -1,0 +1,3663 @@
+{
+  "decision": "checked_source_compatibility_interface_closes_imported_Eq_value_gap",
+  "base": "098a8be66e00734a010bf525ff832a81157621ea",
+  "bundle_receipt_sha256": "2e3fcc58f6fca9364061329104710937ec2aac6aab95a5c48d068c1ca6ee9bb7",
+  "tools": {
+    "rust_verify": "a67dc634f0f5bb4ab7d27cc27804f417235f573491e415b8e2223a0cf50f2b8a",
+    "verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+    "libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+    "libverus_builtin_macros.so": "dea7b6d63f30d92df8ca309f6d48d687b47c7f175fd3e082de85cac817c7484f",
+    "libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+    "vstd.vir": "7d65866bf5e678b412ec465287f42d85973eb3e3fbefc239b4821262130b54b0",
+    "libvstd.rlib": "942527df233f7f43f98d4263aa92d19583322b95bcdb6df1be9678aa2987c010",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "versions": {
+    "schema": 38,
+    "policy": 69,
+    "cache": 72,
+    "vstd": "2250/0"
+  },
+  "baseline_sha256": "2ad20951e5fd1c7e441fec0b66aef67c73034b06a0d4e9a0037629917678d4f9",
+  "final": {
+    "provider-final": {
+      "label": "provider-final",
+      "path": "/tmp/tag-observation-provider-final-5e1vrzuh",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "2163b8d714b8c9d8d260352ffd377270114fcec4652e7853cd42533303583694",
+      "classification": "ordinary_component_positive",
+      "identity_replayed": true,
+      "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+      "source_identity": {
+        "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 1,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "92ed58fb9b0ee783ef2e4d79cb299557662d8164bf236a6de9e7f8fd36624484",
+      "stdout_sha256": "f2418bad8469b0a58b575786a826dc27bbc01a200ca5a2a3c83825a34518e502",
+      "stderr_sha256": "8d7cfbc68dea65c23cbc683ee0f385359bc47161aba42742b4a27c8385fe4e98",
+      "product_count": 34,
+      "inventory": {
+        "ordinary_original_functions": {
+          "component::impl&%2::clone": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "567240604b1c4700ff6365fdf72a8730711f2959e236076f92657354c93c945f",
+            "normalized_body_sha256": "b6888d224510bb820575e75914ec908317a449a701c5a449d667dac9a5e3e6ab"
+          },
+          "component::impl&%5::eq": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "70b8651945b66d4900057a2dc84c16a3a42307e00beeef80b518005e82e193e6",
+            "normalized_body_sha256": "4428940232ebe2693e4057548c2febf8d25059803c84d278b5cd0eda94bb263b"
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "cf6929956d39ac203181792bd0505a9af0295685bf2aa3490e96bae7c5f6eb09",
+            "normalized_body_sha256": "aa245b3f1d5039deb9e3a072496d9a34ba6c6341459120bd59128f78ed3726d8"
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "4a9534d23ba5b134975fd1c34b3084ccd1d0270d77b2365da9f407485dd7df4b",
+            "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "4a9534d23ba5b134975fd1c34b3084ccd1d0270d77b2365da9f407485dd7df4b",
+            "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+          },
+          "component::impl&%11::eq_spec": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "0fd5b5523e96ef569f17f02bccf97372b748fccc6d87eeb3baba61e0aeaed16d",
+            "normalized_body_sha256": "658dec9d0d70db3d0c78762ef26f4617bb4266f1656fda7822fde3b728314328"
+          },
+          "component::impl&%14::clone": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "bb648e48ff338315b526493e5146789c47202f7daa59fdf8d8b9e81ff1d57e88",
+            "normalized_body_sha256": "8e178bec12fd9844dfb6a71c0deca48654556371e66ff29bf277073f68d5e8df"
+          },
+          "component::TAG_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "b342dc7155dd363b94c7052cfb9b513c3050150fb84adf36529e3b9b92e76239",
+            "normalized_body_sha256": "b69ae2c8f843990f56e9fdc01637175c3f2f64e01049962baa9e3dbea652ed31"
+          },
+          "component::PERM_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "6514b13f928ba862e7a1eb4cc5b84396d8a7f10af2d8a8233688f8d68d22a904",
+            "normalized_body_sha256": "f8b7134966663cd3de425d0e1055b3891461cbac17de477ee4913d70df98c6f3"
+          },
+          "component::PROTECTED_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "67300e797ff8230a4c14320b08b819f22e79a66422c6d096cf8c5ee6aebaa911",
+            "normalized_body_sha256": "738ae0af3b222b756841010b9a3de0e667aeb0b1e22871d256c2dbb5ee4c9f38"
+          },
+          "component::PERM_SHIFT": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "14a401617aa1ebc71ece839ca632dde373444ab0122b23cbb47847467dbf366d",
+            "normalized_body_sha256": "70606a7a143e3bc357eec8000291811f1a16cd18d980c63a18f6c579c7e29153"
+          },
+          "component::PROTECTED_SHIFT": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "bbd8d435306cd6bc310b2e324fafb5a76c2c2f4dfc33e47970d620f1d6e6399f",
+            "normalized_body_sha256": "2632f7c6b8ca2007ae5d0f21768bdde7c4565bdcd069e3d531bbf15ae1d69c09"
+          },
+          "component::item_word_wf": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "086dea3820d39584276d933d75bce525e040e54908059597b6a5449623bd4341",
+            "normalized_body_sha256": "8ea167746cfa855f4a1fa9cea6ad7a8bf4f948a5c7787f14952858db52d8d9eb"
+          },
+          "component::impl&%19::value": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "37929ad9ee80316ccdfe4341c28d8252ee907eb36ecca12dcf72de728632bc7c",
+            "normalized_body_sha256": "7ef72faec721b4a0f8dce933d6b7c7f055a912c13689e5deb1b6f42fb28d5f56"
+          },
+          "component::impl&%19::new": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "af320729b40b3ce44dbc0010d330ae692383a3b78eb2257724185ac51f5e57ba",
+            "normalized_body_sha256": "f04e6e2bcb3336a5cedd8ca9995da6ee89499046c29c5c5b36728d42130fe139"
+          },
+          "component::impl&%19::get": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "02976bff8e6ecbe62f8fb03f116d681c4d4bc2014bb62e60b68d2fc514cbb33b",
+            "normalized_body_sha256": "a175c09c275e21e6fda707755fc925000318f783b3082d102e73991a6d0b04b2"
+          },
+          "component::impl&%20::word": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "a3ee550aafa59778354e840cc2c7c2c21f744b320dac1ea0a15939a663c158af",
+            "normalized_body_sha256": "39f21d1ecbdca3823ef7e1067e0a1fb650b9afe8b548f30494f7b663bf18a822"
+          },
+          "component::impl&%20::tag": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "894a51fd0544471b114dec6f698fa8dcafc4f6a3ac09df861539eae98f4e701d",
+            "normalized_body_sha256": "ee8b801096f1c1aa4bdb1a1b8ba871af16f26552c5fdb9821ee81029e07667b0"
+          },
+          "component::roundtrip": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "49ffd066e11e7abed6961d400b5876571c3675ee25ea777bcc2b629de637c655",
+            "normalized_body_sha256": "744b1fb6e92255db21d78afd55a0ff83293788cfcebe9cdf191e7a476a73cc71"
+          },
+          "component::compare_equal": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "c47dc2479c75f35fd8aeade936c30f6aa16e5b3c2f65fd6f8361036ba9bb1902",
+            "normalized_body_sha256": "cca6941ab582940bc15f8b7f17c89af3d2e772301846ac19f8ef876a7725e9cc"
+          },
+          "component::lookup": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "9e64f8c77eb13d465d38b28acc30a92c7bce050f5da45cd0a6943a1e37d38361",
+            "normalized_body_sha256": "846d2f3acba29825758decca9d30e47a0a6771f363e06f84ee5cfc0e2b1372e3"
+          },
+          "component::boundaries": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "32fd0722c832cfe944a0d1fa37422e7be55af17b5c00a914963e98866bfb9009",
+            "normalized_body_sha256": "6f2e33442fb3d147184f587db61dbd98e4dcf07a7e1c9ec41ec718d76433e875"
+          },
+          "component::eq_value_compatibility": {
+            "mode": "Proof",
+            "body_present": true,
+            "body_sha256": "1d82fdb1ba26cdc0cac56ed84ab5a065126d315691a69aafc01485ca9202c2a9",
+            "normalized_body_sha256": "b63b7ade5ff2b2e5c43f645e1f3cf6ff759bb79d6ebdd55a84ea6fb8ae4ed82b"
+          },
+          "component::BorTag::ctor%": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "23c100d36c04c48984d81a26d794b9d95be9f42ee33a4b25239e3e1a8194c93a",
+            "normalized_body_sha256": "939a106600f9681e8771046e792522d67732e616588f19361396e94f472beda3"
+          },
+          "component::Item::ctor%": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "3f5462e2ec01469559b25ba6e2b1d30484fe91d803abd375c6e5c9047fdab207",
+            "normalized_body_sha256": "3e3234b8552a502c65bf0b9615abb47ac66368f331a84e8939b07d76744a3ff2"
+          }
+        },
+        "local_function_details": {
+          "component::boundaries": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PERM_SHIFT": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::get": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::item_word_wf": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::clone": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::ctor%": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PROTECTED_SHIFT": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::obeys_eq_spec": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::compare_equal": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PERM_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::new": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::ctor%": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::eq": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::eq_spec": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::TAG_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::eq_value_compatibility": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::word": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::roundtrip": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::__verus_infer_derived_eq": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PROTECTED_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::__verus_infer_nonzero_u64_view": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::value": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::lookup": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::clone": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::tag": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": true,
+          "checked_exec_bodies": 10,
+          "checked_proof_bodies": 1,
+          "native_functions": [
+            {
+              "function": "component::BorTag::clone",
+              "rust_function": "<BorTag as std::clone::Clone>::clone",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:16: 4:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:40: 4:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::cmp::Ord>::cmp",
+              "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:56: 4:59",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::eq",
+              "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:29: 4:38",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": true,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+              "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:44: 4:54",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::hash::Hash>::hash",
+              "rust_function": "<BorTag as std::hash::Hash>::hash",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:23: 4:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::eq_spec",
+              "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::obeys_eq_spec",
+              "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::Item::clone",
+              "rust_function": "<Item as std::clone::Clone>::clone",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:7:16: 7:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:7:40: 7:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<Item as std::cmp::PartialEq>::eq",
+              "rust_function": "<Item as std::cmp::PartialEq>::eq",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:7:29: 7:38",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<Item as std::hash::Hash>::hash",
+              "rust_function": "<Item as std::hash::Hash>::hash",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:7:23: 7:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::__verus_infer_derived_eq",
+              "rust_function": "BorTag::__verus_infer_derived_eq",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+              "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::get",
+              "rust_function": "BorTag::get",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:20:1: 20:26",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::BorTag::new",
+              "rust_function": "BorTag::new",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:17:1: 17:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::BorTag::value",
+              "rust_function": "BorTag::value",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:16:1: 16:37",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::Item::tag",
+              "rust_function": "Item::tag",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:26:1: 26:28",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::Item::word",
+              "rust_function": "Item::word",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:25:1: 25:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:10:1: 10:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+              "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:12:1: 12:22",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:11:1: 11:26",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+              "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:13:1: 13:27",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:9:1: 9:20",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::boundaries",
+              "rust_function": "boundaries",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:36:1: 36:33",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::compare_equal",
+              "rust_function": "compare_equal",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:32:1: 32:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::eq_value_compatibility",
+              "rust_function": "eq_value_compatibility",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:38:1: 38:67",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_proof_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::item_word_wf",
+              "rust_function": "item_word_wf",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:14:1: 14:43",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::lookup",
+              "rust_function": "lookup",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:34:1: 34:29",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::roundtrip",
+              "rust_function": "roundtrip",
+              "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:30:1: 30:32",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [
+          {
+            "function": "component::BorTag::eq",
+            "source": "/tmp/tag-observation-provider-final-5e1vrzuh/component.rs:4:29: 4:38 (#18)",
+            "candidate_id": "c27e9f958bb5e4d45128e90bba81537cb862b3095c85f61791b49c2723e629b6",
+            "mode": "exact",
+            "summary_kind": "value",
+            "parameters": [
+              {
+                "name": "self",
+                "type": "&component::BorTag"
+              },
+              {
+                "name": "other",
+                "type": "&component::BorTag"
+              }
+            ],
+            "result_type": "bool",
+            "contract": {
+              "requires": "true",
+              "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))"
+            },
+            "loop_proofs": [],
+            "proofs": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "required_checks_passed": true,
+            "available_to_same_crate_callers": true,
+            "exported": true,
+            "dependencies": [],
+            "metrics": {
+              "cache": "miss",
+              "cache_policy": "candidate_cache",
+              "generation_micros": 847,
+              "solver_micros": 3053,
+              "requires_nodes": 1,
+              "ensures_nodes": 7
+            }
+          }
+        ],
+        "inference_interface_written": true,
+        "failed_functions": [],
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 20,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      }
+    },
+    "provider-off-final": {
+      "label": "provider-off-final",
+      "path": "/tmp/tag-observation-provider-off-final-026bi2bu",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "5f9c29a3f891d48b3b2c4dbcfbd5e6c8bdc4bf76a005977196f1cf804c7b210b",
+      "classification": "ordinary_component_positive",
+      "identity_replayed": true,
+      "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+      "source_identity": {
+        "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 1,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "1bceb8eeb5561d01797fede8ba0b8974eab7f3261e8c20033df3da7a6da2c0e2",
+      "stdout_sha256": "26284018e73862cb5ef68720f26173d1603f80ed97b920f9d954c9a9617092f3",
+      "stderr_sha256": "bb2fe14e0217b44322e90b1a57b7a3f5edb13bacc94e596c1f1cd8297b37bd96",
+      "product_count": 34,
+      "inventory": {
+        "ordinary_original_functions": {
+          "component::impl&%2::clone": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "a37debde17c41b3e8d24e7960f84760d96dba74ea0d67bf8239c63f228477a19",
+            "normalized_body_sha256": "b6888d224510bb820575e75914ec908317a449a701c5a449d667dac9a5e3e6ab"
+          },
+          "component::impl&%5::eq": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "b9517858595bbb382d6f39316e895af186c890502fa94646260594bce2f3d0ed",
+            "normalized_body_sha256": "4428940232ebe2693e4057548c2febf8d25059803c84d278b5cd0eda94bb263b"
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "d6fd9d479b8b390d5df91a3df38eaba45dd59109ae4ce8290ae523fd7feb142a",
+            "normalized_body_sha256": "aa245b3f1d5039deb9e3a072496d9a34ba6c6341459120bd59128f78ed3726d8"
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "86d332e51af13fa48ccd8ee59373b40ec2a50805cd7aaaa062150897b0706305",
+            "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "86d332e51af13fa48ccd8ee59373b40ec2a50805cd7aaaa062150897b0706305",
+            "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+          },
+          "component::impl&%11::eq_spec": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "1f2fe9a56e7df0cefe5f12393dea8c21441aa0a77fe273f54254e4ac2062e2d0",
+            "normalized_body_sha256": "658dec9d0d70db3d0c78762ef26f4617bb4266f1656fda7822fde3b728314328"
+          },
+          "component::impl&%14::clone": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "8f6641b27106730fdf30162e4832f180d55e1aa5d09e09c05385fc5d10fa0f02",
+            "normalized_body_sha256": "8e178bec12fd9844dfb6a71c0deca48654556371e66ff29bf277073f68d5e8df"
+          },
+          "component::TAG_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "c31a22743fa45b64c9b2a1d5c983914c7a7656836b2c693ce133e0f79ce8daf0",
+            "normalized_body_sha256": "b69ae2c8f843990f56e9fdc01637175c3f2f64e01049962baa9e3dbea652ed31"
+          },
+          "component::PERM_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "06845aae5c1bd7aa36477373f171db4e4976394aa9ddb75e28fce158922e70cc",
+            "normalized_body_sha256": "f8b7134966663cd3de425d0e1055b3891461cbac17de477ee4913d70df98c6f3"
+          },
+          "component::PROTECTED_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "ed1bcb499bdc6616be95cbd0fff8594c7b54d2c0279a0a0b0b54e89071dcb93c",
+            "normalized_body_sha256": "738ae0af3b222b756841010b9a3de0e667aeb0b1e22871d256c2dbb5ee4c9f38"
+          },
+          "component::PERM_SHIFT": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "702c2552dceeeccec433be49464bb7a489a9cd5b7f6739fd039c6ccbf349c6aa",
+            "normalized_body_sha256": "70606a7a143e3bc357eec8000291811f1a16cd18d980c63a18f6c579c7e29153"
+          },
+          "component::PROTECTED_SHIFT": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "147345ffe0e3dc56b3e9b77bfc40406bc0d9817ad8ad58bd1ba25065ab3139bb",
+            "normalized_body_sha256": "2632f7c6b8ca2007ae5d0f21768bdde7c4565bdcd069e3d531bbf15ae1d69c09"
+          },
+          "component::item_word_wf": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "eee63e31c2c172e4f8aaf9e0456ff89dd64ed40fe6bd6810264362d8446c5aa8",
+            "normalized_body_sha256": "8ea167746cfa855f4a1fa9cea6ad7a8bf4f948a5c7787f14952858db52d8d9eb"
+          },
+          "component::impl&%19::value": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "ed89746b0bc4e318ecba6f8ee333cd891282e7c096969b0e961cf998180c13a7",
+            "normalized_body_sha256": "7ef72faec721b4a0f8dce933d6b7c7f055a912c13689e5deb1b6f42fb28d5f56"
+          },
+          "component::impl&%19::new": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "575212bbca876058c35b8827cd80e4c91fc5aefc8d15e750b63fee14dccc069f",
+            "normalized_body_sha256": "f04e6e2bcb3336a5cedd8ca9995da6ee89499046c29c5c5b36728d42130fe139"
+          },
+          "component::impl&%19::get": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "3850ce92817195a2461e93f070e7f466c82b745f6e77ea7c21019ad7ac9fdcaa",
+            "normalized_body_sha256": "a175c09c275e21e6fda707755fc925000318f783b3082d102e73991a6d0b04b2"
+          },
+          "component::impl&%20::word": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "c069bbd1ffbbb1e787cfc9f54a432b61379ef6986b003a1744213dce420149c9",
+            "normalized_body_sha256": "39f21d1ecbdca3823ef7e1067e0a1fb650b9afe8b548f30494f7b663bf18a822"
+          },
+          "component::impl&%20::tag": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "7403dbeb11d1d803260b8836c820a28ab477d40c1968391adc50507e34484483",
+            "normalized_body_sha256": "ee8b801096f1c1aa4bdb1a1b8ba871af16f26552c5fdb9821ee81029e07667b0"
+          },
+          "component::roundtrip": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "fb9978bc4407822946fc8021b6e35bd559c68a29588ed91331b4d3cf118790e5",
+            "normalized_body_sha256": "744b1fb6e92255db21d78afd55a0ff83293788cfcebe9cdf191e7a476a73cc71"
+          },
+          "component::compare_equal": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "e0c0cbdcfdba4c68ba40bd2fbc5efc8821f8bc64f5ed52a9bf98ed95706caa0c",
+            "normalized_body_sha256": "cca6941ab582940bc15f8b7f17c89af3d2e772301846ac19f8ef876a7725e9cc"
+          },
+          "component::lookup": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "9fba171005480104b20929cf1bc2d8a2c4457494a3f089f5293445c90396d5b7",
+            "normalized_body_sha256": "846d2f3acba29825758decca9d30e47a0a6771f363e06f84ee5cfc0e2b1372e3"
+          },
+          "component::boundaries": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "686fc7a2d854620c0e82a3ee14db774c50eb0d754a03cd5b4f7bf10184d31e25",
+            "normalized_body_sha256": "6f2e33442fb3d147184f587db61dbd98e4dcf07a7e1c9ec41ec718d76433e875"
+          },
+          "component::eq_value_compatibility": {
+            "mode": "Proof",
+            "body_present": true,
+            "body_sha256": "c8501f6a8d5a81410343e1ed3f41a9eab446f7167dec0d012523e26bdaba09f0",
+            "normalized_body_sha256": "b63b7ade5ff2b2e5c43f645e1f3cf6ff759bb79d6ebdd55a84ea6fb8ae4ed82b"
+          },
+          "component::BorTag::ctor%": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "cfaab19fb53185c343a672d2129180a6fea89e18e17856a8c6327138581f7cdb",
+            "normalized_body_sha256": "939a106600f9681e8771046e792522d67732e616588f19361396e94f472beda3"
+          },
+          "component::Item::ctor%": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "588824bce298b99169b745164775cb190c46a74bdb6a53f728d2c7dc33100d4e",
+            "normalized_body_sha256": "3e3234b8552a502c65bf0b9615abb47ac66368f331a84e8939b07d76744a3ff2"
+          }
+        },
+        "local_function_details": {
+          "component::BorTag::__verus_infer_derived_eq": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PROTECTED_SHIFT": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::__verus_infer_nonzero_u64_view": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::clone": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::ctor%": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::eq_spec": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PERM_SHIFT": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::lookup": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::eq_value_compatibility": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::new": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::value": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::compare_equal": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::roundtrip": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::tag": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PERM_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::ctor%": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::clone": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::get": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::obeys_eq_spec": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::word": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::item_word_wf": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::eq": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::TAG_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PROTECTED_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::boundaries": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": true,
+          "checked_exec_bodies": 10,
+          "checked_proof_bodies": 1,
+          "native_functions": [
+            {
+              "function": "component::BorTag::clone",
+              "rust_function": "<BorTag as std::clone::Clone>::clone",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:16: 4:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:40: 4:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::cmp::Ord>::cmp",
+              "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:56: 4:59",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::eq",
+              "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:29: 4:38",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": true,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+              "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:44: 4:54",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::hash::Hash>::hash",
+              "rust_function": "<BorTag as std::hash::Hash>::hash",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:23: 4:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::eq_spec",
+              "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::obeys_eq_spec",
+              "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::Item::clone",
+              "rust_function": "<Item as std::clone::Clone>::clone",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:7:16: 7:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:7:40: 7:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<Item as std::cmp::PartialEq>::eq",
+              "rust_function": "<Item as std::cmp::PartialEq>::eq",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:7:29: 7:38",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<Item as std::hash::Hash>::hash",
+              "rust_function": "<Item as std::hash::Hash>::hash",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:7:23: 7:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::__verus_infer_derived_eq",
+              "rust_function": "BorTag::__verus_infer_derived_eq",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+              "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::get",
+              "rust_function": "BorTag::get",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:20:1: 20:26",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::BorTag::new",
+              "rust_function": "BorTag::new",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:17:1: 17:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::BorTag::value",
+              "rust_function": "BorTag::value",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:16:1: 16:37",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::Item::tag",
+              "rust_function": "Item::tag",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:26:1: 26:28",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::Item::word",
+              "rust_function": "Item::word",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:25:1: 25:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:10:1: 10:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+              "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:12:1: 12:22",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:11:1: 11:26",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+              "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:13:1: 13:27",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:9:1: 9:20",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::boundaries",
+              "rust_function": "boundaries",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:36:1: 36:33",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::compare_equal",
+              "rust_function": "compare_equal",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:32:1: 32:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::eq_value_compatibility",
+              "rust_function": "eq_value_compatibility",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:38:1: 38:67",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_proof_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::item_word_wf",
+              "rust_function": "item_word_wf",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:14:1: 14:43",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::lookup",
+              "rust_function": "lookup",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:34:1: 34:29",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::roundtrip",
+              "rust_function": "roundtrip",
+              "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:30:1: 30:32",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [
+          {
+            "function": "component::BorTag::eq",
+            "source": "/tmp/tag-observation-provider-off-final-026bi2bu/component.rs:4:29: 4:38 (#18)",
+            "candidate_id": "cb48905f19aa9c4aea1a5e299848dd16b236245d466d756860593223183451dd",
+            "mode": "exact",
+            "summary_kind": "value",
+            "parameters": [
+              {
+                "name": "self",
+                "type": "&component::BorTag"
+              },
+              {
+                "name": "other",
+                "type": "&component::BorTag"
+              }
+            ],
+            "result_type": "bool",
+            "contract": {
+              "requires": "true",
+              "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))"
+            },
+            "loop_proofs": [],
+            "proofs": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "required_checks_passed": true,
+            "available_to_same_crate_callers": true,
+            "exported": true,
+            "dependencies": [],
+            "metrics": {
+              "cache": "miss",
+              "cache_policy": "candidate_cache",
+              "generation_micros": 608,
+              "solver_micros": 3691,
+              "requires_nodes": 1,
+              "ensures_nodes": 7
+            }
+          }
+        ],
+        "inference_interface_written": true,
+        "failed_functions": [],
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 20,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      }
+    },
+    "client-final": {
+      "label": "client-final",
+      "path": "/tmp/tag-observation-client-final-f9h950af",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "f683162549cf93775a0aa079bc71bcb472dc7dfeab2a5067f054d391c022aa3e",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": true,
+      "source_sha256": "d740b75021d08a9a5f29988db28119cb190c245ce7ddf0e330e4bf5b228c7865",
+      "source_identity": {
+        "source_sha256": "d740b75021d08a9a5f29988db28119cb190c245ce7ddf0e330e4bf5b228c7865",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 1,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "1dacccad204822894855c5b759a91dbf127f48e4edf3ed6bc39ca530db4ac2d2",
+      "stdout_sha256": "2331dfa0e3331ddecc57f74e1c54480a026eebf954d764bc318378b338467b79",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 25,
+      "inventory": {
+        "ordinary_original_functions": {
+          "client::read": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "63fe94b73c648d4ee8d960dea1170544329da7ee6f0948589b01bd013ad7cde6",
+            "normalized_body_sha256": "a0d3f95091989232b90006b1c6dbfcb0f1741d6a7cfce5ae8665b65b00579dcc"
+          },
+          "client::equal": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "dd107b05302774752b1347e9b11c1ed48e437bfb4ec33476ef69baf11027cb9b",
+            "normalized_body_sha256": "59b6edcdb39dce3b5112bb0d8e5777cd948368f93e3cede1b270a1c8273d43db"
+          }
+        },
+        "local_function_details": {
+          "client::equal": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "client::read": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": true,
+          "checked_exec_bodies": 2,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "_::__VERUS_REVEAL_INTERNAL__",
+              "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+              "source": "/tmp/tag-observation-client-final-f9h950af/client.rs:4:1: 4:49",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "client::equal",
+              "rust_function": "equal",
+              "source": "/tmp/tag-observation-client-final-f9h950af/client.rs:8:1: 8:65",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "client::read",
+              "rust_function": "read",
+              "source": "/tmp/tag-observation-client-final-f9h950af/client.rs:5:1: 5:39",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [],
+        "inference_interface_written": false,
+        "failed_functions": [],
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "all_imported_provider_symbols": {
+          "component::impl&%2::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%5::eq": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "4a9534d23ba5b134975fd1c34b3084ccd1d0270d77b2365da9f407485dd7df4b"
+          },
+          "component::impl&%11::eq_spec": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%14::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::TAG_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::item_word_wf": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "086dea3820d39584276d933d75bce525e040e54908059597b6a5449623bd4341"
+          },
+          "component::impl&%19::value": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%19::new": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%19::get": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::word": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::tag": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::roundtrip": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::compare_equal": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::lookup": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::boundaries": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::eq_value_compatibility": {
+            "body_present": false,
+            "mode": "Proof",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::BorTag::ctor%": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::Item::ctor%": {
+            "entire_function_absent_after_pruning": true
+          }
+        },
+        "imported_inference_dependencies": [
+          {
+            "crate_id": 1738001946752045801,
+            "fingerprint": "ae279ed3f14dbdc479f822bcd83cff150ab35a25b861a68bf70ad6507b1718d3"
+          }
+        ]
+      }
+    },
+    "false-final": {
+      "label": "false-final",
+      "path": "/tmp/tag-observation-false-final-qdegzhtr",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "91102b2d679d0332f1a315e5c00d8a789e25c67b76e64195b5552fb39de7b904",
+      "classification": "healthy_false_returned_relation_control",
+      "identity_replayed": true,
+      "source_sha256": "9f93d709ae03b7a58ee065a122bba72efb9b221ea847e577560cfd52c0d67f49",
+      "source_identity": {
+        "source_sha256": "9f93d709ae03b7a58ee065a122bba72efb9b221ea847e577560cfd52c0d67f49",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 1,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "4b4fe16bc1a6b99cce4d092be1977a47261696af9af8cedba34a742ca1c4fa10",
+      "stdout_sha256": "2142b182cca12103e4003350e84e4621f470414836f68d37de80af40f4b153da",
+      "stderr_sha256": "80f4641828325e54aba72e7bac79178349031c9cfe12d626c8e64cf1845926f0",
+      "product_count": 25,
+      "inventory": {
+        "ordinary_original_functions": {
+          "client::read": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "2e5af29017ed8bfb5bbef22d07d6ab93d389f218ee030bc64c6b6d540d052fb1",
+            "normalized_body_sha256": "a0d3f95091989232b90006b1c6dbfcb0f1741d6a7cfce5ae8665b65b00579dcc"
+          },
+          "client::equal": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "53650acc53d6a11c145754405919f163266a2b7cc8016864b5dd7ee67c90f812",
+            "normalized_body_sha256": "59b6edcdb39dce3b5112bb0d8e5777cd948368f93e3cede1b270a1c8273d43db"
+          }
+        },
+        "local_function_details": {
+          "client::equal": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "client::read": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "_::__VERUS_REVEAL_INTERNAL__",
+              "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+              "source": "/tmp/tag-observation-false-final-qdegzhtr/client.rs:4:1: 4:49",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "client::equal",
+              "rust_function": "equal",
+              "source": "/tmp/tag-observation-false-final-qdegzhtr/client.rs:8:1: 8:65",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "client::read",
+              "rust_function": "read",
+              "source": "/tmp/tag-observation-false-final-qdegzhtr/client.rs:5:1: 5:39",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [],
+        "inference_interface_written": false,
+        "failed_functions": [
+          "client::equal"
+        ],
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "all_imported_provider_symbols": {
+          "component::impl&%2::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%5::eq": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "4a9534d23ba5b134975fd1c34b3084ccd1d0270d77b2365da9f407485dd7df4b"
+          },
+          "component::impl&%11::eq_spec": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%14::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::TAG_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::item_word_wf": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "086dea3820d39584276d933d75bce525e040e54908059597b6a5449623bd4341"
+          },
+          "component::impl&%19::value": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%19::new": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%19::get": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::word": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::tag": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::roundtrip": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::compare_equal": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::lookup": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::boundaries": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::eq_value_compatibility": {
+            "body_present": false,
+            "mode": "Proof",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::BorTag::ctor%": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::Item::ctor%": {
+            "entire_function_absent_after_pruning": true
+          }
+        },
+        "imported_inference_dependencies": [
+          {
+            "crate_id": 1738001946752045801,
+            "fingerprint": "ae279ed3f14dbdc479f822bcd83cff150ab35a25b861a68bf70ad6507b1718d3"
+          }
+        ]
+      }
+    },
+    "boundaries-final": {
+      "label": "boundaries-final",
+      "path": "/tmp/tag-observation-boundaries-final-9t53joy0",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "7aa4778ae96c30afae18d5ff0ddb8c0af5a0b4de51ec49957400d48b5b0220fd",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": true,
+      "source_sha256": "5b9505339a76f72af5d4baed1c186b834168a9b6e84dc1574cf1354d8780e466",
+      "source_identity": {
+        "source_sha256": "5b9505339a76f72af5d4baed1c186b834168a9b6e84dc1574cf1354d8780e466",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "abf91fae8392d1b9c2f8e18ae25f9ccb0faacfee128f863de2259907e5ac320d",
+      "stdout_sha256": "d34309bcd17484c875488279ef008c6e19a833a6417685b8699b93b8bba7d507",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 25,
+      "inventory": {
+        "ordinary_original_functions": {
+          "client::max": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "32e30c2960b02dbede97e70c03d8816d5dd6de7c3dd3ff4188965b46c44e52da",
+            "normalized_body_sha256": "8d8de0a6e735eccca35a970065c0c43d77aa51672899302666e8ee27065ead8e"
+          },
+          "client::highbit": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "b044af4baa1032b4d81c3c18ead2df2b585b1c11c4d512e2626994e342b7acda",
+            "normalized_body_sha256": "0b9a35673c2c7606f4780404dff834eeefc32796fee42925125612ff8f3eab1d"
+          },
+          "client::zero": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "dadf8e73b4fc3b47cf563edf193bce8280d7370913ae0f4360915905b7b66015",
+            "normalized_body_sha256": "04140717afea9f86b1de58adfb01c34c508b0656da543cb0e42ae9ad1ac66ef1"
+          }
+        },
+        "local_function_details": {
+          "client::highbit": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "client::max": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "client::zero": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": true,
+          "checked_exec_bodies": 3,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "client::highbit",
+              "rust_function": "highbit",
+              "source": "/tmp/tag-observation-boundaries-final-9t53joy0/client.rs:6:1: 6:25",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "client::max",
+              "rust_function": "max",
+              "source": "/tmp/tag-observation-boundaries-final-9t53joy0/client.rs:4:1: 4:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "client::zero",
+              "rust_function": "zero",
+              "source": "/tmp/tag-observation-boundaries-final-9t53joy0/client.rs:8:1: 8:23",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [],
+        "inference_interface_written": false,
+        "failed_functions": [],
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 3,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "all_imported_provider_symbols": {
+          "component::impl&%2::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%5::eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::eq_spec": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%14::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::TAG_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::item_word_wf": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%19::value": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%19::new": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%19::get": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::word": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%20::tag": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::roundtrip": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::compare_equal": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::lookup": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::boundaries": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::eq_value_compatibility": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::BorTag::ctor%": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::Item::ctor%": {
+            "entire_function_absent_after_pruning": true
+          }
+        },
+        "imported_inference_dependencies": [
+          {
+            "crate_id": 1738001946752045801,
+            "fingerprint": "ae279ed3f14dbdc479f822bcd83cff150ab35a25b861a68bf70ad6507b1718d3"
+          }
+        ]
+      }
+    },
+    "no-broadcast-final": {
+      "label": "no-broadcast-final",
+      "path": "/tmp/tag-observation-no-broadcast-final-sgoonddi",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "59a06685a42d0855e5a6a2af61702a4d97d0829f1f82a9476a2bf4089307243a",
+      "classification": "opaque_trait_observation_composition_gap",
+      "identity_replayed": true,
+      "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+      "source_identity": {
+        "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "a012cf1f64e3e62748186d814faf0d07d5ee6a4f57bf2c8c42287afb6cfd0356",
+      "stdout_sha256": "8fa33de02bf28d1b822579206c8c99766fa5bd728bb892361d1173941c114f1a",
+      "stderr_sha256": "09767ee11a0596371e5564d1d02f99a02a4dbf7304e991b9c992e0250a7c7a10",
+      "product_count": 25,
+      "inventory": {
+        "ordinary_original_functions": {
+          "client::read": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "b6ec1773de5870f308c121ec1fecec3bbaec6f4c32903b4d73f62828f1356663",
+            "normalized_body_sha256": "9bb61237544f692fcd3d276ee90eabe2908f8db2f447ee5e42dd0add601c5c94"
+          },
+          "client::equal": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "e946b17be7da434c4d71449ae054715bfe3459aaa919c79d4dec540547756f0a",
+            "normalized_body_sha256": "36d377c43353154368e188f6850cc551590cb7cd1eee6d9cf5687a098e4600c6"
+          }
+        },
+        "local_function_details": {
+          "client::equal": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "client::read": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "client::equal",
+              "rust_function": "equal",
+              "source": "/tmp/tag-observation-no-broadcast-final-sgoonddi/client.rs:7:1: 7:65",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "client::read",
+              "rust_function": "read",
+              "source": "/tmp/tag-observation-no-broadcast-final-sgoonddi/client.rs:4:1: 4:39",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [],
+        "inference_interface_written": false,
+        "failed_functions": [
+          "client::equal"
+        ],
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "all_imported_provider_symbols": {
+          "component::impl&%2::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%5::eq": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "4a9534d23ba5b134975fd1c34b3084ccd1d0270d77b2365da9f407485dd7df4b"
+          },
+          "component::impl&%11::eq_spec": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%14::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::TAG_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::item_word_wf": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "086dea3820d39584276d933d75bce525e040e54908059597b6a5449623bd4341"
+          },
+          "component::impl&%19::value": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%19::new": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%19::get": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::word": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::tag": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::roundtrip": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::compare_equal": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::lookup": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::boundaries": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::eq_value_compatibility": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::BorTag::ctor%": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::Item::ctor%": {
+            "entire_function_absent_after_pruning": true
+          }
+        },
+        "imported_inference_dependencies": [
+          {
+            "crate_id": 1738001946752045801,
+            "fingerprint": "ae279ed3f14dbdc479f822bcd83cff150ab35a25b861a68bf70ad6507b1718d3"
+          }
+        ]
+      }
+    },
+    "lookup-final": {
+      "label": "lookup-final",
+      "path": "/tmp/tag-observation-lookup-final-gbdl27u9",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "3bccaba92ca79942caa8f4e5647fd4466df056f962349e2ef43e09066f1960a3",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": true,
+      "source_sha256": "329efd66a477eca8585453936f02d205667411719774e6e6d790635c23897ddc",
+      "source_identity": {
+        "source_sha256": "329efd66a477eca8585453936f02d205667411719774e6e6d790635c23897ddc",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "86677b6f8aa5aa7f292c1a11f96c15ff1f1d4bc7e1c7bad48f39c8d273815d1d",
+      "stdout_sha256": "6c62438ea2d8b2b20e4029455938979bf629282a4d924bacdb8a6f668e697acc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 25,
+      "inventory": {
+        "ordinary_original_functions": {
+          "client::read": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "e3ee359366eda72afe82abd064f3d606e1cbff4ba6796e13451ab2f4fbccf042",
+            "normalized_body_sha256": "9bb61237544f692fcd3d276ee90eabe2908f8db2f447ee5e42dd0add601c5c94"
+          }
+        },
+        "local_function_details": {
+          "client::read": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": true,
+          "checked_exec_bodies": 1,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "client::read",
+              "rust_function": "read",
+              "source": "/tmp/tag-observation-lookup-final-gbdl27u9/client.rs:4:1: 4:39",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "checked_exec_body",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [],
+        "inference_interface_written": false,
+        "failed_functions": [],
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 1,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "all_imported_provider_symbols": {
+          "component::impl&%2::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%5::eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%11::eq_spec": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%14::clone": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::TAG_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_MASK": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PERM_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::PROTECTED_SHIFT": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::item_word_wf": {
+            "body_present": true,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to None))",
+            "body_sha256": "086dea3820d39584276d933d75bce525e040e54908059597b6a5449623bd4341"
+          },
+          "component::impl&%19::value": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%19::new": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::impl&%19::get": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::word": {
+            "body_present": false,
+            "mode": "Spec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::impl&%20::tag": {
+            "body_present": false,
+            "mode": "Exec",
+            "body_visibility": "(BodyVisibility Visibility (Visibility :restricted_to component::))",
+            "body_sha256": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+          },
+          "component::roundtrip": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::compare_equal": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::lookup": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::boundaries": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::eq_value_compatibility": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::BorTag::ctor%": {
+            "entire_function_absent_after_pruning": true
+          },
+          "component::Item::ctor%": {
+            "entire_function_absent_after_pruning": true
+          }
+        },
+        "imported_inference_dependencies": [
+          {
+            "crate_id": 1738001946752045801,
+            "fingerprint": "ae279ed3f14dbdc479f822bcd83cff150ab35a25b861a68bf70ad6507b1718d3"
+          }
+        ]
+      }
+    },
+    "zero-final": {
+      "label": "zero-final",
+      "path": "/tmp/tag-observation-zero-final-5btawt11",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "604b35377f5b16a6bc722246391c527a4793c77b7952d9a88b15c3875f11b65c",
+      "classification": "invalid_model_rejected_by_original_new_get_and_comparison_contracts",
+      "identity_replayed": true,
+      "source_sha256": "e7c4e464ae0a2af102ead58403defa4b1f27d05a20cf443f9105edacf7c7b50f",
+      "source_identity": {
+        "source_sha256": "e7c4e464ae0a2af102ead58403defa4b1f27d05a20cf443f9105edacf7c7b50f",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "440a36b49b4b383cb5e645aeecad626bf90ee2e391425000b5bb4c66a5bf2377",
+      "stdout_sha256": "ac42d354cfae578a1218f5aaa0ffb34b370cab66e6e57fbd5773385a921de6f5",
+      "stderr_sha256": "83f2230eb068c2aed395463ad4c9eb63f220940b43e0134615fcf64d81ffe7c4",
+      "product_count": 32,
+      "inventory": {
+        "ordinary_original_functions": {
+          "component::impl&%2::clone": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "c753d1758e7425ea41a2a7f3fa131783a0f335f3d95b878881e87f976b54f11c",
+            "normalized_body_sha256": "b6888d224510bb820575e75914ec908317a449a701c5a449d667dac9a5e3e6ab"
+          },
+          "component::impl&%5::eq": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "006447bf745d753a4901e948a4f7c91f064c3f61376617532665cabdc18e96e6",
+            "normalized_body_sha256": "4428940232ebe2693e4057548c2febf8d25059803c84d278b5cd0eda94bb263b"
+          },
+          "component::impl&%9::__verus_infer_nonzero_u64_view": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "0d4f8f6bebe3bda61f58f03aecc199e9b1c0881d057d2e48e46a0125647831ce",
+            "normalized_body_sha256": "aa245b3f1d5039deb9e3a072496d9a34ba6c6341459120bd59128f78ed3726d8"
+          },
+          "component::impl&%10::__verus_infer_derived_eq": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "4bc8aa1c1e308048b835ff852ee5d280ee8c37b24e2c923db251f4338cab1228",
+            "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+          },
+          "component::impl&%11::obeys_eq_spec": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "4bc8aa1c1e308048b835ff852ee5d280ee8c37b24e2c923db251f4338cab1228",
+            "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+          },
+          "component::impl&%11::eq_spec": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "261934fba0a5d5f7f40aee548c414673d14ce326c2afdbcd0da156e33328228f",
+            "normalized_body_sha256": "658dec9d0d70db3d0c78762ef26f4617bb4266f1656fda7822fde3b728314328"
+          },
+          "component::impl&%14::clone": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "477ad9f736b172d3bd2b8dc87bd7f5f29404265e671ba0006909d7ff903e5cac",
+            "normalized_body_sha256": "8e178bec12fd9844dfb6a71c0deca48654556371e66ff29bf277073f68d5e8df"
+          },
+          "component::TAG_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "2f6f290fac7fb08f5eab22c9d06c7a6c8e095c84a53bb94cf3791a0d69cdbf90",
+            "normalized_body_sha256": "b69ae2c8f843990f56e9fdc01637175c3f2f64e01049962baa9e3dbea652ed31"
+          },
+          "component::PERM_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "6bb8a9f55b95822bb68a91585d0182abeaf4b9744bdde9a2448073b0ac2eb68e",
+            "normalized_body_sha256": "f8b7134966663cd3de425d0e1055b3891461cbac17de477ee4913d70df98c6f3"
+          },
+          "component::PROTECTED_MASK": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "a1354107bb46d96b905790e83044620d8a7bd75c80a9a6327a4352107bd611f1",
+            "normalized_body_sha256": "738ae0af3b222b756841010b9a3de0e667aeb0b1e22871d256c2dbb5ee4c9f38"
+          },
+          "component::PERM_SHIFT": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "a729f5e6e091f63c28a7953581084a37d7621c404c4ed6d216eec53492898e33",
+            "normalized_body_sha256": "70606a7a143e3bc357eec8000291811f1a16cd18d980c63a18f6c579c7e29153"
+          },
+          "component::PROTECTED_SHIFT": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "eecc01947e6e5dfae473060672cd829fdf4379f5f9a6b3f0239614127b5b7f31",
+            "normalized_body_sha256": "2632f7c6b8ca2007ae5d0f21768bdde7c4565bdcd069e3d531bbf15ae1d69c09"
+          },
+          "component::item_word_wf": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "4b4bea2dbe0ec9d2ee689527dbd67d713ffb11d5095d740ffa1cadece869f6c6",
+            "normalized_body_sha256": "8ea167746cfa855f4a1fa9cea6ad7a8bf4f948a5c7787f14952858db52d8d9eb"
+          },
+          "component::impl&%19::value": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "e5929c5210df808cc961ce8bfaa909f71245656e121da6adc8924543300dc05c",
+            "normalized_body_sha256": "d345a99563ad78d4803d041042397e7d8c24cf7f18ad0d420febcf7b56a14fad"
+          },
+          "component::impl&%19::new": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "7aa48e4cd86bc129b41b7d9bed32f22e097bd2b0de43d32c11583a2f78c26a7c",
+            "normalized_body_sha256": "1a2465edf392d5a049ec1ba5df71c3bffceea264ef9543c9df76e7975dc9f309"
+          },
+          "component::impl&%19::get": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "2634c0b32316522dc88fa2057f012962863c8e7bd526c0128bd325fe1d3ca8b0",
+            "normalized_body_sha256": "3e343bed79bb025f02ea917f051a2902a2567669ee82ed5116b640751b65ab67"
+          },
+          "component::impl&%20::word": {
+            "mode": "Spec",
+            "body_present": true,
+            "body_sha256": "cc181f45c5035f395bc285a048ac3d8d2345c0abc59baea3c23db26b71d9ee57",
+            "normalized_body_sha256": "b807937a41e88f74f5c55251ddd0fcefe2fefacfd40bc9caa49d752ca8e88525"
+          },
+          "component::impl&%20::tag": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "fc5ebb940319ec13e5a5d0705cebff4ffbe0928bd35c52a42cc3ac1d1478e83f",
+            "normalized_body_sha256": "cd8a83ca58a57f973232f11829ab079ddc0ad4cd03a8ab4a549bb141336952cf"
+          },
+          "component::roundtrip": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "1c9cbf3af19a0dcb9efb36a975aa44bde991c5b702ff114f6e26db91ed893a24",
+            "normalized_body_sha256": "fe3e58b554d233f329caf62c1a0956af20fa8b14543d6f1709e6118477389252"
+          },
+          "component::compare_equal": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "b8f5d6ad43e0d16b6ada96160c7eaeeff67d65fe1cc384a2220a20db3001d6e5",
+            "normalized_body_sha256": "df8c67abadcbeb4eef1c68972e0e6d9c6c575da9dcf4c8d57fcce152a362ea51"
+          },
+          "component::lookup": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "b11e5aa3111ce482b74627b9154f4e48b83f657e78f80a487ef23419d686a0aa",
+            "normalized_body_sha256": "1a9294a5364b7608474227400b70beb1fe972ecac3203c9a3b7b3ae0d218f813"
+          },
+          "component::boundaries": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "8a00ff0ed5c6411d9706d072f56d6c405b113df44950a69caa735dd23b253007",
+            "normalized_body_sha256": "1ded263b9c4dd079c573a3c1f79f60826f7f8362c577e59fee0a3bcb5186d14b"
+          },
+          "component::BorTag::ctor%": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "1d319fb22cd8964ed42077be58faac7a1a745527868d5dd445158750024ac411",
+            "normalized_body_sha256": "939a106600f9681e8771046e792522d67732e616588f19361396e94f472beda3"
+          },
+          "component::Item::ctor%": {
+            "mode": "Exec",
+            "body_present": true,
+            "body_sha256": "950d7a2484d79b9a5c28c8a18310d24492a4ba10569405f07bab9622c765bb88",
+            "normalized_body_sha256": "3e3234b8552a502c65bf0b9615abb47ac66368f331a84e8939b07d76744a3ff2"
+          }
+        },
+        "local_function_details": {
+          "component::BorTag::new": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::__verus_infer_nonzero_u64_view": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::roundtrip": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PROTECTED_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::lookup": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::clone": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::clone": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::ctor%": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::ctor%": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::item_word_wf": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::word": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::eq": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::obeys_eq_spec": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::boundaries": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::value": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::eq_spec": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PERM_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::compare_equal": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::TAG_MASK": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::get": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::Item::tag": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PROTECTED_SHIFT": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::BorTag::__verus_infer_derived_eq": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          },
+          "component::PERM_SHIFT": {
+            "obligation_proof_notes": [],
+            "failed_proof_notes": []
+          }
+        },
+        "native_scope": {
+          "coverage": "selected local Verus items; not all Rust code",
+          "native_collection_completed": true,
+          "complete_selected_scope_verified": false,
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0,
+          "native_functions": [
+            {
+              "function": "component::BorTag::clone",
+              "rust_function": "<BorTag as std::clone::Clone>::clone",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:16: 4:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:40: 4:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::cmp::Ord>::cmp",
+              "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:56: 4:59",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::eq",
+              "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:29: 4:38",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": true,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+              "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:44: 4:54",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<BorTag as std::hash::Hash>::hash",
+              "rust_function": "<BorTag as std::hash::Hash>::hash",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:23: 4:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::eq_spec",
+              "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::obeys_eq_spec",
+              "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::Item::clone",
+              "rust_function": "<Item as std::clone::Clone>::clone",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:7:16: 7:21",
+              "automatically_derived": true,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+              "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:7:40: 7:42",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<Item as std::cmp::PartialEq>::eq",
+              "rust_function": "<Item as std::cmp::PartialEq>::eq",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:7:29: 7:38",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "<Item as std::hash::Hash>::hash",
+              "rust_function": "<Item as std::hash::Hash>::hash",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:7:23: 7:27",
+              "automatically_derived": true,
+              "selected": false,
+              "body_status": "outside_selected_scope",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::__verus_infer_derived_eq",
+              "rust_function": "BorTag::__verus_infer_derived_eq",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+              "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:3:1: 3:41",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::BorTag::get",
+              "rust_function": "BorTag::get",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:20:1: 20:26",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::BorTag::new",
+              "rust_function": "BorTag::new",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:17:1: 17:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::BorTag::value",
+              "rust_function": "BorTag::value",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:16:1: 16:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::Item::tag",
+              "rust_function": "Item::tag",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:26:1: 26:28",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::Item::word",
+              "rust_function": "Item::word",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:25:1: 25:35",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:10:1: 10:21",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+              "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:12:1: 12:22",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:11:1: 11:26",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+              "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:13:1: 13:27",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+              "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:9:1: 9:20",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_item_without_translated_body",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::boundaries",
+              "rust_function": "boundaries",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:36:1: 36:33",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::compare_equal",
+              "rust_function": "compare_equal",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:32:1: 32:51",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::item_word_wf",
+              "rust_function": "item_word_wf",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:14:1: 14:43",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "specification_definition_or_declaration",
+              "inference_candidate": false,
+              "ordinary_contract": false
+            },
+            {
+              "function": "component::lookup",
+              "rust_function": "lookup",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:34:1: 34:29",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            },
+            {
+              "function": "component::roundtrip",
+              "rust_function": "roundtrip",
+              "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:30:1: 30:32",
+              "automatically_derived": false,
+              "selected": true,
+              "body_status": "selected_body_not_certified_by_successful_full_run",
+              "inference_candidate": false,
+              "ordinary_contract": true
+            }
+          ],
+          "limitations": [
+            "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+            "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+            "A checked body is not a claim that unverified callers satisfy its preconditions.",
+            "This report does not certify a requested application property or replace an authored scope/trust inventory."
+          ]
+        },
+        "helpers": [
+          {
+            "function": "component::BorTag::eq",
+            "source": "/tmp/tag-observation-zero-final-5btawt11/component.rs:4:29: 4:38 (#18)",
+            "candidate_id": "b13f04b8049359cdfbd682df9eddbb0668310aa91b0e64d8331d563c06975f78",
+            "mode": "exact",
+            "summary_kind": "value",
+            "parameters": [
+              {
+                "name": "self",
+                "type": "&component::BorTag"
+              },
+              {
+                "name": "other",
+                "type": "&component::BorTag"
+              }
+            ],
+            "result_type": "bool",
+            "contract": {
+              "requires": "true",
+              "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))"
+            },
+            "loop_proofs": [],
+            "proofs": {
+              "soundness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "maximality": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              },
+              "exactness": {
+                "status": "proved",
+                "required": true,
+                "reason": null
+              }
+            },
+            "required_checks_passed": true,
+            "available_to_same_crate_callers": true,
+            "exported": false,
+            "dependencies": [],
+            "metrics": {
+              "cache": "miss",
+              "cache_policy": "candidate_cache",
+              "generation_micros": 523,
+              "solver_micros": 2785,
+              "requires_nodes": 1,
+              "ensures_nodes": 7
+            }
+          }
+        ],
+        "inference_interface_written": false,
+        "failed_functions": [
+          "component::BorTag::get",
+          "component::BorTag::new",
+          "component::compare_equal"
+        ],
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 16,
+          "errors": 3,
+          "is-verifying-entire-crate": true
+        }
+      }
+    }
+  },
+  "attempt_ledger": [
+    {
+      "label": "alias-probe",
+      "path": "/tmp/tag-observation-alias-probe-0q6yt4v3",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "de7973876a0fb5bb4871461334e6a88f1e6c64e9cf6c596115f439da3875c7e0",
+      "classification": "ordinary_component_positive",
+      "identity_replayed": false,
+      "source_sha256": "cd55798ddcc15eabb6ce3381a726cda2d9251a6cd90bb72cf3f51f40831fef8c",
+      "source_identity": {
+        "source_sha256": "cd55798ddcc15eabb6ce3381a726cda2d9251a6cd90bb72cf3f51f40831fef8c",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "c84ca403e6f0347200094a8bf8f376d20fbffef9d184a9104e8c389ceaf8c2c0",
+      "stdout_sha256": "474562e517820c769e031c1dbb32a00146bbce0d409c4d52c367ea2f171fc3e7",
+      "stderr_sha256": "084a4e50e096e95ff98899ef1a68d711839f50e7945805beec4cd3901a8477d2",
+      "product_count": 33
+    },
+    {
+      "label": "alias-import-probe",
+      "path": "/tmp/tag-observation-alias-import-probe-p29y290z",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "2aed9158fd3e23f24dd09f16ca5b3c9cc03a255cec67a2859825c96baec73e5b",
+      "classification": "opaque_trait_observation_composition_gap",
+      "identity_replayed": false,
+      "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+      "source_identity": {
+        "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "a916a88c69188f2cec29c8d730afb8ba631bfaa76ea14d23f9f955fe32715889",
+      "stdout_sha256": "76da9d6e41bdf8c9debb624e130613b3dcc2481a875fdca2d347c90f536179b2",
+      "stderr_sha256": "b156ecf04fc490db05d836baf591feda6c81f266d14c88df976324e82925931e",
+      "product_count": 24
+    },
+    {
+      "label": "compat-probe",
+      "path": "/tmp/tag-observation-compat-probe-l4jqvjmh",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "4a0021bb937caadeb4617759f64ca6f08d02d78e9794f8abd5f08423119afbaf",
+      "classification": "ordinary_component_positive",
+      "identity_replayed": false,
+      "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+      "source_identity": {
+        "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 1,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "60e4c0afc729b6ad76b5dd16294294d76345174629d5acce846c0f8b2805f614",
+      "stdout_sha256": "6a878ab6f5e3deddefdf67e5da4a49d2ad39ff7c55fcd406130a9b71cb8b1c11",
+      "stderr_sha256": "3e579603dd1cc4d1aa28cd397b04666c02fc3145cb240abaa08343ae7ab00405",
+      "product_count": 33
+    },
+    {
+      "label": "compat-import-probe",
+      "path": "/tmp/tag-observation-compat-import-probe-x3m5gp8x",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "740757e88e6252ee9f707b58e19677fbf6fa0fe61694380a1ee929801d5f0f08",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": false,
+      "source_sha256": "d740b75021d08a9a5f29988db28119cb190c245ce7ddf0e330e4bf5b228c7865",
+      "source_identity": {
+        "source_sha256": "d740b75021d08a9a5f29988db28119cb190c245ce7ddf0e330e4bf5b228c7865",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 1,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "8185da5e69fe31a9bb1f52f48f00d0ccb8751c8a615561cbf73624709e3a2da1",
+      "stdout_sha256": "31252221b1e42e113296507c6cab1a173cd58cea04e7f0236592bd3c4d5654b4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 24
+    },
+    {
+      "label": "zero-probe",
+      "path": "/tmp/tag-observation-zero-probe-11lqi9_l",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "ae0f61e67f8e15ddc8a8cfa4f50a3058bb2e0734ceb9141b6db133f3fff9b7de",
+      "classification": "invalid_model_rejected_by_original_new_get_and_comparison_contracts",
+      "identity_replayed": false,
+      "source_sha256": "e7c4e464ae0a2af102ead58403defa4b1f27d05a20cf443f9105edacf7c7b50f",
+      "source_identity": {
+        "source_sha256": "e7c4e464ae0a2af102ead58403defa4b1f27d05a20cf443f9105edacf7c7b50f",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "cde0206cd7ea3c8071a233c810782c776c604b0917a6e7afd50b074dd0e92569",
+      "stdout_sha256": "130d1665835cd8c4adf676afafe8d7912a4a8b7c1e60165f789e42ef7400f3d8",
+      "stderr_sha256": "6b1d63b621f072cab3621685ebe703d27c22243fc2198af6968b2e2b1044d7ed",
+      "product_count": 31
+    },
+    {
+      "label": "false-probe",
+      "path": "/tmp/tag-observation-false-probe-4i5t27l0",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "ed1c5d04648b8e6f77e58038a76538330cac682d84b9d22d3ac13503f9b75dfa",
+      "classification": "healthy_false_returned_relation_control",
+      "identity_replayed": false,
+      "source_sha256": "9f93d709ae03b7a58ee065a122bba72efb9b221ea847e577560cfd52c0d67f49",
+      "source_identity": {
+        "source_sha256": "9f93d709ae03b7a58ee065a122bba72efb9b221ea847e577560cfd52c0d67f49",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 1,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "001544cf4d8877744a8ec1c8536bedd71228205710c60b95b6bc31cb2418c241",
+      "stdout_sha256": "9a0fe3e7ce970fd0980b3acbfffd84dcb43d309b168b1530f3dc6120c341f287",
+      "stderr_sha256": "426cc6984c5bfe392532ee47b860b031e7ec8dfa1b468096b4a681ee60f3b4c7",
+      "product_count": 24
+    },
+    {
+      "label": "boundaries-probe",
+      "path": "/tmp/tag-observation-boundaries-probe-uby_eooq",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "42b3094dc27bf5a1481a9b8cc66c92142f8c15643c4fa46c0374442890a4d717",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": false,
+      "source_sha256": "5b9505339a76f72af5d4baed1c186b834168a9b6e84dc1574cf1354d8780e466",
+      "source_identity": {
+        "source_sha256": "5b9505339a76f72af5d4baed1c186b834168a9b6e84dc1574cf1354d8780e466",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "6c724924442fa43171e00ece89c93091919ce251a35281c693550fef227a4859",
+      "stdout_sha256": "8ed2526abf9337670cd9295d7b2e018f37d5a199280e81f4623e2aa251c84d10",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 24
+    },
+    {
+      "label": "no-broadcast-probe",
+      "path": "/tmp/tag-observation-no-broadcast-probe-semaxh5q",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "a329bc5b7d5dcc93c6d465e4672aa09956a0c94aa8f13bd14833b7608336b1ce",
+      "classification": "opaque_trait_observation_composition_gap",
+      "identity_replayed": false,
+      "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+      "source_identity": {
+        "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "c8ffa5db4780f645383cc00dba02c4f415c18c6c90c1d98177d05e4061846654",
+      "stdout_sha256": "7055ae7a24e73729836c74db0346f96626b78d3f3d9777036ce82dc02d0195ca",
+      "stderr_sha256": "4900c5f9d06ee98a6219b9e695b4b4accf9c89b3542bd52d4f03773fe2741faf",
+      "product_count": 24
+    },
+    {
+      "label": "lookup-probe",
+      "path": "/tmp/tag-observation-lookup-probe-jvydavpy",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "6da5dc0371f35b63d6a16019a9842efe32caaa5236ccfef817bc01003322f942",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": false,
+      "source_sha256": "329efd66a477eca8585453936f02d205667411719774e6e6d790635c23897ddc",
+      "source_identity": {
+        "source_sha256": "329efd66a477eca8585453936f02d205667411719774e6e6d790635c23897ddc",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "f18b0c69609f4dea6c865b8147677e69afb0e93ad66ea816ece477313bc74111",
+      "stdout_sha256": "20c0c61ef7d3c2759345bb1f1aa494b684b3751ab16cbee35e5133444d77ec07",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 24
+    },
+    {
+      "label": "provider-final",
+      "path": "/tmp/tag-observation-provider-final-5e1vrzuh",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "2163b8d714b8c9d8d260352ffd377270114fcec4652e7853cd42533303583694",
+      "classification": "ordinary_component_positive",
+      "identity_replayed": true,
+      "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+      "source_identity": {
+        "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 1,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "92ed58fb9b0ee783ef2e4d79cb299557662d8164bf236a6de9e7f8fd36624484",
+      "stdout_sha256": "f2418bad8469b0a58b575786a826dc27bbc01a200ca5a2a3c83825a34518e502",
+      "stderr_sha256": "8d7cfbc68dea65c23cbc683ee0f385359bc47161aba42742b4a27c8385fe4e98",
+      "product_count": 34
+    },
+    {
+      "label": "provider-off-final",
+      "path": "/tmp/tag-observation-provider-off-final-026bi2bu",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "5f9c29a3f891d48b3b2c4dbcfbd5e6c8bdc4bf76a005977196f1cf804c7b210b",
+      "classification": "ordinary_component_positive",
+      "identity_replayed": true,
+      "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+      "source_identity": {
+        "source_sha256": "77117b24aad1221f9a8bff3b0d1e93347f3e9c1402dcf98801c92a914f96aacc",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 1,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "1bceb8eeb5561d01797fede8ba0b8974eab7f3261e8c20033df3da7a6da2c0e2",
+      "stdout_sha256": "26284018e73862cb5ef68720f26173d1603f80ed97b920f9d954c9a9617092f3",
+      "stderr_sha256": "bb2fe14e0217b44322e90b1a57b7a3f5edb13bacc94e596c1f1cd8297b37bd96",
+      "product_count": 34
+    },
+    {
+      "label": "client-final",
+      "path": "/tmp/tag-observation-client-final-f9h950af",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "f683162549cf93775a0aa079bc71bcb472dc7dfeab2a5067f054d391c022aa3e",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": true,
+      "source_sha256": "d740b75021d08a9a5f29988db28119cb190c245ce7ddf0e330e4bf5b228c7865",
+      "source_identity": {
+        "source_sha256": "d740b75021d08a9a5f29988db28119cb190c245ce7ddf0e330e4bf5b228c7865",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 1,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "1dacccad204822894855c5b759a91dbf127f48e4edf3ed6bc39ca530db4ac2d2",
+      "stdout_sha256": "2331dfa0e3331ddecc57f74e1c54480a026eebf954d764bc318378b338467b79",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 25
+    },
+    {
+      "label": "false-final",
+      "path": "/tmp/tag-observation-false-final-qdegzhtr",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "91102b2d679d0332f1a315e5c00d8a789e25c67b76e64195b5552fb39de7b904",
+      "classification": "healthy_false_returned_relation_control",
+      "identity_replayed": true,
+      "source_sha256": "9f93d709ae03b7a58ee065a122bba72efb9b221ea847e577560cfd52c0d67f49",
+      "source_identity": {
+        "source_sha256": "9f93d709ae03b7a58ee065a122bba72efb9b221ea847e577560cfd52c0d67f49",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 1,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "4b4fe16bc1a6b99cce4d092be1977a47261696af9af8cedba34a742ca1c4fa10",
+      "stdout_sha256": "2142b182cca12103e4003350e84e4621f470414836f68d37de80af40f4b153da",
+      "stderr_sha256": "80f4641828325e54aba72e7bac79178349031c9cfe12d626c8e64cf1845926f0",
+      "product_count": 25
+    },
+    {
+      "label": "boundaries-final",
+      "path": "/tmp/tag-observation-boundaries-final-9t53joy0",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "7aa4778ae96c30afae18d5ff0ddb8c0af5a0b4de51ec49957400d48b5b0220fd",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": true,
+      "source_sha256": "5b9505339a76f72af5d4baed1c186b834168a9b6e84dc1574cf1354d8780e466",
+      "source_identity": {
+        "source_sha256": "5b9505339a76f72af5d4baed1c186b834168a9b6e84dc1574cf1354d8780e466",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "abf91fae8392d1b9c2f8e18ae25f9ccb0faacfee128f863de2259907e5ac320d",
+      "stdout_sha256": "d34309bcd17484c875488279ef008c6e19a833a6417685b8699b93b8bba7d507",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 25
+    },
+    {
+      "label": "no-broadcast-final",
+      "path": "/tmp/tag-observation-no-broadcast-final-sgoonddi",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "59a06685a42d0855e5a6a2af61702a4d97d0829f1f82a9476a2bf4089307243a",
+      "classification": "opaque_trait_observation_composition_gap",
+      "identity_replayed": true,
+      "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+      "source_identity": {
+        "source_sha256": "1b8cdcbab4a22ad98459e402f9b58f09a51552b185ecbd58ca6ef75501f03c7d",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "a012cf1f64e3e62748186d814faf0d07d5ee6a4f57bf2c8c42287afb6cfd0356",
+      "stdout_sha256": "8fa33de02bf28d1b822579206c8c99766fa5bd728bb892361d1173941c114f1a",
+      "stderr_sha256": "09767ee11a0596371e5564d1d02f99a02a4dbf7304e991b9c992e0250a7c7a10",
+      "product_count": 25
+    },
+    {
+      "label": "lookup-final",
+      "path": "/tmp/tag-observation-lookup-final-gbdl27u9",
+      "exit": 0,
+      "guards": true,
+      "receipt_sha256": "3bccaba92ca79942caa8f4e5647fd4466df056f962349e2ef43e09066f1960a3",
+      "classification": "ordinary_import_positive",
+      "identity_replayed": true,
+      "source_sha256": "329efd66a477eca8585453936f02d205667411719774e6e6d790635c23897ddc",
+      "source_identity": {
+        "source_sha256": "329efd66a477eca8585453936f02d205667411719774e6e6d790635c23897ddc",
+        "fidelity": {},
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": false,
+        "executable_body_tokens": {}
+      },
+      "freeze_sha256": "86677b6f8aa5aa7f292c1a11f96c15ff1f1d4bc7e1c7bad48f39c8d273815d1d",
+      "stdout_sha256": "6c62438ea2d8b2b20e4029455938979bf629282a4d924bacdb8a6f668e697acc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "product_count": 25
+    },
+    {
+      "label": "zero-final",
+      "path": "/tmp/tag-observation-zero-final-5btawt11",
+      "exit": 1,
+      "guards": true,
+      "receipt_sha256": "604b35377f5b16a6bc722246391c527a4793c77b7952d9a88b15c3875f11b65c",
+      "classification": "invalid_model_rejected_by_original_new_get_and_comparison_contracts",
+      "identity_replayed": true,
+      "source_sha256": "e7c4e464ae0a2af102ead58403defa4b1f27d05a20cf443f9105edacf7c7b50f",
+      "source_identity": {
+        "source_sha256": "e7c4e464ae0a2af102ead58403defa4b1f27d05a20cf443f9105edacf7c7b50f",
+        "fidelity": {
+          "BorTag.new": {
+            "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+            "tokens_equal": true
+          },
+          "BorTag.get": {
+            "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+            "tokens_equal": true
+          },
+          "Item.tag": {
+            "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+            "tokens_equal": true
+          }
+        },
+        "proof_blocks": 0,
+        "proof_functions": 0,
+        "theorem_calls": 0,
+        "snapshots": 0,
+        "broadcast_imports": 0,
+        "private_carriers": true,
+        "executable_body_tokens": {
+          "BorTag.new": "afea5754c491eb7dc1a0fe3088b8d456e9dc4fe83bb3e3467b3c5a45420baf08",
+          "BorTag.get": "926773fd8b684fd4a8179f43135e04fbfb2678d625cc0aa4ffc3130cf1b0aea1",
+          "Item.tag": "38d2730f13695fabe2f11a01e66a45487a3a978c63becf00c8ac1c0c3567da8c",
+          "compare_equal": "4aa4675e9fa0eff4c293d85f88df870df7fcc0a328bcf0abd404b20706f63f6d"
+        }
+      },
+      "freeze_sha256": "440a36b49b4b383cb5e645aeecad626bf90ee2e391425000b5bb4c66a5bf2377",
+      "stdout_sha256": "ac42d354cfae578a1218f5aaa0ffb34b370cab66e6e57fbd5773385a921de6f5",
+      "stderr_sha256": "83f2230eb068c2aed395463ad4c9eb63f220940b43e0134615fcf64d81ffe7c4",
+      "product_count": 32
+    }
+  ],
+  "all_receipt_product_and_input_guards_passed": true,
+  "controllers": {
+    "audit.py": "bf97dca2a859459c96a2919240fdb59b86b4b37b9fe1f280974fb484a6300b2b",
+    "audit_run.py": "06ecad93abbdb2cc7535905a9ab505cd185f41e98d12d3c16c870dbe70632c26",
+    "replay.py": "7f83163131e1f7a1153c6ffe089725e8b9922ae7735495a43a724c79cbf367cb",
+    "source.py": "7203a9e26c6d3fdc4c3c14d6d87f69455138906ee88c9cf9df554cb1ae963664"
+  },
+  "identities_sha256": "5a6fefb39c5492d1578111984a38e3eed929458eb6f4e72f38ef85008b9f8623",
+  "manual": {
+    "provider_checked_broadcast_proof_bodies": 1,
+    "provider_proof_body": "empty, ordinarily checked",
+    "provider_local_proof_blocks": 0,
+    "provider_theorem_calls": 0,
+    "client_broadcast_imports": 1,
+    "client_local_proof_blocks": 0,
+    "client_explicit_theorem_calls": 0,
+    "client_runtime_calls_added": 0,
+    "client_snapshots": 0
+  },
+  "publication": false,
+  "native_correspondences": 0,
+  "full_Item_new": "UNPROVED",
+  "native_ordering": "UNPROVED",
+  "HMAC": "1/1_UNPROVED",
+  "whole_goal": "PENDING",
+  "goal_complete": false
+}
