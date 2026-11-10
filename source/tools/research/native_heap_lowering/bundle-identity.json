@@ -1,0 +1,42 @@
+{
+  "verus": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/verus",
+    "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/verus"
+  },
+  "rust_verify": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/rust_verify",
+    "sha256": "8c06dec489fe041c012c9c8fb956586673f666c4050dbfaaff9b7449d649e575",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/rust_verify"
+  },
+  "vstd.vir": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/vstd.vir",
+    "sha256": "8a16bf41742095d92e2f6986616527014c8c7c9c34629e3c1e02d48f505f6cec",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/vstd.vir"
+  },
+  "libvstd.rlib": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/libvstd.rlib",
+    "sha256": "af362acb5d94945afe593d1578d183121d39ab347aa3be3af994dd947e35d612",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/libvstd.rlib"
+  },
+  "libverus_builtin.rlib": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/libverus_builtin.rlib",
+    "sha256": "ef6eba759bd28e6594cb61b3937e6b0c4b2bcf454ac9b00cf3e2019d58fd82cf",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/libverus_builtin.rlib"
+  },
+  "libverus_builtin_macros.so": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/libverus_builtin_macros.so",
+    "sha256": "29bd96374de290e026ad28eabcb7f3d52d25a22b18bc1c99fbce365e3c64407a",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/libverus_builtin_macros.so"
+  },
+  "libverus_state_machines_macros.so": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/libverus_state_machines_macros.so",
+    "sha256": "c917b19bf0038c087368dc5bcf943e15d70847e5e8c6a14c0ee8a7737a872e50",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/libverus_state_machines_macros.so"
+  },
+  "z3": {
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-bundle-676b99bf/z3",
+    "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+    "private_copy": "/tmp/native-heap-lowering-c3bf5d36/bundle/z3"
+  }
+}
