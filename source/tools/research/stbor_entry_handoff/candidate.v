@@ -46,7 +46,7 @@ Lemma bounded_reference_head_step fns sigma l p n rk c cids :
     final.(shp) = sigma.(shp) /\ final.(scs) = sigma.(scs) /\ Wf final.
 Proof.
   intros CS WF TOP.
-  have BAR : exists active, active \in sigma.(scs).
+  have BAR : exists active, active ∈ sigma.(scs).
   { exists c. rewrite CS. by left. }
   have BLOCK := top_block_valid sigma.(sst) sigma.(scs) l p n TOP.
   destruct (retag_head_step fns sigma l (Tagged p) (RefPtr Mutable)
@@ -85,10 +85,10 @@ Qed.
 Lemma reference_active_protector_frame alpha next c cids l old rk n new alpha' next' :
   retag alpha next cids c l old rk (RefPtr Mutable) (FixedSize n) =
     Some (new, alpha', next') ->
-  forall at before t active pm,
-    alpha !! at = Some before -> active \in cids ->
-    mkItem pm t (Some active) \in before ->
-    exists after, alpha' !! at = Some after /\ mkItem pm t (Some active) \in after.
+  forall location before t active pm,
+    alpha !! location = Some before -> active ∈ cids ->
+    mkItem pm t (Some active) ∈ before ->
+    exists after, alpha' !! location = Some after /\ mkItem pm t (Some active) ∈ after.
 Proof.
   intros RT. exact (retag_item_active_preserving alpha next c cids l old rk
     (RefPtr Mutable) (FixedSize n) new alpha' next' RT).

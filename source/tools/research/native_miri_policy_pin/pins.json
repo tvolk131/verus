@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "compiler_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "classification": "primary_source_inspection_only_no_semantic_import",
+  "sources": {
+    "src/tools/miri/src/machine.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/machine.rs",
+      "sha256": "307479153dfc9800330a8b3573b70067b232a0066d5469fb88018f72d9050ccf",
+      "bytes": 88401,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/machine.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/mod.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/mod.rs",
+      "sha256": "8dec93f2a161caff23bbae3d52ee95eaf690d5d921d46847caf80ceb5d29a896",
+      "bytes": 19743,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/mod.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs",
+      "sha256": "079a54f8d8bd0845afd5a81c61f2c6c9f1fb4bc401de1c69336ddf9626e16cd6",
+      "bytes": 42904,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs",
+      "sha256": "f4f4fec8b6cc874a88a9e0c7619ca0f5c336767d9504d2ede31df29e544ca7ee",
+      "bytes": 20832,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs",
+      "sha256": "a6c597296ed545bd76c8367c21ba807847290b196ead1aec38123efdc243c289",
+      "bytes": 3381,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/tree_borrows/mod.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/tree_borrows/mod.rs",
+      "sha256": "8f165ccc00e465311cabcb7c327b728aab6c5949582df9e351345ee525c9f18a",
+      "bytes": 24849,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/tree_borrows/mod.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/tree_borrows/perms.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/tree_borrows/perms.rs",
+      "sha256": "d566ab76770eee7e08179c6d480589351f568f1bf3c1982d7f46e4a846c97cde",
+      "bytes": 38278,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/tree_borrows/perms.rs"
+    },
+    "src/tools/miri/src/borrow_tracker/tree_borrows/tree.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/tree_borrows/tree.rs",
+      "sha256": "55b5a5d27ea4f0b1b8d43314f74cb31dae93eada7a78f3dc90f799f7141367a2",
+      "bytes": 58024,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/borrow_tracker/tree_borrows/tree.rs"
+    },
+    "src/tools/miri/src/eval.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/eval.rs",
+      "sha256": "66e6cbc77131e959980d19c75676ccb52205ae8fc83e43c9040609dc3195d403",
+      "bytes": 28532,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/eval.rs"
+    },
+    "src/tools/miri/src/lib.rs": {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/lib.rs",
+      "sha256": "804cfd5237b0ec45bfbaa4b185676d3ba9457d1720a627d40985de1adb5bac56",
+      "bytes": 7858,
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/src/tools/miri/src/lib.rs"
+    }
+  },
+  "native_correspondences": 0,
+  "publication": false
+}
