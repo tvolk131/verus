@@ -15,15 +15,15 @@ def canonical(x):
 
 def select(pin, ir, local_types):
     # Full dictionary equality rejects extra/unknown payload fields as well.
-    require(pin['pointer_bits'] == 64, 'unsupported pointer width')
+    require(type(pin['pointer_bits']) is int and pin['pointer_bits'] == 64, 'unsupported pointer width')
     expected = {'op':'assign',
         'destination':{'local':17,'projection':[{'op':'deref'}],'ty':'u8'},
         'value':{'op':'binary','kind':'BitXor',
           'left':{'op':'copy','place':{'local':17,'projection':[{'op':'deref'}],'ty':'u8'}},
           'right':{'op':'move','place':{'local':19,'projection':[],'ty':'u8'}}}}
-    require(pin['expected_ir'] == expected and ir == expected, 'unknown instruction payload')
-    require(local_types == {'17':{'ty':'&mut u8','shape':{'kind':'ref','mutable':True,'pointee':'u8'}},
-                            '19':{'ty':'u8','shape':{'kind':'scalar_or_function','ty':'u8'}}},
+    require(canonical(pin['expected_ir']) == canonical(expected) and canonical(ir) == canonical(expected), 'unknown instruction payload')
+    require(canonical(local_types) == canonical({'17':{'ty':'&mut u8','shape':{'kind':'ref','mutable':True,'pointee':'u8'}},
+                            '19':{'ty':'u8','shape':{'kind':'scalar_or_function','ty':'u8'}}}),
             'unknown local type/width')
     return True
 
@@ -51,6 +51,8 @@ def authenticate_source(pin, results, outer, inner, retained):
             evidence['pointer_bits'] == pin['pointer_bits'] == inner['summary']['pointer_bits'] and
             evidence['target'] == results['summary']['target'] == inner['summary']['target'] == 'x86_64-unknown-linux-gnu',
             'root/target binding')
+    require(evidence['input_sha256'] == results['summary']['source_sha256'] and
+            evidence['native_bridge_proved'] is False, 'input source/status binding')
     require(pin['block'] == 7 and pin['statement'] == 6, 'instruction location')
     roots = [i for i in evidence['instances'] if i['id'] == pin['root']]
     require(len(roots) == 1 and roots[0]['kind'] == 'mir', 'unique MIR root')

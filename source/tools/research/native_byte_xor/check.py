@@ -145,6 +145,8 @@ def main():
                 == binding['compiled_module_map_sha256'], 'baseline objects changed')
         for n, path in toolpaths.items(): require(retained(path) == binding['tools'][n], 'tool changed '+n)
         receipt['source_selection'] = authenticate_source(source_pin, source_results, source_receipt, extraction_receipt, retained)
+        load(Path(source_pin['native_json']['path']))
+        require(retained(Path(source_pin['native_json']['path'])) == hashlib.sha256(loaded[Path(source_pin['native_json']['path'])]).hexdigest(), 'native JSON snapshot changed')
         receipt['selector_controls'] = selector_controls(source_pin, receipt['source_selection']['ir'], receipt['source_selection']['local_types'])
         receipt['inputs'] = guard.initial
         snapshots = a.output/'retained-json'
@@ -176,6 +178,7 @@ def main():
             g = ArtifactGuard([path])
             require(g.initial[str(path.resolve())]['sha256']==expected, 'copied source identity mismatch')
             held.append(g)
+        hold(a.output/'freeze.json',hashlib.sha256(frozen_bytes).hexdigest())
         names = []
         require({x.stem for x in (HERE/'candidates').glob('*.v')} == set(MODULES), 'extra module')
         for n in MODULES:
@@ -187,7 +190,7 @@ def main():
             text = src.read_text()
             require(not re.search(r'\b(Axiom|Admitted|admit|Parameter|Abort|native_compute|vm_cast_no_check)\b',text),
                     'unchecked or incomplete construct')
-            require(not re.search(r'\b(Inductive|CoInductive|Record|Class|Instance|Program|Obligation|Obligations|Equations)\b',text), 'undeclared generated inventory')
+            require(not re.search(r'\b(Inductive|CoInductive|Record|Class|Instance|Program|Obligation|Obligations|Equations|Module|Corollary|Proposition|Fact|Remark)\b',text), 'undeclared generated inventory')
             target = work/src.name
             require(run('compile-'+n,[str(toolpaths['runner']),str(toolpaths['coqc']),'-q',*args,str(target)],env)==0,
                     'proof-development/setup failure, not semantic evidence: '+n)
@@ -222,13 +225,21 @@ def main():
         receipt['kernel_axioms'] = parse_kernel_summary(kernel_output)
         checked = re.findall(r'checking cst:NativeByteXor\.(native_xor\.\w+)', kernel_output)
         require(checked == names, 'kernel declaration inventory differs: '+repr(checked))
+        helper_expected = ['Unnamed_thm'] + ['Unnamed_thm'+str(i) for i in range(2*len(names)-1)]
+        helper_checked = {}
+        for module in ['Assumptions','ProofTerms']:
+            actual = re.findall(r'checking cst:NativeByteXor\.'+module+r'\.(\w+)', kernel_output)
+            require(actual == helper_expected, 'helper declaration inventory differs: '+module)
+            helper_checked[module] = actual
+        require(len(re.findall(r'checking cst:NativeByteXor\.',kernel_output)) == len(names)+2*len(helper_expected), 'extra namespace constant')
+        require(not re.search(r'checking (?:ind|mutind):NativeByteXor\.',kernel_output), 'unlisted datatype')
         for g in held: g.check()
         products.check()
         guard.check()
         require(all(not v for v in receipt['assumptions'].values()), 'new assumptions in candidate')
         receipt.update(model_proofs_kernel_checked=True, constant_count=len(names), declaration_inventory=freeze['constants'],
                        module_inventory=MODULES, constructor_inventory=[], generated_eliminators=[], program_obligations=[], proof_terms=term_hashes, kernel_declarations=checked,
-                       inventory_helper_theorems={'Assumptions':2*len(names),'ProofTerms':2*len(names)},
+                       inventory_helper_theorems={'Assumptions':2*len(names),'ProofTerms':2*len(names)}, kernel_helper_declarations=helper_checked,
                        proof_artifacts=products.initial)
         print(json.dumps(dict(output=str(a.output), model_proofs_kernel_checked=True,publication=False)))
 if __name__ == '__main__': main()

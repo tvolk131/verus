@@ -32,18 +32,18 @@ Proof. revert ys. induction xs; intros [|y ys]; simpl; auto. Qed.
 Lemma word_value_range xs : 0 ≤ word_value xs < 2 ^ Z.of_nat (length xs).
 Proof.
   induction xs as [|x xs IH]; simpl; first lia.
-  rewrite Nat2Z.inj_succ Z.pow_succ_r by lia.
+  rewrite Nat2Z.inj_succ Z.pow_succ_r; last lia.
   destruct x; simpl; lia.
 Qed.
 Lemma bits_value n a : 0 ≤ a < 2 ^ Z.of_nat n → word_value (bits n a) = a.
 Proof.
   revert a. induction n as [|n IH]; intros a Bound; simpl in *.
   - assert (a = 0) by lia. subst. done.
-  - rewrite Nat2Z.inj_succ Z.pow_succ_r in Bound by lia.
+  - rewrite Nat2Z.inj_succ Z.pow_succ_r in Bound; last lia.
     pose proof (Z.div2_odd a) as Decompose.
     assert (Half : 0 ≤ Z.div2 a < 2 ^ Z.of_nat n).
     { destruct (Z.odd a); simpl in Decompose; lia. }
-    rewrite IH by exact Half. destruct (Z.odd a); simpl in *; lia.
+    rewrite IH; last exact Half. destruct (Z.odd a); simpl in *; lia.
 Qed.
 Lemma odd_lxor a b : Z.odd (Z.lxor a b) = xorb (Z.odd a) (Z.odd b).
 Proof. rewrite -!Z.bit0_odd Z.lxor_spec. done. Qed.
@@ -79,15 +79,15 @@ Proof. intros RA RB. rewrite scalar_xor8_lxor; auto using byte_xor_normalizes. Q
 (* A conditional MODEL translation: read and write the SAME p. b is already
    obtained by moving local 19; no native dereference rule is postulated. *)
 Definition cell_assignment (p : loc) (b : Z) : expr :=
-  let: "a" := !ˢᶜ #(LitLoc p) in
+  (let: "a" := !ˢᶜ #(LitLoc p) in
   let: "c" := (of_val byte_xor) ["a"; #(LitInt b)] in
-  #(LitLoc p) <-ˢᶜ "c".
+  #(LitLoc p) <-ˢᶜ "c")%E.
 
 (* The optional register adapter is ordinary data, not a language primitive.
    It removes 19 before returning the expression and does not access a heap. *)
 Definition register_file := nat → option Z.
 Definition without19 (rs : register_file) : register_file :=
-  λ n, if Nat.eq_dec n 19 then None else rs n.
+  λ n, if Nat.eq_dec n 19%nat then None else rs n.
 Definition prepare_assignment (p : loc) (rs : register_file) : option (expr * register_file) :=
   match rs 19%nat with
   | Some b => Some (cell_assignment p b, without19 rs)
@@ -99,9 +99,9 @@ Proof. intros H. rewrite /prepare_assignment H. done. Qed.
 Lemma prepare_assignment_none p rs : rs 19%nat = None → prepare_assignment p rs = None.
 Proof. intros H. rewrite /prepare_assignment H. done. Qed.
 Lemma moved19_unavailable rs : without19 rs 19%nat = None.
-Proof. rewrite /without19. destruct (Nat.eq_dec 19 19); done. Qed.
+Proof. rewrite /without19. destruct (Nat.eq_dec 19%nat 19%nat); done. Qed.
 Lemma other_register_preserved rs n : n ≠ 19%nat → without19 rs n = rs n.
-Proof. intros NE. rewrite /without19. destruct (Nat.eq_dec n 19); done. Qed.
+Proof. intros NE. rewrite /without19. destruct (Nat.eq_dec n 19%nat); done. Qed.
 
 Section operational.
   Context `{!lrustGS Σ}.
@@ -121,11 +121,13 @@ Section operational.
   Proof.
     intros RA RB. iIntros (Φ) "[Cell [Credit Frame]] Post".
     rewrite /cell_assignment.
+    remember byte_xor as op eqn:OpEq.
     wp_bind (Read ScOrd (Lit (LitLoc p))).
     iApply (wp_read_sc with "Cell"); first done.
     iNext. iIntros "Cell". wp_let.
-    wp_bind (xor_call a b).
-    iApply (wp_wand with "[]"); first by iApply wp_scalar_xor8.
+    wp_bind (App (of_val op) [Lit (LitInt a); Lit (LitInt b)]).
+    iApply (wp_wand with "[]").
+    { rewrite OpEq. iApply (wp_scalar_xor8 a b RA RB). }
     iIntros (w) "%Eq". subst w. wp_let.
     iApply (wp_write_sc ⊤ p _ _ _ with "[Cell Credit]"); [done|by iFrame|].
     iNext. iIntros "Cell". iApply "Post". iFrame.
@@ -133,7 +135,7 @@ Section operational.
   Qed.
   Lemma wp_prepared_assignment p rs a b (R : iProp Σ) :
     rs 19%nat = Some b → byte_value a → byte_value b →
-    ∃ e rs', ⌜prepare_assignment p rs = Some (e, rs') ∧ rs' 19%nat = None ∧
+    ⊢ ∃ e rs', ⌜prepare_assignment p rs = Some (e, rs') ∧ rs' 19%nat = None ∧
       (∀ n, n ≠ 19%nat → rs' n = rs n)⌝ ∧
       ({{{ p ↦ #a ∗ £1 ∗ R }}} e
        {{{ RET LitV LitPoison; p ↦ #(scalar_xor8 a b) ∗ R ∗
@@ -142,6 +144,7 @@ Section operational.
     intros At19 RA RB. iExists (cell_assignment p b), (without19 rs).
     iSplit; first (iPureIntro; repeat split; auto using prepare_assignment_some,
       moved19_unavailable, other_register_preserved).
-    by iApply wp_cell_assignment.
+    iIntros (Φ) "!> Resources Post".
+    iApply (wp_cell_assignment p a b R RA RB with "Resources Post").
   Qed.
 End operational.
