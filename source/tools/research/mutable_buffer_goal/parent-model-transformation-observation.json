@@ -15,5 +15,17 @@
   "recursive_kernel_check": true,
   "native_correspondences": 0,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "completion_notification_authentication": {
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/mutable-writer-trial016/receipt.json",
+      "sha256": "76628395e319f769da36a07ce79cc78adb64db9e579f27441cd63a69d9ad1d57"
+    },
+    "scope": "same historical trial016 checkpoint, independently acceptedf8f8ccd2; no new theorem/kernel run claimed",
+    "same_model_source_objects": 12,
+    "same_seven_individual_assumption_maps": true,
+    "native_source_entry": false,
+    "native_effects_discharged": 0,
+    "restart_required": false
+  }
 }
