@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "scope": "Authenticated incomplete actual-MIR diagnostic translator; no production contract or foreign-body proof accepted.",
+  "worker_commits": [
+    "ae3cd7349d3a14a8f727d5639cc257cf0f2fd531",
+    "dc69c041b3926ca9600f1c9017b001f39f09ff63"
+  ],
+  "integrated_commits": [
+    "dfbc142f",
+    "863db580"
+  ],
+  "worker_report": "../checked_bool_from_mir/REPORT.md",
+  "missing_interfaces": "../checked_bool_from_mir/BLOCKERS.json",
+  "receipt": "/tmp/verus-infer-buffer-cycle-20261109/bool-mir-parent-auth/receipt.json",
+  "receipt_sha256": "0d10a11fe8d93e974fdc559d23f07db7c73fbb99dd12839fe933baf02155bf22",
+  "worker_epochs_authenticated": 16,
+  "worker_products_authenticated": 289,
+  "external_owned_build_products_authenticated": 356,
+  "input_bindings_authenticated": 59135,
+  "retained_epoch_guard_failure_excluded": [
+    "/tmp/checked-bool-build-vir-481unrgi"
+  ],
+  "structural_controls": 20,
+  "call_shape_rejections": 4,
+  "structural_translation_is_body_proof": false,
+  "fresh_actual_From": {
+    "encountered-error": true,
+    "encountered-vir-error": false,
+    "success": false,
+    "verified": 0,
+    "errors": 1,
+    "is-verifying-entire-crate": true
+  },
+  "fresh_failed_function": "component::all_bool",
+  "retained_original_Item_new": "36/1, only original protector assertion",
+  "retained_support": "36/0",
+  "registered_foreign_contract": false,
+  "production_changes": false,
+  "ordinary_foreign_body_pipeline_run": false,
+  "next_staged_interface": "FOREIGN_BODY_STAGES.md",
+  "accepted_engine": "3aa7f49a policy69/cache72/schema38 unchanged",
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "open_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "publication": false,
+  "goal_complete": false
+}

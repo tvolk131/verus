@@ -93,6 +93,16 @@ obligations and absent imported closed/proof bodies. This is manual semantic
 interface work, with no causal automation gain claimed. The simpler public
 alias alone remains insufficient.
 
+The actual foreign bool-conversion lane remains incomplete. Its typed MIR/VIR
+prototype passes20 structural controls and four call-shape rejections; fresh
+parent verification of the actual conversion is still0/1. The
+[diagnostic record](parent-bool-mir-diagnostics.json) authenticates16 epochs,
+including the excluded input-drift run, without accepting any foreign law.
+The [staged interface](FOREIGN_BODY_STAGES.md) next requires ordinary same-crate
+body checking while every export using the capability remains blocked.
+Certified publication/import and current runtime/provenance correspondence
+remain separate obligations.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection
