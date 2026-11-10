@@ -30,6 +30,15 @@ Fresh independent acceptance is pending. Full enabled-cache lookup and global
 cache preservation remain unproved. Actual cache consistency, lawful
 source-context coverage, frame/separation and original C/F remain open.
 
+The genuine `NonZero<u64>` tag lane supplies a bounded original-body subset
+(45/0 enabled and disabled) and separate bitfield laws (26/0). Its closure
+adapter verifies49/0, but changes `BorTag::new` and cannot establish the exact
+constructor interface. All use manual proof assistance with no inferred
+helpers. The [tag component record](parent-miri-tag-component.json) binds the
+34-epoch retained audit and eight false controls; independent acceptance is
+pending. Original constructor function values, optional checked addition,
+bool conversion and runtime derived comparisons remain separate needs.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection

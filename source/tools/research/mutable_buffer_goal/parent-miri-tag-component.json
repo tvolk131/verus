@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "scope": "Partial genuine NonZero packed-tag source facts; exact constructor closure unproved.",
+  "worker_commit": "c00341dabbd7c8b9922246b78135bd53953735bd",
+  "integrated_commit": "ffc6ddd9",
+  "delivery_receipt": "/tmp/native-miri-tag-delivery-wwm_pq9c/receipt.json",
+  "delivery_receipt_sha256": "855f7ca4dae41e7ac7df00fb543d4ba96f1cf2dad8f6ce9c8ad3344520ec3721",
+  "authenticated_delivery_inputs": 22,
+  "authenticated_delivery_products": 9,
+  "parent_audit_receipt": "/tmp/native-miri-tag-parent-audit-9myohdjy/receipt.json",
+  "parent_audit_receipt_sha256": "e12f684689d47dc61cb2ac688bdf59f6829c0499c4f735390d06d1fc1c7d38f5",
+  "parent_audit_scope": "Retained artifacts rechecked under Python -O; no new verifier invocations.",
+  "results_sha256": "cc6ee8aee77c3e55a34f23eafc3b7a67aceab687cf00099036da784918dc7cef",
+  "epochs": 34,
+  "private_epoch_products_authenticated": 301,
+  "positive_queries_on_and_off": {
+    "mathematical_bitfields": "26/0; four proof bodies",
+    "original_body_subset": "45/0; ten exec + five proof bodies",
+    "explicit_closure_adapter_subset": "49/0; fourteen exec + five proof bodies; changed constructor excluded from exact source acceptance"
+  },
+  "false_semantic_controls": 8,
+  "manual_inputs": {
+    "proof_bodies": [
+      "packed_fields",
+      "updated_fields",
+      "tag_range",
+      "packed_fields_raw",
+      "tag_identity"
+    ],
+    "inline_proof_blocks": {
+      "Item::perm": {
+        "bit_vector_assertions": 2
+      },
+      "Item::set_permission": {
+        "local_calls": [
+          "updated_fields"
+        ]
+      }
+    },
+    "bit_vector_assertions_total": 21,
+    "existing_trusted_standard_axiom_calls": [
+      "axiom_view_nonzero_from_primitive_eq(a.0)",
+      "axiom_view_nonzero_from_primitive_eq(b.0)"
+    ],
+    "all_requires_ensures_and_spec_definitions": "authored; source snapshots hash-bound in each epoch",
+    "adapter_closure_contracts": 1,
+    "inferred_helpers": [],
+    "loop_invariants": [],
+    "new_axioms_assumes_external_bodies": []
+  },
+  "inferred_helpers": [],
+  "causal_assistance_gain": false,
+  "exact_constructor_closure_proved": false,
+  "genuine_NonZero_preserved": true,
+  "original_BorTag_new_proved": false,
+  "runtime_derived_Eq_Ord_compatibility_proved": false,
+  "whole_Item_new_proved": false,
+  "native_equivalence_proved": false,
+  "remaining_blockers": [
+    "Constructor function values in original map(BorTag)/map(Self)",
+    "NonZero::checked_add (optional for lookup)",
+    "bool-to-u64 From specification",
+    "runtime derived comparison compatibility"
+  ],
+  "independent_acceptance": "pending fresh isolated review",
+  "canonical": "6/0 accepted, inherited",
+  "full_HMAC": "1/1 UNPROVED, inherited",
+  "native_correspondences": 0,
+  "open_obligations": "44 minimal + 3 phase / 101 writer effects",
+  "publication": false,
+  "goal_complete": false
+}
