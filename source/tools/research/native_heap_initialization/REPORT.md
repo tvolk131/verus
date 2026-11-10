@@ -77,3 +77,46 @@ full-u64/arbitrary-[10] goal and full HMAC prefix+suffix/arbitrary-[128]/all val
 keys including 0 and >128 remain unchanged. No inference assistance, application
 proof, runtime replacement writer, source CF import or publication is claimed.
 Parent integration and fresh independent review are required.
+
+Validation uses normal `coqc -q` and recursive `coqchk -silent -o` on the immutable
+284-object foundation, never a baseline rebuild. Both the first successful run
+and final replay use `python3 -B -O`. All 29 named constants (4 definitions and
+25 theorems, including auxiliary lemmas/controls; zero Program obligations) get
+individual complete `Print Assumptions`. Every one is closed under the global
+context. The recursive dependency summary reports only inherited dependent
+functional extensionality and Eq_rect_eq, with no assumed positivity, unsafe
+(co)fixpoints, type-in-type or rewrite rules.
+
+`check.py` authenticates all 523 foundation source identities, the 284-object map,
+tool hashes, ready marker, successful final receipt, loadpaths, shared parsers and
+all selected sources against frozen identities in its retained initial snapshot.
+Loaded JSON bytes are matched to that snapshot. The copied proof sources retain
+their frozen identity through compilation and recursive checking; output proof
+objects are guarded through recursive checking. The final controller runs all
+prover commands in its private proof directory, including auxiliary lia output.
+Six separately frozen provenance controls reject modified source, modified
+controller and an omitted frozen input, under both normal and optimized Python,
+before any prover command. These are artifact controls, not semantic negatives.
+The five semantic countertheorems are separate checked proof terms.
+
+Replay from this checkout with fresh private output directories:
+
+```sh
+python3 -B -O source/tools/research/native_heap_initialization/check.py \
+  --freeze source/tools/research/native_heap_initialization/final-freeze.json \
+  --output /tmp/fresh-native-heap-initialization
+python3 -B -O source/tools/research/native_heap_initialization/guard_controls.py \
+  --freeze source/tools/research/native_heap_initialization/controls-freeze.json \
+  --output /tmp/fresh-native-heap-initialization-controls
+```
+
+The freeze intentionally covers consumed proof/trust inputs, not this prose or
+post-trial result manifests. Hashes authenticate identities and are not a Rust
+semantics, cross-kernel import, source-validity argument or authorization to
+publish. Shared `proof_checks.py` assumption parsers remain unchanged.
+
+The final optimized replay passed recursive checking in 70.9 seconds and
+reproduced all four object hashes (the three model modules and assumption
+inventory) from the first successful trial. The 15 failed development trials
+retain source copies, pretrial freezes, diagnostics and receipt/log hashes;
+none is counted as a semantic negative or an impossibility result.

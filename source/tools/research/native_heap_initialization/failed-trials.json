@@ -1,0 +1,348 @@
+{
+  "semantic_negatives": 0,
+  "trials": [
+    {
+      "trial": 1,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-001.json",
+      "freeze_sha256": "97eb14441e5869c874e3b319ee3ca838923583d0b4e27732db6b3fa4d5cdf751",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-001/receipt.json",
+      "receipt_sha256": "a68750b389fc34b53efdfe5fad9747e571ac1d777a5db8bdb5560c539845696b",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: initialization"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-001/proofs/initialization.v": "cdf6ddea9ad95df1f270feb2730cd23310cfbce5e2748194f7f8d81235da6724"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-001/compile-initialization.stderr": "65bb4a9cf178a94e8592955b9dc15ac3857440c427b8f1b60515e5ae2617e381",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-001/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 2,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-002.json",
+      "freeze_sha256": "a647066cfbf3dbe4b3aaf467b6420c07b266fbcbc5fe5a4dd715be075f4255b4",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-002/receipt.json",
+      "receipt_sha256": "b4a48ada9f3c44483b5d68bd0a565d78002c4c154db97fbdbef424817a7c6123",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: initialization"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-002/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-002/proofs/initialization.v": "7fd0aad261c90925571a4f88b68a76fa08f475ef99d7852a81526918cbc0bfe7",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-002/proofs/partition.v": "311a1cdcd7e88e613e7397c9ae2fd5d961770f5809c7602648709e45c1d8620f"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-002/compile-initialization.stderr": "51cfc113f34017f8006d24c3a06650308ecb9756f481a4232a1e36d1ceb0d422",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-002/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 3,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-003.json",
+      "freeze_sha256": "9817da9a5220ca74fe996e4671b28149e440892c7b3c345d9a9cd78a1a099a81",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-003/receipt.json",
+      "receipt_sha256": "823184d296b9527bc12f0324d32082fb4536886add71be792faddf681ac40969",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: initialization"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-003/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-003/proofs/initialization.v": "d7c3cbb369ae30b948733256bcf3291e67aa0b320d023282eba1b82541d04b22",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-003/proofs/partition.v": "311a1cdcd7e88e613e7397c9ae2fd5d961770f5809c7602648709e45c1d8620f"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-003/compile-initialization.stderr": "b7b4e5623c7ed9ad05dfc84637b02b4fe30f8e4089ede721a42d0bb16f33baf8",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-003/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 4,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-004.json",
+      "freeze_sha256": "5c201fb112d6ecfbbc8a4c07c8766452ccbc853d2b52d0ad1587d583e30923d1",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-004/receipt.json",
+      "receipt_sha256": "4a39beb6e5b032ea24c56dee1fb7c1f1e6c2b37fc354232cb86d28da24f22b36",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: initialization"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-004/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-004/proofs/initialization.v": "3da05eceb406803b620b400f43d3c088d659f63c885b9bcc8404b6f8413196c5",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-004/proofs/partition.v": "311a1cdcd7e88e613e7397c9ae2fd5d961770f5809c7602648709e45c1d8620f"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-004/compile-initialization.stderr": "39694553d3ba9293f99f62c90ad857155c2e535b1103dcde1c4b43bf9ad3a69a",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-004/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 5,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-005.json",
+      "freeze_sha256": "c3095cbb3c7765894abf8f141e8371479adbdf8b00e636371ab49886afe7ccf3",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-005/receipt.json",
+      "receipt_sha256": "345bad16bc5b3fafeb0db32549a5732f7fdaffabbbc62ea55bd65999a63b381a",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: initialization"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-005/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-005/proofs/initialization.v": "05e4d05e50eda16c53c943aa8f5b22a160eb75f42a91c09f42ab6f803d920316",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-005/proofs/partition.v": "311a1cdcd7e88e613e7397c9ae2fd5d961770f5809c7602648709e45c1d8620f"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-005/compile-initialization.stderr": "b0cd7847a32064db7a65cb2b05bb46b76134339abbd15de95bcbb646466f154c",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-005/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 6,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-006.json",
+      "freeze_sha256": "fb3488a61fc7ee9a4865d2a1d3bd445a39ed7325f7b334886469a1ea0be81209",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-006/receipt.json",
+      "receipt_sha256": "3747342f221c6438b6da8cb2987535446a06d66c962c3f4102a1f3175f124a9c",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/proofs/partition.v": "311a1cdcd7e88e613e7397c9ae2fd5d961770f5809c7602648709e45c1d8620f"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/compile-partition.stderr": "d2dca9d7feb20c5e493f4bab91bedfdca99b8c3504fbd30d797d66af69e87c06",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-006/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 7,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-007.json",
+      "freeze_sha256": "37fc1e593192ee2d66a4a091b1d5b46454287b1c764d00277eec061795174ee0",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-007/receipt.json",
+      "receipt_sha256": "4241e3607823e0cf1d5e3fe11bc325f589c874cf14ee25b1529b2f645c961e32",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/proofs/partition.v": "3d27080f4b7a594ff92e945b072fdab2cff0a075d9b213e9b8ea056a91d4fa39"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/compile-partition.stderr": "d20bb2bfc86a39e3c4c6cdb6f5f7dd755ab4ea9696664543966bb38ddde15708",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-007/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 8,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-008.json",
+      "freeze_sha256": "726b6bca9ff02e0235a709db3324aa0f2894df79cb9f612e6360c9cfc238e16d",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-008/receipt.json",
+      "receipt_sha256": "45d3cc02f5b4bb41a9d8bf0b8c8815a5a474ac37c24ff1f831000c6efe323708",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/proofs/partition.v": "fee341ce710a45e6da9ef7c59df33d08726f2779f6c170d6a9d9c2bd773ceb28"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/compile-partition.stderr": "34f2ed21138450c822733faaf3194c781d69a471eb0b2106619d341bc7526776",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-008/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 9,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-009.json",
+      "freeze_sha256": "545970f679fd829779b2c9e55a72c37f566a3b667857eec0db5c041612b29bd1",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-009/receipt.json",
+      "receipt_sha256": "a58b4d6f7de24d301af05cdc8b56b6741ee9479c956b5eea0480bdaaafe9420d",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/proofs/controls.v": "8217373a26bca144919ef924c27e6a32ca8fcfcb136f5a7de009891f5595a8db",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/proofs/partition.v": "7adb4f8644ac88069adade9cbef4d64a3de64b082905fb364ce043ac3aa65a30"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/compile-partition.stderr": "3d6813d3475e3edbf02e15fd6e187d5dcc45626573f8de40d5cd5ac8de9b4cd0",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-009/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 10,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-010.json",
+      "freeze_sha256": "64fb61d13bc100e61dd353d699176525b93700c4d8c831aa73d9231744b008bd",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-010/receipt.json",
+      "receipt_sha256": "8c93284617f52d8053efaf80a650a6bf62c0d84874c292512d043e6821480b33",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/proofs/controls.v": "d1a536960538563596d27754e71785fd9d8c25a5996327814a2f017b94e01c2a",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/proofs/partition.v": "49292e2221c6bbfe18d2cff8763db1ccf0a7cb0faef95c7cea70d7bb850ce211"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/compile-partition.stderr": "b22bdd48c8984ce747ac7823cc7c4e579426273d611b9bd64d72f4444922b18f",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-010/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 11,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-011.json",
+      "freeze_sha256": "db33b780a0b94077fc67e832cf7d711700159a94c13a551d722d8595bf3a227d",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-011/receipt.json",
+      "receipt_sha256": "01cd20e497849ced8c91c12e33efe5810b1941a19f053bd966b919dd890e2b81",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: controls"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/proofs/controls.v": "d1a536960538563596d27754e71785fd9d8c25a5996327814a2f017b94e01c2a",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/proofs/partition.v": "68446efa805328603313a66ad98f8332d080c3905cb7f6313c3b283926302c4f"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/compile-controls.stderr": "67cce2fa6899623658e1004a57f665633a86896b7b7489b94110ffbdee6213e4",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/compile-controls.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/compile-partition.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-011/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 12,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-012.json",
+      "freeze_sha256": "fc6b50dea97d32a6f37354d378346976ebe9d2e4a69181023e022b0af59840d8",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-012/receipt.json",
+      "receipt_sha256": "67d19e8f0e450bf9b92b51c956943b8060c1f66dcd1f149bfeb9f2a7466256eb",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/proofs/controls.v": "95707933ee256191f15a9412308e7c61d552a5cbe7d23056b828ff56263e5ac8",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/proofs/partition.v": "dc20e73e19e3fe6f61d5f7050c39ac7abd9ff9b983949766c9a829e162db56f9"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/compile-partition.stderr": "c13b4a4bb5011492fbe5c14d83a97e51f77d663bce1d1089fccf6e4965c62870",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-012/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 13,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-013.json",
+      "freeze_sha256": "0b124fbd36d5a23c2c019c2e2c7d5d2ca1898a7fc9e6a7b820acef751a1d0af8",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-013/receipt.json",
+      "receipt_sha256": "f2bcffb39150fcd52ea74baeee51833b06e50e32b93a3f1d3fd68f0583f76d7d",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/proofs/controls.v": "95707933ee256191f15a9412308e7c61d552a5cbe7d23056b828ff56263e5ac8",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/proofs/partition.v": "79f7d40bb7944934e2d7c63463bcf5cac37edde8e7690ea917c06862f760d57d"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/compile-partition.stderr": "7ec6130b8ac512008b3e74b23d10ba706840d74037c73e05753b93b488de3543",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-013/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 14,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-014.json",
+      "freeze_sha256": "45f138824ca54112f78ef899f1dd97cd651622ab40039bae9fe622d8ce5a6f50",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-014/receipt.json",
+      "receipt_sha256": "be93b6a1196d564d1a9b7c13d38b5fb149e9fe0335a0b223fc7531b01ca16fa5",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: controls"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/proofs/controls.v": "95707933ee256191f15a9412308e7c61d552a5cbe7d23056b828ff56263e5ac8",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/proofs/partition.v": "98f1265280657455f9dd5038960e683b688ea13910758f77da06bd4ce441a03d"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/compile-controls.stderr": "fe97bfddce03bc45b07c182cc5510d54b58ac4e41733b6602d51b952f975f7da",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/compile-controls.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/compile-partition.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-014/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "trial": 15,
+      "classification": "proof_development_failure_not_semantic_evidence",
+      "freeze": "source/tools/research/native_heap_initialization/trial-015.json",
+      "freeze_sha256": "535c629846972928a180e933d803a205808c57eab17169ca841734220680dfb8",
+      "receipt": "/tmp/native-heap-init-t3-0deb30e7/trial-015/receipt.json",
+      "receipt_sha256": "796e85f5992fe0a58e5b0a9c456fe5e77cc2f39654722b08a71b7d1f26eb6412",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: partition"
+      },
+      "copied_sources": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/proofs/controls.v": "9194467f1504ca0cc31ebcd9d3ec67cdbd82e09942a763c2f927f2db098ebb7c",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/proofs/initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/proofs/partition.v": "bd8567fe728b510fe53eb35bcd254a9112e442041d06dc6a49c20540f89fc280"
+      },
+      "logs": {
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/compile-partition.stderr": "20399c3efa4d541cd568e4b323359794cacf82b11877c723de728291a96987a8",
+        "/tmp/native-heap-init-t3-0deb30e7/trial-015/compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "first_full_source_checkpoint": "f9cc7d74",
+  "note": "Trial 1 source and controller are also preserved in f9cc7d74. Every later trial copied all three frozen sources before compilation. Raw receipts retain exact command lines and complete input snapshots. Freeze files preserve earlier controller hashes; sources remain at the recorded private paths.",
+  "historical_controller_v2": {
+    "path": "/tmp/native-heap-init-t3-0deb30e7/development-check-v2.py",
+    "sha256": "a7425a4bd13469e05c28c5418eb2beab9a7917715fdeb3019cd9c56bd717e417"
+  }
+}
