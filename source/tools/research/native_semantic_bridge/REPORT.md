@@ -147,14 +147,14 @@ python3 -B -O source/tools/research/native_heap_lowering/extract.py \
   --freeze source/tools/research/native_heap_lowering/final-freeze.json \
   --output /tmp/fresh-semantic-source
 python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
-  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-map
 python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
-  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-audit
 python3 -B -O source/tools/research/native_semantic_bridge/check.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
   --output /tmp/fresh-semantic-proofs
 ```
 
@@ -164,7 +164,7 @@ controllers use explicit require checks under Python -B -O. Rocq normal kernel
 checking, rather than a pretend Verus no-cheating flag, governs the proof trial.
 
 
-## Controller review fixes: fresh replay passed, recheck pending
+## Controller review fixes and source-freeze completeness
 
 Independent review `ed9fd420` reproduced all four proof objects and accepted
 only the exact frozen model results. It found automatic-gate gaps in single-line
@@ -180,9 +180,12 @@ under normal and optimized Python; 12 source controls, four readiness controls,
 and three proof-acceptance refusals pass. The refusals compile ordinary Rocq
 proofs using imported classical logic, then reject the extra named assumption
 or the kernel-only extra assumption. No failed script counts as a semantic
-negative. Fresh independent recheck is pending.
+negative. Independent recheck `1f727448` reproduced those results and accepted the exact
+frozen model replay. It found a remaining source-freeze completeness defect,
+addressed below.
 
-`review-fix-freeze.json` is the active pretrial integration freeze. Earlier
+`source-freeze-fix.json` is the active pretrial integration freeze. The previous
+`review-fix-freeze.json` and earlier
 freezes and receipts retain their historical controller versions. Readiness now
 binds the reviewed ready marker, final baseline receipt, all 523 copied source
 identities, 284 compiled objects and tool identities. `source-bindings.json`
@@ -198,9 +201,24 @@ The control replay is:
 ```sh
 python3 -B -O source/tools/research/native_semantic_bridge/guard_controls.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
   --output /tmp/fresh-semantic-guard-controls
 ```
 
 These are acceptance/setup/eligibility controls, not native semantic proofs.
 Publication, native correspondence and full-writer completion remain false.
+
+
+The source-map and audit entry points now require all seven source-audit trust
+inputs in the caller's pretrial freeze: both controllers, the extraction binding,
+the imported lowerer, the unchanged source fixture and both shared support files.
+Both also guard that mandatory set independently of supplied freeze entries.
+The generator includes the full set. The earlier complete frozen replay remains
+valid at its historical checkpoint; an omitted binding can no longer be replaced
+after freezing. Three end-to-end regressions pass in normal and optimized Python:
+healthy complete freezes, omission of each mandatory input from both entry
+points, and the exact post-freeze synthetic-receipt/binding replacement. The
+healthy map and 12 source controls pass using the new pretrial freeze. These are
+provenance/eligibility controls, not semantic negatives. Mathematical sources and
+proof-checker logic are unchanged; no additional model or native theorem is
+claimed. Fresh independent review of this small completeness fix is pending.

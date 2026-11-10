@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "engine_checkpoint": "a93b774a",
-  "scope": "Stable immutable Zip operand eligibility; matching full regression still in progress",
+  "scope": "Stable immutable Zip operand eligibility; matching full regression passed; independent recheck pending",
   "fix": "Require a bare immutable Exec parameter key value; unsupported/reassigned/effectful operands receive ordinary verification unchanged.",
   "authored_fixture_source_domain_predicate_changes": false,
   "matching_compiler_and_vstd": "passed;2226/0",
@@ -32,13 +32,22 @@
   "observer_receipt": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/observations/observations-a8su2l54/receipt.json",
   "observer_receipt_sha256": "871dc66e8484bc374698c55678a566a4fcfa1bdbd13fa40eb192f3b8d5aee862",
   "observer_cases": 23,
-  "full_compiler_suite": "in progress; no complete-scope claim yet",
+  "full_compiler_suite": {
+    "targets": 32,
+    "passed": 621,
+    "failed": 0
+  },
   "full_validation_receipt": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/receipt.json",
-  "independent_review": "pending NEW recheck",
+  "independent_review": "in progress in a fresh isolated recheck; no acceptance claim",
   "policy": 68,
   "candidate_cache": 71,
   "metadata_schema": 38,
   "full_HMAC": "1/1 unproved in replay",
   "native_correspondences_proved": 0,
-  "goal_complete": false
+  "goal_complete": false,
+  "python": {
+    "normal": 148,
+    "optimized": 148
+  },
+  "full_validation_receipt_sha256": "1d2a609487be11b9fc2ffd824e4975d7e7a6ccab8223388b8e69fb8e5bd8807c"
 }

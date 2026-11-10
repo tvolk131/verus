@@ -11,7 +11,7 @@ ROOT=HERE.parents[3]
 sys.path.insert(0,str(ROOT/'source/tools'))
 from infer_eval_support import ArtifactGuard,digest,support_artifacts
 from infer_experiment import require,replay_receipt
-from source_map import build, authenticated_extraction
+from source_map import build, authenticated_extraction, source_audit_inputs, validate_source_freeze
 p=argparse.ArgumentParser()
 p.add_argument('--extraction',type=Path,required=True)
 p.add_argument('--freeze',type=Path,required=True)
@@ -20,10 +20,9 @@ a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
 r=dict(schema=1,publication=False,native_bridge_proved=False,cases=[],semantic_negative_count=0)
 with replay_receipt(a.output,r):
  f=json.loads(a.freeze.read_text())
- require(f['before_first_trial'] is True,'pretrial freeze')
- for n,h in f['files'].items():require(digest(ROOT/n)==h,'changed input '+n)
+ validate_source_freeze(f)
  paths=[a.extraction/n for n in ('drop-native.json','drop-borrowck.json','receipt.json')]
- g=ArtifactGuard([*paths,a.freeze,*[ROOT/n for n in f['files']],*support_artifacts()])
+ g=ArtifactGuard([*paths,a.freeze,*source_audit_inputs(),*[ROOT/n for n in f['files']]])
  authenticated_extraction(a.extraction)
  native=json.loads(paths[0].read_text());borrowck=json.loads(paths[1].read_text())
  source=HERE.parent/'native_heap_lowering/fixtures/drop.rs'

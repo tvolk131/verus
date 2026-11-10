@@ -87,13 +87,20 @@
   "full_HMAC_proved": false,
   "publication": false,
   "goal_complete": false,
-  "review_fix_status": "1efbd004: fresh integrated proof/guard replay passed; independent recheck pending",
+  "review_fix_status": "Original 1efbd004 fixes reproduced; source-freeze completeness corrected locally with independent recheck pending",
   "review_fix_freeze": "native_semantic_bridge/review-fix-freeze.json",
   "review_fix_positive_receipt": {
     "path": "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/receipt.json",
     "sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41"
   },
-  "review_fix_independent_recheck": "pending NEW review",
+  "review_fix_independent_recheck": {
+    "commit": "1f727448",
+    "recommendation": "exact frozen model replay accepted; source-freeze completeness still needs a fix",
+    "fresh_model_objects_match_original": true,
+    "fresh_recursive_kernel_check": true,
+    "assumption_constants": 25,
+    "finding": "P2: source-map/audit accept omitted source-binding freeze entry, allowing replacement after freeze"
+  },
   "review_fix_validation": {
     "receipt": "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/receipt.json",
     "sha256": "00515b9cd8ad8cb84cec24219d33506a3d5cb0a6f54e972d603cd33569d5d5e6",
@@ -107,5 +114,22 @@
     "assumption_constants": 25,
     "proof_objects_match_original": true,
     "native_correspondences_proved": 0
+  },
+  "source_freeze_completeness_fix": {
+    "freeze": "native_semantic_bridge/source-freeze-fix.json",
+    "mandatory_inputs": 7,
+    "end_to_end_regressions": 3,
+    "normal_and_optimized": true,
+    "source_controls": 12,
+    "semantic_negative_count": 0,
+    "independent_review": "pending",
+    "map": {
+      "receipt": "/tmp/verus-infer-buffer-cycle-20261109/source-freeze-fix-map/receipt.json",
+      "sha256": "4017e49389034b30c90baccf6f186dc6e40a2bb4628d546247044d094f6205fe"
+    },
+    "audit": {
+      "receipt": "/tmp/verus-infer-buffer-cycle-20261109/source-freeze-fix-audit/receipt.json",
+      "sha256": "21ee6386222d4f8762fb820a2fdf83cd57d9cae18bd367b4321f6a9e00c5015e"
+    }
   }
 }

@@ -15,6 +15,22 @@ from infer_experiment import require, replay_receipt
 from lower import Lower, sha
 
 
+def source_audit_inputs():
+    """Required pretrial inputs, independently of a caller's freeze entries."""
+    return [Path(__file__), HERE/'audit.py', HERE/'source-bindings.json',
+            HERE.parent/'native_heap_lowering/lower.py',
+            HERE.parent/'native_heap_lowering/fixtures/drop.rs',
+            *support_artifacts()]
+
+
+def validate_source_freeze(freeze):
+    require(freeze['before_first_trial'] is True, 'missing pretrial freeze')
+    required = {str(p.relative_to(ROOT)) for p in source_audit_inputs()}
+    require(required <= set(freeze['files']), 'incomplete frozen source-audit inputs')
+    for name, value in freeze['files'].items():
+        require(digest(ROOT/name) == value, 'frozen source changed '+name)
+
+
 def authenticated_extraction(directory):
     """Bind this audit to the independently reviewed, frozen extraction outputs."""
     pin = json.loads((HERE / 'source-bindings.json').read_text())
@@ -135,12 +151,11 @@ if __name__ == '__main__':
     receipt = dict(schema=1, publication=False, native_bridge_proved=False)
     with replay_receipt(a.output, receipt):
         freeze = json.loads(a.freeze.read_text())
-        require(freeze['before_first_trial'] is True, 'missing pretrial freeze')
-        for name, value in freeze['files'].items():
-            require(digest(ROOT/name) == value, 'frozen source changed '+name)
+        validate_source_freeze(freeze)
         src = HERE.parent / 'native_heap_lowering/fixtures/drop.rs'
         paths = [a.extraction/n for n in ('drop-native.json', 'drop-borrowck.json', 'receipt.json')]
-        guard = ArtifactGuard([*paths, src, Path(__file__), HERE.parent/'native_heap_lowering/lower.py', *support_artifacts(), a.freeze, *[ROOT/n for n in freeze['files']]])
+        guard = ArtifactGuard([*paths, *source_audit_inputs(), a.freeze,
+                               *[ROOT/n for n in freeze['files']]])
         authenticated_extraction(a.extraction)
         mapping = build(json.loads(paths[0].read_text()), json.loads(paths[1].read_text()), src)
         out = a.output/'source-obligations.json'

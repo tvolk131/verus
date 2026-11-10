@@ -25,8 +25,9 @@ follow-up still requested changes. The declaration/match and constructor-to-loop
 [32 targets / 618 tests, 26 canonical and 23 observer cases](parent-observer-origin.json).
 A new independent review closed those findings but found mutable/effectful Zip
 key operands. The stable-key restriction (`a93b774a`) passes 31 focused tests,
-148 VIR tests and both replay suites; its [full validation and recheck](parent-stable-key.json)
-remain pending. Earlier green receipts describe their historical source
+148 VIR tests, 621 compiler tests across all 32 Infer targets, 148 Python tests
+in each mode and both replay suites. Its [independent recheck](parent-stable-key.json)
+remains pending. Earlier green receipts describe their historical source
 checkpoints; they do not establish acceptance of the current branch.
 
 The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
