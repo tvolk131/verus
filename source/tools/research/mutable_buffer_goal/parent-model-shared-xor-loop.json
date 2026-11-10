@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "scope": "Exact MODEL prerequisite only",
+  "implementation": "88a56443",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared-xor-loop-88a56443/receipt.json",
+    "sha256": "4affff697f917ad8aacc65d77a5c3bc11ff79d59f83773d201b278b212b6708c"
+  },
+  "proof_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared-xor-loop-88a56443/proofs/receipt.json",
+    "sha256": "758c93f4c6809e8a3c4730cedb01052aea115b7b82c0a9e529e5f1291fa6edba"
+  },
+  "constant_count": 12,
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "all_objects_and_assumptions_match_worker": true,
+  "proof_objects": {
+    "Assumptions.vo": "f8cff0a0e4896d245663426c2afc27f82bd95039d47fbc43e3be469574136feb",
+    "ProofTerms.vo": "b7d7ee734343a27cc16982d4569ef9750aee8058c29acd362ec6aef7a58ced84",
+    "shared_xor.vo": "644da6ae0526e416f5806a6ad7fce88d1ba67f584f99ff11882613ce65acf9a4"
+  },
+  "independent_review": "running",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

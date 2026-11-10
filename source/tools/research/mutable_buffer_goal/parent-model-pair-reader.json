@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "scope": "Exact MODEL prerequisite only",
+  "implementation": "30c9c17c",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-pair-reader-30c9c17c/receipt.json",
+    "sha256": "c2fcefcc773191dc6fb5647eeb59d1bb6689f50a655942b6fa6ad12c15bca65c"
+  },
+  "proof_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-pair-reader-30c9c17c/proofs/receipt.json",
+    "sha256": "76e379b0006f5db9494acfa520b1b37f11e197267052422af83439ce8daa0614"
+  },
+  "constant_count": 16,
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "all_objects_and_assumptions_match_worker": true,
+  "proof_objects": {
+    "Assumptions.vo": "fc5099c92fcc401096fc7f32362bc7e4abe2d4fe993ccfa0effcd3e6e5b45482",
+    "controls.vo": "cc48ca7fa86b56254fd3ec4cd8e6a42e6e01f036ce8bf17da49ba4c5ac849f25",
+    "fixed.vo": "29104a771b23c000fa68b4417b991a5dc031e92779c2cbf9d01cfe22079b8c05",
+    "handoff.vo": "8a7501be99957d98f54902477c35f58e42e11ef7a00d5dd4dbd89a32bdf94544",
+    "setup.vo": "0e70268c5d1719afc136405bbf95dcd943eb6fb8659868a54886072ce9292cac",
+    "whole_key.vo": "e93df42a40750f288364c5529d7bcb29399df7e0d032c571c6c6d06e883185e7"
+  },
+  "independent_review": "running",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
