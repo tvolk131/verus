@@ -52,7 +52,7 @@ It offers actual candidate primitive foundations missing from VerusBelt:
   treated as a proof of current Rust Offset or retag behavior.
 * That language has byte-level values, XorOp, typed validity/casts, call return,
   stack local live/dead, unwind cleanup/terminate, and link-time panic strategy.
-* The checked frontend is a separate question: the inspected translator ignores
+* Frontend source fidelity is a separate question: the inspected translator ignores
   MIR FakeRead in `body/function_translation/basicblock.rs`. The source-to-Radium
   correctness of doing so is not supplied by its type-system soundness theorem.
   `rr_frontend/rust-toolchain.toml` pins nightly-2026-11-02, not this task's

@@ -10,7 +10,7 @@ The parent owns its toolchain and baseline build. New proofs compile separately.
 
 ## Exact first semantic interface
 
-`candidates/loan-v1/borrow_handoff.v` starts with **the defined**
+`candidates/loan-v5/borrow_handoff.v` starts with **the defined**
 `ty_own (&uniq{κ} ty) m d g tid [FVal #p]`, not an uninterpreted
 RefInterpretation, SourceExec, or owned-heap predicate. This is the resource
 interpretation furnished by a semantic input typing derivation. It contains the
@@ -21,6 +21,14 @@ restoring needs the very heap payload, time ticket and original lifetime guard.
 No allocation/freeable resource, additional PointsTo argument, extra reference,
 or duplicable ghost authority is acquired. The location is arbitrary: no
 allocation-base/offset-zero restriction is imposed.
+
+The public `source_context_access` derives its lifetime guard from ordinary
+`elctx_interp E` / `llctx_interp L` and `lctx_lft_alive E L κ`, rather than
+asking the client for an extra guard resource. These are model typing-context
+judgments, not application preconditions. `byte_array128_context_handoff`
+specializes the payload to exactly 128 initialized byte cells, exposing the
+actual defined heap points-to predicate and all-byte range facts. The Rust input
+has NOT yet been given a checked semantic typing derivation in this model.
 
 The initial no-write accessor deliberately restores the exact original `m`,
 including its prophecy variable and index. `uniq_resolve` then relates its future
@@ -36,7 +44,10 @@ uninitialized memory or a supplied owned allocation. VerusBelt physical cells
 hold mathematical values, rather than Rust byte-addressed objects. A cell model
 instance does not prove the Rust byte-layout/provenance/retag simulation.
 
-A closed type-soundness harness must instantiate the actual dependency theorem;
+`empty_heap_offset_adequate` instantiates the actual dependency's operational
+adequacy theorem for an explicit model-limit control: Offset is safe even on an
+empty heap. This is deliberately NOT adequacy for the Rust handoff. A handoff
+soundness harness/source typing derivation must still instantiate the actual dependency theorem;
 a generic conditional appeal to soundness is insufficient. Print Assumptions and
 coqchk must succeed before any model proof is marked kernel checked. The parent
 is building the unmodified dependency; current executable proof status is
