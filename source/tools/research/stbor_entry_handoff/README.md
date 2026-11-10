@@ -28,3 +28,11 @@ also open; the model retag expression has no native unwinding semantics.
 Native0,44+3/101 open, publication=false, whole goal incomplete. The two
 foundation builds are isolated research candidates; the existing Coq8.20 and
 Infer production environments are unchanged.
+
+The current candidate004 adds a proposed FnEntry normalization lemma from the
+published `valid_block` premise to a new top grant. It does not require the
+caller tag already at the top. This lemma is also uncompiled; obtaining that
+block premise from the actual argument copy is the
+[earlier source obligation](../../../../evidence/published-entry-source-review/MISSING-LEMMA.md).
+The source-only review covered the earlier12-declaration candidate, not this
+new13-declaration version. No compiled proof has been accepted for either.

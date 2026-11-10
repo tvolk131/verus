@@ -31,6 +31,38 @@ Proof.
     by apply top_write_pre.
 Qed.
 
+(* A caller top-head premise is unnecessary for this MODEL normalization.
+   Deriving valid_block from the actual pre-copy Rust entry remains unproved. *)
+Lemma fnentry_normalizes_from_valid_block sigma l old n c cids :
+  (0 < n)%nat -> Wf sigma -> sigma.(scs) = c :: cids ->
+  valid_block sigma.(sst) sigma.(scs) l old (RefPtr Mutable) (FixedSize n) ->
+  exists p alpha' next,
+    retag sigma.(sst) sigma.(snp) sigma.(scs) c l old FnEntry
+      (RefPtr Mutable) (FixedSize n) = Some (Tagged p, alpha', next) /\
+    mutable_top_block alpha' l p n.
+Proof.
+  intros POS WF CS BLOCK.
+  destruct (retag_is_freeze_is_Some sigma.(sst) sigma.(snp) sigma.(scs) c l old
+    FnEntry (RefPtr Mutable) (FixedSize n) BLOCK)
+    as [[[new alpha'] next] RT].
+  destruct (retag_change_ref_NZST sigma.(sst) sigma.(snp) sigma.(scs) c l old
+    FnEntry Mutable (FixedSize n) new alpha' next POS RT) as [TAG NEXT].
+  subst new next.
+  exists sigma.(snp), alpha', (S sigma.(snp)). split; [exact RT|].
+  have REF := RT.
+  change (retag_ref sigma.(sst) sigma.(scs) sigma.(snp) l old (FixedSize n)
+    (UniqueRef false) (Some c) =
+    Some (Tagged sigma.(snp), alpha', S sigma.(snp))) in REF.
+  have HEAD := tag_on_top_retag_ref_uniq sigma.(sst) sigma.(scs) sigma.(snp)
+    l old (FixedSize n) (Some c) sigma.(snp) alpha' (S sigma.(snp)) REF.
+  intros i LT. destruct (HEAD i LT) as [prot LOOK].
+  destruct (alpha' !! (l +ₗ i)) as [stk|] eqn:STACK; [|discriminate].
+  destruct stk as [|item tail]; [discriminate|].
+  simpl in LOOK. inversion LOOK; subst item.
+  exists Unique, prot, tail. split; [by left|].
+  first [exact STACK | reflexivity].
+Qed.
+
 (* Covers the published Default/TwoPhase/FnEntry reference operation. The
    call-stack and WF premises remain explicit, with arbitrary ancestor tails. *)
 Lemma bounded_reference_head_step fns sigma l p n rk c cids :
