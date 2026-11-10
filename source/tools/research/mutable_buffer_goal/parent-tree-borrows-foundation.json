@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "scope": "External Tree Borrows MODEL foundation; parent read-only artifact authentication",
+  "worker_commit": "3d3b14f919daa29b7e6e9d862721e77af87595f2",
+  "parent_integration_commit": "a45cdce8",
+  "upstream_commit": "e3abfcdc301f92250d4227fc03c00463bf57b982",
+  "readiness": {
+    "path": "/tmp/tree-borrows-checked-foundation-20261110/baseline-ready.json",
+    "sha256": "f56490bb8441dbd73c37fe46fe970dc008bb8b2b67ee2b651a04c34d2b1ca523"
+  },
+  "parent_authentication": {
+    "success": true,
+    "bound_manifests": 16,
+    "successful_receipts_and_log_hashes": 9,
+    "tracked_upstream_sources": 185,
+    "normal_build_objects": 71,
+    "actually_loaded_objects": 507,
+    "installed_files": 12002,
+    "method": "Read and compare pinned readiness, its explicit private/committed manifests, command receipts and logs, upstream source map, all model/loaded objects, and all installed snapshot entries. No compilation or kernel replay in parent yet."
+  },
+  "worker_checks": {
+    "normal_internal_modules": 71,
+    "recursive_libraries": 507,
+    "kernel_constants": 52862,
+    "individually_inventoried_internal_constants": 2399,
+    "public_root_constants": 529
+  },
+  "trust": {
+    "full_dependency_context": [
+      "Stdlib.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Stdlib.Logic.Classical_Prop.classic",
+      "Stdlib.Logic.IndefiniteDescription.constructive_indefinite_description"
+    ],
+    "individual_closed_examples": [
+      "retag_perm",
+      "retag_kind_to_prot",
+      "retag_step_wf"
+    ],
+    "ordinary_premises": "pool_safe/SafeImplies are ordinary hypotheses, not discharged by closed assumptions. No original Rust source safety follows.",
+    "production_trust_change": false
+  },
+  "runner_limit": "Delivered runner contains the old worker checkout path. Rehome only authenticated delivered driver bytes or use pinned private rocq directly. Never run completed baseline prepare/build again; fresh outputs only.",
+  "independent_review": "pending fresh isolated review and normal/kernel replay",
+  "native_correspondences": 0,
+  "native_source_validity": false,
+  "original_reference_CF": false,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "canonical": "6/0 unchanged; not rerun",
+  "full_HMAC": "1/1 unproved; XOR prefix AND unchanged suffix, full frozen domain",
+  "publication": false,
+  "goal_complete": false
+}
