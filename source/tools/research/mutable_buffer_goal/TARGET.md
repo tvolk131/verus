@@ -50,7 +50,8 @@ Checked model prerequisites are recorded separately from native correctness:
 | Initialized SC model writer | [12-declaration composition](parent-model-full-writer.json), normal compilation and recursive kernel checking passed; independent acceptance pending. This is separate from ordinary-memory/native simulation. |
 | Writer in an existing model caller context | [Nine-declaration caller procedure](parent-model-caller-writer.json) and [five-declaration ordinary-memory adaptation](parent-model-caller-ordinary-writer.json), independently accepted at MODEL scope. They preserve the original parent future and ancestor frame while changing the parent's current bytes. |
 | Conditional source-boundary components | [Constructor composition](parent-native-erasure-composition.json), [pointer-distance arithmetic](parent-native-pointer-distance.json), and [original-reference exit adapters](parent-native-original-reference-exit.json). Their actual source instances, source-to-span relation and C/F bindings remain unproved; current replay fixes await independent recheck. |
-| Executable source-local storage model | [142-declaration storage prefix](parent-native-source-storage.json), kernel checked for the selected sites and private storage effects. Its Rust interpretation and independent acceptance remain pending. |
+| Executable source-local storage model | [142-declaration storage prefix](parent-native-source-storage.json), independently accepted for the selected MODEL sites and private storage effects. Its Rust interpretation remains unproved. |
+| Array-to-slice carrier model | [33-declaration representation operation](parent-native-source-unsize.json), kernel checked before validation/retag/write hooks; independent review pending. The complete Rust unsizing operation remains unproved. |
 
 A physical transformation WP remains an explicit premise of the generic model
 wrapper. The concrete ordinary-memory writer discharges it using the checked

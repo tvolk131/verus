@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "scope": "unvalidated array-to-slice carrier MODEL, not complete Rust unsize",
+  "code_commit": "dfe1a04a",
+  "receipt": {
+    "path": "/tmp/native-source-unsize-20261110/trial004/receipt.json",
+    "sha256": "371fc3d00c84b58df975d7550774f73955a90a0ceda981b4fb7e6e3daee31c14"
+  },
+  "freeze": {
+    "path": "source/tools/research/native_source_unsize/trial004-freeze.json",
+    "sha256": "b94cbf6aab7601186b3845d7635bb92b791477cbe90997ed2bb859414ff74594"
+  },
+  "all_trials": {
+    "1": {
+      "path": "/tmp/native-source-unsize-20261110/trial001/receipt.json",
+      "sha256": "7de2dec2671bc4f2fcbd111c1d5c343b64e4f657e6a40c2d3e70a12035a4e122",
+      "success": true,
+      "commands": 7
+    },
+    "2": {
+      "path": "/tmp/native-source-unsize-20261110/trial002/receipt.json",
+      "sha256": "b03f843e938c3d70113dba12fa4c324c190d13597dd807bdd06fdead7e576219",
+      "success": false,
+      "commands": 0
+    },
+    "3": {
+      "path": "/tmp/native-source-unsize-20261110/trial003/receipt.json",
+      "sha256": "923b11bd690e1c73f82ccf4bec0659e5c53132058549f6fa5c9af509f2558c1b",
+      "success": true,
+      "commands": 7
+    },
+    "4": {
+      "path": "/tmp/native-source-unsize-20261110/trial004/receipt.json",
+      "sha256": "371fc3d00c84b58df975d7550774f73955a90a0ceda981b4fb7e6e3daee31c14",
+      "success": true,
+      "commands": 7
+    }
+  },
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "source_declarations": 33,
+  "per_module": {
+    "Carrier": 28,
+    "Root": 5
+  },
+  "assumptions": {
+    "Carrier.metadata_ok": [],
+    "Carrier.array_to_slice": [],
+    "Carrier.carrier_store": [],
+    "Carrier.metadata_ok_spec": [],
+    "Carrier.metadata_ten": [],
+    "Carrier.metadata_128": [],
+    "Carrier.carrier_pointer": [],
+    "Carrier.raw_is_not_array_reference": [],
+    "Carrier.slice_is_not_array_reference": [],
+    "Carrier.unrepresentable_rejected": [],
+    "Carrier.carrier_output": [],
+    "Carrier.carrier_progress": [],
+    "Carrier.carrier_characterization": [],
+    "Carrier.carrier_destination": [],
+    "Carrier.carrier_other_local": [],
+    "Carrier.carrier_source_preserved": [],
+    "Carrier.carrier_anchors": [],
+    "Carrier.carrier_all_cells": [],
+    "Carrier.carrier_pending_control": [],
+    "Carrier.same_local_rejected": [],
+    "Carrier.uninitialized_source_rejected": [],
+    "Carrier.dead_destination_rejected": [],
+    "Carrier.ten_byte_carrier": [],
+    "Carrier.byte128_carrier": [],
+    "Carrier.changed_tag": [],
+    "Carrier.changed_tag_same_subobject": [],
+    "Carrier.changed_tag_same_address": [],
+    "Carrier.changed_tag_distinct": [],
+    "Root.root_unsize_site": [],
+    "Root.selected_site_in_graph": [],
+    "Root.root_carrier_progress": [],
+    "Root.root_still_pending": [],
+    "Root.source_dead_does_not_discard_payload": []
+  },
+  "kernel_axioms": [],
+  "program_obligations": 0,
+  "generated_helpers": 0,
+  "math_products": {
+    "Carrier.v": "39c7064e548b966dfb02b4c24ba6c71b0157d798e1976b11b0ffb3628917b912",
+    "Carrier.vo": "c979a01cbbc62da77fb3822483119fa2ccbc3bb74131cfd97782f85d6795d058",
+    "Root.v": "8c98eda03c392ae362fa0458c3fc599667ba17790a7c87fd3337b35c6a8a06df",
+    "Root.vo": "5b08df72074e22274b31e1879df1fb120afcc80add718306c36cb4400c9b5e84"
+  },
+  "math_products_identical_in_successful_trials": true,
+  "all_parent_math_objects_match": true,
+  "all_final_guards_before_success": true,
+  "source_controls": {
+    "freeze": {
+      "path": "source/tools/research/native_source_unsize/source-controls-freeze.json",
+      "sha256": "c9758bf6e552c0f90eee2b50fa91159895cd8ec36d0d28585342a53627154b83"
+    },
+    "normal": 9,
+    "optimized": 9,
+    "kind": "pure in-memory typed selection; no filesystem experiments"
+  },
+  "retained_failure": {
+    "trial": 2,
+    "kind": "source-schema setup error before compilation; not semantic evidence"
+  },
+  "independent_review": "pending",
+  "actual_source_instance": false,
+  "source_certificate_proved": false,
+  "native_correspondences": 0,
+  "source_simulations_open": 44,
+  "phase_obligations_open": 3,
+  "writer_effects_open": 101,
+  "canonical": "6/0 inherited, not rerun",
+  "full_HMAC": "1/1 unproved inherited, not rerun",
+  "publication": false,
+  "goal_complete": false
+}

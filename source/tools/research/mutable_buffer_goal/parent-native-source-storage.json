@@ -13,11 +13,18 @@
   },
   "source_declarations": 142,
   "generated_helpers": 0,
-  "independent_review": "pending",
+  "independent_review": "a7dc2b68",
   "actual_source_instance": false,
   "source_certificate_proved": false,
   "source_CF_bindings_proved": false,
   "native_correspondences": 0,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "independent_replay": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/replay/receipt.json",
+    "sha256": "2799d7b04baa46372cebf15dd2bff533788d69658d535f1f749e5262c098f252"
+  },
+  "individual_assumptions_closed": true,
+  "kernel_axioms": [],
+  "review_scope": "exact three initial MODEL StorageLive operations; no Rust interpretation"
 }

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "scope": "unvalidated array-to-slice carrier MODEL, not complete Rust unsize",
+  "implementation": "dfe1a04a",
+  "receipt": {
+    "path": "/tmp/native-source-unsize-20261110/trial004/receipt.json",
+    "sha256": "371fc3d00c84b58df975d7550774f73955a90a0ceda981b4fb7e6e3daee31c14"
+  },
+  "source_declarations": 33,
+  "individual_assumptions_closed": true,
+  "kernel_axioms": [],
+  "independent_review": "pending",
+  "actual_source_instance": false,
+  "source_certificate_proved": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
