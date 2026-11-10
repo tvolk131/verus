@@ -164,7 +164,7 @@ controllers use explicit require checks under Python -B -O. Rocq normal kernel
 checking, rather than a pretend Verus no-cheating flag, governs the proof trial.
 
 
-## Controller review fixes: replay pending
+## Controller review fixes: fresh replay passed, recheck pending
 
 Independent review `ed9fd420` reproduced all four proof objects and accepted
 only the exact frozen model results. It found automatic-gate gaps in single-line
@@ -174,7 +174,13 @@ The revised controller freezes all trust inputs, requires the exact four-module
 checks the full recursive kernel summary. Generic/raw/control statements and
 byte obligations remain closed; specialized byte statements permit only the
 reported functional-extensionality assumption. The original mathematical proof
-sources are unchanged. New positive and refusal replays are pending.
+sources are unchanged. Fresh normal compilation and recursive kernel checking pass with 25 assumption
+constants and the original four proof-object hashes. Eight targeted tests pass
+under normal and optimized Python; 12 source controls, four readiness controls,
+and three proof-acceptance refusals pass. The refusals compile ordinary Rocq
+proofs using imported classical logic, then reject the extra named assumption
+or the kernel-only extra assumption. No failed script counts as a semantic
+negative. Fresh independent recheck is pending.
 
 `review-fix-freeze.json` is the active pretrial integration freeze. Earlier
 freezes and receipts retain their historical controller versions. Readiness now

@@ -87,11 +87,25 @@
   "full_HMAC_proved": false,
   "publication": false,
   "goal_complete": false,
-  "review_fix_status": "1efbd004:8targeted tests pass normal+optimized;12source+4readiness controls and fresh18+6model proof/25constant assumption inventory pass;3acceptance controls still running",
+  "review_fix_status": "1efbd004: fresh integrated proof/guard replay passed; independent recheck pending",
   "review_fix_freeze": "native_semantic_bridge/review-fix-freeze.json",
   "review_fix_positive_receipt": {
     "path": "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/receipt.json",
     "sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41"
   },
-  "review_fix_independent_recheck": "pending NEW review"
+  "review_fix_independent_recheck": "pending NEW review",
+  "review_fix_validation": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/receipt.json",
+    "sha256": "00515b9cd8ad8cb84cec24219d33506a3d5cb0a6f54e972d603cd33569d5d5e6",
+    "unit_tests": 8,
+    "optimized_unit_tests": 8,
+    "source_controls": 12,
+    "readiness_controls": 4,
+    "acceptance_refusal_controls": 3,
+    "named_theorems": 18,
+    "byte_type_obligations": 6,
+    "assumption_constants": 25,
+    "proof_objects_match_original": true,
+    "native_correspondences_proved": 0
+  }
 }
