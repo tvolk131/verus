@@ -43,8 +43,15 @@
     "source_runtime_loan_reconstructed": false
   },
   "independent_review": {
-    "status": "pending",
-    "evidence": null
+    "status": "accept exact MODEL prerequisite",
+    "commit": "bb38f57a",
+    "fresh_normal_compilation": true,
+    "fresh_recursive_kernel_check": true,
+    "all_six_objects_match_worker": true,
+    "complete_assumptions": 26,
+    "program_obligations": 0,
+    "findings": [],
+    "fresh_receipt_sha256": "bbec38f8d582dffa453e4a5ecc6daea17336b0ccba917f9b6bcc5f92383ca85c"
   },
   "actual_native_correspondences": 0,
   "minimal_native_simulations_open": 44,
