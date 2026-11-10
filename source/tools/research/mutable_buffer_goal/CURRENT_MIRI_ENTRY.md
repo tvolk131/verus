@@ -36,8 +36,10 @@ The genuine `NonZero<u64>` tag lane supplies a bounded original-body subset
 adapter verifies49/0, but changes `BorTag::new` and cannot establish the exact
 constructor interface. All use manual proof assistance with no inferred
 helpers. The [tag component record](parent-miri-tag-component.json) binds the
-34-epoch retained audit and eight false controls; independent acceptance is
-pending. Original constructor function values, optional checked addition,
+34-epoch retained audit and eight false controls. Independent review `613fe501`
+accepts the bounded component after fresh on/off proofs and all eight controls;
+the explicit adapter remains separate from exact-source acceptance. Original
+constructor function values, optional checked addition,
 bool conversion and runtime derived comparisons remain separate needs.
 
 The next comparison must use the current compiler-matched source in
