@@ -1,0 +1,20 @@
+{
+  "scope": "Review-local authentication script development only; not semantic evidence",
+  "attempts": [
+    {
+      "command": "python3 -B evidence/model-state-observation-review/audit.py",
+      "exit_code": 1,
+      "error": "RuntimeError: same exact shared dependency /tmp/verus-infer-buffer-cycle-20261109/model-observation-trial017-freeze.json",
+      "cause": "The worker's historical original freeze filename is not the new replay's freeze filename; the initial audit compared it as a same-path shared dependency.",
+      "correction": "Authenticate its recorded hash against the final-freeze identity; compare all actual shared framework/library/tool dependencies by path and hash.",
+      "candidate_or_baseline_source_changed": false,
+      "prover_failed": false,
+      "semantic_evidence": false
+    },
+    {
+      "command": "python3 -B evidence/model-state-observation-review/audit.py > evidence/model-state-observation-review/audit.stdout 2> evidence/model-state-observation-review/audit.stderr",
+      "exit_code": 0,
+      "output": "audit.json"
+    }
+  ]
+}
