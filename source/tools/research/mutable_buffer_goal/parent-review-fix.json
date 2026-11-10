@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "goal_complete": false,
-  "status": "matching focused validation passes; full Infer regressions and independent fix review pending",
+  "status": "matching full Infer regressions and focused replays pass; independent fix review pending",
   "engine_checkpoint": "ea897a9b",
   "review": "790dcdc3",
   "findings": {
@@ -83,10 +83,64 @@
   "native_correspondence_proved": false,
   "full_HMAC_proved": false,
   "remaining": [
-    "complete all32 Infer compiler targets on this engine",
     "fresh independent review of the two fixes",
     "actual original reference/loan entry, native primitive simulation and final-array adequacy",
     "full frozen HMAC XOR-prefix+unchanged-suffix theorem and shared checked assistance acceptance",
     "final combined independent acceptance and requirement audit"
-  ]
+  ],
+  "complete_infer_compiler_suite": {
+    "target_count": 32,
+    "passed": 611,
+    "failed": 0,
+    "ignored": 0,
+    "filtered": 0,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-full-infer-final/receipt.json",
+    "receipt_sha256": "4cef0082538f1474e08888c3d8d5ba262559698f20007acb9279c14a6b2ef9e2",
+    "targets": {
+      "infer": 299,
+      "infer_binary": 9,
+      "infer_byte_apis": 6,
+      "infer_clone": 14,
+      "infer_codec_values": 9,
+      "infer_collections": 15,
+      "infer_compare_derive": 7,
+      "infer_counting": 13,
+      "infer_error_values": 10,
+      "infer_foreign_opaque": 4,
+      "infer_goals": 12,
+      "infer_growth": 12,
+      "infer_integer_conversions": 5,
+      "infer_literal_panic_range": 4,
+      "infer_native_option": 18,
+      "infer_newtypes": 11,
+      "infer_owned": 17,
+      "infer_range": 9,
+      "infer_record_returns": 7,
+      "infer_record_shifts": 5,
+      "infer_records": 21,
+      "infer_relational_goals": 8,
+      "infer_scalar_pairs": 6,
+      "infer_selection": 9,
+      "infer_traits": 13,
+      "infer_transfer_composition": 2,
+      "infer_traversals": 8,
+      "infer_word_goals": 3,
+      "infer_wrapper_traits": 16,
+      "infer_buffer_observation_goals": 13,
+      "infer_mutable_buffer_goals": 8,
+      "infer_wrappers": 18
+    },
+    "interruption": {
+      "session_id": 80007,
+      "observed_exit_code": 143,
+      "final_receipt_written": false,
+      "classification": "batch runner interruption; not a verifier or semantic outcome",
+      "completed_target_logs": 29,
+      "earlier_focused_targets": 2,
+      "rerun_targets": [
+        "infer_wrappers"
+      ]
+    },
+    "recovery": "29 completed guarded target logs plus2 matching focused binaries; unfinished infer_wrappers rerun freshly after confirming runner/child processes stopped. Source and original/copy runtime identities rechecked; interruption is not proof evidence."
+  }
 }
