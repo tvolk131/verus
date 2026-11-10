@@ -131,11 +131,13 @@ pub(super) fn wrapper_member(f: &Function, name: &str) -> bool {
         && p.segments[2].starts_with("impl&%") && p.segments[3].as_str()==name
         && f.x.proxy.is_none() && matches!(f.x.kind,FunctionKind::Static)
         && f.x.mode==Mode::Spec && f.x.typ_params.len()==1 && f.x.params.len()==1
+        && bounds(f,"wrapper") && f.x.inner_ret.x.mode==Mode::Spec
         && f.x.params[0].x.mode==Mode::Spec && !f.x.params[0].x.user_mut
         && ty(&f.x.params[0].x.typ, CrateId::Vstd, &["std_specs","iter","VerusForLoopWrapper"])
             .is_some_and(|ts| ts.len()==1 && same(&ts[0],&generic(f,0)))
         && match name {
             "wf" => same(&f.x.inner_ret.x.typ,&bool_typ()),
+            "index" => same(&f.x.inner_ret.x.typ,&int_typ()),
             "seq" => iterators::sequence(&f.x.inner_ret.x.typ).is_some_and(|t|
                 matches!(&**t,TypX::Projection { trait_typ_args, trait_path, name }
                     if trait_typ_args.len()==1 && same(&trait_typ_args[0],&generic(f,0))

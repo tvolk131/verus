@@ -534,15 +534,7 @@ fn annotations(s: &Shape, all: &HashMap<Fun, Function>) -> Option<(Expr, Expr)> 
 
 fn invariants(s: &Shape, all: &HashMap<Fun, Function>) -> Option<Vec<LoopInvariant>> {
     let b = Builder { span: &s.source.loop_expr.span, all };
-    let idx = all.values().find(|f| {
-        f.x.mode == Mode::Spec
-            && f.x.name.path.krate == CrateId::Vstd
-            && f.x.name.path.segments.len() == 4
-            && f.x.name.path.segments[0].as_str() == "std_specs"
-            && f.x.name.path.segments[1].as_str() == "iter"
-            && f.x.name.path.segments[2].starts_with("impl")
-            && f.x.name.path.last_segment().as_str() == "index"
-    })?;
+    let idx = all.values().find(|f| super::native_mutable_for::wrapper_member(f, "index"))?;
     let TypX::Datatype(_, ts, _) = &*s.source.wrapper.typ else { return None };
     let wrapper = b.expr(&s.source.wrapper.typ, ExprX::Var(s.source.wrapper.name.clone()));
     let index = b.expr(
@@ -564,49 +556,8 @@ fn invariants(s: &Shape, all: &HashMap<Fun, Function>) -> Option<Vec<LoopInvaria
             body: None,
         },
     );
-    // Reuse the supplied written-prefix observation, including its resolved type.
-    let ExprX::Loop { invs, .. } = &s.source.loop_expr.x else { return None };
-    let mut seq = None;
-    for inv in invs.iter() {
-        expr_visitor_walk(&inv.inv, &mut |e| {
-            if let Some((n, args)) = call_name(e) {
-                if n.path.krate == CrateId::Vstd
-                    && n.path.segments.len() == 4
-                    && n.path.segments[0].as_str() == "std_specs"
-                    && n.path.segments[1].as_str() == "iter"
-                    && n.path.segments[2].starts_with("impl")
-                    && n.path.last_segment().as_str() == "seq"
-                    && args.len() == 1
-                    && local(&args[0]) == Some(&s.source.wrapper.name)
-                {
-                    seq = Some(e.clone());
-                }
-            }
-            VisitorControlFlow::<()>::Recurse
-        });
-    }
-    let seq = seq?;
-    let len = all.values().find(|f| collections::model(f) == Some(collections::Model::SeqLen))?;
-    let TypX::Datatype(_, ts, _) = &*seq.typ else { return None };
-    let length = b.expr(
-        &int_typ(),
-        ExprX::Call {
-            target: CallTarget::Fun(
-                CallTargetKind::Static,
-                len.x.name.clone(),
-                ts.clone(),
-                Arc::new(vec![]),
-                CallTargetAttrs {
-                    autospec: AutospecUsage::Final,
-                    const_var: false,
-                    assume_external_allowed: false,
-                },
-            ),
-            args: Arc::new(vec![seq]),
-            post_args: None,
-            body: None,
-        },
-    );
+    // Native sequence length comes from the shared observation pass. Keep
+    // counter alignment and its scalar bound local to the numeric profile.
     Some(vec![
         LoopInvariant {
             kind: LoopInvariantKind::InvariantExceptBreak,
@@ -615,10 +566,6 @@ fn invariants(s: &Shape, all: &HashMap<Fun, Function>) -> Option<Vec<LoopInvaria
         LoopInvariant {
             kind: LoopInvariantKind::InvariantAndEnsures,
             inv: b.bin(BinaryOp::Inequality(InequalityOp::Le), s.index.clone(), b.int(9)),
-        },
-        LoopInvariant {
-            kind: LoopInvariantKind::InvariantAndEnsures,
-            inv: b.eq(length, b.int(10)),
         },
     ])
 }
