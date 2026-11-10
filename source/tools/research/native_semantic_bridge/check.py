@@ -33,8 +33,12 @@ def main():
         require(ready['source_commit'] == PIN and ready['baseline_kernel_checked'] is True,
                 'unready/wrong foundation')
         baseline_receipt = Path(ready['receipt'])
-        require(json.loads(baseline_receipt.read_text())['success'] is True,
+        baseline_result = json.loads(baseline_receipt.read_text())
+        require(baseline_result['success'] is True,
                 'baseline final receipt did not succeed')
+        successful_stages = {c['label'] for c in baseline_result.get('commands', []) if c['returncode'] == 0}
+        require({'prover-version', 'build-baseline', 'kernel-check-baseline'} <= successful_stages,
+                'incomplete baseline commands')
         baseline = Path(ready['build']).resolve()
         original = Path('/tmp/verus-infer-buffer-cycle-20261109/verus-belt-115a618d')
         copied = json.loads(baseline_receipt.read_text())['copied_sources']
@@ -53,7 +57,7 @@ def main():
         # Freeze the full compiled foundation and sources for this trial; no
         # installation or baseline writes. Loadpaths point read-only at baseline.
         paths += [p for p in (baseline/'src').rglob('*') if p.suffix in ('.v', '.vo')]
-        paths += [coqc, coqchk, wrapper, gmp_manifest, baseline/'_CoqProject', a.ready, baseline_receipt,
+        paths += [coqc, coqchk, wrapper, gmp_manifest, Path(ready['opam']), baseline/'_CoqProject', a.ready, baseline_receipt,
                   a.freeze, *support_artifacts()]
         guard = ArtifactGuard(paths)
         receipt['artifacts'] = guard.initial
