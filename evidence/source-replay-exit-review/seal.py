@@ -38,10 +38,11 @@ if __name__=='__main__':
         'fresh_products_rechecked':count,'publication':False,'goal_complete':False,
         'final_receipt':r.pin(r.RAW/'final-receipt.json'),
         'preparation_failure':r.pin(r.RAW/'preparation-failure.json'),
+        'independent_exit_parser_failure':r.pin(r.RAW/'exit-inventory-parser-failure.json'),
         'source_hashes':{str(p.relative_to(r.ROOT)):r.sha(p) for p in r.HERE.iterdir()
             if p.is_file() and p.name not in ['SHA256SUMS','seal-receipt.json']}})
     r.write(r.HERE/'raw-receipts.json',{n:r.pin(r.RAW/n) for n in [
         'pretrial.json','history-authentication.json','constructor/receipt.json','pointer/receipt.json','exit/receipt.json',
         'constructor-independent.json','pointer-independent.json','exit-independent.json','final-receipt.json',
-        'preparation-failure.json','seal-receipt.json']})
+        'preparation-failure.json','exit-inventory-parser-failure.json','seal-receipt.json']})
     print('all fresh sources, objects, individual outputs and raw command logs sealed')

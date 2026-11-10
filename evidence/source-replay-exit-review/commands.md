@@ -10,7 +10,8 @@ python3 -B evidence/source-replay-exit-review/review.py replay pointer
 python3 -B evidence/source-replay-exit-review/review.py replay exit
 python3 -B evidence/source-replay-exit-review/review.py supplement constructor
 python3 -B evidence/source-replay-exit-review/review.py supplement pointer
-python3 -B evidence/source-replay-exit-review/review.py supplement exit
+python3 -B evidence/source-replay-exit-review/review.py supplement exit  # parser failure retained
+python3 -B evidence/source-replay-exit-review/exit_audit.py  # corrected fresh independent replay
 python3 -B evidence/source-replay-exit-review/finalize.py history
 python3 -B evidence/source-replay-exit-review/seal.py
 ```
@@ -35,3 +36,10 @@ The initial pretrial attempt used the private root without `-002` and stopped
 before any proof command due to the historical-TARGET mapping error documented
 in REPORT.md and preparation-failure.json. No output from that attempt is
 mathematical or semantic evidence.
+
+The exit supplement first compiled successfully but rejected Coq's short printed
+name for inherited functional_extensionality_dep. exit_audit.py freezes and
+retains that attempt, specializes only the independent output parser and fresh
+output path, and reruns normal compilation plus full recursive kernel replay.
+It requires the exact two inherited fully qualified recursive kernel axioms.
+The specialized procedure source and its SHA256 are retained before execution.

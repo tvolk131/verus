@@ -88,7 +88,9 @@ def final():
                 'reason':'initial harness recognized only .t3/worktrees historical labels',
                 'corrected_in':'afb6c2fc','proof_or_semantic_evidence_from_wrong_checkout':False,
                 'overbroad_ancestor_find':'interrupted before any output; no files opened by that find'},
-            'nonsemantic_review_failures':['initial preparation TARGET path remapping mismatch; no proof commands ran'],
+            'nonsemantic_review_failures':['initial preparation TARGET path remapping mismatch; no proof commands ran',
+                'independent exit parser rejected short printed name of inherited extensionality; successful compile outputs retained; corrected independently'],
+            'exit_inventory_parser_failure':r.pin(r.RAW/'exit-inventory-parser-failure.json'),
             'goal_scope_tests':{},'commands':[]}
     assumptions={};hashes={}
     pre=r.read(r.RAW/'pretrial.json')
