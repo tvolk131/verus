@@ -93,6 +93,18 @@ test_verify_one_file_with_options! {
 const WRONG_LOOP: &str =
     include_str!("../../tools/research/mutable_buffer_goal/constructor-loop-mismatch.rs");
 test_verify_one_file_with_options! {
+    #[test] reassigned_zip_key_local_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
+        include_str!("../../../evidence/observer-origin-review/repros/zip-key-local-reassigned.rs").to_string() => Ok(())
+}
+test_verify_one_file_with_options! {
+    #[test] reassigned_zip_key_parameter_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
+        include_str!("../../../evidence/observer-origin-review/repros/zip-key-parameter-same-lifetime.rs").to_string() => Ok(())
+}
+test_verify_one_file_with_options! {
+    #[test] executable_zip_key_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] =>
+        include_str!("../../../evidence/observer-origin-review/repros/zip-helper-key.rs").to_string() => Ok(())
+}
+test_verify_one_file_with_options! {
     #[test] unrelated_constructor_is_not_the_loop_origin ["vstd", "--infer-goals", "--no-cheating"] =>
         WRONG_LOOP.to_string() => Ok(())
 }

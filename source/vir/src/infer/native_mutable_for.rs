@@ -412,6 +412,24 @@ pub(super) fn describe(f: &Function, all: &HashMap<Fun, Function>) -> Option<Nat
         if !slice(kt) || !same(&ts[1], &a[1].typ) {
             return None;
         }
+        // The annotation observes the evaluated Zip operand throughout the
+        // loop. Only an immutable parameter is stable here; mutable locals or
+        // executable producers would be re-evaluated instead of observed.
+        let key_name = match &a[1].x {
+            ExprX::Var(v) => v,
+            ExprX::ReadPlace(p, _) => match &p.x {
+                PlaceX::Local(v) => v,
+                _ => return None,
+            },
+            _ => return None,
+        };
+        let key_param = f.x.params.iter().find(|p| p.x.name == *key_name)?;
+        if key_param.x.mode != Mode::Exec
+            || key_param.x.user_mut
+            || !same(&key_param.x.typ, &a[1].typ)
+        {
+            return None;
+        }
         let zts = ty(&zip.typ, CrateId::Core, &["iter", "adapters", "zip", "Zip"])?;
         if zts.len() != 2 || !same(&zts[0], &iterator) || !native(&zts[1], false) {
             return None;
