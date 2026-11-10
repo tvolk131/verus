@@ -52,7 +52,8 @@ Its only P2 finding, two stale zero-arity test expectations, is fixed: parent
 validation passed68 FnDef tests (one existing ignored test) and13 constructor
 tests. Policy/cache reconciliation and parent-wide validation are complete for
 the bounded combined capability.
-The full tag closure, ordering and `Item::new` remain unproved.
+The original `Item::tag` composition is checked below; ordering and
+`Item::new` remain unproved.
 
 The provisional equality extension now checks original derived `PartialEq::eq`
 over every genuine `NonZero<u64>` tag, with no local proof blocks or proof bodies.
@@ -77,8 +78,20 @@ predicate allows arbitrary high flag bits; no preservation across native stack
 transitions or extra application precondition is claimed. Full original
 `Item::new` remains36/1 at its protector debug assertion. Actual bool conversion
 is0/1; the inspected one-cast MIR and passing local mirror are not a checked
-foreign-body bridge. Imported Eq/value observation compatibility is a separate
-unproved interface relation.
+foreign-body bridge.
+
+Imported Eq/value compatibility is now checked with one authored public
+broadcast lemma and one client broadcast import. The original closed value
+body, private fields and runtime calls remain unchanged. Fresh parent results
+are20/0 for the provider on/off and2/0 for the separately compiled client.
+The false returned relation fails only its intended postcondition; removing
+the import reproduces the original1/1 gap. A constant-zero observation fails
+original constructor/getter contracts and is classified separately. The
+[observation record](parent-tag-observation-exports.json) authenticates all17
+retained epochs and all eight fresh parent outcomes, including complete Eq
+obligations and absent imported closed/proof bodies. This is manual semantic
+interface work, with no causal automation gain claimed. The simpler public
+alias alone remains insufficient.
 
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
