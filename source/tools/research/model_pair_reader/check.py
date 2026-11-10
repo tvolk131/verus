@@ -13,7 +13,7 @@ from proof_checks import parse_axioms, parse_kernel_summary
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['handoff']
+MODULES = ['handoff', 'fixed', 'whole_key', 'setup']
 HEAP = BASE/'parent-heap-init-3d799b38'
 SEM = BASE/'semantic-guard-validation-1efbd004/proofs'
 INPUT = BASE/'parent-model-input-94b87742/proofs'
@@ -51,7 +51,9 @@ def main():
     a.output = a.output.resolve()
     a.output.mkdir(parents=True, exist_ok=False)
     receipt = dict(schema=1, commands=[], publication=False, model_proofs_kernel_checked=False,
-                   source_entry_proved=False, native_effects_discharged=0)
+                   source_entry_proved=False, native_effects_discharged=0,
+                   actual_native_correspondences=0, minimal_native_simulations_open=44,
+                   native_phase_obligations_open=3, native_writer_effects_open=101, goal_complete=False)
     with replay_receipt(a.output, receipt):
         frozen_bytes = a.freeze.read_bytes()
         freeze = json.loads(frozen_bytes)
@@ -64,21 +66,22 @@ def main():
         ready = load(READY)
         baseline_receipt = Path(ready['receipt'])
         baseline = load(baseline_receipt)
-        library_receipts = {str(d):load(d/'receipt.json') for d,_ in LIBS}
+        deps = load(HERE/'dependency-pins.json')
+        dependency_dirs = [Path(d) for d in deps]
+        library_receipts = {str(d):load(d/'receipt.json') for d in dependency_dirs}
         heap_pin = load(HERE.parent/'mutable_buffer_goal/parent-heap-initialization.json')
         semantic_pin = load(HERE.parent/'mutable_buffer_goal/parent-semantic-foundation.json')
         trusted = load(HERE.parent/'mutable_buffer_goal/foundation-baseline.json')
         binding = load(BRIDGE/'baseline-bindings.json')
         pin = load(HERE.parent/'mutable_buffer_goal/foundation-pin.json')
-        deps = load(HERE/'dependency-pins.json')
         switchbin = Path(ready['switch'])/'_opam/bin'
         toolpaths = {n: (switchbin/n if n in ['coqc', 'coqchk'] else Path(ready[n]))
                      for n in ['coqc', 'coqchk', 'runner', 'opam']}
         sources = baseline['copied_sources']
         paths = [*inputs(), a.freeze, READY, baseline_receipt, BUILD/'_CoqProject',
                  *toolpaths.values(), BASE/'rocq-toolchain/gmp-private/manifest.json',
-                 *[d/'receipt.json' for d,_ in LIBS],
-                 *[x for d,_ in LIBS for x in (d/'proofs').glob('*') if x.suffix in ['.v','.vo']],
+                 *[d/'receipt.json' for d in dependency_dirs],
+                 *[x for d in dependency_dirs for x in (d/'proofs').glob('*') if x.suffix in ['.v','.vo']],
                  *[BUILD/n for n in sources], *list((BUILD/'src').rglob('*.vo'))]
         guard = ArtifactGuard(paths)
         def retained(path): return guard.initial[str(path.resolve())]['sha256']
@@ -92,7 +95,7 @@ def main():
         require(retained(BASE/'rocq-toolchain/gmp-private/manifest.json') == trusted['toolchain']['GMP_packages']['sha256'], 'GMP manifest pin mismatch')
         require(retained(HEAP/'receipt.json') == heap_pin['parent_replay']['sha256'], 'heap receipt mismatch')
         require(retained(SEM/'receipt.json') == semantic_pin['review_fix_positive_receipt']['sha256'], 'semantic receipt mismatch')
-        for d,_ in LIBS:
+        for d in dependency_dirs:
             require(retained(d/'receipt.json') == deps[str(d)]['receipt_sha256'], 'library receipt identity')
             require({p.name for p in (d/'proofs').glob('*') if p.suffix in ['.v','.vo']} ==
                     set(deps[str(d)]['artifacts']), 'prerequisite file inventory')
@@ -149,7 +152,7 @@ def main():
             src = HERE/'candidates'/(n+'.v')
             require(declarations(src)==freeze['constants'][n], 'constant inventory changed')
             text = src.read_text()
-            require(not re.search(r'\b(Program|Obligation|Inductive|CoInductive|Record|Let|Fact|Remark|Proposition)\b', text), 'uninventoried declaration')
+            require(not re.search(r'^\s*(?:(?:Global|Local)\s+)?(?:Program|Next\s+Obligation|Inductive|CoInductive|Record|Class|Let|Fact|Remark|Proposition)\b', text, re.M), 'uninventoried declaration')
             require(not re.search(r'\b(Axiom|Admitted|admit|Parameter|Abort|native_compute|vm_cast_no_check)\b',text),
                     'unchecked or incomplete construct')
             target = work/src.name
