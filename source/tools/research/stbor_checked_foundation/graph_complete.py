@@ -31,11 +31,9 @@ for entry in loaded.values():
     else:
         group = 'Coq'
     groups[group].append(str(source))
-common = [str(prefix/'bin/coqdep'), '-boot', '-coqlib', str(lib),
-          '-R', str(lib/'theories'), 'Coq', '-R', str(lib/'plugins'), 'Coq']
-for directory in sorted((lib/'plugins').iterdir()):
-    if directory.is_dir():
-        common += ['-I', str(directory)]
+# -boot automatically registers this Coq source-build tree's standard/plugin
+# roots. Registering installed copies too creates duplicate resolution warnings.
+common = [str(prefix/'bin/coqdep'), '-boot', '-coqlib', str(lib)]
 recipes = {
     'Coq': [],
     'stdpp': ['-Q', str(lib/'user-contrib/stdpp'), 'stdpp'],
@@ -54,14 +52,15 @@ recipes = {
 commands, rules, raw = [], [], []
 for group, sources in groups.items():
     command = common+recipes[group]+sorted(sources)
-    result = subprocess.run(command, cwd=UPSTREAM, stdout=subprocess.PIPE,
+    result = subprocess.run(command, cwd=prefix/'.opam-switch/build/coq.8.9.1', stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE, text=True)
     commands.append({'group': group, 'command': command,
+                     'cwd': str(prefix/'.opam-switch/build/coq.8.9.1'),
                      'exit_status': result.returncode, 'stderr': result.stderr})
     print(group, 'sources', len(sources), 'exit', result.returncode, flush=True)
     if result.returncode or result.stderr.strip():
         print(result.stderr, flush=True)
-        save(ROOT/'manifests/dependency-graph-complete-failed-commands.json', commands)
+        save(ROOT/('manifests/dependency-graph-failed-'+sha(Path(__file__))[:12]+'.json'), commands)
         raise SystemExit('dependency graph is incomplete: diagnostic output')
     raw.append(result.stdout)
     for line in result.stdout.replace('\\\n', ' ').splitlines():

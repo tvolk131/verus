@@ -24,7 +24,7 @@ receipts = {name: successful(name) for name in
             ['switch-create-4071', 'release-authentication',
              'dependency-downloads-authenticated', 'dependency-preflight-after-refresh',
              'install-frozen-dependencies', 'upstream-build',
-             'recursive-kernel-check', 'declaration-inventory', 'dependency-graph-complete',
+             'recursive-kernel-check', 'declaration-inventory', 'dependency-graph-complete-final',
              'toolchain-query']}
 kernel = receipts['recursive-kernel-check']['command']
 if any(flag in kernel for flag in ['-admit', '-norec', '-silent']):
