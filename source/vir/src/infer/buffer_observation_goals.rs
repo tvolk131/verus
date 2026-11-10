@@ -504,6 +504,15 @@ fn validate(original: &Function, decorated: &Function, d: &Decoration) -> Result
     // Independently constrain the erased scaffold, even if a corrupted producer
     // supplies a matching receipt. A ghost assignment may initialize only its
     // own fresh declaration, never an executable input or existing local.
+    fn contains(value: &serde_json::Value, needle: &serde_json::Value) -> bool {
+        value == needle
+            || match value {
+                serde_json::Value::Array(v) => v.iter().any(|v| contains(v, needle)),
+                serde_json::Value::Object(m) => m.values().any(|v| contains(v, needle)),
+                _ => false,
+            }
+    }
+    let original_json = serde_json::to_value(original).expect("VIR function");
     let mut names = HashSet::new();
     for pair in d.prefix.chunks_exact(2) {
         let StmtX::Decl {
@@ -517,7 +526,9 @@ fn validate(original: &Function, decorated: &Function, d: &Decoration) -> Result
             return Err(bad());
         };
         let PatternX::Var(binding) = &pattern.x else { return Err(bad()) };
-        if !names.insert(binding.name.clone()) {
+        if contains(&original_json, &serde_json::to_value(&binding.name).expect("VIR binding"))
+            || !names.insert(binding.name.clone())
+        {
             return Err(bad());
         }
         let StmtX::Expr(g) = &pair[1].x else { return Err(bad()) };
@@ -531,6 +542,37 @@ fn validate(original: &Function, decorated: &Function, d: &Decoration) -> Result
             || !native::same(&place.typ, &binding.typ)
             || !native::same(&rhs.typ, &binding.typ)
             || !native::same(typ, &binding.typ)
+        {
+            return Err(bad());
+        }
+    }
+    fn binders(v: &serde_json::Value, out: &mut Vec<VarIdent>) {
+        match v {
+            serde_json::Value::Object(m) => {
+                if m.contains_key("a") {
+                    if let Some(name) = m.get("name") {
+                        if let Ok(n) = serde_json::from_value::<VarIdent>(name.clone()) {
+                            out.push(n);
+                        }
+                    }
+                }
+                for v in m.values() {
+                    binders(v, out);
+                }
+            }
+            serde_json::Value::Array(v) => {
+                for v in v {
+                    binders(v, out);
+                }
+            }
+            _ => (),
+        }
+    }
+    let mut generated_binders = vec![];
+    binders(&serde_json::to_value(&d.invariants).expect("VIR invariants"), &mut generated_binders);
+    for binding in generated_binders {
+        if contains(&original_json, &serde_json::to_value(&binding).expect("VIR binding"))
+            || !names.insert(binding)
         {
             return Err(bad());
         }
@@ -727,6 +769,178 @@ mod tests {
         x.body =
             Some(g.x.body.as_ref().unwrap().new_x(ExprX::Block(Arc::new(reordered), tail.clone())));
         assert!(validate(&f, &g.new_x(x), &d).is_err());
+    }
+    #[test]
+    fn snapshot_schema_rejects_mode_existing_binding_and_executable_writes() {
+        let (f, d) = fixture();
+        for control in 0..3 {
+            let mut d = d.clone();
+            let StmtX::Decl { pattern, mode, init, els, assert_irrefutable } = &d.prefix[0].x
+            else {
+                unreachable!()
+            };
+            if control == 0 {
+                d.prefix[0] = crate::def::Spanned::new(
+                    d.prefix[0].span.clone(),
+                    StmtX::Decl {
+                        pattern: pattern.clone(),
+                        mode: Some((Mode::Exec, DeclProph::Default)),
+                        init: init.clone(),
+                        els: els.clone(),
+                        assert_irrefutable: *assert_irrefutable,
+                    },
+                );
+            } else if control == 1 {
+                let PatternX::Var(b) = &pattern.x else { unreachable!() };
+                let mut b = b.clone();
+                b.name = f.x.params[0].x.name.clone();
+                d.prefix[0] = crate::def::Spanned::new(
+                    d.prefix[0].span.clone(),
+                    StmtX::Decl {
+                        pattern: pattern.new_x(PatternX::Var(b)),
+                        mode: *mode,
+                        init: init.clone(),
+                        els: els.clone(),
+                        assert_irrefutable: *assert_irrefutable,
+                    },
+                );
+            } else {
+                let StmtX::Expr(g) = &d.prefix[1].x else { unreachable!() };
+                let ExprX::Ghost { expr, .. } = &g.x else { unreachable!() };
+                let ExprX::Assign { place: _, rhs, op, typ, resolve } = &expr.x else {
+                    unreachable!()
+                };
+                let place = SpannedTyped::new(
+                    &g.span,
+                    &rhs.typ,
+                    PlaceX::Local(f.x.params[0].x.name.clone()),
+                );
+                let assign = expr.new_x(ExprX::Assign {
+                    place,
+                    rhs: rhs.clone(),
+                    op: *op,
+                    typ: typ.clone(),
+                    resolve: *resolve,
+                });
+                d.prefix[1] = crate::def::Spanned::new(
+                    d.prefix[1].span.clone(),
+                    StmtX::Expr(g.new_x(ExprX::Ghost {
+                        alloc_wrapper: false,
+                        tracked: false,
+                        expr: assign,
+                    })),
+                );
+            }
+            assert!(install(&f, &d, &HashMap::new()).is_err());
+        }
+    }
+    #[test]
+    fn consistent_binding_corruption_keeps_nodes_fresh_but_is_rejected() {
+        let (f, d) = fixture();
+        let local = VarIdent(Arc::new("existing_local".into()), VarIdentDisambiguate::AirLocal);
+        let quantified =
+            VarIdent(Arc::new("existing_quantifier".into()), VarIdentDisambiguate::AirLocal);
+        let truth = expr(&span(), &bool_typ(), ExprX::Const(Constant::Bool(true)));
+        let mut fx = f.x.clone();
+        fx.require = Arc::new(vec![expr(
+            &span(),
+            &bool_typ(),
+            ExprX::Quant(
+                Quant { quant: air::ast::Quant::Forall },
+                Arc::new(vec![Arc::new(VarBinderX { name: quantified.clone(), a: int_typ() })]),
+                truth.clone(),
+            ),
+        )]);
+        let body = fx.body.as_ref().unwrap();
+        let ExprX::Block(stmts, tail) = &body.x else { unreachable!() };
+        let mut ss = snapshot_pair(&span(), local.clone(), truth);
+        ss.extend(stmts.iter().cloned());
+        fx.body = Some(body.new_x(ExprX::Block(Arc::new(ss), tail.clone())));
+        let f = f.new_x(fx);
+        let g = install(&f, &d, &HashMap::new()).unwrap();
+        let StmtX::Decl { pattern, .. } = &d.prefix[0].x else { unreachable!() };
+        let PatternX::Var(b) = &pattern.x else { unreachable!() };
+        // Rename declaration, assignment and every read together, without
+        // changing any expression/read/span IDs, in both body and receipt.
+        fn rename<T: serde::Serialize + serde::de::DeserializeOwned>(
+            v: &T,
+            old: &VarIdent,
+            new: &VarIdent,
+        ) -> T {
+            fn walk(v: &mut serde_json::Value, old: &serde_json::Value, new: &serde_json::Value) {
+                if v == old {
+                    *v = new.clone();
+                    return;
+                }
+                match v {
+                    serde_json::Value::Object(m) => {
+                        for v in m.values_mut() {
+                            walk(v, old, new)
+                        }
+                    }
+                    serde_json::Value::Array(v) => {
+                        for v in v {
+                            walk(v, old, new)
+                        }
+                    }
+                    _ => (),
+                }
+            }
+            let mut v = serde_json::to_value(v).unwrap();
+            walk(&mut v, &serde_json::to_value(old).unwrap(), &serde_json::to_value(new).unwrap());
+            serde_json::from_value(v).unwrap()
+        }
+        let old = b.name.clone();
+        for new in [f.x.params[0].x.name.clone(), local, quantified] {
+            let mut corrupt = d.clone();
+            corrupt.prefix = rename(&d.prefix, &old, &new);
+            corrupt.invariants = rename(&d.invariants, &old, &new);
+            let changed: Function = rename(&g, &old, &new);
+            assert_eq!(node_ids(&g), node_ids(&changed));
+            assert!(validate(&f, &changed, &corrupt).is_err());
+        }
+        // Compose on the already decorated function, then consistently rename
+        // only the second pass's new binder to the first pass's existing binder.
+        let mut a = Fresh::new(&[g.clone()], &[]);
+        let mut second = d.clone();
+        let n1 = a.binding();
+        let n2 = a.binding();
+        let value = expr(&span(), &bool_typ(), ExprX::Const(Constant::Bool(true)));
+        second.prefix = snapshot_pair(&span(), n1.clone(), value.clone())
+            .into_iter()
+            .chain(snapshot_pair(&span(), n2, value))
+            .map(|s| a.stmt(&s).unwrap())
+            .collect();
+        second.invariants = second
+            .invariants
+            .iter()
+            .map(|i| LoopInvariant { kind: i.kind, inv: a.expr(&i.inv).unwrap() })
+            .collect();
+        let g2 = install(&g, &second, &HashMap::new()).unwrap();
+        let mut reuse = second.clone();
+        reuse.prefix = rename(&second.prefix, &n1, &old);
+        reuse.invariants = rename(&second.invariants, &n1, &old);
+        let reused: Function = rename(&g2, &n1, &old);
+        assert_eq!(node_ids(&g2), node_ids(&reused));
+        assert!(validate(&g, &reused, &reuse).is_err());
+        // Duplicate binder identities across independent quantifiers are invalid
+        // even when every node ID has been freshly allocated.
+        let mut a = Fresh::new(&[f.clone()], &[]);
+        let n = a.binding();
+        let q = expr(
+            &span(),
+            &bool_typ(),
+            ExprX::Quant(
+                Quant { quant: air::ast::Quant::Forall },
+                Arc::new(vec![Arc::new(VarBinderX { name: n, a: int_typ() })]),
+                expr(&span(), &bool_typ(), ExprX::Const(Constant::Bool(true))),
+            ),
+        );
+        let mut duplicate = d.clone();
+        for i in 0..2 {
+            duplicate.invariants[i].inv = a.expr(&q).unwrap();
+        }
+        assert!(install(&f, &duplicate, &HashMap::new()).is_err());
     }
     #[test]
     fn audit_rejects_collisions_even_if_receipt_is_corrupted() {
