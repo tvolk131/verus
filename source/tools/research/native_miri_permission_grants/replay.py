@@ -75,6 +75,9 @@ def validate_component(observation, expected):
         '<Permission as std::clone::Clone>::clone', 'Permission::grants'}, 'body identities differ')
     status = 'checked_exec_body' if expected else 'selected_body_not_certified_by_successful_full_run'
     require(all(x['body_status'] == status for x in selected), 'unverified selected contract')
+    target = next(x['function'] for x in selected if x['rust_function'] == 'Permission::grants')
+    require(inf.get('failed_functions') == ([] if expected else [target]),
+            'failed query must belong exactly to Permission::grants, with Clone bodies healthy')
     require(scope['checked_proof_bodies'] == 0, 'unexpected proof bodies')
     if expected:
         require(scope['checked_exec_bodies'] == 3, 'checked body count mismatch')
@@ -114,9 +117,28 @@ def main():
                 'missing pretrial or accepted-runtime identity')
         accepted = json.loads(ACCEPTED.read_bytes())
         require(accepted['success'] is True, 'runtime baseline failed')
+        support = {p.resolve() for p in support_artifacts()}
+        bundle_names = set()
+        receipt_support_mapping = {}
         for p in tool_artifacts(BUNDLE / 'verus', BUNDLE / 'z3'):
             require(str(p.resolve()) in frozen['inputs'], 'unfrozen verifier artifact')
-            require(digest(p) == accepted['artifacts'][str(p)]['sha256'], 'accepted runtime changed')
+            if p.resolve() in support:
+                # Historical receipt keys are labels. Authenticate identical own
+                # repository bytes without opening any historical checkout.
+                keys = [key for key in accepted['artifacts']
+                        if key.endswith('/source/tools/' + p.name)]
+                require(len(keys) == 1, 'ambiguous canonical support identity')
+                canonical_key = keys[0]
+                receipt_support_mapping[str(p.resolve())] = canonical_key
+            else:
+                require(p.parent.resolve() == BUNDLE.resolve(), 'unexpected verifier artifact root')
+                bundle_names.add(p.name)
+                canonical_key = str(p)
+            require(digest(p) == accepted['artifacts'][canonical_key]['sha256'], 'accepted runtime changed')
+        require(bundle_names == {'verus', 'rust_verify', 'vstd.vir', 'libvstd.rlib',
+                                'libverus_builtin.rlib', 'libverus_builtin_macros.so',
+                                'libverus_state_machines_macros.so', 'z3'}, 'bundle inventory differs')
+        receipt['canonical_support_key_mapping'] = receipt_support_mapping
         pins = json.loads(pin.read_bytes())
         source_names = ['src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs',
                         'src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs',
