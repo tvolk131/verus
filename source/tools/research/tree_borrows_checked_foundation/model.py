@@ -31,7 +31,7 @@ if a.action=='prepare':
     with (r/'dependencies.d').open('w') as o, (r/'dependencies.stderr').open('w') as e:run(['rocq','dep','-f','_RocqProject'],cwd=src,stdout=o,stderr=e)
     run([sys.executable,'-B',str(own/'closure.py'),str(src),str(r/'dependencies.d'),str(r/'closure.json')])
     installed={}
-    for base in [r/'opamroot/tb/bin',r/'opamroot/tb/lib',r/'deps']:
+    for base in [r/'opamroot/tb/bin',r/'opamroot/tb/lib',r/'deps',r/'opamroot/download-cache']:
         installed[str(base)]=snapshot(base)
     (r/'installed-pretrial.json').write_text(json.dumps(installed,indent=2)+'\n')
     versions={}
