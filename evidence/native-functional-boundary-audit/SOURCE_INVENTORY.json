@@ -1,0 +1,383 @@
+{
+  "schema": 1,
+  "baseline": "759644e2c14430d2715889484aeb7b9cf77f32e6",
+  "identity_only": true,
+  "entries": [
+    {
+      "path": "evidence/native-mir-lrust-review/REPORT.md",
+      "sha256": "524eefa8ba03129a13d82116d1337ef72d65964e64b2b3e3e2db2105aecab858",
+      "line_anchors": [
+        72
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "evidence/ordinary-access-model-review/REPORT.md",
+      "sha256": "3ed61e4751919b76d8386f08848542aa81f450c29b7843004cc872f709a51178",
+      "line_anchors": [
+        72
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/docs/guide/src/call-from-unverified-code.md",
+      "sha256": "bebc5e21cd14cd4960f912fe88cc29377386d81fd0036f772b41cfda87fdbdc9",
+      "line_anchors": [
+        24
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/docs/guide/src/infer.md",
+      "sha256": "d5bb41dd9007877c50f7aece668f2759ff45dc335d20f505445cddcaf7edc02d",
+      "line_anchors": [
+        1221
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/docs/guide/src/memory-safety.md",
+      "sha256": "4b07f627f3341b7f18b63cf1dc2304e129a886cce315dc417d3ba29d24d9d735",
+      "line_anchors": [
+        9
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/docs/guide/src/reference-attributes.md",
+      "sha256": "b7eec33b19e9bbe0fdd0a1882d836a22134085b3f00f020072c95f15806af571",
+      "line_anchors": [
+        99
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/docs/guide/src/reference-unwind-sig.md",
+      "sha256": "c7519a80a5ba4a9364aecce46d3355b8537683010a73a7a9a7d3dc607c9a72a0",
+      "line_anchors": [
+        3,
+        30
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/docs/guide/src/tcb.md",
+      "sha256": "03c5be9b92429a54bb1499737a762581e41c41843ab3c63c85377491ed0b7bbf",
+      "line_anchors": [
+        7
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/rust_verify/src/rust_to_vir_expr.rs",
+      "sha256": "7c8e947872021708e582741422d87760430b54ec723b8853bc6978e257b9ec39",
+      "line_anchors": [
+        1900,
+        2631,
+        4650
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/rust_verify/src/verifier.rs",
+      "sha256": "fcfd4ae6a8997279d36e9edd940119deaba701095eb3a55453af0872eeed027f",
+      "line_anchors": [
+        2918,
+        3532,
+        3556
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/model_caller_writer/TRUST_INVENTORY.json",
+      "sha256": "f3f2528b1253f55220d80a4c69d28650d8dc5f40d64580cf00b2e5ea9a59e32b",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/model_caller_writer/candidates/caller.v",
+      "sha256": "c144f300765055e47d61de27c735ed57ac9db70ba1d9ee6ce39b589cd08e121a",
+      "line_anchors": [
+        28
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/model_caller_writer/candidates/interface.v",
+      "sha256": "b95039bbaab42d8b53406c93bf206865b53c029bf5bc154498d5fa91a63825c5",
+      "line_anchors": [
+        30
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/model_full_writer/INTERFACE.md",
+      "sha256": "88580ffc2657fce51d6df574bf361f1f99f1126c7660d62c5af1319b214bb9e5",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/model_input_context/REPORT.md",
+      "sha256": "32f12edb3e26fd724aaf19c74e3db1cd5c29242c376faba6bd6ddc76a4a851cd",
+      "line_anchors": [
+        26
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/mutable_buffer_goal/FACT_PROVENANCE.md",
+      "sha256": "f4dd142194b4c488db7fbfbeca82332e801fa9965c6b3447f3f3eb98cb077fa7",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/mutable_buffer_goal/NATIVE_CERTIFICATE.md",
+      "sha256": "194b3e8fa6ec2252dd11f4bd30afd69400570a7a00cd718d560f20cb652a9d68",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/mutable_buffer_goal/TARGET.md",
+      "sha256": "ecb453036de51b50cbf0fb7b4ebb4edca7952af0be6e3cb7dee22f20d140521e",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/mutable_buffer_goal/native-drop-inventory.json",
+      "sha256": "f978f71cc9b3993ccf77f8563be3886e8c3b5d9772b6bca24b99f5496a02c702",
+      "line_anchors": [
+        100
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/mutable_buffer_goal/transfer-freeze.json",
+      "sha256": "49fffebaf78f3e2202ed2473937de199226074c31b4e782e23d11d61d5b6c85d",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_byte_xor/REPORT.md",
+      "sha256": "c0fea11c78ea604293ded6f66c47192179a769b1ae5290ab3295d4b13e479d0d",
+      "line_anchors": [
+        13,
+        23
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_byte_xor/SOURCE.json",
+      "sha256": "5b509c62e6c630788146127665f4bda91c9d489e89baa8da777ab462ae0a78a3",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_byte_xor/TRUST_INVENTORY.json",
+      "sha256": "0e61825b5e954784959bae8f78a961c00c4feed0e39c9c3a2548891152bfa866",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_effect_soundness/source-results.json",
+      "sha256": "a6f00e78f34616ab037fe54ecf1e425224b8a2c6cc470d150ae21ec7d6e4347b",
+      "line_anchors": [
+        40
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_heap_initialization/REPORT.md",
+      "sha256": "eef05a6c75969006ad4301800c42aa5a709871811097395879c8791c97810ced",
+      "line_anchors": [
+        14
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_iterator_certificate/REPORT.md",
+      "sha256": "5ffb1194e5d5256855e6f2c5a7dd7daf9c85b96a596f4507ac1ec80e4ebde110",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_iterator_certificate/check.py",
+      "sha256": "ec367e6f7575ab8d363823c478227f94afa0f43d06544848df916c52509edbaa",
+      "line_anchors": [
+        416
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_mir_lrust_refinement/REPORT.md",
+      "sha256": "4cee4849f11f56a678bd8bd3490ef445c09818d9be73dfd80cbe2a6c2ec3c00b",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_mir_lrust_refinement/candidates/fragment.v",
+      "sha256": "de211072bda1887ffe0a4cfff4d9900dc473c3eefd5fc55e53b420552c7a1fa4",
+      "line_anchors": [
+        41,
+        66,
+        134
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_mir_lrust_refinement/dependency-pins.json",
+      "sha256": "9ff9fe549da32ed2f347c3e155a8c08e980edc23c3bd7f2ef3d42ae5d5439187",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_mir_lrust_refinement/source-coverage.json",
+      "sha256": "1bc073b9796737fab1aaceffc246e10b58171d09a6be12e6cd9573b9ce89e5c7",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_reference_adequacy/REPORT.md",
+      "sha256": "4bb1ee7c5d50ea2cd2241e4f224ba34cd4b6004bdc041bb4faa12ff1b63e7834",
+      "line_anchors": [
+        1,
+        39
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_reference_adequacy/encoding-inventory.json",
+      "sha256": "5e0172c37bbeb42003e9f1df81fc8f39136318c4657384d344e64acbaa3364f8",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_source_entry/MISSING_LAYER.md",
+      "sha256": "dc0c9a7f19c392d6734abe49a83a34402ebbba8715358b3eeb2ac319b985aa6e",
+      "line_anchors": [
+        9,
+        55,
+        76,
+        163
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/tools/research/native_source_entry/boundary-inventory.json",
+      "sha256": "7905798d4d461df254e42ac7aaf9eb44c78d7ab0401e9660bf7223a20056b0c6",
+      "line_anchors": [
+        1
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vir/src/ast_to_sst.rs",
+      "sha256": "831db3e10fdf316f9fab5f4b6098bd2707aea9cd8f8204308a4837476d5f0abb",
+      "line_anchors": [
+        4220
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vir/src/prelude.rs",
+      "sha256": "a9199b94579cc34488e698a0da4ab24b866e9df4454a8cd9556cd06d81cdeb9a",
+      "line_anchors": [
+        247
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vir/src/resolution_inference.rs",
+      "sha256": "2b7150725b324ef82ca263b2644d7896d04e835db9217e88021db51a83b8d7ec",
+      "line_anchors": [
+        80
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vir/src/resolve_axioms.rs",
+      "sha256": "cd1b995e352b6403ce54541623a342a3cc254fb3900f7afdb583434378db27ef",
+      "line_anchors": [
+        142
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vstd/array.rs",
+      "sha256": "767049d31bb46d2a69fc5f7d18c34024b7c42414637c70e6f4aea1b0f03d8a9a",
+      "line_anchors": [
+        177
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vstd/mut_ref.rs",
+      "sha256": "9ad87cacf9c62277f3dad59624eebb27f3c6a3a917206eb05c91e51d9286eba7",
+      "line_anchors": [
+        9
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vstd/std_specs/iter.rs",
+      "sha256": "8c36a7c39e5cf6f977d71b0023d7652e9ed2a42f051a043352392e319895f933",
+      "line_anchors": [
+        46,
+        71,
+        892,
+        942
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    },
+    {
+      "path": "source/vstd/std_specs/slice.rs",
+      "sha256": "55d58a124105edb29507ca9d397aafa34cb243d6d79a50ac0339af5d3a24e8a4",
+      "line_anchors": [
+        491,
+        515
+      ],
+      "status": "committed source or recorded completed evidence; not newly kernel checked"
+    }
+  ],
+  "root_SC_writer": {
+    "status": "UNPROVED/pending per assignment",
+    "read": "source/tools/research/model_full_writer/INTERFACE.md only",
+    "excluded": [
+      "writer.v",
+      "live outputs"
+    ]
+  },
+  "read_policy": "Only own committed checkout and explicitly pinned completed MIR/receipt/standard-source paths; historical checkout source paths were labels, never read.",
+  "runs": {
+    "builds": 0,
+    "Coq": 0,
+    "Rust_regressions": 0,
+    "new_proof_facts": 0,
+    "external_references": 0
+  }
+}
