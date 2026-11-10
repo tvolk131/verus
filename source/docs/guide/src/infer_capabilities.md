@@ -28,6 +28,7 @@ inference candidate.
 | [Ordinary scalar caller goals](infer.md#demand-driven-scalar-proof-assistance) | Bounded checked bit-vector proposals from exact published relations, including supported records, arrays, casts and relational premises | The assertions/contracts to prove; unsupported or failed proposals do not establish them |
 | [Word-view goals](infer.md#bounded-u64-word-view-assistance) | Scoped selection of checked membership, sequence-update/count and padding laws for supplied generic word views | The semantic invariant, domain and explicit representation vocabulary; arbitrary wrapper bridges remain unsupported |
 | [Canonical byte encoding](infer.md#checked-canonical-byte-encoding) | Checked arithmetic, byte-mask and iterator annotations for the bounded u64/radix-128/ten-byte encoder | Canonical meaning and inductive semantic/exit clauses; the full independent HMAC suffix frame remains unproved |
+| [Mutable byte-loop observations](infer.md#checked-canonical-byte-encoding) | Checked view snapshots, lengths and referent bridges for a single native mutable ten- or 128-byte array loop, optionally zipped with a shared byte slice | Semantic prefix/exit invariants; no native unused-tail frame or general mutable-iterator model is supplied |
 | [Cross-crate use](infer.md#cross-crate-inference-and-cargo) | Certified interface composition, dependency/model fingerprints and candidate reuse with fresh proofs | Dependency specifications and trust assumptions; unverified callers must respect preconditions |
 
 ## Diagnose the boundary

@@ -1,24 +1,28 @@
 # Verus Infer: direction and active roadmap
 
-Working direction, November 9, 2026. This document sets current priorities;
+Working direction, November 10, 2026. This document sets current priorities;
 [the feature reference](source/docs/guide/src/infer.md) defines supported behavior.
 The [project entry point](VERUS_INFER.md) links adoption, assurance, application
 evidence and the archived RFC; ordinary work need not load the historical journals.
 
-## Active next goal: canonical mutable-buffer proving
+## Active goal: canonical mutable-buffer proving and transfer
 
 The [goal charter](source/tools/research/mutable_buffer_goal/TARGET.md) freezes
-the unchanged full-domain varint canonical theorem as the next acceptance target.
-The parent integrates three isolated workers: checked mutable observation/frame
-laws, ordinary-proof-first mechanical assistance, and an independently frozen
-second real buffer writer. Authored semantic definitions/invariants remain
-explicit; application-local mechanical proof glue must be removed. Fresh
-independent review and combined validation follow integration. This goal is
-active; the completed cycle below remains its accepted starting point.
-An ordinary full canonical proof is now available with inventoried diagnostic
-mechanical steps. Automation is under validation. The frozen second writer's
-full XOR-prefix/unchanged-suffix property is blocked by the inherited opaque
-iterator resolution model; its domain and full property remain unchanged.
+the unchanged full-domain varint canonical theorem and a second real buffer
+writer. Canonical assistance now verifies cold/warm with no application-local
+mechanical proof blocks, theorem calls or snapshots; semantic definitions and
+invariants remain authored. The [combined record](source/tools/research/mutable_buffer_goal/parent-combined.json)
+binds matching runtime checks and remaining acceptance work. A scoped canonical
+review passed; fresh combined review and broader compiler regressions are pending.
+
+The frozen HMAC pad-XOR writer's full XOR-prefix/unchanged-suffix theorem remains
+unproved. Shared observation assistance removes snapshots and representation
+invariants from its prefix-only proof, but supplies no untouched-tail frame.
+Checked reference entry and conditional resource laws have not yet established
+native source correspondence. The active implementation task is a checked
+single-borrow ownership/refinement bridge through actual native operations.
+The writer's body, full domain and property remain unchanged. This goal stays
+active until both full properties and the combined acceptance criteria pass.
 
 ## Goal and division of responsibility
 
@@ -67,10 +71,11 @@ and shared annotation utilities are implemented and reviewed. The transfer
 changes are integrated locally and have passed fresh
 parent replay and [independent review](evidence/production-transfer-review/README.md).
 
-The [fresh varint experiment](evidence/verus-infer-varint-3b05c191/README.md)
-gets past macro syntax using the existing adapter. Exact inference stops at
-`iter_mut`; authored annotations prove full-domain safety/length but not the
-canonical byte property. The [single-word redb transition](source/tools/research/redb_single_word_set/REPORT.md)
+The original [varint baseline](evidence/verus-infer-varint-3b05c191/README.md)
+gets past macro syntax using the existing adapter. Exact contract inference
+stops at `iter_mut`; its authored annotations prove safety/length. The active
+goal above subsequently proves the full canonical property through checked
+goal assistance. The [single-word redb transition](source/tools/research/redb_single_word_set/REPORT.md)
 proves an authored membership/count/padding invariant with explicit generic
 word-law assistance; the frozen literal baseline still fails its semantic goals.
 The merged [word-view extension](source/tools/research/word_goal_automation/REPORT.md)
@@ -98,8 +103,8 @@ and classification findings are corrected and checked by fresh parent replays.
    original bodies, intended domain and authored semantics before extending the
    engine. First measure the existing automation, recording adapters, remaining
    proof annotations, assumptions and the actual first blocker. The fresh varint
-   canonical goal remains blocked; its partial length theorem does not replace
-   the required property or qualify as automatic transfer acceptance.
+   canonical goal was blocked at that checkpoint; its partial length theorem
+   did not replace the required property or qualify as transfer acceptance.
 4. **Completed: remove evidenced mechanical work and demonstrate transfer.** Select one
    bounded reusable extension from those baselines. Retain original application
    goals/domains, add unrelated positive and negative cases, and replay both the
@@ -116,7 +121,8 @@ four standard transfers, the generic-word stateful reduction with both helpers
 inferred, and the full native request transfer. The
 [acceptance record](evidence/infer-cycle-20261109/README.md) binds the matching
 runtime, receipts, authored inputs and remaining limits. Canonical varint
-encoding remains blocked and is explicitly outside accepted application proofs.
+encoding was outside that checkpoint's accepted application proofs; subsequent
+progress belongs to the active goal above.
 
 Independent worktrees may evaluate the encoder and stateful properties in
 parallel against a fixed engine. Keep their baselines and evidence separate;
@@ -140,10 +146,11 @@ to trusted library models need an explicit account of the additional assumptions
 
 ## Follow-on priorities
 
-Mutable-iterator/fixed-buffer effects and written-prefix invariants are the
-strongest next coverage target, measured against the unchanged canonical varint
-goal. Representation-wrapper bridges, multiword stateful collection frames and
-larger proof closures including real application callsites follow. Ordinary-proof-first
+The checked native mutable-iterator ownership/frame bridge is the next coverage
+target, measured against the frozen full HMAC writer while retaining the proved
+canonical varint fixture. Representation-wrapper bridges, multiword stateful
+collection frames and larger proof closures including real application callsites
+follow. Ordinary-proof-first
 bounded retries and an expected-input-domain goal can improve adoption; backward/mixed
 hex iteration and fixed-array decoding remain bounded application extensions.
 

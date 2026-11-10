@@ -55,7 +55,7 @@ The later [integrated transfer checkpoint](evidence/infer-proof-composition/READ
 records bounded Fedimint deadline and redb codec, page-size and address-range
 properties, including reduction of caller proof glue.
 
-Fresh research records the [unsigned-varint canonical blocker and partial length proof](evidence/verus-infer-varint-3b05c191/README.md)
+Earlier research records the [unsigned-varint baseline blocker and partial length proof](evidence/verus-infer-varint-3b05c191/README.md)
 and an [authored stateful redb bitmap invariant](source/tools/research/redb_single_word_set/REPORT.md).
 The latter uses explicit reusable proof-library assistance; neither experiment
 is a claim of automatic end-to-end inference for its full application.
@@ -71,6 +71,12 @@ removed both original bitmap helper contracts and passed a
 [separate review](evidence/pair-0c00-review/README.md), with its harness findings
 corrected. The [five-milestone acceptance record](evidence/infer-cycle-20261109/README.md)
 collects final parent validation, remaining authored work and blockers.
+
+The subsequent [mutable-buffer goal](source/tools/research/mutable_buffer_goal/TARGET.md)
+now proves the full canonical varint predicate with authored semantic invariants
+and checked mechanical assistance. Shared observations also remove proof glue
+from a real HMAC pad-XOR prefix proof. Its full unchanged-suffix theorem remains
+unproved; native ownership/refinement and final combined acceptance remain open.
 
 Each record retains its own source pin, domain, authored inputs, assumptions,
 validation and exclusions. These are not whole-protocol, whole-gateway or

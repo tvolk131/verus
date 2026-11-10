@@ -28,9 +28,11 @@ behavior; the [direction document](VERUS_INFER_DIRECTION.md) sets priorities.
   the feature reference.
 - Every `--infer-goals` provider requires complete body checking, even with no
   inferred helper or applicable assistance profile. Disabled/partial checking
-  is rejected before certification and independently at export. Policy 67
-  invalidates earlier inference-aware interfaces; candidate formulas remain
-  untrusted and freshly proved under the unchanged cache policy.
+  is rejected before certification and independently at export. The current
+  policy 68/cache 71 build also requires full well-formedness and mode checking
+  of generated buffer-assistance bodies, with refreshed resolution maps.
+  Earlier inference-aware interfaces are incompatible; candidate formulas remain
+  untrusted and freshly proved.
 - Ordinary-only providers must also retain normal lifetime and trait-consistency
   checking. In particular, disabling lifetimes cannot certify a proof function
   that duplicates a generic tracked resource. Goal-assisted exports conservatively

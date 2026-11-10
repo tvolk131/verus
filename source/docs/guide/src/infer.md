@@ -71,6 +71,13 @@ preserves the whole original function; generated body statements receive full
 well-formedness and mode checking with refreshed resolution maps. The encoder's
 contract remains authored, and wider shapes retain their ordinary obligations.
 
+Shared observation assistance supports a single native mutable loop over
+`[u8;10]` or `[u8;128]`, optionally zipped with an immutable byte slice. It proposes
+checked view snapshots, lengths and current/future-referent bridges, preserving
+the authored semantic invariant. The [independent prefix experiment](../../../../source/tools/research/buffer_observation_goal/REPORT.md)
+verifies with assistance and fails without it after removing those local
+mechanical annotations. These proposals use existing iterator contracts.
+
 The independent HMAC pad-XOR transfer still lacks a checked native IterMut/Zip
 frame for its untouched suffix. Prefix-only results and diagnostic native MIR
 extraction do not establish that full property or general mutable iteration.

@@ -20,6 +20,16 @@ conservation, a native correspondence theorem or the full writer theorem.
 Raw parent receipt:
 `/tmp/verus-infer-buffer-cycle-20261109/parent-native-extraction-e4011e16/receipt.json`.
 
+The [subsequent typed-checker milestone](../native_iterator_certificate/REPORT.md#second-executable-milestone)
+(`42d1c255`) extends the inventory to 32 instances and 408 operations, including
+scope-exit drop queries. Its value diagnostics and two scalar VCs are conditional;
+all native ownership/refinement obligations remain open and publication always
+rejects. The parent replay is recorded in
+`/tmp/verus-infer-buffer-cycle-20261109/parent-native-checker-42d1c255/receipt.json`.
+The smaller [constructor/drop inventory](native-drop-inventory.json) has six
+instances, 44 operations and no extraction blockers. This is a separate no-write
+diagnostic, not a replacement for the full writer or a native frame proof.
+
 The subsequent research preserves checked executable/reference carriers
 (`native_borrow_entry`, `98f428fa`) and 18 conditional linear-resource proofs
 (`native_effect_soundness`, `20973453`). A tracked slice can be obtained from
