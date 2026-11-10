@@ -1,0 +1,52 @@
+(* Read-only post-kernel inspection. No Global/Environ setters, proof commands,
+   assumptions, reductions, module instantiation or Obj.magic. Typed public API. *)
+open Names
+open Declarations
+@OPEN@
+let root = @ROOT@
+let index = open_out (root ^ "/declarations.tsv")
+let data = open_out_bin (root ^ "/types.marshal")
+let emit path kind value =
+  let bytes = Marshal.to_string value [] in
+  let offset = pos_out data in
+  output_string data bytes;
+  Printf.fprintf index "%s\t%s\t%d\t%d\n" path kind offset (String.length bytes)
+let rec signature path = function
+  | NoFunctor fields -> List.iter (field path) fields
+  | MoreFunctor (id, typ, rest) ->
+      let arg = path ^ "/$arg:" ^ Id.to_string (MBId.to_id id) in
+      emit arg "functor_parameter" ();
+      signature arg (@MODTYPE@ typ);
+      signature (path ^ "/$result") rest
+and field path (label, entry) =
+  let name = path ^ "." ^ @LABEL@ label in
+  match entry with
+  | SFBconst c ->
+      let kind = match c.const_body with
+        | Undef _ -> "constant:abstract"
+        | Def _ -> "constant:transparent"
+        | OpaqueDef _ -> "constant:opaque"
+        @EXTRACONST@
+      in emit name kind (c.const_type, c.const_universes, c.const_hyps, c.const_typing_flags)
+  | SFBmind b ->
+      emit name "mutual_inductive_block" (b.mind_params_ctxt, b.mind_universes);
+      Array.iter (fun p ->
+        let n = path ^ "." ^ Id.to_string p.mind_typename in
+        emit n "inductive" (p.mind_arity_ctxt, @ARITY@);
+        Array.iteri (fun i id -> emit (path ^ "." ^ Id.to_string id)
+          "constructor" p.mind_user_lc.(i)) p.mind_consnames;
+        @PACKET_RECORD@
+      ) b.mind_packets;
+      @BLOCK_RECORD@
+  | SFBmodule b -> emit name "module" (); signature name (@MODTYPE@ b)
+  | SFBmodtype b -> emit name "module_type" (); signature name (@MODTYPE@ b)
+  @EXTRAFIELD@
+let () =
+  output_string index "name\tkind\toffset\tbytes\n";
+  List.iter (fun name ->
+    let mp = Nametab.locate_module (Libnames.qualid_of_string name) in
+    let b = Global.lookup_module mp in
+    emit name "library" ();
+    signature name (@MODTYPE@ b)
+  ) @LIBRARIES@;
+  close_out data; close_out index

@@ -1,0 +1,32 @@
+{
+  "setup_only": [
+    {
+      "command": "git commit milestone",
+      "exit": 128,
+      "reason": "No local author identity; retried using the existing parent commit's Codex identity via per-command -c, without configuration mutation."
+    },
+    {
+      "command": "initial compact artifact schema inspection",
+      "exit": 1,
+      "reason": "TB upstream-source.json is in delivered checkout, not private artifact root. No formal command attempted."
+    },
+    {
+      "command": "review.py authenticate (first attempt)",
+      "exit": 1,
+      "reason": "Independent guard initially treated TB symlink: entries as content SHA256. Corrected parser to compare symlink text while retaining referent content checks through the full installed manifest. Re-authentication passed; no tool/source mutation."
+    },
+    {
+      "command": "review.py all / sb inventory",
+      "exit": 1,
+      "reason": "Print Module Coq.Logic.Classical failed because the first independent query loaded artifact imports only, while the SB checker deliberately checked all installed dependency libraries. Original build and full kernel check exited 0. Additive resume.py loads every checked library and uses distinct query/output/receipt names; no mathematical object or original frozen controller was changed.",
+      "receipt": "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/inventory-rejected.json",
+      "log": "/tmp/borrow-foundations-review-20261110-ba6890b6/sb/inventory.log"
+    }
+  ],
+  "failed_semantic_trials": [],
+  "semantic_controls": [],
+  "source_inspection_notes": [
+    "Source inspection caught a receipt/data filename collision in the initial independent inventory controller. The additive recovery uses inventory-v2.json / inventory-query.json for receipts and inventory.json for data before any successful inventory could overwrite its receipt.",
+    "Initial direct filesystem-ancestor AGENTS.md existence checks returned no content; no parent/sibling checkout or live build/process state was inspected. All subsequent reads were own checkout/history or the named completed artifacts."
+  ]
+}
