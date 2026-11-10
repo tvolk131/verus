@@ -12,11 +12,24 @@
   },
   "source_declarations": 17,
   "generated_helpers": 68,
-  "independent_review": "pending",
+  "independent_review": {
+    "commit": "47f213b4",
+    "decision": "accept exact17+68 conditional/MODEL laws",
+    "fresh_receipt": {
+      "path": "/tmp/source-replay-exit-review-bc2a0b37-002/exit/receipt.json",
+      "sha256": "d5c10194da929de1696a80461eb3ee523fcf40d8247979585a2d22ece56ea858"
+    },
+    "independent_inventory": {
+      "path": "/tmp/source-replay-exit-review-bc2a0b37-002/exit-independent.json",
+      "sha256": "09b04ca28470f97ae27d429864f63f90c8aaf9fb4ce881d281f0be4dc4ebee58"
+    },
+    "process_limits_report": "evidence/source-replay-exit-review/REPORT.md"
+  },
   "actual_source_instance": false,
   "source_certificate_proved": false,
   "source_CF_bindings_proved": false,
   "native_correspondences": 0,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "assumptions": "15 source declarations and68 helpers closed; two resource lemmas use inherited dependent functional extensionality; recursive dependencies additionally Eq_rect_eq"
 }

@@ -18,7 +18,19 @@
   "all_math_source_and_object_hashes_match_delivery": true,
   "kernel_axioms": [],
   "goal_requirements_sha256": "11014c3ac73ddf13c464769f5d0d1cbd24598ab52777718d31872c70b3b8f7b0",
-  "independent_fix_review": "pending",
+  "independent_fix_review": {
+    "commit": "47f213b4",
+    "decision": "accept exact conditional/MODEL scope and current replay",
+    "fresh_receipt": {
+      "path": "/tmp/source-replay-exit-review-bc2a0b37-002/constructor/receipt.json",
+      "sha256": "01bd654b49618efb20569e18e74b7ffc18698dceb748b2edbfb5a92c17ee8d48"
+    },
+    "independent_inventory": {
+      "path": "/tmp/source-replay-exit-review-bc2a0b37-002/constructor-independent.json",
+      "sha256": "6696acd4b41b5ca7f2e1981bb29e387a416308d919c8b15f86eb449ea4820532"
+    },
+    "process_limits_report": "evidence/source-replay-exit-review/REPORT.md"
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false

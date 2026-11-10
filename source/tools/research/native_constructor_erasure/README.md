@@ -12,4 +12,7 @@ python3 -B -O source/tools/research/native_constructor_erasure/check.py \
 
 [Integration receipt and limits](integration-results.json) bind the matching source/object hashes and complete checks. [Historical worker report](REPORT.md) preserves the original trial.
 
-Native correctness, source interpretation and full HMAC remain unproved. Publication=false; goal incomplete. Independent acceptance of the latest replay changes remains pending.
+The [independent review](../../../../evidence/source-replay-exit-review/REPORT.md)
+accepts the exact conditional mathematics and replay fix, with its documented
+process limits. Native correctness, source interpretation and full HMAC remain
+unproved. Publication=false; goal incomplete.

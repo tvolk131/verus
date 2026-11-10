@@ -22,7 +22,18 @@
       "path": "/tmp/native-components-model-review-3f865efc/distance-inventory/receipt.json",
       "sha256": "3b8b6891d7bb9b98aef788d8624d9ee9f8d343e8c6d054108684ba887873343f"
     },
-    "integration_fix_review": "pending"
+    "integration_fix_review": {
+      "commit": "47f213b4",
+      "decision": "accept",
+      "fresh_receipt": {
+        "path": "/tmp/source-replay-exit-review-bc2a0b37-002/pointer/receipt.json",
+        "sha256": "9260ea281bb59ca281803d91c7517d58ad6f68bbe78584edf038016df70b1b3c"
+      },
+      "independent_inventory": {
+        "path": "/tmp/source-replay-exit-review-bc2a0b37-002/pointer-independent.json",
+        "sha256": "c2cd7aa30f05f441e87519428b8ebbf61c6f3e9aabdaee9e7ef33a20b55d9774"
+      }
+    }
   },
   "actual_source_correspondence": false,
   "native_correspondences": 0,
@@ -31,5 +42,9 @@
   "integration_replay": {
     "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-pointer_inventory_fix-003/proofs/receipt.json",
     "sha256": "43fb37587de04d48eac44f4434535a7587b0035bdffbd4d2d3194bb8e815690a"
-  }
+  },
+  "review_process_limits": "evidence/source-replay-exit-review/REPORT.md",
+  "generated_helpers": 154,
+  "complete_declarations": 231,
+  "actual_constants": 203
 }

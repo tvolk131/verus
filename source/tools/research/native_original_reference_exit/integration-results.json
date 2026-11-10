@@ -20,7 +20,19 @@
     "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
   ],
   "goal_requirements_sha256": "11014c3ac73ddf13c464769f5d0d1cbd24598ab52777718d31872c70b3b8f7b0",
-  "independent_fix_review": "pending",
+  "independent_fix_review": {
+    "commit": "47f213b4",
+    "decision": "accept exact conditional/MODEL scope and current replay",
+    "fresh_receipt": {
+      "path": "/tmp/source-replay-exit-review-bc2a0b37-002/exit/receipt.json",
+      "sha256": "d5c10194da929de1696a80461eb3ee523fcf40d8247979585a2d22ece56ea858"
+    },
+    "independent_inventory": {
+      "path": "/tmp/source-replay-exit-review-bc2a0b37-002/exit-independent.json",
+      "sha256": "09b04ca28470f97ae27d429864f63f90c8aaf9fb4ce881d281f0be4dc4ebee58"
+    },
+    "process_limits_report": "evidence/source-replay-exit-review/REPORT.md"
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false,
