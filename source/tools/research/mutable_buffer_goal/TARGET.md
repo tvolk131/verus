@@ -2,93 +2,66 @@
 
 Start from accepted checkpoint `cac21695` and its
 [acceptance record](../../../../evidence/infer-cycle-20261109/README.md).
-The parent is integration lead. Three isolated workers cover mutable effects,
-proof assistance and an independently frozen real transfer. A fresh independent
+The parent is integration lead. Three isolated workers handle assigned implementation and review lanes. A fresh independent
 review follows integration. This goal has not been achieved at this checkpoint.
 
-## Frozen workstream milestones
+## Current evidence and remaining work
 
-The integrated canonical assistance proves the unchanged full predicate cold
-and warm (6 verified, zero errors), with checked executable `{u64}`, proof `{}`
-and inferred-helper `{}` inventories. Candidate 008 retains authored semantic
-invariants and exit clauses, with no application-local mechanical proofs or
-snapshots. The [parent combined record](parent-combined.json) binds the matching
-`676b99bf` engine, 26 canonical replay cases, 23 observation cases, 148 VIR tests
-and vstd 2,226/0. Both decorators receive full generated-body well-formedness
-and mode checking. The earlier scoped canonical integration received an
-[independent acceptance recommendation](../../../../evidence/canonical-parent-review/REVIEW.md).
-Subsequent combined reviews found observer eligibility bugs and a stale reporting
-test: [initial findings](../../../../evidence/shared-buffer-review/REVIEW.md) and
-[alias follow-up](../../../../evidence/shared-buffer-fix-review/FINDINGS.md).
-The full 32-target compiler suite passed 611 tests at `ea897a9b`, but the alias
-follow-up still requested changes. The declaration/match and constructor-to-loop fixes passed matching validation:
-[32 targets / 618 tests, 26 canonical and 23 observer cases](parent-observer-origin.json).
-A new independent review closed those findings but found mutable/effectful Zip
-key operands. The stable-key restriction (`a93b774a`) passes 31 focused tests,
-148 VIR tests, 621 compiler tests across all 32 Infer targets, 148 Python tests
-in each mode and both replay suites. Its [independent recheck](parent-stable-key.json)
-accepted the scoped fix (`d64897d4`); full native/transfer acceptance remains open. Earlier green receipts describe their historical source
-checkpoints; they do not establish acceptance of the current branch.
+The goal remains incomplete. Production checkpoint `a93b774a` retains schema38,
+policy68/cache71 and normal body, lifetime, trait, mode and well-formedness checks.
+Its [matching validation and independent recheck](parent-stable-key.json) cover
+148 VIR tests, 621 compiler tests across32 targets, 148 Python tests in each mode,
+vstd2226/0 and both canonical/observer replay suites. Subsequent work below is
+MODEL research; it installs no new production fact.
 
-The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
-HMAC ipad-XOR loop, with arbitrary initialized `[u8;128]` and arbitrary key length.
-Its property includes both the XOR prefix and the unchanged suffix. The complete
-property remains unproved under the inherited native IterMut/Zip model. Shared
-observation assistance removes two source snapshots and four mechanical
-invariant formulas from the prefix-only proof: enabled it verifies 2/0, disabled
-it fails 1/1. The full property still fails 1/1. Preserve this
-property/domain and the distinction between concrete-model evidence and a law
-for the actual native opaque types. [transfer-freeze.json](transfer-freeze.json)
-binds the original pretrial source freeze; this is a byte-writer theorem, not an
-HMAC/security claim. A [45-case controlled ablation](../shared_observation_ablation/REPORT.md)
-finds the observer entirely redundant for full canonical encoding, necessary as
-a group for Zip prefix, and its capacity proposal redundant for both. Necessary
-shared proof work across the full properties is not confirmed; parser reuse or
-running both under one flag does not establish it.
+The unchanged canonical fixture proves the full property cold/warm **6/0**, with
+exec `{u64}`, proof `{}` and inferred-helper `{}`. It retains authored semantic
+invariants/exit clauses and no application-local mechanical proofs or snapshots.
+The [canonical evidence](../varint_canonical_goal/RESULTS.md) and
+[independent review](../../../../evidence/canonical-parent-review/REVIEW.md)
+record its source, domain and validation limits.
 
-The remaining model task is a checked native ownership/refinement bridge.
-Checked reference entry and 18 conditional linear-resource proofs are preserved,
-but zero actual native correspondences have been proved; all 101 native effect
-obligations remain open. A smaller constructor/drop case has a complete six-instance,
-44-operation [source inventory](native-drop-inventory.json), without a frame
-proof. The next step carries one ownership interpretation through the actual
-constructor operand, pointer operations and drop, avoiding a second live Rust
-borrow. The [pinned VerusBelt baseline](foundation-baseline.json) now compiles
-and passes recursive kernel checking. The new same-reference physical access,
-restoration and byte-array scripts also compile and pass recursive kernel
-checking: [18 model theorems and six byte-type obligations](parent-semantic-foundation.json).
-The exact frozen model replay has independent acceptance. A subsequent
-source-freeze completeness finding was closed. The next review found a
-validation-to-snapshot race; the local fix binds frozen identities to retained
-guard snapshots. Matching model compilation, all 25 assumption entries and
-recursive kernel checking pass with the original four object hashes. The
-inspection/control batch also passed. A subsequent source-only review found
-three remaining controller issues; their local source-identity, support-inventory
-and final-status fixes pass targeted tests. Matching replay and fresh review
-of those fixes remain pending.
-The [source-entry investigation](../native_source_entry/MISSING_LAYER.md)
-identifies the missing actual source-state and typing-context interpretation;
-its 42-constant inspection proves no new native theorem. The
-[fact-provenance trace](FACT_PROVENANCE.md) records inherited standard-contract
-facts used by the observer-disabled canonical proof, without claiming individual
-indispensability or a checked common transfer step.
-The [nonempty model-heap initializer](parent-heap-initialization.json) now
-constructs exact finite-map resources internally, proves operational adequacy
-and preserves an arbitrary interior-buffer frame. All 29 constants are closed
-and the parent kernel replay matches the worker objects. It covers the stated
-model initialization convention, with no application permission premise; it
-does not interpret actual Rust provenance, ancestor loans or C/F observations.
-Independent mathematical review accepted the exact model prerequisite
-(`6deca82c`); its controller environment-pin finding is being corrected.
+The second frozen target is bitcoin_hashes0.14.0's exact HMAC ipad-XOR loop:
+arbitrary initialized `[u8;128]` and every key length, with XOR prefix **and
+unchanged suffix**. The full theorem remains **1/1 unproved**. Its
+[pretrial freeze](transfer-freeze.json) is unchanged. Prefix-only assistance
+passes2/0 enabled versus1/1 disabled, removing two snapshots and four mechanical
+invariant formulas. This is a byte-writer property, not HMAC/security correctness.
 
-The model results remain distinct from a native Rust interpretation theorem.
-The existing `source_loan_release`/`typed_source_loan_release` already derive
-future/current equality for a resolved model unique reference. Repeating that
-lemma would not connect the opaque native iterator to the same original loan;
-the source-state/context and native-body correspondences remain required.
-No assumed final/current equation, executable rewrite or new unchecked
-dependency law is permitted. Shared automation must remove actual proof work on
-both full properties; parser reuse or a conditional model theorem is insufficient.
+The [45-case observer ablation](../shared_observation_ablation/REPORT.md) finds
+that observer redundant for canonical, necessary as a group for Zip prefix, and
+its capacity proposal redundant for both. Necessary shared proof work across
+both full properties is **not confirmed**. Parser reuse or a common flag does
+not establish transfer. The [fact-provenance trace](FACT_PROVENANCE.md) records
+the inherited native-contract facts used by the observer-disabled canonical proof.
+
+Checked model prerequisites are recorded separately from native correctness:
+
+| Component | Evidence and scope |
+| --- | --- |
+| Physical source-loan model and byte representation | [Foundation record](parent-semantic-foundation.json); original model-only assumptions and object identities retained. |
+| Finite heap, typed input and resource-valued setup | [29-constant initializer](parent-heap-initialization.json), [26-constant typed context](parent-model-input-context.json), [three-law setup](parent-resource-valued-setup.json). Permissions and credits are derived internally in the model. |
+| Actual final model heap observation | [20-law observer](parent-model-state-observation.json); exact interval/frame in the same heap, without requiring all forked threads to terminate. |
+| Nested/changing borrow and payload recovery | [24-law nested model](parent-nested-borrow.json); [five-law independent acceptance](parent-model-mutating-recovery.json); [seven-law changing-buffer observation](../model_mutable_writer/observation-results.json). The final two wrappers await combined independent review. |
+| Concrete model XOR and selected instruction fragments | [Full-byte XOR model](parent-byte-xor.json), [primitive fragments](parent-native-primitive-refinement.json), [register segment](parent-native-register-segment.json), [word/cell XOR](parent-native-byte-xor.json). Source selection is not a native execution proof. |
+| Same-heap mutable pad and shared key | [18-law pair setup](parent-model-pair-input.json) and [19-law shared reader](parent-model-shared-byte-read.json), with matching parent replays and independent acceptance. Their joint depth/credit handoff and full writer composition remain work in progress. |
+
+A physical transformation WP remains an explicit proof obligation of the generic
+model wrapper. Full initialization, shared-key loop, original-parent recovery
+and actual final pad/key/frame observation must still be composed. Ordinary
+memory accesses also need their checked correspondence; SC model steps are not
+silently native ordinary accesses.
+
+**Native correspondences remain zero:** all44 minimal operations plus3 phase
+obligations and all101 writer effects remain open. The
+[source inventory](native-drop-inventory.json),
+[source-entry missing layer](../native_source_entry/MISSING_LAYER.md) and
+[native certificate boundary](NATIVE_CERTIFICATE.md) identify the remaining
+actual Rust state/typing-context, provenance/ancestor-loan, operation/phase and
+original C/F obligations. Fresh model heaps/lifetimes and the existing checked
+`source_loan_release` do not establish those correspondences. No assumed opaque
+iterator frame, final/current bridge, executable rewrite or unchecked dependency
+law is permitted. Publication and whole-goal completion remain false.
 
 ## Required property and domain
 
@@ -135,66 +108,26 @@ or for the entire encoder is not a completion requirement. A call allowlist for
 `iter_mut` is not a mutable-effect model. Partial length/safety progress or a
 generic lemma library alone does not complete this goal.
 
-## Original parallel ownership and current coordination
+## Coordination
 
-- **Mutable-effects worker:** inspect the existing prophetic `IterMut` model;
-  establish checked reusable observation, current-referent and unchanged-state
-  frame laws needed by ordinary proofs. Own new `source/vstd/mutable_buffer.rs`,
-  its registration, focused library tests and
-  `source/tools/research/mutable_buffer_effects/`. Necessary additions to existing
-  slice/iterator files must preserve their specifications and assumptions.
-  Propose typed helper signatures and minimal repros early. Do not widen trusted
-  external models or implement a broad direct-inference effect engine speculatively.
-- **Proof-assistance worker:** first establish a source-faithful ordinary proof
-  of the canonical property with an honest annotation inventory, then move
-  reusable mechanical steps into bounded checked assistance. Own new
-  `source/vir/src/infer/buffer_goals.rs`, its module/pipeline registration,
-  `infer_mutable_buffer_goals.rs` and
-  `source/tools/research/varint_canonical_goal/`. Keep temporary manual prototypes
-  separate from the final annotation-free mechanical fixture. Use the existing
-  mutable model while identifying specific missing laws for the effects worker.
-- **Independent-transfer worker:** own
-  `source/tools/research/buffer_transfer_goal/`. Inspect real pinned source,
-  select and freeze its body/domain/property before trials, reproduce the
-  accepted-engine baseline, and develop a source-faithful authored proof and
-  semantic/safety controls. Do not edit engine/library/shared harness sources.
-- **Integration lead:** owns this charter/freeze, global policy/cache/schema
-  constants, shared harness utilities, current docs, cross-workstream interface
-  reconciliation, integration and final acceptance. Parent routes interface
-  proposals and useful commits between isolated workers. Workers may read explicitly
-  delivered committed milestones with `git show`. They must not inspect live
-  sibling worktrees or edit sibling, parent or application checkouts.
+The original mutable-effects, canonical-assistance and independent-transfer
+workers delivered their scoped milestones; their reports preserve the historical
+ownership and failed trials. Three isolated implementation/review lanes continue
+under the integration lead. Each new task owns only its explicitly assigned paths.
 
-The original three workstreams above have delivered their scoped milestones.
-Current ownership and validation state are recorded in the linked parent records;
-new foundation/review work keeps separate isolated checkouts and owned paths.
+The parent owns this charter, global policy/cache/schema constants, shared tools,
+current documentation, interface reconciliation, integration and final acceptance.
+Workers may read explicitly delivered committed milestones with `git show` and
+named completed read-only artifacts. They must not inspect live sibling/parent
+checkouts or edit other scopes. An old checkout path inside a receipt is a label,
+not permission to read that checkout. No subdelegation, push or PR.
 
-Keep module interfaces small and application independent. Each worker should
-deliver an early committed interface/baseline milestone before expanding scope.
-Use additive helpers and separate narrowly scoped commits for necessary hooks;
-record dependencies on another worker rather than duplicating their module.
-Do not spend a long run blocked on a sibling: report the minimal missing
-interface/repro and complete independent work. No subdelegation or push/PR.
-
-Completed baseline workers may be followed by focused isolated implementation
-lanes while the parent keeps integration ownership:
-
-- `source/tools/research/native_iterator_refinement/`: investigate checked
-  correspondence for the actual native resolution bridge. The existing concrete
-  model theorem and the unproved native theorem remain distinct.
-- `source/tools/research/native_iterator_certificate/`: implement the diagnostic
-  native-body extraction/checking stages in
-  [NATIVE_CERTIFICATE.md](NATIVE_CERTIFICATE.md). No proof fact may be installed
-  merely from an identity/hash match or an unchecked ownership declaration.
-- `source/vir/src/infer/native_mutable_for.rs`,
-  `source/vir/src/infer/buffer_observation_goals.rs`,
-  `infer_buffer_observation_goals.rs` and
-  `source/tools/research/buffer_observation_goal/`: develop reusable checked
-  iterator observations, lengths and generated view snapshots for plain and
-  zipped mutable iteration. Do not edit the numeric worker's `buffer_goals.rs`;
-  provide a small shared interface and separate registration hooks for parent
-  reconciliation. This lane cannot assume or silently synthesize the missing
-  unused-tail frame. A prefix-only diagnostic is not full transfer acceptance.
+Keep interfaces small and application independent. Deliver an early committed
+interface/baseline before expanding scope. Use separate additive hook commits;
+route dependencies through the parent instead of duplicating a sibling module.
+When waiting on an interface, report the minimal typed need/repro and continue
+independent work. Each implementation is integrated before fresh independent
+review and matching acceptance.
 
 All generated IDs must be fresh relative to original code and preceding passes.
 Each decorator needs an independent full-function projection check restoring
