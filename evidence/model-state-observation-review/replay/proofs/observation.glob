@@ -1,0 +1,724 @@
+DIGEST 90ce9bc29db8d33739bf3dbcd209ca28
+FModelStateObservation.observation
+R15:50 guarding.internal.na_invariants_fork <> <> lib
+R84:102 lrust.util.non_atomic_cell_map <> <> lib
+R104:116 lrust.util.adequacy_util <> <> lib
+R118:136 lrust.util.atomic_lock_counter <> <> lib
+R184:192 NativeHeapInitialization.partition <> <> lib
+R226:234 lrust.lang.proofmode <> <> lib
+R236:243 lrust.lang.notation <> <> lib
+R245:251 lrust.lang.lifting <> <> lib
+def 365:375 <> heap_values
+R383:387 lrust.lang.lang <> state def
+binder 378:379 <> σ:1
+R392:395 stdpp.gmap <> gmap rec
+R401:403 lrust.lang.lang <> val ind
+R397:399 lrust.lang.lang <> loc def
+R411:415 stdpp.base <> ::stdpp_scope:x_'<$>'_x not
+R408:410 Coq.Init.Datatypes <> snd def
+R418:419 stdpp.base <> :::x_'.1' not
+R416:417 ModelStateObservation.observation <> σ:1 var
+def 433:449 <> interval_observed
+R457:461 lrust.lang.lang <> state def
+binder 452:453 <> σ:2
+R469:471 lrust.lang.lang <> loc def
+binder 465:465 <> p:3
+R480:483 Coq.Init.Datatypes <> list ind
+R485:487 lrust.lang.lang <> val ind
+binder 475:476 <> vs:4
+R502:506 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R517:518 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R511:513 Coq.Init.Datatypes <> nat ind
+binder 507:507 <> i:5
+binder 516:516 <> v:6
+R535:539 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R526:528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R521:524 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R525:525 ModelStateObservation.observation <> i:5 var
+R519:520 ModelStateObservation.observation <> vs:4 var
+R529:532 Coq.Init.Datatypes <> Some constr
+R534:534 ModelStateObservation.observation <> v:6 var
+R568:570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R554:558 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R567:567 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R560:565 lrust.lang.lang <> ::loc_scope:x_'+ₗ'_x not
+R559:559 ModelStateObservation.observation <> p:3 var
+R566:566 ModelStateObservation.observation <> i:5 var
+R540:550 ModelStateObservation.observation <> heap_values def
+R552:553 ModelStateObservation.observation <> σ:2 var
+R571:574 Coq.Init.Datatypes <> Some constr
+R576:576 ModelStateObservation.observation <> v:6 var
+def 590:603 <> frame_observed
+R611:615 lrust.lang.lang <> state def
+binder 606:607 <> σ:7
+R623:626 stdpp.gmap <> gmap rec
+R632:634 lrust.lang.lang <> val ind
+R628:630 lrust.lang.lang <> loc def
+binder 619:619 <> f:8
+R649:652 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R656:657 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+binder 653:653 <> l:9
+binder 655:655 <> v:10
+R673:677 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R664:666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R659:662 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R663:663 ModelStateObservation.observation <> l:9 var
+R658:658 ModelStateObservation.observation <> f:8 var
+R667:670 Coq.Init.Datatypes <> Some constr
+R672:672 ModelStateObservation.observation <> v:10 var
+R697:699 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R692:695 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R696:696 ModelStateObservation.observation <> l:9 var
+R678:688 ModelStateObservation.observation <> heap_values def
+R690:691 ModelStateObservation.observation <> σ:7 var
+R700:703 Coq.Init.Datatypes <> Some constr
+R705:705 ModelStateObservation.observation <> v:10 var
+sec 717:725 <> agreement
+R741:746 lrust.lang.heap <> heapGS class
+R753:757 iris.base_logic.lib.fancy_updates <> invGS abbrev
+R759:760 ModelStateObservation.observation <> Σ:11 var
+R764:770 guarding.internal.na_invariants_fork <> na_invG class
+R772:773 ModelStateObservation.observation <> Σ:11 var
+R777:786 lrust.util.atomic_lock_counter <> alc_logicG class
+R788:789 ModelStateObservation.observation <> Σ:11 var
+prf 801:817 <> fragments_observe
+binder 819:820 <> σ:16
+binder 822:822 <> f:17
+R841:846 iris.bi.interface <> ::stdpp_scope:x_'-∗'_x not
+R830:837 lrust.lang.heap <> heap_ctx def
+R839:840 ModelStateObservation.observation <> σ:16 var
+R866:871 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R847:863 NativeHeapInitialization.initialization <> initial_fragments def
+R865:865 ModelStateObservation.observation <> f:17 var
+R872:874 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R894:896 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R875:888 ModelStateObservation.observation <> frame_observed def
+R890:891 ModelStateObservation.observation <> σ:16 var
+R893:893 ModelStateObservation.observation <> f:17 var
+R990:1006 NativeHeapInitialization.initialization <> initial_fragments def
+R990:1006 NativeHeapInitialization.initialization <> initial_fragments def
+R990:1006 NativeHeapInitialization.initialization <> initial_fragments def
+R1023:1023 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1039:1044 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1048:1048 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1024:1038 iris.bi.big_op <> big_sepM_lookup thm
+R1023:1023 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1039:1044 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1048:1048 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1024:1038 iris.bi.big_op <> big_sepM_lookup thm
+R1083:1093 lrust.lang.heap <> heap_mapsto def
+R1083:1093 lrust.lang.heap <> heap_mapsto def
+R1083:1093 lrust.lang.heap <> heap_mapsto def
+R1110:1110 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1131:1136 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1145:1145 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1111:1130 lrust.util.non_atomic_cell_map <> points_to_heap_agree thm
+R1110:1110 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1131:1136 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1145:1145 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1111:1130 lrust.util.non_atomic_cell_map <> points_to_heap_agree thm
+R1190:1200 ModelStateObservation.observation <> heap_values def
+R1202:1212 stdpp.fin_maps <> lookup_fmap meth
+R1190:1200 ModelStateObservation.observation <> heap_values def
+R1190:1200 ModelStateObservation.observation <> heap_values def
+R1202:1212 stdpp.fin_maps <> lookup_fmap meth
+R1202:1212 stdpp.fin_maps <> lookup_fmap meth
+prf 1234:1249 <> interval_observe
+binder 1251:1252 <> σ:18
+binder 1254:1254 <> p:19
+binder 1256:1257 <> vs:20
+R1276:1281 iris.bi.interface <> ::stdpp_scope:x_'-∗'_x not
+R1265:1272 lrust.lang.heap <> heap_ctx def
+R1274:1275 ModelStateObservation.observation <> σ:18 var
+R1293:1298 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R1283:1290 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R1282:1282 ModelStateObservation.observation <> p:19 var
+R1291:1292 ModelStateObservation.observation <> vs:20 var
+R1299:1301 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R1327:1329 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R1302:1318 ModelStateObservation.observation <> interval_observed def
+R1320:1321 ModelStateObservation.observation <> σ:18 var
+R1323:1323 ModelStateObservation.observation <> p:19 var
+R1325:1326 ModelStateObservation.observation <> vs:20 var
+R1354:1371 NativeHeapInitialization.partition <> interval_fragments thm
+R1354:1371 NativeHeapInitialization.partition <> interval_fragments thm
+R1354:1371 NativeHeapInitialization.partition <> interval_fragments thm
+R1403:1403 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1421:1426 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1432:1432 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1404:1420 ModelStateObservation.observation <> fragments_observe thm
+R1403:1403 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1421:1426 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1432:1432 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R1404:1420 ModelStateObservation.observation <> fragments_observe thm
+R1496:1510 NativeHeapInitialization.partition <> interval_lookup thm
+R1496:1510 NativeHeapInitialization.partition <> interval_lookup thm
+R1524:1532 ModelStateObservation.observation agreement <> sec
+sec 1544:1561 <> strong_observation
+var  1575:1576 strong_observation Σ
+R1580:1588 iris.base_logic.lib.iprop <> gFunctors rec
+R1594:1603 lrust.lang.adequacy <> lrustGpreS class
+R1605:1606 ModelStateObservation.observation <> Σ:21 var
+prf 1773:1804 <> initialized_observation_adequacy
+binder 1806:1806 <> e:23
+binder 1808:1808 <> h:24
+R1819:1823 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R1816:1818 lrust.lang.lang <> val ind
+R1829:1833 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R1824:1828 lrust.lang.lang <> state def
+binder 1811:1812 <> φ:25
+binder 1840:1840 <> k:26
+R1848:1848 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R2038:2047 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R1849:1854 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R1866:1868 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R1856:1862 lrust.lang.lifting <> lrustGS class
+R1864:1865 ModelStateObservation.observation <> strong_observation.Σ var
+binder 1855:1865 <> lrustGS0:27
+R1888:1893 iris.bi.interface <> ::stdpp_scope:x_'-∗'_x not
+R1869:1885 NativeHeapInitialization.initialization <> initial_fragments def
+R1887:1887 ModelStateObservation.observation <> h:24 var
+R1897:1902 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R1894:1895 iris.base_logic.lib.later_credits <> :::'£'_x not
+R1896:1896 ModelStateObservation.observation <> k:26 var
+R1911:1922 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R1903:1910 lrust.lang.time <> time_ctx def
+R1923:1926 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R1948:1949 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R1935:1939 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R1932:1934 lrust.lang.lang <> val ind
+R1940:1944 iris.base_logic.lib.iprop iProp_solution iProp abbrev
+R1946:1947 ModelStateObservation.observation <> strong_observation.Σ var
+binder 1927:1928 <> Φ:28
+R1963:1976 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R2037:2037 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R1950:1952 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_'}'_'}' not
+R1954:1957 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_'}'_'}' not
+R1960:1962 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_'}'_'}' not
+R1953:1953 ModelStateObservation.observation <> e:23 var
+R1958:1959 ModelStateObservation.observation <> Φ:28 var
+R1977:1980 iris.bi.interface <> ::bi_scope:'∀'_x_'..'_x_','_x not
+R1985:1986 iris.bi.interface <> ::bi_scope:'∀'_x_'..'_x_','_x not
+binder 1981:1982 <> σ:29
+binder 1984:1984 <> v:30
+R1998:2003 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R1987:1994 lrust.lang.heap <> heap_ctx def
+R1996:1997 ModelStateObservation.observation <> σ:29 var
+R2008:2010 iris.bi.updates <> ::bi_scope:x_'={'_x_','_x_'}=∗'_x not
+R2014:2014 iris.bi.updates <> ::bi_scope:x_'={'_x_','_x_'}=∗'_x not
+R2018:2023 iris.bi.updates <> ::bi_scope:x_'={'_x_','_x_'}=∗'_x not
+R2004:2005 ModelStateObservation.observation <> Φ:28 var
+R2007:2007 ModelStateObservation.observation <> v:30 var
+R2011:2013 stdpp.base <> ::stdpp_scope:'⊤' not
+R2015:2017 stdpp.base <> ::stdpp_scope:'∅' not
+R2024:2026 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R2034:2036 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R2027:2028 ModelStateObservation.observation <> φ:25 var
+R2032:2033 ModelStateObservation.observation <> σ:29 var
+R2030:2030 ModelStateObservation.observation <> v:30 var
+R2048:2055 iris.program_logic.adequacy <> adequate rec
+R2090:2091 ModelStateObservation.observation <> φ:25 var
+R2069:2085 NativeHeapInitialization.initialization <> initialized_state def
+R2087:2087 ModelStateObservation.observation <> h:24 var
+R2066:2066 ModelStateObservation.observation <> e:23 var
+R2057:2064 iris.bi.weakestpre <> NotStuck constr
+R2135:2146 iris.program_logic.adequacy <> adequate_alt thm
+R2135:2146 iris.program_logic.adequacy <> adequate_alt thm
+R2175:2193 iris.program_logic.language <> erased_steps_nsteps thm
+R2175:2193 iris.program_logic.language <> erased_steps_nsteps thm
+R2208:2239 lrust.util.adequacy_util <> wp_strong_adequacy def
+R2241:2242 ModelStateObservation.observation <> strong_observation.Σ var
+R2208:2239 lrust.util.adequacy_util <> wp_strong_adequacy def
+R2241:2242 ModelStateObservation.observation <> strong_observation.Σ var
+R2270:2290 NativeHeapInitialization.initialization <> finite_map_initialize thm
+R2270:2290 NativeHeapInitialization.initialization <> finite_map_initialize thm
+R2334:2342 iris.base_logic.lib.own <> own_alloc thm
+R2345:2347 iris.algebra.auth <> :::'●'_x_x not
+R2348:2349 iris.algebra.auth <> :::'●'_x_x not
+R2371:2371 iris.algebra.auth <> :::'●'_x_x not
+R2356:2370 lrust.lang.heap <> heap_freeableUR def
+R2350:2352 stdpp.base <> ::stdpp_scope:'∅' not
+R2413:2427 iris.algebra.auth <> auth_auth_valid thm
+R2334:2342 iris.base_logic.lib.own <> own_alloc thm
+R2345:2347 iris.algebra.auth <> :::'●'_x_x not
+R2348:2349 iris.algebra.auth <> :::'●'_x_x not
+R2371:2371 iris.algebra.auth <> :::'●'_x_x not
+R2356:2370 lrust.lang.heap <> heap_freeableUR def
+R2350:2352 stdpp.base <> ::stdpp_scope:'∅' not
+R2413:2427 iris.algebra.auth <> auth_auth_valid thm
+R2492:2492 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2502:2507 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2514:2514 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2493:2501 lrust.lang.time <> time_init thm
+R2492:2492 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2502:2507 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2514:2514 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2493:2501 lrust.lang.time <> time_init thm
+R2561:2568 guarding.internal.na_invariants_fork <> na_alloc thm
+R2561:2568 guarding.internal.na_invariants_fork <> na_alloc thm
+R2608:2628 lrust.util.atomic_lock_counter <> atomic_lock_ctr_alloc thm
+R2608:2628 lrust.util.atomic_lock_counter <> atomic_lock_ctr_alloc thm
+R2681:2686 lrust.lang.heap <> HeapGS constr
+R2681:2686 lrust.lang.heap <> HeapGS constr
+R2757:2757 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2791:2796 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2818:2818 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2763:2769 lrust.lang.lifting <> LRustGS constr
+R2757:2757 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2791:2796 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2818:2818 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R2763:2769 lrust.lang.lifting <> LRustGS constr
+R2876:2876 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2879:2879 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2876:2876 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2879:2879 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2979:2986 lrust.lang.heap <> heap_ctx def
+R2979:2986 lrust.lang.heap <> heap_ctx def
+R2979:2986 lrust.lang.heap <> heap_ctx def
+R2997:2999 stdpp.base <> ::stdpp_scope:'∅' not
+R2997:2999 stdpp.base <> ::stdpp_scope:'∅' not
+R3034:3062 NativeHeapInitialization.initialization <> initialized_freeability_empty thm
+R3034:3062 NativeHeapInitialization.initialization <> initialized_freeability_empty thm
+R3163:3168 lrust.lang.lang <> to_val def
+R3163:3168 lrust.lang.lang <> to_val def
+R3208:3208 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R3218:3223 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R3235:3235 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R3208:3208 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R3218:3223 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R3235:3235 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R3346:3354 lrust.lang.lang <> to_of_val thm
+R3346:3354 lrust.lang.lang <> to_of_val thm
+R3346:3354 lrust.lang.lang <> to_of_val thm
+R3390:3405 iris.bi.updates <> fupd_mask_weaken thm
+R3390:3405 iris.bi.updates <> fupd_mask_weaken thm
+R3526:3534 lrust.lang.lang <> to_of_val thm
+R3526:3534 lrust.lang.lang <> to_of_val thm
+R3526:3534 lrust.lang.lang <> to_of_val thm
+prf 3561:3589 <> initialized_interval_adequacy
+binder 3591:3591 <> e:31
+binder 3593:3593 <> h:32
+binder 3595:3595 <> p:33
+binder 3597:3597 <> n:34
+R3607:3611 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R3604:3606 lrust.lang.lang <> val ind
+R3620:3624 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R3612:3615 Coq.Init.Datatypes <> list ind
+R3617:3619 lrust.lang.lang <> val ind
+binder 3600:3600 <> P:35
+binder 3631:3631 <> k:36
+R3639:3639 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R3793:3802 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R3640:3645 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R3657:3659 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R3647:3653 lrust.lang.lifting <> lrustGS class
+R3655:3656 ModelStateObservation.observation <> strong_observation.Σ var
+binder 3646:3656 <> lrustGS0:37
+R3679:3684 iris.bi.interface <> ::stdpp_scope:x_'-∗'_x not
+R3660:3676 NativeHeapInitialization.initialization <> initial_fragments def
+R3678:3678 ModelStateObservation.observation <> h:32 var
+R3688:3693 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R3685:3686 iris.base_logic.lib.later_credits <> :::'£'_x not
+R3687:3687 ModelStateObservation.observation <> k:36 var
+R3702:3713 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R3694:3701 lrust.lang.time <> time_ctx def
+R3714:3716 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R3718:3721 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R3723:3724 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R3790:3792 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R3717:3717 ModelStateObservation.observation <> e:31 var
+binder 3722:3722 <> v:38
+R3725:3728 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R3742:3743 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R3734:3737 Coq.Init.Datatypes <> list ind
+R3739:3741 lrust.lang.lang <> val ind
+binder 3729:3730 <> vs:39
+R3774:3778 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R3744:3746 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R3771:3773 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R3760:3764 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R3756:3758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3747:3752 Coq.Init.Datatypes <> length def
+R3754:3755 ModelStateObservation.observation <> vs:39 var
+R3759:3759 ModelStateObservation.observation <> n:34 var
+R3765:3765 ModelStateObservation.observation <> P:35 var
+R3769:3770 ModelStateObservation.observation <> vs:39 var
+R3767:3767 ModelStateObservation.observation <> v:38 var
+R3780:3787 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R3779:3779 ModelStateObservation.observation <> p:33 var
+R3788:3789 ModelStateObservation.observation <> vs:39 var
+R3803:3810 iris.program_logic.adequacy <> adequate rec
+R3852:3854 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R3859:3860 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 3855:3855 <> v:40
+binder 3857:3858 <> σ:41
+R3861:3864 Coq.Unicode.Utf8_core <> ::type_scope:'∃'_x_'..'_x_','_x not
+R3867:3868 Coq.Unicode.Utf8_core <> ::type_scope:'∃'_x_'..'_x_','_x not
+binder 3865:3866 <> vs:42
+R3882:3886 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R3878:3880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3869:3874 Coq.Init.Datatypes <> length def
+R3876:3877 ModelStateObservation.observation <> vs:42 var
+R3881:3881 ModelStateObservation.observation <> n:34 var
+R3893:3897 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R3887:3887 ModelStateObservation.observation <> P:35 var
+R3891:3892 ModelStateObservation.observation <> vs:42 var
+R3889:3889 ModelStateObservation.observation <> v:40 var
+R3898:3914 ModelStateObservation.observation <> interval_observed def
+R3916:3917 ModelStateObservation.observation <> σ:41 var
+R3919:3919 ModelStateObservation.observation <> p:33 var
+R3921:3922 ModelStateObservation.observation <> vs:42 var
+R3824:3840 NativeHeapInitialization.initialization <> initialized_state def
+R3842:3842 ModelStateObservation.observation <> h:32 var
+R3821:3821 ModelStateObservation.observation <> e:31 var
+R3812:3819 iris.bi.weakestpre <> NotStuck constr
+R3973:4004 ModelStateObservation.observation <> initialized_observation_adequacy thm
+R3973:4004 ModelStateObservation.observation <> initialized_observation_adequacy thm
+R4069:4071 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R4073:4074 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 4072:4072 <> v:43
+R4075:4078 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R4092:4093 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R4084:4087 Coq.Init.Datatypes <> list ind
+R4089:4091 lrust.lang.lang <> val ind
+binder 4079:4080 <> vs:44
+R4124:4128 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R4094:4096 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R4121:4123 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R4110:4114 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R4106:4108 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4097:4102 Coq.Init.Datatypes <> length def
+R4104:4105 ModelStateObservation.observation <> vs:44 var
+R4117:4117 ModelStateObservation.observation <> v:43 var
+R4119:4120 ModelStateObservation.observation <> vs:44 var
+R4130:4137 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R4138:4139 ModelStateObservation.observation <> vs:44 var
+R4069:4071 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R4073:4074 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 4072:4072 <> v:45
+R4075:4078 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R4092:4093 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R4084:4087 Coq.Init.Datatypes <> list ind
+R4089:4091 lrust.lang.lang <> val ind
+binder 4079:4080 <> vs:46
+R4124:4128 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R4094:4096 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R4121:4123 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R4110:4114 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R4106:4108 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4097:4102 Coq.Init.Datatypes <> length def
+R4104:4105 ModelStateObservation.observation <> vs:46 var
+R4117:4117 ModelStateObservation.observation <> v:45 var
+R4119:4120 ModelStateObservation.observation <> vs:46 var
+R4130:4137 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R4138:4139 ModelStateObservation.observation <> vs:46 var
+R4191:4191 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4200:4205 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4222:4222 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4191:4191 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4200:4205 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4222:4222 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4313:4313 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4330:4335 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4349:4349 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4314:4329 ModelStateObservation.observation <> interval_observe thm
+R4313:4313 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4330:4335 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4349:4349 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R4314:4329 ModelStateObservation.observation <> interval_observe thm
+R4373:4388 iris.bi.updates <> fupd_mask_weaken thm
+R4373:4388 iris.bi.updates <> fupd_mask_weaken thm
+prf 4477:4511 <> initialized_interval_frame_adequacy
+binder 4513:4513 <> e:47
+binder 4515:4515 <> h:48
+binder 4517:4517 <> p:49
+binder 4519:4519 <> n:50
+binder 4521:4521 <> f:51
+R4531:4535 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R4528:4530 lrust.lang.lang <> val ind
+R4544:4548 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R4536:4539 Coq.Init.Datatypes <> list ind
+R4541:4543 lrust.lang.lang <> val ind
+binder 4524:4524 <> P:52
+binder 4555:4555 <> k:53
+R4563:4563 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R4749:4758 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R4564:4569 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R4581:4583 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R4571:4577 lrust.lang.lifting <> lrustGS class
+R4579:4580 ModelStateObservation.observation <> strong_observation.Σ var
+binder 4570:4580 <> lrustGS0:54
+R4603:4608 iris.bi.interface <> ::stdpp_scope:x_'-∗'_x not
+R4584:4600 NativeHeapInitialization.initialization <> initial_fragments def
+R4602:4602 ModelStateObservation.observation <> h:48 var
+R4612:4617 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R4609:4610 iris.base_logic.lib.later_credits <> :::'£'_x not
+R4611:4611 ModelStateObservation.observation <> k:53 var
+R4626:4637 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R4618:4625 lrust.lang.time <> time_ctx def
+R4638:4640 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R4642:4645 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R4647:4648 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R4746:4748 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R4641:4641 ModelStateObservation.observation <> e:47 var
+binder 4646:4646 <> v:55
+R4649:4652 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R4666:4667 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R4658:4661 Coq.Init.Datatypes <> list ind
+R4663:4665 lrust.lang.lang <> val ind
+binder 4653:4654 <> vs:56
+R4698:4710 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R4668:4670 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R4695:4697 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R4684:4688 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R4680:4682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4671:4676 Coq.Init.Datatypes <> length def
+R4678:4679 ModelStateObservation.observation <> vs:56 var
+R4683:4683 ModelStateObservation.observation <> n:50 var
+R4689:4689 ModelStateObservation.observation <> P:52 var
+R4693:4694 ModelStateObservation.observation <> vs:56 var
+R4691:4691 ModelStateObservation.observation <> v:55 var
+R4722:4726 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R4712:4719 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R4711:4711 ModelStateObservation.observation <> p:49 var
+R4720:4721 ModelStateObservation.observation <> vs:56 var
+R4727:4743 NativeHeapInitialization.initialization <> initial_fragments def
+R4745:4745 ModelStateObservation.observation <> f:51 var
+R4759:4766 iris.program_logic.adequacy <> adequate rec
+R4808:4810 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R4815:4816 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 4811:4811 <> v:57
+binder 4813:4814 <> σ:58
+R4817:4820 Coq.Unicode.Utf8_core <> ::type_scope:'∃'_x_'..'_x_','_x not
+R4823:4824 Coq.Unicode.Utf8_core <> ::type_scope:'∃'_x_'..'_x_','_x not
+binder 4821:4822 <> vs:59
+R4838:4842 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R4834:4836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4825:4830 Coq.Init.Datatypes <> length def
+R4832:4833 ModelStateObservation.observation <> vs:59 var
+R4837:4837 ModelStateObservation.observation <> n:50 var
+R4849:4861 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R4843:4843 ModelStateObservation.observation <> P:52 var
+R4847:4848 ModelStateObservation.observation <> vs:59 var
+R4845:4845 ModelStateObservation.observation <> v:57 var
+R4887:4891 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R4862:4878 ModelStateObservation.observation <> interval_observed def
+R4880:4881 ModelStateObservation.observation <> σ:58 var
+R4883:4883 ModelStateObservation.observation <> p:49 var
+R4885:4886 ModelStateObservation.observation <> vs:59 var
+R4892:4905 ModelStateObservation.observation <> frame_observed def
+R4907:4908 ModelStateObservation.observation <> σ:58 var
+R4910:4910 ModelStateObservation.observation <> f:51 var
+R4780:4796 NativeHeapInitialization.initialization <> initialized_state def
+R4798:4798 ModelStateObservation.observation <> h:48 var
+R4777:4777 ModelStateObservation.observation <> e:47 var
+R4768:4775 iris.bi.weakestpre <> NotStuck constr
+R4961:4992 ModelStateObservation.observation <> initialized_observation_adequacy thm
+R4961:4992 ModelStateObservation.observation <> initialized_observation_adequacy thm
+R5057:5059 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R5061:5062 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 5060:5060 <> v:60
+R5063:5066 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R5080:5081 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R5072:5075 Coq.Init.Datatypes <> list ind
+R5077:5079 lrust.lang.lang <> val ind
+binder 5067:5068 <> vs:61
+R5112:5122 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R5082:5084 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R5109:5111 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R5098:5102 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R5094:5096 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5085:5090 Coq.Init.Datatypes <> length def
+R5092:5093 ModelStateObservation.observation <> vs:61 var
+R5105:5105 ModelStateObservation.observation <> v:60 var
+R5107:5108 ModelStateObservation.observation <> vs:61 var
+R5134:5138 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R5124:5131 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R5132:5133 ModelStateObservation.observation <> vs:61 var
+R5139:5155 NativeHeapInitialization.initialization <> initial_fragments def
+R5057:5059 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R5061:5062 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 5060:5060 <> v:62
+R5063:5066 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R5080:5081 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R5072:5075 Coq.Init.Datatypes <> list ind
+R5077:5079 lrust.lang.lang <> val ind
+binder 5067:5068 <> vs:63
+R5112:5122 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R5082:5084 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R5109:5111 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R5098:5102 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R5094:5096 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5085:5090 Coq.Init.Datatypes <> length def
+R5092:5093 ModelStateObservation.observation <> vs:63 var
+R5105:5105 ModelStateObservation.observation <> v:62 var
+R5107:5108 ModelStateObservation.observation <> vs:63 var
+R5134:5138 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R5124:5131 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R5132:5133 ModelStateObservation.observation <> vs:63 var
+R5139:5155 NativeHeapInitialization.initialization <> initial_fragments def
+R5209:5209 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5218:5223 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5240:5240 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5209:5209 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5218:5223 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5240:5240 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5339:5339 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5356:5361 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5375:5375 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5340:5355 ModelStateObservation.observation <> interval_observe thm
+R5339:5339 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5356:5361 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5375:5375 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5340:5355 ModelStateObservation.observation <> interval_observe thm
+R5402:5402 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5420:5425 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5438:5438 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5403:5419 ModelStateObservation.observation <> fragments_observe thm
+R5402:5402 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5420:5425 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5438:5438 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R5403:5419 ModelStateObservation.observation <> fragments_observe thm
+R5466:5481 iris.bi.updates <> fupd_mask_weaken thm
+R5466:5481 iris.bi.updates <> fupd_mask_weaken thm
+prf 5570:5601 <> initialized_interior_observation
+binder 5603:5603 <> e:64
+binder 5605:5605 <> h:65
+binder 5607:5607 <> p:66
+binder 5609:5613 <> input:67
+binder 5615:5615 <> n:68
+R5625:5629 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5622:5624 lrust.lang.lang <> val ind
+R5638:5642 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5630:5633 Coq.Init.Datatypes <> list ind
+R5635:5637 lrust.lang.lang <> val ind
+binder 5618:5618 <> P:69
+binder 5649:5649 <> k:70
+R5657:5657 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5723:5732 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5658:5662 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R5673:5674 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R5667:5669 Coq.Init.Datatypes <> nat ind
+binder 5663:5663 <> i:71
+binder 5672:5672 <> v:72
+R5694:5698 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5685:5687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5680:5683 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R5684:5684 ModelStateObservation.observation <> i:71 var
+R5675:5679 ModelStateObservation.observation <> input:67 var
+R5688:5691 Coq.Init.Datatypes <> Some constr
+R5693:5693 ModelStateObservation.observation <> v:72 var
+R5714:5716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5700:5704 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R5713:5713 stdpp.base <> ::stdpp_scope:x_'!!'_x not
+R5706:5711 lrust.lang.lang <> ::loc_scope:x_'+ₗ'_x not
+R5705:5705 ModelStateObservation.observation <> p:66 var
+R5712:5712 ModelStateObservation.observation <> i:71 var
+R5699:5699 ModelStateObservation.observation <> h:65 var
+R5717:5720 Coq.Init.Datatypes <> Some constr
+R5722:5722 ModelStateObservation.observation <> v:72 var
+R5733:5733 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5999:6008 Coq.Unicode.Utf8_core <> ::type_scope:x_'→'_x not
+R5734:5739 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R5751:5753 Coq.Unicode.Utf8_core <> ::type_scope:'∀'_x_'..'_x_','_x not
+R5741:5747 lrust.lang.lifting <> lrustGS class
+R5749:5750 ModelStateObservation.observation <> strong_observation.Σ var
+binder 5740:5750 <> lrustGS0:73
+R5768:5773 iris.bi.interface <> ::stdpp_scope:x_'-∗'_x not
+R5755:5762 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R5754:5754 ModelStateObservation.observation <> p:66 var
+R5763:5767 ModelStateObservation.observation <> input:67 var
+R5820:5831 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R5774:5790 NativeHeapInitialization.initialization <> initial_fragments def
+R5794:5798 stdpp.base <> ::stdpp_scope:x_'∖'_x not
+R5793:5793 ModelStateObservation.observation <> h:65 var
+R5799:5810 NativeHeapInitialization.partition <> interval_map def
+R5812:5812 ModelStateObservation.observation <> p:66 var
+R5814:5818 ModelStateObservation.observation <> input:67 var
+R5835:5840 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R5832:5833 iris.base_logic.lib.later_credits <> :::'£'_x not
+R5834:5834 ModelStateObservation.observation <> k:70 var
+R5849:5860 iris.bi.interface <> ::bi_scope:x_'-∗'_x not
+R5841:5848 lrust.lang.time <> time_ctx def
+R5861:5863 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R5865:5868 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R5870:5871 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R5996:5998 iris.bi.weakestpre <> ::bi_scope:'WP'_x_'{{'_x_','_x_'}'_'}' not
+R5864:5864 ModelStateObservation.observation <> e:64 var
+binder 5869:5869 <> v:74
+R5872:5875 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R5889:5890 iris.bi.interface <> ::bi_scope:'∃'_x_'..'_x_','_x not
+R5881:5884 Coq.Init.Datatypes <> list ind
+R5886:5888 lrust.lang.lang <> val ind
+binder 5876:5877 <> vs:75
+R5921:5933 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R5891:5893 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R5918:5920 iris.bi.interface <> ::bi_scope:'⌜'_x_'⌝' not
+R5907:5911 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R5903:5905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5894:5899 Coq.Init.Datatypes <> length def
+R5901:5902 ModelStateObservation.observation <> vs:75 var
+R5906:5906 ModelStateObservation.observation <> n:68 var
+R5912:5912 ModelStateObservation.observation <> P:69 var
+R5916:5917 ModelStateObservation.observation <> vs:75 var
+R5914:5914 ModelStateObservation.observation <> v:74 var
+R5945:5949 iris.bi.interface <> ::bi_scope:x_'∗'_x not
+R5935:5942 lrust.lang.heap <> ::bi_scope:x_'↦∗'_x not
+R5934:5934 ModelStateObservation.observation <> p:66 var
+R5943:5944 ModelStateObservation.observation <> vs:75 var
+R5950:5966 NativeHeapInitialization.initialization <> initial_fragments def
+R5970:5974 stdpp.base <> ::stdpp_scope:x_'∖'_x not
+R5969:5969 ModelStateObservation.observation <> h:65 var
+R5975:5986 NativeHeapInitialization.partition <> interval_map def
+R5988:5988 ModelStateObservation.observation <> p:66 var
+R5990:5994 ModelStateObservation.observation <> input:67 var
+R6009:6016 iris.program_logic.adequacy <> adequate rec
+R6058:6060 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+R6065:6066 Coq.Unicode.Utf8_core <> :::'λ'_x_'..'_x_','_x not
+binder 6061:6061 <> v:76
+binder 6063:6064 <> σ:77
+R6067:6070 Coq.Unicode.Utf8_core <> ::type_scope:'∃'_x_'..'_x_','_x not
+R6073:6074 Coq.Unicode.Utf8_core <> ::type_scope:'∃'_x_'..'_x_','_x not
+binder 6071:6072 <> vs:78
+R6088:6092 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R6084:6086 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6075:6080 Coq.Init.Datatypes <> length def
+R6082:6083 ModelStateObservation.observation <> vs:78 var
+R6087:6087 ModelStateObservation.observation <> n:68 var
+R6099:6103 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R6093:6093 ModelStateObservation.observation <> P:69 var
+R6097:6098 ModelStateObservation.observation <> vs:78 var
+R6095:6095 ModelStateObservation.observation <> v:76 var
+R6129:6141 Coq.Unicode.Utf8_core <> ::type_scope:x_'∧'_x not
+R6104:6120 ModelStateObservation.observation <> interval_observed def
+R6122:6123 ModelStateObservation.observation <> σ:77 var
+R6125:6125 ModelStateObservation.observation <> p:66 var
+R6127:6128 ModelStateObservation.observation <> vs:78 var
+R6142:6155 ModelStateObservation.observation <> frame_observed def
+R6157:6158 ModelStateObservation.observation <> σ:77 var
+R6162:6166 stdpp.base <> ::stdpp_scope:x_'∖'_x not
+R6161:6161 ModelStateObservation.observation <> h:65 var
+R6167:6178 NativeHeapInitialization.partition <> interval_map def
+R6180:6180 ModelStateObservation.observation <> p:66 var
+R6182:6186 ModelStateObservation.observation <> input:67 var
+R6030:6046 NativeHeapInitialization.initialization <> initialized_state def
+R6048:6048 ModelStateObservation.observation <> h:65 var
+R6027:6027 ModelStateObservation.observation <> e:64 var
+R6018:6025 iris.bi.weakestpre <> NotStuck constr
+R6244:6278 ModelStateObservation.observation <> initialized_interval_frame_adequacy thm
+R6244:6278 ModelStateObservation.observation <> initialized_interval_frame_adequacy thm
+R6350:6350 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6379:6384 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6388:6388 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6351:6366 NativeHeapInitialization.partition <> interior_extract thm
+R6350:6350 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6379:6384 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6388:6388 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6351:6366 NativeHeapInitialization.partition <> interior_extract thm
+R6422:6422 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6431:6436 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6464:6464 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6422:6422 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6431:6436 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6464:6464 iris.proofmode.ltac_tactics <> :::'('_x_'with'_x_')' not
+R6478:6495 ModelStateObservation.observation strong_observation <> sec
