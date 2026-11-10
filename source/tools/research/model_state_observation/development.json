@@ -1,0 +1,445 @@
+[
+  {
+    "trial": 1,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial001/receipt.json",
+      "sha256": "a023a9384c3c855e988489ea413be14e22c62eb0517ead5b73c40e2466545f06"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial001/freeze.json",
+      "sha256": "e6bdde9248b4c58985a79c6f7545f5e1187d05bd3f1f9dedecb5936a071b8af8"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: observation"
+    },
+    "sources": {
+      "observation.v": "6b45b60c2c26b9359caf0abcf6f447308bf7d0101a7205a3f52f56847cffd7ea",
+      "instances.v": "84a51ff1ed64c028c7fbf9153183645db06abf9938f381bd2ca97bd7ed7a9a7e",
+      "controls.v": "480295ebae54e5e7d2350416fdf050f0e52f58f3e40cb38719a9b213efd89df4"
+    },
+    "logs": {
+      "compile-observation.stderr": "4eb3409558aacbfe399ffc002e4354783852a2e8f4478f34ff3e427fb1bd7458"
+    }
+  },
+  {
+    "trial": 2,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial002/receipt.json",
+      "sha256": "af8ee4b000245ce984dfa42edd963f5313aa55a37f9b67bd86f56082a60654bb"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial002/freeze.json",
+      "sha256": "8d044408cd7ed51bb5d2b43e9024cbca329035832576aa2bd0bd92291d51cb80"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: observation"
+    },
+    "sources": {
+      "observation.v": "872740ed2ab9e8374cc37727992c69f7617980befaff4e2fd3dc81d218277436",
+      "instances.v": "84a51ff1ed64c028c7fbf9153183645db06abf9938f381bd2ca97bd7ed7a9a7e",
+      "controls.v": "480295ebae54e5e7d2350416fdf050f0e52f58f3e40cb38719a9b213efd89df4"
+    },
+    "logs": {
+      "compile-observation.stderr": "88662f48597a048490f96e6f6654863e3f5ff10ffaedf5b73af84d471f9be8b0"
+    }
+  },
+  {
+    "trial": 3,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial003/receipt.json",
+      "sha256": "2f8db171a62b0905cbc21346bb5ed7c242768be221c8d98ea85dc6269677766c"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial003/freeze.json",
+      "sha256": "e8eecfd2bbb068d1c409f91d909e4fa625634933e68b22fc859145b2a42b3a4a"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: observation"
+    },
+    "sources": {
+      "observation.v": "d376832f4ce0be3dc25b734eed2f8f2f4ff7da6df63810199e4d55612152c39d",
+      "instances.v": "84a51ff1ed64c028c7fbf9153183645db06abf9938f381bd2ca97bd7ed7a9a7e",
+      "controls.v": "480295ebae54e5e7d2350416fdf050f0e52f58f3e40cb38719a9b213efd89df4"
+    },
+    "logs": {
+      "compile-observation.stderr": "4438e5066446a00e96241495a8271a532d33938d45cf076947c92f58dd1a983d"
+    }
+  },
+  {
+    "trial": 4,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial004/receipt.json",
+      "sha256": "00c42d9df615bf052f379040153ff2ca80ed6995707854c8b87c3f119caaed42"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial004/freeze.json",
+      "sha256": "8948946f62a47b77cb4225828e931f194e39cd049a87a07e0f47bcc3d84056ba"
+    },
+    "success": true,
+    "classification": "kernel-checked MODEL proof",
+    "failure": null,
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "84a51ff1ed64c028c7fbf9153183645db06abf9938f381bd2ca97bd7ed7a9a7e",
+      "controls.v": "480295ebae54e5e7d2350416fdf050f0e52f58f3e40cb38719a9b213efd89df4",
+      "Assumptions.v": "4022a6ca6af67b938e21d2134a39a9017e8624808110e9e09470ee417f0660b3"
+    },
+    "logs": {
+      "assumptions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-controls.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-instances.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kernel.stderr": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526"
+    }
+  },
+  {
+    "trial": 5,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial005/receipt.json",
+      "sha256": "6a5b75ed2231c9a15c9c5932d8c3a9e72a462f7671505d150b3cae7b82c79b58"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial005/freeze.json",
+      "sha256": "6e36f21e9fbe48b4726be82bc53961cd0e67ecf02de5577bc01b51dcea1246d6"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "68bba27b84de73b6cad216555e0399d79bb93ab2989efe58fdbf8695d5a8ba5f",
+      "controls.v": "2da072c7c30b14e4f5bd7636fe84836b4ffca70bc23447c91fb7ab50cf9d8d47"
+    },
+    "logs": {
+      "compile-instances.stderr": "26cf42cfb55b36ccce6f9d8f0a0352550367ddfc7e0888f08726be6f0a4dc3f4",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 6,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial006/receipt.json",
+      "sha256": "964ad9fa83be990f8f0d09a3dbb1b93b9fcc0dc729aba253cff6da30697c9763"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial006/freeze.json",
+      "sha256": "bf278d58a54d7d2f7de25d8df816ae292b8d9d5de8956b730c8ecc0fa1c5c331"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "614a838147443f9de1940e1788ecb3249401a5286870b37c10c3b632a919ffc1",
+      "controls.v": "dec0f495c707cf0f4a2104d01b574d477af035e930881dbbea23b1b9a5a5f2e0"
+    },
+    "logs": {
+      "compile-instances.stderr": "0879b25e024ce24200dbe9a9adc0c20792e6057fd7ec56f30b8305fe80a0eec2",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 7,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial007/receipt.json",
+      "sha256": "b4807aabfc8be46b810461d60e5fc38598c8d3b13613bcfbda8f95949da4cdec"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial007/freeze.json",
+      "sha256": "83d0c111456a9f7bfa2328ebd1228223ed917323718d65d40667d15f0759b517"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "466bcb94f7999aa9ba0bb9fea48e4ff5ea28fedfb895ef371abc48955021eef4",
+      "controls.v": "dec0f495c707cf0f4a2104d01b574d477af035e930881dbbea23b1b9a5a5f2e0"
+    },
+    "logs": {
+      "compile-instances.stderr": "298bd132696e16cc20af5e454b9944e4aef083e3c8c875e15c0aaa472962cbae",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 8,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial008/receipt.json",
+      "sha256": "d1e123675784b379ee61eff189dbb9207b80c968211decd09449bbc6d2f5f478"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial008/freeze.json",
+      "sha256": "cbda175a9866969a287cab200827cdec1a668346130ff2fb415b82604eee20b7"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "e64841e239b5c64403410b0a21e7d70a94f9353a2f31b8901cc1f35fb6e9b9dc",
+      "controls.v": "16add00fe93dbd17e6eee5a6195cb1d4bec6c46c9de50dfb35076fcb7e606c0a"
+    },
+    "logs": {
+      "compile-instances.stderr": "de8ba4fc19a215314d157fa9d284d49ab31958911e7d5f03f37f4395f9d5ad49",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 9,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial009/receipt.json",
+      "sha256": "a0c669b93c67280431caa7cebb6d3d0e0ae3a9047ff75eb040dba9da321e40d7"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial009/freeze.json",
+      "sha256": "dddb77236c2ade7cd64d6e285bf0e857ceac1c1534894c3e7c39bdb83d95957d"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "d1fb164355a897f61ba93f6d1cf7ceb408a88106e77e883bca1e2f71dfab7586",
+      "controls.v": "323ffe5adf7c08b0d86898e6de8d2331cd600861a43900b5e12183cfc16659ba"
+    },
+    "logs": {
+      "compile-instances.stderr": "3771d2d3eb4a53c7b79fef1c7c9d037930b1ffef6d76f7797b66c13b9274747e",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 10,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial010/receipt.json",
+      "sha256": "fbdbd01add88d07fa443717b4d20279228edd4d01f343fdeb0b5642726e692f5"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial010/freeze.json",
+      "sha256": "f0018f93c9790d7fe087a502c974ed114d4368b23638128c6d259925acf78cc1"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "daee953010cb8faf1f29f345f942005694c5b7dee4cfd1c2d2d494507fb815ec",
+      "controls.v": "73182753f25d1e15c8fb62ddf76e55be0421185e9bee56cc4d36fc99fc534edc"
+    },
+    "logs": {
+      "compile-instances.stderr": "3ac17217bbea688a1721c01118a21d85c6b27de98e3be33ef48721d7e7d21bfe",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 11,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial011/receipt.json",
+      "sha256": "78254cebe6d92c1afe8b6f5e119ccc532b3139a6412df486f058b0d03fbf75b9"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial011/freeze.json",
+      "sha256": "45863873ae493139fa080d6d7c126dac43281c545cff84c0bc0e059e97459e7f"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "88e296943383e44c05eac05355de7032ce1033918b8aa9ac299359401d9b73a3",
+      "controls.v": "73182753f25d1e15c8fb62ddf76e55be0421185e9bee56cc4d36fc99fc534edc"
+    },
+    "logs": {
+      "compile-instances.stderr": "16e15aa743f443679150241957be0189af8de5427782a3e1908a475df31be616",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 12,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial012/receipt.json",
+      "sha256": "de6ae1de1526951ebc1170c63ae779dcf05361d9f6c7c399f31731fc4c5e6862"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial012/freeze.json",
+      "sha256": "6a16b9af9f80c17cc6893c9b8af5e95527cfe3d368fe5a5d65f5c71273bbde22"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "00c37f1fa1d7d35463ff4bdc9db395a77ad6544f5b3bd1f1aa9a681e6a197ef1",
+      "controls.v": "87a4f99df6d4641e5c981522afa0308d2a5571307fce3c6f49781ec9960b11ff"
+    },
+    "logs": {
+      "compile-instances.stderr": "eafc03eb85d330a515664f2cba8282ac99a50a8b45fb919ff3a7c05a865acb27",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 13,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial013/receipt.json",
+      "sha256": "46e6d90f87e3ec1c7321a39390d79bd69330bd5050b064d819a0cc655b0469e4"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial013/freeze.json",
+      "sha256": "eb19a0a63ab978248cfc6b0dbdde29673c1b59b3e86bad6940897022478843e2"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "240c53518fed757d4ef5bffa801e5d1fcf2e7eeafee9c62d1a80f949113db535",
+      "controls.v": "87a4f99df6d4641e5c981522afa0308d2a5571307fce3c6f49781ec9960b11ff"
+    },
+    "logs": {
+      "compile-instances.stderr": "cdfab7faa51343b17b3bf135d3d9655efd5e2227f61c5a0a1767596b505b38cc",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 14,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial014/receipt.json",
+      "sha256": "3db2e8128cfae42fecb19714562793db2a49be3bee821890d07700350e6f20b5"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial014/freeze.json",
+      "sha256": "c8fffe741a8fca3daaae151a85a04ec50f324f74bb5b8713e876421c062fa202"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: instances"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "7115d1b7bebd67357e395178b7aec0ef268ef4dc2a394a3b4e1c9e0c532d9b46",
+      "controls.v": "08948d45f859c0f9aec95f4a7084643ec90347429ef18faf22a892975787f7d3"
+    },
+    "logs": {
+      "compile-instances.stderr": "84d16acdef38b3ad8eeb841906faebb956a1750e94db12633bf66284d1b0efa7",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 15,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial015/receipt.json",
+      "sha256": "0507abd69d3d8ff20631727e43b0eaa49687e0caa9756f666e963240e3f788e0"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial015/freeze.json",
+      "sha256": "ce6c63ed3d0add104cebe3d583e7ee46db977e5f160d1aa831ba9b0e3333e4e3"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: controls"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "7527db68abfe332500366a9c7e0de13c7d24d0c442ee1f819fc36146c3306805",
+      "controls.v": "91db6dd24d0879174d373fc09c4a3634e0e880fde40633696705ece687cd0f55"
+    },
+    "logs": {
+      "compile-controls.stderr": "23298186b57a1af117de1fb5744675a87e8d255c925426ef2860ce2a0641adaa",
+      "compile-instances.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 16,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial016/receipt.json",
+      "sha256": "2971c0fe8db5937a904a69a4df9b4b9cbd49de8512f37e2ba64ce270c84e40ba"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial016/freeze.json",
+      "sha256": "f105297a5de540cb5a3915eade2460f5fd252c3184d4d1beb2942acf3b88448f"
+    },
+    "success": false,
+    "classification": "proof script/setup development failure; not semantic evidence",
+    "failure": {
+      "type": "ValueError",
+      "message": "proof-development/setup failure, not semantic evidence: controls"
+    },
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "7527db68abfe332500366a9c7e0de13c7d24d0c442ee1f819fc36146c3306805",
+      "controls.v": "e75ce004ed0089d1282b1d098743a5d1d2cc64b0ddf0b9584db9e964b542d4f2"
+    },
+    "logs": {
+      "compile-controls.stderr": "a21d533cd094fdf6cbb41778b060318c255371d8354111d078295c951c30c899",
+      "compile-instances.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "trial": 17,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial017/receipt.json",
+      "sha256": "7d2620147db8641c926692404be19cfbdaf5431d39bbac99f8d38bee0635aef1"
+    },
+    "freeze": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial017/freeze.json",
+      "sha256": "9697821f7b7f9e9c235be8758f54d8e87b4862e528cca02971b50f949c3fa3e4"
+    },
+    "success": true,
+    "classification": "kernel-checked MODEL proof",
+    "failure": null,
+    "sources": {
+      "observation.v": "c0037a78c7b42c67d4dafd7c34e5b071a73ba921f6704607aebe2d09e4d88173",
+      "instances.v": "7527db68abfe332500366a9c7e0de13c7d24d0c442ee1f819fc36146c3306805",
+      "controls.v": "24bc725536234d3864a80510aadfea2c5aa30a8eec0b67d3be95ceb0dba21e06",
+      "Assumptions.v": "e3c1b6f63fdfde389d881c579818a6fc1f3f9521e418ca57cf0704de4243a256"
+    },
+    "logs": {
+      "assumptions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-controls.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-instances.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-observation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kernel.stderr": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526"
+    }
+  }
+]
