@@ -1,0 +1,91 @@
+{
+  "/tmp/verus-infer-buffer-cycle-20261109/gmp-pin-heap-positive": {
+    "receipt_sha256": "a3aea2cd291724a26f76082739455cbd4cfa8b64b3d3dcb465a465ed5c6d739d",
+    "artifacts": {
+      "Assumptions.v": "c0cd6e09c82dde000101dfd3c71b1f7066395fa341ea1b7ec822c456e5f7c0b2",
+      "Assumptions.vo": "246dab6f53dc659099d8e5a8f90df8557c8e4c0a07284537a06bfdba305e5ea1",
+      "controls.v": "9194467f1504ca0cc31ebcd9d3ec67cdbd82e09942a763c2f927f2db098ebb7c",
+      "controls.vo": "d8586648cf4b34c12b99811e93ed674590aa90dfa995f730cd52440840f79126",
+      "initialization.v": "597d2eb4aefaac2e29583e8932cfa63e143e36e9a2f6d67576db626e184fa517",
+      "initialization.vo": "d9b1e53194039a566c409727ef4a6acf23d3e878cc3c1c22a954cd58bfe7d34c",
+      "partition.v": "0e860cdabb24eb98eb2316a9fa9298c80e449a69675120bc0d179bd2fe7dd435",
+      "partition.vo": "c2ac51f31ad532d3246b48e8e7862e52ad97d1845f6792ff776ffb892c5467a9"
+    },
+    "namespace": "NativeHeapInitialization"
+  },
+  "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs": {
+    "receipt_sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41",
+    "artifacts": {
+      "AssumptionInventory.v": "dbabfa3d41b7ae255401c4648ed1318251b2ac754cfc368fa804e45add1e735a",
+      "AssumptionInventory.vo": "4c8c5f0c467cb82ee7774028fb285fb605e8e645a4eee5ac2a0e3c2618141dae",
+      "borrow_handoff.v": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+      "borrow_handoff.vo": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+      "byte_array.v": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+      "byte_array.vo": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+      "model_limits.v": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+      "model_limits.vo": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+      "raw_view.v": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+      "raw_view.vo": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e"
+    },
+    "namespace": "NativeSemanticBridge"
+  },
+  "/tmp/verus-infer-buffer-cycle-20261109/parent-model-input-94b87742/proofs": {
+    "receipt_sha256": "4c6783ade2f675dc4e53cdeb8d9f3b0f8fa2fa414df3913cb9f0554ca6c4119c",
+    "artifacts": {
+      "Assumptions.v": "90ec36ee59132b4b1bb5aa7525b4e3689c48fc5990c3cf787866156c6e7dd238",
+      "Assumptions.vo": "1132baa74a1a9801feb9a8d4115e84e37b21073d0ba8dfe0d82f6053dada1d8f",
+      "composition.v": "c837cf0e7f21b5906cc739cf19e4bfd3aaec4c58f0bb28488a0495820dd4d743",
+      "composition.vo": "2b91ac03791e069928af7606c8caba1c11b442aed0bfd3cfd227626debf42143",
+      "context.v": "ce39b7318868f69d2dc64d6a499c43a48aa1fbf96e3cf626afd75ef93172e2a3",
+      "context.vo": "e99bf61d126478fb577af84886fc81ecb0522cf18d2153aaa8ca19bacae31779",
+      "controls.v": "7461f72d53f2b3b83ecd8ac6172612b49f842052064d411723c1de403a4d12e3",
+      "controls.vo": "cc44397d595070ab2e9f488b23bc32f8de1b39579c3391df336f965a0cabaece",
+      "instances.v": "5ccc34dfffc03f2ca0fb0ba43cec6546c93b41cea2b98f682714cb3ac433a826",
+      "instances.vo": "a4599a9205d17cac4a2f1342a46bddc3d8e5501f44c8eb0d8be90b0f04dc91c0",
+      "vector.v": "15a24025fb14f10ae9aaddf47502ebc9420852c56e880109754c944c6b8e80dd",
+      "vector.vo": "a01a816ee29279d643bd2d066fe560f82f751574fe7ef1ddc06af7419b899066"
+    },
+    "namespace": "ModelInputContext"
+  },
+  "/tmp/shared-byte-read-trial-022": {
+    "receipt_sha256": "d434bc73bacd2335313b73001436696cf8a305930fa9fa30eb1c79b014311b69",
+    "artifacts": {
+      "Assumptions.v": "596cf4a60eb1ac4788c9c0f9cb7c640efc03392e33d795589c40301437e2f618",
+      "Assumptions.vo": "fd09de33da4f2ce3b644774be783bb6830f8147bc50245d2c3e0c9345d91517a",
+      "instances.v": "e9c133089f62079a44e035c06e99bbfd9b4608b8ed5afafd8718d74e0454fc50",
+      "instances.vo": "d4e2330e9863da9081922ec64cec3090fc469d4a0c763827003915c8e2dae160",
+      "observation.v": "b8866f108fcffaf0328891433956a41bce1550b43aec7e985d11544c64daa5ec",
+      "observation.vo": "161b09ee489623cce5be398a57f6fc279ef2580733f4bb0b11d9f50ecd833087",
+      "session.v": "da6cc501025118dd009fe15c9078efc28620d04a14205ed7e82bf08a51d42e84",
+      "session.vo": "86f19f7339c043f65ec1c76d400a5e167801e133634319848d4488ced42b6796",
+      "shared_read.v": "761cba940842764ba0c7d81b1b5c9f82bfa743b77c655dbc8848109a1e3c59d4",
+      "shared_read.vo": "94d7a4eee5a80e72dd6d778e5701310f3c848d036de0d89aea20c20bf4098282"
+    },
+    "namespace": "ModelSharedByteRead",
+    "committed_pin": "model_shared_byte_read/results.json"
+  },
+  "/tmp/verus-byte-xor-trial017": {
+    "receipt_sha256": "5e663c2d6e8affdf453afbadc3d33e1a6fa5859934ef109cad6925f932766b9e",
+    "artifacts": {
+      "Assumptions.v": "1c67e0afd49d1c088a66de5992bda32714f166a508404dea64861898e95338f4",
+      "Assumptions.vo": "14eb7db6ed3395010116790dd41980662eb6faf076636c597248e6aadbb3f4fe",
+      "ProofTerms.v": "06d9a55f5febb4123b2047116119c16e7b064474b7d735da18f965ac0bc2c904",
+      "ProofTerms.vo": "30257d28078ebb6fa07d0b4587a190e0fa6cb8c53f4fc8a7925c0231a3ff6b64",
+      "byte_xor.v": "ff7213e8f611472ef11dd185af81cbadc572c25304ecf757c9174034806f7346",
+      "byte_xor.vo": "3ed2ad60dd823714cf784ddd8d890a32a81092164ca641048688351282ec9641"
+    },
+    "namespace": "ModelByteXor",
+    "committed_pin": "model_byte_xor/STATUS.json"
+  },
+  "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial007": {
+    "receipt_sha256": "687c9f1ab9a09456cf54cecfb8a440386b48e5a425ad7d7223cc92c7f7762aa7",
+    "artifacts": {
+      "Assumptions.v": "bcd348f3b626062da2a4ca08008435023585f6e28519c28884de91db354612a4",
+      "Assumptions.vo": "e29f373b66c65c4cf1f4a3f6dca390ebd81065c4a58dc1803e8a41762a1aba4c",
+      "transform.v": "22e39f6640f0dac1859e754b32deb3b0c48fc76737ff30d166d8f6ab7287ffa9",
+      "transform.vo": "f52e837a74813389929f93be16dafef642c2475d1b2c62ae46122ac4ee264d29"
+    },
+    "namespace": "ModelBufferTransform",
+    "committed_pin": "model_buffer_transform/STATUS.json"
+  }
+}
