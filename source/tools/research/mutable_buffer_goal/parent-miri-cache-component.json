@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "scope": "Exact cache initialization/add and manually checked consistency preservation; full enabled-cache granting lookup remains open.",
+  "worker_commit": "7789ce2f97a16f66905e4717295afbbd56ef27c9",
+  "integrated_commit": "0e00fe65",
+  "receipt": "/tmp/native-miri-find-granting-20261110-impl-final008/output/receipt.json",
+  "receipt_sha256": "297c67eae1dc1242ad0c1f08175548fc16b2167f6c267fdf8b0a5e15ef1e0075",
+  "frozen_inputs_authenticated": 45,
+  "own_checkout_paths_rebound_by_digest": 12,
+  "private_products_authenticated": 22,
+  "positive_queries": {
+    "verified": 17,
+    "errors": 0,
+    "modes": [
+      "enabled-cold",
+      "enabled-warm",
+      "disabled"
+    ]
+  },
+  "semantic_controls": 4,
+  "checked_exec_bodies": 7,
+  "checked_proof_bodies": 1,
+  "manual_permission_proof_blocks": 1,
+  "inferred_helpers": [],
+  "causal_assistance_gain": false,
+  "cache_initialization_and_add_effect_closed": true,
+  "enabled_cache_lookup_closed": false,
+  "whole_native_cache_invariant_closed": false,
+  "write_caller_precondition_closed": false,
+  "independent_acceptance": "pending fresh isolated review",
+  "next_obligations": "NEEDS.json: exact lookup, tag validity, reverse-iterator laws, FxHashSet support, Option::is_some_and, slice swap and whole-native cache preservation.",
+  "native_correspondences": 0,
+  "open_obligations": "44 minimal + 3 phase / 101 writer effects",
+  "canonical": "6/0 accepted",
+  "full_HMAC": "1/1 UNPROVED",
+  "publication": false,
+  "goal_complete": false
+}

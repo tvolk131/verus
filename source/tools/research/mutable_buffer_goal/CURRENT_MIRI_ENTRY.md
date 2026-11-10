@@ -22,7 +22,12 @@ The active source work is unchanged `find_granting` return guarantees (including
 unknown/wildcard provenance and cache paths) and the real NonZero/packed-tag
 representation. Pinned package metadata enables stack-cache by default;
 [source-policy record](../native_miri_feature_policy/results.json). An uncached
-case alone is not the default-path result. Actual cache consistency, lawful
+case alone is not the default-path result. The delivered cache prerequisite
+checks exact initialization and pair insertion, plus a manual consistency
+preservation lemma: [cache component](parent-miri-cache-component.json).
+It is17/0 with assistance enabled and disabled; four isolated controls reject.
+Fresh independent acceptance is pending. Full enabled-cache lookup and global
+cache preservation remain unproved. Actual cache consistency, lawful
 source-context coverage, frame/separation and original C/F remain open.
 
 The next comparison must use the current compiler-matched source in
@@ -55,15 +60,16 @@ facts, not a verified translation or a claim about all lawful Rust callers.
   boundary needs an explicit classification; no tag-budget precondition may be
   added to the original buffer functions.
 
-A concrete next proof component is the unchanged current
-`find_first_write_incompatible`, together with its real packed permission
-accessors and vector lookup. Its first-incompatible/bounds contract can be
-checked ordinarily over arbitrary stacks, then compared to the published
-top-to-bottom list function. This advances the algorithm connection without
-inventing another unrelated retag semantics. It does not cover wildcard/unknown
-granting, fallible visitors, source argument installation, or caller validity.
-Any adapter, authored precondition and unsupported source construct must remain
-explicit; successful helper verification is not a full native certificate.
+The accepted `find_first_write_incompatible` component supplies its own bounds
+and first-incompatible contract. The next connection is to discharge its
+granting-index and granting-permission preconditions from the actual lookup,
+including cache, wildcard and unknown-bottom outcomes. The frozen lookup also
+exposes unsupported constructor function values, hasher types, Option and swap
+interfaces, and reverse-iterator lawfulness. These are separate frontend or
+library proof needs, recorded in
+[NEEDS.json](../native_miri_find_granting/NEEDS.json). Any adapter, authored
+precondition and unsupported source construct must remain explicit; successful
+helper verification is not a full native certificate.
 
 Full canonical remains6/0; the frozen full HMAC XOR-prefix-and-suffix property
 remains1/1 unproved. Both are inherited, not rerun here. Native=0, all44+3/101
