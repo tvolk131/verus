@@ -102,6 +102,14 @@ def main():
                  *[WORKER/'proofs'/n for n in products], *[WORKER/n for n in result['logs']]]
         guard = ArtifactGuard(paths)
         require(digest(WORKER/'receipt.json') == WORKER_SHA, 'worker changed during authentication')
+        for label, info in worker['inputs'].items():
+            require(guard.initial[str(Path(mapped_inputs[label]).resolve())]['sha256'] == info['sha256'], 'worker input changed before snapshot '+label)
+        for name, expected in products.items():
+            require(guard.initial[str((WORKER/'proofs'/name).resolve())]['sha256'] == expected, 'worker product changed before snapshot '+name)
+        for name, expected in result['logs'].items():
+            require(guard.initial[str((WORKER/name).resolve())]['sha256'] == expected, 'worker log changed before snapshot '+name)
+        for relative, expected in source_pins.items():
+            require(guard.initial[str((ROOT/relative).resolve())]['sha256'] == expected, 'subject changed before snapshot '+relative)
         receipt['inputs'] = guard.initial
         pretrial = dict(before_first_trial=True, subject_commit=TARGET,
                         final_freeze_sha256=digest(SUBJECT/'final-freeze.json'),
@@ -133,7 +141,7 @@ def main():
         kernel = (output/'replay/kernel.stderr').read_text()
         checked = re.findall(r'checking cst:ModelOrdinarySharedXor\.(\w+\.\w+)',kernel)
         require(len(checked) == 105 and set(checked) == set(fresh['all_kernel_declarations']), 'independent kernel inventory')
-        require('Modules were successfully checked' in (output/'replay/kernel.stdout').read_text(), 'missing full kernel success')
+        require('Modules were successfully checked' in kernel, 'missing full kernel success')
         for cmd in fresh['commands']:
             require(cmd['exit_code'] == 0, 'nonzero check')
             require(not any(x in cmd['argv'] for x in ['-admit','-norec','-exclude','-unsafe','-vos','-vok','-vio']), 'excluded/unsafe check')
