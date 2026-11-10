@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "excluded_from_semantic_evidence": [
+    {
+      "trial": 1,
+      "freeze": {
+        "path": "/home/dev/projects/verus/source/tools/research/model_caller_ordinary_writer/trial001-freeze.json",
+        "sha256": "9a9d7c81b513aa79b8e190312c70532eff1ee87cd52d4908b82666be69f1f8c1"
+      },
+      "receipt": {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-001/proofs/receipt.json",
+        "sha256": "4ad1508638ccdbfed2d56930f87fdf3f3dca948795714fd6ed71709287622baf"
+      },
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: interface"
+      },
+      "classification": "Missing unique-borrow notation imports; frontend failure, no semantic evidence"
+    },
+    {
+      "trial": 2,
+      "freeze": {
+        "path": "/home/dev/projects/verus/source/tools/research/model_caller_ordinary_writer/trial002-freeze.json",
+        "sha256": "47d6f7242aae780d401847fbbf04a0143706b4c96f5f834541010a37ece5200d"
+      },
+      "receipt": {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-002/proofs/receipt.json",
+        "sha256": "b70bfe2459a7c2a20ac672d7f7a19e30c2a8e4a664f1d26272b6d51d63a2a12a"
+      },
+      "failure": {
+        "type": "ValueError",
+        "message": "kernel declaration inventory differs: ['interface.caller_xor_na_body', 'interface.caller_xor_na_procedure', 'interface.caller_xor_na_credit', 'interface.caller_xor_na_contract']"
+      },
+      "classification": "Stale module-name inventory regex after kernel success; controller failure, not accepted evidence"
+    }
+  ]
+}

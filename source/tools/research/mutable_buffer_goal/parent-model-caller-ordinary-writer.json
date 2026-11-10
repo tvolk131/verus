@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "scope": "Existing caller MODEL ordinary-memory XOR with original parent future and ancestor frame preserved",
+  "results": "source/tools/research/model_caller_ordinary_writer/results.json",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/receipt.json",
+    "sha256": "1b9063d276c3ef505562143614531a0191230ee91bf3ca07d5b2c63d2af82f4c"
+  },
+  "source_declarations": 5,
+  "inventory_helpers": 20,
+  "independent_review": "pending",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

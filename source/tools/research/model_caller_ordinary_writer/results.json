@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "scope": "Existing caller MODEL ordinary-memory XOR with original parent future and ancestor frame preserved",
+  "implementation_proof_commit": "5b329568",
+  "accepted_controller_commit": "0e984f41",
+  "proof_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/proofs/receipt.json",
+    "sha256": "1b9063d276c3ef505562143614531a0191230ee91bf3ca07d5b2c63d2af82f4c"
+  },
+  "parent_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-caller-ordinary-003/receipt.json",
+    "sha256": "b8547868598019f7cc83f6b13ade8f4caab6c3abffc22f3287d9e5c796fa8ef9"
+  },
+  "freeze": {
+    "path": "/home/dev/projects/verus/source/tools/research/model_caller_ordinary_writer/trial003-freeze.json",
+    "sha256": "26e4a4a8a92700ab89591fb0ad5621efe8fda54e198d8b85e8f578d9697cef6b"
+  },
+  "normal_compilation": true,
+  "full_recursive_kernel_check": true,
+  "source_declarations": 5,
+  "inventory_helpers": 20,
+  "all_kernel_declarations": [
+    "interface.caller_xor_na_body",
+    "interface.caller_xor_na_procedure",
+    "interface.caller_xor_na_credit",
+    "interface.caller_xor_na_contract",
+    "caller.caller_xor_na_verified",
+    "ProofTerms.inventory_begin_0",
+    "ProofTerms.inventory_end_0",
+    "ProofTerms.inventory_begin_1",
+    "ProofTerms.inventory_end_1",
+    "ProofTerms.inventory_begin_2",
+    "ProofTerms.inventory_end_2",
+    "ProofTerms.inventory_begin_3",
+    "ProofTerms.inventory_end_3",
+    "ProofTerms.inventory_begin_4",
+    "ProofTerms.inventory_end_4",
+    "Assumptions.inventory_begin_0",
+    "Assumptions.inventory_end_0",
+    "Assumptions.inventory_begin_1",
+    "Assumptions.inventory_end_1",
+    "Assumptions.inventory_begin_2",
+    "Assumptions.inventory_end_2",
+    "Assumptions.inventory_begin_3",
+    "Assumptions.inventory_end_3",
+    "Assumptions.inventory_begin_4",
+    "Assumptions.inventory_end_4"
+  ],
+  "declarations": {
+    "interface": [
+      "caller_xor_na_body",
+      "caller_xor_na_procedure",
+      "caller_xor_na_credit",
+      "caller_xor_na_contract"
+    ],
+    "caller": [
+      "caller_xor_na_verified"
+    ]
+  },
+  "assumptions": {
+    "interface.caller_xor_na_body": [],
+    "interface.caller_xor_na_procedure": [],
+    "interface.caller_xor_na_credit": [],
+    "interface.caller_xor_na_contract": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "caller.caller_xor_na_verified": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ]
+  },
+  "helper_assumptions": {
+    "Assumptions.inventory_begin_0": [],
+    "Assumptions.inventory_end_0": [],
+    "Assumptions.inventory_begin_1": [],
+    "Assumptions.inventory_end_1": [],
+    "Assumptions.inventory_begin_2": [],
+    "Assumptions.inventory_end_2": [],
+    "Assumptions.inventory_begin_3": [],
+    "Assumptions.inventory_end_3": [],
+    "Assumptions.inventory_begin_4": [],
+    "Assumptions.inventory_end_4": [],
+    "ProofTerms.inventory_begin_0": [],
+    "ProofTerms.inventory_end_0": [],
+    "ProofTerms.inventory_begin_1": [],
+    "ProofTerms.inventory_end_1": [],
+    "ProofTerms.inventory_begin_2": [],
+    "ProofTerms.inventory_end_2": [],
+    "ProofTerms.inventory_begin_3": [],
+    "ProofTerms.inventory_end_3": [],
+    "ProofTerms.inventory_begin_4": [],
+    "ProofTerms.inventory_end_4": []
+  },
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "constructors": [],
+  "program_obligations": [],
+  "proof_sources": {
+    "Assumptions.v": "1b3ce2d0952387c8eaf2901793c53f5975c4ff556e355e9d59983bb20abeada8",
+    "ProofTerms.v": "e58fc9688a3700f0b4b30b051ea5aa405db900b3bcdc08cfcf5460c8bc744d8a",
+    "caller.v": "218ab8b1ebb2972b746f14da214e14c25b5fda6030f7ef4ac6603f8b1b590c68",
+    "interface.v": "b973af888b91de41c5dceb86e1d0d96117ba5e7b9e060ba2c498b77d5439ed23"
+  },
+  "proof_objects": {
+    "Assumptions.vo": "3275d7287cf09d00987ae5d1413c0b614103db89c87eb42f017b1a5d7e27a4b2",
+    "ProofTerms.vo": "a8b8d2817de82bcb420897b9a1d9e030e41bf7fd1977024d4e5034d081aaca11",
+    "caller.vo": "ea039510c544a9375577825db1994da1c1cdd2f3940f78bf4817543d16da8daa",
+    "interface.vo": "34e2cb2ac11992529e4701282f304fde4de24fe6b50bb9cfebcd157e236f2558"
+  },
+  "proof_terms": {
+    "interface.caller_xor_na_body": "81079fb183efe231a07fec916c1941050d26f513e09e40bdfe3a8c347a6f00b1",
+    "interface.caller_xor_na_procedure": "1c68766ba999de4b5ad5cc489d6b10d8705b35dc690e7f50f515417b3fe066d5",
+    "interface.caller_xor_na_credit": "29f8a127d987f0dc27d7372f232c59f643f5f92140444d463a0a18d468991025",
+    "interface.caller_xor_na_contract": "8830c394db96e5559bafd15a868e6da7998221ec1444a22e23ee69ebd4d75a42",
+    "caller.caller_xor_na_verified": "8b8d319158990d866b7bcbc9c06462d70c07900e9cc021e2e8d1a7e081562ae7"
+  },
+  "input_count": 2266,
+  "all_input_and_product_guards_passed": true,
+  "existing_typeG_E_L_I": true,
+  "same_ordinary_L": true,
+  "parent_lifetime_not_ended": true,
+  "original_parent_future_preserved": true,
+  "arbitrary_ancestor_frame_preserved": true,
+  "exact_XOR_current_and_unchanged_suffix": true,
+  "key_view_preserved": true,
+  "all_finite_lengths": true,
+  "explicit_MODEL_credit_precondition": "(g+1)+(1+min(n,k)*3*(g+1))",
+  "source_entry_or_Rust_runtime_budget_proved": false,
+  "independent_review": "pending",
+  "native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_phase_obligations_open": 3,
+  "native_writer_effects_open": 101,
+  "full_HMAC": "1/1 inherited, not rerun",
+  "publication": false,
+  "goal_complete": false
+}
