@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/native_reference_adequacy/candidates/missing-resource.rs": "ae9171765dffc54da7ee662b8182ff13e0b9e921a83fbfc1a6e0baad06f4b12a",
+    "source/tools/research/native_reference_adequacy/replay.py": "e6f45da3be08e9c9889235b919a0bc2cff3f19a7f4291bad5d819e51019ba300",
+    "source/tools/research/native_reference_adequacy/resource-v1-cases.json": "92467dc10171b1b9141d5fe2a5e1efc0dcafbd55983aa0b9dc63bf90223fb49c"
+  }
+}

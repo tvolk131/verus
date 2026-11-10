@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "identity_only": true,
+  "native_fact": false,
+  "files": [
+    {
+      "file": "source/vir/src/prelude.rs",
+      "sha256": "a9199b94579cc34488e698a0da4ab24b866e9df4454a8cd9556cd06d81cdeb9a",
+      "lines": [
+        247,
+        299
+      ],
+      "role": "typed C/F projections and current-update axioms; no allocation/provenance"
+    },
+    {
+      "file": "source/vir/src/ast_to_sst.rs",
+      "sha256": "831db3e10fdf316f9fab5f4b6098bd2707aea9cd8f8204308a4837476d5f0abb",
+      "lines": [
+        1505,
+        1525,
+        4220,
+        4292
+      ],
+      "role": "existing FnMut supported-capture rule; reference reborrow phases"
+    },
+    {
+      "file": "source/vir/src/sst_to_air.rs",
+      "sha256": "ed6ad0da8ec79bb4a7322adfa3edb9178eea309f02e13f1186406bc657266758",
+      "lines": [
+        2316,
+        2350
+      ],
+      "role": "reference current and array/slice-place updates"
+    },
+    {
+      "file": "source/vir/src/resolve_axioms.rs",
+      "sha256": "cd1b995e352b6403ce54541623a342a3cc254fb3900f7afdb583434378db27ef",
+      "lines": [
+        143,
+        173,
+        218,
+        327
+      ],
+      "role": "typed MutRef resolution; visible non-spec field traversal; excludes destructors"
+    },
+    {
+      "file": "source/vir/src/resolution_types.rs",
+      "sha256": "23c5f57911554469f94d0f9fcfcbb96d39a08f214680c113d6db379668719da8",
+      "lines": [
+        10,
+        90
+      ],
+      "role": "opaque resolution is conservative; it adds no observer law"
+    },
+    {
+      "file": "source/vir/src/resolution_inference.rs",
+      "sha256": "2b7150725b324ef82ca263b2644d7896d04e835db9217e88021db51a83b8d7ec",
+      "lines": [
+        1,
+        105,
+        388
+      ],
+      "role": "owned-value dataflow, independent of lifetime end; x does not imply *x"
+    },
+    {
+      "file": "source/rust_verify/src/rust_to_vir_expr.rs",
+      "sha256": "7c8e947872021708e582741422d87760430b54ec723b8853bc6978e257b9ec39",
+      "lines": [
+        1777,
+        1900,
+        2631,
+        4651
+      ],
+      "role": "raw-pointer operations reject; actual array-unsize lowered to inherited helper"
+    },
+    {
+      "file": "source/vstd/mut_ref.rs",
+      "sha256": "9ad87cacf9c62277f3dad59624eebb27f3c6a3a917206eb05c91e51d9286eba7",
+      "lines": [
+        9,
+        55
+      ],
+      "role": "ghost representation pack/unpack; no runtime pointer/permission bridge"
+    },
+    {
+      "file": "source/vstd/array.rs",
+      "sha256": "767049d31bb46d2a69fc5f7d18c34024b7c42414637c70e6f4aea1b0f03d8a9a",
+      "lines": [
+        175,
+        186
+      ],
+      "role": "inherited external-body mutable array-unsize summary"
+    },
+    {
+      "file": "source/vstd/slice.rs",
+      "sha256": "be205926d5f2331f07e16c7e52941692dd6600a95a088ada31ffb5196200571e",
+      "lines": [
+        199,
+        252
+      ],
+      "role": "inherited axioms for tracked element borrow and slice resolution"
+    },
+    {
+      "file": "source/vstd/raw_ptr.rs",
+      "sha256": "0d789a7980929100a59438cea1a4c9bab93cb159475be0986baf9f3256d424e8",
+      "lines": [
+        145,
+        149,
+        620,
+        653
+      ],
+      "role": "non-Copy supplied PointsTo; inherited ptr_ref/ptr_mut_ref contracts"
+    },
+    {
+      "file": "source/vstd/std_specs/slice.rs",
+      "sha256": "55d58a124105edb29507ca9d397aafa34cb243d6d79a50ac0339af5d3a24e8a4",
+      "lines": [
+        489,
+        532
+      ],
+      "role": "opaque IterMut; assumed constructor summary"
+    },
+    {
+      "file": "source/vstd/std_specs/iter.rs",
+      "sha256": "8c36a7c39e5cf6f977d71b0023d7652e9ed2a42f051a043352392e319895f933",
+      "lines": [
+        45,
+        102
+      ],
+      "role": "inherited prophetic iterator laws"
+    },
+    {
+      "file": "source/tools/research/native_heap_lowering/lower.py",
+      "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+      "lines": [
+        1,
+        180
+      ],
+      "role": "untrusted producer; no primitive/ref interpretation"
+    },
+    {
+      "file": "source/tools/research/native_heap_lowering/candidates/kernel-v7/kernel.rs",
+      "sha256": "905821ca3c4bb59f29a8ebb41c16b226615629b7cfa133b28eafc80b52807710",
+      "lines": [
+        1,
+        222
+      ],
+      "role": "authored observation semantics; no source authority"
+    },
+    {
+      "file": "source/tools/research/native_heap_lowering/candidates/trace-v9/trace.rs",
+      "sha256": "c5d688d4862a596fb90b74407823963d6eaf8d1f72c5ba90329e4d637808a423",
+      "lines": [
+        1
+      ],
+      "role": "checked execution only in the authored semantics"
+    },
+    {
+      "file": "source/tools/research/native_borrow_entry/src/main.rs",
+      "sha256": "bbf0c44afdfaeba4a5dad1e376bad843fefca0a1316a6f254297c3d771a93769",
+      "lines": [
+        44,
+        85
+      ],
+      "role": "source loan plus original mir_borrowck; summarized static facts, not memory semantics"
+    }
+  ]
+}

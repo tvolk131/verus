@@ -1,0 +1,575 @@
+{
+  "schema": 1,
+  "native_bridge_proved": false,
+  "native_frame_proved": false,
+  "full_writer_proved": false,
+  "publication": false,
+  "native_effect_obligations_discharged": 0,
+  "canonical_status": "inherited 6/0; not replayed by this lane",
+  "runtime": "immutable private copy of authorized 676b99bf bundle",
+  "bundle_receipt": "/tmp/native-reference-adequacy-2e339ec3/bundle/receipt.json",
+  "bundle_receipt_sha256": "a73f730a147cb1286e9e54eb234d3b3ab78537440475f950bd8efb9b5caf4e4e",
+  "trials": [
+    {
+      "name": "final",
+      "receipt": "/tmp/native-reference-adequacy-2e339ec3/final/receipt.json",
+      "receipt_sha256": "9bcb0f1fd11e63881bea43415e2e8d32590cab6f2aef7b583ff432c22d9059a7",
+      "success": true,
+      "classification_counts": {
+        "positive": 9,
+        "unproved-positive": 4,
+        "frontend-rejection": 4,
+        "lifetime-rejection": 1,
+        "semantic-negative": 1,
+        "resource-rejection": 1
+      },
+      "cases": [
+        {
+          "id": "reborrow",
+          "classification": "positive",
+          "source_sha256": "b984fc41906ea47fc85a2d0c2b6c424d15d185ecf712c26940cd8aa659d431b5",
+          "exec_bodies": [
+            "reborrow"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "native-drop",
+          "classification": "unproved-positive",
+          "source_sha256": "9fe7fca4434234977b11889229fb07a56c9cdce89e70e08d3d555bf966ca6b93",
+          "exec_bodies": [
+            "native_handoff"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "raw-cast",
+          "classification": "frontend-rejection",
+          "source_sha256": "e1f4d0d446365c5aaccb35b720ddd4970213eccbb7fc0155e6fb6c0a610537cf",
+          "exec_bodies": [
+            "raw_cast"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          }
+        },
+        {
+          "id": "coercion",
+          "classification": "positive",
+          "source_sha256": "de498ff9082f4052f26f4c8faf5bb5dacbc3b27ef6607490ad79e93544bd131b",
+          "exec_bodies": [
+            "coercion"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "opaque-resolved",
+          "classification": "positive",
+          "source_sha256": "b632dd3008d334b3896b99298b0493e4ea2f1f51c9d949502b6d6a86eeb8d8cc",
+          "exec_bodies": [
+            "opaque_resolved"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "remaining-resolved",
+          "classification": "unproved-positive",
+          "source_sha256": "174769637ac1a082f87f17c9c79b63a86612a00fe1f486597877bd854fa5b0c4",
+          "exec_bodies": [
+            "remaining_resolved"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "unpack-nonnull",
+          "classification": "unproved-positive",
+          "source_sha256": "4f9750cfb49ab019bccb7d8151c19955f0cf6a20188ea99a9f5f7161b8a26287",
+          "exec_bodies": [],
+          "proof_bodies": [
+            "unpack_nonnull"
+          ],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "pack-null-observation",
+          "classification": "positive",
+          "source_sha256": "8d8162064a79ad5f970dd4ee0701e6bff39268239d4d4f7cebda7c8390f3b894",
+          "exec_bodies": [],
+          "proof_bodies": [
+            "pack_null_observation"
+          ],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "raw-address",
+          "classification": "frontend-rejection",
+          "source_sha256": "58449542b84faf99e8453bdc1416bff61645651a40a93591c0325148914c7d38",
+          "exec_bodies": [
+            "raw_address"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          }
+        },
+        {
+          "id": "raw-deref",
+          "classification": "frontend-rejection",
+          "source_sha256": "49505296612927190304f71fffccbe6f16b96c2e71e9211281a108e9c950cc0b",
+          "exec_bodies": [
+            "raw_deref"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          }
+        },
+        {
+          "id": "native-from-mut",
+          "classification": "frontend-rejection",
+          "source_sha256": "90c3371374566a6b72d595a39fc3dff89683b6f24b7577ce083a23bb3ec79f4d",
+          "exec_bodies": [
+            "native_from_mut"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          }
+        },
+        {
+          "id": "expose-exit-v2",
+          "classification": "positive",
+          "source_sha256": "cfcf7aecbde959685a1df8a0fd30c57ea2cc8dff438423e48ef366452e2270a8",
+          "exec_bodies": [
+            "expose_exit"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "pack-null-views-v2",
+          "classification": "positive",
+          "source_sha256": "2552df05c9d83b788c89366beb4606ce83b6e9dda82c87b1771b35fdd02d904d",
+          "exec_bodies": [],
+          "proof_bodies": [
+            "pack_null_views"
+          ],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "second-borrow",
+          "classification": "lifetime-rejection",
+          "source_sha256": "2d74547e4642f85954817e00379d0dfeb5cdd033e8523761a71448c7c702a874",
+          "exec_bodies": [
+            "simultaneous_native_entry"
+          ],
+          "proof_bodies": [
+            "hold"
+          ],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "full-writer",
+          "classification": "unproved-positive",
+          "source_sha256": "6891d3b0e3c56410ce65ba30253e7052b45ba505f8d97124ca6a724c030fad26",
+          "exec_bodies": [
+            "xor_key"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 1,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "owner-only",
+          "classification": "positive",
+          "source_sha256": "27c79f64581ff6df9b4223124693b40146f5ce62915340f6a08e98ad1e43aaa8",
+          "exec_bodies": [
+            "owner_only"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "owner-not-referent",
+          "classification": "semantic-negative",
+          "source_sha256": "2ee71b58871d744d97823b8e89049d433c99358b8dbd98bf5906e86a21a0509c",
+          "exec_bodies": [
+            "owner_not_referent"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "referent-later-write-v2",
+          "classification": "positive",
+          "source_sha256": "d61379f539a7321270660de58b0a430c9933c3c64ebaefa2cf328076cecc9da3",
+          "exec_bodies": [
+            "owner_only",
+            "caller"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 2,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "constructor-summary",
+          "classification": "positive",
+          "source_sha256": "e28a56d4c01bac4a64684c03d0cb5f1fd18f01d960b823d581b9fa4efc1fa0ad",
+          "exec_bodies": [
+            "constructor_summary"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 1,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          }
+        },
+        {
+          "id": "missing-resource",
+          "classification": "resource-rejection",
+          "source_sha256": "ae9171765dffc54da7ee662b8182ff13e0b9e921a83fbfc1a6e0baad06f4b12a",
+          "exec_bodies": [
+            "missing_resource"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "exec-origin",
+      "receipt": "/tmp/native-reference-adequacy-2e339ec3/exec-origin/receipt.json",
+      "receipt_sha256": "746226e3f4af57ccaa0895149db30ca2c3e65e17d87a62606961621db2e31b4b",
+      "success": true,
+      "classification_counts": {
+        "unproved-positive": 1
+      },
+      "cases": [
+        {
+          "id": "exec-pointer-origin",
+          "classification": "unproved-positive",
+          "source_sha256": "47a2bc6f198349fc59015a9a1c3aca7a86078e99ced8b154f57a8aa102b8b68d",
+          "exec_bodies": [
+            "exec_pointer_origin"
+          ],
+          "proof_bodies": [],
+          "expected_helpers": [],
+          "required_helper_checks": [
+            "soundness",
+            "maximality",
+            "exactness"
+          ],
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 0,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          }
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "name": "early-v1",
+      "receipt": "/tmp/native-reference-adequacy-2e339ec3/early-v1/receipt.json",
+      "receipt_sha256": "b0c51b81eb827f08d5866e2f7ce2fadf21233ded471eac0bda227f6084bedcaa",
+      "classification": "controller-expectation",
+      "reason": "Incorrect expected frontend substring; actual raw-cast rejection retained.",
+      "failure": {
+        "type": "ValueError",
+        "message": "wrong diagnostic: raw-cast"
+      },
+      "accepted_semantic_evidence": false
+    },
+    {
+      "name": "boundary-v3",
+      "receipt": "/tmp/native-reference-adequacy-2e339ec3/boundary-v3/receipt.json",
+      "receipt_sha256": "fd76b1899187846c10504baabb76dcd3c3e3ee303cf16942073b2dc9f9a7785e",
+      "classification": "frontend-development",
+      "reason": "Prophetic remaining sequence cannot be returned through Ghost wrapper.",
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': True, 'success': False}"
+      },
+      "accepted_semantic_evidence": false
+    },
+    {
+      "name": "link-v4",
+      "receipt": "/tmp/native-reference-adequacy-2e339ec3/link-v4/receipt.json",
+      "receipt_sha256": "17ba666410dbaef9edb17d7169d00c3b17e245e5b3d28cca6372389770b57259",
+      "classification": "frontend-development",
+      "reason": "Missing old/final disambiguation in pack-null-views postcondition.",
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': True, 'success': False}"
+      },
+      "accepted_semantic_evidence": false
+    },
+    {
+      "name": "link-v5",
+      "receipt": "/tmp/native-reference-adequacy-2e339ec3/link-v5/receipt.json",
+      "receipt_sha256": "e8b39b347538dcdf711b592ad2a595fdcd374f8532963ccfd5046aac5477e250",
+      "classification": "proof-development",
+      "reason": "Caller byte assertion fails without the local helper reference-preservation contract.",
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 1, 'errors': 1, 'is-verifying-entire-crate': True}"
+      },
+      "accepted_semantic_evidence": false
+    }
+  ],
+  "earlier_trials": "milestone-results.json",
+  "source_scope": "new source/tools/research/native_reference_adequacy only",
+  "core_change": false,
+  "production_hook": false,
+  "independent_review": "pending parent",
+  "trust": [
+    "Existing Rust/Verus source/reference semantics and SMT backend",
+    "Inherited vstd reference, array/slice, prophetic native iterator and raw_ptr contracts; 83 inherited admissions unchanged",
+    "No new source/reference/raw-pointer adequacy theorem; no authority from spec observations"
+  ]
+}

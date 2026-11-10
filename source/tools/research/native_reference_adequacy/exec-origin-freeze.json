@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/native_reference_adequacy/candidates/exec-pointer-origin.rs": "47a2bc6f198349fc59015a9a1c3aca7a86078e99ced8b154f57a8aa102b8b68d",
+    "source/tools/research/native_reference_adequacy/replay.py": "e6f45da3be08e9c9889235b919a0bc2cff3f19a7f4291bad5d819e51019ba300",
+    "source/tools/research/native_reference_adequacy/exec-origin-cases.json": "6079c5a3d90fac7aedd29d390e0ba1b17e99c827fa98b8e44af76d2213a21c77"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/native_reference_adequacy/candidates/owner-not-referent.rs": "2ee71b58871d744d97823b8e89049d433c99358b8dbd98bf5906e86a21a0509c",
+    "source/tools/research/native_reference_adequacy/candidates/owner-only.rs": "27c79f64581ff6df9b4223124693b40146f5ce62915340f6a08e98ad1e43aaa8",
+    "source/tools/research/native_reference_adequacy/replay.py": "e6f45da3be08e9c9889235b919a0bc2cff3f19a7f4291bad5d819e51019ba300",
+    "source/tools/research/native_reference_adequacy/resolution-v1-cases.json": "36bd56ac28deb98cc9661bf6c5459a392c56869291bda46a989dcc7cc5397a92"
+  }
+}

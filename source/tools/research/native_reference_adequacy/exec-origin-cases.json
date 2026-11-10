@@ -1,0 +1,14 @@
+[
+  {
+    "id": "exec-pointer-origin",
+    "classification": "unproved-positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/exec-pointer-origin.rs",
+    "exec_bodies": [
+      "exec_pointer_origin"
+    ],
+    "proof_bodies": [],
+    "failure_kind": "postcondition not satisfied",
+    "verified": 0,
+    "errors": 1
+  }
+]
