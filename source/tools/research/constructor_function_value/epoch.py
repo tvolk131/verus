@@ -19,9 +19,11 @@ def run(label, argv, extra=(), env=None, cwd=None, products=()):
     (directory/'before.json').write_text(json.dumps(record, indent=2)+'\n')
     t=time.monotonic()
     with (directory/'stdout').open('wb') as out, (directory/'stderr').open('wb') as err:
-        result=subprocess.run(argv,cwd=cwd or ROOT,env={**os.environ,**(env or {})},stdout=out,stderr=err)
+        process=subprocess.Popen(argv,cwd=cwd or ROOT,env={**os.environ,**(env or {})},stdout=out,stderr=err)
+        (directory/'pid').write_text(str(process.pid)+'\n')
+        code=process.wait()
     after=freeze(extra)
-    record.update(exit=result.returncode,seconds=time.monotonic()-t,final_guards=before==after,
+    record.update(exit=code,seconds=time.monotonic()-t,final_guards=before==after,
                   stdout_sha256=digest(directory/'stdout'),stderr_sha256=digest(directory/'stderr'),
                   products={str(p):digest(p) for p in products if pathlib.Path(p).is_file()})
     (directory/'receipt.json').write_text(json.dumps(record,indent=2)+'\n')

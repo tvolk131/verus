@@ -3012,6 +3012,9 @@ pub(crate) fn expr_to_vir_innermost<'tcx>(
                             return err_span(expr.span,
                                 "constructor function values require a local transparent exec datatype with exec fields and no type invariant");
                         }
+                        if !matches!(bctx.types.expr_ty(expr).kind(), TyKind::FnDef(actual, _) if *actual == id) {
+                            return err_span(expr.span, "constructor function-item type mismatch");
+                        }
                         let fun = Arc::new(FunX { path: bctx.ctxt.def_id_to_vir_path(id) });
                         return mk_expr(ExprX::ExecFnByName(fun));
                     }

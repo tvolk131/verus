@@ -195,6 +195,9 @@ pub(crate) fn register_function_items<'tcx>(
             }
             let variant_name = air::ast_util::str_ident(variant.ident(ctxt.tcx).as_str());
             let fields = &d.get_variant(&variant_name).fields;
+            if fields.len() != variant.fields.len() {
+                return crate::util::err_span(item.span, "constructor field signature mismatch");
+            }
             if fields.iter().any(|f| f.a.1 != Mode::Exec) {
                 continue;
             }
@@ -241,8 +244,8 @@ pub(crate) fn register_function_items<'tcx>(
                 let fields = fields
                     .iter()
                     .zip(params.iter())
-                    .enumerate()
-                    .map(|(i, (f, p))| {
+                    .zip(variant.fields.iter())
+                    .map(|((f, p), rust_field)| {
                         let x = if spec {
                             ExprX::Var(p.x.name.clone())
                         } else {
@@ -251,7 +254,7 @@ pub(crate) fn register_function_items<'tcx>(
                                 &p.x.typ,
                                 PlaceX::Local(p.x.name.clone()),
                             );
-                            let field_ty = ctxt.tcx.type_of(variant.fields[i].did).skip_binder();
+                            let field_ty = ctxt.tcx.type_of(rust_field.did).skip_binder();
                             let env = rustc_middle::ty::TypingEnv::new(
                                 ctxt.tcx.param_env(id),
                                 rustc_middle::ty::TypingMode::non_body_analysis(),
