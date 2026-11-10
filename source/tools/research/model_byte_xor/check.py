@@ -20,9 +20,13 @@ LOOP_STATUS = HERE.parent/'model_buffer_transform/STATUS.json'
 
 def external_inputs():
     lib = BASE/'rocq-toolchain/switch/_opam/lib/coq'
+    core = BASE/'rocq-toolchain/switch/_opam/lib/coq-core'
+    stubs = BASE/'rocq-toolchain/switch/_opam/lib/stublibs'
     gmp = BASE/'rocq-toolchain/gmp-private'
     return [LOOP/'receipt.json', *[LOOP/'proofs'/n for n in ['transform.v','transform.vo','Assumptions.v','Assumptions.vo']],
             *[p for p in lib.rglob('*') if p.is_file() and p.suffix in ['.vo','.cmxs','.cma','.cmi']],
+            *[p for p in core.rglob('*') if p.is_file() and p.suffix in ['.cmxs','.cma','.cmi','.so']],
+            *[p for p in stubs.rglob('*') if p.is_file()],
             *[p for p in gmp.rglob('*') if p.is_file()]]
 
 def content_map(paths):
@@ -49,13 +53,15 @@ def main():
     a = p.parse_args()
     if a.create_freeze:
         require(not a.freeze.exists(), 'freeze already exists')
+        external = content_map(external_inputs())
         a.freeze.write_text(json.dumps(dict(before_first_trial=True,
             files={str(x.relative_to(ROOT)):digest(x) for x in inputs()},
-            external_inventory_sha256=map_hash(content_map(external_inputs())),
-            external_count=len(content_map(external_inputs())),
+            external_inventory_sha256=map_hash(external),
+            external_count=len(external),
             constants={n:declarations(HERE/'candidates'/(n+'.v')) for n in MODULES}), indent=2)+'\n')
         return
     require(a.output is not None, 'output required')
+    require(not a.output.resolve().is_relative_to(ROOT), 'outputs must be outside repository')
     a.output = a.output.resolve()
     a.output.mkdir(parents=True, exist_ok=False)
     receipt = dict(schema=1, commands=[], publication=False, model_proofs_kernel_checked=False,
@@ -125,6 +131,9 @@ def main():
         (a.output/'freeze.json').write_bytes(frozen_bytes)
         run = LoggedCommands(a.output, ROOT, receipt['commands'], timeout=1800, guard=guard)
         env = dict(os.environ, PATH=str(switchbin)+':'+os.environ['PATH'])
+        for key in ['COQPATH','COQLIB','COQCORELIB','OCAMLPATH','CAML_LD_LIBRARY_PATH','LD_PRELOAD','LD_LIBRARY_PATH']:
+            env.pop(key,None)
+        receipt['load_environment'] = 'explicit pinned -Q loadpaths; inherited Coq/OCaml/library overrides removed; pinned runner adds GMP and opam switch'
         args = []
         for line in (BUILD/'_CoqProject').read_text().splitlines():
             words = shlex.split(line, comments=True)
@@ -152,6 +161,7 @@ def main():
             text = src.read_text()
             require(not re.search(r'\b(Axiom|Admitted|admit|Parameter|Abort|native_compute|vm_cast_no_check)\b',text),
                     'unchecked or incomplete construct')
+            require(not re.search(r'\b(Inductive|CoInductive|Record|Class|Instance|Program|Obligation|Obligations|Equations)\b',text), 'undeclared generated inventory')
             target = work/src.name
             require(run('compile-'+n,[str(toolpaths['runner']),str(toolpaths['coqc']),'-q',*args,str(target)],env)==0,
                     'proof-development/setup failure, not semantic evidence: '+n)
@@ -169,16 +179,30 @@ def main():
         require([x for x,_,_ in sections]==names==[x for _,_,x in sections], 'incomplete assumption inventory')
         require(len(re.findall(r'^BEGIN ',out,re.M))==len(names)==len(re.findall(r'^END ',out,re.M)), 'extra markers')
         receipt['assumptions'] = {n:parse_axioms(body) for n,body,_ in sections}
+        terms = 'From ModelByteXor Require Import '+ ' '.join(MODULES)+'.\nSet Printing All.\n'
+        for name in names:
+            terms += f'Goal True. idtac "BEGIN {name}". exact I. Qed.\nPrint ModelByteXor.{name}.\nGoal True. idtac "END {name}". exact I. Qed.\n'
+        termfile = work/'ProofTerms.v'
+        termfile.write_text(terms)
+        hold(termfile,hashlib.sha256(terms.encode()).hexdigest())
+        require(run('proof-terms',[str(toolpaths['runner']),str(toolpaths['coqc']),'-q',*args,str(termfile)],env)==0, 'proof-term printing failed')
+        printed = re.findall(r'^BEGIN (\S+)\n(.*?)^END (\S+)\s*$', (a.output/'proof-terms.stdout').read_text(), re.M|re.S)
+        require([n for n,_,_ in printed] == names == [n for _,_,n in printed], 'proof-term inventory incomplete')
+        term_hashes = {n:hashlib.sha256(body.encode()).hexdigest() for n,body,_ in printed}
         products = ArtifactGuard([x for x in work.iterdir() if x.suffix in ['.v','.vo']])
-        require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-silent','-o',*args,
-                *['ModelByteXor.'+n for n in MODULES], 'ModelByteXor.Assumptions'],env)==0,'recursive checker failed')
-        receipt['kernel_axioms'] = parse_kernel_summary((a.output/'kernel.stderr').read_text())
+        require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-o',*args,
+                *['ModelByteXor.'+n for n in MODULES], 'ModelByteXor.Assumptions', 'ModelByteXor.ProofTerms'],env)==0,'recursive checker failed')
+        kernel_output = (a.output/'kernel.stderr').read_text()
+        receipt['kernel_axioms'] = parse_kernel_summary(kernel_output)
+        checked = re.findall(r'checking cst:ModelByteXor\.(byte_xor\.\w+)', kernel_output)
+        require(checked == names, 'kernel declaration inventory differs: '+repr(checked))
         for g in held: g.check()
         products.check()
         guard.check()
         require(all(not v for v in receipt['assumptions'].values()), 'new assumptions in candidate')
         receipt.update(model_proofs_kernel_checked=True, constant_count=len(names), declaration_inventory=freeze['constants'],
-                       constructor_inventory=[], program_obligations=[], proof_terms={n:retained(work/(n+'.v')) for n in []},
+                       constructor_inventory=[], program_obligations=[], proof_terms=term_hashes, kernel_declarations=checked,
+                       inventory_helper_theorems={'Assumptions':2*len(names),'ProofTerms':2*len(names)},
                        proof_artifacts=products.initial)
         print(json.dumps(dict(output=str(a.output), model_proofs_kernel_checked=True,publication=False)))
 if __name__ == '__main__': main()
