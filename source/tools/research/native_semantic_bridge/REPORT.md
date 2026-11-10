@@ -47,15 +47,15 @@ cells with arbitrary values in 0..255. There is no zero-buffer premise. The
 location is arbitrary; no allocation-base equality is required. This is a checked model
 cell result, not yet a proof for Rust subobjects/byte layouts.
 The model resolution theorem relates future to current of the same original
-semantic reference. The raw-view and raw-offset type-spec candidates retain
+semantic reference. The checked raw-view and raw-offset type specs retain
 ONE original loan resource; the copyable `ptr_ty` view has no memory authority.
 
 The operational adequacy instantiation is deliberately a **model-limit
 control**, `empty_heap_offset_adequate`: VerusBelt accepts arbitrary mathematical
 pointer offset even on an empty heap. `raw_read_empty_head_stuck` is a checked
 control showing raw-pointer type membership does not authorize a read.
-These instantiate actual model operational semantics/adequacy; they are not native source adequacy. A closed/source-typed handoff adequacy
-instantiation and the Rust input-to-model interpretation remain open.
+These instantiate actual model operational semantics/adequacy; they are not
+native source adequacy. A closed/source-typed handoff adequacy instantiation and the Rust input-to-model interpretation remain open.
 
 ## Actual independently fresh source evidence
 
