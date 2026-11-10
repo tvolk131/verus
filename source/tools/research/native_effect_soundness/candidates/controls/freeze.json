@@ -1,0 +1,440 @@
+{
+  "schema": 1,
+  "before_first_trial": true,
+  "classification": "conditional-linear-resource-laws",
+  "files": {
+    "INTERFACE.md": "41ac81f4d7f512491a753c8815d65db8928f6d1e100942a3b1e2f532f16cce2b",
+    "candidates/v8/laws.rs": "42b480e4c66d5a53b84b30fa413c8ea0f465e8a710be70531150888d443be57d",
+    "candidates/controls/dropped-slot.rs": "1f5d603dcede7e70ce0e26cc058830e71799381ffa763bf18cf93cd318a841d3",
+    "candidates/controls/duplicate-linear-token.rs": "8cfdc7d27d33e9d5bbbaf6b3f93d44416854f0bc119f88d5b21f850931083292",
+    "candidates/controls/duplicated-issued-slot.rs": "ad4d9458266ca8e339917f6c62ce2f95de7a87973ce38d1b95898c52c47e2aea",
+    "candidates/controls/extra-tail-write.rs": "e29597f3dbc69bc77b483d5b14eb7c257ce69bd4247d55dd2b62df03d16ff232",
+    "candidates/controls/key-mutation.rs": "f2a948383a0444def1886c19c3a8a2174f08cb88d1e71817907e420018ef4085",
+    "candidates/controls/unresolved-loan.rs": "3e14a7251a67d2f2b1ede5d5dc557b1f9f7cec777431d55c8e3218a174fa61ac",
+    "candidates/controls/wrong-extent.rs": "6736a6a3c11d9a3787d15c71a65be42e4fd598fcfb6037a8db66414b9b2d7163",
+    "candidates/controls/wrong-future-owner.rs": "43d36a7600bcc5f7f4e395ca822073524ceb8fa90a33bd0ac6c0a8f1d4b1809f",
+    "candidates/controls/wrong-index.rs": "295692c19d75a0ab72ea3f0753b9023a0e9be097520c03e757f44927526ed47f",
+    "candidates/controls/wrong-initial-owner.rs": "d742d726ff11b1c6069239a8154f875e8e5ad3115f8d0be4970a89be04f3309f",
+    "candidates/controls/wrong-origin.rs": "987f50f5655c268f6cce691dc10667c4431b9a1c839b45a94adc2817befb811d",
+    "candidates/controls/wrong-projection.rs": "b2a8f41c042cbdf6c80a6fbb63737a5980dd1ff7f4eff0d7f6ffd9ec09e433ec"
+  },
+  "exec_bodies": [
+    "observe_key",
+    "write_loan"
+  ],
+  "proof_bodies": [
+    "accept_owner",
+    "issue",
+    "none",
+    "resolve",
+    "reconstruct",
+    "partition",
+    "pointer_separation",
+    "retained_tail",
+    "empty_key_preserves_all",
+    "projection_step",
+    "constructor_extent",
+    "world_owner",
+    "world_issue",
+    "world_resolve",
+    "resolve_all",
+    "close_world"
+  ],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "native_bridge_proved": false,
+  "cases": [
+    {
+      "id": "laws",
+      "file": "candidates/v8/laws.rs",
+      "positive": true,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world"
+      ]
+    },
+    {
+      "id": "dropped-slot",
+      "file": "candidates/controls/dropped-slot.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "duplicated-issued-slot",
+      "file": "candidates/controls/duplicated-issued-slot.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "wrong-index",
+      "file": "candidates/controls/wrong-index.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "wrong-origin",
+      "file": "candidates/controls/wrong-origin.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "wrong-projection",
+      "file": "candidates/controls/wrong-projection.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "wrong-extent",
+      "file": "candidates/controls/wrong-extent.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "wrong-initial-owner",
+      "file": "candidates/controls/wrong-initial-owner.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-resource-precondition",
+      "failure_kind": "precondition not satisfied"
+    },
+    {
+      "id": "wrong-future-owner",
+      "file": "candidates/controls/wrong-future-owner.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-resource-precondition",
+      "failure_kind": "precondition not satisfied"
+    },
+    {
+      "id": "unresolved-loan",
+      "file": "candidates/controls/unresolved-loan.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "conditional-resource-precondition",
+      "failure_kind": "precondition not satisfied"
+    },
+    {
+      "id": "extra-tail-write",
+      "file": "candidates/controls/extra-tail-write.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan",
+        "bad"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "key-mutation",
+      "file": "candidates/controls/key-mutation.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan",
+        "bad"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world"
+      ],
+      "classification": "conditional-semantic-negative",
+      "failure_kind": "postcondition not satisfied"
+    },
+    {
+      "id": "duplicate-linear-token",
+      "file": "candidates/controls/duplicate-linear-token.rs",
+      "positive": false,
+      "exec_bodies": [
+        "observe_key",
+        "write_loan"
+      ],
+      "proof_bodies": [
+        "accept_owner",
+        "issue",
+        "none",
+        "resolve",
+        "reconstruct",
+        "partition",
+        "pointer_separation",
+        "retained_tail",
+        "empty_key_preserves_all",
+        "projection_step",
+        "constructor_extent",
+        "world_owner",
+        "world_issue",
+        "world_resolve",
+        "resolve_all",
+        "close_world",
+        "bad"
+      ],
+      "classification": "frontend-linear-use-rejection",
+      "failure_kind": null,
+      "expected_frontend_message": "use of moved value"
+    }
+  ]
+}

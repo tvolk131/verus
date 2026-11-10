@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "before_first_trial": true,
+  "classification": "conditional-linear-resource-laws",
+  "files": {
+    "INTERFACE.md": "41ac81f4d7f512491a753c8815d65db8928f6d1e100942a3b1e2f532f16cce2b",
+    "candidates/v7/laws.rs": "436fbbecba073a8a84b019e4f2bec7d493e2e8adb77ea96710fbbcdd02312cb9"
+  },
+  "exec_bodies": [
+    "observe_key",
+    "write_loan"
+  ],
+  "proof_bodies": [
+    "accept_owner",
+    "issue",
+    "none",
+    "resolve",
+    "reconstruct",
+    "partition",
+    "pointer_separation",
+    "retained_tail",
+    "empty_key_preserves_all",
+    "projection_step",
+    "constructor_extent",
+    "world_owner",
+    "world_issue",
+    "world_resolve",
+    "resolve_all",
+    "close_world"
+  ],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "native_bridge_proved": false
+}

@@ -1,0 +1,305 @@
+{
+  "schema": 1,
+  "native_bridge_proved": false,
+  "actual_native_proofs": [],
+  "source_correspondence_proofs": [],
+  "conditional_proofs": {
+    "candidate": "candidates/v8/laws.rs",
+    "source_sha256": "42b480e4c66d5a53b84b30fa413c8ea0f465e8a710be70531150888d443be57d",
+    "verified": 18,
+    "errors": 0,
+    "exec_bodies": [
+      "observe_key",
+      "write_loan"
+    ],
+    "proof_bodies": [
+      "accept_owner",
+      "issue",
+      "none",
+      "resolve",
+      "reconstruct",
+      "partition",
+      "pointer_separation",
+      "retained_tail",
+      "empty_key_preserves_all",
+      "projection_step",
+      "constructor_extent",
+      "world_owner",
+      "world_issue",
+      "world_resolve",
+      "resolve_all",
+      "close_world"
+    ],
+    "expected_helpers": [],
+    "required_helper_checks": [
+      "soundness",
+      "maximality",
+      "exactness"
+    ],
+    "normal_full_checks": true,
+    "no_cheating": true
+  },
+  "accepted_cases": [
+    {
+      "id": "laws",
+      "returncode": 0,
+      "classification": "conditional-resource-law",
+      "stdout_sha256": "ba3f777e45140dee1b60158bf7f926ed0222f304c1179d1766b5a449c0ed1936",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 18,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "dropped-slot",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "c1a6026e128bd027dca87b9995b752cb64167e81a333db358a88227a88538884",
+      "stderr_sha256": "50a52289d5e227607cdb2e29d342ff8f1ef10df5c9a5fd4d85b1e2a37ce2866c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "duplicated-issued-slot",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "e905f59362cdeee67fb6529e63702e2efa730bb588a3eafe8d735d2218354fa4",
+      "stderr_sha256": "48f44b0d1f03d4d2e2ab06ac44fad0470375e3bca7417354fe93155a06d1f1e7",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "wrong-index",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "51d0fd3959ecafd01b2ad30f0914fbc6515d6143c5a75c16de73af0f1dd6d1de",
+      "stderr_sha256": "e21915ed0dba049752979ae5db96e2b8bb328b92fb0861aebe4a6556d413bb7b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "wrong-origin",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "1f9cacf9b7d9de9b9abd35e1da84532b9effa9c8400d9df393f7a7580b1e990c",
+      "stderr_sha256": "920f16b31c3f9efc9402a244fa91dbacf10b7da1ea1a0ffbe70055b2744257fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "wrong-projection",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "8e0fee289ede1c5359dbf00217b19d35cdb765fe614e956bc55a78529d891b21",
+      "stderr_sha256": "246724e4c715ab7c6057606f9841bc94638c898658492567d4905979f188e534",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "wrong-extent",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "dbb3bd2e020d40871c0267e78f999d678207af6d22a0f306737fad209d2e56cb",
+      "stderr_sha256": "4f6d6cf7065868a7de84e586d1f402d48ff851aeab8ab5de28e19d8383181b60",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "wrong-initial-owner",
+      "returncode": 1,
+      "classification": "conditional-resource-precondition",
+      "stdout_sha256": "c05a5b8107265365d040aee24adcac1913fc8349ae26c9761a1c9cc43fcb14c3",
+      "stderr_sha256": "619560aa57f32899f5a310878bb17906f632bfedeb5204c8fb901ed9a0e26d90",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "wrong-future-owner",
+      "returncode": 1,
+      "classification": "conditional-resource-precondition",
+      "stdout_sha256": "71ee2dad266b320d454d978e71e1d5a54847204bd2be2b5bdddaef1a5a3fdd88",
+      "stderr_sha256": "9ba294dd68ab848fed3062bd11d8b11b7bba397b3dbb32c37c69ed78d150d137",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "unresolved-loan",
+      "returncode": 1,
+      "classification": "conditional-resource-precondition",
+      "stdout_sha256": "b44cef331324fcf4e9b10bac6a87b5915032d1dc241a01229cf9421fb494244e",
+      "stderr_sha256": "19474a25e543213c9ef16451bc447992bd4b345fc77bf2d2227bbbccb9d1cee2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "extra-tail-write",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "70395b5a2810f7de79b8b6dcff4546c1dc31feb300ad4cd9da183fe050795c02",
+      "stderr_sha256": "8ed586fc3b6dcaa6ea13a7bac170b1c5f9329183726cd68d12608838b1333f4c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "key-mutation",
+      "returncode": 1,
+      "classification": "conditional-semantic-negative",
+      "stdout_sha256": "68e75e3cb4c167cc4c02f36bd941b5c74afb0fe5c3988b84ae978cf7877cc91f",
+      "stderr_sha256": "2619a26fd84b01acf1949706cf990522ab46e3c93be2ea9aa9530ef299fee356",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "id": "duplicate-linear-token",
+      "returncode": 1,
+      "classification": "frontend-linear-use-rejection",
+      "stdout_sha256": "483336d7852e62a47cf6387291ddae58c9086aacb71c84b5bfd1acd2c5ee558a",
+      "stderr_sha256": "91e94dfebe1f5975a16c14ce48a4a5f0d661bd94f2682893c5a8550f8bffb69d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    }
+  ],
+  "receipt": {
+    "path": "/tmp/native-effect-soundness-ced1eb20/final-controls/receipt.json",
+    "sha256": "24d2ba78c1c040e3c75e2b0c80fb8a224eadf30b66d0eeedbb5e366a332ecefc"
+  },
+  "excluded_trials": [
+    {
+      "trial": "v1",
+      "reason": "runtime display uses seven-character revision",
+      "receipt": "/tmp/native-effect-soundness-ced1eb20/v1/receipt.json",
+      "sha256": "f80a3ac20d7c80a88495a38c3f5aa2dee1953a720d09e8013d3779412954f7c5",
+      "success": false
+    },
+    {
+      "trial": "v1b",
+      "reason": "frontend: parenthesize struct in equality",
+      "receipt": "/tmp/native-effect-soundness-ced1eb20/v1b/receipt.json",
+      "sha256": "9f67e7eb62897f32a9a2fcd9dbbf558b9fe526005beb43ed2678a6d550af8328",
+      "success": false
+    },
+    {
+      "trial": "v2",
+      "reason": "frontend: finite Set::new returns Option",
+      "receipt": "/tmp/native-effect-soundness-ced1eb20/v2/receipt.json",
+      "sha256": "61a8f178aad54cbf81b63eb386bcbc2864cece9c0cb590fe4b8090941e0d3813",
+      "success": false
+    },
+    {
+      "trial": "v3",
+      "reason": "frontend: explicit final mutable references",
+      "receipt": "/tmp/native-effect-soundness-ced1eb20/v3/receipt.json",
+      "sha256": "78c570fe684b06033381bb3eceac6fcb3778dda3234b63ae239093228966ce88",
+      "success": false
+    },
+    {
+      "trial": "v5",
+      "reason": "frontend: tracked borrow inside quantified proof",
+      "receipt": "/tmp/native-effect-soundness-ced1eb20/v5/receipt.json",
+      "sha256": "5ad5b72b323b6bf16f472e2227c7e4b8388a0cc921d96a33ff6c0f07ec4fa9b6",
+      "success": false
+    },
+    {
+      "trial": "v7",
+      "reason": "proof: insufficient modular world_resolve postcondition",
+      "receipt": "/tmp/native-effect-soundness-ced1eb20/v7/receipt.json",
+      "sha256": "7f93f0c01fd6a0364e1024149c617dc73cad0a1d648ea72584e1342f39546939",
+      "success": false
+    }
+  ],
+  "intermediate_successes": [
+    {
+      "trial": "v4",
+      "verified": 3
+    },
+    {
+      "trial": "v6",
+      "verified": 16
+    },
+    {
+      "trial": "v8",
+      "verified": 18
+    },
+    {
+      "trial": "controls",
+      "verified": 18
+    }
+  ]
+}
