@@ -87,6 +87,7 @@ def final():
                 'historical_TARGET_opened':'/home/dev/projects/verus/source/tools/research/mutable_buffer_goal/TARGET.md',
                 'reason':'initial harness recognized only .t3/worktrees historical labels',
                 'corrected_in':'afb6c2fc','proof_or_semantic_evidence_from_wrong_checkout':False,
+                'historical_repository_paths_hashed':r.read(r.RAW/'preparation-failure.json')['historical_repository_paths_hashed_before_rejection'],
                 'overbroad_ancestor_find':'interrupted before any output; no files opened by that find'},
             'nonsemantic_review_failures':['initial preparation TARGET path remapping mismatch; no proof commands ran',
                 'independent exit parser rejected short printed name of inherited extensionality; successful compile outputs retained; corrected independently'],
