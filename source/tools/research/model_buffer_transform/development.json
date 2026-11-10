@@ -1,0 +1,23 @@
+[
+  {
+    "trial": 1,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial001/receipt.json",
+    "receipt_sha256": "ea4b72f1bb212804aa55945775ffeb302558dcd25f9c5ce05cd815254d0137d1",
+    "classification": "Unverified proof script development: expression notation / triple introduction; not semantic evidence",
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial001/proofs/transform.v"
+  },
+  {
+    "trial": 2,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial002/receipt.json",
+    "receipt_sha256": "a6e1d375e5a50b328e7d1b58e3467847800cceffd2ab08d23648412395690e88",
+    "classification": "Unverified proof script development: expression notation / triple introduction; not semantic evidence",
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial002/proofs/transform.v"
+  },
+  {
+    "trial": 3,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial003/receipt.json",
+    "receipt_sha256": "7804dbe4b3a5e713b39cb86797894dd230dcccde0b66c54cc52073b7694efdcb",
+    "classification": "Unverified proof script development: expression notation / triple introduction; not semantic evidence",
+    "source": "/tmp/verus-infer-buffer-cycle-20261109/buffer-transform-trial003/proofs/transform.v"
+  }
+]

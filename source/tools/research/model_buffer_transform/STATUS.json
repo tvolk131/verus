@@ -1,0 +1,10 @@
+{
+  "scope": "Unverified generic memory-loop prototype; not an accepted XOR or native proof",
+  "normal_compilation_passed": false,
+  "kernel_checked": false,
+  "binary_operation_contract_is_explicit_proof_obligation": true,
+  "XOR_operation_implementation_proved": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
