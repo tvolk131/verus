@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "status": "exact local ordinary component verified; independent review pending",
+  "scope": "unchanged compiler-pinned Miri Permission::grants with all8 permission/access inputs, no precondition",
+  "compiler_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "accepted_source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+  "pretrial_freeze": {
+    "path": "freeze003.json",
+    "sha256": "286584b1b91ba1854b506028ab0c9f5a2365ae37ad74466930957fb23d00bbbc"
+  },
+  "receipt": {
+    "path": "/tmp/native-miri-permission-grants-parent003/receipt.json",
+    "sha256": "31c75c1118c787cef6420e65d96fdbc5ad8fc39bc1a0f146a1b8b8330d354ce3"
+  },
+  "runs": [
+    {
+      "name": "enabled-cold",
+      "goals_enabled": true,
+      "verified": 3,
+      "errors": 0,
+      "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788"
+    },
+    {
+      "name": "enabled-warm",
+      "goals_enabled": true,
+      "verified": 3,
+      "errors": 0,
+      "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788"
+    },
+    {
+      "name": "disabled",
+      "goals_enabled": false,
+      "verified": 3,
+      "errors": 0,
+      "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788"
+    },
+    {
+      "name": "disabled-guard-removed",
+      "goals_enabled": true,
+      "verified": 2,
+      "errors": 1,
+      "source_sha256": "d5e2da160192d5c438b47e5c036b2aa0ce9f4175ee4fae8e39a076538c9d09a8"
+    },
+    {
+      "name": "read-inverted",
+      "goals_enabled": true,
+      "verified": 2,
+      "errors": 1,
+      "source_sha256": "55d9b4b245da3a61307bf2780db045cea4f9433f5912ea50b99a8a01f08add37"
+    },
+    {
+      "name": "readonly-guard-removed",
+      "goals_enabled": true,
+      "verified": 2,
+      "errors": 1,
+      "source_sha256": "01e68e97025845a9c6258dff2cffef2fee443beb54d45dbfd1ae4ec99211938a"
+    }
+  ],
+  "checked_executable_bodies": [
+    "Permission::grants",
+    "<Permission as std::clone::Clone>::clone",
+    "<AccessKind as std::clone::Clone>::clone"
+  ],
+  "authored_specification": [
+    "permission_access_table; explicit8-row truth table"
+  ],
+  "marker_declarations": [
+    "Structural for Permission",
+    "Structural for AccessKind"
+  ],
+  "outside_selected_scope": "Original derived PartialEq/Eq/Hash/Debug Rust items appear in compiler inventory, not claimed as verifier-checked. Equality translation and usual compiler/macros/SMT/vstd remain inherited trust.",
+  "source_fidelity": {
+    "executable_tokens_identical": true,
+    "enum_variants_identical": true,
+    "changed_representation": false,
+    "adapter": "verus! namespace, Structural derives, public method and return binder/ensures only"
+  },
+  "manual_proof_bodies": [],
+  "inferred_helpers": [],
+  "semantic_controls": {
+    "count": 3,
+    "expected_result": "exactly1postcondition error,2verified original Clone bodies; no arithmetic/invariant/precondition/frontend/resource failures",
+    "mutations": [
+      "remove Disabled guard",
+      "Read -> Write",
+      "remove SharedReadOnly guard"
+    ]
+  },
+  "assistance_causality": "redundant; positive cold/warm enabled and ordinary disabled all3/0",
+  "native_execution": "not_run; no testing claim; formal8-input domain is exhaustive",
+  "excluded_trials": [
+    {
+      "receipt": "/tmp/native-miri-permission-grants-parent001/receipt.json",
+      "sha256": "a9c698f5a1159e8649588603b52cde41cbd89340221aa2d12f5556a1073177a0",
+      "classification": "controller_scope_inventory_development_not_semantic_evidence",
+      "reason": "Positive3/0, initial expected executable inventory omitted two original Clone derives; no accepted runs."
+    },
+    {
+      "receipt": "/tmp/native-miri-permission-grants-parent002/receipt.json",
+      "sha256": "a70e285175ae4b313ac0ace42d3a72871f4a8023d63e6b76a0585072aa7944e3",
+      "classification": "controller_scope_inventory_development_not_semantic_evidence",
+      "reason": "Positive3/0, gate counted spec/Structural declarations as executable bodies; no accepted runs."
+    }
+  ],
+  "normal_checks": "--no-cheating, entire local crate, exact6-selected-item inventory with explicit body/spec/marker classifications; python-B-O guards",
+  "production_changed": false,
+  "native_correspondences": 0,
+  "source_runtime_permissions_derived": false,
+  "original_reference_CF": false,
+  "full_HMAC": "1/1 unproved; inherited not rerun",
+  "canonical": "6/0 inherited not rerun",
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "publication": false,
+  "goal_complete": false
+}
