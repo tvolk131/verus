@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "scope": "Existing-lrust ordinary-memory primitive executions and conditional same-cell XOR WP; no Rust/MIR correspondence",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-non-atomic-access-006/proofs/receipt.json",
+    "sha256": "0d141bdad5ff51bffb3346f4639e437404c63f29fa0605a182b122911935a1a4"
+  },
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "constant_count": 9,
+  "assumptions": {
+    "access.silent_step": [],
+    "access.sc_read_one_step": [],
+    "access.na_read_two_steps": [],
+    "access.sc_write_one_step": [],
+    "access.na_write_two_steps": [],
+    "access.na_read_phase_changes": [],
+    "access.na_write_readers_blocked": [],
+    "access.cell_assignment_na": [],
+    "access.wp_cell_assignment_na": []
+  },
+  "all_candidate_assumptions_closed": true,
+  "proof_objects": {
+    "Assumptions.vo": "adbba6c67aee50e89418d61a968cf175554d76e7e1b2bf6ba90413f5b48a1707",
+    "access.vo": "5f049b68ec35586c2344ef7bbe8046eb3a73925219e6c56bdbc9780406642f2d"
+  },
+  "primitive_read_steps": {
+    "SC": 1,
+    "ordinary": 2
+  },
+  "primitive_write_steps": {
+    "SC": 1,
+    "ordinary": 2
+  },
+  "read_count_arbitrary": true,
+  "write_requires_zero_readers": true,
+  "ordinary_intermediate_state_changes": true,
+  "ordinary_cell_WP_requires_existing_cell": true,
+  "ordinary_cell_WP_input_store_credit": 0,
+  "whole_assignment_claimed_pure": false,
+  "unrestricted_concurrent_equivalence_claimed": false,
+  "native_correspondences": 0,
+  "native_effects_open": 101,
+  "publication": false,
+  "goal_complete": false
+}

@@ -21,9 +21,11 @@ Lemma na_read_two_steps σ p r v :
   nsteps silent_step 2 (Read Na1Ord (Lit (LitLoc p)),σ) (of_val v,σ).
 Proof.
   destruct σ as [h f]. simpl. intros Lookup.
-  econstructor.
+  eapply nsteps_l with
+    (y := (Read Na2Ord (Lit (LitLoc p)),(<[p:=(RSt (S r),v)]>h,f))).
   - apply base_prim_step. eapply ReadNa1S. exact Lookup.
-  - econstructor.
+  - eapply nsteps_l with
+      (y := (of_val v,(<[p:=(RSt r,v)]>(<[p:=(RSt (S r),v)]>h),f))).
     + apply base_prim_step. eapply ReadNa2S. by rewrite /= lookup_insert.
     + rewrite /= insert_insert (insert_id _ _ _ Lookup). constructor.
 Qed.
@@ -35,7 +37,7 @@ Lemma sc_write_one_step σ p old v :
     (Lit LitPoison,(<[p:=(RSt 0,v)]>σ.1,σ.2)).
 Proof.
   intros Lookup. econstructor; last constructor.
-  apply base_prim_step. apply (WriteScS _ _ v old); [done|done].
+  apply base_prim_step. apply (WriteScS _ _ v old); [by rewrite to_of_val|exact Lookup].
 Qed.
 
 Lemma na_write_two_steps σ p old v :
@@ -45,21 +47,25 @@ Lemma na_write_two_steps σ p old v :
     (Lit LitPoison,(<[p:=(RSt 0,v)]>σ.1,σ.2)).
 Proof.
   destruct σ as [h f]. simpl. intros Lookup.
-  econstructor.
-  - apply base_prim_step. apply (WriteNa1S _ _ v old); [done|done].
-  - econstructor.
-    + apply base_prim_step. apply (WriteNa2S _ _ v old); [done|].
+  eapply nsteps_l with
+    (y := (Write Na2Ord (Lit (LitLoc p)) (of_val v),(<[p:=(WSt,old)]>h,f))).
+  - apply base_prim_step. apply (WriteNa1S _ _ v old); [by rewrite to_of_val|exact Lookup].
+  - eapply nsteps_l with
+      (y := (Lit LitPoison,(<[p:=(RSt 0,v)]>(<[p:=(WSt,old)]>h),f))).
+    + apply base_prim_step. apply (WriteNa2S _ _ v old); [by rewrite to_of_val|].
       by rewrite /= lookup_insert.
     + by rewrite /= insert_insert; constructor.
 Qed.
 
-Lemma na_read_phase_changes σ p r v :
+Lemma na_read_phase_changes (σ : state) (p : loc) r (v : val) :
   σ.1 !! p = Some (RSt r,v) →
   (<[p:=(RSt (S r),v)]>σ.1,σ.2) ≠ σ.
 Proof.
   intros Lookup Eq.
-  have At := f_equal (λ s : state, s.1 !! p) Eq.
-  rewrite /= lookup_insert Lookup in At. injection At. lia.
+  have EqMap : <[p:=(RSt (S r),v)]>σ.1 = σ.1 := f_equal fst Eq.
+  have At : (<[p:=(RSt (S r),v)]>σ.1) !! p = Some (RSt r,v).
+  { rewrite EqMap. exact Lookup. }
+  rewrite lookup_insert in At. injection At. lia.
 Qed.
 
 Lemma na_write_readers_blocked σ p r old v e' σ' efs :
