@@ -1,0 +1,572 @@
+{
+  "schema": 1,
+  "goal_complete": false,
+  "full_transfer_proved": false,
+  "canonical_observation_causality": false,
+  "source_base": "c96fda70bdafd142bb8759de1dda1cf6abc2d77d",
+  "implementation_commits": [
+    "506a5a6c",
+    "d2a27e43",
+    "07b2ca96"
+  ],
+  "separate_hooks": [
+    "ab8fed9d",
+    "4ec2538d",
+    "386e7e5c",
+    "ae68edee"
+  ],
+  "standalone_versions": {
+    "schema": 38,
+    "policy": 67,
+    "cache": 70,
+    "rust": "1.99.1",
+    "z3": "4.16.0"
+  },
+  "parent_reconciliation": "Parent owns common body_rechecks, canonical composition and policy68/cache71. No parent source edits or cherry-picks here.",
+  "source_sha256": {
+    "source/tools/research/buffer_observation_goal/INTERFACE.md": "f832a4ad4f88f743e0dae76cc463a05fa89ddd4ed89deb1c1f5e50a5611a1cdc",
+    "source/tools/research/buffer_observation_goal/REPORT.md": "b450473c3a4f13709430b233e0dd868556f3571431e58e8388ef77356d1b413d",
+    "source/tools/research/buffer_observation_goal/freeze-001.json": "27dae4a50ab1b1011fbb9c476f0c08e2bcf7b1af6bb95fb75a0f9c3c9088bb94",
+    "source/tools/research/buffer_observation_goal/prefix-zip.rs": "4dec5bcebf6720989321823917897a0fbcbe9a463898408c07816ce4590e269f",
+    "source/tools/research/buffer_observation_goal/full-zip.rs": "cf0953a388fc95f69bf89b6dfd34e2f5c38118909fb897a4b7033906fb410679",
+    "source/tools/research/buffer_observation_goal/plain.rs": "39887c248188ccefc528beb9e435188cb7da1d2ae23b1b1ca84548ea26bb20a5",
+    "source/tools/research/buffer_observation_goal/canonical-without-length.rs": "c71376e02c53ccd9335121e82adef7e8f25f0e8f72cd0131d7ff297431b65595",
+    "source/tools/research/buffer_observation_goal/replay.py": "2613ae334600df3f84eadbe9c0d0d7d249729d8c192bea607aa53037aced76cb",
+    "source/tools/research/buffer_observation_goal/native_replay.py": "5fd9fcdef67ae8798203ff2b00f6f981eb4bdb5c79994f3af57210608aaf660e",
+    "source/vir/src/infer/native_mutable_for.rs": "d888ca4cd64934527229714de7be21cc3a5519d741345205267b02c54f24ed8f",
+    "source/vir/src/infer/buffer_observation_goals.rs": "667ba3d958589435c897a0b835310e112e2875b95ac2197528c1981020472b83",
+    "source/vir/src/infer.rs": "5b827e4b753d97a0ce22e12b5928e5967ef6bf1a626595093ccfc95a66996cce",
+    "source/vir/src/infer/pipeline.rs": "eca587e18cdea69bf04cfa75e0b11dd4615ddd9686bc2f5712540decfb4b6af1",
+    "source/vir/src/infer/report.rs": "3126accd5d96b8b2f7df746468a1ed7a24deb30f73d99053c7b04324688d3f96",
+    "source/rust_verify/src/query.rs": "17ecbf4e717c47a534fc7a56f5846d307a7acbed11329f1328328935696abcea",
+    "source/rust_verify/src/verifier.rs": "fcfd4ae6a8997279d36e9edd940119deaba701095eb3a55453af0872eeed027f",
+    "source/rust_verify/src/infer_report.rs": "7146d37b163c330550c294338a02e23e9cce1d565b7dabaabe05d97ee24fc3bd",
+    "source/rust_verify_test/tests/infer_buffer_observation_goals.rs": "2fbe9e05c35352de0a0602e0fd27f9a6fab3153d1e76624e8ee35ed2cd2fcd70"
+  },
+  "runtime": {
+    "libverus_builtin.rlib": {
+      "sha256": "72dbde6e00a0311406ee77635ce7d5684fb5101488ebf8f5fe48f8359a528cdc",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/libverus_builtin.rlib",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/libverus_builtin.rlib",
+      "separate_inode": true
+    },
+    "libverus_builtin_macros.so": {
+      "sha256": "6a24f0899af7949298a453de462f1f4eb47f7bf04d1ec1bfea636fa7b727604c",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/libverus_builtin_macros.so",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/libverus_builtin_macros.so",
+      "separate_inode": true
+    },
+    "libverus_state_machines_macros.so": {
+      "sha256": "c08890fc34dc67fab1667de7535a8a7cecb70a0937902ace2825a57b751d08a3",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/libverus_state_machines_macros.so",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/libverus_state_machines_macros.so",
+      "separate_inode": true
+    },
+    "libvstd.rlib": {
+      "sha256": "6dbe406a37f5322b4281890de8dd5d94c23269785f9ada2db4776a14777fafcc",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/libvstd.rlib",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/libvstd.rlib",
+      "separate_inode": true
+    },
+    "rust_verify": {
+      "sha256": "aee8eab790490b5fa586d7b775282878b3cd4380e2621271572e5e045c7d6646",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/rust_verify",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/rust_verify",
+      "separate_inode": true
+    },
+    "verus": {
+      "sha256": "b4ef9361fd12285e7d744ad5099ef8ca3f99b22e9d81761fca63ee9cf3d568a9",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/verus",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/verus",
+      "separate_inode": true
+    },
+    "vstd.vir": {
+      "sha256": "c7ed4c19cea34a72008d2c5fc1b866fecc3e889d914e2fcdea6d41e2f50efde6",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/vstd.vir",
+      "build_source": "/home/dev/.t3/worktrees/verus/t3-f7b5400e/source/target-verus/release/vstd.vir",
+      "separate_inode": true
+    },
+    "z3": {
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+      "private_copy": "/tmp/verus-buffer-observation/accepted-bundle/z3",
+      "build_source": "/tmp/verus-buffer-observation/baseline/z3",
+      "separate_inode": true
+    }
+  },
+  "baseline_copy": {
+    "libverus_builtin.rlib": {
+      "sha256": "91fa10aa74d8f5c97b9222565ee0a587622624ae5353fd9f52a26ad3253122ee",
+      "symlink": false
+    },
+    "libverus_builtin_macros.so": {
+      "sha256": "0ed00558c4433349941718b8015138f140ce52200e9811b2fdcc1d42647d753e",
+      "symlink": false
+    },
+    "libverus_state_machines_macros.so": {
+      "sha256": "270a5f809f12b2bcf1a0e05565ed230325d128983e6b7033b33d0feba9cb5fdc",
+      "symlink": false
+    },
+    "libvstd.rlib": {
+      "sha256": "e55c6eb7d733e60e1fdff746abf315a34e34450143fc886bd585e4dd55ae4281",
+      "symlink": false
+    },
+    "rust_verify": {
+      "sha256": "6c247dde09a5af974e19206268c45175ce72d0e9768cc65c1d28c70fcc83db0d",
+      "symlink": false
+    },
+    "verus": {
+      "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+      "symlink": false
+    },
+    "vstd.vir": {
+      "sha256": "ef80472659fea445989e6e92b8aa4085f0fadd53d4c84b13967598cdf42aa555",
+      "symlink": false
+    },
+    "z3": {
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+      "symlink": false
+    }
+  },
+  "strict_replay": {
+    "receipt": "/tmp/verus-buffer-observation/trials/observations-afpmpvab/receipt.json",
+    "sha256": "bfc8146216a1acbf976082f9313fef09d395b9fd690d9f7c6c43e3769270cf59",
+    "expected_cases": 23,
+    "helpers": [],
+    "outcomes": [
+      {
+        "label": "prefix_cold",
+        "failure_class": "success",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "4dec5bcebf6720989321823917897a0fbcbe9a463898408c07816ce4590e269f",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "plain_cold",
+        "failure_class": "success",
+        "exec_bodies": [
+          "plain"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "39887c248188ccefc528beb9e435188cb7da1d2ae23b1b1ca84548ea26bb20a5",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "full_cold",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "cf0953a388fc95f69bf89b6dfd34e2f5c38118909fb897a4b7033906fb410679",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "prefix_warm",
+        "failure_class": "success",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "4dec5bcebf6720989321823917897a0fbcbe9a463898408c07816ce4590e269f",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "plain_warm",
+        "failure_class": "success",
+        "exec_bodies": [
+          "plain"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "39887c248188ccefc528beb9e435188cb7da1d2ae23b1b1ca84548ea26bb20a5",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "full_warm",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "cf0953a388fc95f69bf89b6dfd34e2f5c38118909fb897a4b7033906fb410679",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "prefix_disabled",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "4dec5bcebf6720989321823917897a0fbcbe9a463898408c07816ce4590e269f",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "plain_disabled",
+        "failure_class": "success",
+        "exec_bodies": [
+          "plain"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "39887c248188ccefc528beb9e435188cb7da1d2ae23b1b1ca84548ea26bb20a5",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "canonical_length",
+        "failure_class": "success",
+        "exec_bodies": [
+          "u64"
+        ],
+        "proof_bodies": [
+          "radix_positive",
+          "quotient_step",
+          "byte_step"
+        ],
+        "source_sha256": "c71376e02c53ccd9335121e82adef7e8f25f0e8f72cd0131d7ff297431b65595",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 9,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "canonical_disabled",
+        "failure_class": "success",
+        "exec_bodies": [
+          "u64"
+        ],
+        "proof_bodies": [
+          "radix_positive",
+          "quotient_step",
+          "byte_step"
+        ],
+        "source_sha256": "c71376e02c53ccd9335121e82adef7e8f25f0e8f72cd0131d7ff297431b65595",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 9,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "two_functions",
+        "failure_class": "success",
+        "exec_bodies": [
+          "plain",
+          "second"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "c433b6f1542a858573f9d48eeb8eb32590ca34913b4641732e6cd6316de55554",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 4,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "wrong_value",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "c9616f0461e5eab8f2c5199bce4d829808b99912845112e4af08c8ba262e51a7",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "wrong_length",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "135f6d4666f66f70399d8de7bd264a1f808b8ff96a897fed3e02cb532f885fca",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "wrong_current",
+        "failure_class": "invariant",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "f2f7454462dc3307dfc903c4abd66bf65f80a7a557b56571130380539cc3ca31",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 0,
+          "errors": 2,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "wrong_index",
+        "failure_class": "invariant",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "31901c9727eca22bb2095de646c82ebda48c156bfeebe6eb84fbc4c1a3278fb5",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 0,
+          "errors": 2,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "wrong_ref",
+        "failure_class": "invariant",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "4fde26caa4a96befbbbc10e9060a9e111b2dccf7f382d566ba7dadbaf3ef438a",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 0,
+          "errors": 2,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "safety",
+        "failure_class": "safety",
+        "exec_bodies": [
+          "overflow"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "5d497fc580dd276841db9b82f131f6f29cafffa69761b12a376e26003b671f39",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "custom",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "iter__mut",
+          "client"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "41208f21fb67cdc1152f96b0cb1f913d9346b8b2d78a3eaf23ddb94af1175c53",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "wrong_snapshot_state",
+        "failure_class": "invariant",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "7015767a888453ea8029e1a1d3f18b3499ef696aaaf19316612eb19d4c967c3c",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "mode_invalid_snapshot",
+        "failure_class": "frontend",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "ea5ea2910ffe1d3237208ce08b3b875aac2b32d067de6cc9a9d344237eb9bfa4",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": true,
+          "success": false
+        }
+      },
+      {
+        "label": "ghost_executable_write",
+        "failure_class": "frontend",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "dba5ac6c256d373b8247cd9433908fd77270b8f6454cf0fc33aa8e7ad94e7354",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": true,
+          "success": false
+        }
+      },
+      {
+        "label": "seed_prefix",
+        "failure_class": "success",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "4dec5bcebf6720989321823917897a0fbcbe9a463898408c07816ce4590e269f",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 2,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        }
+      },
+      {
+        "label": "remove_failed_full",
+        "failure_class": "postcondition",
+        "exec_bodies": [
+          "xor_key"
+        ],
+        "proof_bodies": [],
+        "source_sha256": "cf0953a388fc95f69bf89b6dfd34e2f5c38118909fb897a4b7033906fb410679",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        }
+      }
+    ]
+  },
+  "native_replay": {
+    "receipt": "/tmp/verus-buffer-observation/native/native-observations-725fzyuv/receipt.json",
+    "sha256": "efc7d8a4e9e3cffc7f7efc6bf8857e2c33ead9aec06dc689dd0ec70b70285717",
+    "debug": "2816 cases, both actual macro-erased fixtures match original source including every suffix byte\n",
+    "release": "2816 cases, both actual macro-erased fixtures match original source including every suffix byte\n",
+    "formal_proof": false
+  },
+  "regressions": {
+    "vir-full3.log": {
+      "log": "/tmp/verus-buffer-observation/vir-full3.log",
+      "sha256": "76cf3bee99fb6c84e76f049b0869d7f3e274a40dd124ca5f76fb716968809935",
+      "result": "145 passed"
+    },
+    "compiler-tests-final2.log": {
+      "log": "/tmp/verus-buffer-observation/compiler-tests-final2.log",
+      "sha256": "96006960efc9109b7db0be334e49ebe85d5b98502ff2523c787a87232997d5c0",
+      "result": "9 passed"
+    },
+    "vstd-build.log": {
+      "log": "/tmp/verus-buffer-observation/vstd-build.log",
+      "sha256": "d587346ea7366b62b89783d07fe78dec758f3c1431eaa774ed0669a694c16844",
+      "result": "2226 verified, 0 errors"
+    }
+  },
+  "compiler_test_inputs": "/tmp/verus-buffer-observation/compiler-test-inputs-final",
+  "build_logs": [
+    "/tmp/verus-buffer-observation/build-initial.log",
+    "/tmp/verus-buffer-observation/build-debug2.log",
+    "/tmp/verus-buffer-observation/build-release-final.log",
+    "/tmp/verus-buffer-observation/build-release2.log",
+    "/tmp/verus-buffer-observation/build-final-formatted.log",
+    "/tmp/verus-buffer-observation/vstd-build.log"
+  ],
+  "first_remaining_blocker": "Checked native resolution/drop-to-unused-reference frame bridge for full HMAC suffix; no frame assumption added.",
+  "unproved": [
+    "full frozen HMAC suffix contract",
+    "causal shared observation reduction on canonical",
+    "combined parent regression and independent final acceptance"
+  ]
+}

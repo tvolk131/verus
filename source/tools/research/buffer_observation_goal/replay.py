@@ -81,7 +81,7 @@ def main():
                 require_exact(functions)
                 stderr = result['stderr']
                 if kind == 'frontend':
-                    require('error[E' in stderr, 'expected Rust frontend rejection absent')
+                    require('error:' in stderr and data['verification-results'].get('encountered-vir-error') is True, 'expected Verus frontend rejection absent')
                     require(data['verification-results'].get('errors', 0) == 0,
                             'mixed frontend/SMT evidence')
                 else:
@@ -123,11 +123,11 @@ def main():
             run('plain_' + phase, plain, execs=['plain'], assistance=['plain'])
             run('full_' + phase, full, 'postcondition', assistance=['xor_key'])
         run('prefix_disabled', prefix, 'postcondition', goals=False)
-        run('plain_disabled', plain, 'postcondition', goals=False, execs=['plain'])
+        run('plain_disabled', plain, 'success', goals=False, execs=['plain'])
         run('canonical_length', canonical, execs=['u64'],
             proofs=['radix_positive', 'quotient_step', 'byte_step'], assistance=['u64'])
-        # A disabled canonical success is allowed: report redundancy honestly.
-        # Kept as an independent explicit trial by a separate diagnostic command.
+        run('canonical_disabled', canonical, goals=False, execs=['u64'],
+            proofs=['radix_positive', 'quotient_step', 'byte_step'])
         if a.stage == 'all':
             two = plain.replace('fn main() {}', '') + '\n' + plain.replace(
                 'use vstd::prelude::*;', '').replace('pub fn plain', 'pub fn second')
@@ -138,7 +138,7 @@ def main():
                 'ensures final(ipad)@.len() == 127, forall|j: int|'), 'postcondition', assistance=['xor_key'])
             run('wrong_current', prefix.replace('*final(it.seq()[j].0) ==',
                 '*it.seq()[j].0 =='), 'invariant', assistance=['xor_key'])
-            run('wrong_index', prefix.replace('j < it.index()', 'j < it.index() + 1'),
+            run('wrong_index', prefix.replace('j < it.index()', 'j < it.index() + 1 && j < it.seq().len()'),
                 'invariant', assistance=['xor_key'])
             run('wrong_ref', prefix.replace('*it.seq()[j].1)', '*it.seq()[j].0)'),
                 'invariant', assistance=['xor_key'])
@@ -153,6 +153,13 @@ def main():
                 fn client(c: &mut Custom) ensures final(c).value@[0] == 7 { let r=c.iter__mut(); }
             } fn main() {}'''
             run('custom', custom, 'postcondition', execs=['iter__mut', 'client'], assistance=[])
+            manual = (HERE.parent / 'buffer_transfer_goal/partial-prefix-manual-bounds.rs').read_text()
+            wrong_state = manual.replace('let ghost before = ipad@;', 'let ghost before = final(ipad)@;')
+            run('wrong_snapshot_state', wrong_state, 'invariant', assistance=['xor_key'])
+            invalid_mode = prefix.replace('\n{\n    for ', '\n{\n    let ghost ghost_byte = 0u8;\n    let exec_byte: u8 = ghost_byte;\n    for ', 1)
+            run('mode_invalid_snapshot', invalid_mode, 'frontend')
+            exec_write = prefix.replace('\n{\n    for ', '\n{\n    proof { *ipad = *ipad; }\n    for ', 1)
+            run('ghost_executable_write', exec_write, 'frontend')
             artifact = out / 'seeded.vir'
             flags = ['--crate-name=seeded', '--export', str(artifact)]
             run('seed_prefix', prefix, flags=flags, assistance=['xor_key'], artifact=artifact)
