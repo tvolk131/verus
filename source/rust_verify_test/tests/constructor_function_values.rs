@@ -57,6 +57,10 @@ test_verify_one_file_with_options! {
             let f = Pair;
             let r = f(7u64, 9u64);
             assert(r.0 == 9); // FAILS
+        }
+        fn false_second_field() {
+            let f = Pair;
+            let r = f(7u64, 9u64);
             assert(r.1 == 7); // FAILS
         }
         fn false_post(x: u64) -> (r: Option<E>)
@@ -143,5 +147,60 @@ test_verify_one_file_with_options! {
             let x = 7u64;
             Some(&x).map(W)
         }
-    } => Err(err) => assert_rust_error_msg(err, "does not live long enough")
+    } => Err(err) => assert_rust_error_msg(err, "cannot return value referencing local variable")
+}
+
+test_verify_one_file_with_options! {
+    #[test] self_public_bound_const_generic_and_zero_arity ["vstd", "--no-cheating"] => verus_code! {
+        use vstd::prelude::*;
+        struct W<T>(T);
+        impl<T> W<T> {
+            fn make(x: T) -> (r: Option<Self>)
+                ensures r.is_some(), r.unwrap().0 == x,
+            { Some(x).map(Self) }
+        }
+        struct B<T: Copy>(T);
+        fn bound<T: Copy>(x: T) {
+            let r = Some(x).map(B::<T>);
+            assert(r.unwrap().0 == x);
+        }
+        struct Bytes<const N: usize>([u8; N]);
+        fn bytes<const N: usize>(x: [u8; N]) {
+            let r = Some(x).map(Bytes::<N>);
+            assert(r.unwrap().0 == x);
+        }
+        struct Zero();
+        mod visible { pub struct V(pub u64); }
+        fn test() {
+            let f = Zero;
+            let z = f();
+            assert(z == Zero());
+            let r = Some(7u64).map(visible::V);
+            assert(r.unwrap().0 == 7);
+        }
+    } => Ok(())
+}
+
+#[test]
+fn payload_get_roundtrip() {
+    let source = include_str!("../../tools/research/constructor_function_value/bortag.rs")
+        .to_string()
+        + r#"
+verus! {
+impl BorTag {
+    fn get(&self) -> (r: u64)
+        ensures r == self.0@,
+    { self.0.get() }
+}
+fn roundtrip(i: u64) -> (r: u64)
+    ensures r == i,
+{
+    match BorTag::new(i) {
+        Some(tag) => tag.get(),
+        None => 0,
+    }
+}
+}
+"#;
+    verify_one_file("payload_get_roundtrip", source, &["vstd", "--no-cheating"]).unwrap();
 }
