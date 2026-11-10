@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "scope": "Conditional composition; no actual source instance",
+  "implementation": "3d668d29",
+  "results": "source/tools/research/native_constructor_erasure/results.json",
+  "receipt": {
+    "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/receipt.json",
+    "sha256": "2f9679b44cded4fcb68052c062b8a6a4942b92d99bc099f2cac4d07625e84cb3",
+    "success": true
+  },
+  "source_declarations": 96,
+  "all_individual_assumptions_closed": true,
+  "kernel_axioms": [],
+  "all_delivered_products_authenticated": true,
+  "independent_review": "pending",
+  "actual_source_correspondence": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

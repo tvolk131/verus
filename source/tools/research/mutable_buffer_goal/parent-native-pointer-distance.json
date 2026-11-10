@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "scope": "Conditional finite pointer arithmetic/size-hint component; no source-to-span theorem",
+  "implementation": "2c0b8f23",
+  "results": "source/tools/research/native_pointer_distance/results.json",
+  "receipt": {
+    "path": "/tmp/native-pointer-distance-efea4e77-trial011/receipt.json",
+    "sha256": "04aedea513457712d9afaf49addbf694c7d33f2676408adec426b19ba6dca47b"
+  },
+  "source_declarations": 77,
+  "all_individual_assumptions_closed": true,
+  "kernel_axioms": [],
+  "all_delivered_products_authenticated": true,
+  "independent_review": "pending",
+  "actual_source_correspondence": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
