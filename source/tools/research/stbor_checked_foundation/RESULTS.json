@@ -1,0 +1,155 @@
+{
+  "completed_receipt": "/tmp/stbor-checked-foundation-20261110/completed-build-receipt.json",
+  "completed_receipt_sha256": "0d85e9ec05f29413973137f03bc840ccb1e22170d50169b2837331e58770f649",
+  "fully_ready": true,
+  "goal_complete": false,
+  "loadpaths_and_versions": {
+    "path": "/tmp/stbor-checked-foundation-20261110/manifests/toolchain-query.json",
+    "sha256": "20094ab384a7556d625d3b12d1380b0d016da2a525bca09db4ded7fe46c13260"
+  },
+  "maps": {
+    "artifact-modules.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/artifact-modules.json",
+      "sha256": "7474073eebef0aeec90646e2bfcf1708604acbe4d2ce7e25f632d3cd914245b4"
+    },
+    "declaration-inventory.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/declaration-inventory.json",
+      "sha256": "0f6fdd51835bbec9b185a43977ea3846d2680f9a9fa42237a909b0bad2e56109"
+    },
+    "dependency-objects-before-check.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/dependency-objects-before-check.json",
+      "sha256": "92cebc3e9ecd76c0d8be410bcb71acfa02f8cd5c3393f6b68419b1f9880664d9"
+    },
+    "kernel-coverage.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/kernel-coverage.json",
+      "sha256": "2aade67d1d0776e7210dcc89c253f699c6136b1ff8950b663658ba7bb9febf99"
+    },
+    "kernel-loaded-objects.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/kernel-loaded-objects.json",
+      "sha256": "63c33fad0c67809d4757d5365782b56d72001d047f2489914da4f62cdc2e87f9"
+    },
+    "object-controller-freeze.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/object-controller-freeze.json",
+      "sha256": "bfd98b129382d86e1afea77be8c4af114479650a3b271e1ed36453462ebc1e4b"
+    },
+    "object-dependency-map.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/object-dependency-map.json",
+      "sha256": "7620cc905229091d56770318e19e0a835e29aae88d359c7231d17ed05832530a"
+    },
+    "platform-toolchain.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/platform-toolchain.json",
+      "sha256": "1ada60dcc90bc008188a4f853de3012862912b192ea92919ea4f0cc29c55c8ca"
+    },
+    "pretrial-dependencies.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/pretrial-dependencies.json",
+      "sha256": "46a8ed54b3036b22c100df671dadb7dcab931a964c4fd13be830a4ee0da4ffa0"
+    },
+    "release-authentication.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/release-authentication.json",
+      "sha256": "2cc3d2bef0748e0dcfd1d45c842420682184683e257991fb795ce27c7a1e07c3"
+    },
+    "supplemental-controller-freeze.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/supplemental-controller-freeze.json",
+      "sha256": "96ea9c828d97659ec2bcaf927ffcca0b62c2f7e0735fe752f88acd463ce17a80"
+    },
+    "toolchain-query.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/toolchain-query.json",
+      "sha256": "20094ab384a7556d625d3b12d1380b0d016da2a525bca09db4ded7fe46c13260"
+    },
+    "upstream-tool-freeze.json": {
+      "path": "/tmp/stbor-checked-foundation-20261110/manifests/upstream-tool-freeze.json",
+      "sha256": "5693a824d4b74e859d15fec5b86ca175bb358f718aa15d206bb6e8f5a0395c54"
+    }
+  },
+  "native_correspondences": 0,
+  "normal_compilation_succeeded": true,
+  "publication": false,
+  "recursive_kernel_check_succeeded": true,
+  "schema": 1,
+  "scope": "external historical model, relative to inventoried upstream axioms",
+  "state": "checked_external_model",
+  "tools": {
+    "coq_makefile": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coq_makefile",
+      "sha256": "4a73f3ce2e983f80c4225c6fc3a9c595b2bad46865d0c505013becc6729f13c3"
+    },
+    "coqc": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqc",
+      "sha256": "46f278986e06298cad00f042257e769b8271b993641de723b630ce3553cc2adf"
+    },
+    "coqchk": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqchk",
+      "sha256": "2560b874e1c2f9e2dd2c501f51ad4aace1212d12eb0363e6b2f997fafa88dd7f"
+    },
+    "coqdep": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqdep",
+      "sha256": "7399f2db95f2e4ba8f3c8e80e904c3b1f8ec042401a1be759a3dffc830116612"
+    },
+    "coqtop": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqtop",
+      "sha256": "3c792609b64d99f99579eee447045bef3d9379446fa349fd9721d761982dfcb8"
+    },
+    "ocamlc": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/ocamlc",
+      "sha256": "fe84b7384a491645b0f6fa00ea38d535eadeac88c9e1bd05c3a7dc4800653121"
+    },
+    "ocamlopt": {
+      "path": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/ocamlopt",
+      "sha256": "40a74426bd51e16e02495b84e9986a37fa2104d4fe7371a0d7e20826646bd1dd"
+    }
+  },
+  "upstream_commit": "d1471b10fe4cb4f506371b2e3acdd927d0a0c076",
+  "baseline_ready_path": "/tmp/stbor-checked-foundation-20261110/baseline-ready.json",
+  "baseline_ready_sha256": "9259b8f303e52e38f1b47709429f2be23a81a4e44ed557b6058184a95e653e51",
+  "controller_commit_before_final_reporting": "c610a86e",
+  "initial_base": "6c74c9b1e45a885fe88ab7a2eb01b9a20fc003ee",
+  "artifact_modules": 44,
+  "installed_dependency_modules_checked": 250,
+  "Coq_closure_modules_checked": 224,
+  "checked_modules": 518,
+  "source_object_pairs": 518,
+  "binding_inventory_entries": 1247,
+  "full_inductive_record_blocks": 43,
+  "closed_entries": 1185,
+  "JMeq_eq_only_entries": 62,
+  "final_guards": {
+    "dependency_build_entry_snapshots": {
+      "matched": 8990,
+      "mismatches": []
+    },
+    "downloads": {
+      "matched": 16,
+      "mismatches": []
+    },
+    "initial_dependency_payloads": {
+      "matched": 5858,
+      "mismatches": []
+    },
+    "installed_toolchain": {
+      "matched": 36899,
+      "mismatches": []
+    },
+    "platform_tools_and_runtime": {
+      "matched": 118,
+      "mismatches": []
+    },
+    "trial_controller": {
+      "matched": 24,
+      "mismatches": []
+    },
+    "upstream": {
+      "matched": 52,
+      "mismatches": []
+    }
+  },
+  "kernel_context_summary": "\n===============\n\n* Theory: Set is predicative\n  \n* Axioms:\n    iris.base_logic.lib.iprop.iProp_solution.iProp_fold_unfold\n    iris.base_logic.lib.iprop.iProp_solution.iProp_unfold\n    Coq.Logic.ProofIrrelevance.proof_irrelevance\n    Coq.Logic.FunctionalExtensionality.functional_extensionality_dep\n    iris.base_logic.lib.iprop.iProp_solution.iPreProp_cofe\n    Coq.Logic.Classical_Prop.classic\n    Equations.Type.Subterm.FixWf_unfold\n    iris.base_logic.lib.iprop.iProp_solution.iProp_fold\n    iris.base_logic.lib.iprop.iProp_solution.iPrePropO\n    Coq.Logic.JMeq.JMeq_eq\n    Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq\n    Equations.Type.FunctionalExtensionality.funext\n    iris.base_logic.lib.iprop.iProp_solution.iProp_unfold_fold\n",
+  "selected_controller": "complete_gate_objects.py -> ready_gate_objects.py",
+  "source_metadata_reader": "vo_summary.ml / object_map.py",
+  "all_own_jobs_finished": true,
+  "parent_entry_candidate_compiled": false,
+  "minimal_operations_open": 44,
+  "phase_obligations_open": 3,
+  "writer_effects_open": 101,
+  "canonical_inherited_result": "6/0; original full domain, not rerun",
+  "HMAC_inherited_result": "1/1 unproved; XOR prefix AND unchanged suffix; arbitrary initialized [128], every valid key length including 0 and >128"
+}

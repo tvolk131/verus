@@ -1,0 +1,266 @@
+{
+  "stbor.lang.bor_semantics": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/bor_semantics.vo",
+    "object_sha256": "7a1faa539a5c98344868a3f55e6c0db26d1357ec5eb55dcc9877c5d55a32cb95",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/bor_semantics.v",
+    "source_sha256": "a9b7796748cbf9f49848d6abed07085ca8039da5b0393f7b23a26666dc8a6dec"
+  },
+  "stbor.lang.defs": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/defs.vo",
+    "object_sha256": "dc356f1644672a0e3f5c6cc07b4287bcbd2d80539f6bccfdce1198bd46bd00f5",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/defs.v",
+    "source_sha256": "7238cd5431cc979c6e3b811e53bd1c1c7e4a0ae9065673b63c7f922e48295f20"
+  },
+  "stbor.lang.expr_semantics": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/expr_semantics.vo",
+    "object_sha256": "ca7983b264dae275586e8f0b709c9741305cd1adb22bef403660834efb6b7e36",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/expr_semantics.v",
+    "source_sha256": "063dcbcb481f8b405e4ee388f4551a402fcd210652da5464a8f469e95a761a61"
+  },
+  "stbor.lang.helpers": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/helpers.vo",
+    "object_sha256": "a429efca2355fd34cd47cde4fe0b8e70293f5c87698a5a7af2b71df733ea3e26",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/helpers.v",
+    "source_sha256": "a2d7453cd174f28d61dc6158b0e2f22af897684445b201afe1c4f150270e340f"
+  },
+  "stbor.lang.lang": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/lang.vo",
+    "object_sha256": "cc351f671433770ba898ae2be6243d8ff180cfb42767d82915809deba81f74b5",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/lang.v",
+    "source_sha256": "b30399e4e9c3b71418ca4aac7b4eb485a14fceb2f0128945cca277b4457dba5f"
+  },
+  "stbor.lang.lang_base": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/lang_base.vo",
+    "object_sha256": "8853ad64cb71de49659318a8085cbe704bc2400af9debb2531efd08080672842",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/lang_base.v",
+    "source_sha256": "358d84a957ecce639a89240697956365e46f9fa58cfdba8a7d26b46db17db3e4"
+  },
+  "stbor.lang.notation": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/notation.vo",
+    "object_sha256": "ea37621163ab76c476687b59c2880e8580e4e48ba2b6458202a361f6238c4e7d",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/notation.v",
+    "source_sha256": "51da28970c2608d8510eb41b0f6a5f11303e174c4f8548267ad7bf71ca5bace7"
+  },
+  "stbor.lang.steps_access": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_access.vo",
+    "object_sha256": "d1dc14aff81bf6fbe178f3e3950fff2e09b67a152710c91805b9ccb8990f4ad3",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_access.v",
+    "source_sha256": "4a15436c925a7bf6277c0215e026f3e9a03433e0ae1d6052f8c83245c95e082d"
+  },
+  "stbor.lang.steps_foreach": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_foreach.vo",
+    "object_sha256": "ec4b9f5ac2099364515fcb841aaad05ddfc48140fd8a78b36fe5aa30023d8d90",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_foreach.v",
+    "source_sha256": "aa22bbc5992b2ea52a46fcf2a7a62ef8412d91d49976e818d1043b9e56dc283e"
+  },
+  "stbor.lang.steps_inversion": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_inversion.vo",
+    "object_sha256": "bcacb58beb4be403f3ced5a0736fc0caff5e17a84e4558f33ec666249f10e36a",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_inversion.v",
+    "source_sha256": "0755015a7094e70917b77656064039005c6275e2777c571bc2911a659f34585d"
+  },
+  "stbor.lang.steps_list": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_list.vo",
+    "object_sha256": "e13d16f720021c2c49ddda60643a3ad65bf8cd60e817b5822665f418099b3e20",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_list.v",
+    "source_sha256": "f540cace8214f812c11a4c9893ad9988eebe62a1cccbc4cf34d7b5ea3d3ae8f6"
+  },
+  "stbor.lang.steps_progress": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_progress.vo",
+    "object_sha256": "1c88bb4ac5d0e2227e19c8f79bdc7188098c85a70e16ee39350ceaefd4265582",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_progress.v",
+    "source_sha256": "29930a908fd31f749fe0a7e21846e3e8da89fe56f7b3f6438a9e9eb6bebb7ca8"
+  },
+  "stbor.lang.steps_retag": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_retag.vo",
+    "object_sha256": "c6fa506d304e47fe67f4942bd3c2712350f74532379e9cea6c800c06d534d008",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_retag.v",
+    "source_sha256": "963df7f43d9dba21e5c6c3aa61c439bf7d73db8b8db5e6dd9fccc4020e63b0ec"
+  },
+  "stbor.lang.steps_wf": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_wf.vo",
+    "object_sha256": "1c7f9c9c218875f597296c30fa3eba15aa1c7104248aba356a14321c3142f125",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/steps_wf.v",
+    "source_sha256": "aaafd3ce330b0e30b31e84b11981c2d3ca40af21b3b106419bcd10dee9e84433"
+  },
+  "stbor.lang.subst_map": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/subst_map.vo",
+    "object_sha256": "1ac2e9fd2dc0f01bc53e9d288fc0673d722ca05a780f19fabfe43d8461eced45",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/subst_map.v",
+    "source_sha256": "285ce0f635bd8c34f1bea9931b24ba15eb5c0206b9cd75787f12c31571aecf38"
+  },
+  "stbor.lang.type": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/type.vo",
+    "object_sha256": "698df96268487cdb6d1722a8f002df6cafe30bb5e3564b6120a134b950980fc9",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/lang/type.v",
+    "source_sha256": "29650dd57d575e325e8622ec1c91ce46fbbd4beec7302b2707d2f619aa3d8762"
+  },
+  "stbor.opt.ex1": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex1.vo",
+    "object_sha256": "b2ad8a393fc48740cd0777f560502cfc4ebc39fd8fd1ad35d95e7930ab6aec76",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex1.v",
+    "source_sha256": "e90ac63ab167e6deb45f3e26d3ee0623ee8be74b1d1fd1970c8de567e7e9d998"
+  },
+  "stbor.opt.ex1_down": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex1_down.vo",
+    "object_sha256": "147b6c4c5a1d6344e21bff6cbc0aa0acc731f4877955d497cf737dc694c68cb4",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex1_down.v",
+    "source_sha256": "8cf5339800747ec771a465ae7daec450c62ef1f26e7af7a0caced3bb7acc1ef8"
+  },
+  "stbor.opt.ex2": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex2.vo",
+    "object_sha256": "dbd9ad84bd8691ec5be6ffeb47871fa86da907530b875cc3b7414b49baef02f4",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex2.v",
+    "source_sha256": "ba258b30d97c739bb401579e50c557e092b57349101c08e8231c577a599da907"
+  },
+  "stbor.opt.ex2_down": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex2_down.vo",
+    "object_sha256": "8ef527483edffdcb94e3d417ce25da886a7e657e01d93c30fe53d189ee517f0e",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex2_down.v",
+    "source_sha256": "1d49f9abcd64bc37f1d8a7fec477fb36599765f7fe1a75cfdcb9c19511feb8c8"
+  },
+  "stbor.opt.ex3": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex3.vo",
+    "object_sha256": "cf4f4a96ef60a2d9808b0fd1790ef8d189d6a720e8f1947d83e0b611ece3d4c0",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex3.v",
+    "source_sha256": "2b9c05d6a4a6584ada4afc87b07e12f791e721609d7f56d103d39047e3dbaa2c"
+  },
+  "stbor.opt.ex3_down": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex3_down.vo",
+    "object_sha256": "9def4d4c2be66f25d8861e04705536911425507e483e584aa170566f1589124d",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/opt/ex3_down.v",
+    "source_sha256": "f542488fba3c43d54e63eb22d5c9d44e3f3f0b0e2249c0e337740e04d3e3b5a3"
+  },
+  "stbor.sim.behavior": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/behavior.vo",
+    "object_sha256": "3a1f39589be5adc862fbae0d5b416482f35add386a1dc370796ae6769556e61c",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/behavior.v",
+    "source_sha256": "1e6bc351ca2e96d91cdace3b02122b45b6086c5ee01188c59d0928599afd069c"
+  },
+  "stbor.sim.body": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/body.vo",
+    "object_sha256": "a72642f136e87cd8261f29929fe44306cefc4eac0877d937ac8a7c6b6ff94b36",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/body.v",
+    "source_sha256": "a4b8c006ad38f46d9315fa93f89c4af289f694fc32cc465e33ceb1a6c51987ad"
+  },
+  "stbor.sim.cmra": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/cmra.vo",
+    "object_sha256": "407002049d9326a02bdbc5b052e8fd9383a619fff6bf83bd8d0b5dba9747e8af",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/cmra.v",
+    "source_sha256": "8fb0816626e7937480f998735ee8234abb5a1681f7053c10c4f8946bf36955b9"
+  },
+  "stbor.sim.derived_step": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/derived_step.vo",
+    "object_sha256": "9136c12822ba9bb1f69c5be1da18ff2e404295da78e9fd574f1c03bdbee5674c",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/derived_step.v",
+    "source_sha256": "618055614af8332a9725398a2dc72e681118a642fc7025a466e2ed9f2b208201"
+  },
+  "stbor.sim.global": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/global.vo",
+    "object_sha256": "c491aa2c276d91688ad6c35e762a4f531e5e93a67bb45e051731cb2e173c8c12",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/global.v",
+    "source_sha256": "07a4fbd01bbcb3085a2b187c780526e1e14dea06cc22628c633669b7b14dcf07"
+  },
+  "stbor.sim.global_adequacy": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/global_adequacy.vo",
+    "object_sha256": "173238a5f804fd018e0061cb2a98327b4e434d3636aaebd905e528ea307d86f3",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/global_adequacy.v",
+    "source_sha256": "9b264e25fdf302fdb3f8caf7a42927fcc9733795f1087bc4cb67871f5780ddd1"
+  },
+  "stbor.sim.instance": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/instance.vo",
+    "object_sha256": "2402471dece83d711ef09c4e8ed99e6719683fe7302e36078008ce34c3b4494e",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/instance.v",
+    "source_sha256": "19ced69c275fd4605d86eb0731a58937b408e50e3cb75c994f825a7c7d91fb03"
+  },
+  "stbor.sim.invariant": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/invariant.vo",
+    "object_sha256": "61d7688605a74cfba9ad9c855aeb1563f1d27c1821c8a0502e913179c8e6bd3d",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/invariant.v",
+    "source_sha256": "4f451a25ebd645695aab74d7e37820cae6ca9ffddd30798b3bc784663c6839fe"
+  },
+  "stbor.sim.invariant_access": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/invariant_access.vo",
+    "object_sha256": "73ed314108dc6e2c2246ac4f350f1d1f4bb966e37c83217c6988eed7487a593e",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/invariant_access.v",
+    "source_sha256": "250029fa967b0713902b303390dca66bc1cd57dfb897ad4704c731b22ce27573"
+  },
+  "stbor.sim.left_step": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/left_step.vo",
+    "object_sha256": "8ec93a2449a60002732dd7428073d9181379d8d5ba487cb8656575e5501bc3e1",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/left_step.v",
+    "source_sha256": "4955f506dcb196f616589d0e6b60d9b62574cf5d5970d759f114c491fbebf039"
+  },
+  "stbor.sim.local": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/local.vo",
+    "object_sha256": "2d32cdc88c298ba2e672ef07531c59f374d0eb43ed0cfe708fa722d447c5bf43",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/local.v",
+    "source_sha256": "9ce3a4110bf68ba0435c32ce26dcdb12d4bba22a6a47144206df3a7d21db4105"
+  },
+  "stbor.sim.local_adequacy": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/local_adequacy.vo",
+    "object_sha256": "5c009c90ba75ce1555dc1d928082493bdb2cb3d0f10e9d59a3824b41ddf4eb97",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/local_adequacy.v",
+    "source_sha256": "20c94819ea5081bad49ddb32ccd1e0018cfe4c0889f6bfea3c4c68f0b84c4284"
+  },
+  "stbor.sim.program": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/program.vo",
+    "object_sha256": "fc96b5bbba0a5de05d3722cd67561e6751fb004fe3b78401f853459cb0cd5825",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/program.v",
+    "source_sha256": "2cac0c1dd3771fa756d645ad9cd3165035789a506675dfb3e7d49123fa617ca3"
+  },
+  "stbor.sim.refl": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl.vo",
+    "object_sha256": "f2e9c98f5a3aad5b196d8884ac87d039a8f9440cf2bec50ca1437b99ace1eaaf",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl.v",
+    "source_sha256": "52019c6307062624ef0f7caf1c9c26362346ed028983b2fd61f099782724f37f"
+  },
+  "stbor.sim.refl_mem_step": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl_mem_step.vo",
+    "object_sha256": "e86bb8faf781b8df1c75221f682150cdcac4de94215978ea9e8d542705312750",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl_mem_step.v",
+    "source_sha256": "b13f998c83297e353412033774ee32da6f67bf08ecc6a864d61d8c4ba980e7b4"
+  },
+  "stbor.sim.refl_pure_step": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl_pure_step.vo",
+    "object_sha256": "de6ef7292aaaf8dff2528a3c5de968c0524e3dc4eea71ea5bb3c483895eaff9d",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl_pure_step.v",
+    "source_sha256": "c44dba2b9aaedd055cdea37b4738173b9633417ee7b558455a88d135292a502e"
+  },
+  "stbor.sim.refl_step": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl_step.vo",
+    "object_sha256": "8da321fb03826810580d848976da2b923dc555562c3a1cab60861f3c7381a6c7",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/refl_step.v",
+    "source_sha256": "2395fbcfd8f47bbd1afb55136beba814205ae1a4e83fe1be768479c811678a13"
+  },
+  "stbor.sim.right_step": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/right_step.vo",
+    "object_sha256": "fd1b24bbbee7d6945046d17f630c411b0da072538fdfdb15f7d2bb851f2f00c6",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/right_step.v",
+    "source_sha256": "dd29d81b543168abda86338704afd979e9654e388ae8f43349a09fac961a0429"
+  },
+  "stbor.sim.sflib": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/sflib.vo",
+    "object_sha256": "e54619281dda678b97d2532399d949cf255a5fd2153e154b5acc690db8ae876c",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/sflib.v",
+    "source_sha256": "d15a29b798b38fd1c9c7515cab5df27e77c7655246cd5a854fb5da5c8481f694"
+  },
+  "stbor.sim.simple": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/simple.vo",
+    "object_sha256": "f03344b8470200e12e83722f54521aca49b61a5dc25f9235deb7e225e6733aae",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/simple.v",
+    "source_sha256": "75545ef8ba164d199e6f620d2e8afb2ff0d7e2445febcd663ded35a5901bb1c0"
+  },
+  "stbor.sim.tactics": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/tactics.vo",
+    "object_sha256": "8f2b4da99610ba8d1274807bf61d5320a38bd3e677fdf6b497128d8615a22833",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/tactics.v",
+    "source_sha256": "6b1544542e75f953fcfda0be479fa0b5e034a8353130dbbf0d4ee8ac61c7d4e4"
+  },
+  "stbor.sim.viewshift": {
+    "object": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/viewshift.vo",
+    "object_sha256": "b96fdcad84a3dabef09b184a31a6376c4d0cead03dae974f2bacb55e929e3086",
+    "source": "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories/sim/viewshift.v",
+    "source_sha256": "242a1779a9f672e7e0b814fc6d2b45b4dccfede2fc8861714e1fcc1ca15d7c2d"
+  }
+}
