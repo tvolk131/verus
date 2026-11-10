@@ -36,6 +36,11 @@ def main():
         require(json.loads(baseline_receipt.read_text())['success'] is True,
                 'baseline final receipt did not succeed')
         baseline = Path(ready['build']).resolve()
+        original = Path('/tmp/verus-infer-buffer-cycle-20261109/verus-belt-115a618d')
+        copied = json.loads(baseline_receipt.read_text())['copied_sources']
+        for name, value in copied.items():
+            require(digest(baseline/name) == value == digest(original/name),
+                    'unmodified baseline source mismatch '+name)
         switchbin = Path(ready['switch'])/'_opam/bin'
         coqc, coqchk = switchbin/'coqc', switchbin/'coqchk'
         freeze = json.loads(a.freeze.read_text())

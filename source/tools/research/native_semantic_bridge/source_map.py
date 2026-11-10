@@ -77,13 +77,18 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--extraction', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--freeze', type=Path, required=True)
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=False)
     receipt = dict(schema=1, publication=False, native_bridge_proved=False)
     with replay_receipt(a.output, receipt):
+        freeze = json.loads(a.freeze.read_text())
+        require(freeze['before_first_trial'] is True, 'missing pretrial freeze')
+        for name, value in freeze['files'].items():
+            require(digest(ROOT/name) == value, 'frozen source changed '+name)
         src = HERE.parent / 'native_heap_lowering/fixtures/drop.rs'
         paths = [a.extraction/n for n in ('drop-native.json', 'drop-borrowck.json', 'receipt.json')]
-        guard = ArtifactGuard([*paths, src, Path(__file__), HERE.parent/'native_heap_lowering/lower.py', *support_artifacts()])
+        guard = ArtifactGuard([*paths, src, Path(__file__), HERE.parent/'native_heap_lowering/lower.py', *support_artifacts(), a.freeze, *[ROOT/n for n in freeze['files']]])
         require(json.loads(paths[2].read_text())['success'] is True, 'unhealthy source extraction')
         mapping = build(json.loads(paths[0].read_text()), json.loads(paths[1].read_text()), src)
         out = a.output/'source-obligations.json'
