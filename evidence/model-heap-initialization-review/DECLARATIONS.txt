@@ -1,0 +1,208 @@
+Module
+initialization
+:= Struct
+     Definition initialized_map : gmap loc val → gmap loc (lock_state * val).
+     Definition initialized_state : gmap loc val → state.
+     Definition initial_fragments :
+       ∀ Σ : gFunctors, heapGS Σ → gmap loc val → iProp Σ.
+     Parameter finite_map_initialize :
+       ∀ (Σ : gFunctors) (invGS0 : invGS Σ) (na_logicG0 : 
+                                             non_atomic_cell_map.na_logicG
+                                               loc val Σ) 
+         (h : gmap loc val),
+         ⊢ |==>
+             ∃ ι : gname,
+               non_atomic_cell_map.non_atomic_map ι (initialized_map h) ∗
+               ([∗ map] l↦v ∈ h, non_atomic_cell_map.points_to_seq ι 
+                                   (inl l) [] (inr v)).
+     Parameter initialized_lookup :
+       ∀ (h : gmap loc val) (l : loc) (v : val),
+         initialized_map h !! l = Some (RSt 0, v) ↔ h !! l = Some v.
+     Parameter initialized_freeability_empty :
+       ∀ h : gmap loc val, heap_freeable_rel (initialized_state h) ∅.
+     Parameter initialized_heap_adequacy :
+       ∀ Σ : gFunctors,
+         lrustGpreS Σ
+         → ∀ (e : language.expr lrust_lang) (h : gmap loc val) 
+             (φ : language.val lrust_lang → Prop) 
+             (k : nat),
+             (∀ lrustGS0 : lifting.lrustGS Σ,
+                initial_fragments h -∗
+                £ k -∗ time.time_ctx -∗ WP e {{ v, ⌜φ v⌝ }})
+             → adequate NotStuck e (initialized_state h)
+                 (λ (v : language.val lrust_lang) 
+                    (_ : language.state lrust_lang), 
+                    φ v).
+     Parameter initialized_read_adequate :
+       ∀ (h : gmap loc val) (l : loc) (v : val),
+         h !! l = Some v
+         → adequate NotStuck (Read ScOrd (of_val (LitV (LitLoc l))))
+             (initialized_state h)
+             (λ (w : language.val lrust_lang) (_ : language.state lrust_lang),
+                w = v).
+   End
+Module
+partition
+:= Struct
+     Parameter fragments_partition :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (a f : gmap loc val),
+         a ##ₘ f
+         → initial_fragments (a ∪ f) ⊣⊢ initial_fragments a ∗
+           initial_fragments f.
+     Parameter fragments_extract :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (h a : gmap loc val),
+         a ⊆ h
+         → initial_fragments h ⊣⊢ initial_fragments a ∗
+           initial_fragments (h ∖ a).
+     Definition interval_map : loc → list val → gmap loc val.
+     Parameter interval_lookup :
+       ∀ (l : loc) (vs : list val) (i : nat) (v : val),
+         interval_map l vs !! (l +ₗ i) = Some v ↔ vs !! i = Some v.
+     Parameter interval_before :
+       ∀ (l : block * Z) (vs : list val) (q : block * Z),
+         q.2 < l.2 → interval_map l vs !! q = None.
+     Parameter interval_fresh :
+       ∀ (l : loc) (vs : list val), interval_map (l +ₗ 1) vs !! l = None.
+     Parameter interval_lookup_witness :
+       ∀ (l : loc) (vs : list val) (q : loc) (v : val),
+         interval_map l vs !! q = Some v
+         → ∃ i : nat, vs !! i = Some v ∧ q = l +ₗ i.
+     Parameter interval_submap :
+       ∀ (h : gmap loc val) (l : loc) (vs : list val),
+         (∀ (i : nat) (v : val), vs !! i = Some v → h !! (l +ₗ i) = Some v)
+         → interval_map l vs ⊆ h.
+     Parameter interval_fragments :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (l : loc) (vs : list val),
+         initial_fragments (interval_map l vs) ⊣⊢ l ↦∗ vs.
+     Parameter interior_extract :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (h : gmap loc val) 
+         (l : loc) (vs : list val),
+         (∀ (i : nat) (v : val), vs !! i = Some v → h !! (l +ₗ i) = Some v)
+         → initial_fragments h ⊣⊢ l ↦∗ vs ∗
+           initial_fragments (h ∖ interval_map l vs).
+     Parameter interior_v12_payload :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (h : gmap loc val) 
+         (l : loc) (vs : list val),
+         (∀ (i : nat) (v : val), vs !! i = Some v → h !! (l +ₗ i) = Some v)
+         → initial_fragments h
+           ⊣⊢ (l, repeat [] (length vs)) #↦!∗ (FVal <$> vs) ∗
+           initial_fragments (h ∖ interval_map l vs).
+     Parameter interior_split_recombine :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (l : loc) 
+         (prefix middle suffix : list val),
+         l ↦∗ (prefix ++ middle ++ suffix) ⊣⊢ l ↦∗ prefix ∗
+         (l +ₗ length prefix) ↦∗ middle ∗
+         (l +ₗ (length prefix + length middle)) ↦∗ suffix.
+     Parameter larger_interval_partition :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (l : loc) 
+         (prefix middle suffix : list val) (f : gmap loc val),
+         interval_map l (prefix ++ middle ++ suffix) ##ₘ f
+         → initial_fragments
+             (interval_map l (prefix ++ middle ++ suffix) ∪ f)
+           ⊣⊢ l ↦∗ prefix ∗ (l +ₗ length prefix) ↦∗ middle ∗
+           (l +ₗ (length prefix + length middle)) ↦∗ suffix ∗
+           initial_fragments f.
+     Parameter byte_interior_payload :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (h : gmap loc val) 
+         (l : loc) (zs : list Z),
+         Forall (λ z : Z, 0 ≤ z < 256) zs
+         → (∀ (i : nat) (z : Z),
+              zs !! i = Some z → h !! (l +ₗ i) = Some (LitV (LitInt z)))
+           → initial_fragments h ⊣⊢ ⌜Forall (λ z : Z, 0 ≤ z < 256) zs⌝ ∗
+             (l, repeat [] (length zs))
+             #↦!∗ (FVal <$> ((λ z : Z, LitV (LitInt z)) <$> zs)) ∗
+             initial_fragments
+               (h ∖ interval_map l ((λ z : Z, LitV (LitInt z)) <$> zs)).
+     Parameter initialized_interior_adequacy :
+       ∀ Σ : gFunctors,
+         lrustGpreS Σ
+         → ∀ (e : language.expr lrust_lang) (h : gmap loc val) 
+             (l : loc) (vs : list val) (φ : language.val lrust_lang → Prop) 
+             (k : nat),
+             (∀ (i : nat) (v : val),
+                vs !! i = Some v → h !! (l +ₗ i) = Some v)
+             → (∀ lrustGS0 : lifting.lrustGS Σ,
+                  l ↦∗ vs -∗
+                  initial_fragments (h ∖ interval_map l vs) -∗
+                  £ k -∗ time.time_ctx -∗ WP e {{ v, ⌜φ v⌝ }})
+               → adequate NotStuck e (initialized_state h)
+                   (λ (v : language.val lrust_lang) 
+                      (_ : language.state lrust_lang), 
+                      φ v).
+   End
+Module
+controls
+:= Struct
+     Parameter wrong_initial_value :
+       ∀ (Σ : gFunctors) (invGS0 : invGS Σ) (na_logicG0 : 
+                                             non_atomic_cell_map.na_logicG
+                                               loc val Σ) 
+         (ι : gname) (h : gmap loc val) (l : loc) 
+         (v w : val),
+         h !! l = Some v
+         → v ≠ w
+           → non_atomic_cell_map.non_atomic_map ι (initialized_map h) -∗
+             non_atomic_cell_map.points_to_seq ι (inl l) [] (inr w) -∗ False.
+     Parameter wrong_initial_location :
+       ∀ (Σ : gFunctors) (invGS0 : invGS Σ) (na_logicG0 : 
+                                             non_atomic_cell_map.na_logicG
+                                               loc val Σ) 
+         (ι : gname) (h : gmap loc val) (l : loc) 
+         (v : val),
+         h !! l = None
+         → non_atomic_cell_map.non_atomic_map ι (initialized_map h) -∗
+           non_atomic_cell_map.points_to_seq ι (inl l) [] (inr v) -∗ False.
+     Parameter duplicate_same_namespace :
+       ∀ (Σ : gFunctors) (na_logicG0 : non_atomic_cell_map.na_logicG loc val
+                                         Σ) (ι : gname) 
+         (l : loc) (v w : val),
+         non_atomic_cell_map.points_to_seq ι (inl l) [] (inr v) -∗
+         non_atomic_cell_map.points_to_seq ι (inl l) [] (inr w) -∗ False.
+     Parameter overlapping_frame_refused :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (a f : gmap loc val) 
+         (l : loc) (v w : val),
+         a !! l = Some v
+         → f !! l = Some w
+           → initial_fragments a -∗ initial_fragments f -∗ False.
+     Parameter wrong_initial_frame :
+       ∀ (Σ : gFunctors) (heapGS0 : heapGS Σ) (invGS0 : invGS Σ) 
+         (h f : gmap loc val) (l : loc) (v w : val),
+         h !! l = Some v
+         → f !! l = Some w
+           → v ≠ w
+             → non_atomic_cell_map.non_atomic_map heap_name
+                 (initialized_map h) -∗ initial_fragments f -∗ False.
+     Parameter interval_retains_frame :
+       ∀ (l : loc) (vs : list val) (f : gmap loc val),
+         interval_map l vs ##ₘ f
+         → (interval_map l vs ∪ f) ∖ interval_map l vs = f.
+   End
+initialized_heap_adequacy :
+∀ {Σ : gFunctors},
+  lrustGpreS Σ
+  → ∀ (e : language.expr lrust_lang) (h : gmap loc val) 
+      (φ : language.val lrust_lang → Prop) (k : nat),
+      (∀ lrustGS0 : lifting.lrustGS Σ,
+         initial_fragments h -∗ £ k -∗ time.time_ctx -∗ WP e {{ v, ⌜φ v⌝ }})
+      → adequate NotStuck e (initialized_state h)
+          (λ (v : language.val lrust_lang) (_ : language.state lrust_lang),
+             φ v)
+
+initialized_heap_adequacy is not universe polymorphic
+Arguments initialized_heap_adequacy {Σ lrustGpreS0} 
+  e%expr_scope h φ%function_scope k%nat_scope _%function_scope
+initialized_heap_adequacy is opaque
+Expands to: Constant
+NativeHeapInitialization.initialization.initialized_heap_adequacy
+initialized_read_adequate :
+∀ (h : gmap loc val) (l : loc) (v : val),
+  h !! l = Some v
+  → adequate NotStuck (Read ScOrd (of_val (LitV (LitLoc l))))
+      (initialized_state h)
+      (λ (w : language.val lrust_lang) (_ : language.state lrust_lang), w = v)
+
+initialized_read_adequate is not universe polymorphic
+Arguments initialized_read_adequate h l%loc_scope v%val_scope _
+initialized_read_adequate is opaque
+Expands to: Constant
+NativeHeapInitialization.initialization.initialized_read_adequate

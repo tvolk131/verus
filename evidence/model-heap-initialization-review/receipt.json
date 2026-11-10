@@ -1,0 +1,291 @@
+{
+  "schema": 1,
+  "review_base": "9f91fd58",
+  "implementation": "3d799b38",
+  "authentication_command": [
+    "python3",
+    "-B",
+    "evidence/model-heap-initialization-review/audit.py"
+  ],
+  "authentication_code_sha256": "ef1f968fcdc848ef06d3849b78e9a9abcafa0d758b40f879d670c24ec1c052c2",
+  "verdict": "accept_exact_model_proofs_with_P2_controller_pin_finding",
+  "substantive_findings": [
+    {
+      "id": "C1",
+      "priority": "P2",
+      "source": "source/tools/research/native_heap_initialization/check.py:65",
+      "issue": "GMP environment manifest is stability-guarded but not compared with its existing trusted digest",
+      "method": "source inspection only; no substitution or concurrency experiment",
+      "current_and_all_four_completed_replays_match_pinned_manifest": true
+    }
+  ],
+  "independently_authenticated_gmp_manifest": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/gmp-private/manifest.json",
+    "sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37"
+  },
+  "new_source_assumptions": false,
+  "unsafe_kernel_modes": false,
+  "fresh_replay": {
+    "path": "/tmp/model-heap-initialization-review-9f91fd58-normal/receipt.json",
+    "sha256": "c8b74379fad692f51914b240ff1f8c9b89e4e9f0a07e5180f4871a61cc8068f1",
+    "invocation": [
+      "python3",
+      "-B",
+      "source/tools/research/native_heap_initialization/check.py",
+      "--freeze",
+      "source/tools/research/native_heap_initialization/final-freeze.json",
+      "--output",
+      "/tmp/model-heap-initialization-review-9f91fd58-normal"
+    ],
+    "cwd": "/home/dev/.t3/worktrees/verus/t3-2d7a81bd",
+    "success": true,
+    "stages": [
+      {
+        "label": "compile-initialization",
+        "exit_code": 0,
+        "seconds": 2.7569775890442543
+      },
+      {
+        "label": "compile-partition",
+        "exit_code": 0,
+        "seconds": 2.1684278909815475
+      },
+      {
+        "label": "compile-controls",
+        "exit_code": 0,
+        "seconds": 1.7500040480517782
+      },
+      {
+        "label": "assumptions",
+        "exit_code": 0,
+        "seconds": 15.343188376980834
+      },
+      {
+        "label": "kernel",
+        "exit_code": 0,
+        "seconds": 65.750138539006
+      }
+    ],
+    "logs": {
+      "compile-controls.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-partition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-controls.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kernel.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-initialization.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "assumptions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-partition.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compile-initialization.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kernel.stderr": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526",
+      "assumptions.stdout": "a2a039461d204489ef0fb6f306eb1e5b5ec7f9bdfe927568338c0952fc42f228"
+    },
+    "full_argv_in_bound_receipt": true,
+    "proof_objects": {
+      "Assumptions.vo": "246dab6f53dc659099d8e5a8f90df8557c8e4c0a07284537a06bfdba305e5ea1",
+      "controls.vo": "d8586648cf4b34c12b99811e93ed674590aa90dfa995f730cd52440840f79126",
+      "initialization.vo": "d9b1e53194039a566c409727ef4a6acf23d3e878cc3c1c22a954cd58bfe7d34c",
+      "partition.vo": "c2ac51f31ad532d3246b48e8e7862e52ad97d1845f6792ff776ffb892c5467a9"
+    },
+    "all_29_individually_closed": true,
+    "definitions": 4,
+    "theorems": 25,
+    "program_obligations": 0,
+    "kernel_axioms": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ]
+  },
+  "compiled_signature_inspection": {
+    "path": "/tmp/model-heap-initialization-review-9f91fd58-inspection/receipt.json",
+    "sha256": "72ec7014742159b284ad8666b1e934e548fe71b27c5efea23c62f75047840053"
+  },
+  "inventory": [
+    {
+      "name": "initialization.initialized_map",
+      "kind": "Definition"
+    },
+    {
+      "name": "initialization.initialized_state",
+      "kind": "Definition"
+    },
+    {
+      "name": "initialization.initial_fragments",
+      "kind": "Definition"
+    },
+    {
+      "name": "initialization.finite_map_initialize",
+      "kind": "Lemma"
+    },
+    {
+      "name": "initialization.initialized_lookup",
+      "kind": "Lemma"
+    },
+    {
+      "name": "initialization.initialized_freeability_empty",
+      "kind": "Lemma"
+    },
+    {
+      "name": "initialization.initialized_heap_adequacy",
+      "kind": "Theorem"
+    },
+    {
+      "name": "initialization.initialized_read_adequate",
+      "kind": "Theorem"
+    },
+    {
+      "name": "partition.fragments_partition",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.fragments_extract",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interval_map",
+      "kind": "Fixpoint"
+    },
+    {
+      "name": "partition.interval_lookup",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interval_before",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interval_fresh",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interval_lookup_witness",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interval_submap",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interval_fragments",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interior_extract",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interior_v12_payload",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.interior_split_recombine",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.larger_interval_partition",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.byte_interior_payload",
+      "kind": "Lemma"
+    },
+    {
+      "name": "partition.initialized_interior_adequacy",
+      "kind": "Theorem"
+    },
+    {
+      "name": "controls.wrong_initial_value",
+      "kind": "Lemma"
+    },
+    {
+      "name": "controls.wrong_initial_location",
+      "kind": "Lemma"
+    },
+    {
+      "name": "controls.duplicate_same_namespace",
+      "kind": "Lemma"
+    },
+    {
+      "name": "controls.overlapping_frame_refused",
+      "kind": "Lemma"
+    },
+    {
+      "name": "controls.wrong_initial_frame",
+      "kind": "Lemma"
+    },
+    {
+      "name": "controls.interval_retains_frame",
+      "kind": "Lemma"
+    }
+  ],
+  "historical_replays_authenticated": [
+    {
+      "label": "worker-first",
+      "path": "/tmp/native-heap-init-t3-0deb30e7/trial-016/receipt.json",
+      "sha256": "a38283b581491727005c64f7869bc12f50288c698a0f608a5d83ecbbe8ddedde",
+      "objects_match": true,
+      "freeze": {
+        "path": "/home/dev/.t3/worktrees/verus/t3-2d7a81bd/source/tools/research/native_heap_initialization/trial-016.json",
+        "sha256": "2849628fb0e3e9015309c25cfbcd402b358769587a3450cf3bac3da3997ffd4a"
+      },
+      "controller_sha256": "a7425a4bd13469e05c28c5418eb2beab9a7917715fdeb3019cd9c56bd717e417"
+    },
+    {
+      "label": "worker-final",
+      "path": "/tmp/native-heap-init-t3-0deb30e7/final-replay/receipt.json",
+      "sha256": "a84b2b24c7128e3bdc9c8b6c14bab9d90b0a722f966bc05e2565d4dfd0d111a2",
+      "objects_match": true,
+      "freeze": {
+        "path": "/home/dev/.t3/worktrees/verus/t3-2d7a81bd/source/tools/research/native_heap_initialization/final-freeze.json",
+        "sha256": "7eb61b2fc128831ae2f5afd577c11d02f18148290e5ed6578ba16def2b64e920"
+      },
+      "controller_sha256": "08e7cf7e10c9ad356899947d9241551252a283f446bcab928427082da42ec5b4"
+    },
+    {
+      "label": "parent-normal",
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-heap-init-3d799b38/receipt.json",
+      "sha256": "9e9f6957925f5ea7e5ff150e947318ff1342f45563c9c628397e34dd21bb36c6",
+      "objects_match": true,
+      "freeze": {
+        "path": "/home/dev/.t3/worktrees/verus/t3-2d7a81bd/source/tools/research/native_heap_initialization/final-freeze.json",
+        "sha256": "7eb61b2fc128831ae2f5afd577c11d02f18148290e5ed6578ba16def2b64e920"
+      },
+      "controller_sha256": "08e7cf7e10c9ad356899947d9241551252a283f446bcab928427082da42ec5b4"
+    }
+  ],
+  "provenance_controls": {
+    "path": "/tmp/native-heap-init-t3-0deb30e7/guard-controls/receipt.json",
+    "sha256": "861d8649a38e2bd9fe70fc805f0cfd3ed15e1c10358aa26d6f19a53a600061e0",
+    "cases_authenticated": 6,
+    "pre_prover_refusals": true,
+    "rerun": false,
+    "semantic_negatives": 0
+  },
+  "development_trials": {
+    "path": "/home/dev/.t3/worktrees/verus/t3-2d7a81bd/source/tools/research/native_heap_initialization/failed-trials.json",
+    "sha256": "c05ad9471eec8e2219c9e6521ef2bd786514deb4208fc4e4926054a7cc508e07",
+    "failures_authenticated": 15,
+    "retained_freezes_sources_logs_authenticated": true,
+    "rerun": false,
+    "semantic_negatives": 0
+  },
+  "source_bindings": {
+    "source/tools/research/native_heap_initialization/final-freeze.json": "7eb61b2fc128831ae2f5afd577c11d02f18148290e5ed6578ba16def2b64e920",
+    "source/tools/research/native_heap_initialization/controls-freeze.json": "ce7e2075a0e26c89dc22fbb151f757cd40448b736a28864a21b5ae7337f065aa",
+    "source/tools/research/native_heap_initialization/results.json": "43cb484ce8e6ca8fc493099e94f4ff1ba16d8dbe3cb66e61d7a18064942b0ecf",
+    "source/tools/research/mutable_buffer_goal/TARGET.md": "7fb8af3c400179687aa39b5e0055ccd2795ebcc0d080d2b8da6b1cbd5ca5505c",
+    "source/tools/research/mutable_buffer_goal/parent-heap-initialization.json": "0eba10e3ee0c45ccf8c15c35d8ee78a27f7570717372a54f8ea3e3f3fd018eb5",
+    "source/tools/research/mutable_buffer_goal/FACT_PROVENANCE.md": "f4dd142194b4c488db7fbfbeca82332e801fa9965c6b3447f3f3eb98cb077fa7"
+  },
+  "log_copies": {
+    "DECLARATIONS.txt": "d665959aaebad704aa79c80e0039ce40adcb8a5cbe6d5c23110334b7abbd515e",
+    "ASSUMPTIONS.txt": "a2a039461d204489ef0fb6f306eb1e5b5ec7f9bdfe927568338c0952fc42f228",
+    "KERNEL.txt": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526"
+  },
+  "native_source_entry_proved": false,
+  "actual_native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_effects_open": 101,
+  "full_HMAC": "inherited 1/1; not rerun",
+  "native_drop": "inherited 0/1; not rerun",
+  "full_goal_complete": false,
+  "publication": false
+}

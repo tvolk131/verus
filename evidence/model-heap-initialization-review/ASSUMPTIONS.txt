@@ -1,0 +1,87 @@
+BEGIN initialization.initialized_map
+Closed under the global context
+END initialization.initialized_map
+BEGIN initialization.initialized_state
+Closed under the global context
+END initialization.initialized_state
+BEGIN initialization.initial_fragments
+Closed under the global context
+END initialization.initial_fragments
+BEGIN initialization.finite_map_initialize
+Closed under the global context
+END initialization.finite_map_initialize
+BEGIN initialization.initialized_lookup
+Closed under the global context
+END initialization.initialized_lookup
+BEGIN initialization.initialized_freeability_empty
+Closed under the global context
+END initialization.initialized_freeability_empty
+BEGIN initialization.initialized_heap_adequacy
+Closed under the global context
+END initialization.initialized_heap_adequacy
+BEGIN initialization.initialized_read_adequate
+Closed under the global context
+END initialization.initialized_read_adequate
+BEGIN partition.fragments_partition
+Closed under the global context
+END partition.fragments_partition
+BEGIN partition.fragments_extract
+Closed under the global context
+END partition.fragments_extract
+BEGIN partition.interval_map
+Closed under the global context
+END partition.interval_map
+BEGIN partition.interval_lookup
+Closed under the global context
+END partition.interval_lookup
+BEGIN partition.interval_before
+Closed under the global context
+END partition.interval_before
+BEGIN partition.interval_fresh
+Closed under the global context
+END partition.interval_fresh
+BEGIN partition.interval_lookup_witness
+Closed under the global context
+END partition.interval_lookup_witness
+BEGIN partition.interval_submap
+Closed under the global context
+END partition.interval_submap
+BEGIN partition.interval_fragments
+Closed under the global context
+END partition.interval_fragments
+BEGIN partition.interior_extract
+Closed under the global context
+END partition.interior_extract
+BEGIN partition.interior_v12_payload
+Closed under the global context
+END partition.interior_v12_payload
+BEGIN partition.interior_split_recombine
+Closed under the global context
+END partition.interior_split_recombine
+BEGIN partition.larger_interval_partition
+Closed under the global context
+END partition.larger_interval_partition
+BEGIN partition.byte_interior_payload
+Closed under the global context
+END partition.byte_interior_payload
+BEGIN partition.initialized_interior_adequacy
+Closed under the global context
+END partition.initialized_interior_adequacy
+BEGIN controls.wrong_initial_value
+Closed under the global context
+END controls.wrong_initial_value
+BEGIN controls.wrong_initial_location
+Closed under the global context
+END controls.wrong_initial_location
+BEGIN controls.duplicate_same_namespace
+Closed under the global context
+END controls.duplicate_same_namespace
+BEGIN controls.overlapping_frame_refused
+Closed under the global context
+END controls.overlapping_frame_refused
+BEGIN controls.wrong_initial_frame
+Closed under the global context
+END controls.wrong_initial_frame
+BEGIN controls.interval_retains_frame
+Closed under the global context
+END controls.interval_retains_frame
