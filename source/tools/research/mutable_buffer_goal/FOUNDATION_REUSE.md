@@ -33,7 +33,17 @@ authorize a Verus fact or change publication.
 
 The read-only local dependency is
 `/tmp/verus-infer-buffer-cycle-20261109/verus-belt-115a618d`.
-[foundation-pin.json](foundation-pin.json) binds the inspected files. Rocq is
-not installed at this checkpoint; the dependency's requested toolchain and proof
-assumptions must be checked in a private experiment. Production compiler, vstd,
-global policy/cache/schema and dependency trust are unchanged.
+[foundation-pin.json](foundation-pin.json) binds the inspected files. The
+unmodified baseline now builds with privately installed OCaml 4.14.2 and Coq
+8.20.0. Recursive `coqchk` of `lrust.typing.uniq_bor`, `lrust.typing.pptr` and
+`lrust.typing.soundness` succeeds. [foundation-baseline.json](foundation-baseline.json)
+binds the commands, source copy, toolchain setup and successful final receipt.
+The private ready marker is valid only together with that successful receipt.
+No system packages or global configuration were changed.
+
+This checks the inherited model, with its existing assumptions. Every new
+foundation proof still requires compilation, `Print Assumptions` review and a
+recursive kernel check. Actual Rust reference/provenance interpretation,
+primitive and phase simulation, and original-array exit adequacy remain open.
+No native theorem or Verus fact is installed by building this dependency.
+Production compiler, vstd and global policy/cache/schema are unchanged.

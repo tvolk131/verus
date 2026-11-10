@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "purpose": "candidate semantic foundation inspection only",
+  "purpose": "pinned semantic foundation; unmodified baseline compiled and kernel checked, native bridge unproved",
   "repository": "https://github.com/verus-lang/verus-belt",
   "commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
   "local_read_only_input": "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-115a618d",
@@ -15,7 +15,8 @@
     "src/lambda_verus/typing/soundness.v": "60ce19a14a207a91c2024b4ee089183528a8883586449a50257a41fdb6bb1d4c",
     "src/lambda_verus/lang/lifting.v": "73cd1bbb6505ab72842da8dd29511e84eb055bbb5e0db1583e4b54dc73c5b6c9"
   },
-  "Rocq_checked_in_parent": false,
+  "Rocq_checked_in_parent": true,
   "native_correspondence_proved": false,
-  "production_facts_installed": false
+  "production_facts_installed": false,
+  "baseline_record": "foundation-baseline.json"
 }
