@@ -1,0 +1,16 @@
+{"label": "build-vir", "path": "/tmp/checked-bool-build-vir-_cecq9o7", "exit": 101, "receipt_sha256": "01b7ef84233a234299d36b4d2a4a731ef5eeda4eaa75e53cc64109256457b198", "guards": true}
+{"label": "compile-inspector", "path": "/tmp/checked-bool-compile-inspector-szo5d43o", "exit": 1, "receipt_sha256": "b4fd73dc4203a60b7e501fea3e896e93879530f28efeb45b82213ed7e92dd3b8", "guards": true}
+{"label": "compile-inspector", "path": "/tmp/checked-bool-compile-inspector-8byi4cvw", "exit": 1, "receipt_sha256": "644d1ad173bb7d6e20a2037b5b6a09431305688e7cc166400b313073b65a550c", "guards": true}
+{"label": "compile-inspector", "path": "/tmp/checked-bool-compile-inspector-djt9lcde", "exit": 0, "receipt_sha256": "c7ed6063413c17ff30719e049c51c3021e7745efdccca96327d78a7d60910d55", "guards": true}
+{"label": "typed-inspection", "path": "/tmp/checked-bool-typed-inspection-8y_x8jdk", "exit": 0, "receipt_sha256": "805022027d4d20ea0e201da08bd593e62afdf7937b244d0b33098b32c1650b73", "guards": true}
+{"label": "actual", "path": "/tmp/checked-bool-actual-18blc5rk", "exit": 1, "receipt_sha256": "f638927d9ea10ecbfd4a4e621f3628d7ae18724ff59325d83cb3c68bb3c554d5", "guards": true}
+{"label": "full-help", "path": "/tmp/checked-bool-full-help-tjcf3qnk", "exit": 1, "receipt_sha256": "78b98f43126edf43d3ede4d05184ad7f206b58bf7422daa5d8fbdeae2c056412", "guards": true}
+{"label": "build-vir", "path": "/tmp/checked-bool-build-vir-481unrgi", "exit": 0, "receipt_sha256": "7f85e4540c798e8009bb233c2935f08d96dc7ef2b6a254717a1742346ca329ee", "guards": false}
+{"label": "full-helpers", "path": "/tmp/checked-bool-full-helpers-awitsr5j", "exit": 0, "receipt_sha256": "e5b4b69706f48f00a80487bffa2d32b157ba4c5ba9a31be27ba3d204be39f8f2", "guards": true}
+{"label": "mirror", "path": "/tmp/checked-bool-mirror-vbec5s_h", "exit": 0, "receipt_sha256": "1e5f23fde62861260dc5fde11ce4792b7ad8ad6ac7cf28989b44eb2ee09a93ed", "guards": true}
+{"label": "build-vir", "path": "/tmp/checked-bool-build-vir-hp8qqbt4", "exit": 0, "receipt_sha256": "3d9af0b355d288b0b24a14cca9b7c335887fb92244aa57fdaf05a24906f26957", "guards": true}
+{"label": "build-vir", "path": "/tmp/checked-bool-build-vir-cmiwm8uf", "exit": 0, "receipt_sha256": "b73a186e1c15791a5367ba4ac85d75168dbc1fa5c385cbc8dd51e5531957d658", "guards": true}
+{"label": "compile-inspector", "path": "/tmp/checked-bool-compile-inspector-ayrcwkjh", "exit": 1, "receipt_sha256": "df87f056710f2117edac7e0b45b79f0f166e071a28890ccddac51aa13bd582f7", "guards": true}
+{"label": "compile-inspector", "path": "/tmp/checked-bool-compile-inspector-72iqr1rz", "exit": 0, "receipt_sha256": "cdac4a7264856747df2fa0cf4def1267a270c41323ae6c77fe7caa8a9b33579b", "guards": true}
+{"label": "typed-inspection", "path": "/tmp/checked-bool-typed-inspection-m_o2tw_2", "exit": 0, "receipt_sha256": "99323434bdfe0e1c9cf66a76e9575f726801905ea2d362f50ddceb568244ee30", "guards": true}
+{"label": "compiler-version", "path": "/tmp/checked-bool-compiler-version-tjbxjqvs", "exit": 0, "receipt_sha256": "a54a124bf98a41cb5d8c2d26639722d60123c97760a6b2b8c8674e8c7c7ba10b", "guards": true}

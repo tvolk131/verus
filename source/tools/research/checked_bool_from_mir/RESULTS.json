@@ -1,0 +1,2377 @@
+{
+  "HMAC": "1/1_UNPROVED",
+  "all_accepted_evidence_guards_passed": true,
+  "attempt_ledger": [
+    {
+      "classification": "setup_offline_resolution_failure",
+      "exit": 101,
+      "freeze_sha256": "f67ce9f738eb6f061becfbc77cf57be031903e25d6d815b1e43ac5bba25a3512",
+      "guards": true,
+      "label": "build-vir",
+      "path": "/tmp/checked-bool-build-vir-_cecq9o7",
+      "receipt_sha256": "01b7ef84233a234299d36b4d2a4a731ef5eeda4eaa75e53cc64109256457b198",
+      "stderr_sha256": "f769d6251b4805e73cf3b5b41e2852abb66f19b284c6223825d44763b5f12263",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "diagnostic_compilation_failure",
+      "exit": 1,
+      "freeze_sha256": "58f88bf95385df7e3a25c66bf95ef23fd599b52e2bcf684f990e7d29c97e62c6",
+      "guards": true,
+      "label": "compile-inspector",
+      "path": "/tmp/checked-bool-compile-inspector-szo5d43o",
+      "receipt_sha256": "b4fd73dc4203a60b7e501fea3e896e93879530f28efeb45b82213ed7e92dd3b8",
+      "stderr_sha256": "e176987bbd4ea1b8fd8890f680855b95d14e49d071aee98e2e841e03436293f0",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "diagnostic_compilation_failure",
+      "exit": 1,
+      "freeze_sha256": "e4bd3aa38599fde1fdcedcd0115fa02010900d1fb38c32642dd31c01de62869f",
+      "guards": true,
+      "label": "compile-inspector",
+      "path": "/tmp/checked-bool-compile-inspector-8byi4cvw",
+      "receipt_sha256": "644d1ad173bb7d6e20a2037b5b6a09431305688e7cc166400b313073b65a550c",
+      "stderr_sha256": "9f1468a194bd5a1b5dc42f087c3fb57b45556641300a153ab3b64a7da5cdfd40",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "diagnostic_inspector_build",
+      "exit": 0,
+      "freeze_sha256": "2a2814eaf5e96eb8f09a0b82195579444ceebd9878e297960a6f0db79aa383b3",
+      "guards": true,
+      "label": "compile-inspector",
+      "path": "/tmp/checked-bool-compile-inspector-djt9lcde",
+      "receipt_sha256": "c7ed6063413c17ff30719e049c51c3021e7745efdccca96327d78a7d60910d55",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "structural_diagnostic_no_body_proof",
+      "exit": 0,
+      "freeze_sha256": "dbeb7333384b4e4f4b61a474af8175ded7c845dec404b4a319a6fdaf6338a8c8",
+      "guards": true,
+      "label": "typed-inspection",
+      "path": "/tmp/checked-bool-typed-inspection-8y_x8jdk",
+      "receipt_sha256": "805022027d4d20ea0e201da08bd593e62afdf7937b244d0b33098b32c1650b73",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "5d2578381f2fae8b267acd086a627b8b07d5a51d8e7f8fb38580103171ed875a"
+    },
+    {
+      "classification": "true_property_library_contract_gap",
+      "exit": 1,
+      "freeze_sha256": "b29a0a1dcd5f5ed43f53d140ac185bf3c0a1ba5298a6f942277a8401fafd9501",
+      "guards": true,
+      "label": "actual",
+      "path": "/tmp/checked-bool-actual-18blc5rk",
+      "receipt_sha256": "f638927d9ea10ecbfd4a4e621f3628d7ae18724ff59325d83cb3c68bb3c554d5",
+      "stderr_sha256": "97088f6d4ca7ebd2f67e9ae872372463598c48001d99a5806911bd3e6899190f",
+      "stdout_sha256": "835182eacf1921f0fdc8325da1e4ddd6999f94b6eee11b16594b3bb18254fc13"
+    },
+    {
+      "classification": "true_property_original_protector_proof_gap",
+      "exit": 1,
+      "freeze_sha256": "db45f24651596cb5ffdd67aaebaf806241113279145291e440a5dbf212cd9a31",
+      "guards": true,
+      "label": "full-help",
+      "path": "/tmp/checked-bool-full-help-tjcf3qnk",
+      "receipt_sha256": "78b98f43126edf43d3ede4d05184ad7f206b58bf7422daa5d8fbdeae2c056412",
+      "stderr_sha256": "2cd4df6a2a801f286fae49e12af7e616f021c56d2faf5e014e6465160ff3c319",
+      "stdout_sha256": "a931ead95e51b7e32333376696673a8f94ce49792c113fbd06988ae37663f552"
+    },
+    {
+      "classification": "excluded_controller_input_drift",
+      "exit": 0,
+      "freeze_sha256": "b06296f136b68521826627dfdd06ceb7ffdcfd735d8d9c2ecad74037e2d845e0",
+      "guards": false,
+      "label": "build-vir",
+      "path": "/tmp/checked-bool-build-vir-481unrgi",
+      "receipt_sha256": "7f85e4540c798e8009bb233c2935f08d96dc7ef2b6a254717a1742346ca329ee",
+      "stderr_sha256": "e5c3ab8ffb8c801efb02ec3bb730e3cd4bcbe3aae65ba60f8b6cd2d5f9d4866d",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "independent_diagnostic_support_positive",
+      "exit": 0,
+      "freeze_sha256": "f296d07183ae170a2b4553f3caa282f452a95067b16680db19d402a5cb27e889",
+      "guards": true,
+      "label": "full-helpers",
+      "path": "/tmp/checked-bool-full-helpers-awitsr5j",
+      "receipt_sha256": "e5b4b69706f48f00a80487bffa2d32b157ba4c5ba9a31be27ba3d204be39f8f2",
+      "stderr_sha256": "05a0d1c2bb588dbb0a3b6a1e689f4cb0b58599ec742ca36bfd523a3e8b9e2b05",
+      "stdout_sha256": "93cf923515cdc6db8a7536161cdf4d5a94bc9151ddaeeca0529eaef4b0764b93"
+    },
+    {
+      "classification": "independent_diagnostic_support_positive",
+      "exit": 0,
+      "freeze_sha256": "10908be6602367f0593159d4ad82eec5037c9e83f89493db6c18675a779bdc02",
+      "guards": true,
+      "label": "mirror",
+      "path": "/tmp/checked-bool-mirror-vbec5s_h",
+      "receipt_sha256": "1e5f23fde62861260dc5fde11ce4792b7ad8ad6ac7cf28989b44eb2ee09a93ed",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "26fdc9b826f31e3904d834e86c3b14c6501775475a66fc1d98caf1860a41595b"
+    },
+    {
+      "classification": "diagnostic_library_build",
+      "exit": 0,
+      "freeze_sha256": "fbbe689c9b69d4a4ca507692fb4a6be39f2a7400ea14accc9d1c6ced4fcd36d2",
+      "guards": true,
+      "label": "build-vir",
+      "path": "/tmp/checked-bool-build-vir-hp8qqbt4",
+      "receipt_sha256": "3d9af0b355d288b0b24a14cca9b7c335887fb92244aa57fdaf05a24906f26957",
+      "stderr_sha256": "e13c55f37bf711cae4e8f9316954e6c515c3be74b0b44c2eb7bcdcf69de07b70",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "diagnostic_library_build",
+      "exit": 0,
+      "freeze_sha256": "1650f5e2bafbe855bdb7946995c3973eed073d553b149210b2a3449efa4e875c",
+      "guards": true,
+      "label": "build-vir",
+      "path": "/tmp/checked-bool-build-vir-cmiwm8uf",
+      "receipt_sha256": "b73a186e1c15791a5367ba4ac85d75168dbc1fa5c385cbc8dd51e5531957d658",
+      "stderr_sha256": "8eb8d35e5712acfdc7c4cd9ab68ce2d41f569270d63d34e3a302472d5e81ac15",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "diagnostic_compilation_failure",
+      "exit": 1,
+      "freeze_sha256": "82226d79336acf591c2cd32bc48bcbab710e11dd45b6885b8b69424a95846de0",
+      "guards": true,
+      "label": "compile-inspector",
+      "path": "/tmp/checked-bool-compile-inspector-ayrcwkjh",
+      "receipt_sha256": "df87f056710f2117edac7e0b45b79f0f166e071a28890ccddac51aa13bd582f7",
+      "stderr_sha256": "d3ed04fc04dc316570c90807d2003a14c3d0ea9d57d7619ca109a80caa8d817e",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "diagnostic_inspector_build",
+      "exit": 0,
+      "freeze_sha256": "66a463b904235114816e8be10f99f171df46316e42e97c8909224a258754667a",
+      "guards": true,
+      "label": "compile-inspector",
+      "path": "/tmp/checked-bool-compile-inspector-72iqr1rz",
+      "receipt_sha256": "cdac4a7264856747df2fa0cf4def1267a270c41323ae6c77fe7caa8a9b33579b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "classification": "structural_diagnostic_no_body_proof",
+      "exit": 0,
+      "freeze_sha256": "50f2f51a8b6f405fbd9052cb4e6d6e1b7a7c5f0c6e83b2b487867742ff433857",
+      "guards": true,
+      "label": "typed-inspection",
+      "path": "/tmp/checked-bool-typed-inspection-m_o2tw_2",
+      "receipt_sha256": "99323434bdfe0e1c9cf66a76e9575f726801905ea2d362f50ddceb568244ee30",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c904542377c4cd1ac5a28fde3b86ae584439226f7f197424afa3c4e0d255ed45"
+    },
+    {
+      "classification": "compiler_identity",
+      "exit": 0,
+      "freeze_sha256": "84b009337e5e2c65fb0e81722ea03c1c21e87940dbce90a9dd91c63f294701f3",
+      "guards": true,
+      "label": "compiler-version",
+      "path": "/tmp/checked-bool-compiler-version-tjbxjqvs",
+      "receipt_sha256": "a54a124bf98a41cb5d8c2d26639722d60123c97760a6b2b8c8674e8c7c7ba10b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f22d5e4e9ced367e774ce5bc140d9e6b1235c1882fec80d011044851f3ae6369"
+    }
+  ],
+  "base": "098a8be66e00734a010bf525ff832a81157621ea",
+  "baseline_receipt_sha256": "2e3fcc58f6fca9364061329104710937ec2aac6aab95a5c48d068c1ca6ee9bb7",
+  "cold_warm_checked_instance_tests": "NOT_AVAILABLE",
+  "decision": "INCOMPLETE_no_registered_checked_foreign_contract",
+  "diagnostic": {
+    "actual_foreign_mir_debug_sha256": "6a2e047aa38a767d0decac86e0c440a2f4439f9829867735ca808d2b5f8e5fca",
+    "argument_count": 1,
+    "block_count": 1,
+    "both_locals_need_drop": false,
+    "contract_available": false,
+    "diagnostic_control_count": 20,
+    "exact_roots": {
+      "probe_actual": [
+        "OBSERVATION ReturnBoolToU64 { copied_local: 1, assigned_local: 0 }",
+        "TYPED_CONTROLS 12",
+        "VIR_STRUCTURAL_CONTROLS 8 diagnostic_only_not_proofs",
+        "BLOCKED ordinary_VIR_registration_proof_and_certified_import_missing"
+      ],
+      "probe_function_pointer": [
+        "REJECT not_direct_FnDef_call"
+      ],
+      "probe_generic": [
+        "REJECT unresolved_substitutions"
+      ],
+      "probe_other_output": [
+        "REJECT wrong_trait_input_or_Self"
+      ],
+      "probe_user_trait": [
+        "REJECT callee_not_core_From_method"
+      ]
+    },
+    "identity": [
+      "IDENTITY DefPathHash(Fingerprint(17281971461272426270, 1802834199475816209)) StableCrateId(17281971461272426270) Svh { hash: Fingerprint(9315634178826754216, 14682061708549529817) } \"x86_64-unknown-linux-gnu\" EarlyBinder { value: Binder { value: fn(bool) -> u64, bound_vars: [] }, .. }"
+    ],
+    "local_count": 2,
+    "operation": [
+      "Copy bool local 1",
+      "IntToInt cast to u64",
+      "assign local 0",
+      "Return"
+    ],
+    "ordinary_VIR_constructed": true,
+    "ordinary_VIR_debug_sha256": "80343985a5edb3ef5dc4f500f32e55089dae53fe15d1c3ef14d42b4ba6a9f451",
+    "ordinary_pipeline_run": false,
+    "path": "/tmp/checked-bool-typed-inspection-m_o2tw_2",
+    "proof_token": false,
+    "receipt_sha256": "99323434bdfe0e1c9cf66a76e9575f726801905ea2d362f50ddceb568244ee30",
+    "statement_count": 1
+  },
+  "early_interface_commit": "ae3cd734",
+  "engine": "3aa7f49a",
+  "excluded_guard_failures": [
+    "/tmp/checked-bool-build-vir-481unrgi"
+  ],
+  "full_Item_new": "36/1_UNPROVED_original_protector_assertion",
+  "goal_complete": false,
+  "healthy_checked_instance_false_result_control": "NOT_AVAILABLE",
+  "import_publication_tests": "NOT_AVAILABLE",
+  "native_correspondences": 0,
+  "new_std_models": false,
+  "ordinary_trials": {
+    "actual": {
+      "checked_foreign_instance": false,
+      "failed_functions": [
+        "component::all_bool"
+      ],
+      "foreign_body_registered": false,
+      "helpers": [],
+      "inference_interface_written": false,
+      "local_function_details": {
+        "component::all_bool": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        }
+      },
+      "native_scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": false,
+        "coverage": "selected local Verus items; not all Rust code",
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ],
+        "native_collection_completed": true,
+        "native_functions": [
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::all_bool",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "all_bool",
+            "selected": true,
+            "source": "/tmp/checked-bool-actual-18blc5rk/component.rs:3:1: 3:32"
+          }
+        ]
+      },
+      "ordinary_original_functions": {
+        "component::all_bool": {
+          "body_present": true,
+          "body_sha256": "7cbd00b3e5bff7cd3fd9607ded4317c1741b95b444e965e962a070c63278ad0d",
+          "mode": "Exec",
+          "normalized_body_sha256": "be4ab52d27df642fba3ecca8d4dcebc63bd67826bba9b73fad606b8e312e4008"
+        }
+      },
+      "path": "/tmp/checked-bool-actual-18blc5rk",
+      "publication": false,
+      "receipt_sha256": "f638927d9ea10ecbfd4a4e621f3628d7ae18724ff59325d83cb3c68bb3c554d5",
+      "source_sha256": "790d086152f2354b064b92967f518bbe3e0b2cfd30949e0860fca68e99bcd286",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "full-help": {
+      "checked_foreign_instance": false,
+      "failed_functions": [
+        "component::Item::new"
+      ],
+      "foreign_body_registered": false,
+      "helpers": [
+        {
+          "available_to_same_crate_callers": true,
+          "candidate_id": "532b764e03e07f066fc5625c2a05e57551b41808b70cacfe8547bf5ee91f572c",
+          "contract": {
+            "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))",
+            "requires": "true"
+          },
+          "dependencies": [],
+          "exported": false,
+          "function": "component::BorTag::eq",
+          "loop_proofs": [],
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "ensures_nodes": 7,
+            "generation_micros": 1507,
+            "requires_nodes": 1,
+            "solver_micros": 3603
+          },
+          "mode": "exact",
+          "parameters": [
+            {
+              "name": "self",
+              "type": "&component::BorTag"
+            },
+            {
+              "name": "other",
+              "type": "&component::BorTag"
+            }
+          ],
+          "proofs": {
+            "exactness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "maximality": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "soundness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            }
+          },
+          "required_checks_passed": true,
+          "result_type": "bool",
+          "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:29: 4:38 (#18)",
+          "summary_kind": "value"
+        }
+      ],
+      "inference_interface_written": false,
+      "local_function_details": {
+        "component::BorTag::__verus_infer_derived_eq": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::__verus_infer_nonzero_u64_view": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::clone": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::ctor%": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::eq": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::eq_spec": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::get": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::new": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::obeys_eq_spec": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::value": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::clone": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::ctor%": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::new": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::perm": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::permission": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::protected": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::tag": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::word": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PERM_MASK": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PERM_SHIFT": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PROTECTED_MASK": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PROTECTED_SHIFT": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Permission::clone": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Permission::from_bits": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Permission::to_bits": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::TAG_MASK": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::bits": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::boundaries": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::compare_equal": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::decode": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::DISABLED": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::SHARED_READ_ONLY": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::SHARED_READ_WRITE": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::UNIQUE": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::item_word_wf": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::lookup": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::packed_fields_raw": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::roundtrip": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        }
+      },
+      "manual_support": {
+        "bit_vector_assertions": 7,
+        "local_packing_lemma_calls": 1,
+        "no_bool_conversion_lemma": true,
+        "proof_blocks": 3,
+        "proof_functions": [
+          "packed_fields_raw"
+        ],
+        "quantified_packing_assertions": 1,
+        "same_helper_source": true
+      },
+      "native_scope": {
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": false,
+        "coverage": "selected local Verus items; not all Rust code",
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ],
+        "native_collection_completed": true,
+        "native_functions": [
+          {
+            "automatically_derived": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::BorTag::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<BorTag as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:40: 4:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::cmp::Ord>::cmp",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:56: 4:59"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::BorTag::eq",
+            "inference_candidate": true,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:29: 4:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:44: 4:54"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:4:23: 4:27"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::eq_spec",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::obeys_eq_spec",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Item::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Item as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:7:16: 7:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:7:40: 7:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:7:29: 7:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:7:23: 7:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:63:16: 63:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:63:47: 63:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:63:36: 63:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:63:23: 63:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:63:30: 63:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::__verus_infer_derived_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "BorTag::__verus_infer_derived_eq",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::BorTag::get",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "BorTag::get",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:20:1: 20:26"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::BorTag::new",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "BorTag::new",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:17:1: 17:35"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::value",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "BorTag::value",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:16:1: 16:37"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Item::new",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::new",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:29:1: 29:63"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Item::perm",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::perm",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:50:1: 50:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::Item::permission",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Item::permission",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:49:1: 49:48"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Item::protected",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::protected",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:58:1: 58:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Item::tag",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::tag",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:26:1: 26:28"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::Item::word",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Item::word",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:25:1: 25:35"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:81:5: 81:24"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:80:5: 80:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:79:5: 79:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:78:5: 78:22"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Permission::from_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::from_bits",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:90:1: 90:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::Permission::to_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::to_bits",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:82:1: 82:25"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:10:1: 10:21"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:12:1: 12:22"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:11:1: 11:26"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:13:1: 13:27"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:9:1: 9:20"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:63:1: 74:2"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::bits",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "bits",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:75:1: 75:43"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::boundaries",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "boundaries",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:106:1: 106:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::compare_equal",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "compare_equal",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:102:1: 102:51"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::decode",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "decode",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:76:1: 76:45"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::item_word_wf",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "item_word_wf",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:14:1: 14:43"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::lookup",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "lookup",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:104:1: 104:29"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::packed_fields_raw",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "packed_fields_raw",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:108:7: 108:53"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "function": "component::roundtrip",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "roundtrip",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-help-tjcf3qnk/component.rs:100:1: 100:32"
+          }
+        ]
+      },
+      "ordinary_original_functions": {
+        "component::BorTag::ctor%": {
+          "body_present": true,
+          "body_sha256": "f3164ade1c060dd9e16a2fa2ceb171a4a7e17c4430fee79ac5fdb920593ccaee",
+          "mode": "Exec",
+          "normalized_body_sha256": "939a106600f9681e8771046e792522d67732e616588f19361396e94f472beda3"
+        },
+        "component::Item::ctor%": {
+          "body_present": true,
+          "body_sha256": "98853d946aee9a1e7ef32169522e8a1eafecaae983354ecf47ab517d6ec624e7",
+          "mode": "Exec",
+          "normalized_body_sha256": "3e3234b8552a502c65bf0b9615abb47ac66368f331a84e8939b07d76744a3ff2"
+        },
+        "component::PERM_MASK": {
+          "body_present": true,
+          "body_sha256": "c8075ca5f1400fd04db30e8bc8cd31af4e56606298592ebec8f021097bb9c501",
+          "mode": "Spec",
+          "normalized_body_sha256": "f8b7134966663cd3de425d0e1055b3891461cbac17de477ee4913d70df98c6f3"
+        },
+        "component::PERM_SHIFT": {
+          "body_present": true,
+          "body_sha256": "0b2362d2fb59b02c46561133cee364b7ad43bab6074666784201597dd60140ad",
+          "mode": "Spec",
+          "normalized_body_sha256": "70606a7a143e3bc357eec8000291811f1a16cd18d980c63a18f6c579c7e29153"
+        },
+        "component::PROTECTED_MASK": {
+          "body_present": true,
+          "body_sha256": "57929260927f809881ddd1a7dc40af6d781124619b28d15dff341ffb63ce23e3",
+          "mode": "Spec",
+          "normalized_body_sha256": "738ae0af3b222b756841010b9a3de0e667aeb0b1e22871d256c2dbb5ee4c9f38"
+        },
+        "component::PROTECTED_SHIFT": {
+          "body_present": true,
+          "body_sha256": "02ddb8a66c24311942c6ab47d03583095e1a8b84200db516db84d8e9ff163da1",
+          "mode": "Spec",
+          "normalized_body_sha256": "2632f7c6b8ca2007ae5d0f21768bdde7c4565bdcd069e3d531bbf15ae1d69c09"
+        },
+        "component::TAG_MASK": {
+          "body_present": true,
+          "body_sha256": "eaa5db82f29fa3971a521a144e9825a1c0679c6a37d5dca90ce65f1e84475f58",
+          "mode": "Spec",
+          "normalized_body_sha256": "b69ae2c8f843990f56e9fdc01637175c3f2f64e01049962baa9e3dbea652ed31"
+        },
+        "component::bits": {
+          "body_present": true,
+          "body_sha256": "5366bb2635b0376a1b0edcede4e7d338835bb6963cf139a1f6b0970d5b5a7871",
+          "mode": "Spec",
+          "normalized_body_sha256": "bb846bbf1e6f2477d3ff500db743adf9c3b18c16cd97879fa5afdc8cf42c43b2"
+        },
+        "component::boundaries": {
+          "body_present": true,
+          "body_sha256": "3bc4ee6b7d1b888b5e2440783578f3d9b29c0a73de832a2d8cf1f1f676313ed7",
+          "mode": "Exec",
+          "normalized_body_sha256": "081f992907e6abc3b3ee25118b165e82295631087c09b9603878e1758e4c4b79"
+        },
+        "component::compare_equal": {
+          "body_present": true,
+          "body_sha256": "ffedcae595759f412a5fcdd7029c12d16a1100b1879b1e93205f5f71084de128",
+          "mode": "Exec",
+          "normalized_body_sha256": "66bd658815c79bbf5f7011da2a3310c4d44019775c572820e2fc399c14debf6d"
+        },
+        "component::decode": {
+          "body_present": true,
+          "body_sha256": "4bf1f616a9506cc8d6d461dec99c170c7dca4209d996544f79f1d74b01751215",
+          "mode": "Spec",
+          "normalized_body_sha256": "ebe24a9f3391f8612077256e7f903c83f58aad351c5ab245c277e65ee737ea42"
+        },
+        "component::impl&%10::__verus_infer_derived_eq": {
+          "body_present": true,
+          "body_sha256": "8127bda5d5a8b82b34efaf420811ea905ec203274d9a75458c48342bf7c5d3c0",
+          "mode": "Spec",
+          "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+        },
+        "component::impl&%11::eq_spec": {
+          "body_present": true,
+          "body_sha256": "371a70ef66c15dd65403df7dfbeca046f282881661927c618347c1dfacafad0c",
+          "mode": "Spec",
+          "normalized_body_sha256": "658dec9d0d70db3d0c78762ef26f4617bb4266f1656fda7822fde3b728314328"
+        },
+        "component::impl&%11::obeys_eq_spec": {
+          "body_present": true,
+          "body_sha256": "8127bda5d5a8b82b34efaf420811ea905ec203274d9a75458c48342bf7c5d3c0",
+          "mode": "Spec",
+          "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+        },
+        "component::impl&%14::clone": {
+          "body_present": true,
+          "body_sha256": "f4270150067863776068965e0a4d195def39c9dede68417e4d01f7a77d904233",
+          "mode": "Exec",
+          "normalized_body_sha256": "8e178bec12fd9844dfb6a71c0deca48654556371e66ff29bf277073f68d5e8df"
+        },
+        "component::impl&%19::get": {
+          "body_present": true,
+          "body_sha256": "cd5a33284036681417310727108f97dd5fd69988e533cd6140e862600f5bbec5",
+          "mode": "Exec",
+          "normalized_body_sha256": "a175c09c275e21e6fda707755fc925000318f783b3082d102e73991a6d0b04b2"
+        },
+        "component::impl&%19::new": {
+          "body_present": true,
+          "body_sha256": "da3f30af45842825e5e908666bac119c74675015d5baa206e2c63b6c3e061807",
+          "mode": "Exec",
+          "normalized_body_sha256": "f04e6e2bcb3336a5cedd8ca9995da6ee89499046c29c5c5b36728d42130fe139"
+        },
+        "component::impl&%19::value": {
+          "body_present": true,
+          "body_sha256": "c7d61d562bf2d56381befd60d42b9ea334fb32f16bf733c31636cdbe744e2b68",
+          "mode": "Spec",
+          "normalized_body_sha256": "7ef72faec721b4a0f8dce933d6b7c7f055a912c13689e5deb1b6f42fb28d5f56"
+        },
+        "component::impl&%20::new": {
+          "body_present": true,
+          "body_sha256": "a2dae4b0974614c74c4f8ef94941fe7d7cb272577fdc4290f4e1d4539a4c2453",
+          "mode": "Exec",
+          "normalized_body_sha256": "2bd4850681a82b2cc085fa0d799dcbc57ca1f77fb670382f53934ba55af2a911"
+        },
+        "component::impl&%20::perm": {
+          "body_present": true,
+          "body_sha256": "53f0ab11a23ec955f99e35f547481959a05e0bae9115c14ebb5a89641ff253bc",
+          "mode": "Exec",
+          "normalized_body_sha256": "3daf2e989af9c89d00094a1ee154e1c5b21d9182515b726340a7373730127315"
+        },
+        "component::impl&%20::permission": {
+          "body_present": true,
+          "body_sha256": "80f649d64da90ca06367de498bf19c6e304b9041f3cad761f222fb8c2786c017",
+          "mode": "Spec",
+          "normalized_body_sha256": "51822b62b6a19a6b5440c7d0b46812d0ce7ca571fd8ae13611ed9d537c398f24"
+        },
+        "component::impl&%20::protected": {
+          "body_present": true,
+          "body_sha256": "7bc25c5ceb1cef44e9ba72c022bc45737ed917c41fe2e79977b3e4bbba04504a",
+          "mode": "Exec",
+          "normalized_body_sha256": "466e6a6a4c990266925217b7549ed88ed108547d53ffef42dcc4c22b65a5c3f6"
+        },
+        "component::impl&%20::tag": {
+          "body_present": true,
+          "body_sha256": "05fa6d585d921f95aa7a7a99d3d7729d7568328502baf940628a49a94876c9b7",
+          "mode": "Exec",
+          "normalized_body_sha256": "ee8b801096f1c1aa4bdb1a1b8ba871af16f26552c5fdb9821ee81029e07667b0"
+        },
+        "component::impl&%20::word": {
+          "body_present": true,
+          "body_sha256": "5f0d02c5db2358bb70d3672059caa5918bec254c0c16c496720739ada326e3f4",
+          "mode": "Spec",
+          "normalized_body_sha256": "39f21d1ecbdca3823ef7e1067e0a1fb650b9afe8b548f30494f7b663bf18a822"
+        },
+        "component::impl&%23::clone": {
+          "body_present": true,
+          "body_sha256": "3f630f484b044f62e62118c4cb7fe70b30bca5386cee5f2d0f35677202c72d63",
+          "mode": "Exec",
+          "normalized_body_sha256": "43c3b58b2e855d9ba74af7e5c045e643af29c9bdb71aacf0e1f89d9ee02b585f"
+        },
+        "component::impl&%29::DISABLED": {
+          "body_present": true,
+          "body_sha256": "89053cffc34aabd4cd0ef6c7001861cebfb11d7b416e75d738c062f7cf3f6741",
+          "mode": "Spec",
+          "normalized_body_sha256": "947a9a5bd464a69daa819721d3734cab95dfcabda8513548f2d350b3e82ff733"
+        },
+        "component::impl&%29::SHARED_READ_ONLY": {
+          "body_present": true,
+          "body_sha256": "da0d42150a2283878a634dcd25348b2a7e5912999c65f0a2a860e996e4f50d4d",
+          "mode": "Spec",
+          "normalized_body_sha256": "25407270933aa62bd0e279208b28e6d0f48b9bb0dbd72d06073ac7249344d026"
+        },
+        "component::impl&%29::SHARED_READ_WRITE": {
+          "body_present": true,
+          "body_sha256": "d6c82241e3e53245e1961bef82e251d19260109f504c9822cc4e2ee61bec6279",
+          "mode": "Spec",
+          "normalized_body_sha256": "7a1c7a36fe73c883d670074fb97fc9190bfb87fb8327886177afaf4dd3377c62"
+        },
+        "component::impl&%29::UNIQUE": {
+          "body_present": true,
+          "body_sha256": "eb115d70c6f0a2377479bafdc1f2fad5651cd63611da5c2c28dc65383f0f9886",
+          "mode": "Spec",
+          "normalized_body_sha256": "7cb49dc4e4d2798a3fc683c3974a25a37f0234d2d3e7a526886208089ea590c2"
+        },
+        "component::impl&%29::from_bits": {
+          "body_present": true,
+          "body_sha256": "094cc764c3bc5b672efafce36fc6741aa165692b6796c102f490d4ac10b99150",
+          "mode": "Exec",
+          "normalized_body_sha256": "eb6f57addeedbaa7c462a2e8d7d74bb5df026ef99ac3f7c31001fdaec9dca2a6"
+        },
+        "component::impl&%29::to_bits": {
+          "body_present": true,
+          "body_sha256": "0ddadb40272c27a5fe6a05476b389c209a1a07ed7524eb01d14f2229c6e0ad63",
+          "mode": "Exec",
+          "normalized_body_sha256": "0ed7f8f998720717d224d8e6aaf4a89c4f61fa4bfdf8d3d1d8c06d22d742a314"
+        },
+        "component::impl&%2::clone": {
+          "body_present": true,
+          "body_sha256": "95edc3aa743d78df936287047edb96cc127b2e7aaf4fa80c0d2b4f4cfb5536d2",
+          "mode": "Exec",
+          "normalized_body_sha256": "b6888d224510bb820575e75914ec908317a449a701c5a449d667dac9a5e3e6ab"
+        },
+        "component::impl&%5::eq": {
+          "body_present": true,
+          "body_sha256": "6aae77927d1e0982de6c698810ce01604f982c36e454f9510c3fe785bb3d9a0f",
+          "mode": "Exec",
+          "normalized_body_sha256": "4428940232ebe2693e4057548c2febf8d25059803c84d278b5cd0eda94bb263b"
+        },
+        "component::impl&%9::__verus_infer_nonzero_u64_view": {
+          "body_present": true,
+          "body_sha256": "8b4226af89b4305620aaf7819019861779530a50ddb3d3b2dca55a0b6833e758",
+          "mode": "Spec",
+          "normalized_body_sha256": "aa245b3f1d5039deb9e3a072496d9a34ba6c6341459120bd59128f78ed3726d8"
+        },
+        "component::item_word_wf": {
+          "body_present": true,
+          "body_sha256": "25fc86e64220f0bdea74787f7ad80a17af868f9e61c6ef7fc0744843b03a852f",
+          "mode": "Spec",
+          "normalized_body_sha256": "8ea167746cfa855f4a1fa9cea6ad7a8bf4f948a5c7787f14952858db52d8d9eb"
+        },
+        "component::lookup": {
+          "body_present": true,
+          "body_sha256": "bdf975daa1b935ab3ee9c00a84b2c776042911c0cf9050f457ee49d95c8f171a",
+          "mode": "Exec",
+          "normalized_body_sha256": "0265b30bc3dd186241e82d5d0ea912b3c303f40c583fc67686d54659da1f634e"
+        },
+        "component::packed_fields_raw": {
+          "body_present": true,
+          "body_sha256": "d44cb73ea579441faa2708f5230026aa9f5df3f8468c5e1d30ff6c739d933acf",
+          "mode": "Proof",
+          "normalized_body_sha256": "5edd8ba4f9f154a845c21e59a981933c199379113c43ce0f855cbe185f552047"
+        },
+        "component::roundtrip": {
+          "body_present": true,
+          "body_sha256": "2cb0e2a94a7919e3326be2d6240d68f58d8069ea897886124d4f47c9eebbd9ac",
+          "mode": "Exec",
+          "normalized_body_sha256": "bbf4f2b4d8453fa0168222e64556b4fd27ee09a7ea6b1c51d6b9ea7ff2707d4c"
+        }
+      },
+      "path": "/tmp/checked-bool-full-help-tjcf3qnk",
+      "publication": false,
+      "receipt_sha256": "78b98f43126edf43d3ede4d05184ad7f206b58bf7422daa5d8fbdeae2c056412",
+      "source_adapters": {
+        "BorTag.get": {
+          "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+          "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+          "tokens_equal": true
+        },
+        "BorTag.new": {
+          "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+          "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+          "tokens_equal": true
+        },
+        "Item.new": {
+          "adapted_body_sha256": "a5521c6afb0aadd82b0dc774dd925b56ca08bff32b3fbc366d9c9b2af25534ea",
+          "original_body_sha256": "9586ae9d02e06b8d098c841d2726a13b252d2db360d974ab7573af3003d6f3a4",
+          "tokens_equal": true
+        },
+        "Item.perm": {
+          "adapted_body_sha256": "38989b5595470494297ca3696f80b4894d9149bae869df62c6ec5cef684d5a21",
+          "original_body_sha256": "d61febe1bdd96c1f1060679555a43cf39692f4f12a89615dd5ed9b1d94e6a9f8",
+          "tokens_equal": true
+        },
+        "Item.protected": {
+          "adapted_body_sha256": "e82cf05560cb2d63c4aea8204828847cd23486e5d8dc2c49bde312f34ad4a5e1",
+          "original_body_sha256": "2da51c2e7ea7deffd571883ff243888c6534651cdeb54afd464be6f5330868e4",
+          "tokens_equal": true
+        },
+        "Item.tag": {
+          "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+          "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+          "tokens_equal": true
+        },
+        "Permission.from_bits": {
+          "adapted_body_sha256": "5bf6b461154766fd0b6bbaad01976009d902168571617eb629af5240b66937a4",
+          "original_body_sha256": "5bf6b461154766fd0b6bbaad01976009d902168571617eb629af5240b66937a4",
+          "tokens_equal": true
+        },
+        "Permission.to_bits": {
+          "adapted_body_sha256": "6ad94b2faadc26c41b0f885f5530d2ed1b71cb80c1504195d801f49eeab526d2",
+          "original_body_sha256": "6ad94b2faadc26c41b0f885f5530d2ed1b71cb80c1504195d801f49eeab526d2",
+          "tokens_equal": true
+        }
+      },
+      "source_sha256": "99aec7d5740dc9eb659fd2c494313d64381f118c4c5ebb965f6f7404c137f76d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 36
+      }
+    },
+    "full-helpers": {
+      "checked_foreign_instance": false,
+      "failed_functions": [],
+      "foreign_body_registered": false,
+      "helpers": [
+        {
+          "available_to_same_crate_callers": true,
+          "candidate_id": "3b9e5b9f7f39a96af984d09c8a7e18ef75117350fd6cc9011e4b10a8db2fc1c9",
+          "contract": {
+            "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))",
+            "requires": "true"
+          },
+          "dependencies": [],
+          "exported": true,
+          "function": "component::BorTag::eq",
+          "loop_proofs": [],
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "ensures_nodes": 7,
+            "generation_micros": 668,
+            "requires_nodes": 1,
+            "solver_micros": 3007
+          },
+          "mode": "exact",
+          "parameters": [
+            {
+              "name": "self",
+              "type": "&component::BorTag"
+            },
+            {
+              "name": "other",
+              "type": "&component::BorTag"
+            }
+          ],
+          "proofs": {
+            "exactness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "maximality": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "soundness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            }
+          },
+          "required_checks_passed": true,
+          "result_type": "bool",
+          "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:29: 4:38 (#18)",
+          "summary_kind": "value"
+        }
+      ],
+      "inference_interface_written": true,
+      "local_function_details": {
+        "component::BorTag::__verus_infer_derived_eq": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::__verus_infer_nonzero_u64_view": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::clone": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::ctor%": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::eq": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::eq_spec": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::get": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::new": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::obeys_eq_spec": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::BorTag::value": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::clone": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::ctor%": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::perm": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::permission": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::protected": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::tag": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Item::word": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PERM_MASK": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PERM_SHIFT": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PROTECTED_MASK": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::PROTECTED_SHIFT": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Permission::clone": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Permission::from_bits": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::Permission::to_bits": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::TAG_MASK": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::bits": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::boundaries": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::compare_equal": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::decode": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::DISABLED": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::SHARED_READ_ONLY": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::SHARED_READ_WRITE": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::impl&%29::UNIQUE": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::item_word_wf": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::lookup": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::packed_fields_raw": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        },
+        "component::roundtrip": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        }
+      },
+      "manual_support": {
+        "bit_vector_assertions": 7,
+        "local_packing_lemma_calls": 0,
+        "no_bool_conversion_lemma": true,
+        "proof_blocks": 2,
+        "proof_functions": [
+          "packed_fields_raw"
+        ],
+        "quantified_packing_assertions": 0,
+        "same_helper_source": true
+      },
+      "native_scope": {
+        "checked_exec_bodies": 15,
+        "checked_proof_bodies": 1,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ],
+        "native_collection_completed": true,
+        "native_functions": [
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::BorTag::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<BorTag as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:40: 4:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::cmp::Ord>::cmp",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:56: 4:59"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::BorTag::eq",
+            "inference_candidate": true,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:29: 4:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:44: 4:54"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<BorTag as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:4:23: 4:27"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::eq_spec",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::obeys_eq_spec",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Item as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:7:16: 7:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:7:40: 7:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:7:29: 7:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:7:23: 7:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:44:16: 44:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:44:47: 44:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:44:36: 44:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:44:23: 44:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:44:30: 44:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::__verus_infer_derived_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "BorTag::__verus_infer_derived_eq",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:3:1: 3:41"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::BorTag::get",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "BorTag::get",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:20:1: 20:26"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::BorTag::new",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "BorTag::new",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:17:1: 17:35"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::BorTag::value",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "BorTag::value",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:16:1: 16:37"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::perm",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::perm",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:31:1: 31:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::Item::permission",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Item::permission",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:30:1: 30:48"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::protected",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::protected",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:39:1: 39:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::tag",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::tag",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:26:1: 26:28"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::Item::word",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Item::word",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:25:1: 25:35"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:62:5: 62:24"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:61:5: 61:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:60:5: 60:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:59:5: 59:22"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::from_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::from_bits",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:71:1: 71:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::to_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::to_bits",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:63:1: 63:25"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:10:1: 10:21"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:12:1: 12:22"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:11:1: 11:26"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:13:1: 13:27"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:9:1: 9:20"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:44:1: 55:2"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::bits",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "bits",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:56:1: 56:43"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::boundaries",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "boundaries",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:87:1: 87:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::compare_equal",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "compare_equal",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:83:1: 83:51"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::decode",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "decode",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:57:1: 57:45"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::item_word_wf",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "item_word_wf",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:14:1: 14:43"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::lookup",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "lookup",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:85:1: 85:29"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_proof_body",
+            "function": "component::packed_fields_raw",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "packed_fields_raw",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:89:7: 89:53"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::roundtrip",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "roundtrip",
+            "selected": true,
+            "source": "/tmp/checked-bool-full-helpers-awitsr5j/component.rs:81:1: 81:32"
+          }
+        ]
+      },
+      "ordinary_original_functions": {
+        "component::BorTag::ctor%": {
+          "body_present": true,
+          "body_sha256": "5b8cac75706ed9345c013790727d4cb504612fccbffa50002426038051955719",
+          "mode": "Exec",
+          "normalized_body_sha256": "939a106600f9681e8771046e792522d67732e616588f19361396e94f472beda3"
+        },
+        "component::Item::ctor%": {
+          "body_present": true,
+          "body_sha256": "76ce08e710da17ceb6ae45071b74f963811d0a80fbbea672ac3fd99b9a7db8c4",
+          "mode": "Exec",
+          "normalized_body_sha256": "3e3234b8552a502c65bf0b9615abb47ac66368f331a84e8939b07d76744a3ff2"
+        },
+        "component::PERM_MASK": {
+          "body_present": true,
+          "body_sha256": "382247e45dc5cc57bed7394ad95e55322802a0725153ecfd46748e99a189f4ab",
+          "mode": "Spec",
+          "normalized_body_sha256": "f8b7134966663cd3de425d0e1055b3891461cbac17de477ee4913d70df98c6f3"
+        },
+        "component::PERM_SHIFT": {
+          "body_present": true,
+          "body_sha256": "f65722e8ee227bbfede655667537c0258a67621954ad97afd8290feaf94a3d1f",
+          "mode": "Spec",
+          "normalized_body_sha256": "70606a7a143e3bc357eec8000291811f1a16cd18d980c63a18f6c579c7e29153"
+        },
+        "component::PROTECTED_MASK": {
+          "body_present": true,
+          "body_sha256": "473ab1b0b1b49d42635f37a5bc78f235188670e79d93a10babdb4b476091350e",
+          "mode": "Spec",
+          "normalized_body_sha256": "738ae0af3b222b756841010b9a3de0e667aeb0b1e22871d256c2dbb5ee4c9f38"
+        },
+        "component::PROTECTED_SHIFT": {
+          "body_present": true,
+          "body_sha256": "ac0afac527db566886bdb055106d050cfed947ad5200b3540a33836cbbd12b68",
+          "mode": "Spec",
+          "normalized_body_sha256": "2632f7c6b8ca2007ae5d0f21768bdde7c4565bdcd069e3d531bbf15ae1d69c09"
+        },
+        "component::TAG_MASK": {
+          "body_present": true,
+          "body_sha256": "f2c11aa9880655b4193ca96d85fdd5e15ad18a81f170e26d3cda9f50d2698725",
+          "mode": "Spec",
+          "normalized_body_sha256": "b69ae2c8f843990f56e9fdc01637175c3f2f64e01049962baa9e3dbea652ed31"
+        },
+        "component::bits": {
+          "body_present": true,
+          "body_sha256": "38779490162da95381d28ef5e2bbf456f7d9e55b3c03f0e5dc0bead1bd48f95d",
+          "mode": "Spec",
+          "normalized_body_sha256": "45b50e4ba509747a6cceef44952755ff40a1aa4d57fecce706b21c9ecec0186d"
+        },
+        "component::boundaries": {
+          "body_present": true,
+          "body_sha256": "8a6fe4db8424d060d56dd3ba1d9aea36e4faba09a8524af4b5568b737ca5afac",
+          "mode": "Exec",
+          "normalized_body_sha256": "3cf41845f4d512ef360317c2143af357de494cacc5ace2594a9ed31574a42bb9"
+        },
+        "component::compare_equal": {
+          "body_present": true,
+          "body_sha256": "b480ba379dcbffcf069dd207601160addb25771fc9480eba35bf2bf0a4a4c3fe",
+          "mode": "Exec",
+          "normalized_body_sha256": "b5430df39a3c547fe7534687169ec907b439b802831b6c7d9401fc4cdfee0cf5"
+        },
+        "component::decode": {
+          "body_present": true,
+          "body_sha256": "e1f6f24cfbfc3f57441adc8c0f897b24571accb730c35a099c8eef1fe64c698b",
+          "mode": "Spec",
+          "normalized_body_sha256": "6b23bf13a4ae65e74afd8e122e16d7ad911781eb5dc764747feae066645b7d0f"
+        },
+        "component::impl&%10::__verus_infer_derived_eq": {
+          "body_present": true,
+          "body_sha256": "3dda76c4f3e27adf2a5149b82bbd38bdfc535bb258b69a49e353a796d2c18e98",
+          "mode": "Spec",
+          "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+        },
+        "component::impl&%11::eq_spec": {
+          "body_present": true,
+          "body_sha256": "3994d506ef83ab6fa8221d8fa2afad1bd8cf1dce868837eda0a9b9c20e80216a",
+          "mode": "Spec",
+          "normalized_body_sha256": "658dec9d0d70db3d0c78762ef26f4617bb4266f1656fda7822fde3b728314328"
+        },
+        "component::impl&%11::obeys_eq_spec": {
+          "body_present": true,
+          "body_sha256": "3dda76c4f3e27adf2a5149b82bbd38bdfc535bb258b69a49e353a796d2c18e98",
+          "mode": "Spec",
+          "normalized_body_sha256": "104d3f2d4cc2f8cfe7c9730c2a26451db6e7fee15612ffeeacd4be7899d023f8"
+        },
+        "component::impl&%14::clone": {
+          "body_present": true,
+          "body_sha256": "a10f78e5936e16eb540d4e29931011de62bda11c37e774aaf5ba170fcd218445",
+          "mode": "Exec",
+          "normalized_body_sha256": "8e178bec12fd9844dfb6a71c0deca48654556371e66ff29bf277073f68d5e8df"
+        },
+        "component::impl&%19::get": {
+          "body_present": true,
+          "body_sha256": "2e006614bf16d4d6fd6fb46b32ec229a99a8b91960188419c3acdd045f529fa5",
+          "mode": "Exec",
+          "normalized_body_sha256": "a175c09c275e21e6fda707755fc925000318f783b3082d102e73991a6d0b04b2"
+        },
+        "component::impl&%19::new": {
+          "body_present": true,
+          "body_sha256": "20b6eb191cdbc4be99a4f778a9b185283f7739fea4c43b9b5d6d07056839452a",
+          "mode": "Exec",
+          "normalized_body_sha256": "f04e6e2bcb3336a5cedd8ca9995da6ee89499046c29c5c5b36728d42130fe139"
+        },
+        "component::impl&%19::value": {
+          "body_present": true,
+          "body_sha256": "4b1bde14b4afe543b3225c88f64b4cf794d56390cdfb1000af205116390efc2d",
+          "mode": "Spec",
+          "normalized_body_sha256": "7ef72faec721b4a0f8dce933d6b7c7f055a912c13689e5deb1b6f42fb28d5f56"
+        },
+        "component::impl&%20::perm": {
+          "body_present": true,
+          "body_sha256": "d44435284097c655801d85ee1a3c249bb2475bb1fbd36d3bd8f2a108139b87a5",
+          "mode": "Exec",
+          "normalized_body_sha256": "58e84fd58ea3f904f80c97d476270aecfa5f09437fee03205cc7e57e2e930e92"
+        },
+        "component::impl&%20::permission": {
+          "body_present": true,
+          "body_sha256": "c016968585f9adfa14f6366a0b39d9c6cbda3877f1e933a2f33adbca9a03767d",
+          "mode": "Spec",
+          "normalized_body_sha256": "2a196dbcdb8e860f7a340e3837c416dec7ec4aecb6e3d0ea25090067faee6123"
+        },
+        "component::impl&%20::protected": {
+          "body_present": true,
+          "body_sha256": "3c421fe35173169765c3017ab25aeeaceadcd51cad34a6ca6c66b9d2ee28a456",
+          "mode": "Exec",
+          "normalized_body_sha256": "339c88eb43cea0f5552ea9c8b748945bbb1bd9f53331f3cdcf98bb56f83e4eac"
+        },
+        "component::impl&%20::tag": {
+          "body_present": true,
+          "body_sha256": "333fb0c4a4b30d9cd96c55bb2824ae9ecf857c56dbc818d3e7a53af2e88c9789",
+          "mode": "Exec",
+          "normalized_body_sha256": "ee8b801096f1c1aa4bdb1a1b8ba871af16f26552c5fdb9821ee81029e07667b0"
+        },
+        "component::impl&%20::word": {
+          "body_present": true,
+          "body_sha256": "965464e07b5ca0d25fc0d16600e7f5aa0b2159b5df0ecc7e2cea0da4970a0383",
+          "mode": "Spec",
+          "normalized_body_sha256": "39f21d1ecbdca3823ef7e1067e0a1fb650b9afe8b548f30494f7b663bf18a822"
+        },
+        "component::impl&%23::clone": {
+          "body_present": true,
+          "body_sha256": "ab82cbe17641ba1e56ac29086ef6cfad242ec78fd6ef3cab646728b3da8c7625",
+          "mode": "Exec",
+          "normalized_body_sha256": "7d94197c11f5fe0ec0066cfa8e134aa892e55f49f3cdeded5a1b295ffcafd775"
+        },
+        "component::impl&%29::DISABLED": {
+          "body_present": true,
+          "body_sha256": "30c25e26ede77939a6a3f8138eef3a4dfcd13f3b4bb7c5fc344ba7fb7f218555",
+          "mode": "Spec",
+          "normalized_body_sha256": "9ba8bd3f8d75333eb0f5f61696a12d9ee49853d5626633de06c53f5b4b3dc8b9"
+        },
+        "component::impl&%29::SHARED_READ_ONLY": {
+          "body_present": true,
+          "body_sha256": "6ed29c73e73500b01c19252c54c414c94c07e06552398c29f1c6327ac6705483",
+          "mode": "Spec",
+          "normalized_body_sha256": "685b92ab53846cccf7e06777032723fc137ed5a47cff717abf3acbac230c72ca"
+        },
+        "component::impl&%29::SHARED_READ_WRITE": {
+          "body_present": true,
+          "body_sha256": "019a2630c491942865ce3c51c39acd25961528e4ba0af26c865f7dfcbac08ce7",
+          "mode": "Spec",
+          "normalized_body_sha256": "7119bd52ed857902eadaa853885dc4e7dbdfa5c302c2bff39cde126b1b761630"
+        },
+        "component::impl&%29::UNIQUE": {
+          "body_present": true,
+          "body_sha256": "0fb88d88b288af8e1ff62da9fd6cfd3db10abb697eedaa019725ab886641a67e",
+          "mode": "Spec",
+          "normalized_body_sha256": "2f8051dea692c50857c286b8257dbf15fdf8a59c7b5b04b627223f2051fd751d"
+        },
+        "component::impl&%29::from_bits": {
+          "body_present": true,
+          "body_sha256": "2547ba09ad56159785a5b7b9257dd00d932d34985c0522c548d4d27a52020fbb",
+          "mode": "Exec",
+          "normalized_body_sha256": "150a2d2588cf304f3db267baeeb39e20c3b299338f81dba0aa3f40b41e9dbe68"
+        },
+        "component::impl&%29::to_bits": {
+          "body_present": true,
+          "body_sha256": "63476a98fee81f89c4fb50b7bebed04ed599f0e459867e9242cfc80a4bb627ab",
+          "mode": "Exec",
+          "normalized_body_sha256": "1cc43ab6e3bab4e66d743bcfc5ee111d1512e84a3bd968e1c4811a2e75cd4a4d"
+        },
+        "component::impl&%2::clone": {
+          "body_present": true,
+          "body_sha256": "11f8cdcb41b4670fd015e893d4ff51bcdd5b9f134cb9dbdfcfa8135e8a8bf0b8",
+          "mode": "Exec",
+          "normalized_body_sha256": "b6888d224510bb820575e75914ec908317a449a701c5a449d667dac9a5e3e6ab"
+        },
+        "component::impl&%5::eq": {
+          "body_present": true,
+          "body_sha256": "c70b3b52aa908de270e6c95884568faec50208ffb7fa795ba2547d77c1d44a0a",
+          "mode": "Exec",
+          "normalized_body_sha256": "4428940232ebe2693e4057548c2febf8d25059803c84d278b5cd0eda94bb263b"
+        },
+        "component::impl&%9::__verus_infer_nonzero_u64_view": {
+          "body_present": true,
+          "body_sha256": "7a2b0e390d9379d3a5bd7ae4d2f63a1bddc1e3ae4d65248ca58617344545c22f",
+          "mode": "Spec",
+          "normalized_body_sha256": "aa245b3f1d5039deb9e3a072496d9a34ba6c6341459120bd59128f78ed3726d8"
+        },
+        "component::item_word_wf": {
+          "body_present": true,
+          "body_sha256": "aa5b8ba840ca46a358cb6d3c706fce15ec2aa257883a1e3b1384fa071cc7a8c8",
+          "mode": "Spec",
+          "normalized_body_sha256": "8ea167746cfa855f4a1fa9cea6ad7a8bf4f948a5c7787f14952858db52d8d9eb"
+        },
+        "component::lookup": {
+          "body_present": true,
+          "body_sha256": "b51e1b4481fe553b0e957e250f0a0690e1e1c85295428255b48118e2995f0e45",
+          "mode": "Exec",
+          "normalized_body_sha256": "e1e339fcc55ef2cf86c664a9a045e1dc0ab2b1f4531d1b342f9f0a41cef153e6"
+        },
+        "component::packed_fields_raw": {
+          "body_present": true,
+          "body_sha256": "de406ef72478c516e7a4f943b9f92724c4864d7f456c6ad7115093a47ff3e515",
+          "mode": "Proof",
+          "normalized_body_sha256": "800290742a379fffc64f48e4b7f90eba0674859d406cf6304efb52edf91ffd21"
+        },
+        "component::roundtrip": {
+          "body_present": true,
+          "body_sha256": "3d4d57f5539f1fbdcc0e77211d779783bbf5b508907379696c2529d03525b23e",
+          "mode": "Exec",
+          "normalized_body_sha256": "5f66554363c986a99791f04f5dc5fe14f22935abb4f33867e3b5ac57d3127c9c"
+        }
+      },
+      "path": "/tmp/checked-bool-full-helpers-awitsr5j",
+      "publication": false,
+      "receipt_sha256": "e5b4b69706f48f00a80487bffa2d32b157ba4c5ba9a31be27ba3d204be39f8f2",
+      "source_adapters": {
+        "BorTag.get": {
+          "adapted_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+          "original_body_sha256": "7cb50bf0848c0454c7628de4b1ab5f20e966a3629e7d12b1cf0615d33cc17cfb",
+          "tokens_equal": true
+        },
+        "BorTag.new": {
+          "adapted_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+          "original_body_sha256": "78b385b088022a0e3b0abc5968018a26f0590d2b221a99a8f2e40ccfb1aaeead",
+          "tokens_equal": true
+        },
+        "Item.perm": {
+          "adapted_body_sha256": "38989b5595470494297ca3696f80b4894d9149bae869df62c6ec5cef684d5a21",
+          "original_body_sha256": "d61febe1bdd96c1f1060679555a43cf39692f4f12a89615dd5ed9b1d94e6a9f8",
+          "tokens_equal": true
+        },
+        "Item.protected": {
+          "adapted_body_sha256": "e82cf05560cb2d63c4aea8204828847cd23486e5d8dc2c49bde312f34ad4a5e1",
+          "original_body_sha256": "2da51c2e7ea7deffd571883ff243888c6534651cdeb54afd464be6f5330868e4",
+          "tokens_equal": true
+        },
+        "Item.tag": {
+          "adapted_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+          "original_body_sha256": "4dd6dc770f3aeef71845991fc4d66b54205f14d4c9b7da6b1663a16215451999",
+          "tokens_equal": true
+        },
+        "Permission.from_bits": {
+          "adapted_body_sha256": "5bf6b461154766fd0b6bbaad01976009d902168571617eb629af5240b66937a4",
+          "original_body_sha256": "5bf6b461154766fd0b6bbaad01976009d902168571617eb629af5240b66937a4",
+          "tokens_equal": true
+        },
+        "Permission.to_bits": {
+          "adapted_body_sha256": "6ad94b2faadc26c41b0f885f5530d2ed1b71cb80c1504195d801f49eeab526d2",
+          "original_body_sha256": "6ad94b2faadc26c41b0f885f5530d2ed1b71cb80c1504195d801f49eeab526d2",
+          "tokens_equal": true
+        }
+      },
+      "source_sha256": "f30c1e6b45ee5f02a9f69d620b85effe042bb771583747802a319c0b34e4c196",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 36
+      }
+    },
+    "mirror": {
+      "checked_foreign_instance": false,
+      "failed_functions": [],
+      "foreign_body_registered": false,
+      "helpers": [],
+      "inference_interface_written": true,
+      "local_function_details": {
+        "component::all_bool": {
+          "failed_proof_notes": [],
+          "obligation_proof_notes": []
+        }
+      },
+      "native_scope": {
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 0,
+        "complete_selected_scope_verified": true,
+        "coverage": "selected local Verus items; not all Rust code",
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ],
+        "native_collection_completed": true,
+        "native_functions": [
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::all_bool",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "all_bool",
+            "selected": true,
+            "source": "/tmp/checked-bool-mirror-vbec5s_h/component.rs:3:1: 3:32"
+          }
+        ]
+      },
+      "ordinary_original_functions": {
+        "component::all_bool": {
+          "body_present": true,
+          "body_sha256": "8dc7739e753ffb6fa42e4ad77325546dbe2a3dc781ca50dc341268a4e476f070",
+          "mode": "Exec",
+          "normalized_body_sha256": "e3045f1bda1304653b9dacdd42cd1e772d32f702f932aa772cb200f48c170887"
+        }
+      },
+      "path": "/tmp/checked-bool-mirror-vbec5s_h",
+      "publication": false,
+      "receipt_sha256": "1e5f23fde62861260dc5fde11ce4792b7ad8ad6ac7cf28989b44eb2ee09a93ed",
+      "source_sha256": "ea878c6f1a2cf64215e3900db59044b18803f6bfa5a702d7748b876c1e985356",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    }
+  },
+  "parent_tag_receipt_sha256": "ba75225dcf12c21a8f7c17fcfdef493d1083aa3ed2c865d74740b0a66de476aa",
+  "private_VIR_library_build": {
+    "external_product_hash_count": 356,
+    "modified_engine_built": false,
+    "path": "/tmp/checked-bool-build-vir-cmiwm8uf",
+    "receipt_sha256": "b73a186e1c15791a5367ba4ac85d75168dbc1fa5c385cbc8dd51e5531957d658",
+    "vstd_rebuilt": false
+  },
+  "production_changes": false,
+  "publication": false,
+  "tools": {
+    "libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+    "libverus_builtin_macros.so": "dea7b6d63f30d92df8ca309f6d48d687b47c7f175fd3e082de85cac817c7484f",
+    "libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+    "libvstd.rlib": "942527df233f7f43f98d4263aa92d19583322b95bcdb6df1be9678aa2987c010",
+    "rust_verify": "a67dc634f0f5bb4ab7d27cc27804f417235f573491e415b8e2223a0cf50f2b8a",
+    "verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+    "vstd.vir": "7d65866bf5e678b412ec465287f42d85973eb3e3fbefc239b4821262130b54b0",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "unreceipted_artifact_locator_failure": 1,
+  "unreceipted_setup_failures": 2,
+  "versions": {
+    "baseline_vstd": "2250/0",
+    "cache": 72,
+    "policy": 69,
+    "schema": 38,
+    "version_changes": false
+  },
+  "whole_goal": "PENDING"
+}

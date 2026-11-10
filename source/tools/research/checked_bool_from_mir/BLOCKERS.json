@@ -1,0 +1,42 @@
+{
+  "status": "unimplemented_interfaces_not_a_claim_of_impossibility",
+  "resolved_and_observed": {
+    "identity": "semantic diagnostic core From trait, associated method/impl relationship, caller TypingEnv, monomorphic Item args[], bool/u64 Self/signature, safe Rust ABI",
+    "body": "exact actual instantiated rustc MIR enum matches; all locals, blocks, statements, terminator, no-drop facts",
+    "translation": "ordinary VIR AST with fresh internal spans, binder/read IDs, Copy(bool), ordinary If encoding of bool cast, implicit return",
+    "correspondence": "independent structural original MIR versus ordinary VIR, independent of proposed ensures; diagnostic only"
+  },
+  "missing": [
+    {
+      "interface": "register(Correspondence, actual HIR call identity) -> BodyBackedCall",
+      "at": ["rust_verify/src/rust_to_vir.rs::crate_to_vir", "rust_verify/src/rust_to_vir_func.rs::FunctionOrConstInfo", "rust_verify/src/fn_call_to_vir.rs::fn_call_or_assoc_const_to_vir"],
+      "requirement": "Pre-register real checked instance/stub before Query stub collection, retain actual call/erasure/lifetime identity, redirect only exact direct calls, preserve inherited trait checking without equating synthetic static and original FnDef types. Function values/coercions/generic unresolved calls must receive no new law."
+    },
+    {
+      "interface": "prove(BodyBackedCall, full_bool_domain_contract) -> CheckedBody",
+      "at": ["rust_verify/src/query.rs::_compute_checked_function", "rust_verify/src/verifier.rs::verify_crate"],
+      "requirement": "Feed body through normal WF/mode/trait/lifetime and solver/body checks. A constructed VIR AST, enum whitelist or syntactic contract validator is not such a proof. No availability on incomplete scope. If inference is used require fresh soundness/maximality/exactness on all paths."
+    },
+    {
+      "interface": "publish(CheckedBody, complete scope, ForeignDependencies) -> ForeignBodyCertificate",
+      "at": ["rust_verify/src/verifier.rs::construct_vir_crate", "rust_verify/src/verifier.rs::finish_verus", "rust_verify/src/import_export.rs::export_crate"],
+      "requirement": "Force post-proof publication for this capability even outside infer-goals and even after private-helper pruning; invalidate failed/filtered/no-verify/no-lifetime outputs. Ordinary pre-proof exports must never publish new facts. Bind actual MIR, semantic instance, compiler/core/target, checked body/contract and transitive model/dependency identities."
+    },
+    {
+      "interface": "import(ForeignBodyCertificate, fresh TyCtxt instance/dependencies) -> CheckedInstanceContract",
+      "at": ["rust_verify/src/import_export.rs::import_crates", "rust_verify/src/verifier.rs::after_expansion"],
+      "requirement": "Existing import_crates has no TyCtxt parameter and its known trusted-model fingerprints do not freshly inspect this core body. Add typed revalidation before any closed facts become usable; keep existing strict producer, closed-summary and dependency checks. Parent owns schema/policy/cache reconciliation."
+    }
+  ],
+  "not_run_because_no_checked_instance_exists": [
+    "healthy checked-instance false-result semantic control",
+    "cold/warm checked-instance proof availability",
+    "checked foreign publication/import compatibility and failure controls",
+    "positive full original Item.new with actual checked foreign conversion"
+  ],
+  "no_assumed_shortcut": true,
+  "foreign_contract_available": false,
+  "publication": false,
+  "native_correspondences": 0,
+  "goal_complete": false
+}
