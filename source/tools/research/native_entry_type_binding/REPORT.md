@@ -1,5 +1,14 @@
 # Concrete byte-reference compiler binding
 
+The additive carrier-layout epoch is recorded separately in
+[carrier-results.json](carrier-results.json) and
+[CARRIER_SOURCE_CUT.md](CARRIER_SOURCE_CUT.md). Its9 guarded command outcomes
+pass: the actual array-reference parameters are Scalar/8-byte/alignment8, and
+the key-reference parameter is ScalarPair/16-byte/alignment8. Pointee size and
+carrier size are distinct. This extends the earlier type-only checkpoint,
+independently accepted by `e03ce8c2`; the additive epoch awaits its own review.
+The earlier receipt/results/freezes remain preserved unchanged.
+
 The exact local compiler checks passed. The instantiated type/layout condition
 left open by the [entry-source review](../../../../evidence/published-entry-source-review/REPORT.md)
 is now supported by direct rustc queries and ordinary trait checking. This is
@@ -58,7 +67,7 @@ remain an inherited compiler trust boundary; they were not rebuilt from source.
 
 ```sh
 python3 -B -O source/tools/research/native_entry_type_binding/check.py \
-  --freeze source/tools/research/native_entry_type_binding/trial003-freeze.json \
+  --freeze source/tools/research/native_entry_type_binding/trial004-freeze.json \
   --output /tmp/native-entry-type-binding-FRESH
 ```
 

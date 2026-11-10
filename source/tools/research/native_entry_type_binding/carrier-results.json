@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "scope": "additive pinned compiler carrier layout query; source cut only, no copy operation theorem",
+  "receipt": {
+    "path": "/tmp/native-entry-carrier-binding-parent004/receipt.json",
+    "sha256": "a8e18bb44878408d42ba3ba79c9765587bd9c458a0deddd4e2f379b608760670"
+  },
+  "pretrial_freeze": {
+    "path": "trial004-freeze.json",
+    "sha256": "6d1ddffb0cbb871ad57b24ac4b8cfc33fbed5f603ad9269af71907d137bb25cb"
+  },
+  "commands": 9,
+  "query_driver_sha256": "bb1ecad4890077c842f887fa87c49e323b42d773f27c0107b765a8210c966a13",
+  "actual_parameters": {
+    "canonical": [
+      {
+        "function": "u64",
+        "parameter": 0,
+        "parameter_type": "u64",
+        "reference_kind": "value",
+        "subject_type": "u64",
+        "byte_array": false,
+        "byte_slice": false,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": true,
+        "static_size": 8,
+        "minimum_size": 8,
+        "align": 8,
+        "backend": "Scalar(u64 is ..)",
+        "parameter_size": 8,
+        "parameter_align": 8,
+        "parameter_backend": "Scalar",
+        "parameter_backend_debug": "Scalar(u64 is ..)"
+      },
+      {
+        "function": "u64",
+        "parameter": 1,
+        "parameter_type": "&mut [u8; U64_LEN]",
+        "reference_kind": "Mut",
+        "subject_type": "[u8; U64_LEN]",
+        "byte_array": true,
+        "byte_slice": false,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": true,
+        "static_size": 10,
+        "minimum_size": 10,
+        "align": 1,
+        "backend": "Memory { sized: true }",
+        "parameter_size": 8,
+        "parameter_align": 8,
+        "parameter_backend": "Scalar",
+        "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)"
+      }
+    ],
+    "writer": [
+      {
+        "function": "xor_key",
+        "parameter": 0,
+        "parameter_type": "&mut [u8; 128]",
+        "reference_kind": "Mut",
+        "subject_type": "[u8; 128]",
+        "byte_array": true,
+        "byte_slice": false,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": true,
+        "static_size": 128,
+        "minimum_size": 128,
+        "align": 1,
+        "backend": "Memory { sized: true }",
+        "parameter_size": 8,
+        "parameter_align": 8,
+        "parameter_backend": "Scalar",
+        "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)"
+      },
+      {
+        "function": "xor_key",
+        "parameter": 1,
+        "parameter_type": "&[u8]",
+        "reference_kind": "Not",
+        "subject_type": "[u8]",
+        "byte_array": false,
+        "byte_slice": true,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": false,
+        "static_size": null,
+        "minimum_size": 0,
+        "align": 1,
+        "backend": "Memory { sized: false }",
+        "parameter_size": 16,
+        "parameter_align": 8,
+        "parameter_backend": "ScalarPair",
+        "parameter_backend_debug": "ScalarPair { a: pointer is 1..=18446744073709551615, b: u64 is .., b_offset: Size(8 bytes) }"
+      }
+    ]
+  },
+  "exact_primary_source_branch": "Scalar and reference ScalarPair type layouts select src_has_padding=false in copy_op_no_validate; successful carrier read/write/retag/hook/CF simulation still unproved",
+  "earlier_independent_acceptance": "e03ce8c2 covers prior type-only checkpoint; not this additive epoch",
+  "independent_review": "pending",
+  "all_final_guards_passed": true,
+  "original_application_source_or_domain_changed": false,
+  "native_correspondences": 0,
+  "original_reference_CF": false,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "canonical": "6/0 inherited, not rerun",
+  "full_HMAC": "1/1 unproved, inherited, not rerun",
+  "publication": false,
+  "goal_complete": false
+}

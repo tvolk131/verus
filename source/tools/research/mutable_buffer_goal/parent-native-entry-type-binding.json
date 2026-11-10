@@ -24,5 +24,10 @@
   "full_HMAC": "1/1 unproved; inherited, not rerun",
   "canonical": "6/0 inherited, not rerun",
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "additive_carrier_layout": {
+    "record": "../native_entry_type_binding/carrier-results.json",
+    "sha256": "759d53f4bd1d6504184850794075e1b1f89a5883e5e76debed81bafe819efcd3",
+    "independent_review": "pending; prior entry-type review remains historical"
+  }
 }

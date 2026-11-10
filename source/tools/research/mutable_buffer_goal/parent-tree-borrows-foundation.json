@@ -40,7 +40,20 @@
     "production_trust_change": false
   },
   "runner_limit": "Delivered runner contains the old worker checkout path. Rehome only authenticated delivered driver bytes or use pinned private rocq directly. Never run completed baseline prepare/build again; fresh outputs only.",
-  "independent_review": "pending fresh isolated review and normal/kernel replay",
+  "independent_review": {
+    "commit": "5568da00b9ca1dcb9de60b62ded7c7d09eaa0ad8",
+    "integration_commit": "33b6adbf",
+    "accepted": "both exact external MODEL checkpoints relative to advertised assumptions",
+    "scope": "normal44/71 object builds and fullrecursive518/507 library checks;complete1262/2753modelbinding inventory",
+    "remaining_finding": "medium Tree root Print Module signature expansion incomplete in delivered generator; independently completed structural inventory supplied by review, no mathematical defect",
+    "manifests": {
+      "path": "evidence/borrow-foundations-review/MANIFESTS.json",
+      "sha256": "afbb82b0dd408bbd20f1581b4888864a969ce3b9c06cc9909b3df2adb0cf1bf6"
+    },
+    "native_correspondences": 0,
+    "publication": false,
+    "goal_complete": false
+  },
   "native_correspondences": 0,
   "native_source_validity": false,
   "original_reference_CF": false,

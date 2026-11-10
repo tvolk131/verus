@@ -30,7 +30,20 @@
     "semantic_mismatch": "Historical Untagged raw behavior, zero-size behavior and explicit bounds TODO differ from pinned current Rust/Miri. Model progress is not lawful Rust input coverage.",
     "production_trust_change": false
   },
-  "independent_review": "pending fresh isolated review and normal/kernel replay",
+  "independent_review": {
+    "commit": "5568da00b9ca1dcb9de60b62ded7c7d09eaa0ad8",
+    "integration_commit": "33b6adbf",
+    "accepted": "both exact external MODEL checkpoints relative to advertised assumptions",
+    "scope": "normal44/71 object builds and fullrecursive518/507 library checks;complete1262/2753modelbinding inventory",
+    "remaining_finding": "medium Tree root Print Module signature expansion incomplete in delivered generator; independently completed structural inventory supplied by review, no mathematical defect",
+    "manifests": {
+      "path": "evidence/borrow-foundations-review/MANIFESTS.json",
+      "sha256": "afbb82b0dd408bbd20f1581b4888864a969ce3b9c06cc9909b3df2adb0cf1bf6"
+    },
+    "native_correspondences": 0,
+    "publication": false,
+    "goal_complete": false
+  },
   "entry_candidate": "13 proposed declarations; not_run at this integration checkpoint",
   "native_correspondences": 0,
   "native_source_validity": false,

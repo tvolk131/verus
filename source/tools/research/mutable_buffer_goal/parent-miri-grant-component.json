@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "scope": "Parent authentication of delivered current-Miri packed boundary component and conditional historical comparison",
+  "worker_commit": "9593b4c7069c502da96277dc051e1067992ba11a",
+  "integration_commit": "f44e2510",
+  "authentic_terminal_receipts": 12,
+  "positive_on_off": "22/0 each; manual proof assistance, no causal generated assistance",
+  "coq_declarations": "7 individually closed; full recursive kernel reported263 libraries",
+  "native_comparison": "77394 finite supporting cases, not native correctness",
+  "suite": {
+    "path": "/tmp/native-miri-grant-resumed-pa16x1fp/suite-mz5vtu97/receipt.json",
+    "sha256": "20da6694b768c6a8c654af159818443b65adbeb09de98ac7a97863e5be36729f"
+  },
+  "coq": {
+    "path": "/tmp/native-miri-grant-resumed-pa16x1fp/coq-f8wu9d37/receipt.json",
+    "sha256": "5d7b097981ff8900d525d3ee483898dd7d7f95607a86ab2990f58d2389f1556d"
+  },
+  "independent_acceptance": "pending new isolated review",
+  "manual_inputs": "7 authored contracts, invariants/decreases and5local proof blocks with inherited vector length lemma; full inventory in scoped REPORT",
+  "next_source_obligation": "actual find_granting Write Ok(Some(g)) establishes inbounds index and Unique/SRW decoded permission, including wildcard/unknown/cache paths",
+  "native_correspondences": 0,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "canonical": "6/0 inherited",
+  "full_HMAC": "1/1 unproved, inherited",
+  "publication": false,
+  "goal_complete": false
+}
