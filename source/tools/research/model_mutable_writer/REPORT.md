@@ -14,11 +14,22 @@ writes. It receives and returns genuine physical interval ownership, not pointer
 metadata. Rin/Rout stay arbitrary so shared key resources need not become an
 exclusive key vector.
 
-This does not yet compose initialization, the mutating child, original-parent
-recovery and actual final-memory observation into one public writer theorem.
-That composition and a shared-key interface remain work in progress. Trials003
-and004 were proof-development failures, not semantic negatives. The passing
-one-constant protocol checkpoint remains separately recorded.
+Trial008 additionally passed normal compilation and full recursive kernel
+checking for five constants. The two added laws pass arbitrary Rin/Rout through
+the initialized child, recover the original parent with the actual new current
+vector, resolve the original parent future to that vector, and end the fresh
+MODEL parent to recover its physical interval. The original prophecy identity
+and initializer restoration capability are retained throughout; the recovery
+law does not reuse the no-write wrapper. `recovery-results.json` records its
+exact five-constant inventory, assumptions and objects.
+
+This still does not compose the complete two-region pad/shared-key setup and
+actual final-memory observation into one public writer theorem. That composition
+and shared-key access remain work in progress. Trials003,004,006,007 were
+proof-development failures, not semantic negatives. Trial009 is checking a
+physical-callback specialization; it has no accepted result at this checkpoint.
+The passing one-constant and three-constant checkpoints remain separately
+recorded.
 
 Actual Rust entry, provenance, ancestor loans, native operations/retags/phases
 and C/F import remain unproved. Native correspondences are zero, full original
