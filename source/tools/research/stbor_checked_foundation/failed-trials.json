@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "failed_setup_trials": [
+    {
+      "name": "dependency-downloads",
+      "classification": "setup_failure_not_semantic_control",
+      "receipt": "/tmp/stbor-checked-foundation-20261110/receipts/dependency-downloads.json",
+      "receipt_sha256": "f8fca2800fa27684364e68bc8f8a870db0fa5a349435732a4b9b4d524d67d004",
+      "command": [
+        "/bin/bash",
+        "/home/dev/.t3/worktrees/verus/t3-3d5de66f/source/tools/research/stbor_checked_foundation/setup-deps.sh"
+      ],
+      "exit_status": 40,
+      "log": "/tmp/stbor-checked-foundation-20261110/logs/dependency-downloads.log",
+      "log_sha256": "88240a2aa88b7af31ff318a519d328b266e40cc7b798b88f643e83cb42d891ec"
+    },
+    {
+      "name": "dependency-preflight",
+      "classification": "setup_failure_not_semantic_control",
+      "receipt": "/tmp/stbor-checked-foundation-20261110/receipts/dependency-preflight.json",
+      "receipt_sha256": "9a63abc8f52a8bf41e88ea5ecd05c88d28a5975ce10c54f314dfa15c03001a0c",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-3d5de66f/source/tools/research/stbor_checked_foundation/preflight.py"
+      ],
+      "exit_status": 1,
+      "log": "/tmp/stbor-checked-foundation-20261110/logs/dependency-preflight.log",
+      "log_sha256": "bc15520a5d38124562f680021145ca69d09e8130b4fa744e74831fd24fff7ee1"
+    },
+    {
+      "name": "bootstrap-python-name",
+      "classification": "setup_invocation_failure",
+      "command_prefix": [
+        "python",
+        "-B",
+        "-"
+      ],
+      "observed_error": "/bin/bash: line 2: python: command not found",
+      "composite_shell_exit_status": 0,
+      "recovery": "repeat source authentication/copy with python3 -B; no source copy happened in failed invocation"
+    },
+    {
+      "name": "compiler-patch-fetch-directory",
+      "classification": "setup_invocation_failure",
+      "command_prefix": [
+        "curl",
+        "-fL",
+        "--retry",
+        "2"
+      ],
+      "observed_error": "curl: (23) Failure writing output to destination: private package files directory absent",
+      "recovery": "create exact private directory and refetch authenticated patch"
+    },
+    {
+      "name": "opam-update-uncreated-switch",
+      "classification": "setup_invocation_failure",
+      "command": [
+        "opam-2.3.0-x86_64-linux",
+        "update",
+        "default"
+      ],
+      "exit_status": 50,
+      "observed_error": "The selected switch legacy is not installed",
+      "recovery": "unset OPAMSWITCH for switch creation and repeat private update"
+    },
+    {
+      "name": "release-git-path-quoting",
+      "classification": "source_authentication_controller_failure",
+      "observed_error": "git ls-tree without -z quoted non-ASCII Coq test paths; git show then rejected quoted path",
+      "composite_shell_exit_status": 1,
+      "recovery": "authenticate.py uses NUL-terminated paths; durable release-authentication receipt succeeded"
+    }
+  ],
+  "failed_proof_trials": [],
+  "application_semantic_controls": [],
+  "semantic_evidence_from_failures": false,
+  "bootstrap_log_limit": "Four early invocation failures predate durable runner: exact observed transcript diagnostics retained here; no claim of an original raw log file for those invocations. Read-only missing-path/tail diagnostic errors likewise prove nothing.",
+  "coordination_incident": "One broad process-list diagnostic inadvertently displayed unrelated process command lines. They were not used as evidence; no sibling checkout/source/product files were opened. Later checks were restricted to the private build PGID."
+}

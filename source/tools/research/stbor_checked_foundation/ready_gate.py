@@ -31,6 +31,22 @@ if any(flag in kernel for flag in ['-admit', '-norec', '-silent']):
     raise SystemExit('kernel-check exclusion or suppressed coverage')
 if '-o' not in kernel:
     raise SystemExit('missing kernel context inventory')
+tool_queries = json.loads((ROOT/'manifests/toolchain-query.json').read_text())['commands']
+for tool in ['coqc', 'coqchk']:
+    versions = [q['output'] for q in tool_queries
+                if Path(q['command'][0]).name == tool and
+                q['command'][1:] in [['--version'], ['-v']]]
+    if len(versions) != 1 or not re.search(r'version 8\.9\.1\b', versions[0]):
+        raise SystemExit('unexpected checked tool version: '+tool)
+installed = next((q['output'] for q in tool_queries if 'list' in q['command']
+                  and '--installed' in q['command']), '')
+for package, version in [('ocaml', '4.07.1'), ('coq', '8.9.1'),
+                         ('coq-iris', 'dev.2019-12-20.0.62798412'),
+                         ('coq-stdpp', 'dev.2019-11-22.2.16eb222f'),
+                         ('coq-paco', '4.0.0'), ('coq-equations', '1.2.1+8.9'),
+                         ('camlp5', '7.08'), ('num', '1.3'), ('ocamlfind', '1.8.1')]:
+    if not re.search(r'^'+re.escape(package)+r'\s+'+re.escape(version)+r'\s*$', installed, re.M):
+        raise SystemExit('unexpected resolved package identity: '+package)
 
 frozen = json.loads((ROOT/'manifests/upstream-tool-freeze.json').read_text())
 guards = {'upstream': upstream_guard(),
