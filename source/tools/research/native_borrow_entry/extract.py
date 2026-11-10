@@ -28,6 +28,10 @@ with replay_receipt(a.output,receipt):
  binary=a.output/'target/debug/native-borrow-entry-extract';bg=ArtifactGuard([binary]);receipt['extractor']=bg.initial
  selected=HERE.parent/'buffer_transfer_goal/original-selected.rs'
  original=HERE/'fixtures/original.rs'
+ transfer=HERE.parent/'buffer_transfer_goal/freeze.json'
+ target=HERE.parent/'mutable_buffer_goal/transfer-freeze.json'
+ require(digest(transfer)==json.loads(target.read_text())['pretrial_manifest_sha256'],'original pretrial manifest changed')
+ require(digest(selected)==json.loads(transfer.read_text())['files']['original-selected.rs'],'upstream selected source changed')
  require('\n'.join(l.strip() for l in selected.read_text().splitlines()) in '\n'.join(l.strip() for l in original.read_text().splitlines()),'frozen original loop mismatch')
  first=None
  for case in f['cases']:
@@ -35,7 +39,7 @@ with replay_receipt(a.output,receipt):
   rc=run(name,[str(binary),str(out),str(src),'--crate-name','native_writer','--edition','2024','--sysroot',str(a.sysroot),'-Zmir-opt-level=0','-Coverflow-checks=on'],env);bg.check()
   stderr=(a.output/(name+'.stderr')).read_text()
   if case['classification']=='lifetime-rejection':
-   require(rc!=0 and not out.exists() and 'error[E0499]' in stderr,'expected overlapping borrow rejection')
+   require(rc!=0 and not out.exists() and case['expected_message'] in stderr,'expected overlapping borrow rejection')
    require('panicked at' not in stderr and 'resource' not in stderr,'not lifetime evidence')
    receipt.setdefault('cases',[]).append(dict(case=name,source_sha256=digest(src),classification='lifetime-rejection',native_bridge_proved=False))
    continue

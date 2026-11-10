@@ -1,0 +1,777 @@
+{
+  "schema": 1,
+  "actual_native_entry_proved": false,
+  "conditional_heap_laws_only": true,
+  "native_bridge_proved": false,
+  "publication": false,
+  "private_root": "/tmp/native-borrow-entry-61f21823",
+  "receipts": {
+    "final-ordinary": "6a3466ef0f83d9492321b8a285f82f500624ffcb64ab42d7b264d572dc7e2022",
+    "assume-new-control": "b3654fb7e0fc3f5d5d2aa02b5b5460e558237966d4914c3834e41703a3687d3d",
+    "final-extraction": "27e181a98cc1819db0c3db06129defc00b7e997f91774f34cec22697512169c7",
+    "wrong-solver-control": "506b9addc3b1a95d538e1ba27ae3aaa096d67bd2dbe72591d27fcf2dc8ebfac6"
+  },
+  "ordinary_cases": [
+    {
+      "id": "choose-permission-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "stdout_sha256": "40261d26dfca2a63c4ed5ebe953304f7a9a58a84996ca638bbe01dddedf91a80",
+      "stderr_sha256": "7519a1638c4b1c16f81be0141621187d8d675d0d3312dc6539c8d82ea148c348",
+      "scope_sha256": "fe545d94c8ca441c96ff79fe9d47069d2e5f1a8369c3f1782ede2e4836a8b60c",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "selected_item_without_translated_body": 1
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "exec-carrier-v2",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "2608f658ed83a29512dfdc57940e01ab0c9cd9c1728ad46732ba8676e6157f1e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_sha256": "f41dd26d5695683a36e14a5633d1c954a6176d179d9eea9848008501de8093f1",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 2,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "checked_exec_body": 2
+        },
+        "checked_exec_names": [
+          "probe::enter",
+          "probe::release"
+        ],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "exec-carrier-v3",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "10a6853ae0d6699c49afbcc591333102a95b88ba1cb4263e28f1c5c3f8058c64",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_sha256": "8921738ceab6f30e4c89bbdd3b33e958a616082a25f408625893b94949b129e3",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 3,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "checked_exec_body": 3
+        },
+        "checked_exec_names": [
+          "probe::enter",
+          "probe::release",
+          "probe::split"
+        ],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "tracked-reborrow-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "4bad4d1234e574381bc336a316edebe90eaf7f8baa4fca7578b1e6135481dbb7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_sha256": "f655b1f73d65592b7dac398fd99d77d7fb7356c9bcb5ac594b325a696fac9f6f",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "checked_exec_body": 1
+        },
+        "checked_exec_names": [
+          "probe::enter"
+        ],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "tracked-slice-v2",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "d3d8971b65f971cf9f6429662885d6ba1c04393baaa775b6b9c2e060a95cccbc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_sha256": "6f01ab4d5585939a01bdb8c0c9df76d348c6aa3211dc400cd406889c6c199148",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 1,
+        "body_status_counts": {
+          "checked_proof_body": 1,
+          "checked_exec_body": 1
+        },
+        "checked_exec_names": [
+          "probe::enter"
+        ],
+        "checked_proof_names": [
+          "probe::borrow_slot"
+        ]
+      }
+    },
+    {
+      "id": "simultaneous-owner-v2",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "263b2b376c8c4bbc398225c4b4679dcd3730ff3045ca3d07be7695f9c096f860",
+      "stderr_sha256": "844b5acb4a62e16be1574cc87a601261479523190af28d1bc1831b609b86ca5c",
+      "scope_sha256": "8fce3c7cbc326ddffa19785e35a0e1da7a785b8e0653b8eed8b08697b4b14b19",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "selected_body_not_certified_by_successful_full_run": 2
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "native-drop-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "da489c0008b73d7afa87a1f35a38ae16f11159811fa3625c263c9713a8435e49",
+      "stderr_sha256": "ae8b633eb6626a4088ee2ef06bb126d8f684dc906648eb51fb9bbfc40b5fb88e",
+      "scope_sha256": "c1628a4a371ec3ae1adecefec3af24c0e8006e429ee9c84187e6776e89ca3384",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "selected_body_not_certified_by_successful_full_run": 1
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "heap-foundation-v5",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 10,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "a94c647b3716333a14bde3406f10e346f2c801cac43698e7c9d4e84886ea885b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope_sha256": "2448a08e3f99366e470bb715b1e0c2d594a789e7904facfce1bdcca5e23a4592",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 10,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "checked_proof_body": 10,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": [
+          "probe::address_is_not_origin",
+          "probe::empty_key_frame",
+          "probe::entry_sound",
+          "probe::input_premise_inhabited",
+          "probe::issue_sound",
+          "probe::next_sound",
+          "probe::origin_stride_nonalias",
+          "probe::release_sound",
+          "probe::resolve_sound",
+          "probe::resolved_loan_cannot_write"
+        ]
+      }
+    },
+    {
+      "id": "false-duplicate-slot-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "769dd408ba9a286a0e265cb7e6055ae22ee1de620e50684b7ee2b9a44ab6089c",
+      "stderr_sha256": "2bdae5ec5401d9ed38e7707050866a798e8c817be377658a2a26540f38102d60",
+      "scope_sha256": "f610adf8c6fa5bc2a3fb4da8bc050a34286ea58ba2667078f49e7be685fc4286",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-lost-slot-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "d3da9c5269c39c456fea5c6fe35ba8911983a8a04f9871f9af0349b83760114e",
+      "stderr_sha256": "1204c0368b3fbc19a612be18ec7b2db6533e28406f47729084195d5c1b7ce829",
+      "scope_sha256": "ea54da7ba9c4bd57b628af6c668c9765261dbd374ffe76ee1799d701c26a8035",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-wrong-allocation-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "7d35dabb42c7eb749b6ef0ddf8424bd03b1fdf5c020579a4f4c732fd728f5b31",
+      "stderr_sha256": "fef35d665e358b2ce271ea90b2eec3e1743cd740aeafc0423214b40f0059421f",
+      "scope_sha256": "18b7f93f41e2309473071d43d872949df1068e9c1a45fa1258dda9e2d42f6768",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-wrong-array-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "5902930f7f5aed6d47c5cc598c7a518c7291a19441ad177789ff63a34bb32265",
+      "stderr_sha256": "d6caa2abb111708aae989a23f84dffe9c5caf4d8abf86f357604e461ec5b5df5",
+      "scope_sha256": "e89f6ad1d9f8fd5ad07d2c80d34e3378cf442f052b893f53c46a0b74f44b353c",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-unauthorized-tail-write-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "a545f585920f34b5e1bc7b0ef8e940e46106582aac38ffd2b5706cecc70de5c8",
+      "stderr_sha256": "3f66e495aefa1e375001530f58463961990c866ea84cae485c815762eaa38b18",
+      "scope_sha256": "ea71faef8027d551a796f6c559e8a5796dda71c7f433085613a59eb2beae3b11",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-later-loan-write-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "b7412f6da10a238df96945a9f6603ee17eae2ac7668d02324f2dd2876a3a2068",
+      "stderr_sha256": "cb7f045e1faee46926fc5503c891bde05f508cfd49011756d82051238b9a778b",
+      "scope_sha256": "daa4465a394c7d433edab9fc6066769759088d644a956584fcaff23bb093f472",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-wrong-initial-values-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "9cb201e25e6321db0bc9dd5f0bfea2578f10a052f5508eae42f0a09a6a6790e9",
+      "stderr_sha256": "17db5485bc7470f7ef2434dac79dc415cd248d094606670ac4a76864c861a0c3",
+      "scope_sha256": "96a8acaacb9aaf1a9e1d9e5f674f82c4d815ae2268189fd6c7f04c5985ad6fe4",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "false-wrong-future-array-v1",
+      "run": "final-ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "68163e83bd900994bffa02bc66737d25b52b486160620935827d8d2289703f04",
+      "stderr_sha256": "51930020105961272b048dbc89613dbe90b18ea5143483322fb4631b6cb9d938",
+      "scope_sha256": "90787e8fe030770fbabad7359a7d6d619adbc5951734cba6ebd8f63a22fff05b",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "outside_selected_scope": 4,
+          "selected_body_not_certified_by_successful_full_run": 11,
+          "specification_definition_or_declaration": 12
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    },
+    {
+      "id": "assume-new-permission-v1",
+      "run": "assume-new-control",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "stdout_sha256": "330d23bee1593d320da116bb917f4d44dd151a94df085b3ec3a2a8d7d94ac7d6",
+      "stderr_sha256": "4b065d6fec1245a8ac708b38a9ad13de9368cbe90f30cfb46199a5613bb88db8",
+      "scope_sha256": "7c4a01a8583901d9c774f4dd2513a7e11e3fddd00e8c57aae9c08c57562ce012",
+      "scope_summary": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "body_status_counts": {
+          "selected_item_without_translated_body": 1
+        },
+        "checked_exec_names": [],
+        "checked_proof_names": []
+      }
+    }
+  ],
+  "source_entry_cases": [
+    {
+      "case": "original",
+      "source_sha256": "cabaa3bd155a4ce45231340d7f68242f8b590e92125db514fd3fbded41546549",
+      "evidence_sha256": "2d0882dd8ab183091542933563a04df1a987b077e2c41d5b0d4ff6bb00d6d7ed",
+      "classification": "entry-eligible",
+      "loans": 3,
+      "inspection": {
+        "typed_entry_eligibility": true,
+        "original_array_local": 1,
+        "extent": 128,
+        "reborrow_local": 7,
+        "slice_local": 6,
+        "iterator_local": 5,
+        "loan": {
+          "activation": "ActivatedAt(bb0[6])",
+          "assigned": {
+            "local": 7,
+            "projection": [],
+            "ty": "&mut [u8; 128]"
+          },
+          "borrowed": {
+            "local": 1,
+            "projection": [
+              {
+                "op": "deref"
+              }
+            ],
+            "ty": "[u8; 128]"
+          },
+          "kind": "exclusive",
+          "loan": 0,
+          "region": 4,
+          "reserve": {
+            "bb": 0,
+            "statement": 5
+          }
+        },
+        "conditional_heap_entry_premise_verified": false,
+        "native_bridge_proved": false,
+        "publication": false,
+        "missing": [
+          "Rust-reference-validity-to-explicit-heap-refinement",
+          "actual-input-value-and-future-array-interpretation",
+          "native-constructor-and-getter-ownership-refinement",
+          "retag-provenance-alias-and-unwind-semantics"
+        ]
+      },
+      "native_bridge_proved": false
+    },
+    {
+      "case": "wrong-extent",
+      "source_sha256": "c59d266043d76a2084d782fcfb7a0e7108c11c67ee3d8fedaef90bbb67e3dfaa",
+      "evidence_sha256": "961f5cfd859fa05c335eebfe62657a402ce1e241654e6a0055fd2b86ee077478",
+      "classification": "eligibility-rejection",
+      "loans": 3,
+      "inspection": {
+        "rejected": true,
+        "reason": "input_domain_or_layout",
+        "semantic_negative": false
+      },
+      "native_bridge_proved": false
+    },
+    {
+      "case": "wrong-source-array",
+      "source_sha256": "a6b656e5b11c4b948073cc50f80e11feda064b740cb806f6897a5304de758336",
+      "evidence_sha256": "6fca638a7203ad21d87d818ce51f7898357d06de8c233473098df709330b4448",
+      "classification": "eligibility-rejection",
+      "loans": 3,
+      "inspection": {
+        "rejected": true,
+        "reason": "unsupported_entry_effect",
+        "semantic_negative": false
+      },
+      "native_bridge_proved": false
+    },
+    {
+      "case": "pre-tail-write",
+      "source_sha256": "620f02c3238c4915f590b090f558eff1a8e66a294f716bd02fd02876ac053d01",
+      "evidence_sha256": "5f8e70e4107db124211a11f6d3061ebac41ed2c9c6e24df8103469d917fcafbe",
+      "classification": "eligibility-rejection",
+      "loans": 3,
+      "inspection": {
+        "rejected": true,
+        "reason": "unsupported_entry_effect",
+        "semantic_negative": false
+      },
+      "native_bridge_proved": false
+    },
+    {
+      "case": "later-tail-write",
+      "source_sha256": "e7b443aea3048e16d22415f3848cf264bb4fb501fb816c06f959f25d9e818c61",
+      "evidence_sha256": "30a5d6a40db896dee1d14c610a3ac370695227267e1a4937d65a07077992ee4d",
+      "classification": "eligibility-rejection",
+      "loans": 3,
+      "inspection": {
+        "rejected": true,
+        "reason": "unexpected_local_write",
+        "semantic_negative": false
+      },
+      "native_bridge_proved": false
+    },
+    {
+      "case": "shared-input",
+      "source_sha256": "a422840b3b1e289173bb65c0af8d6402386da6246d7c43aae122d9d42f74c23e",
+      "evidence_sha256": "5301a5aaa405fa986e1381f545ee2a35280b65ae8f77c1b993e498a2e5429846",
+      "classification": "eligibility-rejection",
+      "loans": 2,
+      "inspection": {
+        "rejected": true,
+        "reason": "input_domain_or_layout",
+        "semantic_negative": false
+      },
+      "native_bridge_proved": false
+    },
+    {
+      "case": "invalid-overlap",
+      "source_sha256": "fac1d7e14ee4721a5c3dd19bb7cb31541f78a924f563f2d82e1f40bff1e12860",
+      "classification": "lifetime-rejection",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "invalid-key-alias",
+      "source_sha256": "84e7bc9be4db003a8a089489af1f2f3dda923340d892d73230f3e1b65068336d",
+      "classification": "lifetime-rejection",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "disjoint-same-allocation",
+      "source_sha256": "4e28438561385a984fa08c3848f5dd64a4171749940df2d62c42547bc5ff6c73",
+      "evidence_sha256": "5e2bb718aaf0f609fa9c861c6cae9308894a481b7e54534fe9e8dedc4cd8b86b",
+      "classification": "entry-eligible",
+      "loans": 3,
+      "inspection": {
+        "typed_entry_eligibility": true,
+        "original_array_local": 1,
+        "extent": 128,
+        "reborrow_local": 7,
+        "slice_local": 6,
+        "iterator_local": 5,
+        "loan": {
+          "activation": "ActivatedAt(bb0[6])",
+          "assigned": {
+            "local": 7,
+            "projection": [],
+            "ty": "&mut [u8; 128]"
+          },
+          "borrowed": {
+            "local": 1,
+            "projection": [
+              {
+                "op": "deref"
+              }
+            ],
+            "ty": "[u8; 128]"
+          },
+          "kind": "exclusive",
+          "loan": 0,
+          "region": 4,
+          "reserve": {
+            "bb": 0,
+            "statement": 5
+          }
+        },
+        "conditional_heap_entry_premise_verified": false,
+        "native_bridge_proved": false,
+        "publication": false,
+        "missing": [
+          "Rust-reference-validity-to-explicit-heap-refinement",
+          "actual-input-value-and-future-array-interpretation",
+          "native-constructor-and-getter-ownership-refinement",
+          "retag-provenance-alias-and-unwind-semantics"
+        ]
+      },
+      "native_bridge_proved": false
+    }
+  ],
+  "certificate_controls": [
+    {
+      "case": "forged-borrow-witness",
+      "reason": "borrowck_loan_witness",
+      "semantic_negative": false
+    },
+    {
+      "case": "wrong-borrow-origin",
+      "reason": "borrowck_loan_witness",
+      "semantic_negative": false
+    },
+    {
+      "case": "missing-issue-fact",
+      "reason": "borrowck_issue_fact",
+      "semantic_negative": false
+    },
+    {
+      "case": "wrong-layout",
+      "reason": "input_domain_or_layout",
+      "semantic_negative": false
+    },
+    {
+      "case": "unchecked-body",
+      "reason": "unchecked_Rust_body",
+      "semantic_negative": false
+    },
+    {
+      "case": "forged-publication",
+      "reason": "forged_publication",
+      "semantic_negative": false
+    },
+    {
+      "case": "publication-failed-True",
+      "reason": "failed_incomplete_resource_proof",
+      "semantic_negative": false
+    },
+    {
+      "case": "publication-incomplete-False",
+      "reason": "failed_incomplete_resource_proof",
+      "semantic_negative": false
+    },
+    {
+      "case": "publication-timeout-False",
+      "reason": "failed_incomplete_resource_proof",
+      "semantic_negative": false
+    },
+    {
+      "case": "publication-resource_limit-False",
+      "reason": "failed_incomplete_resource_proof",
+      "semantic_negative": false
+    },
+    {
+      "case": "publication-proved-False",
+      "reason": "failed_incomplete_resource_proof",
+      "semantic_negative": false
+    },
+    {
+      "case": "publication-proved-True",
+      "reason": "source_to_ownership_refinement_checker_missing",
+      "semantic_negative": false
+    }
+  ],
+  "wrong_solver_control": {
+    "rejected_before_any_command": true,
+    "failure": {
+      "type": "ValueError",
+      "message": "bundle mismatch: z3"
+    }
+  },
+  "bundle_rechecked": {
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+    "verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "libverus_state_machines_macros.so": "72fc1adb00058578ed6c60e2cfb4c372cb8c3f2ef63142f839a36e3696f4bb62",
+    "libverus_builtin.rlib": "8f6346017bb95a5a4596edab948d33b722171a83d2e09cff4004314e58fa0797",
+    "libverus_builtin_macros.so": "b82504324929262955a500d50ebb2557eb4f046e6153a383df997bfab50af8dd",
+    "rust_verify": "ee5acc5069e7a590c6a6bc1455a28ff28429bf3b901bb4499f390d964a57ca47",
+    "libvstd.rlib": "188659ddc2eaaf3932c32832ef6feaab80580368c8a0ffe284dfb03d7c036469",
+    "vstd.vir": "013122a4924d99c14ccdcaa7e0a8d645ffd22aeba2a06fe4101d8c0d36a929f5"
+  },
+  "first_remaining_blocker": "checked same-executable-borrow/unsize/native-constructor transfer to retained ownership without a second live Rust borrow; source-to-heap/value/future-array and key-read-validity interpretation unproved",
+  "excluded_manifest_sha256": "88d42d5862d5752babcb41e15f92669c684a23d159e97ad6952843c94ff86c67",
+  "replay_sources": {
+    "source/tools/research/native_borrow_entry/accepted.json": "1ffd492b95cd57a69dbd5fb84ae21240b650f0a086777813185e479fb47d8039",
+    "source/tools/research/native_borrow_entry/replay.py": "b23ad8546ccf557401525ff5403a14c160a9c827835b96105cccca185eb5ac1a",
+    "source/tools/research/native_borrow_entry/extract.py": "6660d7aad7f9797eb237953681f778ba00a3c9ee6097c2c5aeaf7d9aff6b488e",
+    "source/tools/research/native_borrow_entry/entry_check.py": "f5f2e83695d41fef823af6a34d176e8172b237435316fcd00b71ba8273ad1c4b",
+    "source/tools/research/native_borrow_entry/extraction-v7-freeze.json": "6a4aaf59dbff15da0c993e5117a702e3bb2121bc62d7d907cf7b3b7ca79c00c5"
+  }
+}

@@ -26,13 +26,19 @@ with replay_receipt(a.output, receipt):
         path = a.solver if name == 'z3' else a.verus.parent / name
         require(digest(path) == item['sha256'], 'bundle mismatch: ' + name)
     cases = []
-    inputs = [Path(__file__), HERE / 'bundle-identity.json']
+    accepted = json.loads((HERE / 'accepted.json').read_text())['cases']
+    inputs = [Path(__file__), HERE / 'bundle-identity.json', HERE / 'accepted.json']
     for name in a.case:
         require(name.replace('-', '').isalnum(), 'invalid case name')
         case = HERE / 'candidates' / name
         frozen = json.loads((case / 'freeze.json').read_text())
         require(frozen['id'] == name and frozen['before_first_trial'] is True, 'missing freeze')
         require(digest(case / 'probe.rs') == frozen['source_sha256'], 'frozen source changed')
+        expectation = accepted.get(name, frozen)
+        require(expectation['classification'] == frozen['classification'], 'classification changed since freeze')
+        require(expectation['source_sha256'] == frozen['source_sha256'], 'accepted source changed')
+        if 'expected_message' in expectation:
+            frozen = dict(frozen, expected_message=expectation['expected_message'])
         require(frozen['expected_helpers'] == [], 'zero-helper inventory required')
         require(frozen['required_helper_checks'] == ['soundness','maximality','exactness'], 'helper statuses')
         cases.append((name, case, frozen))
@@ -72,6 +78,10 @@ with replay_receipt(a.output, receipt):
             data = validate_goal_run(result, expected, expected_functions=set(),
                 exec_bodies=frozen['exec_bodies'], proof_bodies=frozen['proof_bodies'],
                 failure_kind=frozen.get('failure_kind'))
+        expectation = accepted.get(name, {})
+        for key in ('verified', 'errors'):
+            if key in expectation:
+                require(data['verification-results'].get(key) == expectation[key], 'wrong exact query count: ' + name)
         entry['verification'] = data['verification-results']
         entry['verification_scope'] = data.get('verus-infer', {}).get('verification_scope')
         guard.check()
