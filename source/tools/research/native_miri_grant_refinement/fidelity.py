@@ -38,3 +38,26 @@ def check(path):
         if definition not in text:raise ValueError('representation drift: '+definition)
     return rows
 if __name__=='__main__': print(json.dumps(check(H/'component.rs'),indent=2))
+
+# In addition to executable-body equality, authenticate extraction and the exact
+# declaration/contract/adapter template. This intentionally accepts only the
+# selected candidate, not arbitrary Verus syntax or negative variants.
+def strict_check(path):
+    from hashlib import sha256
+    from freeze import function
+    freeze=json.loads((H/'FREEZE.json').read_text())
+    def hashed(p): return sha256(Path(p).read_bytes()).hexdigest()
+    if hashed(H/'selected.json') != freeze['selected_sha256']: raise ValueError('selected manifest drift')
+    sources={}
+    for name,entry in freeze['sources'].items():
+        if hashed(entry['path'])!=entry['sha256']:raise ValueError('upstream drift')
+        sources[name]=Path(entry['path']).read_text()
+    selected=json.loads((H/'selected.json').read_text())
+    for name,original in selected.items():
+        file='mod.rs' if name=='find_first_write_incompatible' else ('stack.rs' if name=='get' else 'item.rs')
+        if function(sources[file],name)!=original:raise ValueError('extraction drift: '+name)
+    # Full template binding additionally guards signatures, all constants,
+    # derives, macros, spec definitions, contracts and absence of extra items.
+    if hashed(path)!='23880c5435a385228b5bcd35da75a0862bc56a3a2755fa4aa1684a2c18d59092':
+        raise ValueError('candidate declaration/annotation template drift')
+    return check(path)
