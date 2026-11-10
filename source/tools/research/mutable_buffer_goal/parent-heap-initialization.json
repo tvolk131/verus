@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "handoff_commit": "3d799b38",
+  "scope": "Reusable model global initialization/adequacy and exact interior-frame partition; no native source entry",
+  "parent_replay": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-heap-init-3d799b38/receipt.json",
+    "sha256": "9e9f6957925f5ea7e5ff150e947318ff1342f45563c9c628397e34dd21bb36c6",
+    "success": true
+  },
+  "constant_count": 29,
+  "new_definitions": 4,
+  "new_theorems_including_countertheorems": 25,
+  "all_constant_assumptions_closed": true,
+  "program_obligations": 0,
+  "proof_objects": {
+    "Assumptions.vo": "246dab6f53dc659099d8e5a8f90df8557c8e4c0a07284537a06bfdba305e5ea1",
+    "controls.vo": "d8586648cf4b34c12b99811e93ed674590aa90dfa995f730cd52440840f79126",
+    "initialization.vo": "d9b1e53194039a566c409727ef4a6acf23d3e878cc3c1c22a954cd58bfe7d34c",
+    "partition.vo": "c2ac51f31ad532d3246b48e8e7862e52ad97d1845f6792ff776ffb892c5467a9"
+  },
+  "proof_objects_match_worker_both_trials": true,
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "resource_countertheorems": 5,
+  "worker_provenance_controls": 6,
+  "parent_reran_provenance_controls": false,
+  "initialization_domain": "Every finite raw model gmap loc val; exact physical keys/values; model RSt0/global-lock=false/empty-freeability initialization",
+  "interval_domain": "Generic arbitrary-length strict interior subobjects and exact remaining frame; includes10/128 arbitrary bytes",
+  "user_permission_premise": false,
+  "live_rust_reference_to_permission_conversion": false,
+  "source_typing_provenance_ancestor_loans_CF_interpretation_proved": false,
+  "actual_native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_effects_open": 101,
+  "publication": false,
+  "goal_complete": false,
+  "independent_review": "pending NEW mathematical/source review"
+}

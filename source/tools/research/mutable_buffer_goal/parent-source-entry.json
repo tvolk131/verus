@@ -36,5 +36,11 @@
     "recommendation": "exact model/inspection evidence accepted; source-entry theorem remains unproved"
   },
   "parent_controller_reconciliation": "Complete mandatory input inventories, retained snapshot/pin equality, authenticated loadpaths and protected copied source; new matching replay running",
-  "parent_compatibility_freeze": "native_source_entry/entry-full-snapshot-freeze.json"
+  "parent_compatibility_freeze": "native_source_entry/entry-full-snapshot-freeze.json",
+  "global_heap_initialization_prerequisite": {
+    "record": "parent-heap-initialization.json",
+    "model_constants": 29,
+    "parent_kernel_replay_passed": true,
+    "actual_source_context_still_unproved": true
+  }
 }

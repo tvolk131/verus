@@ -72,6 +72,14 @@ its 42-constant inspection proves no new native theorem. The
 [fact-provenance trace](FACT_PROVENANCE.md) records inherited standard-contract
 facts used by the observer-disabled canonical proof, without claiming individual
 indispensability or a checked common transfer step.
+The [nonempty model-heap initializer](parent-heap-initialization.json) now
+constructs exact finite-map resources internally, proves operational adequacy
+and preserves an arbitrary interior-buffer frame. All 29 constants are closed
+and the parent kernel replay matches the worker objects. It covers the stated
+model initialization convention, with no application permission premise; it
+does not interpret actual Rust provenance, ancestor loans or C/F observations.
+Fresh independent mathematical review is pending.
+
 The model results remain distinct from a native Rust interpretation theorem.
 The existing `source_loan_release`/`typed_source_loan_release` already derive
 future/current equality for a resolved model unique reference. Repeating that
