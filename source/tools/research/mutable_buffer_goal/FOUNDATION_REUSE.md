@@ -47,3 +47,13 @@ recursive kernel check. Actual Rust reference/provenance interpretation,
 primitive and phase simulation, and original-array exit adequacy remain open.
 No native theorem or Verus fact is installed by building this dependency.
 Production compiler, vstd and global policy/cache/schema are unchanged.
+
+
+A [targeted source-semantics inspection](source-foundation-inspection.json) also
+records Tree Borrows/Simuliris at `e3abfcdc` and Corten v1. Tree Borrows supplies
+explicit retag/protector operational definitions, but the inspected core still
+uses unbounded offsets and supplies no Rust MIR input embedding or Verus import.
+Corten's [adequacy table](https://arxiv.org/html/2609.04372v1#A7) leaves required
+borrow rules pending. Neither candidate is built, imported, or used to justify a
+native fact. The next proof must bind the original Rust borrow and execution to
+the checked interpretation, including empty-key and subobject cases.
