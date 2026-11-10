@@ -1,0 +1,12 @@
+{
+  "failure": {
+    "message": "list indices must be integers or slices, not str",
+    "type": "TypeError"
+  },
+  "goal_complete": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "python_optimize": 0,
+  "success": false
+}

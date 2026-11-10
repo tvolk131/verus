@@ -1,0 +1,12 @@
+error: postcondition not satisfied
+  --> /home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/readonly-guard-removed.rs:33:17
+   |
+33 |           ensures r == permission_access_table(self, access),
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+34 |       {
+35 | /         self != Permission::Disabled
+36 | |             && (access == AccessKind::Read || true)
+   | |___________________________________________________- at the end of the function body
+
+error: aborting due to 1 previous error
+

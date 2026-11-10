@@ -1,0 +1,377 @@
+{
+  "completed_parent_commands": {
+    "compile-candidate": {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqc",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+        "handoff",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate.v"
+      ],
+      "cwd": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+      "environment": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "MAKEFLAGS": "-j2",
+        "OPAMJOBS": "2",
+        "PATH": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin:/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TMPDIR": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/tmp",
+        "XDG_CACHE_HOME": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/cache"
+      },
+      "exit_status": 0,
+      "finished": 1794330392.6468952,
+      "inputs": {
+        "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+        "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+      },
+      "log": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/compile-candidate.log",
+      "log_sha256": "d7b55108e1a62eb5c9888b2e8cf53795ea2d6f63195f112a3d3c7575d121a353",
+      "pgid": 3056726,
+      "pid": 3056726,
+      "runner_sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e",
+      "started": 1794330391.2205093,
+      "startticks": "33510210",
+      "state": "finished"
+    },
+    "compile-composition": {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqc",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+        "handoff",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/composition.v"
+      ],
+      "cwd": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+      "environment": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "MAKEFLAGS": "-j2",
+        "OPAMJOBS": "2",
+        "PATH": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin:/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TMPDIR": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/tmp",
+        "XDG_CACHE_HOME": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/cache"
+      },
+      "exit_status": 0,
+      "finished": 1794330393.918239,
+      "inputs": {
+        "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+        "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+      },
+      "log": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/compile-composition.log",
+      "log_sha256": "d7b55108e1a62eb5c9888b2e8cf53795ea2d6f63195f112a3d3c7575d121a353",
+      "pgid": 3056819,
+      "pid": 3056819,
+      "runner_sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e",
+      "started": 1794330392.6474476,
+      "startticks": "33510353",
+      "state": "finished"
+    },
+    "inventory": {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqtop",
+        "-quiet",
+        "-batch",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+        "handoff",
+        "-l",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/inventory.v"
+      ],
+      "cwd": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+      "environment": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "MAKEFLAGS": "-j2",
+        "OPAMJOBS": "2",
+        "PATH": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin:/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TMPDIR": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/tmp",
+        "XDG_CACHE_HOME": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/cache"
+      },
+      "exit_status": 0,
+      "finished": 1794330412.3884726,
+      "inputs": {
+        "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+        "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+      },
+      "log": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/inventory.log",
+      "log_sha256": "78e6661fc2c03190b906231bf50ff14c99b611d4d550a5c18e7daf0ff636565c",
+      "pgid": 3056824,
+      "pid": 3056824,
+      "runner_sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e",
+      "started": 1794330393.921362,
+      "startticks": "33510480",
+      "state": "finished"
+    },
+    "kernel": {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqchk",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+        "handoff",
+        "-o",
+        "handoff.candidate",
+        "handoff.composition"
+      ],
+      "cwd": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+      "environment": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "MAKEFLAGS": "-j2",
+        "OPAMJOBS": "2",
+        "PATH": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin:/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TMPDIR": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/tmp",
+        "XDG_CACHE_HOME": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/cache"
+      },
+      "exit_status": 0,
+      "finished": 1794330500.0837193,
+      "inputs": {
+        "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+        "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+      },
+      "log": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/kernel.log",
+      "log_sha256": "7664df6d63a95798ee8a6727a3f19f216f79013f9fbf618374591c94cb567ca6",
+      "pgid": 3057379,
+      "pid": 3057379,
+      "runner_sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e",
+      "started": 1794330412.5554633,
+      "startticks": "33512344",
+      "state": "finished"
+    },
+    "object-summary": {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/object-reader-v3/vo-summary",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate.vo",
+        "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/composition.vo"
+      ],
+      "cwd": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025",
+      "environment": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "MAKEFLAGS": "-j2",
+        "OPAMJOBS": "2",
+        "PATH": "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin:/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "TMPDIR": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/tmp",
+        "XDG_CACHE_HOME": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/cache"
+      },
+      "exit_status": 0,
+      "finished": 1794330412.5147824,
+      "inputs": {
+        "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+        "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+      },
+      "log": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/object-summary.log",
+      "log_sha256": "c1a1ea9a695d37544870b7ba46eccacfa986357b5f0b9ae00ab67600672ada29",
+      "pgid": 3057378,
+      "pid": 3057378,
+      "runner_sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e",
+      "started": 1794330412.494681,
+      "startticks": "33512338",
+      "state": "finished"
+    }
+  },
+  "no_delivered_Coq_controller_execution": true,
+  "no_new_native_execution": true,
+  "ordinary_verifier_commands": [
+    {
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/enabled-cold.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002",
+      "environment": {
+        "PATH": "/home/dev/.cargo/bin:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/home/dev/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/home/dev/.codex/tmp/arg0-linux/codex-arg0DDo4R7:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "RUSTUP_AUTO_INSTALL": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/tmp",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/enabled-cache",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+      },
+      "finished": 1794335928.2917442,
+      "returncode": 0,
+      "started": 1794335926.6233068
+    },
+    {
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/enabled-warm.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002",
+      "environment": {
+        "PATH": "/home/dev/.cargo/bin:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/home/dev/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/home/dev/.codex/tmp/arg0-linux/codex-arg0DDo4R7:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "RUSTUP_AUTO_INSTALL": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/tmp",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/enabled-cache",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+      },
+      "finished": 1794335930.626256,
+      "returncode": 0,
+      "started": 1794335928.9758906
+    },
+    {
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/disabled.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002",
+      "environment": {
+        "PATH": "/home/dev/.cargo/bin:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/home/dev/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/home/dev/.codex/tmp/arg0-linux/codex-arg0DDo4R7:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "RUSTUP_AUTO_INSTALL": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/tmp",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/disabled-cache",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+      },
+      "finished": 1794335932.2656217,
+      "returncode": 0,
+      "started": 1794335931.3194814
+    },
+    {
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/disabled-guard-removed.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002",
+      "environment": {
+        "PATH": "/home/dev/.cargo/bin:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/home/dev/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/home/dev/.codex/tmp/arg0-linux/codex-arg0DDo4R7:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "RUSTUP_AUTO_INSTALL": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/tmp",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/disabled-guard-removed-cache",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+      },
+      "finished": 1794335934.5816526,
+      "returncode": 1,
+      "started": 1794335932.9651453
+    },
+    {
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/read-inverted.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002",
+      "environment": {
+        "PATH": "/home/dev/.cargo/bin:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/home/dev/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/home/dev/.codex/tmp/arg0-linux/codex-arg0DDo4R7:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "RUSTUP_AUTO_INSTALL": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/tmp",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/read-inverted-cache",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+      },
+      "finished": 1794335936.9310455,
+      "returncode": 1,
+      "started": 1794335935.2536829
+    },
+    {
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/readonly-guard-removed.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--infer-goals"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002",
+      "environment": {
+        "PATH": "/home/dev/.cargo/bin:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/home/dev/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/home/dev/.codex/tmp/arg0-linux/codex-arg0DDo4R7:/home/dev/.codex/packages/standalone/releases/0.167.0-x86_64-unknown-linux-musl/codex-path:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "RUSTUP_AUTO_INSTALL": "0",
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "TMPDIR": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/tmp",
+        "VERUS_INFER_CACHE": "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/replay002/readonly-guard-removed-cache",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3"
+      },
+      "finished": 1794335939.3308582,
+      "returncode": 1,
+      "started": 1794335937.6239212
+    }
+  ],
+  "python": {
+    "executable": "/usr/bin/python3",
+    "sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+    "version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "review_commands": [
+    {
+      "classification": "freeze before all trials",
+      "command": "python3 -B -O evidence/miri-permission-gate-review/prepare.py",
+      "exit_status": 0
+    },
+    {
+      "command": "git -c user.name=Codex -c user.email=codex@openai.com commit -m 'review: freeze isolated permission and controller review scope'",
+      "commit": "133dd2ce"
+    },
+    {
+      "classification": "excluded setup, zero verifier commands",
+      "command": "python3 -B -O source/tools/research/native_miri_permission_grants/replay.py --freeze evidence/miri-permission-gate-review/freeze-own.json --output evidence/miri-permission-gate-review/replay001",
+      "exit_status": 1
+    },
+    {
+      "command": "git -c user.name=Codex -c user.email=codex@openai.com commit -m 'review: freeze independent helper runner after isolated receipt-key setup failure'",
+      "commit": "7e4c5b9c"
+    },
+    {
+      "command": "python3 -B -O evidence/miri-permission-gate-review/run_independent.py",
+      "exit_status": 0
+    },
+    {
+      "classification": "excluded initial schema failure retained in static-setup-failure001.json; current rerun exit0",
+      "command": "python3 -B evidence/miri-permission-gate-review/audit.py static-normal.json",
+      "exit_status": 0,
+      "first_exit_status": 1
+    },
+    {
+      "command": "python3 -B -O evidence/miri-permission-gate-review/audit.py static-optimized.json",
+      "exit_status": 0
+    }
+  ]
+}

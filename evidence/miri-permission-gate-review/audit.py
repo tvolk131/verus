@@ -1,0 +1,215 @@
+"""Pure source/data/bytecode review; never executes delivered controllers."""
+import ast, copy, dis, hashlib, json, marshal, pathlib, re, subprocess, sys, types
+HERE=pathlib.Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
+RESEARCH=ROOT/'source/tools/research'
+B=pathlib.Path('/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025')
+def need(c,m):
+    if not c: raise RuntimeError(m)
+def sha(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+def hs(b): return hashlib.sha256(b).hexdigest()
+def load(p): return json.loads(pathlib.Path(p).read_bytes())
+def save(p,x): p.write_text(json.dumps(x,indent=2,sort_keys=True)+'\n')
+def git(rev,path): return subprocess.check_output(['git','show',rev+':'+path],cwd=ROOT)
+def dump(n): return ast.dump(n,include_attributes=False)
+def toks(s): return re.findall(r'\w+|[^\s]',re.sub(r'//[^\n]*','',s))
+def block(s,marker):
+    need(s.count(marker)==1,'unique marker '+marker)
+    s=re.sub(r'//[^\n]*','',s); start=s.index('{',s.index(marker)); depth=0
+    for i in range(start,len(s)):
+        depth+=(s[i]=='{')-(s[i]=='}')
+        if depth==0: return s[start:i+1]
+    raise RuntimeError('unbalanced block')
+def fidelity():
+    pins=load(RESEARCH/'native_miri_policy_pin/pins.json'); base=RESEARCH/'native_miri_permission_grants'
+    src=(base/'component.rs').read_text(); observations={}
+    for name,rel,marker in [
+        ('permission','src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs','pub enum Permission'),
+        ('access','src/tools/miri/src/borrow_tracker/mod.rs','pub enum AccessKind'),
+        ('grants','src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs','fn grants(')]:
+        entry=pins['sources'][rel]; need(sha(entry['path'])==entry['sha256'],'pinned source '+rel)
+        original=pathlib.Path(entry['path']).read_text()
+        old=block(original,marker); new=block(src,'pub '+marker if name=='grants' else marker)
+        need(toks(old)==toks(new),'pinned body/variants '+name)
+        observations[name]=dict(pin=entry,original_token_sha256=hs(json.dumps(toks(old)).encode()),adapter_token_sha256=hs(json.dumps(toks(new)).encode()))
+        if name!='grants':
+            pat=r'#\[derive\(([^)]*)\)\]\s*'+re.escape(marker)
+            oldderive=re.search(pat,original).group(1); newderive=re.search(pat,src).group(1)
+            need([s.strip() for s in newderive.split(',')]==[s.strip() for s in oldderive.split(',')]+['Structural'],'derive preservation '+name)
+            observations[name]['original_derives']=oldderive
+    permission=block(src,'pub enum Permission'); access=block(src,'pub enum AccessKind')
+    permissions=re.findall(r'\b(Unique|SharedReadWrite|SharedReadOnly|Disabled)\b',permission)
+    accesses=re.findall(r'\b(Read|Write)\b',access)
+    table=block(src,'pub open spec fn permission_access_table')
+    rows=re.findall(r'\(Permission::(\w+), AccessKind::(\w+)\) => (true|false),',table)
+    need(len(rows)==8 and {(p,a) for p,a,v in rows}=={(p,a) for p in permissions for a in accesses},'exhaustive table')
+    need(len(set((p,a) for p,a,v in rows))==8,'unique table rows')
+    truth=[]
+    for p,a,v in rows:
+        # Direct evaluation of selected Boolean operators over enum-name data,
+        # supporting contract audit only; no Rust/runtime/model theorem claimed.
+        body=(p!='Disabled') and (a=='Read' or p!='SharedReadOnly')
+        need(body==(v=='true'),'contract row '+p+'/'+a)
+        truth.append(dict(permission=p,access=a,contract=v=='true',selected_expression=body))
+    expected='''use vstd::prelude::*;
+verus! {
+#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Structural)]
+pub enum Permission { Unique, SharedReadWrite, SharedReadOnly, Disabled, }
+#[derive(Copy, Clone, Hash, PartialEq, Eq, Debug, Structural)]
+pub enum AccessKind { Read, Write, }
+pub open spec fn permission_access_table(permission: Permission, access: AccessKind) -> bool {TABLE}
+impl Permission { pub fn grants(self, access: AccessKind) -> (r: bool)
+ensures r == permission_access_table(self, access), {BODY} }
+}'''.replace('{TABLE}',table).replace('{BODY}',block(src,'pub fn grants('))
+    need(toks(src)==toks(expected),'entire component grammar, no hidden proof/precondition/calls')
+    return dict(source_sha256=sha(base/'component.rs'),observations=observations,truth_table=truth,
+        no_precondition=True,no_proof_or_helper=True,entire_component_tokens_accounted=True,
+        independent_truth_table_only_not_native_execution=True)
+HELPER=ast.parse('def require_check(condition, message):\n    if not condition:\n        raise RuntimeError(message)\n').body[0]
+def codewalk(c):
+    yield c
+    for x in c.co_consts:
+        if isinstance(x,types.CodeType): yield from codewalk(x)
+def controllers():
+    out={}; transformed=load('/tmp/verus-infer-buffer-cycle-20261109/stbor-controller-gate-transformation.json')
+    delivered=load('/tmp/verus-infer-buffer-cycle-20261109/parent-entry-replay-eb7778b5/guard-bytecode-audit.json')
+    for file,count in [('check.py',17),('summarize.py',12)]:
+        rel='source/tools/research/stbor_entry_handoff/'+file; oldbytes=git('eb7778b5^',rel); newbytes=(ROOT/rel).read_bytes()
+        need(newbytes==git('eb7778b5',rel),'current exact revised controller '+file)
+        old=ast.parse(oldbytes); new=ast.parse(newbytes); records=[]
+        class Expected(ast.NodeTransformer):
+            def visit_Assert(self,node):
+                msg=node.msg if node.msg is not None else ast.Constant('Required proof/artifact check failed at original line '+str(node.lineno))
+                records.append(dict(original_line=node.lineno,condition=ast.unparse(node.test),message=ast.unparse(msg),original_message_preserved=node.msg is not None))
+                return ast.copy_location(ast.Expr(value=ast.Call(func=ast.Name(id='require_check',ctx=ast.Load()),args=[node.test,msg],keywords=[])),node)
+            def visit_Assign(self,node):
+                if len(node.targets)==1 and isinstance(node.targets[0],ast.Name) and node.targets[0].id=='ROOT':
+                    return ast.parse("ROOT=Path(os.environ.get('STBOR_ENTRY_OUTPUT_ROOT', '/tmp/stbor-entry-handoff-20261110'))").body[0]
+                return self.generic_visit(node)
+            def visit_Import(self,node):
+                if file=='summarize.py' and [x.name for x in node.names]==['hashlib','json','re']:
+                    node.names.append(ast.alias(name='os'))
+                return node
+        expected=Expected().visit(copy.deepcopy(old)); stripped=copy.deepcopy(new)
+        helpers=[x for x in stripped.body if isinstance(x,ast.FunctionDef) and x.name=='require_check']
+        need(len(helpers)==1 and dump(helpers[0])==dump(HELPER),'explicit raise helper '+file)
+        stripped.body.remove(helpers[0]); need(dump(stripped)==dump(expected),'entire AST projection '+file)
+        need(len(records)==count and not any(isinstance(x,ast.Assert) for x in ast.walk(new)),'all assertions converted '+file)
+        bytecode={}
+        for opt in [0,1,2]:
+            c=compile(newbytes.decode(),file,'exec',optimize=opt); codes=list(codewalk(c)); loads=[]
+            for sub in codes:
+                for i in dis.get_instructions(sub):
+                    if i.opname in ('LOAD_GLOBAL','LOAD_NAME') and i.argval=='require_check':
+                        loads.append(dict(function=sub.co_qualname,offset=i.offset))
+            need(len(loads)==count,'guard load bytecode count '+file+'/'+str(opt))
+            helper=next(x for x in codes if x.co_name=='require_check'); ins=list(dis.get_instructions(helper))
+            need(any(i.opname=='RAISE_VARARGS' and i.arg==1 for i in ins) and any(i.argval=='RuntimeError' for i in ins),'optimized explicit raise '+file)
+            need(not any(i.opname=='LOAD_ASSERTION_ERROR' for sub in codes for i in dis.get_instructions(sub)),'no assert bytecode '+file)
+            bytecode[str(opt)]=dict(guard_loads=loads,compiled_code_sha256=hs(marshal.dumps(c)),helper_instructions=[str(i) for i in ins])
+        need(transformed[file]['original_sha256']==hs(oldbytes) and transformed[file]['new_sha256']==hs(newbytes)
+             and transformed[file]['converted_checks']==count,'transformation receipt correspondence '+file)
+        need(delivered['files'][file]['source_sha256']==hs(newbytes) and delivered['files'][file]['guard_calls_by_optimization']=={'0':count,'2':count},'bytecode receipt correspondence '+file)
+        out[file]=dict(before_sha256=hs(oldbytes),after_sha256=hs(newbytes),converted_checks=count,guards=records,
+            whole_AST_equivalence_except_explicit_changes=True,bytecode=bytecode)
+    return out
+
+def parent_data():
+    binding=load(RESEARCH/'mutable_buffer_goal/parent-entry-replay.json'); stacked=binding['stacked']
+    for key in ['acceptance','controller_exit','product_map']:
+        ref=stacked[key]; need(pathlib.Path(ref['path']).parent==B and sha(ref['path'])==ref['sha256'],'parent binding '+key)
+    need(sha('/tmp/verus-infer-buffer-cycle-20261109/stbor-controller-gate-transformation.json')==binding['controller_gate_revision']['AST_transformation']['sha256'],'AST receipt pin')
+    need(sha('/tmp/verus-infer-buffer-cycle-20261109/parent-entry-replay-eb7778b5/guard-bytecode-audit.json')==binding['controller_gate_revision']['normal_and_optimized_bytecode_checks']['sha256'],'bytecode receipt pin')
+    products=load(B/'products.json')
+    for n,h in products.items():
+        need(pathlib.Path(n).name==n,'product map remains in named artifact')
+        need(sha(B/n)==h,'raw product '+n)
+    need(set(products)=={p.name for p in B.iterdir() if p.is_file()}-{'products.json','controller-exit.json'},'complete raw top-level product map')
+    terminal=load(B/'controller-exit.json'); need(terminal['state']=='finished' and type(terminal['exit_status']) is int and terminal['exit_status']==0 and 'error' not in terminal,'terminal success')
+    freeze=load(B/'pretrial-freeze.json'); controller=RESEARCH/'stbor_entry_handoff/check.py'
+    need(freeze['mode']=='accept' and sha(B/'controller.py')==freeze['controller_sha256']==sha(controller),'exact controller and accept mode')
+    need(sha(B/'foundation-guard.json')==freeze['foundation_guard_sha256'],'pretrial foundation guard binding')
+    commands={}
+    for n in ['compile-candidate','compile-composition','inventory','object-summary','kernel']:
+        r=load(B/(n+'.json'))
+        need(r['state']=='finished' and r['exit_status']==0 and r['runner_sha256']==sha(controller),'finished command '+n)
+        need(r['cwd']==str(B) and pathlib.Path(r['log'])==B/(n+'.log') and sha(r['log'])==r['log_sha256'],'command log '+n)
+        need(r['inputs']==freeze['sources'] and r['started']<=r['finished']<=terminal['time'],'command source/time '+n)
+        commands[n]=r
+    a=load(B/'acceptance.json'); inv=load(B/'declaration-inventory.json'); modules=load(B/'object-dependency-map.json')['modules']; loaded=load(B/'loaded-objects.json')
+    need(a['declarations']==25 and a['all_individually_closed'] is True and len(inv)==25,'25 closed declaration inventory')
+    independent=load(ROOT/'evidence/borrow-entry-handoff-review/stbor-INVENTORY.json')
+    worker=load(RESEARCH/'stbor_entry_handoff/INVENTORY.json')
+    need(set(inv)==set(worker['declarations'])==set(independent['declarations']),'exact reviewed declaration identities')
+    for name,x in inv.items():
+        need(x['assumptions_text'].strip()=='Closed under the global context','individual closure '+name)
+        for kind in ['type','assumptions']:
+            p=B/'declarations'/f'{x["index"]}-{kind}.out'
+            need(p.read_text()==x[kind+'_text'] and sha(p)==x[kind+'_sha256'],'declaration output '+name+'/'+kind)
+            need(x[kind+'_sha256']==worker['declarations'][name][kind+'_sha256']==independent['declarations'][name][kind+'_sha256'],'previous accepted declaration bytes '+name+'/'+kind)
+    need(len(modules)==len(loaded)==a['objects']==282 and set(modules)==set(a['checked_modules'])==set(independent['checked_libraries']),'exact 282 modules')
+    kernel=(B/'kernel.log').read_text()
+    checked=set(re.findall(r'^Checking library: (\S+)\s*$',kernel,re.M)); decls=set(re.findall(r'^\s*checking cst:(handoff\.\S+)\s*$',kernel,re.M))
+    need(checked==set(modules) and decls==set(inv) and 'Modules were successfully checked' in kernel,'kernel log exact closure')
+    need(kernel[kernel.rfind('==============='):]==a['kernel_context']==independent['kernel_context'],'kernel trust context')
+    workerobjs=load(RESEARCH/'stbor_entry_handoff/OBJECTS.json'); ownmath={}
+    for name in ['candidate','composition']:
+        rel='source/tools/research/stbor_entry_handoff/'+name+'.v'; own=ROOT/rel
+        oldrevs=['89494dce','15e3c268','eb7778b5^','eb7778b5','e401fc23','8aa9fa72']
+        for rev in oldrevs: need(git(rev,rel)==own.read_bytes(),'unchanged accepted math '+rev+'/'+name)
+        h=sha(own); oh=sha(B/(name+'.vo'))
+        need(sha(B/(name+'.v'))==h==freeze['sources'][name+'.v']==a['compiled_sources'][name],'parent mathematical source '+name)
+        need(oh==a['compiled_objects'][name]==workerobjs['compiled_own_objects'][name],'worker identical own object '+name)
+        reviewfiles=load(ROOT/'evidence/borrow-entry-handoff-review/PRIVATE_ARTIFACTS.json')['files']
+        need(reviewfiles['stbor/fresh/'+name+'.vo']==oh,'independent recorded identical own object '+name)
+        ownmath[name]=dict(source_sha256=h,object_sha256=oh,identical_git_revisions=oldrevs)
+    for name,x in modules.items():
+        need(x['object_sha256']==workerobjs['modules'][name]['object_sha256'] and x['source_sha256']==workerobjs['modules'][name]['source_sha256'],'worker module hashes '+name)
+        need(x['object'] in loaded and loaded[x['object']]['object_sha256']==x['object_sha256'] and loaded[x['object']]['source_sha256']==x['source_sha256'],'loaded map binding '+name)
+        need(set(x['recorded_compiled_dependencies'])<=set(modules),'recursive dependency completeness '+name)
+        # No follow of immutable historical checkout labels or unnamed baseline
+        # files. Own parent products freshly hashed; foundation hashes inherited.
+        if pathlib.Path(x['object']).parent==B: need(sha(x['object'])==x['object_sha256'],'parent own object '+name)
+    return dict(acceptance_sha256=sha(B/'acceptance.json'),controller_exit_sha256=sha(B/'controller-exit.json'),product_map_sha256=sha(B/'products.json'),
+        product_count=len(products),products=products,commands=commands,own_math=ownmath,closed_declarations=25,recursive_modules=282,
+        kernel_context=a['kernel_context'],terminal=terminal,foundation_hashes_recorded_not_rehashed=load(B/'foundation-guard.json'),
+        recursive_module_hash_inventory=modules,final_foundation_guard_preserved=True,
+        acceptance_file_is_provisional_until_products_and_successful_terminal_exit=True)
+
+def p3():
+    base='source/tools/research/tree_borrows_entry_handoff/'; old=git('995809af',base+'MILESTONE.json'); newpath=ROOT/(base+'MILESTONE.json')
+    a=json.loads(old); b=load(newpath); receipts=a.pop('successful_compilation_receipts')
+    need(b.pop('development_compilation_receipts')==receipts,'all original P3 fields and exits')
+    note=b.pop('receipt_classification'); need(a==b,'P3 only label and explanatory note')
+    exits={n:x.get('exit_status',x.get('returncode',x.get('exit_code'))) for n,x in receipts.items()}
+    oldres=json.loads(git('995809af',base+'results.json')); newres=load(ROOT/(base+'results.json'))
+    oldhash=oldres['evidence_files'].pop('MILESTONE.json'); newhash=newres['evidence_files'].pop('MILESTONE.json')
+    need(oldhash==hs(old) and newhash==sha(newpath),'P3 evidence hash update')
+    correction=newres.pop('metadata_correction'); need(oldres==newres,'P3 results only hash and correction note')
+    need(git('995809af',base+'Entry.v')==(ROOT/(base+'Entry.v')).read_bytes(),'P3 no math source change')
+    return dict(original_commit='995809af',original_milestone_sha256=hs(old),current_milestone_sha256=sha(newpath),
+        all_original_receipt_fields_and_exits_preserved=True,original_exits=exits,note=note,correction=correction,no_new_proof_acceptance=True)
+def main():
+    need(len(sys.argv)==2,'output filename required')
+    out=HERE/sys.argv[1]; need(out.parent==HERE,'own output only')
+    initial=load(HERE/'pretrial-inventory.json')
+    for p,x in initial['files'].items(): need(sha(p)==x['sha256'],'pretrial unchanged before static audit '+p)
+    result=dict(success=False,python=sys.version,python_optimize=sys.flags.optimize,native_correspondences=0,publication=False,goal_complete=False)
+    try:
+        result.update(component=fidelity(),controllers=controllers(),parent=parent_data(),P3=p3())
+        parent=load('/tmp/native-miri-permission-grants-parent003/receipt.json')
+        need(sha('/tmp/native-miri-permission-grants-parent003/receipt.json')=='31c75c1118c787cef6420e65d96fdbc5ad8fc39bc1a0f146a1b8b8330d354ce3' and parent['success'] is True and parent['all_final_guards_passed'] is True,'parent helper acceptance')
+        result['excluded_parent_setups']=[]
+        for i in [1,2]:
+            p=pathlib.Path(f'/tmp/native-miri-permission-grants-parent00{i}/receipt.json'); r=load(p)
+            need(r['success'] is False and not r['runs'],'excluded incomplete parent gate')
+            result['excluded_parent_setups'].append(dict(path=str(p),sha256=sha(p),failure=r['failure'],commands=len(r['commands']),accepted_runs=0))
+        own=load(HERE/'replay001/receipt.json'); need(own['success'] is False and own['commands']==own['runs']==[],'excluded own setup only')
+        result['excluded_own_setup']=own
+        for p,x in initial['files'].items(): need(sha(p)==x['sha256'],'pretrial final unchanged '+p)
+        result.update(success=True,all_initial_hashes_preserved=True)
+    except BaseException as e:
+        result['failure']=dict(type=type(e).__name__,message=str(e)); raise
+    finally: save(out,result)
+    print('Independent static audit passed:',out.name)
+if __name__=='__main__': main()

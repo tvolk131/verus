@@ -1,0 +1,116 @@
+{
+  "A": {
+    "delivered_replay_gate_accepted": false,
+    "receipt_sha256": "2e294ad82e19d9998a2812afa5defeed69a2caa7b51bb73a450ea1c088250e7e",
+    "revision_required": [
+      "R1",
+      "R2"
+    ],
+    "runs": [
+      {
+        "errors": 0,
+        "failed_functions": [],
+        "name": "enabled-cold",
+        "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+        "verified": 3
+      },
+      {
+        "errors": 0,
+        "failed_functions": [],
+        "name": "enabled-warm",
+        "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+        "verified": 3
+      },
+      {
+        "errors": 0,
+        "failed_functions": [],
+        "name": "disabled",
+        "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+        "verified": 3
+      },
+      {
+        "errors": 1,
+        "failed_functions": [
+          "disabled_guard_removed::Permission::grants"
+        ],
+        "name": "disabled-guard-removed",
+        "source_sha256": "d5e2da160192d5c438b47e5c036b2aa0ce9f4175ee4fae8e39a076538c9d09a8",
+        "verified": 2
+      },
+      {
+        "errors": 1,
+        "failed_functions": [
+          "read_inverted::Permission::grants"
+        ],
+        "name": "read-inverted",
+        "source_sha256": "55d9b4b245da3a61307bf2780db045cea4f9433f5912ea50b99a8a01f08add37",
+        "verified": 2
+      },
+      {
+        "errors": 1,
+        "failed_functions": [
+          "readonly_guard_removed::Permission::grants"
+        ],
+        "name": "readonly-guard-removed",
+        "source_sha256": "01e68e97025845a9c6258dff2cffef2fee443beb54d45dbfd1ae4ec99211938a",
+        "verified": 2
+      }
+    ],
+    "six_expected_outcomes_accepted": true,
+    "source_component_accepted": true
+  },
+  "B": {
+    "completed_parent_binding_accepted": true,
+    "declarations": 25,
+    "foundation_artifacts_rehashed": false,
+    "guards": 29,
+    "limited_controller_revision_accepted": true,
+    "modules": 282,
+    "new_kernel_run": false
+  },
+  "HMAC": "bitcoin_hashes0.14 exact arbitrary initialized [u8;128], all valid keylen incl0/>128, XOR prefix AND unchanged suffix;1/1 UNPROVED",
+  "P3": {
+    "metadata_correction_accepted": true,
+    "new_proof_acceptance": false
+  },
+  "canonical": "6/0 inherited, every u64 / arbitrary initialized exclusive [u8;10]",
+  "classification": "bounded independent component and controller review",
+  "excluded_failures": [
+    "parent001 scope inventory",
+    "parent002 auxiliary classification",
+    "own replay001 receipt-key setup",
+    "own static-setup-failure001 inventory schema",
+    "initial sandbox launch before execution"
+  ],
+  "findings": [
+    {
+      "id": "R1",
+      "issue": "canonical receipt lookup uses own repository paths absent from accepted receipt; explicit freeze remapping alone fails before trials",
+      "location": "source/tools/research/native_miri_permission_grants/replay.py:119",
+      "severity": "P2"
+    },
+    {
+      "id": "R2",
+      "issue": "negative gate does not require failed_functions to identify grants and keep Clone bodies healthy; fresh independent outputs meet requirement",
+      "location": "source/tools/research/native_miri_permission_grants/replay.py:81",
+      "severity": "P2"
+    }
+  ],
+  "full_goal_acceptance_performed": false,
+  "goal_complete": false,
+  "native_correspondences": 0,
+  "no_parent_or_sibling_checkout_reads": true,
+  "no_production_changes": true,
+  "no_security_race_or_substitution_experiments": true,
+  "normal_and_optimized_static_audit_accepted": true,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "publication": false,
+  "review_base": "8aa9fa72",
+  "runner_freeze_commit": "7e4c5b9c",
+  "scope_commit": "133dd2ce",
+  "shared_artifacts_mutated": false
+}
