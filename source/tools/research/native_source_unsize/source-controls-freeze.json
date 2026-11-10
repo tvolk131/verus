@@ -1,0 +1,10 @@
+{
+  "before_first_trial": true,
+  "classification": "pure typed source selector controls; no filesystem experiments",
+  "files": {
+    "source/tools/research/native_source_unsize/test_source_binding.py": "833a6028fabf75474bd83dc50ea9d0457a2b96706686f9e59286572bac370e5e",
+    "source/tools/research/native_source_unsize/source_binding.py": "069d18eb9e9c2845a9ca0b36dab65be6473e314450f057264b86b63e271fdd97",
+    "source/tools/research/native_source_unsize/candidates/Root.v": "8c98eda03c392ae362fa0458c3fc599667ba17790a7c87fd3337b35c6a8a06df",
+    "source/tools/research/native_constructor_erasure/graph.json": "ce114902ac22d593393d08737c619e88a226c47fe2dbeb9d52a7fd8bc6940b29"
+  }
+}

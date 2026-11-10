@@ -23,5 +23,10 @@
     }
   ],
   "graph_sha256": "ce114902ac22d593393d08737c619e88a226c47fe2dbeb9d52a7fd8bc6940b29",
-  "storage_receipt_sha256": "47f3ebf95acf6e15d3a6b17deabb0103902d48ac62d05a5a7e2fa8079ff8cd1a"
+  "storage_receipt_sha256": "47f3ebf95acf6e15d3a6b17deabb0103902d48ac62d05a5a7e2fa8079ff8cd1a",
+  "completed_extraction": {
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json": "2e1b60de13ad025f55d8a84aaa442956c33fd5fa01cb878adf5785c01c213b3b",
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e"
+  }
 }

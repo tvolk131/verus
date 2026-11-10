@@ -39,7 +39,8 @@ def inputs():
         GRAPH, HERE.parent/'native_constructor_erasure/candidates/Interface.v',
         HERE.parent/'native_constructor_erasure/candidates/Graph.v',
         GOAL/'goal_scope.py', GOAL/'foundation-baseline.json',
-        BRIDGE/'baseline-bindings.json', *support_artifacts()]
+        BRIDGE/'baseline-bindings.json', BRIDGE/'source-bindings.json',
+        HERE/'test_source_binding.py', HERE/'source-controls-freeze.json', *support_artifacts()]
 
 
 def main():
@@ -72,6 +73,9 @@ def main():
         parent_path=Path(parent_record['integration_receipt']['path']); parent=load(parent_path)
         gmp=BASE/'rocq-toolchain/gmp-private/manifest.json'; gmp_data=load(gmp)
         storage_pins=load(STORAGE/'pins.json')
+        source_bindings=load(BRIDGE/'source-bindings.json')
+        native_path=Path('/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-native.json')
+        native=load(native_path)
         lib=Path(storage_pins['coq_library_dependency_pin']['root'])
         libraries=sorted([*(lib/'coq/theories').rglob('*.v'), *(lib/'coq/theories').rglob('*.vo'),
                           *(lib/'coq-core/plugins').rglob('*.cmxs')])
@@ -84,6 +88,7 @@ def main():
         paths=[*inputs(), a.freeze, READY, baseline_path, parent_path, gmp, target,
                *tools.values(), *libraries, *parent_files,
                *[Path(x['path']) for x in pins['rust_sources']],
+               *[Path(x) for x in pins['completed_extraction']],
                *[Path(x['archive']) for x in gmp_data['packages']]]
         guard=ArtifactGuard(paths)
         def retained(path): return guard.initial[str(path.resolve())]['sha256']
@@ -116,6 +121,20 @@ def main():
             require(retained(Path(x['path']))==x['sha256'] and x['url']==
                 'https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/'+x['upstream'],
                 'pinned Rust implementation guidance changed')
+        require(pins['compiler_commit']=='58cf8f9c35b355199727627d07ae34a4e2846d67', 'compiler identity')
+        for path,h in pins['completed_extraction'].items():
+            require(retained(Path(path))==h, 'completed extraction changed '+path)
+        extraction=native_path.parent
+        require(retained(extraction/'receipt.json')==source_bindings['receipt_sha256'], 'source receipt identity')
+        for name,h in source_bindings['outputs'].items():
+            require(retained(extraction/name)==h, 'source extraction identity '+name)
+        require(native['pointer_bits']==64 and native['target']=='x86_64-unknown-linux-gnu' and
+            native['native_bridge_proved'] is False and len(native['instances'])==6 and len(native['operations'])==44,
+            'unsupported source layout/inventory')
+        from source_binding import EXPECTED
+        root=native['instances'][0]
+        require(root['id']==native['root'] and root['blocks'][0]['bb']==0 and
+            root['blocks'][0]['statements'][4]['ir']==EXPECTED, 'original typed source operation differs')
         require(digest(GRAPH)==pins['graph_sha256'] and
             source_text(json.loads(GRAPH.read_text()))==(HERE/'candidates/Root.v').read_text(), 'source binding differs')
         receipt['inputs']=guard.initial
