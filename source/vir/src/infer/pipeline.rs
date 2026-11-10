@@ -42,6 +42,9 @@ impl<'a> GoalContext<'a> {
         functions = fold_goals::prepare(&functions, self.imported, report);
         functions = word_goals::prepare(&functions, self.imported, report);
         functions = buffer_goals::prepare(&functions, self.imported, report)?;
+        // Recognize the original numeric body before later decorations add
+        // statements. Observation IDs include every preceding proposal.
+        functions = buffer_observation_goals::prepare(&functions, self.imported, report)?;
         let functions = sequence_triggers::prepare(&functions, report)?;
         report.assistance_preparation_completed = true;
         Ok(functions)
