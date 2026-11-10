@@ -4,6 +4,7 @@ From lrust.lang Require Import proofmode.
 From lrust.typing Require Import soundness inv_context uniq_util.
 From lrust.lifetime Require Import lifetime_full.
 Set Default Proof Using "Type".
+Open Scope Z_scope.
 
 Section physical.
 Context `{!typeG Σ}.
@@ -65,3 +66,31 @@ Lemma descriptor_does_not_duplicate_payload p (z : Z) zs :
   p ↦∗ ((λ z : Z, LitV (LitInt z)) <$> (z :: zs)) -∗ False.
 Proof. apply cannot_duplicate_nonempty_payload. Qed.
 End physical.
+
+(* No owner/permission premise: the accepted initializer constructs the single
+   reference internally from arbitrary raw model bytes and keeps the same heap. *)
+Theorem interior128_offset_read_adequacy h w start (zs : list Z) (z : Z) :
+  window_valid w → 0 < start → start + 128 < window_extent w →
+  length zs = 128%nat → Forall (λ z, 0 ≤ z < 256) zs →
+  (∀ (i : nat) (z : Z), zs !! i = Some z →
+    h !! (pointer_loc (Pointer w start) +ₗ i) = Some #z) →
+  zs !! 0%nat = Some z →
+  offset_valid (Pointer w start) 128 ∧
+  adequate NotStuck
+    (Skip;; let: "end" := (BinOp OffsetOp #(pointer_loc (Pointer w start)) #128)
+      in Read ScOrd #(pointer_loc (Pointer w start)))
+    (initialized_state h) (λ v _, v = #z).
+Proof.
+  intros W S E Len Range Cells Head. split.
+  { exact (proj1 (interior128_offset w start W S E)). }
+  apply (raw_model_context_adequacy (Σ:=typeΣ)
+    (let: "end" := (BinOp OffsetOp #(pointer_loc (Pointer w start)) #128)
+      in Read ScOrd #(pointer_loc (Pointer w start)))%E h
+    (pointer_loc (Pointer w start)) zs _ 2); [solve_closed|done|done|].
+  intros ? tid κ Nonempty.
+  iIntros "LFT PROPH UNIQ TIME E L _ Ref Frame Credits".
+  iApply (wp_wand with "[LFT PROPH UNIQ TIME E L Ref Frame Credits]").
+  { iApply (offset_then_original_read_resolve zs (pointer_loc (Pointer w start)) z 128 tid κ _ Head
+      with "LFT PROPH UNIQ TIME E L Ref Frame Credits"). }
+  iIntros (v) "[%Eq _]". done.
+Qed.

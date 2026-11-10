@@ -9,7 +9,7 @@ BRIDGE = HERE.parent/'native_semantic_bridge'
 sys.path[:0] = [str(ROOT/'source/tools'), str(BRIDGE)]
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, require, replay_receipt
-from reify import run_reifier
+from reify import run_reifier, controls, proof_source
 from proof_checks import parse_axioms, parse_kernel_summary
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
@@ -25,7 +25,13 @@ def declarations(path):
     found = [(m.start(),m[1]) for m in re.finditer(r'^\s*(?:Definition|Fixpoint|Inductive|Lemma|Theorem|Corollary)\s+(\w+)',text,re.M)]
     for block in re.finditer(r'^Inductive\s+\w+.*?:=(.*?)\.\n',text,re.M|re.S):
         found += [(block.start(1)+m.start(),m[1]) for m in re.finditer(r'^\|\s+(\w+)',block[1],re.M)]
-    return [n for _,n in sorted(found)]
+    names = [n for _,n in sorted(found)]
+    for m in re.finditer(r'^Inductive\s+(\w+)(.*?):=',text,re.M|re.S):
+        # Coq-generated elimination principles are real declarations too.
+        names += [m[1]+'_'+suffix for suffix in
+                  (['ind','sind'] if 'Prop' in m[2] else ['rect','ind','rec','sind'])]
+    require(len(names)==len(set(names)), 'duplicate declaration inventory')
+    return names
 
 def inputs():
     return [HERE/'INTERFACE.md', HERE/'FROZEN.md', HERE/'check.py', HERE/'reify.py', HERE/'dependency-pins.json', HERE/'source-coverage.json', BRIDGE/'source-bindings.json', BRIDGE/'proof_checks.py',
@@ -120,7 +126,11 @@ def main():
                 == binding['compiled_module_map_sha256'], 'baseline objects changed')
         for n, path in toolpaths.items(): require(retained(path) == binding['tools'][n], 'tool changed '+n)
         receipt['inputs'] = guard.initial
-        require(run_reifier(a.output/'source-check.json') == json.loads((HERE/'source-coverage.json').read_text()), 'source coverage changed')
+        receipt['source_controls'] = controls()
+        (a.output/'source-controls.json').write_text(json.dumps(receipt['source_controls'],indent=2)+'\n')
+        source_check = run_reifier(a.output/'source-check.json')
+        require(source_check == json.loads((HERE/'source-coverage.json').read_text()), 'source coverage changed')
+        require((HERE/'candidates/reified.v').read_text() == proof_source(source_check), 'generated proof differs from structured producer')
         (a.output/'freeze.json').write_bytes(frozen_bytes)
         run = LoggedCommands(a.output, ROOT, receipt['commands'], timeout=1800, guard=guard)
         env = dict(os.environ, PATH=str(switchbin)+':'+os.environ['PATH'])

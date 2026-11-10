@@ -96,15 +96,60 @@ def controls():
         except ValueError as e: cases[label]=dict(rejected=True,reason=str(e))
         else: raise ValueError('mutation accepted '+label)
     return cases
+def concrete_edges():
+    pairs=[('SliceDesc p 128','Usize 128'), ('RawWide p 128','NonNullWide p 128'),
+           ('NonNullWide p 128','RawWide p 128'), ('RawWide p 128','RawThin p'),
+           ('RawThin p','NonNullThin p'), ('NonNullThin p','RawThin p'),
+           ('RawThin p; Usize 128','RawThin (shifted p 128)'), ('Boolean false','Usize 2')]
+    ops=[op for op,_ in SELECTED.values()]+['U8ZstBranch']
+    text='Definition selected_edges w start : list (operation * list descriptor * list descriptor) :=\n'+\
+      ' let p := Pointer w start in [\n'+\
+      ';\n'.join(' ('+op+', ['+ins+'], ['+outs+'])' for op,(ins,outs) in zip(ops,pairs))+'].\n'
+    text += """
+Lemma selected_edges_checked w start σ :
+  window_valid w → 0 < start → start + 128 < window_extent w →
+  Forall (λ edge, source_step edge.1.1 edge.1.2 σ edge.2 σ) (selected_edges w start).
+Proof.
+  intros W S E.
+  destruct (interior128_offset w start W S E) as [Off _].
+  assert (PV : pointer_valid (Pointer w start)) by exact (proj1 Off).
+  assert (SL : slice_valid (Pointer w start) 128).
+  { split; first done. split; [lia|exact (proj2 (proj2 Off))]. }
+  unfold selected_edges.
+"""
+    for op in ops:
+        proof='constructor' if op=='U8ZstBranch' else 'apply Step'+op+'. exact '+('Off' if op=='ByteOffset' else 'PV' if op in ['WrapThin','UnwrapThin'] else 'SL')
+        text+='  constructor. { '+proof+'. }\n'
+    return text+'  constructor.\nQed.\n'+"""
+Theorem selected_edges_head_simulation w start σ :
+  window_valid w → 0 < start → start + 128 < window_extent w →
+  Forall (λ edge, ∃ es,
+    translate edge.1.1 (input_words edge.1.2) = Some es ∧
+    Forall2 (λ e v, head_step e σ [] (of_val v) σ [])
+      es (input_words edge.2)) (selected_edges w start).
+Proof.
+  intros W S E.
+  pose proof (selected_edges_checked w start σ W S E) as Steps.
+  eapply Forall_impl; first exact Steps.
+  intros [[op ins] outs] Step.
+  destruct (supported_operation_head_simulation op ins σ outs σ Step)
+    as [_ [es [Tr Sim]]]. exists es. split; first done.
+  eapply Forall2_impl; first exact Sim. intros e v [Head _]. exact Head.
+Qed.
+"""
+
+def proof_source(result):
+    ops=result['supported_operations']
+    return ('From NativeMirLrust Require Export simulation.\nOpen Scope Z_scope.\n'+
+      'Definition selected_operations : list operation := ['+'; '.join(ops)+'].\n'+
+      'Lemma selected_operations_exact : selected_operations =\n ['+'; '.join(ops)+'].\nProof. reflexivity. Qed.\n'+
+      'Lemma selected_operations_supported : Forall (λ op, ∀ why, op ≠ Unsupported why) selected_operations.\n'+
+      'Proof. repeat constructor; intros why H; discriminate. Qed.\n'+concrete_edges())
+
 if __name__=='__main__':
     import sys
     result=run_reifier()
     if '--controls' in sys.argv: print(json.dumps(controls(),indent=2))
     else:
         (HERE/'source-coverage.json').write_text(json.dumps(result,indent=2)+'\n')
-        ops=result['supported_operations']
-        (HERE/'candidates/reified.v').write_text('From NativeMirLrust Require Export simulation.\n'+
-          'Definition selected_operations : list operation := ['+'; '.join(ops)+'].\n'+
-          'Lemma selected_operations_exact : selected_operations =\n ['+'; '.join(ops)+'].\nProof. reflexivity. Qed.\n'+
-          'Lemma selected_operations_supported : Forall (λ op, ∀ why, op ≠ Unsupported why) selected_operations.\n'+
-          'Proof. repeat constructor; intros why H; discriminate. Qed.\n')
+        (HERE/'candidates/reified.v').write_text(proof_source(result))
