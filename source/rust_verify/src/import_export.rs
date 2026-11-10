@@ -244,6 +244,55 @@ fn export_path(args: &Args, via_cargo: &Option<PathBuf>) -> Option<PathBuf> {
     args.export.as_ref().map(PathBuf::from).or_else(|| via_cargo.clone())
 }
 
+/// Cargo supplies --crate-name before parsing. Use rustc's output-path
+/// representation to invalidate its selected metadata sibling even if parsing
+/// fails before after_expansion can observe the local capability. This matches
+/// the existing early explicit-path barrier for --infer-goals. Goals-off keeps
+/// its inherited behavior; after_expansion still checks the authoritative path.
+pub(crate) fn invalidate_early_cargo_export(
+    args: &Args,
+    config: &rustc_interface::interface::Config,
+) -> Result<(), VirErr> {
+    if !args.infer_goals {
+        return Ok(());
+    }
+    let Some(name) = config.opts.crate_name.clone() else {
+        return Ok(());
+    };
+    use rustc_session::config::{OutFileName, OutputFilenames, OutputType};
+    if matches!(config.output_file, Some(OutFileName::Stdout)) {
+        return Ok(());
+    }
+    let dir = config
+        .output_file
+        .as_ref()
+        .and_then(|f| f.parent())
+        .map(|p| p.to_path_buf())
+        .or_else(|| config.output_dir.clone())
+        .unwrap_or_default();
+    let single = if config.opts.output_types.values().filter(|x| x.is_none()).count() <= 1 {
+        config.output_file.clone()
+    } else {
+        None
+    };
+    let outputs = OutputFilenames::new(
+        dir,
+        name.clone(),
+        name,
+        single,
+        None,
+        None,
+        None,
+        config.opts.cg.extra_filename.clone(),
+        config.opts.output_types.clone(),
+    );
+    let path = match outputs.path(OutputType::Metadata) {
+        OutFileName::Real(p) => Some(p.with_extension("vir")),
+        OutFileName::Stdout => None,
+    };
+    invalidate_local_inference_export(args, &path)
+}
+
 /// An unsuccessful re-verification must not leave an older certified inference
 /// artifact at the requested output path. Goal-assisted ordinary exports use
 /// the same post-verification barrier; legacy ordinary exports retain their behavior.

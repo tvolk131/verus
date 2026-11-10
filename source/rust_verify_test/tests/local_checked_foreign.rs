@@ -96,12 +96,26 @@ fn local_foreign_export_refuses_and_removes_legacy_output() {
         vec!["--no-erasure-check"],
         vec!["--verify-function", "all_bool"],
     ] {
-        let seed = crates.build("component", "pub fn seed()->u64 {0}", &[], &["--no-cheating"]);
+        let run = |source: &str, options: &[&str]| {
+            let file = crates.directory.path().join("component.rs");
+            std::fs::write(&file, source).unwrap();
+            std::process::Command::new(crates.profile.join("verus"))
+                .arg(file)
+                .args(["--crate-type=lib", "--crate-name=component", "--no-cheating", "--compile"])
+                .arg("--export")
+                .arg(crates.vir("component"))
+                .arg("-o")
+                .arg(crates.directory.path().join("libcomponent.rlib"))
+                .args(options)
+                .output()
+                .unwrap()
+        };
+        let seed = run("use vstd::prelude::*; verus! {pub fn seed()->u64 {0}}", &[]);
         assert!(seed.status.success(), "{}", String::from_utf8_lossy(&seed.stderr));
         assert!(crates.vir("component").exists());
         let mut args = vec!["--infer-goals", "--no-cheating"];
         args.extend(options);
-        let r = crates.build_source("component", BOOL, &[], &args, true);
+        let r = run(BOOL, &args);
         assert!(!r.status.success());
         assert!(
             String::from_utf8_lossy(&r.stderr).contains("local-only"),

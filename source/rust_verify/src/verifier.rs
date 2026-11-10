@@ -3304,6 +3304,14 @@ fn lower_to_hir<'tcx>(
 
 impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
     fn config(&mut self, config: &mut rustc_interface::interface::Config) {
+        if self.verifier.via_cargo_args.is_some() {
+            if let Err(err) =
+                crate::import_export::invalidate_early_cargo_export(&self.verifier.args, config)
+            {
+                eprintln!("Error: {}", err.note);
+                std::process::exit(1);
+            }
+        }
         // Direct --export paths are known before parsing/expansion. Invalidate
         // a prior certified artifact even if the new source fails that early.
         if let Err(err) =
