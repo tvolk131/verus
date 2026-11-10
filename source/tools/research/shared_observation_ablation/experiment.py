@@ -254,7 +254,7 @@ def diagnostic(run, expected, execs):
     require(scope.get('native_collection_completed') is True and
             scope.get('complete_selected_scope_verified') is False, 'bad scope status')
     selected = [b for b in scope['native_functions'] if b.get('selected') is True and
-        b.get('body_status') != 'specification_only']
+        b.get('body_status') != 'specification_definition_or_declaration']
     require(all(b.get('body_status')=='selected_body_not_certified_by_successful_full_run'
         for b in selected), 'selected body bypass')
     require_function_coverage(selected,set(execs))
@@ -349,7 +349,7 @@ def trials(out, variant, bundle):
             trial.update(verification=v,returncode=rc,numeric_applied=numeric,
                 observation_report=observers,verification_scope=inf['verification_scope'],
                 functions=inf.get('functions',[]),
-                diagnostic_counts={s:len(re.findall(r'(?m)^\s*"?'+re.escape(s),result['stderr']))
+                diagnostic_counts={s:len(re.findall(r'(?m)^error: '+re.escape(s),result['stderr']))
                     for s in ('postcondition not satisfied','precondition not satisfied','assertion failed',
                         'invariant not satisfied','possible arithmetic underflow/overflow')},
                 stderr=result['stderr'], stdout_sha256=digest(out/(label+'.stdout')),
