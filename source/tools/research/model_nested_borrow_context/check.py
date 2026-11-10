@@ -14,7 +14,7 @@ from acceptance_inputs import require_pinned_environment
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['protocol', 'instances', 'controls']
+MODULES = ['protocol', 'writes', 'instances', 'recovery', 'controls']
 HEAP = BASE/'gmp-pin-heap-positive'
 SEM = BASE/'semantic-guard-validation-1efbd004/proofs'
 TYPED = BASE/'parent-model-input-94b87742/proofs'
@@ -51,7 +51,9 @@ def main():
     a.output = a.output.resolve()
     a.output.mkdir(parents=True, exist_ok=False)
     receipt = dict(schema=1, commands=[], publication=False, model_proofs_kernel_checked=False,
-                   source_entry_proved=False, native_effects_discharged=0)
+                   source_entry_proved=False, native_effects_discharged=0,
+                   native_correspondences_proved=0, minimal_native_operations_open=44,
+                   native_phases_open=3, native_effects_open=101, full_HMAC="1/1 open")
     with replay_receipt(a.output, receipt):
         frozen_bytes = a.freeze.read_bytes()
         freeze = json.loads(frozen_bytes)
@@ -91,6 +93,9 @@ def main():
         for d,_ in LIBS:
             require(retained(d/'receipt.json') == PINS[str(d)], 'prerequisite receipt pin mismatch '+str(d))
             lib = library_receipts[str(d)]
+            require({x.name for x in (d/'proofs').iterdir() if x.suffix in ['.v','.vo']} ==
+                    {Path(x).name for x in lib['proof_artifacts']},
+                    'prerequisite artifact inventory mismatch '+str(d))
             require(lib['success'] is True and lib['model_proofs_kernel_checked'] is True, 'unchecked prerequisite')
             for name, facts in lib['proof_artifacts'].items():
                 path=d/'proofs'/Path(name).name
