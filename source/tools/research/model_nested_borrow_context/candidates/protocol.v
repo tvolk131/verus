@@ -17,14 +17,15 @@ Section protocol.
   Proof.
     intros Alive. apply (lctx_lft_alive_local _ _ α [κ]); first by left.
     constructor; last constructor. unfold lctx_lft_alive in *.
-    iIntros "#L #E". iApply (Alive with "[L] E").
-    rewrite /llctx_interp. by iDestruct "L" as "[_ $]".
+    iIntros "L E".
+    iDestruct "L" as "[_ L]". iDestruct (Alive with "L E") as "Guard".
+    rewrite /llctx_interp /=. iApply guards_weaken_lhs_sep_r. done.
   Qed.
 
   (* WP form of the existing type_endlft rule, with its exact three Skip
      expression and its two receipt-indexed step-fupd eliminations. *)
-  Lemma end_child_context {𝔄l 𝔅l} E L κ κl tid
-      (T : tctx 𝔄l) (T' T'' : tctx 𝔅l) xl tru f post e Φ :
+  Lemma end_child_context {𝔄l 𝔅l ℭl} E L κ κl tid
+      (T : tctx 𝔄l) (T' : tctx 𝔅l) (T'' : tctx ℭl) xl tru f post e Φ :
     Closed [] e →
     resolve_unblock_tctx E (κ ⊑ₗ κl :: L) κ T T' tru →
     unblock_tctx E L κ T' T'' f →
@@ -69,7 +70,7 @@ Section protocol.
   (* The input ownership is explicitly MODEL-relative. Frame can contain an
      ancestor restoration continuation and any surrounding typing context. *)
   Lemma shorter_no_write {𝔄} E L I tid iκs p (ty : type 𝔄) κ m (Frame : iProp Σ) :
-    lctx_lft_alive E L κ → lctx_lft_alive E L (ty_lft (&uniq{κ} ty)) →
+    lctx_lft_alive E L κ → lctx_lft_alive E L (ty_lft (&uniq{κ} ty)%T) →
     llft_ctx -∗ time_ctx -∗ proph_ctx -∗ uniq_ctx -∗ elctx_interp E -∗
     llctx_interp L -∗ invctx_interp tid ⊤ iκs I -∗
     tctx_elt_interp tid (p ◁ &uniq{κ} ty) m -∗ Frame -∗
@@ -90,7 +91,7 @@ Section protocol.
           uniq_bor_loc c = uniq_bor_loc m ∧ uniq_bor_current c = uniq_bor_current m ∧
           blockedπ b π = (uniq_bor_future c π, uniq_bor_future m π)) ⊤ iκs -[m]
         with "LFT TIME PROPH UNIQ E L I [Parent] []").
-      - rewrite /tctx_interp /=. by iFrame.
+      - simpl. by iFrame.
       - iApply proph_obs_true. intros π c b Loc Cur Block. by repeat split. }
     iIntros (v) "[%xl [L [I [T #Obs]]]]". destruct xl as [c [b []]].
     wp_seq.
@@ -100,17 +101,16 @@ Section protocol.
       -[c;b] _ _ (λ xl _ π, let '(b -:: _) := xl in
         blockedπ b π = (vπ (uniq_bor_current m) π, uniq_bor_future m π))
       Skip _ with "LFT TIME PROPH UNIQ E L T [] [Frame I]").
-    - solve_closed.
     - eapply resolve_unblock_tctx_cons_resolve.
       + simpl. by left.
-      + apply resolve'. apply (source_loan_release _ _ _ _ (child_alive E L κ α Alive)).
+      + apply resolve'_post. apply (source_loan_release _ _ _ _ (child_alive E L κ α Alive)).
       + apply resolve_unblock_tctx_cons_keep. apply resolve_unblock_tctx_nil.
     - apply unblock_tctx_cons_unblock; [done|apply unblock_tctx_nil].
-    - iApply (proph_obs_impl with "Obs"). intros π [Loc [Cur Block]] /= Resolved.
+    - iApply (proph_obs_impl with "Obs"). move=> π [Loc [Cur Block]] /= Resolved.
       rewrite Block Resolved Cur. done.
     - iIntros (yl) "L T #Recovered". destruct yl as [m' []].
       wp_seq. iFrame "Frame L I". iExists m'.
-      rewrite /tctx_interp /=. iDestruct "T" as "[$ _]".
+      simpl. iDestruct "T" as "[$ _]".
       iApply (proph_obs_impl with "Recovered"). intros π [[b' []] [Block [Eq _]]].
       simpl in *. by rewrite -Eq Block.
   Qed.
