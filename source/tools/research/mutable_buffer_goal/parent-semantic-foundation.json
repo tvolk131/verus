@@ -186,7 +186,18 @@
     "regression_tests_optimized": 8,
     "current_races": 10,
     "current_race_receipt": "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-races/receipt.json",
-    "positive_matching_replay": "not yet run",
+    "positive_matching_replay": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-validation-0e1c7081/receipt.json",
+      "sha256": "ce90a7f12ac6e17a39168b97e2709d9343b74f7588d2d27db72d4baf46176f46",
+      "success": true,
+      "unit_tests": 19,
+      "optimized_unit_tests": 19,
+      "source_controls": 12,
+      "readiness_controls": 4,
+      "acceptance_controls": 3,
+      "source_races": 10,
+      "source_entry_constants": 42
+    },
     "independent_review": {
       "commit": "e3b50f29",
       "recommendation": "scoped SOURCE-ONLY accept F1-F3; no new findings",
@@ -196,5 +207,27 @@
       "current_batch_reviewed": false
     },
     "publication": false
+  },
+  "environment_pin_fix": {
+    "shared_with_heap_controller": true,
+    "active_freeze": "native_semantic_bridge/gmp-pin-freeze.json",
+    "inspection_freeze": "native_source_entry/entry-gmp-pin-freeze.json",
+    "existing_pin": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37",
+    "new_helper_tests_normal": 11,
+    "new_helper_tests_optimized": 11,
+    "review": "pending NEW source-only recheck",
+    "mathematical_sources_changed": false,
+    "completed_model_and_inspection_checks": [
+      {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-validation-0e1c7081/proofs/receipt.json",
+        "sha256": "4b877d40b9c8ac8af344c3e72f0c91590c55ad0a566288f8c5f43dbb3ac905fb",
+        "manifest_matched_new_pin": true
+      },
+      {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-validation-0e1c7081/entry/receipt.json",
+        "sha256": "714b7397df1b483322e3fc512ac11067ed5df352ca963892807ea33917f4d396",
+        "manifest_matched_new_pin": true
+      }
+    ]
   }
 }

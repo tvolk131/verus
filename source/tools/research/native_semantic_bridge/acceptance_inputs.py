@@ -30,3 +30,11 @@ def accept_model_result(receipt, result, guards):
     for guard in guards:
         guard.check()
     receipt.update(result)
+
+
+def require_pinned_environment(initial, path, trusted):
+    """The wrapper's environment must have its reviewed identity, not just stability."""
+    observed = initial.get(str(Path(path).resolve()))
+    require(observed is not None and observed.get('sha256') ==
+            trusted['toolchain']['GMP_packages']['sha256'],
+            'untrusted GMP environment snapshot')

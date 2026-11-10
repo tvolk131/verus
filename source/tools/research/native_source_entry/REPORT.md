@@ -158,7 +158,8 @@ pinned in the freeze. It reads them without rebuilding or copying old source
 trees. Raw logs and the inspection object remain in `/tmp/native-source-entry-e84eed6c/`.
 
 
-Parent compatibility replay uses `entry-source-status-freeze.json`; the earlier
+Parent compatibility replay uses `entry-gmp-pin-freeze.json`; the earlier
+`entry-source-status-freeze.json`,
 `entry-full-snapshot-freeze.json`,
 `entry-parent-freeze.json` and original
 `entry-v1-freeze.json` remains historical. The candidate and 42 inspected
@@ -177,3 +178,9 @@ inspector requires exactly the four expected modules and their unique recorded
 source hashes, and compares those hashes with the retained snapshot. The
 historical successful inspection remains model-only evidence. Fresh current
 compatibility replay is pending; no actual source-entry theorem is added.
+
+
+The current inspector also compares the retained environment-manifest hash with
+the existing authenticated GMP pin. The completed source/status inspection used
+that exact manifest already; this tightens dependency authentication without
+changing the 42 constants or adding a native theorem.

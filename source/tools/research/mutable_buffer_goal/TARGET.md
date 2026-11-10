@@ -78,7 +78,8 @@ and preserves an arbitrary interior-buffer frame. All 29 constants are closed
 and the parent kernel replay matches the worker objects. It covers the stated
 model initialization convention, with no application permission premise; it
 does not interpret actual Rust provenance, ancestor loans or C/F observations.
-Fresh independent mathematical review is pending.
+Independent mathematical review accepted the exact model prerequisite
+(`6deca82c`); its controller environment-pin finding is being corrected.
 
 The model results remain distinct from a native Rust interpretation theorem.
 The existing `source_loan_release`/`typed_source_loan_release` already derive

@@ -36,5 +36,27 @@
   "native_effects_open": 101,
   "publication": false,
   "goal_complete": false,
-  "independent_review": "pending NEW mathematical/source review"
+  "independent_review": {
+    "commit": "6deca82c",
+    "recommendation": "accept exact MODEL prerequisite; no mathematical defect",
+    "fresh_normal_kernel_replay": true,
+    "all29_closed": true,
+    "all4_objects_match": true,
+    "controller_finding": "C1: compare retained GMP manifest identity with existing authenticated pin",
+    "actual_reviewed_runs_used_pinned_manifest": true
+  },
+  "environment_pin_fix": {
+    "status": "implemented; matching heap proof replay passed; fresh review pending",
+    "freeze": "native_heap_initialization/gmp-pin-freeze.json",
+    "controls_freeze": "native_heap_initialization/controls-gmp-pin-v2-freeze.json",
+    "manifest_sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37",
+    "positive_receipt": "/tmp/verus-infer-buffer-cycle-20261109/gmp-pin-heap-positive/receipt.json",
+    "positive_receipt_sha256": "a3aea2cd291724a26f76082739455cbd4cfa8b64b3d3dcb465a465ed5c6d739d",
+    "all29_closed": true,
+    "all4_objects_match": true,
+    "provenance_controls": 6,
+    "helper_tests_normal": 11,
+    "helper_tests_optimized": 11,
+    "relative_path_setup_failure_retained": "/tmp/verus-infer-buffer-cycle-20261109/gmp-pin-heap-controls/receipt.json"
+  }
 }

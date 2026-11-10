@@ -9,7 +9,7 @@ import unittest
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from acceptance_inputs import accept_model_result, recorded_model_sources
+from acceptance_inputs import accept_model_result, recorded_model_sources, require_pinned_environment
 from infer_eval_support import ArtifactChanged, ArtifactGuard, digest, support_artifacts
 from proof_checks import NAMES
 
@@ -103,6 +103,30 @@ class RequiredSupport(unittest.TestCase):
                 self.assertIs(receipt['model_proofs_kernel_checked'], False)
                 self.assertIs(receipt['success'], False)
                 self.assertIs(receipt['publication'], False)
+
+
+class PinnedEnvironment(unittest.TestCase):
+    def setUp(self):
+        self.trusted = json.loads((HERE.parent/'mutable_buffer_goal/foundation-baseline.json').read_text())
+        self.manifest = Path(self.trusted['toolchain']['GMP_packages']['path'])
+
+    def test_actual_reviewed_environment(self):
+        guard = ArtifactGuard([self.manifest])
+        require_pinned_environment(guard.initial, self.manifest, self.trusted)
+        guard.check()
+
+    def test_stable_unpinned_environment_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)/'manifest.json'
+            path.write_text(json.dumps(dict(env_prefixes={})))
+            guard = ArtifactGuard([path])
+            guard.check()
+            with self.assertRaises(ValueError):
+                require_pinned_environment(guard.initial, path, self.trusted)
+
+    def test_environment_must_be_in_the_retained_snapshot(self):
+        with self.assertRaises(ValueError):
+            require_pinned_environment({}, self.manifest, self.trusted)
 
 
 if __name__ == '__main__':

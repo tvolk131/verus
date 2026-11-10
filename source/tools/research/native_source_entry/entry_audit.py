@@ -18,7 +18,7 @@ from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, replay_receipt, require
 from proof_checks import parse_axioms, parse_kernel_summary, names
 from source_map import authenticated_extraction, build, source_audit_inputs
-from acceptance_inputs import recorded_model_sources
+from acceptance_inputs import recorded_model_sources, require_pinned_environment
 
 FOUNDATION = [
     'lrust.lang.adequacy.lrust_adequacy',
@@ -115,6 +115,8 @@ def main():
         paths += [baseline/name for name in baseline_result['copied_sources']]
         paths += [Path(f['ready']).parent/'gmp-private/manifest.json']
         guard = ArtifactGuard(paths)
+        require_pinned_environment(guard.initial,
+            Path(f['ready']).parent/'gmp-private/manifest.json', trusted)
         require(guard.initial[str(a.freeze.resolve())]['sha256'] ==
                 hashlib.sha256(frozen_bytes).hexdigest(), 'inspection freeze changed while loading')
         for name, value in f['files'].items():

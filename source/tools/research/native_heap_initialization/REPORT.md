@@ -103,10 +103,10 @@ Replay from this checkout with fresh private output directories:
 
 ```sh
 python3 -B -O source/tools/research/native_heap_initialization/check.py \
-  --freeze source/tools/research/native_heap_initialization/final-freeze.json \
+  --freeze source/tools/research/native_heap_initialization/gmp-pin-freeze.json \
   --output /tmp/fresh-native-heap-initialization
 python3 -B -O source/tools/research/native_heap_initialization/guard_controls.py \
-  --freeze source/tools/research/native_heap_initialization/controls-freeze.json \
+  --freeze source/tools/research/native_heap_initialization/controls-gmp-pin-v2-freeze.json \
   --output /tmp/fresh-native-heap-initialization-controls
 ```
 
@@ -120,3 +120,16 @@ reproduced all four object hashes (the three model modules and assumption
 inventory) from the first successful trial. The 15 failed development trials
 retain source copies, pretrial freezes, diagnostics and receipt/log hashes;
 none is counted as a semantic negative or an impossibility result.
+
+
+Independent review `6deca82c` accepts the exact model mathematics and reproduces
+all four objects. It found a controller-only omission: the environment manifest
+was retained but its expected identity was not checked. The current controller
+compares its retained SHA256 with the already authenticated baseline pin before
+any prover command. The imported helper is mandatory in the pretrial inventory.
+`gmp-pin-freeze.json` and `controls-gmp-pin-v2-freeze.json` are active; earlier
+freezes remain historical. The corrected positive replay again kernel-checks all
+29 closed constants and matches all four objects. Six provenance controls and
+11 helper tests in each Python mode pass. One relative-path setup error in the
+control driver was corrected and retained, without any prover command or semantic
+negative claim. A fresh source review of this small controller fix is pending.

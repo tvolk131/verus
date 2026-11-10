@@ -13,6 +13,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--freeze',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--proof-freeze',type=Path,default=HERE/'gmp-pin-freeze.json')
     a = p.parse_args()
     a.output = a.output.resolve()
     a.output.mkdir(parents=True,exist_ok=False)
@@ -24,7 +25,7 @@ def main():
         require(guard.initial[str(a.freeze.resolve())]['sha256']==hashlib.sha256(data).hexdigest(),'control freeze changed')
         for n, expected in freeze['files'].items():
             require(guard.initial[str((ROOT/n).resolve())]['sha256']==expected,'control input changed '+n)
-        base_freeze = HERE/'final-freeze.json'
+        base_freeze = a.proof_freeze.resolve()
         baseline = json.loads(base_freeze.read_bytes())
         require(set(baseline['files']) | {str(base_freeze.relative_to(ROOT)),str(Path(__file__).resolve().relative_to(ROOT))}
                 == set(freeze['files']), 'control freeze incomplete')

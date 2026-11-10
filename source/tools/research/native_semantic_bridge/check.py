@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT/'source/tools'))
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, require, replay_receipt
 from proof_checks import check_inventory, inventory_source, parse_inventory, parse_kernel_summary
-from acceptance_inputs import accept_model_result
+from acceptance_inputs import accept_model_result, require_pinned_environment
 PIN = '115a618dd35ff8337112cf2081a7f5391d3973d5'
 
 def main():
@@ -84,6 +84,7 @@ def main():
         paths += [coqc, coqchk, wrapper, gmp_manifest, Path(ready['opam']), baseline/'_CoqProject', a.ready, baseline_receipt,
                   a.freeze, *support_artifacts()]
         guard = ArtifactGuard(paths)
+        require_pinned_environment(guard.initial, gmp_manifest, trusted)
         # Authenticate the retained snapshot, rather than earlier live reads.
         # A persistent substitution between those reads and this snapshot must
         # not become the new trusted starting state.

@@ -147,14 +147,14 @@ python3 -B -O source/tools/research/native_heap_lowering/extract.py \
   --freeze source/tools/research/native_heap_lowering/final-freeze.json \
   --output /tmp/fresh-semantic-source
 python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
-  --freeze source/tools/research/native_semantic_bridge/model-source-status-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/gmp-pin-freeze.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-map
 python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
-  --freeze source/tools/research/native_semantic_bridge/model-source-status-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/gmp-pin-freeze.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-audit
 python3 -B -O source/tools/research/native_semantic_bridge/check.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/model-source-status-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/gmp-pin-freeze.json \
   --output /tmp/fresh-semantic-proofs
 ```
 
@@ -184,7 +184,8 @@ negative. Independent recheck `1f727448` reproduced those results and accepted t
 frozen model replay. It found a remaining source-freeze completeness defect,
 addressed below.
 
-`model-source-status-freeze.json` is the active pretrial integration freeze.
+`gmp-pin-freeze.json` is the active pretrial integration freeze.
+`model-source-status-freeze.json` preserves the completed source/status replay.
 `full-snapshot-freeze.json` preserves the completed aea14e56 validation.
 `snapshot-acceptance-freeze.json` preserves the first full-validation attempt.
 `guard-snapshot-freeze.json` records an earlier local race-control run. The previous
@@ -204,7 +205,7 @@ The control replay is:
 ```sh
 python3 -B -O source/tools/research/native_semantic_bridge/guard_controls.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/model-source-status-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/gmp-pin-freeze.json \
   --output /tmp/fresh-semantic-guard-controls
 ```
 
@@ -248,7 +249,7 @@ A matching positive model replay and fresh independent review are pending.
 
 ```sh
 python3 -B -O source/tools/research/native_semantic_bridge/source_snapshot_controls.py \
-  --freeze source/tools/research/native_semantic_bridge/model-source-status-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/gmp-pin-freeze.json \
   --output /tmp/fresh-source-snapshot-controls
 ```
 
@@ -285,3 +286,15 @@ Python mode; ten existing file-identity controls still reject as expected.
 A new matching positive replay and fresh source-only recheck are pending.
 These are controller fixes; mathematical source, native claims and application
 domains are unchanged.
+
+
+The matching source/status batch completed: 19 tests in each Python mode,
+12 source controls, four readiness controls, three acceptance controls, ten
+identity controls, the original model proofs and the 42-constant inspection all
+passed. Independent source-only review `e3b50f29` accepts F1–F3. The subsequent
+heap review found a consumed environment manifest missing its expected-digest
+comparison. All three related controllers now enforce the existing GMP pin
+against the retained snapshot before prover execution. The completed model and
+inspection snapshots already match that pin; mathematical sources are unchanged.
+The shared helper's 11 tests pass in each Python mode, including a stable but
+unpinned private manifest refusal. A fresh source-only check is pending.

@@ -10,6 +10,7 @@ sys.path[:0] = [str(ROOT/'source/tools'), str(BRIDGE)]
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, require, replay_receipt
 from proof_checks import parse_axioms, parse_kernel_summary
+from acceptance_inputs import require_pinned_environment
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
@@ -19,7 +20,7 @@ def declarations(path):
     return re.findall(r'^\s*(?:Definition|Fixpoint|Lemma|Theorem)\s+(\w+)', path.read_text(), re.M)
 
 def inputs():
-    return [HERE/'INTERFACE.md', HERE/'check.py', BRIDGE/'proof_checks.py',
+    return [HERE/'INTERFACE.md', HERE/'check.py', BRIDGE/'proof_checks.py', BRIDGE/'acceptance_inputs.py',
             BRIDGE/'baseline-bindings.json',
             HERE.parent/'mutable_buffer_goal/foundation-pin.json',
             HERE.parent/'mutable_buffer_goal/foundation-baseline.json',
@@ -65,6 +66,8 @@ def main():
                  *toolpaths.values(), BASE/'rocq-toolchain/gmp-private/manifest.json',
                  *[BUILD/n for n in sources], *list((BUILD/'src').rglob('*.vo'))]
         guard = ArtifactGuard(paths)
+        require_pinned_environment(guard.initial,
+            BASE/'rocq-toolchain/gmp-private/manifest.json', trusted)
         def retained(path): return guard.initial[str(path.resolve())]['sha256']
         for path, data in loaded.items():
             require(retained(path) == hashlib.sha256(data).hexdigest(), 'JSON changed while loading '+str(path))
