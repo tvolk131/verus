@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT/'source/tools'))
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, require, replay_receipt
 from proof_checks import check_inventory, inventory_source, parse_inventory, parse_kernel_summary
+from acceptance_inputs import accept_model_result
 PIN = '115a618dd35ff8337112cf2081a7f5391d3973d5'
 
 def main():
@@ -38,10 +39,10 @@ def main():
         require(candidate.is_relative_to(HERE/'candidates'), 'proof source outside candidate directory')
         modules = freeze['modules']
         check_inventory(candidate, modules)
-        required = [Path(__file__), HERE/'proof_checks.py', HERE/'source-bindings.json',
+        required = [Path(__file__), HERE/'proof_checks.py', HERE/'acceptance_inputs.py', HERE/'source-bindings.json',
                     HERE/'baseline-bindings.json', HERE.parent/'mutable_buffer_goal/foundation-baseline.json',
                     HERE.parent/'mutable_buffer_goal/foundation-pin.json',
-                    *[candidate/(name+'.v') for name in modules]]
+                    *[candidate/(name+'.v') for name in modules], *support_artifacts()]
         require({str(p.relative_to(ROOT)) for p in required} <= set(freeze['files']),
                 'incomplete frozen trust inputs')
         for name, value in freeze['files'].items():
@@ -156,17 +157,14 @@ def main():
                 'NativeSemanticBridge.AssumptionInventory'], env) == 0,
                 'transitive kernel check failed')
         kernel_axioms = parse_kernel_summary((a.output/'kernel-check.stderr').read_text())
-        outputs.check()
-        for source_guard in source_guards:
-            source_guard.check()
-        receipt.update(model_proofs_kernel_checked=True, modules=modules,
+        result = dict(model_proofs_kernel_checked=True, modules=modules,
             named_theorem_count=18, byte_type_obligation_count=6,
             assumption_inventory=assumptions, kernel_axioms=kernel_axioms,
             logical_axioms=sorted({a for values in assumptions.values() for a in values}),
             native_claim_axioms=[], proof_terms={n:digest(work/(n+'.vo')) for n in modules},
-            source_connection_proved=False, original_array_future_import_proved=False)
-        receipt['proof_artifacts'] = outputs.initial
-        guard.check()
+            source_connection_proved=False, original_array_future_import_proved=False,
+            proof_artifacts=outputs.initial)
+        accept_model_result(receipt, result, [outputs, *source_guards, guard])
         print(json.dumps(dict(output=str(a.output), model_proofs_kernel_checked=True,
                               publication=False)))
 

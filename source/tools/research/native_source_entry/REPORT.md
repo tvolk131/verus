@@ -158,7 +158,8 @@ pinned in the freeze. It reads them without rebuilding or copying old source
 trees. Raw logs and the inspection object remain in `/tmp/native-source-entry-e84eed6c/`.
 
 
-Parent compatibility replay uses `entry-full-snapshot-freeze.json`; the earlier
+Parent compatibility replay uses `entry-source-status-freeze.json`; the earlier
+`entry-full-snapshot-freeze.json`,
 `entry-parent-freeze.json` and original
 `entry-v1-freeze.json` remains historical. The candidate and 42 inspected
 constants are unchanged. The parent adds complete required public/private
@@ -167,3 +168,12 @@ snapshot, authenticates the foundation loadpaths, and retains the copied
 inspection source identity through compilation and kernel checking. This closes
 the analogous snapshot window without supplying a source-entry theorem.
 Fresh matching replay is pending.
+
+
+The `aea14e56` compatibility inspection completed successfully with the same
+42 constants. Source-only review `3dd71948` then found that retained model source
+identities were not bound to the authenticated proof receipt. The current
+inspector requires exactly the four expected modules and their unique recorded
+source hashes, and compares those hashes with the retained snapshot. The
+historical successful inspection remains model-only evidence. Fresh current
+compatibility replay is pending; no actual source-entry theorem is added.

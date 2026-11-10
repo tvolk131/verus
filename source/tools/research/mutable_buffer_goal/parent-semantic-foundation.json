@@ -142,7 +142,7 @@
       "aea14e56"
     ],
     "freeze": "native_semantic_bridge/full-snapshot-freeze.json",
-    "positive_model_and_inspection_replay": "Model compile/kernel passed;42-constant inspection and final acceptance controls still running",
+    "positive_model_and_inspection_replay": "Completed successfully at aea14e56; subsequent source-only review requests three controller fixes",
     "root_job": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-job.json",
     "full_validation_receipt": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/receipt.json",
     "earlier_ten_race_refusals": "/tmp/verus-infer-buffer-cycle-20261109/snapshot-acceptance-races/receipt.json",
@@ -150,12 +150,44 @@
     "corrected_inventory_and_race_rerun": "running",
     "setup_failure_excluded": "/tmp/verus-infer-buffer-cycle-20261109/snapshot-validation-e6ce22cf/receipt.json",
     "failure_before_any_prover": true,
-    "independent_review": "Previous attempt automatically rejected for possible cybersecurity risk before completion; source-only review pending",
+    "independent_review": {
+      "commit": "3dd71948",
+      "scope": "source-only; no excluded filesystem experiments",
+      "findings": [
+        "retained model source identity",
+        "mandatory shared support identities",
+        "final proof flag after all guards"
+      ],
+      "completed_model_receipt_authenticated": true,
+      "full_goal_accepted": false
+    },
     "positive_model_receipt": {
       "path": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/receipt.json",
       "sha256": "46e35308c297fd6c5eb9ce0fe94b80f86b094d4c6f59493962dee5eb8e34d562",
       "assumption_constants": 25,
       "original_four_objects_match": true
+    },
+    "full_validation_receipt_sha256": "740b2bb5dca4ed353a8c3b135d5b87e068c78de4328e31c5e0652674791f920c",
+    "full_validation_counts": {
+      "unit_tests": 11,
+      "optimized_unit_tests": 11,
+      "source_controls": 12,
+      "readiness_controls": 4,
+      "acceptance_controls": 3,
+      "source_races": 10,
+      "source_entry_constants": 42
     }
+  },
+  "model_source_status_fix": {
+    "scope": "Close source-only review3dd71948 with same mathematical source/domain",
+    "freeze": "native_semantic_bridge/model-source-status-freeze.json",
+    "inspection_freeze": "native_source_entry/entry-source-status-freeze.json",
+    "regression_tests_normal": 8,
+    "regression_tests_optimized": 8,
+    "current_races": 10,
+    "current_race_receipt": "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-races/receipt.json",
+    "positive_matching_replay": "not yet run",
+    "independent_review": "pending NEW source-only recheck",
+    "publication": false
   }
 }

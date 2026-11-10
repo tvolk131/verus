@@ -19,7 +19,7 @@ require(not a.output.exists(),'freeze destination already exists')
 candidate=a.candidate.resolve()
 require(candidate.is_relative_to(HERE/'candidates'),'candidate outside owned directory')
 paths=[HERE/'check.py',HERE/'source_map.py',HERE/'audit.py',HERE/'gate_controls.py',HERE/'guard_controls.py',Path(__file__),*candidate.glob('*.v'),
- HERE/'proof_checks.py', HERE/'source-bindings.json', HERE/'baseline-bindings.json',
+ HERE/'proof_checks.py', HERE/'acceptance_inputs.py', HERE/'source-bindings.json', HERE/'baseline-bindings.json',
  HERE.parent/'mutable_buffer_goal/foundation-pin.json',
  HERE.parent/'mutable_buffer_goal/foundation-baseline.json',
  HERE.parent/'mutable_buffer_goal/transfer-freeze.json',

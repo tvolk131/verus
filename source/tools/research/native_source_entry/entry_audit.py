@@ -18,6 +18,7 @@ from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, replay_receipt, require
 from proof_checks import parse_axioms, parse_kernel_summary, names
 from source_map import authenticated_extraction, build, source_audit_inputs
+from acceptance_inputs import recorded_model_sources
 
 FOUNDATION = [
     'lrust.lang.adequacy.lrust_adequacy',
@@ -57,7 +58,7 @@ def main():
         require(f['before_first_trial'] is True and f['constants'] == CONSTANTS,
                 'unfrozen inspection inventory')
         required = [Path(__file__), HERE/'candidates/entry-v1/EntryInventory.v',
-                    BRIDGE/'proof_checks.py', BRIDGE/'baseline-bindings.json',
+                    BRIDGE/'proof_checks.py', BRIDGE/'acceptance_inputs.py', BRIDGE/'baseline-bindings.json',
                     BRIDGE.parent/'mutable_buffer_goal/foundation-baseline.json',
                     BRIDGE.parent/'mutable_buffer_goal/foundation-pin.json',
                     *source_audit_inputs()]
@@ -103,9 +104,10 @@ def main():
         model_receipt = json.loads(Path(f['model_receipt']).read_text())
         require(model_receipt['success'] is True and model_receipt['model_proofs_kernel_checked'] is True,
                 'model proof setup failure')
+        model_sources = recorded_model_sources(model_receipt)
         for module, value in model_receipt['proof_terms'].items():
             require(digest(model/(module+'.vo')) == value, 'changed reviewed model object: '+module)
-            require(digest(model/(module+'.v')) == digest(BRIDGE/'candidates/loan-v12'/(module+'.v')),
+            require(digest(model/(module+'.v')) == model_sources[module],
                     'changed reviewed model source: '+module)
         paths += list(tools.values()) + [baseline/'_CoqProject', a.freeze, *support_artifacts()]
         paths += [ROOT/n for n in f['files']] + [Path(n) for n in f['private_inputs']]
@@ -137,6 +139,8 @@ def main():
         for name, expected in model_receipt['proof_terms'].items():
             require(guard.initial[str((model/(name+'.vo')).resolve())]['sha256'] == expected,
                     'untrusted model object snapshot: '+name)
+            require(guard.initial[str((model/(name+'.v')).resolve())]['sha256'] == model_sources[name],
+                    'untrusted model source snapshot: '+name)
         source_pin = json.loads((BRIDGE.parent/'mutable_buffer_goal/foundation-pin.json').read_text())
         require(guard.initial[str((baseline/'_CoqProject').resolve())]['sha256'] ==
                 source_pin['files']['_CoqProject'], 'untrusted inspection loadpaths')

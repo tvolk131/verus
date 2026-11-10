@@ -62,7 +62,10 @@ source-freeze completeness finding was closed. The next review found a
 validation-to-snapshot race; the local fix binds frozen identities to retained
 guard snapshots. Matching model compilation, all 25 assumption entries and
 recursive kernel checking pass with the original four object hashes. The
-inspection/control batch and a fresh source-only review remain pending.
+inspection/control batch also passed. A subsequent source-only review found
+three remaining controller issues; their local source-identity, support-inventory
+and final-status fixes pass targeted tests. Matching replay and fresh review
+of those fixes remain pending.
 The [source-entry investigation](../native_source_entry/MISSING_LAYER.md)
 identifies the missing actual source-state and typing-context interpretation;
 its 42-constant inspection proves no new native theorem. The
