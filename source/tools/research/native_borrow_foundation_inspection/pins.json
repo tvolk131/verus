@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "classification": "inspection_only_no_import_or_proof_claim",
+  "date_UTC": "2026-11-10",
+  "repositories": [
+    {
+      "repository": "https://gitlab.mpi-sws.org/FP/stacked-borrows",
+      "commit": "d1471b10fe4cb4f506371b2e3acdd927d0a0c076",
+      "private_checkout": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows",
+      "files": {
+        "README.md": "b3527784441bdc918097b52deb239d8c3fad704ea1f6c674dbea7cb5d0ba62c8",
+        "opam": "053b647a2d9007de981a0d921eb09e37f933b05477ff1580a83df1ee8dbaf2a8",
+        "theories/lang/bor_semantics.v": "a9b7796748cbf9f49848d6abed07085ca8039da5b0393f7b23a26666dc8a6dec",
+        "theories/lang/expr_semantics.v": "063dcbcb481f8b405e4ee388f4551a402fcd210652da5464a8f469e95a761a61",
+        "theories/lang/steps_retag.v": "963df7f43d9dba21e5c6c3aa61c439bf7d73db8b8db5e6dd9fccc4020e63b0ec",
+        "theories/lang/steps_progress.v": "29930a908fd31f749fe0a7e21846e3e8da89fe56f7b3f6438a9e9eb6bebb7ca8",
+        "theories/sim/program.v": "2cac0c1dd3771fa756d645ad9cd3165035789a506675dfb3e7d49123fa617ca3"
+      },
+      "compiled": false,
+      "imported": false
+    },
+    {
+      "repository": "https://gitlab.mpi-sws.org/iris/simuliris",
+      "commit": "e3abfcdc301f92250d4227fc03c00463bf57b982",
+      "private_checkout": "/tmp/native-borrow-foundation-inspection-20261110/simuliris",
+      "files": {
+        "coq-simuliris.opam": "1bd0725ce2af1fe786fc3c5f0c6019ce788da05e54a86f85ddace13f4f57c7a2",
+        "theories/tree_borrows/bor_semantics.v": "df9ee14d0e65fda083cfb3c2864ab91f747761823d5efbb641f58468aa35cd88",
+        "theories/tree_borrows/step_laws/steps_retag.v": "51976c67c24f7d326f549e76da05b06fe121ead49e95b681c315686e7d756977",
+        "theories/tree_borrows/defs.v": "530f110d34262bce1f1d2af47b39b8d821fa4acb4914a449894ca54350c00ccd",
+        "theories/tree_borrows/steps_wf.v": "aae021059fd91deaf542ad895b47306fe5ee756314f22e2909cd5b65bea9c52e",
+        "theories/tree_borrows/steps_progress.v": "e61b5950d1db4d3213af1a48432adecfad9bf6bec5454eb7ac1c81a35648225a",
+        "theories/tree_borrows/adequacy.v": "66655cea3943f18fa3ab5f8d02f6d096a4568b521a4db0b4eff1296249cf7f11",
+        "theories/simulation/slsls.v": "a98bdfd28185b69245315413302ea88558e48c2d6de7daf9cc208e35553ebde5",
+        "theories/simulation/lifting.v": "e04b4aad27756dd2447281211bf9f8bc3cdb36e6cbc496f0ea6f2c4cfa53fc27"
+      },
+      "compiled": false,
+      "imported": false
+    }
+  ],
+  "documents": [
+    {
+      "url": "https://iris-project.org/pdfs/2025-pldi-treeborrows.pdf",
+      "effective_url": "https://iris-project.org/pdfs/2025-pldi-treeborrows.pdf",
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/documents/tree-borrows-paper.pdf",
+      "sha256": "e799db903f6fcbbf4cc3fc6f923ad51793a7c8d6b7ac91f92bbc118ce9978ff8",
+      "bytes": 711469
+    },
+    {
+      "url": "https://eprints.illc.uva.nl/id/eprint/1790/2/MoL-2021-04.text.pdf",
+      "effective_url": "https://eprints.illc.uva.nl/id/eprint/1790/2/MoL-2021-04.text.pdf",
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/documents/sbsl-thesis.pdf",
+      "sha256": "ef54e00a49ebfe5ff5e7bfe6585c91f42676d4209bb9fb75630b6f301051c6ad",
+      "bytes": 923600
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rust-lang/miri/master/README.md",
+      "effective_url": "https://raw.githubusercontent.com/rust-lang/miri/master/README.md",
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/documents/miri-readme.md",
+      "sha256": "2a49a1cfdceaaa53d3ee7a51249796f95fe1dc5dddb755962ed0845814d2376c",
+      "bytes": 44544
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rust-lang/unsafe-code-guidelines/master/wip/tree-borrows.md",
+      "effective_url": "https://raw.githubusercontent.com/rust-lang/unsafe-code-guidelines/master/wip/tree-borrows.md",
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/documents/ucg-tree-borrows.md",
+      "sha256": "14111870e154e2734235d5ff9b432b9da05c950fa91aa0f76bff1baaceb1c455",
+      "bytes": 6384
+    }
+  ],
+  "SBSL_source_access": "Author fork link from public GitLab listing redirects to sign-in; code not inspected and authentication not attempted",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
