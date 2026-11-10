@@ -35,7 +35,7 @@ def inputs():
     return [HERE/n for n in ['check.py', 'source_binding.py', 'pins.json', 'INTERFACE.md', 'README.md']] + [
         HERE/'candidates'/(n+'.v') for n in MODULES] + [
         STORAGE/'check.py', STORAGE/'source.py', STORAGE/'pins.json',
-        STORAGE/'integration-results.json', STORAGE/'candidates/Storage.v',
+        STORAGE/'candidates/Storage.v',
         GRAPH, HERE.parent/'native_constructor_erasure/candidates/Interface.v',
         HERE.parent/'native_constructor_erasure/candidates/Graph.v',
         GOAL/'goal_scope.py', GOAL/'foundation-baseline.json',
@@ -69,8 +69,7 @@ def main():
         freeze=load(a.freeze); pins=load(HERE/'pins.json'); ready=load(READY)
         trust=load(GOAL/'foundation-baseline.json'); binding=load(BRIDGE/'baseline-bindings.json')
         baseline_path=Path(ready['receipt']); baseline=load(baseline_path)
-        parent_record=load(STORAGE/'integration-results.json')
-        parent_path=Path(parent_record['integration_receipt']['path']); parent=load(parent_path)
+        parent_path=Path(pins['storage_receipt_path']); parent=load(parent_path)
         gmp=BASE/'rocq-toolchain/gmp-private/manifest.json'; gmp_data=load(gmp)
         storage_pins=load(STORAGE/'pins.json')
         source_bindings=load(BRIDGE/'source-bindings.json')
@@ -112,7 +111,7 @@ def main():
         require(len(library_map)==1121==storage_pins['coq_library_dependency_pin']['count'] and
             hashlib.sha256(json.dumps(library_map,sort_keys=True,separators=(',',':')).encode()).hexdigest()==
             storage_pins['coq_library_dependency_pin']['map_sha256'], 'Coq library pin')
-        require(retained(parent_path)==parent_record['integration_receipt']['sha256']==pins['storage_receipt_sha256'] and
+        require(retained(parent_path)==pins['storage_receipt_sha256'] and
             parent['success'] is True and parent['model_proofs_kernel_checked'] is True,
             'unauthenticated storage model')
         for f in parent_files:
