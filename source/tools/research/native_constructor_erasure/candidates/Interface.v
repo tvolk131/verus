@@ -12,7 +12,7 @@ Record reference := Reference {
 Definition ref_address (r : reference) (j : nat) : address :=
   (allocation r, byte_offset r + Z.of_nat j).
 
-Inductive phase := BorrowckToSelected | ScopeExit | FrontendObservation.
+Inductive phase := FakeReadPhase | CallUnwindPhase | CleanupResumePhase.
 Inductive event := MirOperation (instance block : nat) (statement : option nat)
                  | PhaseEvent (p : phase).
 Inductive fault := InvalidReference | InvalidRetag | InvalidRawFormation
@@ -36,7 +36,11 @@ Record source_semantics := Semantics {
   source_heap : configuration -> physical_map;
   operand_reference : configuration -> nat -> option reference;
   lawful_entry : configuration -> Prop;
+  lawful_state : configuration -> Prop;
+  reference_valid : configuration -> reference -> Prop;
   entry_control : configuration -> Prop;
+  at_event : configuration -> event -> Prop;
+  running : configuration -> Prop;
   caller_observable : configuration -> address -> Prop;
   step : configuration -> event -> outcome configuration -> Prop
 }.
@@ -63,9 +67,18 @@ Inductive execution (M : source_semantics) :
 | ExecutionMore s e t o : step M s e (Continue t) ->
     execution M t o -> execution M s o.
 
-(* This type is the open first source obligation. It is never postulated. *)
+Definition same_subobject (r r' : reference) : Prop :=
+  allocation r' = allocation r /\ byte_offset r' = byte_offset r.
+
+(* Open source obligation, including existence and ALL fault outcomes. *)
 Definition root_reborrow_need (M : source_semantics) : Prop :=
-  forall s r A, V_entry M s r A ->
-  forall t, step M s (MirOperation 0%nat 0%nat (Some 3%nat)) (Continue t) ->
-    operand_reference M t 4%nat <> None /\
-    source_heap M t = source_heap M s.
+  forall s0 r A s, V_entry M s0 r A ->
+  execution M s0 (Continue s) ->
+  at_event M s (MirOperation 0%nat 0%nat (Some 3%nat)) ->
+  (exists t r',
+    step M s (MirOperation 0%nat 0%nat (Some 3%nat)) (Continue t) /\
+    operand_reference M t 4%nat = Some r' /\ same_subobject r r' /\
+    reference_valid M t r') /\
+  (forall e why, step M s e (Fault why) -> False) /\
+  (forall e t, step M s e (Continue t) ->
+    lawful_state M t /\ forall a, source_heap M t a = source_heap M s a).
