@@ -12,12 +12,13 @@ Replay the current source/target-width checks and unchanged mathematical laws:
 
 ```sh
 python3 -B -O source/tools/research/native_source_unsize/check.py \
-  --freeze source/tools/research/native_source_unsize/trial002-freeze.json \
+  --freeze source/tools/research/native_source_unsize/trial003-freeze.json \
   --output /tmp/native-source-unsize-fresh-UNUSED
 ```
 
 [Results and complete assumptions](results.json) and [the report](REPORT.md)
-record the exact accepted replay; trial001 is retained as the earlier controller.
+record the exact accepted replay. Trial001 is the earlier controller; trial002
+is retained as a source-schema setup failure, not semantic evidence.
 
 Native correspondence remains zero; all44+3/101 obligations and full HMAC
 remain open. Publication=false; full goal incomplete.

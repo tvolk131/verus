@@ -129,7 +129,7 @@ def main():
         for name,h in source_bindings['outputs'].items():
             require(retained(extraction/name)==h, 'source extraction identity '+name)
         require(native['pointer_bits']==64 and native['target']=='x86_64-unknown-linux-gnu' and
-            native['native_bridge_proved'] is False and len(native['instances'])==6 and len(native['operations'])==44,
+            native['native_bridge_proved'] is False and len(native['instances'])==6 and native['operations']==44,
             'unsupported source layout/inventory')
         from source_binding import EXPECTED
         root=native['instances'][0]
