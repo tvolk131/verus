@@ -72,3 +72,23 @@ Checked specializations will cover empty-index impossibility, depth-zero
 impossibility, capability duplication, arbitrary-list input through the pinned
 ModelInputContext.vector representation, explicit same-key alias framing and a
 129-byte/index-128 read. They do not change the generic law or native scope.
+
+## Scoped callback reader, frozen before its trials
+
+`key_reader n κ q x d g tid R` is a persistent universally quantified indexed
+SC read law: for any i<n and separating Frame, it takes the linear token R,
+Frame and g+1 credits; it returns R, Frame, the same capability and ranged byte
+lookup. It needs no E/L or supplied guard at read time.
+
+`shared_key_reader_session` starts with ordinary E/L, the same shared view and
+g+1 preparation credits. It internally allocates two fractional context halves
+and returns `∃ R G, ⌜Timeless R /\ Timeless G⌝ ∗ R ∗ G ∗ capability ∗
+(G &&{NllftG}&&> llctx_interp L) ∗ key_reader ... R ∗
+(R -∗ G ={top}=∗ llctx_interp L)`.
+The G side supports existing guarded mutable-pad access; R stays available
+through its arbitrary Rin->Rout callback. Each key read restores R. Closing pad
+access restores G, then joining R/G restores ordinary L. No root callback edits,
+exclusive key payload, lifetime extension or new caller guard. The persistent
+reader requires its internally generated linear R, so it cannot outlive closure.
+Setup executes zero program steps; each read executes one SC step. No credits
+beyond preparation g+1 and g+1 per read. Generic n, depth, g and arbitrary Frame.

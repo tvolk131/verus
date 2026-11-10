@@ -2,8 +2,8 @@
   "before_first_trial": true,
   "files": {
     "source/tools/research/model_shared_byte_read/INTERFACE.md": "722a1adebc58c9606b2da6dac77aded736dc51d6edefb87888ea5c13680fdbd7",
-    "source/tools/research/model_shared_byte_read/FROZEN.md": "55c65563f6da9cd86281508c42ae28c9a32a87bb291801e75be082e6cc3d65cc",
-    "source/tools/research/model_shared_byte_read/check.py": "548f979b3bd3be58455c6b984cd9dc9323acb2ef9577071cc8a1d9b532c04112",
+    "source/tools/research/model_shared_byte_read/FROZEN.md": "2d3cf92bc39e282b7beacccd10dad250328147353270782144ed141501abffb9",
+    "source/tools/research/model_shared_byte_read/check.py": "0f18ab82200d8a860657e3a56706d6c0a844addc5692a0a8af032469be9308f8",
     "source/tools/research/model_shared_byte_read/develop.py": "1cff5afe18f5c58271d5ad7993501fcb949effa686a14ad4d711716bbff206a2",
     "source/tools/research/model_shared_byte_read/dependency-pins.json": "1a635060e13fa6499dadcb38652eb96dcdebbb118e6a677c6666f787e7c81083",
     "source/tools/research/native_semantic_bridge/proof_checks.py": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
@@ -16,7 +16,8 @@
     "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
     "source/tools/research/model_shared_byte_read/candidates/shared_read.v": "761cba940842764ba0c7d81b1b5c9f82bfa743b77c655dbc8848109a1e3c59d4",
     "source/tools/research/model_shared_byte_read/candidates/observation.v": "b8866f108fcffaf0328891433956a41bce1550b43aec7e985d11544c64daa5ec",
-    "source/tools/research/model_shared_byte_read/candidates/instances.v": "e9c133089f62079a44e035c06e99bbfd9b4608b8ed5afafd8718d74e0454fc50"
+    "source/tools/research/model_shared_byte_read/candidates/instances.v": "e9c133089f62079a44e035c06e99bbfd9b4608b8ed5afafd8718d74e0454fc50",
+    "source/tools/research/model_shared_byte_read/candidates/session.v": "da6cc501025118dd009fe15c9078efc28620d04a14205ed7e82bf08a51d42e84"
   },
   "constants": {
     "shared_read": [
@@ -39,6 +40,12 @@
       "shared_read_same_alias",
       "shared_read129",
       "list_shared_read"
+    ],
+    "session": [
+      "key_reader",
+      "key_reader_persistent",
+      "key_reader_read",
+      "shared_key_reader_session"
     ]
   }
 }

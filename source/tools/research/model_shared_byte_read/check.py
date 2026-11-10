@@ -13,7 +13,7 @@ from proof_checks import parse_axioms, parse_kernel_summary
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['shared_read', 'observation', 'instances']
+MODULES = ['shared_read', 'observation', 'instances', 'session']
 HEAP = BASE/'gmp-pin-heap-positive'
 SEM = BASE/'semantic-guard-validation-1efbd004/proofs'
 INPUT = BASE/'parent-model-input-94b87742/proofs'
