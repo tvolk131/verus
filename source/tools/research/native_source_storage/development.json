@@ -1,0 +1,111 @@
+{
+  "trials": [
+    {
+      "trial": 1,
+      "freeze": "trial-001.json",
+      "freeze_sha256": "5bd47792119f14109f3cb043fb9ed7e363e330a15fa4859998704865c6055cba",
+      "receipt": "/tmp/native-source-storage-e77da206-trial001/receipt.json",
+      "receipt_sha256": "169ea4be488aca5a4150ac5b0ea3315e85ebfda08837718e3604e0ef2eefe4f3",
+      "success": false,
+      "classification": "proof_development_or_setup_not_semantic_evidence",
+      "errors": [
+        {
+          "path": "/tmp/native-source-storage-e77da206-trial001/compile-Graph.stderr",
+          "sha256": "bb5bc547b7dbf5dc47440138e15de0ac6561950783a823dd6b1835ecd45190c1",
+          "message": "Warning: /tmp/native-source-storage-e77da206-trial001/proofs/parent was\npreviously bound to NativeConstructorErasure; it is remapped to\nNativeSourceStorage.parent [overriding-logical-loadpath,filesystem,default]\nFile \"/tmp/native-source-storage-e77da206-trial001/proofs/parent/Graph.v\", line 1, characters 45-54:\nError: Cannot find a physical path bound to logical path\nInterface with prefix NativeConstructorErasure."
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "freeze": "trial-002.json",
+      "freeze_sha256": "2a531155cadfea29503b735428f165341cf493cc7444796ec09d357d4ce1cf8a",
+      "receipt": "/tmp/native-source-storage-e77da206-trial002/receipt.json",
+      "receipt_sha256": "0692ad3d8c0c0f88fa5565588d46bb7154513c48e89357476b5b28efefc1f322",
+      "success": false,
+      "classification": "proof_development_or_setup_not_semantic_evidence",
+      "errors": [
+        {
+          "path": "/tmp/native-source-storage-e77da206-trial002/compile-Prefix.stderr",
+          "sha256": "69fd99c557f1e1a944d412442d477048f269297a5ad0b0a83f513a0ba9ddd8bd",
+          "message": "File \"/tmp/native-source-storage-e77da206-trial002/proofs/Prefix.v\", line 45, characters 9-25:\nError:\nIn environment\nH : Type\nr : reference\ncaller : ?T\nhistory : H\nstack : ?T0\nfresh : ?T1\ntrace : ?T2\nThe term \"initial_locals r\" has type \"Z -> option local\"\nwhile it is expected to have type \"nat -> option local\" (cannot unify \n\"nat\" and \"Z\")."
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "freeze": "trial-003.json",
+      "freeze_sha256": "551bc30a73fe5ced8652cbe8e6e7321374887fd1a8e559fa30ecf01f41b5b2cb",
+      "receipt": "/tmp/native-source-storage-e77da206-trial003/receipt.json",
+      "receipt_sha256": "d8d2b0ce31e5a2bffb6d4f2d8a8128e3f37c82ca42e19a94ed6c2fc82d9d2e6a",
+      "success": false,
+      "classification": "proof_development_or_setup_not_semantic_evidence",
+      "errors": [
+        {
+          "path": "/tmp/native-source-storage-e77da206-trial003/compile-Storage.stderr",
+          "sha256": "092902162327dabf77861d8d72d86f2e12f8537ce81e9b7c0002732381e3a7bf",
+          "message": "File \"/tmp/native-source-storage-e77da206-trial003/proofs/Storage.v\", line 222, characters 8-17:\nError:\nIn environment\nH : Type\ns : state H\nl, k : nat\nmem : stack_allocation\nL : locals s l = Some (Indirect k)\nM : private_stack s k = Some mem\nA : stack_live mem = true\nUnable to unify \"?M1473 ++ ?M1474 ++ ?M1475 = (?M1473 ++ ?M1474) ++ ?M1475\"\nwith\n \"(storage_trace s ++ [LocalWriteHook l]) ++ [StackDeallocated k] =\n  storage_trace s ++ [LocalWriteHook l; StackDeallocated k]\"."
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "freeze": "trial-004.json",
+      "freeze_sha256": "9ecad4440cf3dcbcdaeb56f41952e8b4cb3f4f7d0e8cdaacfd70066c877e5ae9",
+      "receipt": "/tmp/native-source-storage-e77da206-trial004/receipt.json",
+      "receipt_sha256": "94aeaba9117f8198abb9638cec5c909422107859c8b1e2ddf08c0dd65e37d5ca",
+      "success": false,
+      "classification": "proof_development_or_setup_not_semantic_evidence",
+      "errors": [
+        {
+          "path": "/tmp/native-source-storage-e77da206-trial004/compile-Storage.stderr",
+          "sha256": "231dbed610be755a381154fde7c3d0301b00e495d45c13a63a7e10acf3b1e527",
+          "message": "File \"/tmp/native-source-storage-e77da206-trial004/proofs/Storage.v\", line 222, characters 18-27:\nError:\nIn environment\nH : Type\ns : state H\nl, k : nat\nmem : stack_allocation\nL : locals s l = Some (Indirect k)\nM : private_stack s k = Some mem\nA : stack_live mem = true\nUnable to unify \"?M1477 ++ ?M1478 ++ ?M1479 = (?M1477 ++ ?M1478) ++ ?M1479\"\nwith\n \"storage_trace s ++ [LocalWriteHook l; StackDeallocated k] =\n  (storage_trace s ++ [LocalWriteHook l]) ++ [StackDeallocated k]\"."
+        }
+      ]
+    },
+    {
+      "trial": 5,
+      "freeze": "trial-005.json",
+      "freeze_sha256": "20d98f7ac0f5f04c2a76d3dd9219a2db51135cdcc7f4a56d12dd9536ca586744",
+      "receipt": "/tmp/native-source-storage-e77da206-trial005/receipt.json",
+      "receipt_sha256": "0c69b38ef92dca32b2c637f54b457be3618dc84e6ec8fcb6c7d996bd477c7d63",
+      "success": false,
+      "classification": "proof_development_or_setup_not_semantic_evidence",
+      "errors": [
+        {
+          "path": "/tmp/native-source-storage-e77da206-trial005/compile-Prefix.stderr",
+          "sha256": "a737a16a713f3b1520f76c5a2ac9e04be8f267fab15a246cc0fb532146e5d6d2",
+          "message": "File \"/tmp/native-source-storage-e77da206-trial005/proofs/Prefix.v\", line 41, characters 12-13:\nError: Found a constructor of inductive type Z while a constructor of nat\n is expected."
+        }
+      ]
+    },
+    {
+      "trial": 6,
+      "freeze": "trial-006.json",
+      "freeze_sha256": "6ace1b5332a32d21a0b777d254cb107b0f3164f078ac25e090294c3a4cacd005",
+      "receipt": "/tmp/native-source-storage-e77da206-trial006/receipt.json",
+      "receipt_sha256": "3babd7eeff91c51d1caa2f84a0cc155b04f81c608855c32ca91488c0dda682ac",
+      "success": false,
+      "classification": "proof_development_or_setup_not_semantic_evidence",
+      "errors": [
+        {
+          "path": "/tmp/native-source-storage-e77da206-trial006/compile-Prefix.stderr",
+          "sha256": "a2ad5cdde5c686f911323fcc4f4008c207245f9db246b7295aa5e3a9acaedb24",
+          "message": "File \"/tmp/native-source-storage-e77da206-trial006/proofs/Prefix.v\", line 113, characters 50-60:\nError: Tactic failure: congruence failed."
+        }
+      ]
+    },
+    {
+      "trial": 7,
+      "freeze": "trial-007.json",
+      "freeze_sha256": "c3eb33e4027f771bd697e77fa60a19c6ffc9f87cbf0c8b719036985fe455c6e5",
+      "receipt": "/tmp/native-source-storage-e77da206-trial007/receipt.json",
+      "receipt_sha256": "184b009ecbfa6a343e5183dce5e2df638bf906592c25b979bab5bd877a222b64",
+      "success": true,
+      "classification": "checked_MODEL",
+      "errors": []
+    }
+  ],
+  "source_lookup_note": "Official interpret/locals.rs returned HTTP404; interpret/mod.rs identified stack.rs. No semantic inference from failed lookup."
+}
