@@ -24,7 +24,9 @@ paths=[HERE/'check.py',HERE/'source_map.py',HERE/'audit.py',HERE/'gate_controls.
  HERE.parent/'mutable_buffer_goal/foundation-baseline.json',
  HERE.parent/'mutable_buffer_goal/transfer-freeze.json',
  HERE.parent/'native_heap_lowering/final-freeze.json',
- HERE.parent/'native_heap_lowering/lower.py', *source_audit_inputs()]
+ HERE.parent/'native_heap_lowering/lower.py', *source_audit_inputs(),
+ HERE/'source_snapshot_controls.py',
+ ROOT/'evidence/source-freeze-completeness-review/recheck.py']
 modules=['borrow_handoff','byte_array','raw_view','model_limits']
 require({p.stem for p in candidate.glob('*.v')}==set(modules),'unexpected proof module inventory')
 f=dict(schema=1,before_first_trial=True,publication=False,native_bridge_proved=False,

@@ -147,14 +147,14 @@ python3 -B -O source/tools/research/native_heap_lowering/extract.py \
   --freeze source/tools/research/native_heap_lowering/final-freeze.json \
   --output /tmp/fresh-semantic-source
 python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
-  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
+  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-map
 python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
-  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
+  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-audit
 python3 -B -O source/tools/research/native_semantic_bridge/check.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
+  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
   --output /tmp/fresh-semantic-proofs
 ```
 
@@ -184,7 +184,8 @@ negative. Independent recheck `1f727448` reproduced those results and accepted t
 frozen model replay. It found a remaining source-freeze completeness defect,
 addressed below.
 
-`source-freeze-fix.json` is the active pretrial integration freeze. The previous
+`snapshot-acceptance-freeze.json` is the active pretrial integration freeze.
+`guard-snapshot-freeze.json` records an earlier local race-control run. The previous
 `review-fix-freeze.json` and earlier
 freezes and receipts retain their historical controller versions. Readiness now
 binds the reviewed ready marker, final baseline receipt, all 523 copied source
@@ -201,7 +202,7 @@ The control replay is:
 ```sh
 python3 -B -O source/tools/research/native_semantic_bridge/guard_controls.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/source-freeze-fix.json \
+  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
   --output /tmp/fresh-semantic-guard-controls
 ```
 
@@ -222,3 +223,29 @@ healthy map and 12 source controls pass using the new pretrial freeze. These are
 provenance/eligibility controls, not semantic negatives. Mathematical sources and
 proof-checker logic are unchanged; no additional model or native theorem is
 claimed. Fresh independent review of this small completeness fix is pending.
+
+
+Independent review `4e85774a` closed omissions but reproduced a persistent
+post-validation change before `ArtifactGuard.initial`: changed binding/receipt
+bytes could become the accepted starting snapshot. The current source audits
+validate frozen hashes against the retained initial guard snapshot, including
+the exact loaded freeze bytes; final stability checks remain. The proof
+controller and source-entry inspection also compare retained snapshot identities
+against their pretrial and dependency pins. Copied proof/inspection source is
+bound to its frozen identity through compilation and recursive checking, and
+the foundation loadpath file is authenticated against the original source pin.
+
+The Linux race controls use the independent review's unchanged scheduling and
+private-copy helpers; application controllers/support files remain unmodified
+within each trial. Persistent substitutions during and after snapshotting reject
+under normal and optimized Python. A comment-only proof-candidate change in the
+former validation-to-snapshot window also rejects before any prover command.
+These are ten provenance controls, not failed semantic proofs. The mathematical
+sources, full input domains, native status and publication policy are unchanged.
+A matching positive model replay and fresh independent review are pending.
+
+```sh
+python3 -B -O source/tools/research/native_semantic_bridge/source_snapshot_controls.py \
+  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
+  --output /tmp/fresh-source-snapshot-controls
+```

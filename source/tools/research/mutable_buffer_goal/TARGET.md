@@ -27,7 +27,7 @@ A new independent review closed those findings but found mutable/effectful Zip
 key operands. The stable-key restriction (`a93b774a`) passes 31 focused tests,
 148 VIR tests, 621 compiler tests across all 32 Infer targets, 148 Python tests
 in each mode and both replay suites. Its [independent recheck](parent-stable-key.json)
-remains pending. Earlier green receipts describe their historical source
+accepted the scoped fix (`d64897d4`); full native/transfer acceptance remains open. Earlier green receipts describe their historical source
 checkpoints; they do not establish acceptance of the current branch.
 
 The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
@@ -58,7 +58,9 @@ and passes recursive kernel checking. The new same-reference physical access,
 restoration and byte-array scripts also compile and pass recursive kernel
 checking: [18 model theorems and six byte-type obligations](parent-semantic-foundation.json).
 The exact frozen model replay has independent acceptance. A subsequent
-source-freeze completeness finding is fixed locally, with fresh review pending.
+source-freeze completeness finding was closed. The next review found a
+validation-to-snapshot race; the local fix binds frozen identities to retained
+guard snapshots. Matching model/controller replays and a fresh review are pending.
 The [source-entry investigation](../native_source_entry/MISSING_LAYER.md)
 identifies the missing actual source-state and typing-context interpretation;
 its 42-constant inspection proves no new native theorem. The

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Identity/coverage audit, NEVER a native semantic acceptance checker."""
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter
@@ -23,12 +24,26 @@ def source_audit_inputs():
             *support_artifacts()]
 
 
-def validate_source_freeze(freeze):
+def validate_source_freeze(freeze, initial):
     require(freeze['before_first_trial'] is True, 'missing pretrial freeze')
     required = {str(p.relative_to(ROOT)) for p in source_audit_inputs()}
     require(required <= set(freeze['files']), 'incomplete frozen source-audit inputs')
     for name, value in freeze['files'].items():
-        require(digest(ROOT/name) == value, 'frozen source changed '+name)
+        require(initial[str((ROOT/name).resolve())]['sha256'] == value,
+                'frozen source changed '+name)
+
+
+def guard_source_freeze(freeze_path, extraction):
+    """Validate exactly the snapshot retained for the final stability check."""
+    frozen_bytes = freeze_path.read_bytes()
+    freeze = json.loads(frozen_bytes)
+    paths = [extraction/n for n in ('drop-native.json', 'drop-borrowck.json', 'receipt.json')]
+    guard = ArtifactGuard([*paths, *source_audit_inputs(), freeze_path,
+                           *[ROOT/n for n in freeze['files']]])
+    require(guard.initial[str(freeze_path.resolve())]['sha256'] ==
+            hashlib.sha256(frozen_bytes).hexdigest(), 'freeze changed while loading')
+    validate_source_freeze(freeze, guard.initial)
+    return guard
 
 
 def authenticated_extraction(directory):
@@ -150,12 +165,9 @@ if __name__ == '__main__':
     a.output.mkdir(parents=True, exist_ok=False)
     receipt = dict(schema=1, publication=False, native_bridge_proved=False)
     with replay_receipt(a.output, receipt):
-        freeze = json.loads(a.freeze.read_text())
-        validate_source_freeze(freeze)
+        guard = guard_source_freeze(a.freeze, a.extraction)
         src = HERE.parent / 'native_heap_lowering/fixtures/drop.rs'
         paths = [a.extraction/n for n in ('drop-native.json', 'drop-borrowck.json', 'receipt.json')]
-        guard = ArtifactGuard([*paths, *source_audit_inputs(), a.freeze,
-                               *[ROOT/n for n in freeze['files']]])
         authenticated_extraction(a.extraction)
         mapping = build(json.loads(paths[0].read_text()), json.loads(paths[1].read_text()), src)
         out = a.output/'source-obligations.json'

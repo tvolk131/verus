@@ -17,7 +17,7 @@ sys.path[:0] = [str(ROOT / 'source/tools'), str(BRIDGE)]
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, replay_receipt, require
 from proof_checks import parse_axioms, parse_kernel_summary, names
-from source_map import authenticated_extraction, build
+from source_map import authenticated_extraction, build, source_audit_inputs
 
 FOUNDATION = [
     'lrust.lang.adequacy.lrust_adequacy',
@@ -52,14 +52,30 @@ def main():
                    native_effects_discharged=0, new_theorems=[], new_helpers=[],
                    classification='existing_rule_inspection_not_native_proof')
     with replay_receipt(a.output, receipt):
-        f = json.loads(a.freeze.read_text())
+        frozen_bytes = a.freeze.read_bytes()
+        f = json.loads(frozen_bytes)
         require(f['before_first_trial'] is True and f['constants'] == CONSTANTS,
                 'unfrozen inspection inventory')
+        required = [Path(__file__), HERE/'candidates/entry-v1/EntryInventory.v',
+                    BRIDGE/'proof_checks.py', BRIDGE/'baseline-bindings.json',
+                    BRIDGE.parent/'mutable_buffer_goal/foundation-baseline.json',
+                    BRIDGE.parent/'mutable_buffer_goal/foundation-pin.json',
+                    *source_audit_inputs()]
+        require({str(p.relative_to(ROOT)) for p in required} <= set(f['files']),
+                'incomplete frozen inspection inputs')
+        private = {str(Path(n).resolve()) for n in f['private_inputs']}
+        required_private = [Path(f['ready']), Path(f['model_receipt']),
+                           *[Path(f['extraction'])/n for n in
+                             ('receipt.json', 'drop-native.json', 'drop-borrowck.json')]]
+        require({str(p.resolve()) for p in required_private} <= private,
+                'incomplete frozen private inspection inputs')
         for name, value in f['files'].items():
             require(digest(ROOT/name) == value, 'freeze mismatch: ' + name)
         for name, value in f['private_inputs'].items():
             require(digest(Path(name)) == value, 'private input mismatch: ' + name)
         ready = json.loads(Path(f['ready']).read_text())
+        require(str(Path(ready['receipt']).resolve()) in private,
+                'unfrozen baseline receipt')
         trusted = json.loads((BRIDGE.parent/'mutable_buffer_goal/foundation-baseline.json').read_text())
         baseline = Path(ready['build'])
         baseline_result = json.loads(Path(ready['receipt']).read_text())
@@ -96,6 +112,17 @@ def main():
         paths += [model/(m+s) for m in model_receipt['modules'] for s in ('.v', '.vo')]
         paths += [Path(f['ready']).parent/'gmp-private/manifest.json']
         guard = ArtifactGuard(paths)
+        require(guard.initial[str(a.freeze.resolve())]['sha256'] ==
+                hashlib.sha256(frozen_bytes).hexdigest(), 'inspection freeze changed while loading')
+        for name, value in f['files'].items():
+            require(guard.initial[str((ROOT/name).resolve())]['sha256'] == value,
+                    'inspection source snapshot mismatch: '+name)
+        for name, value in f['private_inputs'].items():
+            require(guard.initial[str(Path(name).resolve())]['sha256'] == value,
+                    'inspection private snapshot mismatch: '+name)
+        source_pin = json.loads((BRIDGE.parent/'mutable_buffer_goal/foundation-pin.json').read_text())
+        require(guard.initial[str((baseline/'_CoqProject').resolve())]['sha256'] ==
+                source_pin['files']['_CoqProject'], 'untrusted inspection loadpaths')
         receipt['artifacts'] = guard.initial
         extraction = Path(f['extraction'])
         authenticated_extraction(extraction)
@@ -114,6 +141,10 @@ def main():
         work.mkdir()
         target = work/'EntryInventory.v'
         shutil.copyfile(HERE/'candidates/entry-v1/EntryInventory.v', target)
+        candidate_guard = ArtifactGuard([target])
+        require(candidate_guard.initial[str(target.resolve())]['sha256'] ==
+                f['files'][str((HERE/'candidates/entry-v1/EntryInventory.v').relative_to(ROOT))],
+                'inspection copy identity mismatch')
         require(not re.search(r'\b(?:Lemma|Theorem|Goal|Definition|Axiom|Admitted|Parameter)\b',
                               target.read_text()), 'inspection introduced a new declaration')
         args = []
@@ -139,6 +170,7 @@ def main():
                                         *args, 'NativeSourceEntry.EntryInventory'], env) == 0,
                 'recursive kernel inspection failure')
         kernel = parse_kernel_summary((a.output/'recursive-kernel.stderr').read_text())
+        candidate_guard.check()
         guard.check()
         receipt.update(assumptions=assumptions, kernel_axioms=kernel, statements=statements,
                        inspected_constants=len(assumptions), inspection_object_sha256=digest(target.with_suffix('.vo')),

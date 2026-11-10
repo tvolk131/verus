@@ -156,3 +156,13 @@ python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
 The first command uses the ready marker and model proof directory explicitly
 pinned in the freeze. It reads them without rebuilding or copying old source
 trees. Raw logs and the inspection object remain in `/tmp/native-source-entry-e84eed6c/`.
+
+
+Parent compatibility replay uses `entry-parent-freeze.json`; the original
+`entry-v1-freeze.json` remains historical. The candidate and 42 inspected
+constants are unchanged. The parent adds complete required public/private
+input inventories, validates those identities against the retained guard
+snapshot, authenticates the foundation loadpaths, and retains the copied
+inspection source identity through compilation and kernel checking. This closes
+the analogous snapshot window without supplying a source-entry theorem.
+Fresh matching replay is pending.

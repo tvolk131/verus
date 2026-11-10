@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "engine_checkpoint": "a93b774a",
-  "scope": "Stable immutable Zip operand eligibility; matching full regression passed; independent recheck pending",
+  "scope": "Stable immutable Zip operand eligibility: matching full regression passed and independent scoped acceptance",
   "fix": "Require a bare immutable Exec parameter key value; unsupported/reassigned/effectful operands receive ordinary verification unchanged.",
   "authored_fixture_source_domain_predicate_changes": false,
   "matching_compiler_and_vstd": "passed;2226/0",
@@ -38,7 +38,20 @@
     "failed": 0
   },
   "full_validation_receipt": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/receipt.json",
-  "independent_review": "in progress in a fresh isolated recheck; no acceptance claim",
+  "independent_review": {
+    "commit": "d64897d47ff0e61e0b38be427c7dc6f0fae671b8",
+    "recommendation": "scoped accept; R1/R2 closed, no new blocker reproduced",
+    "own_compiler_vstd": "2226/0",
+    "VIR": 148,
+    "observer": 23,
+    "numeric": 8,
+    "infer": 299,
+    "canonical_cases": 26,
+    "observer_cases": 23,
+    "probes": 71,
+    "off_on_invocations": 142,
+    "full_goal_accepted": false
+  },
   "policy": 68,
   "candidate_cache": 71,
   "metadata_schema": 38,

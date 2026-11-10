@@ -38,7 +38,7 @@ class SourceFreeze(unittest.TestCase):
         path = self.root/f'freeze-{self.serial}.json'
         path.write_text(json.dumps(freeze))
         output = self.root/f'run-{self.serial}'
-        result = subprocess.run([sys.executable, '-B', '-O', str(self.bridge/tool),
+        result = subprocess.run([sys.executable, '-B', *(['-O'] if sys.flags.optimize else []), str(self.bridge/tool),
             '--freeze', str(path), '--extraction', str(self.raw), '--output', str(output)],
             text=True, capture_output=True, timeout=30)
         receipt = json.loads((output/'receipt.json').read_text())
