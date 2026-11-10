@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "implementation": "703f9544",
+  "constant_count": 30,
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "all_candidate_assumptions_closed": true,
+  "review": {
+    "commit": "080d8d8c",
+    "scope": "Exact conditional MODEL byte and register statements only",
+    "accepted": true,
+    "actionable_findings": [],
+    "receipt": {
+      "path": "/tmp/native-byte-segment-review-17a8c04d-trial003/receipt.json",
+      "sha256": "814f5459ca72bf9448ae704d744b73cd0984518df1e86b7875903c17cdef206c"
+    },
+    "report": "evidence/native-byte-segment-review/REPORT.md",
+    "native_correspondences": 0,
+    "publication": false
+  },
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

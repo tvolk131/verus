@@ -20,7 +20,19 @@
     "ProofTerms.vo": "fb2f7ab1bd0013c38cef64b02ffc08030d8122cedb2b02d709464f26518cee68",
     "native_xor.vo": "de23bd93791532fe6087fb83710397b0cdb9c85bde0f354deaea95ac047a6efb"
   },
-  "independent_review": "running separately; not yet accepted",
+  "independent_review": {
+    "commit": "080d8d8c",
+    "scope": "Exact conditional MODEL byte and register statements only",
+    "accepted": true,
+    "actionable_findings": [],
+    "receipt": {
+      "path": "/tmp/native-byte-segment-review-17a8c04d-trial003/receipt.json",
+      "sha256": "814f5459ca72bf9448ae704d744b73cd0984518df1e86b7875903c17cdef206c"
+    },
+    "report": "evidence/native-byte-segment-review/REPORT.md",
+    "native_correspondences": 0,
+    "publication": false
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false
