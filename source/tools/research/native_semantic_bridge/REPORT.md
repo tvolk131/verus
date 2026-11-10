@@ -25,10 +25,12 @@ unsafe fixpoints, assumed positivity, type-in-type or rewrite rules. These are
 general logical/library axioms, not assumed native claims. `results.json` binds
 all tool/source/proof-object/receipt identities and the inspected summary.
 
-Seven failed proof-development trials v5-v11 are retained with pretrial sources,
-receipts and stderr hashes in `failed-trials.json`. They are tactic, name-shadow,
-Program-obligation, notation/elaboration and later-introduction failures, not
-semantic counterexamples. Candidates v1-v4 were frozen but not run. The first
+Seven failed proof-development trials v5-v11 retain their pretrial freezes,
+receipts and stderr hashes in `failed-trials.json`. Superseded source scripts
+v1-v11 are preserved exactly in Git commit `05581f4b`, indexed by `HISTORY.json`;
+loan-v12 is the active source set. They are tactic, name-shadow, Program-obligation,
+notation/elaboration and later-introduction failures, not semantic counterexamples.
+Candidates v1-v4 were frozen but not run. The first
 actual Rust-native handoff deliverable remains incomplete despite this checked
 model foundation: the source typing/import and native simulation are missing.
 
@@ -132,6 +134,12 @@ Admitted, unchecked native summary or bypass flag is introduced. Transitive
 Print Assumptions are inspected separately from all unproved native claims.
 RefinedRust e39cd5f1 is inspection-only and is neither built nor imported.
 
+The original `loan-v12-freeze.json` remains a historical pretrial record. Parent
+integration updated the foundation pin's readiness metadata, preserving its
+repository, source commit and file hashes. `parent-replay-freeze.json` freezes
+that reconciled input before parent replay; selected proof and controller bytes
+are unchanged. The original freeze replays from its historical checkout.
+
 With fresh output directories, from the repository root:
 
 ```sh
@@ -139,14 +147,14 @@ python3 -B -O source/tools/research/native_heap_lowering/extract.py \
   --freeze source/tools/research/native_heap_lowering/final-freeze.json \
   --output /tmp/fresh-semantic-source
 python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
-  --freeze source/tools/research/native_semantic_bridge/loan-v12-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/parent-replay-freeze.json \
   --extraction /tmp/fresh-semantic-source --output /tmp/fresh-semantic-map
 python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
-  --freeze source/tools/research/native_semantic_bridge/loan-v12-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/parent-replay-freeze.json \
   --extraction /tmp/fresh-semantic-source --output /tmp/fresh-semantic-audit
 python3 -B -O source/tools/research/native_semantic_bridge/check.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/loan-v12-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/parent-replay-freeze.json \
   --output /tmp/fresh-semantic-proofs
 ```
 

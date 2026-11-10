@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "goal_complete": false,
-  "status": "matching full Infer regressions and focused replays pass; independent fix review pending",
+  "status": "historical ea897a9b validation passed; subsequent independent review168aaca9 requests alias fixes",
   "engine_checkpoint": "ea897a9b",
   "review": "790dcdc3",
   "findings": {
@@ -142,5 +142,16 @@
       ]
     },
     "recovery": "29 completed guarded target logs plus2 matching focused binaries; unfinished infer_wrappers rerun freshly after confirming runner/child processes stopped. Source and original/copy runtime identities rechecked; interruption is not proof evidence."
+  },
+  "historical_checkpoint": true,
+  "subsequent_review": {
+    "commit": "168aaca9",
+    "finding": "F1 declaration/match alias acquisition evades expression-only guard; F2 accepted",
+    "evidence": "evidence/shared-buffer-fix-review/FINDINGS.md",
+    "later_fixes": [
+      "9a44a124",
+      "d35c31fa"
+    ],
+    "later_fix_acceptance": "pending matching runtime validation and new independent review"
   }
 }

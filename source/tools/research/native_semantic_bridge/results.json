@@ -153,5 +153,8 @@
     "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq": "bffce97908442f9af5a279d7dda96682c55ef8fbad525b7cc0f7efdf71a89b7e",
     "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc": "c97932397e89335770512a56838721ff9739ddaba460a86589c2ddea8dd5cb87",
     "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqchk": "b95cdd8b3881c5999888ea829b58b552e92ce8aaba34fd76b980e8a65309d56a"
-  }
+  },
+  "origin_commit": "05581f4b",
+  "superseded_source_archive": "HISTORY.json",
+  "parent_replay_status": "pending reconciled parent replay; original checked receipt and proof identities unchanged"
 }

@@ -16,10 +16,15 @@ snapshots. The [parent combined record](parent-combined.json) binds the matching
 `676b99bf` engine, 26 canonical replay cases, 23 observation cases, 148 VIR tests
 and vstd 2,226/0. Both decorators receive full generated-body well-formedness
 and mode checking. The earlier scoped canonical integration received an
-[independent acceptance recommendation](../../../../evidence/canonical-parent-review/REVIEW.md);
-review of the combined shared implementation and the full Infer compiler suite
-remains pending. Historical ordinary proofs and standalone receipts remain in
-the linked records; they do not establish final goal acceptance.
+[independent acceptance recommendation](../../../../evidence/canonical-parent-review/REVIEW.md).
+Subsequent combined reviews found observer eligibility bugs and a stale reporting
+test: [initial findings](../../../../evidence/shared-buffer-review/REVIEW.md) and
+[alias follow-up](../../../../evidence/shared-buffer-fix-review/FINDINGS.md).
+The full 32-target compiler suite passed 611 tests at `ea897a9b`, but the alias
+follow-up still requested changes. The declaration/match fixes (`9a44a124`) and
+constructor-to-loop binding fix (`d35c31fa`) are undergoing matching validation
+and a new independent review. Earlier green receipts describe their historical
+source checkpoints; they do not establish acceptance of the current branch.
 
 The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
 HMAC ipad-XOR loop, with arbitrary initialized `[u8;128]` and arbitrary key length.
@@ -40,7 +45,10 @@ obligations remain open. A smaller constructor/drop case has a complete six-inst
 44-operation [source inventory](native-drop-inventory.json), without a frame
 proof. The next step carries one ownership interpretation through the actual
 constructor operand, pointer operations and drop, avoiding a second live Rust
-borrow. No assumed final/current equation, executable rewrite or new unchecked
+borrow. The [pinned VerusBelt baseline](foundation-baseline.json) now compiles
+and passes recursive kernel checking. New same-reference physical access and
+restoration scripts remain distinct from a native Rust interpretation theorem.
+No assumed final/current equation, executable rewrite or new unchecked
 dependency law is permitted. Shared automation must remove actual proof work on
 both full properties; parser reuse or a conditional model theorem is insufficient.
 

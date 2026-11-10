@@ -142,5 +142,18 @@
       "sha256": "eb48f0e352ec0a7957b41079bbe3d49ab48b88ad719b601721cb540495a36c5a"
     },
     "causality": "The observer emits the sole sequence-capacity proposal; no claim that this fact alone is indispensable. A pipeline ablation remains optional diagnostic work."
-  }
+  },
+  "historical_checkpoint": true,
+  "subsequent_reviews": [
+    {
+      "commit": "790dcdc3",
+      "recommendation": "request changes: entry snapshots reject surrounding buffer mutations; stale report assertion"
+    },
+    {
+      "commit": "168aaca9",
+      "recommendation": "request changes: declaration/match aliases evade first fix; report assertion accepted"
+    }
+  ],
+  "current_production_checkpoint": "d35c31fa",
+  "current_acceptance_status": "matching validation and fresh independent review in progress; historical receipts remain bound to their own source checkpoints"
 }
