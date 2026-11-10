@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "scope": "Conditional register-flow composition of existing constructor fragment semantics; not actual Rust correspondence",
+  "constant_count": 30,
+  "all_assumptions_closed": true,
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial005/receipt.json",
+    "sha256": "00e6ba3aafa0f1a07fec7f89829b0496eea7a3f0861ee9632a19f732019aa9f1"
+  },
+  "proof_objects": {
+    "segment.vo": "1d854264d06e2f547d719638169fe70fbd7822ad3d0a363b9b5b9def9890c334",
+    "Assumptions.vo": "b476936a01edad5d11aafb9798d9849834b5a8ca762a9e7992bbed981eae37af"
+  },
+  "source_registers": {
+    "input_pointer": 3,
+    "input_length": 2,
+    "temporary": 6,
+    "end_pointer": 5
+  },
+  "actual_target_pure_steps": 4,
+  "source_context_interpretation_proved": false,
+  "native_correspondences": 0,
+  "native_effects_open": 101,
+  "publication": false,
+  "goal_complete": false,
+  "independent_review": "pending"
+}

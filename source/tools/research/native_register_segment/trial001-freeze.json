@@ -1,0 +1,48 @@
+{
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/native_register_segment/INTERFACE.md": "399ac8a9fa33b9ceeafa91c18c134ef9aa73512785252c6a0e0750efae800150",
+    "source/tools/research/native_register_segment/check.py": "eb11a5a9780a141b619e7135f04be36859ac94875371fc5ad34b80c68145269f",
+    "source/tools/research/native_semantic_bridge/proof_checks.py": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+    "source/tools/research/native_semantic_bridge/acceptance_inputs.py": "5b46bfd6f1439048afcd4077bb9145550e27a00558f67a08e703430c4431a06e",
+    "source/tools/research/native_semantic_bridge/baseline-bindings.json": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+    "source/tools/research/mutable_buffer_goal/foundation-pin.json": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+    "source/tools/research/mutable_buffer_goal/foundation-baseline.json": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+    "source/tools/research/mutable_buffer_goal/parent-native-primitive-refinement.json": "5257c38edc7a3b7fa3d095b57d04405fb295b93514b999c1a79c8dcccea5f672",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "source/tools/research/native_register_segment/candidates/segment.v": "4f1adfac277676909e3859b4c329852e4c4d4cadb9edc577952c39dd2a5caeb0"
+  },
+  "constants": {
+    "segment": [
+      "registers",
+      "instruction",
+      "AssignPure",
+      "register_arguments",
+      "register_step",
+      "RegisterCompute",
+      "segment_run",
+      "SegmentNil",
+      "SegmentCons",
+      "register_step_heap",
+      "register_step_other",
+      "segment_run_heap",
+      "end_segment",
+      "end_registers",
+      "end_segment_exec",
+      "end_segment_outputs",
+      "end_segment_frame",
+      "end_code",
+      "wp_end_code",
+      "end_segment_refinement",
+      "instruction_rect",
+      "instruction_ind",
+      "instruction_rec",
+      "instruction_sind",
+      "register_step_ind",
+      "register_step_sind",
+      "segment_run_ind",
+      "segment_run_sind"
+    ]
+  }
+}

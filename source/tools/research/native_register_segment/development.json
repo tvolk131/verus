@@ -1,0 +1,49 @@
+[
+  {
+    "trial": 1,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial001/receipt.json",
+    "sha256": "a1d20b051f57c6cb14b78c3e3fa0e5b19dbd15c5f9520c4496e3805704f3aa62",
+    "success": false,
+    "classification": "proof script development, not semantic evidence"
+  },
+  {
+    "trial": 2,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial002/receipt.json",
+    "sha256": "68bc60460b103b01929b6802375135f42cff08d6824f472cab85dac9e2887a27",
+    "success": false,
+    "classification": "proof script development, not semantic evidence"
+  },
+  {
+    "trial": 3,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial003/receipt.json",
+    "sha256": "a815975bad8ac8f1c82da8349ec6476245656c3455079dc71e1ad916409a1e10",
+    "success": false,
+    "classification": "proof script development, not semantic evidence"
+  },
+  {
+    "trial": 4,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial004/receipt.json",
+    "sha256": "93d37f1f3fcfee1062ccf9e0e387c2100c4f78a3e991453449e71e1bba9f6078",
+    "success": true,
+    "classification": "kernel checked"
+  },
+  {
+    "trial": 5,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial005/receipt.json",
+    "sha256": "00e6ba3aafa0f1a07fec7f89829b0496eea7a3f0861ee9632a19f732019aa9f1",
+    "success": true,
+    "classification": "kernel checked"
+  },
+  {
+    "pure_development_trial": 1,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-pure-dev001/receipt.json",
+    "sha256": "649e0441dd4530245da9cb689eaf7abe429501ba7b95e7c2f9b644226c47512c",
+    "classification": "isolated pure-reduction script development; final terms checked in trial005"
+  },
+  {
+    "pure_development_trial": 2,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/register-pure-dev002/receipt.json",
+    "sha256": "0df537983381880d3ed4e04a6ff8ee71d6a35a1d936f6b8adcf53385abf88747",
+    "classification": "isolated pure-reduction script development; final terms checked in trial005"
+  }
+]
