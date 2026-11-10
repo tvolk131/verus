@@ -186,8 +186,12 @@ def main():
             require(target.with_suffix('.vo').is_file(), 'missing object')
             names += [n+'.'+x for x in freeze['constants'][n]]
         inv = 'From ModelSharedXorLoop Require Import '+' '.join(MODULES)+'.\n'
-        for name in names:
-            inv += f'Goal True. idtac "BEGIN {name}". exact I. Qed.\nPrint Assumptions ModelSharedXorLoop.{name}.\nGoal True. idtac "END {name}". exact I. Qed.\n'
+        helper_names = {m: [f'{m}.inventory_{side}_{i}' for i in range(len(names))
+                           for side in ['begin','end']] for m in ['Assumptions','ProofTerms']}
+        for i,name in enumerate(names):
+            inv += f'Lemma inventory_begin_{i} : True. idtac "BEGIN {name}". exact I. Qed.\nPrint Assumptions ModelSharedXorLoop.{name}.\nLemma inventory_end_{i} : True. idtac "END {name}". exact I. Qed.\n'
+        for name in helper_names['Assumptions']:
+            inv += f'Print Assumptions ModelSharedXorLoop.{name}.\n' 
         inventory = work/'Assumptions.v'
         inventory.write_text(inv)
         hold(inventory,hashlib.sha256(inv.encode()).hexdigest())
@@ -197,15 +201,21 @@ def main():
         require([x for x,_,_ in sections]==names==[x for _,_,x in sections], 'incomplete assumption inventory')
         require(len(re.findall(r'^BEGIN ',out,re.M))==len(names)==len(re.findall(r'^END ',out,re.M)), 'extra markers')
         receipt['assumptions'] = {n:parse_axioms(body) for n,body,_ in sections}
+        require(out.split('END '+names[-1],1)[1].strip().splitlines() ==
+                ['Closed under the global context'] * len(helper_names['Assumptions']), 'helper assumptions not closed')
         terms = 'From ModelSharedXorLoop Require Import '+ ' '.join(MODULES)+'.\nSet Printing All.\n'
-        for name in names:
-            terms += f'Goal True. idtac "BEGIN {name}". exact I. Qed.\nPrint ModelSharedXorLoop.{name}.\nGoal True. idtac "END {name}". exact I. Qed.\n'
+        for i,name in enumerate(names):
+            terms += f'Lemma inventory_begin_{i} : True. idtac "BEGIN {name}". exact I. Qed.\nPrint ModelSharedXorLoop.{name}.\nLemma inventory_end_{i} : True. idtac "END {name}". exact I. Qed.\n'
+        for name in helper_names['ProofTerms']:
+            terms += f'Print Assumptions ModelSharedXorLoop.{name}.\n' 
         termfile = work/'ProofTerms.v'
         termfile.write_text(terms)
         hold(termfile,hashlib.sha256(terms.encode()).hexdigest())
         require(run('proof-terms',[str(toolpaths['runner']),str(toolpaths['coqc']),'-q',*args,str(termfile)],env)==0, 'proof-term printing failed')
         printed = re.findall(r'^BEGIN (\S+)\n(.*?)^END (\S+)\s*$', (a.output/'proof-terms.stdout').read_text(), re.M|re.S)
         require([n for n,_,_ in printed] == names == [n for _,_,n in printed], 'proof-term inventory incomplete')
+        require((a.output/'proof-terms.stdout').read_text().split('END '+names[-1],1)[1].strip().splitlines() ==
+                ['Closed under the global context'] * len(helper_names['ProofTerms']), 'term helper assumptions not closed')
         term_hashes = {n:hashlib.sha256(body.encode()).hexdigest() for n,body,_ in printed}
         products = ArtifactGuard([x for x in work.iterdir() if x.suffix in ['.v','.vo']])
         require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-o',*args,
@@ -214,6 +224,11 @@ def main():
         receipt['kernel_axioms'] = parse_kernel_summary(kernel_output)
         checked = re.findall(r'checking cst:ModelSharedXorLoop\.(shared_xor\.\w+)', kernel_output)
         require(checked == names, 'kernel declaration inventory differs: '+repr(checked))
+        all_checked = re.findall(r'checking cst:ModelSharedXorLoop\.(\w+\.\w+)', kernel_output)
+        expected_all = names + helper_names['Assumptions'] + helper_names['ProofTerms']
+        require(len(all_checked) == len(expected_all) and set(all_checked) == set(expected_all), 'full kernel inventory differs')
+        for module,ordered in helper_names.items():
+            require([n for n in all_checked if n.startswith(module+'.')] == ordered, 'helper declaration order differs')
         for g in held: g.check()
         products.check()
         guard.check()
@@ -221,7 +236,8 @@ def main():
         require(set(receipt['kernel_axioms']) <= {'Coq.Logic.FunctionalExtensionality.functional_extensionality_dep', 'Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq'}, 'new kernel logical principles')
         receipt.update(model_proofs_kernel_checked=True, constant_count=len(names), declaration_inventory=freeze['constants'],
                        constructor_inventory=[], program_obligations=[], proof_terms=term_hashes, kernel_declarations=checked,
-                       inventory_helper_theorems={'Assumptions':2*len(names),'ProofTerms':2*len(names)},
+                       inventory_helper_theorems=helper_names, all_kernel_declarations=all_checked,
+                       helper_assumptions={n:[] for values in helper_names.values() for n in values},
                        proof_artifacts=products.initial)
         print(json.dumps(dict(output=str(a.output), model_proofs_kernel_checked=True,publication=False)))
 if __name__ == '__main__': main()
