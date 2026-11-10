@@ -11,7 +11,7 @@ ROOT=HERE.parents[3]
 sys.path.insert(0,str(ROOT/'source/tools'))
 from infer_eval_support import ArtifactGuard,digest,support_artifacts
 from infer_experiment import require,replay_receipt
-from source_map import build
+from source_map import build, authenticated_extraction
 p=argparse.ArgumentParser()
 p.add_argument('--extraction',type=Path,required=True)
 p.add_argument('--freeze',type=Path,required=True)
@@ -24,7 +24,7 @@ with replay_receipt(a.output,r):
  for n,h in f['files'].items():require(digest(ROOT/n)==h,'changed input '+n)
  paths=[a.extraction/n for n in ('drop-native.json','drop-borrowck.json','receipt.json')]
  g=ArtifactGuard([*paths,a.freeze,*[ROOT/n for n in f['files']],*support_artifacts()])
- require(json.loads(paths[2].read_text())['success'] is True,'unhealthy extractor')
+ authenticated_extraction(a.extraction)
  native=json.loads(paths[0].read_text());borrowck=json.loads(paths[1].read_text())
  source=HERE.parent/'native_heap_lowering/fixtures/drop.rs'
  base=build(native,borrowck,source)
@@ -46,5 +46,9 @@ with replay_receipt(a.output,r):
  check('wrong-byte-offset-operation',lambda n,b:first_value(n,'binary').update(kind='Add'))
  check('wrong-input-extent',lambda n,b:b['input_shapes'][0].update(length=127,size=127))
  check('missing-physical-instance',lambda n,b:n['instances'].pop())
- require(len(r['cases'])==8,'control inventory')
+ check('borrowck-unsize-wrong-source',lambda n,b:b['blocks'][0]['statements'][4]['ir']['value']['operand']['place'].update(local=1))
+ check('borrowck-call-wrong-argument',lambda n,b:b['blocks'][0]['terminator']['arguments'][0]['place'].update(local=1))
+ check('borrowck-reborrow-wrong-place',lambda n,b:b['blocks'][0]['statements'][3]['ir']['value']['place'].update(local=4))
+ check('borrowck-unsize-copy',lambda n,b:b['blocks'][0]['statements'][4]['ir']['value']['operand'].update(op='copy'))
+ require(len(r['cases'])==12,'control inventory')
  r['artifacts']=g.initial;g.check()

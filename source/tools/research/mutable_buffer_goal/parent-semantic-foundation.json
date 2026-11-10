@@ -68,7 +68,13 @@
     "lines_removed_from_active_tree": 2733,
     "historical_freezes_and_failed_receipts_retained": true
   },
-  "independent_review": "pending fresh review",
+  "independent_review": {
+    "commit": "ed9fd420",
+    "recommendation": "accept exact frozen model-only integration; controllers require fixes for assumption parsing, operand-chain binding and readiness provenance",
+    "fresh_model_object_hashes_match_original": true,
+    "fresh_recursive_kernel_check": true,
+    "assumption_coverage": "18named+6obligations+byte_ty; exact advertised assumptions"
+  },
   "native_input_embedding_proved": false,
   "native_MIR_simulation_proved": false,
   "Verus_CF_import_proved": false,
@@ -80,5 +86,7 @@
   },
   "full_HMAC_proved": false,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "review_fix_status": "implemented,8targeted unit tests pass normal/optimized; fresh integrated proof/guard replay pending",
+  "review_fix_freeze": "native_semantic_bridge/review-fix-freeze.json"
 }

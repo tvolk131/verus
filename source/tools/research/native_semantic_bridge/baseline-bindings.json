@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "source_commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+  "purpose": "Authenticate the already independently reviewed private baseline and tool outputs, not arbitrary success labels.",
+  "reviewed_model_receipt_sha256": "3867cadb95dd7a07aaf9fad265b60a66e7c455580de9dd4d88a15564eecb97e0",
+  "compiled_module_count": 284,
+  "compiled_module_map_sha256": "92585333704cfeea68bed68a061df64939d6b5c2c72d1c3398f0680a9cd394c4",
+  "tools": {
+    "coqc": "c97932397e89335770512a56838721ff9739ddaba460a86589c2ddea8dd5cb87",
+    "coqchk": "b95cdd8b3881c5999888ea829b58b552e92ce8aaba34fd76b980e8a65309d56a",
+    "runner": "bffce97908442f9af5a279d7dda96682c55ef8fbad525b7cc0f7efdf71a89b7e",
+    "opam": "324e78e3f33efeba279aacf9f9610cfec7b2df7d7e0e1640f75f09de85f96cc9"
+  }
+}

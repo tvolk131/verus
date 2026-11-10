@@ -147,14 +147,14 @@ python3 -B -O source/tools/research/native_heap_lowering/extract.py \
   --freeze source/tools/research/native_heap_lowering/final-freeze.json \
   --output /tmp/fresh-semantic-source
 python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
-  --freeze source/tools/research/native_semantic_bridge/parent-replay-freeze.json \
-  --extraction /tmp/fresh-semantic-source --output /tmp/fresh-semantic-map
+  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-map
 python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
-  --freeze source/tools/research/native_semantic_bridge/parent-replay-freeze.json \
-  --extraction /tmp/fresh-semantic-source --output /tmp/fresh-semantic-audit
+  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-audit
 python3 -B -O source/tools/research/native_semantic_bridge/check.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/parent-replay-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
   --output /tmp/fresh-semantic-proofs
 ```
 
@@ -162,3 +162,39 @@ No new Verus proof/helper is executed in this foundation lane. The helper set
 is empty; no inference statuses are fabricated. The shared guarded receipt
 controllers use explicit require checks under Python -B -O. Rocq normal kernel
 checking, rather than a pretend Verus no-cheating flag, governs the proof trial.
+
+
+## Controller review fixes: replay pending
+
+Independent review `ed9fd420` reproduced all four proof objects and accepted
+only the exact frozen model results. It found automatic-gate gaps in single-line
+assumption parsing, borrowck operand binding and synthetic readiness metadata.
+The revised controller freezes all trust inputs, requires the exact four-module
+18+6 inventory, prints assumptions for every named constant and byte type, and
+checks the full recursive kernel summary. Generic/raw/control statements and
+byte obligations remain closed; specialized byte statements permit only the
+reported functional-extensionality assumption. The original mathematical proof
+sources are unchanged. New positive and refusal replays are pending.
+
+`review-fix-freeze.json` is the active pretrial integration freeze. Earlier
+freezes and receipts retain their historical controller versions. Readiness now
+binds the reviewed ready marker, final baseline receipt, all 523 copied source
+identities, 284 compiled objects and tool identities. `source-bindings.json`
+authenticates the reviewed extraction receipt and both actual JSON outputs;
+the source audit also checks the reborrow, unsize and call statements against
+that loan chain. New extractions require explicit review and pretrial rebinding;
+an arbitrary success flag or freshly measured digest does not establish origin.
+The fresh-extraction command above creates supporting raw output only. The audit
+commands use the delivered, authenticated extraction, without modifying it.
+
+The control replay is:
+
+```sh
+python3 -B -O source/tools/research/native_semantic_bridge/guard_controls.py \
+  --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
+  --freeze source/tools/research/native_semantic_bridge/review-fix-freeze.json \
+  --output /tmp/fresh-semantic-guard-controls
+```
+
+These are acceptance/setup/eligibility controls, not native semantic proofs.
+Publication, native correspondence and full-writer completion remain false.

@@ -29,4 +29,15 @@ with replay_receipt(a.output,r):
   require(result['commands']==[] and result['success'] is False and result['publication'] is False
    and result['model_proofs_kernel_checked'] is False,'failed setup acquired a proof status')
   r['cases'].append(dict(name=name,classification='dependency_setup_rejection',receipt=str(out/'receipt.json'),sha256=digest(out/'receipt.json')))
- require(len(r['cases'])==3,'gate control inventory');r['artifacts']=guard.initial;guard.check()
+ trusted=json.loads((HERE.parent/'mutable_buffer_goal/foundation-baseline.json').read_text())
+ actual=json.loads(Path(trusted['readiness']['path']).read_text())
+ synthetic=a.output/'synthetic-success-receipt.json'
+ synthetic.write_text(json.dumps(dict(success=True,copied_sources={},commands=[dict(label=n,returncode=0) for n in ['prover-version','build-baseline','kernel-check-baseline']])))
+ actual['receipt']=str(synthetic);ready=a.output/'synthetic-success-ready.json';ready.write_text(json.dumps(actual))
+ out=a.output/'synthetic-success-trial'
+ code=run('synthetic-success',[sys.executable,'-B','-O',str(HERE/'check.py'),'--ready',str(ready),'--freeze',str(a.freeze),'--output',str(out)],os.environ)
+ result=json.loads((out/'receipt.json').read_text())
+ require(code!=0 and 'untrusted readiness marker' in result['failure']['message'],'synthetic success must reject')
+ require(result['commands']==[] and result['success'] is False and result['model_proofs_kernel_checked'] is False,'synthetic metadata acquired proof status')
+ r['cases'].append(dict(name='synthetic-success',classification='dependency_setup_rejection',receipt=str(out/'receipt.json'),sha256=digest(out/'receipt.json')))
+ require(len(r['cases'])==4,'gate control inventory');r['artifacts']=guard.initial;guard.check()

@@ -14,6 +14,57 @@ from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import require, replay_receipt
 from lower import Lower, sha
 
+
+def authenticated_extraction(directory):
+    """Bind this audit to the independently reviewed, frozen extraction outputs."""
+    pin = json.loads((HERE / 'source-bindings.json').read_text())
+    require(set(pin['outputs']) == {'drop-native.json', 'drop-borrowck.json'},
+            'incomplete extraction output bindings')
+    receipt = directory / 'receipt.json'
+    require(digest(receipt) == pin['receipt_sha256'], 'unbound extraction receipt')
+    require(json.loads(receipt.read_text())['success'] is True, 'unhealthy source extraction')
+    for name, expected in pin['outputs'].items():
+        require(digest(directory / name) == expected, 'unbound extraction output: ' + name)
+
+
+def borrowck_chain(native, borrowck):
+    """Check statements and operands, independently of the separate loan metadata."""
+    loan = borrowck['loans'][0]
+    blocks = {b['bb']: b for b in borrowck['blocks']}
+    require(len(blocks) == len(borrowck['blocks']) and set(blocks) == {0, 1, 2},
+            'borrowck block inventory')
+    start = blocks[0]
+    require(start['cleanup'] is False, 'borrowck entry cleanup')
+    statements = start['statements']
+    reserve = loan['reserve']
+    require(reserve == dict(bb=0, statement=3) and len(statements) == 6,
+            'borrowck loan issue position')
+    issue = statements[3]
+    require(issue['location'] == reserve, 'borrowck issue location')
+    reborrow = issue['ir']
+    require(reborrow['op'] == 'assign' and reborrow['destination'] == loan['assigned'],
+            'borrowck reborrow destination')
+    value = reborrow['value']
+    require(value['op'] == 'ref' and value['place'] == loan['borrowed']
+            and value['mutable'] is True and value['fake'] is False
+            and value['kind'] == 'Mut { kind: TwoPhaseBorrow }', 'borrowck reborrow operand')
+    unsize = statements[4]['ir']
+    require(unsize['op'] == 'assign' and unsize['value']['op'] == 'unsize'
+            and unsize['value']['operand'] == dict(op='move', place=loan['assigned']),
+            'borrowck unsize source')
+    dest = unsize['destination']
+    require(dest == dict(local=3, projection=[], ty='&mut [u8]')
+            and unsize['value']['to'] == dest['ty'], 'borrowck unsize destination')
+    call = start['terminator']
+    require(call['op'] == 'call' and call['arguments'] == [dict(op='move', place=dest)],
+            'borrowck constructor operand')
+    root = next(i for i in native['instances'] if i['id'] == native['root'])
+    first = next(b for b in root['blocks'] if b['bb'] == 0)['term_ir']
+    require(call['arguments'] == first['arguments'] and call['destination'] == first['destination']
+            and call['function']['ty'] == first['function']['ty'], 'borrowck/native constructor chain')
+    require(start['call']['definition'] == 'core::slice::<impl [T]>::iter_mut',
+            'borrowck constructor identity')
+
 # Candidates are pointers into actual defined semantic rules, NOT simulations.
 RULES = {
     'storage_live': ('local lifetime', 'MIR StorageLive/dead stack-frame simulation'),
@@ -36,6 +87,7 @@ RULES = {
 def build(native, borrowck, source):
     # Reuse the existing source-binding eligibility checker, not its heap semantics.
     lower = Lower(native, borrowck, digest(source))
+    borrowck_chain(native, borrowck)
     plan = lower.build()
     rows = []
     for instance in native['instances']:
@@ -89,7 +141,7 @@ if __name__ == '__main__':
         src = HERE.parent / 'native_heap_lowering/fixtures/drop.rs'
         paths = [a.extraction/n for n in ('drop-native.json', 'drop-borrowck.json', 'receipt.json')]
         guard = ArtifactGuard([*paths, src, Path(__file__), HERE.parent/'native_heap_lowering/lower.py', *support_artifacts(), a.freeze, *[ROOT/n for n in freeze['files']]])
-        require(json.loads(paths[2].read_text())['success'] is True, 'unhealthy source extraction')
+        authenticated_extraction(a.extraction)
         mapping = build(json.loads(paths[0].read_text()), json.loads(paths[1].read_text()), src)
         out = a.output/'source-obligations.json'
         out.write_text(json.dumps(mapping, indent=2)+'\n')
