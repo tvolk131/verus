@@ -1,0 +1,251 @@
+{
+  "classification": "source_identity_only",
+  "files": [
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/stbor_entry_handoff/candidate003-freeze.json",
+      "sha256": "be5a76c004b710f4e5a9b64032f538b866082b807ab8133daa813d54c1c7dc07",
+      "bytes": 1921,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/stbor_entry_handoff/candidate.v",
+      "sha256": "557b30289bf080208eb58f64a88e7958d145112926567f98787edf1920b072bf",
+      "bytes": 6226,
+      "kind": "candidate freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/steps_progress.v",
+      "sha256": "29930a908fd31f749fe0a7e21846e3e8da89fe56f7b3f6438a9e9eb6bebb7ca8",
+      "bytes": 36357,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/steps_retag.v",
+      "sha256": "963df7f43d9dba21e5c6c3aa61c439bf7d73db8b8db5e6dd9fccc4020e63b0ec",
+      "bytes": 75570,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/steps_inversion.v",
+      "sha256": "0755015a7094e70917b77656064039005c6275e2777c571bc2911a659f34585d",
+      "bytes": 32766,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/steps_wf.v",
+      "sha256": "aaafd3ce330b0e30b31e84b11981c2d3ca40af21b3b106419bcd10dee9e84433",
+      "bytes": 41359,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/bor_semantics.v",
+      "sha256": "a9b7796748cbf9f49848d6abed07085ca8039da5b0393f7b23a26666dc8a6dec",
+      "bytes": 17733,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/expr_semantics.v",
+      "sha256": "063dcbcb481f8b405e4ee388f4551a402fcd210652da5464a8f469e95a761a61",
+      "bytes": 12819,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/defs.v",
+      "sha256": "7238cd5431cc979c6e3b811e53bd1c1c7e4a0ae9065673b63c7f922e48295f20",
+      "bytes": 4475,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/lang.v",
+      "sha256": "b30399e4e9c3b71418ca4aac7b4eb485a14fceb2f0128945cca277b4457dba5f",
+      "bytes": 15907,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/type.v",
+      "sha256": "29650dd57d575e325e8622ec1c91ce46fbbd4beec7302b2707d2f619aa3d8762",
+      "bytes": 23161,
+      "kind": "candidate upstream freeze"
+    },
+    {
+      "path": "/tmp/native-borrow-foundation-inspection-20261110/stacked-borrows/theories/lang/lang_base.v",
+      "sha256": "358d84a957ecce639a89240697956365e46f9fa58cfdba8a7d26b46db17db3e4",
+      "bytes": 9981,
+      "kind": "named upstream Git object"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_source_storage/pins.json",
+      "sha256": "0d4439ea1972f5258c24832233d864a63337f346cd17d6767d523370f2edbe22",
+      "bytes": 5327,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_middle/src/mir/syntax.rs",
+      "sha256": "dbba0792fb1299f6c69d564be6e651ddb75d082f647708fd207a4b88810f1223",
+      "bytes": 83059,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/step.rs",
+      "sha256": "b904b4a99b48d083aad4fe53f80db0617955ec0551800568a99fdff0edffbe02",
+      "bytes": 30588,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/place.rs",
+      "sha256": "4ed0a0ca5ce612ade8d6aa7e73df43a86f3d7244491171c311e725d6770dc808",
+      "bytes": 51242,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/machine.rs",
+      "sha256": "9611e6945607bc5f9c07d53e249c3f449fafff6b8963ad657c2168c418b5eab8",
+      "bytes": 33649,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/stack.rs",
+      "sha256": "983865c727a65a359b713fddf4abbcc4a104fa706c8db3a3ae1bb43a5f1df614",
+      "bytes": 30516,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_source_unsize/pins.json",
+      "sha256": "eb3d8b1977bfea5c024b97647fed57849434f32a7b1186fb81fbf2ae07e8143d",
+      "bytes": 2113,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/tmp/native-source-unsize-20261110/sources/cast.rs",
+      "sha256": "1d5b731bbd420af1d53b1cb0c245d0729e1f90fe567ed5c976963e7a3fcb17fc",
+      "bytes": 26425,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/tmp/native-source-unsize-20261110/sources/operand.rs",
+      "sha256": "0465cf09343deb9fb026c2266c42c2a3476cfdbff436bc9bd11afb014bd4463b",
+      "bytes": 36703,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/tmp/native-source-unsize-20261110/sources/validity.rs",
+      "sha256": "9ca6356252621ce96dc5899f0f6507a1ba2abf6bc68bf3460b80197aded10c57",
+      "bytes": 76906,
+      "kind": "committed exact compiler pin"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_miri_policy_pin/pins.json",
+      "sha256": "6d26b722a7f9f656d36942ae836326e8e656ff2613ad381fc41c4ba52e174e2c",
+      "bytes": 4507,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/machine.rs",
+      "sha256": "307479153dfc9800330a8b3573b70067b232a0066d5469fb88018f72d9050ccf",
+      "bytes": 88401,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/mod.rs",
+      "sha256": "8dec93f2a161caff23bbae3d52ee95eaf690d5d921d46847caf80ceb5d29a896",
+      "bytes": 19743,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs",
+      "sha256": "079a54f8d8bd0845afd5a81c61f2c6c9f1fb4bc401de1c69336ddf9626e16cd6",
+      "bytes": 42904,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs",
+      "sha256": "f4f4fec8b6cc874a88a9e0c7619ca0f5c336767d9504d2ede31df29e544ca7ee",
+      "bytes": 20832,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs",
+      "sha256": "a6c597296ed545bd76c8367c21ba807847290b196ead1aec38123efdc243c289",
+      "bytes": 3381,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/tree_borrows/mod.rs",
+      "sha256": "8f165ccc00e465311cabcb7c327b728aab6c5949582df9e351345ee525c9f18a",
+      "bytes": 24849,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/tree_borrows/perms.rs",
+      "sha256": "d566ab76770eee7e08179c6d480589351f568f1bf3c1982d7f46e4a846c97cde",
+      "bytes": 38278,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/tree_borrows/tree.rs",
+      "sha256": "55b5a5d27ea4f0b1b8d43314f74cb31dae93eada7a78f3dc90f799f7141367a2",
+      "bytes": 58024,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/eval.rs",
+      "sha256": "66e6cbc77131e959980d19c75676ccb52205ae8fc83e43c9040609dc3195d403",
+      "bytes": 28532,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/lib.rs",
+      "sha256": "804cfd5237b0ec45bfbaa4b185676d3ba9457d1720a627d40985de1adb5bac56",
+      "bytes": 7858,
+      "kind": "committed exact Miri pin"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_miri_policy_pin/results.json",
+      "sha256": "36e11542ce163b31dc9aa049345ac4699858530aebba89e6956cf32b437e69d9",
+      "bytes": 688,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/tmp/native-miri-policy-pin-20261110/inspection001/receipt.json",
+      "sha256": "3f63a7d764f69031709136bf7415a568fc0fe3388d2c5b2efe6314973bda6d19",
+      "bytes": 4727,
+      "kind": "completed source identity receipt"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/stbor_entry_handoff/README.md",
+      "sha256": "8dba8a8721490a187c0507654d12c4d59d462ad70704844e1a7edf10428f2645",
+      "bytes": 1825,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/stbor_entry_handoff/status.json",
+      "sha256": "ec60f1f1d24c5367a0a841406d81b2e5437bc7334e30f905f3eded9656f2b1b4",
+      "bytes": 657,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_miri_policy_pin/source-freeze.json",
+      "sha256": "91d52d89c6f711cc137743326ba0685e6eb9fca6857b5135957c39e66394e614",
+      "bytes": 680,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_miri_policy_pin/REPORT.md",
+      "sha256": "a30b0ce4d03acab411762a2af0590ac20dfd52e8fc003976c8f5020f3b9f2d46",
+      "bytes": 4931,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_miri_policy_pin/check_sources.py",
+      "sha256": "2010465648ba785737798a55a1bedcd3451adf4dcc171d5fe4019c99526d2c4d",
+      "bytes": 3189,
+      "kind": "git b008f187"
+    },
+    {
+      "path": "/home/dev/.t3/worktrees/verus/t3-5fd44186/source/tools/research/native_constructor_erasure/graph.json",
+      "sha256": "ce114902ac22d593393d08737c619e88a226c47fe2dbeb9d52a7fd8bc6940b29",
+      "bytes": 27411,
+      "kind": "git b008f187"
+    }
+  ]
+}

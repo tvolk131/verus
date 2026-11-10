@@ -1,0 +1,26 @@
+{
+  "classification": "source_only_commands_no_build_or_execution_of_candidate",
+  "cwd": "/home/dev/.t3/worktrees/verus/t3-5fd44186",
+  "scope_commit": "git -c user.name=Codex -c user.email=codex@openai.com commit -m 'docs: freeze bounded published entry source review scope'",
+  "identity_checks": [
+    "python3 -B NEW/evidence/published-entry-source-review/authenticate.py",
+    "python3 -B source/tools/research/native_miri_policy_pin/check_sources.py --output NEW/evidence/published-entry-source-review/policy-inspection",
+    "curl --fail --location --silent --show-error https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/call.rs --output NEW/evidence/published-entry-source-review/call.rs",
+    "curl --fail --location --silent --show-error https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/library/core/src/marker.rs --output NEW/evidence/published-entry-source-review/marker.rs",
+    "python3 -B NEW/evidence/published-entry-source-review/authenticate_downloads.py",
+    "python3 -B NEW/evidence/published-entry-source-review/static_check.py"
+  ],
+  "identity_replay_note": "Inspector creates output with exist_ok=False: use a new directory under this authorized review directory for a replay. Identity success is not semantic acceptance.",
+  "manual_inspection": [
+    "git status --short; git rev-parse HEAD; git log -1 --format='%an%n%ae%n%cn%n%ce'",
+    "git show --stat --oneline 2ccf2962; git show --stat --oneline d6b9bd6e; git show --stat --oneline 136d8f82",
+    "cat source/tools/research/stbor_entry_handoff/{candidate.v,candidate003-freeze.json,README.md,status.json}",
+    "cat source/tools/research/native_miri_policy_pin/{REPORT.md,pins.json,results.json,check_sources.py,source-freeze.json}",
+    "rg -n and sed -n selected definitions and line intervals from the exact authenticated files cited in REPORT.md; no build commands"
+  ],
+  "minor_command_failures": [
+    "Initial git commit failed because author identity was unset; retry used command-local identity from base commit, no git config write.",
+    "A batched cat included nonexistent native_source_storage/source-freeze.json and native_source_unsize/source-freeze.json; relevant pins.json were present and authenticated instead."
+  ],
+  "prohibited_checks": "No runtime/compiler/toolchain/Coq build; no stub modules; no filesystem race/substitution experiment; no legacy foundation polling"
+}

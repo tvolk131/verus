@@ -1,0 +1,23 @@
+{
+  "classification": "lexical_inventory_and_identity_only",
+  "declarations": [
+    "mutable_top_block",
+    "top_write_pre",
+    "top_block_valid",
+    "bounded_reference_head_step",
+    "nonempty_reference_result",
+    "empty_reference_result",
+    "reference_outside_stack_frame",
+    "reference_active_protector_frame",
+    "all_reference_steps_keep_heap",
+    "all_reference_steps_keep_initialized_vector",
+    "two_phase_128_progress",
+    "two_phase_10_progress"
+  ],
+  "forbidden_declaration_tokens_found": [],
+  "downloaded_primary_hashes_match": true,
+  "policy_identity_inspector_success": true,
+  "compilation": "not_run",
+  "kernel_verification": "not_run",
+  "proofs_accepted": 0
+}
