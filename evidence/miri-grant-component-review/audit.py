@@ -82,7 +82,8 @@ def verify(out, label, expected_exec, expected_specs, verified, failed=(), kind=
     need({n for n,x in selected.items() if x['body_status']=='specification_definition_or_declaration'}==expected_specs,'spec inventory')
     need(s['checked_proof_bodies']==0, 'unexpected proof function')
     status='checked_exec_body' if positive else 'selected_body_not_certified_by_successful_full_run'
-    need(all(x['body_status']==status and x['ordinary_contract'] is True for x in bodies.values()), 'body/contract coverage')
+    need(all(x['body_status']==status and x['ordinary_contract'] is (name not in {'wrong_permission','wrong_bitfield'})
+             for name,x in bodies.items()), 'exact body/contract coverage')
     need(s['checked_exec_bodies']==(len(expected_exec) if positive else 0), 'certified body count')
     target=[bodies[name]['function'] for name in failed]
     need(inf['failed_functions']==target, 'exact failed_functions')

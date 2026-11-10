@@ -1,4 +1,5 @@
 {
+  "attempt": 2,
   "audit_optimization_levels": [
     0,
     1,
@@ -6,11 +7,13 @@
   ],
   "before_first_audit": true,
   "inputs": {
-    "/home/dev/.t3/worktrees/verus/t3-8295fb02/evidence/miri-grant-component-review/audit.py": "7b183cef25aa5419fe48aef47956d95c86e2ef739f91d5b250c0a2ef1427b08d",
+    "/home/dev/.t3/worktrees/verus/t3-8295fb02/evidence/miri-grant-component-review/audit-attempts.json": "1ddeaa5b3fa6b60e3b6c07ee25511d470595f7cc12b0d33e8508d1460e846a09",
+    "/home/dev/.t3/worktrees/verus/t3-8295fb02/evidence/miri-grant-component-review/audit.py": "d8743c60b6557df8a50f2a8cb54c32afe3daa6ea107ba30ce42e14692d004e7c",
     "/home/dev/.t3/worktrees/verus/t3-8295fb02/evidence/miri-grant-component-review/pretrial.json": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
     "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_entry_type_binding/carrier-results.json": "759d53f4bd1d6504184850794075e1b1f89a5883e5e76debed81bafe819efcd3",
     "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_miri_grant_refinement/GrantBridge.v": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
     "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_source_reborrow/pins.json": "a6518d413837c8db46b3f2295393726eb3d376daa364514dd2f1ca251f2fae1d",
+    "/tmp/miri-grant-component-review-t3-8295fb02/audit001-terminal.json": "f3444cfe9d8378530fd6ce2410fa0186d8b39ae0f6a02f071d5a4057987ae31f",
     "/tmp/miri-grant-component-review-t3-8295fb02/carrier-freeze.json": "bc179764652ae0120378bce57b28de10f13cd9f2786910e9181e8f1b0355b007",
     "/tmp/miri-grant-component-review-t3-8295fb02/carrier-terminal.json": "ee8c46cf7ee625fe7b774296e58b11e1c576cee9d93a381ac77ce929ffd41389",
     "/tmp/miri-grant-component-review-t3-8295fb02/carrier.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -209,5 +212,6 @@
     "/tmp/miri-grant-component-review-t3-8295fb02/permission/receipt.json": "ba92d1f27264966b3f659195b8ee183b514dd2e2da24af9a61c00977cef651c4",
     "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/place.rs": "4ed0a0ca5ce612ade8d6aa7e73df43a86f3d7244491171c311e725d6770dc808"
   },
-  "schema": 1
+  "schema": 1,
+  "supersedes_audit_freeze_sha256": "dc35b9d9e6aba3b4d6ecde55c1a18de74e7082a517454c28595af12e7e62bb1a"
 }
