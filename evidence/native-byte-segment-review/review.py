@@ -159,7 +159,8 @@ def main():
         result['inputs'] = guard.initial
         (a.output/'freeze.json').write_bytes(a.freeze.read_bytes())
         (a.output/'external-inventory.json').write_text(json.dumps(emap, indent=2)+'\n')
-        snapshots = ArtifactGuard([a.output/'freeze.json', a.output/'external-inventory.json'])
+        (a.output/'review-controller.py').write_bytes(Path(__file__).read_bytes())
+        snapshots = ArtifactGuard([a.output/'freeze.json', a.output/'external-inventory.json', a.output/'review-controller.py'])
         run = LoggedCommands(a.output, ROOT, result['commands'], timeout=1800, guard=guard)
         env = clean_environment()
         result['modules'] = {}
@@ -210,16 +211,24 @@ def main():
         kernel = (a.output/'register-verbose-kernel.stderr').read_text()
         axioms = parse_kernel_summary(kernel)
         csts = re.findall(r'checking cst:NativeRegisterSegment\.segment\.(\w+)', kernel)
-        inds = re.findall(r'checking ind:NativeRegisterSegment\.segment\.(\w+)', kernel)
+        # Coq 8.20 verbose output lists constants, not inductive declarations.
+        # Inventory datatypes/constructors from the normally compiled module print;
+        # the entire containing object is then recursively kernel checked.
+        signature = printed.split('Module\nsegment\n:= Struct\n', 1)[1]
+        module_constants = re.findall(r'^\s*(?:Definition|Parameter)\s+(\w+)', signature, re.M)
+        inds = re.findall(r'^\s*Inductive\s+(\w+)', signature, re.M)
+        printed_constructors = re.findall(r'^\s*(?:\|\s*)?([A-Z]\w*)\s*:', signature, re.M)
         datatype = ['instruction', 'register_step', 'segment_run']
         constructors = ['AssignPure', 'RegisterCompute', 'SegmentNil', 'SegmentCons']
         require(set(csts) == set(names)-set(datatype)-set(constructors) and len(csts) == 23, 'segment kernel constants differ '+repr(csts))
-        require(set(inds) == set(datatype) and len(inds) == 3, 'segment datatype inventory '+repr(inds))
+        require(set(module_constants) == set(csts) and len(module_constants) == 23, 'printed module constant inventory')
+        require(inds == datatype and printed_constructors == constructors, 'printed datatype/constructor inventory')
         helpers = ['Unnamed_thm']+['Unnamed_thm'+str(i) for i in range(59)]
         for mod in ['Assumptions', 'ReviewTerms']:
             require(re.findall(r'checking cst:NativeRegisterSegment\.'+mod+r'\.(\w+)', kernel) == helpers, 'segment helper inventory '+mod)
         require(len(re.findall(r'checking cst:NativeRegisterSegment\.', kernel)) == 143, 'extra segment namespace constant')
-        result['register_inventory'] = dict(declarations=names, constructors=constructors, inductives=inds,
+        result['register_inventory'] = dict(declarations=names, constructors=printed_constructors, inductives=inds,
+            datatype_inventory_origin='normally compiled Print Module; coqchk 8.20 logs constants only; whole object recursively checked',
             kernel_constants=csts, generated_eliminators=names[-8:], program_obligations=[],
             kernel_axioms=axioms, helpers_per_inventory=60,
             printed_declaration_sha256={n: hashlib.sha256(body.encode()).hexdigest() for n,body,_ in sections},

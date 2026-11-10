@@ -1,0 +1,588 @@
+{
+  "schema": 1,
+  "verdict": "accept exact conditional MODEL statements only; no actionable implementation findings",
+  "review_base": "91eee431526e9006e2a58c46c8c73fd73a238f60",
+  "typed_interface_commit": "e8cf60ec",
+  "implementations": {
+    "native_register_segment": "703f9544",
+    "native_byte_xor": "240eb3dc"
+  },
+  "receipt": {
+    "path": "/tmp/native-byte-segment-review-17a8c04d-trial003/receipt.json",
+    "sha256": "814f5459ca72bf9448ae704d744b73cd0984518df1e86b7875903c17cdef206c"
+  },
+  "freeze": {
+    "path": "/home/dev/.t3/worktrees/verus/t3-17a8c04d/evidence/native-byte-segment-review/trial003-freeze.json",
+    "sha256": "03a999e3389ba5bde0d0ec489ce2740024ece5a7bff20ac33d1a932fc4579f1b"
+  },
+  "review_controller": {
+    "path": "/home/dev/.t3/worktrees/verus/t3-17a8c04d/evidence/native-byte-segment-review/review.py",
+    "sha256": "8c24b3adc900795e515425ff8ef17f5656191a91d2bfbbacaaa57f5c5e38884c"
+  },
+  "external_input_count": 2149,
+  "external_inventory_sha256": "1a73c76437f672c19d0e2e4eee8eb4d40fb8d2db4baff9118d075e6b05378db9",
+  "source_audit": {
+    "path": "/tmp/native-byte-segment-review-17a8c04d-source001/receipt.json",
+    "sha256": "745e53dab1ced3cd82586eb995e094e0fca0ec635a1b33004eaf76c36904410b"
+  },
+  "source_audit_freeze": {
+    "path": "/home/dev/.t3/worktrees/verus/t3-17a8c04d/evidence/native-byte-segment-review/source-freeze.json",
+    "sha256": "b906c285d5ceb6fdbff271f13f6e58b0f56c1742107b3302f8aa9fa1538c0420"
+  },
+  "normal_compilation": true,
+  "full_recursive_coqchk_no_exclusions": true,
+  "all_returned_worker_sources_objects_and_assumptions_match": true,
+  "modules": {
+    "native_register_segment": {
+      "worker_receipt": {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/register-segment-trial005/receipt.json",
+        "sha256": "00e6ba3aafa0f1a07fec7f89829b0496eea7a3f0861ee9632a19f732019aa9f1"
+      },
+      "fresh_receipt": {
+        "path": "/tmp/native-byte-segment-review-17a8c04d-trial003/native_register_segment/receipt.json",
+        "sha256": "d51604ce196dc4590b3446eaeaee984e4864881a43e0271bcc9b4caa8b14eaf1"
+      },
+      "objects": {
+        "Assumptions.vo": "b476936a01edad5d11aafb9798d9849834b5a8ca762a9e7992bbed981eae37af",
+        "segment.vo": "1d854264d06e2f547d719638169fe70fbd7822ad3d0a363b9b5b9def9890c334"
+      },
+      "sources": {
+        "Assumptions.v": "7d2fdd0fc15451439d51ab486511fa99469570aff43d58ad6c2699555cca9421",
+        "segment.v": "4f0ed1997e0ca84b42f51c341b1b06c8a3ff0ce46d2feaf163db8176bb4d1265"
+      },
+      "assumptions": {
+        "segment.registers": [],
+        "segment.instruction": [],
+        "segment.AssignPure": [],
+        "segment.register_arguments": [],
+        "segment.register_step": [],
+        "segment.RegisterCompute": [],
+        "segment.segment_run": [],
+        "segment.SegmentNil": [],
+        "segment.SegmentCons": [],
+        "segment.register_step_heap": [],
+        "segment.register_step_other": [],
+        "segment.segment_run_heap": [],
+        "segment.end_segment": [],
+        "segment.end_registers": [],
+        "segment.end_segment_exec": [],
+        "segment.end_segment_outputs": [],
+        "segment.end_segment_frame": [],
+        "segment.end_code": [],
+        "segment.chain_pure": [],
+        "segment.end_code_four_steps": [],
+        "segment.wp_end_code": [],
+        "segment.end_segment_refinement": [],
+        "segment.instruction_rect": [],
+        "segment.instruction_ind": [],
+        "segment.instruction_rec": [],
+        "segment.instruction_sind": [],
+        "segment.register_step_ind": [],
+        "segment.register_step_sind": [],
+        "segment.segment_run_ind": [],
+        "segment.segment_run_sind": []
+      },
+      "kernel_axioms": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "proof_terms_match": true,
+      "constant_count": 30,
+      "assumption_count": 30,
+      "all_assumptions_closed": true,
+      "checks": [
+        {
+          "label": "compile-segment",
+          "exit_code": 0,
+          "seconds": 1.32061612396501
+        },
+        {
+          "label": "assumptions",
+          "exit_code": 0,
+          "seconds": 3.598953420005273
+        },
+        {
+          "label": "kernel",
+          "exit_code": 0,
+          "seconds": 70.99072138295742
+        }
+      ]
+    },
+    "native_byte_xor": {
+      "worker_receipt": {
+        "path": "/tmp/verus-native-byte-xor-fbb7afa6-trial008/receipt.json",
+        "sha256": "72671d06cd26733392c4e49f2ebdfb56eb8e7bf63ca9563fee4bf5aac7279447"
+      },
+      "fresh_receipt": {
+        "path": "/tmp/native-byte-segment-review-17a8c04d-trial003/native_byte_xor/receipt.json",
+        "sha256": "e39fc1fddd9fe041be89c4fcef92e49329d8bff8729cb968c2aa5b8674e75020"
+      },
+      "objects": {
+        "Assumptions.vo": "799dec12b6d566f0b145911f4ababd39739e37f449d21d7dbf20cdb36cdb7d22",
+        "ProofTerms.vo": "fb2f7ab1bd0013c38cef64b02ffc08030d8122cedb2b02d709464f26518cee68",
+        "native_xor.vo": "de23bd93791532fe6087fb83710397b0cdb9c85bde0f354deaea95ac047a6efb"
+      },
+      "sources": {
+        "Assumptions.v": "e58e0d3d7a5d9dfef9c732b9832849d0ca5a64463d35b223c13fa25c5197aa73",
+        "ProofTerms.v": "16576b658f42f008c18fdcd91280fe8be495d9346ee42233bc8834727ed9d6d2",
+        "native_xor.v": "2ae5c111b1c60b906a17b9bbdda453cc2dfe3eac18a36038e7302050ab5b2c4c"
+      },
+      "assumptions": {
+        "native_xor.bits": [],
+        "native_xor.word_xor": [],
+        "native_xor.word_value": [],
+        "native_xor.scalar_xor8": [],
+        "native_xor.bits_length": [],
+        "native_xor.word_xor_length": [],
+        "native_xor.word_value_range": [],
+        "native_xor.bits_value": [],
+        "native_xor.odd_lxor": [],
+        "native_xor.div2_lxor": [],
+        "native_xor.word_xor_bits": [],
+        "native_xor.scalar_xor8_lxor": [],
+        "native_xor.scalar_xor8_range": [],
+        "native_xor.scalar_xor8_pure": [],
+        "native_xor.scalar_xor8_normalizes": [],
+        "native_xor.cell_assignment": [],
+        "native_xor.register_file": [],
+        "native_xor.without19": [],
+        "native_xor.prepare_assignment": [],
+        "native_xor.prepare_assignment_some": [],
+        "native_xor.prepare_assignment_none": [],
+        "native_xor.moved19_unavailable": [],
+        "native_xor.other_register_preserved": [],
+        "native_xor.wp_scalar_xor8": [],
+        "native_xor.wp_cell_assignment": [],
+        "native_xor.wp_prepared_assignment": []
+      },
+      "kernel_axioms": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "proof_terms_match": true,
+      "constant_count": 26,
+      "assumption_count": 26,
+      "all_assumptions_closed": true,
+      "checks": [
+        {
+          "label": "compile-native_xor",
+          "exit_code": 0,
+          "seconds": 2.4984020249685273
+        },
+        {
+          "label": "assumptions",
+          "exit_code": 0,
+          "seconds": 7.118621349975001
+        },
+        {
+          "label": "proof-terms",
+          "exit_code": 0,
+          "seconds": 1.0196603820077144
+        },
+        {
+          "label": "kernel",
+          "exit_code": 0,
+          "seconds": 69.51298922800925
+        }
+      ],
+      "source_selection": {
+        "root": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+        "block": 7,
+        "statement": 6,
+        "ir": {
+          "destination": {
+            "local": 17,
+            "projection": [
+              {
+                "op": "deref"
+              }
+            ],
+            "ty": "u8"
+          },
+          "op": "assign",
+          "value": {
+            "kind": "BitXor",
+            "left": {
+              "op": "copy",
+              "place": {
+                "local": 17,
+                "projection": [
+                  {
+                    "op": "deref"
+                  }
+                ],
+                "ty": "u8"
+              }
+            },
+            "op": "binary",
+            "right": {
+              "op": "move",
+              "place": {
+                "local": 19,
+                "projection": [],
+                "ty": "u8"
+              }
+            }
+          }
+        },
+        "local_types": {
+          "17": {
+            "ty": "&mut u8",
+            "shape": {
+              "kind": "ref",
+              "mutable": true,
+              "pointee": "u8"
+            }
+          },
+          "19": {
+            "ty": "u8",
+            "shape": {
+              "kind": "scalar_or_function",
+              "ty": "u8"
+            }
+          }
+        },
+        "raw_sha256": "bf1f279f9292fe0fe1e062989d5082293e3cace0cfd251017f3f024637cd436b",
+        "canonical_sha256": "71a94b7844e377ce134ca562905b6e46bb7486fb1a2094359999f271dc8e1505",
+        "source_identity_only": true,
+        "trusted_semantic_rule": false,
+        "native_correspondences": 0
+      },
+      "selector_controls": [
+        {
+          "case": "BitOr",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "wrong-left-place",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "wrong-right-place",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "wrong-destination",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "wrong-width",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "Copy-instead-of-Move",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "Move-instead-of-Copy",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "unknown-field",
+          "rejected": true,
+          "reason": "unknown instruction payload",
+          "classification": "in-memory selector control; not native semantic evidence"
+        },
+        {
+          "case": "pointer-width",
+          "rejected": true,
+          "reason": "unsupported pointer width",
+          "classification": "in-memory selector control; not native semantic evidence"
+        }
+      ],
+      "proof_terms": {
+        "native_xor.bits": "b3e3bac74aeb3749cd36ed4f7675e0dfc82ce7f49eeffe248f4292f17a384440",
+        "native_xor.word_xor": "54c79440aafde2af3a73b0d2f3009cd6253cdb8472073ba067baf7816c45524e",
+        "native_xor.word_value": "2112cf7a74d0d923e60246691f71fdbb745bc609a07f6f688e20ca58213c172e",
+        "native_xor.scalar_xor8": "79d93cf9cea7c0f3cff0022b442bc0ac0581203f58dfc86924ddbb52ae50f28a",
+        "native_xor.bits_length": "fb1bdb60aa744de6b410f70db1dd9f462f4d5af3046d6c84be52e21821e95fb1",
+        "native_xor.word_xor_length": "09b2c8e39eb2cad699ac95f07df1aa10df66c2fdba48bee5ffdb57185d15450b",
+        "native_xor.word_value_range": "62a416b568f7858d0704f867beec8083f4dbba26f5b572b0165f9d79564fa1cd",
+        "native_xor.bits_value": "60a895ea136b42f0607af1be43fa0e60e0d3f1d60a2749e8842bd92f5515f9c3",
+        "native_xor.odd_lxor": "06929051ef4614d30ed2d484493bf42402b6930c607a0de1eaf6c671b985737e",
+        "native_xor.div2_lxor": "dbe3a088f59da76cce10dbafb8f0bfdd9d9e7f5d1be83f4ded510654aee83ffa",
+        "native_xor.word_xor_bits": "93e23a2db10f317b822354b8b7a5cad72e6f6329c1b710384844c43d3fedce79",
+        "native_xor.scalar_xor8_lxor": "f60cc7cc0708a0e3e90e091e28db34ca37e4ffdbc86621ccb6e364783d7d59a5",
+        "native_xor.scalar_xor8_range": "d1641d8837842733722fa26095aad7c1b0bf7d2e5b5b34c594c46e7385d32160",
+        "native_xor.scalar_xor8_pure": "1526f19d7c09fc4d42986886e118c0f27c208ed2bf2990cd3cf3cb4391b3d05d",
+        "native_xor.scalar_xor8_normalizes": "1557234c2e1176cc86a0275e6947fa44ad66889f0c59a35874cafa0194987692",
+        "native_xor.cell_assignment": "69ccbb607421a26a39069eea9ad94b5c5373b965fd50791d7d2e62e41c8d6dd0",
+        "native_xor.register_file": "f8d268146ec95b88ad5bd0c70c2305ff5bf0b7a511f3c7e215e3f93f17af8069",
+        "native_xor.without19": "defb0f6ef20663396b592e6c87818246915d7d14f2ba193cecd19b6710be9d0b",
+        "native_xor.prepare_assignment": "9c9cdee89bf1fc538a4a050933bca27652ab7dc6f2f798e4b9945beeeab6cf00",
+        "native_xor.prepare_assignment_some": "0209737972bbdcf38e52f7a53a8429abd4463c85fcd02e4dbb1d43b8dca224db",
+        "native_xor.prepare_assignment_none": "dfa2746e83c2f82d762f30dbd7ceb696a6dc88e5b9ae57f39e2dc0b6e7d58336",
+        "native_xor.moved19_unavailable": "19defef89fbf918788f04d82961ae88913aebdf80b1a2ce4b418fbf0096830a4",
+        "native_xor.other_register_preserved": "8479ff30d9a765f91046e0f4617b6dd45e77b881bb9205a53cc820cdb9ae7edd",
+        "native_xor.wp_scalar_xor8": "8fda3aa941376d2b50ce1c2a4e46cceb958227fffb49004e134a91afb04a6cf0",
+        "native_xor.wp_cell_assignment": "ab018a59bf152f9dd42c4a8f32ca2acaaeb73b0f97ca974599581d62f2130a61",
+        "native_xor.wp_prepared_assignment": "0e2b7ce4af0e4c6d4758589f2b84fce856e04bf4ddd22f8bafdadb889e4030dc"
+      },
+      "helper_inventory": {
+        "Assumptions": 52,
+        "ProofTerms": 52
+      }
+    }
+  },
+  "register_inventory": {
+    "declarations": [
+      "registers",
+      "instruction",
+      "AssignPure",
+      "register_arguments",
+      "register_step",
+      "RegisterCompute",
+      "segment_run",
+      "SegmentNil",
+      "SegmentCons",
+      "register_step_heap",
+      "register_step_other",
+      "segment_run_heap",
+      "end_segment",
+      "end_registers",
+      "end_segment_exec",
+      "end_segment_outputs",
+      "end_segment_frame",
+      "end_code",
+      "chain_pure",
+      "end_code_four_steps",
+      "wp_end_code",
+      "end_segment_refinement",
+      "instruction_rect",
+      "instruction_ind",
+      "instruction_rec",
+      "instruction_sind",
+      "register_step_ind",
+      "register_step_sind",
+      "segment_run_ind",
+      "segment_run_sind"
+    ],
+    "constructors": [
+      "AssignPure",
+      "RegisterCompute",
+      "SegmentNil",
+      "SegmentCons"
+    ],
+    "inductives": [
+      "instruction",
+      "register_step",
+      "segment_run"
+    ],
+    "datatype_inventory_origin": "normally compiled Print Module; coqchk 8.20 logs constants only; whole object recursively checked",
+    "kernel_constants": [
+      "registers",
+      "instruction_rect",
+      "instruction_ind",
+      "instruction_rec",
+      "instruction_sind",
+      "register_arguments",
+      "register_step_ind",
+      "register_step_sind",
+      "segment_run_ind",
+      "segment_run_sind",
+      "register_step_heap",
+      "register_step_other",
+      "segment_run_heap",
+      "end_segment",
+      "end_registers",
+      "end_segment_exec",
+      "end_segment_outputs",
+      "end_segment_frame",
+      "end_code",
+      "chain_pure",
+      "end_code_four_steps",
+      "wp_end_code",
+      "end_segment_refinement"
+    ],
+    "generated_eliminators": [
+      "instruction_rect",
+      "instruction_ind",
+      "instruction_rec",
+      "instruction_sind",
+      "register_step_ind",
+      "register_step_sind",
+      "segment_run_ind",
+      "segment_run_sind"
+    ],
+    "program_obligations": [],
+    "kernel_axioms": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "helpers_per_inventory": 60,
+    "printed_declaration_sha256": {
+      "segment.registers": "3be1f4f1ae6bac94c4ff5fec461939bf2764e7942105f1bd3dc32581b49d994c",
+      "segment.instruction": "81ce4fd2c70685f2407079f466daadc4fcb6035026bd7362517597a838746446",
+      "segment.AssignPure": "81ce4fd2c70685f2407079f466daadc4fcb6035026bd7362517597a838746446",
+      "segment.register_arguments": "1dfcc3dc225895928dd2e40f6a90f18a352c15bd954853a50431dd1e6c675934",
+      "segment.register_step": "d5c808224bbda42bb11e95d40e22615ad0cbba780171079ef127f5ade20d3143",
+      "segment.RegisterCompute": "d5c808224bbda42bb11e95d40e22615ad0cbba780171079ef127f5ade20d3143",
+      "segment.segment_run": "d5e7761b330bb8579baeb207299dc890b6cb1fee136c169aea2f34c157f62c82",
+      "segment.SegmentNil": "d5e7761b330bb8579baeb207299dc890b6cb1fee136c169aea2f34c157f62c82",
+      "segment.SegmentCons": "d5e7761b330bb8579baeb207299dc890b6cb1fee136c169aea2f34c157f62c82",
+      "segment.register_step_heap": "9971142d5f7c21433921eb3be4a634c48b9f7052e4b09136cb7e248431b9207c",
+      "segment.register_step_other": "fc39f49901d5db82e5d714137931a0fdf76932d2e27d3f5fe37c09a940a2dc3e",
+      "segment.segment_run_heap": "66e2c8aec005fa8f1bb06c915cdfab11eaa6af678375c0a5e4dcbc4ae5ae8201",
+      "segment.end_segment": "49a52303f16b41104ac44494fcb2d436cef48c45b83bd4875a61228ea33433a2",
+      "segment.end_registers": "083abc38fbe9a9cae176d56dcbbca984d65501369c413d5aa69ac14018062475",
+      "segment.end_segment_exec": "ac890cacc4f1db31d5568663244d3876b2afb9ecb2b803c598305619947d916c",
+      "segment.end_segment_outputs": "8a0e15523728ae7264f23b1017e50ee59bd11db5556199a260429a8693114cb6",
+      "segment.end_segment_frame": "88ec354b75d3478141a76381f503921876227aa561cbd5ff933f7c771b8ea956",
+      "segment.end_code": "605a2a8f5d1bfdfab6f9f9064ca50c9b875162c411e1edf248b4cf5863cd39ec",
+      "segment.chain_pure": "3f318951b9e2769694391c9c89b90ae4e154b5ef1dbac0ad2c28b13b4ef8e01d",
+      "segment.end_code_four_steps": "a267122fe3c1131c1a2a7a86a08c3ea925945ebaf6819a19250eb620b1db9e1d",
+      "segment.wp_end_code": "b598ef6f232cfd5ddf00f67495f9fe7b83dd8b79dc66267257f615f1d06f60a7",
+      "segment.end_segment_refinement": "bb9684799aecc5cede2641dbec428c1e1686d5890f7daefa4cb5bca82d73232b",
+      "segment.instruction_rect": "9f03aa4bdb34c576a39bbc4d1f82574fb162538eabcc31f764cc25c515695dbd",
+      "segment.instruction_ind": "1ac484557a37a7ef8a396e3844fc2772d0242609791ff6a352c6653713ba6ada",
+      "segment.instruction_rec": "47d129db090b37734fd2fe82d0d6f9fa7d6086fb1054d8d0f3827a53c2fa7ca5",
+      "segment.instruction_sind": "1e61603bdc4a566cd6ef819c7689f0a0c6b33f23add290cd1b103d725f5fc604",
+      "segment.register_step_ind": "b117710a99edc0d65921f87b464739407b63768a8054d7d5b5a4680aba702fb9",
+      "segment.register_step_sind": "2010c49f1ba3b966202316461cca3f92b4985a0b6de289106739903ea1f9b743",
+      "segment.segment_run_ind": "26b91491c40dc29aa27f4478eb2d78879d47a6f96b08f9778a41327af38ac1cb",
+      "segment.segment_run_sind": "ec74b0a63e06f5afd0feb51f386d5b126a022e4edcbb4651cc46eb910e7b7a0f"
+    },
+    "review_terms_object_sha256": "621eefea775ab22db6b14ee4eacdebdaa63653d07fd6fb55d392f5fb4edeb038"
+  },
+  "findings": [],
+  "failed_review_trials": [
+    {
+      "trial": 1,
+      "receipt": {
+        "path": "/tmp/native-byte-segment-review-17a8c04d-trial001/receipt.json",
+        "sha256": "163f4d5cb7c74db7e3c0aaf5770c26dc0b3833e439ed7a9e8338b005ddd69e80"
+      },
+      "freeze": {
+        "path": "/home/dev/.t3/worktrees/verus/t3-17a8c04d/evidence/native-byte-segment-review/trial001-freeze.json",
+        "sha256": "d5d7d6487a2b27f2a14d7b25d382f2c30282c94ed1677621cd23ceba291b5fad"
+      },
+      "retained_controller": {
+        "path": "/tmp/native-byte-segment-review-17a8c04d-trial001/review-controller.py",
+        "sha256": "b296a15aae537e6eeaa8e467f9c59efe2dfa88a0e0a4b8f19e34bebc925dbcdf"
+      },
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "segment datatype inventory []"
+      },
+      "classification": "review parser mismatch after all proof commands succeeded; not semantic rejection",
+      "commands": [
+        {
+          "label": "replay-native_register_segment",
+          "exit_code": 0
+        },
+        {
+          "label": "replay-native_byte_xor",
+          "exit_code": 0
+        },
+        {
+          "label": "register-review-terms",
+          "exit_code": 0
+        },
+        {
+          "label": "register-verbose-kernel",
+          "exit_code": 0
+        }
+      ],
+      "logs": {
+        "register-review-terms.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "register-review-terms.stdout": "e9a4b2f32fe87252edf24743aecfbbd26270bed23d22549524ba8b1ef4c159cf",
+        "register-verbose-kernel.stderr": "00812d8638dff33ae65b9ce14f12cc11daff17b04c1b18b1871d3bacfb73b6f7",
+        "register-verbose-kernel.stdout": "09c6ba7f3c54d1fb13524cbc83b5694ac889a1e3cedd76631c8394921ab52501",
+        "replay-native_byte_xor.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "replay-native_byte_xor.stdout": "ec1ff4bbafffaf6f3b5f46599d2eae7d856723bdcf748cd50608d6c5646dfd15",
+        "replay-native_register_segment.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "replay-native_register_segment.stdout": "85b0ff83ee922795594cb187d1a6c84a28ec174dfa44ff649ffcbbd699a74fc8"
+      }
+    },
+    {
+      "trial": 2,
+      "receipt": {
+        "path": "/tmp/native-byte-segment-review-17a8c04d-trial002/receipt.json",
+        "sha256": "cd6895d06cf0b615bb51d77daf0793d0fdc8cc2db1fce168086f2d24fb8eab8c"
+      },
+      "freeze": {
+        "path": "/home/dev/.t3/worktrees/verus/t3-17a8c04d/evidence/native-byte-segment-review/trial002-freeze.json",
+        "sha256": "05762c7b30fe7a8e57734c00a0a222969853ff72c92f707c1eabe965972f8929"
+      },
+      "retained_controller": {
+        "path": "/tmp/native-byte-segment-review-17a8c04d-trial002/review-controller.py",
+        "sha256": "3936769a1f952935dc17d0a935094de0e72b075f257bb6cc4f49dcc59f5b090b"
+      },
+      "success": false,
+      "failure": {
+        "type": "KeyboardInterrupt",
+        "message": ""
+      },
+      "classification": "deliberately interrupted before further work after offline module-format check found opaque Parameter labels; not semantic rejection",
+      "commands": [
+        {
+          "label": "replay-native_register_segment",
+          "exit_code": null
+        }
+      ],
+      "logs": {
+        "replay-native_register_segment.stderr": "a7e83791e764e0abef8249c612de504ae5d6768ea08ed1cce53fdcd1e179a82c",
+        "replay-native_register_segment.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "nontrial_development_notes": [
+    "First commit attempt lacked git author identity; resolved using per-command Codex identity without changing git config.",
+    "Read-only path discovery encountered absent guessed filenames before locating exact committed refinement files.",
+    "A convenience stdout formatter expected a single-line module heading; it failed after printing all eight eliminators. Raw proof output and validation were unaffected."
+  ],
+  "retained_limits": {
+    "actual_native_correspondences": 0,
+    "minimal_effects_open": 44,
+    "phase_obligations_open": 3,
+    "writer_effects_open": 101,
+    "full_frozen_HMAC_prefix_and_suffix": "1/1 inherited; not rerun",
+    "canonical": "6/0 inherited; observer causally redundant there",
+    "publication": false,
+    "goal_complete": false,
+    "new_native_simulation": false,
+    "new_whole_program_adequacy": false
+  },
+  "replay": [
+    "python3 -B evidence/native-byte-segment-review/review.py --freeze evidence/native-byte-segment-review/trial003-freeze.json --output /tmp/native-byte-segment-review-NEW",
+    "python3 -B evidence/native-byte-segment-review/source_audit.py --freeze evidence/native-byte-segment-review/source-freeze.json --output /tmp/native-byte-segment-source-review-NEW"
+  ],
+  "raw_artifacts": "Retained privately under the receipt directories. Output paths already exist; use new paths to replay. No parent/sibling checkout paths may be followed.",
+  "additional_checks": [
+    {
+      "label": "register-review-terms",
+      "exit_code": 0,
+      "seconds": 1.707408502988983
+    },
+    {
+      "label": "register-verbose-kernel",
+      "exit_code": 0,
+      "seconds": 75.17098095099209
+    }
+  ],
+  "logs": {
+    "register-review-terms.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "register-review-terms.stdout": "e9a4b2f32fe87252edf24743aecfbbd26270bed23d22549524ba8b1ef4c159cf",
+    "register-verbose-kernel.stderr": "281d00edf5872054c82ffc9b4d9ee99c5a2fa36fd110acc53bb9e0f4a8e3e619",
+    "register-verbose-kernel.stdout": "09c6ba7f3c54d1fb13524cbc83b5694ac889a1e3cedd76631c8394921ab52501",
+    "replay-native_byte_xor.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "replay-native_byte_xor.stdout": "83def5891dec8745bbaa52abc0c49c4b371b274572b5829099162b0a01009b96",
+    "replay-native_register_segment.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "replay-native_register_segment.stdout": "783961d4c8e44d40165dfcaa171d74969d63482d91bb2eaa56a9d4567cb6cbc1"
+  }
+}
