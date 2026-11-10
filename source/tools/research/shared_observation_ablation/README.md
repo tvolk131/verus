@@ -1,5 +1,10 @@
 # Shared checked observation ablation
 
+[Final measured findings](REPORT.md) and [compact audited evidence](results.json):
+the observer is redundant for frozen full canonical, necessary as a group for
+the Zip prefix, and its capacity proposal is redundant for both. Full HMAC
+remains unproved. All 45 accepted trials pass their outcome/scope/control gates.
+
 Private diagnostic builds against committed parent
 `d35c31fae9d05d7c0e797a60612a8be4716c2dc9`; no production proposal.
 `freeze.json` and the two patches were committed before application trials.

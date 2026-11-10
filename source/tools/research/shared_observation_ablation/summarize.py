@@ -36,6 +36,16 @@ def main():
             classification='controller vstd output-format gate; not application proof evidence',
             commands=r['commands'], logs={p.name:digest(p) for p in rejected.iterdir()
                 if p.suffix in ('.stdout','.stderr')})
+    summary['retained_validator_rejections']=[]
+    for name in ('baseline-trials-validator-rejected','baseline-trials-legacy-export-rejected'):
+        rejected=a.raw/name
+        r=json.loads((rejected/'receipt.json').read_text())
+        require(not r['success'], 'retained rejection unexpectedly succeeded')
+        summary['retained_validator_rejections'].append(dict(receipt=str(rejected/'receipt.json'),
+            receipt_sha256=digest(rejected/'receipt.json'),failure=r['failure'],
+            classification='controller validation correction; excluded from accepted matrix',
+            logs={p.name:digest(p) for p in rejected.iterdir()
+                if p.suffix in ('.stdout','.stderr')},commands=r['commands']))
     for variant in ('observer-off','capacity-off'):
         path=a.raw/(variant+'-build')
         b=json.loads((path/'receipt.json').read_text())
