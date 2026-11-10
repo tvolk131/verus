@@ -1,0 +1,529 @@
+{
+  "schema": 1,
+  "native_operations": [
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "0",
+      "payload_sha256": "9a0b51f46eb7169dac4e2319065343a716798c8aaf15e0b9d4a04a30bdcb1b97",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "1",
+      "payload_sha256": "b0df088ed9aa8d0c17c7e772d95cf5eacbf9633f939c31f1cf972cbaf654d50a",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "2",
+      "payload_sha256": "ff4ce04cbf3f5262a55e4fd7d4b0def34f7c2877ab9bdbe1b55bca76e2d6dd61",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "3",
+      "payload_sha256": "0a05f1af92ca40f3ee1d590ae2083aceb720c96f6c2c582d87624c6af839bdbf",
+      "primitive": "ref",
+      "model_rule_candidate": "borrow.tctx_reborrow_uniq",
+      "simulation_status": "unproved_rejected",
+      "obligation": "two-phase source loan/region interpretation and C/F import"
+    },
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "4",
+      "payload_sha256": "855aa2c63c8e7afd3218303f84eb7909f64648b1359a3384cd019df5b2938f69",
+      "primitive": "Unsize",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "slice fat pointer/array coercion representation and exact C/F"
+    },
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "5",
+      "payload_sha256": "9031b4507dc0cde0475235f838cf4d0f397057b15fefe1999e65c37003fc39ce",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 0,
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "a1ff8f6d473e0bbb4d7bc962f36c86d8c8392b5488ab52c705d7af72da8fdd03",
+      "primitive": "call",
+      "model_rule_candidate": "function.type_call",
+      "simulation_status": "unproved_rejected",
+      "obligation": "resolved native callee simulation, stack/return/unwind composition"
+    },
+    {
+      "instance": 0,
+      "bb": 1,
+      "location": "0",
+      "payload_sha256": "b3314a75fa1e72749b80a1509e19aa9689696d3a75db5deec031b5ad2d52a5e2",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 0,
+      "bb": 1,
+      "location": "1",
+      "payload_sha256": "0cb5c74c4eb787f72a387600ec7df9dcffcf36e2b2f13dfed1a6241483f77f60",
+      "primitive": "use",
+      "model_rule_candidate": "programs.type_path_instr",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR copy/move, Use::retag and zero-sized unit interpretation"
+    },
+    {
+      "instance": 0,
+      "bb": 1,
+      "location": "2",
+      "payload_sha256": "9db96525c0831457c68f8b8c0fb7d05a2a0d39fac4313084cb03b9e1886007e3",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 0,
+      "bb": 1,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "primitive": "return",
+      "model_rule_candidate": "cont.type_jump",
+      "simulation_status": "unproved_rejected",
+      "obligation": "actual return/drop-glue and same-original-loan final observation"
+    },
+    {
+      "instance": 1,
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "primitive": "return",
+      "model_rule_candidate": "cont.type_jump",
+      "simulation_status": "unproved_rejected",
+      "obligation": "actual return/drop-glue and same-original-loan final observation"
+    },
+    {
+      "instance": 2,
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "4031cd23e975896d6367022b948dde71aa19f9e0b3fc8fbfbb58dc5f20bcc8a9",
+      "primitive": "call",
+      "model_rule_candidate": "function.type_call",
+      "simulation_status": "unproved_rejected",
+      "obligation": "resolved native callee simulation, stack/return/unwind composition"
+    },
+    {
+      "instance": 2,
+      "bb": 1,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "primitive": "return",
+      "model_rule_candidate": "cont.type_jump",
+      "simulation_status": "unproved_rejected",
+      "obligation": "actual return/drop-glue and same-original-loan final observation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "0",
+      "payload_sha256": "9a0b51f46eb7169dac4e2319065343a716798c8aaf15e0b9d4a04a30bdcb1b97",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "1",
+      "payload_sha256": "fbe0d2a923fab22d940ac414e18631b74638f615cd1e929dd406c22d8480b9a2",
+      "primitive": "PtrMetadata",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "Rust fat pointer metadata extraction"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "2",
+      "payload_sha256": "b0df088ed9aa8d0c17c7e772d95cf5eacbf9633f939c31f1cf972cbaf654d50a",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "3",
+      "payload_sha256": "ff4ce04cbf3f5262a55e4fd7d4b0def34f7c2877ab9bdbe1b55bca76e2d6dd61",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "4",
+      "payload_sha256": "55dbe8ba2b0e55ccf663ac243885e29788fa3865db473c2a56e942c77aa17802",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "5",
+      "payload_sha256": "b18b6c485afdfb400b326f01f52510e3396987e25cf6c2dda16fc2680b4e33f4",
+      "primitive": "raw_ptr",
+      "model_rule_candidate": "raw_view.typed_source_raw_view",
+      "simulation_status": "unproved_rejected",
+      "obligation": "native RawPtr provenance and retag simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "6",
+      "payload_sha256": "77825efeac0f890a4c231a2347503b968ac5317c89ec388c1327d1fe7ddd13cc",
+      "primitive": "Transmute",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "transparent NonNull nonzero-valid-range and pointer provenance"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "7",
+      "payload_sha256": "5150ed8b7f73dfeb6e97796e51b96a7ee9834846bc978c60dd90be8820133079",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "8",
+      "payload_sha256": "07c01329c8992b1cf1e87787c02d62ae8b25bc22e00b1eff4d911ea3d039bdfb",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "9",
+      "payload_sha256": "1de76dc492776dbfea4c76a26cacd5d937b31119336c45c609d62d451fb01527",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "10",
+      "payload_sha256": "726789182bbe3851156c736c4432af276a93c67a8084f9dd610874983162378a",
+      "primitive": "Transmute",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "transparent NonNull nonzero-valid-range and pointer provenance"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "11",
+      "payload_sha256": "ecee847c9354d9eec1e67bce19df92e9edf24dbc34f2d5978ba6781c38e3bb7e",
+      "primitive": "PtrToPtr",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "fat-to-thin pointer representation and provenance"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "12",
+      "payload_sha256": "3277fd7f75802ff2a412f25a50f8fad6c396fb52581776517b854b1017b40071",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "13",
+      "payload_sha256": "5aa2d4703b520dc02b50cb13f914941cf0d5376344dae2f7b26de2483bf1cbdc",
+      "primitive": "Transmute",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "transparent NonNull nonzero-valid-range and pointer provenance"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "14",
+      "payload_sha256": "06d6560bbb0f3a30c4e9652992c04643888d45a28b9c5f45833e3b88fc601ae3",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "15",
+      "payload_sha256": "9031b4507dc0cde0475235f838cf4d0f397057b15fefe1999e65c37003fc39ce",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "7a2dd59fbbe01c64e7391369fc188d77f02d6f632e8ee5452b88df7c17e36146",
+      "primitive": "switch",
+      "model_rule_candidate": "programs.type_if",
+      "simulation_status": "unproved_rejected",
+      "obligation": "CTFE evaluation and branch exclusion correspondence"
+    },
+    {
+      "instance": 3,
+      "bb": 1,
+      "location": "0",
+      "payload_sha256": "33c9afcb88c3a4b004365bbdf0fe634eebbbf34d2cb246090da412eff4438fb8",
+      "primitive": "Transmute",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "transparent NonNull nonzero-valid-range and pointer provenance"
+    },
+    {
+      "instance": 3,
+      "bb": 1,
+      "location": "term",
+      "payload_sha256": "dba41cc191ea4d3523e98761b48f70ad7b5f2e5cc632698d23b41656356e8d00",
+      "primitive": "goto",
+      "model_rule_candidate": "programs.type_seq",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR control-flow transition simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 2,
+      "location": "0",
+      "payload_sha256": "44f1adb27502c13a4d1e622026917fca43b212b31c678bf4dba0fe90556c878c",
+      "primitive": "storage_live",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR StorageLive/dead stack-frame simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 2,
+      "location": "1",
+      "payload_sha256": "42f16306662f2ab2e72996e2eadca84a6c2c46fddfe4c8a672f356b8f1966024",
+      "primitive": "Transmute",
+      "model_rule_candidate": "none",
+      "simulation_status": "unproved_rejected",
+      "obligation": "transparent NonNull nonzero-valid-range and pointer provenance"
+    },
+    {
+      "instance": 3,
+      "bb": 2,
+      "location": "2",
+      "payload_sha256": "4ff654ac1262be17833970e8435bb250444a47e5210fec1a98b4181ee673a4b9",
+      "primitive": "Offset",
+      "model_rule_candidate": "lang.BinOpOffset",
+      "simulation_status": "unproved_rejected",
+      "obligation": "finite byte-address in-allocation isize checked Rust offset; model is unbounded"
+    },
+    {
+      "instance": 3,
+      "bb": 2,
+      "location": "3",
+      "payload_sha256": "477892561c11b8393afbec9045c6dea5216972a9c8b84157cf206b1979b8900b",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 2,
+      "location": "term",
+      "payload_sha256": "dba41cc191ea4d3523e98761b48f70ad7b5f2e5cc632698d23b41656356e8d00",
+      "primitive": "goto",
+      "model_rule_candidate": "programs.type_seq",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR control-flow transition simulation"
+    },
+    {
+      "instance": 3,
+      "bb": 3,
+      "location": "0",
+      "payload_sha256": "064fe6dce1a4648960f5328c493bf78da4d68a58fade94e8468dd1db35cc6355",
+      "primitive": "aggregate",
+      "model_rule_candidate": "product.prod_ty",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR ADT layout/PhantomData/move and retained loan representation"
+    },
+    {
+      "instance": 3,
+      "bb": 3,
+      "location": "1",
+      "payload_sha256": "b3314a75fa1e72749b80a1509e19aa9689696d3a75db5deec031b5ad2d52a5e2",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 3,
+      "location": "2",
+      "payload_sha256": "9db96525c0831457c68f8b8c0fb7d05a2a0d39fac4313084cb03b9e1886007e3",
+      "primitive": "storage_dead",
+      "model_rule_candidate": "local lifetime",
+      "simulation_status": "unproved_rejected",
+      "obligation": "MIR storage end is not loan/prophecy resolution"
+    },
+    {
+      "instance": 3,
+      "bb": 3,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "primitive": "return",
+      "model_rule_candidate": "cont.type_jump",
+      "simulation_status": "unproved_rejected",
+      "obligation": "actual return/drop-glue and same-original-loan final observation"
+    },
+    {
+      "instance": 4,
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "primitive": "return",
+      "model_rule_candidate": "cont.type_jump",
+      "simulation_status": "unproved_rejected",
+      "obligation": "actual return/drop-glue and same-original-loan final observation"
+    },
+    {
+      "instance": 5,
+      "bb": 0,
+      "location": "term",
+      "payload_sha256": "9f09b7d7147ab80f9b011028fd4c6b16e4df5ad248ed1724443bb8a16858a643",
+      "primitive": "return",
+      "model_rule_candidate": "cont.type_jump",
+      "simulation_status": "unproved_rejected",
+      "obligation": "actual return/drop-glue and same-original-loan final observation"
+    }
+  ],
+  "primitive_counts": {
+    "storage_live": 10,
+    "ref": 1,
+    "Unsize": 1,
+    "storage_dead": 10,
+    "call": 2,
+    "use": 1,
+    "return": 6,
+    "PtrMetadata": 1,
+    "raw_ptr": 1,
+    "Transmute": 5,
+    "PtrToPtr": 1,
+    "switch": 1,
+    "goto": 2,
+    "Offset": 1,
+    "aggregate": 1
+  },
+  "instance_count": 6,
+  "operation_count": 44,
+  "model_steps": 49,
+  "source_loan": {
+    "activation": "ActivatedAt(bb0[4])",
+    "assigned": {
+      "local": 4,
+      "projection": [],
+      "ty": "&mut [u8; 128]"
+    },
+    "borrowed": {
+      "local": 1,
+      "projection": [
+        {
+          "op": "deref"
+        }
+      ],
+      "ty": "[u8; 128]"
+    },
+    "kind": "exclusive",
+    "loan": 0,
+    "region": 3,
+    "reserve": {
+      "bb": 0,
+      "statement": 3
+    }
+  },
+  "borrowck_phase_obligations": [
+    {
+      "bb": 0,
+      "unwind": {
+        "action": "cleanup",
+        "target": 2
+      },
+      "status": "rejected_no_no_unwind_proof"
+    },
+    {
+      "location": {
+        "bb": 1,
+        "statement": 1
+      },
+      "ir": {
+        "debug": "FakeRead(ForLet(None), _2)",
+        "op": "unsupported_statement"
+      },
+      "status": "rejected_no_phase_erasure_proof"
+    },
+    {
+      "bb": 2,
+      "ir": {
+        "op": "unwind_resume"
+      },
+      "status": "rejected_no_exception_simulation"
+    }
+  ],
+  "native_effects_discharged": 0,
+  "publication": false,
+  "native_bridge_proved": false,
+  "note": "Model-rule candidates do not certify MIR meanings; all native primitives reject.",
+  "instances": [
+    "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+    "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::slice::IterMut<'{erased}, u8>] }",
+    "core::DefPathHash(Fingerprint(17281971461272426270, 715777318511364689))::Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+    "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+    "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<u8>] }",
+    "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<[u8]>] }"
+  ]
+}

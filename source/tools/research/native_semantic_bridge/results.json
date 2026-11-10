@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "base": "e4a8dcab",
+  "publication": false,
+  "native_bridge_proved": false,
+  "model_proofs_kernel_checked": true,
+  "model_proof_status": "normal_compilation_and_recursive_kernel_check_passed",
+  "native_effects_discharged": 0,
+  "native_effects_remaining": 101,
+  "native_drop": {
+    "verified": 0,
+    "errors": 1,
+    "rerun_in_this_lane": false
+  },
+  "full_writer": {
+    "verified": 1,
+    "errors": 1,
+    "rerun_in_this_lane": false,
+    "domain_unchanged": true
+  },
+  "evidence": {
+    "extraction": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json",
+      "sha256": "2e1b60de13ad025f55d8a84aaa442956c33fd5fa01cb878adf5785c01c213b3b",
+      "success": true
+    },
+    "source_mapping": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/map-v12/receipt.json",
+      "sha256": "9122d13b9733efd4ecf91bad6ec6af8ef15ac70b24e51a4adf33ec6049d5bea9",
+      "success": true
+    },
+    "eligibility_controls": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/audit-v12/receipt.json",
+      "sha256": "2efbe833716fa5d0aa08b11f15c4d5aff41c180c13154cd048783232d0edf1ec",
+      "success": true
+    },
+    "readiness_controls": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/gates-v12/receipt.json",
+      "sha256": "b3eadb29113d99c0b52b33a88c0e663528e9aca863a3810e0b0cbb31fa02c561",
+      "success": true
+    },
+    "model_kernel": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/receipt.json",
+      "sha256": "3867cadb95dd7a07aaf9fad265b60a66e7c455580de9dd4d88a15564eecb97e0",
+      "success": true
+    }
+  },
+  "source_eligibility_rejections": 8,
+  "semantic_negative_count": 0,
+  "candidate": "candidates/loan-v12",
+  "pretrial_freeze": "loan-v12-freeze.json",
+  "helper_identities": [],
+  "verus_proof_trials": false,
+  "notes": [
+    "The model semantic reference resource is real separation-logic heap/lifetime authority, not a copyable ghost heap or supplied owned allocation.",
+    "The original incoming Rust reference has no checked source typing/import into this model yet.",
+    "All44 native operation simulations and all101 full-writer native effects remain unproved; publication is false.",
+    "Exact same model loan/index/prophecy restoration is not yet final(original Rust array) correspondence.",
+    "RefinedRust is pinned inspection-only, neither compiled nor imported.",
+    "Binary .vo proof terms and large raw logs are private and hashed; all reconstructible proof sources and controllers are committed."
+  ],
+  "goal_complete": false,
+  "source_connection_proved": false,
+  "original_array_future_import_proved": false,
+  "actual_native_handoff_deliverable_complete": false,
+  "native_drop_proved": false,
+  "full_writer_proved": false,
+  "readiness_rejections": 3,
+  "failed_proof_development_trials": 7,
+  "named_theorems": {
+    "borrow_handoff": [
+      "source_loan_access",
+      "source_loan_release",
+      "source_context_access"
+    ],
+    "byte_array": [
+      "byte_list_length",
+      "bytes_size",
+      "bytes_physical",
+      "bytes_initialized",
+      "byte_array128_size",
+      "byte_array128_release",
+      "byte_array128_scoped_handoff",
+      "byte_array128_context_handoff"
+    ],
+    "raw_view": [
+      "typed_source_raw_view",
+      "typed_source_raw_offset",
+      "typed_source_loan_release"
+    ],
+    "model_limits": [
+      "arbitrary_raw_pointer_typed",
+      "raw_read_empty_head_stuck",
+      "model_offset_unrestricted",
+      "empty_heap_offset_adequate"
+    ]
+  },
+  "named_theorem_count": 18,
+  "byte_type_Program_obligations": 6,
+  "new_constant_logical_axioms": [
+    "functional_extensionality_dep"
+  ],
+  "native_claim_axioms": [],
+  "dependency_kernel_summary_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "kernel_summary": {
+    "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/kernel-check.stderr",
+    "sha256": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526",
+    "unsafe_fixpoints": false,
+    "type_in_type": false,
+    "assumed_positivity": false,
+    "rewrite_rules_allowed": false
+  },
+  "proof_terms": {
+    "borrow_handoff": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/borrow_handoff.vo",
+      "sha256": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+      "source_sha256": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4"
+    },
+    "byte_array": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/byte_array.vo",
+      "sha256": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+      "source_sha256": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70"
+    },
+    "raw_view": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/raw_view.vo",
+      "sha256": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+      "source_sha256": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909"
+    },
+    "model_limits": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/model_limits.vo",
+      "sha256": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+      "source_sha256": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a"
+    }
+  },
+  "prover_version": "The Coq Proof Assistant, version 8.20.0\ncompiled with OCaml 4.14.2",
+  "dependency": {
+    "commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+    "ready_path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json",
+    "ready_sha256": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007",
+    "baseline_receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/durable-build-2/receipt.json",
+      "sha256": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e",
+      "success": true
+    },
+    "runner": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+    "runner_sha256": "bffce97908442f9af5a279d7dda96682c55ef8fbad525b7cc0f7efdf71a89b7e"
+  },
+  "prover_tools": {
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/opam": "324e78e3f33efeba279aacf9f9610cfec7b2df7d7e0e1640f75f09de85f96cc9",
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq": "bffce97908442f9af5a279d7dda96682c55ef8fbad525b7cc0f7efdf71a89b7e",
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc": "c97932397e89335770512a56838721ff9739ddaba460a86589c2ddea8dd5cb87",
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqchk": "b95cdd8b3881c5999888ea829b58b552e92ce8aaba34fd76b980e8a65309d56a"
+  }
+}

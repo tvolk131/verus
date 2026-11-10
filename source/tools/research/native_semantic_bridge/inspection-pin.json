@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "repository": "https://gitlab.mpi-sws.org/lgaeher/refinedrust-dev",
+  "commit": "e39cd5f1c2d6fde6ab8be70a847e0547a2fa9156",
+  "inspection_only": true,
+  "compiled": false,
+  "imported": false,
+  "files": {
+    "README.md": "dccc83edc38df27a93e2b92b312f50017cde6b817da7b067a28634ebcf65a7ce",
+    "theories/refinedrust/radium/loc.v": "8f334856ee1b6ad0b929824a26c5936d976775cd4211b18940a585829b13853f",
+    "theories/refinedrust/radium/lang.v": "1eaaa87f617f4960ff468138c5611296dbfc1b7f291ff7175c56a428f052da67",
+    "theories/refinedrust/radium/heap.v": "8025ef83e51c0297848cce2455356b34c8ec7b852e6a905cfc3983dda058e498",
+    "theories/refinedrust/radium/validity.v": "54daca125cc408ac805d19618773678e969ef69c9c376db7809ba06914a2181b",
+    "rr_frontend/rust-toolchain.toml": "4b3b0e41f9a2dd233453ea85febed1f2d705c62d2ebb1c87e0b885d8e8a42f0f",
+    "rr_frontend/translation/src/body/function_translation/basicblock.rs": "4e2dbb91f0205f4283d6c10f04666125d4c97be4303114fd13722653a4898c25"
+  }
+}
