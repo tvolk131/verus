@@ -74,39 +74,4 @@ Section normal_exit.
     iModIntro. iFrame "L Heap". iSplit; last done.
     iExists #p,d. iFrame "Td Own". done.
   Qed.
-  (* Normal function-end cut: observe before consuming this pending value,
-     resolve it by the existing checked rule, and pass the observation plus
-     original caller/ancestor frame to a continuation. No parent is resolved.
-     Source use still needs the explicit original-operand interpretation. *)
-  Lemma pending_heap_normal_exit n E L I tid iκs κ p (x : ~~(bytes_sort n)) m σ
-      (Frame : iProp Σ) e Φ :
-    Closed [] e -> lctx_lft_alive E L κ ->
-    uniq_bor_loc m = (p,repeat [] n) -> uniq_bor_current m = x ->
-    llft_ctx -∗ time_ctx -∗ proph_ctx -∗ uniq_ctx -∗ elctx_interp E -∗
-    llctx_interp L -∗ invctx_interp tid ⊤ iκs I -∗
-    tctx_elt_interp tid (#p ◁ &uniq{κ} (bytes_ty n)) m -∗
-    heap_ctx σ -∗ £1 -∗ Frame -∗
-    (llctx_interp L -∗ invctx_interp tid ⊤ iκs I -∗ heap_ctx σ -∗ Frame -∗
-      ⟨π, uniq_bor_future m π = vπ x π⟩ -∗
-      ⌜interval_observed σ p ((λ z : Z, LitV (LitInt z)) <$> byte_list n x)⌝ -∗
-      WP e {{ Φ }}) -∗
-    WP (Skip;; e) {{ Φ }}.
-  Proof.
-    iIntros (ClosedE Alive Loc Cur)
-      "#LFT #TIME #PROPH #UNIQ #E L I Pending Heap Credit Frame Continue".
-    iApply fupd_wp.
-    iMod (live_original_current_observation n E L κ p x m tid σ Alive Loc Cur
-      with "LFT UNIQ E L Pending Heap Credit") as "[L [Pending [Heap %Observed]]]".
-    iModIntro. wp_bind Skip.
-    iApply (wp_wand with "[L I Pending]").
-    { iApply (type_resolve_instr #p (&uniq{κ} (bytes_ty n))%T
-        (λ a π, uniq_bor_future a π = vπ (uniq_bor_current a) π) E L I
-        (source_loan_release _ _ _ _ Alive)
-        tid (λ _ _ π, uniq_bor_future m π = vπ x π) ⊤ iκs -[m]
-        with "LFT TIME PROPH UNIQ E L I [Pending] []").
-      - simpl. iFrame.
-      - iApply proph_obs_true. intros π Release. by rewrite Cur in Release. }
-    iIntros (v) "[%xl [L [I [_ #Released]]]]".
-    wp_seq. iApply ("Continue" with "L I Heap Frame Released []"). done.
-  Qed.
 End normal_exit.

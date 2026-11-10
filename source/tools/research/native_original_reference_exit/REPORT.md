@@ -29,7 +29,7 @@ unissued bytes. Two closed logical witnesses expose the insufficiency of the
 old summaries and the invalidity of resolving a live parent after child release.
 They are not Rust counterexamples or semantic negative executions.
 
-`candidates/resources.v` proves four existing-foundation MODEL laws:
+`candidates/resources.v` proves three existing-foundation MODEL laws:
 
 * `pending_reference_normal_release` specializes the real checked typed resolve
   operation to the pending unique reference. Opaque iterator resolution is not
@@ -46,12 +46,12 @@ They are not Rust counterexamples or semantic negative executions.
   an allocation-base constraint or MutRef::unpack.ptr. The reference's future
   is unchanged; there is no assumption or conclusion that a live parent's
   future equals current. One internal later credit eliminates the payload later.
-* `pending_heap_normal_exit` composes that observation with normal typed release,
-  consumes precisely the pending reference and hands its full future observation,
-  actual MODEL bytes, heap authority, same L/I and ancestor Frame to a
-  continuation. It makes no claim that every arbitrary live parent is eligible
-  for release. Source integration must prove eligibility/no-escape at the actual
-  exit cut; the remaining caller parent belongs in Frame and is not resolved.
+The heap observer is a final adequacy-cut operation. It is not placed inside a
+new runtime WP while holding heap authority outside the state interpretation.
+The initial combined WP wrapper was kernel-valid as a conditional formula but
+not suitable as a realizable execution bridge; it was removed on self-review.
+The final source relation must connect release and observation at their actual
+semantic cuts. No combined native theorem is claimed.
 
 All resources are premises of MODEL judgments only. This work does not convert
 an actual input reference into model ownership, add client resource premises,
@@ -99,7 +99,7 @@ properties; this lane makes no reduction or completion claim.
 
 ## Validation and replay
 
-See `results.json` and `TRUST_INVENTORY.json` for the final accepted local trial,
+See `results.json` and `TRUST_INVENTORY.json` for the final checked local trial,
 complete declaration/helper/constructor/obligation assumptions, object hashes
 and kernel result. `development.json` retains failed attempts; none is semantic
 negative evidence. All raw logs, copied proof sources, products and durable

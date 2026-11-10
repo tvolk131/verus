@@ -49,7 +49,7 @@
     "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
     "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
     "source/tools/research/native_original_reference_exit/candidates/frontend.v": "66d54009991f2bce9f65557fecb4c616ce86fa4876b086a68a5f4d009eacc9d6",
-    "source/tools/research/native_original_reference_exit/candidates/resources.v": "dc49685c436401d32b8054c1805412c657625eedb41dc4c4928eb861ee389d83"
+    "source/tools/research/native_original_reference_exit/candidates/resources.v": "217e8e58eea6fb3c1fe3c2370955c1dd53889dc213c547fee6c68c117c334f4f"
   },
   "external_inventory_sha256": "d5c6e254c05bc7914c7fc483d8849842a4d5ec4ed52661c71c1af630be18a1ce",
   "external_count": 1375,
@@ -70,8 +70,7 @@
     "resources": [
       "pending_reference_normal_release",
       "model_drop_continues",
-      "live_original_current_observation",
-      "pending_heap_normal_exit"
+      "live_original_current_observation"
     ]
   }
 }
