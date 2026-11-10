@@ -8,13 +8,13 @@ From guarding Require Import guard tactics.
 Set Default Proof Using "Type".
 Open Scope Z_scope.
 
-Definition writer_loop p q pad key : expr :=
+Definition writer_loop p q (pad key : list Z) : expr :=
   App (of_val zip_transform)
     [of_val byte_xor; Lit (LitInt (Z.of_nat (Nat.min (length pad) (length key))));
      Lit (LitLoc p); Lit (LitLoc q)].
 Definition writer_body p q pad key : expr :=
   ((Skip;; (Newlft;; ReBor;; writer_loop p q pad key;; Endlft;; Skip);; Skip);; Endlft)%E.
-Definition writer_budget pad key : nat :=
+Definition writer_budget (pad key : list Z) : nat :=
   1 + (shared_xor_cost (Nat.min (length pad) (length key)) 0 + length key).
 Definition writer_final h p pad q key (σ : state) : Prop :=
   length (xor_result pad key) = length pad ∧
@@ -64,10 +64,10 @@ Section writer_execution.
       - rewrite byte_list_from_length. by apply xor_result_bytes.
       - intros RangeInput. iIntros "Pad [#Reader [#Cap [R Credit]]]".
         rewrite byte_list_from_length /writer_loop.
-        iApply (wp_wand with "[Pad R Credit]").
-        { iApply (wp_shared_xor_min (length key) κkey q (bytes_of_list key) 1 0 tid R
-            p pad True RangeInput with "Reader Cap [Pad R Credit]"). by iFrame. }
-        iIntros (v) "[Pad [R [_ [_ %Facts]]]]".
+        iApply (wp_shared_xor_min (length key) κkey q (bytes_of_list key) 1 0 tid R
+          p pad True RangeInput with "Reader Cap [Pad R Credit]"); first by iFrame.
+        iNext.
+        iIntros "[Pad [R [_ [_ %Facts]]]]".
         iFrame "R". iEval (rewrite byte_list_of_list) in "Pad". iFrame "Pad".
       Unshelve. all: iFrame "Reader Cap R LoopCredits Frame G Close ObserveCredits". }
     iIntros (w) "[[Frame [G [Close ObserveCredits]]] [R Pad]]".
