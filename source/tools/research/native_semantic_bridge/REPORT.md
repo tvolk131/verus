@@ -1,0 +1,139 @@
+# Semantic borrow foundation: native publication remains false
+
+Only this new research directory is changed. No source algorithm, compiler,
+translator, vstd, application, global setting, policy/cache/schema, sibling or
+parent checkout is edited. No subdelegate, push or PR is created. All 101 actual
+native effects remain open. The inherited native-drop positive remains 0/1 and
+the full frozen HMAC writer remains 1/1; neither is a Rust counterexample.
+Those verifier fixtures are not rerun or claimed newly proved here.
+
+## Mechanized proof status
+
+Current executable status: **not run; parent baseline readiness pending**.
+The latest pretrial candidate is `candidates/loan-v5/`, frozen by
+`loan-v5-freeze.json`. Earlier candidates and Git milestones are retained.
+None of these authored proof scripts is yet counted as kernel checked.
+`results.json` distinguishes checked source audits from pending Rocq proofs.
+
+The proof target is the actual defined VerusBelt unique-reference resource,
+rather than an uninterpreted source-execution or reference-interpretation
+predicate. `source_context_access` derives the required lifetime guard from
+ordinary semantic typing contexts; no client PointsTo/freeable/owned-heap
+argument is introduced. The physical pointer must be exactly `l.1`. Opening
+consumes the original unique prophetic borrow and exposes its actual typed heap
+payload. Closing requires the very payload and restores the original index,
+prophecy identifier, location and value. It also restores the typing context.
+No second mutable reference or allocation/deallocation authority is created.
+
+`byte_array128_context_handoff` specializes this to exactly 128 initialized
+cells with arbitrary values in 0..255. There is no zero-buffer premise. The
+location is arbitrary; no allocation-base equality is required. This is a model
+cell result, pending checking, not yet a proof for Rust subobjects/byte layouts.
+The model resolution theorem relates future to current of the same original
+semantic reference. The raw-view and raw-offset type-spec candidates retain
+ONE original loan resource; the copyable `ptr_ty` view has no memory authority.
+
+The operational adequacy instantiation is deliberately a **model-limit
+control**, `empty_heap_offset_adequate`: VerusBelt accepts arbitrary mathematical
+pointer offset even on an empty heap. `raw_read_empty_head_stuck` is a proposed
+proved control showing raw-pointer type membership does not authorize a read.
+These are not native source adequacy. A closed/source-typed handoff adequacy
+instantiation and the Rust input-to-model interpretation remain open.
+
+## Actual independently fresh source evidence
+
+The inherited unmodified Rust 1.99.1 extractors were rebuilt privately and run
+normally, including the original borrowck provider and normal compiler analysis.
+`/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json` succeeded. It extracts
+six instances, 44 operations and the original array -> reborrow -> unsize ->
+native constructor operand chain. There are two physical call edges and three
+empty drop-glue queries, not three additional runtime destructor calls.
+The existing source-selected 49-step/115-proof ghost trace is not reinterpreted
+as a native proof and is not duplicated here.
+
+`source-obligations.json` covers all 44 actual operations, with payload hashes,
+instance identities, candidate existing model rules and precise unproved
+simulation obligations. All 44 currently reject as native semantic evidence.
+Pre-borrowck FakeRead, call cleanup, and unwind-resume are additionally explicit
+phase/exception obligations. No omitted cleanup or empty drop body supplies a
+logical loan-release/future-value theorem. The impossible u8 ZST branch still
+requires a checked CTFE/source-phase exclusion correspondence.
+
+Eight guarded source controls pass: wrong original loan, missing loan issue,
+incomplete inventory, unknown retag, wrong raw-borrow kind, wrong byte-offset
+operation, wrong input extent and missing physical drop instance. These are
+eligibility rejections, not semantic negative proofs. Three guarded readiness
+controls reject missing readiness, unchecked baseline, and failed final build
+receipt before any prover command. They are setup controls, not counterexamples.
+The committed result hashes bind durable private receipts; raw MIR, binaries,
+large logs and failed trials remain private.
+
+## Exact remaining connection
+
+The semantic reference interpretation is furnished by a **lambda-Verus semantic
+typing derivation**. No checked derivation/import maps the actual incoming Rust
+`&mut [u8;128]` into it yet. That link is not turned into a user precondition or
+an assumed native theorem. The model's initialized physical cells must be
+related to the actual Rust subobject's initialized bytes and provenance, for
+all valid inputs and arbitrary strict subobjects of a containing allocation.
+The ordinary source borrowck operand witness is identity/type evidence, not
+that interpretation theorem.
+
+Next, actual RawPtr, pointer metadata/thinning/unsizing, NonNull transparent
+transmute and valid range, fixed-width byte Offset to one-past, copy/move/retag,
+aggregate and source call/return/drop/unwind require native primitive and phase
+simulation. VerusBelt lacks several of these Rust primitives and uses unbounded
+integer cells/locations. Its type-spec soundness theorem cannot certify an
+unproved Rust-to-model translation. See `FOUNDATION_COMPARISON.md` and the
+operation-specific rejected map. Source identity and equal layout size do not
+prove these semantics.
+
+Finally the restored semantic reference's future must be imported as
+`final(original Rust array)` through the existing Verus reborrow/update-current,
+unsize and native summary chain. Within-model preservation of a prophecy index
+is not this cross-kernel/import proof. No external process exit/status/hash may
+assert such a fact. No publication interface or production hook is installed.
+
+Full Zip still needs all 128 pending slots, physical Zip.index and fixed inner
+cursors, getters/raw references and key extent/read authority, XOR stores,
+truncated None, helper/intrinsic/exception/drop behavior and original-array
+reconstruction. All key lengths, including 0 and >128, remain required. An empty
+key may be a nonnull aligned dangling pointer with zero readable bytes and no
+live containing allocation. Disjoint pad/key byte regions inside ONE allocation
+are permitted. No new application permission/precondition is added.
+
+## Dependencies and reproduction
+
+The proof dependency is official VerusBelt
+`115a618dd35ff8337112cf2081a7f5391d3973d5`, with bundled Iris4.3.0 and stdpp1.11.0,
+OCaml4.14.2 and Coq8.20.0 supplied by the parent. The source is unmodified; the
+parent owns installation and the baseline build. `check.py` requires both
+`baseline-ready.json` and its successful final receipt, including completed
+build/kernel-check commands. It uses the parent's private `run-rocq` wrapper.
+Compilation and recursive coqchk of every new proof are required; no Axiom,
+Admitted, unchecked native summary or bypass flag is introduced. Transitive
+Print Assumptions are inspected separately from all unproved native claims.
+RefinedRust e39cd5f1 is inspection-only and is neither built nor imported.
+
+With fresh output directories, from the repository root:
+
+```sh
+python3 -B -O source/tools/research/native_heap_lowering/extract.py \
+  --freeze source/tools/research/native_heap_lowering/final-freeze.json \
+  --output /tmp/fresh-semantic-source
+python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
+  --freeze source/tools/research/native_semantic_bridge/loan-v5-freeze.json \
+  --extraction /tmp/fresh-semantic-source --output /tmp/fresh-semantic-map
+python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
+  --freeze source/tools/research/native_semantic_bridge/loan-v5-freeze.json \
+  --extraction /tmp/fresh-semantic-source --output /tmp/fresh-semantic-audit
+python3 -B -O source/tools/research/native_semantic_bridge/check.py \
+  --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
+  --freeze source/tools/research/native_semantic_bridge/loan-v5-freeze.json \
+  --output /tmp/fresh-semantic-proofs
+```
+
+No new Verus proof/helper is executed in this foundation lane. The helper set
+is empty; no inference statuses are fabricated. The shared guarded receipt
+controllers use explicit require checks under Python -B -O. Rocq normal kernel
+checking, rather than a pretend Verus no-cheating flag, governs the proof trial.
