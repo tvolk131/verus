@@ -15,7 +15,7 @@ Lemma top_write_pre cids p pm prot tail :
 Proof.
   intros PM. rewrite /access1_pre.
   exists 0%nat, (mkItem pm (Tagged p) prot).
-  destruct PM as [->|->]; simpl; repeat split; try done;
+  destruct PM as [PM | PM]; subst pm; simpl; do 4 (split; [done|]);
     intros j jt LT _; lia.
 Qed.
 
@@ -96,7 +96,8 @@ Lemma nonempty_reference_result alpha next c cids l old rk n new alpha' next' :
     Some (new, alpha', next') ->
   new = Tagged next /\ next' = S next.
 Proof.
-  intros POS RT. eapply retag_change_ref_NZST; [exact POS|exact RT].
+  intros POS RT. exact (retag_change_ref_NZST alpha next cids c l old rk
+    Mutable (FixedSize n) new alpha' next' POS RT).
 Qed.
 
 Lemma empty_reference_result alpha next c cids l old rk :
@@ -107,7 +108,7 @@ Proof. destruct rk; reflexivity. Qed.
 Lemma reference_outside_stack_frame alpha next c cids l old rk n new alpha' next' :
   retag alpha next cids c l old rk (RefPtr Mutable) (FixedSize n) =
     Some (new, alpha', next') ->
-  forall outside, (forall i, (i < n)%nat -> outside <> l +ₗ i) ->
+  forall outside, (forall i, (i < n)%nat -> outside ≠ l +ₗ i) ->
     alpha' !! outside = alpha !! outside.
 Proof.
   intros RT. exact (proj1 (retag_Some alpha next c cids l old rk
@@ -142,8 +143,8 @@ Qed.
 Lemma all_reference_steps_keep_initialized_vector fns (ptr : result) pk T rk
     e' sigma sigma' l (bytes : list Z) :
   (Retag ptr pk T rk, sigma) ~{fns}~> (e', sigma') ->
-  (forall i b, bytes !! i = Some b -> sigma.(shp) !! (l +ₗ i) = Some (ScInt b)) ->
-  forall i b, bytes !! i = Some b -> sigma'.(shp) !! (l +ₗ i) = Some (ScInt b).
+  (forall (i : nat) b, bytes !! i = Some b -> sigma.(shp) !! (l +ₗ i) = Some (ScInt b)) ->
+  forall (i : nat) b, bytes !! i = Some b -> sigma'.(shp) !! (l +ₗ i) = Some (ScInt b).
 Proof.
   intros STEP INIT i b LOOK.
   rewrite (all_reference_steps_keep_heap fns ptr pk T rk e' sigma sigma' STEP).

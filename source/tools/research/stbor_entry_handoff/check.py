@@ -62,9 +62,51 @@ def main():
     save(d/'pretrial-freeze.json',dict(sources=sources,controller_sha256=sha(__file__),
         foundation_guard_sha256=sha(d/'foundation-guard.json'),mode=mode))
     args=['-coqlib',str(PREFIX/'lib/coq'),'-Q',str(UP),'stbor','-Q',str(d),'handoff']
-    if mode=='build':
+    if mode in ('build','accept'):
         code=run('compile',[str(PREFIX/'bin/coqc')]+args+[str(d/'candidate.v')],d,env,sources)
     else: raise SystemExit('unknown mode')
+    if code==0 and mode=='accept':
+        declarations={}
+        for line in (d/'candidate.glob').read_text().splitlines():
+            m=re.match(r'^(def|prf|ind|constr|rec|proj|inst) (\d+):(\d+) (\S+) (\S+)$',line)
+            if m:
+                kind,a,b,scope,base=m.groups()
+                name='handoff.candidate.'+('' if scope=='<>' else scope+'.')+base
+                declarations[name]=dict(glob_kind=kind,source_start=int(a),source_end=int(b))
+        assert declarations
+        (d/'declarations').mkdir()
+        query=['Require handoff.candidate.', 'Set Printing Width 1000000.', 'Set Printing All.', 'Set Printing Universes.']
+        for i,(name,x) in enumerate(sorted(declarations.items())):
+            x['index']=i
+            query += [f'Redirect "{d}/declarations/{i}-type" Check {name}.',
+                      f'Redirect "{d}/declarations/{i}-assumptions" Print Assumptions {name}.']
+        (d/'inventory.v').write_text('\n'.join(query)+'\n')
+        code=run('inventory',[str(PREFIX/'bin/coqtop'),'-quiet','-batch']+args+['-l',str(d/'inventory.v')],d,env,sources)
+        assert code==0
+        for name,x in declarations.items():
+            for kind in ['type','assumptions']:
+                p=d/f'declarations/{x["index"]}-{kind}.out'
+                t=p.read_text(); assert t.strip() and 'Error:' not in t
+                x[kind+'_text']=t; x[kind+'_sha256']=sha(p)
+            assert 'Closed under the global context' in x['assumptions_text']
+        save(d/'declaration-inventory.json',declarations)
+        modules=load(BASE/'manifests/object-dependency-map.json')['modules']
+        code=run('kernel',[str(PREFIX/'bin/coqchk')]+args+['-o']+sorted(modules)+['handoff.candidate'],d,env,sources)
+        assert code==0
+        text=(d/'kernel.log').read_text()
+        checked=set(re.findall(r'^Checking library: (\S+)\s*$',text,re.M))
+        own=set(re.findall(r'^\s*checking cst:(handoff\.\S+)\s*$',text,re.M))
+        assert checked==set(modules)|{'handoff.candidate'}
+        assert own==set(declarations), (own-set(declarations),set(declarations)-own)
+        assert 'Modules were successfully checked' in text
+        objects={}
+        for m in re.finditer(r'\[intern (.*?) \.\.\.',text):
+            p=Path(m.group(1)); p=p if p.is_absolute() else d/p
+            objects[str(p)]=dict(object_sha256=sha(p),source_sha256=sha(p.with_suffix('.v')) if p.with_suffix('.v').exists() else None)
+        save(d/'loaded-objects.json',objects)
+        save(d/'acceptance.json',dict(declarations=len(declarations),all_individually_closed=True,
+             checked_modules=sorted(checked),objects=len(objects),kernel_context=text[text.rfind('==============='):],
+             compiled_source_sha256=sha(d/'candidate.v'),object_sha256=sha(d/'candidate.vo')))
     assert foundation()==inputs
     products={str(p.relative_to(d)):sha(p) for p in d.iterdir() if p.is_file()}
     save(d/'products.json',products)
