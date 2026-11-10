@@ -3,7 +3,7 @@
   "normally_compiled_progress": true,
   "quick_assumptions": "entry_progress and entry_inserted_compatible CLOSED; complete audit pending",
   "source_sha256": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
-  "successful_compilation_receipts": {
+  "development_compilation_receipts": {
     "interface-02": {
       "argv": [
         "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
@@ -110,5 +110,6 @@
         "/tmp/tree-borrows-entry-handoff-20261110/final-01-source/Entry.vo": "9c7b77ede542b0a95cd244ed631189c7eeb0d7915c071536048ca8b1a540d0b6"
       }
     }
-  }
+  },
+  "receipt_classification": "Development history includes successful compilations AND failed elaboration; use exact final receipts for acceptance."
 }

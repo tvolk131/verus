@@ -51,7 +51,7 @@
     "COMMANDS.json": "650376b7a2f9f97108234af9c5d74cd10cab3ae0a05c54f4a4ef76322d86f50f",
     "Entry.v": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
     "INVENTORY.json": "3e092159c91263a8f49358007252abb7200fedd2d2607cbc0203ff67227261d9",
-    "MILESTONE.json": "0604189c2329518a6430fa70512aa659acd603b7700fd757d84d66a002909f9f",
+    "MILESTONE.json": "e2825c81745c1fdc95b4b99ced0c0cd2db5a5b9e2a94f7dd5817455bfbfa5e79",
     "OBJECTS.json": "2717ccd6333174af211b6f2117d89255cb6c9abc562373a1680c3152837e3db7",
     "PLAN.md": "b12a161ab9d88c23db9cc5ef8e0b754e39662b9a064931c9981ad2096433b80c",
     "REPORT.md": "64567843b9579e9f4d2e6562e8d7a4bb6608604f9dee28fe98eb51b868bd9d3a",
@@ -61,5 +61,9 @@
     "check.py": "b9e13b554de493bf77c4b6efdb06f413718a45aa13c788f9304f33051e3c9431",
     "finalize.py": "9c81c0a279c9ee841abe04cbac5892d8823ff1190f758992426c2ffe948cab55",
     "inventory.py": "2ec9d231fea484436933f6ad7995b5270dd3014fc9e33ea190f04d051f2bc80e"
+  },
+  "metadata_correction": {
+    "finding": "e03ce8c2 P3",
+    "change": "Renamed misleading milestone receipt collection; preserved every original receipt and exit. Proof source/object and final receipt identities unchanged."
   }
 }

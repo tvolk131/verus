@@ -1,25 +1,29 @@
 #!/usr/bin/env python3
 """Compact evidence from finished private receipts; no acceptance by exit alone."""
-import hashlib, json, re
+import hashlib, json, re, os
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
-ROOT=Path('/tmp/stbor-entry-handoff-20261110')
+ROOT=Path(os.environ.get('STBOR_ENTRY_OUTPUT_ROOT', '/tmp/stbor-entry-handoff-20261110'))
 BASE=Path('/tmp/stbor-checked-foundation-20261110')
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def load(p): return json.loads(p.read_text())
 def save(p,x): p.write_text(json.dumps(x,sort_keys=True,indent=2)+'\n')
 def ref(p): return dict(path=str(p),sha256=sha(p))
+def require_check(condition, message):
+    if not condition:
+        raise RuntimeError(message)
+
 trials=[ROOT/('trial%03d'%i) for i in range(1,12)] + [ROOT/'accepted013',ROOT/'accepted025']
 accepted={}
 for name,count in [('accepted013',13),('accepted025',25)]:
     d=ROOT/name; a=load(d/'acceptance.json')
-    assert a['declarations']==count and a['all_individually_closed']
-    assert load(d/'kernel.json')['exit_status']==0
-    for file,h in load(d/'products.json').items(): assert sha(d/file)==h
+    require_check(a['declarations']==count and a['all_individually_closed'], 'Required proof/artifact check failed at original line 16')
+    require_check(load(d/'kernel.json')['exit_status']==0, 'Required proof/artifact check failed at original line 17')
+    for file,h in load(d/'products.json').items(): require_check(sha(d/file)==h, 'Required proof/artifact check failed at original line 18')
     if name=='accepted025':
-        assert load(d/'controller-exit.json')['exit_status']==0
+        require_check(load(d/'controller-exit.json')['exit_status']==0, 'Required proof/artifact check failed at original line 20')
         freeze=load(d/'pretrial-freeze.json')
-        assert sha(d/'controller.py')==freeze['controller_sha256']
+        require_check(sha(d/'controller.py')==freeze['controller_sha256'], 'Required proof/artifact check failed at original line 22')
     accepted[name]=ref(d/'acceptance.json')
 commands=[]; attempts=[]
 for d in trials:
@@ -27,8 +31,8 @@ for d in trials:
     for p in sorted(d.glob('*.json')):
         x=load(p)
         if 'argv' not in x: continue
-        assert x['state']=='finished'
-        assert sha(x['log'])==x['log_sha256']
+        require_check(x['state']=='finished', 'Required proof/artifact check failed at original line 30')
+        require_check(sha(x['log'])==x['log_sha256'], 'Required proof/artifact check failed at original line 31')
         receipts.append(p.name)
         commands.append(dict(trial=d.name,receipt=ref(p),argv=x['argv'],cwd=x['cwd'],
             environment=x['environment'],exit_status=x['exit_status'],
@@ -41,7 +45,7 @@ for d in trials:
     if (d/'foundation-guard.json').exists(): entry['foundation_guard']=ref(d/'foundation-guard.json')
     if d.name=='trial007':
         entry.update(classification='setup_scan_aborted_before_formal_command',setup=ref(d/'setup-aborted.json'))
-        assert not receipts
+        require_check(not receipts, 'Required proof/artifact check failed at original line 44')
     else:
         failed=[x for x in commands if x['trial']==d.name and x['exit_status']!=0]
         entry['classification']='proof_elaboration_failure_not_semantic_negative' if failed else 'normal_success_not_independent_acceptance'
@@ -54,17 +58,17 @@ final=ROOT/'accepted025'
 inv=load(final/'declaration-inventory.json')
 compact={}
 for name,x in inv.items():
-    assert x['assumptions_text'].strip()=='Closed under the global context'
+    require_check(x['assumptions_text'].strip()=='Closed under the global context', 'Required proof/artifact check failed at original line 57')
     compact[name]={k:v for k,v in x.items() if k not in ('type_text','assumptions_text')}
     compact[name]['assumptions']='Closed under the global context'
 for f in ['candidate.v','composition.v']:
-    assert sha(HERE/f)==sha(final/f)
+    require_check(sha(HERE/f)==sha(final/f), 'Required proof/artifact check failed at original line 61')
 map=load(final/'object-dependency-map.json')
 objects={name:{k:x[k] for k in ('object','object_sha256','source_sha256')}
          for name,x in map['modules'].items()}
 a=load(final/'acceptance.json')
-assert set(objects)==set(a['checked_modules'])
-for name,x in objects.items(): assert sha(x['object'])==x['object_sha256']
+require_check(set(objects)==set(a['checked_modules']), 'Required proof/artifact check failed at original line 66')
+for name,x in objects.items(): require_check(sha(x['object'])==x['object_sha256'], 'Required proof/artifact check failed at original line 67')
 save(HERE/'COMMANDS.json',dict(commands=commands,attempts=attempts,
     command_count=len(commands),raw_logs_private=True,
     setup_note='Initial Git author setup failure exists in tool transcript only; command-local identity used thereafter.'))
