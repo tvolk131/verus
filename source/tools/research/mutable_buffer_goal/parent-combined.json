@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "goal_complete": false,
+  "scope": "combined canonical and observation integration; full HMAC still unproved",
+  "engine_checkpoint": "f3a0f750",
+  "source_inventory_checkpoint": "61f21823",
+  "policy": 68,
+  "candidate_cache": 71,
+  "schema_version": 38,
+  "body_checking": "Both decorators register full-function well-formedness and mode checking; refresh resolution maps once through common body_rechecks.",
+  "preparation_order": "Numeric source recognition before observation snapshots/invariants; observer allocator reserves IDs from all preceding functions/proposals.",
+  "matching_build": {
+    "compiler": {
+      "passed": true,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-build.log",
+      "sha256": "1f33edea558e05ba1fbf1239ecfa153f411980eb3a9030d56ba9ca784dddfc7a"
+    },
+    "vstd": {
+      "verified": 2226,
+      "errors": 0,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-vstd.log",
+      "sha256": "45392a3e3f6ee42e1a20061e507bb3fa5d9c71ed1c31884ffbd09305c6c5da04"
+    }
+  },
+  "vir_tests": {
+    "passed": 148,
+    "failed": 0,
+    "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-vir.log",
+    "sha256": "a901092d59d2d878454427632639c2684907de9048ee4537e6813a02867b635a"
+  },
+  "canonical": {
+    "accepted_cases": 26,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-canonical/canonical-ocjo538p/receipt.json",
+    "sha256": "b0ae03a299d2c0b8db0c0a2bd6562438169255ce6b277731972cb4e9b7ff37fc",
+    "audit": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-canonical-audit.json",
+    "audit_sha256": "acc07dbba7d861455774e39f20e4242d2310d80e3d888c87728cce78ee9f45a0",
+    "cold_and_warm": "6/0",
+    "checked_exec_bodies": [
+      "u64"
+    ],
+    "checked_proof_bodies": [],
+    "inferred_helpers": []
+  },
+  "observation": {
+    "accepted_expected_outcomes": 23,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-observations/observations-o697itoa/receipt.json",
+    "sha256": "25c07615e620700886979f1c5b30f0a3180b1ad2906a4647b18399c54a37126f",
+    "prefix_on": "2/0",
+    "prefix_off": "1/1",
+    "full_HMAC_on": "1/1 postcondition failure",
+    "redundancy": "Plain and manual canonical diagnostics pass both ways; no causal reduction claimed."
+  },
+  "runtime_artifact_hashes": {
+    "verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "rust_verify": "b326a22da4277ff99f91de0e0e6cfb0bba2d0a7c58c57402fe316cb5d845e0d5",
+    "vstd.vir": "6d4b960bc8ed6bddac16e2b6c8e4ba363282e3e2970b63b85b4b3a95ecef8d03",
+    "libvstd.rlib": "51bd10879860a7afdd241d3ddf3329984df27b1f2b4ed2afc69b5847755ea34b",
+    "libverus_builtin.rlib": "533370f5070c4a40683cbf83fd8117b7186acb89e9261fcdf54f60e6fd95760c",
+    "libverus_builtin_macros.so": "4b99f1ecface7f18d6a4ef5ede4c8d9e158a382c3f005309ff9da47165a131f2",
+    "libverus_state_machines_macros.so": "ca53fbdd3c50f9b9fbc8bf0992eb5372568822623f5aae5b14a11f605ed4e776",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "engine_source_hashes": {
+    "source/vir/src/infer/buffer_goals.rs": "d10c8f543053aa1ba68d720cc425bd9792453653c2bb8df6afa7ab2eb22b6941",
+    "source/vir/src/infer/buffer_observation_goals.rs": "9efc7018d2096560f24c8b9807bc9e844729b70dace037b85059451d48af5e76",
+    "source/vir/src/infer/native_mutable_for.rs": "d888ca4cd64934527229714de7be21cc3a5519d741345205267b02c54f24ed8f",
+    "source/vir/src/infer.rs": "ac18f44aa8ef87b61b55a06363f787a42c196565ef9ac90306c2c1d47be0ad83",
+    "source/vir/src/infer/pipeline.rs": "ae81157de82ba58e544c0e50b94a63eb6452740865526c0f1475860e02b0602a",
+    "source/vir/src/infer/report.rs": "c899eb47ac3b8810e49c08d424e2a76c8fff576a36de7327103e906a39d0c1f7",
+    "source/vir/src/infer/registry.rs": "40b10fee4214a63bf98b0875cf794d428649dee8435b63b1df7284a2c35836a0",
+    "source/rust_verify/src/query.rs": "87b32963a7ceefff37267d5eb6835b442c06db758706cda59bfcda575fd5815d",
+    "source/rust_verify/src/import_export.rs": "887196d254f46baac080109d8e1b3f8407fa314128f3fdc261ebf5902e90fd62"
+  },
+  "focused_compiler_tests": "17 combined tests running; not yet evidence",
+  "independent_canonical_review": {
+    "commit": "4d53db35",
+    "recommendation": "accept scoped canonical integration; no blocking findings",
+    "scope": "395c8299, before shared observations; not full-goal acceptance"
+  },
+  "remaining": [
+    "prove native input-borrow ownership entry and all native effect/refinement obligations",
+    "actual shared proof-producing step on both full frozen properties",
+    "full HMAC XOR-prefix and unchanged-suffix theorem",
+    "broader combined regression/replay and fresh independent combined acceptance"
+  ]
+}
