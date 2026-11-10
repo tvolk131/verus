@@ -1,0 +1,14 @@
+{
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/native_borrow_entry/extract.py": "e75d1be44939d1ebe0d97dcd29fc7940bf11eb659b8eeba897697b18c1ebfe8e",
+    "source/tools/research/native_borrow_entry/src/main.rs": "6a7d24748209ff29ea2b2d7431c08423717536fb9cf0ac09f01e615c959e1034",
+    "source/tools/research/native_borrow_entry/Cargo.toml": "89a95d2671e446ecffa8e9785a51956a10ad2b3ba50fc88a0dc826b64c031b10",
+    "source/tools/research/native_borrow_entry/Cargo.lock": "a06177a9bf0376806f536461a33a981d1c606accdedd4f3af9df5ed975b9df09",
+    "source/tools/research/native_borrow_entry/fixtures/original.rs": "cabaa3bd155a4ce45231340d7f68242f8b590e92125db514fd3fbded41546549",
+    "source/tools/research/native_iterator_certificate/src/ir.rs": "597d6cc9aae645821f5a3df003ca1f41de89f2d2cd0d50da9cdf8412e6b5547e"
+  },
+  "cases": [
+    "original"
+  ]
+}

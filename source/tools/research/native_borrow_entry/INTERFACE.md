@@ -51,3 +51,73 @@ Private trial receipts: `/tmp/native-borrow-entry-61f21823/entry-v1/receipt.json
 The immutable copied bundle is canonical 112a33, before shared observations;
 this is not a matching build of later compiler changes. Bundle hashes and
 separate inodes are recorded in `bundle-identity.json`.
+
+## Routed interface update
+
+`candidates/tracked-slice-v2/probe.rs` checks **2/0** ordinarily:
+
+```rust
+fn enter<'a>(buf: &'a mut [u8;128]) -> (out: Tracked<&'a mut [u8]>)
+    ensures (out@)@ == old(buf)@, final(out@)@ == final(buf)@;
+proof fn borrow_slot<'a>(tracked buf: &'a mut [u8], i: int)
+    -> (tracked out: &'a mut u8)
+    requires 0 <= i < buf.len(),
+    ensures *out == old(buf)@[i],
+            final(buf)@ == old(buf)@.update(i,*final(out));
+```
+
+The implementation first performs the **executable** array-to-slice coercion,
+then takes a tracked reborrow of that slice. The slot helper uses the inherited
+`slice::tracked_borrow_mut` axiom, not a new axiom. This refines the initial API
+search: an existing tracked reference *can* be obtained from the executable
+input; a spec sequence or PointsTo need not be invented. It is still a reference
+to an exec-mode location. It cannot authorize proof-mode byte writes, and it
+has not been paired with the actual native iterator constructor/getters. The
+mutable source-to-slot future equation is checked within inherited borrowing
+semantics; numeric addresses/provenance are not exposed by this API.
+
+The effect-conservation lane may use the **conditional** `Borrow`, `Heap`,
+`State`, `valid_input`, `wf`, `enter`, `issue`, `can_resolve`, `resolve`, `next`,
+`ready`, `release` signatures in `candidates/heap-foundation-v5/probe.rs`.
+All ten proof bodies check normally. These spec datatypes are a small explicit
+footprint calculus, **not** tracked physical permissions. `valid_input` remains
+a hypothesis and freely describable spec heaps cannot prove physical ownership.
+The heap retains all 128 slots. Its origin contains allocation identity, array
+identity and base; it retains the source-loan identity, initial values, current
+values, per-index retained/outstanding/resolved states and Zip's logical index.
+Physical base remains fixed. `key_len: nat` is unrestricted. No immutable-key
+heap semantics or native pointer/retag/unwind theorem is claimed by this calculus.
+
+The new `src/main.rs` obtains actual local borrowck facts before rustc steals
+MIR, then calls the **original** `mir_borrowck` provider and completes normal
+analysis. `entry_check.py` binds the typed local chain:
+
+```
+arg1: &mut [u8;128] -> reborrow local7 (exclusive loan0, region4)
+  -> executable unsize local6: &mut [u8] -> native iter_mut -> local5
+arg2: &[u8] remains the immutable key input
+```
+
+It checks array layout 128 bytes/alignment 1 using rustc queries, the actual
+loan reserve location/borrowed place/assigned place and a matching loan-issued
+fact. Names/hashes identify the constructor; no constructor body semantics is
+proved here. A conservative local-store/call guard rejects extra source writes
+and calls; the sibling native MIR checker remains responsible for real effects.
+The original source and five independently compiled, honestly rehashed source
+mutations plus an invalid-overlap lifetime control are replayed. Twelve forged
+witness/status/publication controls also reject. These are eligibility controls,
+not semantic/native proofs.
+
+The Rust signature carries an initialized exclusive array reference and a
+valid immutable slice. Reading each immutable key element, length/provenance
+validity and absence of overlapping mutable/shared referent access must follow
+from the interpretation of those **existing Rust types and borrow checking**.
+No new application precondition is imposed. What is checked now is the concrete
+input types, source reborrow chain and the local borrowck facts. What remains a
+hypothesis is their interpretation as `valid_input` and a shared key-read heap,
+including allocation provenance, validity, alias separation and future-array
+reconstruction. Rust compiler success alone is not that interpretation proof.
+
+All source/native publication remains unconditionally disabled, even for forged
+all-proofs-complete inputs. The tracked entry interface does not close actual
+native correspondence or the unchanged HMAC suffix.

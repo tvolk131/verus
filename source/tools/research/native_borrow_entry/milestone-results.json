@@ -1,0 +1,470 @@
+{
+  "schema": 1,
+  "native_bridge_proved": false,
+  "publication": false,
+  "ordinary": [
+    {
+      "run": "entry-v2",
+      "id": "exec-carrier-v2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "74459adbbc52618a5dea3ab71a87bfc4bc3283bfd7f48b9f5535ad59c2ca03ef",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "8e40bf15bf9b10a9a7b330a974e37a9375dee9b54765b29d7b665cc5f7bba753"
+    },
+    {
+      "run": "carrier-v3",
+      "id": "exec-carrier-v3",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "afc4ec33022e8b70f1977f629e6c14e46becba5dbea651c09127cc70ce62d03d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "9ade8914bf96e4464d4180c142e0e1b12c1c3da2264a764e3aa34ecbb25025f2"
+    },
+    {
+      "run": "carrier-v3",
+      "id": "native-drop-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "a8a77d9c653ed806496c20af16e1f56439a3b278701f73e72a3a8588f5265343",
+      "stderr_sha256": "ae8b633eb6626a4088ee2ef06bb126d8f684dc906648eb51fb9bbfc40b5fb88e",
+      "receipt_sha256": "9ade8914bf96e4464d4180c142e0e1b12c1c3da2264a764e3aa34ecbb25025f2"
+    },
+    {
+      "run": "heap-v5",
+      "id": "heap-foundation-v5",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 10,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "196ed142efcb253d5a4d3b2617a80a826409d787c8b5b5c203ec2a8eed6edda7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-duplicate-slot-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "a1469108870e30cfba5febafb1d0e691667c81735a6bdf0a87646a352002cd93",
+      "stderr_sha256": "2bdae5ec5401d9ed38e7707050866a798e8c817be377658a2a26540f38102d60",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-lost-slot-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "215eec22caa55fdf6442b34a671fd638371de64173bebc54c5b3de768afa26ad",
+      "stderr_sha256": "1204c0368b3fbc19a612be18ec7b2db6533e28406f47729084195d5c1b7ce829",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-wrong-allocation-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "1974a0cfe4ddd9d4f1c5f3b549db09c5ed88bf5951d52c72bb81f68341ef6251",
+      "stderr_sha256": "fef35d665e358b2ce271ea90b2eec3e1743cd740aeafc0423214b40f0059421f",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-wrong-array-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "ad1fd3d825f437ab5496c45a4b669bbb9b9818cceeb2689a469d1a9c56ec8872",
+      "stderr_sha256": "d6caa2abb111708aae989a23f84dffe9c5caf4d8abf86f357604e461ec5b5df5",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-unauthorized-tail-write-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "08219f26be76501e98c8ffbb2c28bb224b0c33d19d5717b3ae831dd9c9ae752b",
+      "stderr_sha256": "3f66e495aefa1e375001530f58463961990c866ea84cae485c815762eaa38b18",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-later-loan-write-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "c4a4df217feb9812c519f6182ed2569908f19aacb36a92ab93e6f259244d1f70",
+      "stderr_sha256": "cb7f045e1faee46926fc5503c891bde05f508cfd49011756d82051238b9a778b",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-wrong-initial-values-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "c1e6fa78cad81690548ce0482dc3b0dc4997863365018323f9c3362da7fc5e93",
+      "stderr_sha256": "17db5485bc7470f7ef2434dac79dc415cd248d094606670ac4a76864c861a0c3",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "heap-v5",
+      "id": "false-wrong-future-array-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "d3bf3aa294c3775f3fca5999e6ec527fa0b9c66f6ef13e85ee90986a9cbf4e2d",
+      "stderr_sha256": "51930020105961272b048dbc89613dbe90b18ea5143483322fb4631b6cb9d938",
+      "receipt_sha256": "91077ce10778ceb96fa6543f55cd38d8005d88bd8fa92eac5fe995de2355ab84"
+    },
+    {
+      "run": "tracked-reborrow-v1",
+      "id": "tracked-reborrow-v1",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "09bfbaaf8406219be77c19315309b41d84edfa62161fdf109c0a43cdfccda4e3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "86a4d31f55ec30811a6f58e5c7e0eed335f24a2797e2ca30c495c21a87e0f11c"
+    },
+    {
+      "run": "tracked-slice-v2",
+      "id": "tracked-slice-v2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "49a907fd16f35bbae44d8a79dbbc3a14b5cab81ec8af8e4526eaa834683e04c1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "f5416f1891b55fa60d0bdb8316fbcefd0775a9effcc15580a757ff1d88abe26a"
+    },
+    {
+      "run": "simultaneous-v2",
+      "id": "simultaneous-owner-v2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "stdout_sha256": "d9c56d7ebc9611060fc7c5b73fc1bf8f25baf2ba67ceb9870d99e10584ebc7c8",
+      "stderr_sha256": "844b5acb4a62e16be1574cc87a601261479523190af28d1bc1831b609b86ca5c",
+      "receipt_sha256": "e9788e052beb9268eeaa6ff513b980a1c8f9c8e408c080ab8114d3ae1143f07b"
+    },
+    {
+      "run": "entry-v1",
+      "id": "choose-permission-v1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      },
+      "stderr_sha256": "7519a1638c4b1c16f81be0141621187d8d675d0d3312dc6539c8d82ea148c348"
+    }
+  ],
+  "source_extraction": {
+    "receipt_sha256": "c4af9009fed3906b493cd49a79b41456b49367cbdcf08c1f5e871e8e8766f3a8",
+    "cases": [
+      {
+        "case": "original",
+        "source_sha256": "cabaa3bd155a4ce45231340d7f68242f8b590e92125db514fd3fbded41546549",
+        "evidence_sha256": "2d0882dd8ab183091542933563a04df1a987b077e2c41d5b0d4ff6bb00d6d7ed",
+        "classification": "entry-eligible",
+        "loans": 3,
+        "inspection": {
+          "typed_entry_eligibility": true,
+          "original_array_local": 1,
+          "extent": 128,
+          "reborrow_local": 7,
+          "slice_local": 6,
+          "iterator_local": 5,
+          "loan": {
+            "activation": "ActivatedAt(bb0[6])",
+            "assigned": {
+              "local": 7,
+              "projection": [],
+              "ty": "&mut [u8; 128]"
+            },
+            "borrowed": {
+              "local": 1,
+              "projection": [
+                {
+                  "op": "deref"
+                }
+              ],
+              "ty": "[u8; 128]"
+            },
+            "kind": "exclusive",
+            "loan": 0,
+            "region": 4,
+            "reserve": {
+              "bb": 0,
+              "statement": 5
+            }
+          },
+          "conditional_heap_entry_premise_verified": false,
+          "native_bridge_proved": false,
+          "publication": false,
+          "missing": [
+            "Rust-reference-validity-to-explicit-heap-refinement",
+            "actual-input-value-and-future-array-interpretation",
+            "native-constructor-and-getter-ownership-refinement",
+            "retag-provenance-alias-and-unwind-semantics"
+          ]
+        },
+        "native_bridge_proved": false
+      },
+      {
+        "case": "wrong-extent",
+        "source_sha256": "c59d266043d76a2084d782fcfb7a0e7108c11c67ee3d8fedaef90bbb67e3dfaa",
+        "evidence_sha256": "961f5cfd859fa05c335eebfe62657a402ce1e241654e6a0055fd2b86ee077478",
+        "classification": "eligibility-rejection",
+        "loans": 3,
+        "inspection": {
+          "rejected": true,
+          "reason": "input_domain_or_layout",
+          "semantic_negative": false
+        },
+        "native_bridge_proved": false
+      },
+      {
+        "case": "wrong-source-array",
+        "source_sha256": "a6b656e5b11c4b948073cc50f80e11feda064b740cb806f6897a5304de758336",
+        "evidence_sha256": "6fca638a7203ad21d87d818ce51f7898357d06de8c233473098df709330b4448",
+        "classification": "eligibility-rejection",
+        "loans": 3,
+        "inspection": {
+          "rejected": true,
+          "reason": "unsupported_entry_effect",
+          "semantic_negative": false
+        },
+        "native_bridge_proved": false
+      },
+      {
+        "case": "pre-tail-write",
+        "source_sha256": "620f02c3238c4915f590b090f558eff1a8e66a294f716bd02fd02876ac053d01",
+        "evidence_sha256": "5f8e70e4107db124211a11f6d3061ebac41ed2c9c6e24df8103469d917fcafbe",
+        "classification": "eligibility-rejection",
+        "loans": 3,
+        "inspection": {
+          "rejected": true,
+          "reason": "unsupported_entry_effect",
+          "semantic_negative": false
+        },
+        "native_bridge_proved": false
+      },
+      {
+        "case": "later-tail-write",
+        "source_sha256": "e7b443aea3048e16d22415f3848cf264bb4fb501fb816c06f959f25d9e818c61",
+        "evidence_sha256": "30a5d6a40db896dee1d14c610a3ac370695227267e1a4937d65a07077992ee4d",
+        "classification": "eligibility-rejection",
+        "loans": 3,
+        "inspection": {
+          "rejected": true,
+          "reason": "unexpected_local_write",
+          "semantic_negative": false
+        },
+        "native_bridge_proved": false
+      },
+      {
+        "case": "shared-input",
+        "source_sha256": "a422840b3b1e289173bb65c0af8d6402386da6246d7c43aae122d9d42f74c23e",
+        "evidence_sha256": "5301a5aaa405fa986e1381f545ee2a35280b65ae8f77c1b993e498a2e5429846",
+        "classification": "eligibility-rejection",
+        "loans": 2,
+        "inspection": {
+          "rejected": true,
+          "reason": "input_domain_or_layout",
+          "semantic_negative": false
+        },
+        "native_bridge_proved": false
+      },
+      {
+        "case": "invalid-overlap",
+        "source_sha256": "fac1d7e14ee4721a5c3dd19bb7cb31541f78a924f563f2d82e1f40bff1e12860",
+        "classification": "lifetime-rejection",
+        "native_bridge_proved": false
+      }
+    ],
+    "controls": [
+      {
+        "case": "forged-borrow-witness",
+        "reason": "borrowck_loan_witness",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-borrow-origin",
+        "reason": "borrowck_loan_witness",
+        "semantic_negative": false
+      },
+      {
+        "case": "missing-issue-fact",
+        "reason": "borrowck_issue_fact",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-layout",
+        "reason": "input_domain_or_layout",
+        "semantic_negative": false
+      },
+      {
+        "case": "unchecked-body",
+        "reason": "unchecked_Rust_body",
+        "semantic_negative": false
+      },
+      {
+        "case": "forged-publication",
+        "reason": "forged_publication",
+        "semantic_negative": false
+      },
+      {
+        "case": "publication-failed-True",
+        "reason": "failed_incomplete_resource_proof",
+        "semantic_negative": false
+      },
+      {
+        "case": "publication-incomplete-False",
+        "reason": "failed_incomplete_resource_proof",
+        "semantic_negative": false
+      },
+      {
+        "case": "publication-timeout-False",
+        "reason": "failed_incomplete_resource_proof",
+        "semantic_negative": false
+      },
+      {
+        "case": "publication-resource_limit-False",
+        "reason": "failed_incomplete_resource_proof",
+        "semantic_negative": false
+      },
+      {
+        "case": "publication-proved-False",
+        "reason": "failed_incomplete_resource_proof",
+        "semantic_negative": false
+      },
+      {
+        "case": "publication-proved-True",
+        "reason": "source_to_ownership_refinement_checker_missing",
+        "semantic_negative": false
+      }
+    ]
+  },
+  "excluded": [
+    {
+      "run": "entry-v1",
+      "case": "exec-carrier-v1",
+      "classification": "ambiguous-annotation-frontend"
+    },
+    {
+      "run": "extract-v1",
+      "classification": "setup-nightly-flag-rejection"
+    },
+    {
+      "run": "extract-v2",
+      "classification": "stolen-MIR-compiler-panic"
+    },
+    {
+      "run": "extract-v3",
+      "classification": "compiler-API-build-error"
+    },
+    {
+      "run": "heap-v1",
+      "classification": "unproved-proposal-5-verified-3-errors"
+    },
+    {
+      "run": "heap-v2",
+      "classification": "unproved-proposal-7-verified-1-error"
+    },
+    {
+      "run": "heap-v3",
+      "classification": "unproved-proposal-7-verified-1-error"
+    },
+    {
+      "run": "tracked-slice-v1",
+      "classification": "exec-coercion-in-proof-frontend"
+    },
+    {
+      "run": "tracked-slice-v2",
+      "case": "simultaneous-owner-v1",
+      "classification": "ghost-indexing-frontend-not-lifetime-evidence"
+    }
+  ],
+  "private_root": "/tmp/native-borrow-entry-61f21823"
+}

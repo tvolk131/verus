@@ -1,0 +1,21 @@
+{
+  "id": "tracked-reborrow-v1",
+  "before_first_trial": true,
+  "source_sha256": "88863b708738b0f20342043c5ebeb16627b28004daae02e8e25fce9039577aef",
+  "classification": "positive",
+  "exec_bodies": [
+    "enter"
+  ],
+  "proof_bodies": [],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "exec buf:&mut [u8;128]; no permission input"
+  ],
+  "expected_verified": 1,
+  "expected_errors": 0
+}

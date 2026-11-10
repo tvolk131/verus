@@ -1,0 +1,20 @@
+{
+  "id": "native-drop-v1",
+  "before_first_trial": true,
+  "source_sha256": "9fe7fca4434234977b11889229fb07a56c9cdce89e70e08d3d555bf966ca6b93",
+  "classification": "semantic-negative",
+  "exec_bodies": [
+    "native_handoff"
+  ],
+  "proof_bodies": [],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "exec &mut [u8;128]; split additionally mid <=128"
+  ],
+  "failure_kind": "postcondition not satisfied"
+}
