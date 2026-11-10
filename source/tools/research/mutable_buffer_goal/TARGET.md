@@ -21,10 +21,13 @@ Subsequent combined reviews found observer eligibility bugs and a stale reportin
 test: [initial findings](../../../../evidence/shared-buffer-review/REVIEW.md) and
 [alias follow-up](../../../../evidence/shared-buffer-fix-review/FINDINGS.md).
 The full 32-target compiler suite passed 611 tests at `ea897a9b`, but the alias
-follow-up still requested changes. The declaration/match fixes (`9a44a124`) and
-constructor-to-loop binding fix (`d35c31fa`) are undergoing matching validation
-and a new independent review. Earlier green receipts describe their historical
-source checkpoints; they do not establish acceptance of the current branch.
+follow-up still requested changes. The declaration/match and constructor-to-loop fixes passed matching validation:
+[32 targets / 618 tests, 26 canonical and 23 observer cases](parent-observer-origin.json).
+A new independent review closed those findings but found mutable/effectful Zip
+key operands. The stable-key restriction (`a93b774a`) passes 31 focused tests,
+148 VIR tests and both replay suites; its [full validation and recheck](parent-stable-key.json)
+remain pending. Earlier green receipts describe their historical source
+checkpoints; they do not establish acceptance of the current branch.
 
 The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
 HMAC ipad-XOR loop, with arbitrary initialized `[u8;128]` and arbitrary key length.
@@ -36,7 +39,11 @@ it fails 1/1. The full property still fails 1/1. Preserve this
 property/domain and the distinction between concrete-model evidence and a law
 for the actual native opaque types. [transfer-freeze.json](transfer-freeze.json)
 binds the original pretrial source freeze; this is a byte-writer theorem, not an
-HMAC/security claim.
+HMAC/security claim. A [45-case controlled ablation](../shared_observation_ablation/REPORT.md)
+finds the observer entirely redundant for full canonical encoding, necessary as
+a group for Zip prefix, and its capacity proposal redundant for both. Necessary
+shared proof work across the full properties is not confirmed; parser reuse or
+running both under one flag does not establish it.
 
 The remaining model task is a checked native ownership/refinement bridge.
 Checked reference entry and 18 conditional linear-resource proofs are preserved,

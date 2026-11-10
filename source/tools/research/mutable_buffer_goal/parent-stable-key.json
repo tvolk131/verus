@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "engine_checkpoint": "a93b774a",
+  "scope": "Stable immutable Zip operand eligibility; matching full regression still in progress",
+  "fix": "Require a bare immutable Exec parameter key value; unsupported/reassigned/effectful operands receive ordinary verification unchanged.",
+  "authored_fixture_source_domain_predicate_changes": false,
+  "matching_compiler_and_vstd": "passed;2226/0",
+  "VIR": {
+    "passed": 148,
+    "log": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-vir.log",
+    "sha256": "ca8404d49d771c12e5d1109e055765d2f875a4d33be5b7a4b6f01f28615e3379"
+  },
+  "focused_compiler_targets": [
+    {
+      "target": "infer_buffer_observation_goals",
+      "passed": 23,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    },
+    {
+      "target": "infer_mutable_buffer_goals",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0
+    }
+  ],
+  "canonical_receipt": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/canonical/canonical-zgtzh85h/receipt.json",
+  "canonical_receipt_sha256": "2dda5d93603528fe2623f4e37bc7cbaa48a537e3184c653a1abe1a4028f4ed3a",
+  "canonical_cases": 26,
+  "observer_receipt": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/observations/observations-a8su2l54/receipt.json",
+  "observer_receipt_sha256": "871dc66e8484bc374698c55678a566a4fcfa1bdbd13fa40eb192f3b8d5aee862",
+  "observer_cases": 23,
+  "full_compiler_suite": "in progress; no complete-scope claim yet",
+  "full_validation_receipt": "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/receipt.json",
+  "independent_review": "pending NEW recheck",
+  "policy": 68,
+  "candidate_cache": 71,
+  "metadata_schema": 38,
+  "full_HMAC": "1/1 unproved in replay",
+  "native_correspondences_proved": 0,
+  "goal_complete": false
+}
