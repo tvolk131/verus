@@ -142,7 +142,7 @@
       "aea14e56"
     ],
     "freeze": "native_semantic_bridge/full-snapshot-freeze.json",
-    "positive_model_and_inspection_replay": "running",
+    "positive_model_and_inspection_replay": "Model compile/kernel passed;42-constant inspection and final acceptance controls still running",
     "root_job": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-job.json",
     "full_validation_receipt": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/receipt.json",
     "earlier_ten_race_refusals": "/tmp/verus-infer-buffer-cycle-20261109/snapshot-acceptance-races/receipt.json",
@@ -150,6 +150,12 @@
     "corrected_inventory_and_race_rerun": "running",
     "setup_failure_excluded": "/tmp/verus-infer-buffer-cycle-20261109/snapshot-validation-e6ce22cf/receipt.json",
     "failure_before_any_prover": true,
-    "independent_review": "pending NEW recheck"
+    "independent_review": "Previous attempt automatically rejected for possible cybersecurity risk before completion; source-only review pending",
+    "positive_model_receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/receipt.json",
+      "sha256": "46e35308c297fd6c5eb9ce0fe94b80f86b094d4c6f59493962dee5eb8e34d562",
+      "assumption_constants": 25,
+      "original_four_objects_match": true
+    }
   }
 }

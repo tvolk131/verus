@@ -260,3 +260,12 @@ file. The failed setup receipt is retained at
 it is excluded from semantic evidence. Fresh corrected replay is running under
 `full-snapshot-freeze.json`. All four selected mathematical sources remain
 unchanged.
+
+
+The corrected retained-snapshot model replay passed all four normal compilations,
+the 25-constant assumption inventory and recursive kernel checking. All four
+proof objects remain byte-identical to the original accepted model objects.
+Receipt: `/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/receipt.json`.
+The enclosing inspection/control batch remains in progress; no full-batch
+acceptance is claimed. The first new independent review was automatically
+rejected before completion and supplies no acceptance evidence.
