@@ -1,0 +1,1 @@
+{"file":"../buffer_transfer_goal/full-manual-bounds.rs","positive":false,"exec_bodies":["xor_key"],"proof_bodies":[],"failure_kind":"postcondition not satisfied","verified":1,"errors":1}

@@ -1,0 +1,1 @@
+{"file": "candidates/semantic-controls-v1/wrong-origin.rs", "positive": false, "proof_bodies": ["embedding", "one_step_frame", "trace_frame", "step_preserves_typing", "rejected"], "failure_kind": "postcondition not satisfied", "verified": 6}

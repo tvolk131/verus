@@ -1,0 +1,563 @@
+{
+  "schema": 1,
+  "base": "c3bf5d36",
+  "early_interface_commit": "2491e132",
+  "publication": false,
+  "native_bridge_proved": false,
+  "actual_native_operation_correspondences_proved": 0,
+  "conditional_fragment_result": {
+    "verified": 115,
+    "errors": 0,
+    "source_operations": 44,
+    "covered_operations": 42,
+    "CTFE_unreachable_operations": 2,
+    "normalized_steps": 49,
+    "physical_call_edges": 2,
+    "empty_drop_queries": 3,
+    "model_not_physical_permission": true,
+    "proof": "candidates/trace-v9/trace.rs",
+    "kernel": "candidates/kernel-v7/kernel.rs"
+  },
+  "native_drop": {
+    "verified": 0,
+    "errors": 1,
+    "proved": false
+  },
+  "full_writer": {
+    "verified": 1,
+    "errors": 1,
+    "proved": false,
+    "domain_unchanged": true
+  },
+  "first_unresolved_lemma": "Total Rust-reference/borrow-to-heap interpretation for the original single constructor operand, retaining same array subobject/loan, containing allocation/provenance and exact current bytes; no supplied physical permission. Future-array observation adequacy also remains unproved.",
+  "final_suite": {
+    "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/receipt.json",
+    "receipt_sha256": "7e2066fb9ba6c40737bda1836276f45b84ec31eb05abf7aec5cf7d13810e06c7",
+    "success": true,
+    "cases": [
+      {
+        "case": "candidates/trace-v9/case.json",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "success": true,
+          "verified": 115,
+          "errors": 0,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-0/receipt.json",
+        "receipt_sha256": "2392468c3e752e50d932d3a6ed53b54821fa064c53e73d84794f52ebc66e6917"
+      },
+      {
+        "case": "candidates/drop-v1/case.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 0,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-1/receipt.json",
+        "receipt_sha256": "e349bcf3bed5cb0214a367d768b7957f742504bc1dfc9d63ddee13f6e80fcdaa"
+      },
+      {
+        "case": "candidates/full-writer-case.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 1,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-2/receipt.json",
+        "receipt_sha256": "06987fd646a6710f735d744489b6ff3ed684ff314a2b585f0c7e6fd8a472edba"
+      },
+      {
+        "case": "candidates/semantic-controls-v1/nonreference-call.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 6,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-3/receipt.json",
+        "receipt_sha256": "12317a24aeb2c469b61b3e07489038fac2f4081626713f9afdc871675226b454"
+      },
+      {
+        "case": "candidates/semantic-controls-v1/offset-out-of-bounds.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 6,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-4/receipt.json",
+        "receipt_sha256": "0ea7b5d196aafb4aae37beb9b60bfef65b55dafb1bb1ed332d43f690c149f624"
+      },
+      {
+        "case": "candidates/semantic-controls-v1/tail-write.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 6,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-5/receipt.json",
+        "receipt_sha256": "0be70c5a7fc909ace00a7601bedad47bb734529e8cd8ff857c3bb77ac435ae9c"
+      },
+      {
+        "case": "candidates/semantic-controls-v1/wrong-initial.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 6,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-6/receipt.json",
+        "receipt_sha256": "555919b17b9249c32cd974a37674904d6cfb8af7b13b783b5016414a33239301"
+      },
+      {
+        "case": "candidates/semantic-controls-v1/wrong-loan.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 6,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-7/receipt.json",
+        "receipt_sha256": "05f7e056198e4118776359b9bc53e71d05e42361e60c4686ad10d383f731b30f"
+      },
+      {
+        "case": "candidates/semantic-controls-v1/wrong-origin.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 6,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-8/receipt.json",
+        "receipt_sha256": "cb3a905b0d56e95ee9286027c0b4ea43fde10f171fd2a8c881e13ab30f37a2a1"
+      },
+      {
+        "case": "candidates/semantic-controls-v2/duplicate-custodian.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 12,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-9/receipt.json",
+        "receipt_sha256": "ecf0f7e6b02339bc1578187ff18cc406aebf141a6628b27a593d8392fb9acb51"
+      },
+      {
+        "case": "candidates/semantic-controls-v2/invalid-window.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 12,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-10/receipt.json",
+        "receipt_sha256": "519a2954670cd83941fc1edd6aa1a58d12220ef17135b99b36ab0a8d7d1d9456"
+      },
+      {
+        "case": "candidates/semantic-controls-v2/tail-write.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 12,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-11/receipt.json",
+        "receipt_sha256": "5a7b0d1b651979168895f302f881a0ec8d11c92022e79b47e9bb372f8690c3bf"
+      },
+      {
+        "case": "candidates/semantic-controls-v2/wrong-branch.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 12,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-12/receipt.json",
+        "receipt_sha256": "ecddd423ababc172e03ab3abc695483f7a8ee14be98fb1930f60d602393ebfda"
+      },
+      {
+        "case": "candidates/semantic-controls-v2/wrong-future.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 12,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-13/receipt.json",
+        "receipt_sha256": "cfeab40e28316e4ffaf7280122aa78085fb0b18dd95e5026921b7892241c06f8"
+      },
+      {
+        "case": "candidates/semantic-controls-v2/wrong-return.json",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "success": false,
+          "verified": 12,
+          "errors": 1,
+          "is-verifying-entire-crate": true
+        },
+        "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/proof-14/receipt.json",
+        "receipt_sha256": "7abf12c95dd54a04b3bad1b84599e330d95f9ad945f5ae92e90567e8ddb21e90"
+      }
+    ],
+    "regenerated_trace_sha256": "c5d688d4862a596fb90b74407823963d6eaf8d1f72c5ba90329e4d637808a423"
+  },
+  "source_inventory": {
+    "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/source/receipt.json",
+    "receipt_sha256": "0b2e03b9b58e5c5278b0391bd4ad5e750a31c59e08a5b1a998a6c01ec9388993",
+    "native_sha256": "e814be9fd2e2a115a0d80693dd2e9ad517883a157efd3273a597cae7f666152d",
+    "borrowck_sha256": "4767c3ff8ca59fdfa5e571626648cc931fe0e983b3ad835a14ced98282a6ddfa",
+    "instances": 6,
+    "operations": 44,
+    "blockers": [],
+    "pending": [],
+    "borrow_loans": 1
+  },
+  "source_controls": {
+    "receipt": "/tmp/native-heap-lowering-c3bf5d36/final-suite/audit/receipt.json",
+    "receipt_sha256": "4a736147d43dd0ac161cf9493e9b25051f1813f51864cb4c9ffcc07ea949b546",
+    "cases": [
+      {
+        "case": "drop",
+        "source_sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "classification": "fragment_candidate_only",
+        "operations": 44,
+        "steps": 49,
+        "publication": false
+      },
+      {
+        "case": "same-allocation",
+        "source_sha256": "8387e8046023a53ccd2c415c7671ece4e33b0e19969dfa71a078cdef3adf7c14",
+        "classification": "fragment_candidate_only",
+        "operations": 44,
+        "steps": 49,
+        "publication": false
+      },
+      {
+        "case": "tail-write",
+        "source_sha256": "ec5c0f21fbfa2e3e032d344001eeb2e534a031f778bd619d88aa5a15226fbc97",
+        "classification": "source_eligibility_rejection",
+        "reason": "unsupported_local_type",
+        "semantic_negative": false
+      },
+      {
+        "case": "helper-write",
+        "source_sha256": "f52efacdff86e6382301e58c3587b9e8d90ff027097197e412c74d40b8700caa",
+        "classification": "source_eligibility_rejection",
+        "reason": "single_source_loan",
+        "semantic_negative": false
+      },
+      {
+        "case": "drop-write",
+        "source_sha256": "56792a30675193133e1696954a63a3c71a3d9a90a506c64762c1660beba99445",
+        "classification": "source_eligibility_rejection",
+        "reason": "single_source_loan",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-original",
+        "source_sha256": "130df9f1a523f0676495599b30fff071425684b6f53d7d51096a448eb6891d66",
+        "classification": "source_eligibility_rejection",
+        "reason": "original_array_loan",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-source",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "source_binding",
+        "semantic_negative": false
+      },
+      {
+        "case": "missing-helper",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "missing_drop_body",
+        "semantic_negative": false
+      },
+      {
+        "case": "missing-effect",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "operation_exit_coverage",
+        "semantic_negative": false
+      },
+      {
+        "case": "unknown-instruction",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "unsupported_statement:unchecked_token",
+        "semantic_negative": false
+      },
+      {
+        "case": "unknown-cleanup",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "unwind_cleanup",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-original-place",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "original_reborrow_operand",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-layout",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "local_type_layout",
+        "semantic_negative": false
+      },
+      {
+        "case": "missing-exit",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "unsupported_terminator:unreachable",
+        "semantic_negative": false
+      },
+      {
+        "case": "unsupported-retag",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "retag_unknown",
+        "semantic_negative": false
+      },
+      {
+        "case": "unsupported-arithmetic",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "offset_type",
+        "semantic_negative": false
+      },
+      {
+        "case": "omitted-step",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "forged_or_incomplete_lowering_plan",
+        "semantic_negative": false
+      },
+      {
+        "case": "omitted-exit",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "forged_or_incomplete_lowering_plan",
+        "semantic_negative": false
+      },
+      {
+        "case": "lost-unreachable-branch",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "forged_or_incomplete_lowering_plan",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-loan",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "loan_issued_fact",
+        "semantic_negative": false
+      },
+      {
+        "case": "duplicate-loan",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "single_source_loan",
+        "semantic_negative": false
+      },
+      {
+        "case": "wrong-current-future-array",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "input_type",
+        "semantic_negative": false
+      },
+      {
+        "case": "forged-native-failed",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "Rust_reference_and_observation_interpretation_unproved",
+        "semantic_negative": false
+      },
+      {
+        "case": "forged-native-incomplete",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "Rust_reference_and_observation_interpretation_unproved",
+        "semantic_negative": false
+      },
+      {
+        "case": "forged-native-timeout",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "Rust_reference_and_observation_interpretation_unproved",
+        "semantic_negative": false
+      },
+      {
+        "case": "forged-native-resource",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "Rust_reference_and_observation_interpretation_unproved",
+        "semantic_negative": false
+      },
+      {
+        "case": "forged-native-proved",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "Rust_reference_and_observation_interpretation_unproved",
+        "semantic_negative": false
+      },
+      {
+        "case": "ghost-only-copyable-authority",
+        "classification": "eligibility_or_publication_rejection",
+        "reason": "Rust_reference_and_observation_interpretation_unproved",
+        "semantic_negative": false
+      }
+    ]
+  },
+  "excluded": [
+    {
+      "trial": "kernel-v1",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/kernel-v1/receipt.json",
+      "receipt_sha256": "5032ebebe815ab046f6b5d4632a303c02c56bbfcabbac4b51fc5e7b8e9ac5506",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 0, 'errors': 0, 'is-verifying-entire-crate': True}"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "kernel-v3",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/kernel-v3/receipt.json",
+      "receipt_sha256": "cb0754d64667ec93bce7aa9d9aeca71b8691b14427b460c16621609462cf2109",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 5, 'errors': 1, 'is-verifying-entire-crate': True}"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "trace-v2",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/trace-v2/receipt.json",
+      "receipt_sha256": "75404aa5ef0e1c522c050fb4de2d15ecc63046865cc2225ffd0ee7a5654bfeb6",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 5, 'errors': 1, 'is-verifying-entire-crate': True}"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "trace-v3",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/trace-v3/receipt.json",
+      "receipt_sha256": "fb3243c4c840bdca4659e2154f9950ace4b64a9c33ad59218a0890e6b58f6f0c",
+      "success": false,
+      "failure": {
+        "type": "FileNotFoundError",
+        "message": "[Errno 2] No such file or directory: 'source/tools/research/native_heap_lowering/candidates/trace-v3/case.json'"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "trace-v4",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/trace-v4/receipt.json",
+      "receipt_sha256": "59cbf670bd3dd4d8d0dcadd6ee01e3d385ddeb84f262a01c17ad0a40aeb6ad90",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 19, 'errors': 31, 'is-verifying-entire-crate': True}"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "trace-v5",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/trace-v5/receipt.json",
+      "receipt_sha256": "aeea6e33e8dbbaa88a8618ca5e352b7653e249eaec0d629325e23cd7d0c0a0fa",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': True, 'success': False}"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "trace-v6",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/trace-v6/receipt.json",
+      "receipt_sha256": "e2ff39ab7184f0c3efef91726053974dd6e3744cb6a680f4db81ccb88a3eeb8c",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 51, 'errors': 1, 'is-verifying-entire-crate': True}"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "extract-controls-v1",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/extract-controls-v1/receipt.json",
+      "receipt_sha256": "beafba7e4629b823bc269b64b7b48032e79df0494ff7d17dbb656d8f4f86c639",
+      "success": false,
+      "failure": {
+        "type": "ArtifactChanged",
+        "message": "tool inputs changed during evaluation: /home/dev/.t3/worktrees/verus/t3-70defa19/source/tools/research/native_heap_lowering/lower.py, /home/dev/.t3/worktrees/verus/t3-70defa19/source/tools/research/native_heap_lowering/witness.py"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "audit-v1",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/audit-v1/receipt.json",
+      "receipt_sha256": "87076443691b9e3db653ed2f9faa6ab21a059898f4284217e294f10636c57ee0",
+      "success": false,
+      "failure": {
+        "type": "KeyError",
+        "message": "'core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<[u8]>] }'"
+      },
+      "semantic_evidence": false
+    },
+    {
+      "trial": "audit-v2",
+      "receipt": "/tmp/native-heap-lowering-c3bf5d36/audit-v2/receipt.json",
+      "receipt_sha256": "7acde29ca4735592dd610701db9cce568dce460b6138bed3b9974d4a176ef577",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "false input accepted wrong-layout"
+      },
+      "semantic_evidence": false
+    }
+  ],
+  "excluded_unreceipted_setup": [
+    {
+      "kind": "unaccepted initial dependency build",
+      "evidence": false
+    },
+    {
+      "kind": "candidate producer development",
+      "reasons": [
+        "transparent NonNull field type includes nonnull pattern",
+        "syntax error in proof body inventory comprehension"
+      ],
+      "evidence": false
+    }
+  ],
+  "trust": [
+    "Inherited guarded 676b99bf runtime and matching vstd/macros; Z3 4.16.0; Rust 1.99.1",
+    "Existing frontend and SMT/Seq/Map/Set interpretation",
+    "Authored fragment semantics does not establish Rust primitive/reference/retag meaning",
+    "Untrusted extraction/producer/eligibility matching; model proof cannot publish a native fact"
+  ],
+  "independent_review": "pending parent",
+  "changed_scope": "new source/tools/research/native_heap_lowering only"
+}
