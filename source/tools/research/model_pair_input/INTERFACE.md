@@ -79,3 +79,35 @@ resource observer `heap_ctx σ -∗ Φ Outer v ={⊤,∅}=∗ ⌜φ v σ⌝` in 
 Outer. This does not supply or assume a final-memory fact. Root remains
 responsible for pad mutation/recovery and the final observer; the shared-read
 consumer may derive a read independently from this exact view.
+
+
+## Checked source and control details
+
+`candidates/setup.v` implements the signature above. The public observer uses
+an explicit WP instance for `Φ Outer` and substitutes `Outer` in its setup
+callback; it does not partially rewrite the heap equality. The two fresh
+lifetime allocations use one internally constructed TypeG. No equality or
+inequality between the two lifetime names is required from callers.
+
+First Skip: two cumulative tickets, one retained for pad construction and one
+converted with the zero persistent receipt into `⧖1`. Second Skip: two tickets,
+one used for key construction and one explicitly named `Spare` (unused, affine).
+The key is constructed and shared first; the pad is constructed after Share
+using the retained first ticket. This keeps its exact `model_reference` at the
+handoff without needing to repackage resources after operational steps. Only
+the lifetime allocator consumes the additional initial credit; callback £k
+passes through. Share's internal steps/credits/tickets are supplied by the
+existing checked `typed_instr_of_skip` implementation behind `type_share_instr`.
+
+`candidates/controls.v` proves disjointness equivalent to pointwise inequality
+only for actually accessed indices, same-block separation, empty-key q=p,
+shared aliases, a resource-derived exact outside observer, and setup in arbitrary
+larger raw intervals with nonempty prefix/middle/suffix and an arbitrary disjoint
+outside map. All lengths and bytes remain universally quantified, including
+pads 10/128 and keys 0, below/equal/above128. It does not claim final physical
+observations for the still-borrowed pad or key regions.
+
+Validation has no new Program definitions or generated obligations. Inherited
+library principles are reported individually by Print Assumptions; recursive
+coqchk checks all dependencies without exclusions. This MODEL prerequisite does
+not close native correspondence, native effects, HMAC completion or publication.

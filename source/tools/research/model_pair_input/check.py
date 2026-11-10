@@ -13,7 +13,7 @@ from proof_checks import parse_axioms, parse_kernel_summary
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['setup']
+MODULES = ['setup', 'controls']
 HEAP = BASE/'parent-heap-init-3d799b38'
 SEM = BASE/'semantic-guard-validation-1efbd004/proofs'
 INP = BASE/'parent-model-input-94b87742/proofs'
@@ -24,7 +24,7 @@ LIBS = [(HEAP, 'NativeHeapInitialization'), (SEM, 'NativeSemanticBridge'),
         (IOBS, 'ModelInputObservation')]
 
 def declarations(path):
-    return re.findall(r'^\s*(?:Definition|Fixpoint|Lemma|Theorem|Corollary)\s+(\w+)', path.read_text(), re.M)
+    return re.findall(r'^\s*(?:(?:Local|Global|Polymorphic|Monomorphic)\s+)*(?:Definition|Fixpoint|CoFixpoint|Lemma|Theorem|Corollary|Proposition|Fact|Remark|Example|Instance|Inductive|CoInductive|Record|Class|Let)\s+(\w+)', path.read_text(), re.M)
 
 def inputs():
     return [HERE/'INTERFACE.md', HERE/'check.py', BRIDGE/'proof_checks.py',
@@ -54,7 +54,9 @@ def main():
     a.output = a.output.resolve()
     a.output.mkdir(parents=True, exist_ok=False)
     receipt = dict(schema=1, commands=[], publication=False, model_proofs_kernel_checked=False,
-                   source_entry_proved=False, native_effects_discharged=0)
+                   source_entry_proved=False, native_effects_discharged=0,
+                   actual_native_correspondences=0, minimal_native_simulations_open=44,
+                   native_phase_obligations_open=3, native_writer_effects_open=101, goal_complete=False)
     with replay_receipt(a.output, receipt):
         frozen_bytes = a.freeze.read_bytes()
         freeze = json.loads(frozen_bytes)
@@ -145,6 +147,7 @@ def main():
             g = ArtifactGuard([path])
             require(g.initial[str(path.resolve())]['sha256']==expected, 'copied source identity mismatch')
             held.append(g)
+        hold(a.output/'freeze.json', hashlib.sha256(frozen_bytes).hexdigest())
         names = []
         require({x.stem for x in (HERE/'candidates').glob('*.v')} == set(MODULES), 'extra module')
         for n in MODULES:
