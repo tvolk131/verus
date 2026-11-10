@@ -90,6 +90,17 @@ test_verify_one_file_with_options! {
     #[test] readonly_target_value_keeps_prefix_assistance ["vstd", "--infer-goals", "--no-cheating"] =>
         ZIP.replace("    for (b_i, b_h)", "    let _first = ipad[0];\n    for (b_i, b_h)") => Ok(())
 }
+const WRONG_LOOP: &str =
+    include_str!("../../tools/research/mutable_buffer_goal/constructor-loop-mismatch.rs");
+test_verify_one_file_with_options! {
+    #[test] unrelated_constructor_is_not_the_loop_origin ["vstd", "--infer-goals", "--no-cheating"] =>
+        WRONG_LOOP.to_string() => Ok(())
+}
+test_verify_one_file_with_options! {
+    #[test] unrelated_constructor_inside_iterator_expression_is_not_the_loop_origin ["vstd", "--infer-goals", "--no-cheating"] =>
+        WRONG_LOOP.replace("    let _unused = buf.iter_mut();\n    for b in make(other)",
+            "    for b in { let _unused = buf.iter_mut(); make(other) }") => Ok(())
+}
 test_verify_one_file_with_options! {
     #[test] full_suffix_remains_unproved ["vstd", "--infer-goals", "--no-cheating"] =>
         include_str!("../../tools/research/buffer_observation_goal/full-zip.rs").to_string() => Err(e) => one_error(e, "postcondition not satisfied")

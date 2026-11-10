@@ -6,6 +6,109 @@ use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk};
 pub(super) const NODE_BUDGET: usize = 16384;
 pub(super) const CAPACITIES: &[usize] = &[10, 128];
 
+/// Ignore only frontend resolution scaffolding, retaining its original nodes.
+pub(super) fn plain(e: &Expr) -> &Expr {
+    match &e.x {
+        ExprX::Block(ss, Some(t))
+            if ss.iter().all(|s| {
+                matches!(&s.x,
+                    StmtX::Expr(e) if matches!(&e.x, ExprX::AssertAssume { is_assume:true,expr,.. }
+                        if matches!(&expr.x, ExprX::UnaryOpr(UnaryOpr::HasResolved(_),_))))
+            }) =>
+        {
+            plain(t)
+        }
+        ExprX::EvalAndResolve(e, _) | ExprX::NeverToAny(e) => plain(e),
+        _ => e,
+    }
+}
+
+fn local(e: &Expr) -> Option<&VarIdent> {
+    match &plain(e).x {
+        ExprX::Var(v) => Some(v),
+        ExprX::ReadPlace(p, _) => match &p.x {
+            PlaceX::Local(v) => Some(v),
+            PlaceX::Temporary(e) => local(e),
+            _ => None,
+        },
+        _ => None,
+    }
+}
+
+pub(super) struct NativeForSource {
+    pub loop_expr: Expr,
+    pub iterator: Expr,
+    pub wrapper: PatternBinding,
+}
+
+/// Follow the frontend for-loop's constructor -> IntoIterator -> wrapper ->
+/// match binding chain. Finding an unrelated constructor of the same type in
+/// the surrounding function does not establish this loop's origin.
+pub(super) fn for_source(e: &Expr) -> Option<NativeForSource> {
+    fn decl(s: &Stmt) -> Option<(&PatternBinding, &Expr)> {
+        let StmtX::Decl { pattern, init: Some(p), els: None, .. } = &s.x else { return None };
+        let PatternX::Var(v) = &pattern.x else { return None };
+        if !matches!(v.by_ref, ByRef::No) {
+            return None;
+        }
+        let PlaceX::Temporary(e) = &p.x else { return None };
+        Some((v, plain(e)))
+    }
+    fn call(e: &Expr) -> Option<(&Fun, &Exprs)> {
+        let ExprX::Call { target: CallTarget::Fun(_, n, ..), args, post_args: None, body: None } =
+            &plain(e).x
+        else {
+            return None;
+        };
+        Some((n, args))
+    }
+    let ExprX::UnaryOpr(UnaryOpr::LoopIsolationBoundary(_), e) = &plain(e).x else { return None };
+    let ExprX::Block(ss, Some(_)) = &plain(e).x else { return None };
+    if ss.len() != 6 {
+        return None;
+    }
+    let (init, iterator) = decl(&ss[0])?;
+    let (exec, into) = decl(&ss[1])?;
+    let (n, a) = call(into)?;
+    if !models::path_is(
+        &n.path,
+        CrateId::Core,
+        &["iter", "traits", "collect", "IntoIterator", "into_iter"],
+    ) || a.len() != 1
+        || local(&a[0]) != Some(&init.name)
+    {
+        return None;
+    }
+    let (wrapped, new) = decl(&ss[2])?;
+    let (n, a) = call(new)?;
+    if n.path.krate != CrateId::Vstd
+        || n.path.segments.len() != 4
+        || n.path.segments[0].as_str() != "std_specs"
+        || n.path.segments[1].as_str() != "iter"
+        || !n.path.segments[2].starts_with("impl&%")
+        || n.path.segments[3].as_str() != "new"
+        || a.len() != 1
+        || local(&a[0]) != Some(&exec.name)
+    {
+        return None;
+    }
+    let (_, m) = decl(&ss[5])?;
+    let ExprX::Match(p, arms, _) = &m.x else { return None };
+    if !matches!(&p.x, PlaceX::Local(v) if v == &wrapped.name) || arms.len() != 1 {
+        return None;
+    }
+    let PatternX::Var(wrapper) = &arms[0].x.pattern.x else { return None };
+    let loop_expr = plain(&arms[0].x.body);
+    if !matches!(&loop_expr.x, ExprX::Loop { is_for_loop: true, .. }) {
+        return None;
+    }
+    Some(NativeForSource {
+        loop_expr: loop_expr.clone(),
+        iterator: iterator.clone(),
+        wrapper: wrapper.clone(),
+    })
+}
+
 #[derive(Clone)]
 pub(super) struct NativeMutableFor {
     pub loop_expr: Expr,
@@ -168,6 +271,7 @@ pub(super) fn describe(f: &Function, all: &HashMap<Fun, Function>) -> Option<Nat
     let mut loops = vec![];
     let mut mut_calls = vec![];
     let mut zip_calls = vec![];
+    let mut sources = vec![];
     let mut budget = NODE_BUDGET;
     expr_visitor_walk(body, &mut |e| {
         if budget == 0 {
@@ -176,6 +280,12 @@ pub(super) fn describe(f: &Function, all: &HashMap<Fun, Function>) -> Option<Nat
         budget -= 1;
         if matches!(&e.x, ExprX::Loop { .. }) {
             loops.push(e.clone());
+        }
+        if let Some(s) = for_source(e) {
+            if !sources.iter().any(|a: &NativeForSource| a.loop_expr.span.id == s.loop_expr.span.id)
+            {
+                sources.push(s);
+            }
         }
         if let Some((n, _, _)) = resolved(e) {
             if all.get(n).is_some_and(iter_mut) {
@@ -191,10 +301,22 @@ pub(super) fn describe(f: &Function, all: &HashMap<Fun, Function>) -> Option<Nat
         }
         VisitorControlFlow::Recurse
     });
-    if budget == 0 || loops.len() != 1 || mut_calls.len() != 1 || zip_calls.len() > 1 {
+    if budget == 0
+        || loops.len() != 1
+        || sources.len() != 1
+        || mut_calls.len() != 1
+        || zip_calls.len() > 1
+    {
         return None;
     }
     let loop_expr = loops.pop()?;
+    let source = sources.pop()?;
+    let constructor = zip_calls.first().unwrap_or(&mut_calls[0]);
+    if source.loop_expr.span.id != loop_expr.span.id
+        || serde_json::to_vec(&source.iterator).ok()? != serde_json::to_vec(constructor).ok()?
+    {
+        return None;
+    }
     let ExprX::Loop {
         is_for_loop: true,
         assume_termination: false,
@@ -315,6 +437,9 @@ pub(super) fn describe(f: &Function, all: &HashMap<Fun, Function>) -> Option<Nat
         });
     }
     if wrappers.len() != 1 {
+        return None;
+    }
+    if local(&wrappers[0]) != Some(&source.wrapper.name) {
         return None;
     }
     Some(NativeMutableFor {

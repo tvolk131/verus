@@ -3,25 +3,11 @@
 //! No update summary is created. Every arithmetic, byte and iterator annotation
 //! proposed here is checked against the retained body by ordinary verification.
 //! Initial scope is intentionally u64/7/[u8;10]; it is not a general effect engine.
+use super::native_mutable_for::plain;
 use super::*;
 use crate::ast_visitor::{VisitorControlFlow, expr_visitor_walk, map_expr_visitor};
 
 const NODES: usize = 8192;
-fn plain(e: &Expr) -> &Expr {
-    match &e.x {
-        ExprX::Block(ss, Some(t))
-            if ss.iter().all(|s| {
-                matches!(&s.x,
-            StmtX::Expr(e) if matches!(&e.x, ExprX::AssertAssume { is_assume:true,expr,.. }
-                if matches!(&expr.x, ExprX::UnaryOpr(UnaryOpr::HasResolved(_),_))))
-            }) =>
-        {
-            plain(t)
-        }
-        ExprX::EvalAndResolve(e, _) | ExprX::NeverToAny(e) => plain(e),
-        _ => e,
-    }
-}
 fn local(e: &Expr) -> Option<&VarIdent> {
     match &plain(e).x {
         ExprX::Var(v) => Some(v),
@@ -141,22 +127,8 @@ fn source(e: &Expr) -> Option<Source> {
         let PlaceX::Temporary(e) = &p.x else { return None };
         Some((pattern, e))
     }
-    let ExprX::UnaryOpr(UnaryOpr::LoopIsolationBoundary(_), e) = &plain(e).x else { return None };
-    let ExprX::Block(ss, Some(_)) = &plain(e).x else { return None };
-    if ss.len() != 6 {
-        return None;
-    }
-    let (p, iterator) = decl(&ss[0])?;
-    if !matches!(&p.x, PatternX::Var(v) if v.name.0.as_str()=="VERUS_iter_init") {
-        return None;
-    }
-    let (_, m) = decl(&ss[5])?;
-    let ExprX::Match(_, arms, _) = &plain(m).x else { return None };
-    if arms.len() != 1 {
-        return None;
-    }
-    let PatternX::Var(wrapper) = &arms[0].x.pattern.x else { return None };
-    let loop_expr = plain(&arms[0].x.body);
+    let source = super::native_mutable_for::for_source(e)?;
+    let loop_expr = &source.loop_expr;
     let ExprX::Loop {
         body, is_for_loop: true, assume_termination: false, atomic_call: false, ..
     } = &loop_expr.x
@@ -170,9 +142,9 @@ fn source(e: &Expr) -> Option<Source> {
     let (_, body) = decl(&ss[8])?;
     Some(Source {
         loop_expr: loop_expr.clone(),
-        iterator: iterator.clone(),
+        iterator: source.iterator,
         body: plain(body).clone(),
-        wrapper: wrapper.clone(),
+        wrapper: source.wrapper,
     })
 }
 
