@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "scope": "Parent replay of typed model input construction only",
+  "implementation_commit": "94b87742",
+  "parent_compatibility_freeze_commit": "1f465e1d",
+  "compatibility_note": "Original proof/controller sources are unchanged. A separate pretrial freeze reconciles two parent metadata records extended after the worker freeze.",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-model-input-94b87742/receipt.json",
+    "sha256": "f7981b44dc3beef6ecf6515b4af400baa7bb55f41ac25b3097e907ca77baf8e9"
+  },
+  "proof_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-model-input-94b87742/proofs/receipt.json",
+    "sha256": "4c6783ade2f675dc4e53cdeb8d9f3b0f8fa2fa414df3913cb9f0554ca6c4119c"
+  },
+  "freeze": {
+    "path": "/home/dev/projects/verus/source/tools/research/model_input_context/parent-freeze.json",
+    "sha256": "fee7b5f78480f3bbf6b61f4690f7daf419cb49c6e45fe9fb0ca44dda2bb59d52"
+  },
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "constant_count": 26,
+  "complete_assumptions_match_worker": true,
+  "proof_objects": {
+    "Assumptions.vo": "1132baa74a1a9801feb9a8d4115e84e37b21073d0ba8dfe0d82f6053dada1d8f",
+    "composition.vo": "2b91ac03791e069928af7606c8caba1c11b442aed0bfd3cfd227626debf42143",
+    "context.vo": "e99bf61d126478fb577af84886fc81ecb0522cf18d2153aaa8ca19bacae31779",
+    "controls.vo": "cc44397d595070ab2e9f488b23bc32f8de1b39579c3391df336f965a0cabaece",
+    "instances.vo": "a4599a9205d17cac4a2f1342a46bddc3d8e5501f44c8eb0d8be90b0f04dc91c0",
+    "vector.vo": "a01a816ee29279d643bd2d066fe560f82f751574fe7ef1ddc06af7419b899066"
+  },
+  "all_six_objects_match_worker": true,
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "model_construction": {
+    "initial_heap": "Arbitrary initialized finite model heap; exact outside frame retained",
+    "lengths": "Arbitrary lengths including empty, 10 and 128; strict interior subobjects",
+    "client_owner_permission_or_lifetime_guard_required": false,
+    "setup_expression": "Skip;;e",
+    "initial_credits": "\u00a3(1+k); read instance \u00a33",
+    "composition": "Actual model read, restoration of the same unique loan, then existing resolution",
+    "source_runtime_loan_reconstructed": false
+  },
+  "independent_review": {
+    "status": "pending",
+    "evidence": null
+  },
+  "actual_native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_effects_open": 101,
+  "source_entry_proved": false,
+  "full_HMAC_proved": false,
+  "publication": false,
+  "goal_complete": false
+}
