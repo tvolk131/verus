@@ -119,7 +119,7 @@
   "independent_review": {
     "commit": "3a9885c00e4b8a6ae7a2b089713bd38ef1050292",
     "source_and_six_actual_outcomes": "accepted independently",
-    "delivered_gate": "R1/R2 fixed in3f7303c9; revision awaits new independent recheck"
+    "delivered_gate": "R1/R2 fixed in 3f7303c9; both independently resolved by a4d43ec9."
   },
   "gate_fix_replay": {
     "receipt": "/tmp/native-miri-permission-grants-parent004/receipt.json",
@@ -132,6 +132,17 @@
       "/home/dev/projects/verus/source/tools/infer_eval_support.py": "/home/dev/projects/verus/source/tools/infer_eval_support.py",
       "/home/dev/projects/verus/source/tools/infer_experiment.py": "/home/dev/projects/verus/source/tools/infer_experiment.py"
     },
-    "independent_recheck": "pending"
+    "independent_recheck": {
+      "commit": "a4d43ec9db084ffd7e6de21ee4efaad349d142b0",
+      "integrated_commit": "670339ad",
+      "scope": "Bounded manually assisted current-Miri packed grant boundary and seven closed historical comparison laws; R1/R2 permission replay fixes; nine compiler carrier queries.",
+      "accepted": true,
+      "new_blocking_findings": [],
+      "report": "evidence/miri-grant-component-review/REPORT.md",
+      "report_sha256": "f0e40dec59af9b07a3bf44802eea8b8aac5352ee5a9975528feabbbbae44f010",
+      "final_inventory_sha256": "492fdb9b679ef18eba66e7519d0aad49a5f44c27df6f727be7ce3947bfe0719c",
+      "whole_goal_accepted": false,
+      "source_runtime_bridge_proved": false
+    }
   }
 }
