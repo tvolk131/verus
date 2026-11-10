@@ -32,3 +32,50 @@ complete declaration/obligation assumptions inventory, recursive kernel checking
 compact source/object/receipt hashes. No axioms, new primitives, trusted summaries,
 unsafe settings, fixture/domain weakening or publication. Native correspondence
 and full HMAC completion remain unproved.
+
+## Precise implementation handoff (pretrial)
+
+Namespace `ModelPairInput.setup`; definitions `byte_values`, `byte_map`,
+`pair_outside`, `shared_key_view`, `pair_setup`.
+
+`pair_setup e := (Skip;; Skip;; Share;; e)` (right associated).
+`byte_values zs := (fun z : Z => LitV (LitInt z)) <$> zs`.
+`byte_map p zs := interval_map p (byte_values zs)`.
+`pair_outside h p pad q key := h ∖ (byte_map p pad ∪ byte_map q key)`.
+`shared_key_view key q tid κ := tctx_interp tid
+  +[#q ◁ &shr{κ} (bytes_ty (length key))]
+  -[((q, repeat [] (length key)), bytes_of_list key)]`.
+
+`raw_pair_model_context_wp Outer e h p pad q key Φ k` requires closed `e`,
+byte ranges and exact raw lookups for both lists, and
+`byte_map p pad ##ₘ byte_map q key`. Its continuation is:
+
+```coq
+forall (TG : typeG Σ) tid κpad κkey,
+  @type_lrustGS Σ TG = Outer ->
+  κpad <> llft_empty -> κkey <> llft_empty ->
+  llft_ctx -∗ proph_ctx -∗ uniq_ctx -∗ time_ctx -∗
+  elctx_interp [] -∗
+  llctx_interp [κpad ⊑ₗ []] -∗ llctx_interp [κkey ⊑ₗ []] -∗
+  invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗
+  model_reference pad p tid κpad -∗
+  shared_key_view key q tid κkey -∗
+  initial_fragments (pair_outside h p pad q key) -∗
+  £k -∗ WP e @ ⊤ {{ Φ }}
+```
+
+The conclusion is `initial_fragments h -∗ £(1+k) -∗ time_ctx -∗
+WP (pair_setup e) @ ⊤ {{ Φ }}`, with Φ and all heap resources in the fixed
+Outer. Two independently allocated lifetime handles are passed exactly once;
+there is no distinct-allocation-block premise. Empty key at q=p satisfies the
+disjointness premise automatically. `shared_key_view` is an actual ordinary
+shared-reference tctx, usable through `tctx_hasty_val` as an existential depth,
+time receipt and shared `ty_own`. Its physical key ownership stays under the
+shared lifetime guard; clients receive no exclusive key payload.
+
+Public `raw_pair_model_observed` will initialize the raw heap, setup credits
+and time context internally, preserve an arbitrary family `Φ Outer`, and use a
+resource observer `heap_ctx σ -∗ Φ Outer v ={⊤,∅}=∗ ⌜φ v σ⌝` in that same
+Outer. This does not supply or assume a final-memory fact. Root remains
+responsible for pad mutation/recovery and the final observer; the shared-read
+consumer may derive a read independently from this exact view.
