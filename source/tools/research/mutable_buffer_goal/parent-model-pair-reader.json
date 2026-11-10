@@ -22,7 +22,26 @@
     "setup.vo": "0e70268c5d1719afc136405bbf95dcd943eb6fb8659868a54886072ce9292cac",
     "whole_key.vo": "e93df42a40750f288364c5529d7bcb29399df7e0d032c571c6c6d06e883185e7"
   },
-  "independent_review": "running",
+  "independent_review": {
+    "commit": "4f85b4dd",
+    "scope": "Exact fixed reader16/shared loop12 MODEL libraries",
+    "accepted": true,
+    "findings": [],
+    "fresh_receipts": [
+      {
+        "path": "/tmp/fixed-reader-shared-loop-review-5904e347-trial001/pair/receipt.json",
+        "sha256": "1c197a96d85f254bf69ffcbdbc8e8315fc19a3987c71b36a9236accf147c0a63",
+        "source_declarations": 16
+      },
+      {
+        "path": "/tmp/fixed-reader-shared-loop-review-5904e347-trial001/loop/receipt.json",
+        "sha256": "f97aeea2969bfda4d851025db339e1021635b35e552b7306b80f3b2582c1667b",
+        "source_declarations": 12
+      }
+    ],
+    "compiled_declarations": 108,
+    "marker_helpers": 80
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false
