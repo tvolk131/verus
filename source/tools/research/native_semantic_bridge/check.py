@@ -43,6 +43,8 @@ def main():
                     'unmodified baseline source mismatch '+name)
         switchbin = Path(ready['switch'])/'_opam/bin'
         coqc, coqchk = switchbin/'coqc', switchbin/'coqchk'
+        wrapper = a.ready.resolve().parent/'run-rocq'
+        gmp_manifest = a.ready.resolve().parent/'gmp-private/manifest.json'
         freeze = json.loads(a.freeze.read_text())
         require(freeze['before_first_trial'] is True, 'missing pretrial freeze')
         for name, value in freeze['files'].items():
@@ -51,7 +53,7 @@ def main():
         # Freeze the full compiled foundation and sources for this trial; no
         # installation or baseline writes. Loadpaths point read-only at baseline.
         paths += [p for p in (baseline/'src').rglob('*') if p.suffix in ('.v', '.vo')]
-        paths += [coqc, coqchk, baseline/'_CoqProject', a.ready, baseline_receipt,
+        paths += [coqc, coqchk, wrapper, gmp_manifest, baseline/'_CoqProject', a.ready, baseline_receipt,
                   a.freeze, *support_artifacts()]
         guard = ArtifactGuard(paths)
         receipt['artifacts'] = guard.initial
@@ -66,7 +68,7 @@ def main():
         work = a.output/'proofs'
         work.mkdir()
         args += ['-Q', str(work), 'NativeSemanticBridge']
-        require(run('version', [str(coqc), '--version'], env) == 0, 'prover version setup')
+        require(run('version', [str(wrapper), str(coqc), '--version'], env) == 0, 'prover version setup')
         require('version 8.20.0' in (a.output/'version.stdout').read_text(), 'wrong prover')
         candidate = ROOT/freeze['candidate_directory']
         modules = freeze['modules']
@@ -77,11 +79,11 @@ def main():
         for name in modules:
             target = work/(name+'.v')
             shutil.copyfile(candidate/(name+'.v'), target)
-            require(run('compile-'+name, [str(coqc), '-q', *args, str(target)], env) == 0,
+            require(run('compile-'+name, [str(wrapper), str(coqc), '-q', *args, str(target)], env) == 0,
                     'Rocq script/setup failure (not semantic evidence): '+name)
             require(target.with_suffix('.vo').is_file(), 'missing compiled module '+name)
         # Recheck proof terms recursively, with normal kernel checking enabled.
-        require(run('kernel-check', [str(coqchk), '-silent', '-o', *args,
+        require(run('kernel-check', [str(wrapper), str(coqchk), '-silent', '-o', *args,
                 *['NativeSemanticBridge.'+n for n in modules]], env) == 0,
                 'transitive kernel check failed')
         assumptions = set()
