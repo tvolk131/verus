@@ -1,0 +1,19 @@
+{
+  "status": "early exact typed milestone; recursive checks pending",
+  "review_freeze_sha256": "e5197b9db59f764e587be48a6353f248fd64179b84e5d8b970150396f59b720d",
+  "normal_coqc_all_six_source_modules": true,
+  "exact_worker_object_match": {
+    "pair": {
+      "controls.vo": "cc48ca7fa86b56254fd3ec4cd8e6a42e6e01f036ce8bf17da49ba4c5ac849f25",
+      "fixed.vo": "29104a771b23c000fa68b4417b991a5dc031e92779c2cbf9d01cfe22079b8c05",
+      "handoff.vo": "8a7501be99957d98f54902477c35f58e42e11ef7a00d5dd4dbd89a32bdf94544",
+      "setup.vo": "0e70268c5d1719afc136405bbf95dcd943eb6fb8659868a54886072ce9292cac",
+      "whole_key.vo": "e93df42a40750f288364c5529d7bcb29399df7e0d032c571c6c6d06e883185e7"
+    },
+    "loop": {
+      "shared_xor.vo": "644da6ae0526e416f5806a6ad7fce88d1ba67f584f99ff11882613ce65acf9a4"
+    }
+  },
+  "publication": false,
+  "goal_complete": false
+}
