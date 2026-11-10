@@ -13,9 +13,13 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
 BRIDGE = HERE.parent/'native_semantic_bridge'
+GOAL_DIR = HERE.parent/'mutable_buffer_goal'
+TARGET = GOAL_DIR/'TARGET.md'
 sys.path[:0] = [str(HERE), str(ROOT/'source/tools'), str(BRIDGE)]
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, replay_receipt, require
+sys.path.insert(0, str(GOAL_DIR))
+from goal_scope import goal_scope_sha256, check_goal_snapshot
 from proof_checks import parse_axioms
 from source import load_graph, selected, coq_graph, controls, EXTRACTION
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
@@ -71,7 +75,7 @@ def inputs():
         BRIDGE/'baseline-bindings.json', BRIDGE/'proof_checks.py',
         HERE.parent/'mutable_buffer_goal/foundation-baseline.json',
         HERE.parent/'mutable_buffer_goal/foundation-pin.json',
-        HERE.parent/'mutable_buffer_goal/TARGET.md',
+        GOAL_DIR/'goal_scope.py',
         HERE.parent/'mutable_buffer_goal/NATIVE_CERTIFICATE.md',
         HERE.parent/'mutable_buffer_goal/FACT_PROVENANCE.md',
         HERE.parent/'native_source_entry/INTERFACE.md',
@@ -92,6 +96,7 @@ def main():
         require(not a.freeze.exists(), 'freeze already exists')
         a.freeze.write_text(json.dumps(dict(before_first_trial=True,
             classification='conditional_composition_and_foundation_diagnostic_not_source_certificate',
+            goal_requirements_sha256=goal_scope_sha256(TARGET.read_bytes()),
             files={str(f.relative_to(ROOT)):digest(f) for f in inputs()},
             constants={n:declarations(HERE/'candidates'/(n+'.v')) for n in MODULES}),indent=2)+'\n')
         return
@@ -121,7 +126,8 @@ def main():
         tools = {n:Path(ready['switch'])/'_opam/bin'/n for n in ['coqc','coqchk']}
         tools.update({n:Path(ready[n]) for n in ['runner','opam']})
         gmp = BASE/'rocq-toolchain/gmp-private/manifest.json'
-        paths = [*inputs(),a.freeze,READY,baseline_receipt,PREREQ/'receipt.json',gmp,
+        target_snapshot = TARGET.read_bytes()
+        paths = [TARGET,*inputs(),a.freeze,READY,baseline_receipt,PREREQ/'receipt.json',gmp,
                  *tools.values(), BUILD/'_CoqProject',
                  *[BUILD/n for n in base['copied_sources']],
                  *list((BUILD/'src').rglob('*.vo')),
@@ -129,6 +135,8 @@ def main():
                  *[EXTRACTION/n for n in ['receipt.json','drop-native.json','drop-borrowck.json']]]
         guard = ArtifactGuard(paths)
         def retained(path): return guard.initial[str(path.resolve())]['sha256']
+        receipt['goal_requirements_sha256'] = check_goal_snapshot(
+            target_snapshot, retained(TARGET), freeze.get('goal_requirements_sha256'))
         for path, data in loaded.items():
             require(retained(path)==hashlib.sha256(data).hexdigest(),'input changed while loading '+str(path))
         for n, value in freeze['files'].items():

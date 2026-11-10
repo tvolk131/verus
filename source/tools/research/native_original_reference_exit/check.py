@@ -6,9 +6,13 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
 BRIDGE = HERE.parent/'native_semantic_bridge'
+GOAL_DIR = HERE.parent/'mutable_buffer_goal'
+TARGET = GOAL_DIR/'TARGET.md'
 sys.path[:0] = [str(ROOT/'source/tools'), str(BRIDGE)]
 from infer_eval_support import ArtifactGuard, digest, support_artifacts
 from infer_experiment import LoggedCommands, require, replay_receipt
+sys.path.insert(0, str(GOAL_DIR))
+from goal_scope import goal_scope_sha256, check_goal_snapshot
 from proof_checks import parse_axioms, parse_kernel_summary
 from acceptance_inputs import require_pinned_environment
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
@@ -41,7 +45,7 @@ def declarations(path):
     return re.findall(r'^\s*(?:Definition|Fixpoint|Lemma|Theorem|Corollary)\s+(\w+)', path.read_text(), re.M)
 
 def inputs():
-    return [HERE/'dependency-pins.json', HERE/'audit-input-pins.json', HERE/'SOURCE_BOUNDARY.md',
+    return [GOAL_DIR/'goal_scope.py', HERE/'dependency-pins.json', HERE/'audit-input-pins.json', HERE/'SOURCE_BOUNDARY.md',
             *[ROOT/p for p in AUDIT['repository_files']], HERE/'INTERFACE.md', HERE/'check.py',
             *[HERE.parent/v['committed_pin'] for v in DEPS.values() if 'committed_pin' in v],
             HERE.parent/'model_shared_byte_read/dependency-pins.json',
@@ -62,6 +66,7 @@ def main():
         require(not a.freeze.exists(), 'freeze already exists')
         external = content_map(external_inputs())
         a.freeze.write_text(json.dumps(dict(before_first_trial=True,
+            goal_requirements_sha256=goal_scope_sha256(TARGET.read_bytes()),
             files={str(x.relative_to(ROOT)):digest(x) for x in inputs()},
             external_inventory_sha256=map_hash(external),
             external_count=len(external),
@@ -101,13 +106,16 @@ def main():
                      for n in ['coqc', 'coqchk', 'runner', 'opam']}
         sources = baseline['copied_sources']
         external = external_inputs()
-        paths = [*external, *inputs(), a.freeze, READY, baseline_receipt, BUILD/'_CoqProject',
+        target_snapshot = TARGET.read_bytes()
+        paths = [TARGET, *external, *inputs(), a.freeze, READY, baseline_receipt, BUILD/'_CoqProject',
                  *toolpaths.values(), BASE/'rocq-toolchain/gmp-private/manifest.json',
                  *[BUILD/n for n in sources], *list((BUILD/'src').rglob('*.vo'))]
         guard = ArtifactGuard(paths)
         require_pinned_environment(guard.initial,
             BASE/'rocq-toolchain/gmp-private/manifest.json', trusted)
         def retained(path): return guard.initial[str(path.resolve())]['sha256']
+        receipt['goal_requirements_sha256'] = check_goal_snapshot(
+            target_snapshot, retained(TARGET), freeze.get('goal_requirements_sha256'))
         for path, data in loaded.items():
             require(retained(path) == hashlib.sha256(data).hexdigest(), 'JSON changed while loading '+str(path))
         require(retained(a.freeze) == hashlib.sha256(frozen_bytes).hexdigest(), 'freeze changed during load')

@@ -160,8 +160,11 @@ def main():
             hold(target.with_suffix('.vo'), digest(target.with_suffix('.vo')))
             names += [n+'.'+x for x in freeze['constants'][n]]
         inv = 'From NativePointerDistance Require Import '+' '.join(MODULES)+'.\n'
-        for name in names:
-            inv += f'Goal True. idtac "BEGIN {name}". exact I. Qed.\nPrint Assumptions NativePointerDistance.{name}.\nGoal True. idtac "END {name}". exact I. Qed.\n'
+        helper_names = [f'Assumptions.inventory_{side}_{i}' for i in range(len(names)) for side in ['begin', 'end']]
+        for i, name in enumerate(names):
+            inv += f'Lemma inventory_begin_{i} : True. idtac "BEGIN {name}". exact I. Qed.\nPrint Assumptions NativePointerDistance.{name}.\nLemma inventory_end_{i} : True. idtac "END {name}". exact I. Qed.\n'
+        for name in helper_names:
+            inv += f'Print Assumptions NativePointerDistance.{name}.\n'
         inventory = work/'Assumptions.v'
         inventory.write_text(inv)
         hold(inventory,hashlib.sha256(inv.encode()).hexdigest())
@@ -171,8 +174,10 @@ def main():
         require([x for x,_,_ in sections]==names==[x for _,_,x in sections], 'incomplete assumption inventory')
         require(len(re.findall(r'^BEGIN ',out,re.M))==len(names)==len(re.findall(r'^END ',out,re.M)), 'extra markers')
         receipt['assumptions'] = {n:parse_axioms(body) for n,body,_ in sections}
+        require(out.split('END '+names[-1], 1)[1].strip().splitlines() ==
+                ['Closed under the global context'] * len(helper_names), 'inspection helpers not individually closed')
         products = ArtifactGuard([x for x in work.iterdir() if x.suffix in ['.v','.vo']])
-        require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-silent','-o',*args,
+        require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-o',*args,
                 *['NativePointerDistance.'+n for n in MODULES], 'NativePointerDistance.Assumptions'],env)==0,'recursive checker failed')
         kernel_text = (a.output/'kernel.stderr').read_text()
         # coqchk prints the heading and sentinel on one line for an empty TCB.
@@ -181,12 +186,19 @@ def main():
             require(kernel_text.count('* Axioms: <none>\n') == 1, 'duplicate empty axiom summary')
             kernel_text = kernel_text.replace('* Axioms: <none>\n', '* Axioms:\n')
         receipt['kernel_axioms'] = parse_kernel_summary(kernel_text)
+        checked = re.findall(r'checking cst:NativePointerDistance\.(\w+\.\w+)', kernel_text)
+        require(len(checked) == len(names) + len(helper_names) and
+                set(checked) == set(names + helper_names), 'complete kernel inventory differs')
+        require([n for n in checked if n.startswith('Assumptions.')] == helper_names,
+                'inspection helper kernel order differs')
         require(receipt['kernel_axioms'] == [] and all(v == [] for v in receipt['assumptions'].values()),
                 'this arithmetic fragment must be entirely closed')
         for g in held: g.check()
         products.check()
         guard.check()
         receipt.update(model_proofs_kernel_checked=True, constant_count=len(names), program_obligations=0,
+                       inspection_helper_count=len(helper_names), kernel_constant_count=len(checked),
+                       all_kernel_declarations=checked, helper_assumptions={n:[] for n in helper_names},
                        proof_artifacts=products.initial)
         print(json.dumps(dict(output=str(a.output), model_proofs_kernel_checked=True,publication=False)))
 if __name__ == '__main__': main()

@@ -4,7 +4,6 @@
   "proof_of_source_effect": false,
   "prepared_base": "40a8e281",
   "repository_files": {
-    "source/tools/research/mutable_buffer_goal/TARGET.md": "787a17738b564b11429acd26bee483b5fe3952e2bce94941b98a90d26b6af1ac",
     "source/tools/research/mutable_buffer_goal/NATIVE_CERTIFICATE.md": "194b3e8fa6ec2252dd11f4bd30afd69400570a7a00cd718d560f20cb652a9d68",
     "source/tools/research/mutable_buffer_goal/FACT_PROVENANCE.md": "f4dd142194b4c488db7fbfbeca82332e801fa9965c6b3447f3f3eb98cb077fa7",
     "source/tools/research/mutable_buffer_goal/parent-model-caller-writer.json": "3fb31926dcdbba1eee7de464887c2887e9ad8908bb46e2ae50d62146b04f6f9a",
@@ -72,5 +71,6 @@
     "actual_source_instance": false,
     "actual_source_certificate": false,
     "role": "Only the delivered Interface and Composition are imported; actual source binding is UNPROVED"
-  }
+  },
+  "goal_requirements_sha256": "11014c3ac73ddf13c464769f5d0d1cbd24598ab52777718d31872c70b3b8f7b0"
 }
