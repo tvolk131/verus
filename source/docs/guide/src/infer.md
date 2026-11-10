@@ -77,6 +77,8 @@ checked view snapshots, lengths and current/future-referent bridges, preserving
 the authored semantic invariant. The [independent prefix experiment](../../../../source/tools/research/buffer_observation_goal/REPORT.md)
 verifies with assistance and fails without it after removing those local
 mechanical annotations. These proposals use existing iterator contracts.
+The profile skips other mutable uses of the target buffer outside that loop;
+function-entry/final snapshots would describe a different state in those cases.
 
 The independent HMAC pad-XOR transfer still lacks a checked native IterMut/Zip
 frame for its untouched suffix. Prefix-only results and diagnostic native MIR

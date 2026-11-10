@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "goal_complete": false,
+  "status": "matching focused validation passes; full Infer regressions and independent fix review pending",
+  "engine_checkpoint": "ea897a9b",
+  "review": "790dcdc3",
+  "findings": {
+    "F1": "Skip entry/final snapshots when target buffer has other mutable uses outside the recognized loop/constructor, including alias/helper uses and mutable escape. Unrelated buffers retain assistance.",
+    "F2": "Exact public explanation profile list includes mutable_buffer_u64_radix128; existing disabled/deterministic/skipped assertions preserved."
+  },
+  "policy": 68,
+  "candidate_cache": 71,
+  "metadata_schema": 38,
+  "version": "0.2026.11.10.ea897a9",
+  "compiler_build": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-build.log",
+    "sha256": "9adcfdcd4da69f2ef808633fda3218e70bd0c704c52be88c24266826adb16f85"
+  },
+  "vstd": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-vstd.log",
+    "sha256": "de4843ede6dd4e9869ac2b48065a00cd9d5c2656fb3df345a15a8e1d2f212a01",
+    "verified": 2226,
+    "errors": 0
+  },
+  "vir_tests": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-vir-v2.log",
+    "sha256": "cbbbc6d70fc62eaa2f0e2f77fb58e513f9168d42a2a9f33ec13a2fecc88610f0",
+    "passed": 148,
+    "failed": 0
+  },
+  "focused_compiler_tests": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-focused.log",
+    "sha256": "16632415126682d7dc5cdebe5b47b363665bad6e49de5f6864857c2905d582f4",
+    "passed": 21,
+    "failed": 0,
+    "targets": {
+      "infer_buffer_observation_goals": 13,
+      "infer_mutable_buffer_goals": 8
+    }
+  },
+  "canonical": {
+    "accepted_cases": 26,
+    "cold_warm": "6/0",
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-canonical/canonical-z9od3nbw/receipt.json",
+      "sha256": "0de717a6da6433f0dfce9eb6a8ef67a94dc17eea879e3b6c17a4c85451c96283"
+    },
+    "audit": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-canonical-audit.json",
+      "sha256": "2480b18fde94bec55d3a8224820b721497a5337883a5217174c0e88deda4aa38"
+    },
+    "checked_exec": [
+      "u64"
+    ],
+    "checked_proof": [],
+    "inferred_helpers": []
+  },
+  "observation": {
+    "expected_cases": 23,
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/review-fix-observations/observations-9p09988a/receipt.json",
+      "sha256": "9e28b3da53c0ad321c3e73cb5e946c748a48ef3617117928c2fd92526abfc4f7"
+    },
+    "prefix_on": "2/0",
+    "prefix_off": "1/1",
+    "full_HMAC": "1/1 postcondition failure"
+  },
+  "bundle_manifest": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-review-fix-bundle-ea897a9b/copy-manifest.json",
+    "sha256": "fa530722bdc31f4d927c7a542fc861671a68c3a73fecef9b3393f9affa5e2ae7"
+  },
+  "engine_source_hashes": {
+    "source/vir/src/infer/buffer_goals.rs": "92f8ba37c0ff99b6400ce5cb5d3bd61a3285d0c42abb7704404ff5b435da7756",
+    "source/vir/src/infer/buffer_observation_goals.rs": "68dc92cdd8784afe0e1e629239b3b7a0363a13f6cfae165101a0972c510e3857",
+    "source/vir/src/infer/native_mutable_for.rs": "cb127c096856aa7ebdda3ffe4e34fc46b79e1e88998aa0f72024a5a47354c46c",
+    "source/vir/src/infer.rs": "ac18f44aa8ef87b61b55a06363f787a42c196565ef9ac90306c2c1d47be0ad83",
+    "source/vir/src/infer/pipeline.rs": "ae81157de82ba58e544c0e50b94a63eb6452740865526c0f1475860e02b0602a",
+    "source/vir/src/infer/report.rs": "c899eb47ac3b8810e49c08d424e2a76c8fff576a36de7327103e906a39d0c1f7",
+    "source/vir/src/infer/registry.rs": "40b10fee4214a63bf98b0875cf794d428649dee8435b63b1df7284a2c35836a0",
+    "source/rust_verify/src/query.rs": "87b32963a7ceefff37267d5eb6835b442c06db758706cda59bfcda575fd5815d",
+    "source/rust_verify/src/import_export.rs": "887196d254f46baac080109d8e1b3f8407fa314128f3fdc261ebf5902e90fd62"
+  },
+  "native_correspondence_proved": false,
+  "full_HMAC_proved": false,
+  "remaining": [
+    "complete all32 Infer compiler targets on this engine",
+    "fresh independent review of the two fixes",
+    "actual original reference/loan entry, native primitive simulation and final-array adequacy",
+    "full frozen HMAC XOR-prefix+unchanged-suffix theorem and shared checked assistance acceptance",
+    "final combined independent acceptance and requirement audit"
+  ]
+}

@@ -50,6 +50,13 @@ E0499 rejection, and the native constructor/drop frame's 0/1 failure. That last
 case is an unproved positive under inherited contracts, not a Rust counterexample.
 This replay discharges no native effect or source-correspondence obligation.
 
+The [source-derived fragment interpreter](../native_heap_lowering/REPORT.md)
+checks a generated trace for the minimal constructor/drop graph and a generic
+write-footprint frame in explicit authored semantics. Its metadata is a copyable
+observation, not physical authority. Original-reference entry, native primitive
+simulation and final-array observation adequacy remain unproved; publication
+still rejects. These model proofs do not change the native obligation counts.
+
 ## Required source connection
 
 Start from the actual unchanged local writer and resolve the monomorphized
