@@ -17,7 +17,7 @@ a=p.parse_args()
 require(not a.output.exists(),'freeze destination already exists')
 candidate=a.candidate.resolve()
 require(candidate.is_relative_to(HERE/'candidates'),'candidate outside owned directory')
-paths=[HERE/'check.py',HERE/'source_map.py',HERE/'audit.py',Path(__file__),*candidate.glob('*.v'),
+paths=[HERE/'check.py',HERE/'source_map.py',HERE/'audit.py',HERE/'gate_controls.py',Path(__file__),*candidate.glob('*.v'),
  HERE.parent/'mutable_buffer_goal/foundation-pin.json',
  HERE.parent/'mutable_buffer_goal/transfer-freeze.json',
  HERE.parent/'native_heap_lowering/final-freeze.json',
