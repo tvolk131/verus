@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/coq/coq/V8.20.0/checker/mod_checking.ml",
+    "path": "/tmp/source-reborrow-model-review-upstream-6c74c9b1/upstream-mod_checking.ml",
+    "sha256": "ad65849119ea2ad29ad04726a1c973343f15d5f036e9ed420cd5d9a49c8137e7",
+    "scope": "primary source explaining uninstrumented inductive-block traversal, not a reproduced compiler build"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/coq/coq/V8.20.0/checker/checkInductive.ml",
+    "path": "/tmp/source-reborrow-model-review-upstream-6c74c9b1/upstream-checkInductive.ml",
+    "sha256": "4e80ae399e6c61ad3e30d9c7e7d4bd28bd6ada622fe12c81da36b9f795e758ed",
+    "scope": "primary source explaining uninstrumented inductive-block traversal, not a reproduced compiler build"
+  }
+]

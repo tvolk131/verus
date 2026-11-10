@@ -48,6 +48,7 @@ def goal_pin(snapshot):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--output', type=Path, required=True)
+    ap.add_argument('--freeze', type=Path, default=HERE/'controller002-freeze.json')
     a=ap.parse_args(); out=a.output.resolve(); out.mkdir(parents=True,exist_ok=False)
     receipt={'schema':1,'commands':[],'model_review_checked':False,
              'native_correspondences':0,'publication':False,'goal_complete':False}
@@ -55,16 +56,18 @@ def main():
         loaded={}
         def load(path):
             path=Path(path); b=path.read_bytes(); loaded[path]=b; return json.loads(b)
-        pre=load(HERE/'pretrial.json'); trial=load(HERE/'controller-freeze.json')
+        pre=load(HERE/'pretrial.json'); trial=load(a.freeze)
         require(pre['before_first_trial'] is True and trial['before_first_trial'] is True,'pretrial freeze missing')
         old={Path(p):load(p) for p in pre['completed_receipts']}
         parent_path=next(p for p in old if 'parent-integration001' in str(p))
         parent=old[parent_path]
-        paths=[HERE/'pretrial.json',HERE/'controller-freeze.json',
+        paths=[HERE/'pretrial.json',a.freeze,
                *[ROOT/p for p in pre['files']],*[ROOT/p for p in trial['files']],*old]
         # Never follow the historical checkout labels in a receipt's /home paths.
         external={p:x for p,x in parent['inputs'].items() if p.startswith('/tmp/')}
         paths += [Path(p) for p in external]
+        sources=load(HERE/'upstream-pins.json')
+        paths += [HERE/'upstream-pins.json',*[Path(x['path']) for x in sources]]
         paths += [Path(p) for r in old.values() for p in r['proof_artifacts']]
         guard=ArtifactGuard(paths)
         def retained(p):return guard.initial[str(Path(p).resolve())]['sha256']
@@ -140,12 +143,27 @@ def main():
         kernel_run=LoggedCommands(out,replay/'proofs',receipt['commands'],timeout=1800,guard=product_guard)
         require(kernel_run('verbose-kernel',argv,env)==0,'verbose recursive kernel failure')
         log=(out/'verbose-kernel.stderr').read_text()+(out/'verbose-kernel.stdout').read_text()
-        checked=set(re.findall(r'checking (?:cst|ind):([^\s]+)',log))
+        checked=set(re.findall(r'checking cst:([^\s]+)',log))
+        checked_modules=set(re.findall(r'checking module: ([^\s]+)',log))
+        # Coq 8.20 checks inductive blocks in module traversal without a trace
+        # line; constructors are members of these blocks, not separate constants.
+        # See pinned checker/mod_checking.ml and checker/checkInductive.ml.
+        for source in load(HERE/'upstream-pins.json'):
+            require(retained(source['path'])==source['sha256'],'upstream inspection source')
+        observed={x for x in checked if x.startswith('NativeSourceReborrow.')}
+        expected_constants={'NativeSourceReborrow.'+m+'.'+n for m,ds in inventory.items()
+                            for n,x in ds.items() if x['kind'] in ['Definition','Parameter']}
+        require(observed==expected_constants,'exact constant trace coverage')
+        require('Modules were successfully checked' in log,'kernel completion missing')
         for m,ds in inventory.items():
             for n,x in ds.items():
                 key='NativeSourceReborrow.'+m+'.'+x['kernel_name']
-                require(key in checked,'kernel declaration absent '+key)
-                x['kernel_covered_by']=key
+                if x['kind'] in ['Definition','Parameter']:
+                    require(key in checked,'kernel constant absent '+key)
+                    x['kernel_covered_by']='direct constant trace: '+key
+                else:
+                    require('NativeSourceReborrow.'+m in checked_modules,'kernel module absent '+m)
+                    x['kernel_covered_by']='complete module inductive-block traversal: '+key
         summary=log.split('CONTEXT SUMMARY')
         require(len(summary)==2,'kernel summary count')
         require({s.strip() for s in summary[1].splitlines() if s.strip()}=={
@@ -158,7 +176,10 @@ def main():
         for p,b in loaded.items():require(p.read_bytes()==b,'loaded input changed at success '+str(p))
         require(target.read_bytes()==snapshot,'TARGET changed');goal_pin(snapshot)
         receipt.update(model_review_checked=True,compiler_inventory_count=sum(map(len,inventory.values())),
-                       constructor_coverage='constructors checked within their inductive/record blocks',
+                       constructor_coverage='module traversal checks inductive/record blocks; no separate trace lines',
+                       direct_kernel_constant_count=len(expected_constants),
+                       inductive_record_count=sum(x['kind'] in ['Inductive','Record'] for ds in inventory.values() for x in ds.values()),
+                       constructor_count=sum(x['kind']=='constructor' for ds in inventory.values() for x in ds.values()),
                        recursive_kernel_axioms=[],individual_assumptions_empty=True,
                        all_final_guards_before_success=True,goal_requirements_sha256=GOAL_PIN,
                        fresh_receipt={'path':str(replay/'receipt.json'),'sha256':digest(replay/'receipt.json')},
