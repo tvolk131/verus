@@ -30,5 +30,11 @@
   "full_writer_effects_open": 101,
   "actual_native_correspondences": 0,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "independent_evidence_review": {
+    "commit": "4e85774a",
+    "recommendation": "exact model/inspection evidence accepted; source-entry theorem remains unproved"
+  },
+  "parent_controller_reconciliation": "Complete mandatory input inventories, retained snapshot/pin equality, authenticated loadpaths and protected copied source; new matching replay running",
+  "parent_compatibility_freeze": "native_source_entry/entry-full-snapshot-freeze.json"
 }

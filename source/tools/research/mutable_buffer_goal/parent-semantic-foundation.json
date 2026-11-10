@@ -122,7 +122,11 @@
     "normal_and_optimized": true,
     "source_controls": 12,
     "semantic_negative_count": 0,
-    "independent_review": "pending",
+    "independent_review": {
+      "commit": "4e85774a",
+      "omissions_closed": true,
+      "remaining_finding": "Persistent substitution after validation but before guard.initial"
+    },
     "map": {
       "receipt": "/tmp/verus-infer-buffer-cycle-20261109/source-freeze-fix-map/receipt.json",
       "sha256": "4017e49389034b30c90baccf6f186dc6e40a2bb4628d546247044d094f6205fe"
@@ -131,5 +135,21 @@
       "receipt": "/tmp/verus-infer-buffer-cycle-20261109/source-freeze-fix-audit/receipt.json",
       "sha256": "21ee6386222d4f8762fb820a2fdf83cd57d9cae18bd367b4321f6a9e00c5015e"
     }
+  },
+  "snapshot_authentication_fix": {
+    "commits": [
+      "e6ce22cf",
+      "aea14e56"
+    ],
+    "freeze": "native_semantic_bridge/full-snapshot-freeze.json",
+    "positive_model_and_inspection_replay": "running",
+    "root_job": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-job.json",
+    "full_validation_receipt": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/receipt.json",
+    "earlier_ten_race_refusals": "/tmp/verus-infer-buffer-cycle-20261109/snapshot-acceptance-races/receipt.json",
+    "earlier_races_matched_checkpoint": "e6ce22cf",
+    "corrected_inventory_and_race_rerun": "running",
+    "setup_failure_excluded": "/tmp/verus-infer-buffer-cycle-20261109/snapshot-validation-e6ce22cf/receipt.json",
+    "failure_before_any_prover": true,
+    "independent_review": "pending NEW recheck"
   }
 }

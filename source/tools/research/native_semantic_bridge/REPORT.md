@@ -147,14 +147,14 @@ python3 -B -O source/tools/research/native_heap_lowering/extract.py \
   --freeze source/tools/research/native_heap_lowering/final-freeze.json \
   --output /tmp/fresh-semantic-source
 python3 -B -O source/tools/research/native_semantic_bridge/source_map.py \
-  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/full-snapshot-freeze.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-map
 python3 -B -O source/tools/research/native_semantic_bridge/audit.py \
-  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/full-snapshot-freeze.json \
   --extraction /tmp/native-semantic-bridge-e4a8dcab/source-v1 --output /tmp/fresh-semantic-audit
 python3 -B -O source/tools/research/native_semantic_bridge/check.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/full-snapshot-freeze.json \
   --output /tmp/fresh-semantic-proofs
 ```
 
@@ -184,7 +184,8 @@ negative. Independent recheck `1f727448` reproduced those results and accepted t
 frozen model replay. It found a remaining source-freeze completeness defect,
 addressed below.
 
-`snapshot-acceptance-freeze.json` is the active pretrial integration freeze.
+`full-snapshot-freeze.json` is the active pretrial integration freeze.
+`snapshot-acceptance-freeze.json` preserves the first full-validation attempt.
 `guard-snapshot-freeze.json` records an earlier local race-control run. The previous
 `review-fix-freeze.json` and earlier
 freezes and receipts retain their historical controller versions. Readiness now
@@ -202,7 +203,7 @@ The control replay is:
 ```sh
 python3 -B -O source/tools/research/native_semantic_bridge/guard_controls.py \
   --ready /tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json \
-  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/full-snapshot-freeze.json \
   --output /tmp/fresh-semantic-guard-controls
 ```
 
@@ -246,6 +247,16 @@ A matching positive model replay and fresh independent review are pending.
 
 ```sh
 python3 -B -O source/tools/research/native_semantic_bridge/source_snapshot_controls.py \
-  --freeze source/tools/research/native_semantic_bridge/snapshot-acceptance-freeze.json \
+  --freeze source/tools/research/native_semantic_bridge/full-snapshot-freeze.json \
   --output /tmp/fresh-source-snapshot-controls
 ```
+
+
+The first positive replay stopped before any prover command: the retained guard
+covered `.v`/`.vo` files, while the authenticated 523-file source inventory also
+contains documentation. The corrected snapshot includes every pinned source
+file. The failed setup receipt is retained at
+`/tmp/verus-infer-buffer-cycle-20261109/snapshot-validation-e6ce22cf/receipt.json`;
+it is excluded from semantic evidence. Fresh corrected replay is running under
+`full-snapshot-freeze.json`. All four selected mathematical sources remain
+unchanged.

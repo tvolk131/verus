@@ -158,7 +158,8 @@ pinned in the freeze. It reads them without rebuilding or copying old source
 trees. Raw logs and the inspection object remain in `/tmp/native-source-entry-e84eed6c/`.
 
 
-Parent compatibility replay uses `entry-parent-freeze.json`; the original
+Parent compatibility replay uses `entry-full-snapshot-freeze.json`; the earlier
+`entry-parent-freeze.json` and original
 `entry-v1-freeze.json` remains historical. The candidate and 42 inspected
 constants are unchanged. The parent adds complete required public/private
 input inventories, validates those identities against the retained guard

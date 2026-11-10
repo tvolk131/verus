@@ -85,9 +85,9 @@
       "-O",
       "source/tools/research/native_source_entry/entry_audit.py",
       "--freeze",
-      "source/tools/research/native_source_entry/entry-parent-freeze.json",
+      "source/tools/research/native_source_entry/entry-full-snapshot-freeze.json",
       "--output",
-      "/tmp/verus-infer-buffer-cycle-20261109/guard-snapshot-validation/entry"
+      "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/entry"
     ],
     [
       "python3",
@@ -99,7 +99,7 @@
       "--extraction",
       "/tmp/native-semantic-bridge-e4a8dcab/source-v1",
       "--output",
-      "/tmp/verus-infer-buffer-cycle-20261109/guard-snapshot-validation/source-audit"
+      "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/audit"
     ]
   ],
   "parent_reconciliation": "Same inspection candidate and 42 constants; current controller snapshot/completeness guards, original foundation/model/extraction pins preserved"
