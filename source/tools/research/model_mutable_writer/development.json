@@ -1,0 +1,17 @@
+[
+  {
+    "trial": 1,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/mutable-writer-trial001/receipt.json",
+    "classification": "Missing import; proof development, not semantic evidence"
+  },
+  {
+    "trial": 2,
+    "directory": "/tmp/verus-infer-buffer-cycle-20261109/mutable-writer-trial002",
+    "classification": "Compiled source and inventory; exec session terminated143; no surviving owned checker; no completed kernel claim"
+  },
+  {
+    "trial": "durable002",
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-mutable-protocol-002/proofs/receipt.json",
+    "classification": "Same source/freeze; normal compilation and full recursive kernel passed"
+  }
+]
