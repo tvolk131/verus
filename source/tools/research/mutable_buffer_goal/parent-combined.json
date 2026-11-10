@@ -105,5 +105,42 @@
       "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined68-python-opt.log",
       "sha256": "ea99d2f2be9020e33da9ac476edcfc09f8122372e998317835d8fabc914a8fb8"
     }
+  },
+  "subsequent_length_consolidation": {
+    "checkpoint": "676b99bf",
+    "changes": "Numeric wrapper index uses the common closed typed catalog. Numeric sequence-length lookup/invariant removed; the shared observer supplies its capacity fact. Authored semantics and executable/domain unchanged.",
+    "compiler_build": {
+      "success": true,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-build.log",
+      "sha256": "175ad9c46d8ab9f472c1e682e9a7a555b6bb3c69c4860b8651a2679e271bc2aa"
+    },
+    "vstd": {
+      "verified": 2226,
+      "errors": 0,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-vstd.log",
+      "sha256": "5634a4bc25143402d62455715133a17f31ebf33766714c86da7ebf8fba9cbca0"
+    },
+    "vir_tests": {
+      "passed": 148,
+      "failed": 0,
+      "log": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-vir.log",
+      "sha256": "06627c5edfdf2c2027637ace5bfdc358061dedab66fbac79a140768d5b816dd6"
+    },
+    "canonical": {
+      "cases": 26,
+      "cold_warm": "6/0",
+      "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-canonical/canonical-ychgppyq/receipt.json",
+      "sha256": "a4c9d203adc87cec0fd4cb5757ed5e16936c91b1d31ee0e32caf60718888d1ed",
+      "audit": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-canonical-audit.json",
+      "audit_sha256": "1c8ef81d9d5215699dccdf373471c31c1dfe399d045ce766ce7ff446fd198abc"
+    },
+    "observation": {
+      "expected_cases": 23,
+      "prefix": "2/0",
+      "full_HMAC": "1/1 postcondition failure",
+      "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-shared68-observations/observations-csq9dtsp/receipt.json",
+      "sha256": "eb48f0e352ec0a7957b41079bbe3d49ab48b88ad719b601721cb540495a36c5a"
+    },
+    "causality": "The observer emits the sole sequence-capacity proposal; no claim that this fact alone is indispensable. A pipeline ablation remains optional diagnostic work."
   }
 }

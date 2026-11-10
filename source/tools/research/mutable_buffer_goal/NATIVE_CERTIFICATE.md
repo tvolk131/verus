@@ -20,6 +20,19 @@ conservation, a native correspondence theorem or the full writer theorem.
 Raw parent receipt:
 `/tmp/verus-infer-buffer-cycle-20261109/parent-native-extraction-e4011e16/receipt.json`.
 
+The subsequent research preserves checked executable/reference carriers
+(`native_borrow_entry`, `98f428fa`) and 18 conditional linear-resource proofs
+(`native_effect_soundness`, `20973453`). A tracked slice can be obtained from
+the executable array, but retaining it beside actual `iter_mut()` rejects with
+E0499. It exposes no raw-pointer permission or provenance. The next link is
+one ownership interpretation carried with that same native constructor operand,
+followed by checked pointer Offset/raw-reference, resolution and helper effects.
+No actual native correspondence or full writer theorem has been established;
+all 101 native effect obligations remain open. The native-body lowering must
+avoid a second live Rust borrow and cannot mint a ghost permission or assert a
+final/current frame. Conditional token-map reconstruction remains separate from
+reconstructing the original executable array's future values.
+
 ## Required source connection
 
 Start from the actual unchanged local writer and resolve the monomorphized
