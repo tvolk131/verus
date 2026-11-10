@@ -36,3 +36,18 @@ assumed native equivalence, new axioms, assume, and external_body are excluded.
 The parent owns integration and independent acceptance. Global status remains:
 native=0; 44 minimal + 3 phase / 101 writer effects OPEN; full HMAC UNPROVED;
 publication=false; goal_complete=false.
+
+## Implementation outcome
+
+Exact frozen closure: UNPROVED (constructor-as-function frontend rejection).
+Original-body subset supplies checked get/inner and ghost view injectivity,
+plus arbitrary-word permission/protector/tag-bit preservation (45/0 on/off).
+Four pure bitfield lemmas check 26/0 on/off. See REPORT.md and RESULTS.json.
+
+A separate, explicit constructor-closure adapter subset checks 49/0 on/off,
+including Item.tag under item_word_wf, one and Default. Its BorTag.new is changed;
+it is NOT an accepted implementation of the exact interface. The original full
+Item.new fails its runtime tag/protector debug-check obligations; standard bool
+conversion and derived Eq/Lt view compatibility remain unproved. Succ's actual
+checked_add is unsupported. These facts MUST NOT be installed as trusted lookup
+contracts. Source-generated artifacts are private and hash-bound by RESULTS.

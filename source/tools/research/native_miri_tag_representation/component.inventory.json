@@ -1,0 +1,22 @@
+[
+  "BorTag::new",
+  "BorTag::get",
+  "BorTag::inner",
+  "BorTag::one",
+  "<BorTag as std::default::Default>::default",
+  "<BorTag as std::clone::Clone>::clone",
+  "<Item as std::clone::Clone>::clone",
+  "<Permission as std::clone::Clone>::clone",
+  "Item::new",
+  "Item::tag",
+  "Item::perm",
+  "Item::protected",
+  "Item::set_permission",
+  "Permission::to_bits",
+  "Permission::from_bits",
+  "tag_identity",
+  "packed_fields",
+  "updated_fields",
+  "tag_range",
+  "packed_fields_raw"
+]
