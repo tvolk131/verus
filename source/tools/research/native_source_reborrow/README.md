@@ -8,7 +8,7 @@ coqchk and pure parser controls pass. See [REPORT](REPORT.md),
 
 ```
 python3 -B source/tools/research/native_source_reborrow/check.py \
-  --freeze source/tools/research/native_source_reborrow/final-freeze.json \
+  --freeze source/tools/research/native_source_reborrow/integration001-freeze.json \
   --output /tmp/fresh-native-source-reborrow-replay
 ```
 

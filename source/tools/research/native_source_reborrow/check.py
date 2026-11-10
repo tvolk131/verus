@@ -84,7 +84,7 @@ def inputs():
         BRIDGE/'source-bindings.json', GOAL_DIR/'foundation-baseline.json',
         GOAL_DIR/'foundation-pin.json', *support_artifacts()]
     for lane in ['native_source_storage','native_constructor_erasure','native_original_reference_exit']:
-        paths += [HERE.parent/lane/'integration-results.json', HERE.parent/lane/'REPORT.md']
+        paths += [HERE.parent/lane/'REPORT.md']
     paths += [ROOT/'evidence/native-functional-boundary-audit/REPORT.md',
         HERE.parent/'native_borrow_foundation_inspection/REPORT.md',
         HERE.parent/'native_borrow_foundation_inspection/pins.json']
