@@ -14,6 +14,7 @@ def support_guard():
     pre=json.loads((r/'model-pretrial.json').read_text())
     for file,key in [('closure.json','closure_sha256'),('installed-pretrial.json','installed_snapshot_sha256')]:
         if digest(r/file)!=pre[key]:raise RuntimeError('pretrial manifest changed '+file)
+    check(r,pre['private_runner_files'])
     return check(own,pre['support_files'])
 def object_guard():
     receipt=json.loads((r/'jobs/model-build.json').read_text())
@@ -37,8 +38,8 @@ if a.action=='prepare':
     for argv in [['rocq','--version'],['rocq','--print-version'],['rocq','compile','-config'],['ocamlc','-version'],['ocamlfind','list'],['opam','list','--switch=tb','--installed','--columns=package','--short']]:
         x=subprocess.run(argv,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True);versions[' '.join(argv)]={'exit_code':x.returncode,'stdout':x.stdout}
         if x.returncode:raise SystemExit('tool identity query failed '+str(argv))
-    with (r/'loadpath.log').open('w') as f:run(['rocq','repl','-quiet','-Q',str(src/'theories'),'simuliris'],input='Print LoadPath.\n',text=True,stdout=f,stderr=subprocess.STDOUT)
-    pre={'upstream_guard':upstream_guard(),'installed_snapshot_sha256':digest(r/'installed-pretrial.json'),'installed_roots':{k:{'files':len(v),'map_sha256':canonical(v)} for k,v in installed.items()},'versions':versions,'closure_sha256':digest(r/'closure.json'),'loadpath_sha256':digest(r/'loadpath.log'),'support_files':snapshot(own)}
+    with (r/'loadpath.log').open('w') as f:run(['rocq','repl','-q','-quiet','-Q',str(src/'theories'),'simuliris'],input='Print LoadPath.\n',text=True,stdout=f,stderr=subprocess.STDOUT)
+    pre={'upstream_guard':upstream_guard(),'installed_snapshot_sha256':digest(r/'installed-pretrial.json'),'installed_roots':{k:{'files':len(v),'map_sha256':canonical(v)} for k,v in installed.items()},'versions':versions,'closure_sha256':digest(r/'closure.json'),'loadpath_sha256':digest(r/'loadpath.log'),'private_runner_files':{x:digest(r/x) for x in ['env.sh','model.sh','install-deps.sh','bootstrap.sh','build-gmp.sh']},'support_files':snapshot(own)}
     (r/'model-pretrial.json').write_text(json.dumps(pre,indent=2)+'\n')
     (own/'closure.json').write_bytes((r/'closure.json').read_bytes());(own/'model-pretrial.json').write_bytes((r/'model-pretrial.json').read_bytes())
 elif a.action=='build':
@@ -58,6 +59,6 @@ elif a.action=='kernel':
 elif a.action=='inventory':
     upstream_guard();dependency_guard();object_guard()
     run([sys.executable,'-B',str(own/'inventory.py'),str(r)])
-    run(['rocq','repl','-batch','-Q',str(src/'theories'),'simuliris','-l',str(r/'inventory.v')],cwd=src)
+    run(['rocq','repl','-q','-batch','-Q',str(src/'theories'),'simuliris','-l',str(r/'inventory.v')],cwd=src)
     upstream_guard();dependency_guard()
     if a.action=='inventory':object_guard()
