@@ -1,0 +1,599 @@
+{
+  "schema": 1,
+  "classification": "conditional_composition_and_exact_foundation_blocker_not_Rust_certificate",
+  "early_interface_commit": "6bb72bfb",
+  "receipt": {
+    "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/receipt.json",
+    "sha256": "2f9679b44cded4fcb68052c062b8a6a4942b92d99bc099f2cac4d07625e84cb3",
+    "success": true
+  },
+  "freeze_sha256": "131521cf3ea5fefb1ecd9f9cc4b2c1b8b46251e3e35f228d9b0c2f0605496f72",
+  "freeze_matches_pretrial": true,
+  "constants": 96,
+  "assumptions": {
+    "Interface.address": [],
+    "Interface.physical_map": [],
+    "Interface.reference": [],
+    "Interface.ref_address": [],
+    "Interface.phase": [],
+    "Interface.event": [],
+    "Interface.fault": [],
+    "Interface.outcome": [],
+    "Interface.source_semantics": [],
+    "Interface.initialized": [],
+    "Interface.V_entry": [],
+    "Interface.physical_frame": [],
+    "Interface.execution": [],
+    "Interface.same_subobject": [],
+    "Interface.root_reborrow_need": [],
+    "Interface.FakeReadPhase": [],
+    "Interface.CallUnwindPhase": [],
+    "Interface.CleanupResumePhase": [],
+    "Interface.phase_rect": [],
+    "Interface.phase_ind": [],
+    "Interface.phase_rec": [],
+    "Interface.phase_sind": [],
+    "Interface.MirOperation": [],
+    "Interface.PhaseEvent": [],
+    "Interface.event_rect": [],
+    "Interface.event_ind": [],
+    "Interface.event_rec": [],
+    "Interface.event_sind": [],
+    "Interface.InvalidReference": [],
+    "Interface.InvalidRetag": [],
+    "Interface.InvalidRawFormation": [],
+    "Interface.InvalidStorage": [],
+    "Interface.InvalidControl": [],
+    "Interface.UndefinedBehavior": [],
+    "Interface.fault_rect": [],
+    "Interface.fault_ind": [],
+    "Interface.fault_rec": [],
+    "Interface.fault_sind": [],
+    "Interface.Continue": [],
+    "Interface.Normal": [],
+    "Interface.Unwind": [],
+    "Interface.Fault": [],
+    "Interface.outcome_rect": [],
+    "Interface.outcome_ind": [],
+    "Interface.outcome_rec": [],
+    "Interface.outcome_sind": [],
+    "Interface.ExecutionZero": [],
+    "Interface.ExecutionStep": [],
+    "Interface.ExecutionMore": [],
+    "Interface.execution_ind": [],
+    "Interface.execution_sind": [],
+    "Interface.Reference": [],
+    "Interface.allocation": [],
+    "Interface.byte_offset": [],
+    "Interface.provenance_tag": [],
+    "Interface.Semantics": [],
+    "Interface.configuration": [],
+    "Interface.history_type": [],
+    "Interface.history_of": [],
+    "Interface.source_heap": [],
+    "Interface.operand_reference": [],
+    "Interface.lawful_entry": [],
+    "Interface.lawful_state": [],
+    "Interface.reference_valid": [],
+    "Interface.entry_control": [],
+    "Interface.at_event": [],
+    "Interface.running": [],
+    "Interface.caller_observable": [],
+    "Interface.step": [],
+    "Graph.graph_events": [],
+    "Graph.graph_events_count": [],
+    "Graph.root_reservation_listed": [],
+    "Graph.phase_events_listed": [],
+    "Composition.valid_outcome": [],
+    "Composition.local_certificate": [],
+    "Composition.bounded_certificate": [],
+    "Composition.source_entry_certificate": [],
+    "Composition.execution_invariant": [],
+    "Composition.bounded_erasure": [],
+    "Composition.entry_erasure": [],
+    "Composition.enabled_fault_refutes_certificate": [],
+    "Composition.operand_projection": [],
+    "Composition.original_bytes": [],
+    "Composition.frame_preserves_initialized": [],
+    "Composition.entry_normal_bytes": [],
+    "Boundary.root_descriptor_attempt": [],
+    "Boundary.root_descriptor_attempt_impossible": [],
+    "Boundary.activation_not_in_completed_semantics": [],
+    "Boundary.unsize_not_in_completed_semantics": [],
+    "Boundary.raw_formation_not_in_completed_semantics": [],
+    "Boundary.retag_not_in_completed_semantics": [],
+    "Boundary.storage_not_in_completed_semantics": [],
+    "Boundary.fake_read_not_in_completed_semantics": [],
+    "Boundary.drop_not_in_completed_semantics": [],
+    "Boundary.unwind_not_in_completed_semantics": [],
+    "Boundary.phase_not_in_completed_semantics": []
+  },
+  "kernel_axioms": [],
+  "program_obligations": 0,
+  "modules": [
+    "Interface",
+    "Graph",
+    "Composition",
+    "Boundary"
+  ],
+  "commands": [
+    {
+      "label": "compile-Interface",
+      "exit_code": 0,
+      "seconds": 0.46280855796067044
+    },
+    {
+      "label": "compile-Graph",
+      "exit_code": 0,
+      "seconds": 0.8068874740274623
+    },
+    {
+      "label": "compile-Composition",
+      "exit_code": 0,
+      "seconds": 0.49749690998578444
+    },
+    {
+      "label": "compile-Boundary",
+      "exit_code": 0,
+      "seconds": 0.6620343149988912
+    },
+    {
+      "label": "assumptions",
+      "exit_code": 0,
+      "seconds": 0.7330782890203409
+    },
+    {
+      "label": "kernel",
+      "exit_code": 0,
+      "seconds": 29.16658985998947
+    }
+  ],
+  "products": {
+    "proofs/Assumptions.v": "ed8f7d85f9676f2acd61fc4356f9ddd9f1a7f6af15080379c80cc174607f8a2a",
+    "proofs/Assumptions.vo": "aa835fcd91d7ffe0f6184e4abf760ef0b668b1ae56f87ae0ce687e3259b5c865",
+    "proofs/Boundary.v": "6e248d6a0c81af654c375bd81c78e653a55792ae54c98428a9e053912be0936c",
+    "proofs/Boundary.vo": "25a962004369fb0a3fae46d58ce4d88d2d027e446c5bef174984698ec7b99d38",
+    "proofs/Composition.v": "ab60813b9b6912775d747e9468f92757e57557a551cb1366e1aa083223875245",
+    "proofs/Composition.vo": "2725d37bcf390d96bdef9866b223db0fc4df37583f94e7a0a791b601c91e8580",
+    "proofs/Graph.v": "984bc4bf99a2403748077d5edb79d743673b482deca99b29d305cb8752e5230c",
+    "proofs/Graph.vo": "58d5f639153da78cc8ae57a0f4e08d61de4e007d0e3f87e4417533b013b0818c",
+    "proofs/Interface.v": "7081211bc52d95b3a3f5d8052284d0ef885be730b6fb68d0a3bf63eec5451db5",
+    "proofs/Interface.vo": "478f9d14eb16ffa81235964987b079ef32a74bfb575a926182fd892a4b648efb"
+  },
+  "module_prints": {
+    "Interface": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.module.out",
+      "sha256": "03e5c021f47717b63586fa269f4f33f49a52839c29f93c8cf4c4bcf33e0a3c9f"
+    },
+    "Graph": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Graph.module.out",
+      "sha256": "0dd174aeee0c2cef79fa89d08787d252f135301aa8f6483dfcc949e31624ef6d"
+    },
+    "Composition": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.module.out",
+      "sha256": "ec3b8252dfd9c3f062f287552036af75084f8da67ae483db48d0954c687de8d0"
+    },
+    "Boundary": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.module.out",
+      "sha256": "a384b0e2c6495672638eb56ecd3e323b0dba22a5fa5c4c240808fead3eedac2a"
+    }
+  },
+  "source_shape_controls": {
+    "wrong-original-operand": "root reborrow changed",
+    "activation": "loan0 is not the incoming source loan",
+    "wrong-unsize": "root unsize changed",
+    "wrong-constructor-operand": "constructor operand changed"
+  },
+  "all_final_guards_before_success": true,
+  "actual_source_instance": false,
+  "source_certificate_proved": false,
+  "root_reborrow_need_proved": false,
+  "native_correspondences": 0,
+  "source_simulations_open": 44,
+  "phase_obligations_open": 3,
+  "writer_effects_open": 101,
+  "publication": false,
+  "goal_complete": false,
+  "canonical": "6/0 inherited, not rerun",
+  "full_HMAC": "1/1 inherited, not rerun",
+  "command_logs": {
+    "compile-Interface.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Interface.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Graph.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Graph.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Composition.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Composition.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Boundary.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-Boundary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "assumptions.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "assumptions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel.stderr": "263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3"
+  },
+  "declaration_statements": {
+    "Interface.address": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.address.statement.out",
+      "sha256": "12956f2e2a30d8572bd3d41532c926ee150e850b5f5a14ba7d7c2df53dcac532"
+    },
+    "Interface.physical_map": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.physical_map.statement.out",
+      "sha256": "2f75ec9edd5701a9cd54e27e191ec5816ca75a7c6c88df8814f0b16a44e28482"
+    },
+    "Interface.reference": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.reference.statement.out",
+      "sha256": "9877a24cb21afbfebf66d4c109bd75f4c572898a3b6860fe229bfd7851ef862e"
+    },
+    "Interface.ref_address": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.ref_address.statement.out",
+      "sha256": "fa23da7b32dd4b973cfd0b811d8980492d1fbf344e0811fb5824391045dfe47f"
+    },
+    "Interface.phase": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.phase.statement.out",
+      "sha256": "435e39a5caefdfc39ee9de808fea65793b0ed87d2c9c8824ebd26d84b690c463"
+    },
+    "Interface.event": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.event.statement.out",
+      "sha256": "1f1fb4b78408bcf48e05c4cf9726a521bd1eefb07c265ad7db65665bb37a740d"
+    },
+    "Interface.fault": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.fault.statement.out",
+      "sha256": "61716ee33e15a66f6cb6a2a26958aa9ec42df91267b59d39b78effdde899f387"
+    },
+    "Interface.outcome": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.outcome.statement.out",
+      "sha256": "b2c4a90de1bc607665b3febb3aa40b898bc412dfd2039d7803a754353c4e5d20"
+    },
+    "Interface.source_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.source_semantics.statement.out",
+      "sha256": "966a4190b78ad08248f03b19f1fe32a3aa431c76f512e9676d686cd61ab67004"
+    },
+    "Interface.initialized": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.initialized.statement.out",
+      "sha256": "f8ae92fc076abbc374b546099b0966277ccb861f08dbea1e6aa378344ee00eba"
+    },
+    "Interface.V_entry": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.V_entry.statement.out",
+      "sha256": "d12f311c86befcd58ff877518cfa16c824d5685b3aebaee0b230849f66b30084"
+    },
+    "Interface.physical_frame": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.physical_frame.statement.out",
+      "sha256": "28b630cfda46701043ebd869ec326e95fdad50e4a38f556f54d73c19884e7ed6"
+    },
+    "Interface.execution": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.execution.statement.out",
+      "sha256": "854dae01cb3468c1557f0e21e670af20657cdcf0b4d42933d36b7d461b5d4fdc"
+    },
+    "Interface.same_subobject": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.same_subobject.statement.out",
+      "sha256": "a2066ff2d6bf98b50f8cae7da20284559d9697273552df3aaa3cb6143285ec21"
+    },
+    "Interface.root_reborrow_need": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.root_reborrow_need.statement.out",
+      "sha256": "dc07780e86caeb01f2c37578b23404302a3f2364df90500b83251c72d8267b02"
+    },
+    "Interface.FakeReadPhase": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.FakeReadPhase.statement.out",
+      "sha256": "8ba7a1b5d28368bc01259d72c692c6f486931e598bfe056223114194b317421f"
+    },
+    "Interface.CallUnwindPhase": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.CallUnwindPhase.statement.out",
+      "sha256": "e564c120e9be720afabf0069e50b3cdeb90a14b2bbac28fdf0318e5e2e7011db"
+    },
+    "Interface.CleanupResumePhase": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.CleanupResumePhase.statement.out",
+      "sha256": "7a4bef73086ddceafabff879e5b1fd5a0807469734a29e070d12188fb7e5a299"
+    },
+    "Interface.phase_rect": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.phase_rect.statement.out",
+      "sha256": "2cc9446cf1c70587fce317b149f391431f6e4199f51d03e9dc4b29bc6be09c59"
+    },
+    "Interface.phase_ind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.phase_ind.statement.out",
+      "sha256": "e3a50c0cf2d1aad6326b88b03978dd0bbb6d5a70a0e36fa741e42ac54cec4ef0"
+    },
+    "Interface.phase_rec": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.phase_rec.statement.out",
+      "sha256": "e0f18e3f9ce441b66eda96cbe41fdc5e733179f5203fda540dd3a9c2d2798b73"
+    },
+    "Interface.phase_sind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.phase_sind.statement.out",
+      "sha256": "75d7c906dba592df4c337045a82a8793007573440299ac7a552b2b3ca0950dc9"
+    },
+    "Interface.MirOperation": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.MirOperation.statement.out",
+      "sha256": "f8e17ac69b92e6e8376231b96a2b42ba4ee08f9bb77b72e89d7a5c62dcdb8b28"
+    },
+    "Interface.PhaseEvent": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.PhaseEvent.statement.out",
+      "sha256": "5394aeae215d99f740d0fcda091a41d78cbadd3ae3ad8b8346887dfefa122fac"
+    },
+    "Interface.event_rect": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.event_rect.statement.out",
+      "sha256": "fe7718344e44492ddb12893755ae301e22f8d62d3b4766083720c181a13c0b4d"
+    },
+    "Interface.event_ind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.event_ind.statement.out",
+      "sha256": "54fc5c46d7e146903d7fe3050af55fb081e15645c598890edc7fc662fa278ae4"
+    },
+    "Interface.event_rec": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.event_rec.statement.out",
+      "sha256": "367c0438e8343a5fa26dbe74c1238296de6876ca8f1177614dbe5dc0382ec3ed"
+    },
+    "Interface.event_sind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.event_sind.statement.out",
+      "sha256": "35c8d8b401f0f5978c5816347eeb72178461f8e651dbfe44edd874b3e202b100"
+    },
+    "Interface.InvalidReference": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.InvalidReference.statement.out",
+      "sha256": "36edff2a0613b9c4037aa246630da9cb62b0aa7bd291e5bd9d63dd528f200c6e"
+    },
+    "Interface.InvalidRetag": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.InvalidRetag.statement.out",
+      "sha256": "a4e3137d1a26d2fe224e015f08e7660dfff19d8110c82961784a0d7316bd9fbd"
+    },
+    "Interface.InvalidRawFormation": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.InvalidRawFormation.statement.out",
+      "sha256": "8ceb37aa2297eeff7ad9c7af507c89fc7fb4cf3172a772c95620ced09f7af353"
+    },
+    "Interface.InvalidStorage": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.InvalidStorage.statement.out",
+      "sha256": "79dcb057c356a64cdabde3cea2af442d0ba37d5d3cce8753655e88e979d4add5"
+    },
+    "Interface.InvalidControl": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.InvalidControl.statement.out",
+      "sha256": "71d47893187118fdd4844e12ba5206611e13cf62ee03448fb50c7d35a38641c5"
+    },
+    "Interface.UndefinedBehavior": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.UndefinedBehavior.statement.out",
+      "sha256": "e98b4fdec108d8d8f8cf576a14a437263106b0127b40955b4654a21a9a0afcf1"
+    },
+    "Interface.fault_rect": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.fault_rect.statement.out",
+      "sha256": "54595a1ee1ea474a5ca362843aeaadd45ba67af389cfd9b82ac19ff588625f23"
+    },
+    "Interface.fault_ind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.fault_ind.statement.out",
+      "sha256": "6cbfcf0c8ad4ccc0e72617d735a384e5b39bcfeb981f983431c074c450516aaf"
+    },
+    "Interface.fault_rec": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.fault_rec.statement.out",
+      "sha256": "7f7cc70b942c2080b4e4c25ff9aadbdcbc75be38727f279a120a21b1224b0ac3"
+    },
+    "Interface.fault_sind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.fault_sind.statement.out",
+      "sha256": "9f0b48fe7ba1f09bd53943548d4f1c7d5790df4f672dd3666b05612d28d0944d"
+    },
+    "Interface.Continue": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.Continue.statement.out",
+      "sha256": "aa63d722ddca627ed8606602070a5821a85588251a0e3c6a2908cdca5e260c2c"
+    },
+    "Interface.Normal": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.Normal.statement.out",
+      "sha256": "22e7d8a3b90d6cffc53de1b595db44a4b226bca59703347987f276b141ab7e9d"
+    },
+    "Interface.Unwind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.Unwind.statement.out",
+      "sha256": "150e1ba11fe61389a3c72be5969f3a456055103c8069fe9149e142347fc5d106"
+    },
+    "Interface.Fault": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.Fault.statement.out",
+      "sha256": "91cde3557a00e317ba7e2b63f799a459bac369d624e4a9069b6c43f2d694e521"
+    },
+    "Interface.outcome_rect": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.outcome_rect.statement.out",
+      "sha256": "b7ac8814de38be55607a9435936f5c36e07611bd33a90cdeb7aeb327d4326c4f"
+    },
+    "Interface.outcome_ind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.outcome_ind.statement.out",
+      "sha256": "1dc9712ae6bdb06edcf040d2c4b79b43ad1e1d1c73fc9ac9ec0afb9c02102d58"
+    },
+    "Interface.outcome_rec": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.outcome_rec.statement.out",
+      "sha256": "e69dc73b04dce33670be01a8c27c1fdd2aa85b2d20bb2918c7ca8b2297583c6c"
+    },
+    "Interface.outcome_sind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.outcome_sind.statement.out",
+      "sha256": "985eed6a526bd48ad924607de5521cf90044c38749b3b9d54609cc0a711aee48"
+    },
+    "Interface.ExecutionZero": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.ExecutionZero.statement.out",
+      "sha256": "5557da4fd579464d5edba108efec441cb574fdc12d4c6f154ef272baf12e4632"
+    },
+    "Interface.ExecutionStep": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.ExecutionStep.statement.out",
+      "sha256": "e152b2dcf7d1c2595460ba8565156c1fdd26f5a4b82a9ab6cc5e7886bfb444e8"
+    },
+    "Interface.ExecutionMore": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.ExecutionMore.statement.out",
+      "sha256": "a364a25162b5e27f509d973ca37746cbf5ec777e7c6fc94289c2ed0300388c06"
+    },
+    "Interface.execution_ind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.execution_ind.statement.out",
+      "sha256": "9cc35483a0258aa05c537ecdddeb7668b74cb7e0525d504650d1f9daee01fa0b"
+    },
+    "Interface.execution_sind": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.execution_sind.statement.out",
+      "sha256": "69fae144e6b51e14bf29153a9074e796c0908ec56616e52e4af5a0a52248e525"
+    },
+    "Interface.Reference": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.Reference.statement.out",
+      "sha256": "76a11d2e476d99dce457556506b018c8a4d8e20a78ecd0336c2de5a4b29225c8"
+    },
+    "Interface.allocation": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.allocation.statement.out",
+      "sha256": "b53cbd608e76a23fb2b68f1c47b66f8ce5e8e5ba2561a3955bbcd833455fcdf0"
+    },
+    "Interface.byte_offset": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.byte_offset.statement.out",
+      "sha256": "31dd4e9ce20be42f927169be647379891284d2cb64fc5d51bddf5ccedd3d35d5"
+    },
+    "Interface.provenance_tag": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.provenance_tag.statement.out",
+      "sha256": "e4490183a97e528912102b4f257b2b64cd9c5377c469ae49028523a76a55caa0"
+    },
+    "Interface.Semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.Semantics.statement.out",
+      "sha256": "220aa5ade44269ce60f20214935fd75ddea55a0041c6e776e89d0b9ad8bb8bf3"
+    },
+    "Interface.configuration": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.configuration.statement.out",
+      "sha256": "432a4bb2b65e3908ff5f70cea29687365dc321ac1873ce14eaaed316f9284d82"
+    },
+    "Interface.history_type": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.history_type.statement.out",
+      "sha256": "36460ad9f2b4ca39557166b72ec0d3a8711d9b36317d7d0a01403ae51257c56e"
+    },
+    "Interface.history_of": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.history_of.statement.out",
+      "sha256": "9eeb6a3455f9434b690921056581017d7bdcf8360098024c12468c72eda3a11e"
+    },
+    "Interface.source_heap": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.source_heap.statement.out",
+      "sha256": "555ecec24874dd78406cf20ea6f1e0f2929d2aff46b7c35911a23d2f326d7eb3"
+    },
+    "Interface.operand_reference": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.operand_reference.statement.out",
+      "sha256": "4562bb2f84e56149080d029ef55c1863881a8457838367a132c16c5c624b0c43"
+    },
+    "Interface.lawful_entry": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.lawful_entry.statement.out",
+      "sha256": "5d85c77215aff3c19ad488230697fe4f40670278a904e414681d51191bd36947"
+    },
+    "Interface.lawful_state": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.lawful_state.statement.out",
+      "sha256": "192fb7f92bb6151c511af8280b3ba5bec6e1a91d91590da9256c37a3b1247c3d"
+    },
+    "Interface.reference_valid": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.reference_valid.statement.out",
+      "sha256": "a1b4f012d5812880a387355953849291192d9249e71494932cac24cd758a4a8f"
+    },
+    "Interface.entry_control": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.entry_control.statement.out",
+      "sha256": "1358b428590c54dfef31e65b34ce97ba9e0a2da1670c2ea1bbb346180752d34d"
+    },
+    "Interface.at_event": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.at_event.statement.out",
+      "sha256": "38bf285df6f5e90cd6ecba6ea97d524d0cad033223100b721b5ee5173e158e86"
+    },
+    "Interface.running": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.running.statement.out",
+      "sha256": "68c101d90ff99f0e9d525bb08ff05e2c3fc556616e68ba966a20fe3584dbaad7"
+    },
+    "Interface.caller_observable": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.caller_observable.statement.out",
+      "sha256": "46532db0e270d40c55a40fd8ceb2eb1389288a6769950d6bc6f30072b2bcedae"
+    },
+    "Interface.step": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Interface.step.statement.out",
+      "sha256": "0e15e59bbae2013e3a31075313b6c20bb30499f6b5ce5aa58b892ca29c449abb"
+    },
+    "Graph.graph_events": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Graph.graph_events.statement.out",
+      "sha256": "16d04d0dbe9e698452b66b8a75e69a19791bf7d99f75b61865d81769841cf3f5"
+    },
+    "Graph.graph_events_count": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Graph.graph_events_count.statement.out",
+      "sha256": "767995921e1c293d50b538763c0742da28766032eaf7408149bf72f082e606e4"
+    },
+    "Graph.root_reservation_listed": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Graph.root_reservation_listed.statement.out",
+      "sha256": "236d0790862318bd02ae7297a6450f17a13f7888845b6045275dc70a0711e117"
+    },
+    "Graph.phase_events_listed": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Graph.phase_events_listed.statement.out",
+      "sha256": "112adfb3e4359c27f9c670609b5c0e9b7a704e5eec764c1d124e5c7e42a69300"
+    },
+    "Composition.valid_outcome": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.valid_outcome.statement.out",
+      "sha256": "1dea35874112c1227c10e1a7c0af7873bb1ca7c1dd00e81d99fbadb65fb4f113"
+    },
+    "Composition.local_certificate": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.local_certificate.statement.out",
+      "sha256": "acf2f5cd8f97409556057c061e758afc7cf00ff4be997f8e4e75babc61c8439a"
+    },
+    "Composition.bounded_certificate": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.bounded_certificate.statement.out",
+      "sha256": "06c13d33b8d6c23174eabcf8f5098a5c25f1090c570182b390ae51b39af48c6b"
+    },
+    "Composition.source_entry_certificate": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.source_entry_certificate.statement.out",
+      "sha256": "a76a264ddcc4654acfe5941dcbd1b772606d9fc4e20022f54bc588ab7fb76c90"
+    },
+    "Composition.execution_invariant": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.execution_invariant.statement.out",
+      "sha256": "a643f2c8f81ffe43cd5a71007435004deaf768212a161f8f604065e220edc76a"
+    },
+    "Composition.bounded_erasure": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.bounded_erasure.statement.out",
+      "sha256": "fd4bad0a74117c21f05049cb4318d7733f934cf0f3e10940ff09b0a334c76820"
+    },
+    "Composition.entry_erasure": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.entry_erasure.statement.out",
+      "sha256": "459a65aed800f938ca89ea1db3fba8adf91e4a50bddd34e3fd45091809aa3a27"
+    },
+    "Composition.enabled_fault_refutes_certificate": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.enabled_fault_refutes_certificate.statement.out",
+      "sha256": "2d181d83ad4c841199c72449a33ef259168882f2bac4b278c1c6055b8699c6aa"
+    },
+    "Composition.operand_projection": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.operand_projection.statement.out",
+      "sha256": "9548b13bfbdd23d6189476d4fcd75274bb9f2b6d812191689e76cacfd336c69f"
+    },
+    "Composition.original_bytes": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.original_bytes.statement.out",
+      "sha256": "8006ae1d00661571a03ae7a39b6ebb39bc33357c23f87d5e777bba7aec15af87"
+    },
+    "Composition.frame_preserves_initialized": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.frame_preserves_initialized.statement.out",
+      "sha256": "533b3a2826978b79195b3f0cc9321b1932d66f711a2bc8b473428da9d8f38f12"
+    },
+    "Composition.entry_normal_bytes": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Composition.entry_normal_bytes.statement.out",
+      "sha256": "902df1c5c59e44b9326281aca21afdcc3762021f930735a56152d2cdb888cb81"
+    },
+    "Boundary.root_descriptor_attempt": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.root_descriptor_attempt.statement.out",
+      "sha256": "717a34d5b84c84cb8c1f0505986c6d310e84767d75742f51cea9f720ea884f9c"
+    },
+    "Boundary.root_descriptor_attempt_impossible": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.root_descriptor_attempt_impossible.statement.out",
+      "sha256": "5f032b4d3b3fdbbaa8e32b0276b792d6e5b17a8e7184ca6c3e3cf59bf17f337d"
+    },
+    "Boundary.activation_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.activation_not_in_completed_semantics.statement.out",
+      "sha256": "c49e70d2624ac77972626fdd96bb926638487745f6b060fec6a321621579c3c4"
+    },
+    "Boundary.unsize_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.unsize_not_in_completed_semantics.statement.out",
+      "sha256": "250a844ac0b6557985959502fcb21286f3124bf33882ac3e8f463f7f301bb295"
+    },
+    "Boundary.raw_formation_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.raw_formation_not_in_completed_semantics.statement.out",
+      "sha256": "f48b560cda82353680039eae5c30e72c8b4f633665a6c3e088700c183db5cd03"
+    },
+    "Boundary.retag_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.retag_not_in_completed_semantics.statement.out",
+      "sha256": "c2fcd68dfaf15cebe6f2dfd05f1af4a1c7c2a3ca2b0b076d4ec911998a3c7e76"
+    },
+    "Boundary.storage_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.storage_not_in_completed_semantics.statement.out",
+      "sha256": "44f4bc5f5b00af3a0cb0428699eaae4acb9768d54640208a5f8b2773516ac151"
+    },
+    "Boundary.fake_read_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.fake_read_not_in_completed_semantics.statement.out",
+      "sha256": "218e630a580de1d1e7d146602160f4a2ff4bce92eda64b973d5a0a24a4e15021"
+    },
+    "Boundary.drop_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.drop_not_in_completed_semantics.statement.out",
+      "sha256": "d02ff7e78eeb9c266229ed7f5b13bfe608022bad7725d12acccd636add61d6e2"
+    },
+    "Boundary.unwind_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.unwind_not_in_completed_semantics.statement.out",
+      "sha256": "ed224a3176d255336c57de3ed7029ce988055a7ff4e3d5d9bbfe8112c1c07bdc"
+    },
+    "Boundary.phase_not_in_completed_semantics": {
+      "path": "/tmp/native-constructor-erasure-6bb72bfb-trial006/proofs/inventory/Boundary.phase_not_in_completed_semantics.statement.out",
+      "sha256": "b288b918a45e6545c9ae029fc3ef6fd38b9fabab9606c3d78de80a6736fa78d4"
+    }
+  }
+}
