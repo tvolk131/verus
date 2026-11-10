@@ -31,6 +31,14 @@ def declarations(path):
     require(len(names)==len(set(names)), 'duplicate declaration inventory')
     return names
 
+def printed_declarations(text):
+    names = re.findall(r'^     (?:Definition|Parameter|Record|Inductive)\s+(\w+)', text, re.M)
+    for m in re.finditer(r'^     Inductive\s+\w+(.*?)(?=^     Definition|^     Inductive|^     Record|^   End)', text, re.M|re.S):
+        names += re.findall(r'(?:^\s*|\|\s*)(\w+)\s*:', m[1].split(':=', 1)[1])
+    names += re.findall(r'^     Record\s+\w+.*?:=\s*(\w+)', text, re.M)
+    require(len(names) == len(set(names)), 'duplicate printed declaration')
+    return names
+
 def inputs():
     return [HERE/'INTERFACE.md', HERE/'SEMANTICS.md', HERE/'check.py', HERE/'binding.py', HERE/'pins.json',
             HERE/'source-connected.json', ROOT/'evidence/native-functional-boundary-audit/COMPLETED_MIR.json', BRIDGE/'proof_checks.py', BRIDGE/'baseline-bindings.json',
@@ -176,9 +184,30 @@ def main():
         receipt['assumptions'] = {n:parse_axioms(body) for n,body,_ in sections}
         require(out.split('END '+names[-1], 1)[1].strip().splitlines() ==
                 ['Closed under the global context'] * len(helper_names), 'inspection helpers not individually closed')
+        inspect_text = 'From NativePointerDistance Require Import '+ ' '.join(MODULES)+'.\n'
+        inspect_text += ''.join(f'Redirect "module-{m}" Print Module NativePointerDistance.{m}.\n'
+                                for m in [*MODULES, 'Assumptions'])
+        inspect_file = work/'Inspection.v'
+        inspect_file.write_text(inspect_text)
+        hold(inspect_file, hashlib.sha256(inspect_text.encode()).hexdigest())
+        require(run('inspect-modules',[str(toolpaths['runner']),str(toolpaths['coqc']),'-q',*args,str(inspect_file)],env)==0,
+                'module inspection failed')
+        module_inventory = {}
+        constant_names = []
+        for m in [*MODULES, 'Assumptions']:
+            printfile = work/('module-'+m+'.out')
+            text = printfile.read_text()
+            hold(printfile, digest(printfile))
+            got = printed_declarations(text)
+            expected = ([name.split('.', 1)[1] for name in helper_names] if m == 'Assumptions'
+                        else freeze['constants'][m])
+            require(len(got) == len(expected) and set(got) == set(expected), 'printed module inventory differs '+m)
+            module_inventory[m] = got
+            constant_names += [m+'.'+n for n in re.findall(r'^     (?:Definition|Parameter)\s+(\w+)', text, re.M)]
         products = ArtifactGuard([x for x in work.iterdir() if x.suffix in ['.v','.vo']])
         require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-o',*args,
-                *['NativePointerDistance.'+n for n in MODULES], 'NativePointerDistance.Assumptions'],env)==0,'recursive checker failed')
+                *['NativePointerDistance.'+n for n in MODULES], 'NativePointerDistance.Assumptions',
+                'NativePointerDistance.Inspection'],env)==0,'recursive checker failed')
         kernel_text = (a.output/'kernel.stderr').read_text()
         # coqchk prints the heading and sentinel on one line for an empty TCB.
         # Normalize only that exact sentinel; preserve every safety heading.
@@ -187,8 +216,8 @@ def main():
             kernel_text = kernel_text.replace('* Axioms: <none>\n', '* Axioms:\n')
         receipt['kernel_axioms'] = parse_kernel_summary(kernel_text)
         checked = re.findall(r'checking cst:NativePointerDistance\.(\w+\.\w+)', kernel_text)
-        require(len(checked) == len(names) + len(helper_names) and
-                set(checked) == set(names + helper_names), 'complete kernel inventory differs')
+        require(len(checked) == len(constant_names) and set(checked) == set(constant_names),
+                'complete kernel constant inventory differs')
         require([n for n in checked if n.startswith('Assumptions.')] == helper_names,
                 'inspection helper kernel order differs')
         require(receipt['kernel_axioms'] == [] and all(v == [] for v in receipt['assumptions'].values()),
@@ -198,7 +227,9 @@ def main():
         guard.check()
         receipt.update(model_proofs_kernel_checked=True, constant_count=len(names), program_obligations=0,
                        inspection_helper_count=len(helper_names), kernel_constant_count=len(checked),
-                       all_kernel_declarations=checked, helper_assumptions={n:[] for n in helper_names},
+                       total_declaration_count=len(names)+len(helper_names),
+                       module_inventory=module_inventory, kernel_constants=checked,
+                       helper_assumptions={n:[] for n in helper_names},
                        proof_artifacts=products.initial)
         print(json.dumps(dict(output=str(a.output), model_proofs_kernel_checked=True,publication=False)))
 if __name__ == '__main__': main()
