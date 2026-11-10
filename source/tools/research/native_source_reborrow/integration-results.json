@@ -15,7 +15,19 @@
   "individual_assumptions_closed": true,
   "kernel_axioms": [],
   "math_sources_objects_match_worker": true,
-  "independent_review": "pending",
+  "independent_review": {
+    "commit": "e591022b",
+    "decision": "accept_exact_conditional_MODEL_scope",
+    "controller": "accept_current_integration001_replay_no_dependency_authentication_weakening",
+    "receipt": {
+      "path": "/tmp/source-reborrow-model-review-6c74c9b1-003/receipt.json",
+      "sha256": "0bdbc838347582eadf04aa26dae17b6d0387e5e45b64825bb29a9547b4b98cf8"
+    },
+    "fresh_compilation": {
+      "path": "/tmp/source-reborrow-model-review-6c74c9b1-002/replay/receipt.json",
+      "sha256": "bccde9cd3729bad7620ce9be1512a846e295d9668bcdbf5f3f8b45bfecbf7e53"
+    }
+  },
   "actual_source_instance": false,
   "all_lawful_rust_inputs_covered": false,
   "source_cf_bindings_proved": false,
@@ -24,5 +36,6 @@
   "phase_obligations_open": 3,
   "writer_effects_open": 101,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "global_freshness_qualification": "global byte-grant freshness uses registered plus fresh_node; ready alone permits arbitrary outside stacks"
 }

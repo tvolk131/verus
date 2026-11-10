@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "candidate": "candidate.v",
+  "candidate_sha256": "557b30289bf080208eb58f64a88e7958d145112926567f98787edf1920b072bf",
+  "pretrial_freeze": {
+    "path": "source/tools/research/stbor_entry_handoff/candidate003-freeze.json",
+    "sha256": "be5a76c004b710f4e5a9b64032f538b866082b807ab8133daa813d54c1c7dc07"
+  },
+  "declarations_proposed": 12,
+  "compilation": "not_run",
+  "reason": "Awaiting successful checked pinned foundation and authenticated runner/loadpaths",
+  "proofs_accepted": 0,
+  "model_kernel_checked": false,
+  "actual_source_instance": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

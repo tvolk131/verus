@@ -16,8 +16,10 @@ Output must be fresh. Dependencies/tools are pinned completed read-only artifact
 only new modules compile privately. The current integration replay uses the
 unchanged mathematical candidates and immutable completed receipts; the historical
 worker freeze remains preserved. [Parent matching evidence](integration-results.json)
-records134 closed declarations and identical mathematical objects; independent
-acceptance remains pending.
+records134 closed declarations and identical mathematical objects. The
+[independent review](../../../../evidence/source-reborrow-model-review/REPORT.md)
+accepts the exact conditional MODEL and current replay. Global grant-tag
+freshness additionally uses `registered`; `ready` alone does not establish it.
 
 This is a conservative authored byte-stack rule, not an implementation of Rust,
 Stacked Borrows or Tree Borrows. Actual Rust interpretation, coverage of all
