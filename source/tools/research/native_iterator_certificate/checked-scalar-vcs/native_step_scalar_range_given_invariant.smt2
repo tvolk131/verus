@@ -1,0 +1,10 @@
+; Conditional on invariant; NOT a native memory/refinement proof.
+(set-logic QF_LIA)
+(set-option :timeout 5000)
+(declare-const index Int)
+(declare-const length Int)
+(declare-const key_length Int)
+(assert (and (<= 0 index) (< index length) (<= length 128)
+             (<= length key_length) (<= 0 key_length)))
+(assert (not (and (<= 0 (+ index 1)) (<= (+ index 1) length) (<= (+ index 1) 18446744073709551615))))
+(check-sat)
