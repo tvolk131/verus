@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "purpose": "candidate semantic foundation inspection only",
+  "repository": "https://github.com/verus-lang/verus-belt",
+  "commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+  "local_read_only_input": "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-115a618d",
+  "files": {
+    "README.md": "ad50f30b724511a434cea3532ff4f0331c481a67c33e083a9a88f9e7b00a54ca",
+    "_CoqProject": "40f4ef780111bd322c9403a3a77b1831b94184d711787f1407f694dd1835d3bb",
+    "Dockerfile": "b4120010dddf46e378ac65eeeef371f3dc719f56da84622e1d08893ee50e3f32",
+    "src/lambda_verus/typing/type.v": "6b04737f7eef37f4b756e24f56aa2d7ca94fc964e34f5fe612de0a1c275d842f",
+    "src/lambda_verus/typing/uniq_bor.v": "8470cfc8bec333ba8cbbe82ddc712f81b656024784257cc3c6a6cbecac6606f5",
+    "src/lambda_verus/typing/uniq_util.v": "c1be9beb6e401617055a56cc1c0af6956686e8ebffaa78a1735beb904d530df7",
+    "src/lambda_verus/typing/pptr.v": "2df2f4d5f49ddd00d01f94f0f981cf4a48047194016166f9006a9baff53b1aac",
+    "src/lambda_verus/typing/soundness.v": "60ce19a14a207a91c2024b4ee089183528a8883586449a50257a41fdb6bb1d4c",
+    "src/lambda_verus/lang/lifting.v": "73cd1bbb6505ab72842da8dd29511e84eb055bbb5e0db1583e4b54dc73c5b6c9"
+  },
+  "Rocq_checked_in_parent": false,
+  "native_correspondence_proved": false,
+  "production_facts_installed": false
+}
