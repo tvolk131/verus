@@ -8,7 +8,20 @@
   },
   "source_declarations": 5,
   "inventory_helpers": 20,
-  "independent_review": "pending",
+  "independent_review": {
+    "commit": "170e24b6",
+    "decision": "accept exact MODEL",
+    "fresh_receipt": {
+      "path": "/tmp/native-components-model-review-3f865efc/caller/receipt.json",
+      "sha256": "9604516ca25b8fb1af23cfd2a839ad114e3e1658c29d35e0aff7971528974ce9"
+    },
+    "inventory_receipt": {
+      "path": "/tmp/native-components-model-review-3f865efc/caller-inventory/receipt.json",
+      "sha256": "ab4f4ad8e0badf7fd2903b181c7372082d6285e1644f030d74ceee5cf9801bfb"
+    },
+    "source_declarations": 5,
+    "helpers": 20
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "scope": "Conditional/MODEL components, no actual Rust source proof",
+  "implementation": "ade18e67",
+  "worker_receipt": {
+    "path": "/tmp/native-source-storage-e77da206-trial007/receipt.json",
+    "sha256": "184b009ecbfa6a343e5183dce5e2df638bf906592c25b979bab5bd877a222b64",
+    "success": true
+  },
+  "integration_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-storage_scope_fix-001/proofs/receipt.json",
+    "sha256": "47f3ebf95acf6e15d3a6b17deabb0103902d48ac62d05a5a7e2fa8079ff8cd1a"
+  },
+  "source_declarations": 142,
+  "generated_helpers": 0,
+  "independent_review": "pending",
+  "actual_source_instance": false,
+  "source_certificate_proved": false,
+  "source_CF_bindings_proved": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

@@ -11,9 +11,25 @@
   "all_individual_assumptions_closed": true,
   "kernel_axioms": [],
   "all_delivered_products_authenticated": true,
-  "independent_review": "pending",
+  "independent_review": {
+    "commit": "170e24b6",
+    "decision": "accept exact conditional mathematics",
+    "fresh_receipt": {
+      "path": "/tmp/native-components-model-review-3f865efc/distance/receipt.json",
+      "sha256": "a632ddc8763e32a19b5d78d1d69ab6dcaa65cb953e6e697e72822f0aed44bd33"
+    },
+    "inventory_receipt": {
+      "path": "/tmp/native-components-model-review-3f865efc/distance-inventory/receipt.json",
+      "sha256": "3b8b6891d7bb9b98aef788d8624d9ee9f8d343e8c6d054108684ba887873343f"
+    },
+    "integration_fix_review": "pending"
+  },
   "actual_source_correspondence": false,
   "native_correspondences": 0,
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "integration_replay": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-pointer_inventory_fix-003/proofs/receipt.json",
+    "sha256": "43fb37587de04d48eac44f4434535a7587b0035bdffbd4d2d3194bb8e815690a"
+  }
 }

@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "scope": "Conditional/MODEL components, no actual Rust source proof",
+  "implementation": "173d169e",
+  "worker_receipt": {
+    "path": "/tmp/native-original-reference-exit-trial011/receipt.json",
+    "sha256": "283a8c76333414a81d3c30378ad5aa25703f89bf32101b7eb36d511a1a582195"
+  },
+  "integration_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-exit_scope_fix-001/proofs/receipt.json",
+    "sha256": "5242f36533f2992525c12e5d725378df19e45fc29f9340ce07a29b09dd7cd79f"
+  },
+  "source_declarations": 17,
+  "generated_helpers": 68,
+  "independent_review": "pending",
+  "actual_source_instance": false,
+  "source_certificate_proved": false,
+  "source_CF_bindings_proved": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
