@@ -269,7 +269,8 @@ def main():
                 *['ModelCallerOrdinaryWriter.'+n for n in MODULES], 'ModelCallerOrdinaryWriter.Assumptions', 'ModelCallerOrdinaryWriter.ProofTerms'],env)==0,'recursive checker failed')
         kernel_output = (a.output/'kernel.stderr').read_text()
         receipt['kernel_axioms'] = parse_kernel_summary(kernel_output)
-        checked = re.findall(r'checking cst:ModelCallerOrdinaryWriter\.((?:interface|vectors|writer|controls)\.\w+)', kernel_output)
+        checked = re.findall(r'checking cst:ModelCallerOrdinaryWriter\.((?:'+
+                             '|'.join(re.escape(n) for n in MODULES)+r')\.\w+)', kernel_output)
         require(checked == names, 'kernel declaration inventory differs: '+repr(checked))
         all_checked = re.findall(r'checking cst:ModelCallerOrdinaryWriter\.(\w+\.\w+)', kernel_output)
         expected_all = names + helper_names['Assumptions'] + helper_names['ProofTerms']
