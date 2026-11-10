@@ -11,7 +11,7 @@ def digest(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def dump(p, data): pathlib.Path(p).write_text(json.dumps(data, indent=2, sort_keys=True)+'\n')
 def freeze(extra=()):
     names = subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0')
-    paths = [ROOT/n for n in names if n and (ROOT/n).is_file()]
+    paths = [ROOT/n for n in names if n and not n.startswith('evidence/constructor-function-value-review/') and (ROOT/n).is_file()]
     paths += list((ROOT/'evidence/constructor-function-value-review').glob('*.py'))
     paths += list((ROOT/'evidence/constructor-function-value-review').glob('*.rs'))
     paths += [ROOT/'evidence/constructor-function-value-review/INTERFACE.md']
@@ -20,7 +20,7 @@ def freeze(extra=()):
         for n,h in json.loads(manifest.read_text()).items():
             require(digest(WORK/n)==h, 'private source copy '+n)
         paths += [manifest]
-    paths += list(TC.glob('lib/librustc_driver*')) + [TC/'bin/rustc',TC/'bin/cargo',BUNDLE/'z3']
+    paths += list(TC.glob('lib/librustc_driver*')) + [TC/'bin/rustc',TC/'bin/cargo',BUNDLE/'z3',pathlib.Path('/home/dev/.cargo/bin/rustup')]
     paths += [pathlib.Path(x).resolve() for x in extra]
     return {str(p):digest(p) for p in sorted(set(paths))}
 def run(label, argv, extra=(), env=None, cwd=None, products=()):
