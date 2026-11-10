@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "scope": "Resource-valued MODEL typed-reference setup and actual final-state composition",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial004/receipt.json",
+    "sha256": "55814a3ed612c0c3820784f9746362de5dad68823422e2385a38efce70b54ad2"
+  },
+  "freeze": {
+    "path": "source/tools/research/model_input_observation/trial004-freeze.json",
+    "sha256": "7ac8fd72c65f1b402c237191fc4cf4bbe817b2351d9e343721dd75e0f282d84c"
+  },
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "constant_count": 2,
+  "assumptions": {
+    "setup.raw_model_context_wp": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "setup.raw_model_context_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ]
+  },
+  "proof_objects": {
+    "setup.vo": "1ec695d18d77f9e940e7150a90b7accfa0eeb37bd67645172a388ea93fa518c7",
+    "Assumptions.vo": "ab2080a0253f406a1ccf47c3a16806386c1dc8db327f5e58983fa6de8e5efe6e"
+  },
+  "same_outer_lrustGS_required": true,
+  "arbitrary_resource_postcondition_preserved": true,
+  "original_body_and_domain_unchanged": true,
+  "actual_native_correspondences": 0,
+  "native_effects_open": 101,
+  "publication": false,
+  "goal_complete": false,
+  "independent_review": "pending; callback execution instance still under development"
+}

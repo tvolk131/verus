@@ -1,0 +1,38 @@
+[
+  {
+    "trial": 1,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial001/receipt.json",
+    "receipt_sha256": "c721e3b2b5aa14b8bc571259e102cbdccd0bfb3199ef4fb72629266313829e4c",
+    "success": false,
+    "classification": "statement elaboration: numeric scope; not semantic evidence",
+    "freeze": "trial001-freeze.json",
+    "source_copy": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial001/proofs/setup.v"
+  },
+  {
+    "trial": 2,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial002/receipt.json",
+    "receipt_sha256": "905183f0b36ee75e5edb8096f017782956d14109661a12821313d0a1832f32d7",
+    "success": true,
+    "classification": "accepted single resource-valued setup lemma",
+    "freeze": "trial002-freeze.json",
+    "source_copy": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial002/proofs/setup.v"
+  },
+  {
+    "trial": 3,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial003/receipt.json",
+    "receipt_sha256": "0a517bead62ee03fac64a438b78635c41a9247e9d25d0b31a35c4a53ba1cd320",
+    "success": false,
+    "classification": "composition proof script: tactic goal count; not semantic evidence",
+    "freeze": "trial003-freeze.json",
+    "source_copy": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial003/proofs/setup.v"
+  },
+  {
+    "trial": 4,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial004/receipt.json",
+    "receipt_sha256": "55814a3ed612c0c3820784f9746362de5dad68823422e2385a38efce70b54ad2",
+    "success": true,
+    "classification": "accepted setup and final-memory composition",
+    "freeze": "trial004-freeze.json",
+    "source_copy": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial004/proofs/setup.v"
+  }
+]

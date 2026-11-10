@@ -4,6 +4,7 @@ From lrust.typing Require Import soundness inv_context.
 From lrust.lifetime Require Import lifetime_full.
 From guarding Require Import guard tactics.
 Set Default Proof Using "Type".
+Open Scope Z_scope.
 
 Section resource_setup.
   Context {Σ : gFunctors} `{!typePreG Σ} (Outer : lrustGS Σ).
@@ -14,12 +15,12 @@ Section resource_setup.
     Forall (λ z, 0 ≤ z < 256) zs →
     (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
     (∀ (TG : typeG Σ) tid κ, @type_lrustGS Σ TG = Outer → κ ≠ llft_empty →
-      @llft_ctx Σ (@type_lftGS Σ TG) -∗
-      @proph_ctx Σ (@type_prophG Σ TG) -∗
-      @uniq_ctx Σ TG -∗ time_ctx -∗
-      @elctx_interp Σ TG [] -∗ @llctx_interp Σ TG [κ ⊑ₗ []] -∗
-      @invctx_interp Σ TG tid ⊤ [] (InvCtx [] static AtomicClosed) -∗
-      @model_reference Σ TG zs p tid κ -∗
+      llft_ctx -∗
+      proph_ctx -∗
+      uniq_ctx -∗ time_ctx -∗
+      elctx_interp [] -∗ llctx_interp [κ ⊑ₗ []] -∗
+      invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗
+      model_reference zs p tid κ -∗
       initial_fragments (h ∖ interval_map p ((λ z : Z, LitV (LitInt z)) <$> zs)) -∗
       £k -∗ WP e @ ⊤ {{ Φ }}) →
     initial_fragments h -∗ £(1+k) -∗ time_ctx -∗
@@ -50,3 +51,32 @@ Section resource_setup.
       iExists κ. iFrame "Alive". by rewrite left_id.
   Qed.
 End resource_setup.
+
+Section observed_public_setup.
+  Context {Σ : gFunctors} `{!typePreG Σ}.
+
+  Theorem raw_model_context_observed e h p (zs : list Z) n
+      (P : val → list val → Prop) k :
+    Closed [] e →
+    Forall (λ z, 0 ≤ z < 256) zs →
+    (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
+    (∀ (TG : typeG Σ) tid κ, κ ≠ llft_empty →
+      llft_ctx -∗ proph_ctx -∗ uniq_ctx -∗ time_ctx -∗
+      elctx_interp [] -∗ llctx_interp [κ ⊑ₗ []] -∗
+      invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗
+      model_reference zs p tid κ -∗
+      initial_fragments (h ∖ interval_map p ((λ z : Z, LitV (LitInt z)) <$> zs)) -∗
+      £k -∗ WP e {{ v, ∃ vs : list val, ⌜length vs = n ∧ P v vs⌝ ∗
+        p ↦∗ vs ∗ initial_fragments (h ∖ interval_map p ((λ z : Z, LitV (LitInt z)) <$> zs)) }}) →
+    adequate NotStuck (Skip;; e) (initialized_state h)
+      (λ v σ, ∃ vs, length vs = n ∧ P v vs ∧ interval_observed σ p vs ∧
+        frame_observed σ (h ∖ interval_map p ((λ z : Z, LitV (LitInt z)) <$> zs))).
+  Proof using All.
+    intros ClosedE Range Cells Callback.
+    apply (initialized_interval_frame_adequacy (Σ:=Σ) _ _ _ _ _ _ (1+k)).
+    intros Outer. iIntros "Fragments Credits Time".
+    iApply (raw_model_context_wp Outer with "Fragments Credits Time"); try done.
+    intros TG tid κ SameHeap Nonempty. rewrite <- SameHeap.
+    iApply (Callback TG tid κ Nonempty).
+  Qed.
+End observed_public_setup.
