@@ -381,6 +381,9 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
         let ctxt = &pre_crate.ctxt;
         let info = &pre_crate.fun_name_to_info[fun];
         let mut new_functions = vec![];
+        // BodyBackedForeign finishes to a full ordinary body, just like a
+        // checked constructor. It must use this cache and all checks below;
+        // it is never an external-body declaration or a checked-proof token.
         let result = finish_item(ctxt, &info, &mut new_functions);
         ctxt.flush_diagnostics(self.reporter);
         match result {

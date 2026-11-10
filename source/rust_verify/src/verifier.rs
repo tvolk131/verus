@@ -332,6 +332,7 @@ pub struct Verifier {
     dep_tracker: Option<crate::cargo_verus_dep_tracker::DepTracker>,
     import_virs_via_cargo: Option<Vec<(String, String)>>,
     export_vir_path_via_cargo: Option<std::path::PathBuf>,
+    local_checked_foreign: bool,
     imported_inference_dependencies: Vec<crate::import_export::InferenceDependency>,
     inference_trusted_models: Vec<(Fun, String)>,
     available_trusted_models: HashMap<Fun, String>,
@@ -535,6 +536,7 @@ impl Verifier {
             via_cargo_args,
             import_virs_via_cargo: None,
             export_vir_path_via_cargo: None,
+            local_checked_foreign: false,
             imported_inference_dependencies: Vec::new(),
             inference_trusted_models: Vec::new(),
             available_trusted_models: HashMap::new(),
@@ -592,6 +594,7 @@ impl Verifier {
             dep_tracker: None,
             import_virs_via_cargo: self.import_virs_via_cargo.clone(),
             export_vir_path_via_cargo: self.export_vir_path_via_cargo.clone(),
+            local_checked_foreign: self.local_checked_foreign,
             imported_inference_dependencies: self.imported_inference_dependencies.clone(),
             inference_trusted_models: self.inference_trusted_models.clone(),
             available_trusted_models: self.available_trusted_models.clone(),
@@ -1470,7 +1473,13 @@ impl Verifier {
         self.run_command_batches(bucket_id, reporter, &mut air_context, &bucket_context);
 
         let bucket = self.get_bucket(bucket_id);
-        let mut opgen = OpGenerator::new(ctx, krate, bucket.clone(), self.args.infer_goals);
+        let mut opgen = OpGenerator::new(
+            ctx,
+            krate,
+            bucket.clone(),
+            self.args.infer_goals,
+            self.local_checked_foreign,
+        );
         while let Some(mut function_opgen) = opgen.next()? {
             let diagnostics_to_report: std::cell::RefCell<
                 Option<PanicOnDropVec<(Message, MessageLevel)>>,
@@ -2881,6 +2890,29 @@ impl Verifier {
 
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
+
+        // This stage is LOCAL ONLY. Test the preregistered category before
+        // public/private pruning and before Query or any export can run.
+        if pre_crate.infos.iter().any(|i| {
+            matches!(&**i, crate::rust_to_vir_func::FunctionOrConstInfo::BodyBackedForeign { .. })
+        }) {
+            self.local_checked_foreign = true;
+            crate::import_export::invalidate_local_inference_export(
+                &self.args,
+                &self.export_vir_path_via_cargo,
+            )
+            .map_err(map_err_diagnostics)?;
+            if self.args.export.is_some() || self.export_vir_path_via_cargo.is_some() {
+                return Err(map_err_diagnostics(vir::messages::error_bare(
+                    "checked foreign bodies are local-only; all VIR exports are unsupported",
+                )));
+            }
+            if !self.args.can_certify_inference() || self.args.no_erasure_check {
+                return Err(map_err_diagnostics(vir::messages::error_bare(
+                    "checked foreign bodies require complete source/body, lifetime and trait checking",
+                )));
+            }
+        }
 
         if pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| {
             f.x.attrs.infer || f.x.name.path.last_segment().starts_with("__verus_infer_derived_")

@@ -5,6 +5,7 @@
 // available to cargo
 extern crate rustc_driver;
 
+extern crate rustc_abi;
 extern crate rustc_arena;
 extern crate rustc_ast;
 extern crate rustc_data_structures;
@@ -38,6 +39,8 @@ mod automatic_derive;
 mod boundary_suggestions;
 pub mod cargo_verus;
 pub mod cargo_verus_dep_tracker;
+mod checked_foreign;
+mod checked_foreign_packing;
 pub mod context;
 pub mod def;
 pub mod driver;
