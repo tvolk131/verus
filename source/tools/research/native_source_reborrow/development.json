@@ -1,0 +1,520 @@
+{
+  "schema": 1,
+  "all_trials": [
+    {
+      "trial": 1,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-001.json",
+        "sha256": "608edfdef43242fd02c8792cb637d2bd9fb464107ec7a5dcd9d3e443497ccaae"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial001/receipt.json",
+        "sha256": "64a863b50c52a2a5b0563f69ca67f59dba525d3d2db4877475371c39824cf397"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Model"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial001/compile-Model.stderr": "fa4ef2fa90f5fe0a3a8447ae05be87689cfe607dd235e4e31fd5cbb0751d9bbb"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial001/proofs/Model.v\", line 32, characters 46-52:\nError:\nThe term \"Some 3\" has type \"option Z\" while it is expected to have type\n \"option nat\".\n"
+    },
+    {
+      "trial": 2,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-002.json",
+        "sha256": "c1d6a8598654499023ef122fad434d23630daaa5423143d6c34208d26103a351"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial002/receipt.json",
+        "sha256": "9ad5a04c9446845d35240bd97bca01cd041e777d209142375ceaae6fa20b82bb"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Model"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial002/compile-Model.stderr": "bd284868f3177f82c0645d17f4ce70780df35237441d155acb08a278c3b72e0b"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial002/proofs/Model.v\", line 32, characters 46-52:\nError:\nThe term \"Some 3\" has type \"option Z\" while it is expected to have type\n \"option nat\".\n"
+    },
+    {
+      "trial": 3,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-003.json",
+        "sha256": "5850ed80c3587f6b6f9b25051e27525308af8873cd8963205e90c259a73eb083"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial003/receipt.json",
+        "sha256": "de140c95256bc1a73dc33ec13e981fabc56d2d1ee9978d49352ad72659b779ac"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Model"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial003/compile-Model.stderr": "01249061448d48dac654f737ef062111500862b20863baa15b9f8133cafefa72"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial003/proofs/Model.v\", line 102, characters 0-178:\nError:\nThe following term contains unresolved implicit arguments:\n  (fun (H : Type) (s : state (history H)) (h : ?H) =>\n   {|\n     locals := locals s;"
+    },
+    {
+      "trial": 4,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-004.json",
+        "sha256": "5d92dcd41d55f34c35791217ab9fd92ab9149f0a93ba24f54ea5d7d857b2a4df"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial004/receipt.json",
+        "sha256": "33d0831162654e1709b9fc1002a6daa8afe4e7f47ef1a2fa48b88cde17694605"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Laws"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial004/compile-Laws.stderr": "1aae1f869019dd63d7eb6340c12e676fee1947842c04f689e123192d1ad867bb"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial004/proofs/Laws.v\", line 16, characters 11-37:\nError: Found no subterm matching \"valid_suffix ns a (g :: ancestors)\"\nin the current goal.\n"
+    },
+    {
+      "trial": 5,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-005.json",
+        "sha256": "184edcf252a87fadf613a20d31cf39b25ba8d7465ca00f355abf620dd427a4e7"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial005/receipt.json",
+        "sha256": "1692108f140a884251517f3eea204d764765e1bb0225e97a3bb6a588bafff617"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Laws"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial005/compile-Laws.stderr": "7b17cb28e2e8339a3d51e9b18a1bdc9aa7406c8ff12ee3534361b546a31ba88d"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial005/proofs/Laws.v\", line 16, characters 15-16:\nError:\nSyntax error: [ltac_use_default] expected after [tactic] (in [tactic_command]).\n"
+    },
+    {
+      "trial": 6,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-006.json",
+        "sha256": "93708521854addbdbe7b4ee5c0d5eae6407a7efff9685ba3509617f78c557ba2"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial006/receipt.json",
+        "sha256": "d919fd519ee0e09f6d4f11ee0b64f921f83bc58f006567e1d136fbd6c2fb08cf"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Laws"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial006/compile-Laws.stderr": "85065befb0f537024cba7f78c855e64dc9648008825774092464a1d1e836a3c2"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial006/proofs/Laws.v\", line 38, characters 57-68:\nError:\nIn environment\nns : list node\na : address\np, c : nat"
+    },
+    {
+      "trial": 7,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-007.json",
+        "sha256": "fac948fb0f7190f44f5560e892207da44ab8c5c433e03cb84b4149f02fb5c1d2"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial007/receipt.json",
+        "sha256": "012072885337a1be31cda412c55ab277f7bca9c7ebb146c0c20792158e37d9e9"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Laws"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial007/compile-Laws.stderr": "f6848529b01dc51e798116519faa782e8e41249b4545bd7f7ce49ed56f2c9ac0"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial007/proofs/Laws.v\", line 232, characters 29-40:\nError:\nIn environment\nH : Type\ns : state (history H)\ne : event"
+    },
+    {
+      "trial": 8,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-008.json",
+        "sha256": "5d963043a7d3979b3cdb73fcf7edf1ab0a882279843444d18fd08923e3096f84"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial008/receipt.json",
+        "sha256": "5d454a6c5def4e6c175b38e4a4c4eb0fb1b8bda0f23d4715e3220c4149569766"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Span"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial008/compile-Span.stderr": "c87ca5a613550a167f8d6354f0ceec9b933afe5e8766ead2a19abae7b8377208"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial008/proofs/Span.v\", line 32, characters 24-28:\nError: The reference zeta was not found in the current environment.\n"
+    },
+    {
+      "trial": 9,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-009.json",
+        "sha256": "f64ecc6c8c3bc1358821da9ea161742fcdf01a9e0472090f433976e100567f07"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial009/receipt.json",
+        "sha256": "6391a532fd92516dda3ebf4a595f5f4f70c5d7a917a6791472fed8b0ff981d35"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Span"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial009/compile-Span.stderr": "c57d4e1af27db37ecabaf7dc0a521bbc2a078a4973b7a8bcb68123caf150352e"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial009/proofs/Span.v\", line 97, characters 2-258:\nError: Not convertible.\n"
+    },
+    {
+      "trial": 10,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-010.json",
+        "sha256": "b519c04166d5db5e86bb34fea8ea75ac0b6782f4270f0d4b3f8c03eb8d4ef7ad"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial010/receipt.json",
+        "sha256": "a8a3708f2b01a4889c1e571293ccb37b1324af5a3209dcf7548c10251a21f4c9"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Span"
+      },
+      "commands": [
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial010/compile-Span.stderr": "4fd648baf20069ffa7ef2e62991b2ebc103278f0ceec75cfa3b434a64ac05eb8"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial010/proofs/Span.v\", line 101, characters 42-61:\nError:\nIn environment\nns : list node\nr : reference\nn, c : nat"
+    },
+    {
+      "trial": 11,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-011.json",
+        "sha256": "47ebb1ac0a03f9ac8fb6e378f7959f9c9684763d17bfea594ccc96163e885aba"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial011/receipt.json",
+        "sha256": "238e91855a163cb0c7d13470d7c84c60c47cd95a78b43a3d26134eb0875fedba"
+      },
+      "success": true,
+      "classification": "checked_MODEL_not_native"
+    },
+    {
+      "trial": 12,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-012.json",
+        "sha256": "c20140ec34a980a85470ce982e206923b53d4f9a70b4929d0cf82a376fb695a4"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial012/receipt.json",
+        "sha256": "3a559123f0872549eb5edd755d745552a6103f6f323127adfec533c2b3cbe888"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Controls"
+      },
+      "commands": [
+        {
+          "label": "pure-gate-controls",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Controls",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial012/pure-gate-controls.stderr": "edb4e2159c923ea45a32656078835cdf531c3d7b414c670dd786978875cb0678",
+        "/tmp/native-source-reborrow-e9615ccb-trial012/compile-Controls.stderr": "b068d53b69a934b9c93953ea82d1695b36cab87069e84679ff364aca8078a7af"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial012/proofs/Controls.v\", line 15, characters 91-94:\nError: Tactic failure:  Cannot find witness.\n"
+    },
+    {
+      "trial": 13,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-013.json",
+        "sha256": "caad8da8a033361d565da416c42ec625ecd19eb7b93cf6d4642c1c77b509c071"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial013/receipt.json",
+        "sha256": "86147adcb8c05c797c2940662a629590df95d52e32738fc65580d5f9d4a2ce74"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Controls"
+      },
+      "commands": [
+        {
+          "label": "pure-gate-controls",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Controls",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial013/pure-gate-controls.stderr": "edb4e2159c923ea45a32656078835cdf531c3d7b414c670dd786978875cb0678",
+        "/tmp/native-source-reborrow-e9615ccb-trial013/compile-Controls.stderr": "d59447d543526e3927fa9eb7fd1d1623262e392e20f606e6064ca09d6fd01e12"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial013/proofs/Controls.v\", line 35, characters 105-108:\nError: Tactic failure:  Cannot find witness.\n"
+    },
+    {
+      "trial": 14,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-014.json",
+        "sha256": "1fd63fa7a5aaa06a41ce5a612839da87ba7de7571b812ad73376a9a9b3be6893"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial014/receipt.json",
+        "sha256": "2905472cf5986a9ab19c0c1c1726d2e05b3f09e125b0641e3ca46f9f5f042308"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Controls"
+      },
+      "commands": [
+        {
+          "label": "pure-gate-controls",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Controls",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial014/pure-gate-controls.stderr": "edb4e2159c923ea45a32656078835cdf531c3d7b414c670dd786978875cb0678",
+        "/tmp/native-source-reborrow-e9615ccb-trial014/compile-Controls.stderr": "edd76d5654f32618f79fa1cf9481672c8a9070a216e1281d45fd48715bfc5916"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial014/proofs/Controls.v\", line 37, characters 2-3:\nError: [Focus] Wrong bullet -: Current bullet - is not finished.\n"
+    },
+    {
+      "trial": 15,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-015.json",
+        "sha256": "d5c0732c181136d00739e1650ca85292d43badd12449ecf5f41455e75f80e2af"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial015/receipt.json",
+        "sha256": "2b20e7249a5971fbfa953435b709e4b8ac29d07bfcf7f4314f0ddab46cf57bf9"
+      },
+      "success": false,
+      "classification": "proof_development_not_semantic_evidence",
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure (not semantic evidence): Controls"
+      },
+      "commands": [
+        {
+          "label": "pure-gate-controls",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Model",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Laws",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Span",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-Controls",
+          "exit_code": 1
+        }
+      ],
+      "nonempty_stderr": {
+        "/tmp/native-source-reborrow-e9615ccb-trial015/pure-gate-controls.stderr": "edb4e2159c923ea45a32656078835cdf531c3d7b414c670dd786978875cb0678",
+        "/tmp/native-source-reborrow-e9615ccb-trial015/compile-Controls.stderr": "3fa38ef32adce0e9eaecc158ebe6bee92d1de0acfd230929ceacc12ba680c748"
+      },
+      "diagnostic_excerpt": "File \"/tmp/native-source-reborrow-e9615ccb-trial015/proofs/Controls.v\", line 45, characters 57-58:\nError: Cannot infer this placeholder of type \"option (list grant)\" in\nenvironment:\nn, j : nat\nJ : j < n\n"
+    },
+    {
+      "trial": 16,
+      "freeze": {
+        "path": "source/tools/research/native_source_reborrow/trial-016.json",
+        "sha256": "f827200630bdc3160a6c5e7e179b83c1e6e23dc8b501c56bbd7ff9820bd07b4b"
+      },
+      "receipt": {
+        "path": "/tmp/native-source-reborrow-e9615ccb-trial016/receipt.json",
+        "sha256": "1d135594952edc6fcfc89c50cecc8c6d7dbdc5477541aebd887a1fecf4b8f414"
+      },
+      "success": true,
+      "classification": "checked_MODEL_not_native"
+    }
+  ],
+  "failures_are_not_Rust_negatives": true,
+  "successful_preliminary_trial": 11,
+  "final_trial": 16
+}

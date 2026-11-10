@@ -24,12 +24,12 @@ GRAPH = HERE.parent/"native_constructor_erasure/graph.json"
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 READY = BASE/'rocq-toolchain/baseline-ready.json'
 BUILD = BASE/'verus-belt-build-115a618d'
-MODULES = ['Model']
+MODULES = ['Model', 'Laws', 'Span', 'Controls']
 PARENTS = ['Interface', 'Graph', 'Composition']
 
 def declarations(path):
     text = re.sub(r'\(\*.*?\*\)', '', path.read_text(), flags=re.S)
-    ns = re.findall(r'^\s*(?:Definition|Lemma|Theorem|Inductive|Record)\s+(\w+)',text,re.M)
+    ns = re.findall(r'^\s*(?:Definition|Fixpoint|Lemma|Theorem|Inductive|Record)\s+(\w+)',text,re.M)
     for match in re.finditer(r'^Inductive\s+(\w+)(.*?)\.(?:\n|$)',text,re.M|re.S):
         ns += re.findall(r'(?:^\s*|\|\s*)(\w+)',match[2].split(':=',1)[1])
         ns += [match[1]+'_'+suffix for suffix in
@@ -62,8 +62,23 @@ def printed_declarations(text):
     return ns
 
 
+def source_shape(graph,borrow):
+    require(graph['native_correspondences']==0 and len(graph['operations'])==44,'wrong source graph')
+    root=[x for x in graph['operations'] if x['instance']==0 and x['bb']==0 and x['index']==3]
+    require(len(root)==1,'ambiguous root site')
+    ir=root[0]['ir'];val=ir['value']
+    require(ir['op']=='assign' and ir['destination']==dict(local=4,projection=[],ty='&mut [u8; 128]') and
+        val==dict(fake=False,kind='Mut { kind: TwoPhaseBorrow }',mutable=True,op='ref',
+            place=dict(local=1,projection=[dict(op='deref')],ty='[u8; 128]')),'root Ref shape changed')
+    require(borrow['loans']==[dict(activation='ActivatedAt(bb0[4])',
+        assigned=dict(local=4,projection=[],ty='&mut [u8; 128]'),
+        borrowed=dict(local=1,projection=[dict(op='deref')],ty='[u8; 128]'),
+        kind='exclusive',loan=0,region=3,reserve=dict(bb=0,statement=3))],
+        'static loan0 is local4, never incoming provenance')
+
+
 def inputs():
-    paths = [HERE/'check.py', HERE/'INTERFACE.md', HERE/'pins.json',
+    paths = [HERE/'check.py', HERE/'test_check.py', HERE/'INTERFACE.md', HERE/'pins.json',
         *[HERE/'candidates'/(n+'.v') for n in MODULES],
         GOAL_DIR/'goal_scope.py', GRAPH, BRIDGE/'baseline-bindings.json',
         BRIDGE/'source-bindings.json', GOAL_DIR/'foundation-baseline.json',
@@ -73,6 +88,8 @@ def inputs():
     paths += [ROOT/'evidence/native-functional-boundary-audit/REPORT.md',
         HERE.parent/'native_borrow_foundation_inspection/REPORT.md',
         HERE.parent/'native_borrow_foundation_inspection/pins.json']
+    for lane,modules in [('native_constructor_erasure',PARENTS),('native_source_storage',['Storage','Sites','Prefix'])]:
+        paths += [HERE.parent/lane/'candidates'/(n+'.v') for n in modules]
     return paths
 
 
@@ -94,6 +111,7 @@ def main():
     a.output=a.output.resolve(); a.output.mkdir(parents=True,exist_ok=False)
     receipt=dict(schema=1,commands=[],publication=False,native_correspondences=0,
         source_certificate_proved=False,actual_source_instance=False,goal_complete=False,
+        all_lawful_rust_inputs_covered=False,source_validity_interpretation_proved=False,source_cf_bindings_proved=False,
         model_proofs_kernel_checked=False,source_simulations_open=44,
         phase_obligations_open=3,writer_effects_open=101)
     with replay_receipt(a.output,receipt):
@@ -176,7 +194,11 @@ def main():
             'storage interface identity changed')
         require(len(completed['native_constructor_erasure'][1]['assumptions'])==96,
             'constructor identity changed')
+        require(len(completed['native_original_reference_exit'][1]['assumptions'])==17,
+            'exit inventory changed')
+        source_shape(json.loads(GRAPH.read_text()),load(extraction/'drop-borrowck.json'))
         receipt['inputs']=guard.initial
+        receipt['formal_dependencies']=['NativeConstructorErasure.Interface','NativeSourceStorage.Storage','NativeSourceStorage.Sites','NativeSourceStorage.Prefix']
         work=a.output/'proofs'; work.mkdir(); (work/'inventory').mkdir()
         parent=a.output/'parent'; parent.mkdir()
         storage=a.output/'storage'; storage.mkdir()
@@ -196,12 +218,18 @@ def main():
                 matches=[Path(x) for x in prior['proof_artifacts'] if Path(x).name==n+ext]
                 require(len(matches)==1,'ambiguous pinned dependency '+n+ext)
                 src=matches[0]; target=dest/src.name
+                if ext=='.v':
+                    lane='native_constructor_erasure' if n in PARENTS else 'native_source_storage'
+                    require(retained(HERE.parent/lane/'candidates'/src.name)==retained(src),
+                        'current dependency source differs from delivered module '+n)
                 shutil.copyfile(src,target);hold(target,retained(src))
         for n in MODULES:
             src=HERE/'candidates'/(n+'.v');target=work/src.name
             require(declarations(src)==freeze['constants'][n],'inventory changed')
             require(not re.search(r'\b(Axiom|Admitted|admit|Parameter|Abort|Program|Obligation|abstract|native_compute|vm_cast_no_check)\b',src.read_text()),'unproved/unchecked construct')
             shutil.copyfile(src,target);hold(target,retained(src))
+        require(run('pure-gate-controls',[sys.executable,'-B',str(HERE/'test_check.py')],env)==0,
+            'pure parser/gate controls failed')
         for n in MODULES:
             src=work/(n+'.v')
             require(run('compile-'+n,[str(tools['runner']),str(tools['coqc']),'-q',*args,str(src)],env)==0,
@@ -230,6 +258,8 @@ def main():
         receipt['kernel_axioms']=kernel_summary_no_axioms((a.output/'kernel.stderr').read_text())
         for g in held:g.check()
         products.check();guard.check()
+        for path,data in loaded.items():
+            require(retained(path)==hashlib.sha256(data).hexdigest(),'loaded input changed '+str(path))
         receipt.update(model_proofs_kernel_checked=True,constant_count=len(names),program_obligations=0,
             proof_artifacts=products.initial,all_final_guards_before_success=True,
             classification='MODEL_conservative_reborrow_not_Rust_certificate')

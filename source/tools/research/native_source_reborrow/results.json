@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "classification": "MODEL_conservative_tagged_byte_stack_reborrow_conditional_coverage",
+  "model_proofs_kernel_checked": true,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false,
+  "source_certificate_proved": false,
+  "actual_source_instance": false,
+  "all_lawful_rust_inputs_covered": false,
+  "source_validity_interpretation_proved": false,
+  "source_cf_bindings_proved": false,
+  "source_simulations_open": 44,
+  "phase_obligations_open": 3,
+  "writer_effects_open": 101,
+  "constant_count": 134,
+  "kernel_axioms": [],
+  "program_obligations": 0,
+  "all_final_guards_before_success": true,
+  "goal_requirements_sha256": "11014c3ac73ddf13c464769f5d0d1cbd24598ab52777718d31872c70b3b8f7b0",
+  "base_commit": "bc2a0b37",
+  "early_interface_commit": "e9615ccb",
+  "receipt": {
+    "path": "/tmp/native-source-reborrow-e9615ccb-trial016/receipt.json",
+    "sha256": "1d135594952edc6fcfc89c50cecc8c6d7dbdc5477541aebd887a1fecf4b8f414"
+  },
+  "final_freeze": {
+    "path": "source/tools/research/native_source_reborrow/final-freeze.json",
+    "sha256": "f827200630bdc3160a6c5e7e179b83c1e6e23dc8b501c56bbd7ff9820bd07b4b"
+  },
+  "final_freeze_identical_to_trial016": true,
+  "source_and_controller_sha256": {
+    "source/tools/research/native_source_reborrow/check.py": "7161f7d357fe9348d0180eea9b3b30c0ffd49083a73d6d025c6065d224e4a7d7",
+    "source/tools/research/native_source_reborrow/test_check.py": "0158d2edf504c69158979f7c1a91ea53067f27f94a98f4be196c3ab4733734af",
+    "source/tools/research/native_source_reborrow/pins.json": "a6518d413837c8db46b3f2295393726eb3d376daa364514dd2f1ca251f2fae1d",
+    "source/tools/research/native_source_reborrow/INTERFACE.md": "aba14bcee5aaf6e4f9dd719ab91ec698903dbed82bf861953516e76d2d1401da",
+    "source/tools/research/native_source_reborrow/candidates/Controls.v": "c10bbcdc6b0a8206ef379d033a8e12046d2dd86eebb9465ea594622ee81effb7",
+    "source/tools/research/native_source_reborrow/candidates/Laws.v": "7df65e26d570aea2b8e751494fd2b8587cf227979fc044eca71ceda156f01efc",
+    "source/tools/research/native_source_reborrow/candidates/Model.v": "af317f108ffba87605a752097c926a506366acc81548e33a747250eb4b5967a6",
+    "source/tools/research/native_source_reborrow/candidates/Span.v": "d6ad8bebd4582d650a3c001c2a2fa25bc7a09fea107fc865c83b10fc0886aad8"
+  },
+  "input_inventory_sha256": "d183b9ca5f6c38d19e8c3bb9af3c8bb1cf08d7d562385e311a7609fcfff26ec3",
+  "raw_product_manifest_sha256": "063b98fa13126adc015a375516fc40ee5e2f02a55b314722e5c54e6b7d2bde79",
+  "checked_objects": {
+    "/tmp/native-source-reborrow-e9615ccb-trial016/parent/Composition.vo": "2725d37bcf390d96bdef9866b223db0fc4df37583f94e7a0a791b601c91e8580",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/parent/Graph.vo": "58d5f639153da78cc8ae57a0f4e08d61de4e007d0e3f87e4417533b013b0818c",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/parent/Interface.vo": "478f9d14eb16ffa81235964987b079ef32a74bfb575a926182fd892a4b648efb",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/proofs/Assumptions.vo": "ef071149728afcbe3eba18f8c7de47858e27ee7e58f705398f5f2fb7f5611cc3",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/proofs/Controls.vo": "8f898cc64596eb29c78f6918d17f873614dd133c0b8460c8adca82be55b76d1e",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/proofs/Laws.vo": "66cf45a1430356c4070872a7b1290957ed4cda9661c4facb19b0ac5529c32d17",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/proofs/Model.vo": "1ecd5b753451d1eb8fef0074b07af3cf43071d80027b0f19605212fcc66c2e8d",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/proofs/Span.vo": "ba9809bcd497071d6fe2b388fb39106d9a70c1456cf4775fc058d14fcdd2dd6b",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/storage/Prefix.vo": "6ebc2deac78d7e9999a054876cac5ff5683afcb43878906cb310027fcb2fc8a2",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/storage/Sites.vo": "9bcad48338dd2cb0951189bb6dd1304bcd43d3b7d454e36be5c5ff8b9ca257ac",
+    "/tmp/native-source-reborrow-e9615ccb-trial016/storage/Storage.vo": "55662ca3e52622ff247dcbbb9ddc7794a5878ee5c68e2154b218d91ca5836738"
+  },
+  "complete_assumptions": {
+    "path": "source/tools/research/native_source_reborrow/assumptions.json",
+    "sha256": "14b1a935d5f6792ec7cc70b4e967b35ed62292fb4febe45841956408add1648f"
+  },
+  "commands": {
+    "path": "source/tools/research/native_source_reborrow/commands.json",
+    "sha256": "abf29e4896d32564b9e37cf973fd4efb4695d1e5bfcdfcef81eaeebe43f26e93"
+  },
+  "development": {
+    "path": "source/tools/research/native_source_reborrow/development.json",
+    "sha256": "ae34c8e973aefb80809c086d04a6eebf0bab54a090cfdb3afb79c0db2bb62364"
+  },
+  "optimized_pure_gate_tests": {
+    "path": "/tmp/native-source-reborrow-e9615ccb-optimized-parser/receipt.json",
+    "sha256": "b2998a4040df852d34105cabb4148d8ad8c5e3bf4766291e2b3d39125a4785e8"
+  },
+  "independent_acceptance": "pending",
+  "production_facts_installed": false,
+  "inherited_not_rerun": {
+    "canonical": "6/0",
+    "full_HMAC": "1/1 unproved"
+  },
+  "unsupported": [
+    "bb0[4] unsize",
+    "raw formation",
+    "getters",
+    "other retags",
+    "activation",
+    "protector cleanup",
+    "normal/unwind exits",
+    "original C/F resolution"
+  ]
+}
