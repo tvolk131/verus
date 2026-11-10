@@ -2958,7 +2958,7 @@ impl Verifier {
                     .growth_loops
                     .iter()
                     .chain(self.inference_generation.range_loops.iter())
-            .chain(self.inference_generation.buffer_observations.iter())
+                    .chain(self.inference_generation.buffer_observations.iter())
                     .chain(self.inference_generation.local_folds.iter())
                     .any(|(name, _)| name == &f.x.name)
         }) {
