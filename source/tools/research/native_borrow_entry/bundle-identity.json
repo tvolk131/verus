@@ -1,0 +1,58 @@
+{
+  "z3": {
+    "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/z3",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/z3",
+    "original_inode": 15513344,
+    "copy_inode": 14457175
+  },
+  "verus": {
+    "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/verus",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/verus",
+    "original_inode": 15516243,
+    "copy_inode": 14457325
+  },
+  "libverus_state_machines_macros.so": {
+    "sha256": "72fc1adb00058578ed6c60e2cfb4c372cb8c3f2ef63142f839a36e3696f4bb62",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/libverus_state_machines_macros.so",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/libverus_state_machines_macros.so",
+    "original_inode": 15513343,
+    "copy_inode": 14457326
+  },
+  "libverus_builtin.rlib": {
+    "sha256": "8f6346017bb95a5a4596edab948d33b722171a83d2e09cff4004314e58fa0797",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/libverus_builtin.rlib",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/libverus_builtin.rlib",
+    "original_inode": 15513259,
+    "copy_inode": 14457328
+  },
+  "libverus_builtin_macros.so": {
+    "sha256": "b82504324929262955a500d50ebb2557eb4f046e6153a383df997bfab50af8dd",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/libverus_builtin_macros.so",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/libverus_builtin_macros.so",
+    "original_inode": 15513342,
+    "copy_inode": 14457330
+  },
+  "rust_verify": {
+    "sha256": "ee5acc5069e7a590c6a6bc1455a28ff28429bf3b901bb4499f390d964a57ca47",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/rust_verify",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/rust_verify",
+    "original_inode": 15513353,
+    "copy_inode": 14457331
+  },
+  "libvstd.rlib": {
+    "sha256": "188659ddc2eaaf3932c32832ef6feaab80580368c8a0ffe284dfb03d7c036469",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/libvstd.rlib",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/libvstd.rlib",
+    "original_inode": 15513258,
+    "copy_inode": 14457332
+  },
+  "vstd.vir": {
+    "sha256": "013122a4924d99c14ccdcaa7e0a8d645ffd22aeba2a06fe4101d8c0d36a929f5",
+    "original": "/tmp/verus-infer-buffer-cycle-20261109/parent-policy68-bundle-112a33f0/vstd.vir",
+    "copy": "/tmp/native-borrow-entry-61f21823/bundle/vstd.vir",
+    "original_inode": 15516246,
+    "copy_inode": 14457333
+  }
+}

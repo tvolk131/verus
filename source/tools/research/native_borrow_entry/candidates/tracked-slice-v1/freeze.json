@@ -1,0 +1,22 @@
+{
+  "id": "tracked-slice-v1",
+  "before_first_trial": true,
+  "source_sha256": "6f21c2c97158866ddc89d04c409f01daa9f2ffbf18145813acb2590caa55e952",
+  "classification": "positive",
+  "exec_bodies": [
+    "enter"
+  ],
+  "proof_bodies": [
+    "borrow_slot"
+  ],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "exec buf:&mut [u8;128]",
+    "borrow_slot takes the tracked slice produced by actual enter, not PointsTo"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "false-lost-slot-v1",
+  "before_first_trial": true,
+  "source_sha256": "95c921b38a2bce841598ff8dcaa3046b4171f0397965d4d53c1e0bd450df848d",
+  "classification": "semantic-negative",
+  "exec_bodies": [],
+  "proof_bodies": [
+    "entry_sound",
+    "origin_stride_nonalias",
+    "issue_sound",
+    "resolve_sound",
+    "next_sound",
+    "release_sound",
+    "empty_key_frame",
+    "address_is_not_origin",
+    "resolved_loan_cannot_write",
+    "input_premise_inhabited",
+    "false_claim"
+  ],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "failure_kind": "postcondition not satisfied",
+  "input_inventory": [
+    "valid_input(b,h): EXPLICIT abstract heap premise; never an actual executable permission"
+  ],
+  "dependencies": {
+    "source/tools/research/native_borrow_entry/candidates/heap-foundation-v5/probe.rs": "8ba79d27d233837eedd440e5668855b7ce4534a294da5226fecc0ec2a40d7812"
+  }
+}

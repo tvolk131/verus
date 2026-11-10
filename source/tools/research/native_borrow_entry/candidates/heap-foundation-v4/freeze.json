@@ -1,0 +1,28 @@
+{
+  "id": "heap-foundation-v4",
+  "before_first_trial": true,
+  "source_sha256": "ed6ef65ed30cab497b969e5312aa13302d897a16b052db6b3bfa1551f904152c",
+  "classification": "positive",
+  "exec_bodies": [],
+  "proof_bodies": [
+    "entry_sound",
+    "origin_stride_nonalias",
+    "issue_sound",
+    "resolve_sound",
+    "next_sound",
+    "release_sound",
+    "empty_key_frame",
+    "address_is_not_origin"
+  ],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "EXPLICIT CONDITIONAL HEAP premise: valid_input(b,h) with all 128 source-owned initialized slots",
+    "k:nat unrestricted; key slice length fit to usize is not needed by this math theorem",
+    "No actual Rust reference/PointsTo conversion is claimed"
+  ]
+}
