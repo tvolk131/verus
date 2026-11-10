@@ -30,7 +30,15 @@
   "phase_obligations_open": 3,
   "native_effects_open": 101,
   "independent_review": {
-    "status": "pending"
+    "status": "accept exact MODEL prerequisite",
+    "commit": "d631ef57",
+    "fresh_normal_compilation": true,
+    "fresh_recursive_kernel_check": true,
+    "all_five_objects_match_worker": true,
+    "complete_declarations": 121,
+    "closed_declarations": 119,
+    "inherited_FE_only": 2,
+    "findings": []
   },
   "publication": false,
   "goal_complete": false
