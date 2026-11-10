@@ -26,8 +26,14 @@ exact five-constant inventory, assumptions and objects.
 This still does not compose the complete two-region pad/shared-key setup and
 actual final-memory observation into one public writer theorem. That composition
 and shared-key access remain work in progress. Trials003,004,006,007 were
-proof-development failures, not semantic negatives. Trial009 is checking a
-physical-callback specialization; it has no accepted result at this checkpoint.
+proof-development failures, not semantic negatives. The physical-callback specialization passed in trial014: all six declarations
+compiled normally and passed complete recursive kernel checking. It consumes
+one explicit payload-opening credit plus the callback's arbitrary Rin, recovers
+Rout and the actual new physical interval, and preserves the outside Frame.
+The three previously accepted source proof objects are byte-identical;
+`transform-results.json` records all six assumptions and exact object hashes.
+Trials009–013 are retained proof-development attempts, including a printed
+remaining-goal diagnostic; none is semantic negative evidence.
 The passing one-constant and three-constant checkpoints remain separately
 recorded.
 
