@@ -6,7 +6,8 @@ The additive carrier-layout epoch is recorded separately in
 pass: the actual array-reference parameters are Scalar/8-byte/alignment8, and
 the key-reference parameter is ScalarPair/16-byte/alignment8. Pointee size and
 carrier size are distinct. This extends the earlier type-only checkpoint,
-independently accepted by `e03ce8c2`; the additive epoch awaits its own review.
+independently accepted by `e03ce8c2`; the additive epoch is independently accepted
+by `a4d43ec9` at compiler-layout scope only.
 The earlier receipt/results/freezes remain preserved unchanged.
 
 The exact local compiler checks passed. The instantiated type/layout condition

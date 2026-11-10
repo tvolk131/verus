@@ -8,6 +8,23 @@ conditional MODEL results accepted at that scope by independent review
 type/layout checks are in [parent-native-entry-type-binding.json](parent-native-entry-type-binding.json).
 Neither result establishes incoming runtime permissions or source C/F.
 
+The current-source packed boundary component and seven closed historical
+comparison laws now have independent acceptance `a4d43ec9`:
+[component record](parent-miri-grant-component.json). The ordinary component
+is22/0 with goals enabled and disabled, uses explicit authored contracts,
+invariants and five inline proof blocks, and has no measured causal inference
+gain. Its internal granting-index/permission precondition still needs proof
+from actual lookup; the comparison does not import a Rust proof into Coq.
+The same review resolves both permission replay-gate findings and accepts the
+actual reference-carrier Scalar/ScalarPair facts. None proves runtime grants.
+
+The active source work is unchanged `find_granting` return guarantees (including
+unknown/wildcard provenance and cache paths) and the real NonZero/packed-tag
+representation. Pinned package metadata enables stack-cache by default;
+[source-policy record](../native_miri_feature_policy/results.json). An uncached
+case alone is not the default-path result. Actual cache consistency, lawful
+source-context coverage, frame/separation and original C/F remain open.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection

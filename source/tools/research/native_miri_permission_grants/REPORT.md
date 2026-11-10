@@ -36,8 +36,9 @@ publication=false, goal_complete=false. Independent review `3a9885c0` accepted
 the source and six actual outcomes, and found R1/R2 in the delivered gate.
 Parent `3f7303c9` fixes both: support identities use an explicit receipt-label
 mapping, and failed queries must be exactly the selected grants function.
-The fresh six-case parent004 replay passes; that gate revision still awaits
-an independent recheck. Mathematical source and original receipts are unchanged.
+The fresh six-case parent004 replay passes, and independent `a4d43ec9` resolves
+both findings after all six own-path remapped outcomes pass. Mathematical source
+and original receipts are unchanged.
 
 [results.json](results.json) binds the successful receipt, frozen inputs and
 full source identities. The first two trials verified the positive predicate
