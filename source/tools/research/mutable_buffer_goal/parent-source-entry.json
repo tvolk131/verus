@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "handoff_commit": "df15a254",
+  "classification": "Existing-rule inspection and missing-layer analysis; no new native theorem",
+  "integration_scope": "Read report and exact missing sequent; authenticate delivered receipts; independent acceptance pending",
+  "source_entry_proved": false,
+  "new_theorems": 0,
+  "checked_existing_constants": 42,
+  "closed_constants": 30,
+  "functional_extensionality_constants": 12,
+  "fresh_child_recursive_kernel_check": true,
+  "parent_recompiled": false,
+  "receipts": {
+    "inspection": {
+      "path": "/tmp/native-source-entry-e84eed6c/entry-v1/receipt.json",
+      "sha256": "4aa0336715f2fff0d285f05e45f1733c04783a82a2144b6cf3ea078f111a537b"
+    },
+    "source_controls": {
+      "path": "/tmp/native-source-entry-e84eed6c/source-controls-v1/receipt.json",
+      "sha256": "adf853ed5f88db9675b7f584c8f39c1998c2423d8b5d327a4dbc071d33ebf868"
+    }
+  },
+  "original_input_local": 1,
+  "local_reborrow": 4,
+  "local_loan_zero_is_incoming_dynamic_loan": false,
+  "first_missing_judgment": "Actual source-state and typing-context interpretation into model ownership at the same physical subobject, with provenance, ancestor loans, initialized bytes and C/F correspondence",
+  "model_initialization_alone_suffices": false,
+  "minimal_native_simulations_open": 44,
+  "extra_phase_obligations_open": 3,
+  "full_writer_effects_open": 101,
+  "actual_native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

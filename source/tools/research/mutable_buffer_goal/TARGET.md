@@ -57,7 +57,14 @@ borrow. The [pinned VerusBelt baseline](foundation-baseline.json) now compiles
 and passes recursive kernel checking. The new same-reference physical access,
 restoration and byte-array scripts also compile and pass recursive kernel
 checking: [18 model theorems and six byte-type obligations](parent-semantic-foundation.json).
-Parent source/readiness controls pass; fresh independent review is pending.
+The exact frozen model replay has independent acceptance. A subsequent
+source-freeze completeness finding is fixed locally, with fresh review pending.
+The [source-entry investigation](../native_source_entry/MISSING_LAYER.md)
+identifies the missing actual source-state and typing-context interpretation;
+its 42-constant inspection proves no new native theorem. The
+[fact-provenance trace](FACT_PROVENANCE.md) records inherited standard-contract
+facts used by the observer-disabled canonical proof, without claiming individual
+indispensability or a checked common transfer step.
 The model results remain distinct from a native Rust interpretation theorem.
 No assumed final/current equation, executable rewrite or new unchecked
 dependency law is permitted. Shared automation must remove actual proof work on
