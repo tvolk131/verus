@@ -1,0 +1,20 @@
+{
+  "private_transcript": "/tmp/item-tag-operational-1160ooba/transcript.json",
+  "sha256": "7ef0cfc63528fc091bbe3c62a2304918b0721fe88ed24b353ad1a638b60b7c6b",
+  "retention": "posthoc tool transcript reconstruction, not a prelaunch freeze",
+  "entries": [
+    {
+      "kind": "prelaunch_sandbox_setup_failure",
+      "exit": 1
+    },
+    {
+      "kind": "interrupted_scope_deviation",
+      "exit": 130
+    },
+    {
+      "kind": "initial_audit_controller_rejection",
+      "exit": 1
+    }
+  ],
+  "scope_deviation": "interrupted overly broad find; no returned sibling content; metadata traversal not excluded"
+}
