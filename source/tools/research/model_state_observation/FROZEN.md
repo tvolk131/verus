@@ -40,3 +40,17 @@ Failed trial source copies/logs are development evidence only.
 MODEL prerequisite only. Canonical 6/0; full HMAC prefix AND untouched suffix 1/1;
 native 0; all 44 minimal + 3 phases /101 effects stay open. Parent integration
 and new independent review are required; publication=false.
+
+## Executed-instance freeze (before trial005)
+
+Three operational adequacy instances use arbitrary initial nonempty intervals
+and exact outside frame: read head, write head, write then read head. Read spends
+no initial later credits; SC store explicitly spends £1; write/read spends £1
+and one visible sequencing beta step. All cells of the interval are returned.
+Their postcondition identifies the exact entire list (tail unchanged) and actual
+final outside-map lookups. These are model diagnostics, not replacement writers.
+Pure head-step/rtc proofs witness finite executions of two stores with the same
+poison return but different final memory; a Qed theorem refutes unchanged-memory
+adequacy while proving value-only adequacy. A resource countertheorem refutes a
+returned cell disagreeing with actual final heap; explicit length refutes empty
+payload for n>0. No failed tactic is used as a semantic result.

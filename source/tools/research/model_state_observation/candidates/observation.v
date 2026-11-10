@@ -1,7 +1,7 @@
+Require Import guarding.internal.na_invariants_fork.
+From lrust.util Require Import non_atomic_cell_map adequacy_util atomic_lock_counter.
 From NativeHeapInitialization Require Export partition.
 From lrust.lang Require Import proofmode notation lifting.
-From lrust.util Require Import non_atomic_cell_map adequacy_util atomic_lock_counter.
-Require Import guarding.internal.na_invariants_fork.
 Set Default Proof Using "Type".
 
 (* Actual physical heap, with only its lock bookkeeping erased. *)
@@ -12,7 +12,7 @@ Definition frame_observed (σ : state) (f : gmap loc val) : Prop :=
   ∀ l v, f !! l = Some v → heap_values σ !! l = Some v.
 
 Section agreement.
-  Context `{!lrustGS Σ}.
+  Context `{!heapGS Σ, !invGS Σ, !na_invG Σ, !alc_logicG Σ}.
   Lemma fragments_observe σ f :
     heap_ctx σ -∗ initial_fragments f -∗ ⌜frame_observed σ f⌝.
   Proof.
@@ -82,7 +82,7 @@ Section strong_observation.
     iSplitL "F Credits Time"; first by iApply (Callback with "F Credits Time").
     iIntros (σ v) "Heap Post". iDestruct "Post" as (vs) "[%Sem Points]".
     iDestruct (interval_observe with "Heap Points") as "%Obs".
-    iApply fupd_mask_weaken; [|iIntros "_ !>"]; first done. iPureIntro. by exists vs.
+    iApply fupd_mask_weaken; [|iIntros "_ !>"]; first done. iPureIntro. exists vs. naive_solver.
   Qed.
 
   Theorem initialized_interval_frame_adequacy e h p n f (P : val → list val → Prop) k :
@@ -101,7 +101,7 @@ Section strong_observation.
     iIntros (σ v) "Heap Post". iDestruct "Post" as (vs) "[%Sem [Points Frame]]".
     iDestruct (interval_observe with "Heap Points") as "%Obs".
     iDestruct (fragments_observe with "Heap Frame") as "%Outside".
-    iApply fupd_mask_weaken; [|iIntros "_ !>"]; first done. iPureIntro. by exists vs.
+    iApply fupd_mask_weaken; [|iIntros "_ !>"]; first done. iPureIntro. exists vs. naive_solver.
   Qed.
 
   Theorem initialized_interior_observation e h p input n (P : val → list val → Prop) k :
