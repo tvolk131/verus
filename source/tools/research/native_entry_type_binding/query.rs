@@ -1,4 +1,5 @@
 #![feature(rustc_private)]
+extern crate rustc_abi;
 extern crate rustc_driver;
 extern crate rustc_hir;
 extern crate rustc_interface;
@@ -23,6 +24,14 @@ fn quote(s: &str) -> String {
 
 struct Query {
     output: PathBuf,
+}
+
+fn backend_kind(repr: &rustc_abi::BackendRepr) -> &'static str {
+    match repr {
+        rustc_abi::BackendRepr::Scalar(_) => "Scalar",
+        rustc_abi::BackendRepr::ScalarPair { .. } => "ScalarPair",
+        _ => "Other",
+    }
 }
 
 impl rustc_driver::Callbacks for Query {
@@ -56,13 +65,16 @@ impl rustc_driver::Callbacks for Query {
                 let parameter_layout =
                     tcx.layout_of(env.as_query_input(*parameter)).expect("parameter layout");
                 records.push(format!(
-                    "{{\"function\":{},\"parameter\":{},\"parameter_type\":{},\"reference_kind\":{},\"subject_type\":{},\"byte_array\":{},\"byte_slice\":{},\"unpin\":{},\"unsafe_unpin\":{},\"freeze\":{},\"sized\":{},\"static_size\":{},\"minimum_size\":{},\"align\":{},\"backend\":{},\"parameter_size\":{}}}",
+                    "{{\"function\":{},\"parameter\":{},\"parameter_type\":{},\"reference_kind\":{},\"subject_type\":{},\"byte_array\":{},\"byte_slice\":{},\"unpin\":{},\"unsafe_unpin\":{},\"freeze\":{},\"sized\":{},\"static_size\":{},\"minimum_size\":{},\"align\":{},\"backend\":{},\"parameter_size\":{},\"parameter_align\":{},\"parameter_backend\":{},\"parameter_backend_debug\":{}}}",
                     quote(&name), index, quote(&parameter.to_string()), quote(&reference_kind),
                     quote(&subject.to_string()), byte_array, byte_slice, subject.is_unpin(tcx, env),
                     subject.is_unsafe_unpin(tcx, env), subject.is_freeze(tcx, env), sized,
                     if sized { layout.size.bytes().to_string() } else { "null".to_owned() },
                     layout.size.bytes(), layout.align.abi.bytes(),
                     quote(&format!("{:?}", layout.backend_repr)), parameter_layout.size.bytes(),
+                    parameter_layout.align.abi.bytes(),
+                    quote(backend_kind(&parameter_layout.backend_repr)),
+                    quote(&format!("{:?}", parameter_layout.backend_repr)),
                 ));
             }
         }

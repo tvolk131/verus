@@ -22,3 +22,8 @@ correspondence. Unsized slice layout is a minimum layout, not a zero-length key.
 The full original goals remain required. Canonical 6/0 and full HMAC 1/1 are
 inherited, not rerun by this lane. Native=0, all44+3/101 obligations open;
 publication=false; goal_complete=false. Production is unchanged.
+
+The additive carrier-layout epoch distinguishes the parameter's own backend
+representation from its pointee layout: Scalar versus ScalarPair, with actual
+size/alignment. It selects no memory/provenance interpretation and proves no
+argument-copy path. The earlier type-only receipt remains historical evidence.

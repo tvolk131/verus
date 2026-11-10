@@ -107,10 +107,14 @@ def main():
             v = records[table][key]
             require(v['sized'] is True and v['static_size'] == size and v['align'] == 1,
                     'actual byte-array layout')
+            require(v['parameter_backend'] == 'Scalar' and v['parameter_size'] == 8
+                    and v['parameter_align'] == 8, 'actual reference carrier layout')
         for table, key in [('writer', ('xor_key', 1)), ('probes', ('probe_slice', 0))]:
             v = records[table][key]
             require(v['sized'] is False and v['static_size'] is None and v['align'] == 1,
                     'slice minimum layout mistaken for static size')
+            require(v['parameter_backend'] == 'ScalarPair' and v['parameter_size'] == 16
+                    and v['parameter_align'] == 8, 'actual wide reference carrier layout')
         require(records['probes'][('probe_pinned', 0)]['unpin'] is False
                 and records['probes'][('probe_pinned', 0)]['unsafe_unpin'] is False
                 and records['probes'][('probe_cell', 0)]['freeze'] is False,
