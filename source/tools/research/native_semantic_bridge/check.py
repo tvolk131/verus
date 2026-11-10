@@ -79,6 +79,7 @@ def main():
         # Freeze the full compiled foundation and sources for this trial; no
         # installation or baseline writes. Loadpaths point read-only at baseline.
         paths += [p for p in (baseline/'src').rglob('*') if p.suffix in ('.v', '.vo')]
+        paths += [baseline/name for name in copied]
         paths += [coqc, coqchk, wrapper, gmp_manifest, Path(ready['opam']), baseline/'_CoqProject', a.ready, baseline_receipt,
                   a.freeze, *support_artifacts()]
         guard = ArtifactGuard(paths)

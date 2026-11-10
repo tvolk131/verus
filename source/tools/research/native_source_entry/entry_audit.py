@@ -110,6 +110,7 @@ def main():
         paths += list(tools.values()) + [baseline/'_CoqProject', a.freeze, *support_artifacts()]
         paths += [ROOT/n for n in f['files']] + [Path(n) for n in f['private_inputs']]
         paths += [model/(m+s) for m in model_receipt['modules'] for s in ('.v', '.vo')]
+        paths += [baseline/name for name in baseline_result['copied_sources']]
         paths += [Path(f['ready']).parent/'gmp-private/manifest.json']
         guard = ArtifactGuard(paths)
         require(guard.initial[str(a.freeze.resolve())]['sha256'] ==
@@ -120,6 +121,22 @@ def main():
         for name, value in f['private_inputs'].items():
             require(guard.initial[str(Path(name).resolve())]['sha256'] == value,
                     'inspection private snapshot mismatch: '+name)
+        for name, value in baseline_result['copied_sources'].items():
+            require(guard.initial[str((baseline/name).resolve())]['sha256'] == value,
+                    'inspection baseline snapshot mismatch: '+name)
+        retained_objects = {str(Path(p).relative_to(baseline)): v['sha256']
+                            for p, v in guard.initial.items()
+                            if Path(p).suffix == '.vo' and Path(p).is_relative_to(baseline)}
+        require(len(retained_objects) == bindings['compiled_module_count'] and
+                hashlib.sha256(json.dumps(retained_objects, sort_keys=True,
+                    separators=(',', ':')).encode()).hexdigest() == bindings['compiled_module_map_sha256'],
+                'untrusted inspection object snapshot')
+        for name, path in tools.items():
+            require(guard.initial[str(path.resolve())]['sha256'] == bindings['tools'][name],
+                    'untrusted inspection tool snapshot: '+name)
+        for name, expected in model_receipt['proof_terms'].items():
+            require(guard.initial[str((model/(name+'.vo')).resolve())]['sha256'] == expected,
+                    'untrusted model object snapshot: '+name)
         source_pin = json.loads((BRIDGE.parent/'mutable_buffer_goal/foundation-pin.json').read_text())
         require(guard.initial[str((baseline/'_CoqProject').resolve())]['sha256'] ==
                 source_pin['files']['_CoqProject'], 'untrusted inspection loadpaths')
