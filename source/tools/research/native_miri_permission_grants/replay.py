@@ -54,7 +54,21 @@ def validate_component(observation, expected):
     scope = inf['verification_scope']
     require(scope['native_collection_completed'] is True, 'incomplete native collection')
     require(scope['complete_selected_scope_verified'] is expected, 'scope certification mismatch')
-    selected = [x for x in scope['native_functions'] if x['selected'] is True]
+    all_selected = [x for x in scope['native_functions'] if x['selected'] is True]
+    auxiliary = {
+        'permission_access_table': 'specification_definition_or_declaration',
+        '_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural':
+            'selected_item_without_translated_body',
+        '_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural':
+            'selected_item_without_translated_body',
+    }
+    selected = [x for x in all_selected if x['rust_function'] not in auxiliary]
+    aux = [x for x in all_selected if x['rust_function'] in auxiliary]
+    require(len(all_selected) == 6 and len(aux) == 3
+            and {x['rust_function'] for x in aux} == set(auxiliary), 'auxiliary scope differs')
+    require(all(x['ordinary_contract'] is False
+                and x['body_status'] == auxiliary[x['rust_function']] for x in aux),
+            'unexpected auxiliary contract/body status')
     names = [x['rust_function'] for x in selected]
     require(len(names) == 3 and set(names) == {
         '<AccessKind as std::clone::Clone>::clone',
