@@ -1,0 +1,96 @@
+BEGIN borrow_handoff.source_loan_access
+Closed under the global context
+END borrow_handoff.source_loan_access
+BEGIN borrow_handoff.source_loan_release
+Closed under the global context
+END borrow_handoff.source_loan_release
+BEGIN borrow_handoff.source_context_access
+Closed under the global context
+END borrow_handoff.source_context_access
+BEGIN byte_array.byte_list_length
+Closed under the global context
+END byte_array.byte_list_length
+BEGIN byte_array.bytes_size
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.bytes_size
+BEGIN byte_array.bytes_physical
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.bytes_physical
+BEGIN byte_array.bytes_initialized
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.bytes_initialized
+BEGIN byte_array.byte_array128_size
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.byte_array128_size
+BEGIN byte_array.byte_array128_release
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.byte_array128_release
+BEGIN byte_array.byte_array128_scoped_handoff
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.byte_array128_scoped_handoff
+BEGIN byte_array.byte_array128_context_handoff
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+END byte_array.byte_array128_context_handoff
+BEGIN raw_view.typed_source_raw_view
+Closed under the global context
+END raw_view.typed_source_raw_view
+BEGIN raw_view.typed_source_raw_offset
+Closed under the global context
+END raw_view.typed_source_raw_offset
+BEGIN raw_view.typed_source_loan_release
+Closed under the global context
+END raw_view.typed_source_loan_release
+BEGIN model_limits.arbitrary_raw_pointer_typed
+Closed under the global context
+END model_limits.arbitrary_raw_pointer_typed
+BEGIN model_limits.raw_read_empty_head_stuck
+Closed under the global context
+END model_limits.raw_read_empty_head_stuck
+BEGIN model_limits.model_offset_unrestricted
+Closed under the global context
+END model_limits.model_offset_unrestricted
+BEGIN model_limits.empty_heap_offset_adequate
+Closed under the global context
+END model_limits.empty_heap_offset_adequate
+BEGIN byte_array.byte_ty_obligation_1
+Closed under the global context
+END byte_array.byte_ty_obligation_1
+BEGIN byte_array.byte_ty_obligation_2
+Closed under the global context
+END byte_array.byte_ty_obligation_2
+BEGIN byte_array.byte_ty_obligation_3
+Closed under the global context
+END byte_array.byte_ty_obligation_3
+BEGIN byte_array.byte_ty_obligation_4
+Closed under the global context
+END byte_array.byte_ty_obligation_4
+BEGIN byte_array.byte_ty_obligation_5
+Closed under the global context
+END byte_array.byte_ty_obligation_5
+BEGIN byte_array.byte_ty_obligation_6
+Closed under the global context
+END byte_array.byte_ty_obligation_6
+BEGIN byte_array.byte_ty
+Closed under the global context
+END byte_array.byte_ty

@@ -1,0 +1,106 @@
+{
+  "binding_before": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+  "binding_after": "1106a2513ce06e16f1657617582c58695bfb1b4fa0ba619786088b8b37932c0d",
+  "fake_receipt_sha256": "5c7c84728d8ae2f2cb437ba7e26e60bdfd59e872c9fc3f179150670d5cc313fb",
+  "cases": [
+    {
+      "label": "source_map.py-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/full-freeze.json",
+        "--extraction",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/synthetic-extraction",
+        "--output",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/source_map.py-full"
+      ],
+      "cwd": "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree",
+      "returncode": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "65fe6b5f8feb16cef298d984e7bfb71b626b520490c4353188ab624a2a027fa0",
+      "receipt_sha256": "30fe5d67ab57b0fe888a1fb3a72d24db99d45871f53d8b18cc7116942c22871a",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "binding_in_guard": false
+    },
+    {
+      "label": "source_map.py-omitted",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/omitted-binding-freeze.json",
+        "--extraction",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/synthetic-extraction",
+        "--output",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/source_map.py-omitted"
+      ],
+      "cwd": "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "0ad815c22ea8cbecc86d6b44ac7190d19210bc7a9d6bf129c0b91a14549329b1",
+      "success": true,
+      "failure": null,
+      "binding_in_guard": false
+    },
+    {
+      "label": "audit.py-full",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/full-freeze.json",
+        "--extraction",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/synthetic-extraction",
+        "--output",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/audit.py-full"
+      ],
+      "cwd": "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree",
+      "returncode": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "35f975e773249d756f41c0dfe6476fcba774bb2ab21f2b394e8e2ea9c5099edb",
+      "receipt_sha256": "ccb23f503088147309566973605664b2e511f856c57bb3e644c187cbeb9fa3c0",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "changed input source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "binding_in_guard": false
+    },
+    {
+      "label": "audit.py-omitted",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/omitted-binding-freeze.json",
+        "--extraction",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/synthetic-extraction",
+        "--output",
+        "/tmp/semantic-guard-fix-review-e84eed6c/omission/audit.py-omitted"
+      ],
+      "cwd": "/tmp/semantic-guard-fix-review-e84eed6c/omission/private-controller-tree",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_sha256": "35c10559fd2ae994fb3585fca60e2ec5f7af74aaa966ac99ab5c00ad9d0c2a45",
+      "success": true,
+      "failure": null,
+      "binding_in_guard": false
+    }
+  ],
+  "semantic_negatives": 0
+}
