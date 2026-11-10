@@ -42,6 +42,15 @@ the explicit adapter remains separate from exact-source acceptance. Original
 constructor function values, optional checked addition,
 bool conversion and runtime derived comparisons remain separate needs.
 
+A provisional frontend extension now checks the original
+`NonZero::new(i).map(BorTag)` for every `u64` (2/0 on and off), including an
+ordinary checked constructor `FnDef` body. Actual `NonZero::get` roundtripping
+checks4/0. The [constructor record](parent-constructor-function-values.json)
+keeps this source-only subproof separate from full tag/lookup acceptance.
+Matching-build evidence reports vstd2250/0 and13 focused regressions; fresh
+independent build/review and parent policy/cache reconciliation are pending.
+The full tag closure, runtime comparisons and `Item::new` remain unproved.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection

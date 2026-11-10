@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "scope": "Provisional constructor function-item frontend capability; independent review and combined acceptance pending.",
+  "worker_commits": [
+    "935a8eabc6f636b142c14761d50dbd4b1498341b",
+    "c15b1e53f3b3eeb3e6395cf6b9104ae2eca38453",
+    "0e61102da385dda4bd16286230bf01fdfa4d46ce",
+    "ddd1759e3b5065931e6ffff0cae38e127f77e94e"
+  ],
+  "integration_commits": [
+    "3497330a",
+    "6f972d00",
+    "1c143db6",
+    "46f56644"
+  ],
+  "source_identity_authentication": {
+    "production_files": 5,
+    "focused_test_files": 1,
+    "helpers": 3,
+    "private_epoch_receipts": 32,
+    "private_logs": 64,
+    "production_patch": {
+      "path": "/tmp/constructor-function-value-t3-3c5e9110/production.patch",
+      "sha256": "0b25855a9872f0b82f8ed21bb88d05a0c852e65bbc729cd20c302683a22cecb9"
+    }
+  },
+  "delivered_compiler_runtime_authentication": "Fingerprints recorded in evidence; outputs remain in historical worker checkout and were not opened. Independent reviewer must build matching own compiler/vstd.",
+  "original_constructor_queries": "2/0 on and off, full-domain u64, no application closure adapter",
+  "checked_functions": [
+    "bortag::BorTag::new",
+    "bortag::BorTag::ctor%"
+  ],
+  "inferred_helpers": [],
+  "inference_causal_gain": false,
+  "reported_matching_vstd": "2250/0; includes generated constructor checks",
+  "reported_focused_tests": "13/13",
+  "reported_roundtrip": "4/0 actual NonZero::get",
+  "independent_review": "pending fresh isolated review",
+  "review_focus": [
+    "Original FnDef identity, ordered fields and generic bounds",
+    "Normal mode/lifetime/visibility/type-invariant checks",
+    "Eager constructor registration even when unused",
+    "Imports, existing FnDef behavior, native scope and regression compatibility"
+  ],
+  "parent_policy_and_cache_versions": "unchanged pending review and combined reconciliation",
+  "canonical": "6/0 inherited; not rerun on new frontend",
+  "full_HMAC": "1/1 UNPROVED inherited; not rerun on new frontend",
+  "native_correspondences": 0,
+  "open_obligations": "44 minimal +3 phase /101 writer effects",
+  "publication": false,
+  "goal_complete": false
+}
