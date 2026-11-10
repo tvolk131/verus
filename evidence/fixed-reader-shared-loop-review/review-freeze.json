@@ -1,0 +1,122 @@
+{
+  "before_trials": true,
+  "inputs_sha256": "dba9c8ef879777e6d9c7e79dee2b8a16ed031bebbfc8132f1d71fb481f39eb2f",
+  "inputs_count": 2259,
+  "cases": {
+    "pair": {
+      "revision": "30c9c17cb177b7a9466761552a5c11793451b466",
+      "library": "model_pair_reader",
+      "namespace": "ModelPairReader",
+      "worker_receipt_sha256": "534374d1dc414dc7bc98368b4f1acb892796238e6ae03e10286a0421d1e80bde",
+      "freeze": "final-freeze.json",
+      "freeze_sha256": "434b90192c7f87f551cc6091a690c165dc940070ed0b29281892c8b5536409c7",
+      "authenticated_inputs": 907,
+      "worker_artifacts": {
+        "Assumptions.v": "c21055fa9fce617bd07a6c90102f00d1b96c35c02470876c5de68651dd2f2592",
+        "Assumptions.vo": "fc5099c92fcc401096fc7f32362bc7e4abe2d4fe993ccfa0effcd3e6e5b45482",
+        "controls.v": "a10bc455ea962ec27758ccc36bec209c17e2e101ff92f009ba8f96b8c732d22d",
+        "controls.vo": "cc48ca7fa86b56254fd3ec4cd8e6a42e6e01f036ce8bf17da49ba4c5ac849f25",
+        "fixed.v": "8de0349c5bf8bac38ccf8c0927a81069fa8a4fab780c041436f5e47a68844fed",
+        "fixed.vo": "29104a771b23c000fa68b4417b991a5dc031e92779c2cbf9d01cfe22079b8c05",
+        "handoff.v": "cf4ef933a5ad0c281727889305e45630f0570a569bba528e3881692833adc704",
+        "handoff.vo": "8a7501be99957d98f54902477c35f58e42e11ef7a00d5dd4dbd89a32bdf94544",
+        "setup.v": "4afca3ab0920feee963eaa8dc23a5394cd48b9b50774c86a614ab47f9e7ddae8",
+        "setup.vo": "0e70268c5d1719afc136405bbf95dcd943eb6fb8659868a54886072ce9292cac",
+        "whole_key.v": "12b133629c3d4641c554dd45c55cd73e4cce4691fc1b0a21a0966ca114bffc42",
+        "whole_key.vo": "e93df42a40750f288364c5529d7bcb29399df7e0d032c571c6c6d06e883185e7"
+      },
+      "assumptions": {
+        "handoff.pair_view_raw_exact": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "handoff.fixed_view_reader_session": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "handoff.empty_key_no_read": [],
+        "fixed.model_key_share_fixed": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "fixed.fixed_view_pair_context": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "whole_key.shared_key_heap_observe_prefix": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "whole_key.whole_key_heap_observe": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "setup.raw_pair_reader_context_wp": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "setup.raw_pair_reader_observed": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.list_key_reader_read_exact": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.shared_cap_aliases": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.whole_key_empty_no_access": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.pair_reader_outside_observed": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.empty_key_same_address_reader_observed": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.same_allocation_reader_observed": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "controls.pair_reader_first_observed": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ]
+      }
+    },
+    "loop": {
+      "revision": "88a56443e1eddbc63c83f7dff8364279c815b804",
+      "library": "model_shared_xor_loop",
+      "namespace": "ModelSharedXorLoop",
+      "worker_receipt_sha256": "41b447e1daee6caa6a24e80589f353ca71d07f5293893ff452b40f5ebaf2d881",
+      "freeze": "trial011-freeze.json",
+      "freeze_sha256": "9d4fd43cc3523c034e356590c6ed7478c7bfd10cb9a4a39b702339feff95c4b0",
+      "authenticated_inputs": 2150,
+      "worker_artifacts": {
+        "Assumptions.v": "c4e50f3c533562b8e5b90bcd8a48c1546b05f9c870aadedd47bc008f5fbab3da",
+        "Assumptions.vo": "f8cff0a0e4896d245663426c2afc27f82bd95039d47fbc43e3be469574136feb",
+        "ProofTerms.v": "96a32bcc4b42c49b1a5a1d265afbbaa3b2e9416dd5467dc089836d5ed1ea1761",
+        "ProofTerms.vo": "b7d7ee734343a27cc16982d4569ef9750aee8058c29acd362ec6aef7a58ced84",
+        "shared_xor.v": "c537873df1dbd88d610fa69c921ee6ddd02b3e1ce6bcc1667b19795c733cdace",
+        "shared_xor.vo": "644da6ae0526e416f5806a6ad7fce88d1ba67f584f99ff11882613ce65acf9a4"
+      },
+      "assumptions": {
+        "shared_xor.shared_xor_result": [],
+        "shared_xor.shared_xor_cost": [],
+        "shared_xor.shared_xor_cost_step": [],
+        "shared_xor.shared_xor_result_bytes": [],
+        "shared_xor.shared_xor_result_facts": [],
+        "shared_xor.shared_xor_contract": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "shared_xor.shared_xor_min_result": [],
+        "shared_xor.wp_shared_transform_loop": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "shared_xor.wp_shared_xor_loop": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "shared_xor.shared_xor_verified": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "shared_xor.wp_shared_xor_min": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ],
+        "shared_xor.wp_shared_xor_128": [
+          "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+        ]
+      }
+    }
+  },
+  "output": "/tmp/fixed-reader-shared-loop-review-5904e347-trial001"
+}
