@@ -139,5 +139,6 @@
     "removed": "resources.pending_heap_normal_exit",
     "reason": "Final heap authority is supplied to the adequacy observer cut, not carried externally into runtime WP. Separate typed release and final observation lemmas remain.",
     "new_source_axiom": false
-  }
+  },
+  "evidence_summary_correction": "Post-proof compact-summary generation initially used returncode instead of exit_code. Corrected without changing the final frozen proof/controller inputs or successful trial011."
 }

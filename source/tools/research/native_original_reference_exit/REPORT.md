@@ -188,3 +188,19 @@ python3 -B -O source/tools/research/native_original_reference_exit/check.py \
 Root integration and fresh independent review remain required. This local
 handoff is not source-boundary acceptance or authorization to change native
 status/publication.
+
+## Final local result
+
+Trial011 passed all three normal coqc module compilations, the complete
+17-declaration assumptions/proof-term inventory, 68 closed inventory helpers,
+and recursive coqchk of all 85 local constants plus dependencies. The source
+adapter's three declarations are closed. Two resource lemmas use inherited
+dependent functional extensionality; the recursive imported foundation also
+uses inherited Eq_rect_eq. There are no new logical axioms or source certificates.
+
+The final raw receipt is `/tmp/native-original-reference-exit-trial011/receipt.json`;
+`results.json` pins its hash and the replay inputs/products. Trial009 already
+checked the split 14-declaration MODEL/algebra version; the final run adds the
+parent-delivered typed source composition. Earlier combined-WP prototypes
+007/008 are superseded, not native evidence. Native0/44+3/101, publication=false
+and whole-goal incompleteness are unchanged.
