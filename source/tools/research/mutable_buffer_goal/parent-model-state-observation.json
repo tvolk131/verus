@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "scope": "Parent replay of final MODEL heap observation; no native theorem",
+  "implementation_commit": "91a7a1c1",
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "constant_count": 20,
+  "all_constants_closed": true,
+  "all_four_objects_and_sources_match_worker": true,
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-model-observation-91a7a1c1/receipt.json",
+    "sha256": "bb1633865b1713baf1d01d6ff9aeff3fee810ad0a7a6f725afbe46ad2b8dee78"
+  },
+  "proof_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-model-observation-91a7a1c1/proofs/receipt.json",
+    "sha256": "deb942a8c050c4c7b443a2028baf78e4929572a5075327660cfcb716aec4f61d"
+  },
+  "freeze": {
+    "path": "/home/dev/projects/verus/source/tools/research/model_state_observation/final-freeze.json",
+    "sha256": "9697821f7b7f9e9c235be8758f54d8e87b4862e528cca02971b50f949c3fa3e4"
+  },
+  "proof_objects": {
+    "Assumptions.vo": "f09e563fe4a7698082bb071ce41de3c8bb08780739a4edbe284e799e99ed1137",
+    "controls.vo": "5b4b8c0fea8b9d56a027dc53a34266b3b5d0ccc6446cf28847423dfd37025a23",
+    "instances.vo": "a54ced029fe03a71b1a089a70c73e222416128abfa0ec1b01019373bbc6e40f5",
+    "observation.vo": "aac99a0a57d144b00744b9650a362a4c62c7f76a4dfb0f928def81df9ad3a28e"
+  },
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "genuine_same_final_state_and_resource_witness": true,
+  "exact_returned_outside_frame_observed": true,
+  "termination_or_all_forks_return_required": false,
+  "independent_review": {
+    "status": "pending"
+  },
+  "resource_valued_typed_setup": "under implementation",
+  "actual_Rust_entry_or_CF_import_proved": false,
+  "actual_native_correspondences": 0,
+  "native_effects_open": 101,
+  "publication": false,
+  "goal_complete": false
+}
