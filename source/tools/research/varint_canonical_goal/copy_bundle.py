@@ -13,6 +13,8 @@ from infer_experiment import require
 
 ENGINE_SOURCES = (
     'source/vir/src/infer/buffer_goals.rs',
+    'source/vir/src/infer/buffer_observation_goals.rs',
+    'source/vir/src/infer/native_mutable_for.rs',
     'source/vir/src/infer.rs',
     'source/vir/src/infer/pipeline.rs',
     'source/vir/src/infer/report.rs',
