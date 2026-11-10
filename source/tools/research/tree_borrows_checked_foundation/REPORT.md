@@ -1,5 +1,16 @@
 # Checked Tree Borrows external-model baseline
 
+Integration correction: independent review `5568da00` accepts the exact
+mathematical checkpoint and supplies complete expanded signatures and individual
+queries for2,753 model bindings. The original507 library-root `Print Module`
+outputs do **not** recursively expand every nested module/type. That medium
+delivery-controller finding remains; use the bound independent supplement in
+[the review](../../../../evidence/borrow-foundations-review/REPORT.md) for complete
+coverage. This corrects the original nested-signature completeness claim below;
+normal builds, kernel checks,2,399 individual constant queries and trust context
+remain supported. Re-running the original generator alone does not recreate
+the independent supplement. No mathematical source or baseline receipt changed.
+
 **Scoped success; no native/source-validity or HMAC theorem.** Exact Simuliris
 `e3abfcdc301f92250d4227fc03c00463bf57b982` compiled normally, without semantic
 patches. Full recursive Rocq kernel checking passed without exclusions:

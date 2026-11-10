@@ -115,5 +115,23 @@
     "writer_effects": 101
   },
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "independent_review": {
+    "commit": "3a9885c00e4b8a6ae7a2b089713bd38ef1050292",
+    "source_and_six_actual_outcomes": "accepted independently",
+    "delivered_gate": "R1/R2 fixed in3f7303c9; revision awaits new independent recheck"
+  },
+  "gate_fix_replay": {
+    "receipt": "/tmp/native-miri-permission-grants-parent004/receipt.json",
+    "sha256": "ed662790278e99f40f0890226cc9d2596485c4d64ee208a222f5c809902935f6",
+    "pretrial_freeze": "freeze004.json",
+    "pretrial_sha256": "a7a2e326f77a963e412fa3e78b48121eef61f2940b159364819db347a7179678",
+    "all_six_outcomes_passed": true,
+    "failed_function_singleton_required": true,
+    "support_key_mapping": {
+      "/home/dev/projects/verus/source/tools/infer_eval_support.py": "/home/dev/projects/verus/source/tools/infer_eval_support.py",
+      "/home/dev/projects/verus/source/tools/infer_experiment.py": "/home/dev/projects/verus/source/tools/infer_experiment.py"
+    },
+    "independent_recheck": "pending"
+  }
 }

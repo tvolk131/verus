@@ -32,7 +32,12 @@ Assistance is redundant for this component: ordinary verification succeeds
 with goals disabled. This is not the missing causal shared-automation transfer.
 Native execution was not run and is not claimed. Canonical6/0 and full HMAC1/1
 remain inherited, not rerun. Native=0, all44+3/101 obligations remain open;
-publication=false, goal_complete=false. Independent review is pending.
+publication=false, goal_complete=false. Independent review `3a9885c0` accepted
+the source and six actual outcomes, and found R1/R2 in the delivered gate.
+Parent `3f7303c9` fixes both: support identities use an explicit receipt-label
+mapping, and failed queries must be exactly the selected grants function.
+The fresh six-case parent004 replay passes; that gate revision still awaits
+an independent recheck. Mathematical source and original receipts are unchanged.
 
 [results.json](results.json) binds the successful receipt, frozen inputs and
 full source identities. The first two trials verified the positive predicate
@@ -42,7 +47,7 @@ No mathematical source change was made for those gate repairs.
 
 ```sh
 python3 -B -O source/tools/research/native_miri_permission_grants/replay.py \
-  --freeze source/tools/research/native_miri_permission_grants/freeze003.json \
+  --freeze source/tools/research/native_miri_permission_grants/freeze004.json \
   --output /tmp/native-miri-permission-grants-FRESH
 ```
 
