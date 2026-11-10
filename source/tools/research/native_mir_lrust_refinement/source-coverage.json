@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "producer_trusted": false,
+  "source_semantics_link_proved": false,
+  "publication": false,
+  "supported_operations": [
+    "Metadata",
+    "WrapWide",
+    "UnwrapWide",
+    "Thin",
+    "WrapThin",
+    "UnwrapThin",
+    "ByteOffset",
+    "U8ZstBranch"
+  ],
+  "source_constructor": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+  "coverage": [
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": 0,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": 1,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": 2,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": 3,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": 4,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": 5,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 0,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "index": 0,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "index": 1,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "index": 2,
+      "status": "unsupported"
+    },
+    {
+      "instance": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+      "bb": 1,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::slice::IterMut<'{erased}, u8>] }",
+      "bb": 0,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 715777318511364689))::Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+      "bb": 0,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 715777318511364689))::Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+      "bb": 1,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 0,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 1,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 2,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 3,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 4,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 5,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 6,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 7,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 8,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 9,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 10,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 11,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 12,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 13,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 14,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": 15,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 0,
+      "index": "term",
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 1,
+      "index": 0,
+      "status": "CTFE-unreachable"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 1,
+      "index": "term",
+      "status": "CTFE-unreachable"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "index": 0,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "index": 1,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "index": 2,
+      "status": "supported-fragment"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "index": 3,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 2,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "index": 0,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "index": 1,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "index": 2,
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 15636929820997450688))::Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+      "bb": 3,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<u8>] }",
+      "bb": 0,
+      "index": "term",
+      "status": "unsupported"
+    },
+    {
+      "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11968169209794151310))::Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<[u8]>] }",
+      "bb": 0,
+      "index": "term",
+      "status": "unsupported"
+    }
+  ],
+  "counts": {
+    "supported-fragment": 8,
+    "CTFE-unreachable": 2,
+    "unsupported": 34
+  },
+  "complete_native_translation": false,
+  "raw_reference_creation": "unsupported",
+  "borrowck_authenticated": true,
+  "borrowck_supplies_permission": false
+}
