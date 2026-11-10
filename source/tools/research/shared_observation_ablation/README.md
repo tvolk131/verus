@@ -102,3 +102,11 @@ executable/proof body) and accepts the ordinary loop-invariant diagnostic header
 The correction was committed before any ablated application trial; source hashes,
 interventions and expected outcomes are unchanged. The rejected raw receipt is
 retained and not included in the final accepted matrix.
+
+A second retained baseline validation receipt exposed the documented legacy
+no-flag export boundary: canonical-disabled fails 2/2 yet an ordinary `.vir`
+file exists while `interface_written=false`. Commands are unchanged; the
+corrected controller enforces inference-aware publication gates only with goals
+enabled. Disabled legacy artifacts are recorded and hashed, never imported or
+accepted as proof certificates. This correction also preceded every ablated
+application trial; the rejected receipt remains private.

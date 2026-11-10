@@ -334,7 +334,11 @@ def trials(out, variant, bundle):
                     failure_kind=None if case=='plain' else 'postcondition not satisfied',artifact=artifact)
             else:
                 data=diagnostic(result,observed,execs)
-                require_publication(data,observed,artifact)
+                if goals:
+                    require_publication(data,observed,artifact)
+                else:
+                    require(data['verus-infer']['interface_written'] is False,
+                            'disabled run unexpectedly claims checked interface publication')
             v=data['verification-results']
             if variant=='baseline' and goals and case in f['expected_baseline_enabled']:
                 require([v['verified'],v['errors']]==f['expected_baseline_enabled'][case],
@@ -374,7 +378,11 @@ def trials(out, variant, bundle):
                         'possible arithmetic underflow/overflow')},
                 stderr=result['stderr'], stdout_sha256=digest(out/(label+'.stdout')),
                 stderr_sha256=digest(out/(label+'.stderr')),
-                interface_exists=artifact.exists(),cache_files_after={p.name:digest(p)
+                interface_exists=artifact.exists(),
+                export_artifact_sha256=digest(artifact) if artifact.exists() else None,
+                export_classification='checked goal export gate' if goals else
+                    'legacy ordinary export; ignored, never imported, not a proof certificate',
+                cache_files_after={p.name:digest(p)
                     for p in cache.glob('**/*') if p.is_file()})
             print(variant,label,v['verified'],v['errors'],flush=True)
         for case in ('canonical','prefix','full'):

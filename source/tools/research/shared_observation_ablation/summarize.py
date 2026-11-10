@@ -79,7 +79,13 @@ def main():
                     failure_kind=None if run['case']=='plain' else 'postcondition not satisfied')
             else:
                 diagnostic(result,success,run['exec_bodies'])
-            require_publication(data,success,path/(label+'.vir'))
+            if run['goals']:
+                require_publication(data,success,path/(label+'.vir'))
+            else:
+                require(inf['interface_written'] is False,'legacy artifact misreported as checked interface')
+            artifact=path/(label+'.vir')
+            require((digest(artifact) if artifact.exists() else None)==run['export_artifact_sha256'],
+                    'export artifact drift')
             key=variant+'/'+run['case']+'/'+('on' if run['goals'] else 'off')
             # Exact diagnostic text, source locations and assertion snippets, once
             # per cold/warm pair. Original paths remain in hash-bound raw logs.
@@ -102,6 +108,9 @@ def main():
                 selected_scope=selected,
                 complete_selected_scope_verified=inf['verification_scope']['complete_selected_scope_verified'],
                 interface_written=inf['interface_written'],
+                export_artifact_exists=run['interface_exists'],
+                export_artifact_sha256=run['export_artifact_sha256'],
+                export_classification=run['export_classification'],
                 stdout_sha256=run['stdout_sha256'],stderr_sha256=run['stderr_sha256'],
                 cache_files_before=run['cache_files_before'],cache_files_after=run['cache_files_after']))
     for case in ('canonical','prefix','full'):
