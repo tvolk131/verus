@@ -13,7 +13,7 @@ from proof_checks import parse_axioms, parse_kernel_summary
 BASE = Path('/tmp/verus-infer-buffer-cycle-20261109')
 BUILD = BASE/'verus-belt-build-115a618d'
 READY = BASE/'rocq-toolchain/baseline-ready.json'
-MODULES = ['handoff', 'fixed', 'whole_key', 'setup']
+MODULES = ['handoff', 'fixed', 'whole_key', 'setup', 'controls']
 HEAP = BASE/'parent-heap-init-3d799b38'
 SEM = BASE/'semantic-guard-validation-1efbd004/proofs'
 INPUT = BASE/'parent-model-input-94b87742/proofs'
@@ -45,7 +45,8 @@ def main():
         require(not a.freeze.exists(), 'freeze already exists')
         a.freeze.write_text(json.dumps(dict(before_first_trial=True,
             files={str(x.relative_to(ROOT)):digest(x) for x in inputs()},
-            constants={n:declarations(HERE/'candidates'/(n+'.v')) for n in MODULES}), indent=2)+'\n')
+            constants={n:declarations(HERE/'candidates'/(n+'.v')) for n in MODULES},
+            existing_instance_registrations={n:re.findall(r'^\s*Existing\s+Instance\s+(\w+)', (HERE/'candidates'/(n+'.v')).read_text(), re.M) for n in MODULES}), indent=2)+'\n')
         return
     require(a.output is not None, 'output required')
     a.output = a.output.resolve()
@@ -172,6 +173,9 @@ def main():
         require([x for x,_,_ in sections]==names==[x for _,_,x in sections], 'incomplete assumption inventory')
         require(len(re.findall(r'^BEGIN ',out,re.M))==len(names)==len(re.findall(r'^END ',out,re.M)), 'extra markers')
         receipt['declarations'] = freeze['constants']
+        receipt['existing_instance_registrations'] = freeze['existing_instance_registrations']
+        receipt['new_inductives_records_constructors'] = []
+        receipt['obligations'] = []
         receipt['assumptions'] = {n:parse_axioms(body) for n,body,_ in sections}
         products = ArtifactGuard([x for x in work.iterdir() if x.suffix in ['.v','.vo']])
         require(run('kernel',[str(toolpaths['runner']),str(toolpaths['coqchk']),'-silent','-o',*args,

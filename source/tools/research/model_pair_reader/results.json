@@ -1,0 +1,219 @@
+{
+  "schema": 1,
+  "scope": "Checked MODEL constructive same-Outer pair-to-reader handoff and whole-key heap observation",
+  "receipt": {
+    "path": "/tmp/model-pair-reader-trial-012/receipt.json",
+    "sha256": "534374d1dc414dc7bc98368b4f1acb892796238e6ae03e10286a0421d1e80bde",
+    "success": true
+  },
+  "freeze": {
+    "path": "source/tools/research/model_pair_reader/final-freeze.json",
+    "sha256": "434b90192c7f87f551cc6091a690c165dc940070ed0b29281892c8b5536409c7"
+  },
+  "normal_coqc": true,
+  "full_recursive_coqchk": true,
+  "kernel_exclusions": [],
+  "constant_count": 16,
+  "declarations": {
+    "handoff": [
+      "pair_view_raw_exact",
+      "fixed_view_reader_session",
+      "empty_key_no_read"
+    ],
+    "fixed": [
+      "model_key_share_fixed",
+      "fixed_view_pair_context"
+    ],
+    "whole_key": [
+      "shared_key_heap_observe_prefix",
+      "whole_key_heap_observe"
+    ],
+    "setup": [
+      "raw_pair_reader_context_wp",
+      "raw_pair_reader_observed"
+    ],
+    "controls": [
+      "list_key_reader_read_exact",
+      "shared_cap_aliases",
+      "whole_key_empty_no_access",
+      "pair_reader_outside_observed",
+      "empty_key_same_address_reader_observed",
+      "same_allocation_reader_observed",
+      "pair_reader_first_observed"
+    ]
+  },
+  "existing_instance_registrations": {
+    "handoff": [],
+    "fixed": [],
+    "whole_key": [],
+    "setup": [
+      "Outer"
+    ],
+    "controls": []
+  },
+  "new_inductives_records_constructors": [],
+  "program_obligations": 0,
+  "obligations": [],
+  "assumptions": {
+    "handoff.pair_view_raw_exact": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "handoff.fixed_view_reader_session": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "handoff.empty_key_no_read": [],
+    "fixed.model_key_share_fixed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "fixed.fixed_view_pair_context": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "whole_key.shared_key_heap_observe_prefix": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "whole_key.whole_key_heap_observe": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "setup.raw_pair_reader_context_wp": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "setup.raw_pair_reader_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.list_key_reader_read_exact": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.shared_cap_aliases": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.whole_key_empty_no_access": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.pair_reader_outside_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.empty_key_same_address_reader_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.same_allocation_reader_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.pair_reader_first_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ]
+  },
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "new_axioms": 0,
+  "admissions": 0,
+  "trusted_summaries_or_new_primitives": 0,
+  "proof_sources": {
+    "Assumptions.v": "c21055fa9fce617bd07a6c90102f00d1b96c35c02470876c5de68651dd2f2592",
+    "controls.v": "a10bc455ea962ec27758ccc36bec209c17e2e101ff92f009ba8f96b8c732d22d",
+    "fixed.v": "8de0349c5bf8bac38ccf8c0927a81069fa8a4fab780c041436f5e47a68844fed",
+    "handoff.v": "cf4ef933a5ad0c281727889305e45630f0570a569bba528e3881692833adc704",
+    "setup.v": "4afca3ab0920feee963eaa8dc23a5394cd48b9b50774c86a614ab47f9e7ddae8",
+    "whole_key.v": "12b133629c3d4641c554dd45c55cd73e4cce4691fc1b0a21a0966ca114bffc42"
+  },
+  "proof_objects": {
+    "Assumptions.vo": "fc5099c92fcc401096fc7f32362bc7e4abe2d4fe993ccfa0effcd3e6e5b45482",
+    "controls.vo": "cc48ca7fa86b56254fd3ec4cd8e6a42e6e01f036ce8bf17da49ba4c5ac849f25",
+    "fixed.vo": "29104a771b23c000fa68b4417b991a5dc031e92779c2cbf9d01cfe22079b8c05",
+    "handoff.vo": "8a7501be99957d98f54902477c35f58e42e11ef7a00d5dd4dbd89a32bdf94544",
+    "setup.vo": "0e70268c5d1719afc136405bbf95dcd943eb6fb8659868a54886072ce9292cac",
+    "whole_key.vo": "e93df42a40750f288364c5529d7bcb29399df7e0d032c571c6c6d06e883185e7"
+  },
+  "logs": {
+    "assumptions.stdout": "939336e7f82a12a952772ba6c9443d9a9a691c24652f851616b2bb81f62f9df1",
+    "assumptions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel.stderr": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526"
+  },
+  "baseline": {
+    "commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+    "ready_sha256": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007",
+    "receipt_sha256": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e",
+    "successful_durable_receipt_authenticated": true,
+    "copied_sources": 523,
+    "objects": 284,
+    "GMP_manifest_sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37"
+  },
+  "dependency_pins_sha256": "cd4a54e055e81856e04b59e7f7a1fd6cd532bdd6e59a544e7d74c8fedab56b3d",
+  "all_pinned_receipts_sources_objects_authenticated": true,
+  "all_frozen_sources_baseline_and_tools_guarded_through_kernel": true,
+  "constructive_share": "WP of actual Share expression, using existing resolve_uniq_body core of type_share_instr on internally constructed unique key at payload 0/0; raw shared ty_own d=1,g=0",
+  "black_box_existential_depth_bounded": false,
+  "original_exact_pair_tctx_preserved": true,
+  "pair_tctx_constructed_witness": 1,
+  "reader_depth": 1,
+  "reader_guard_depth": 0,
+  "reader_prepare_credits": 1,
+  "reader_per_index_credits": 1,
+  "setup": "Skip;; Skip;; Share;; e",
+  "same_Outer_and_TypeG": true,
+  "internal_initial_credits": "2+k",
+  "callback_credits": "k",
+  "public_adequacy_supplies_credits_internally": true,
+  "new_original_application_ownership_guard_credit_or_domain_premises": false,
+  "callback": "padRef/Lpad; exactFrame; exact pair tctx; Cap; key_reader; linear R/G; G context guard; R/G close to ordinary Lkey",
+  "parent_Rin_Rout_interface_changed": false,
+  "parent_usage": "R * loopcredits as Rin; G and close outside callback; join returned R/G afterwards",
+  "all_finite_key_and_pad_lengths": true,
+  "empty_key_q_equals_p": true,
+  "same_allocation_disjoint_interiors": true,
+  "persistent_shared_aliases": true,
+  "actual_first_byte_read_and_R_G_join_control": true,
+  "whole_key_observer": "same heap_ctx sigma, ordinary Lkey, Cap and arbitrary Frame; (g+1)*keylen reserved credits; exact original initialized key bytes and existential RSt r; no exclusive vector extraction",
+  "zero_prefix_and_empty_case_cell_accesses": 0,
+  "unproved_handoff_credit_or_depth_bound": null,
+  "parent_mutable_loop_integration_performed": false,
+  "actual_native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_phase_obligations_open": 3,
+  "native_writer_effects_open": 101,
+  "full_HMAC_prefix_suffix": "inherited unchanged 1/1, not rerun",
+  "rust_execution_provenance_retag_or_C_F_proof": false,
+  "publication": false,
+  "goal_complete": false,
+  "independent_review": "none; worked without subdelegates as instructed",
+  "commands": [
+    {
+      "label": "compile-handoff",
+      "exit_code": 0,
+      "seconds": 1.452
+    },
+    {
+      "label": "compile-fixed",
+      "exit_code": 0,
+      "seconds": 4.351
+    },
+    {
+      "label": "compile-whole_key",
+      "exit_code": 0,
+      "seconds": 2.143
+    },
+    {
+      "label": "compile-setup",
+      "exit_code": 0,
+      "seconds": 5.414
+    },
+    {
+      "label": "compile-controls",
+      "exit_code": 0,
+      "seconds": 4.13
+    },
+    {
+      "label": "assumptions",
+      "exit_code": 0,
+      "seconds": 62.622
+    },
+    {
+      "label": "kernel",
+      "exit_code": 0,
+      "seconds": 238.856
+    }
+  ],
+  "replay": "python3 -B source/tools/research/model_pair_reader/check.py --freeze source/tools/research/model_pair_reader/final-freeze.json --output /tmp/model-pair-reader-replay-UNUSED"
+}
