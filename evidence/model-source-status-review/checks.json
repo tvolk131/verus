@@ -1,0 +1,340 @@
+{
+  "schema": 1,
+  "scope": "source-only; immutable-result identities; no controller execution or mutation experiments",
+  "prepared_checkout": "9f91fd58c1321ee145f4225e5fbf796d5f7d19df",
+  "reviewed_fix": "0e1c7081190364a46d9b0e3b0b18eb72a545b31c",
+  "prior_findings": "3dd71948:evidence/proof-checker-source-review/REVIEW.md",
+  "syntax_checks": [
+    {
+      "path": "source/tools/research/native_semantic_bridge/check.py",
+      "sha256": "0b5af2d1a8b2e63be7bfa31bfe8d7ab0a0c8842309a8a78a4630033a593d371c",
+      "ast_parse": true
+    },
+    {
+      "path": "source/tools/research/native_source_entry/entry_audit.py",
+      "sha256": "2dc1175cc60791d4e1e5e296e6f7283a21f3c87f59ce7f41851456d49b34e4e7",
+      "ast_parse": true
+    },
+    {
+      "path": "source/tools/research/native_semantic_bridge/freeze.py",
+      "sha256": "7a9a36105d539c84cd9c8fee852cf0f535333c9bde363293a425722ff1fbc1a6",
+      "ast_parse": true
+    },
+    {
+      "path": "source/tools/research/native_semantic_bridge/acceptance_inputs.py",
+      "sha256": "4d3874db391c383cf8a2eb565c0cc72a9943fc244d6e095064d2c19962f742e1",
+      "ast_parse": true
+    },
+    {
+      "path": "source/tools/research/native_semantic_bridge/test_acceptance_inputs.py",
+      "sha256": "2832ca8a76ecb8bf5bd8a5a08ca501b8ad91ce812d07f44899c0334c31d9f5cb",
+      "ast_parse": true
+    }
+  ],
+  "active_freezes": {
+    "source/tools/research/native_semantic_bridge/model-source-status-freeze.json": {
+      "sha256": "e2662d2c2918b1d34600e326af40f79e587595e40cc3ee5bb20b2dbcac81d2cc",
+      "public_file_count": 24,
+      "public_files": {
+        "evidence/source-freeze-completeness-review/recheck.py": "6bc61417c2cbe2abfd55f6143acf48c2f51c5277fdcfd711dd043dedc43f8c42",
+        "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "source/tools/research/mutable_buffer_goal/foundation-baseline.json": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+        "source/tools/research/mutable_buffer_goal/foundation-pin.json": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+        "source/tools/research/mutable_buffer_goal/transfer-freeze.json": "49fffebaf78f3e2202ed2473937de199226074c31b4e782e23d11d61d5b6c85d",
+        "source/tools/research/native_heap_lowering/final-freeze.json": "0de591416d91d025951745fd4f8f1def9ccb810718822fb647130b22f08532c8",
+        "source/tools/research/native_heap_lowering/fixtures/drop.rs": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "source/tools/research/native_heap_lowering/lower.py": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "source/tools/research/native_semantic_bridge/acceptance_inputs.py": "4d3874db391c383cf8a2eb565c0cc72a9943fc244d6e095064d2c19962f742e1",
+        "source/tools/research/native_semantic_bridge/audit.py": "b44554db476319d1790c57c8e729e46d73c2371cda8fb8aedf818062045c67cc",
+        "source/tools/research/native_semantic_bridge/baseline-bindings.json": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+        "source/tools/research/native_semantic_bridge/candidates/loan-v12/borrow_handoff.v": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "source/tools/research/native_semantic_bridge/candidates/loan-v12/byte_array.v": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "source/tools/research/native_semantic_bridge/candidates/loan-v12/model_limits.v": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+        "source/tools/research/native_semantic_bridge/candidates/loan-v12/raw_view.v": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "source/tools/research/native_semantic_bridge/check.py": "0b5af2d1a8b2e63be7bfa31bfe8d7ab0a0c8842309a8a78a4630033a593d371c",
+        "source/tools/research/native_semantic_bridge/freeze.py": "7a9a36105d539c84cd9c8fee852cf0f535333c9bde363293a425722ff1fbc1a6",
+        "source/tools/research/native_semantic_bridge/gate_controls.py": "1a1a8df69249ccff6594e9a04462af32c57c159905807f0c493625582be3e1a0",
+        "source/tools/research/native_semantic_bridge/guard_controls.py": "5553bbdbf253aaf081916ec152ae02cd15716540abbeda7273f2db0d0cc9b856",
+        "source/tools/research/native_semantic_bridge/proof_checks.py": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+        "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "source/tools/research/native_semantic_bridge/source_map.py": "5c6e29336d400f7518f92a324fb8126740f864eb4a4bedd4d2a1f064a34df41d",
+        "source/tools/research/native_semantic_bridge/source_snapshot_controls.py": "c3c365f19edab068f1cfdba85ffb2aefe0c4d08f6c6e11a20f9fa69a8a0220fe"
+      },
+      "private_file_count": 0,
+      "private_inputs": {}
+    },
+    "source/tools/research/native_source_entry/entry-source-status-freeze.json": {
+      "sha256": "41f5c4eecfb718dbf5dac840a6161c08d534c231eba42183eb0762b7efb5ad11",
+      "public_file_count": 16,
+      "public_files": {
+        "source/tools/research/native_source_entry/entry_audit.py": "2dc1175cc60791d4e1e5e296e6f7283a21f3c87f59ce7f41851456d49b34e4e7",
+        "source/tools/research/native_source_entry/candidates/entry-v1/EntryInventory.v": "0bd3101fe34239867741d6e508bcf567ccad1ea54755e467d93c34cad013f019",
+        "source/tools/research/native_source_entry/INTERFACE.md": "c890bf27c8164a1c603017a4db8d44605896ab649626dcb6615014c244011df1",
+        "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "source/tools/research/native_semantic_bridge/source_map.py": "5c6e29336d400f7518f92a324fb8126740f864eb4a4bedd4d2a1f064a34df41d",
+        "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "source/tools/research/native_semantic_bridge/baseline-bindings.json": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+        "source/tools/research/native_semantic_bridge/proof_checks.py": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+        "source/tools/research/native_heap_lowering/lower.py": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "source/tools/research/native_heap_lowering/fixtures/drop.rs": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "source/tools/research/mutable_buffer_goal/foundation-baseline.json": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+        "source/tools/research/native_semantic_bridge/review-fix-freeze.json": "3c3afacf4d4676bd33766c826347e02337cbae5d6642468fd34a71f0fb1d5fb2",
+        "source/tools/research/native_semantic_bridge/audit.py": "b44554db476319d1790c57c8e729e46d73c2371cda8fb8aedf818062045c67cc",
+        "source/tools/research/mutable_buffer_goal/foundation-pin.json": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+        "source/tools/research/native_semantic_bridge/acceptance_inputs.py": "4d3874db391c383cf8a2eb565c0cc72a9943fc244d6e095064d2c19962f742e1"
+      },
+      "private_file_count": 6,
+      "private_inputs": {
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/durable-build-2/receipt.json": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/receipt.json": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json": "2e1b60de13ad025f55d8a84aaa442956c33fd5fa01cb878adf5785c01c213b3b",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf"
+      }
+    }
+  },
+  "historical_batch": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/receipt.json",
+    "expected_sha256": "740b2bb5dca4ed353a8c3b135d5b87e068c78de4328e31c5e0652674791f920c",
+    "actual_sha256": "740b2bb5dca4ed353a8c3b135d5b87e068c78de4328e31c5e0652674791f920c",
+    "statuses": {
+      "success": true,
+      "publication": false,
+      "native_bridge_proved": false,
+      "goal_complete": false
+    },
+    "recorded_counts": {
+      "unit_tests": 11,
+      "optimized_unit_tests": 11,
+      "source_controls": 12,
+      "readiness_controls": 4,
+      "acceptance_controls": 3,
+      "source_races": 10,
+      "named_theorems": 18,
+      "byte_type_obligations": 6,
+      "assumption_constants": 25,
+      "source_entry_constants": 42
+    },
+    "command_returncodes": [
+      {
+        "label": "unit",
+        "returncode": 0
+      },
+      {
+        "label": "unit-source",
+        "returncode": 0
+      },
+      {
+        "label": "unit-optimized",
+        "returncode": 0
+      },
+      {
+        "label": "unit-optimized-source",
+        "returncode": 0
+      },
+      {
+        "label": "map",
+        "returncode": 0
+      },
+      {
+        "label": "audit",
+        "returncode": 0
+      },
+      {
+        "label": "readiness",
+        "returncode": 0
+      },
+      {
+        "label": "races",
+        "returncode": 0
+      },
+      {
+        "label": "proofs",
+        "returncode": 0
+      },
+      {
+        "label": "entry",
+        "returncode": 0
+      },
+      {
+        "label": "acceptance-controls",
+        "returncode": 0
+      }
+    ],
+    "recorded_input_snapshot_unchanged": true
+  },
+  "completed_model_receipts": [
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/receipt.json",
+      "expected_sha256": "46e35308c297fd6c5eb9ce0fe94b80f86b094d4c6f59493962dee5eb8e34d562",
+      "actual_sha256": "46e35308c297fd6c5eb9ce0fe94b80f86b094d4c6f59493962dee5eb8e34d562",
+      "statuses": {
+        "success": true,
+        "publication": false,
+        "native_bridge_proved": false,
+        "model_proofs_kernel_checked": true,
+        "native_effects_discharged": 0,
+        "source_connection_proved": false,
+        "original_array_future_import_proved": false
+      },
+      "commands": [
+        {
+          "label": "version",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-borrow_handoff",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-byte_array",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-raw_view",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-model_limits",
+          "exit_code": 0
+        },
+        {
+          "label": "assumption-inventory",
+          "exit_code": 0
+        },
+        {
+          "label": "kernel-check",
+          "exit_code": 0
+        }
+      ],
+      "model_sources": {
+        "borrow_handoff": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "byte_array": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "raw_view": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "model_limits": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a"
+      },
+      "proof_terms": {
+        "borrow_handoff": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+        "byte_array": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+        "raw_view": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+        "model_limits": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6"
+      },
+      "checked_proof_artifact_count": 10,
+      "checked_proof_artifacts": {
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/AssumptionInventory.v": "dbabfa3d41b7ae255401c4648ed1318251b2ac754cfc368fa804e45add1e735a",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/AssumptionInventory.vo": "4c8c5f0c467cb82ee7774028fb285fb605e8e645a4eee5ac2a0e3c2618141dae",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/borrow_handoff.v": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/borrow_handoff.vo": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/byte_array.v": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/byte_array.vo": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/model_limits.v": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/model_limits.vo": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/raw_view.v": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/proofs/raw_view.vo": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e"
+      },
+      "assumption_count": 25,
+      "kernel_axioms": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/receipt.json",
+      "expected_sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41",
+      "actual_sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41",
+      "statuses": {
+        "success": true,
+        "publication": false,
+        "native_bridge_proved": false,
+        "model_proofs_kernel_checked": true,
+        "native_effects_discharged": 0,
+        "source_connection_proved": false,
+        "original_array_future_import_proved": false
+      },
+      "commands": [
+        {
+          "label": "version",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-borrow_handoff",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-byte_array",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-raw_view",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-model_limits",
+          "exit_code": 0
+        },
+        {
+          "label": "assumption-inventory",
+          "exit_code": 0
+        },
+        {
+          "label": "kernel-check",
+          "exit_code": 0
+        }
+      ],
+      "model_sources": {
+        "borrow_handoff": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "byte_array": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "raw_view": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "model_limits": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a"
+      },
+      "proof_terms": {
+        "borrow_handoff": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+        "byte_array": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+        "raw_view": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+        "model_limits": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6"
+      },
+      "checked_proof_artifact_count": 10,
+      "checked_proof_artifacts": {
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/AssumptionInventory.v": "dbabfa3d41b7ae255401c4648ed1318251b2ac754cfc368fa804e45add1e735a",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/AssumptionInventory.vo": "4c8c5f0c467cb82ee7774028fb285fb605e8e645a4eee5ac2a0e3c2618141dae",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/borrow_handoff.v": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/borrow_handoff.vo": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/byte_array.v": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/byte_array.vo": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/model_limits.v": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/model_limits.vo": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/raw_view.v": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/raw_view.vo": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e"
+      },
+      "assumption_count": 25,
+      "kernel_axioms": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    }
+  ],
+  "executed_pure_tests": [
+    {
+      "command": "PYTHONPATH=source/tools/research/native_semantic_bridge:source/tools python3 -B -m unittest -v test_acceptance_inputs.RecordedSources test_proof_checks.Assumptions",
+      "exit_code": 0,
+      "executed_test_count": 10,
+      "log": "pure-normal.log",
+      "sha256": "4fbb4e37dcbfdac139d23f215181378793b5ae2ac17adab7d97c42d2a4dbcef8"
+    },
+    {
+      "command": "PYTHONPATH=source/tools/research/native_semantic_bridge:source/tools python3 -B -O -m unittest -v test_acceptance_inputs.RecordedSources test_proof_checks.Assumptions",
+      "exit_code": 0,
+      "executed_test_count": 10,
+      "log": "pure-optimized.log",
+      "sha256": "80843484810a3e5c01b6b960d9a9a068427fcde8b43dcf00b1862d585a00bddb"
+    }
+  ],
+  "current_matching_batch": "not read; parent owns running validation",
+  "parent_claims_not_executed_here": {
+    "new_targeted_tests_per_mode": 8,
+    "planned_total_units_per_mode": 19
+  }
+}
