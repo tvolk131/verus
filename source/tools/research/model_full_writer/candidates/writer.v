@@ -4,6 +4,8 @@ From ModelPairReader Require Import setup whole_key.
 From ModelSharedXorLoop Require Import shared_xor.
 From lrust.typing Require Import soundness inv_context programs_util.
 From lrust.lifetime Require Import lifetime_full.
+Require Import guarding.internal.na_invariants_fork.
+From lrust.util Require Import atomic_lock_counter.
 From guarding Require Import guard tactics.
 Set Default Proof Using "Type".
 Open Scope Z_scope.
@@ -27,9 +29,20 @@ Definition writer_final h p pad q key (σ : state) : Prop :=
   frame_observed σ (pair_outside h p pad q key).
 
 Section final_resource.
-  Context `{!lrustGS Σ}.
+  Context `{Outer : lrustGS Σ}.
+  Lemma heap_ctx_for_observation (NA : na_invG Σ) (AC : alc_logicG Σ) σ :
+    @heap_ctx Σ (@lrustGS_gen_heapGS Σ Outer) (@lrustGS_invGS Σ Outer) NA AC σ -∗
+    @heap_ctx Σ (@lrustGS_gen_heapGS Σ Outer) (@lrustGS_invGS Σ Outer)
+      (@lrustGS_na_invGS Σ Outer) (@lrustGS_atomic_lock_ctr_invGS Σ Outer) (σ.1, true).
+  Proof.
+    iDestruct 1 as (hF) "(Map & Free & %Rel & _)".
+    iExists hF. iFrame. done.
+  Qed.
+
   Definition writer_observer h p pad q key : iProp Σ :=
-    ∀ σ : state, heap_ctx σ ={⊤,∅}=∗ ⌜writer_final h p pad q key σ⌝.
+    ∀ (NA : na_invG Σ) (AC : alc_logicG Σ) σ,
+      @heap_ctx Σ (@lrustGS_gen_heapGS Σ Outer) (@lrustGS_invGS Σ Outer) NA AC σ
+      ={⊤,∅}=∗ ⌜writer_final h p pad q key σ⌝.
 End final_resource.
 
 Section writer_execution.
@@ -69,13 +82,17 @@ Section writer_execution.
         iNext.
         iIntros "[Pad [R [_ [_ %Facts]]]]".
         iFrame "R". iEval (rewrite byte_list_of_list) in "Pad". iFrame "Pad".
-      Unshelve. all: iFrame "Reader Cap R LoopCredits Frame G Close ObserveCredits". }
+      - iSplit.
+        + rewrite /key_reader. iModIntro. iExact "Reader".
+        + iFrame "Cap R LoopCredits".
+      - iFrame "Frame G Close ObserveCredits". }
     iIntros (w) "[[Frame [G [Close ObserveCredits]]] [R Pad]]".
     iEval (rewrite byte_list_from_length) in "Pad".
-    iIntros (σ) "Heap".
+    iIntros (NA AC σ) "Heap".
+    iPoseProof (heap_ctx_for_observation NA AC σ with "Heap") as "Heap".
     iMod ("Close" with "R G") as "Lkey".
     iEval (replace (length key) with ((0+1)*length key)%nat by lia) in "ObserveCredits".
-    iMod (whole_key_heap_observe key κkey q 1 0 tid σ
+    iMod (whole_key_heap_observe key κkey q 1 0 tid (σ.1, true)
       (p ↦∗ zvalues (xor_result pad key) ∗ initial_fragments (pair_outside h p pad q key))%I
       with "LFT E Lkey Cap [Pad Frame] Heap ObserveCredits")
       as "[Heap [Lkey [_ [[Pad Frame] %KeyCells]]]]"; first by iFrame.
@@ -101,15 +118,20 @@ Section initialized_writer.
       (λ _ σ, writer_final h p pad q key σ).
   Proof using All.
     intros PadRange KeyRange PadCells KeyCells Disjoint.
-    apply (raw_pair_reader_observed (Σ:=Σ) (writer_body p q pad key) h p pad q key
-      (λ Outer _, @writer_observer Σ Outer h p pad q key)
-      (λ _ σ, writer_final h p pad q key σ) (writer_budget pad key));
-      [unfold writer_body, writer_loop; solve_closed|done|done|done|done|done| |].
-    - intros Outer TG tid κpad κkey R G SameOuter PadNonempty KeyNonempty. subst Outer.
+    apply (initialized_observation_adequacy (Σ:=Σ) _ _ _ (2 + writer_budget pad key)).
+    intros Outer. iIntros "Fragments Credits Time".
+    iExists (λ _, @writer_observer Σ Outer h p pad q key).
+    iSplitL "Fragments Credits Time".
+    - iApply (raw_pair_reader_context_wp Outer (writer_body p q pad key) h p pad q key
+        (λ _, @writer_observer Σ Outer h p pad q key) (writer_budget pad key)
+        with "Fragments Credits Time"); try done;
+        first (unfold writer_body, writer_loop; solve_closed).
+      intros TG tid κpad κkey R G SameOuter PadNonempty KeyNonempty. subst Outer.
       iIntros "#LFT #PROPH #UNIQ #TIME #E L I Ref _ R G #Cap _ _ #Reader Close Frame Credits".
       iApply (wp_writer_body h p pad q key tid κpad κkey R G PadRange KeyRange
         with "LFT TIME PROPH UNIQ E L I Ref R G Cap Reader Close Frame Credits").
-    - intros Outer σ v. iIntros "Heap Observe".
-      by iApply ("Observe" with "Heap").
+    - iIntros (σ v) "Heap Observe".
+      iEval (rewrite /writer_observer) in "Observe".
+      by iApply ("Observe" $! _ _ σ with "Heap").
   Qed.
 End initialized_writer.

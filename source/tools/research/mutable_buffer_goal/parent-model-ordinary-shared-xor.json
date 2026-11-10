@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "implementation": "212044b1",
+  "scope": "Exact MODEL ordinary shared reader and XOR loop",
+  "worker_receipt": {
+    "path": "/tmp/model-ordinary-shared-xor-trial-008/receipt.json",
+    "sha256": "79b5452cb7e3dee9cf69ea6582eda68e6fc5ec3c31ab1e37dc6ac38c563b75ab",
+    "success": true
+  },
+  "parent_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-ordinary-shared-xor-212044b1/proofs/receipt.json",
+    "sha256": "c56eb945675fc46d3cfefa77e3a8d99d225b01d48f91c58de4e2fd7c25632677"
+  },
+  "parent_objects_match_worker": true,
+  "independent_review": {
+    "commit": "c4b305d2",
+    "fresh_receipt": {
+      "path": "/tmp/ordinary-shared-xor-review-e443558a-trial002/replay/receipt.json",
+      "sha256": "82835c0716751bf69d2474be9be3d75e5d9ba406a71d0fc9f63b4b6bfdbb7619",
+      "success": true
+    },
+    "review_receipt": {
+      "path": "/tmp/ordinary-shared-xor-review-e443558a-trial002/receipt.json",
+      "sha256": "050a7c6cb4628ba8c26995c88077b0d85f196242ccdfdd406e139b850c37d4f8",
+      "success": true
+    }
+  },
+  "source_declarations": 21,
+  "inventory_helpers": 84,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
