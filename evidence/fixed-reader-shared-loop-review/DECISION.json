@@ -1,0 +1,72 @@
+{
+  "decision": "accept exactly two MODEL libraries; no blocking source finding",
+  "revisions": {
+    "pair": "30c9c17cb177b7a9466761552a5c11793451b466",
+    "loop": "88a56443e1eddbc63c83f7dff8364279c815b804"
+  },
+  "early_typed_milestone": "79594b1f8a73a668bbd287e4262635de06538e4c",
+  "fresh_normal_coqc": true,
+  "full_recursive_coqchk": true,
+  "all_source_and_object_hashes_match_workers": true,
+  "all_individual_library_assumptions_match_workers": true,
+  "source_declarations": {
+    "pair": 16,
+    "loop": 12
+  },
+  "generated_helpers": {
+    "pair": 32,
+    "loop": 48
+  },
+  "total_compiled_declarations": 108,
+  "generated_helper_assumptions": "all closed",
+  "instances": {
+    "new": [],
+    "existing_registrations": [
+      "ModelPairReader.setup: contextual Outer"
+    ]
+  },
+  "constructors": [],
+  "program_obligations": [],
+  "nonblocking_findings": [
+    {
+      "kind": "inventory qualification",
+      "location": "source/tools/research/model_pair_reader/check.py:Assumptions generation",
+      "detail": "Source count 16 omits 32 closed Goal/idtac marker theorems. They are included in recursive coqchk; this review inventories and queries all 32. No implementation change requested."
+    }
+  ],
+  "baseline": {
+    "foundation": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+    "sources": 523,
+    "objects": 284,
+    "readiness_and_success_receipt_required": true,
+    "gmp_manifest_sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37"
+  },
+  "exact_worker_freezes": {
+    "pair": "final-freeze.json",
+    "loop": "trial011-freeze.json"
+  },
+  "scope": {
+    "model_only": true,
+    "concrete_combined_writer": false,
+    "native": 0,
+    "minimal_open": 44,
+    "phases_open": 3,
+    "writer_effects_open": 101,
+    "publication": false,
+    "goal_complete": false,
+    "canonical": "inherited 6/0; not rerun",
+    "hmac": "inherited 1/1; not rerun"
+  },
+  "root_followup": "Compose and independently review the concrete MODEL writer; no acceptance of combined public writer/native/termination here.",
+  "setup_attempts": {
+    "fresh_trials_failed": 0,
+    "exploratory_receipt_keyerror": "pretrial; not semantic evidence",
+    "initial_git_identity_failure": "no commit made on failed attempt; fixed per-command identity; not semantic evidence"
+  },
+  "evidence_hashes": {
+    "results.json": "9ae08649720b06dc64e60f3234bfae31f5bf873c2568dbb957e666409ffceb82",
+    "inventory-results.json": "cebc00660905cca93a13517f6f5af70f016aa9059455085d38bb3d1e2144751a",
+    "review-freeze.json": "e5197b9db59f764e587be48a6353f248fd64179b84e5d8b970150396f59b720d",
+    "inventory-freeze.json": "7ec725284d85eb617d87ae3ef35ab19fe9cf78d154213418481ce24953bca896"
+  }
+}
