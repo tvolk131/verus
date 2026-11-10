@@ -187,7 +187,14 @@
     "current_races": 10,
     "current_race_receipt": "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-races/receipt.json",
     "positive_matching_replay": "not yet run",
-    "independent_review": "pending NEW source-only recheck",
+    "independent_review": {
+      "commit": "e3b50f29",
+      "recommendation": "scoped SOURCE-ONLY accept F1-F3; no new findings",
+      "permitted_tests_normal": 10,
+      "permitted_tests_optimized": 10,
+      "syntax_checks": 5,
+      "current_batch_reviewed": false
+    },
     "publication": false
   }
 }
