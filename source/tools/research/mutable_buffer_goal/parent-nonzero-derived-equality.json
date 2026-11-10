@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "scope": "Provisional genuine NonZero<u64> wrapper PartialEq inference, original compiler-generated eq body; ordering remains open.",
+  "worker_commits": [
+    "b074d91ddde3f5af1abc3c0cc4138f9f6b28baca",
+    "46390062b56d8d351425e9cd4fd5b8076d55ee32"
+  ],
+  "integrated_commits": [
+    "5b0ceac4",
+    "662f1c58"
+  ],
+  "source_hashes_authenticated_before_version_reconciliation": {
+    "source/builtin_macros/src/infer_derive_ops.rs": "760befe290e5f51584d25d6bd798b8762b2d16fb558f78293e156c162f3cf260",
+    "source/vir/src/infer.rs": "0a774ae3f241da4923815892a0cca8167df48f09e4e9bcc5f2ba84f86867e26f",
+    "source/vir/src/infer/newtypes.rs": "953b9a1c5d2ea9edfcaaa719ac95444d47276085f5e6759330f7f28496ed0677",
+    "source/vir/src/infer/registry.rs": "4524f7fa73fe48fbfef70ff88354fb2d82285e864c82f1e8c270db08ebe37244",
+    "source/vir/src/infer/wrapper_binary.rs": "4f89e2380fab5606b34f4b71cdda2b90dfc7ef04dd1ae1afef2549b62a727da1",
+    "source/vir/src/infer/wrapper_compare.rs": "6bbb26ad0555f4dd492653c9e25a9f8e67254314f35efb357a81da2edf85a6b7"
+  },
+  "retained_epoch_receipts_authenticated": 51,
+  "final_relative_products_authenticated": 220,
+  "frozen_tool_bundle": "/tmp/nonzero-derive-frozen-tools-8hnei2sw",
+  "frozen_tool_bundle_receipt_sha256": "60e5a3dab629d08e66908c668bd00d7872a9befbb286d791500f7df6b5886353",
+  "tools_authenticated": 8,
+  "actual_inferred_helper": "component::BorTag::eq",
+  "helper_domain": "true over every genuine NonZero<u64> tag",
+  "required_checks": {
+    "soundness": "proved",
+    "maximality": "proved",
+    "exactness": "proved"
+  },
+  "standalone_queries": "5/0 cold and warm; three checked exec bodies",
+  "standalone_import": "4/0 ordinary client",
+  "standalone_focused_tests": "10/10",
+  "standalone_vstd": "2226/0; constructor lane not included",
+  "manual_proof_blocks": 0,
+  "manual_proof_bodies": 0,
+  "new_trusted_contracts": 0,
+  "infer_goals_off_note": "Explicit infer_derive still performs required inference; optional goals off is not an inference ablation.",
+  "ordering": "PartialOrd and Ord UNPROVED",
+  "combined_constructor_inventory": "Must include the extra checked constructor body; standalone three-body inventory cannot be reused unchanged.",
+  "independent_review": "pending fresh combined review",
+  "publication": false,
+  "goal_complete": false,
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED, inherited",
+  "canonical": "6/0 inherited, pending combined replay",
+  "open_obligations": "44 minimal +3 phase /101 writer effects"
+}

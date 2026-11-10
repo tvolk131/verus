@@ -53,6 +53,16 @@ validation passed68 FnDef tests (one existing ignored test) and13 constructor
 tests. Policy/cache reconciliation and combined acceptance remain pending.
 The full tag closure, runtime comparisons and `Item::new` remain unproved.
 
+The provisional equality extension now checks original derived `PartialEq::eq`
+over every genuine `NonZero<u64>` tag, with no local proof blocks or proof bodies.
+Its standalone result is5/0, with soundness, maximality and exactness all proved;
+an ordinary imported client checks4/0. The
+[equality record](parent-nonzero-derived-equality.json) binds that evidence.
+`PartialOrd`/`Ord` remain unproved. Combined constructor/equality validation and
+independent acceptance are pending. Policy69/cache72 invalidate prior inferred
+interfaces/candidates; regenerate providers and dependents with the combined
+compiler. Schema38 is unchanged.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection
