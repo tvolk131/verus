@@ -1,0 +1,200 @@
+{
+  "Carrier.metadata_ok": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "metadata_ok\n     : nat -> bool\n",
+    "statement_sha256": "7871305b236f2f21e4b3ae3855407951b877517cdccc1f98a4e1320e7dc078f1"
+  },
+  "Carrier.array_to_slice": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "array_to_slice\n     : Storage.value -> nat -> option Storage.value\n",
+    "statement_sha256": "6fad941ee90ac29323cb4ac10c43cd851f8c68aac3acc5378b07f14e2337cd6e"
+  },
+  "Carrier.carrier_store": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_store\n     : Storage.state ?H -> nat -> nat -> nat -> option (Storage.state ?H)\nwhere\n?H : [ |- Type]\n",
+    "statement_sha256": "6f5fa41244f34c07482885209ee7f7c70a23be7d3175de808553e7b63c119dfa"
+  },
+  "Carrier.metadata_ok_spec": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "metadata_ok_spec\n     : forall n : nat,\n       metadata_ok n = true <->\n       BinInt.Z.le BinNums.Z0 (BinInt.Z.of_nat n) /\\\n       BinInt.Z.lt (BinInt.Z.of_nat n)\n         (BinInt.Z.pow (BinNums.Zpos (BinNums.xO BinNums.xH))\n            (BinNums.Zpos\n               (BinNums.xO\n                  (BinNums.xO\n                     (BinNums.xO\n                        (BinNums.xO (BinNums.xO (BinNums.xO BinNums.xH))))))))\n",
+    "statement_sha256": "daeedb1809d3aaa8e4caee26d3a3568efd6d4dd698a31ff5c0ea4f57c8662540"
+  },
+  "Carrier.metadata_ten": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "metadata_ten\n     : metadata_ok 10 = true\n",
+    "statement_sha256": "aa24e7f14416c672500decf9eca9f93220477751e4be102aaa9c21cf7ceb6021"
+  },
+  "Carrier.metadata_128": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "metadata_128\n     : metadata_ok 128 = true\n",
+    "statement_sha256": "b3ab6cf16f72863a8a0b2263a4b0423f9b6f9d39faacf6a84ac0535e53f8ac15"
+  },
+  "Carrier.carrier_pointer": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_pointer\n     : forall (n : nat) (r : Interface.reference),\n       metadata_ok n = true ->\n       array_to_slice (Storage.RefValue r) n = Some (Storage.SliceValue r n)\n",
+    "statement_sha256": "ad5349c54c7e7b8e59dfe8c8eabaf746d6406d3adeda605da4ec3e329bd0fc50"
+  },
+  "Carrier.raw_is_not_array_reference": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "raw_is_not_array_reference\n     : forall (n : nat) (r : Interface.reference),\n       array_to_slice (Storage.RawValue r) n = None\n",
+    "statement_sha256": "0ba019a9c1433f1c1a24b7b8204209da6054a81b2ef57d97dd0bfc9a93bf3c54"
+  },
+  "Carrier.slice_is_not_array_reference": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "slice_is_not_array_reference\n     : forall (n : nat) (r : Interface.reference) (k : nat),\n       array_to_slice (Storage.SliceValue r k) n = None\n",
+    "statement_sha256": "f71a171ebfd0bfe88702ea8da6d0e11de43b059c9ffb069b940561069c3b855f"
+  },
+  "Carrier.unrepresentable_rejected": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "unrepresentable_rejected\n     : forall (n : nat) (v : Storage.value),\n       metadata_ok n = false -> array_to_slice v n = None\n",
+    "statement_sha256": "a3e5345a8ef7ff52a417c230a840cd78b4297f0a04f5eecd44d966d2a3d514a4"
+  },
+  "Carrier.carrier_output": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_output\n     : forall (n : nat) (v out : Storage.value),\n       array_to_slice v n = Some out ->\n       exists r : Interface.reference,\n         v = Storage.RefValue r /\\\n         out = Storage.SliceValue r n /\\ metadata_ok n = true\n",
+    "statement_sha256": "b8715a57aaa2a5924e89cd17988e0ce285196eba2cb3a9552a8628b98e6b99ea"
+  },
+  "Carrier.carrier_progress": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_progress\n     : forall (H : Type) (s : Storage.state H) (src dst n : nat)\n         (r : Interface.reference),\n       src <> dst ->\n       Storage.locals s src =\n       Some (Storage.Immediate (Storage.Init (Storage.RefValue r))) ->\n       Storage.locals s dst = Some (Storage.Immediate Storage.Uninit) ->\n       metadata_ok n = true ->\n       carrier_store s src dst n =\n       Some\n         (Storage.set_local s dst\n            (Storage.Immediate (Storage.Init (Storage.SliceValue r n))))\n",
+    "statement_sha256": "b8df5482181bb1ceffbdefa4a53370797077d1f08468ed8d0a8a24cbadb60b17"
+  },
+  "Carrier.carrier_characterization": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_characterization\n     : forall (H : Type) (s t : Storage.state H) (src dst n : nat),\n       carrier_store s src dst n = Some t ->\n       exists r : Interface.reference,\n         src <> dst /\\\n         Storage.locals s src =\n         Some (Storage.Immediate (Storage.Init (Storage.RefValue r))) /\\\n         Storage.locals s dst = Some (Storage.Immediate Storage.Uninit) /\\\n         metadata_ok n = true /\\\n         t =\n         Storage.set_local s dst\n           (Storage.Immediate (Storage.Init (Storage.SliceValue r n)))\n",
+    "statement_sha256": "3475e6b98f9d8d7a8ae2f21843c7819c900530acf9a6fd48177b3886de882427"
+  },
+  "Carrier.carrier_destination": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_destination\n     : forall (H : Type) (s t : Storage.state H) (src dst n : nat),\n       carrier_store s src dst n = Some t ->\n       exists r : Interface.reference,\n         Storage.locals s src =\n         Some (Storage.Immediate (Storage.Init (Storage.RefValue r))) /\\\n         Storage.locals t dst =\n         Some (Storage.Immediate (Storage.Init (Storage.SliceValue r n)))\n",
+    "statement_sha256": "80dd394d749684bf53a9c2497a73bfc28c9e1b9f08ed41a59eea7e043f679ff0"
+  },
+  "Carrier.carrier_other_local": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_other_local\n     : forall (H : Type) (s t : Storage.state H) (src dst n k : nat),\n       carrier_store s src dst n = Some t ->\n       k <> dst -> Storage.locals t k = Storage.locals s k\n",
+    "statement_sha256": "86f7776584d17b1027ea4170b37a3dd9311eb096de84e53fccfce7448840760e"
+  },
+  "Carrier.carrier_source_preserved": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_source_preserved\n     : forall (H : Type) (s t : Storage.state H) (src dst n : nat),\n       carrier_store s src dst n = Some t ->\n       Storage.locals t src = Storage.locals s src\n",
+    "statement_sha256": "63e1c69b703a7e36eb82652c3ae94d5e491069c981e722c96f44c3682bd829b2"
+  },
+  "Carrier.carrier_anchors": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_anchors\n     : forall (H : Type) (s t : Storage.state H) (src dst n : nat),\n       carrier_store s src dst n = Some t ->\n       Storage.anchors t = Storage.anchors s\n",
+    "statement_sha256": "f44b41a94e057c6d104b9d57ca1a171723230155fb2673593e124e5a59a3f55a"
+  },
+  "Carrier.carrier_all_cells": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_all_cells\n     : forall (H : Type) (s t : Storage.state H) (src dst n : nat),\n       carrier_store s src dst n = Some t ->\n       forall a : Storage.location,\n       Storage.physical_cells t a = Storage.physical_cells s a\n",
+    "statement_sha256": "fa7d9d2d454bad22caf851564f88e5483215a8062bb8942704cc19d39e161f25"
+  },
+  "Carrier.carrier_pending_control": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "carrier_pending_control\n     : forall (H : Type) (s t : Storage.state H) (src dst n : nat),\n       carrier_store s src dst n = Some t ->\n       Storage.pc t = Storage.pc s /\\\n       Storage.private_stack t = Storage.private_stack s /\\\n       Storage.fresh_stack t = Storage.fresh_stack s /\\\n       Storage.storage_trace t = Storage.storage_trace s /\\\n       Storage.incoming_history t = Storage.incoming_history s\n",
+    "statement_sha256": "54899711a4e734377314f3d875be83852117320c383dfbacda4f165134b2c90b"
+  },
+  "Carrier.same_local_rejected": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "same_local_rejected\n     : forall (H : Type) (s : Storage.state H) (src n : nat),\n       carrier_store s src src n = None\n",
+    "statement_sha256": "48e150244693e2d749b6d2fb78e92b5261183563cf40b74d03d85ce3470db997"
+  },
+  "Carrier.uninitialized_source_rejected": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "uninitialized_source_rejected\n     : forall (H : Type) (s : Storage.state H) (src dst n : nat),\n       Storage.locals s src = Some (Storage.Immediate Storage.Uninit) ->\n       carrier_store s src dst n = None\n",
+    "statement_sha256": "d38fefcd158ebedad0aefa168a6867af6073af8e13419c6e2b90e010c26dd38c"
+  },
+  "Carrier.dead_destination_rejected": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "dead_destination_rejected\n     : forall (H : Type) (s : Storage.state H) (src dst n : nat),\n       Storage.locals s dst = Some Storage.Dead ->\n       carrier_store s src dst n = None\n",
+    "statement_sha256": "2be3a260e4fc2c1677f13e054b44e0adfff348c1b5d79a12e4797b6d2cfdd027"
+  },
+  "Carrier.ten_byte_carrier": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "ten_byte_carrier\n     : forall (H : Type) (s : Storage.state H) (src dst : nat)\n         (r : Interface.reference),\n       src <> dst ->\n       Storage.locals s src =\n       Some (Storage.Immediate (Storage.Init (Storage.RefValue r))) ->\n       Storage.locals s dst = Some (Storage.Immediate Storage.Uninit) ->\n       carrier_store s src dst 10 =\n       Some\n         (Storage.set_local s dst\n            (Storage.Immediate (Storage.Init (Storage.SliceValue r 10))))\n",
+    "statement_sha256": "dae20f98a74d2addf4e07b82495893edce4c1fef075e56337e2f8a92771ad5ad"
+  },
+  "Carrier.byte128_carrier": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "byte128_carrier\n     : forall (H : Type) (s : Storage.state H) (src dst : nat)\n         (r : Interface.reference),\n       src <> dst ->\n       Storage.locals s src =\n       Some (Storage.Immediate (Storage.Init (Storage.RefValue r))) ->\n       Storage.locals s dst = Some (Storage.Immediate Storage.Uninit) ->\n       carrier_store s src dst 128 =\n       Some\n         (Storage.set_local s dst\n            (Storage.Immediate (Storage.Init (Storage.SliceValue r 128))))\n",
+    "statement_sha256": "988252521e66a10fc7684606af1017509db01bc6ab42c67e6a17a3cb6f2e037f"
+  },
+  "Carrier.changed_tag": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "changed_tag\n     : Interface.reference -> Interface.reference\n",
+    "statement_sha256": "6de26c83ef8e4adb25b6e99cdf4b700bec68519c1c6c3bff5c02029130a2a996"
+  },
+  "Carrier.changed_tag_same_subobject": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "changed_tag_same_subobject\n     : forall r : Interface.reference,\n       Interface.same_subobject r (changed_tag r)\n",
+    "statement_sha256": "24bb871bcfab98a454c01baeba0a77982bf1f5a3b8da14e4094bb9c8bd432d51"
+  },
+  "Carrier.changed_tag_same_address": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "changed_tag_same_address\n     : forall (r : Interface.reference) (j : nat),\n       Interface.ref_address (changed_tag r) j = Interface.ref_address r j\n",
+    "statement_sha256": "49905c3864909c8e50350161d20aad8ddb491c2ca277e976518ff7d95ab701a9"
+  },
+  "Carrier.changed_tag_distinct": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "changed_tag_distinct\n     : forall r : Interface.reference, changed_tag r <> r\n",
+    "statement_sha256": "2098e894a1efd29f1eff8e2fc4fa6a8fa89212a1f2e77cb861aaf3cc39036af3"
+  },
+  "Root.root_unsize_site": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "root_unsize_site\n     : Interface.event\n",
+    "statement_sha256": "9e8ba7b3adab914562a5c013fc41c63205bb9b78e7fbe2665cde789a2f54fbb2"
+  },
+  "Root.selected_site_in_graph": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "selected_site_in_graph\n     : List.In root_unsize_site Graph.graph_events\n",
+    "statement_sha256": "ca506e44aa36d5c253ebd4e42a65d694d30f2dbba8d46b28a59faf54e8ac56aa"
+  },
+  "Root.root_carrier_progress": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "root_carrier_progress\n     : forall (H : Type) (s : Storage.state H) (r : Interface.reference),\n       Storage.locals s 4 =\n       Some (Storage.Immediate (Storage.Init (Storage.RefValue r))) ->\n       Storage.locals s 3 = Some (Storage.Immediate Storage.Uninit) ->\n       carrier_store s 4 3 128 =\n       Some\n         (Storage.set_local s 3\n            (Storage.Immediate (Storage.Init (Storage.SliceValue r 128))))\n",
+    "statement_sha256": "66bff3e9c8b06dccfdf4a7a16db78ec8d0ca92e6d2fc7c1683eebf5636948d5b"
+  },
+  "Root.root_still_pending": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "root_still_pending\n     : forall (H : Type) (s t : Storage.state H),\n       Storage.current_event s = root_unsize_site ->\n       carrier_store s 4 3 128 = Some t ->\n       Storage.current_event t = root_unsize_site\n",
+    "statement_sha256": "2783aa95bac5a2679869ae9c20b0a9bb6add259dde4543fe406030bea09b579d"
+  },
+  "Root.source_dead_does_not_discard_payload": {
+    "axioms": [],
+    "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+    "statement": "source_dead_does_not_discard_payload\n     : forall (H : Type) (s t u : Storage.state H),\n       carrier_store s 4 3 128 = Some t ->\n       Storage.storage_dead t 4 = Some u ->\n       exists r : Interface.reference,\n         Storage.locals u 3 =\n         Some (Storage.Immediate (Storage.Init (Storage.SliceValue r 128))) /\\\n         Storage.locals u 4 = Some Storage.Dead /\\\n         Storage.anchors u = Storage.anchors s\n",
+    "statement_sha256": "41d87d0616ea0d171143b1233d16aa50403a09f90bcb7f113896baed69bbd5b9"
+  }
+}

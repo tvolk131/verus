@@ -1,0 +1,276 @@
+{
+  "schema": 1,
+  "prepare": [
+    "python3",
+    "-B",
+    "evidence/source-unsize-model-review/review.py",
+    "--prepare",
+    "--output",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001"
+  ],
+  "run": [
+    "python3",
+    "-B",
+    "evidence/source-unsize-model-review/review.py",
+    "--output",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001"
+  ],
+  "review_commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-57192015/source/tools/research/native_source_unsize/test_source_binding.py",
+        "-v"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-57192015",
+      "exit_code": 0,
+      "seconds": 0.065230990992859,
+      "environment": {}
+    },
+    {
+      "label": "source-optimized",
+      "argv": [
+        "python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-57192015/source/tools/research/native_source_unsize/test_source_binding.py",
+        "-v"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-57192015",
+      "exit_code": 0,
+      "seconds": 0.2258684390108101,
+      "environment": {}
+    },
+    {
+      "label": "goal-normal",
+      "argv": [
+        "python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-57192015/source/tools/research/mutable_buffer_goal/test_goal_scope.py",
+        "-v"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-57192015",
+      "exit_code": 0,
+      "seconds": 0.04919961601262912,
+      "environment": {}
+    },
+    {
+      "label": "goal-optimized",
+      "argv": [
+        "python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-57192015/source/tools/research/mutable_buffer_goal/test_goal_scope.py",
+        "-v"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-57192015",
+      "exit_code": 0,
+      "seconds": 0.22403957397909835,
+      "environment": {}
+    },
+    {
+      "label": "readme-replay",
+      "argv": [
+        "python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-57192015/source/tools/research/native_source_unsize/check.py",
+        "--freeze",
+        "/home/dev/.t3/worktrees/verus/t3-57192015/source/tools/research/native_source_unsize/trial004-freeze.json",
+        "--output",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay"
+      ],
+      "cwd": "/home/dev/.t3/worktrees/verus/t3-57192015",
+      "exit_code": 0,
+      "seconds": 28.582160422985908,
+      "environment": {}
+    }
+  ],
+  "proof_commands": [
+    {
+      "label": "compile-Interface",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc",
+        "-q",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor/Interface.v"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 0.3251931939739734,
+      "environment": {}
+    },
+    {
+      "label": "compile-Graph",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc",
+        "-q",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor/Graph.v"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 0.5799267840338871,
+      "environment": {}
+    },
+    {
+      "label": "compile-Storage",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc",
+        "-q",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage/Storage.v"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 0.49624397698789835,
+      "environment": {}
+    },
+    {
+      "label": "compile-Carrier",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc",
+        "-q",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs/Carrier.v"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 0.501036949979607,
+      "environment": {}
+    },
+    {
+      "label": "compile-Root",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc",
+        "-q",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs/Root.v"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 0.34759703202871606,
+      "environment": {}
+    },
+    {
+      "label": "inventory",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc",
+        "-q",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs/Assumptions.v"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 0.7956515799742192,
+      "environment": {}
+    },
+    {
+      "label": "kernel",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+        "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqchk",
+        "-silent",
+        "-o",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/constructor",
+        "NativeConstructorErasure",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/storage",
+        "NativeSourceStorage",
+        "-Q",
+        "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+        "NativeSourceUnsize",
+        "NativeSourceUnsize.Carrier",
+        "NativeSourceUnsize.Root",
+        "NativeSourceUnsize.Assumptions"
+      ],
+      "cwd": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/proofs",
+      "exit_code": 0,
+      "seconds": 20.670955094974488,
+      "environment": {}
+    }
+  ],
+  "logs": {
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/source-normal.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/source-normal.stderr": "a754b7dd158fe65c55acb103a26d2bff81e80cb757ec8d5157446137de64bdd9",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/source-optimized.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/source-optimized.stderr": "5dc922aed9cfa15141be1a518937e9548e693483f5cc5a6c46157c612ac107e8",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/goal-normal.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/goal-normal.stderr": "d39b5a82998c28be02b23d716c3cfe010694f93dede2b5e81a0b7a4a9b2daabd",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/goal-optimized.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/goal-optimized.stderr": "d39b5a82998c28be02b23d716c3cfe010694f93dede2b5e81a0b7a4a9b2daabd",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/readme-replay.stdout": "6e2cab0c637e7e65a29104584f39bb14c3424c83ecece0379566633f5008db17",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/readme-replay.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Interface.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Interface.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Graph.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Graph.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Storage.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Storage.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Carrier.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Carrier.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Root.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/compile-Root.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/inventory.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/inventory.stderr": "9585e6faed8864067d4df9a1931a2a000cb8b75ae7fea704d76a2c2eda519222",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/kernel.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/kernel.stderr": "263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3"
+  }
+}
