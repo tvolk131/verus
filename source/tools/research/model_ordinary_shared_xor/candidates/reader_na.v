@@ -117,4 +117,27 @@ Section session.
     iMod (shared_key_prepare with "LFT E L View Credit") as "[L #Cap]"; first done.
     iApply (shared_key_reader_na_session_prepared with "LFT E L Cap"). done.
   Qed.
+
+  Lemma key_reader_na_aliases n κ q x d g tid R :
+    key_reader_na n κ q x d g tid R -∗ shared_key_cap n κ q x d g tid -∗
+    key_reader_na n κ q x d g tid R ∗ key_reader_na n κ q x d g tid R ∗
+    shared_key_cap n κ q x d g tid ∗ shared_key_cap n κ q x d g tid.
+  Proof. iIntros "#Reader #Cap". by iFrame "Reader Cap". Qed.
+
+  Lemma key_reader_na_read_close n κ q x d g tid (R G : iProp Σ) L i (Frame : iProp Σ) :
+    (i < n)%nat →
+    key_reader_na n κ q x d g tid R -∗
+    (R -∗ G ={⊤}=∗ llctx_interp L) -∗
+    R -∗ G -∗ Frame -∗ £(3*(g+1)) -∗
+    WP Read Na1Ord #(q +ₗ i) @ ⊤ {{ v, ∃ z : Z,
+      ⌜byte_list n x !! i = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗
+      llctx_interp L ∗ shared_key_cap n κ q x d g tid ∗ Frame }}.
+  Proof.
+    iIntros (Index) "#Reader Close R G Frame Credit".
+    iApply wp_fupd. iApply (wp_wand with "[R Frame Credit]").
+    { iApply (key_reader_na_read with "Reader R Frame Credit"). done. }
+    iIntros (v) "[%z [Facts [R [Cap Frame]]]]".
+    iMod ("Close" with "R G") as "L". iModIntro.
+    iExists z. iFrame.
+  Qed.
 End session.

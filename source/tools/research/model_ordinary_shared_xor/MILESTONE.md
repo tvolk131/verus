@@ -12,3 +12,6 @@ proofs, not checked evidence until a successful frozen receipt is recorded.
 Scope remains MODEL partial correctness only: native0; 44+3/101 open;
 publication false; goal incomplete. Canonical6/0 and HMAC1/1 are inherited,
 not rerun. No initialized model input/provenance or Rust/C/F claim is made.
+
+Subsequent validation: the exact final sources passed normal coqc and full
+recursive coqchk in trial008. See results.json and HANDOFF.md for pins and limits.

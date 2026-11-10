@@ -1,0 +1,295 @@
+{
+  "schema": 1,
+  "attempts": [
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-001",
+      "receipt_sha256": "cf20a90b8fe4784b0ae23b72ad98618531e05a3e7334699adf660fca8c0fb459",
+      "freeze_sha256": "bd77fe7bb39c128ad7c88e912128cd044498827774dc6fe0af375f5bfec4a904",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: adapter"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 10.820165859011468
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 0,
+          "seconds": 4.848548417037819
+        },
+        {
+          "label": "compile-adapter",
+          "exit_code": 1,
+          "seconds": 0.10776421695481986
+        }
+      ],
+      "logs": {
+        "compile-adapter.stderr": "0a7cb5e77e92aea627e239c188e3af1b02569728ae3491aca950a51742a78b09",
+        "compile-adapter.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-002",
+      "receipt_sha256": "6742404a119ad2cfd8bac6d37036e00a447538c9fea8be695de7ec5e687e0e73",
+      "freeze_sha256": "8f6e42e929b53b0d1709cd71eccda128b63248285ce2759160bc68587644fd83",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: adapter"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 12.035331719031092
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 0,
+          "seconds": 5.577036375005264
+        },
+        {
+          "label": "compile-adapter",
+          "exit_code": 1,
+          "seconds": 1.0829141949652694
+        }
+      ],
+      "logs": {
+        "compile-adapter.stderr": "e8fdb621fa1153f98a175db3910b0dbacaa6c6e67752875762cbe6149b7b9817",
+        "compile-adapter.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-003",
+      "receipt_sha256": "119e1de55532d6a0548c3391db5a256f91885f8a128a2347f06f20e931882792",
+      "freeze_sha256": "25e2cac7530cb771d58a36a4e0e71424659c192e88b152cc2ea6845c0b434912",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: reader_na"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 1,
+          "seconds": 14.129811297985725
+        }
+      ],
+      "logs": {
+        "compile-reader_na.stderr": "e0cc55fecac02c855160999cf09399b244b637b4d09287f731aa63cbd7fb144c",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-004",
+      "receipt_sha256": "b512539d51d70d20184f9f42ee371b984197f59fbb4acfa3e54825346d9ed189",
+      "freeze_sha256": "2371067502d5a9bad3ffce188c49192aaadad73c48cfea803355eef426f74c3a",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: xor_na"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 14.188744498009328
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 1,
+          "seconds": 6.052766045031603
+        }
+      ],
+      "logs": {
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "b4b77a79ac9e2e556fa2c5d2d477161095c07d4e4f27ff85182c4b28b28ce070",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-005",
+      "receipt_sha256": "e5a1d8947a551bc1907ab77a42b5036d72ed94b8ad06e219d69949a92f5651dd",
+      "freeze_sha256": "fb4121bdeef4a959dce68e1df2cb1accb57462d402d74b349b0f7a3e14b91937",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: adapter"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 13.322481358016375
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 0,
+          "seconds": 7.238619055016898
+        },
+        {
+          "label": "compile-adapter",
+          "exit_code": 1,
+          "seconds": 2.164475703961216
+        }
+      ],
+      "logs": {
+        "compile-adapter.stderr": "ec66e0b9835b4c9157c8effcca6cb1d94082d3ea05a3708f232567c6ba0339e8",
+        "compile-adapter.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-006",
+      "receipt_sha256": "b2361cbad43afad30ce0fa1f0452533b44236a5b593db5ea9e60a14a1868b5b5",
+      "freeze_sha256": "96074f4718a4573ae9f2c6e85c15c110b42522303cf968989de5cd5d13e642fa",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: adapter"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 12.873733446991537
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 0,
+          "seconds": 8.387090675008949
+        },
+        {
+          "label": "compile-adapter",
+          "exit_code": 1,
+          "seconds": 2.436970709997695
+        }
+      ],
+      "logs": {
+        "compile-adapter.stderr": "fccc54762ee333e929eca71b62078b4b95265ded7067f2cb9057ed4bddaa15f1",
+        "compile-adapter.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-007",
+      "receipt_sha256": "2c8af511f44bb391d9d54911636cbf11f9433e39901ff4e0c5e2b69aa1809d3d",
+      "freeze_sha256": "ff4b0f8d3d098b95e698b63c28cbb55f175f06daf98fa12aedd3c8fe2e7b0784",
+      "success": false,
+      "semantic_evidence": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "proof-development/setup failure, not semantic evidence: adapter"
+      },
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 15.781100886990316
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 0,
+          "seconds": 7.505182990978938
+        },
+        {
+          "label": "compile-adapter",
+          "exit_code": 1,
+          "seconds": 2.3031920669600368
+        }
+      ],
+      "logs": {
+        "compile-adapter.stderr": "61492137979a6d28d0c61ad6f447f7d223aef88df9b7e7751fe640429dac8a13",
+        "compile-adapter.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": "/tmp/model-ordinary-shared-xor-trial-008",
+      "receipt_sha256": "79b5452cb7e3dee9cf69ea6582eda68e6fc5ec3c31ab1e37dc6ac38c563b75ab",
+      "freeze_sha256": "9508a7081f3191aef69c82ca90030a294cce7105cb0b7910572da9511c05a6c9",
+      "success": true,
+      "semantic_evidence": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "compile-reader_na",
+          "exit_code": 0,
+          "seconds": 13.345820230024401
+        },
+        {
+          "label": "compile-xor_na",
+          "exit_code": 0,
+          "seconds": 6.220589871983975
+        },
+        {
+          "label": "compile-adapter",
+          "exit_code": 0,
+          "seconds": 4.2924703389871866
+        },
+        {
+          "label": "assumptions",
+          "exit_code": 0,
+          "seconds": 39.820228337019216
+        },
+        {
+          "label": "proof-terms",
+          "exit_code": 0,
+          "seconds": 8.988463036948815
+        },
+        {
+          "label": "kernel",
+          "exit_code": 0,
+          "seconds": 217.51776674500434
+        }
+      ],
+      "logs": {
+        "assumptions.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "assumptions.stdout": "c660419d8ff0fe89901cef4f389ecf214c54dae8bdc7d14afb02c52afcb10fbe",
+        "compile-adapter.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-adapter.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-reader_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile-xor_na.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "kernel.stderr": "c14ebb5bc69a4959362e85ddb60ed84826b7361a950921987bb6779329f84452",
+        "kernel.stdout": "09c6ba7f3c54d1fb13524cbc83b5694ac889a1e3cedd76631c8394921ab52501",
+        "proof-terms.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "proof-terms.stdout": "bde35a62d693ab950024c7848d6cc8513afdf924d1769ad0fde2849c2b8fc161"
+      }
+    }
+  ],
+  "failed_attempts_are_semantic_evidence": false,
+  "notes": [
+    "Initial git commit needed command-local author identity; no global config edit.",
+    "Attempted to stop suspected slow trial008 adapter, but no matching compiler existed: all modules had already compiled; nothing was signaled or changed."
+  ]
+}

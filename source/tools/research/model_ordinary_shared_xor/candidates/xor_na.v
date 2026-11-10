@@ -184,3 +184,21 @@ Section verified_contract.
     iApply "Post". iFrame "Pad R Cap Frame". done.
   Qed.
 End verified_contract.
+
+Section zero_count.
+  Context `{!typeG Σ}.
+  (* No Reader, index lookup, pad-head split, or memory access in this branch.
+     Cap remains a separate input; p and q need not be distinct. *)
+  Lemma wp_shared_xor_na_zero n κ q x d g tid (R Frame : iProp Σ) p pad :
+    shared_key_cap n κ q x d g tid -∗
+    {{{ p ↦∗ zvalues pad ∗ R ∗ Frame }}}
+      (App (of_val zip_transform_na)
+        [of_val byte_xor; Lit (LitInt 0); Lit (LitLoc p); Lit (LitLoc q)])
+    {{{ RET LitV LitPoison;
+      p ↦∗ zvalues pad ∗ R ∗ shared_key_cap n κ q x d g tid ∗ Frame }}}.
+  Proof.
+    iIntros "#Cap" (Φ). iModIntro. iIntros "[Pad [R Frame]] Post".
+    remember byte_xor as op eqn:OpEq.
+    wp_rec. wp_op. wp_if. iApply "Post". by iFrame.
+  Qed.
+End zero_count.
