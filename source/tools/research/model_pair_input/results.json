@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "scope": "Same-Outer raw initialized MODEL pad plus actual typed shared key setup",
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/pair-input-final023/receipt.json",
+    "sha256": "f57ba4ea66e1722586aafb1b92c4e9a6946183ae00fe974176baae620600ed40"
+  },
+  "freeze": {
+    "path": "source/tools/research/model_pair_input/final-freeze.json",
+    "sha256": "20a40977a61680fb1eaec96fb4ddcda9c39a817fec82a7cf3f1bbada1bad4c83"
+  },
+  "normal_compilation": true,
+  "full_recursive_kernel_check": true,
+  "kernel_exclusions": [],
+  "constant_count": 18,
+  "definitions": 5,
+  "proved_lemmas_and_theorems": 13,
+  "program_obligations": 0,
+  "declarations": {
+    "setup": [
+      "byte_values",
+      "byte_map",
+      "pair_outside",
+      "pair_setup",
+      "shared_key_view",
+      "shared_key_view_own",
+      "pair_lifetimes_recombine",
+      "raw_pair_payload",
+      "model_key_share",
+      "raw_pair_model_context_wp",
+      "raw_pair_model_observed"
+    ],
+    "controls": [
+      "byte_map_disjoint_iff",
+      "byte_map_empty_alias",
+      "byte_map_same_block_gap",
+      "shared_key_aliases",
+      "pair_setup_outside_observed",
+      "empty_key_same_address_setup_observed",
+      "strict_interior_pair_setup_observed"
+    ]
+  },
+  "assumptions": {
+    "setup.byte_values": [],
+    "setup.byte_map": [],
+    "setup.pair_outside": [],
+    "setup.pair_setup": [],
+    "setup.shared_key_view": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "setup.shared_key_view_own": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "setup.pair_lifetimes_recombine": [],
+    "setup.raw_pair_payload": [],
+    "setup.model_key_share": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "setup.raw_pair_model_context_wp": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "setup.raw_pair_model_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "controls.byte_map_disjoint_iff": [],
+    "controls.byte_map_empty_alias": [],
+    "controls.byte_map_same_block_gap": [],
+    "controls.shared_key_aliases": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "controls.pair_setup_outside_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "controls.empty_key_same_address_setup_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "controls.strict_interior_pair_setup_observed": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ]
+  },
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "new_axioms": 0,
+  "admissions": 0,
+  "proof_objects": {
+    "Assumptions.vo": "c8d60e9293cf017cfb756f015408d8da083d5940789d94855eb6327e50c628cc",
+    "controls.vo": "46729ceb85fbaeab045cbe1f15ad57cc37239f714ae845295574c701a7e6504b",
+    "setup.vo": "71e173b0fd36ea86a12325f7c0de2d77bd526fadaa6f88afa6ab7ba6e3d3bd95"
+  },
+  "proof_sources": {
+    "Assumptions.v": "2b5ccd994b3917260366967b1cdcccb20cd5a20d79d07d9fde105da427f9f1cc",
+    "controls.v": "be3bcad21b84d98c8552fb20a079b1ab38ad04cdb43bca54334149b4468863f9",
+    "setup.v": "40cc7e798840d7d02f3d9b478af30a9b0b5fecf086a448810e455c14f73b5dcc"
+  },
+  "baseline_readiness": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json",
+    "sha256": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007"
+  },
+  "baseline_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/durable-build-2/receipt.json",
+    "sha256": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e"
+  },
+  "baseline_sources": 523,
+  "baseline_objects": 284,
+  "gmp_manifest_sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37",
+  "prerequisite_receipts": [
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-heap-init-3d799b38/receipt.json",
+      "sha256": "9e9f6957925f5ea7e5ff150e947318ff1342f45563c9c628397e34dd21bb36c6"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/receipt.json",
+      "sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-model-input-94b87742/proofs/receipt.json",
+      "sha256": "4c6783ade2f675dc4e53cdeb8d9f3b0f8fa2fa414df3913cb9f0554ca6c4119c"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-observation-trial017/receipt.json",
+      "sha256": "7d2620147db8641c926692404be19cfbdaf5431d39bbac99f8d38bee0635aef1"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial005/receipt.json",
+      "sha256": "3ad9535801ca112a729115ce69eb3c7f51f8307c8852510db0b4ba288b001635"
+    }
+  ],
+  "same_outer_lrustGS": true,
+  "internally_allocated_typeG_count": 1,
+  "internally_allocated_model_lifetime_count": 2,
+  "setup": "Skip;; Skip;; Share;; e",
+  "initial_credits": "1+k",
+  "callback_credits": "k",
+  "actual_checked_type_share_instr": true,
+  "resource_valued_postcondition_preserved": true,
+  "pad_and_key_contexts_separately_usable": true,
+  "linear_context_handles_duplicated": false,
+  "shared_view_duplicable": true,
+  "client_exclusive_key_payload": false,
+  "exact_outside_frame": true,
+  "same_block_strict_interiors": true,
+  "empty_key_same_address": true,
+  "arbitrary_pad_and_key_lengths": true,
+  "caller_owner_PointsTo_or_extra_guard": false,
+  "final_two_region_observer": false,
+  "exact_outside_observer_resource_derived": true,
+  "actual_native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_phase_obligations_open": 3,
+  "native_writer_effects_open": 101,
+  "canonical_result": "unchanged 6/0; shared observer causally redundant there",
+  "full_frozen_hmac_prefix_suffix": "unchanged 1/1; not rerun or extended",
+  "rust_lifetime_provenance_or_history_correspondence": false,
+  "publication": false,
+  "goal_complete": false,
+  "independent_review": "not performed; worked without subdelegates as requested",
+  "commands": [
+    {
+      "label": "compile-setup",
+      "exit_code": 0,
+      "seconds": 6.283
+    },
+    {
+      "label": "compile-controls",
+      "exit_code": 0,
+      "seconds": 3.645
+    },
+    {
+      "label": "assumptions",
+      "exit_code": 0,
+      "seconds": 44.864
+    },
+    {
+      "label": "kernel",
+      "exit_code": 0,
+      "seconds": 226.28
+    }
+  ],
+  "replay": "python3 -B source/tools/research/model_pair_input/check.py --freeze source/tools/research/model_pair_input/final-freeze.json --output /tmp/verus-pair-input-replay-UNUSED"
+}

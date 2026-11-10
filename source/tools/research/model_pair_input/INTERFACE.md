@@ -32,3 +32,82 @@ complete declaration/obligation assumptions inventory, recursive kernel checking
 compact source/object/receipt hashes. No axioms, new primitives, trusted summaries,
 unsafe settings, fixture/domain weakening or publication. Native correspondence
 and full HMAC completion remain unproved.
+
+## Precise implementation handoff (pretrial)
+
+Namespace `ModelPairInput.setup`; definitions `byte_values`, `byte_map`,
+`pair_outside`, `shared_key_view`, `pair_setup`.
+
+`pair_setup e := (Skip;; Skip;; Share;; e)` (right associated).
+`byte_values zs := (fun z : Z => LitV (LitInt z)) <$> zs`.
+`byte_map p zs := interval_map p (byte_values zs)`.
+`pair_outside h p pad q key := h ∖ (byte_map p pad ∪ byte_map q key)`.
+`shared_key_view key q tid κ := tctx_interp tid
+  +[#q ◁ &shr{κ} (bytes_ty (length key))]
+  -[((q, repeat [] (length key)), bytes_of_list key)]`.
+
+`raw_pair_model_context_wp Outer e h p pad q key Φ k` requires closed `e`,
+byte ranges and exact raw lookups for both lists, and
+`byte_map p pad ##ₘ byte_map q key`. Its continuation is:
+
+```coq
+forall (TG : typeG Σ) tid κpad κkey,
+  @type_lrustGS Σ TG = Outer ->
+  κpad <> llft_empty -> κkey <> llft_empty ->
+  llft_ctx -∗ proph_ctx -∗ uniq_ctx -∗ time_ctx -∗
+  elctx_interp [] -∗
+  llctx_interp [κpad ⊑ₗ []] -∗ llctx_interp [κkey ⊑ₗ []] -∗
+  invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗
+  model_reference pad p tid κpad -∗
+  shared_key_view key q tid κkey -∗
+  initial_fragments (pair_outside h p pad q key) -∗
+  £k -∗ WP e @ ⊤ {{ Φ }}
+```
+
+The conclusion is `initial_fragments h -∗ £(1+k) -∗ time_ctx -∗
+WP (pair_setup e) @ ⊤ {{ Φ }}`, with Φ and all heap resources in the fixed
+Outer. Two independently allocated lifetime handles are passed exactly once;
+there is no distinct-allocation-block premise. Empty key at q=p satisfies the
+disjointness premise automatically. `shared_key_view` is an actual ordinary
+shared-reference tctx, usable through `tctx_hasty_val` as an existential depth,
+time receipt and shared `ty_own`. Its physical key ownership stays under the
+shared lifetime guard; clients receive no exclusive key payload.
+
+Public `raw_pair_model_observed` will initialize the raw heap, setup credits
+and time context internally, preserve an arbitrary family `Φ Outer`, and use a
+resource observer `heap_ctx σ -∗ Φ Outer v ={⊤,∅}=∗ ⌜φ v σ⌝` in that same
+Outer. This does not supply or assume a final-memory fact. Root remains
+responsible for pad mutation/recovery and the final observer; the shared-read
+consumer may derive a read independently from this exact view.
+
+
+## Checked source and control details
+
+`candidates/setup.v` implements the signature above. The public observer uses
+an explicit WP instance for `Φ Outer` and substitutes `Outer` in its setup
+callback; it does not partially rewrite the heap equality. The two fresh
+lifetime allocations use one internally constructed TypeG. No equality or
+inequality between the two lifetime names is required from callers.
+
+First Skip: two cumulative tickets, one retained for pad construction and one
+converted with the zero persistent receipt into `⧖1`. Second Skip: two tickets,
+one used for key construction and one explicitly named `Spare` (unused, affine).
+The key is constructed and shared first; the pad is constructed after Share
+using the retained first ticket. This keeps its exact `model_reference` at the
+handoff without needing to repackage resources after operational steps. Only
+the lifetime allocator consumes the additional initial credit; callback £k
+passes through. Share's internal steps/credits/tickets are supplied by the
+existing checked `typed_instr_of_skip` implementation behind `type_share_instr`.
+
+`candidates/controls.v` proves disjointness equivalent to pointwise inequality
+only for actually accessed indices, same-block separation, empty-key q=p,
+shared aliases, a resource-derived exact outside observer, and setup in arbitrary
+larger raw intervals with nonempty prefix/middle/suffix and an arbitrary disjoint
+outside map. All lengths and bytes remain universally quantified, including
+pads 10/128 and keys 0, below/equal/above128. It does not claim final physical
+observations for the still-borrowed pad or key regions.
+
+Validation has no new Program definitions or generated obligations. Inherited
+library principles are reported individually by Print Assumptions; recursive
+coqchk checks all dependencies without exclusions. This MODEL prerequisite does
+not close native correspondence, native effects, HMAC completion or publication.
