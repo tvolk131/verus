@@ -1,0 +1,373 @@
+{
+  "schema": 1,
+  "native_bridge_proved": false,
+  "summary": {
+    "schema": 1,
+    "native_bridge_proved": false,
+    "evidence_sha256": "71a94b7844e377ce134ca562905b6e46bb7486fb1a2094359999f271dc8e1505",
+    "source_sha256": "cabaa3bd155a4ce45231340d7f68242f8b590e92125db514fd3fbded41546549",
+    "root": "native_writer::DefPathHash(Fingerprint(7276140665566412216, 3571585778012846826))::Instance { def: Item(DefId(0:3 ~ native_writer[64fa]::xor_key)), args: [] }",
+    "target": "x86_64-unknown-linux-gnu",
+    "pointer_bits": 64,
+    "instances": 32,
+    "operations": 408,
+    "unavailable_or_intrinsic": [
+      {
+        "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 11680587208108537958))::Instance { def: Intrinsic(DefId(2:2322 ~ core[efd5]::intrinsics::ptr_offset_from_unsigned)), args: [u8] }",
+        "kind": "intrinsic",
+        "correspondence": "unproved"
+      },
+      {
+        "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 3997620028659250384))::Instance { def: Item(DefId(2:12171 ~ core[efd5]::panicking::panic)), args: [] }",
+        "kind": "unavailable",
+        "correspondence": "unproved"
+      },
+      {
+        "instance": "core::DefPathHash(Fingerprint(17281971461272426270, 3506540437646736838))::Instance { def: Item(DefId(2:12170 ~ core[efd5]::panicking::panic_nounwind_fmt)), args: [] }",
+        "kind": "unavailable",
+        "correspondence": "unproved"
+      }
+    ],
+    "writer_diagnostics": [],
+    "conditional_carrier_laws": "separate ordinary proofs; no source obligations discharged",
+    "checked_native_source_correspondences": [],
+    "missing": [
+      "initial executable borrow entry (sibling)",
+      "independently checked interpretation of every typed MIR operation",
+      "pointer offset/metadata/retag/validity and alias simulation",
+      "every helper/callback/drop/unwind/panic exit simulation",
+      "entry and return linked to the same executable original owner",
+      "actual native induction and unchanged full writer theorem"
+    ],
+    "instruction_obligations": 408,
+    "inherited_effect_obligations": 101,
+    "call_edges": 31,
+    "drop_queries": 36,
+    "distinct_empty_drops": 9,
+    "native_ledger_sha256": "94335255db838a282e82015bd81f15ba12f5e32662d216ce5c6df3bc2fb37a2f"
+  },
+  "controls": [
+    {
+      "id": "omitted-operation",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "duplicate-operation",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "missing-helper",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "missing-drop",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "omitted-panic",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "forged-source",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "forged-operation-proof",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "forged-native-fact",
+      "rejected": true,
+      "classification": "artifact/inventory-rejection",
+      "reason": "typed-source ledger altered or incomplete"
+    },
+    {
+      "id": "publication-failed",
+      "rejected": true,
+      "classification": "proof-status-rejection",
+      "reason": "failed/incomplete/resource proof"
+    },
+    {
+      "id": "publication-incomplete",
+      "rejected": true,
+      "classification": "proof-status-rejection",
+      "reason": "failed/incomplete/resource proof"
+    },
+    {
+      "id": "publication-timeout",
+      "rejected": true,
+      "classification": "proof-status-rejection",
+      "reason": "failed/incomplete/resource proof"
+    },
+    {
+      "id": "publication-resource",
+      "rejected": true,
+      "classification": "proof-status-rejection",
+      "reason": "failed/incomplete/resource proof"
+    },
+    {
+      "id": "publication-proved",
+      "rejected": true,
+      "classification": "publication-barrier",
+      "reason": "no_machine_checked_native_lowering_soundness"
+    },
+    {
+      "id": "rebound-unknown-effect",
+      "rejected": true,
+      "classification": "unsupported-source-effect",
+      "reason": "no_machine_checked_native_lowering_soundness"
+    }
+  ],
+  "inherited_controls": [
+    {
+      "control": "forged-source",
+      "rejected": true,
+      "reason": "forged_source_binding"
+    },
+    {
+      "control": "wrong-domain",
+      "rejected": true,
+      "reason": "writer_type_domain_mismatch"
+    },
+    {
+      "control": "wrong-layout",
+      "rejected": true,
+      "reason": "argument_layout_mismatch"
+    },
+    {
+      "control": "unexamined-helper",
+      "rejected": true,
+      "reason": "unexamined_helper"
+    },
+    {
+      "control": "unexamined-drop",
+      "rejected": true,
+      "reason": "unexamined_drop_query"
+    },
+    {
+      "control": "native-wrong-index",
+      "rejected": true,
+      "updated_ir_sha256": "061add5230f72f3528692763eb81b1f088dba41034eab3eae38ab89ad5f8ef01",
+      "reason": [
+        {
+          "kind": "native_value_summary",
+          "reason": "native_getter_origin_index_or_projection"
+        }
+      ]
+    },
+    {
+      "control": "native-wrong-origin",
+      "rejected": true,
+      "updated_ir_sha256": "53c504b95fd47b1d21f56f0c4a46e97d3cd6ce5ef2284c4d3b01e9b8928ae9df",
+      "reason": [
+        {
+          "kind": "native_value_summary",
+          "reason": "offset_wrong_origin"
+        }
+      ]
+    },
+    {
+      "control": "native-wrong-Zip-field",
+      "rejected": true,
+      "updated_ir_sha256": "dc0903082532cabfcb82d2825477e29fd8c05d1ff1f8fb7a55a1556f12118d2d",
+      "reason": [
+        {
+          "kind": "native_value_summary",
+          "reason": "native_next_state_or_tail_mutation"
+        }
+      ]
+    },
+    {
+      "control": "native-constructor-wrong-extent",
+      "rejected": true,
+      "reason": "native_constructor_summary"
+    },
+    {
+      "control": "unsupported-rvalue",
+      "rejected": true,
+      "reason": "unsupported_rvalue"
+    },
+    {
+      "control": "unsupported-terminator",
+      "rejected": true,
+      "reason": "unsupported_terminator"
+    },
+    {
+      "control": "lost-permission",
+      "rejected": true,
+      "reason": "lost_permission"
+    },
+    {
+      "control": "duplicate-permission",
+      "rejected": true,
+      "reason": "lost_permission"
+    },
+    {
+      "control": "incorrect-logical-Zip-projection",
+      "rejected": true,
+      "reason": "incorrect_logical_Zip_projection"
+    },
+    {
+      "control": "proof-failed",
+      "rejected": true,
+      "reason": "failed_incomplete_or_resource_limited_proof"
+    },
+    {
+      "control": "proof-incomplete",
+      "rejected": true,
+      "reason": "failed_incomplete_or_resource_limited_proof"
+    },
+    {
+      "control": "proof-timeout",
+      "rejected": true,
+      "reason": "failed_incomplete_or_resource_limited_proof"
+    },
+    {
+      "control": "proof-resource_limited",
+      "rejected": true,
+      "reason": "failed_incomplete_or_resource_limited_proof"
+    },
+    {
+      "control": "unproved-original",
+      "rejected": true,
+      "reason": "unsupported_effects_or_writer"
+    },
+    {
+      "control": "forged-all-proofs",
+      "rejected": true,
+      "reason": "native_refinement_proof_checker_not_implemented"
+    },
+    {
+      "control": "instance-budget",
+      "rejected": true,
+      "reason": "instance_budget",
+      "semantic_negative": false
+    },
+    {
+      "control": "operation-budget",
+      "rejected": true,
+      "reason": "operation_budget",
+      "semantic_negative": false
+    },
+    {
+      "control": "false-backend-scalar",
+      "rejected": true,
+      "reason": "sat"
+    },
+    {
+      "control": "resource-backend-scalar",
+      "rejected": true,
+      "reason": "unknown",
+      "semantic_negative": false
+    }
+  ],
+  "inherited_source_controls": [
+    {
+      "case": "changed-write",
+      "source_sha256": "010309f0195ab59d6bd9d4c3a4e85cc818fbc350036e09c764eb1dba134f1218",
+      "evidence_sha256": "689623586b16d2da83e868d80c93a90c1e52186be139517b7b1205461a49cc0c",
+      "semantic_diagnostic": "writer_xor_operation",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "missing-write",
+      "source_sha256": "58ed382de68c42eb821948a6b03849a9408ab4847d9ee53223447ac675053934",
+      "evidence_sha256": "3249ac80a8c42239084e73ed2790492defc87310a52d214e0fc1b99bb71c050c",
+      "semantic_diagnostic": "writer_store_inventory",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "tail-write",
+      "source_sha256": "0ec5cf6e7bf067be8d7ca02307421313c502892a3bfdaf75c331ef264136db79",
+      "evidence_sha256": "72eab93684ffbf1403344cf230a4a9a82823810e947dfcae7a907351692e5da7",
+      "semantic_diagnostic": "writer_store_inventory",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "helper-effect",
+      "source_sha256": "6aad8f00055b437080df4ba08688db3369b85f719a297d4585691f66a3188bfb",
+      "evidence_sha256": "7f80585348ce01acc516930b6d1232caf2ded10f8b13f7b2a7468f387bb4660b",
+      "semantic_diagnostic": "writer_call_inventory",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "drop-effect",
+      "source_sha256": "38424ffd6aaf92950fb06c784ae892c3278fbff962d251d39dcc6092d452ed2e",
+      "evidence_sha256": "1f32842be4bf8fc7dc5bea8ce3bfc869570b70f384830b72322dc9ab12936169",
+      "semantic_diagnostic": "drop_effect_requires_proof",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "wrong-origin",
+      "source_sha256": "f79237c68faa720a9d80affeec6d6129d87677c2cb0f105a1f48b2f77ab91984",
+      "evidence_sha256": "ed9554f074db21ee72816a098c57333a9d56eca7195462e3c0d9101f42943688",
+      "semantic_diagnostic": "native_value_summary",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "callback-effect",
+      "source_sha256": "a881cb92d4aa2a5d36ba644f2e89e507002f5dd394fa2a7b881d95a1b9b87c44",
+      "evidence_sha256": "3a139916bbde541ef9fa520c1dbc7a82d9edddea1030b35b3b77440b2e906b7f",
+      "semantic_diagnostic": "indirect_call",
+      "native_bridge_proved": false
+    },
+    {
+      "case": "wrong-rhs",
+      "source_sha256": "a5156967f068872861782075e5c6b6a87a06a980581163d603d6036024a80525",
+      "evidence_sha256": "3041b692152a8222d0dfb3548bef7b26213fa9ef611f5583d43c19028d1e4189",
+      "semantic_diagnostic": "writer_pair_origin",
+      "native_bridge_proved": false
+    }
+  ],
+  "additional_source_controls": [
+    {
+      "id": "key-write",
+      "classification": "source-effect/eligibility-rejection",
+      "compiled": true,
+      "source_sha256": "7aaff298f0ebf13e47f420a56c41f73aea902e574c077579faf0c57e86e8609a",
+      "evidence_sha256": "52fda3442648248c9c2a67c88e2cf71c6dfaabe44b411a386014b1bd7d17aade",
+      "ledger_binding": "6e99393587733cbbbd54f2ed2ff513c56548e6cf463447bff02d883ce4e20517",
+      "diagnostics": [
+        "writer_call_inventory",
+        "writer_store_inventory"
+      ]
+    },
+    {
+      "id": "alias-key",
+      "classification": "source-effect/eligibility-rejection",
+      "compiled": true,
+      "source_sha256": "585e4e9eedc6d0e964cf6b71a2c8154415309a39e5ac5cb0338ba09417323335",
+      "evidence_sha256": "f32180a1acb45cd8db491bcd4947d066d997dcd2a168874c700b4d232c6804ca",
+      "ledger_binding": "5029896cf382d5f507a8e9243759f170f18e94dd7041d3903ec46fb0832b04bd",
+      "diagnostics": [
+        "writer_call_inventory"
+      ]
+    }
+  ],
+  "receipt": {
+    "path": "/tmp/native-effect-soundness-ced1eb20/source-v1/receipt.json",
+    "sha256": "f8aaaa6617dd7f28fa8dbdfe4479e5afc4cfec6f1f84ed5a9684562d09d4a727"
+  },
+  "inherited_receipt": {
+    "path": "/tmp/native-effect-soundness-ced1eb20/source-v1/extraction/receipt.json",
+    "sha256": "878b4925d3d044d4a153437b0246d4a921b7a4819a867adc9a3225df75b18450"
+  },
+  "source_freeze_sha256": "cc2dd4fd4cfed598a51096d9d6e06afa7e356983bda16a68f81249d563ea7086",
+  "proof_source_sha256": "42b480e4c66d5a53b84b30fa413c8ea0f465e8a710be70531150888d443be57d",
+  "checked_source_correspondences": [],
+  "conditional_module_discharges_native_effects": false
+}
