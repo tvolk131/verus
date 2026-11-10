@@ -25,6 +25,52 @@ test_verify_one_file_with_options! {
     #[test] plain_disabled ["vstd", "--no-cheating"] => PLAIN.to_string() => Ok(())
 }
 test_verify_one_file_with_options! {
+    #[test] surrounding_direct_writes_are_not_decorated ["vstd", "--infer-goals", "--no-cheating"] => code! {
+        verus! {
+            fn before(buf: &mut [u8; 10]) {
+                buf[0] = 42;
+                for b in buf.iter_mut() { *b = 1; }
+            }
+            fn after(buf: &mut [u8; 10]) {
+                for b in buf.iter_mut() { *b = 1; }
+                buf[0] = 42;
+            }
+        }
+    } => Ok(())
+}
+test_verify_one_file_with_options! {
+    #[test] surrounding_helper_and_alias_writes_are_not_decorated ["vstd", "--infer-goals", "--no-cheating"] => code! {
+        verus! {
+            fn write(buf: &mut [u8; 10]) { buf[0] = 42; }
+            fn before(buf: &mut [u8; 10]) {
+                write(buf);
+                for b in buf.iter_mut() { *b = 1; }
+            }
+            fn after(buf: &mut [u8; 10]) {
+                for b in buf.iter_mut() { *b = 1; }
+                let alias = &mut *buf;
+                write(alias);
+            }
+        }
+    } => Ok(())
+}
+test_verify_one_file_with_options! {
+    #[test] escaping_mutable_buffer_is_not_decorated ["vstd", "--infer-goals", "--no-cheating"] => code! {
+        verus! {
+            fn escape(buf: &mut [u8; 10]) -> &mut [u8; 10] {
+                for b in buf.iter_mut() { *b = 1; }
+                buf
+            }
+        }
+    } => Ok(())
+}
+test_verify_one_file_with_options! {
+    #[test] unrelated_buffer_writes_keep_prefix_assistance ["vstd", "--infer-goals", "--no-cheating"] =>
+        ZIP.replace("key: &[u8])", "key: &[u8], other: &mut [u8; 10])")
+            .replace("    for (b_i, b_h)", "    other[0] = 42;\n    for (b_i, b_h)")
+            .replace("        *b_i ^= *b_h;\n    }", "        *b_i ^= *b_h;\n    }\n    other[0] = 43;") => Ok(())
+}
+test_verify_one_file_with_options! {
     #[test] full_suffix_remains_unproved ["vstd", "--infer-goals", "--no-cheating"] =>
         include_str!("../../tools/research/buffer_observation_goal/full-zip.rs").to_string() => Err(e) => one_error(e, "postcondition not satisfied")
 }

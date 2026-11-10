@@ -9,6 +9,7 @@ pub(super) const CAPACITIES: &[usize] = &[10, 128];
 #[derive(Clone)]
 pub(super) struct NativeMutableFor {
     pub loop_expr: Expr,
+    pub iterator_init: Expr,
     pub buffer: Param,
     pub capacity: usize,
     pub key: Option<Expr>,
@@ -316,5 +317,13 @@ pub(super) fn describe(f: &Function, all: &HashMap<Fun, Function>) -> Option<Nat
     if wrappers.len() != 1 {
         return None;
     }
-    Some(NativeMutableFor { loop_expr, buffer, capacity, key, wrapper: wrappers.pop()?, iterator })
+    Some(NativeMutableFor {
+        loop_expr,
+        iterator_init: mut_calls[0].clone(),
+        buffer,
+        capacity,
+        key,
+        wrapper: wrappers.pop()?,
+        iterator,
+    })
 }

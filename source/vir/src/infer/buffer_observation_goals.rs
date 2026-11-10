@@ -1,7 +1,9 @@
 //! Ordinary checked snapshots and observations, never update/frame summaries.
 use super::native_mutable_for::{self as native, NativeMutableFor};
 use super::*;
-use crate::ast_visitor::{VisitorScopeMap, map_expr_visitor, map_stmt_visitor_env};
+use crate::ast_visitor::{
+    VisitorControlFlow, VisitorScopeMap, expr_visitor_dfs, map_expr_visitor, map_stmt_visitor_env,
+};
 use std::collections::HashSet;
 
 /// One allocator per preparation invocation, seeded with ALL preceding functions.
@@ -643,6 +645,56 @@ fn install(f: &Function, d: &Decoration, all: &HashMap<Fun, Function>) -> Result
     validate(f, &decorated, d)?;
     Ok(decorated)
 }
+
+/// Entry/final snapshots describe the iterator borrow only when no other
+/// mutable use of the buffer can change its state outside the selected loop.
+/// Unknown temporary places skip conservatively rather than guessing aliases.
+fn entry_observations_compatible(f: &Function, d: &NativeMutableFor) -> bool {
+    fn may_reach(p: &Place, buffer: &VarIdent) -> bool {
+        match &p.x {
+            PlaceX::Local(v) => v == buffer,
+            PlaceX::Field(_, p)
+            | PlaceX::DerefMut(p)
+            | PlaceX::ModeUnwrap(p, _)
+            | PlaceX::Index(p, ..)
+            | PlaceX::WithExpr(_, p)
+            | PlaceX::UserDefinedTypInvariantObligation(p, _) => may_reach(p, buffer),
+            PlaceX::Temporary(_) => true,
+        }
+    }
+    let Some(body) = &f.x.body else { return false };
+    !matches!(
+        expr_visitor_dfs(body, &mut VisitorScopeMap::new(), &mut |_, e| {
+            if e.span.id == d.loop_expr.span.id
+                || e.span.id == d.iterator_init.span.id
+                || matches!(&e.x, ExprX::Ghost { .. })
+            {
+                return VisitorControlFlow::Return;
+            }
+            let p = match &e.x {
+                ExprX::Assign { place, .. }
+                | ExprX::BorrowMut(place)
+                | ExprX::TwoPhaseBorrowMut(place)
+                | ExprX::BorrowMutTracked(place)
+                | ExprX::ImplicitReborrowOrSpecRead(place, ..) => Some(place),
+                ExprX::ReadPlace(place, kind)
+                    if matches!(&*place.typ, TypX::MutRef(_))
+                        && matches!(kind.preliminary_kind, ReadKind::Move | ReadKind::Copy) =>
+                {
+                    Some(place)
+                }
+                _ => None,
+            };
+            if p.is_some_and(|p| may_reach(p, &d.buffer.x.name)) {
+                VisitorControlFlow::Stop(())
+            } else {
+                VisitorControlFlow::Recurse
+            }
+        }),
+        VisitorControlFlow::Stop(())
+    )
+}
+
 pub fn prepare(
     fs: &[Function],
     imported: &[Function],
@@ -654,6 +706,9 @@ pub fn prepare(
     fs.iter()
         .map(|f| {
             let Some(d) = native::describe(f, &all) else { return Ok(f.clone()) };
+            if !entry_observations_compatible(f, &d) {
+                return Ok(f.clone());
+            }
             let p = proposals(&d, &c, &mut fresh)?;
             let f = install(f, &p, &all)?;
             report.body_rechecks.insert(f.x.name.clone());
