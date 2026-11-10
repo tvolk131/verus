@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "scope": "Exact MODEL prerequisite only; no Rust/native theorem",
+  "implementation": "648110da",
+  "constant_count": 26,
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "all_objects_match_worker": true,
+  "receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-byte-xor-648110da/receipt.json",
+    "sha256": "285731c3979d00170a82909fc3f78f82b5200c069e8ddf28e18a0203f936ac63"
+  },
+  "proof_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-byte-xor-648110da/proofs/receipt.json",
+    "sha256": "90d0a75a6f71acd3037f49c9a09cf239f6c7363b71bf8665dba38e01775dd63c"
+  },
+  "proof_objects": {
+    "Assumptions.vo": "14eb7db6ed3395010116790dd41980662eb6faf076636c597248e6aadbb3f4fe",
+    "ProofTerms.vo": "30257d28078ebb6fa07d0b4587a190e0fa6cb8c53f4fc8a7925c0231a3ff6b64",
+    "byte_xor.vo": "3ed2ad60dd823714cf784ddd8d890a32a81092164ca641048688351282ec9641"
+  },
+  "independent_review": {
+    "commit": "95e09a16",
+    "status": "accept exact MODEL scope",
+    "fresh_normal_compilation": true,
+    "fresh_recursive_kernel_check": true,
+    "findings": []
+  },
+  "native_correspondences": 0,
+  "native_effects_open": 101,
+  "publication": false,
+  "goal_complete": false
+}
