@@ -10,7 +10,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
 sys.path.insert(0,str(ROOT/'source/tools'))
 from infer_eval_support import ArtifactGuard, digest, tool_artifacts
-from infer_experiment import LoggedCommands, replay_receipt, require, validate_goal_run
+from infer_experiment import LoggedCommands, replay_receipt, require, validate_goal_run, validate_run, require_function_coverage, require_exact
 
 p=argparse.ArgumentParser()
 p.add_argument('--bundle',type=Path,required=True)
@@ -29,7 +29,17 @@ with replay_receipt(a.output,receipt):
         require(digest(HERE/name)==checksum,'frozen source mismatch: '+name)
     verus=a.bundle.resolve()/'verus'
     solver=a.bundle.resolve()/'z3'
-    inputs=[HERE/'replay.py',candidate/'freeze.json',*[HERE/n for n in frozen['files']]]
+    bundle_manifest=HERE/'bundle-identity.json'
+    identities=json.loads(bundle_manifest.read_text())
+    original_artifacts=[]
+    for name,identity in identities.items():
+        copied=a.bundle.resolve()/name
+        original=Path(identity['source'])
+        require(not copied.is_symlink(),'bundle copy must not be a symlink')
+        require(digest(copied)==identity['sha256']==digest(original),'immutable accepted bundle identity: '+name)
+        require(copied.stat().st_ino!=original.stat().st_ino,'bundle copy must not be a hardlink')
+        original_artifacts.append(original)
+    inputs=[HERE/'replay.py',bundle_manifest,candidate/'freeze.json',*original_artifacts,*[HERE/n for n in frozen['files']]]
     guard=ArtifactGuard(tool_artifacts(verus,solver,inputs))
     receipt['artifacts']=guard.initial
     env=dict(os.environ,PATH='/home/dev/.cargo/bin:'+os.environ['PATH'],RUSTUP_TOOLCHAIN='1.99.1',VERUS_Z3_PATH=str(solver),VERUS_INFER_CACHE=str(a.output.resolve()/'cache'))
@@ -42,7 +52,15 @@ with replay_receipt(a.output,receipt):
         code=run(label,[str(verus),str(HERE/case['file']),'--crate-type=lib','--no-cheating','--output-json','--multiple-errors','8'],env)
         result=dict(returncode=code,stdout=(a.output/(label+'.stdout')).read_text(),stderr=(a.output/(label+'.stderr')).read_text())
         receipt['cases'].append(dict(id=label,returncode=code,classification=case.get('classification','conditional-resource-law'),stdout_sha256=digest(a.output/(label+'.stdout')),stderr_sha256=digest(a.output/(label+'.stderr'))))
-        data=validate_goal_run(result,case['positive'],expected_functions=set(),exec_bodies=case['exec_bodies'],proof_bodies=case['proof_bodies'],failure_kind=case.get('failure_kind'))
+        if case.get('classification')=='frontend-linear-use-rejection':
+            data=validate_run(result,False,allow_frontend=True)
+            require(case['expected_frontend_message'] in result['stderr'],'wrong linear-use rejection')
+            require(data['verification-results'].get('errors',0)==0,'frontend failure must not be an SMT negative')
+            helpers=data.get('verus-infer',{}).get('functions',[])
+            require_function_coverage(helpers,set())
+            require_exact(helpers)
+        else:
+            data=validate_goal_run(result,case['positive'],expected_functions=set(),exec_bodies=case['exec_bodies'],proof_bodies=case['proof_bodies'],failure_kind=case.get('failure_kind'))
         receipt['cases'][-1]['verification']=data['verification-results']
         receipt['cases'][-1]['scope']=data['verus-infer']['verification_scope']
         print(json.dumps(dict(case=label,verification=data['verification-results'])))
