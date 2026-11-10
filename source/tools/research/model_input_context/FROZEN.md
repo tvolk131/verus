@@ -41,3 +41,16 @@ New controller authenticates the retained GMP manifest to existing baseline pin.
 Original Rust source/context/provenance/ancestor loan and original future/C/F,
 44 minimal simulations, 3 phases and 101 effects remain unproved. canonical 6/0,
 HMAC 1/1, native 0, publication false. Parent integration and new review required.
+
+Pretrial clarification after trial017: the polymorphic continuation expression e
+must satisfy Closed [] e, because Seq is encoded by a lambda and the existing
+pure_rec rule checks closure. This is an expression well-formedness premise,
+not a restriction on h,p,zs, allocation offsets or initialization histories.
+Skip;;e takes two pure beta steps (Skip itself and its sequencing binder).
+
+Pretrial refinement after trial018: bind the Skip subexpression when producing
+tickets so the enclosing continuation resumes at top mask. Construct the typed
+reference after the two prefix steps, preserving its exact syntactic resource.
+Callback mask is now top, enabling the existing top-mask scoped accessor.
+No additional steps or credits; byte/raw-map domain unchanged. Trial018 failed
+compilation during final callback application; it was not kernel-checked.
