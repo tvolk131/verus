@@ -47,8 +47,10 @@ A provisional frontend extension now checks the original
 ordinary checked constructor `FnDef` body. Actual `NonZero::get` roundtripping
 checks4/0. The [constructor record](parent-constructor-function-values.json)
 keeps this source-only subproof separate from full tag/lookup acceptance.
-Matching-build evidence reports vstd2250/0 and13 focused regressions; fresh
-independent build/review and parent policy/cache reconciliation are pending.
+Independent review `706a4b85` reproduced vstd2250/0 and13 focused regressions.
+Its only P2 finding, two stale zero-arity test expectations, is fixed: parent
+validation passed68 FnDef tests (one existing ignored test) and13 constructor
+tests. Policy/cache reconciliation and combined acceptance remain pending.
 The full tag closure, runtime comparisons and `Item::new` remain unproved.
 
 The next comparison must use the current compiler-matched source in

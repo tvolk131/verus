@@ -35,7 +35,46 @@
   "reported_matching_vstd": "2250/0; includes generated constructor checks",
   "reported_focused_tests": "13/13",
   "reported_roundtrip": "4/0 actual NonZero::get",
-  "independent_review": "pending fresh isolated review",
+  "independent_review": {
+    "commit": "706a4b85c9ec3836e0a25b9ec9e87cf5ccaf8cbc",
+    "integrated_commit": "906e07e0",
+    "scope": "Constructor FnDef source translation; no native or application theorem.",
+    "source_review": "No soundness or eager-registration regression found in bounded probes.",
+    "report": "evidence/constructor-function-value-review/REPORT.md",
+    "report_sha256": "e9774356f6e09a600de25f33406aed4d49f757e0f74407fb3e05b5481f6ad716",
+    "evidence_sha256": "df6f414e57a3be282f8fbc591ae0ffe5f4c041c2e4b48b6951818c2ddf5fe658",
+    "authenticated_private_epochs": 60,
+    "matching_runtime_files_authenticated": 7,
+    "finding": "P2 stale zero-arity constructor rejection expectations",
+    "finding_resolution": {
+      "status": "fixed and parent validated",
+      "test_file": "source/rust_verify_test/tests/fndef_types.rs",
+      "source_sha256": "2bb9817007c23f6d66eecee7593e935de503f8e6dd820c7cda413e8a553daf84",
+      "behavior": "Both tests now invoke the zero-argument constructor and assert the returned value, with explicit vstd and --no-cheating.",
+      "receipt": "/tmp/constructor-parent-review-fix-v2-wzhxl8d2/receipt.json",
+      "receipt_sha256": "fadf9d4aa1d7d53df6a54cf8bf0773d31dee21b35822f136a36fabbb23305388",
+      "test_outcomes": {
+        "fndef_types": {
+          "passed": 68,
+          "failed": 0,
+          "ignored": 1,
+          "filtered": 0
+        },
+        "constructor_function_values": {
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0
+        }
+      },
+      "existing_ignored_test": "exec_calling_no_vstd",
+      "legacy_suite_note": "Full legacy FnDef regression suite uses its declared fixture flags; deliberate assume/external-spec tests are not new application proofs.",
+      "excluded_parent_setup_attempt": "/tmp/constructor-parent-review-fix-pys0nxe9/receipt.json"
+    },
+    "scoped_acceptance_after_parent_test_fix": true,
+    "combined_acceptance": false,
+    "opaque_return_constructor_callback": "documented unproved limitation"
+  },
   "review_focus": [
     "Original FnDef identity, ordered fields and generic bounds",
     "Normal mode/lifetime/visibility/type-invariant checks",
@@ -48,5 +87,30 @@
   "native_correspondences": 0,
   "open_obligations": "44 minimal +3 phase /101 writer effects",
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "parent_test_fix": {
+    "status": "fixed and parent validated",
+    "test_file": "source/rust_verify_test/tests/fndef_types.rs",
+    "source_sha256": "2bb9817007c23f6d66eecee7593e935de503f8e6dd820c7cda413e8a553daf84",
+    "behavior": "Both tests now invoke the zero-argument constructor and assert the returned value, with explicit vstd and --no-cheating.",
+    "receipt": "/tmp/constructor-parent-review-fix-v2-wzhxl8d2/receipt.json",
+    "receipt_sha256": "fadf9d4aa1d7d53df6a54cf8bf0773d31dee21b35822f136a36fabbb23305388",
+    "test_outcomes": {
+      "fndef_types": {
+        "passed": 68,
+        "failed": 0,
+        "ignored": 1,
+        "filtered": 0
+      },
+      "constructor_function_values": {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0
+      }
+    },
+    "existing_ignored_test": "exec_calling_no_vstd",
+    "legacy_suite_note": "Full legacy FnDef regression suite uses its declared fixture flags; deliberate assume/external-spec tests are not new application proofs.",
+    "excluded_parent_setup_attempt": "/tmp/constructor-parent-review-fix-pys0nxe9/receipt.json"
+  }
 }

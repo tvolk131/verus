@@ -1412,28 +1412,32 @@ test_verify_one_file! {
     } => Err(err) => assert_fails(err, 1)
 }
 
-test_verify_one_file! {
-    #[test] unit_struct_as_fn_not_supported verus_code! {
+test_verify_one_file_with_options! {
+    #[test] zero_arity_constructor_as_fn ["vstd", "--no-cheating"] => verus_code! {
         struct A();
 
         fn test()
         {
             let a = A;
+            let value = a();
+            assert(value == A());
         }
-    } => Err(err) => assert_vir_error_msg(err, "using a datatype constructor as a function value")
+    } => Ok(())
 }
 
-test_verify_one_file! {
-    #[test] unit_struct_as_fn_not_supported_self_ctor verus_code! {
+test_verify_one_file_with_options! {
+    #[test] zero_arity_constructor_as_fn_self_ctor ["vstd", "--no-cheating"] => verus_code! {
         struct A();
 
         impl A {
             fn test()
             {
                 let a = Self;
+                let value = a();
+                assert(value == Self());
             }
         }
-    } => Err(err) => assert_vir_error_msg(err, "using a datatype constructor as a function value")
+    } => Ok(())
 }
 
 test_verify_one_file_with_options! {
