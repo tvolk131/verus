@@ -1,0 +1,517 @@
+{
+  "collect_controller_sha256": "7407140065bac68df3d5156553b32c480967e445dd3c804ec79bc864921675fb",
+  "replay": [
+    "python3 -B evidence/borrow-entry-handoff-review/replay.py prepare",
+    "python3 -B evidence/borrow-entry-handoff-review/replay.py stbor",
+    "python3 -B evidence/borrow-entry-handoff-review/replay.py tree",
+    "python3 -B evidence/borrow-entry-handoff-review/replay.py compiler",
+    "python3 -B evidence/borrow-entry-handoff-review/compare.py",
+    "python3 -B evidence/borrow-entry-handoff-review/collect.py"
+  ],
+  "reviewer_commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/source/tools/research/native_entry_type_binding/check.py",
+        "--freeze",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/evidence/borrow-entry-handoff-review/compiler-rebound-freeze.json",
+        "--output",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler-wrapper/replay.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler-wrapper/replay.json",
+      "sha256": "d9ada33c4139c34a66a994e83c8e6d0fb92dca6e92cd099fb394bd944d9269d8"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqc",
+        "-v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/coq-version.log",
+      "log_sha256": "625f4d8322cf2b6032d50a08d30325532761976b946631de9754a1cd896d0ad5",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/coq-version.json",
+      "sha256": "07db8632d1647dc215e21e8af7ac2d16e258c124e55f2084702f8f34c8be32d7"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "repl",
+        "-q",
+        "-batch",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source",
+        "EntryHandoff",
+        "-l",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/delivered/bodies.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/delivered.log",
+      "log_sha256": "273617ddc9994b9282d80f664d0757d621342875555fdb53177d7c2da4100700",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/delivered.json",
+      "sha256": "40d623016a4048fb2092aa6a74c5259e6ee6465b762b554ccf60d7408a87847c"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "repl",
+        "-q",
+        "-batch",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source",
+        "EntryHandoff",
+        "-l",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/fresh/bodies.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/fresh.log",
+      "log_sha256": "273617ddc9994b9282d80f664d0757d621342875555fdb53177d7c2da4100700",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/fresh.json",
+      "sha256": "763afa89c79a2fe4ead6b1e040e06f9df4eb71c0dce0af774c7780caf1f7b614"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "--version"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/rocq-version.log",
+      "log_sha256": "307af1b4a460c148e60dcf08f607e77e6f93fe2e04d5a16b299aae991a5f3e76",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/rocq-version.json",
+      "sha256": "b3510b6e2ddf3eb5c302fffee9e39d4bf035d34843f0982a18efddd0a16e6d9d"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/ocamlc",
+        "-version"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/stbor-ocaml-version.log",
+      "log_sha256": "1372a37e89ee35128cba1d23d147c9d05b1a0fedb8bda89a4ebda83bcd4b0b8b",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/stbor-ocaml-version.json",
+      "sha256": "3d62d43f1fae86e4c42d20f0c7504718c8703ec165550dfce7f4146d4e5e0366"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/ocamlc",
+        "-version"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/tree-ocaml-version.log",
+      "log_sha256": "adb2e521b42258280c3d33f0baa7a21ec82c893443fcd1b44ebda0e92af5dd2d",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/object-comparison/tree-ocaml-version.json",
+      "sha256": "d3b066fdf33289ef4bb048030a7d5d3e5e56217efbd16fe6d2fdce74c6038656"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor-driver.py",
+        "fresh",
+        "accept"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/driver-accept.log",
+      "log_sha256": "d0cd2bfb15e5d9d2fa23571bde1f94e8a9d68a6e759c6fd0698d004bf2096a75",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/driver-accept.json",
+      "sha256": "569409be1ff85875984bac5cc777213ccc16b06d0994a8329b451950b7ef4852"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqc",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh",
+        "handoff",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/candidate.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/compile-candidate.log",
+      "log_sha256": "d7b55108e1a62eb5c9888b2e8cf53795ea2d6f63195f112a3d3c7575d121a353",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/compile-candidate.json",
+      "sha256": "893b4b76cca501296d511032daf8cf45d16c3b69c91c6e8ed55a0574c3768165"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqc",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh",
+        "handoff",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/composition.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/compile-composition.log",
+      "log_sha256": "d7b55108e1a62eb5c9888b2e8cf53795ea2d6f63195f112a3d3c7575d121a353",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/compile-composition.json",
+      "sha256": "45fbf015fd2e6f2d542f604466b3718e12d647b1935e0df429c5725596397d95"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqtop",
+        "-quiet",
+        "-batch",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh",
+        "handoff",
+        "-l",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/independent/queries.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/independent-inventory.log",
+      "log_sha256": "0b23d080a3146fb1600d6adc6e1fd7f7dc451ec21b6a5c94475494e22ad3890f",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/independent-inventory.json",
+      "sha256": "f42bc08e1d28c17055830f432b86e6a016bb0d85004e44846a14a2085c6989c2"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqtop",
+        "-quiet",
+        "-batch",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh",
+        "handoff",
+        "-l",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/inventory.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/inventory.log",
+      "log_sha256": "850bceccb0efb0b1d94c7d4739317410e12f5d63a0871b08238e80c9c2db6a65",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/inventory.json",
+      "sha256": "44efa6fb3e5438b95b434a9b455e66f288822ac9e49ece85d7f3a86fbeffe097"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/bin/coqchk",
+        "-coqlib",
+        "/tmp/stbor-checked-foundation-20261110/opamroot/legacy/lib/coq",
+        "-Q",
+        "/tmp/stbor-checked-foundation-20261110/src/stacked-borrows/theories",
+        "stbor",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh",
+        "handoff",
+        "-o",
+        "handoff.candidate",
+        "handoff.composition"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/kernel.log",
+      "log_sha256": "ea9d2170ede46737f7a956486e335e3a46f2914ec1ec4cc796b9626a424b0e87",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/kernel.json",
+      "sha256": "55afea8fc98c4cb7aae79463e4f45c7251ee0292456ff2cec4ffddbe5450fc93"
+    },
+    {
+      "argv": [
+        "/tmp/stbor-checked-foundation-20261110/object-reader-v3/vo-summary",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/candidate.vo",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/composition.vo"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/object-summary.log",
+      "log_sha256": "21e1ca52b31b0cd1eed7a9b0e7905ac61d624c64f0033c54849e8ecedd0ab807",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/object-summary.json",
+      "sha256": "3c6f6f9dc2e31a0584f31f866890c5d7825a8eb577ac906446f79012e6fa9b55"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "compile",
+        "-q",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source",
+        "EntryHandoff",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/Entry.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/compile.log",
+      "log_sha256": "273617ddc9994b9282d80f664d0757d621342875555fdb53177d7c2da4100700",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/compile.json",
+      "sha256": "f2ff6b84d498aa997c394b96dd1af2187e26082ddec8fdc21e32bd26a6febf6d"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "repl",
+        "-q",
+        "-batch",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source",
+        "EntryHandoff",
+        "-l",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/independent/queries.v"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/independent-inventory.log",
+      "log_sha256": "6a1eeb1a61c4bb0a6cbd2d9a5fdeee97f43f15dd58cc8b1e64541f75b65a9478",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/independent-inventory.json",
+      "sha256": "68dc241f342cb7f7a1acc40e735f37ae826532dde5ae4a5f35f25d24579af409"
+    },
+    {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "check",
+        "-o",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source",
+        "EntryHandoff",
+        "EntryHandoff.Entry"
+      ],
+      "exit": 0,
+      "log": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/kernel.log",
+      "log_sha256": "521b4b7b9f314c1fbca1a7738327665824aac66f20bc729ee322fbafe44018d0",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/kernel.json",
+      "sha256": "c3aa59b93a536f4ed22f603d8167e39acd705297ccb43a7bc59fa3f7a06be7c0"
+    },
+    {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "-vV"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 0,
+      "label": "version",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.47538242099108174,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f22d5e4e9ced367e774ce5bc140d9e6b1235c1882fec80d011044851f3ae6369"
+    },
+    {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/source/tools/research/native_entry_type_binding/query.rs",
+        "--edition=2024",
+        "--crate-name",
+        "entry_type_query",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Cprefer-dynamic",
+        "-o",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/entry-type-query"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 0,
+      "label": "build-query",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 1.1476224819780327,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/source/tools/research/native_entry_type_binding/probes.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on",
+        "--emit=metadata",
+        "-o",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/probes.rmeta"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 0,
+      "label": "ordinary-probes",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.04314774100203067,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/entry-type-query",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/probes.json",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/source/tools/research/native_entry_type_binding/probes.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 0,
+      "label": "query-probes",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.04240371799096465,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/entry-type-query",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/writer.json",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/source/tools/research/native_iterator_certificate/fixtures/original.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 0,
+      "label": "query-writer",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.028780355991329998,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/entry-type-query",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/canonical.json",
+        "/home/dev/.t3/worktrees/verus/t3-a6eab20d/source/tools/research/varint_canonical_goal/candidate-008.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on",
+        "--extern",
+        "vstd=/tmp/native-entry-type-binding-20261110-delivered/libvstd.rlib",
+        "-L",
+        "dependency=/tmp/native-entry-type-binding-20261110-delivered"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 0,
+      "label": "query-canonical",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.038358605990651995,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/pinned-unpin.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on",
+        "--crate-name",
+        "negative_trait",
+        "--emit=metadata",
+        "-o",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/pinned-unpin.rmeta"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 1,
+      "label": "pinned-unpin",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.032622684026136994,
+      "stderr_sha256": "77c71607e3910a170e188525b8ab676fd4eaf4af5f7275712bc9b902dc153eea",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/pinned-unsafe-unpin.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on",
+        "--crate-name",
+        "negative_trait",
+        "--emit=metadata",
+        "-o",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/pinned-unsafe-unpin.rmeta"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 1,
+      "label": "pinned-unsafe-unpin",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.029062765010166913,
+      "stderr_sha256": "7881cc6e61b72368b8a24f432e4ab8e2e4a8c7c58ff43d5af62b53c615a1c91f",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/cell-freeze.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-Coverflow-checks=on",
+        "--crate-name",
+        "negative_trait",
+        "--emit=metadata",
+        "-o",
+        "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/cell-freeze.rmeta"
+      ],
+      "cwd": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler",
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1"
+      },
+      "exit_code": 1,
+      "label": "cell-freeze",
+      "receipt": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "seconds": 0.030306520988233387,
+      "stderr_sha256": "8e03e96a9f3abafad0aa4c55bc399597855660abc2104ec32c633d985dff9b9e",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "root_is_fresh_and_must_not_be_reused": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d"
+}

@@ -1,0 +1,93 @@
+{
+  "baseline_rebuilt": false,
+  "classification": "INDEPENDENT_CONDITIONAL_MODEL_AND_COMPILER_CHECKPOINTS_ONLY",
+  "compiler": {
+    "all_final_guards_passed": true,
+    "commands": 9,
+    "no_assert_as_acceptance": true,
+    "ordinary_E0277_exit_one": 3,
+    "positive_exit_zero": 6,
+    "query_data_identical_to_delivery": true
+  },
+  "compiler_rejections_are_trait_controls_not_application_semantic_negatives": true,
+  "findings": [
+    {
+      "finding": "successful_compilation_receipts includes interface-02 exit_code 1 at line 23; this is elaboration history, not successful evidence; final-01/kernel-final-01/inventory-final-01 and fresh checks pass.",
+      "location": "source/tools/research/tree_borrows_entry_handoff/MILESTONE.json:6",
+      "mathematical_acceptance_blocked": false,
+      "severity": "P3"
+    }
+  ],
+  "fresh_setup_or_elaboration_failures": [],
+  "fresh_whole_goal_acceptance_performed": false,
+  "full_recursive_kernels_without_exclusions": true,
+  "goal_complete": false,
+  "inherited_hmac": "1/1 UNPROVED",
+  "inherited_varint": "6/0",
+  "native_correspondences": 0,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "own_sources_normally_compiled": true,
+  "pretrial_commit": "69249063",
+  "production_changed": false,
+  "publication": false,
+  "receipts": {
+    "compiler": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/compiler/receipt.json",
+      "sha256": "a6b8626f0d291460495f4f04749319bf9876889b9332a27cf441bbe98fcbe0c1"
+    },
+    "stacked_acceptance": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/fresh/acceptance.json",
+      "sha256": "e178df9b7adb2714ed6ae177271db895da11e972ab2488d7088d8a1445b666e0"
+    },
+    "stacked_driver": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/stbor/driver-accept.json",
+      "sha256": "569409be1ff85875984bac5cc777213ccc16b06d0994a8329b451950b7ef4852"
+    },
+    "tree_auth_after": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/authentication-after.json",
+      "sha256": "e4571d5f9bc24ab3431e0866c9425d82499bf8e1b9bd8ba4f9761ab8e09c7273"
+    },
+    "tree_auth_before": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/authentication-before.json",
+      "sha256": "e4571d5f9bc24ab3431e0866c9425d82499bf8e1b9bd8ba4f9761ab8e09c7273"
+    },
+    "tree_compile": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/compile.json",
+      "sha256": "f2ff6b84d498aa997c394b96dd1af2187e26082ddec8fdc21e32bd26a6febf6d"
+    },
+    "tree_inventory": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/independent-inventory.json",
+      "sha256": "68dc241f342cb7f7a1acc40e735f37ae826532dde5ae4a5f35f25d24579af409"
+    },
+    "tree_kernel": {
+      "path": "/tmp/borrow-entry-handoff-review-20261110-t3-a6eab20d/tree/source/kernel.json",
+      "sha256": "c3aa59b93a536f4ed22f603d8167e39acd705297ccb43a7bc59fa3f7a06be7c0"
+    }
+  },
+  "review_base": "37950d9d0f4d3d3b20b8b091e10be748df353b5a",
+  "scope_commit": "eeca1cdc",
+  "semantic_negatives": [],
+  "stacked": {
+    "all_loaded_object_hashes_and_dependency_maps_match": true,
+    "definitions": 3,
+    "lemmas": 22,
+    "libraries": 282,
+    "own_closed": 25,
+    "own_objects_byte_identical": true
+  },
+  "tree": {
+    "all_17_printed_bodies_identical_to_delivery": true,
+    "all_upstream_loaded_object_hashes_match": true,
+    "kernel_constants_including_record_projections": 15,
+    "libraries": 458,
+    "object_byte_identical": false,
+    "own_closed": 17,
+    "physical_source_path_embedded": true,
+    "record_and_constructor": 2,
+    "recursive_constants": 51983
+  }
+}
