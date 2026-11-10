@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "scope": "Checked source-loan model foundations and parent integration audit; no actual native theorem",
+  "handoff_commit": "05581f4b",
+  "integration_commit": "4ec4baa6",
+  "active_source_checkpoint": "d9a82fac",
+  "accepted_candidate": "native_semantic_bridge/candidates/loan-v12",
+  "model_named_theorems": 18,
+  "byte_type_obligations": 6,
+  "original_recursive_kernel_check": {
+    "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/receipt.json",
+    "sha256": "3867cadb95dd7a07aaf9fad265b60a66e7c455580de9dd4d88a15564eecb97e0",
+    "success": true
+  },
+  "parent_object_and_source_hash_audit": {
+    "borrow_handoff": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/borrow_handoff.vo",
+      "sha256": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+      "source_sha256": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4"
+    },
+    "byte_array": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/byte_array.vo",
+      "sha256": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+      "source_sha256": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70"
+    },
+    "raw_view": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/raw_view.vo",
+      "sha256": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+      "source_sha256": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909"
+    },
+    "model_limits": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/model_limits.vo",
+      "sha256": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+      "source_sha256": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a"
+    }
+  },
+  "new_constant_logical_axioms": [
+    "functional_extensionality_dep"
+  ],
+  "dependency_kernel_summary_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "kernel_summary": {
+    "path": "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/kernel-check.stderr",
+    "sha256": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526",
+    "unsafe_fixpoints": false,
+    "type_in_type": false,
+    "assumed_positivity": false,
+    "rewrite_rules_allowed": false
+  },
+  "parent_freeze": "native_semantic_bridge/parent-replay-freeze.json",
+  "input_reconciliation": "Only foundation-pin readiness metadata changed; repository/commit/source-file hashes and all selected proof/controller bytes preserved. Historical candidate freeze unchanged.",
+  "parent_controls": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/parent-semantic-d9a82fac/receipt.json",
+    "sha256": "ce70218d2e6f170aa255ddaa0b14a7ae062286a635e064c583e9fba446332a10",
+    "source_operations_unproved_rejected": 44,
+    "phase_obligations_unproved": 3,
+    "eligibility_controls": 8,
+    "readiness_controls": 3,
+    "semantic_negatives": 0,
+    "fresh_parent_kernel_recheck": false
+  },
+  "archive": {
+    "commit": "05581f4b",
+    "manifest": "native_semantic_bridge/HISTORY.json",
+    "superseded_source_files": 41,
+    "lines_removed_from_active_tree": 2733,
+    "historical_freezes_and_failed_receipts_retained": true
+  },
+  "independent_review": "pending fresh review",
+  "native_input_embedding_proved": false,
+  "native_MIR_simulation_proved": false,
+  "Verus_CF_import_proved": false,
+  "actual_native_correspondences": 0,
+  "native_effects_open": 101,
+  "native_drop": {
+    "last_outcome": "0 verified /1 postcondition error",
+    "rerun_by_this_audit": false
+  },
+  "full_HMAC_proved": false,
+  "publication": false,
+  "goal_complete": false
+}

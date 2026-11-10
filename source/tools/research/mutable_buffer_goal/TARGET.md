@@ -46,8 +46,11 @@ obligations remain open. A smaller constructor/drop case has a complete six-inst
 proof. The next step carries one ownership interpretation through the actual
 constructor operand, pointer operations and drop, avoiding a second live Rust
 borrow. The [pinned VerusBelt baseline](foundation-baseline.json) now compiles
-and passes recursive kernel checking. New same-reference physical access and
-restoration scripts remain distinct from a native Rust interpretation theorem.
+and passes recursive kernel checking. The new same-reference physical access,
+restoration and byte-array scripts also compile and pass recursive kernel
+checking: [18 model theorems and six byte-type obligations](parent-semantic-foundation.json).
+Parent source/readiness controls pass; fresh independent review is pending.
+The model results remain distinct from a native Rust interpretation theorem.
 No assumed final/current equation, executable rewrite or new unchecked
 dependency law is permitted. Shared automation must remove actual proof work on
 both full properties; parser reuse or a conditional model theorem is insufficient.
