@@ -69,6 +69,17 @@ Policy69/cache72 invalidate prior inferred
 interfaces/candidates; regenerate providers and dependents with the combined
 compiler. Schema38 is unchanged.
 
+The original `Item::tag` composition now checks19/0 on/off with private genuine
+carriers, no local proof blocks/calls, and all three required Eq checks. Imported
+lookup checks1/0. The [source-component record](parent-item-tag-composition.json)
+binds the fresh parent replay and retained evidence. Its internal representation
+predicate allows arbitrary high flag bits; no preservation across native stack
+transitions or extra application precondition is claimed. Full original
+`Item::new` remains36/1 at its protector debug assertion. Actual bool conversion
+is0/1; the inspected one-cast MIR and passing local mirror are not a checked
+foreign-body bridge. Imported Eq/value observation compatibility is a separate
+unproved interface relation.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection

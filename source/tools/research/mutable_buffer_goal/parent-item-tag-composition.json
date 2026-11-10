@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "scope": "Original Item.tag internal represented-word contract; source component only, not native transition invariant.",
+  "worker_commits": [
+    "ad9aae5252dcd4d8a0f7bd0b9c3f0bc681ba209c",
+    "61897724b476a576bb299ebb0092c30a586de491"
+  ],
+  "integrated_commits": [
+    "6d4c43a1",
+    "91b64f51"
+  ],
+  "parent_review": "Fresh root source-fidelity/body/obligation replay; no new production changes.",
+  "receipt": "/tmp/verus-infer-buffer-cycle-20261109/item-tag-parent-v2/receipt.json",
+  "receipt_sha256": "ba75225dcf12c21a8f7c17fcfdef493d1083aa3ed2c865d74740b0a66de476aa",
+  "worker_epochs_authenticated": 36,
+  "worker_products_authenticated": 1046,
+  "historical_git_bindings": 144,
+  "original_tag": "19/0 goals on/off, private genuine carriers and original constructor spelling",
+  "ordinary_exec_bodies": 12,
+  "inferred_helper": "component::BorTag::eq",
+  "required_checks": "soundness/maximality/exactness all proved",
+  "manual_proof_bodies": 0,
+  "manual_proof_blocks": 0,
+  "manual_theorem_calls": 0,
+  "internal_domain": "(Item.word() & (u64::MAX>>3)) !=0; arbitrary high flags",
+  "application_preconditions_added": false,
+  "false_relation": "19/1 solely false_relation with healthy Eq obligations",
+  "imported_lookup": "1/0, no local helper, imported closed signatures",
+  "imported_Eq_value_compatibility": "UNPROVED separate closed-observation relation",
+  "full_Item_new": "36/1 UNPROVED solely original protector debug assertion",
+  "full_constructor_support": "36/0 checked manual packing support; not a full constructor proof",
+  "bool_conversion": "actual From<bool>0/1; optimized MIR one Bool->U64 cast thenReturn; local1/0mirror is NOT a foreign-body proof",
+  "foreign_bridge_proposal": "../item_tag_constructor_composition/proposal.md",
+  "excluded_parent_controller": "../tmp/constructor-parent-replay log naming mismatch; exact failed receipt /tmp/verus-infer-buffer-cycle-20261109/item-tag-parent/receipt.json retained",
+  "accepted_engine": "3aa7f49a policy69/cache72/schema38 unchanged",
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "open_obligations": "44minimal+3phase/101writer effects OPEN",
+  "publication": false,
+  "goal_complete": false
+}
