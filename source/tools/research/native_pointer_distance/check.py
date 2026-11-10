@@ -184,7 +184,7 @@ def main():
         receipt['assumptions'] = {n:parse_axioms(body) for n,body,_ in sections}
         require(out.split('END '+names[-1], 1)[1].strip().splitlines() ==
                 ['Closed under the global context'] * len(helper_names), 'inspection helpers not individually closed')
-        inspect_text = 'From NativePointerDistance Require Import '+ ' '.join(MODULES)+'.\n'
+        inspect_text = 'From NativePointerDistance Require Import '+ ' '.join([*MODULES, 'Assumptions'])+'.\n'
         inspect_text += ''.join(f'Redirect "module-{m}" Print Module NativePointerDistance.{m}.\n'
                                 for m in [*MODULES, 'Assumptions'])
         inspect_file = work/'Inspection.v'
