@@ -30,7 +30,7 @@ Proof.
     apply (P2 loc mid pm t ac LOOK1); [by rewrite C1|done].
 Qed.
 
-Lemma successful_reference_frame fns sigma l old rk n new alpha' next c cids :
+Lemma successful_reference_frame (fns : fn_env) sigma l old rk n new alpha' next c cids :
   Wf sigma -> sigma.(scs) = c :: cids ->
   retag sigma.(sst) sigma.(snp) sigma.(scs) c l old rk
     (RefPtr Mutable) (FixedSize n) = Some (new, alpha', next) ->
@@ -71,7 +71,7 @@ Lemma two_phase_grant_on_unique cids p q prot tail :
 Proof.
   rewrite /grant /find_granting /=.
   rewrite decide_True; last by split.
-  simpl. rewrite /item_insert_dedup /= decide_False //.
+  by simpl.
 Qed.
 
 Lemma two_phase_exact_installation alpha next c cids l p n new alpha' next' :
@@ -90,7 +90,10 @@ Proof.
     (FixedSize n) new alpha' next') as [TAG NEXT].
   - simpl. lia.
   - exact RT.
-  - subst new. rewrite two_phase_grant_on_unique in GR.
+  - subst new.
+    change (grant (mkItem Unique (Tagged p) prot :: tail) (Tagged p)
+      (mkItem SharedReadWrite (Tagged next) None) cids = Some stk') in GR.
+    rewrite two_phase_grant_on_unique in GR.
     injection GR as EQ. by subst stk'.
 Qed.
 
@@ -163,6 +166,21 @@ Lemma published_fnentry_two_phase_128 fns sigma l old c cids :
   valid_block sigma.(sst) sigma.(scs) l old (RefPtr Mutable) (FixedSize 128) ->
   exists entry final, entry_reborrow_contract fns sigma l old 128 c entry final.
 Proof. intros. eapply published_fnentry_two_phase; [lia|eassumption..]. Qed.
+
+(* Any supplied initialized scalar vector is preserved, with no restriction on
+   its values. This frames bytes; it does not prove the pad-XOR writer. *)
+Lemma entry_reborrow_keeps_initialized_vector fns sigma l old n c entry final
+    base (bytes : list Z) :
+  entry_reborrow_contract fns sigma l old n c entry final ->
+  (forall (i : nat) b, bytes !! i = Some b ->
+    sigma.(shp) !! (base +ₗ i) = Some (ScInt b)) ->
+  forall (i : nat) b, bytes !! i = Some b ->
+    final.(shp) !! (base +ₗ i) = Some (ScInt b).
+Proof.
+  unfold entry_reborrow_contract.
+  intros (_ & _ & _ & _ & _ & _ & _ & _ & FRAME & _) INIT i b LOOK.
+  destruct FRAME as (HEAP & _). rewrite HEAP. exact (INIT i b LOOK).
+Qed.
 
 (* n=0 requires no allocated stack location in this historical model: even an
    Untagged/dangling model location stutters. This is NOT current Rust behavior. *)

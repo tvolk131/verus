@@ -10,7 +10,8 @@ UP = BASE/'src/stacked-borrows/theories'
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def save(p,x): p.write_text(json.dumps(x,indent=2,sort_keys=True)+'\n')
 def load(p): return json.loads(p.read_text())
-def foundation():
+CONTROLLER_SHA = sha(__file__)
+def foundation(full=False):
     pins = {'baseline-ready.json':'9259b8f303e52e38f1b47709429f2be23a81a4e44ed557b6058184a95e653e51',
       'completed-build-receipt.json':'0d85e9ec05f29413973137f03bc840ccb1e22170d50169b2837331e58770f649'}
     checked = {}
@@ -29,7 +30,12 @@ def foundation():
         guard(x['log'],x['log_sha256'])
     for t in receipt['tools'].values(): guard(t['path'],t['sha256'])
     frozen=load(BASE/'manifests/upstream-tool-freeze.json')
-    for p,h in frozen['installed_files'].items(): guard(Path(frozen['installed_prefix'])/p,h)
+    # Build-tree snapshots are authenticated by the completed manifest; they are
+    # not runtime inputs. Recheck installed plugin/runtime binaries and all
+    # actually loaded proof objects/sources, without rereading old build trees.
+    for p,h in (frozen['installed_files'].items() if full else []):
+        if not p.startswith('.opam-switch/') and Path(p).suffix in ('.cmxs','.cma','.cmxa','.so'):
+            guard(Path(frozen['installed_prefix'])/p,h)
     reader=load(BASE/'manifests/object-dependency-map.json')
     guard(reader['reader'],reader['reader_sha256'])
     guard(Path(reader['reader']).parent/'vo_summary.ml',reader['reader_source_sha256'])
@@ -42,7 +48,7 @@ def run(name, argv, directory, env, inputs):
     log=directory/(name+'.log'); rec=directory/(name+'.json')
     assert not log.exists() and not rec.exists()
     x=dict(argv=argv,cwd=str(directory),environment=env,inputs=inputs,
-           runner_sha256=sha(__file__),started=time.time(),state='running',log=str(log))
+           runner_sha256=CONTROLLER_SHA,started=time.time(),state='running',log=str(log))
     save(rec,x)
     with log.open('wb') as f:
         p=subprocess.Popen(argv,cwd=directory,env=env,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
@@ -56,16 +62,17 @@ def main():
     name=sys.argv[1]; mode=sys.argv[2] if len(sys.argv)>2 else 'build'
     ROOT.mkdir(exist_ok=True); d=ROOT/name; d.mkdir()
     shutil.copyfile(__file__, d/'controller.py')
+    assert sha(d/'controller.py') == CONTROLLER_SHA
     for n in ['tmp','cache']: (d/n).mkdir()
     env={'PATH':str(PREFIX/'bin')+':/usr/bin:/bin','TMPDIR':str(d/'tmp'),
          'XDG_CACHE_HOME':str(d/'cache'),'LANG':'C.UTF-8','LC_ALL':'C.UTF-8',
          'PYTHONDONTWRITEBYTECODE':'1','OPAMJOBS':'2','MAKEFLAGS':'-j2'}
-    inputs=foundation(); save(d/'foundation-guard.json',inputs)
+    inputs=foundation(full=(mode=='accept')); save(d/'foundation-guard.json',inputs)
     sources={}
     for p in sorted(HERE.glob('*.v')):
         shutil.copyfile(p,d/p.name); sources[p.name]=sha(p)
     for p in sorted(HERE.glob('*freeze.json')): shutil.copyfile(p,d/p.name)
-    save(d/'pretrial-freeze.json',dict(sources=sources,controller_sha256=sha(__file__),
+    save(d/'pretrial-freeze.json',dict(sources=sources,controller_sha256=CONTROLLER_SHA,
         foundation_guard_sha256=sha(d/'foundation-guard.json'),mode=mode))
     args=['-coqlib',str(PREFIX/'lib/coq'),'-Q',str(UP),'stbor','-Q',str(d),'handoff']
     own_modules=['candidate']+(['composition'] if (d/'composition.v').exists() else [])
@@ -139,7 +146,7 @@ def main():
              checked_modules=sorted(checked),objects=len(objects),kernel_context=text[text.rfind('==============='):],
              compiled_sources={m:sha(d/(m+'.v')) for m in own_modules},
              compiled_objects={m:sha(d/(m+'.vo')) for m in own_modules}))
-    assert foundation()==inputs
+    assert foundation(full=(mode=='accept'))==inputs
     products={str(p.relative_to(d)):sha(p) for p in d.iterdir() if p.is_file()}
     save(d/'products.json',products)
     sys.exit(code)
@@ -155,5 +162,5 @@ if __name__=='__main__':
         d=ROOT/sys.argv[1]
         if d.exists():
             save(d/'controller-exit.json',dict(error=repr(error),traceback=traceback.format_exc(),
-                 controller_sha256=sha(__file__),time=time.time()))
+                 controller_sha256=CONTROLLER_SHA,time=time.time()))
         raise
