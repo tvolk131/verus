@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "classification": "compiler_typing_and_queries_only",
+  "status": "exact local compiler checks passed; independent combined review remains required",
+  "compiler_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "pretrial_freeze": {
+    "path": "trial003-freeze.json",
+    "sha256": "aff3935833c84d760d030b1680a832d1209b91c43eb9bdfc81a5a17f41e13e7e"
+  },
+  "receipt": {
+    "path": "/tmp/native-entry-type-binding-20261110-trial003/receipt.json",
+    "sha256": "e4a94a85107c5430cd1289ec6f27a921e4879da0dbe755b50124f85a3073df75"
+  },
+  "commands": 9,
+  "accepted_ordinary_trait_rejections": 3,
+  "all_final_guards_passed": true,
+  "python_mode": "-B -O",
+  "actual_parameters": {
+    "canonical": [
+      {
+        "function": "u64",
+        "parameter": 0,
+        "parameter_type": "u64",
+        "reference_kind": "value",
+        "subject_type": "u64",
+        "byte_array": false,
+        "byte_slice": false,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": true,
+        "static_size": 8,
+        "minimum_size": 8,
+        "align": 8,
+        "backend": "Scalar(u64 is ..)",
+        "parameter_size": 8
+      },
+      {
+        "function": "u64",
+        "parameter": 1,
+        "parameter_type": "&mut [u8; U64_LEN]",
+        "reference_kind": "Mut",
+        "subject_type": "[u8; U64_LEN]",
+        "byte_array": true,
+        "byte_slice": false,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": true,
+        "static_size": 10,
+        "minimum_size": 10,
+        "align": 1,
+        "backend": "Memory { sized: true }",
+        "parameter_size": 8
+      }
+    ],
+    "writer": [
+      {
+        "function": "xor_key",
+        "parameter": 0,
+        "parameter_type": "&mut [u8; 128]",
+        "reference_kind": "Mut",
+        "subject_type": "[u8; 128]",
+        "byte_array": true,
+        "byte_slice": false,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": true,
+        "static_size": 128,
+        "minimum_size": 128,
+        "align": 1,
+        "backend": "Memory { sized: true }",
+        "parameter_size": 8
+      },
+      {
+        "function": "xor_key",
+        "parameter": 1,
+        "parameter_type": "&[u8]",
+        "reference_kind": "Not",
+        "subject_type": "[u8]",
+        "byte_array": false,
+        "byte_slice": true,
+        "unpin": true,
+        "unsafe_unpin": true,
+        "freeze": true,
+        "sized": false,
+        "static_size": null,
+        "minimum_size": 0,
+        "align": 1,
+        "backend": "Memory { sized: false }",
+        "parameter_size": 16
+      }
+    ]
+  },
+  "universal_type_requirements": "ordinary rustc metadata compilation checked [u8;N] for arbitrary const N and [u8], requiring Unpin + UnsafeUnpin + Freeze without supplying those bounds as premises",
+  "query_counts": {
+    "probes": 7,
+    "writer": 2,
+    "canonical": 2
+  },
+  "copied_completed_erasure_bundle": {
+    "path": "/tmp/native-entry-type-binding-20261110-delivered/bundle.json",
+    "sha256": "aae1f6b375c4b6f558d6cc62d4268925f959105a79bde920dc102884d72a3012",
+    "purpose": "future isolated replay; identity copy only"
+  },
+  "excluded_development_trials": [
+    {
+      "path": "/tmp/native-entry-type-binding-20261110-trial001/receipt.json",
+      "sha256": "ebdfd2e951f1ccb7020ee48aad9221ea4fb6b61e012f920cac1fd5ee8b0d7ab8",
+      "classification": "controller invoked before freeze completion; zero compiler commands"
+    },
+    {
+      "path": "/tmp/native-entry-type-binding-20261110-trial002/receipt.json",
+      "sha256": "3e033b0f64fae8ca6d1e3876d2968cf8e9ae271bdf4600fef1e339452efbf0f7",
+      "classification": "all compiler/queries passed; controller expected literal 10 instead of symbolic U64_LEN. Replaced display-name check by structural TyKind plus exact compiled layout; excluded from acceptance."
+    }
+  ],
+  "runtime_permissions_derived": false,
+  "source_safety_proved": false,
+  "actual_source_bridge_proved": false,
+  "native_correspondences": 0,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "canonical": "6/0 inherited; not reverified here",
+  "full_HMAC": "1/1 inherited/unproved; no native execution here",
+  "production_changed": false,
+  "publication": false,
+  "goal_complete": false
+}
