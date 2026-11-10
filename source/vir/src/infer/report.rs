@@ -1,4 +1,5 @@
-//! Observations of candidate generation, never proof evidence or cache inputs.
+//! Generation observations and requests for additional ordinary checking.
+//! These records never supply proof facts or cached proof results.
 use super::*;
 
 /// Reporting coverage, never a registry of enabled or verified proof strategies.
@@ -27,6 +28,9 @@ pub struct GenerationReport {
     pub assistance_preparation_started: bool,
     pub assistance_preparation_completed: bool,
     pub assistance_decisions: Vec<AssistanceDecision>,
+    /// New body statements must pass full well-formedness and mode checking.
+    /// This set requests more checks; it never certifies an annotation.
+    pub body_rechecks: std::collections::HashSet<Fun>,
     /// Scoped lemma selections are observations, never proof receipts.
     pub goal_lemmas: Vec<(Fun, Vec<Fun>)>,
     pub view_bound_lemmas: Vec<(Fun, Vec<Fun>)>,

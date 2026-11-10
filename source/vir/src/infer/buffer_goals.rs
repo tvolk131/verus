@@ -853,6 +853,7 @@ pub fn prepare(
                 &step,
                 &extra,
             )?;
+            report.body_rechecks.insert(f.x.name.clone());
             report.assistance_decisions.push(report::AssistanceDecision {
                 function: f.x.name.clone(),
                 source: s.source.loop_expr.span.clone(),

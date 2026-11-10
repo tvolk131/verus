@@ -623,15 +623,30 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 stubs.insert(f.x.name.clone(), vir::ast_util::function_to_stub(f));
             }
             let stubs = Arc::new(stubs);
+            let lookup = self.get_demote_trait_lookup()?;
             for f in &cratex.functions {
-                let (wf, errors, diags) = vir::well_formed::check_generated_contracts(
-                    &pre_crate.krate_without_funs,
-                    stubs.clone(),
-                    initial_wf_results.lookup.clone(),
-                    f,
-                    &warning_ctx,
-                    self.args.no_cheating,
-                );
+                let (wf, errors, diags) =
+                    if self.inference_generation.body_rechecks.contains(&f.x.name) {
+                        vir::well_formed::check_function(
+                            &pre_crate.krate_without_funs,
+                            stubs.clone(),
+                            initial_wf_results.lookup.clone(),
+                            &lookup,
+                            f,
+                            &warning_ctx,
+                            self.args.no_cheating,
+                            self.args.no_verify,
+                        )
+                    } else {
+                        vir::well_formed::check_generated_contracts(
+                            &pre_crate.krate_without_funs,
+                            stubs.clone(),
+                            initial_wf_results.lookup.clone(),
+                            f,
+                            &warning_ctx,
+                            self.args.no_cheating,
+                        )
+                    };
                 self.emit_non_blocking_errors(errors);
                 self.emit_diags(diags);
                 let wf = wf.map_err(|e| {
@@ -729,6 +744,35 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
                 Err(_) => unreachable!(),
             }
         }
+        // Generated statements need the same mode analysis as source statements.
+        // Its maps also cover new reads, temporary places and ghost bindings.
+        let mut krate = krate;
+        if !self.inference_generation.body_rechecks.is_empty() {
+            let stubs: Arc<HashMap<Fun, FunctionStub>> = Arc::new(
+                krate
+                    .functions
+                    .iter()
+                    .map(|f| (f.x.name.clone(), vir::ast_util::function_to_stub(f)))
+                    .collect(),
+            );
+            let wf = self.get_initial_wf_results()?;
+            for f in &mut Arc::make_mut(&mut krate).functions {
+                if self.inference_generation.body_rechecks.contains(&f.x.name) {
+                    let (checked, _, resolution) = vir::modes::check_function(
+                        stubs.clone(),
+                        wf.lookup.clone(),
+                        f,
+                        &demote_trait_lookup,
+                    )
+                    .map_err(|e| self.emit_errors(e))?;
+                    res_infos.remove(&f.x.name);
+                    if let Some(info) = resolution {
+                        res_infos.insert(f.x.name.clone(), Arc::new(info));
+                    }
+                    *f = checked;
+                }
+            }
+        }
         let assisted_loops = self
             .inference_generation
             .growth_loops
@@ -736,6 +780,7 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             .chain(self.inference_generation.range_loops.iter())
             .chain(self.inference_generation.local_folds.iter())
             .map(|(f, _)| f.clone())
+            .chain(self.inference_generation.body_rechecks.iter().cloned())
             .collect();
         let krate = krate_infer_resolution(&krate, &res_infos, &assisted_loops)
             .map_err(|e| self.emit_errors(e))?;
