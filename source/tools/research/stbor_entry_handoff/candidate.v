@@ -118,7 +118,7 @@ Proof.
   exact (INIT i b LOOK).
 Qed.
 
-Lemma two_phase_128_progress fns sigma l p c cids :
+Lemma two_phase_128_progress (fns : fn_env) sigma l p c cids :
   sigma.(scs) = c :: cids -> Wf sigma ->
   mutable_top_block sigma.(sst) l p 128 ->
   exists new alpha' next,
@@ -131,7 +131,7 @@ Proof.
   exists new, alpha', next. exact RT.
 Qed.
 
-Lemma two_phase_10_progress fns sigma l p c cids :
+Lemma two_phase_10_progress (fns : fn_env) sigma l p c cids :
   sigma.(scs) = c :: cids -> Wf sigma ->
   mutable_top_block sigma.(sst) l p 10 ->
   exists new alpha' next,
