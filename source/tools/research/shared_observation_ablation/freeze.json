@@ -16,7 +16,7 @@
     "safety": "5d497fc580dd276841db9b82f131f6f29cafffa69761b12a376e26003b671f39"
   },
   "controller_and_contracts": {
-    "source/tools/research/shared_observation_ablation/experiment.py": "263edf0edeb2a0ec53c40f863459c79ca446e8270f13b7f5bab7da1acfac9726",
+    "source/tools/research/shared_observation_ablation/experiment.py": "38c760b91e7cb61ab7488c0c708f926d450a7db7c2e12ea2ff9f54a28b246b65",
     "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
     "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
     "source/tools/research/varint_canonical_goal/replay.py": "0afdc9205782173675b7c012b1a6b742545e755ec89eff57ad4bf00ff002bfd5",
@@ -98,7 +98,10 @@
         "u64"
       ],
       "proof_bodies": [],
-      "inferred_helpers": []
+      "inferred_helpers": [],
+      "compiler_constant_proxies": [
+        "VERUS_UNERASED_PROXY__U64_LEN"
+      ]
     },
     "prefix": {
       "exec_bodies": [
@@ -146,5 +149,11 @@
   "pretrial_controller_revision": "Correct specification-definition scope status spelling and count error diagnostic headers; no application trials have been run. Initial f519a410 freeze remains in history.",
   "pretrial_vstd_output_gate_revision": "Match the parent verifier source normal output: verification results:: 2226 verified, 0 errors. No application trials yet. Initial in-flight build keeps its original controller and will be retained if this formatting gate rejects it.",
   "pretrial_negative_status_revision": "Parent committed ordinary false-property receipts show encountered-error=true for SMT failures. Keep encountered-vir-error, Rust error codes, resources, full scope and explicit ordinary-only diagnostic-header checks; do not mistake the aggregate error flag for a frontend failure. No application trials yet.",
-  "pretrial_status_gate_revision": "Explicitly require no generation failure, zero requested/generated helpers, healthy aggregate status, and complete preparation exactly when goals enabled; no application trials yet."
+  "pretrial_status_gate_revision": "Explicitly require no generation failure, zero requested/generated helpers, healthy aggregate status, and complete preparation exactly when goals enabled; no application trials yet.",
+  "posttrial_validator_correction": {
+    "prior_controller_commit": "4e3094b7",
+    "retained_raw": "/tmp/shared-observation-ablation-78d09abf/baseline-trials-validator-rejected",
+    "observed": "baseline canonical enabled cold/warm 6/0; disabled 2/2 ordinary obligations accompanied by recommendation notes. Rejected by an overly strict recommendation-note gate before any ablated application trials.",
+    "correction": "Keep full scope, known ordinary error headers, no frontend/resources/panic, exact exec/proof/helper inventories; allow recommendation notes accompanying real SMT failures. Add loop-invariant error header and exact known U64_LEN const-proxy inventory. Match shared validator selected-body semantics. No sources, interventions, expectations or proof obligations change."
+  }
 }

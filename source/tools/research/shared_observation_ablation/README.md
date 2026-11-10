@@ -75,7 +75,7 @@ Shared `infer_experiment` validators bind success, full selected scope, exact
 body/helper inventories, mandatory exact-helper checks and export behavior.
 Ablated failures use `validate_run` and an explicit multi-obligation diagnostic
 gate; they are not strict single-kind semantic negatives. Frontend, mode,
-resource, recommendation, panic or partial-scope failures are invalid causal
+resource, recommendation-only, panic or partial-scope failures are invalid causal
 evidence. The compact auditor rechecks raw receipts and healthy preparation/
 mandatory statuses, stores hashes and exact diagnostic text once per pair, and
 requires identical cold/warm outcomes. Raw setup/build/failed-trial logs remain
@@ -92,3 +92,13 @@ canonical and the prefix diagnostic. Native correspondences remain **0**; all
 Publication: false.** Successful ordinary local export artifacts are only a
 publication-gate control, not whole-goal acceptance. Fresh parent matching
 regressions and independent acceptance remain required.
+
+A retained first baseline receipt reproduced canonical enabled 6/0 twice, then
+the validator rejected canonical-disabled 2/2 because ordinary failures also
+emit recommendation notes. The corrected controller records those notes but
+requires actual ordinary SMT failures. It also explicitly inventories the
+compiler-generated `VERUS_UNERASED_PROXY__U64_LEN` constant proxy (not an authored
+executable/proof body) and accepts the ordinary loop-invariant diagnostic header.
+The correction was committed before any ablated application trial; source hashes,
+interventions and expected outcomes are unchanged. The rejected raw receipt is
+retained and not included in the final accepted matrix.

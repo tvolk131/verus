@@ -240,8 +240,7 @@ def diagnostic(run, expected, execs):
             'causal diagnostic partial/empty')
     require(not v.get('encountered-vir-error'), 'frontend failure is invalid evidence')
     stderr = run['stderr']
-    require(not re.search(r'error\[E\d+\]', stderr) and 'recommendation not met' not in stderr,
-            'frontend/recommendation failure')
+    require(not re.search(r'error\[E\d+\]', stderr), 'Rust frontend failure')
     require(any(x in stderr for x in ('postcondition not satisfied','precondition not satisfied',
         'assertion failed','invariant not satisfied','possible arithmetic underflow/overflow')),
         'no ordinary proof diagnostic')
@@ -249,8 +248,8 @@ def diagnostic(run, expected, execs):
     # explicit ordinary-proof diagnostic headers (plus rustc's abort summary),
     # not that ambiguous aggregate flag, to exclude mixed frontend failures.
     allowed = ('postcondition not satisfied','precondition not satisfied',
-        'assertion failed','invariant not satisfied','possible arithmetic underflow/overflow',
-        'aborting due to ')
+        'assertion failed','invariant not satisfied','loop invariant not satisfied',
+        'possible arithmetic underflow/overflow','aborting due to ')
     require(all(any(line.startswith('error: '+s) for s in allowed)
         for line in stderr.splitlines() if line.startswith('error: ')),
         'mixed frontend or unknown diagnostic header')
@@ -261,11 +260,16 @@ def diagnostic(run, expected, execs):
     scope = inf['verification_scope']
     require(scope.get('native_collection_completed') is True and
             scope.get('complete_selected_scope_verified') is False, 'bad scope status')
-    selected = [b for b in scope['native_functions'] if b.get('selected') is True and
-        b.get('body_status') != 'specification_definition_or_declaration']
+    selected = [b for b in scope['native_functions'] if b.get('selected') is True]
+    proxies = [b for b in selected if b.get('body_status')=='selected_item_without_translated_body']
+    # The frozen canonical const creates this exact compiler proxy. It is not
+    # an authored executable/proof function; do not admit arbitrary unknown items.
+    require_function_coverage(proxies, {'VERUS_UNERASED_PROXY__U64_LEN'} if set(execs)=={'u64'} else set())
+    bodies = [b for b in selected if b.get('body_status') not in
+        ('specification_definition_or_declaration','selected_item_without_translated_body')]
     require(all(b.get('body_status')=='selected_body_not_certified_by_successful_full_run'
-        for b in selected), 'selected body bypass')
-    require_function_coverage(selected,set(execs))
+        for b in bodies), 'selected body bypass')
+    require_function_coverage(bodies,set(execs))
     return data
 
 def trials(out, variant, bundle):
@@ -366,7 +370,8 @@ def trials(out, variant, bundle):
                 functions=inf.get('functions',[]),
                 diagnostic_counts={s:len(re.findall(r'(?m)^error: '+re.escape(s),result['stderr']))
                     for s in ('postcondition not satisfied','precondition not satisfied','assertion failed',
-                        'invariant not satisfied','possible arithmetic underflow/overflow')},
+                        'invariant not satisfied','loop invariant not satisfied',
+                        'possible arithmetic underflow/overflow')},
                 stderr=result['stderr'], stdout_sha256=digest(out/(label+'.stdout')),
                 stderr_sha256=digest(out/(label+'.stderr')),
                 interface_exists=artifact.exists(),cache_files_after={p.name:digest(p)
