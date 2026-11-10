@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "purpose": "minimal native constructor/drop source inventory for checked-lowering implementation",
+  "native_bridge_proved": false,
+  "native_frame_theorem_proved": false,
+  "input": {
+    "purpose": "native constructor/drop source inventory only; no semantics or frame proof",
+    "source_sha256": "d1463d2e641d615518635c388a53657efcd50852d15b3fe0052bed7ce95ae607",
+    "original_diagnostic_sha256": "9fe7fca4434234977b11889229fb07a56c9cdce89e70e08d3d555bf966ca6b93",
+    "controller_sha256": "06f4495ca41c505966109ce289080a786483a34188d7bb752cbaf34174f53b77",
+    "native_bridge_proved": false,
+    "adapter": "rename native_handoff to extractor root xor_key; omit erased Verus contract/prelude; identical executable body"
+  },
+  "raw_receipt": "/tmp/verus-infer-buffer-cycle-20261109/native-drop-inventory-i3rzitda/receipt.json",
+  "raw_receipt_sha256": "366d041ead5732ef34d4aee2db2e7ee461df694b55a2848af9d43e730ab0332c",
+  "summary": {
+    "instances": 6,
+    "operations": 44,
+    "blockers": [],
+    "statement_ops": {
+      "storage_live": 10,
+      "assign": 13,
+      "storage_dead": 10
+    },
+    "terminator_ops": {
+      "call": 2,
+      "return": 6,
+      "switch": 1,
+      "goto": 2
+    },
+    "nested_ops": {
+      "storage_live": 10,
+      "assign": 13,
+      "ref": 1,
+      "deref": 2,
+      "cast": 7,
+      "move": 3,
+      "storage_dead": 10,
+      "call": 2,
+      "constant": 5,
+      "use": 1,
+      "return": 6,
+      "unary": 1,
+      "copy": 11,
+      "raw_ptr": 1,
+      "switch": 1,
+      "goto": 2,
+      "binary": 1,
+      "aggregate": 1,
+      "adt": 1
+    },
+    "instances_inventory": [
+      {
+        "display": "Instance { def: Item(DefId(0:3 ~ native_drop_inventory[6a11]::xor_key)), args: [] }",
+        "kind": "mir",
+        "blocks": 2
+      },
+      {
+        "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::slice::IterMut<'{erased}, u8>] }",
+        "kind": "mir",
+        "blocks": 1
+      },
+      {
+        "display": "Instance { def: Item(DefId(2:15829 ~ core[efd5]::slice::{impl#0}::iter_mut)), args: [u8] }",
+        "kind": "mir",
+        "blocks": 2
+      },
+      {
+        "display": "Instance { def: Item(DefId(2:14892 ~ core[efd5]::slice::iter::{impl#12}::new)), args: ['{erased}, u8] }",
+        "kind": "mir",
+        "blocks": 4
+      },
+      {
+        "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<u8>] }",
+        "kind": "mir",
+        "blocks": 1
+      },
+      {
+        "display": "Instance { def: Shim(DropGlue(DefId(2:3436 ~ core[efd5]::ptr::drop_glue), None)), args: [std::ptr::NonNull<[u8]>] }",
+        "kind": "mir",
+        "blocks": 1
+      }
+    ],
+    "evidence_sha256": "a1db10731ca9210cd59eab0b59aafcc31104aba35559d60d210b780b926817d2"
+  },
+  "syntactic_observation": {
+    "assignment_count": 13,
+    "all_assignment_destinations_are_locals": true,
+    "scope": "Structural observation only; does not prove pointer safety, retag/borrow semantics, call normality or source-current/future correspondence."
+  },
+  "excluded_attempts": [
+    {
+      "receipt": "/tmp/verus-infer-buffer-cycle-20261109/native-drop-inventory-n6184ng3/receipt.json",
+      "failure": {
+        "type": "KeyError",
+        "message": "'terminator_ir'"
+      },
+      "classification": "controller failure; not semantic evidence"
+    }
+  ]
+}
