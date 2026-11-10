@@ -43,6 +43,13 @@ avoid a second live Rust borrow and cannot mint a ghost permission or assert a
 final/current frame. Conditional token-map reconstruction remains separate from
 reconstructing the original executable array's future values.
 
+The [current-runtime parent replay](parent-native-foundations.json) reproduces
+17 expected outcomes on `676b99bf`: resource laws 18/0 and 12 distinct controls,
+tracked-slice entry 2/0, executable entry/release/splitting 3/0, the second-borrow
+E0499 rejection, and the native constructor/drop frame's 0/1 failure. That last
+case is an unproved positive under inherited contracts, not a Rust counterexample.
+This replay discharges no native effect or source-correspondence obligation.
+
 ## Required source connection
 
 Start from the actual unchanged local writer and resolve the monomorphized
