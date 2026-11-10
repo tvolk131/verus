@@ -112,5 +112,11 @@
     "existing_ignored_test": "exec_calling_no_vstd",
     "legacy_suite_note": "Full legacy FnDef regression suite uses its declared fixture flags; deliberate assume/external-spec tests are not new application proofs.",
     "excluded_parent_setup_attempt": "/tmp/constructor-parent-review-fix-pys0nxe9/receipt.json"
+  },
+  "combined_independent_review": {
+    "record": "parent-combined69-review.json",
+    "commit": "f5fe7e4110323c1e73f11ae630e53fa7b82c0828",
+    "decision": "scoped_accept",
+    "whole_goal_complete": false
   }
 }

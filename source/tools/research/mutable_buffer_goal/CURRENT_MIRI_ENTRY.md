@@ -38,9 +38,9 @@ constructor interface. All use manual proof assistance with no inferred
 helpers. The [tag component record](parent-miri-tag-component.json) binds the
 34-epoch retained audit and eight false controls. Independent review `613fe501`
 accepts the bounded component after fresh on/off proofs and all eight controls;
-the explicit adapter remains separate from exact-source acceptance. Original
-constructor function values, optional checked addition,
-bool conversion and runtime derived comparisons remain separate needs.
+the explicit adapter remains separate from exact-source acceptance. Later
+integrations below close the constructor and PartialEq subsets; optional checked
+addition, bool conversion and ordering remain separate needs.
 
 A provisional frontend extension now checks the original
 `NonZero::new(i).map(BorTag)` for every `u64` (2/0 on and off), including an
@@ -50,16 +50,20 @@ keeps this source-only subproof separate from full tag/lookup acceptance.
 Independent review `706a4b85` reproduced vstd2250/0 and13 focused regressions.
 Its only P2 finding, two stale zero-arity test expectations, is fixed: parent
 validation passed68 FnDef tests (one existing ignored test) and13 constructor
-tests. Policy/cache reconciliation and combined acceptance remain pending.
-The full tag closure, runtime comparisons and `Item::new` remain unproved.
+tests. Policy/cache reconciliation is complete; parent-wide validation is running.
+The full tag closure, ordering and `Item::new` remain unproved.
 
 The provisional equality extension now checks original derived `PartialEq::eq`
 over every genuine `NonZero<u64>` tag, with no local proof blocks or proof bodies.
 Its standalone result is5/0, with soundness, maximality and exactness all proved;
 an ordinary imported client checks4/0. The
 [equality record](parent-nonzero-derived-equality.json) binds that evidence.
-`PartialOrd`/`Ord` remain unproved. Combined constructor/equality validation and
-independent acceptance are pending. Policy69/cache72 invalidate prior inferred
+`PartialOrd`/`Ord` remain unproved. Independent review `f5fe7e41` accepts the
+bounded combined capability: cold/warm 6/0, import 4/0, original constructor/get/Eq
+composition 10/0, and 23 focused regressions. The
+[combined review record](parent-combined69-review.json) binds those results.
+Parent-wide regression and canonical/observer validation remain in progress.
+Policy69/cache72 invalidate prior inferred
 interfaces/candidates; regenerate providers and dependents with the combined
 compiler. Schema38 is unchanged.
 
@@ -97,7 +101,7 @@ The accepted `find_first_write_incompatible` component supplies its own bounds
 and first-incompatible contract. The next connection is to discharge its
 granting-index and granting-permission preconditions from the actual lookup,
 including cache, wildcard and unknown-bottom outcomes. The frozen lookup also
-exposes unsupported constructor function values, hasher types, Option and swap
+exposes unsupported hasher types, Option and swap
 interfaces, and reverse-iterator lawfulness. These are separate frontend or
 library proof needs, recorded in
 [NEEDS.json](../native_miri_find_granting/NEEDS.json). Any adapter, authored

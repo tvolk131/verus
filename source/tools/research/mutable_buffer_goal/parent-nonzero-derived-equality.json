@@ -39,11 +39,22 @@
   "infer_goals_off_note": "Explicit infer_derive still performs required inference; optional goals off is not an inference ablation.",
   "ordering": "PartialOrd and Ord UNPROVED",
   "combined_constructor_inventory": "Must include the extra checked constructor body; standalone three-body inventory cannot be reused unchanged.",
-  "independent_review": "pending fresh combined review",
+  "independent_review": {
+    "record": "parent-combined69-review.json",
+    "commit": "f5fe7e4110323c1e73f11ae630e53fa7b82c0828",
+    "decision": "scoped_accept",
+    "whole_goal_complete": false
+  },
   "publication": false,
   "goal_complete": false,
   "native_correspondences": 0,
   "full_HMAC": "1/1 UNPROVED, inherited",
   "canonical": "6/0 inherited, pending combined replay",
-  "open_obligations": "44 minimal +3 phase /101 writer effects"
+  "open_obligations": "44 minimal +3 phase /101 writer effects",
+  "combined_independent_review": {
+    "record": "parent-combined69-review.json",
+    "commit": "f5fe7e4110323c1e73f11ae630e53fa7b82c0828",
+    "decision": "scoped_accept",
+    "whole_goal_complete": false
+  }
 }
