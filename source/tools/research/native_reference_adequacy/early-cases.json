@@ -1,0 +1,35 @@
+[
+  {
+    "id": "reborrow",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/reborrow.rs",
+    "exec_bodies": [
+      "reborrow"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "native-drop",
+    "classification": "unproved-positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/native-drop.rs",
+    "exec_bodies": [
+      "native_handoff"
+    ],
+    "proof_bodies": [],
+    "verified": 0,
+    "errors": 1,
+    "failure_kind": "postcondition not satisfied"
+  },
+  {
+    "id": "raw-cast",
+    "classification": "frontend-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/raw-cast.rs",
+    "exec_bodies": [
+      "raw_cast"
+    ],
+    "proof_bodies": [],
+    "message": "not supported"
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "id": "reborrow",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/reborrow.rs",
+    "exec_bodies": [
+      "reborrow"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "native-drop",
+    "classification": "unproved-positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/native-drop.rs",
+    "exec_bodies": [
+      "native_handoff"
+    ],
+    "proof_bodies": [],
+    "verified": 0,
+    "errors": 1,
+    "failure_kind": "postcondition not satisfied"
+  },
+  {
+    "id": "raw-cast",
+    "classification": "frontend-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/raw-cast.rs",
+    "exec_bodies": [
+      "raw_cast"
+    ],
+    "proof_bodies": [],
+    "message": "dereferencing a pointer (here the dereference is implicit)"
+  },
+  {
+    "id": "coercion",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/coercion.rs",
+    "exec_bodies": [
+      "coercion"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "opaque-resolved",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/opaque-resolved.rs",
+    "exec_bodies": [
+      "opaque_resolved"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "remaining-resolved",
+    "classification": "unproved-positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/remaining-resolved.rs",
+    "exec_bodies": [
+      "remaining_resolved"
+    ],
+    "proof_bodies": [],
+    "failure_kind": "assertion failed",
+    "verified": 0,
+    "errors": 1
+  },
+  {
+    "id": "unpack-nonnull",
+    "classification": "unproved-positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/unpack-nonnull.rs",
+    "exec_bodies": [],
+    "proof_bodies": [
+      "unpack_nonnull"
+    ],
+    "failure_kind": "postcondition not satisfied",
+    "verified": 0,
+    "errors": 1
+  },
+  {
+    "id": "pack-null-observation",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/pack-null-observation.rs",
+    "exec_bodies": [],
+    "proof_bodies": [
+      "pack_null_observation"
+    ],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "raw-address",
+    "classification": "frontend-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/raw-address.rs",
+    "exec_bodies": [
+      "raw_address"
+    ],
+    "proof_bodies": [],
+    "message": "raw borrows"
+  },
+  {
+    "id": "raw-deref",
+    "classification": "frontend-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/raw-deref.rs",
+    "exec_bodies": [
+      "raw_deref"
+    ],
+    "proof_bodies": [],
+    "message": "dereferencing a raw pointer"
+  },
+  {
+    "id": "native-from-mut",
+    "classification": "frontend-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/native-from-mut.rs",
+    "exec_bodies": [
+      "native_from_mut"
+    ],
+    "proof_bodies": [],
+    "message": "NonNull"
+  },
+  {
+    "id": "expose-exit-v2",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/expose-exit-v2.rs",
+    "exec_bodies": [
+      "expose_exit"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "pack-null-views-v2",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/pack-null-views-v2.rs",
+    "exec_bodies": [],
+    "proof_bodies": [
+      "pack_null_views"
+    ],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "second-borrow",
+    "classification": "lifetime-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/second-borrow.rs",
+    "exec_bodies": [
+      "simultaneous_native_entry"
+    ],
+    "proof_bodies": [
+      "hold"
+    ],
+    "message": "E0499"
+  },
+  {
+    "id": "full-writer",
+    "classification": "unproved-positive",
+    "file": "source/tools/research/buffer_transfer_goal/full-manual-bounds.rs",
+    "exec_bodies": [
+      "xor_key"
+    ],
+    "proof_bodies": [],
+    "failure_kind": "postcondition not satisfied",
+    "verified": 1,
+    "errors": 1
+  },
+  {
+    "id": "owner-only",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/owner-only.rs",
+    "exec_bodies": [
+      "owner_only"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "owner-not-referent",
+    "classification": "semantic-negative",
+    "file": "source/tools/research/native_reference_adequacy/candidates/owner-not-referent.rs",
+    "exec_bodies": [
+      "owner_not_referent"
+    ],
+    "proof_bodies": [],
+    "failure_kind": "assertion failed",
+    "verified": 0,
+    "errors": 1
+  },
+  {
+    "id": "referent-later-write-v2",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/referent-later-write-v2.rs",
+    "exec_bodies": [
+      "owner_only",
+      "caller"
+    ],
+    "proof_bodies": [],
+    "verified": 2,
+    "errors": 0
+  },
+  {
+    "id": "constructor-summary",
+    "classification": "positive",
+    "file": "source/tools/research/native_reference_adequacy/candidates/constructor-summary.rs",
+    "exec_bodies": [
+      "constructor_summary"
+    ],
+    "proof_bodies": [],
+    "verified": 1,
+    "errors": 0
+  },
+  {
+    "id": "missing-resource",
+    "classification": "resource-rejection",
+    "file": "source/tools/research/native_reference_adequacy/candidates/missing-resource.rs",
+    "exec_bodies": [
+      "missing_resource"
+    ],
+    "proof_bodies": [],
+    "failure_kind": "precondition not satisfied",
+    "verified": 0,
+    "errors": 1
+  }
+]
