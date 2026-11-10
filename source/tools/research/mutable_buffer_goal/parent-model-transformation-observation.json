@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "implementation": "d639f378",
+  "scope": "Exact conditional seven-law one-buffer MODEL transformation/final observation",
+  "independent_review": {
+    "commit": "f8f8ccd2",
+    "accepted": true,
+    "findings": [],
+    "receipt": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/model-transformation-observation-review-d639f378/replay/receipt.json",
+      "sha256": "ff8997d5fbbfb3aebaa13555f5fef8a244ce79df849bbbdbd3f323b85e001a07"
+    }
+  },
+  "normal_compilation": true,
+  "recursive_kernel_check": true,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
