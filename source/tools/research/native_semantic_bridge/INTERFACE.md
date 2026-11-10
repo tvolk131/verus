@@ -10,7 +10,7 @@ The parent owns its toolchain and baseline build. New proofs compile separately.
 
 ## Exact first semantic interface
 
-`candidates/loan-v5/borrow_handoff.v` starts with **the defined**
+`candidates/loan-v12/borrow_handoff.v` starts with **the defined**
 `ty_own (&uniq{κ} ty) m d g tid [FVal #p]`, not an uninterpreted
 RefInterpretation, SourceExec, or owned-heap predicate. This is the resource
 interpretation furnished by a semantic input typing derivation. It contains the
@@ -34,8 +34,7 @@ The initial no-write accessor deliberately restores the exact original `m`,
 including its prophecy variable and index. `uniq_resolve` then relates its future
 to its current under an alive lifetime. The dependency's read/write rules support
 access through that same pointer; future updates must retain the same location
-and prophecy identity. These claims are about lambda-Verus, pending compilation,
-not claims about Rust's native raw-pointer casts or IterMut.
+and prophecy identity. These claims are checked about lambda-Verus; they are not claims about Rust's native raw-pointer casts or IterMut.
 
 ## Byte-array and adequacy work
 
@@ -50,8 +49,9 @@ empty heap. This is deliberately NOT adequacy for the Rust handoff. A handoff
 soundness harness/source typing derivation must still instantiate the actual dependency theorem;
 a generic conditional appeal to soundness is insufficient. Print Assumptions and
 coqchk must succeed before any model proof is marked kernel checked. The parent
-is building the unmodified dependency; current executable proof status is
-`not_run_dependency_build_pending`. No failed script is a semantic negative.
+is building the unmodified dependency; current executable model proof status is
+`normal_compilation_and_recursive_kernel_check_passed` (loan-v12). The actual
+Rust-native handoff/source connection remains unproved. No failed script is a semantic negative.
 
 ## Required source connection (still open)
 
