@@ -26,8 +26,9 @@ case alone is not the default-path result. The delivered cache prerequisite
 checks exact initialization and pair insertion, plus a manual consistency
 preservation lemma: [cache component](parent-miri-cache-component.json).
 It is17/0 with assistance enabled and disabled; four isolated controls reject.
-Fresh independent acceptance is pending. Full enabled-cache lookup and global
-cache preservation remain unproved. Actual cache consistency, lawful
+Independent review `cbb06ae5` accepts that bounded scope after fresh cold/warm/off
+proofs and all four strict controls. Full enabled-cache lookup and global cache
+preservation remain unproved. Actual cache consistency, lawful
 source-context coverage, frame/separation and original C/F remain open.
 
 The genuine `NonZero<u64>` tag lane supplies a bounded original-body subset
