@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "classification": "implementation_guidance_not_formal_Rust_correspondence",
+  "compiler_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "rust_sources": [
+    {
+      "path": "/tmp/native-source-unsize-20261110/sources/cast.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/cast.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/cast.rs",
+      "sha256": "1d5b731bbd420af1d53b1cb0c245d0729e1f90fe567ed5c976963e7a3fcb17fc"
+    },
+    {
+      "path": "/tmp/native-source-unsize-20261110/sources/operand.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/operand.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/operand.rs",
+      "sha256": "0465cf09343deb9fb026c2266c42c2a3476cfdbff436bc9bd11afb014bd4463b"
+    },
+    {
+      "path": "/tmp/native-source-unsize-20261110/sources/validity.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/validity.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/validity.rs",
+      "sha256": "9ca6356252621ce96dc5899f0f6507a1ba2abf6bc68bf3460b80197aded10c57"
+    }
+  ],
+  "graph_sha256": "ce114902ac22d593393d08737c619e88a226c47fe2dbeb9d52a7fd8bc6940b29",
+  "storage_receipt_sha256": "47f3ebf95acf6e15d3a6b17deabb0103902d48ac62d05a5a7e2fa8079ff8cd1a"
+}
