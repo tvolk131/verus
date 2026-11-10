@@ -19,7 +19,7 @@ fn ordinary_full_domain_checked_body_and_false_caller() {
             BOOL.into(),
             &["vstd", "--infer-goals", "--no-cheating", "--compile"],
         );
-        assert!(r.is_ok(), "{r:?}");
+        assert!(r.is_ok(), "{:?}", r);
     }
     let e = verify_one_file(
         "false_caller",
@@ -27,16 +27,16 @@ fn ordinary_full_domain_checked_body_and_false_caller() {
         &["vstd", "--infer-goals", "--no-cheating", "--compile"],
     )
     .unwrap_err();
-    assert_eq!(e.errors.len(), 1, "{e:?}");
-    assert!(e.errors[0].message.contains("postcondition not satisfied"), "{e:?}");
+    assert_eq!(e.errors.len(), 1, "{:?}", e);
+    assert!(e.errors[0].message.contains("postcondition not satisfied"), "{:?}", e);
 }
 
 #[test]
 fn goals_off_keeps_inherited_behavior() {
     let e =
         verify_one_file("off", BOOL.into(), &["vstd", "--no-cheating", "--compile"]).unwrap_err();
-    assert_eq!(e.errors.len(), 1, "{e:?}");
-    assert!(e.errors[0].message.contains("postcondition not satisfied"), "{e:?}");
+    assert_eq!(e.errors.len(), 1, "{:?}", e);
+    assert!(e.errors[0].message.contains("postcondition not satisfied"), "{:?}", e);
 }
 
 #[test]
@@ -50,7 +50,9 @@ fn incomplete_checks_refuse() {
         .unwrap_err();
         assert!(
             e.errors.iter().any(|e| e.message.contains("complete source/body")),
-            "{option}: {e:?}"
+            "{}: {:?}",
+            option,
+            e
         );
     }
 }
@@ -74,14 +76,14 @@ fn pack(low:u64,b:bool)->(r:bool)
         source.into(),
         &["vstd", "--infer-goals", "--no-cheating", "--compile"],
     );
-    assert!(r.is_ok(), "{r:?}");
+    assert!(r.is_ok(), "{:?}", r);
     let e = verify_one_file(
         "unbounded_pack",
         source.replace("requires low < 0x8000000000000000u64,", ""),
         &["vstd", "--infer-goals", "--no-cheating", "--compile"],
     )
     .unwrap_err();
-    assert!(e.errors.iter().any(|e| e.message.contains("postcondition not satisfied")), "{e:?}");
+    assert!(e.errors.iter().any(|e| e.message.contains("postcondition not satisfied")), "{:?}", e);
 }
 
 #[test]
@@ -113,7 +115,7 @@ fn local_foreign_export_refuses_and_removes_legacy_output() {
         let seed = run("use vstd::prelude::*; verus! {pub fn seed()->u64 {0}}", &[]);
         assert!(seed.status.success(), "{}", String::from_utf8_lossy(&seed.stderr));
         assert!(crates.vir("component").exists());
-        let mut args = vec!["--infer-goals", "--no-cheating"];
+        let mut args = vec!["--infer-goals"];
         args.extend(options);
         let r = run(BOOL, &args);
         assert!(!r.status.success());
