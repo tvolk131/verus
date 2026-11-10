@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "state": "dependencies_and_toolchain_inputs_frozen_before_formal_compilation",
+  "repositories": {
+    "default-2020": {
+      "commit": "c5d4525b012d36630220e0c9b50f78416cf1e350",
+      "archive_sha256": "05df91466bb4ba2d2707800d1e9621e8e867e4b9e976553fbcd2d941bbcfae10",
+      "tree_manifest_sha256": "f4da794e0b053477caca83132514025381602b545f31365ab4158c14be0584dc"
+    },
+    "coq-2020": {
+      "commit": "f93e961f421cfe12004bc39b82b117f9dca25d39",
+      "archive_sha256": "9ac374017bd1ca9a98a5fbaad6a1d3fc85cd8dc2f71cf80179cecb50ef19ebad",
+      "tree_manifest_sha256": "83e9e24cf95593e4a5d86baaedda66652eac2c351845b6ef9f3efc694dcbb072"
+    },
+    "iris-2020": {
+      "commit": "1446131518192dab4ae4fadd9e526369672f87bf",
+      "archive_sha256": "3cd3930add96dd6c6a81855d59bd0b8a7aeead00d4e03ae3b483a7265537db21",
+      "tree_manifest_sha256": "72ec63f4fd15b2d76e5bae07454260b2a169d921c69dda8d768ec46ce733a085"
+    }
+  },
+  "packages": {
+    "package-camlp5.7.08.opam": "3d8fc7b4fdae03aa36fdaea1547e9f5f6885e87ee29901efa753c9d744de6476",
+    "package-coq-equations.1.2.1+8.9.opam": "404654e31b00671fcf2fcb169ec98037183d3a975d334151c92b5e6334ec3be6",
+    "package-coq-iris.dev.2019-12-20.0.62798412.opam": "334f7626af2f21b9f55492781c6f2d966ecaba3d4771f35a99e6e99fa3ddaa30",
+    "package-coq-paco.4.0.0.opam": "416c5f0788387efddd7708c858b1e76d906b5be3cff237635166445f4d6c7c58",
+    "package-coq-stdpp.dev.2019-11-22.2.16eb222f.opam": "b02804d4debdfa57269a4a559150e14625ea8a7c6354bbab5cb10ceec81278c1",
+    "package-coq.8.9.1.opam": "a128887397a17535262906335ee51f970609aa0ea0cf425e927ddb57009058b2",
+    "package-num.1.3.opam": "61ff13bb6e25e1ebafb9118ac785f3238d8145ce4b47aa5f9a25d314974df43f",
+    "package-ocamlfind.1.8.1.opam": "c68ca618614deb02f55142e39ea204ae2ba6f9da7591449c155426297ede7a36"
+  },
+  "platform_tools": {
+    "/usr/bin/gcc": "1b99826121ae6682a634e5efe09bd3e3df58ce58e0b28f849114ab5b89139c26",
+    "/usr/bin/ld": "e9ceb054c12207970f2726dfc07e9a66b411602748628baf27399f02a9bbb31b",
+    "/usr/bin/as": "21aff249b692b5c31a44007491f922dcb49f41323e362c57d2ada3f52eddb7f0",
+    "/usr/bin/make": "d78b8f1d099fbcfb6f2f49ab87223b9b68fb3956642f92d6ec6de812e8afa965",
+    "/usr/bin/m4": "426fbab900b6c676038cf71da51c3ae45a6d546c9580fff9372bc5b1bb81d576",
+    "/usr/bin/patch": "a7ae8b838a75711c06f86a2a8293dcad85a20b564670a120717e704c436e6f3a",
+    "/usr/bin/git": "eb54b535467e0975c1284d4c4d08eea779aeb248a5d34b02e2ee171382e22201",
+    "/usr/bin/curl": "1ccbd3dae948374ba8eef1ebda26c64b783ede50b463196e53666e0880bdac60",
+    "/usr/bin/tar": "3ee2c3c0b4dd9aacebfd2f0fbae44bad36348203acff78a44888dd58c05f811c",
+    "/usr/bin/python3": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+    "/usr/bin/bzip2": "909769e6f36ab54e52f1099d59aec0e8d2f27b8c53f95c63429f5c571e027ada",
+    "/usr/bin/unzip": "b582f2d782989a4d0105284b8032b076222eb29a6c141b5c53b792c864199396"
+  },
+  "compiler_version": "4.07.1",
+  "config_sha256": "9ad857951fc90b63cc348fbf5278e09fcccb6a7a095b067f1f869ffddbe3c52f",
+  "release_authentication_sha256": "2cc3d2bef0748e0dcfd1d45c842420682184683e257991fb795ce27c7a1e07c3",
+  "full_freeze_sha256": "46a8ed54b3036b22c100df671dadb7dcab931a964c4fd13be830a4ee0da4ffa0",
+  "full_freeze_path": "/tmp/stbor-checked-foundation-20261110/manifests/pretrial-dependencies.json",
+  "source_pin_manifest": "upstream.json",
+  "opam_binary_sha256": "324e78e3f33efeba279aacf9f9610cfec7b2df7d7e0e1640f75f09de85f96cc9",
+  "ocaml_portability_metadata_source": "https://github.com/ocaml/opam-repository/commit/5095d4fd3728a0b7783c24f4b45dbe663c9f4d7b"
+}
