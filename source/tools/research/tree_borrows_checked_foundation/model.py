@@ -11,8 +11,15 @@ def upstream_guard():
     if expected!=actual:raise RuntimeError('unexpected proof source file set')
     return check(src,files)
 def support_guard():
-    return check(own,json.loads((r/'model-pretrial.json').read_text())['support_files'])
+    pre=json.loads((r/'model-pretrial.json').read_text())
+    for file,key in [('closure.json','closure_sha256'),('installed-pretrial.json','installed_snapshot_sha256')]:
+        if digest(r/file)!=pre[key]:raise RuntimeError('pretrial manifest changed '+file)
+    return check(own,pre['support_files'])
 def object_guard():
+    receipt=json.loads((r/'jobs/model-build.json').read_text())
+    log=pathlib.Path(receipt['log'])
+    if receipt.get('exit_code')!=0 or digest(log)!=receipt['log_sha256']:raise RuntimeError('invalid durable build receipt')
+    if 'MODEL_OBJECTS_SHA256 '+digest(r/'model-objects.json') not in log.read_text():raise RuntimeError('object snapshot not bound to build receipt')
     return check(src,json.loads((r/'model-objects.json').read_text()))
 def dependency_guard():
     support_guard()
@@ -41,6 +48,7 @@ elif a.action=='build':
     upstream_guard();dependency_guard()
     objects={p:digest(src/p) for p in c['targets']}
     (r/'model-objects.json').write_text(json.dumps(objects,indent=2)+'\n')
+    print('MODEL_OBJECTS_SHA256 '+digest(r/'model-objects.json'),flush=True)
 elif a.action=='kernel':
     upstream_guard();dependency_guard();c=json.loads((r/'closure.json').read_text())
     object_guard()
