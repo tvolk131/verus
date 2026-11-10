@@ -48,7 +48,8 @@ def goal_pin(snapshot):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--output', type=Path, required=True)
-    ap.add_argument('--freeze', type=Path, default=HERE/'controller002-freeze.json')
+    ap.add_argument('--freeze', type=Path, default=HERE/'controller003-freeze.json')
+    ap.add_argument('--reuse-completed', type=Path)
     a=ap.parse_args(); out=a.output.resolve(); out.mkdir(parents=True,exist_ok=False)
     receipt={'schema':1,'commands':[],'model_review_checked':False,
              'native_correspondences':0,'publication':False,'goal_complete':False}
@@ -68,6 +69,9 @@ def main():
         paths += [Path(p) for p in external]
         sources=load(HERE/'upstream-pins.json')
         paths += [HERE/'upstream-pins.json',*[Path(x['path']) for x in sources]]
+        if a.reuse_completed:
+            require(str(a.reuse_completed.resolve())==trial['completed_replay']['path'],'unfrozen reused replay')
+            paths += [a.reuse_completed/'receipt.json']
         paths += [Path(p) for r in old.values() for p in r['proof_artifacts']]
         guard=ArtifactGuard(paths)
         def retained(p):return guard.initial[str(Path(p).resolve())]['sha256']
@@ -98,9 +102,13 @@ def main():
         run=LoggedCommands(out,ROOT,receipt['commands'],timeout=1800,guard=guard)
         for opt,label in [([], 'normal-controls'),(['-O'],'optimized-controls')]:
             require(run(label,[sys.executable,'-B',*opt,str(LANE/'test_check.py')],env)==0,'pure control failure')
-        replay=out/'replay'
-        require(run('fresh-replay',[sys.executable,'-B',str(LANE/'check.py'),'--freeze',
-                    str(LANE/'integration001-freeze.json'),'--output',str(replay)],env)==0,'replay setup/proof failure, not semantic evidence')
+        replay=a.reuse_completed.resolve() if a.reuse_completed else out/'replay'
+        if a.reuse_completed:
+            require(retained(replay/'receipt.json')==trial['completed_replay']['sha256'],'reused receipt authentication')
+            receipt['reused_completed_replay']=trial['completed_replay']
+        else:
+            require(run('fresh-replay',[sys.executable,'-B',str(LANE/'check.py'),'--freeze',
+                        str(LANE/'integration001-freeze.json'),'--output',str(replay)],env)==0,'replay setup/proof failure, not semantic evidence')
         fresh=load(replay/'receipt.json')
         require(fresh['success'] is True and fresh['model_proofs_kernel_checked'] is True,'fresh replay failed')
         require(set(fresh['assumptions'])==names and all(v==[] for v in fresh['assumptions'].values()),'fresh assumption coverage')
@@ -110,6 +118,9 @@ def main():
             require(fresh[flag] is False,'native claim '+flag)
         product_guard=ArtifactGuard([replay/'receipt.json',*[Path(p) for p in fresh['inputs']],
                                     *[Path(p) for p in fresh['proof_artifacts']]])
+        for group in ['inputs','proof_artifacts']:
+            for p,x in fresh[group].items():
+                require(product_guard.initial[str(Path(p).resolve())]['sha256']==x['sha256'],'replay retained bytes '+p)
         for p,b in loaded.items():
             known=guard.initial.get(str(p.resolve()),product_guard.initial.get(str(p.resolve())))
             require(known is not None and known['sha256']==hashlib.sha256(b).hexdigest(),'loaded final mismatch')
@@ -164,7 +175,7 @@ def main():
                 else:
                     require('NativeSourceReborrow.'+m in checked_modules,'kernel module absent '+m)
                     x['kernel_covered_by']='complete module inductive-block traversal: '+key
-        summary=log.split('CONTEXT SUMMARY')
+        summary=(out/'verbose-kernel.stderr').read_text().split('CONTEXT SUMMARY')
         require(len(summary)==2,'kernel summary count')
         require({s.strip() for s in summary[1].splitlines() if s.strip()}=={
             '===============','* Theory: Set is predicative','* Theory: Rewrite rules are not allowed',
