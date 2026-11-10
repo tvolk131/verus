@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "base": "e4a8dcab",
+  "publication": false,
+  "native_bridge_proved": false,
+  "model_proofs_kernel_checked": false,
+  "model_proof_status": "not_run_parent_baseline_pending",
+  "native_effects_discharged": 0,
+  "native_effects_remaining": 101,
+  "native_drop": {
+    "verified": 0,
+    "errors": 1,
+    "rerun_in_this_lane": false
+  },
+  "full_writer": {
+    "verified": 1,
+    "errors": 1,
+    "rerun_in_this_lane": false,
+    "domain_unchanged": true
+  },
+  "evidence": {
+    "extraction": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json",
+      "sha256": "2e1b60de13ad025f55d8a84aaa442956c33fd5fa01cb878adf5785c01c213b3b",
+      "success": true
+    },
+    "source_mapping": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/map-v3/receipt.json",
+      "sha256": "5c299057bd70d6c02268bb94289f3d8e7efe58b4e6cd3ed29aa561f6f833c1d8",
+      "success": true
+    },
+    "eligibility_controls": {
+      "path": "/tmp/native-semantic-bridge-e4a8dcab/audit-v2/receipt.json",
+      "sha256": "2e224f63a12a1ad3813b79ac2c8c65fcd4420225651e0888da1ecbcfd27d87be",
+      "success": true
+    }
+  },
+  "source_eligibility_rejections": 8,
+  "semantic_negative_count": 0,
+  "candidate": "candidates/loan-v3",
+  "pretrial_freeze": "loan-v3-wrapper-freeze.json",
+  "helper_identities": [],
+  "verus_proof_trials": false,
+  "notes": [
+    "Only model typing rules are candidates; actual original Rust reference input typing/simulation/import is unproved.",
+    "First semantic native handoff deliverable is not yet complete.",
+    "Inspection-only RefinedRust is not a compiled or imported dependency."
+  ]
+}
