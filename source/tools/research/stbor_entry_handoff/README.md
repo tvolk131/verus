@@ -1,38 +1,29 @@
-# Published Stacked Borrows entry handoff: unvalidated candidate
+# Checked conditional historical Stacked Borrows entry handoff
 
-`candidate.v` is an ordinary-proof candidate against the original pinned
-Stacked Borrows artifact, not the separate conservative byte-stack model.
-It has **not run**. Compilation must wait for the matching baseline's successful
-normal build and complete recursive kernel-check receipts. No theorem or native
-fact is accepted from this candidate.
+The original candidate004 freeze remains unchanged. Its corrected 13 laws and
+12 new composition declarations compile normally against the matching checked
+historical foundation. All 25 own declarations are individually closed under
+the global context; full recursive kernel checking covers their exact
+282-module dependency closure. This is MODEL progress only.
 
-The structural premise describes a current Unique/SharedReadWrite grant at the
-head of each position's stack; arbitrary ancestor tails and protectors remain.
-It derives the published `valid_block` premise and proposes progress, actual
-head-step execution, wellformedness, whole-heap preservation, outside-stack
-frame and active-protector preservation. It does not define lawful Rust inputs
-by this predicate. Proving coverage of every lawful Rust input remains open.
+The composition derives FnEntry success/top from published `valid_block`, WF,
+a live call and positive generic n, then performs published TwoPhase reborrow
+with exact returned tags, protected entry head, preserved ancestor tail, whole
+heap/call preservation, WF and protector/outside-span frames. It includes 10
+and128 instances and initialized-vector preservation. Zero/dangling stuttering
+is documented separately as historical-model scope.
 
-`FixedSize n` is the artifact's model size. Mapping actual Rust byte extent and
-addresses to those locations is a separate obligation. Generic10/128 and the
-empty-size model case establish no common native automation. All original
-domains, exact bodies and full properties remain required.
+- [REPORT.md](REPORT.md): proved contract, trust, commands and source gaps.
+- [status.json](status.json): receipt-bound result and unchanged goal counts.
+- [INVENTORY.json](INVENTORY.json): every own declaration and assumption output.
+- [OBJECTS.json](OBJECTS.json): complete checked closure and private full maps.
+- [COMMANDS.json](COMMANDS.json): every formal command and retained trial.
+- [SCOPE.md](SCOPE.md): initial committed scope/interface milestone.
 
-This artifact uses old raw Untagged semantics and has explicit bounds TODOs.
-The candidate uses only mutable-reference retag operations and makes no raw
-pointer correspondence claim. Neither it nor the baseline proves that pinned
-rustc1.99.1 executes this model, discharges source safety, or interprets the
-original/pending Verus C/F observations. Exception/cleanup correspondence is
-also open; the model retag expression has no native unwinding semantics.
-
-Native0,44+3/101 open, publication=false, whole goal incomplete. The two
-foundation builds are isolated research candidates; the existing Coq8.20 and
-Infer production environments are unchanged.
-
-The current candidate004 adds a proposed FnEntry normalization lemma from the
-published `valid_block` premise to a new top grant. It does not require the
-caller tag already at the top. This lemma is also uncompiled; obtaining that
-block premise from the actual argument copy is the
-[earlier source obligation](../../../../evidence/published-entry-source-review/MISSING-LEMMA.md).
-The source-only review covered the earlier12-declaration candidate, not this
-new13-declaration version. No compiled proof has been accepted for either.
+The model has old Untagged raw semantics, unbounded tags and explicit bounds
+TODOs. No actual Rust argument-copy, `_1`/`_4` installation, remaining-entry/
+StorageLive prefix, source operation, all-lawful domain or C/F bridge is proved.
+Neither source identity nor a conditional model theorem supplies those facts.
+Native0; all44 minimal+3 phase/101 writer effects OPEN; inherited varint6/0;
+full HMAC1/1 UNPROVED; publication=false; goal_complete=false. Fresh combined
+independent acceptance and actual common checked assistance remain required.

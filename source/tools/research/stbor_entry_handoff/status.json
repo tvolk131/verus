@@ -1,22 +1,70 @@
 {
-  "schema": 1,
-  "candidate": "candidate.v",
-  "candidate_sha256": "434ed59ef957c98daf4a0c6825d63d2203d56fc6dc666de003122e4d882b14e1",
-  "pretrial_freeze": {
-    "path": "source/tools/research/stbor_entry_handoff/candidate004-freeze.json",
-    "sha256": "be63bd35e4ded53c6642a3537b0c350719b9e0ac4b572b582b10cc7524af0dd0"
+  "accepted_runs": {
+    "accepted013": {
+      "path": "/tmp/stbor-entry-handoff-20261110/accepted013/acceptance.json",
+      "sha256": "fd30af654d8de1cc44f2a5b4ae24d1edc674d04f97dcf94d6ce0d8983b70b4bf"
+    },
+    "accepted025": {
+      "path": "/tmp/stbor-entry-handoff-20261110/accepted025/acceptance.json",
+      "sha256": "e178df9b7adb2714ed6ae177271db895da11e972ab2488d7088d8a1445b666e0"
+    }
   },
-  "declarations_proposed": 13,
-  "compilation": "not_run",
-  "reason": "Awaiting checked matching foundation; new FnEntry lemma also uncompiled",
-  "proofs_accepted": 0,
-  "model_kernel_checked": false,
   "actual_source_instance": false,
-  "native_correspondences": 0,
-  "publication": false,
+  "all_own_individually_closed": true,
+  "baseline_completed": {
+    "path": "/tmp/stbor-checked-foundation-20261110/completed-build-receipt.json",
+    "sha256": "0d85e9ec05f29413973137f03bc840ccb1e22170d50169b2837331e58770f649"
+  },
+  "baseline_ready": {
+    "path": "/tmp/stbor-checked-foundation-20261110/baseline-ready.json",
+    "sha256": "9259b8f303e52e38f1b47709429f2be23a81a4e44ed557b6058184a95e653e51"
+  },
+  "candidate004": {
+    "chronological_freeze": {
+      "path": "/home/dev/.t3/worktrees/verus/t3-e7874b36/source/tools/research/stbor_entry_handoff/candidate004-freeze.json",
+      "sha256": "be63bd35e4ded53c6642a3537b0c350719b9e0ac4b572b582b10cc7524af0dd0"
+    },
+    "chronological_status": {
+      "path": "/home/dev/.t3/worktrees/verus/t3-e7874b36/source/tools/research/stbor_entry_handoff/candidate004-status.json",
+      "sha256": "5f254f3ab039dcd52cc9128216e317cf5cb46a1f3715fbd5dc663addaa44aec7"
+    },
+    "original_source_git": "04b51409:source/tools/research/stbor_entry_handoff/candidate.v",
+    "source_sha256": "434ed59ef957c98daf4a0c6825d63d2203d56fc6dc666de003122e4d882b14e1"
+  },
+  "definitions": 3,
+  "final_checker_controller": {
+    "path": "/tmp/stbor-entry-handoff-20261110/accepted025/controller.py",
+    "sha256": "c73fc4fcc494eb45693df5b734815ec404887e790d416a863454243e991792ad"
+  },
+  "final_sources": {
+    "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+    "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+  },
+  "full_initial_kernel_modules": 519,
+  "generic_positive_n": true,
   "goal_complete": false,
-  "source_only_review": {
-    "commit": "a11e3b05",
-    "scope": "earlier12-declaration candidate003; no proof acceptance"
-  }
+  "independent_combined_acceptance": false,
+  "inherited_full_foundation_context": "\n===============\n\n* Theory: Set is predicative\n  \n* Axioms:\n    iris.base_logic.lib.iprop.iProp_solution.iProp_fold_unfold\n    iris.base_logic.lib.iprop.iProp_solution.iProp_unfold\n    Coq.Logic.ProofIrrelevance.proof_irrelevance\n    Coq.Logic.FunctionalExtensionality.functional_extensionality_dep\n    iris.base_logic.lib.iprop.iProp_solution.iPreProp_cofe\n    Coq.Logic.Classical_Prop.classic\n    Equations.Type.Subterm.FixWf_unfold\n    iris.base_logic.lib.iprop.iProp_solution.iProp_fold\n    iris.base_logic.lib.iprop.iProp_solution.iPrePropO\n    Coq.Logic.JMeq.JMeq_eq\n    Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq\n    Equations.Type.FunctionalExtensionality.funext\n    iris.base_logic.lib.iprop.iProp_solution.iProp_unfold_fold\n",
+  "inherited_hmac": "1/1 UNPROVED",
+  "inherited_varint": "6/0",
+  "instances": [
+    10,
+    128
+  ],
+  "limitations": "MODEL valid_block + WF + live call; no all-lawful Rust entry/operation/C-F bridge; source obligations in REPORT.md; no semantic negative controls",
+  "minimal_simulations_open": 44,
+  "model_kernel_checked": true,
+  "native_correspondences": 0,
+  "original_13_normally_compiled_and_recursively_checked": true,
+  "own_closure_modules": 282,
+  "own_declarations": 25,
+  "own_kernel_context": "===============\n\n* Theory: Set is predicative\n  \n* Axioms:\n    Coq.Logic.ProofIrrelevance.proof_irrelevance\n    Coq.Logic.FunctionalExtensionality.functional_extensionality_dep\n    Coq.Logic.JMeq.JMeq_eq\n    Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq\n",
+  "phase_simulations_open": 3,
+  "private_root": "/tmp/stbor-entry-handoff-20261110",
+  "proofs_accepted": 22,
+  "publication": false,
+  "schema": 2,
+  "state": "checked_conditional_historical_model_composition",
+  "writer_effects_open": 101,
+  "zero_dangling_scope": "historical_model_stuttering_only"
 }
