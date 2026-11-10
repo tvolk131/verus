@@ -38,7 +38,23 @@
     "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
   ],
   "all_input_and_product_guards_passed": true,
-  "independent_review": "running",
+  "independent_review": {
+    "commit": "cacb947c",
+    "receipt": {
+      "path": "/tmp/ordinary-full-writer-model-review-001/trial/receipt.json",
+      "sha256": "018c4a038d67e1aaae9b344c1f7202cf00de691acaa3b9b3bfc987db073ac7a8",
+      "success": true
+    },
+    "review_receipt": {
+      "path": "/tmp/ordinary-full-writer-model-review-001/receipt.json",
+      "sha256": "af3925ad8dec59f7a8c4d4e4ae0f4f652bcd81720388c36250cf37c51afe0bb0",
+      "success": true
+    },
+    "all_six_V_VO_pairs_identical": true,
+    "source_declarations": 25,
+    "helpers": 100,
+    "findings": []
+  },
   "no_external_physical_transformation_WP": true,
   "all_finite_lengths": true,
   "actual_native_correspondences": 0,
