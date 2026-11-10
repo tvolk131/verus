@@ -2,7 +2,7 @@
 use super::native_mutable_for::{self as native, NativeMutableFor};
 use super::*;
 use crate::ast_visitor::{
-    VisitorControlFlow, VisitorScopeMap, expr_visitor_dfs, map_expr_visitor, map_stmt_visitor_env,
+    VisitorControlFlow, VisitorScopeMap, ast_visitor_dfs, map_expr_visitor, map_stmt_visitor_env,
 };
 use std::collections::HashSet;
 
@@ -648,51 +648,92 @@ fn install(f: &Function, d: &Decoration, all: &HashMap<Fun, Function>) -> Result
 
 /// Entry/final snapshots describe the iterator borrow only when no other
 /// mutable use of the buffer can change its state outside the selected loop.
-/// Unknown temporary places skip conservatively rather than guessing aliases.
+/// Inspect places as well as expressions: declarations and match patterns can
+/// acquire mutable aliases without an expression-level read or reborrow node.
 fn entry_observations_compatible(f: &Function, d: &NativeMutableFor) -> bool {
-    fn may_reach(p: &Place, buffer: &VarIdent) -> bool {
+    fn data_value(t: &Typ) -> bool {
+        matches!(&**t, TypX::Bool | TypX::Int(_)) || native::array(t).is_some()
+    }
+    // A readonly place may still execute side effects in an index, temporary or
+    // WithExpr. Check those expressions normally instead of skipping the tree.
+    fn readonly_place(p: &Place, d: &NativeMutableFor) -> bool {
         match &p.x {
-            PlaceX::Local(v) => v == buffer,
+            PlaceX::Local(_) => true,
             PlaceX::Field(_, p)
             | PlaceX::DerefMut(p)
             | PlaceX::ModeUnwrap(p, _)
-            | PlaceX::Index(p, ..)
-            | PlaceX::WithExpr(_, p)
-            | PlaceX::UserDefinedTypInvariantObligation(p, _) => may_reach(p, buffer),
-            PlaceX::Temporary(_) => true,
+            | PlaceX::UserDefinedTypInvariantObligation(p, _) => readonly_place(p, d),
+            PlaceX::Index(p, i, ..) => readonly_place(p, d) && expression(i, d),
+            PlaceX::WithExpr(e, p) => expression(e, d) && readonly_place(p, d),
+            PlaceX::Temporary(e) => expression(e, d),
         }
     }
-    let Some(body) = &f.x.body else { return false };
-    !matches!(
-        expr_visitor_dfs(body, &mut VisitorScopeMap::new(), &mut |_, e| {
-            if e.span.id == d.loop_expr.span.id
-                || e.span.id == d.iterator_init.span.id
-                || matches!(&e.x, ExprX::Ghost { .. })
-            {
-                return VisitorControlFlow::Return;
-            }
-            let p = match &e.x {
-                ExprX::Assign { place, .. }
-                | ExprX::BorrowMut(place)
-                | ExprX::TwoPhaseBorrowMut(place)
-                | ExprX::BorrowMutTracked(place)
-                | ExprX::ImplicitReborrowOrSpecRead(place, ..) => Some(place),
-                ExprX::ReadPlace(place, kind)
-                    if matches!(&*place.typ, TypX::MutRef(_))
-                        && matches!(kind.preliminary_kind, ReadKind::Move | ReadKind::Copy) =>
-                {
-                    Some(place)
-                }
-                _ => None,
-            };
-            if p.is_some_and(|p| may_reach(p, &d.buffer.x.name)) {
-                VisitorControlFlow::Stop(())
-            } else {
-                VisitorControlFlow::Recurse
-            }
-        }),
-        VisitorControlFlow::Stop(())
-    )
+    fn expression(e: &Expr, d: &NativeMutableFor) -> bool {
+        !matches!(
+            ast_visitor_dfs(
+                e,
+                &mut VisitorScopeMap::new(),
+                &mut (),
+                &mut |_, _, e| {
+                    if e.span.id == d.loop_expr.span.id
+                        || e.span.id == d.iterator_init.span.id
+                        || matches!(&e.x, ExprX::Ghost { .. })
+                    {
+                        return VisitorControlFlow::Return;
+                    }
+                    if let ExprX::ReadPlace(p, kind) = &e.x {
+                        let readonly = matches!(
+                            kind.preliminary_kind,
+                            ReadKind::Spec | ReadKind::SpecAfterBorrow | ReadKind::ImmutBor
+                        ) || data_value(&p.typ);
+                        if readonly {
+                            return if readonly_place(p, d) {
+                                VisitorControlFlow::Return
+                            } else {
+                                VisitorControlFlow::Stop(())
+                            };
+                        }
+                    }
+                    if matches!(&e.x, ExprX::Var(v) | ExprX::VarAt(v, _) if v == &d.buffer.x.name) {
+                        return VisitorControlFlow::Stop(());
+                    }
+                    VisitorControlFlow::Recurse
+                },
+                &mut |_, _, s| {
+                    if matches!(&s.x, StmtX::Decl { mode: Some((Mode::Spec | Mode::Proof, _)), .. })
+                    {
+                        return VisitorControlFlow::Return;
+                    }
+                    if let StmtX::Decl { pattern, init: Some(p), els: None, .. } = &s.x {
+                        let by_value = match &pattern.x {
+                            PatternX::Wildcard => true,
+                            PatternX::Var(binding) => matches!(binding.by_ref, ByRef::No),
+                            _ => false,
+                        };
+                        if by_value && data_value(&p.typ) {
+                            return if readonly_place(p, d) {
+                                VisitorControlFlow::Return
+                            } else {
+                                VisitorControlFlow::Stop(())
+                            };
+                        }
+                    }
+                    VisitorControlFlow::Recurse
+                },
+                &mut |_, _, _| VisitorControlFlow::Recurse,
+                &mut |_, _, _, _| VisitorControlFlow::Recurse,
+                &mut |_, _, p| {
+                    if matches!(&p.x, PlaceX::Local(v) if v == &d.buffer.x.name) {
+                        VisitorControlFlow::Stop(())
+                    } else {
+                        VisitorControlFlow::Recurse
+                    }
+                },
+            ),
+            VisitorControlFlow::Stop(())
+        )
+    }
+    f.x.body.as_ref().is_some_and(|body| expression(body, d))
 }
 
 pub fn prepare(
