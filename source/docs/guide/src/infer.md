@@ -6,18 +6,19 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **38**, inference policy **67** and
-candidate-cache version **70**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **68** and
+candidate-cache version **71**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
 Since policy 66, complete verification and normal lifetime/trait checking are required
 for every `--infer-goals` provider, including ordinary-only crates where no
 assistance profile applies. Disabled checks and function/module filters are
-rejected. Earlier inference-aware metadata, including policy 66, is incompatible
-and providers must be rebuilt. Policy 67 and cache version 70 add exact flat
-scalar-pair values. Candidates still require fresh proofs; readonly record
-templates regenerate as documented below.
+rejected. Earlier inference-aware metadata, including policy 67, is incompatible
+and providers must be rebuilt. Policy 68 and cache version 71 add bounded
+canonical byte-loop assistance with full checking of generated body statements.
+Candidates still require fresh proofs; readonly record templates regenerate as
+documented below.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
@@ -53,6 +54,26 @@ expansion. The [macro-loop adapter](macro_loop_adapter.md) gives an ordinary
 verified example, native-erasure guidance and remaining limitations. This is
 not iterator-inference support: contracts, invariants, safety and application
 goals still need independent checks, with all certification gates unchanged.
+
+## Checked canonical byte encoding
+
+With `--infer-goals`, a bounded profile proposes arithmetic, byte-mask and
+iterator annotations for the original u64 radix-128 encoder over an arbitrary
+initialized exclusive `[u8;10]`. The canonical predicate, quotient/minimality
+and written-prefix invariants, and exit clauses remain authored. The accepted
+application has no local mechanical proof blocks, theorem calls or snapshots.
+See the [frozen fixture and controls](../../../../source/tools/research/varint_canonical_goal/RESULTS.md).
+
+The profile recognizes resolved native identities and the evidenced
+shift-by-seven/zero-break/counter shape. It uses checked existing vstd laws,
+bounded unfolding and ordinary bit-vector queries. An independent projection
+preserves the whole original function; generated body statements receive full
+well-formedness and mode checking with refreshed resolution maps. The encoder's
+contract remains authored, and wider shapes retain their ordinary obligations.
+
+The independent HMAC pad-XOR transfer still lacks a checked native IterMut/Zip
+frame for its untouched suffix. Prefix-only results and diagnostic native MIR
+extraction do not establish that full property or general mutable iteration.
 
 ## Exact flat scalar pairs
 

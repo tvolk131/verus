@@ -15,6 +15,7 @@ from infer_eval_support import ArtifactGuard, digest, tool_artifacts
 from infer_experiment import (LoggedCommands, replay_receipt, require, require_exact,
     require_failure_kind, require_function_coverage, require_publication, validate_goal_run, validate_run)
 from fidelity import fidelity
+from copy_bundle import ENGINE_SOURCES
 
 HELPER = '\nverus! { #[verifier::infer] pub fn identity(n: u64) -> u64 { n } }\n'
 
@@ -39,8 +40,7 @@ def replay(a, out, receipt):
     for n in ('004', '006', '007', '008'):
         fidelity(HERE / f'candidate-{n}.rs')
     receipt['sources'] = {str(f.relative_to(ROOT)): digest(f) for f in
-        [*HERE.glob('*.py'), *HERE.glob('*.rs'), ROOT / 'source/vir/src/infer/buffer_goals.rs',
-         ROOT / 'source/vir/src/infer.rs', ROOT / 'source/vir/src/infer/pipeline.rs', ROOT / 'source/vir/src/infer/report.rs']}
+        [*HERE.glob('*.py'), *HERE.glob('*.rs'), *[ROOT / n for n in ENGINE_SOURCES]]}
     guard = ArtifactGuard(tool_artifacts(a.bundle / 'verus', a.bundle / 'z3',
         extra=[ROOT / n for n in receipt['sources']]))
     receipt['artifacts'] = guard.initial

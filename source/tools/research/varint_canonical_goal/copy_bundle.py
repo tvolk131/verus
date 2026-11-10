@@ -11,6 +11,16 @@ sys.path.insert(0, str(ROOT / 'source/tools'))
 from infer_eval_support import ArtifactGuard, digest, tool_artifacts
 from infer_experiment import require
 
+ENGINE_SOURCES = (
+    'source/vir/src/infer/buffer_goals.rs',
+    'source/vir/src/infer.rs',
+    'source/vir/src/infer/pipeline.rs',
+    'source/vir/src/infer/report.rs',
+    'source/vir/src/infer/registry.rs',
+    'source/rust_verify/src/query.rs',
+    'source/rust_verify/src/import_export.rs',
+)
+
 
 def main():
     p = argparse.ArgumentParser()
@@ -24,9 +34,8 @@ def main():
     require(not any(f.is_symlink() for f in inputs), 'bundle inputs must be files, not links')
     guard = ArtifactGuard(tool_artifacts(a.directory / 'verus', a.solver))
     a.output.mkdir(mode=0o700)
-    manifest = dict(source_artifacts=guard.initial, files={}, engine_sources={str(f.relative_to(ROOT)): digest(f)
-        for f in [ROOT / 'source/vir/src/infer/buffer_goals.rs', ROOT / 'source/vir/src/infer.rs',
-                  ROOT / 'source/vir/src/infer/pipeline.rs', ROOT / 'source/vir/src/infer/report.rs']})
+    manifest = dict(source_artifacts=guard.initial, files={},
+                    engine_sources={name: digest(ROOT / name) for name in ENGINE_SOURCES})
     for name, source in zip(names + ['z3'], inputs):
         target = a.output / name
         shutil.copy2(source, target)

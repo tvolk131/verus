@@ -18,9 +18,11 @@ verifies candidate 008 with no application-local mechanical proofs or snapshots.
 The [parent proofless replay](parent-proofless-milestone.json) reproduces cold/warm
 6/0 runs with checked executable `{u64}`, proof `{}` and inferred-helper `{}`
 inventories; a healthy-encoder false caller rejects and removes its seeded export.
-Production integration, the complete worker control manifest, shared transfer
-and fresh independent review remain pending. These are milestones, not final
-automation acceptance.
+The worker's complete 26-case manifest is preserved through `5a84ac3d`.
+Initial canonical integration adds full generated-body rechecking in `112a33f0`
+and is undergoing matching parent-runtime validation. Shared transfer and fresh
+independent review remain pending. These are milestones, not final automation
+acceptance.
 
 The independent transfer is fixed by `7fe03428`: bitcoin_hashes 0.14.0's exact
 HMAC ipad-XOR loop, with arbitrary initialized `[u8;128]` and arbitrary key length.
@@ -153,8 +155,10 @@ steps on both full goals, not parser reuse or unrelated successful probes.
 
 ## Build, evidence and inherited boundaries
 
-The accepted engine uses Rust 1.99.1, Z3 4.16.0, metadata schema 38, policy 67
-and candidate cache 70. The lead reconciles version changes if needed; workers
+The accepted baseline uses Rust 1.99.1, Z3 4.16.0, metadata schema 38, policy 67
+and candidate cache 70. Provisional parent integration advances to policy 68
+and cache 71, preserving schema 38 and requiring rebuilt providers/dependents.
+The lead reconciles version changes if needed; workers
 must not change global constants or weaken acceptance checks. Cargo commands
 run from `source/` with `/home/dev/.cargo/bin` first on PATH and
 `CARGO_BUILD_JOBS=2`. Build own matching compiler/macros/vstd for code changes.
