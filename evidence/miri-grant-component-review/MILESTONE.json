@@ -1,11 +1,18 @@
 {
-  "schema": 1,
-  "role": "fresh_independent_review",
-  "scope": ["grant_component_and_historical_bridge", "permission_R1_R2_fix", "additive_actual_parameter_carrier_layout"],
-  "phase": "pretrial_freeze",
-  "acceptance": "pending_fresh_proofs_controls_kernel_and_independent_output_audit",
-  "editable_scope": "evidence/miri-grant-component-review only",
+  "carrier_layout": "accepted_compiler_facts_only",
+  "goal_complete": false,
+  "grant_component": "accepted_bounded",
+  "historical_bridge": "seven_individually_closed_and_recursively_checked",
   "native_correspondences": 0,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "permission_R1_R2": "resolved",
+  "phase": "completed",
   "publication": false,
-  "goal_complete": false
+  "reviewer_audit_failure": "retained_excluded_then_corrected",
+  "role": "fresh_independent_review",
+  "schema": 1
 }

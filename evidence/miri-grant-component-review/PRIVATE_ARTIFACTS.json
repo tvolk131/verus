@@ -1,0 +1,14 @@
+{
+  "audit_snapshot": {
+    "count": 229,
+    "path": "/tmp/miri-grant-component-review-t3-8295fb02/product-hashes.json",
+    "sha256": "9d09abcf9ad965d37f4fa57dd8419711b26b5d1123c1ccf6c53aeafdf696efc7"
+  },
+  "post_audit_inventory": {
+    "files": 232,
+    "path": "/tmp/miri-grant-component-review-t3-8295fb02/final-product-hashes.json",
+    "sha256": "e6fc339761fff8d6b6a8b803165d43ae55442c258ed2bdec870bf3722882d25d"
+  },
+  "raw_committed": false,
+  "root": "/tmp/miri-grant-component-review-t3-8295fb02"
+}

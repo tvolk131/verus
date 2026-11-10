@@ -1,0 +1,2357 @@
+{
+  "carrier": {
+    "commands": [
+      {
+        "argv": [
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+          "-vV"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 0,
+        "label": "version",
+        "seconds": 0.010190972010605037
+      },
+      {
+        "argv": [
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+          "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_entry_type_binding/query.rs",
+          "--edition=2024",
+          "--crate-name",
+          "entry_type_query",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Cprefer-dynamic",
+          "-o",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/entry-type-query"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 0,
+        "label": "build-query",
+        "seconds": 0.29214304900960997
+      },
+      {
+        "argv": [
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+          "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_entry_type_binding/probes.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on",
+          "--emit=metadata",
+          "-o",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/probes.rmeta"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 0,
+        "label": "ordinary-probes",
+        "seconds": 0.022360786970239133
+      },
+      {
+        "argv": [
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/entry-type-query",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/probes.json",
+          "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_entry_type_binding/probes.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 0,
+        "label": "query-probes",
+        "seconds": 0.028385390003677458
+      },
+      {
+        "argv": [
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/entry-type-query",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/writer.json",
+          "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_iterator_certificate/fixtures/original.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 0,
+        "label": "query-writer",
+        "seconds": 0.026493550976738334
+      },
+      {
+        "argv": [
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/entry-type-query",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/canonical.json",
+          "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/varint_canonical_goal/candidate-008.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on",
+          "--extern",
+          "vstd=/tmp/native-entry-type-binding-20261110-delivered/libvstd.rlib",
+          "-L",
+          "dependency=/tmp/native-entry-type-binding-20261110-delivered"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 0,
+        "label": "query-canonical",
+        "seconds": 0.04308395500993356
+      },
+      {
+        "argv": [
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/pinned-unpin.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on",
+          "--crate-name",
+          "negative_trait",
+          "--emit=metadata",
+          "-o",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/pinned-unpin.rmeta"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 1,
+        "label": "pinned-unpin",
+        "seconds": 0.04656836198410019
+      },
+      {
+        "argv": [
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/pinned-unsafe-unpin.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on",
+          "--crate-name",
+          "negative_trait",
+          "--emit=metadata",
+          "-o",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/pinned-unsafe-unpin.rmeta"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 1,
+        "label": "pinned-unsafe-unpin",
+        "seconds": 0.04966882901499048
+      },
+      {
+        "argv": [
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/cell-freeze.rs",
+          "--edition=2024",
+          "--crate-type=lib",
+          "--sysroot",
+          "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+          "-Coverflow-checks=on",
+          "--crate-name",
+          "negative_trait",
+          "--emit=metadata",
+          "-o",
+          "/tmp/miri-grant-component-review-t3-8295fb02/carrier/cell-freeze.rmeta"
+        ],
+        "cwd": "/tmp/miri-grant-component-review-t3-8295fb02/carrier",
+        "environment": {
+          "RUSTUP_TOOLCHAIN": "1.99.1"
+        },
+        "exit_code": 1,
+        "label": "cell-freeze",
+        "seconds": 0.03664275200571865
+      }
+    ],
+    "ordinary_rejections": [
+      {
+        "diagnostic": "E0277",
+        "name": "pinned-unpin",
+        "trait": "Unpin"
+      },
+      {
+        "diagnostic": "E0277",
+        "name": "pinned-unsafe-unpin",
+        "trait": "UnsafeUnpin"
+      },
+      {
+        "diagnostic": "E0277",
+        "name": "cell-freeze",
+        "trait": "Freeze"
+      }
+    ],
+    "queries": {
+      "canonical": {
+        "classification": "compiler_type_queries_only",
+        "native_correspondences": 0,
+        "pointer_bits": 64,
+        "publication": false,
+        "records": [
+          {
+            "align": 8,
+            "backend": "Scalar(u64 is ..)",
+            "byte_array": false,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "u64",
+            "minimum_size": 8,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(u64 is ..)",
+            "parameter_size": 8,
+            "parameter_type": "u64",
+            "reference_kind": "value",
+            "sized": true,
+            "static_size": 8,
+            "subject_type": "u64",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: true }",
+            "byte_array": true,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "u64",
+            "minimum_size": 10,
+            "parameter": 1,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut [u8; U64_LEN]",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 10,
+            "subject_type": "[u8; U64_LEN]",
+            "unpin": true,
+            "unsafe_unpin": true
+          }
+        ]
+      },
+      "probes": {
+        "classification": "compiler_type_queries_only",
+        "native_correspondences": 0,
+        "pointer_bits": 64,
+        "publication": false,
+        "records": [
+          {
+            "align": 1,
+            "backend": "Scalar(u8 is ..)",
+            "byte_array": false,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "probe_byte",
+            "minimum_size": 1,
+            "parameter": 0,
+            "parameter_align": 1,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(u8 is ..)",
+            "parameter_size": 1,
+            "parameter_type": "u8",
+            "reference_kind": "value",
+            "sized": true,
+            "static_size": 1,
+            "subject_type": "u8",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Scalar(u8 is ..)",
+            "byte_array": false,
+            "byte_slice": false,
+            "freeze": false,
+            "function": "probe_cell",
+            "minimum_size": 1,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut std::cell::UnsafeCell<u8>",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 1,
+            "subject_type": "std::cell::UnsafeCell<u8>",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: true }",
+            "byte_array": true,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "probe_empty",
+            "minimum_size": 0,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut [u8; 0]",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 0,
+            "subject_type": "[u8; 0]",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: true }",
+            "byte_array": true,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "probe_pad",
+            "minimum_size": 128,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut [u8; 128]",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 128,
+            "subject_type": "[u8; 128]",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: true }",
+            "byte_array": false,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "probe_pinned",
+            "minimum_size": 0,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut std::marker::PhantomPinned",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 0,
+            "subject_type": "std::marker::PhantomPinned",
+            "unpin": false,
+            "unsafe_unpin": false
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: false }",
+            "byte_array": false,
+            "byte_slice": true,
+            "freeze": true,
+            "function": "probe_slice",
+            "minimum_size": 0,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "ScalarPair",
+            "parameter_backend_debug": "ScalarPair { a: pointer is 1..=18446744073709551615, b: u64 is .., b_offset: Size(8 bytes) }",
+            "parameter_size": 16,
+            "parameter_type": "&[u8]",
+            "reference_kind": "Not",
+            "sized": false,
+            "static_size": null,
+            "subject_type": "[u8]",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: true }",
+            "byte_array": true,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "probe_ten",
+            "minimum_size": 10,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut [u8; 10]",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 10,
+            "subject_type": "[u8; 10]",
+            "unpin": true,
+            "unsafe_unpin": true
+          }
+        ]
+      },
+      "writer": {
+        "classification": "compiler_type_queries_only",
+        "native_correspondences": 0,
+        "pointer_bits": 64,
+        "publication": false,
+        "records": [
+          {
+            "align": 1,
+            "backend": "Memory { sized: true }",
+            "byte_array": true,
+            "byte_slice": false,
+            "freeze": true,
+            "function": "xor_key",
+            "minimum_size": 128,
+            "parameter": 0,
+            "parameter_align": 8,
+            "parameter_backend": "Scalar",
+            "parameter_backend_debug": "Scalar(pointer is 1..=18446744073709551615)",
+            "parameter_size": 8,
+            "parameter_type": "&mut [u8; 128]",
+            "reference_kind": "Mut",
+            "sized": true,
+            "static_size": 128,
+            "subject_type": "[u8; 128]",
+            "unpin": true,
+            "unsafe_unpin": true
+          },
+          {
+            "align": 1,
+            "backend": "Memory { sized: false }",
+            "byte_array": false,
+            "byte_slice": true,
+            "freeze": true,
+            "function": "xor_key",
+            "minimum_size": 0,
+            "parameter": 1,
+            "parameter_align": 8,
+            "parameter_backend": "ScalarPair",
+            "parameter_backend_debug": "ScalarPair { a: pointer is 1..=18446744073709551615, b: u64 is .., b_offset: Size(8 bytes) }",
+            "parameter_size": 16,
+            "parameter_type": "&[u8]",
+            "reference_kind": "Not",
+            "sized": false,
+            "static_size": null,
+            "subject_type": "[u8]",
+            "unpin": true,
+            "unsafe_unpin": true
+          }
+        ]
+      }
+    },
+    "receipt_sha256": "4c434c67d381ea128d2c624875de9984c030d7fe44710d2dcc8fa09f2486cc4d",
+    "scope": "compiler parameter/subject type traits and layouts only; source-cut inspection only"
+  },
+  "classification": "bounded_independent_component_acceptance",
+  "coq": {
+    "counts": {
+      "kernel_constants": 41987,
+      "kernel_inductive_blocks": 274,
+      "kernel_libraries": 263
+    },
+    "declarations": {
+      "above_prefix_reversal": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "theorem",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "4e6b618aa3f45aa8ef3bba78e357cede1e92c80236c0560dfc7777740f9fd871",
+        "type_sha256": "e29d1b1091ca8497e385f2fd7204805162b256fff67010421cbe58453acc1ca0",
+        "type_text": "above_prefix_reversal\n     : forall (v : lang_base.stack) (n : nat),\n       @eq (list lang_base.item)\n         (@List.firstn lang_base.item (Nat.sub (@length lang_base.item v) n)\n            (@list.reverse lang_base.item v))\n         (@list.reverse lang_base.item (@List.skipn lang_base.item n v))\n"
+      },
+      "granting_index_reversal": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "theorem",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "b598f92f267af982234c7de9c6f009099fe89c57bd062685d996d54bd2702fa3",
+        "type_sha256": "a24a54b48a579a9e6327e331751d966340030caccd8982b55def629d0117ba56",
+        "type_text": "granting_index_reversal\n     : forall (v : lang_base.stack) (g : nat) (it : lang_base.item)\n         (_ : @eq (option lang_base.item)\n                (@base.lookup nat lang_base.item lang_base.stack\n                   (@list.list_lookup lang_base.item) g v)\n                (@Some lang_base.item it)),\n       @eq (option lang_base.item)\n         (@base.lookup nat lang_base.item (list lang_base.item)\n            (@list.list_lookup lang_base.item)\n            (Nat.sub (Nat.sub (@length lang_base.item v) (S O)) g)\n            (@list.reverse lang_base.item v)) (@Some lang_base.item it)\n"
+      },
+      "historical_srw_characterization": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "theorem",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "7f39416cb6d42f62db7f4ed85204e599aa27cc811739e115b8ff61c1aa4e116a",
+        "type_sha256": "20a61a95d0a5bb55dd3f6de22f606389f80df581d3007245065f42656d13db52",
+        "type_text": "historical_srw_characterization\n     : forall (above : lang_base.stack) (k : nat)\n         (_ : succeeding_boundary above k),\n       @eq (option nat)\n         (bor_semantics.find_first_write_incompatible\n            (@list.reverse lang_base.item above) lang_base.SharedReadWrite)\n         (@Some nat (Nat.sub (@length lang_base.item above) k))\n"
+      },
+      "historical_vector_boundary_equality": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "theorem",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "7a2b16d5e5cfffd9128a0d10c0b9014e5c3fd7126e1d20e5fd1b41edd25d90fd",
+        "type_sha256": "1537e5a6279addff10201d024043895c1d125b0f04e04035370035aeb29bee09",
+        "type_text": "historical_vector_boundary_equality\n     : forall (v : lang_base.stack) (g : nat) (pm : lang_base.permission)\n         (r : nat) (_ : vector_boundary v g pm r),\n       @eq (option nat)\n         (bor_semantics.find_first_write_incompatible\n            (@List.firstn lang_base.item\n               (Nat.sub (Nat.sub (@length lang_base.item v) (S O)) g)\n               (@list.reverse lang_base.item v)) pm)\n         (@Some nat (Nat.sub (@length lang_base.item v) r))\n"
+      },
+      "succeeding_boundary": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "definition",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "1ce16ab368e27d50f980e0d618c26c4570219a61c2a4b5a72a2250f28ccbd778",
+        "type_sha256": "566d5ac7ffbe4aa1441ea6d03867a158c4a32083006f589f52f802d02b02cee7",
+        "type_text": "succeeding_boundary\n     : forall (_ : lang_base.stack) (_ : nat), Prop\n"
+      },
+      "vector_boundary": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "definition",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "3cc2f1bd360eb776779ca85658713367cfd9b809ba3cb0e99a3f086cf3d7b6ae",
+        "type_sha256": "ef938e5054fb616672ee7b3ab169708b7f0e462d1a61215d9bcfd9f2d58220e3",
+        "type_text": "vector_boundary\n     : forall (_ : lang_base.stack) (_ : nat) (_ : lang_base.permission)\n         (_ : nat), Prop\n"
+      },
+      "vector_suffix_characterization": {
+        "assumptions_sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+        "closed": true,
+        "kind": "theorem",
+        "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+        "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+        "term_sha256": "4046b76e839b54fec3f027e4e934c7e914de6e8629c5d2aa65413a6e57aeceae",
+        "type_sha256": "cbf9e98432141f898384c00f87585c9743925462013c626386ab20063ac9a289",
+        "type_text": "vector_suffix_characterization\n     : forall (v : lang_base.stack) (g r : nat)\n         (_ : vector_boundary v g lang_base.SharedReadWrite r),\n       succeeding_boundary (@List.skipn lang_base.item (S g) v)\n         (Nat.sub r (S g))\n"
+      }
+    },
+    "inherited_context": "263-library superset recursively checked; seven own items CLOSED. Broader historical foundation includes proof irrelevance, dependent functional extensionality, classical EM, Eq_rect_eq, Equations funext and admitted FixWf_unfold; no new assumption closure follows for other exports.",
+    "object_sha256": "80b93a24feee221931b3eadc6eabe12363867d1177032245dad20163c08e9c29",
+    "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/coq-5eb379_b/receipt.json",
+    "receipt_sha256": "4f6cade217f9bea7c9a0385a1c90d7ec39e023068d06dd58d561e8957f759aa8",
+    "source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6"
+  },
+  "goal_complete": false,
+  "grant": {
+    "accepted": [
+      {
+        "assistance": false,
+        "diagnostics": [],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get"
+        ],
+        "failed_functions": [],
+        "kind": "positive",
+        "native_inventory": [
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Item as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:4:40: 4:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:4:29: 4:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:4:23: 4:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:6:16: 6:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:6:47: 6:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:6:36: 6:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:6:23: 6:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:6:30: 6:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::perm",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::perm",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:54:1: 54:36"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::Item::permission",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Item::permission",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:50:5: 50:52"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::protected",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::protected",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:64:1: 64:35"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::set_permission",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::set_permission",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:69:1: 69:51"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:25:5: 25:24"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:24:5: 24:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:23:5: 23:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:22:5: 22:22"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::from_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::from_bits",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:36:1: 36:36"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::to_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::to_bits",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:26:1: 26:28"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Stack::find_first_write_incompatible",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Stack::find_first_write_incompatible",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:95:1: 95:70"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Stack::get",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Stack::get",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:90:1: 90:50"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:8:1: 8:25"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:10:1: 10:26"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:9:1: 9:30"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:6:1: 7:74"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::bits",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "bits",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:17:1: 17:44"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::decode",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "decode",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/component.rs:13:1: 13:46"
+          }
+        ],
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-_op3p7ws/receipt.json",
+        "receipt_sha256": "fc659f6df55f60e5118ac90fcd21d65ebb34b23f1ec3d24b2b6755a6dfca8746",
+        "source_sha256": "23880c5435a385228b5bcd35da75a0862bc56a3a2755fa4aa1684a2c18d59092",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "9db299bcb26d111c6bcfc78c49b52d6f2c1085a8bbf8e778d792bf58dde6cb14",
+        "stdout_sha256": "31f51a8da299181db7a96699a14a122936b6cef2438e830d82e7f1cea9ce6631",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "errors": 0,
+          "is-verifying-entire-crate": true,
+          "success": true,
+          "verified": 22
+        }
+      },
+      {
+        "assistance": true,
+        "diagnostics": [],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get"
+        ],
+        "failed_functions": [],
+        "kind": "positive",
+        "native_inventory": [
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Item as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:4:40: 4:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:4:29: 4:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Item as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Item as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:4:23: 4:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:6:16: 6:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:6:47: 6:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:6:36: 6:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:6:23: 6:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:6:30: 6:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::perm",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::perm",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:54:1: 54:36"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::Item::permission",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Item::permission",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:50:5: 50:52"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::protected",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::protected",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:64:1: 64:35"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Item::set_permission",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Item::set_permission",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:69:1: 69:51"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:25:5: 25:24"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:24:5: 24:32"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:23:5: 23:33"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:22:5: 22:22"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::from_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::from_bits",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:36:1: 36:36"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Permission::to_bits",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::to_bits",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:26:1: 26:28"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Stack::find_first_write_incompatible",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Stack::find_first_write_incompatible",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:95:1: 95:70"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "component::Stack::get",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Stack::get",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:90:1: 90:50"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:8:1: 8:25"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:10:1: 10:26"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "selected_item_without_translated_body",
+            "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:9:1: 9:30"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:6:1: 7:74"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::bits",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "bits",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:17:1: 17:44"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "component::decode",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "decode",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/component.rs:13:1: 13:46"
+          }
+        ],
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/component-lkgarjw0/receipt.json",
+        "receipt_sha256": "7a6b5c47f3677aba0350da8683d9367f63d6e7698a01eb79426c5bcdd2b2b4f5",
+        "source_sha256": "23880c5435a385228b5bcd35da75a0862bc56a3a2755fa4aa1684a2c18d59092",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "0532134d5caeb555bdf6a8767ccb47722c31f47b32fdfc721c1f9c2c3ac8c1b5",
+        "stdout_sha256": "4a5fc5b0c0c0b1bebed882771732bf7bd1dbe102e78ea35d1f4a1201608167a8",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "errors": 0,
+          "is-verifying-entire-crate": true,
+          "success": true,
+          "verified": 22
+        }
+      },
+      {
+        "assistance": true,
+        "diagnostics": [
+          {
+            "column": 12,
+            "kind": "assertion failed",
+            "line": 156,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/wrong_bitfield-7goj4uyu/component.rs"
+          }
+        ],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get",
+          "wrong_bitfield"
+        ],
+        "failed_functions": [
+          "component::wrong_bitfield"
+        ],
+        "kind": "negative",
+        "native_inventory": null,
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/wrong_bitfield-7goj4uyu/receipt.json",
+        "receipt_sha256": "e73a3afb253713cce2911c7a2e51d7687124a855e2ee2fe9101daf32f614e65f",
+        "source_sha256": "fdfddb95b7856ace2d57c393c66d5b913bab8a563c3733ec8a988e01e764e301",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "fa7a14729f8bcf188576dafdefb666c49308b0cc9605d746f2b5b480d80e0927",
+        "stdout_sha256": "ce13ee6fcd249c155aa492493c9ae55feaa1a1b5aa1bcb4b00c4b66c24a02fdb",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 22
+        }
+      },
+      {
+        "assistance": true,
+        "diagnostics": [
+          {
+            "column": 54,
+            "kind": "assertion failed",
+            "line": 158,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/wrong_boundary-708z7ia0/component.rs"
+          }
+        ],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get",
+          "wrong_boundary"
+        ],
+        "failed_functions": [
+          "component::wrong_boundary"
+        ],
+        "kind": "negative",
+        "native_inventory": null,
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/wrong_boundary-708z7ia0/receipt.json",
+        "receipt_sha256": "ca55d62285582311b97d335f7b406dfdceb63d72d567c7d423df344120a524c4",
+        "source_sha256": "9107ccd7e91c3c5b574f939cf877a54f5a74a1f6503586e092fb7a0162aa3bb5",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "e2c4f913515d008cd773ce622bf60d9ed006e3c9884df97c8b3141dc1eafaf05",
+        "stdout_sha256": "6dbe848c3348a026ab896fa3e449b840e9635a8ce95bd19affe687524854ce1c",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 22
+        }
+      },
+      {
+        "assistance": true,
+        "diagnostics": [
+          {
+            "column": 36,
+            "kind": "assertion failed",
+            "line": 155,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/wrong_permission-nb_0kf3l/component.rs"
+          }
+        ],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get",
+          "wrong_permission"
+        ],
+        "failed_functions": [
+          "component::wrong_permission"
+        ],
+        "kind": "negative",
+        "native_inventory": null,
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/wrong_permission-nb_0kf3l/receipt.json",
+        "receipt_sha256": "870c36030543f1dcd16f9a87899e8babb63ece0934d6cdbabdfaaa69f0eed038",
+        "source_sha256": "4278a8bb6d09f48388b76d9b5a5c0d55fea5faa8e3c218746717a4327eee82aa",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "e55bd4d679bb00e9344db734e00cfa3f10dff1ffc9b824c6472d3af784bf873f",
+        "stdout_sha256": "4ef6d42ec988c4ff7752c1912566c5f390cd65d35a46c0e75c171d4c815481a6",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 22
+        }
+      }
+    ],
+    "excluded": [
+      {
+        "classification": "frontend_not_semantic_control",
+        "diagnostic_kinds": [
+          "loop must have a decreases clause"
+        ],
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/literal-fdggtakm/receipt.json",
+        "sha256": "3f777bc483612c617a762941d5e25792991a97209ba25f4bd0ac5f9a7807edc6",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": true,
+          "success": false
+        }
+      },
+      {
+        "classification": "no_manual_not_semantic_control",
+        "diagnostic_kinds": [
+          "precondition not satisfied",
+          "postcondition not satisfied",
+          "postcondition not satisfied",
+          "possible arithmetic underflow/overflow",
+          "possible arithmetic underflow/overflow",
+          "invariant not satisfied before loop"
+        ],
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/no_manual-cb82d8cv/receipt.json",
+        "sha256": "02df41deaf0ffb2cc3f22bfa2de36000b7fc611d55daa29e4c674695ab8ab6bb",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 3,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 14
+        }
+      },
+      {
+        "classification": "no_manual_not_semantic_control",
+        "diagnostic_kinds": [
+          "precondition not satisfied",
+          "postcondition not satisfied",
+          "postcondition not satisfied",
+          "possible arithmetic underflow/overflow",
+          "possible arithmetic underflow/overflow",
+          "invariant not satisfied before loop"
+        ],
+        "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant/no_manual-fvgqr7ok/receipt.json",
+        "sha256": "496e51a3d8accb515f60b1616c61c823d67f553f0503ebc78d7aabc5463cad44",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 3,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 14
+        }
+      }
+    ],
+    "finite_support": {
+      "binary_hashes": {
+        "annotated": "7a408c0280280a01bbb72055dba9da4e30aa807b824b0abc1c10d957a143fe7c",
+        "literal": "7599f97439b008e8a5dfe58cfb0b51a20249ce73613a4040abbaa248883593dd"
+      },
+      "build_exits": [
+        0,
+        0
+      ],
+      "classification": "finite_native_support_only",
+      "observation": "cases=77394 checksum=4520926185573745023\n",
+      "run_exits": [
+        0,
+        0
+      ]
+    },
+    "semantic_mutations": {
+      "bitfield": {
+        "diagnostics": [
+          {
+            "column": 13,
+            "kind": "postcondition not satisfied",
+            "line": 157,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/mutations-n891m8at/bitfield.rs"
+          },
+          {
+            "column": 9,
+            "kind": "postcondition not satisfied",
+            "line": 158,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/mutations-n891m8at/bitfield.rs"
+          }
+        ],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::mutated_bitfield",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get"
+        ],
+        "failed_functions": [
+          "bitfield::Item::mutated_bitfield"
+        ],
+        "native_inventory": null,
+        "source_mutation": {
+          "after": "self.0 |= perm.to_bits() << 60;",
+          "before": "self.0 |= perm.to_bits() << PERM_SHIFT;",
+          "original": "set_permission",
+          "original_function_sha256": "561eb8a27afd10bf083bf008a2f65a423677a48dfaaa1323b286c4dc6871727c",
+          "symbol": "Item::mutated_bitfield"
+        },
+        "source_sha256": "04988dcfa197114c18566498fe3ee430f3b11512b3d647467080d276218b874d",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "ef47a2c82b1f4653571f181b8e62b1e22deb5995f7b05bb472b7e812e791b833",
+        "stdout_sha256": "d373bb4a97380403fca08b4f6ae2fb20bf2210e8b222df45a8167b14dfa65443",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 25
+        }
+      },
+      "boundary": {
+        "diagnostics": [
+          {
+            "column": 13,
+            "kind": "postcondition not satisfied",
+            "line": 160,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/mutations-n891m8at/boundary.rs"
+          },
+          {
+            "column": 9,
+            "kind": "postcondition not satisfied",
+            "line": 161,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/mutations-n891m8at/boundary.rs"
+          }
+        ],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get",
+          "Stack::mutated_boundary"
+        ],
+        "failed_functions": [
+          "boundary::Stack::mutated_boundary"
+        ],
+        "native_inventory": null,
+        "source_mutation": {
+          "after": "granting\n            }",
+          "before": "granting + 1\n            }",
+          "original": "find_first_write_incompatible",
+          "original_function_sha256": "59320060e2ca7767d2c694d1695a91be99ac43612b09ef7b33fc4c7b506d043a",
+          "symbol": "Stack::mutated_boundary"
+        },
+        "source_sha256": "b718a9bffc981141e975a8a7e8a08e438107e9d580558a75928184b5ef5c4c66",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "e370940035e5a8d5243e8c9adbe5e89616d7ce2d05e73b712469be0f0def168f",
+        "stdout_sha256": "09879f2be74baa3dce1febf8c0ac7e12e613e0fde48ba60ccf66d968020f01d0",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 23
+        }
+      },
+      "permission": {
+        "diagnostics": [
+          {
+            "column": 13,
+            "kind": "postcondition not satisfied",
+            "line": 158,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/grant/mutations-n891m8at/permission.rs"
+          }
+        ],
+        "exec_inventory": [
+          "<Item as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Item::perm",
+          "Item::protected",
+          "Item::set_permission",
+          "Permission::from_bits",
+          "Permission::mutated_permission",
+          "Permission::to_bits",
+          "Stack::find_first_write_incompatible",
+          "Stack::get"
+        ],
+        "failed_functions": [
+          "permission::Permission::mutated_permission"
+        ],
+        "native_inventory": null,
+        "source_mutation": {
+          "after": "Self::UNIQUE => Permission::SharedReadWrite,",
+          "before": "Self::UNIQUE => Permission::Unique,",
+          "original": "from_bits",
+          "original_function_sha256": "8ba23ee0d2c0c8e0a8565de975e97ecfd3c13b865f49f3dd5be98d99312e69eb",
+          "symbol": "Permission::mutated_permission"
+        },
+        "source_sha256": "f344829cbc8685adf2ba6786cbcff9ef1b581f9dff09d5b5ff2763c44e5b14a0",
+        "spec_inventory": [
+          "Item::permission",
+          "bits",
+          "decode"
+        ],
+        "stderr_sha256": "3022f013bcb0d32748a681f39cd5b5dd4450cf3c6a79d02afdf71cc26d41a74e",
+        "stdout_sha256": "4768b68568b550cbf9f0f619a937f04c2fcd8dfedbccda03c3af44f9460f9147",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 22
+        }
+      }
+    },
+    "suite_receipt_sha256": "2723b49d5015c8442c7d62aa5c36838ae0bae04b28cf4e94ed47fa37bcfecc63"
+  },
+  "guards": {
+    "all_final_guards_passed": true,
+    "audit_freeze_sha256": "e0704c5e7bcdaab268c3acfe364a8d955eead0732f4379abf22aec18d4105cff",
+    "pretrial_sha256": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
+    "python_optimized": true
+  },
+  "native_correspondences": 0,
+  "permission": {
+    "R1": "resolved",
+    "R2": "resolved",
+    "accepted": [
+      {
+        "diagnostics": [],
+        "enabled": true,
+        "exec_inventory": [
+          "<AccessKind as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Permission::grants"
+        ],
+        "failed_functions": [],
+        "name": "enabled-cold",
+        "native_inventory": [
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "enabled_cold::AccessKind::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<AccessKind as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:12:16: 12:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:12:40: 12:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:12:29: 12:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:12:44: 12:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:12:23: 12:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "enabled_cold::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:4:47: 4:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:4:36: 4:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:4:23: 4:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:4:30: 4:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "enabled_cold::Permission::grants",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::grants",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:32:5: 32:56"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:12:1: 16:2"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:4:1: 10:2"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "enabled_cold::permission_access_table",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "permission_access_table",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-cold.rs:18:1: 18:93"
+          }
+        ],
+        "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+        "spec_inventory": [
+          "permission_access_table"
+        ],
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "cf015e09b98ae8d2625466a18eb24d0c6049855989209c6e746e35f903ade175",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "errors": 0,
+          "is-verifying-entire-crate": true,
+          "success": true,
+          "verified": 3
+        }
+      },
+      {
+        "diagnostics": [],
+        "enabled": true,
+        "exec_inventory": [
+          "<AccessKind as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Permission::grants"
+        ],
+        "failed_functions": [],
+        "name": "enabled-warm",
+        "native_inventory": [
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "enabled_warm::AccessKind::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<AccessKind as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:12:16: 12:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:12:40: 12:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:12:29: 12:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:12:44: 12:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:12:23: 12:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "enabled_warm::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:4:47: 4:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:4:36: 4:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:4:23: 4:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:4:30: 4:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "enabled_warm::Permission::grants",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::grants",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:32:5: 32:56"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:12:1: 16:2"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:4:1: 10:2"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "enabled_warm::permission_access_table",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "permission_access_table",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/enabled-warm.rs:18:1: 18:93"
+          }
+        ],
+        "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+        "spec_inventory": [
+          "permission_access_table"
+        ],
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "6c9492fd8864973e0bee0916d94cbf43a46587178815ade53e7371c0aa2138dc",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "errors": 0,
+          "is-verifying-entire-crate": true,
+          "success": true,
+          "verified": 3
+        }
+      },
+      {
+        "diagnostics": [],
+        "enabled": false,
+        "exec_inventory": [
+          "<AccessKind as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Permission::grants"
+        ],
+        "failed_functions": [],
+        "name": "disabled",
+        "native_inventory": [
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "disabled::AccessKind::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<AccessKind as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:12:16: 12:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:12:40: 12:42"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:12:29: 12:38"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:12:44: 12:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<AccessKind as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<AccessKind as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:12:23: 12:27"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "checked_exec_body",
+            "function": "disabled::Permission::clone",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "<Permission as std::clone::Clone>::clone",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:4:16: 4:21"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:4:47: 4:49"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::cmp::PartialEq>::eq",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:4:36: 4:45"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::fmt::Debug>::fmt",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::fmt::Debug>::fmt",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:4:23: 4:28"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "outside_selected_scope",
+            "function": "<Permission as std::hash::Hash>::hash",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "<Permission as std::hash::Hash>::hash",
+            "selected": false,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:4:30: 4:34"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "checked_exec_body",
+            "function": "disabled::Permission::grants",
+            "inference_candidate": false,
+            "ordinary_contract": true,
+            "rust_function": "Permission::grants",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:32:5: 32:56"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:12:1: 16:2"
+          },
+          {
+            "automatically_derived": true,
+            "body_status": "selected_item_without_translated_body",
+            "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:4:1: 10:2"
+          },
+          {
+            "automatically_derived": false,
+            "body_status": "specification_definition_or_declaration",
+            "function": "disabled::permission_access_table",
+            "inference_candidate": false,
+            "ordinary_contract": false,
+            "rust_function": "permission_access_table",
+            "selected": true,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled.rs:18:1: 18:93"
+          }
+        ],
+        "source_sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+        "spec_inventory": [
+          "permission_access_table"
+        ],
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "673ed0dc6616e14fb5b1b426b3824a35029010ad4de11e251b422f0cb4618904",
+        "verification": {
+          "encountered-error": false,
+          "encountered-vir-error": false,
+          "errors": 0,
+          "is-verifying-entire-crate": true,
+          "success": true,
+          "verified": 3
+        }
+      },
+      {
+        "diagnostics": [
+          {
+            "column": 17,
+            "kind": "postcondition not satisfied",
+            "line": 33,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/disabled-guard-removed.rs"
+          }
+        ],
+        "enabled": true,
+        "exec_inventory": [
+          "<AccessKind as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Permission::grants"
+        ],
+        "failed_functions": [
+          "disabled_guard_removed::Permission::grants"
+        ],
+        "name": "disabled-guard-removed",
+        "native_inventory": null,
+        "source_sha256": "d5e2da160192d5c438b47e5c036b2aa0ce9f4175ee4fae8e39a076538c9d09a8",
+        "spec_inventory": [
+          "permission_access_table"
+        ],
+        "stderr_sha256": "5ed82f39dc1fb6a08e10576e2e6fa0ca21209cc3020a71d89609a4f26214fcf0",
+        "stdout_sha256": "3505ac69ea61b3f8ab298a5d67030d9d3f4f029ba5d449028bf7132db2aa3d3c",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 2
+        }
+      },
+      {
+        "diagnostics": [
+          {
+            "column": 17,
+            "kind": "postcondition not satisfied",
+            "line": 33,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/read-inverted.rs"
+          }
+        ],
+        "enabled": true,
+        "exec_inventory": [
+          "<AccessKind as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Permission::grants"
+        ],
+        "failed_functions": [
+          "read_inverted::Permission::grants"
+        ],
+        "name": "read-inverted",
+        "native_inventory": null,
+        "source_sha256": "55d9b4b245da3a61307bf2780db045cea4f9433f5912ea50b99a8a01f08add37",
+        "spec_inventory": [
+          "permission_access_table"
+        ],
+        "stderr_sha256": "a2000065cf5968679349d8f34fc66a6b1c588c9259d84870e71f912af53b0721",
+        "stdout_sha256": "b153476773e40b1e79b4762d333dc19ac25378e357e7dd2af6a4e3143bdedfd0",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 2
+        }
+      },
+      {
+        "diagnostics": [
+          {
+            "column": 17,
+            "kind": "postcondition not satisfied",
+            "line": 33,
+            "source": "/tmp/miri-grant-component-review-t3-8295fb02/permission/readonly-guard-removed.rs"
+          }
+        ],
+        "enabled": true,
+        "exec_inventory": [
+          "<AccessKind as std::clone::Clone>::clone",
+          "<Permission as std::clone::Clone>::clone",
+          "Permission::grants"
+        ],
+        "failed_functions": [
+          "readonly_guard_removed::Permission::grants"
+        ],
+        "name": "readonly-guard-removed",
+        "native_inventory": null,
+        "source_sha256": "01e68e97025845a9c6258dff2cffef2fee443beb54d45dbfd1ae4ec99211938a",
+        "spec_inventory": [
+          "permission_access_table"
+        ],
+        "stderr_sha256": "be0c3e42cc7badf03c0e6d935e7c34cf2f43203d1ed8d24480d43902102f0dec",
+        "stdout_sha256": "fb0d98852b0c0849a4b68fbed3541e31ca605d9b42dc19f3ec62deb29eeed12a",
+        "verification": {
+          "encountered-error": true,
+          "encountered-vir-error": false,
+          "errors": 1,
+          "is-verifying-entire-crate": true,
+          "success": false,
+          "verified": 2
+        }
+      }
+    ],
+    "canonical_support_key_mapping": {
+      "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/infer_eval_support.py": "/home/dev/projects/verus/source/tools/infer_eval_support.py",
+      "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/infer_experiment.py": "/home/dev/projects/verus/source/tools/infer_experiment.py"
+    },
+    "receipt_sha256": "ba92d1f27264966b3f659195b8ee183b514dd2e2da24af9a61c00977cef651c4"
+  },
+  "private_products": {
+    "count": 229,
+    "path": "/tmp/miri-grant-component-review-t3-8295fb02/product-hashes.json",
+    "sha256": "9d09abcf9ad965d37f4fa57dd8419711b26b5d1123c1ccf6c53aeafdf696efc7"
+  },
+  "publication": false,
+  "schema": 1,
+  "source": {
+    "authored_specs": [
+      "Item::permission",
+      "bits",
+      "decode"
+    ],
+    "bridge_source_sha256": "c826e0e40a83777262c5004cd532f796c6542a5486253990dcbefe6310d51ef6",
+    "copy_source": {
+      "inspected_lines": {
+        "BackendRepr::Scalar": 795,
+        "fn copy_op_inner": 911,
+        "fn copy_op_no_validate": 950,
+        "fn write_immediate_no_validate": 730,
+        "let src_has_padding =": 970
+      },
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/place.rs",
+      "sha256": "4ed0a0ca5ce612ade8d6aa7e73df43a86f3d7244491171c311e725d6770dc808",
+      "upstream": "compiler/rustc_const_eval/src/interpret/place.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/place.rs"
+    },
+    "grant_selected": {
+      "find_first_write_incompatible": {
+        "tokens_identical": true,
+        "upstream": "mod.rs",
+        "upstream_body_sha256": "4852e65caa98f2ebb3b67b90008a19f88b0bff9ad1f645794171b6797e589109"
+      },
+      "from_bits": {
+        "tokens_identical": true,
+        "upstream": "item.rs",
+        "upstream_body_sha256": "5bf6b461154766fd0b6bbaad01976009d902168571617eb629af5240b66937a4"
+      },
+      "get": {
+        "tokens_identical": true,
+        "upstream": "stack.rs",
+        "upstream_body_sha256": "a71c83473c1126dcbd7690e0a102baa8c54f202044ea52819226761904eea5a8"
+      },
+      "perm": {
+        "tokens_identical": true,
+        "upstream": "item.rs",
+        "upstream_body_sha256": "d61febe1bdd96c1f1060679555a43cf39692f4f12a89615dd5ed9b1d94e6a9f8"
+      },
+      "protected": {
+        "tokens_identical": true,
+        "upstream": "item.rs",
+        "upstream_body_sha256": "2da51c2e7ea7deffd571883ff243888c6534651cdeb54afd464be6f5330868e4"
+      },
+      "set_permission": {
+        "tokens_identical": true,
+        "upstream": "item.rs",
+        "upstream_body_sha256": "7874c71d1931cc6f2c999ac6361dd71e1e99fd765b2ae4a1612f25a0502f0650"
+      },
+      "to_bits": {
+        "tokens_identical": true,
+        "upstream": "item.rs",
+        "upstream_body_sha256": "6ad94b2faadc26c41b0f885f5530d2ed1b71cb80c1504195d801f49eeab526d2"
+      }
+    },
+    "manual_inline_blocks": 5,
+    "manual_library_calls": [
+      "vstd::std_specs::vec::axiom_spec_len"
+    ]
+  },
+  "terminals": {
+    "carrier": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_entry_type_binding/check.py",
+        "--freeze",
+        "/tmp/miri-grant-component-review-t3-8295fb02/carrier-freeze.json",
+        "--output",
+        "/tmp/miri-grant-component-review-t3-8295fb02/carrier"
+      ],
+      "before": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
+      "cwd": "/tmp/miri-grant-component-review-t3-8295fb02",
+      "final_guards": true,
+      "label": "carrier",
+      "logs": {
+        "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "pid": 3115554,
+      "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/carrier-terminal.json",
+      "returncode": 0,
+      "seconds": 60.2288601398468,
+      "sha256": "ee8c46cf7ee625fe7b774296e58b11e1c576cee9d93a381ac77ce929ffd41389",
+      "status": "finished"
+    },
+    "coq": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/miri-grant-component-review-t3-8295fb02/owned/source/tools/research/native_miri_grant_refinement/coq_trial.py"
+      ],
+      "before": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
+      "cwd": "/tmp/miri-grant-component-review-t3-8295fb02",
+      "final_guards": true,
+      "label": "coq",
+      "logs": {
+        "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "4e3f75f16da107c9c83d9f38a623f8a1dc1e317196cdaba3bff0754802cb7088"
+      },
+      "pid": 3115386,
+      "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/coq-terminal.json",
+      "returncode": 0,
+      "seconds": 101.3774962425232,
+      "sha256": "fc4cc5c557fcb98a3edbf30da58940b9b94a7691c3725570b798ae640f9ae073",
+      "status": "finished"
+    },
+    "grant-mutations": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/miri-grant-component-review-t3-8295fb02/owned/source/tools/research/native_miri_grant_refinement/mutations.py"
+      ],
+      "before": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
+      "cwd": "/tmp/miri-grant-component-review-t3-8295fb02",
+      "final_guards": true,
+      "label": "grant-mutations",
+      "logs": {
+        "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "ccec333ac9d82bb5e6e3e48b5c5ae9bc3be4229bdd654600fbd63b2a2df6f8ba"
+      },
+      "pid": 3115944,
+      "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant-mutations-terminal.json",
+      "returncode": 0,
+      "seconds": 15.65203857421875,
+      "sha256": "5e7c9256ad4934a363315a3da46fd68124ae8420dc45e61caff5f8b63f1d4dba",
+      "status": "finished"
+    },
+    "grant-suite": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/miri-grant-component-review-t3-8295fb02/owned/source/tools/research/native_miri_grant_refinement/replay.py"
+      ],
+      "before": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
+      "cwd": "/tmp/miri-grant-component-review-t3-8295fb02",
+      "final_guards": true,
+      "label": "grant-suite",
+      "logs": {
+        "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "c8140d150e3dce3fb7d3268c7b40876bea867ae28a66f4565dbcce4633c4986b"
+      },
+      "pid": 3114640,
+      "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/grant-suite-terminal.json",
+      "returncode": 0,
+      "seconds": 49.1873984336853,
+      "sha256": "840c0a85804c9ec0faf78af3b0d385a1e0f7f4e46dc007e8b6a313eb61bc9c59",
+      "status": "finished"
+    },
+    "permission": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-8295fb02/source/tools/research/native_miri_permission_grants/replay.py",
+        "--freeze",
+        "/tmp/miri-grant-component-review-t3-8295fb02/permission-freeze.json",
+        "--output",
+        "/tmp/miri-grant-component-review-t3-8295fb02/permission"
+      ],
+      "before": "668dae4d01ba793c561c373ca5ae4d9cdc937b3bf25610b9e8ae4c08b92c71d7",
+      "cwd": "/tmp/miri-grant-component-review-t3-8295fb02",
+      "final_guards": true,
+      "label": "permission",
+      "logs": {
+        "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "pid": 3115504,
+      "receipt": "/tmp/miri-grant-component-review-t3-8295fb02/permission-terminal.json",
+      "returncode": 0,
+      "seconds": 18.122116804122925,
+      "sha256": "30ac318c5e9537312116e776d9b17aa211015ea58f6469bd116b73f55ba1db12",
+      "status": "finished"
+    }
+  }
+}
