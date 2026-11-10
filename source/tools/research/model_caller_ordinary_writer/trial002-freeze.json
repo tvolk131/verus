@@ -1,0 +1,50 @@
+{
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/model_caller_ordinary_writer/dependency-pins.json": "4d07c6e105f78c8091fad19098207ce92be326e745467fcee7b5857e29dc129e",
+    "source/tools/research/model_caller_ordinary_writer/INTERFACE.md": "25844bd8b36f9e4fdc93e75e5200adb85e266aa242a640cab3cc774b5d63c56c",
+    "source/tools/research/model_caller_ordinary_writer/check.py": "be14692e0241c8f69b1396d11a0eeea733b9d701bdee1f23ddf793d2c793a77f",
+    "source/tools/research/model_caller_ordinary_writer/semantic-freeze.json": "3549f59db9092d7b8e161719c6efea33e1bf1727e455bd1674f281ac476e1d8e",
+    "source/tools/research/model_caller_writer/STATUS.json": "2608428a9a89744f4dcbba4b437dba1a50aa1beb51748eb23d726fc69470e1b2",
+    "source/tools/research/model_caller_writer/dependency-pins.json": "ce48baf8a0a922295cce28263002c999028943b058bc18238f2ad9d8c5792793",
+    "source/tools/research/model_ordinary_shared_xor/results.json": "544a7773875f4035ef0d4b4a6edaee66ce894a4f10cc2632fdfd25ab2d6bed6f",
+    "source/tools/research/model_ordinary_shared_xor/dependency-pins.json": "1e33d6f93657adf78056df0f5d89b7f8140b10e2ffc933ee9e98fe8c340dde13",
+    "source/tools/research/model_mutable_writer/observation-results.json": "2f21303b3e751a00c863caad93fa2dc101333116c37695dceecf8c1bbb29012d",
+    "source/tools/research/model_nested_borrow_context/results.json": "4dde83dac877e0a74264ec803480d173bc39e320b271eb74173b1011c7586395",
+    "source/tools/research/model_shared_byte_read/results.json": "697038cd597730f7b42015be86baa62c39c2bc9b8e318ef659fab4d0374b348b",
+    "source/tools/research/model_pair_reader/results.json": "2d2696d58a4e58f570284fd88807c4384ac5ad165cc41aed86ee046a1644eeb6",
+    "source/tools/research/model_pair_reader/dependency-pins.json": "cd4a54e055e81856e04b59e7f7a1fd6cd532bdd6e59a544e7d74c8fedab56b3d",
+    "source/tools/research/model_shared_xor_loop/STATUS.json": "e4b032e06b5766d0816ffba8bd312ca7eb07d8dd03618e8dc9aa6c90183fd4a1",
+    "source/tools/research/model_shared_xor_loop/dependency-pins.json": "3b940bd56564fcabc90fe27ab8c075850cfbedd0e16daff192613f2a8086dc62",
+    "source/tools/research/model_non_atomic_access/results.json": "1a825e78109fd98c09a7d99a00f9bbc5afeab6166c3de7acdb4514af5a6fe7d0",
+    "source/tools/research/model_shared_byte_read/dependency-pins.json": "1a635060e13fa6499dadcb38652eb96dcdebbb118e6a677c6666f787e7c81083",
+    "source/tools/research/model_byte_xor/STATUS.json": "1b7096dfe0ae1845fb556232ab27c862b2f4a7a106da34cab45c6b44cc7f9229",
+    "source/tools/research/model_buffer_transform/STATUS.json": "45d9ca4f68f6e9e6b550afba8e3a882c959c3e350691a3e7e1dad53b306e56da",
+    "source/tools/research/native_semantic_bridge/proof_checks.py": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+    "source/tools/research/native_semantic_bridge/acceptance_inputs.py": "5b46bfd6f1439048afcd4077bb9145550e27a00558f67a08e703430c4431a06e",
+    "source/tools/research/native_semantic_bridge/baseline-bindings.json": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+    "source/tools/research/mutable_buffer_goal/foundation-pin.json": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+    "source/tools/research/mutable_buffer_goal/foundation-baseline.json": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "source/tools/research/model_caller_ordinary_writer/candidates/interface.v": "b973af888b91de41c5dceb86e1d0d96117ba5e7b9e060ba2c498b77d5439ed23",
+    "source/tools/research/model_caller_ordinary_writer/candidates/caller.v": "218ab8b1ebb2972b746f14da214e14c25b5fda6030f7ef4ac6603f8b1b590c68"
+  },
+  "external_inventory_sha256": "962c6947cac2074ece4ac89e7950047d4a6e731ea19d700653ef31bb29af4ef2",
+  "external_count": 1423,
+  "constants": {
+    "interface": [
+      "caller_xor_na_body",
+      "caller_xor_na_procedure",
+      "caller_xor_na_credit",
+      "caller_xor_na_contract"
+    ],
+    "caller": [
+      "caller_xor_na_verified"
+    ]
+  },
+  "existing_instance_registrations": {
+    "interface": [],
+    "caller": []
+  }
+}

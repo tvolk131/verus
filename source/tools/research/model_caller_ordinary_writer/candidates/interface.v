@@ -1,5 +1,8 @@
 From ModelCallerWriter Require Export caller.
 From ModelOrdinarySharedXor Require Export xor_na.
+From lrust.typing Require Import soundness inv_context programs_util borrow uniq_util.
+From lrust.lifetime Require Import lifetime_full.
+From guarding Require Import guard tactics.
 Set Default Proof Using "Type".
 Open Scope Z_scope.
 

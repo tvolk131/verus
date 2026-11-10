@@ -1,7 +1,8 @@
 {
   "schema": 1,
   "files": {
-    "candidates/interface.v": "b613eb9ad0a6238412e47b1ea4d14ac6e3175fe5992a946df5c576541487f0c3"
+    "candidates/interface.v": "b973af888b91de41c5dceb86e1d0d96117ba5e7b9e060ba2c498b77d5439ed23"
   },
-  "runtime_and_post_fixed_before_trials": true
+  "runtime_and_post_fixed_before_trials": true,
+  "import_only_frontend_correction_of": "5b329568"
 }
