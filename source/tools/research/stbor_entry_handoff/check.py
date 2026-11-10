@@ -28,6 +28,11 @@ def foundation():
         assert x['state']=='finished' and x['exit_status']==0
         guard(x['log'],x['log_sha256'])
     for t in receipt['tools'].values(): guard(t['path'],t['sha256'])
+    frozen=load(BASE/'manifests/upstream-tool-freeze.json')
+    for p,h in frozen['installed_files'].items(): guard(Path(frozen['installed_prefix'])/p,h)
+    reader=load(BASE/'manifests/object-dependency-map.json')
+    guard(reader['reader'],reader['reader_sha256'])
+    guard(Path(reader['reader']).parent/'vo_summary.ml',reader['reader_source_sha256'])
     for p,x in load(BASE/'manifests/kernel-loaded-objects.json').items():
         guard(p,x['object_sha256'])
         if x['source_sha256']: guard(x['source'],x['source_sha256'])
@@ -50,6 +55,7 @@ def run(name, argv, directory, env, inputs):
 def main():
     name=sys.argv[1]; mode=sys.argv[2] if len(sys.argv)>2 else 'build'
     ROOT.mkdir(exist_ok=True); d=ROOT/name; d.mkdir()
+    shutil.copyfile(__file__, d/'controller.py')
     for n in ['tmp','cache']: (d/n).mkdir()
     env={'PATH':str(PREFIX/'bin')+':/usr/bin:/bin','TMPDIR':str(d/'tmp'),
          'XDG_CACHE_HOME':str(d/'cache'),'LANG':'C.UTF-8','LC_ALL':'C.UTF-8',
@@ -62,20 +68,25 @@ def main():
     save(d/'pretrial-freeze.json',dict(sources=sources,controller_sha256=sha(__file__),
         foundation_guard_sha256=sha(d/'foundation-guard.json'),mode=mode))
     args=['-coqlib',str(PREFIX/'lib/coq'),'-Q',str(UP),'stbor','-Q',str(d),'handoff']
+    own_modules=['candidate']+(['composition'] if (d/'composition.v').exists() else [])
     if mode in ('build','accept'):
-        code=run('compile',[str(PREFIX/'bin/coqc')]+args+[str(d/'candidate.v')],d,env,sources)
+        code=0
+        for module in own_modules:
+            code=run('compile-'+module,[str(PREFIX/'bin/coqc')]+args+[str(d/(module+'.v'))],d,env,sources)
+            if code: break
     else: raise SystemExit('unknown mode')
     if code==0 and mode=='accept':
         declarations={}
-        for line in (d/'candidate.glob').read_text().splitlines():
-            m=re.match(r'^(def|prf|ind|constr|rec|proj|inst) (\d+):(\d+) (\S+) (\S+)$',line)
-            if m:
-                kind,a,b,scope,base=m.groups()
-                name='handoff.candidate.'+('' if scope=='<>' else scope+'.')+base
-                declarations[name]=dict(glob_kind=kind,source_start=int(a),source_end=int(b))
+        for module in own_modules:
+            for line in (d/(module+'.glob')).read_text().splitlines():
+                m=re.match(r'^(def|prf|ind|constr|rec|proj|inst) (\d+):(\d+) (\S+) (\S+)$',line)
+                if m:
+                    kind,a,b,scope,base=m.groups()
+                    name='handoff.'+module+'.'+('' if scope=='<>' else scope+'.')+base
+                    declarations[name]=dict(glob_kind=kind,source=module+'.v',source_start=int(a),source_end=int(b))
         assert declarations
         (d/'declarations').mkdir()
-        query=['Require handoff.candidate.', 'Set Printing Width 1000000.', 'Set Printing All.', 'Set Printing Universes.']
+        query=['Require '+' '.join('handoff.'+m for m in own_modules)+'.', 'Print LoadPath.', 'Set Printing Width 1000000.', 'Set Printing All.', 'Set Printing Universes.']
         for i,(name,x) in enumerate(sorted(declarations.items())):
             x['index']=i
             query += [f'Redirect "{d}/declarations/{i}-type" Check {name}.',
@@ -90,13 +101,33 @@ def main():
                 x[kind+'_text']=t; x[kind+'_sha256']=sha(p)
             assert 'Closed under the global context' in x['assumptions_text']
         save(d/'declaration-inventory.json',declarations)
-        modules=load(BASE/'manifests/object-dependency-map.json')['modules']
-        code=run('kernel',[str(PREFIX/'bin/coqchk')]+args+['-o']+sorted(modules)+['handoff.candidate'],d,env,sources)
+        baseline_map=load(BASE/'manifests/object-dependency-map.json')
+        modules=baseline_map['modules']
+        reader=baseline_map['reader']
+        code=run('object-summary',[reader]+[str(d/(m+'.vo')) for m in own_modules],d,env,sources)
+        assert code==0
+        combined=dict(modules)
+        own={}
+        for row in (d/'object-summary.log').read_text().splitlines():
+            name,file,deps,imports=row.split('\t')
+            own[name]=dict(object=file,object_sha256=sha(file),source_sha256=sha(Path(file).with_suffix('.v')),
+                recorded_compiled_dependencies=dict(x.split('=') for x in deps.split(';') if x),
+                recorded_imports=list(filter(None,imports.split(';'))))
+        assert set(own)=={'handoff.'+m for m in own_modules}
+        combined.update(own)
+        expected=set(own)
+        while True:
+            expanded=expected|{dep for name in expected for dep in combined[name]['recorded_compiled_dependencies']}
+            if expanded==expected: break
+            expected=expanded
+        save(d/'object-dependency-map.json',dict(modules={m:combined[m] for m in sorted(expected)},
+            reader_sha256=sha(reader),source='serialized checked-object summaries; not a substitute for kernel checking'))
+        code=run('kernel',[str(PREFIX/'bin/coqchk')]+args+['-o']+['handoff.'+m for m in own_modules],d,env,sources)
         assert code==0
         text=(d/'kernel.log').read_text()
         checked=set(re.findall(r'^Checking library: (\S+)\s*$',text,re.M))
         own=set(re.findall(r'^\s*checking cst:(handoff\.\S+)\s*$',text,re.M))
-        assert checked==set(modules)|{'handoff.candidate'}
+        assert checked==expected, (checked-expected,expected-checked)
         assert own==set(declarations), (own-set(declarations),set(declarations)-own)
         assert 'Modules were successfully checked' in text
         objects={}
@@ -106,9 +137,23 @@ def main():
         save(d/'loaded-objects.json',objects)
         save(d/'acceptance.json',dict(declarations=len(declarations),all_individually_closed=True,
              checked_modules=sorted(checked),objects=len(objects),kernel_context=text[text.rfind('==============='):],
-             compiled_source_sha256=sha(d/'candidate.v'),object_sha256=sha(d/'candidate.vo')))
+             compiled_sources={m:sha(d/(m+'.v')) for m in own_modules},
+             compiled_objects={m:sha(d/(m+'.vo')) for m in own_modules}))
     assert foundation()==inputs
     products={str(p.relative_to(d)):sha(p) for p in d.iterdir() if p.is_file()}
     save(d/'products.json',products)
     sys.exit(code)
-if __name__=='__main__': main()
+if __name__=='__main__':
+    try: main()
+    except SystemExit as error:
+        d=ROOT/sys.argv[1]
+        if d.exists() and not (d/'controller-exit.json').exists():
+            save(d/'controller-exit.json',dict(exit_status=error.code,state='finished',time=time.time()))
+        raise
+    except BaseException as error:
+        import traceback
+        d=ROOT/sys.argv[1]
+        if d.exists():
+            save(d/'controller-exit.json',dict(error=repr(error),traceback=traceback.format_exc(),
+                 controller_sha256=sha(__file__),time=time.time()))
+        raise
