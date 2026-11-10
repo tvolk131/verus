@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "verdict": "accepted_MODEL_only",
+  "blocking_findings": [],
+  "base_commit": "bc2a0b37",
+  "early_interface_commit": "4b8998f4",
+  "reviewed_commits": [
+    "e77da206f0bd6b49767f6e04a159df16abe3c406",
+    "ade18e679a5bbf170839d791278737a43cf5ef41",
+    "4aefbe9dc0b6c5d22449c65a190a604acc086785",
+    "58a779e205fe3ca3d14c1ed1cdeb2b7b3b96c940"
+  ],
+  "receipt": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/receipt.json",
+    "sha256": "55d1395eb57159e6afd0f81d2cf9f6a90b8e24b67e6016be05f020995ee8cb64"
+  },
+  "replay_receipt": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/replay/receipt.json",
+    "sha256": "2799d7b04baa46372cebf15dd2bff533788d69658d535f1f749e5262c098f252"
+  },
+  "source_audit": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/source-audit.json",
+    "sha256": "5ef47e30e7d525b9e7bb7e048c3e1851b297ba202085f0adc064796136b7a734"
+  },
+  "delivered_receipt": {
+    "path": "/tmp/native-source-storage-e77da206-trial007/receipt.json",
+    "sha256": "184b009ecbfa6a343e5183dce5e2df638bf906592c25b979bab5bd877a222b64",
+    "success": true
+  },
+  "parent_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-storage_scope_fix-001/proofs/receipt.json",
+    "sha256": "47f3ebf95acf6e15d3a6b17deabb0103902d48ac62d05a5a7e2fa8079ff8cd1a"
+  },
+  "manager_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-storage_scope_fix-001/receipt.json",
+    "sha256": "03f7e40a44dbebf5f66f7a38e144118902e579686485dab77ee63b62fe438f58"
+  },
+  "model_proofs_kernel_checked": true,
+  "recursive_kernel_check": true,
+  "kernel_exclusions": [],
+  "kernel_axioms": [],
+  "declaration_count": 142,
+  "per_module": {
+    "Storage": 103,
+    "Sites": 6,
+    "Prefix": 33
+  },
+  "explicit_declarations": 75,
+  "generated_declarations": 67,
+  "individual_assumptions_complete": true,
+  "assumptions_match_worker_and_parent": true,
+  "math_V_VO_match_worker_and_parent": true,
+  "matched_math_products": 12,
+  "inspection_V_VO_also_match": true,
+  "source_linkage": {
+    "graph_rows": 44,
+    "storage_sites": 20,
+    "root_initial_prefix_locals": [
+      2,
+      3,
+      4
+    ],
+    "next_pc": "root bb0[3]",
+    "later_storage_dead_progress": "pointwise_only_not_reachable"
+  },
+  "readiness_authenticated": true,
+  "gmp_manifest_sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37",
+  "coq_dependency_count": 1121,
+  "coq_dependency_map_sha256": "14c4b43b1eaa1ee216c2aedd34303a3d28a536682a8efdc1758355481bf457fa",
+  "rustc_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "goal_requirements_sha256": "11014c3ac73ddf13c464769f5d0d1cbd24598ab52777718d31872c70b3b8f7b0",
+  "full_current_target_guarded_initial_and_final": true,
+  "documentary_progress_allowed": true,
+  "pure_policy_tests": [
+    "current_scope",
+    "documentary_progress_allowed",
+    "requirements_edit_rejected",
+    "completion_edit_rejected",
+    "missing_scope_marker_rejected",
+    "duplicate_scope_marker_rejected",
+    "inverted_scope_markers_rejected",
+    "wrong_freeze_pin_rejected",
+    "wrong_retained_snapshot_rejected",
+    "closed_kernel_summary",
+    "kernel_axiom_rejected",
+    "unsafe_kernel_rejected",
+    "missing_kernel_summary_rejected",
+    "duplicate_kernel_summary_rejected"
+  ],
+  "failures": [],
+  "warnings": [
+    "Coq Redirect emits default-output-directory warnings in inspection only; all exit codes0."
+  ],
+  "authored_new_proofs": 0,
+  "native_correspondences": 0,
+  "actual_source_instance": false,
+  "source_certificate_proved": false,
+  "source_simulations_open": 44,
+  "phase_obligations_open": 3,
+  "writer_effects_open": 101,
+  "canonical_inherited": "6/0",
+  "full_HMAC_inherited": "1/1 unproved",
+  "rust_suite_run": false,
+  "publication": false,
+  "goal_complete": false,
+  "committed_evidence": {
+    "INTERFACE.md": {
+      "sha256": "7419aee05a3169a6dd1d9b2b94c66ca3876b679eb8c398e95b7c8d06426a47bf"
+    },
+    "review.py": {
+      "sha256": "a2ae470187c6ce1d16943dc333e34ec580d8f5bc7c10a10542383dc9dbc31bc7"
+    },
+    "source_audit.py": {
+      "sha256": "8ac1eaeb415b1da153a5a20bddac053b3bf007912204b4475c098fa0bc14c51d"
+    },
+    "ASSUMPTIONS.json": {
+      "sha256": "21c91f1f7f5ece6af8f5a10e87bdfcd711b48b905315987e3271dc244f10960b"
+    },
+    "commands.json": {
+      "sha256": "189f4ee71b77eed6538e19c9a634500b039431385dddbbfbb91ead24ee10af4a"
+    },
+    "hashes.json": {
+      "sha256": "06d6d8f470fa15872080b3b5b5f95621c17c9e483fdd59ece0c76545a2f26137"
+    },
+    "REPORT.md": {
+      "sha256": "dd173c125c2800b5ed9bde62566bcd3d1e068e5dd45cffd8ca2b6e3a937cdb18"
+    }
+  }
+}

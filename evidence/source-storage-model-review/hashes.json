@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "authenticated_source_documents": {
+    "source/tools/research/native_source_storage/REPORT.md": {
+      "commit": "ade18e67",
+      "sha256": "66999780fed5b5836c25bfe760757d5bcdda6f52a3207a00d2c68de27405ac7d"
+    },
+    "source/tools/research/native_source_storage/results.json": {
+      "commit": "ade18e67",
+      "sha256": "cd9aa4b23d970b721383553e76635c86a1c83f0c0c59ab884ed628521e867c58"
+    },
+    "source/tools/research/native_source_storage/pins.json": {
+      "commit": "ade18e67",
+      "sha256": "0d4439ea1972f5258c24832233d864a63337f346cd17d6767d523370f2edbe22"
+    },
+    "source/tools/research/native_source_storage/README.md": {
+      "commit": "58a779e2",
+      "sha256": "877da32708ed44d5a690bc484a33f797bba0408120885d280c3702424d7bf894"
+    },
+    "source/tools/research/native_source_storage/integration-results.json": {
+      "commit": "58a779e2",
+      "sha256": "70253d39a6bdc9b4d85d6eefbaada5c1856bdbb3ccba37800fd5aba187077c2a"
+    },
+    "source/tools/research/native_source_storage/integration001-freeze.json": {
+      "commit": "4aefbe9d",
+      "sha256": "90527cbd1818f818cd86ba6f8fe37a4f7414a33abd4ef1d7976cdae65d9f6de7"
+    },
+    "source/tools/research/native_source_storage/check.py": {
+      "commit": "4aefbe9d",
+      "sha256": "bf3063ab0dffafe47e11ae96df1a1ef8ad8a0d58939efa0903d8ae528e7b795d"
+    },
+    "source/tools/research/native_source_storage/INTERFACE.md": {
+      "commit": "e77da206",
+      "sha256": "2161b83fa3e732be6f4449535de6ba5168e95dcb859fede5c85eae059301607a"
+    },
+    "source/tools/research/native_source_storage/source.py": {
+      "commit": "ade18e67",
+      "sha256": "f6f8bfb6c8e43bc84b555a8fc4d31beb3cc7532acb188cf8a352e04a78cf764b"
+    },
+    "source/tools/research/native_source_storage/candidates/Storage.v": {
+      "commit": "ade18e67",
+      "sha256": "8d56c29bef594166ac761b50d6883769d9cd6f1323b3eb59374f6feb06e87ba3"
+    },
+    "source/tools/research/native_source_storage/candidates/Sites.v": {
+      "commit": "ade18e67",
+      "sha256": "107bd03cbe2cb0cb1135a036ab43d649e743dc79da3a79a58c26ec22fa6f6779"
+    },
+    "source/tools/research/native_source_storage/candidates/Prefix.v": {
+      "commit": "ade18e67",
+      "sha256": "216478dc461cfecaf650ee5ae588ae3bce7853a96656b7f343b4a5f86d1dda30"
+    }
+  },
+  "integration_freeze_inputs": {
+    "source/tools/research/mutable_buffer_goal/goal_scope.py": "c98c8edab6a92cafbc2424a36244262f06b04b5a4e496384ab84dfa321b2593c",
+    "source/tools/research/native_source_storage/check.py": "bf3063ab0dffafe47e11ae96df1a1ef8ad8a0d58939efa0903d8ae528e7b795d",
+    "source/tools/research/native_source_storage/source.py": "f6f8bfb6c8e43bc84b555a8fc4d31beb3cc7532acb188cf8a352e04a78cf764b",
+    "source/tools/research/native_source_storage/INTERFACE.md": "2161b83fa3e732be6f4449535de6ba5168e95dcb859fede5c85eae059301607a",
+    "source/tools/research/native_source_storage/pins.json": "0d4439ea1972f5258c24832233d864a63337f346cd17d6767d523370f2edbe22",
+    "source/tools/research/native_source_storage/candidates/Storage.v": "8d56c29bef594166ac761b50d6883769d9cd6f1323b3eb59374f6feb06e87ba3",
+    "source/tools/research/native_source_storage/candidates/Sites.v": "107bd03cbe2cb0cb1135a036ab43d649e743dc79da3a79a58c26ec22fa6f6779",
+    "source/tools/research/native_source_storage/candidates/Prefix.v": "216478dc461cfecaf650ee5ae588ae3bce7853a96656b7f343b4a5f86d1dda30",
+    "source/tools/research/native_constructor_erasure/graph.json": "ce114902ac22d593393d08737c619e88a226c47fe2dbeb9d52a7fd8bc6940b29",
+    "source/tools/research/native_constructor_erasure/candidates/Interface.v": "7081211bc52d95b3a3f5d8052284d0ef885be730b6fb68d0a3bf63eec5451db5",
+    "source/tools/research/native_constructor_erasure/candidates/Graph.v": "984bc4bf99a2403748077d5edb79d743673b482deca99b29d305cb8752e5230c",
+    "source/tools/research/native_constructor_erasure/candidates/Composition.v": "ab60813b9b6912775d747e9468f92757e57557a551cb1366e1aa083223875245",
+    "source/tools/research/native_constructor_erasure/results.json": "0ab028043e8891f94b3d82c659046f1baf79eb379d9c696642370f32f1f2b8f2",
+    "source/tools/research/native_constructor_erasure/INTERFACE.md": "0272fb687ce4c19895e0926047e2b241873c41fdbd763d018a6092211d8f0870",
+    "source/tools/research/native_constructor_erasure/REPORT.md": "826107c02a389b8be0e5c8b92b791636952880ad85ef5a1e19a6d80e6c4320f3",
+    "source/tools/research/native_semantic_bridge/baseline-bindings.json": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+    "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+    "source/tools/research/mutable_buffer_goal/foundation-baseline.json": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+    "source/tools/research/mutable_buffer_goal/foundation-pin.json": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+    "source/tools/research/mutable_buffer_goal/NATIVE_CERTIFICATE.md": "194b3e8fa6ec2252dd11f4bd30afd69400570a7a00cd718d560f20cb652a9d68",
+    "source/tools/research/mutable_buffer_goal/FACT_PROVENANCE.md": "f4dd142194b4c488db7fbfbeca82332e801fa9965c6b3447f3f3eb98cb077fa7",
+    "evidence/native-functional-boundary-audit/REPORT.md": "5a10f58ab6b09c3cd885e491b0e3f01c15de5822d21cf6fe4edb048e5e63ab36",
+    "source/tools/research/native_pointer_distance/pins.json": "0d9c7b845a78828e871c39eb433c6161241b28a1463bd816bb64b4ef73226bd2",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d"
+  },
+  "target": {
+    "path": "source/tools/research/mutable_buffer_goal/TARGET.md",
+    "sha256": "e18a2e80c33895a72241302594d4b19e67a92b9db6f9f9ad6028c01a64c46eb7",
+    "requirements_sha256": "11014c3ac73ddf13c464769f5d0d1cbd24598ab52777718d31872c70b3b8f7b0"
+  },
+  "tools": {
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/opam": "324e78e3f33efeba279aacf9f9610cfec7b2df7d7e0e1640f75f09de85f96cc9",
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq": "bffce97908442f9af5a279d7dda96682c55ef8fbad525b7cc0f7efdf71a89b7e",
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqc": "c97932397e89335770512a56838721ff9739ddaba460a86589c2ddea8dd5cb87",
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqchk": "b95cdd8b3881c5999888ea829b58b552e92ce8aaba34fd76b980e8a65309d56a"
+  },
+  "rustc_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "rust_primary_sources": [
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_middle/src/mir/syntax.rs",
+      "upstream": "compiler/rustc_middle/src/mir/syntax.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_middle/src/mir/syntax.rs",
+      "sha256": "dbba0792fb1299f6c69d564be6e651ddb75d082f647708fd207a4b88810f1223"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/step.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/step.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/step.rs",
+      "sha256": "b904b4a99b48d083aad4fe53f80db0617955ec0551800568a99fdff0edffbe02"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/eval_context.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/eval_context.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/eval_context.rs",
+      "sha256": "3ea559b9c3dfe8011d12294adea77ddac353450a79cae372766a88991e881f35"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/memory.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/memory.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/memory.rs",
+      "sha256": "f5b238e35ea7309a43b1df68cb98d65fba5c14d1bfdcd2f648a94d9a1057901b"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/place.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/place.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/place.rs",
+      "sha256": "4ed0a0ca5ce612ade8d6aa7e73df43a86f3d7244491171c311e725d6770dc808"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/machine.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/machine.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/machine.rs",
+      "sha256": "9611e6945607bc5f9c07d53e249c3f449fafff6b8963ad657c2168c418b5eab8"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/mod.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/mod.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/mod.rs",
+      "sha256": "2ad93da05930827d247ac9d9aa196e1ddc7fa517df5c33d0c028d91d2a1a9883"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/stack.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/stack.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/stack.rs",
+      "sha256": "983865c727a65a359b713fddf4abbcc4a104fa706c8db3a3ae1bb43a5f1df614"
+    }
+  ],
+  "coq_dependencies": {
+    "root": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/lib",
+    "count": 1121,
+    "map_sha256": "14c4b43b1eaa1ee216c2aedd34303a3d28a536682a8efdc1758355481bf457fa",
+    "classification": "targeted_immutable_Coq_standard_sources_objects_and_plugins_no_new_formal_import"
+  },
+  "baseline": {
+    "source_count": 523,
+    "object_count": 284,
+    "source_commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+    "ready": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json",
+      "sha256": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007"
+    },
+    "durable": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/durable-build-2/receipt.json",
+      "sha256": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e"
+    }
+  },
+  "gmp_manifest": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/gmp-private/manifest.json",
+    "sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37"
+  },
+  "raw_review": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/receipt.json",
+    "sha256": "55d1395eb57159e6afd0f81d2cf9f6a90b8e24b67e6016be05f020995ee8cb64"
+  },
+  "raw_replay": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/replay/receipt.json",
+    "sha256": "2799d7b04baa46372cebf15dd2bff533788d69658d535f1f749e5262c098f252"
+  },
+  "raw_preflight": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/preflight.json",
+    "sha256": "31f0f754b110a778e5df868f4b5747be9c76d94cc75f60554020665ee072a4f6"
+  },
+  "raw_source_audit": {
+    "path": "/tmp/native-source-storage-model-review-bc2a0b37-001/source-audit.json",
+    "sha256": "5ef47e30e7d525b9e7bb7e048c3e1851b297ba202085f0adc064796136b7a734"
+  },
+  "prior_receipts": [
+    {
+      "path": "/tmp/native-source-storage-e77da206-trial007/receipt.json",
+      "sha256": "184b009ecbfa6a343e5183dce5e2df638bf906592c25b979bab5bd877a222b64",
+      "success": true
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-storage_scope_fix-001/proofs/receipt.json",
+      "sha256": "47f3ebf95acf6e15d3a6b17deabb0103902d48ac62d05a5a7e2fa8079ff8cd1a"
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-storage_scope_fix-001/receipt.json",
+      "sha256": "03f7e40a44dbebf5f66f7a38e144118902e579686485dab77ee63b62fe438f58"
+    }
+  ],
+  "matched_math_products": {
+    "Storage.v": "8d56c29bef594166ac761b50d6883769d9cd6f1323b3eb59374f6feb06e87ba3",
+    "Storage.vo": "55662ca3e52622ff247dcbbb9ddc7794a5878ee5c68e2154b218d91ca5836738",
+    "Sites.v": "107bd03cbe2cb0cb1135a036ab43d649e743dc79da3a79a58c26ec22fa6f6779",
+    "Sites.vo": "9bcad48338dd2cb0951189bb6dd1304bcd43d3b7d454e36be5c5ff8b9ca257ac",
+    "Prefix.v": "216478dc461cfecaf650ee5ae588ae3bce7853a96656b7f343b4a5f86d1dda30",
+    "Prefix.vo": "6ebc2deac78d7e9999a054876cac5ff5683afcb43878906cb310027fcb2fc8a2",
+    "Interface.v": "7081211bc52d95b3a3f5d8052284d0ef885be730b6fb68d0a3bf63eec5451db5",
+    "Interface.vo": "478f9d14eb16ffa81235964987b079ef32a74bfb575a926182fd892a4b648efb",
+    "Graph.v": "984bc4bf99a2403748077d5edb79d743673b482deca99b29d305cb8752e5230c",
+    "Graph.vo": "58d5f639153da78cc8ae57a0f4e08d61de4e007d0e3f87e4417533b013b0818c",
+    "Composition.v": "ab60813b9b6912775d747e9468f92757e57557a551cb1366e1aa083223875245",
+    "Composition.vo": "2725d37bcf390d96bdef9866b223db0fc4df37583f94e7a0a791b601c91e8580"
+  },
+  "review_sources": {
+    "evidence/source-storage-model-review/INTERFACE.md": "7419aee05a3169a6dd1d9b2b94c66ca3876b679eb8c398e95b7c8d06426a47bf",
+    "evidence/source-storage-model-review/review.py": "a2ae470187c6ce1d16943dc333e34ec580d8f5bc7c10a10542383dc9dbc31bc7",
+    "evidence/source-storage-model-review/source_audit.py": "8ac1eaeb415b1da153a5a20bddac053b3bf007912204b4475c098fa0bc14c51d"
+  }
+}
