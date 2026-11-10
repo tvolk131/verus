@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "verdict": "accept_exact_MODEL_laws_only",
+  "blocking_mathematical_findings": [],
+  "reviewed_commit": "d6dc448d",
+  "review_checkout_HEAD": "3ce5025c35ae3cab8983c5c793d007bbc5f6769d",
+  "lane_matches_reviewed_commit": true,
+  "reviewed_file_sha256": {
+    "source/tools/research/model_nested_borrow_context/INTERFACE.md": "644ac21edccdc81ed4da1f7ef81db843125360cdc46d75735f5b8c1d8772e717",
+    "source/tools/research/model_nested_borrow_context/REPORT.md": "23bcfe1d0c0fc294d304bbba861f981c9e586aa9aff2e18c248d0b5648d07cb2",
+    "source/tools/research/model_nested_borrow_context/FROZEN.md": "825e19076b3e1cc98d94bf9c0ed5b87c631c8b437f7853cda38bc08302410fd3",
+    "source/tools/research/model_nested_borrow_context/check.py": "15ace7bb1f9daecf95795ab44517fad0f51b5913e51d9a0a0a45f26b879c05c5",
+    "source/tools/research/model_nested_borrow_context/develop.py": "f6151e26feab450d2b1e0f62a019a5c28badca5f7c5cb5314021880112d2f533",
+    "source/tools/research/model_nested_borrow_context/results.json": "4dde83dac877e0a74264ec803480d173bc39e320b271eb74173b1011c7586395",
+    "source/tools/research/model_nested_borrow_context/development.json": "a4dbc9ca832bd70d036fcbf0ae991e313c1771e7fce24a04df13cefb3b2df588",
+    "source/tools/research/model_nested_borrow_context/final-freeze.json": "24f3826850eb314c9ffe42b8d6583c688e7baf3aaa23d5926f94c61e2a6e22d0",
+    "source/tools/research/model_nested_borrow_context/candidates/controls.v": "9f30bd0361214185cbb867b0cb329a9aeee410453c301120ec26a47090121b82",
+    "source/tools/research/model_nested_borrow_context/candidates/instances.v": "8da86048457f631d7fa40bb29e89852a4b74e38138ad78b81067e0399fda71e2",
+    "source/tools/research/model_nested_borrow_context/candidates/protocol.v": "734c8fcbbd88f1736306272feb2f7fae8afbf2dba631acbea5e7c45b52cd25f6",
+    "source/tools/research/model_nested_borrow_context/candidates/recovery.v": "e27a1fd84c2b1712c9866d3ba8a9ed5cf97d8567e29fb56d8e796893ea3a06b2",
+    "source/tools/research/model_nested_borrow_context/candidates/writes.v": "deba9a5f377aa1cfadc3fe96ffa06901d51a7a86881e5e3d24b817fcfeaedc5d"
+  },
+  "worker_receipt": {
+    "path": "/tmp/model-nested-borrow-context-trial-053/receipt.json",
+    "sha256": "c144c56e1d38e5310219a90da8fb03ad0cca4036ab123eee3beb92fd773d8019",
+    "authenticated": true
+  },
+  "fresh_replay": {
+    "output": "/tmp/nested-context-recovery-review-20261110-001",
+    "receipt_sha256": "7a5971448f1a43a15318ae4aa99abbc43b9849763494d7958af73bbd6ecc9b01",
+    "freeze_sha256": "24f3826850eb314c9ffe42b8d6583c688e7baf3aaa23d5926f94c61e2a6e22d0",
+    "success": true,
+    "model_proofs_kernel_checked": true,
+    "command_outcomes": [
+      {
+        "label": "compile-protocol",
+        "exit_code": 0
+      },
+      {
+        "label": "compile-writes",
+        "exit_code": 0
+      },
+      {
+        "label": "compile-instances",
+        "exit_code": 0
+      },
+      {
+        "label": "compile-recovery",
+        "exit_code": 0
+      },
+      {
+        "label": "compile-controls",
+        "exit_code": 0
+      },
+      {
+        "label": "assumptions",
+        "exit_code": 0
+      },
+      {
+        "label": "kernel",
+        "exit_code": 0
+      }
+    ],
+    "recursive_checker_argv": [
+      "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/run-rocq",
+      "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/bin/coqchk",
+      "-silent",
+      "-o",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/prelude",
+      "iris.prelude",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/algebra",
+      "iris.algebra",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/si_logic",
+      "iris.si_logic",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/bi",
+      "iris.bi",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/proofmode",
+      "iris.proofmode",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/base_logic",
+      "iris.base_logic",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/iris/iris/program_logic",
+      "iris.program_logic",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/stdpp/stdpp",
+      "stdpp",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/guarding",
+      "guarding",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/verus-belt-build-115a618d/src/lambda_verus",
+      "lrust",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/gmp-pin-heap-positive/proofs",
+      "NativeHeapInitialization",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs",
+      "NativeSemanticBridge",
+      "-Q",
+      "/tmp/verus-infer-buffer-cycle-20261109/parent-model-input-94b87742/proofs/proofs",
+      "ModelInputContext",
+      "-Q",
+      "/tmp/nested-context-recovery-review-20261110-001/proofs",
+      "ModelNestedBorrowContext",
+      "ModelNestedBorrowContext.protocol",
+      "ModelNestedBorrowContext.writes",
+      "ModelNestedBorrowContext.instances",
+      "ModelNestedBorrowContext.recovery",
+      "ModelNestedBorrowContext.controls",
+      "ModelNestedBorrowContext.Assumptions"
+    ],
+    "kernel_log_sha256": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526",
+    "assumptions_log_sha256": "5d4203da9e2ebae76a95a496e7b15d162d28ee7bb834aa4c564cce8eccfd9e59",
+    "final_source_product_input_guards_before_proof_success": true,
+    "input_snapshot_count": 866,
+    "input_digests_rechecked_after_completion": true
+  },
+  "baseline": {
+    "source_commit": "115a618dd35ff8337112cf2081a7f5391d3973d5",
+    "ready_sha256": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007",
+    "durable_build_receipt": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/durable-build-2/receipt.json",
+    "durable_build_receipt_sha256": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e",
+    "durable_build_success": true,
+    "version": "The Coq Proof Assistant, version 8.20.0\ncompiled with OCaml 4.14.2",
+    "copied_sources": 523,
+    "compiled_objects": 284,
+    "tools_and_loadpaths_authenticated": true,
+    "GMP_manifest_sha256": "332763a92d52a35f1623c7383970e6cd290b5010c426ca5bb15b21efc7f0bb37"
+  },
+  "constant_count": 24,
+  "constant_count_by_module": {
+    "protocol": 6,
+    "writes": 5,
+    "instances": 6,
+    "recovery": 7,
+    "controls": 0
+  },
+  "assumptions": {
+    "protocol.uniq_observation": [],
+    "protocol.child_inclusion": [],
+    "protocol.child_alive": [],
+    "protocol.end_child_context": [],
+    "protocol.shorter_no_write": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "protocol.shorter_run": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "writes.bytes_head_physical": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "writes.bytes_head_ghost": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "writes.bytes_head_mapsto": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "writes.byte_child_write": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "writes.shorter_write_changes": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "instances.bytes_parent_alive": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "instances.initialized_nested_no_write": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "instances.raw_model_nested_adequacy": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "instances.raw_model_nested10": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "instances.raw_model_nested128": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "instances.strict_interior_nested": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "recovery.bytes_vars_nil": [],
+    "recovery.bytes_observed_injective": [],
+    "recovery.initialized_nested_payload": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "recovery.raw_model_nested_read_adequacy": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "recovery.raw_model_nested_read10": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "recovery.raw_model_nested_read128": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "recovery.strict_interior_nested_read": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ]
+  },
+  "assumption_counts": {
+    "closed": 6,
+    "FE_only": 11,
+    "FE_and_Eqdep": 7
+  },
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "Program_declarations": 0,
+  "generated_Program_obligations": 0,
+  "worker_and_fresh_source_sha256": {
+    "Assumptions.v": "a4006dcffe425862f7983c19de6c422ad6a54c0876bd78079a59517b5d550790",
+    "controls.v": "9f30bd0361214185cbb867b0cb329a9aeee410453c301120ec26a47090121b82",
+    "instances.v": "8da86048457f631d7fa40bb29e89852a4b74e38138ad78b81067e0399fda71e2",
+    "protocol.v": "734c8fcbbd88f1736306272feb2f7fae8afbf2dba631acbea5e7c45b52cd25f6",
+    "recovery.v": "e27a1fd84c2b1712c9866d3ba8a9ed5cf97d8567e29fb56d8e796893ea3a06b2",
+    "writes.v": "deba9a5f377aa1cfadc3fe96ffa06901d51a7a86881e5e3d24b817fcfeaedc5d"
+  },
+  "worker_and_fresh_object_sha256": {
+    "Assumptions.vo": "b876390c0e2ba2da6e2167c80121ca71fbc54ec1e7edc1f3a6fbee4bbc75e59d",
+    "controls.vo": "2bfb1c3223426a0e52a93faeadf7674c08d88801e58db36dc072fd8fb7bd60dd",
+    "instances.vo": "cb41cdfa0395e79575156ba3b1e164fb42fc87ce00da28ac13a78dd43d094612",
+    "protocol.vo": "b30ae29358f290617c44f63a5b0a1fc56cc1619253b3c5f0f6f6993638e8b76c",
+    "recovery.vo": "1f56afc49d304a2278ee51957837a533b5536eb9b7f3c2815c49ff198fbffa31",
+    "writes.vo": "9c043bdc96a47ecb2d70b2cc1e8346970b81d98202e4d2ae2fa10a3d435a11c2"
+  },
+  "all_six_objects_byte_identical": true,
+  "development": {
+    "retained_and_authenticated_trials": 53,
+    "successful_trials": [
+      9,
+      53
+    ],
+    "failed_compilation_trials": 51,
+    "failed_compilations_are_semantic_negatives": false,
+    "countertheorem": "writes.shorter_write_changes"
+  },
+  "limits": {
+    "native_correspondences_proved": 0,
+    "minimal_native_operations_open": 44,
+    "native_phases_open": 3,
+    "native_effects_open": 101,
+    "canonical": "6/0 (outside-scope boundary, not rerun)",
+    "full_frozen_HMAC_prefix_AND_suffix": "1/1 failing/open (outside-scope boundary, not rerun)",
+    "publication": false,
+    "source_entry_proved": false,
+    "goal_complete": false,
+    "full_mutable_writer_observer_composition": "pending; outside this review"
+  },
+  "procedure": {
+    "subagents": 0,
+    "push_or_PR": false,
+    "installs": false,
+    "mutation_experiments": false,
+    "shared_baseline_writes": false,
+    "live_parent_replay_inspected": false,
+    "boundary_exception": "One read-only audit lookup followed the worker receipt to frozen foundation-baseline.json in sibling checkout t3-4112111d. Disclosed during review; no modification or other sibling content inspection."
+  }
+}
