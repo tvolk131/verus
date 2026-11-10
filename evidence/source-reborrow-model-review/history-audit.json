@@ -1,0 +1,46 @@
+{
+  "commits": {
+    "e9615ccb": "e9615ccb40f80c317f20b4a10a98ed588acd0cfe",
+    "aaca63b9": "aaca63b97c3f8e46873122f463aa0e0ff2a22bdf",
+    "312a5554": "312a555449a49a8a13e69c342e0f949eaaef3127",
+    "6c74c9b1": "6c74c9b1e45a885fe88ab7a2eb01b9a20fc003ee"
+  },
+  "immutable_math_checks": {
+    "source/tools/research/native_source_reborrow/pins.json": {
+      "committed_sha256": "a6518d413837c8db46b3f2295393726eb3d376daa364514dd2f1ca251f2fae1d",
+      "current_sha256": "a6518d413837c8db46b3f2295393726eb3d376daa364514dd2f1ca251f2fae1d"
+    },
+    "source/tools/research/native_source_reborrow/final-freeze.json": {
+      "committed_sha256": "f827200630bdc3160a6c5e7e179b83c1e6e23dc8b501c56bbd7ff9820bd07b4b",
+      "current_sha256": "f827200630bdc3160a6c5e7e179b83c1e6e23dc8b501c56bbd7ff9820bd07b4b"
+    },
+    "source/tools/research/native_source_reborrow/candidates/Model.v": {
+      "committed_sha256": "af317f108ffba87605a752097c926a506366acc81548e33a747250eb4b5967a6",
+      "current_sha256": "af317f108ffba87605a752097c926a506366acc81548e33a747250eb4b5967a6"
+    },
+    "source/tools/research/native_source_reborrow/candidates/Laws.v": {
+      "committed_sha256": "7df65e26d570aea2b8e751494fd2b8587cf227979fc044eca71ceda156f01efc",
+      "current_sha256": "7df65e26d570aea2b8e751494fd2b8587cf227979fc044eca71ceda156f01efc"
+    },
+    "source/tools/research/native_source_reborrow/candidates/Span.v": {
+      "committed_sha256": "d6ad8bebd4582d650a3c001c2a2fa25bc7a09fea107fc865c83b10fc0886aad8",
+      "current_sha256": "d6ad8bebd4582d650a3c001c2a2fa25bc7a09fea107fc865c83b10fc0886aad8"
+    },
+    "source/tools/research/native_source_reborrow/candidates/Controls.v": {
+      "committed_sha256": "c10bbcdc6b0a8206ef379d033a8e12046d2dd86eebb9465ea594622ee81effb7",
+      "current_sha256": "c10bbcdc6b0a8206ef379d033a8e12046d2dd86eebb9465ea594622ee81effb7"
+    }
+  },
+  "early_interface_same": true,
+  "freeze_removed": [
+    "source/tools/research/native_constructor_erasure/integration-results.json",
+    "source/tools/research/native_original_reference_exit/integration-results.json",
+    "source/tools/research/native_source_storage/integration-results.json"
+  ],
+  "freeze_added": [],
+  "freeze_changed": [
+    "source/tools/research/native_source_reborrow/check.py"
+  ],
+  "other_freeze_fields_identical": true,
+  "controller_diff": "diff --git a/source/tools/research/native_source_reborrow/check.py b/source/tools/research/native_source_reborrow/check.py\nindex a722741d..74f43a02 100644\n--- a/source/tools/research/native_source_reborrow/check.py\n+++ b/source/tools/research/native_source_reborrow/check.py\n@@ -84,7 +84,7 @@ def inputs():\n         BRIDGE/'source-bindings.json', GOAL_DIR/'foundation-baseline.json',\n         GOAL_DIR/'foundation-pin.json', *support_artifacts()]\n     for lane in ['native_source_storage','native_constructor_erasure','native_original_reference_exit']:\n-        paths += [HERE.parent/lane/'integration-results.json', HERE.parent/lane/'REPORT.md']\n+        paths += [HERE.parent/lane/'REPORT.md']\n     paths += [ROOT/'evidence/native-functional-boundary-audit/REPORT.md',\n         HERE.parent/'native_borrow_foundation_inspection/REPORT.md',\n         HERE.parent/'native_borrow_foundation_inspection/pins.json']\n"
+}

@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "retained_artifacts_checked": 3432,
+  "exact_source_tool_product_snapshot_unchanged_after_reporting": true,
+  "all_json_parsed": true,
+  "only_owned_new_directory_changed": true,
+  "no_native_status_change": true,
+  "review_receipt": {
+    "path": "/tmp/source-reborrow-model-review-6c74c9b1-003/receipt.json",
+    "sha256": "0bdbc838347582eadf04aa26dae17b6d0387e5e45b64825bb29a9547b4b98cf8"
+  },
+  "fresh_compilation_receipt": {
+    "path": "/tmp/source-reborrow-model-review-6c74c9b1-002/replay/receipt.json",
+    "sha256": "bccde9cd3729bad7620ce9be1512a846e295d9668bcdbf5f3f8b45bfecbf7e53"
+  }
+}
