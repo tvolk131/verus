@@ -1,0 +1,278 @@
+{
+  "scope": "Source inspection, immutable completed model-result authentication, syntax and pure Assumptions parser tests only. No builds, mutation/source/race controls, active batch reads, or parent/sibling inspection.",
+  "syntax_checks": [
+    {
+      "file": "source/tools/research/native_semantic_bridge/source_map.py",
+      "sha256": "5c6e29336d400f7518f92a324fb8126740f864eb4a4bedd4d2a1f064a34df41d",
+      "ast_parse": "passed"
+    },
+    {
+      "file": "source/tools/research/native_semantic_bridge/audit.py",
+      "sha256": "b44554db476319d1790c57c8e729e46d73c2371cda8fb8aedf818062045c67cc",
+      "ast_parse": "passed"
+    },
+    {
+      "file": "source/tools/research/native_semantic_bridge/check.py",
+      "sha256": "12421a10fb8c80f959ff48779c23e94589a540b0c08b07a7c79603ec34357518",
+      "ast_parse": "passed"
+    },
+    {
+      "file": "source/tools/research/native_semantic_bridge/freeze.py",
+      "sha256": "330448145fcf0ed3e7dc6497bedaa4fa0d016c37b593b14c47f77e96b6ccc02f",
+      "ast_parse": "passed"
+    },
+    {
+      "file": "source/tools/research/native_source_entry/entry_audit.py",
+      "sha256": "3083ba96a106d2df5125347e59cf823969099f48eca5bb4db431185e1e2bf38f",
+      "ast_parse": "passed"
+    }
+  ],
+  "pretrial_metadata": {
+    "source/tools/research/native_semantic_bridge/full-snapshot-freeze.json": {
+      "sha256": "e4f847e67889a964f589cf459f57a025bb4aaf5500208f7368f5c43d482dcb58",
+      "files_checked": 23,
+      "mismatches": []
+    },
+    "source/tools/research/native_source_entry/entry-full-snapshot-freeze.json": {
+      "sha256": "2800f4c9bd7c1f9c12b37decd79d71da4293b6f11eb0f4549da4e78eb0494737",
+      "files_checked": 15,
+      "mismatches": []
+    }
+  },
+  "independently_read_completed_model_result": {
+    "receipt_path": "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/proofs/receipt.json",
+    "receipt_sha256": "46e35308c297fd6c5eb9ce0fe94b80f86b094d4c6f59493962dee5eb8e34d562",
+    "matches_user_supplied_sha256": true,
+    "recorded_status": {
+      "success": true,
+      "publication": false,
+      "native_bridge_proved": false,
+      "model_proofs_kernel_checked": true,
+      "native_effects_discharged": 0,
+      "source_connection_proved": false,
+      "original_array_future_import_proved": false
+    },
+    "commands": {
+      "version": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 4.217111287987791,
+        "logs": {
+          "stdout": {
+            "sha256": "fc836871df13f62f91e58f8fb08e1094a2cbfb2c810cc9f214198cafee1712ba",
+            "bytes": 67
+          },
+          "stderr": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      },
+      "compile-borrow_handoff": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 33.89599546499085,
+        "logs": {
+          "stdout": {
+            "sha256": "e70ed2b02bbb05140ba7ad843b0286e87e58d01206b3dd29392066a9b0b9e012",
+            "bytes": 96
+          },
+          "stderr": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      },
+      "compile-byte_array": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 28.140587713976856,
+        "logs": {
+          "stdout": {
+            "sha256": "24e658e66d1556fd327c103dfc820153b228950ebcf06e64ff4809d2122ba215",
+            "bytes": 1009
+          },
+          "stderr": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      },
+      "compile-raw_view": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 15.574797991022933,
+        "logs": {
+          "stdout": {
+            "sha256": "e70ed2b02bbb05140ba7ad843b0286e87e58d01206b3dd29392066a9b0b9e012",
+            "bytes": 96
+          },
+          "stderr": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      },
+      "compile-model_limits": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 4.5104389009648,
+        "logs": {
+          "stdout": {
+            "sha256": "f0532d0e8a885018e887fe9f2fc1415078fabe8f12825919a931ee3c625a3996",
+            "bytes": 128
+          },
+          "stderr": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      },
+      "assumption-inventory": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 37.47070927801542,
+        "logs": {
+          "stdout": {
+            "sha256": "1912055c3c58d6cc5a1536c9ea60585ab00e245d145918d85c4c6d1643d7f3d5",
+            "bytes": 3629
+          },
+          "stderr": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      },
+      "kernel-check": {
+        "recorded_exit_code": 0,
+        "recorded_seconds": 194.03482310503023,
+        "logs": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526",
+            "bytes": 409
+          }
+        }
+      }
+    },
+    "normal_compilations": 4,
+    "parsed_assumption_constants": 25,
+    "assumption_inventory": {
+      "borrow_handoff.source_loan_access": [],
+      "borrow_handoff.source_loan_release": [],
+      "borrow_handoff.source_context_access": [],
+      "byte_array.byte_list_length": [],
+      "byte_array.bytes_size": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "byte_array.bytes_physical": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "byte_array.bytes_initialized": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "byte_array.byte_array128_size": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "byte_array.byte_array128_release": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "byte_array.byte_array128_scoped_handoff": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "byte_array.byte_array128_context_handoff": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "raw_view.typed_source_raw_view": [],
+      "raw_view.typed_source_raw_offset": [],
+      "raw_view.typed_source_loan_release": [],
+      "model_limits.arbitrary_raw_pointer_typed": [],
+      "model_limits.raw_read_empty_head_stuck": [],
+      "model_limits.model_offset_unrestricted": [],
+      "model_limits.empty_heap_offset_adequate": [],
+      "byte_array.byte_ty_obligation_1": [],
+      "byte_array.byte_ty_obligation_2": [],
+      "byte_array.byte_ty_obligation_3": [],
+      "byte_array.byte_ty_obligation_4": [],
+      "byte_array.byte_ty_obligation_5": [],
+      "byte_array.byte_ty_obligation_6": [],
+      "byte_array.byte_ty": []
+    },
+    "kernel_axioms": [
+      "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+      "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+    ],
+    "proof_terms": {
+      "borrow_handoff": {
+        "source_sha256": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "object_sha256": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+        "matches_current_and_original_sources": true,
+        "matches_original_object_hash": true
+      },
+      "byte_array": {
+        "source_sha256": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "object_sha256": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+        "matches_current_and_original_sources": true,
+        "matches_original_object_hash": true
+      },
+      "raw_view": {
+        "source_sha256": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "object_sha256": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+        "matches_current_and_original_sources": true,
+        "matches_original_object_hash": true
+      },
+      "model_limits": {
+        "source_sha256": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+        "object_sha256": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+        "matches_current_and_original_sources": true,
+        "matches_original_object_hash": true
+      }
+    },
+    "all_10_completed_proof_artifact_hashes_match": true,
+    "all_current_freeze_file_hashes_match_recorded_receipt": true,
+    "assumption_inventory_source_matches_generator": true,
+    "reviewer_ran_builds": false
+  },
+  "pure_tests_actually_run": [
+    {
+      "mode": "normal",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_proof_checks.Assumptions.test_single_line_and_qualified_extra_axioms_reject",
+        "test_proof_checks.Assumptions.test_indented_extra_axiom_rejects",
+        "test_proof_checks.Assumptions.test_closed_and_multiline_allowed",
+        "test_proof_checks.Assumptions.test_truncated_or_ambiguous_assumptions_reject",
+        "test_proof_checks.Assumptions.test_exact_inventory_and_missing_duplicate_mislabelled_blocks",
+        "test_proof_checks.Assumptions.test_kernel_summary_rejects_extra_axiom_and_unsafe_options"
+      ],
+      "cwd": "source/tools/research/native_semantic_bridge",
+      "exit_code": 0,
+      "test_count": 6,
+      "log": "evidence/proof-checker-source-review/assumptions-normal.log",
+      "log_sha256": "ea69e014bbb70c3b78bbd53b678667ac0ee8507653e21479bd83171d8d64f9c5"
+    },
+    {
+      "mode": "optimized",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "-v",
+        "test_proof_checks.Assumptions.test_single_line_and_qualified_extra_axioms_reject",
+        "test_proof_checks.Assumptions.test_indented_extra_axiom_rejects",
+        "test_proof_checks.Assumptions.test_closed_and_multiline_allowed",
+        "test_proof_checks.Assumptions.test_truncated_or_ambiguous_assumptions_reject",
+        "test_proof_checks.Assumptions.test_exact_inventory_and_missing_duplicate_mislabelled_blocks",
+        "test_proof_checks.Assumptions.test_kernel_summary_rejects_extra_axiom_and_unsafe_options"
+      ],
+      "cwd": "source/tools/research/native_semantic_bridge",
+      "exit_code": 0,
+      "test_count": 6,
+      "log": "evidence/proof-checker-source-review/assumptions-optimized.log",
+      "log_sha256": "ea69e014bbb70c3b78bbd53b678667ac0ee8507653e21479bd83171d8d64f9c5"
+    }
+  ]
+}
