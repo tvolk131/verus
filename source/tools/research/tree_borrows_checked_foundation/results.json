@@ -1,0 +1,321 @@
+{
+  "classification": "CHECKED_EXTERNAL_MODEL_BASELINE_ONLY",
+  "ready": true,
+  "normal_compilation": true,
+  "full_recursive_kernel_check": true,
+  "native_source_validity": false,
+  "source_safety_for_original_Rust": false,
+  "publication": false,
+  "goal_complete": false,
+  "independent_acceptance": "pending parent integration and fresh combined acceptance",
+  "canonical": "6/0 unchanged, not rerun",
+  "HMAC": "1/1 unproved; full prefix AND suffix, unchanged domain",
+  "native_correspondences": 0,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "simuliris_commit": "e3abfcdc301f92250d4227fc03c00463bf57b982",
+  "internal_modules": 71,
+  "checked_libraries": 507,
+  "loaded_objects": 507,
+  "kernel_constants": 52862,
+  "internal_constants": 2399,
+  "target_constants": 529,
+  "assumption_classes": 5,
+  "receipts": {
+    "bootstrap": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/bootstrap.json",
+      "sha256": "e1120d61e7220be1e2a2270a749407dfb5bee179facdeccafce46a8fcf2c3efb",
+      "details": {
+        "name": "bootstrap",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/bootstrap.sh"
+        ],
+        "started_utc": "2026-11-10T15:10:14.534690+00:00",
+        "supervisor_pid": 2772425,
+        "pid": 2772439,
+        "pgid": 2772439,
+        "startticks": "32812542",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/bootstrap.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:14:55.930033+00:00",
+        "log_sha256": "c7a3edc2d0bc117aeff036d98ae74b2f7a87f49edf7b71fdcd977ad6e6ad11ed"
+      }
+    },
+    "build-gmp": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/build-gmp.json",
+      "sha256": "86e49fd5924fac1d59737b0226d73a7e8c2e4413b0c1ad1e57b77a46e7b429ff",
+      "details": {
+        "name": "build-gmp",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110/gmp-6.3.0",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/build-gmp.sh"
+        ],
+        "started_utc": "2026-11-10T15:17:10.566873+00:00",
+        "supervisor_pid": 2801444,
+        "pid": 2801479,
+        "pgid": 2801479,
+        "startticks": "32854145",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/build-gmp.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:19:40.872508+00:00",
+        "log_sha256": "2b5ac1a9a2ba8791330766d504f2034d4c03195e46460431aa78ebc3a926690c"
+      }
+    },
+    "download-dependencies": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/download-dependencies.json",
+      "sha256": "60abd0f01af9c9fc76e911528daf4149ae0494b6cc49cb154feafc5fe9788857",
+      "details": {
+        "name": "download-dependencies",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/download-deps.sh"
+        ],
+        "started_utc": "2026-11-10T15:16:31.437961+00:00",
+        "supervisor_pid": 2799778,
+        "pid": 2799786,
+        "pgid": 2799786,
+        "startticks": "32850232",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/download-dependencies.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:16:59.648961+00:00",
+        "log_sha256": "172da14e257bddd6fd28f213d91be468a082a73d5b8c746f5ace61e7d65f19ea"
+      }
+    },
+    "freeze-dependencies": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/freeze-dependencies.json",
+      "sha256": "28be2d9855cecc9d25ae4d02189724624c0548f765f0cec46466ed9df8696f3a",
+      "details": {
+        "name": "freeze-dependencies",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/freeze-deps.sh"
+        ],
+        "started_utc": "2026-11-10T15:16:56.666050+00:00",
+        "supervisor_pid": 2801261,
+        "pid": 2801274,
+        "pgid": 2801274,
+        "startticks": "32852755",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/freeze-dependencies.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:17:55.245905+00:00",
+        "log_sha256": "14b19ce74f43f976d166ed10b391c61f02d4547771008c5a3079d63676ddd09e"
+      }
+    },
+    "install-dependencies-2": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/install-dependencies-2.json",
+      "sha256": "aa0a19055314d597a48e3897dcfbafa46ebce98eb88b59bc331ad02c4828d846",
+      "details": {
+        "name": "install-dependencies-2",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/install-deps.sh"
+        ],
+        "started_utc": "2026-11-10T15:29:54.335935+00:00",
+        "supervisor_pid": 2888967,
+        "pid": 2888991,
+        "pgid": 2888991,
+        "startticks": "32930522",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/install-dependencies-2.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:36:54.818968+00:00",
+        "log_sha256": "1229fa8a1f3d59159185f50aa82017f21309311d037d3bfdc0e80aac44c5cf8a"
+      }
+    },
+    "model-prepare": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/model-prepare.json",
+      "sha256": "83d1f1f0ed230c0b7b34bf1717c489cded77cc6724e67c5f2536dcdce054d628",
+      "details": {
+        "name": "model-prepare",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/model.sh",
+          "prepare"
+        ],
+        "started_utc": "2026-11-10T15:37:00.420642+00:00",
+        "supervisor_pid": 2923780,
+        "pid": 2923788,
+        "pgid": 2923788,
+        "startticks": "32973130",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/model-prepare.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:37:32.627881+00:00",
+        "log_sha256": "f42b7c26b5e52c003899fa1594dd4eec36eb6b1fe29a913e47fa97f34bb25a4a"
+      }
+    },
+    "model-build": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/model-build.json",
+      "sha256": "2579749f48422711d1cee4ba52ce396e2343c8c6cc46df3332b383be03c663aa",
+      "details": {
+        "name": "model-build",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/model.sh",
+          "build"
+        ],
+        "started_utc": "2026-11-10T15:37:40.193017+00:00",
+        "supervisor_pid": 2925509,
+        "pid": 2925540,
+        "pgid": 2925540,
+        "startticks": "32977107",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/model-build.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:41:19.059858+00:00",
+        "log_sha256": "287a1c5cb71bc2e7fb2857978794039dc3bc62d1f57eae1dfac3a10f5dae0b55"
+      }
+    },
+    "kernel": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/kernel.json",
+      "sha256": "2d2d475851301500be9c4db6b1d87535bcdc3e9b89bf965149e3dcb5676f0f02",
+      "details": {
+        "name": "kernel",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/model.sh",
+          "kernel"
+        ],
+        "started_utc": "2026-11-10T15:41:28.790904+00:00",
+        "supervisor_pid": 2930396,
+        "pid": 2930405,
+        "pgid": 2930405,
+        "startticks": "32999967",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/kernel.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:43:03.184670+00:00",
+        "log_sha256": "d353fae31850e22208a1c4d05df452ac6c48472b3aa529ba88ef8dc9b4d06581"
+      }
+    },
+    "inventory": {
+      "receipt": "/tmp/tree-borrows-checked-foundation-20261110/jobs/inventory.json",
+      "sha256": "5835852c2dd2800127bd39f158863e31b3fbfd76a5dc6fdf08d8d17695efa850",
+      "details": {
+        "name": "inventory",
+        "cwd": "/tmp/tree-borrows-checked-foundation-20261110",
+        "argv": [
+          "bash",
+          "/tmp/tree-borrows-checked-foundation-20261110/model.sh",
+          "inventory"
+        ],
+        "started_utc": "2026-11-10T15:43:33.247316+00:00",
+        "supervisor_pid": 2933023,
+        "pid": 2933031,
+        "pgid": 2933031,
+        "startticks": "33012413",
+        "log": "/tmp/tree-borrows-checked-foundation-20261110/jobs/inventory.log",
+        "exit_code": 0,
+        "finished_utc": "2026-11-10T15:51:45.478058+00:00",
+        "log_sha256": "80cba747442af5b0cc554a7969532877dff3821dff19b91f58389affaae6bd51"
+      }
+    }
+  },
+  "kernel_context_verbatim": "CONTEXT SUMMARY\n===============\n\n* Theory: Set is predicative\n  \n* Theory: Rewrite rules are not allowed\n  \n* Axioms:\n    Stdlib.Logic.IndefiniteDescription.constructive_indefinite_description\n    Stdlib.Logic.FunctionalExtensionality.functional_extensionality_dep\n    Stdlib.Logic.Classical_Prop.classic\n  \n* Constants/Inductives relying on type-in-type: <none>\n  \n* Constants/Inductives relying on unsafe (co)fixpoints: <none>\n  \n* Inductives whose positivity is assumed: <none>\n  \n",
+  "hashes": {
+    "closure.json": "c0de446b8d6248c4973d31f8f2ab1521e838db2d919d6a69b51f928cca030c0a",
+    "model-pretrial.json": "67ee9374ccac1be06c6850a7a4836bf387e0f94c1bb1aadcf17fd66b704edbf1",
+    "installed-pretrial.json": "871aa390cbb9667c3f6d997e120be505504836f5b9e89f606380adcc0751453f",
+    "model-objects.json": "a237d9014724576bb4a022c6428243541dd842ecb75d8d2717b0eca834a3fa0d",
+    "loaded-objects.json": "47deb3c08c48b00e8c201811d7ee42f25979d6f317bc1069712ebd86a420e33f",
+    "final-guards.json": "2b2ff4a944045beabb2d154144bf31eca366cdfd34195d3176c741e2499b8868",
+    "inventory.v": "2de346aa13cfe2a95be09a0730658ddf06f099e5ce1df677bfd4916f7184ef8c",
+    "inventory-queries.json": "5baffff45adae1e9f57f0027bee166017ad635bf25aa4349a8c2e5358ec8f9cd",
+    "upstream-source.json": "48b400fc5bb3a44eceb385b096df6c082c4faa29c7bacf59fffba667a554abe0",
+    "dependencies.json": "02968058fb2b32f8183363cbcea006a0172020efb7d4c797561353e77d48b3d2",
+    "ASSUMPTIONS.json": "ad9041fab45d6ed04d5c8386252f69aa380ea14ece79b371f16398a6e1ef332e",
+    "INVENTORY.json": "526bbb6ac5853d7eaf1bd7a4eef36e3fa43360d01944fbf795c2473e762e2cad",
+    "PUBLIC_TYPES.json": "9b5c3e95cf713058d40c4ff2e1867b5df1004d8422ffc494c8af72ef506b64a9",
+    "SOURCE_AUDIT.json": "546f06bb01f8f8650ba98d0881e3b790dc1aaaff345ce4504dea7d9ad4690f3d",
+    "TRIALS.json": "710bee58807781a62f5653861cef3c579af76d8baa88b4fa70d3985d1f0e22be",
+    "SUPPORT.json": "f345e1055da3e6858a11cc0c6260054af5e82c30f1be0ee3892ebd790806be3e"
+  },
+  "runner": "set -eu\n. /tmp/tree-borrows-checked-foundation-20261110/env.sh\nunset COQPATH ROCQPATH COQLIB ROCQLIB OCAMLPATH CAML_LD_LIBRARY_PATH COQBIN\nexport PATH=\"$OPAMROOT/tb/bin:$PATH\"\npython3 -B /home/dev/.t3/worktrees/verus/t3-d3abb079/source/tools/research/tree_borrows_checked_foundation/model.py \"$@\"\n",
+  "private_environment": "export TB_ROOT=/tmp/tree-borrows-checked-foundation-20261110\nexport OPAMROOT=\"$TB_ROOT/opamroot\"\nexport OPAMYES=1 OPAMJOBS=2 OPAMCONFIRMLEVEL=yes\nexport XDG_CACHE_HOME=\"$TB_ROOT/cache\"\nexport TMPDIR=\"$TB_ROOT/tmp\"\nexport PATH=\"$TB_ROOT/bin:$PATH\"\nexport PKG_CONFIG_PATH=\"$TB_ROOT/deps/lib/pkgconfig\"\nexport CFLAGS=\"-O2 -I$TB_ROOT/deps/include\"\nexport LDFLAGS=\"-L$TB_ROOT/deps/lib -Wl,-rpath,$TB_ROOT/deps/lib\"\nexport LD_LIBRARY_PATH=\"$TB_ROOT/deps/lib\"\n",
+  "pretrial_versions_and_loadpaths": {
+    "upstream_guard": {
+      "guarded_files": 185,
+      "sha256_map": "1051de8260c6e47ad3d4102193b762f9dca1c6893564fc38470f04f09e901f8f",
+      "matched": true
+    },
+    "installed_snapshot_sha256": "871aa390cbb9667c3f6d997e120be505504836f5b9e89f606380adcc0751453f",
+    "installed_roots": {
+      "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin": {
+        "files": 76,
+        "map_sha256": "e24eaf30e910325feacbb2f92a0353525645f2cca8470c9b7b350e025f73f781"
+      },
+      "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/lib": {
+        "files": 11829,
+        "map_sha256": "993a49009fbc679a4c11a3390faa32f5d073f7d5849d131a60375504f649000b"
+      },
+      "/tmp/tree-borrows-checked-foundation-20261110/deps": {
+        "files": 11,
+        "map_sha256": "8f1b7f39e082880d56ef800601cbc12ecbafe6d0418e6efe45a9fb41fc934fea"
+      },
+      "/tmp/tree-borrows-checked-foundation-20261110/opamroot/download-cache": {
+        "files": 86,
+        "map_sha256": "08f9cfe3b89e21c363c4e3e6ff34c48ceab31141279078c704df7dc78fb95f9a"
+      }
+    },
+    "versions": {
+      "rocq --version": {
+        "exit_code": 0,
+        "stdout": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.2\n"
+      },
+      "rocq --print-version": {
+        "exit_code": 0,
+        "stdout": "9.2 4.14.2\n"
+      },
+      "rocq compile -config": {
+        "exit_code": 0,
+        "stdout": "COQLIB=/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/lib/coq/\nCOQCORELIB=/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/lib/coq/../rocq-runtime/\nDOCDIR=/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/share/doc/\nOCAMLFIND=/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/ocamlfind\nCAMLFLAGS=-thread -bin-annot -strict-sequence -w -a+1..3-4+5..8-9+10..26-27+28..39-40-41-42+43-44-45+46..47-48+49..57-58+59..66-67-68+69-70\nWARN=-warn-error +a-3\nHASNATDYNLINK=true\nCOQ_SRC_SUBDIRS=boot config lib clib kernel library engine pretyping interp gramlib parsing proofs tactics toplevel printing ide stm vernac plugins/btauto plugins/cc plugins/derive plugins/extraction plugins/firstorder plugins/funind plugins/ltac plugins/ltac2 plugins/ltac2_ltac1 plugins/micromega plugins/nsatz plugins/ring plugins/rtauto plugins/ssr plugins/ssrmatching plugins/syntax\nCOQ_NATIVE_COMPILER_DEFAULT=no\n"
+      },
+      "ocamlc -version": {
+        "exit_code": 0,
+        "stdout": "4.14.2\n"
+      },
+      "ocamlfind list": {
+        "exit_code": 0,
+        "stdout": "atd                 (version: 4.2.0)\natdgen              (version: n/a)\natdgen-runtime      (version: 4.2.0)\natdts               (version: n/a)\nbase                (version: v0.16.5)\nbase.base_internalhash_types (version: v0.16.5)\nbase.caml           (version: v0.16.5)\nbase.md5            (version: v0.16.5)\nbase.shadow_stdlib  (version: v0.16.5)\nbigarray            (version: [distributed with Ocaml])\nbiniou              (version: 1.2.2)\nbytes               (version: [distributed with OCaml 4.02 or above])\ncamlp-streams       (version: n/a)\ncmdliner            (version: 2.1.1)\ncompiler-libs       (version: [distributed with Ocaml])\ncompiler-libs.bytecomp (version: [distributed with Ocaml])\ncompiler-libs.common (version: [distributed with Ocaml])\ncompiler-libs.native-toplevel (version: [distributed with Ocaml])\ncompiler-libs.optcomp (version: [distributed with Ocaml])\ncompiler-libs.toplevel (version: [distributed with Ocaml])\ncoq-core            (version: n/a)\ncoq-core.boot       (version: dev)\ncoq-core.checklib   (version: dev)\ncoq-core.clib       (version: dev)\ncoq-core.config     (version: dev)\ncoq-core.config.byte (version: dev)\ncoq-core.coqargs    (version: dev)\ncoq-core.coqworkmgrapi (version: dev)\ncoq-core.engine     (version: dev)\ncoq-core.gramlib    (version: dev)\ncoq-core.interp     (version: dev)\ncoq-core.kernel     (version: dev)\ncoq-core.lib        (version: dev)\ncoq-core.library    (version: dev)\ncoq-core.parsing    (version: dev)\ncoq-core.perf       (version: dev)\ncoq-core.plugins    (version: n/a)\ncoq-core.plugins.btauto (version: dev)\ncoq-core.plugins.cc (version: dev)\ncoq-core.plugins.cc_core (version: dev)\ncoq-core.plugins.derive (version: dev)\ncoq-core.plugins.extraction (version: dev)\ncoq-core.plugins.firstorder (version: dev)\ncoq-core.plugins.firstorder_core (version: dev)\ncoq-core.plugins.funind (version: dev)\ncoq-core.plugins.ltac (version: dev)\ncoq-core.plugins.ltac2 (version: dev)\ncoq-core.plugins.ltac2_ltac1 (version: dev)\ncoq-core.plugins.micromega (version: dev)\ncoq-core.plugins.micromega_core (version: dev)\ncoq-core.plugins.nsatz (version: dev)\ncoq-core.plugins.nsatz_core (version: dev)\ncoq-core.plugins.number_string_notation (version: dev)\ncoq-core.plugins.ring (version: dev)\ncoq-core.plugins.rtauto (version: dev)\ncoq-core.plugins.ssreflect (version: dev)\ncoq-core.plugins.ssrmatching (version: dev)\ncoq-core.plugins.tauto (version: dev)\ncoq-core.plugins.zify (version: dev)\ncoq-core.pretyping  (version: dev)\ncoq-core.printing   (version: dev)\ncoq-core.proofs     (version: dev)\ncoq-core.stm        (version: dev)\ncoq-core.sysinit    (version: dev)\ncoq-core.tactics    (version: dev)\ncoq-core.toplevel   (version: dev)\ncoq-core.vernac     (version: dev)\ncoq-core.vm         (version: dev)\ncppo                (version: n/a)\ncsexp               (version: 1.5.2)\ndune                (version: n/a)\ndune-configurator   (version: 3.23.1)\ndune.configurator   (version: 3.23.1)\ndynlink             (version: [distributed with Ocaml])\neasy-format         (version: 1.3.4)\nelpi                (version: 3.7.3)\nelpi.compiler       (version: 3.7.3)\nelpi.lexer_config   (version: 3.7.3)\nelpi.parser         (version: 3.7.3)\nelpi.runtime        (version: 3.7.3)\nelpi.trace          (version: n/a)\nelpi.trace.atd      (version: 3.7.3)\nelpi.trace.ppx      (version: 3.7.3)\nelpi.trace.runtime  (version: 3.7.3)\nelpi.util           (version: 3.7.3)\nfindlib             (version: 1.9.8)\nfindlib.dynload     (version: 1.9.8)\nfindlib.internal    (version: 1.9.8)\nfindlib.top         (version: 1.9.8)\nmenhir              (version: n/a)\nmenhirCST           (version: 20260209)\nmenhirGLR           (version: 20260209)\nmenhirLib           (version: 20260209)\nmenhirSdk           (version: 20260209)\nocaml-compiler-libs (version: n/a)\nocaml-compiler-libs.bytecomp (version: v0.12.4)\nocaml-compiler-libs.common (version: v0.12.4)\nocaml-compiler-libs.optcomp (version: v0.12.4)\nocaml-compiler-libs.shadow (version: v0.12.4)\nocaml-compiler-libs.toplevel (version: v0.12.4)\nocamldoc            (version: [distributed with Ocaml])\nppx_derivers        (version: n/a)\nppx_deriving        (version: n/a)\nppx_deriving.api    (version: 6.0.3)\nppx_deriving.create (version: 6.0.3)\nppx_deriving.enum   (version: 6.0.3)\nppx_deriving.eq     (version: 6.0.3)\nppx_deriving.fold   (version: 6.0.3)\nppx_deriving.iter   (version: 6.0.3)\nppx_deriving.make   (version: 6.0.3)\nppx_deriving.map    (version: 6.0.3)\nppx_deriving.ord    (version: 6.0.3)\nppx_deriving.runtime (version: 6.0.3)\nppx_deriving.show   (version: 6.0.3)\nppx_deriving.std    (version: 6.0.3)\nppx_optcomp         (version: v0.16.0)\nppxlib              (version: 0.35.0)\nppxlib.__private__  (version: n/a)\nppxlib.__private__.ppx_foo_deriver (version: 0.35.0)\nppxlib.ast          (version: 0.35.0)\nppxlib.astlib       (version: 0.35.0)\nppxlib.metaquot     (version: 0.35.0)\nppxlib.metaquot_lifters (version: 0.35.0)\nppxlib.print_diff   (version: 0.35.0)\nppxlib.runner       (version: 0.35.0)\nppxlib.runner_as_ppx (version: 0.35.0)\nppxlib.stdppx       (version: 0.35.0)\nppxlib.traverse     (version: 0.35.0)\nppxlib.traverse_builtins (version: 0.35.0)\nre                  (version: n/a)\nre.emacs            (version: n/a)\nre.glob             (version: n/a)\nre.pcre             (version: n/a)\nre.perl             (version: n/a)\nre.posix            (version: n/a)\nre.str              (version: n/a)\nrocq-core           (version: n/a)\nrocq-elpi           (version: n/a)\nrocq-elpi.coercion  (version: n/a)\nrocq-elpi.cs        (version: n/a)\nrocq-elpi.elpi      (version: n/a)\nrocq-elpi.tc        (version: n/a)\nrocq-equations      (version: n/a)\nrocq-equations.plugin (version: n/a)\nrocq-runtime        (version: n/a)\nrocq-runtime.boot   (version: dev)\nrocq-runtime.checklib (version: dev)\nrocq-runtime.clib   (version: dev)\nrocq-runtime.config (version: dev)\nrocq-runtime.config.byte (version: dev)\nrocq-runtime.coqargs (version: dev)\nrocq-runtime.coqdeplib (version: dev)\nrocq-runtime.coqworkmgrapi (version: dev)\nrocq-runtime.debugger_support (version: dev)\nrocq-runtime.dev    (version: dev)\nrocq-runtime.engine (version: dev)\nrocq-runtime.gramlib (version: dev)\nrocq-runtime.interp (version: dev)\nrocq-runtime.kernel (version: dev)\nrocq-runtime.lib    (version: dev)\nrocq-runtime.library (version: dev)\nrocq-runtime.parsing (version: dev)\nrocq-runtime.perf   (version: dev)\nrocq-runtime.plugins (version: n/a)\nrocq-runtime.plugins.btauto (version: dev)\nrocq-runtime.plugins.cc (version: dev)\nrocq-runtime.plugins.cc_core (version: dev)\nrocq-runtime.plugins.derive (version: dev)\nrocq-runtime.plugins.extraction (version: dev)\nrocq-runtime.plugins.firstorder (version: dev)\nrocq-runtime.plugins.firstorder_core (version: dev)\nrocq-runtime.plugins.funind (version: dev)\nrocq-runtime.plugins.ltac (version: dev)\nrocq-runtime.plugins.ltac2 (version: dev)\nrocq-runtime.plugins.ltac2_ltac1 (version: dev)\nrocq-runtime.plugins.micromega (version: dev)\nrocq-runtime.plugins.micromega_core (version: dev)\nrocq-runtime.plugins.nsatz (version: dev)\nrocq-runtime.plugins.nsatz_core (version: dev)\nrocq-runtime.plugins.number_string_notation (version: dev)\nrocq-runtime.plugins.ring (version: dev)\nrocq-runtime.plugins.rtauto (version: dev)\nrocq-runtime.plugins.ssreflect (version: dev)\nrocq-runtime.plugins.ssrmatching (version: dev)\nrocq-runtime.plugins.tauto (version: dev)\nrocq-runtime.plugins.tutorial (version: n/a)\nrocq-runtime.plugins.tutorial.p0 (version: dev)\nrocq-runtime.plugins.tutorial.p1 (version: dev)\nrocq-runtime.plugins.tutorial.p2 (version: dev)\nrocq-runtime.plugins.tutorial.p3 (version: dev)\nrocq-runtime.plugins.tutorial.p4 (version: dev)\nrocq-runtime.plugins.zify (version: dev)\nrocq-runtime.pretyping (version: dev)\nrocq-runtime.printing (version: dev)\nrocq-runtime.proofs (version: dev)\nrocq-runtime.rocqshim (version: dev)\nrocq-runtime.stm    (version: dev)\nrocq-runtime.sysinit (version: dev)\nrocq-runtime.tactics (version: dev)\nrocq-runtime.toplevel (version: dev)\nrocq-runtime.vernac (version: dev)\nrocq-runtime.vm     (version: dev)\nsexplib0            (version: v0.16.0)\nstdio               (version: v0.16.0)\nstdlib              (version: [distributed with Ocaml])\nstdlib-shims        (version: 0.3.0)\nstr                 (version: [distributed with Ocaml])\nthreads             (version: [distributed with Ocaml])\nthreads.none        (version: [internal])\nthreads.posix       (version: [internal])\nunix                (version: [distributed with Ocaml])\nyojson              (version: 3.0.0)\nzarith              (version: 1.14)\nzarith.top          (version: 1.13)\n"
+      },
+      "opam list --switch=tb --installed --columns=package --short": {
+        "exit_code": 0,
+        "stdout": "atd.4.2.0\natdgen.4.2.0\natdgen-runtime.4.2.0\natdts.4.2.0\nbase.v0.16.5\nbase-bigarray.base\nbase-threads.base\nbase-unix.base\nbiniou.1.2.2\ncamlp-streams.5.0.1\ncmdliner.2.1.1\nconf-gmp.5\nconf-linux-libc-dev.0\nconf-pkg-config.5\ncoq-core.9.2.0\ncppo.1.8.0\ncsexp.1.5.2\ndune.3.23.1\ndune-configurator.3.23.1\neasy-format.1.3.4\nelpi.3.7.3\nmenhir.20260209\nmenhirCST.20260209\nmenhirGLR.20260209\nmenhirLib.20260209\nmenhirSdk.20260209\nocaml.4.14.2\nocaml-base-compiler.4.14.2\nocaml-compiler-libs.v0.12.4\nocaml-config.2\nocaml-options-vanilla.1\nocamlfind.1.9.8\nppx_derivers.1.2.1\nppx_deriving.6.0.3\nppx_optcomp.v0.16.0\nppxlib.0.35.0\nre.1.14.0\nrocq-core.9.2.0\nrocq-elpi.3.5.1\nrocq-equations.1.3.2+9.2\nrocq-iris.dev.2026-09-10.3.b3495ef9\nrocq-runtime.9.2.0\nrocq-stdlib.9.2.0\nrocq-stdpp.dev.2026-09-09.1.c3186aad\nsexplib0.v0.16.0\nstdio.v0.16.0\nstdlib-shims.0.3.0\nyojson.3.0.0\nzarith.1.14\n"
+      }
+    },
+    "closure_sha256": "c0de446b8d6248c4973d31f8f2ab1521e838db2d919d6a69b51f928cca030c0a",
+    "loadpath_sha256": "fcb5873019012ba1c1e08df465cb9661681b87fa2e4e8bc61d337094697c5145",
+    "private_runner_files": {
+      "env.sh": "0e0533a4dcd93cb9e0264a8ca27fb9f2f86367ee44ef0ace63ff77b318cd6918",
+      "model.sh": "aa1e3284cdf4d5ae20deb5e7ab0aeda92144b2334371fe7cf3740594a7278acd",
+      "install-deps.sh": "acf4377d9e8e12323bac238cb05ef09911a7c23c45e4601167da212c2af77fe2",
+      "bootstrap.sh": "f9cc97207d70d163ba0a75f26a9394ea37ad174f03f044397061340ca0561347",
+      "build-gmp.sh": "28e010a8de6036001870f00bae68eff9a04f9d622fdfa845fdd6f80a0578d944"
+    },
+    "support_files": {
+      "PLAN.md": "f00d650caf7b6b99edd83ae97c8bdc4f6b7e93eab05cdbf7c870934932044d08",
+      "build_guard.py": "214d749cab1fb5ce9450fd7d5aeccc5277231f6f30d23da053ecc9acfd0cdd2c",
+      "closure.py": "3bf73232da1e1eea4350428f07a3ee56acc99b2fb3e7453fa0860902542b54aa",
+      "dependencies.json": "02968058fb2b32f8183363cbcea006a0172020efb7d4c797561353e77d48b3d2",
+      "freeze_deps.py": "32c5650ac999c428810f51000159db7e9abf04c30473093778c74f9264596c34",
+      "gmp.json": "386626a1eb71642ec74aaf2e019e165e03f5e453fe27ce76b1a4ccaa5a7da427",
+      "guard.py": "1b14577caa1fec582585e2b891c7592e3d280e725e88802fb312a6c25ac36343",
+      "inventory.py": "01906d3e03b3d2fe71167c670b46afca17ea59a53f86b150c51c50efafb3035c",
+      "job.py": "be82f675af718358028c013ba03735cf184270518e2498af422dd77d37ab7ecd",
+      "model.py": "e017c509708cb3471a234df0ec29787d9a6fb2017c5acfd559e22ac9c823151c",
+      "repositories.json": "471a909f93b2d75f2f31bd5ab30d304297edd83548c99f4261fdf0121f92b9af",
+      "upstream-source.json": "48b400fc5bb3a44eceb385b096df6c082c4faa29c7bacf59fffba667a554abe0"
+    }
+  },
+  "final_guards": "/tmp/tree-borrows-checked-foundation-20261110/final-guards.json",
+  "scope_limit": "An external published borrow calculus and its conditional progress/simulation/adequacy exports. No rustc operation/entry/ancestor/protector/phase/C/F bridge, no original source-safety or HMAC proof; Reserved-to-Active is not borrowck two-phase activation.",
+  "created_utc": "2026-11-10T15:53:05.482869+00:00"
+}

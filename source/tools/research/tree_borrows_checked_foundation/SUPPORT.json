@@ -1,0 +1,54 @@
+{
+  "build_guard.py": {
+    "sha256": "214d749cab1fb5ce9450fd7d5aeccc5277231f6f30d23da053ecc9acfd0cdd2c",
+    "definitions": [
+      "guarded_sources",
+      "parts"
+    ]
+  },
+  "closure.py": {
+    "sha256": "3bf73232da1e1eea4350428f07a3ee56acc99b2fb3e7453fa0860902542b54aa",
+    "definitions": [
+      "visit"
+    ]
+  },
+  "freeze_deps.py": {
+    "sha256": "32c5650ac999c428810f51000159db7e9abf04c30473093778c74f9264596c34",
+    "definitions": []
+  },
+  "guard.py": {
+    "sha256": "1b14577caa1fec582585e2b891c7592e3d280e725e88802fb312a6c25ac36343",
+    "definitions": [
+      "digest",
+      "snapshot",
+      "canonical",
+      "check"
+    ]
+  },
+  "inventory.py": {
+    "sha256": "01906d3e03b3d2fe71167c670b46afca17ea59a53f86b150c51c50efafb3035c",
+    "definitions": []
+  },
+  "job.py": {
+    "sha256": "be82f675af718358028c013ba03735cf184270518e2498af422dd77d37ab7ecd",
+    "definitions": []
+  },
+  "model.py": {
+    "sha256": "e017c509708cb3471a234df0ec29787d9a6fb2017c5acfd559e22ac9c823151c",
+    "definitions": [
+      "run",
+      "upstream_guard",
+      "support_guard",
+      "object_guard",
+      "dependency_guard"
+    ]
+  },
+  "summarize.py": {
+    "sha256": "ef44ddf29ea1d192930ccb6526073b0704a06ac81b02e4e9a5a3bdf284c9e120",
+    "definitions": [
+      "require",
+      "save",
+      "receipt"
+    ]
+  }
+}
