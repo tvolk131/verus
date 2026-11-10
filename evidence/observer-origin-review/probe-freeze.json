@@ -1,0 +1,649 @@
+[
+  {
+    "label": "prior-after-write",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-after-write.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-after-write.rs",
+    "sha256": "bd8d70ba94f7c0eb1d828fa2e1993a393e55163b323d1c6e1acaf6ef1ec1ae0a",
+    "execs": [
+      "after_write"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-alias-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-alias-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-alias-after.rs",
+    "sha256": "bc53be532712368dece0ae9fc06b547fe3c3b6bbc909386cd4b7d3a05e39cb55",
+    "execs": [
+      "write",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-before-write",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-before-write.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-before-write.rs",
+    "sha256": "d3300625233c001d866a86983fbd777a7f3172b509ec5b87b4a4b5fe218b73c7",
+    "execs": [
+      "before_write"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-escape",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-escape.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-escape.rs",
+    "sha256": "93cc0d6be926fec3085364582e229a115fbe502f8b89d3aca8d02eb3a506a366",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-helper-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-helper-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-helper-before.rs",
+    "sha256": "da774795d016093bdddad0566c69fd5a2d41cdd89e413e85d025205b89bbcba5",
+    "execs": [
+      "write",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-match-move-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-match-move-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-match-move-after.rs",
+    "sha256": "3ca2f7dd7ce55635516efbd60dc9e3756d082df34b73738d60cda9aaca11327c",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-move-let-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-move-let-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-move-let-after.rs",
+    "sha256": "37f6b1a30f394d0a1a0fc3ffd42e80837f0ae850c6e101a78e1898f06b5b014a",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-nested-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-nested-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-nested-before.rs",
+    "sha256": "58b03d1857d4e2bc5cdd5f7042e635ffc572166f5a2c7e4229dd93739a68e2b5",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-pattern-ref-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-pattern-ref-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-pattern-ref-after.rs",
+    "sha256": "1eba9016bda5e2bb93c459ad0ce85c253a5f7846e47573c9c62af049f91bd34e",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-pattern-ref-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-pattern-ref-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-pattern-ref-before.rs",
+    "sha256": "c380a42b8f82f22ac5a6799fe90f2f2929f09a905c83885a946cede74c725ef5",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-projection-helper",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-projection-helper.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-projection-helper.rs",
+    "sha256": "63a794a87bfdf963c6635dc4d8306d91f65036dee710d8c7263e6933b19dbe30",
+    "execs": [
+      "write",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-returned-helper",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-returned-helper.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-returned-helper.rs",
+    "sha256": "10dee241ef0f37097f2d87a9601c2f4aa7586d5f287043e7cddec0d154c22abc",
+    "execs": [
+      "id",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "prior-simple",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prior-simple.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prior-simple.rs",
+    "sha256": "767b446a1495188aaf4fc457df012a70beb64cdf85e799693c86b7bcf5d35276",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": [
+      "client"
+    ]
+  },
+  {
+    "label": "tuple-move-alias",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/tuple-move-alias.rs",
+    "committed_source": "evidence/observer-origin-review/repros/tuple-move-alias.rs",
+    "sha256": "0dfb3534d1f69ea7bf73558737049760ab23c638568dbae09c1e0bb40511a368",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "match-reborrow-alias",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/match-reborrow-alias.rs",
+    "committed_source": "evidence/observer-origin-review/repros/match-reborrow-alias.rs",
+    "sha256": "de77a9e13024a99d7377f0acca2a24b54bfd9f510aa9c3ef42d3117074b7ee54",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "tuple-ref-mut-alias",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/tuple-ref-mut-alias.rs",
+    "committed_source": "evidence/observer-origin-review/repros/tuple-ref-mut-alias.rs",
+    "sha256": "2f8ff80eb9aa8a89a5407bbc4daa93319ce91e63bc82c031baad67a58ca4195b",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": [
+      "client"
+    ]
+  },
+  {
+    "label": "target-scalar-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/target-scalar-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/target-scalar-before.rs",
+    "sha256": "6c2edc32c8ae21b19db97334006ac9c2fd8b859f665596291e150f4a74b95286",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": [
+      "client"
+    ]
+  },
+  {
+    "label": "target-array-copy-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/target-array-copy-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/target-array-copy-after.rs",
+    "sha256": "672fa29fc4e0d4049c7a8dc3e4473fd487b07ef080de32c4bd5d291940fb3c05",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": [
+      "client"
+    ]
+  },
+  {
+    "label": "index-local-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/index-local-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/index-local-before.rs",
+    "sha256": "f794b3b1aab817a2e91566b6a8b99d0ccaa10cc277dded158fd49de682aaae76",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "index-target-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/index-target-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/index-target-before.rs",
+    "sha256": "c298ce6024b87e7d9f562b0017511a79d5dc5bb0100b759d79381eb94836be9a",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "index-local-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/index-local-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/index-local-after.rs",
+    "sha256": "8cc5bced05f2a179d2cc2254d77312dea749244f539a972e95f90baed70047d7",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "temporary-copy-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/temporary-copy-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/temporary-copy-before.rs",
+    "sha256": "ca7cd64a2270483418eb1e87a2e03e2eaa37105db73456235f9b8ac1c2cb2bd5",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "temporary-copy-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/temporary-copy-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/temporary-copy-after.rs",
+    "sha256": "d08cb9921a1c728a1ca12908400ff218354920bd0946b35516b938ae2bb3d4c1",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "index-helper-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/index-helper-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/index-helper-before.rs",
+    "sha256": "8e68e534b1a1a94c9ff69718cddbcba632d90b0210d1fef94ebd0fc34f241b8a",
+    "execs": [
+      "write",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-effect-before",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-effect-before.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-effect-before.rs",
+    "sha256": "b3a9b7ea51ad201b677a32f2c916f19879bd83d9de0c957448d8a59a45470e35",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-effect-nested",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-effect-nested.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-effect-nested.rs",
+    "sha256": "fe904400ecdffe0fe8dcec1ddd44e701737d6669138e7e307cee89a61737db84",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-mismatch",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-mismatch.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-mismatch.rs",
+    "sha256": "1a91eda1ae3686fabc7136b459a20b9273c7293dc7ebf26c7217cf035ece5ff3",
+    "execs": [
+      "make",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-mismatch-nested",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-mismatch-nested.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-mismatch-nested.rs",
+    "sha256": "0b469ed3600d4ac136b523d7859c72319836935545852e0e9f271190b4b911d9",
+    "execs": [
+      "make",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-mismatch-conditional",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-mismatch-conditional.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-mismatch-conditional.rs",
+    "sha256": "c7d712e5ad2ec69a1a3cea12d17f848e02889dcd525d6129941f8d28970b5fd4",
+    "execs": [
+      "make",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-mismatch-zip-unused",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-mismatch-zip-unused.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-mismatch-zip-unused.rs",
+    "sha256": "d5c058d9b71fca6f5d5e562155a0dbdfa80eaceca770026991a1496c8c786d60",
+    "execs": [
+      "make",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "constructor-mismatch-shadow",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/constructor-mismatch-shadow.rs",
+    "committed_source": "evidence/observer-origin-review/repros/constructor-mismatch-shadow.rs",
+    "sha256": "70f2ae5210ffc7b5922d0caedd640b48b7de75f3e9a2b65b0e45422ad9be6650",
+    "execs": [
+      "make",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "multiple-buffers-loops",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/multiple-buffers-loops.rs",
+    "committed_source": "evidence/observer-origin-review/repros/multiple-buffers-loops.rs",
+    "sha256": "f92b125101fe83293450cc3c2c382148b0efe1bf758fcb5d1f27e32e6865ed37",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "multiple-buffers-unused",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/multiple-buffers-unused.rs",
+    "committed_source": "evidence/observer-origin-review/repros/multiple-buffers-unused.rs",
+    "sha256": "13240a877e51c101a172103e8e12c0aa96e8c296cc6090fdc7051349bd00965a",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": []
+  },
+  {
+    "label": "binder-shadow",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/binder-shadow.rs",
+    "committed_source": "evidence/observer-origin-review/repros/binder-shadow.rs",
+    "sha256": "44e5d8d4de297196af00061f0d4e2c6edf70671fa109c3dddef381e136ec81fe",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": [
+      "client"
+    ]
+  },
+  {
+    "label": "prefix-readonly",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prefix-readonly.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prefix-readonly.rs",
+    "sha256": "a5571c6903cea358445013f00297525db6f4bfdc9ffd4aff984499db7ebef5f6",
+    "execs": [
+      "xor_key"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "postcondition",
+    "selection": [
+      "xor_key"
+    ]
+  },
+  {
+    "label": "prefix-key-temporary",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prefix-key-temporary.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prefix-key-temporary.rs",
+    "sha256": "9479c8a7b95fff8da419e4995914deed6bceece5672469233e4d2c583f38009c",
+    "execs": [
+      "xor_key"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "postcondition",
+    "selection": [
+      "xor_key"
+    ]
+  },
+  {
+    "label": "prefix-unrelated-before-after",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/prefix-unrelated-before-after.rs",
+    "committed_source": "evidence/observer-origin-review/repros/prefix-unrelated-before-after.rs",
+    "sha256": "e169bb8cb4930c836b8c570b714582d17b008bee6ca23c5ff72d68f254c48a97",
+    "execs": [
+      "xor_key"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "postcondition",
+    "selection": [
+      "xor_key"
+    ]
+  },
+  {
+    "label": "zip-helper-key",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/zip-helper-key.rs",
+    "committed_source": "evidence/observer-origin-review/repros/zip-helper-key.rs",
+    "sha256": "8dc37f74721bb29cf69c104077e4b60426ceafad49ccfe19c7dee3f649d1cb7a",
+    "execs": [
+      "make_key",
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": null
+  },
+  {
+    "label": "zip-key-local-reassigned",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/zip-key-local-reassigned.rs",
+    "committed_source": "evidence/observer-origin-review/repros/zip-key-local-reassigned.rs",
+    "sha256": "6cad8b26017e41bc511c4fdd0bc59ba45bda980265e9abf6607c58a6d4861ead",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": null
+  },
+  {
+    "label": "zip-key-parameter-reassigned",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/zip-key-parameter-reassigned.rs",
+    "committed_source": "evidence/observer-origin-review/repros/zip-key-parameter-reassigned.rs",
+    "sha256": "2f77f322838ae7e92a57018791875b58cb8b2dfc5ec201b984457c8b661f418f",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": null
+  },
+  {
+    "label": "zip-key-conditional",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/zip-key-conditional.rs",
+    "committed_source": "evidence/observer-origin-review/repros/zip-key-conditional.rs",
+    "sha256": "313a4dfa9b2e9a40d0cb1fff6c0063115ebaed11fc655f024a052bb096fcb379",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "success",
+    "selection": null
+  },
+  {
+    "label": "numeric-prefix-composition",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/numeric-prefix-composition.rs",
+    "committed_source": "evidence/observer-origin-review/repros/numeric-prefix-composition.rs",
+    "sha256": "4736167d2729d83a4174770825b1f4d1cffa9c7c2900e93810b925b3ea40229c",
+    "execs": [
+      "u64",
+      "xor_key"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "success",
+    "off": "diagnostic",
+    "selection": [
+      "u64",
+      "xor_key"
+    ]
+  },
+  {
+    "label": "invalid-overlap",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/invalid-overlap.rs",
+    "committed_source": "evidence/observer-origin-review/repros/invalid-overlap.rs",
+    "sha256": "4dc84b9850f09050ad016614d990ae654be04045703cb3f46f35456a06a8ff83",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "frontend",
+    "off": "frontend",
+    "selection": []
+  },
+  {
+    "label": "overflow-after-skip",
+    "source": "/tmp/observer-origin-review-d35c31fa/probes/sources/overflow-after-skip.rs",
+    "committed_source": "evidence/observer-origin-review/repros/overflow-after-skip.rs",
+    "sha256": "232b2dd603016a18afff3084f240008bf64e8ec132171c8665745844f609981d",
+    "execs": [
+      "client"
+    ],
+    "proofs": [],
+    "helpers": [],
+    "on": "safety",
+    "off": "safety",
+    "selection": []
+  }
+]
