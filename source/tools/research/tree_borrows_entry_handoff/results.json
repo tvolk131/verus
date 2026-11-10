@@ -1,0 +1,65 @@
+{
+  "classification": "CLOSED_STRUCTURAL_ACTUAL_CORE_ENTRY_PROGRESS_AND_FRAMES",
+  "normal_compilation": true,
+  "full_recursive_kernel_check": true,
+  "own_declarations": 17,
+  "all_own_declarations_individually_closed": true,
+  "recursive_libraries": 458,
+  "recursive_kernel_constants": 51983,
+  "actual_loaded_objects": 458,
+  "kernel_context_verbatim": "CONTEXT SUMMARY\n===============\n\n* Theory: Set is predicative\n  \n* Theory: Rewrite rules are not allowed\n  \n* Axioms:\n    Stdlib.Logic.FunctionalExtensionality.functional_extensionality_dep\n  \n* Constants/Inductives relying on type-in-type: <none>\n  \n* Constants/Inductives relying on unsafe (co)fixpoints: <none>\n  \n* Inductives whose positivity is assumed: <none>\n  \n",
+  "full_delivered_baseline_context": [
+    "functional_extensionality_dep",
+    "classic",
+    "constructive_indefinite_description"
+  ],
+  "public_entry_premises": [
+    "state_wf s",
+    "strs s !! blk = Some tr",
+    "tree_contains parent tr",
+    "cid \u2208 scs s",
+    "(0 < sz)%nat",
+    "entry_eligible tr (scs s) parent (off, sz)"
+  ],
+  "public_entry_conclusions": [
+    "derived fresh child creation",
+    "derived READ after creation",
+    "actual RetagIS bor_step",
+    "final state_wf",
+    "exact outside-block frame"
+  ],
+  "additional_derived_frame": "Original nodes retain protector/default permission and lazy permission at all offsets outside the interval, within the same block.",
+  "positive_sizes": "all positive nat, including 10 and 128",
+  "native_source_validity": false,
+  "lawful_Rust_structural_eligibility_coverage": false,
+  "FnEntry_setup_argument_installation_source_mapping": false,
+  "empty_dangling_and_current_Miri_correspondence": false,
+  "source_safety_for_original_Rust": false,
+  "canonical": "6/0 unchanged; not rerun",
+  "HMAC": "1/1 UNPROVED; no domain change, including key lengths 0 and >128; prefix and suffix remain required",
+  "native_correspondences": 0,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "publication": false,
+  "goal_complete": false,
+  "independent_acceptance": "Fresh combined independent acceptance remains required by integration lead",
+  "evidence_files": {
+    "AUTHENTICATION.json": "cf90bdb72eb74f6b446f6bd20a0865fd1c9eacd80a3c0e4b3e8f7ba62988c741",
+    "COMMANDS.json": "650376b7a2f9f97108234af9c5d74cd10cab3ae0a05c54f4a4ef76322d86f50f",
+    "Entry.v": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+    "INVENTORY.json": "3e092159c91263a8f49358007252abb7200fedd2d2607cbc0203ff67227261d9",
+    "MILESTONE.json": "0604189c2329518a6430fa70512aa659acd603b7700fd757d84d66a002909f9f",
+    "OBJECTS.json": "2717ccd6333174af211b6f2117d89255cb6c9abc562373a1680c3152837e3db7",
+    "PLAN.md": "b12a161ab9d88c23db9cc5ef8e0b754e39662b9a064931c9981ad2096433b80c",
+    "REPORT.md": "64567843b9579e9f4d2e6562e8d7a4bb6608604f9dee28fe98eb51b868bd9d3a",
+    "SOURCES.json": "69b6d85e7dbf0c1c71521f13622cec8f9cc0b79c45dbebd23fb20a1ace01d3df",
+    "SOURCE_AUDIT.json": "c36d3e47fb5aaf140ee95c8da6c4d74c16ea8d3e53d9077a2735239e364f313c",
+    "TRIALS.json": "2aec716e49d728daf305a12c35ca9987e28fc4c98fd73d82ea2b1ab23324d7ec",
+    "check.py": "b9e13b554de493bf77c4b6efdb06f413718a45aa13c788f9304f33051e3c9431",
+    "finalize.py": "9c81c0a279c9ee841abe04cbac5892d8823ff1190f758992426c2ffe948cab55",
+    "inventory.py": "2ec9d231fea484436933f6ad7995b5270dd3014fc9e33ea190f04d051f2bc80e"
+  }
+}

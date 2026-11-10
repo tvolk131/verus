@@ -1,0 +1,114 @@
+{
+  "scope_interface_commit": "5bacdd19",
+  "normally_compiled_progress": true,
+  "quick_assumptions": "entry_progress and entry_inserted_compatible CLOSED; complete audit pending",
+  "source_sha256": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+  "successful_compilation_receipts": {
+    "interface-02": {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "compile",
+        "-q",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/tree-borrows-entry-handoff-20261110/interface-02-source",
+        "EntryHandoff",
+        "/tmp/tree-borrows-entry-handoff-20261110/interface-02-source/Entry.v"
+      ],
+      "cwd": "/tmp/tree-borrows-entry-handoff-20261110/interface-02-source",
+      "start_utc": "2026-11-10T16:23:05.859740+00:00",
+      "pretrial_sha256": "6b9ee9bed79b5e651e11ae73bf8ed276fd13e5c6fd5dbdc30707191c248274f9",
+      "exit_code": 1,
+      "end_utc": "2026-11-10T16:23:07.394466+00:00",
+      "log_sha256": "9c2d68e0df83ef3d142dc0583b51fbbafe89d4e0f24291064fef815470c077fc"
+    },
+    "core-02": {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "compile",
+        "-q",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/tree-borrows-entry-handoff-20261110/core-02-source",
+        "EntryHandoff",
+        "/tmp/tree-borrows-entry-handoff-20261110/core-02-source/Entry.v"
+      ],
+      "cwd": "/tmp/tree-borrows-entry-handoff-20261110/core-02-source",
+      "start_utc": "2026-11-10T16:24:05.618963+00:00",
+      "pretrial_sha256": "54a9dca293c1be00d47687e906e884cba0e704133dcb5943d483ab818e55ed50",
+      "exit_code": 0,
+      "end_utc": "2026-11-10T16:24:08.903259+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "progress-05": {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "compile",
+        "-q",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/tree-borrows-entry-handoff-20261110/progress-05-source",
+        "EntryHandoff",
+        "/tmp/tree-borrows-entry-handoff-20261110/progress-05-source/Entry.v"
+      ],
+      "cwd": "/tmp/tree-borrows-entry-handoff-20261110/progress-05-source",
+      "start_utc": "2026-11-10T16:26:48.465685+00:00",
+      "pretrial_sha256": "0512e1a083e6b06587a70b821130356d527493583fd4fcce0f23e1808d0a8e28",
+      "exit_code": 0,
+      "end_utc": "2026-11-10T16:26:51.999740+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frames-02": {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "compile",
+        "-q",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/tree-borrows-entry-handoff-20261110/frames-02-source",
+        "EntryHandoff",
+        "/tmp/tree-borrows-entry-handoff-20261110/frames-02-source/Entry.v"
+      ],
+      "cwd": "/tmp/tree-borrows-entry-handoff-20261110/frames-02-source",
+      "start_utc": "2026-11-10T16:29:49.949647+00:00",
+      "pretrial_sha256": "9a29fe32d823851b1473019eeda8192af7f1681303f24d345ce46bcd8437636c",
+      "exit_code": 0,
+      "end_utc": "2026-11-10T16:29:54.949989+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "final-01": {
+      "argv": [
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin/rocq",
+        "compile",
+        "-q",
+        "-Q",
+        "/tmp/tree-borrows-checked-foundation-20261110/simuliris/theories",
+        "simuliris",
+        "-Q",
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source",
+        "EntryHandoff",
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source/Entry.v"
+      ],
+      "cwd": "/tmp/tree-borrows-entry-handoff-20261110/final-01-source",
+      "start_utc": "2026-11-10T16:30:45.368913+00:00",
+      "pretrial_sha256": "be36c5b6df5caade9b6c0984e9efd699c99b58c46c2064bd5bff68461df42a80",
+      "exit_code": 0,
+      "end_utc": "2026-11-10T16:30:48.789497+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "products": {
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source/.Entry.aux": "fe51d05401234e729072feecb6ca7a03f22003fced90034098b1a7997a3e4428",
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source/Entry.glob": "55179417d677fc0d091df718b86e57579f91e9055ce478e4d3f8b731cab4e50a",
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source/Entry.v": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+        "/tmp/tree-borrows-entry-handoff-20261110/final-01-source/Entry.vo": "9c7b77ede542b0a95cd244ed631189c7eeb0d7915c071536048ca8b1a540d0b6"
+      }
+    }
+  }
+}

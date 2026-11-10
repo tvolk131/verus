@@ -1,0 +1,30 @@
+{
+  "own_final_sources": {
+    "Entry.v": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+    "check.py": "b9e13b554de493bf77c4b6efdb06f413718a45aa13c788f9304f33051e3c9431",
+    "inventory.py": "2ec9d231fea484436933f6ad7995b5270dd3014fc9e33ea190f04d051f2bc80e",
+    "finalize.py": "9c81c0a279c9ee841abe04cbac5892d8823ff1190f758992426c2ffe948cab55",
+    "PLAN.md": "b12a161ab9d88c23db9cc5ef8e0b754e39662b9a064931c9981ad2096433b80c",
+    "REPORT.md": "64567843b9579e9f4d2e6562e8d7a4bb6608604f9dee28fe98eb51b868bd9d3a"
+  },
+  "final_compiled_source_sha256": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+  "own_object_sha256": "9c7b77ede542b0a95cd244ed631189c7eeb0d7915c071536048ca8b1a540d0b6",
+  "baseline_ready_sha256": "f56490bb8441dbd73c37fe46fe970dc008bb8b2b67ee2b651a04c34d2b1ca523",
+  "immutable_baseline_commit": "04b51409",
+  "baseline_manifests": {
+    "TOOLS.json": "47866bbf6f05341f6ba669f9f30e9ea76020063a87bda0b78e112fb6f5e192a6",
+    "upstream-source.json": "48b400fc5bb3a44eceb385b096df6c082c4faa29c7bacf59fffba667a554abe0",
+    "model-pretrial.json": "67ee9374ccac1be06c6850a7a4836bf387e0f94c1bb1aadcf17fd66b704edbf1",
+    "ASSUMPTIONS.json": "ad9041fab45d6ed04d5c8386252f69aa380ea14ece79b371f16398a6e1ef332e",
+    "INVENTORY.json": "526bbb6ac5853d7eaf1bd7a4eef36e3fa43360d01944fbf795c2473e762e2cad",
+    "PUBLIC_TYPES.json": "9b5c3e95cf713058d40c4ff2e1867b5df1004d8422ffc494c8af72ef506b64a9",
+    "SOURCE_AUDIT.json": "546f06bb01f8f8650ba98d0881e3b790dc1aaaff345ce4504dea7d9ad4690f3d"
+  },
+  "delivered_maps": {
+    "installed-pretrial.json": "871aa390cbb9667c3f6d997e120be505504836f5b9e89f606380adcc0751453f",
+    "model-objects.json": "a237d9014724576bb4a022c6428243541dd842ecb75d8d2717b0eca834a3fa0d",
+    "loaded-objects.json": "47deb3c08c48b00e8c201811d7ee42f25979d6f317bc1069712ebd86a420e33f",
+    "model-pretrial.json": "67ee9374ccac1be06c6850a7a4836bf387e0f94c1bb1aadcf17fd66b704edbf1"
+  },
+  "source_path_policy": "Own checkout and named immutable delivered artifacts only. Historical checkout paths in receipt text are labels."
+}

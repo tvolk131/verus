@@ -1,0 +1,20 @@
+{
+  "proof_source": "Entry.v",
+  "sha256": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+  "proofs": [
+    "entry_read_permission",
+    "entry_occurrence_lookup",
+    "entry_create",
+    "entry_rel_self",
+    "entry_inserted_compatible",
+    "entry_fresh",
+    "entry_progress",
+    "entry_existing_range_frame"
+  ],
+  "qed_count": 7,
+  "own_axiom_admission_or_unchecked_mode_tokens": [],
+  "evidence_limit": "Supplementary text scan only; compiled inventory, individual assumptions and full recursive kernel are authoritative.",
+  "public_progress_has_no_success_equation_premise": true,
+  "internal_success_equation_premise": "entry_inserted_compatible uses a derived creation equality only for upstream insertion lemmas. entry_progress derives it without such premise.",
+  "native_facts_imported": false
+}

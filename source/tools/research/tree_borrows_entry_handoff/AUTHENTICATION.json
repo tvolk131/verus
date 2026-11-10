@@ -1,0 +1,137 @@
+{
+  "initial": {
+    "baseline_ready_sha256": "f56490bb8441dbd73c37fe46fe970dc008bb8b2b67ee2b651a04c34d2b1ca523",
+    "counts": {
+      "source": 185,
+      "model_objects": 71,
+      "loaded_objects": 507,
+      "installed": {
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin": 76,
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/lib": 11829,
+        "/tmp/tree-borrows-checked-foundation-20261110/deps": 11,
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/download-cache": 86
+      }
+    },
+    "receipts": {
+      "bootstrap": {
+        "sha256": "e1120d61e7220be1e2a2270a749407dfb5bee179facdeccafce46a8fcf2c3efb",
+        "exit_code": 0,
+        "log_sha256": "c7a3edc2d0bc117aeff036d98ae74b2f7a87f49edf7b71fdcd977ad6e6ad11ed"
+      },
+      "build-gmp": {
+        "sha256": "86e49fd5924fac1d59737b0226d73a7e8c2e4413b0c1ad1e57b77a46e7b429ff",
+        "exit_code": 0,
+        "log_sha256": "2b5ac1a9a2ba8791330766d504f2034d4c03195e46460431aa78ebc3a926690c"
+      },
+      "download-dependencies": {
+        "sha256": "60abd0f01af9c9fc76e911528daf4149ae0494b6cc49cb154feafc5fe9788857",
+        "exit_code": 0,
+        "log_sha256": "172da14e257bddd6fd28f213d91be468a082a73d5b8c746f5ace61e7d65f19ea"
+      },
+      "freeze-dependencies": {
+        "sha256": "28be2d9855cecc9d25ae4d02189724624c0548f765f0cec46466ed9df8696f3a",
+        "exit_code": 0,
+        "log_sha256": "14b19ce74f43f976d166ed10b391c61f02d4547771008c5a3079d63676ddd09e"
+      },
+      "install-dependencies-2": {
+        "sha256": "aa0a19055314d597a48e3897dcfbafa46ebce98eb88b59bc331ad02c4828d846",
+        "exit_code": 0,
+        "log_sha256": "1229fa8a1f3d59159185f50aa82017f21309311d037d3bfdc0e80aac44c5cf8a"
+      },
+      "model-prepare": {
+        "sha256": "83d1f1f0ed230c0b7b34bf1717c489cded77cc6724e67c5f2536dcdce054d628",
+        "exit_code": 0,
+        "log_sha256": "f42b7c26b5e52c003899fa1594dd4eec36eb6b1fe29a913e47fa97f34bb25a4a"
+      },
+      "model-build": {
+        "sha256": "2579749f48422711d1cee4ba52ce396e2343c8c6cc46df3332b383be03c663aa",
+        "exit_code": 0,
+        "log_sha256": "287a1c5cb71bc2e7fb2857978794039dc3bc62d1f57eae1dfac3a10f5dae0b55"
+      },
+      "kernel": {
+        "sha256": "2d2d475851301500be9c4db6b1d87535bcdc3e9b89bf965149e3dcb5676f0f02",
+        "exit_code": 0,
+        "log_sha256": "d353fae31850e22208a1c4d05df452ac6c48472b3aa529ba88ef8dc9b4d06581"
+      },
+      "inventory": {
+        "sha256": "5835852c2dd2800127bd39f158863e31b3fbfd76a5dc6fdf08d8d17695efa850",
+        "exit_code": 0,
+        "log_sha256": "80cba747442af5b0cc554a7969532877dff3821dff19b91f58389affaae6bd51"
+      }
+    },
+    "tools_manifest_sha256": "47866bbf6f05341f6ba669f9f30e9ea76020063a87bda0b78e112fb6f5e192a6",
+    "rocq_sha256": "a2adf40ba7825433f8868d2aa4a7c6c35b3016591d483cf9aa952659abb98954",
+    "model_pretrial_sha256": "67ee9374ccac1be06c6850a7a4836bf387e0f94c1bb1aadcf17fd66b704edbf1",
+    "installed_pretrial_sha256": "871aa390cbb9667c3f6d997e120be505504836f5b9e89f606380adcc0751453f"
+  },
+  "final": {
+    "baseline_ready_sha256": "f56490bb8441dbd73c37fe46fe970dc008bb8b2b67ee2b651a04c34d2b1ca523",
+    "counts": {
+      "source": 185,
+      "model_objects": 71,
+      "loaded_objects": 507,
+      "installed": {
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/bin": 76,
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/tb/lib": 11829,
+        "/tmp/tree-borrows-checked-foundation-20261110/deps": 11,
+        "/tmp/tree-borrows-checked-foundation-20261110/opamroot/download-cache": 86
+      }
+    },
+    "receipts": {
+      "bootstrap": {
+        "sha256": "e1120d61e7220be1e2a2270a749407dfb5bee179facdeccafce46a8fcf2c3efb",
+        "exit_code": 0,
+        "log_sha256": "c7a3edc2d0bc117aeff036d98ae74b2f7a87f49edf7b71fdcd977ad6e6ad11ed"
+      },
+      "build-gmp": {
+        "sha256": "86e49fd5924fac1d59737b0226d73a7e8c2e4413b0c1ad1e57b77a46e7b429ff",
+        "exit_code": 0,
+        "log_sha256": "2b5ac1a9a2ba8791330766d504f2034d4c03195e46460431aa78ebc3a926690c"
+      },
+      "download-dependencies": {
+        "sha256": "60abd0f01af9c9fc76e911528daf4149ae0494b6cc49cb154feafc5fe9788857",
+        "exit_code": 0,
+        "log_sha256": "172da14e257bddd6fd28f213d91be468a082a73d5b8c746f5ace61e7d65f19ea"
+      },
+      "freeze-dependencies": {
+        "sha256": "28be2d9855cecc9d25ae4d02189724624c0548f765f0cec46466ed9df8696f3a",
+        "exit_code": 0,
+        "log_sha256": "14b19ce74f43f976d166ed10b391c61f02d4547771008c5a3079d63676ddd09e"
+      },
+      "install-dependencies-2": {
+        "sha256": "aa0a19055314d597a48e3897dcfbafa46ebce98eb88b59bc331ad02c4828d846",
+        "exit_code": 0,
+        "log_sha256": "1229fa8a1f3d59159185f50aa82017f21309311d037d3bfdc0e80aac44c5cf8a"
+      },
+      "model-prepare": {
+        "sha256": "83d1f1f0ed230c0b7b34bf1717c489cded77cc6724e67c5f2536dcdce054d628",
+        "exit_code": 0,
+        "log_sha256": "f42b7c26b5e52c003899fa1594dd4eec36eb6b1fe29a913e47fa97f34bb25a4a"
+      },
+      "model-build": {
+        "sha256": "2579749f48422711d1cee4ba52ce396e2343c8c6cc46df3332b383be03c663aa",
+        "exit_code": 0,
+        "log_sha256": "287a1c5cb71bc2e7fb2857978794039dc3bc62d1f57eae1dfac3a10f5dae0b55"
+      },
+      "kernel": {
+        "sha256": "2d2d475851301500be9c4db6b1d87535bcdc3e9b89bf965149e3dcb5676f0f02",
+        "exit_code": 0,
+        "log_sha256": "d353fae31850e22208a1c4d05df452ac6c48472b3aa529ba88ef8dc9b4d06581"
+      },
+      "inventory": {
+        "sha256": "5835852c2dd2800127bd39f158863e31b3fbfd76a5dc6fdf08d8d17695efa850",
+        "exit_code": 0,
+        "log_sha256": "80cba747442af5b0cc554a7969532877dff3821dff19b91f58389affaae6bd51"
+      }
+    },
+    "tools_manifest_sha256": "47866bbf6f05341f6ba669f9f30e9ea76020063a87bda0b78e112fb6f5e192a6",
+    "rocq_sha256": "a2adf40ba7825433f8868d2aa4a7c6c35b3016591d483cf9aa952659abb98954",
+    "model_pretrial_sha256": "67ee9374ccac1be06c6850a7a4836bf387e0f94c1bb1aadcf17fd66b704edbf1",
+    "installed_pretrial_sha256": "871aa390cbb9667c3f6d997e120be505504836f5b9e89f606380adcc0751453f",
+    "model_object_map_sha256": "a237d9014724576bb4a022c6428243541dd842ecb75d8d2717b0eca834a3fa0d",
+    "loaded_object_map_sha256": "47deb3c08c48b00e8c201811d7ee42f25979d6f317bc1069712ebd86a420e33f"
+  },
+  "final_authentication_receipt_sha256": "b4e28b715526f59887f997bdc6ba0ad2c2e6434a7ad6373b3f38ea410761a214",
+  "historical_driver_executed": false,
+  "completed_baseline_rebuilt_or_modified": false
+}
