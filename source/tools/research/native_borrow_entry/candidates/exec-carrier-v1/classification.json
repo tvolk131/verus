@@ -1,0 +1,22 @@
+{
+  "id": "exec-carrier-v1",
+  "before_first_trial": true,
+  "source_sha256": "cc7efdc799c3dca1afbdf7b8fbec9ba30e8831d288966e651d255b9afa8fd18c",
+  "classification": "frontend-rejection",
+  "exec_bodies": [
+    "enter",
+    "release"
+  ],
+  "proof_bodies": [],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "enter: exec buf: &mut [u8;128]",
+    "release: exec ArrayBorrow containing that very borrow"
+  ],
+  "expected_message": "disambiguate by wrapping it in either `old` or `final`"
+}

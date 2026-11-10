@@ -1,0 +1,19 @@
+{
+  "id": "choose-permission-v1",
+  "before_first_trial": true,
+  "source_sha256": "911c53537f89c473a187be4d48fd4d8f67ec20b532d671e89e4be64681b7f3a9",
+  "classification": "frontend-rejection",
+  "exec_bodies": [
+    "enter"
+  ],
+  "proof_bodies": [],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "exec buf: &mut [u8;128]"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "exec-carrier-v2",
+  "before_first_trial": true,
+  "source_sha256": "6d10838701dd3ef0e19eb8b96acd54b8ded4a2c2dcf3b1ac5617f79ccf6077e7",
+  "classification": "positive",
+  "exec_bodies": [
+    "enter",
+    "release"
+  ],
+  "proof_bodies": [],
+  "expected_helpers": [],
+  "required_helper_checks": [
+    "soundness",
+    "maximality",
+    "exactness"
+  ],
+  "input_inventory": [
+    "enter: exec buf: &mut [u8;128]",
+    "release: exec ArrayBorrow containing that very borrow"
+  ]
+}
