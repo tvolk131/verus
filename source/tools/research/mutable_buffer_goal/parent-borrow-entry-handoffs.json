@@ -1,0 +1,39 @@
+{
+  "tree_borrows": {
+    "delivered_commit": "995809af",
+    "integrated_commit": "5f4a04c5",
+    "own_declarations": 17,
+    "source_sha256": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf",
+    "individually_closed": true,
+    "loaded_objects_checked": 458,
+    "successful_final_compile_kernel_inventory": true,
+    "known_historical_label_nit": "MILESTONE successful_compilation_receipts includes an interface exit1; final acceptance uses exact final-01/kernel/inventory zero statuses, not this historical label."
+  },
+  "stacked_borrows": {
+    "delivered_commit": "89494dce",
+    "integrated_commit": "15e3c268",
+    "own_declarations": 25,
+    "sources": {
+      "candidate.v": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085",
+      "composition.v": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+    },
+    "individually_closed": true,
+    "loaded_objects_checked": 282,
+    "accepted025": {
+      "path": "/tmp/stbor-entry-handoff-20261110/accepted025/acceptance.json",
+      "sha256": "e178df9b7adb2714ed6ae177271db895da11e972ab2488d7088d8a1445b666e0"
+    }
+  },
+  "schema": 1,
+  "scope": "Parent artifact/source authentication of exact conditional MODEL handoffs; no fresh parent proof replay",
+  "independent_review": "pending fresh isolated combined review",
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false,
+  "actual_source_instance": false,
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  }
+}
