@@ -34,5 +34,35 @@
     "classification": "accepted setup and final-memory composition",
     "freeze": "trial004-freeze.json",
     "source_copy": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial004/proofs/setup.v"
+  },
+  {
+    "trial": 5,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial005/receipt.json",
+    "receipt_sha256": "3ad9535801ca112a729115ce69eb3c7f51f8307c8852510db0b4ba288b001635",
+    "success": true,
+    "classification": "accepted setup, final-memory composition, and executed borrowed-read outside-frame observation",
+    "freeze": "trial005-freeze.json",
+    "source_copy": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-trial005/proofs/setup.v"
+  },
+  {
+    "auxiliary_compile": 1,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-read-development001/receipt.json",
+    "receipt_sha256": "9f7417bb9573446bf981971e0c991de5b735be3428a15c97fe58f48b89d6c0fb",
+    "classification": "isolated borrowed-read proof script development only; not a semantic negative",
+    "kernel_checked": false
+  },
+  {
+    "auxiliary_compile": 2,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-read-development002/receipt.json",
+    "receipt_sha256": "76d95aa1cf301edf588db9beb4c74c6c9d38bc47a9ad7a666f2bc8f4d2001925",
+    "classification": "isolated borrowed-read proof script development only; not a semantic negative",
+    "kernel_checked": false
+  },
+  {
+    "auxiliary_compile": 3,
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/input-observation-read-development003/receipt.json",
+    "receipt_sha256": "083ca53b0ea58989cacb2106e5567b4fbb967a4e9df8fac285ea858e647e979c",
+    "classification": "isolated borrowed-read proof script development only; not a semantic negative",
+    "kernel_checked": false
   }
 ]

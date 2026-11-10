@@ -1,4 +1,4 @@
-From ModelInputContext Require Export context.
+From ModelInputContext Require Export composition.
 From ModelStateObservation Require Export observation.
 From lrust.typing Require Import soundness inv_context.
 From lrust.lifetime Require Import lifetime_full.
@@ -80,3 +80,31 @@ Section observed_public_setup.
     iApply (Callback TG tid κ Nonempty).
   Qed.
 End observed_public_setup.
+
+(* The existing borrowed read/resolution now preserves an actual resource post.
+   This observes the exact outside frame, not the still-borrowed input interval. *)
+Theorem raw_model_read_outside_observed h p (zs : list Z) (z : Z) :
+  Forall (λ z, 0 ≤ z < 256) zs →
+  (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (p +ₗ i) = Some #z) →
+  zs !! 0%nat = Some z →
+  adequate NotStuck (Skip;; Read ScOrd #p) (initialized_state h)
+    (λ w σ, w = #z ∧
+      frame_observed σ (h ∖ interval_map p ((λ z : Z, LitV (LitInt z)) <$> zs))).
+Proof.
+  intros Range Cells Head.
+  apply (initialized_observation_adequacy (Σ:=typeΣ) _ _ _ 3).
+  intros Outer. iIntros "Fragments Credits Time".
+  iExists (λ w, ⌜w = #z⌝ ∗
+    initial_fragments (h ∖ interval_map p ((λ z : Z, LitV (LitInt z)) <$> zs)))%I.
+  iSplitL "Fragments Credits Time".
+  - iApply (raw_model_context_wp Outer with "Fragments Credits Time"); try done.
+    intros TG tid κ SameHeap Nonempty. subst Outer.
+    iIntros "#LFT #PROPH #UNIQ #TIME #E L _ Ref Frame Credits".
+    iApply (wp_wand with "[LFT PROPH UNIQ TIME E L Ref Frame Credits]").
+    { iApply (initialized_reference_read_resolve with "LFT PROPH UNIQ TIME E L Ref Frame Credits"); done. }
+    iIntros (w) "[%Eq [Frame _]]". iFrame. done.
+  - iIntros (σ w) "Heap [%Eq Frame]".
+    iDestruct (fragments_observe with "Heap Frame") as "%Outside".
+    iApply fupd_mask_weaken; [|iIntros "_ !>"]; first done.
+    iPureIntro. done.
+Qed.
