@@ -1,0 +1,250 @@
+{
+  "schema": 1,
+  "all_trials_frozen_before_compilation": true,
+  "failures_are_not_semantic_negatives": true,
+  "trials": [
+    {
+      "trial": 1,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial001-freeze.json",
+        "sha256": "f594e00757608a803c0578e29b4bd0f2df56d1e9eb1b8825d9cf15eea2069476"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial001/receipt.json",
+        "sha256": "448a7ecfbe437f720a60c5a70c7aef3355c486ca60948711c7f8c14fc3095138"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial002-freeze.json",
+        "sha256": "a3b42b57822085a4d9f3c29fe32f33e62b0489d52d7961f9b9dcbc0d3a4d54ec"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial002/receipt.json",
+        "sha256": "dbe012293a5ef6216dc4b975ccf9e6bd144b7cc39252f2fcb23d491f4198de3c"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial003-freeze.json",
+        "sha256": "16e5b3e2f8bc1a7353a1c2cf4a440070277d95bb8f4d3ac19097c2b97ef3fd00"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial003/receipt.json",
+        "sha256": "f3057c820f464cceb026d7249653e2250f310b1b24d474e88bca7e2843cdf1f1"
+      },
+      "success": true,
+      "checked_scope": "early interface only",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "assumptions",
+          "exit_code": 0
+        },
+        {
+          "label": "proof-terms",
+          "exit_code": 0
+        },
+        {
+          "label": "kernel",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial004-freeze.json",
+        "sha256": "1ada086ca6df5fec5bf9cd4193130a0005e9ee28b299ed50d6c6fdcd3353b291"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial004/receipt.json",
+        "sha256": "f47ac55ad454ca6f957d7ae846ab5a40b4520adf7bfbefa49cc1607a370d14d6"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-guarded",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-caller",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 5,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial005-freeze.json",
+        "sha256": "2af065ad8d468d72c87ebc60cae7a4b855aafdce1a81c878f10f552b9733ed77"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial005/receipt.json",
+        "sha256": "fd7c871b1b90299c55c00be698f6340e4aa2ca08bc1c2f4d99418caa60c607f8"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-guarded",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-caller",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 6,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial006-freeze.json",
+        "sha256": "f19e8796c7b2878d7f93814e8e4d92d08571c7bef9ead5110af35fe91b19af4b"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial006/receipt.json",
+        "sha256": "8281649dd490834e55e61fb5d22fc22a6b08624af9fb10bd9b6b5fc0e00a6b8d"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-guarded",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-caller",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 7,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial007-freeze.json",
+        "sha256": "c2dcb6b2f2a474fa0c0683a5f196fbec164455c9659bff64b2b535134e5759d7"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial007/receipt.json",
+        "sha256": "23cd5d3c7656491c01913ef0bffeb97cd519ae8bf63c4d9084300e965eec12c5"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-guarded",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-caller",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 8,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial008-freeze.json",
+        "sha256": "281f271310f78f6725a1c83de821ee73299fd2c54c5a93a83e991de592ec5379"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial008/receipt.json",
+        "sha256": "9238c1818c929b3e75804e1289dc8690e9d886d473c190e0eb944a3a4224e4be"
+      },
+      "success": false,
+      "checked_scope": "proof-development failure; no semantic negative evidence",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-guarded",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-caller",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "trial": 9,
+      "freeze": {
+        "path": "source/tools/research/model_caller_writer/trial009-freeze.json",
+        "sha256": "f41315ad53cb37fc827057bd8ad2f27811079e96c17eb120f1fbf1fb6b0ee928"
+      },
+      "receipt": {
+        "path": "/tmp/model-caller-writer-trial009/receipt.json",
+        "sha256": "2ce85b9ca96256319f3eaf078d4161809cb0d8e1bb3610935347cb40fcea3ed6"
+      },
+      "success": true,
+      "checked_scope": "all three modules",
+      "commands": [
+        {
+          "label": "compile-interface",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-guarded",
+          "exit_code": 0
+        },
+        {
+          "label": "compile-caller",
+          "exit_code": 0
+        },
+        {
+          "label": "assumptions",
+          "exit_code": 0
+        },
+        {
+          "label": "proof-terms",
+          "exit_code": 0
+        },
+        {
+          "label": "kernel",
+          "exit_code": 0
+        }
+      ]
+    }
+  ]
+}

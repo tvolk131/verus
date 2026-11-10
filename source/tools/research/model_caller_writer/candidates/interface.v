@@ -1,5 +1,8 @@
 From ModelMutableWriter Require Export resource_protocol child.
 From ModelSharedXorLoop Require Export shared_xor.
+From lrust.typing Require Import soundness inv_context programs_util borrow uniq_util.
+From lrust.lifetime Require Import lifetime_full.
+From guarding Require Import guard tactics.
 Set Default Proof Using "Type".
 Open Scope Z_scope.
 
@@ -27,7 +30,7 @@ Section interface.
   Context `{!typeG Σ}.
   (* Exact milestone. Existing typeG, E/L/I, and parent remain in scope.
      κ need not have future=current, and Frame may hold ancestor restorations. *)
-  Definition caller_xor_contract n k E L I tid iκs κ κkey p q
+  Definition caller_xor_contract n k E L I tid iκs κ κkey (p q : loc)
       (x : ~~(bytes_sort n)) (key : ~~(bytes_sort k)) m d g
       (Frame : iProp Σ) : iProp Σ :=
     (llft_ctx -∗ time_ctx -∗ proph_ctx -∗ uniq_ctx -∗ elctx_interp E -∗
@@ -37,7 +40,7 @@ Section interface.
      £(caller_xor_credit n k g) -∗ Frame -∗
      WP caller_xor_procedure n k p q {{ _,
        Frame ∗ shared_key_view k κkey q key d g tid ∗
-       llctx_interp L ∗ invctx_interp tid ⊤ iκs I ∗
+       elctx_interp E ∗ llctx_interp L ∗ invctx_interp tid ⊤ iκs I ∗
        ∃ m', tctx_elt_interp tid (#p ◁ &uniq{κ} (bytes_ty n)) m' ∗
          ⟨π, vπ m' π =
            (vπ (xor_bytes n x (byte_list k key)) π, uniq_bor_future m π)⟩ ∗

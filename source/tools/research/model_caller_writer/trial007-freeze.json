@@ -1,0 +1,46 @@
+{
+  "before_first_trial": true,
+  "files": {
+    "source/tools/research/model_caller_writer/dependency-pins.json": "ce48baf8a0a922295cce28263002c999028943b058bc18238f2ad9d8c5792793",
+    "source/tools/research/model_caller_writer/INTERFACE.md": "dabe1b02f8049ce876e6e01686fa8f519ab32aeeff040cea06bb8bed41dfed1b",
+    "source/tools/research/model_caller_writer/check.py": "ef2a18d8da57ee839385d536c4c7421b4aeca196c44e8b7c5628af4d7a51407b",
+    "source/tools/research/model_shared_byte_read/results.json": "697038cd597730f7b42015be86baa62c39c2bc9b8e318ef659fab4d0374b348b",
+    "source/tools/research/model_byte_xor/STATUS.json": "1b7096dfe0ae1845fb556232ab27c862b2f4a7a106da34cab45c6b44cc7f9229",
+    "source/tools/research/model_buffer_transform/STATUS.json": "45d9ca4f68f6e9e6b550afba8e3a882c959c3e350691a3e7e1dad53b306e56da",
+    "source/tools/research/model_shared_xor_loop/STATUS.json": "e4b032e06b5766d0816ffba8bd312ca7eb07d8dd03618e8dc9aa6c90183fd4a1",
+    "source/tools/research/model_nested_borrow_context/results.json": "4dde83dac877e0a74264ec803480d173bc39e320b271eb74173b1011c7586395",
+    "source/tools/research/model_mutable_writer/observation-results.json": "2f21303b3e751a00c863caad93fa2dc101333116c37695dceecf8c1bbb29012d",
+    "source/tools/research/model_state_observation/results.json": "a68b568a4adfdd67827f5c8ba7046eaf31c4ec856d7d2154ad1b9e86ee55f7c4",
+    "source/tools/research/model_input_observation/results.json": "3e1379e64d460e6e36b4a2e0964ac75536dcabf53ddbec8356c66fbcf1a23c2b",
+    "source/tools/research/model_shared_byte_read/dependency-pins.json": "1a635060e13fa6499dadcb38652eb96dcdebbb118e6a677c6666f787e7c81083",
+    "source/tools/research/native_semantic_bridge/proof_checks.py": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+    "source/tools/research/native_semantic_bridge/acceptance_inputs.py": "5b46bfd6f1439048afcd4077bb9145550e27a00558f67a08e703430c4431a06e",
+    "source/tools/research/native_semantic_bridge/baseline-bindings.json": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+    "source/tools/research/mutable_buffer_goal/foundation-pin.json": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+    "source/tools/research/mutable_buffer_goal/foundation-baseline.json": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "source/tools/research/model_caller_writer/candidates/interface.v": "7b904a0b26e916c96e287f3e5a462043a2bd7f8701b382eb71e2411d8a2a8ae1",
+    "source/tools/research/model_caller_writer/candidates/guarded.v": "7d519e4317a44d16fef1c42f8c40abf00f305db2e662933f9ad8934785af14cf",
+    "source/tools/research/model_caller_writer/candidates/caller.v": "69b7f3f5ab2dbb754c28b248467f5baaa9cad6f7447cf00a679544129dd35179"
+  },
+  "external_inventory_sha256": "ae8d90fe23204bf26368a8c9ef4e9d98c39fc8018431d3c520c745b56b435b79",
+  "external_count": 1367,
+  "constants": {
+    "interface": [
+      "xor_bytes",
+      "caller_xor_body",
+      "caller_xor_procedure",
+      "caller_xor_credit",
+      "caller_xor_contract"
+    ],
+    "guarded": [
+      "byte_child_transform_guarded"
+    ],
+    "caller": [
+      "xor_bytes_exact",
+      "ordinary_alive_under_child",
+      "caller_xor_verified"
+    ]
+  }
+}
