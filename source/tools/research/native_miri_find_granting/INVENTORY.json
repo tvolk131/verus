@@ -1,0 +1,288 @@
+{
+  "schema": 1,
+  "component_sha256": "382e32533389df6aec24cceb6da5709c177407b7ddb3710c73a2f1784b39989a",
+  "query_summary": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 17,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "checked_exec_bodies": 7,
+  "checked_proof_bodies": 1,
+  "selected": [
+    {
+      "rust_function": "<BorTag as std::clone::Clone>::clone",
+      "automatically_derived": true,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "<Item as std::clone::Clone>::clone",
+      "automatically_derived": true,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "<Permission as std::clone::Clone>::clone",
+      "automatically_derived": true,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "Item::perm",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "Item::permission",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "specification_definition_or_declaration",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "Permission::from_bits",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "Stack::new",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "StackCache::add",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "checked_exec_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "VERUS_UNERASED_PROXY__CACHE_LEN",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+      "automatically_derived": true,
+      "selected": true,
+      "body_status": "selected_item_without_translated_body",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "add_effect",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "specification_definition_or_declaration",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "add_effect_preserves_consistency",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "checked_proof_body",
+      "inference_candidate": false,
+      "ordinary_contract": true
+    },
+    {
+      "rust_function": "cache_consistent",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "specification_definition_or_declaration",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "decode",
+      "automatically_derived": false,
+      "selected": true,
+      "body_status": "specification_definition_or_declaration",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    }
+  ],
+  "excluded": [
+    {
+      "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<BorTag as std::hash::Hash>::hash",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Item as std::cmp::PartialEq>::eq",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Item as std::hash::Hash>::hash",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Permission as std::fmt::Debug>::fmt",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    },
+    {
+      "rust_function": "<Permission as std::hash::Hash>::hash",
+      "automatically_derived": true,
+      "selected": false,
+      "body_status": "outside_selected_scope",
+      "inference_candidate": false,
+      "ordinary_contract": false
+    }
+  ],
+  "manual_proof_blocks": [
+    {
+      "function": "Item::perm",
+      "bit_vector_assertions": 2
+    }
+  ],
+  "authored_proof_functions": [
+    "add_effect_preserves_consistency"
+  ],
+  "inferred_helpers": [],
+  "assistance_causal_gain": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

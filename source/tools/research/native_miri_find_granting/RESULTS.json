@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "classification": "bounded_manual_cache_source_component_only",
+  "accepted_epoch": "/tmp/native-miri-find-granting-20261110-impl-final008",
+  "receipt_sha256": "297c67eae1dc1242ad0c1f08175548fc16b2167f6c267fdf8b0a5e15ef1e0075",
+  "freeze_sha256": "9c75f4c548c20d8783591ba41cf383ac1878e48e8f6924f28d15994f747aa3f3",
+  "acceptance_sha256": "eaa54fd4637f102c093a5d971b18632e19af0bb0bc25232b9d0b2ec282e1dcef",
+  "acceptance_terminal_sha256": "08915ca66b6f5ddff2c9430c748c8b73b3ea26988f502711efc4cc7199bac461",
+  "python_optimized_acceptance_exit": 0,
+  "trials": [
+    {
+      "name": "cache-enabled-cold",
+      "exit_code": 0,
+      "classification": "ordinary_success",
+      "verified": 17,
+      "errors": 0,
+      "failed_target": null
+    },
+    {
+      "name": "cache-enabled-warm",
+      "exit_code": 0,
+      "classification": "ordinary_success",
+      "verified": 17,
+      "errors": 0,
+      "failed_target": null
+    },
+    {
+      "name": "cache-assistance-off",
+      "exit_code": 0,
+      "classification": "ordinary_success",
+      "verified": 17,
+      "errors": 0,
+      "failed_target": null
+    },
+    {
+      "name": "cache-wrong-index-head",
+      "exit_code": 1,
+      "classification": "proof_failure",
+      "verified": 16,
+      "errors": 1,
+      "failed_target": "StackCache::add"
+    },
+    {
+      "name": "cache-short-index-shift",
+      "exit_code": 1,
+      "classification": "proof_failure",
+      "verified": 16,
+      "errors": 1,
+      "failed_target": "StackCache::add"
+    },
+    {
+      "name": "cache-invalid-initial-index",
+      "exit_code": 1,
+      "classification": "proof_failure",
+      "verified": 16,
+      "errors": 1,
+      "failed_target": "Stack::new"
+    },
+    {
+      "name": "cache-false-preservation-property",
+      "exit_code": 1,
+      "classification": "proof_failure",
+      "verified": 16,
+      "errors": 1,
+      "failed_target": "add_effect_preserves_consistency"
+    },
+    {
+      "name": "literal-enabled-on",
+      "exit_code": 1,
+      "classification": "frontend_failure",
+      "verified": null,
+      "errors": null,
+      "failed_target": null
+    },
+    {
+      "name": "literal-enabled-off",
+      "exit_code": 1,
+      "classification": "frontend_failure",
+      "verified": null,
+      "errors": null,
+      "failed_target": null
+    },
+    {
+      "name": "reverse-laws-diagnostic",
+      "exit_code": 1,
+      "classification": "proof_failure",
+      "verified": 0,
+      "errors": 1,
+      "failed_target": null
+    },
+    {
+      "name": "reverse-for-diagnostic",
+      "exit_code": 1,
+      "classification": "proof_failure",
+      "verified": 1,
+      "errors": 1,
+      "failed_target": null
+    }
+  ],
+  "fidelity": {
+    "add": {
+      "exact_executable_tokens": true,
+      "token_count": 52
+    },
+    "new": {
+      "exact_executable_tokens": true,
+      "token_count": 66
+    },
+    "perm": {
+      "exact_executable_tokens": true,
+      "token_count": 18
+    },
+    "from_bits": {
+      "exact_executable_tokens": true,
+      "token_count": 58
+    }
+  },
+  "local_checked_exec": 7,
+  "local_checked_proof": 1,
+  "manual_permission_proof_blocks": 1,
+  "inferred_helpers": [],
+  "assistance_causal_gain": false,
+  "cache_initialization_closed": true,
+  "cache_add_effect_and_manual_preservation_closed": true,
+  "enabled_cache_lookup_closed": false,
+  "whole_native_cache_invariant_closed": false,
+  "write_caller_precondition_closed": false,
+  "tag_proof_imported": false,
+  "native_correspondences": 0,
+  "full_hmac": "1/1 UNPROVED",
+  "writer_effects": "44minimal+3phase/101 OPEN",
+  "publication": false,
+  "goal_complete": false
+}

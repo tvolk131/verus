@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "classification": "open_internal_proof_obligations_not_application_preconditions",
+  "needs": [
+    {"id": "tag", "owner": "native_miri_tag_representation", "type": "wf_item(i) := (i.0 & ((1u64<<61)-1)) != 0; checked current Item::tag under wf_item; genuine BorTag equality/order correspondence", "state": "no_routed_immutable_tag_proof_imported", "original_frontend": "NonZero::new(i).map(BorTag) constructor function value unsupported"},
+    {"id": "rev", "type": "lawfulness/remaining/decrease preservation for the actual iter().enumerate().rev() including its returned inner-iterator identity", "state": "isolated_lawfulness_and_empty_for_loop_proof_failures"},
+    {"id": "fx", "type": "actual FxBuildHasher supported type and checked valid-hasher/key-model/borrowed-key relation for genuine BorTag; actual FxHashSet::contains iff model membership", "state": "Fx_reexport_source_authenticated_underlying_alias_and_hash_semantics_unproved"},
+    {"id": "option", "type": "actual Option<BorTag>::is_some_and closure requires/ensures and boolean result", "state": "frontend_missing_spec_no_new_assumption_added"},
+    {"id": "swap", "type": "actual slice swap(0,1) paired-array effect and bounds; derived cache consistency preservation", "state": "frontend_missing_spec_no_new_assumption_added"},
+    {"id": "cache_global", "type": "len(borrows)>32 implies forall j in 0..32: idx[j]<len(borrows) and items[j]==borrows[idx[j]]; initialize and preserve across all native stack transitions", "closed_subset": ["exact Stack::new all 32 pairs consistent", "exact StackCache::add pair-shift effect", "manual checked add-effect consistency lemma"], "open_subset": ["swap", "insert", "retain", "truncate", "clear and refill crossing cache threshold", "permission updates", "other native transitions"]},
+    {"id": "lookup", "type": "actual find_granting preserves borrows, unknown_bottom, unique_range; Ok(Some(g)) gives g in bounds and decoded granting permission for arbitrary access/provenance/exposed set; all unknown and error outcomes retained", "state": "open_including_Write_caller_precondition"}
+  ],
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
