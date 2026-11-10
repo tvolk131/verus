@@ -88,7 +88,7 @@
       "--freeze",
       "source/tools/research/native_source_entry/entry-source-status-freeze.json",
       "--output",
-      "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/entry"
+      "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-validation-0e1c7081/entry"
     ],
     [
       "python3",
@@ -100,7 +100,7 @@
       "--extraction",
       "/tmp/native-semantic-bridge-e4a8dcab/source-v1",
       "--output",
-      "/tmp/verus-infer-buffer-cycle-20261109/full-snapshot-validation-aea14e56/audit"
+      "/tmp/verus-infer-buffer-cycle-20261109/model-source-status-validation-0e1c7081/audit"
     ]
   ],
   "parent_reconciliation": "Same42-constant candidate; recorded model-source hashes and complete support inputs; all success status after final guards"
