@@ -95,7 +95,7 @@ def queries():
             template+='\nlet () = Mltop.declare_cache_obj_full (Mltop.interp_only_obj inspect) "review_signature_walk"\n'
             need(template==(pd/'review_signature_walk.ml').read_text(),'Interp callback source')
             # The callback API itself is from the already guarded pinned source.
-            runtime=TB/'opamroot/tb/lib/rocq-runtime'
+            runtime=f.TB/'opamroot/tb/lib/rocq-runtime'
             api=[p for p in runtime.rglob('mltop.mli')]
             need(len(api)==1,'callback API source')
             api_text=api[0].read_text();need('interp_only_obj' in api_text and 'declare_cache_obj_full' in api_text,'documented callback API')
