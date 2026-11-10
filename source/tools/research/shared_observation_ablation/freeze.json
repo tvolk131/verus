@@ -16,7 +16,7 @@
     "safety": "5d497fc580dd276841db9b82f131f6f29cafffa69761b12a376e26003b671f39"
   },
   "controller_and_contracts": {
-    "source/tools/research/shared_observation_ablation/experiment.py": "e656554527d79c93b80dea4a6856938c79d1ea9962d66f4379c25b2a0c0da1d6",
+    "source/tools/research/shared_observation_ablation/experiment.py": "263edf0edeb2a0ec53c40f863459c79ca446e8270f13b7f5bab7da1acfac9726",
     "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
     "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
     "source/tools/research/varint_canonical_goal/replay.py": "0afdc9205782173675b7c012b1a6b742545e755ec89eff57ad4bf00ff002bfd5",
@@ -143,5 +143,8 @@
     "fresh parent and independent acceptance required; publication false",
     "capacity-off production report hardcodes 4 invariants; actual insertion count is 3, patch-bound; selection report is never proof evidence"
   ],
-  "pretrial_controller_revision": "Correct specification-definition scope status spelling and count error diagnostic headers; no application trials have been run. Initial f519a410 freeze remains in history."
+  "pretrial_controller_revision": "Correct specification-definition scope status spelling and count error diagnostic headers; no application trials have been run. Initial f519a410 freeze remains in history.",
+  "pretrial_vstd_output_gate_revision": "Match the parent verifier source normal output: verification results:: 2226 verified, 0 errors. No application trials yet. Initial in-flight build keeps its original controller and will be retained if this formatting gate rejects it.",
+  "pretrial_negative_status_revision": "Parent committed ordinary false-property receipts show encountered-error=true for SMT failures. Keep encountered-vir-error, Rust error codes, resources, full scope and explicit ordinary-only diagnostic-header checks; do not mistake the aggregate error flag for a frontend failure. No application trials yet.",
+  "pretrial_status_gate_revision": "Explicitly require no generation failure, zero requested/generated helpers, healthy aggregate status, and complete preparation exactly when goals enabled; no application trials yet."
 }

@@ -194,7 +194,7 @@ def build(out, variant):
             env['VERUS_IN_VARGO'] = '1'
             require(call('matching-vstd', [str(target/'vstd_build'), str(target), '--release'], env)==0,
                     'matching vstd failed')
-            require('verified: 2226 errors: 0' in (out/'matching-vstd.stdout').read_text(),
+            require('verification results:: 2226 verified, 0 errors' in (out/'matching-vstd.stdout').read_text(),
                     'matching vstd count changed')
             source_guard.check()
             bundle = out / 'bundle'
@@ -238,14 +238,22 @@ def diagnostic(run, expected, execs):
     v = data['verification-results']
     require(v.get('is-verifying-entire-crate') is True and v.get('errors',0)>0,
             'causal diagnostic partial/empty')
-    require(not v.get('encountered-vir-error') and not v.get('encountered-error'),
-            'frontend failure is invalid evidence')
+    require(not v.get('encountered-vir-error'), 'frontend failure is invalid evidence')
     stderr = run['stderr']
     require(not re.search(r'error\[E\d+\]', stderr) and 'recommendation not met' not in stderr,
             'frontend/recommendation failure')
     require(any(x in stderr for x in ('postcondition not satisfied','precondition not satisfied',
         'assertion failed','invariant not satisfied','possible arithmetic underflow/overflow')),
         'no ordinary proof diagnostic')
+    # encountered-error is also true for ordinary SMT failures. Accept only
+    # explicit ordinary-proof diagnostic headers (plus rustc's abort summary),
+    # not that ambiguous aggregate flag, to exclude mixed frontend failures.
+    allowed = ('postcondition not satisfied','precondition not satisfied',
+        'assertion failed','invariant not satisfied','possible arithmetic underflow/overflow',
+        'aborting due to ')
+    require(all(any(line.startswith('error: '+s) for s in allowed)
+        for line in stderr.splitlines() if line.startswith('error: ')),
+        'mixed frontend or unknown diagnostic header')
     inf = data['verus-infer']
     require(inf.get('crate_success') is False, 'crate status mismatch')
     require_function_coverage(inf.get('functions',[]),set())
@@ -338,6 +346,13 @@ def trials(out, variant, bundle):
                     'invariant not satisfied','assertion failed','precondition not satisfied')),
                     'mixed safety control')
             inf=data['verus-infer']
+            require(inf.get('generation_failure') is None and
+                inf.get('requested_functions')==0 and inf.get('generated_functions')==0 and
+                inf.get('status') in ('no_inference','caller_proof_failed','verification_failed'),
+                'unhealthy inference mandatory/generation statuses')
+            prep=inf['assistance_explanations']
+            require(prep.get('preparation_started') is goals and
+                prep.get('preparation_completed') is goals, 'assistance preparation incomplete')
             decisions=inf.get('assistance_explanations',{}).get('decisions',[])
             numeric=any(d.get('profile')=='mutable_buffer_u64_radix128' and
                 d.get('status')=='applied' for d in decisions)
