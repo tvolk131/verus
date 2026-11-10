@@ -1,0 +1,1142 @@
+{
+  "adapter_additional_checked_bodies": [
+    "<BorTag as std::default::Default>::default",
+    "BorTag::new",
+    "BorTag::one",
+    "Item::tag"
+  ],
+  "all_eight_selected_pieces_reconstructed": true,
+  "all_final_guards_passed": true,
+  "audit_controller_sha256": "7d7cf408fcc97ef66e5519abfa6eb20aa486c41c50fee10766eb8b98e58b9a5e",
+  "audit_freeze_sha256": "1f3a5dced8bb243bdf47f0729423d10d97cade4e8b07741555edd485abca76f2",
+  "authenticated_receipts": {
+    "/home/dev/.t3/worktrees/verus/t3-4ffee6f0/source/tools/research/native_miri_tag_representation/RESULTS.json": "cc6ee8aee77c3e55a34f23eafc3b7a67aceab687cf00099036da784918dc7cef",
+    "/tmp/native-miri-tag-delivery-wwm_pq9c/receipt.json": "855f7ca4dae41e7ac7df00fb543d4ba96f1cf2dad8f6ce9c8ad3344520ec3721",
+    "/tmp/native-miri-tag-parent-audit-9myohdjy/receipt.json": "e12f684689d47dc61cb2ac688bdf59f6829c0499c4f735390d06d1fc1c7d38f5",
+    "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/canonical/canonical-zgtzh85h/receipt.json": "2dda5d93603528fe2623f4e37bc7cbaa48a537e3184c653a1abe1a4028f4ed3a"
+  },
+  "blocking_findings": [],
+  "canonical": "6/0 inherited; no new whole-goal acceptance",
+  "causal_inference_gain": false,
+  "controller_sha256": "cec23cb960dc6f1600afe8566763c8ebc7cc70013cacb4e51ab499ddced44165",
+  "delivery_products": 9,
+  "delivery_source_support_identities": 22,
+  "exact_constructor_closure_proved": false,
+  "exact_selected_excluded_inventory": [
+    {
+      "automatically_derived": true,
+      "body_status": "checked_exec_body",
+      "rust_function": "<BorTag as std::clone::Clone>::clone",
+      "selected": true
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<BorTag as std::hash::Hash>::hash",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "checked_exec_body",
+      "rust_function": "<Item as std::clone::Clone>::clone",
+      "selected": true
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Item as std::cmp::PartialEq>::eq",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Item as std::hash::Hash>::hash",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "checked_exec_body",
+      "rust_function": "<Permission as std::clone::Clone>::clone",
+      "selected": true
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Permission as std::fmt::Debug>::fmt",
+      "selected": false
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "outside_selected_scope",
+      "rust_function": "<Permission as std::hash::Hash>::hash",
+      "selected": false
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "BorTag::get",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "BorTag::inner",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "Item::perm",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "specification_definition_or_declaration",
+      "rust_function": "Item::permission",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "Item::protected",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "Item::set_permission",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "Permission::from_bits",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_exec_body",
+      "rust_function": "Permission::to_bits",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+      "selected": true
+    },
+    {
+      "automatically_derived": true,
+      "body_status": "selected_item_without_translated_body",
+      "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "specification_definition_or_declaration",
+      "rust_function": "bits",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "specification_definition_or_declaration",
+      "rust_function": "decode",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "specification_definition_or_declaration",
+      "rust_function": "item_word_wf",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "specification_definition_or_declaration",
+      "rust_function": "packed",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "rust_function": "packed_fields",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "rust_function": "packed_fields_raw",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "rust_function": "tag_identity",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "rust_function": "tag_range",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "specification_definition_or_declaration",
+      "rust_function": "updated",
+      "selected": true
+    },
+    {
+      "automatically_derived": false,
+      "body_status": "checked_proof_body",
+      "rust_function": "updated_fields",
+      "selected": true
+    }
+  ],
+  "fresh_epochs": [
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/bitfields-on/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 4,
+      "compiled_product_sha256": null,
+      "failed_functions": [],
+      "input_freeze_sha256": "926bb83518e487eb721ed47b72de3eeedebacdb5c4502ab59497735b34c0b0a2",
+      "logs": {
+        "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "check.stdout": "d88c630c466ed994fcc570af91a1a98875e38dc8520c6a807185e0211bd64550"
+      },
+      "name": "bitfields-on",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/bitfields-on",
+      "product_manifest_sha256": "2ed0e11d1fd6f66442cc9a82bd488fa9ebf4b59e33ad6b1f281f9da67ddcbf56",
+      "receipt_sha256": "e837fdb610a3db349f4b5dcc3b19634f2ff452d6002f36dd9ea6aa7cc4d6cec6",
+      "source_sha256": "76827618338ce37f6d4d8f7f67577864117b38fb24cde2d7dad18d74a8519a1e",
+      "success": true,
+      "terminal_exit": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 26
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/bitfields-off/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 4,
+      "compiled_product_sha256": null,
+      "failed_functions": [],
+      "input_freeze_sha256": "7fe9396a4f85fc6f96e8a3f56e4eaa69104953ec80b1c6959a1b6f0cf7b68408",
+      "logs": {
+        "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "check.stdout": "2c5bd97349c2b939806fa3c14c4ab0a18ef760507f8029b55ebc76b58fea0c8b"
+      },
+      "name": "bitfields-off",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/bitfields-off",
+      "product_manifest_sha256": "e314853c62716fe3a0afb5d7f080bb0af1c24aec94dbe13b4b1162adebc85691",
+      "receipt_sha256": "660908b4728b4ac5570e6bf55f53b9482740debacf9c36c535e2996941b0c1af",
+      "source_sha256": "76827618338ce37f6d4d8f7f67577864117b38fb24cde2d7dad18d74a8519a1e",
+      "success": true,
+      "terminal_exit": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 26
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/exact-on/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 10,
+      "checked_proof_bodies": 5,
+      "compiled_product_sha256": null,
+      "failed_functions": [],
+      "input_freeze_sha256": "89614cfe7773e65554f131bc3dd4ca5163778fed60fc97d223294368f52aae6c",
+      "logs": {
+        "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "check.stdout": "a1bf2140cc62a95f60dc5f2c4fdd915b6f9bb51252f56c5e5d271121472db1e5"
+      },
+      "name": "exact-on",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/exact-on",
+      "product_manifest_sha256": "38721a822fb95b3a3212f87249e96b691d32c287faf74544bfeccc1b6fea42fe",
+      "receipt_sha256": "701f16eef0876430ebfd9a68faa7493fda5504a0a9b9f8767a4f4b2936011bb2",
+      "source_sha256": "e9dcdfa3dad6b127f5a1712435fe3bcfffcd240b0c1199454240fb906fe7d891",
+      "success": true,
+      "terminal_exit": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 45
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/exact-off/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20"
+      ],
+      "checked_exec_bodies": 10,
+      "checked_proof_bodies": 5,
+      "compiled_product_sha256": null,
+      "failed_functions": [],
+      "input_freeze_sha256": "689fd291dc292c5ea97fa4d85a87805e9c0f8dad5975b79ce90a9c811f2e2c88",
+      "logs": {
+        "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "check.stdout": "27733455959b0e0bdfacf21dd13ce530b580ebbad43dbfc041ca0dd5f74848a0"
+      },
+      "name": "exact-off",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/exact-off",
+      "product_manifest_sha256": "e3b099578ac2c79afae0b29b9151c7593b1389f026ebe680e4146cf77744fec4",
+      "receipt_sha256": "6d04de47c7a486cbb0aadecb7df58a7f9d54e2cdc00a2e5f2027c96ae0dd4592",
+      "source_sha256": "e9dcdfa3dad6b127f5a1712435fe3bcfffcd240b0c1199454240fb906fe7d891",
+      "success": true,
+      "terminal_exit": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 45
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/adapter-on/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals",
+        "--compile",
+        "-o",
+        "/tmp/miri-tag-component-review-u2d1w73p/adapter-on/checked.rlib"
+      ],
+      "checked_exec_bodies": 14,
+      "checked_proof_bodies": 5,
+      "compiled_product_sha256": "b5c09756c018bb0591edba3a4051d61704482a8604e74d49769b9ef8db6f9d7c",
+      "failed_functions": [],
+      "input_freeze_sha256": "25ad9205d86aa0680eda0e5c236b894a0cc3bae1062f71c46c3793eaabac16bb",
+      "logs": {
+        "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "check.stdout": "da7b91de8e252c276337f220a5273607ba87725a6b1ddcbbe12486830fcaf366"
+      },
+      "name": "adapter-on",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/adapter-on",
+      "product_manifest_sha256": "0ee8a713201fcb0c9be7eed13d251ee8bd3fd95058bed59647757d2a3811c771",
+      "receipt_sha256": "75aac683f6051c14fee81f6e23e4021d8cb6ea69a4d2323d58b841a6a6f451d1",
+      "source_sha256": "9bc87620d22a7449e09492df6d42d147f18942ed15f05a2763e34a3a785d62b8",
+      "success": true,
+      "terminal_exit": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 49
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/adapter-off/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20"
+      ],
+      "checked_exec_bodies": 14,
+      "checked_proof_bodies": 5,
+      "compiled_product_sha256": null,
+      "failed_functions": [],
+      "input_freeze_sha256": "68f3af74f063621de8858da9b788af211d1068d9b8ceef25b27636b5ec0b4e23",
+      "logs": {
+        "check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "check.stdout": "88cd0f779afeb0145836b69edbb1d7fc8484e4f0b14c746915a46bef82032151"
+      },
+      "name": "adapter-off",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/adapter-off",
+      "product_manifest_sha256": "fa4008984ae5ed0cf58410d3382be7cc31b7b1b074085b6c5a5e4f096f211570",
+      "receipt_sha256": "9da1feaad3105c564e84b96be17f132ee98f1be39874f83f28cc3b68cbf534b7",
+      "source_sha256": "9bc87620d22a7449e09492df6d42d147f18942ed15f05a2763e34a3a785d62b8",
+      "success": true,
+      "terminal_exit": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 49
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/control-nonzero/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::control_nonzero"
+      ],
+      "input_freeze_sha256": "34f70cf7b56579bc5e9451f8ed8584a9547b0866b6bd4f82c0cdea355c714fec",
+      "logs": {
+        "check.stderr": "174f1acafd67dd12a0bffe22bdc5f361a412d2f2d664804393fd6d8ed850b90b",
+        "check.stdout": "61ca5fcebb60e3e028ad9f2b943203a91d1f865cecc2e5247d02f8e5a819da68"
+      },
+      "name": "control-nonzero",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/control-nonzero",
+      "product_manifest_sha256": "86ba2c89067e3fb6d9edf65b9b48f9e85d80679090998ae951c21cd723587bb3",
+      "receipt_sha256": "a345e27b5dba861466fd0a7437614e412f186ce46c6e2bf3a6ec1b5c4936656e",
+      "source_sha256": "d66787f8e9aaa48ab1ce0365de8144f7f4d2d4562faaf93081cd11c81c58b493",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 26
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/control-range/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::control_range"
+      ],
+      "input_freeze_sha256": "b6b72428618263097b2b472052c12bc9bdf97228344543a53fdff59583af9c3b",
+      "logs": {
+        "check.stderr": "2888c88ea32dd79ad4b5f0639513bdccec20caa95c44c94db67a6d9e914c081c",
+        "check.stdout": "3430734fdeb4e3ec332659f6df3d8352eaef14147475c0b7b5198d2bebb8f02d"
+      },
+      "name": "control-range",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/control-range",
+      "product_manifest_sha256": "f61482355907bcdb47dfbc90e6b076f83f28db251262fef1696ac7f6bc1b1eb4",
+      "receipt_sha256": "64a7676053fb0db4e8d17d1de409f5c3c7d28bc45489078e881345d3b524f9f0",
+      "source_sha256": "524177134b604c9a0a387c9725b6778f4b5d88b70f78c374f8cfb182771d3620",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 26
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/control-protector/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::control_protector"
+      ],
+      "input_freeze_sha256": "da8a7ec8876b2a79e16081756ab4d60fabb8ad9465fb5e765b2dbd5a4fe5ed35",
+      "logs": {
+        "check.stderr": "0a11c339f2e43837dff892c9e93ecbbdd727da87edbc4ba69fd97167163d1b53",
+        "check.stdout": "eb06bab69d0a71e4b4238f0fe005c2408ac6e3e595a88f8dd9366cae1890b6f4"
+      },
+      "name": "control-protector",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/control-protector",
+      "product_manifest_sha256": "4e00bea7d5bebe2d61fff8b14a22cc2eec5fcae400162472fac7edf3a1150e4f",
+      "receipt_sha256": "9f5f2ef2d4b8477b1d36c3b57ce13ec18e080bc275a27e28b504e384d337fff5",
+      "source_sha256": "aadfdde71f1ee00ecb03a73d823bd1ad254c534a39f4828353b9227658c394e8",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 26
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/control-bitfield/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::control_bitfield"
+      ],
+      "input_freeze_sha256": "aabe0c08117303954a4e62b710f73463dde6f1cf7c5c83b0e98786fbfb2d57d8",
+      "logs": {
+        "check.stderr": "a8940b586d272655c9966ea136d8be66aee7e48c4cbc2c7774f7d10fb6efbdca",
+        "check.stdout": "d70470a154b935ebd6007cf96625707e2b817a4c16e46a97b35a3c92829f8663"
+      },
+      "name": "control-bitfield",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/control-bitfield",
+      "product_manifest_sha256": "717b1ac510e9e0f3ac6c8862a385b1700946554edfa5bccbb725c400a054547f",
+      "receipt_sha256": "fc7265658306fc0bad4411cc23d59521d8767a230d85960ce33de56c9e1c1bdf",
+      "source_sha256": "22012dd71f05d913cd8b21edcebaa0415c771939ed7636d2f37f60bcfccb836f",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 26
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/actual-control-nonzero/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::actual_nonzero"
+      ],
+      "input_freeze_sha256": "3fb20641dc5cf7dda3e7d2ff5389fc470a91400dc78d6d45f942274ef4d303d2",
+      "logs": {
+        "check.stderr": "1b99ad418e4e4e32d3f14de34eb849364ae69dc6c262ec7f77d77d1e83adf79e",
+        "check.stdout": "667851105292d0ee1839fec26020bb9a2db380c428e6be7f9af8f635fb4ccf4f"
+      },
+      "name": "actual-control-nonzero",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/actual-control-nonzero",
+      "product_manifest_sha256": "1ff220402106b6698b6a5e64feb2579a0441736d17fb1ebd56c23557b23ca821",
+      "receipt_sha256": "53e85b588303e7f15960e42ac6904a9c1e441c5b198bccc8dc4358be14dea7f0",
+      "source_sha256": "5ba0cd128dca73efe1d8740ea006c51fbd1388e3b99feff1e887ef1adfc3b6a5",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 45
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/actual-control-range/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::actual_range"
+      ],
+      "input_freeze_sha256": "31211514424f93926042d627f019b27068dbf4f39e51dbf69c3f2b95e57e1a83",
+      "logs": {
+        "check.stderr": "45e082154cc18ac7f949cff8c40f678f602b3e5c1e90290ffe3ecdd2c3ebdd08",
+        "check.stdout": "805dec2f95d0e2da5dfdafce2052cbbbbd20976568601b9e7cf86c9712d6f045"
+      },
+      "name": "actual-control-range",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/actual-control-range",
+      "product_manifest_sha256": "f1630d518c43a6fec686bdfdad8daa97b916d91ae72595fa40405140ae04cbed",
+      "receipt_sha256": "3640c7b51f2831a8a199c0831ef3199020d34fb2cf1401810ed52c1aacff87a7",
+      "source_sha256": "e49aa7d01de57a06c074dbb79e1b2140dc5d6513bf867582ccea84352abc5e7e",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 45
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/actual-control-protector/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::actual_protector"
+      ],
+      "input_freeze_sha256": "854a157eed2046058578c4c9de6cbded5a7b712cff2d1ed9f5fb9b7b5fe479d0",
+      "logs": {
+        "check.stderr": "9284f53e6b0f18aa9e945d53a05994a0bb1a5c4fcdd4ada831b9ae212419b6ff",
+        "check.stdout": "f17364010fcaca1747617ad3ef03a95281cefeb63780b89d243852ee89f90d8c"
+      },
+      "name": "actual-control-protector",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/actual-control-protector",
+      "product_manifest_sha256": "09fb4ee18128807c2f38e698927c2dd8ddd4342d17e669f87772cf215d0c9f3e",
+      "receipt_sha256": "2f138a4f3e75b6cbac29a4f312f6b5c6faf7aab727a2807c4c1fdfda669612b0",
+      "source_sha256": "58943011df371785e1fa63d3d6e6eb1c336b832041e85e3943eea779b6f2dbee",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 45
+      }
+    },
+    {
+      "all_final_guards_passed": true,
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus",
+        "/tmp/miri-tag-component-review-u2d1w73p/actual-control-bitfield/component.rs",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "compiled_product_sha256": null,
+      "failed_functions": [
+        "component::actual_bitfield"
+      ],
+      "input_freeze_sha256": "e50ac20a7d5230c3cf4ac6993f1044ddf100e465c2e2b2882486b53a9dccc236",
+      "logs": {
+        "check.stderr": "2d984b3403f0140363df5af65bbc658710adf2304cd788133d6516eea82a9fde",
+        "check.stdout": "b115120a7b539a19f17db0fed132d0522ea7379006047064fd0bbf89adf0c6a1"
+      },
+      "name": "actual-control-bitfield",
+      "output": "/tmp/miri-tag-component-review-u2d1w73p/actual-control-bitfield",
+      "product_manifest_sha256": "055cf5d95ed1ebbbe630fbad93f112b96bc50e8ec6583076593f0d634be79ea0",
+      "receipt_sha256": "a554152abb435a80855be41cb5e9b40b919192e2062a50e7d9d5346eeaf747ee",
+      "source_sha256": "4143b4a91f137b9e52e457d80971026df637a02b5a2bc03ae98aa5046b4bbc39",
+      "success": true,
+      "terminal_exit": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 45
+      }
+    }
+  ],
+  "fresh_product_count": 57,
+  "full_hmac": "1/1 UNPROVED inherited",
+  "goal_complete": false,
+  "inferred_helpers": [],
+  "initial_sha256": "bd7a844aeb95fc951d5c1613faa08952448b11b591b8c77673a1bb731c8c69a1",
+  "literal_sha256": "00e2ad240e06e946b2700c427ee750380dab877461984faca5491459093be0e4",
+  "manual": {
+    "bitvector_assertions": 21,
+    "inline_proof_blocks": 2,
+    "inverse_axiom_calls": 2,
+    "local_updated_fields_calls": 1,
+    "proof_bodies": [
+      "tag_identity",
+      "packed_fields",
+      "updated_fields",
+      "tag_range",
+      "packed_fields_raw"
+    ]
+  },
+  "minimal_open": 44,
+  "native_correspondences": 0,
+  "native_equivalence_proved": false,
+  "phase_open": 3,
+  "private_root": "/tmp/miri-tag-component-review-u2d1w73p",
+  "publication": false,
+  "python_optimization": 1,
+  "retained_classifications": [
+    {
+      "category": "frontend_blocker_no_semantic_evidence",
+      "expectation_met": true,
+      "name": "literal",
+      "product_count": 6,
+      "receipt_sha256": "854542c3e2e9b490cc0691ff910306ece86d3cd416530ed13b3e1881e977000e",
+      "terminal_exit": 1
+    },
+    {
+      "category": "native_compilation_supporting_only",
+      "expectation_met": true,
+      "name": "native-literal",
+      "product_count": 7,
+      "receipt_sha256": "bdee3f14adf09bfff46db765d048ede78087b636869da390cca2208029260e33",
+      "terminal_exit": 0
+    },
+    {
+      "category": "frontend_blocker_no_semantic_evidence",
+      "expectation_met": true,
+      "name": "literal-off",
+      "product_count": 7,
+      "receipt_sha256": "77059e9bb8c279376107f3b85057c658411bbf3ad16e4a8edb4f10084ec0ec4e",
+      "terminal_exit": 1
+    },
+    {
+      "category": "frontend_blocker_no_semantic_evidence",
+      "expectation_met": true,
+      "name": "closure-diagnostic",
+      "product_count": 7,
+      "receipt_sha256": "a418e6735c24a858dfaad33dd12af5649c8865be63b8bd14b00186ed9e79596b",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_harness_expectation_mismatch",
+      "expectation_met": false,
+      "name": "carrier-diagnostic",
+      "product_count": 7,
+      "receipt_sha256": "049eb3bfefa5dfa39c45782df9cead9addbd2f4d7d8b5d1fbd54edeb7570ce94",
+      "terminal_exit": 0
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "bitfields-on",
+      "product_count": 7,
+      "receipt_sha256": "93a9f4d48264217d291055c4d4ff557d637b18af73054eddfa68e641b0a548b6",
+      "terminal_exit": 0
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "annotated-first",
+      "product_count": 8,
+      "receipt_sha256": "2a874ea005d8e0ef08587aa3c71c607fa0115dd07c32032b72ddb4a34ab51d4e",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_ordinary_proof_failure",
+      "expectation_met": false,
+      "name": "annotated-second",
+      "product_count": 8,
+      "receipt_sha256": "2462cd58ccf8f27ee96413595246f76bd55fed3f3ff7650b472c49b88139193c",
+      "terminal_exit": 1
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "subset-first",
+      "product_count": 8,
+      "receipt_sha256": "f6db6a3bf2c46c3e558c75e3525347edd188133f0c06487749589be85a7e8576",
+      "terminal_exit": 0
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "full-third",
+      "product_count": 8,
+      "receipt_sha256": "c0e4713ae26612d5034d3d97b03845b113968687d085c0dde4c46956b31711ba",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "full-fourth",
+      "product_count": 8,
+      "receipt_sha256": "06950ac9d12952244ad676930fcdc606ad7dc07f7f76d011c60d618ded4aec52",
+      "terminal_exit": 1
+    },
+    {
+      "category": "ordinary_proof_failure",
+      "expectation_met": true,
+      "name": "full-fifth",
+      "product_count": 8,
+      "receipt_sha256": "715327ebdf6e362f1b2338675da29a29ecafe35ca45c50d274e6798d31d2e27e",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "exact-subset-on",
+      "product_count": 8,
+      "receipt_sha256": "8eba4614b6088efe2dd522e1f8a9a8549e08967a70f62b1f207e5356e7e518e4",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "comparisons",
+      "product_count": 8,
+      "receipt_sha256": "24e9d49309e42260c0a837a981196575eb76305054ce26c0b95e031671c2a824",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "exact-subset-fixed",
+      "product_count": 8,
+      "receipt_sha256": "31b4b803c6630a174ae0f4b1f09f5e043fb4d0b27c06530a65f5039964b3b271",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_frontend",
+      "expectation_met": false,
+      "name": "comparisons-fixed",
+      "product_count": 8,
+      "receipt_sha256": "d55a6edbf154ff5587bb658aee76e4e4bd86e3f646248467ae3fc3019e798d28",
+      "terminal_exit": 1
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "exact-final-on",
+      "product_count": 8,
+      "receipt_sha256": "b5b7a0df9b712e47989dd83b839527d30a0df31769c3d1ed7e58fb0e0f659f08",
+      "terminal_exit": 0
+    },
+    {
+      "category": "ordinary_proof_failure",
+      "expectation_met": true,
+      "name": "comparisons-final",
+      "product_count": 8,
+      "receipt_sha256": "fc82f86a345323a966f0f8622396beeea319a3c528ba2ac74a924e45cb08ddb1",
+      "terminal_exit": 1
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "subset-final-off",
+      "product_count": 8,
+      "receipt_sha256": "3ec1fe6a0024a12d86d20cd2041851c1799bad305db99bee615630a49dfb809f",
+      "terminal_exit": 0
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "control-nonzero",
+      "product_count": 9,
+      "receipt_sha256": "5bf2a72a68dd2b122cd4bdd9297b143e1a587f4ed4d4471f92a19254ae14c3ee",
+      "terminal_exit": 1
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "control-range",
+      "product_count": 9,
+      "receipt_sha256": "b67e00a58b75211e92f9ac55198f3309da80e63d18ea417fb62c6e8a2839eab1",
+      "terminal_exit": 1
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "control-protector",
+      "product_count": 9,
+      "receipt_sha256": "4461d63d20f09c341fcec76b38e721e546c4bd19b7c2192a96ceca27b231e722",
+      "terminal_exit": 1
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "control-bitfield",
+      "product_count": 9,
+      "receipt_sha256": "e6ec80c2ad17a974ca985c8abad13fdee6f99daf0245b745d85db6f641454f2f",
+      "terminal_exit": 1
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "bitfields-final-on",
+      "product_count": 10,
+      "receipt_sha256": "a99b01d34e80f2e12686789bdfd9d46086e092f1f87c77ae5a6cb7380dcf8511",
+      "terminal_exit": 0
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "bitfields-final-off",
+      "product_count": 10,
+      "receipt_sha256": "551804aa7a0b0e35d5f0c93614623b7b93c66263da206d2b23c22b6121bbd6f1",
+      "terminal_exit": 0
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "exact-final-off",
+      "product_count": 10,
+      "receipt_sha256": "b87dbd08dd8f7b57ca16b97ebf6dcae71088621d92238e081cd8310178ac3d1f",
+      "terminal_exit": 0
+    },
+    {
+      "category": "native_compilation_supporting_only",
+      "expectation_met": true,
+      "name": "native-comparison",
+      "product_count": 13,
+      "receipt_sha256": "ea938890d78cf671df24265eda68eac522fc8a0fb67d3ae0c8ebd870dd5b241f",
+      "terminal_exit": 0
+    },
+    {
+      "category": "ordinary_component_proof",
+      "expectation_met": true,
+      "name": "subset-compiled-on",
+      "product_count": 11,
+      "receipt_sha256": "82a625c123c0be964c4e441c1d13f9b00a3ba028a791f9c8e1db2a1beaebe121",
+      "terminal_exit": 0
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "actual-control-nonzero",
+      "product_count": 11,
+      "receipt_sha256": "78abfb8324a8eac297b4dd6cca0a3ab17916675ace2ef14b9a76341b2877c510",
+      "terminal_exit": 1
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "actual-control-range",
+      "product_count": 11,
+      "receipt_sha256": "5d903d16b04b1bd01635b09d9e0d593ceda7635445a603552dae57a086a26860",
+      "terminal_exit": 1
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "actual-control-protector",
+      "product_count": 11,
+      "receipt_sha256": "0309abf12b6da5545fda4e48a247804c453a284d0384824f9f04dd73e5999ef8",
+      "terminal_exit": 1
+    },
+    {
+      "category": "semantic_control",
+      "expectation_met": true,
+      "name": "actual-control-bitfield",
+      "product_count": 11,
+      "receipt_sha256": "3cd7aaf3f25f33574ac9bbb66942e7c6d2e510840e08c0d03b8f8c3f4e68087d",
+      "terminal_exit": 1
+    },
+    {
+      "category": "excluded_misclassified_true_property_standard_spec_gap",
+      "expectation_met": true,
+      "name": "actual-control-conversion",
+      "product_count": 11,
+      "receipt_sha256": "f538cf2a5e34fa37ca12025a2d0bb0e22afb5f11f75873bd7752779e86311bb7",
+      "terminal_exit": 1
+    },
+    {
+      "category": "ordinary_proof_failure",
+      "expectation_met": true,
+      "name": "conversion-gap",
+      "product_count": 11,
+      "receipt_sha256": "31a4384663a72380525f34a44cf407a78a816a0bd62de3a62da714a61f497707",
+      "terminal_exit": 1
+    }
+  ],
+  "retained_epoch_count": 34,
+  "retained_product_count": 301,
+  "review_base": "6a278283494eba7aafc86a51a10522fc7739da76",
+  "runtime_derived_comparisons_proved": false,
+  "schema": 1,
+  "scope_checkpoint_commit": "8cfdfff1",
+  "static_sha256": "7085c35c3522e98358ceb025ae0a97917f9dcfe15463a4bb57ea994b3be67e5b",
+  "summary_sha256": "2df1dea5d73147bec1d8380e8269dfb12e4e47a8d9ab1affbad1b460b52a3947",
+  "tool_sha256": {
+    "libverus_builtin.rlib": "37ea321a744186f0cb5464295c9ff56dc470341d028246a189053a8b49ad47be",
+    "libverus_builtin_macros.so": "56f614d61874170ddd5b043f93d53d2eb14ea4e7d59fe3d21b0c43388fdfaff4",
+    "libverus_state_machines_macros.so": "2d90bd7974349dc201a305590e3f99c55b975866ef936372855e25d04e666bb6",
+    "libvstd.rlib": "b80f671bec239239dbf5c01dd9eac99141b92ee78c007c7642cd1c13c728f3a2",
+    "rust_verify": "c06517e336994e6f1cea0a30815d90407d7699d6fe64a1c2f6c668562a77ba94",
+    "verus": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147",
+    "vstd.vir": "008baf00ba274705253e5f9b79e4b25dd6d9a8e13738a0e974641ce18a69dba9",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "verdict": "ACCEPT_BOUNDED_PARTIAL_COMPONENT_ONLY",
+  "whole_Item_new_proved": false,
+  "writer_effects_open": 101
+}
