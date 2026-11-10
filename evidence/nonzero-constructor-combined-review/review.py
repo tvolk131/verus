@@ -24,7 +24,9 @@ def private(prefix):
     p=P(tempfile.mkdtemp(prefix='combined-review-'+prefix+'-',dir='/tmp'));p.chmod(0o700);return p
 def epoch(work,label,argv,*,extra=(),envextra=None,cwd=None,timeout=2400,products=()):
     out=private(label);print(str(out),flush=True)
-    inputs=source_files()+list(HERE.glob('*.py'))+[TC/'bin/rustc',TC/'bin/cargo',P(sys.executable).resolve(),BASE/'z3']+list(extra)
+    snapshots=out/'controller-snapshots';snapshots.mkdir()
+    for script in HERE.glob('*.py'):shutil.copyfile(script,snapshots/script.name)
+    inputs=list(snapshots.glob('*.py'))+source_files()+list(HERE.glob('*.py'))+[TC/'bin/rustc',TC/'bin/cargo',P(sys.executable).resolve(),BASE/'z3']+list(extra)
     env=dict(os.environ,PATH=str(TC/'bin')+':/home/dev/.cargo/bin:/usr/bin:/bin',RUSTUP_TOOLCHAIN='1.99.1',CARGO_HOME=str(work/'cargo-home'),CARGO_TARGET_DIR=str(work/'target'),CARGO_BUILD_BUILD_DIR=str(work/'target'),CARGO_BUILD_JOBS='2',LD_LIBRARY_PATH=str(TC/'lib'),VERUS_IN_VARGO='1',VERUS_Z3_PATH=str(BASE/'z3'),VERUS_INFER_CACHE=str(out/'cache'),XDG_CACHE_HOME=str(out/'cache'),TMPDIR=str(out))
     env.update(envextra or {})
     freeze=dict(inputs=hashes(inputs),argv=list(map(str,argv)),cwd=str(cwd or ROOT/'source'),environment={k:v for k,v in env.items() if k.startswith(('CARGO_','VERUS_','RUSTUP_','LD_LIBRARY','TMPDIR','XDG_','PATH'))},before_first_trial=True)
@@ -47,10 +49,15 @@ def epoch(work,label,argv,*,extra=(),envextra=None,cwd=None,timeout=2400,product
     except BaseException as e:
         r['failure']=dict(type=type(e).__name__,message=str(e));raise
     finally:
-        guard(freeze['inputs']);need(sha(out/'freeze.json')==fg,'freeze drift');r['final_guards_passed']=True
-        r['products']=hashes([p for p in out.rglob('*') if p.is_file() and p.name!='receipt.json']+[p for p in products if p.is_file()])
-        write(out/'receipt.json',r)
-        with (work/'epochs.jsonl').open('a') as f:f.write(json.dumps(dict(label=label,path=str(out),receipt_sha256=sha(out/'receipt.json')))+'\n')
+        try:
+            guard(freeze['inputs']);need(sha(out/'freeze.json')==fg,'freeze drift');r['final_guards_passed']=True
+        except BaseException as err:
+            r.update(success=False,final_guards_passed=False,classification='guard_failure',failure=str(err))
+            raise
+        finally:
+            r['products']=hashes([p for p in out.rglob('*') if p.is_file() and p.name!='receipt.json']+[p for p in products if p.is_file()])
+            write(out/'receipt.json',r)
+            with (work/'epochs.jsonl').open('a') as f:f.write(json.dumps(dict(label=label,path=str(out),receipt_sha256=sha(out/'receipt.json')))+'\n')
     return out,r
 
 def authenticate():
@@ -74,7 +81,7 @@ def authenticate():
     return rows
 
 def setup():
-    w=P(read(HERE/'checkpoint.json')['work']) if (HERE/'checkpoint.json').exists() else private('work');print('WORK='+str(w),flush=True)
+    w=private('work');print('WORK='+str(w),flush=True)
     write(HERE/'checkpoint.json',dict(head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),type='independent_review_checkpoint',source_hashes={str(p.relative_to(ROOT)):sha(p) for p in source_files()},delivered=authenticate(),work=str(w),policy=69,cache=72,schema=38,publication=False,goal_complete=False))
     home=w/'cargo-home';(home/'registry/cache').mkdir(parents=True,exist_ok=True)
     # Only archive names and checksums in own lock, plus immutable Git object databases.
@@ -86,15 +93,17 @@ def setup():
         if not matches:
             copied[name]={'unavailable':True};continue
         for p in matches:need(sha(p)==pkg['checksum'],'locked archive mismatch')
-        p=matches[0];dest=home/'registry/cache'/p.parent.name/name;dest.parent.mkdir(exist_ok=True);shutil.copyfile(p,dest);copied[name]=sha(dest)
+        for p in matches:
+            dest=home/'registry/cache'/p.parent.name/name;dest.parent.mkdir(exist_ok=True);shutil.copyfile(p,dest)
+        copied[name]=pkg['checksum']
     # Index is immutable dependency metadata; no inherited Cargo config or src/build outputs.
     shutil.copytree(OLD/'cargo-home/registry/index',home/'registry/index',dirs_exist_ok=True)
-    shutil.copytree(OLD/'cargo-home/git/db',home/'git/db',dirs_exist_ok=True)
+    if not (home/'git/db').exists():shutil.copytree(OLD/'cargo-home/git/db',home/'git/db')
     write(w/'dependency-archives.json',copied)
     write(HERE/'work.json',dict(work=str(w)))
 
 def build(w):
-    extra=[p for p in (w/'cargo-home').rglob('*') if p.is_file()]
+    extra=[p for p in (w/'cargo-home').rglob('*') if p.is_file() and not p.name.startswith('.global-cache')]
     args=[TC/'bin/cargo','build','--offline','--locked','--release']
     for p in ['rust_verify','verus','verus_builtin','verus_builtin_macros','verus_state_machines_macros','vstd_build']:args+=['-p',p]
     out,r=epoch(w,'build',args,extra=extra,products=[w/'target/release'/n for n in NAMES+['vstd_build']]);need(r['exit']==0,'matching compiler failed')
