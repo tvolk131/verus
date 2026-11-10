@@ -57,25 +57,25 @@ Section operational.
       apply Forall_cons in RangeX as [RangeA RangeX].
       apply Forall_cons in RangeY as [RangeB RangeY].
       iIntros "#Op" (Φ). iModIntro. iIntros "[Pad [Key [Credit Credits]]] Post".
-      wp_rec. wp_op. case_bool_decide; wp_if; first lia.
+      wp_rec. wp_op. wp_if.
       rewrite /zvalues /= !heap_mapsto_vec_cons.
       iDestruct "Pad" as "[PadHead Pad]". iDestruct "Key" as "[KeyHead Key]".
-      wp_bind (Read ScOrd #p).
+      wp_bind (Read ScOrd (Lit (LitLoc p))).
       iApply (wp_read_sc with "PadHead"); first done.
       iNext. iIntros "PadHead". wp_let.
-      wp_bind (Read ScOrd #q).
+      wp_bind (Read ScOrd (Lit (LitLoc q))).
       iApply (wp_read_sc with "KeyHead"); first done.
       iNext. iIntros "KeyHead". wp_let.
       wp_bind (App (of_val op) (Lit (LitInt a) :: Lit (LitInt b) :: nil)).
       iPoseProof ("Op" $! a b with "[] []") as "Run"; [done|done|].
       iApply (wp_wand with "Run"). iIntros (w) "%Eq". subst w.
-      wp_let. wp_bind (Write ScOrd #p _).
+      wp_let. wp_bind (Write ScOrd (Lit (LitLoc p)) _).
       iApply (wp_write_sc ⊤ p _ _ _ with "[PadHead Credit]"); [done|by iFrame|].
       iNext. iIntros "PadHead". wp_seq. do 3 wp_op.
       replace (Z.of_nat (S n) - 1) with (Z.of_nat n) by lia.
       iApply (IH (p +ₗ 1) (q +ₗ 1) xs ys with "Op [Pad Key Credits]");
         [lia|lia|done|done|by iFrame|].
       iNext. iIntros "[Pad Key]". iApply "Post".
-      rewrite /zvalues /= !heap_mapsto_vec_cons. by iFrame.
+      rewrite /zvalues /=. by iFrame.
   Qed.
 End operational.
