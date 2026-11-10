@@ -50,7 +50,8 @@ keeps this source-only subproof separate from full tag/lookup acceptance.
 Independent review `706a4b85` reproduced vstd2250/0 and13 focused regressions.
 Its only P2 finding, two stale zero-arity test expectations, is fixed: parent
 validation passed68 FnDef tests (one existing ignored test) and13 constructor
-tests. Policy/cache reconciliation is complete; parent-wide validation is running.
+tests. Policy/cache reconciliation and parent-wide validation are complete for
+the bounded combined capability.
 The full tag closure, ordering and `Item::new` remain unproved.
 
 The provisional equality extension now checks original derived `PartialEq::eq`
@@ -62,7 +63,8 @@ an ordinary imported client checks4/0. The
 bounded combined capability: cold/warm 6/0, import 4/0, original constructor/get/Eq
 composition 10/0, and 23 focused regressions. The
 [combined review record](parent-combined69-review.json) binds those results.
-Parent-wide regression and canonical/observer validation remain in progress.
+Parent-wide regression and canonical/observer validation passed; see the
+[combined validation record](parent-combined69-validation.json).
 Policy69/cache72 invalidate prior inferred
 interfaces/candidates; regenerate providers and dependents with the combined
 compiler. Schema38 is unchanged.
@@ -108,7 +110,14 @@ library proof needs, recorded in
 precondition and unsupported source construct must remain explicit; successful
 helper verification is not a full native certificate.
 
-Full canonical remains6/0; the frozen full HMAC XOR-prefix-and-suffix property
-remains1/1 unproved. Both are inherited, not rerun here. Native=0, all44+3/101
-obligations remain open, publication=false, goal_complete=false. Same actual
-checked automation, normal checks and fresh combined acceptance remain required.
+Fresh parent validation covers 624 Infer tests across33 targets,705 compiler
+regressions total,148 VIR tests, and148 Python tests in each mode. The canonical
+26-case audit and23-case observer replay pass. One native smoke-test launcher
+needed rustup first in PATH; its targeted rerun passed and the original failed
+batch remains retained.
+
+Full canonical is6/0 cold/warm with no local proof bodies or inferred helpers.
+The frozen full HMAC XOR-prefix-and-suffix property remains1/1 unproved in fresh
+cold/warm runs. Native=0, all44+3/101 obligations remain open; publication=false,
+goal_complete=false. Necessary shared checked work on both full properties and
+fresh whole-goal acceptance remain required.

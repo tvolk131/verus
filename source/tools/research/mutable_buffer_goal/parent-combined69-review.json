@@ -32,10 +32,15 @@
     "(Fun :path component::impl&%9::__verus_infer_nonzero_u64_view)": true,
     "(Fun :path component::impl&%11::eq_spec)": true
   },
-  "parent_full_validation": "running separately; whole-goal acceptance pending",
+  "parent_full_validation": "passed: parent-combined69-validation.json; whole-goal acceptance pending",
   "ordering": "UNPROVED",
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false,
-  "parent_authentication_note": "Initial read-only probe used overwritten shared cold/warm export path; corrected to the original per-epoch retained copy prescribed by the review audit. No proof was rerun or changed."
+  "parent_authentication_note": "Initial read-only probe used overwritten shared cold/warm export path; corrected to the original per-epoch retained copy prescribed by the review audit. No proof was rerun or changed.",
+  "parent_combined_validation": {
+    "record": "parent-combined69-validation.json",
+    "accepted_engine": "3aa7f49a04a5e93c2ede882f2b947aac6e39263d",
+    "scope": "Combined capability, regression and strict replay gates passed; whole application/native goal remains incomplete."
+  }
 }

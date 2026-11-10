@@ -56,5 +56,10 @@
     "commit": "f5fe7e4110323c1e73f11ae630e53fa7b82c0828",
     "decision": "scoped_accept",
     "whole_goal_complete": false
+  },
+  "parent_combined_validation": {
+    "record": "parent-combined69-validation.json",
+    "accepted_engine": "3aa7f49a04a5e93c2ede882f2b947aac6e39263d",
+    "scope": "Combined capability, regression and strict replay gates passed; whole application/native goal remains incomplete."
   }
 }
