@@ -13,7 +13,8 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
 sys.path.insert(0, str(ROOT / 'source/tools'))
 from infer_eval_support import ArtifactGuard, digest, support_artifacts, tool_artifacts
-from infer_experiment import LoggedCommands, replay_receipt, require, validate_goal_run
+from infer_experiment import (LoggedCommands, replay_receipt, require, validate_run,
+                              require_exact, require_failure_kind, require_function_coverage)
 
 BUNDLE = Path('/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a')
 ACCEPTED = Path('/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/canonical/canonical-zgtzh85h/receipt.json')
@@ -36,6 +37,39 @@ def block(text, marker):
 
 def tokens(text):
     return re.findall(r'\w+|[^\s]', re.sub(r'//[^\n]*', '', text))
+
+
+def validate_component(observation, expected):
+    # Shared basename coverage cannot distinguish the two original Clone derives.
+    # Retain and check both by their complete rust_function identities instead.
+    data = validate_run(observation, expected)
+    summary = data['verification-results']
+    require(summary.get('is-verifying-entire-crate') is True, 'partial crate checking')
+    require(summary.get('verified') == (3 if expected else 2)
+            and summary.get('errors') == (0 if expected else 1), 'wrong query inventory')
+    inf = data['verus-infer']
+    require(inf['crate_success'] is expected, 'crate status mismatch')
+    require_function_coverage(inf['functions'], set())
+    require_exact(inf['functions'])
+    scope = inf['verification_scope']
+    require(scope['native_collection_completed'] is True, 'incomplete native collection')
+    require(scope['complete_selected_scope_verified'] is expected, 'scope certification mismatch')
+    selected = [x for x in scope['native_functions'] if x['selected'] is True]
+    names = [x['rust_function'] for x in selected]
+    require(len(names) == 3 and set(names) == {
+        '<AccessKind as std::clone::Clone>::clone',
+        '<Permission as std::clone::Clone>::clone', 'Permission::grants'}, 'body identities differ')
+    status = 'checked_exec_body' if expected else 'selected_body_not_certified_by_successful_full_run'
+    require(all(x['body_status'] == status for x in selected), 'unverified selected contract')
+    require(scope['checked_proof_bodies'] == 0, 'unexpected proof bodies')
+    if expected:
+        require(scope['checked_exec_bodies'] == 3, 'checked body count mismatch')
+    else:
+        require_failure_kind(observation['stderr'], 'postcondition not satisfied')
+        require(not any(s in observation['stderr'] for s in [
+            'possible arithmetic underflow/overflow', 'invariant not satisfied',
+            'recommendation not met', 'error[E']), 'mixed rejection kind')
+    return data
 
 
 def main():
@@ -110,8 +144,7 @@ def main():
             code = run(name, args, env)
             observation = dict(returncode=code, stdout=(a.output / (name + '.stdout')).read_text(),
                                stderr=(a.output / (name + '.stderr')).read_text())
-            data = validate_goal_run(observation, expected, expected_functions=set(), exec_bodies={'grants'},
-                                     proof_bodies=set(), failure_kind=None if expected else 'postcondition not satisfied')
+            data = validate_component(observation, expected)
             source_guard.check()
             summary = data['verification-results']
             require(summary['errors'] == (0 if expected else 1), 'unexpected semantic error inventory')
