@@ -402,7 +402,10 @@ impl Registry {
                     &dependencies,
                     &self.configuration,
                 );
-                let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let wrappers = newtypes::Newtypes::with_comparisons(
+                    &self.datatypes,
+                    &self.originals.values().cloned().collect::<Vec<_>>(),
+                );
                 let callees = candidates
                     .iter()
                     .map(|(n, c)| {
@@ -439,7 +442,10 @@ impl Registry {
                     &dependencies,
                     &self.configuration,
                 );
-                let wrappers = newtypes::Newtypes::new(&self.datatypes);
+                let wrappers = newtypes::Newtypes::with_comparisons(
+                    &self.datatypes,
+                    &self.originals.values().cloned().collect::<Vec<_>>(),
+                );
                 let projected_caller = self.projected.contains(&name);
                 let record_callees = candidates
                     .iter()
@@ -597,7 +603,10 @@ impl Registry {
         let prepared = owned::prepare(&prepared, imported, datatypes);
         let prepared = owned::borrowed::prepare(&prepared, imported, datatypes)?;
         let functions = prepared.as_slice();
-        let wrappers = newtypes::Newtypes::new(datatypes);
+        let wrappers = newtypes::Newtypes::with_comparisons(
+            datatypes,
+            &functions.iter().chain(imported).cloned().collect::<Vec<_>>(),
+        );
         for f in functions.iter().chain(imported).filter(|f| wrapper_traits::kind(f).is_some()) {
             if wrapper_traits::kind(f) == Some(wrapper_traits::Kind::Binary) {
                 let FunctionKind::TraitMethodImpl { method, .. } = &f.x.kind else {

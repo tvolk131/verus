@@ -9,6 +9,7 @@ use crate::ast_visitor::{expr_visitor_check, map_expr_visitor_env};
 #[derive(Default)]
 pub(super) struct Newtypes {
     shapes: std::collections::BTreeMap<Dt, Datatype>,
+    comparisons: std::collections::BTreeMap<Dt, Function>,
 }
 
 impl Newtypes {
@@ -30,11 +31,26 @@ impl Newtypes {
             })
             .map(|d| (d.x.name.clone(), d.clone()))
             .collect();
-        Self { shapes }
+        Self { shapes, comparisons: Default::default() }
+    }
+
+    pub(super) fn with_comparisons(datatypes: &[Datatype], functions: &[Function]) -> Self {
+        let mut out = Self::new(datatypes);
+        for d in datatypes {
+            let owner =
+                Arc::new(TypX::Datatype(d.x.name.clone(), Arc::new(vec![]), Arc::new(vec![])));
+            if wrapper_compare::nonzero_owner(&owner, datatypes) {
+                if let Some(f) = wrapper_compare::nonzero_observer(&owner, functions) {
+                    out.shapes.insert(d.x.name.clone(), d.clone());
+                    out.comparisons.insert(d.x.name.clone(), f.clone());
+                }
+            }
+        }
+        out
     }
 
     pub(super) fn fingerprint(&self) -> String {
-        format!("{:?}", self.shapes)
+        format!("{:?}:{:?}", self.shapes, self.comparisons)
     }
 
     pub(super) fn wrapper(&self, typ: &Typ) -> bool {
@@ -53,7 +69,19 @@ impl Newtypes {
     }
 
     fn typ(&self, typ: &Typ) -> Typ {
-        self.shape(typ).map_or_else(|| typ.clone(), |d| d.x.variants[0].fields[0].a.0.clone())
+        if let Some(d) = self.shape(typ) {
+            if self.comparisons.contains_key(&d.x.name) {
+                return Arc::new(TypX::Int(IntRange::U(64)));
+            }
+            return d.x.variants[0].fields[0].a.0.clone();
+        }
+        if !self.comparisons.is_empty()
+            && (wrapper_compare::nonzero_u64(typ)
+                || trait_getters::shared(typ).is_some_and(wrapper_compare::nonzero_u64))
+        {
+            return Arc::new(TypX::Int(IntRange::U(64)));
+        }
+        typ.clone()
     }
 
     fn field(&self, op: &FieldOpr) -> bool {
@@ -110,6 +138,15 @@ impl Newtypes {
                 "inference on trait implementations: their preconditions are inherited from the trait; use an inherent method or explicit operator specifications",
             ));
         }
+        if self
+            .shape(&f.x.inner_ret.x.typ)
+            .is_some_and(|d| self.comparisons.contains_key(&d.x.name))
+        {
+            return Err(unsupported(
+                &f.span,
+                "NonZero comparison projection only supports boolean results",
+            ));
+        }
         if self.shape(&f.x.inner_ret.x.typ).is_some()
             && !matches!(&*f.x.inner_ret.x.typ, TypX::Datatype(..))
         {
@@ -157,6 +194,17 @@ impl Newtypes {
             &mut (),
             &|_, _, e| {
                 match &e.x {
+                    ExprX::Call {
+                        target: CallTarget::Fun(CallTargetKind::Static, name, ts, _, _),
+                        args,
+                        post_args: None,
+                        body: None,
+                    } if ts.is_empty()
+                        && args.len() == 1
+                        && self.comparisons.values().any(|f| f.x.name == *name) =>
+                    {
+                        return Ok(args[0].clone());
+                    }
                     ExprX::Ctor(dt, _, fs, None) if self.shapes.contains_key(dt) => {
                         return Ok(fs[0].a.clone());
                     }
@@ -198,6 +246,35 @@ impl Newtypes {
             .map(|p| {
                 let expr = SpannedTyped::new(&p.span, &p.x.typ, ExprX::Var(p.x.name.clone()));
                 let expr = if let Some(d) = self.shape(&p.x.typ) {
+                    if let Some(observer) = self.comparisons.get(&d.x.name) {
+                        return (
+                            p.x.name.clone(),
+                            Term {
+                                view: None,
+                                size: 2,
+                                expr: SpannedTyped::new(
+                                    &p.span,
+                                    &self.typ(&p.x.typ),
+                                    ExprX::Call {
+                                        target: CallTarget::Fun(
+                                            CallTargetKind::Static,
+                                            observer.x.name.clone(),
+                                            Arc::new(vec![]),
+                                            Arc::new(vec![]),
+                                            CallTargetAttrs {
+                                                autospec: AutospecUsage::Final,
+                                                const_var: false,
+                                                assume_external_allowed: false,
+                                            },
+                                        ),
+                                        args: Arc::new(vec![expr]),
+                                        post_args: None,
+                                        body: None,
+                                    },
+                                ),
+                            },
+                        );
+                    }
                     SpannedTyped::new(
                         &p.span,
                         &self.typ(&p.x.typ),

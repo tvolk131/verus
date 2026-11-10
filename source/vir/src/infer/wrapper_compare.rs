@@ -60,7 +60,9 @@ pub(super) fn source_call(
         || !matches!(
             kind,
             CallTargetKind::DynamicResolved { .. } | CallTargetKind::ExternalTraitDefault
-        )
+        ) && !(matches!(kind, CallTargetKind::Dynamic)
+            && nonzero_u64(&types[0])
+            && matches!(name.path.last_segment().as_str(), "eq" | "ne"))
         || !args.iter().all(|a| {
             let mut typ = &a.typ;
             // Copied dereferences may retain multiple shared-borrow decorations
@@ -72,6 +74,19 @@ pub(super) fn source_call(
         })
     {
         return None;
+    }
+    // Project genuine field equality only as a candidate. The original call
+    // retains the standard NonZero contract during all three checks.
+    if nonzero_u64(&types[0]) && matches!(name.path.last_segment().as_str(), "eq" | "ne") {
+        return Some(e.new_x(ExprX::Binary(
+            if name.path.last_segment().as_str() == "eq" {
+                BinaryOp::Eq(Mode::Spec)
+            } else {
+                BinaryOp::Ne
+            },
+            args[0].clone(),
+            args[1].clone(),
+        )));
     }
     let TypX::Datatype(dt, ts, _) = &*types[0] else {
         return None;
@@ -108,7 +123,9 @@ pub(super) fn source_call(
     }
     let variant = &d.x.variants[0];
     let field = &variant.fields[0];
-    if field.a.1 != Mode::Exec || !matches!(&*field.a.0,TypX::Int(r) if arithmetic::exact_range(*r))
+    if field.a.1 != Mode::Exec
+        || !(matches!(&*field.a.0,TypX::Int(r) if arithmetic::exact_range(*r))
+            || matches!(name.path.last_segment().as_str(), "eq" | "ne") && nonzero_u64(&field.a.0))
     {
         return None;
     }
@@ -186,4 +203,58 @@ pub(super) fn ordinary_derive(f: &Function, owner: &Typ, suffix: &str) -> bool {
                 && trait_getters::shared(&p.x.typ)
                     .is_some_and(|t| crate::ast_util::types_equal(t, owner))
         })
+}
+
+/// Closed initial domain for view-projected checked equality. This recognizes
+/// the real core type, not a user type named NonZero, and supplies no law.
+pub(super) fn nonzero_u64(t: &Typ) -> bool {
+    matches!(&**t, TypX::Datatype(Dt::Path(p), ts, _)
+        if models::path_is(p, CrateId::Core, &["num", "nonzero", "NonZero"])
+        && ts.len() == 1 && matches!(&*ts[0], TypX::Int(IntRange::U(64))))
+}
+
+pub(super) fn nonzero_owner(owner: &Typ, datatypes: &[Datatype]) -> bool {
+    let TypX::Datatype(dt, ts, _) = &**owner else { return false };
+    ts.is_empty()
+        && datatypes.iter().any(|d| {
+            d.x.name == *dt
+                && d.x.mode == Mode::Exec
+                && d.x.proxy.is_none()
+                && matches!(d.x.transparency, DatatypeTransparency::WhenVisible(_))
+                && d.x.typ_params.is_empty()
+                && d.x.typ_bounds.is_empty()
+                && d.x.user_defined_invariant_fn.is_none()
+                && !d.x.destructor
+                && d.x.variants.len() == 1
+                && d.x.variants[0].fields.len() == 1
+                && d.x.variants[0].fields[0].a.1 == Mode::Exec
+                && nonzero_u64(&d.x.variants[0].fields[0].a.0)
+        })
+}
+
+/// The observation is a candidate expression only. A malformed or weak
+/// observation cannot bypass soundness of the original executable body.
+pub(super) fn nonzero_observer<'a>(owner: &Typ, fs: &'a [Function]) -> Option<&'a Function> {
+    let mut found = fs.iter().filter(|f| {
+        let x = &f.x;
+        x.name.path.last_segment().as_str() == "__verus_infer_nonzero_u64_view"
+            && x.mode == Mode::Spec
+            && matches!(x.kind, FunctionKind::Static)
+            // A certified exported closed spec keeps its symbol/signature but
+            // deliberately omits its body. Its producer's original eq body
+            // and metadata checks justify the summary, not this recognizer.
+            && is_pure_observation(f)
+            && x.proxy.is_none()
+            && !x.attrs.is_external_body
+            && !x.attrs.infer
+            && x.typ_params.is_empty()
+            && x.typ_bounds.is_empty()
+            && x.params.len() == 1
+            && x.params[0].x.mode == Mode::Spec
+            && trait_getters::shared(&x.params[0].x.typ)
+                .is_some_and(|t| crate::ast_util::types_equal(t, owner))
+            && matches!(&*x.inner_ret.x.typ, TypX::Int(IntRange::U(64)))
+    });
+    let f = found.next()?;
+    if found.next().is_some() { None } else { Some(f) }
 }

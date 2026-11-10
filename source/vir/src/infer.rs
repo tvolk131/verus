@@ -1237,7 +1237,7 @@ pub fn validate_imported_summary_with_context(
     datatypes: &[Datatype],
     functions: &[Function],
 ) -> Result<(), VirErr> {
-    let projected = newtypes::Newtypes::new(datatypes).project(function)?;
+    let projected = newtypes::Newtypes::with_comparisons(datatypes, functions).project(function)?;
     if is_owned_summary(&projected) {
         return owned::validate_summary(
             &projected,
