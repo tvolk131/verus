@@ -1,0 +1,17 @@
+{
+  "opam-repository": {
+    "commit": "78c202b54f936f55f02e3237df71f8b4d2405807",
+    "tracked_files": 19718,
+    "manifest_sha256": "b726ea53a4726fe57062a9b48bc234ae0921f2da51d8800b0024fe50ab5e3ac1"
+  },
+  "coq-released": {
+    "commit": "06733fd8dcbd7ca2e61bc38c72d6062a52f20d57",
+    "tracked_files": 4482,
+    "manifest_sha256": "f99d4a6261571714599c96e174e6ffa80dfe08333bbca010af57813d175e3408"
+  },
+  "iris-dev": {
+    "commit": "cf9219cd2ae11d400e34233b14e245285546dbca",
+    "tracked_files": 5992,
+    "manifest_sha256": "3978e4f2a3d43df7974e6bb44829267e66f3d64a455c8dc1365643a72d7eda19"
+  }
+}

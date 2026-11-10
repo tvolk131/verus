@@ -1,0 +1,11 @@
+{
+  "reason": "System GMP headers/development library absent; no global install authorized",
+  "version": "6.3.0",
+  "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz",
+  "archive_sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898",
+  "source_manifest_sha256": "25c073bd408e697ab8efe015afd12e9d29555e205aed3135ec3475ad9f3b1dd5",
+  "source_file_count": 2156,
+  "build_script": "set -eu\n. /tmp/tree-borrows-checked-foundation-20261110/env.sh\n./configure --prefix=\"$TB_ROOT/deps\" --with-pic\nmake -j2\nmake install\n",
+  "private_environment": "export TB_ROOT=/tmp/tree-borrows-checked-foundation-20261110\nexport OPAMROOT=\"$TB_ROOT/opamroot\"\nexport OPAMYES=1 OPAMJOBS=2 OPAMCONFIRMLEVEL=yes\nexport XDG_CACHE_HOME=\"$TB_ROOT/cache\"\nexport TMPDIR=\"$TB_ROOT/tmp\"\nexport PATH=\"$TB_ROOT/bin:$PATH\"\nexport PKG_CONFIG_PATH=\"$TB_ROOT/deps/lib/pkgconfig\"\nexport CFLAGS=\"-O2 -I$TB_ROOT/deps/include\"\nexport LDFLAGS=\"-L$TB_ROOT/deps/lib -Wl,-rpath,$TB_ROOT/deps/lib\"\nexport LD_LIBRARY_PATH=\"$TB_ROOT/deps/lib\"\n",
+  "opam_system_installs": false
+}
