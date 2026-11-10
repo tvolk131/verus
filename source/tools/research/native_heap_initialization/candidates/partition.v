@@ -1,4 +1,5 @@
 From NativeHeapInitialization Require Export initialization.
+From lrust.lang Require Import proofmode notation lifting.
 Set Default Proof Using "Type".
 
 (* Any finite exact chosen submap, with all unrelated cells retained. *)
@@ -11,7 +12,7 @@ Section partition.
   Lemma fragments_extract h a : a ⊆ h →
     initial_fragments h ⊣⊢ initial_fragments a ∗ initial_fragments (h ∖ a).
   Proof.
-    intros Ha. rewrite -(map_difference_union _ _ Ha).
+    intros Ha. rewrite -{1}(map_difference_union a h Ha).
     apply fragments_partition. apply map_disjoint_difference_r. done.
   Qed.
 End partition.
@@ -19,7 +20,7 @@ End partition.
 Fixpoint interval_map (l : loc) (vs : list val) : gmap loc val :=
   match vs with [] => ∅ | v :: vs => <[l:=v]>(interval_map (l +ₗ 1) vs) end.
 
-Lemma interval_lookup l vs i v :
+Lemma interval_lookup l vs (i : nat) v :
   interval_map l vs !! (l +ₗ i) = Some v ↔ vs !! i = Some v.
 Proof.
   induction vs as [|w vs IH] in l, i |- *.
@@ -54,7 +55,7 @@ Proof.
 Qed.
 
 Lemma interval_submap h l vs :
-  (∀ i v, vs !! i = Some v → h !! (l +ₗ i) = Some v) → interval_map l vs ⊆ h.
+  (∀ (i : nat) v, vs !! i = Some v → h !! (l +ₗ i) = Some v) → interval_map l vs ⊆ h.
 Proof.
   intros H. apply map_subseteq_spec. intros q v Hq.
   destruct (interval_lookup_witness _ _ _ _ Hq) as [i [Hi ->]]. by apply H.
@@ -71,7 +72,7 @@ Section intervals.
   Qed.
 
   Lemma interior_extract h l vs :
-    (∀ i v, vs !! i = Some v → h !! (l +ₗ i) = Some v) →
+    (∀ (i : nat) v, vs !! i = Some v → h !! (l +ₗ i) = Some v) →
     initial_fragments h ⊣⊢ l ↦∗ vs ∗ initial_fragments (h ∖ interval_map l vs).
   Proof.
     intros H. rewrite (fragments_extract h (interval_map l vs)); last by apply interval_submap.
@@ -79,7 +80,7 @@ Section intervals.
   Qed.
 
   Lemma interior_v12_payload h l vs :
-    (∀ i v, vs !! i = Some v → h !! (l +ₗ i) = Some v) →
+    (∀ (i : nat) v, vs !! i = Some v → h !! (l +ₗ i) = Some v) →
     initial_fragments h ⊣⊢
       (l, repeat [] (length vs)) #↦!∗ (FVal <$> vs) ∗
       initial_fragments (h ∖ interval_map l vs).
@@ -92,5 +93,47 @@ Section intervals.
     l ↦∗ (prefix ++ middle ++ suffix) ⊣⊢
       l ↦∗ prefix ∗ (l +ₗ length prefix) ↦∗ middle ∗
       (l +ₗ (length prefix + length middle)) ↦∗ suffix.
-  Proof. rewrite !heap_mapsto_vec_app shift_loc_assoc Nat2Z.inj_add. by rewrite assoc. Qed.
+  Proof. rewrite !heap_mapsto_vec_app shift_loc_assoc. by rewrite assoc. Qed.
+  Lemma larger_interval_partition l prefix middle suffix f :
+    interval_map l (prefix ++ middle ++ suffix) ##ₘ f →
+    initial_fragments (interval_map l (prefix ++ middle ++ suffix) ∪ f) ⊣⊢
+      l ↦∗ prefix ∗ (l +ₗ length prefix) ↦∗ middle ∗
+      (l +ₗ (length prefix + length middle)) ↦∗ suffix ∗ initial_fragments f.
+  Proof.
+    intros H. rewrite (fragments_partition _ _ H) interval_fragments.
+    rewrite interior_split_recombine. by rewrite !assoc.
+  Qed.
+
+  (* Any initialized bytes, any n (in particular 10 and 128), at any offset.
+     This is the physical payload shape of v12, not its ty_own or prophecy. *)
+  Lemma byte_interior_payload h l (zs : list Z) :
+    Forall (λ z, 0 ≤ z < 256) zs →
+    (∀ (i : nat) (z : Z), zs !! i = Some z → h !! (l +ₗ i) = Some #z) →
+    initial_fragments h ⊣⊢
+      ⌜Forall (λ z, 0 ≤ z < 256) zs⌝ ∗
+      (l, repeat [] (length zs)) #↦!∗ (FVal <$> ((λ z : Z, LitV (LitInt z)) <$> zs)) ∗
+      initial_fragments (h ∖ interval_map l ((λ z : Z, LitV (LitInt z)) <$> zs)).
+  Proof.
+    intros Hrange Hcells. rewrite (bi.pure_True _ Hrange) left_id.
+    rewrite -(length_fmap (λ z : Z, LitV (LitInt z)) zs).
+    apply interior_v12_payload. intros i v Hlookup.
+    apply list_lookup_fmap_Some in Hlookup. destruct Hlookup as [z [Hz ->]].
+    by apply Hcells.
+  Qed.
 End intervals.
+
+(* Global initialization delivers the subobject AND exact frame to the WP proof;
+   neither resource is requested from an application caller. *)
+Section interior_operational.
+  Context {Σ : gFunctors} `{!lrustGpreS Σ}.
+  Theorem initialized_interior_adequacy e h l vs φ k :
+    (∀ (i : nat) v, vs !! i = Some v → h !! (l +ₗ i) = Some v) →
+    (∀ `{!lrustGS Σ}, l ↦∗ vs -∗ initial_fragments (h ∖ interval_map l vs) -∗
+      £k -∗ time_ctx -∗ WP e {{ v, ⌜φ v⌝ }}) →
+    adequate NotStuck e (initialized_state h) (λ v _, φ v).
+  Proof using All.
+    intros Hcells Hwp. apply (initialized_heap_adequacy (Σ:=Σ) _ _ _ k).
+    intros ?. iIntros "F Credits Time".
+    iDestruct (interior_extract _ _ _ Hcells with "F") as "[P Frame]". iApply (Hwp with "P Frame Credits Time").
+  Qed.
+End interior_operational.

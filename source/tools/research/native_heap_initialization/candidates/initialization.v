@@ -1,3 +1,5 @@
+Require Import guarding.internal.na_invariants_fork.
+From lrust.util Require Import atomic_lock_counter adequacy_util.
 From lrust.lang Require Export adequacy.
 From lrust.lang Require Import proofmode notation lifting.
 From lrust.util Require Import non_atomic_cell_map.
@@ -16,13 +18,15 @@ Section allocation.
       ([∗ map] l ↦ v ∈ h, inl l @↦[ι] inr v).
   Proof.
     induction h as [|l v h Hfresh IH] using map_ind.
-    - rewrite /initialized_map fmap_empty big_sepM_empty.
+    - rewrite /initialized_map fmap_empty.
       iMod non_atomic_map_alloc_empty as (ι) "H". iModIntro. iExists ι. by iFrame.
     - iMod IH as (ι) "[H F]".
       iMod (non_atomic_map_insert ι l v with "H") as "[P H]".
       { by rewrite /initialized_map lookup_fmap Hfresh. }
-      rewrite /initialized_map fmap_insert big_sepM_insert; last done.
-      iModIntro. iExists ι. iFrame.
+      rewrite /initialized_map fmap_insert.
+      iModIntro. iExists ι. iFrame "H".
+      iApply big_sepM_insert; first done.
+      iFrame.
   Qed.
 End allocation.
 
@@ -39,7 +43,7 @@ Section operational.
     (∀ `{!lrustGS Σ}, initial_fragments h -∗ £k -∗ time_ctx -∗
       WP e {{ v, ⌜φ v⌝ }}) →
     adequate NotStuck e (initialized_state h) (λ v _, φ v).
-  Proof.
+  Proof using All.
     intros Hwp. apply adequate_alt. intros t2 σ2 [n [κs ?]]%erased_steps_nsteps.
     eapply (adequacy_util.wp_strong_adequacy Σ _); [|done]=>?.
     iMod (finite_map_initialize h) as (vγ) "[Hvγ Fragments]".
@@ -62,7 +66,7 @@ Section operational.
 End operational.
 
 (* An executed instance that actually reads an existing nonempty heap cell. *)
-Theorem initialized_read_adequate h l v :
+Theorem initialized_read_adequate (h : gmap loc val) (l : loc) (v : val) :
   h !! l = Some v →
   adequate NotStuck (Read ScOrd #l) (initialized_state h) (λ w _, w = v).
 Proof.

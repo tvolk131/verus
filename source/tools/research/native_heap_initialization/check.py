@@ -47,12 +47,16 @@ def main():
         freeze = json.loads(frozen_bytes)
         require(freeze['before_first_trial'] is True, 'missing pretrial freeze')
         require(set(freeze['files']) == {str(x.relative_to(ROOT)) for x in inputs()}, 'freeze inputs differ')
-        ready = json.loads(READY.read_bytes())
+        loaded = {}
+        def load(path):
+            loaded[path] = path.read_bytes()
+            return json.loads(loaded[path])
+        ready = load(READY)
         baseline_receipt = Path(ready['receipt'])
-        baseline = json.loads(baseline_receipt.read_bytes())
-        trusted = json.loads((HERE.parent/'mutable_buffer_goal/foundation-baseline.json').read_bytes())
-        binding = json.loads((BRIDGE/'baseline-bindings.json').read_bytes())
-        pin = json.loads((HERE.parent/'mutable_buffer_goal/foundation-pin.json').read_bytes())
+        baseline = load(baseline_receipt)
+        trusted = load(HERE.parent/'mutable_buffer_goal/foundation-baseline.json')
+        binding = load(BRIDGE/'baseline-bindings.json')
+        pin = load(HERE.parent/'mutable_buffer_goal/foundation-pin.json')
         switchbin = Path(ready['switch'])/'_opam/bin'
         toolpaths = {n: (switchbin/n if n in ['coqc', 'coqchk'] else Path(ready[n]))
                      for n in ['coqc', 'coqchk', 'runner', 'opam']}
@@ -62,6 +66,8 @@ def main():
                  *[BUILD/n for n in sources], *list((BUILD/'src').rglob('*.vo'))]
         guard = ArtifactGuard(paths)
         def retained(path): return guard.initial[str(path.resolve())]['sha256']
+        for path, data in loaded.items():
+            require(retained(path) == hashlib.sha256(data).hexdigest(), 'JSON changed while loading '+str(path))
         require(retained(a.freeze) == hashlib.sha256(frozen_bytes).hexdigest(), 'freeze changed during load')
         for name, expected in freeze['files'].items():
             require(retained(ROOT/name) == expected, 'frozen snapshot mismatch '+name)
@@ -97,6 +103,8 @@ def main():
                 args += [words[0], str(BUILD/words[1]), words[2]]
         work = a.output/'proofs'
         work.mkdir()
+        # Rocq/lia auxiliary artifacts stay in the private trial directory.
+        run.cwd = work
         args += ['-Q',str(work),'NativeHeapInitialization']
         held = []
         def hold(path, expected):
@@ -106,14 +114,15 @@ def main():
         names = []
         require({x.stem for x in (HERE/'candidates').glob('*.v')} == set(MODULES), 'extra module')
         for n in MODULES:
+            shutil.copyfile(HERE/'candidates'/(n+'.v'),work/(n+'.v'))
+            hold(work/(n+'.v'),freeze['files'][str((HERE/'candidates'/(n+'.v')).relative_to(ROOT))])
+        for n in MODULES:
             src = HERE/'candidates'/(n+'.v')
             require(declarations(src)==freeze['constants'][n], 'constant inventory changed')
             text = src.read_text()
             require(not re.search(r'\b(Axiom|Admitted|admit|Parameter|Abort|native_compute|vm_cast_no_check)\b',text),
                     'unchecked or incomplete construct')
             target = work/src.name
-            shutil.copyfile(src,target)
-            hold(target, freeze['files'][str(src.relative_to(ROOT))])
             require(run('compile-'+n,[str(toolpaths['runner']),str(toolpaths['coqc']),'-q',*args,str(target)],env)==0,
                     'proof-development/setup failure, not semantic evidence: '+n)
             require(target.with_suffix('.vo').is_file(), 'missing object')

@@ -1,4 +1,6 @@
 From NativeHeapInitialization Require Export partition.
+From lrust.util Require Import non_atomic_cell_map cellmap.
+From lrust.lang Require Import notation.
 Set Default Proof Using "Type".
 
 Section controls.
@@ -27,13 +29,23 @@ End controls.
 
 Section frame_control.
   Context `{!heapGS Σ, !invGS Σ, !na_invG Σ, !alc_logicG Σ}.
-  Lemma duplicate_frame_refused h a l v : a ⊆ h → a !! l = Some v →
-    initial_fragments a -∗ initial_fragments (h ∖ a) -∗ l ↦ v -∗ False.
+  Lemma overlapping_frame_refused (a f : gmap loc val) l v w :
+    a !! l = Some v → f !! l = Some w →
+    initial_fragments a -∗ initial_fragments f -∗ False.
   Proof.
-    iIntros (Ha Hl) "A F P".
+    iIntros (Ha Hf) "A F".
     rewrite /initial_fragments.
-    iDestruct (big_sepM_lookup with "A") as "Q"; first exact Hl.
+    iDestruct (big_sepM_lookup with "A") as "P"; first exact Ha.
+    iDestruct (big_sepM_lookup with "F") as "Q"; first exact Hf.
     rewrite /heap_mapsto. iApply (duplicate_same_namespace with "P Q").
+  Qed.
+  Lemma wrong_initial_frame (h f : gmap loc val) l v w :
+    h !! l = Some v → f !! l = Some w → v ≠ w →
+    non_atomic_map heap_name (initialized_map h) -∗ initial_fragments f -∗ False.
+  Proof.
+    iIntros (Hv Hw Hne) "H F". rewrite /initial_fragments.
+    iDestruct (big_sepM_lookup with "F") as "P"; first exact Hw.
+    rewrite /heap_mapsto. iApply (wrong_initial_value with "H P"); done.
   Qed.
 End frame_control.
 
