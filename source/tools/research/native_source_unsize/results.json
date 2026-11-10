@@ -103,7 +103,19 @@
     "trial": 2,
     "kind": "source-schema setup error before compilation; not semantic evidence"
   },
-  "independent_review": "pending",
+  "independent_review": {
+    "commit": "458576c7",
+    "decision": "accept exact33-declaration carrier MODEL scope",
+    "fresh_proofs": {
+      "path": "/tmp/native-source-unsize-model-review-58ea8ca4-001/replay/receipt.json",
+      "sha256": "e8982ef3f02b4bea262cf7e5ff746a9a6bff06f509cf9c824d6c0e593524d67f"
+    },
+    "review_receipt": {
+      "path": "/tmp/native-source-unsize-model-review-58ea8ca4-001/receipt.json",
+      "sha256": "954b45f838fa25412ba17b2bd4dfa75ee03f135b272c1beb5e802b0e090df49a"
+    },
+    "source_typing_and_validation_proved": false
+  },
   "actual_source_instance": false,
   "source_certificate_proved": false,
   "native_correspondences": 0,

@@ -7,7 +7,9 @@ suboperation before reference validation, retagging and local write hooks.
 
 The accepted root replay is trial004, controller commit `dfe1a04a` and freeze
 `trial004-freeze.json`. Exact commands, input/product hashes and all33 assumption
-entries are in [results.json](results.json). Independent review is pending.
+entries are in [results.json](results.json). The
+[independent review](../../../../evidence/source-unsize-model-review/REPORT.md)
+accepts this exact carrier MODEL scope.
 
 ## Exact mathematical result
 
@@ -18,6 +20,10 @@ and an uninitialized immediate destination. It changes only that destination's
 data representation. The source local, caller/private physical cells, original
 reference, incoming history, private allocation state, storage trace and control
 location are preserved.
+
+`RefValue` does not encode the pointee type, mutability or array length. The
+root progress theorem is a local-carrier statement; its source token is selected
+separately and it does not establish Rust typing or source reachability.
 
 These are premises of a partial representation MODEL, not new application
 preconditions. Carrier data does not establish live allocation, dereferenceability,

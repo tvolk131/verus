@@ -13,7 +13,14 @@ python3 -B source/tools/research/native_source_reborrow/check.py \
 ```
 
 Output must be fresh. Dependencies/tools are pinned completed read-only artifacts;
-only new modules compile privately. Actual Rust interpretation, coverage of all
+only new modules compile privately. The current integration replay uses the
+unchanged mathematical candidates and immutable completed receipts; the historical
+worker freeze remains preserved. [Parent matching evidence](integration-results.json)
+records134 closed declarations and identical mathematical objects; independent
+acceptance remains pending.
+
+This is a conservative authored byte-stack rule, not an implementation of Rust,
+Stacked Borrows or Tree Borrows. Actual Rust interpretation, coverage of all
 lawful inputs, source certificate and original C/F remain false/open. Native0,
 44+3/101 obligations open, publication=false, whole goal incomplete. Generic10
 is MODEL-only, never an actual canonical-source certificate. Full HMAC1/1

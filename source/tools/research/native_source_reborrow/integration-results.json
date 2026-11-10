@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "scope": "Conservative tagged byte-stack reborrow MODEL; not Rust/SB/TB semantics",
+  "implementation": "aaca63b9",
+  "controller": "312a5554",
+  "worker_receipt": {
+    "path": "/tmp/native-source-reborrow-e9615ccb-trial016/receipt.json",
+    "sha256": "1d135594952edc6fcfc89c50cecc8c6d7dbdc5477541aebd887a1fecf4b8f414"
+  },
+  "integration_receipt": {
+    "path": "/tmp/native-source-reborrow-parent-integration001/receipt.json",
+    "sha256": "2ba00adce2ef5ac24c4d681574616157b006fd6d9067b45131865cf52fd7c74d"
+  },
+  "declarations": 134,
+  "individual_assumptions_closed": true,
+  "kernel_axioms": [],
+  "math_sources_objects_match_worker": true,
+  "independent_review": "pending",
+  "actual_source_instance": false,
+  "all_lawful_rust_inputs_covered": false,
+  "source_cf_bindings_proved": false,
+  "native_correspondences": 0,
+  "source_simulations_open": 44,
+  "phase_obligations_open": 3,
+  "writer_effects_open": 101,
+  "publication": false,
+  "goal_complete": false
+}
