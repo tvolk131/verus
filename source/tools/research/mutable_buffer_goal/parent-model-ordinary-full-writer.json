@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "scope": "Exact initialized ordinary-memory MODEL writer with actual final pad/key/outside frame",
+  "implementation": "d7156dec",
+  "worker_receipt": {
+    "path": "/tmp/model-ordinary-full-writer-trial-012/receipt.json",
+    "sha256": "5733f94896797c6b3b7b432500ae0839711843e979e8c05f683516d349909ed8",
+    "success": true
+  },
+  "parent_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-ordinary-full-writer-d7156dec/proofs/receipt.json",
+    "sha256": "4b675510e5b400a3c94002f59ecf14adc8bc1d1cc32c8f690b49bc729e2746ea"
+  },
+  "parent_manager_receipt": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-ordinary-full-writer-d7156dec/receipt.json",
+    "sha256": "da98042beac984cb9bb840e71aedf62c1f61d6846d13ecd93e533501ced1cec7"
+  },
+  "source_declarations": 25,
+  "inventory_helpers": 100,
+  "all_source_and_object_hashes_match_worker": true,
+  "artifact_hashes": {
+    "Assumptions.v": "b9369855b8531668af50f7b7ff2a484cde0a3c7ba92f62d96cc7aae00d91f974",
+    "Assumptions.vo": "75308b72c37eeeae57f7c188059c16765063276e3adff43210d8bd75d0c1984e",
+    "ProofTerms.v": "4c3ffe38146ed7b860f56008cf2e8496f6a67cbb681ed16ac45e127a2d140fd8",
+    "ProofTerms.vo": "d845f87853e49506d700cddcfea28d9d2a126e374c8501e50dea88b7b5d25e10",
+    "controls.v": "91f65fa2acf2b1cb46cd46256c6f1fb9c35b69ca080b37876edfd5d0a355b377",
+    "controls.vo": "3b2d33cf2cc4cbc31e00f315cfb0698cea18b8ba92da2f2a5b0fcdbd12023d1d",
+    "interface.v": "1aee4059b67eaf4f69f8823cb5799ae5b555eace130849c44af658c0d2f7d1be",
+    "interface.vo": "82047f094109f3b21b6f403d93dee4c219c1e3bcba1ada6c60c81f3a158db787",
+    "vectors.v": "8f1d4643ad48a1360a1c8966d2e5834b8a9a9181a53dc7c8fb68a075b1979c65",
+    "vectors.vo": "fa907ea2a40dd4487c9cb1d944eb76d043c3a73e5c63a9811fbf8e973c11f7f8",
+    "writer.v": "eb265ede61fac11eade0cc722a3ced23f740dbcdf7769a2c7cff754e674e8195",
+    "writer.vo": "7574fb6d47b9e6dd3f931883ba268772b17add099ed85528546c0dd68df95254"
+  },
+  "assumptions_match_worker": true,
+  "kernel_axioms": [
+    "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+    "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+  ],
+  "all_input_and_product_guards_passed": true,
+  "independent_review": "running",
+  "no_external_physical_transformation_WP": true,
+  "all_finite_lengths": true,
+  "actual_native_correspondences": 0,
+  "minimal_native_simulations_open": 44,
+  "native_phase_obligations_open": 3,
+  "native_writer_effects_open": 101,
+  "full_HMAC": "1/1 inherited, not rerun",
+  "publication": false,
+  "goal_complete": false
+}
