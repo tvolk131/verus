@@ -1,0 +1,339 @@
+{
+  "pair": {
+    "declarations": [
+      {
+        "name": "setup.byte_values",
+        "kind": "Definition",
+        "line": 9,
+        "statement": "Definition byte_values (zs : list Z) : list val :=\n  (λ z : Z, LitV (LitInt z)) <$> zs."
+      },
+      {
+        "name": "setup.byte_map",
+        "kind": "Definition",
+        "line": 11,
+        "statement": "Definition byte_map (p : loc) (zs : list Z) : gmap loc val := interval_map p (byte_values zs)."
+      },
+      {
+        "name": "setup.pair_outside",
+        "kind": "Definition",
+        "line": 12,
+        "statement": "Definition pair_outside h p pad q key := h ∖ (byte_map p pad ∪ byte_map q key)."
+      },
+      {
+        "name": "setup.pair_setup",
+        "kind": "Definition",
+        "line": 13,
+        "statement": "Definition pair_setup (e : expr) : expr := (Skip;; Skip;; Share;; e)%E."
+      },
+      {
+        "name": "setup.shared_key_view",
+        "kind": "Definition",
+        "line": 18,
+        "statement": "Definition shared_key_view (key : list Z) (q : loc) tid κ : iProp Σ :=\n    tctx_interp tid +[#q ◁ &shr{κ} (bytes_ty (length key))]\n      -[((q, repeat [] (length key)), bytes_of_list key)]."
+      },
+      {
+        "name": "setup.shared_key_view_own",
+        "kind": "Lemma",
+        "line": 22,
+        "statement": "Lemma shared_key_view_own key q tid κ :\n    shared_key_view key q tid κ ⊣⊢\n    ∃ d, ⧖d ∗ ty_own (&shr{κ} (bytes_ty (length key)))\n      ((q, repeat [] (length key)), bytes_of_list key) d d tid [FVal #q]."
+      },
+      {
+        "name": "setup.pair_lifetimes_recombine",
+        "kind": "Lemma",
+        "line": 28,
+        "statement": "Lemma pair_lifetimes_recombine κpad κkey :\n    llctx_interp [κpad ⊑ₗ []] ∗ llctx_interp [κkey ⊑ₗ []] ⊣⊢\n    llctx_interp [κpad ⊑ₗ []; κkey ⊑ₗ []]."
+      },
+      {
+        "name": "setup.raw_pair_payload",
+        "kind": "Lemma",
+        "line": 33,
+        "statement": "Lemma raw_pair_payload h p pad q key :\n    Forall (λ z, 0 ≤ z < 256) pad → Forall (λ z, 0 ≤ z < 256) key →\n    (∀ (i : nat) (z : Z), pad !! i = Some z → h !! (p +ₗ i) = Some #z) →\n    (∀ (i : nat) (z : Z), key !! i = Some z → h !! (q +ₗ i) = Some #z) →\n    byte_map p pad ##ₘ byte_map q key →\n    initial_fragments h ⊣⊢\n      (p, repeat [] (length pad)) #↦!∗ (FVal <$> byte_values pad) ∗\n      (q, repeat [] (length key)) #↦!∗ (FVal <$> byte_values key) ∗\n      initial_fragments (pair_outside h p pad q key)."
+      },
+      {
+        "name": "setup.model_key_share",
+        "kind": "Lemma",
+        "line": 62,
+        "statement": "Lemma model_key_share key q tid κ :\n    llft_ctx -∗ proph_ctx -∗ uniq_ctx -∗ time_ctx -∗ elctx_interp [] -∗\n    llctx_interp [κ ⊑ₗ []] -∗\n    invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗\n    ⧖1 -∗ model_reference key q tid κ -∗\n    WP Share {{ _, llctx_interp [κ ⊑ₗ []] ∗\n      invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) ∗\n      shared_key_view key q tid κ }}."
+      },
+      {
+        "name": "setup.raw_pair_model_context_wp",
+        "kind": "Theorem",
+        "line": 96,
+        "statement": "Theorem raw_pair_model_context_wp e h p pad q key (Φ : val → iProp Σ) k :\n    Closed [] e →\n    Forall (λ z, 0 ≤ z < 256) pad → Forall (λ z, 0 ≤ z < 256) key →\n    (∀ (i : nat) (z : Z), pad !! i = Some z → h !! (p +ₗ i) = Some #z) →\n    (∀ (i : nat) (z : Z), key !! i = Some z → h !! (q +ₗ i) = Some #z) →\n    byte_map p pad ##ₘ byte_map q key →\n    (∀ (TG : typeG Σ) tid κpad κkey,\n      @type_lrustGS Σ TG = Outer → κpad ≠ llft_empty → κkey ≠ llft_empty →\n      llft_ctx -∗ proph_ctx -∗ uniq_ctx -∗ time_ctx -∗ elctx_interp [] -∗\n      llctx_interp [κpad ⊑ₗ []] -∗ llctx_interp [κkey ⊑ₗ []] -∗\n      invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗\n      model_reference pad p tid κpad -∗ shared_key_view key q tid κkey -∗\n      initial_fragments (pair_outside h p pad q key) -∗ £k -∗ WP e @ ⊤ {{ Φ }}) →\n    initial_fragments h -∗ £(1+k) -∗ time_ctx -∗\n    WP pair_setup e @ ⊤ {{ Φ }}."
+      },
+      {
+        "name": "setup.raw_pair_model_observed",
+        "kind": "Theorem",
+        "line": 160,
+        "statement": "Theorem raw_pair_model_observed e h p pad q key\n      (Φ : lrustGS Σ → val → iProp Σ) (φ : val → state → Prop) k :\n    Closed [] e →\n    Forall (λ z, 0 ≤ z < 256) pad → Forall (λ z, 0 ≤ z < 256) key →\n    (∀ (i : nat) (z : Z), pad !! i = Some z → h !! (p +ₗ i) = Some #z) →\n    (∀ (i : nat) (z : Z), key !! i = Some z → h !! (q +ₗ i) = Some #z) →\n    byte_map p pad ##ₘ byte_map q key →\n    (∀ (Outer : lrustGS Σ) (TG : typeG Σ) tid κpad κkey,\n      @type_lrustGS Σ TG = Outer → κpad ≠ llft_empty → κkey ≠ llft_empty →\n      llft_ctx -∗ proph_ctx -∗ uniq_ctx -∗ time_ctx -∗ elctx_interp [] -∗\n      llctx_interp [κpad ⊑ₗ []] -∗ llctx_interp [κkey ⊑ₗ []] -∗\n      invctx_interp tid ⊤ [] (InvCtx [] static AtomicClosed) -∗\n      model_reference pad p tid κpad -∗ shared_key_view key q tid κkey -∗\n      initial_fragments (pair_outside h p pad q key) -∗ £k -∗\n      @wp (iProp Σ) expr val stuckness\n        (@wp' HasLc lrust_lang Σ (@lrustGS_irisGS Σ Outer)) NotStuck ⊤ e (Φ Outer)) →\n    (∀ (Outer : lrustGS Σ) σ v,\n      heap_ctx σ -∗ Φ Outer v ={⊤,∅}=∗ ⌜φ v σ⌝) →\n    adequate NotStuck (pair_setup e) (initialized_state h) φ."
+      },
+      {
+        "name": "controls.byte_map_disjoint_iff",
+        "kind": "Lemma",
+        "line": 10,
+        "statement": "Lemma byte_map_disjoint_iff p pad q key :\n  byte_map p pad ##ₘ byte_map q key ↔\n  ∀ (i j : nat), (i < length pad)%nat → (j < length key)%nat → p +ₗ i ≠ q +ₗ j."
+      },
+      {
+        "name": "controls.byte_map_empty_alias",
+        "kind": "Lemma",
+        "line": 33,
+        "statement": "Lemma byte_map_empty_alias p pad : byte_map p pad ##ₘ byte_map p []."
+      },
+      {
+        "name": "controls.byte_map_same_block_gap",
+        "kind": "Lemma",
+        "line": 36,
+        "statement": "Lemma byte_map_same_block_gap (base : loc) pad key gap :\n  (0 ≤ gap)%Z →\n  byte_map (base +ₗ 1) pad ##ₘ\n    byte_map (base +ₗ (1 + length pad + gap)) key."
+      },
+      {
+        "name": "controls.shared_key_aliases",
+        "kind": "Lemma",
+        "line": 48,
+        "statement": "Lemma shared_key_aliases key q tid κ :\n    shared_key_view key q tid κ ⊣⊢\n    shared_key_view key q tid κ ∗ shared_key_view key q tid κ."
+      },
+      {
+        "name": "controls.pair_setup_outside_observed",
+        "kind": "Theorem",
+        "line": 61,
+        "statement": "Theorem pair_setup_outside_observed h p pad q key :\n  Forall (λ z, 0 ≤ z < 256) pad → Forall (λ z, 0 ≤ z < 256) key →\n  (∀ (i : nat) (z : Z), pad !! i = Some z → h !! (p +ₗ i) = Some #z) →\n  (∀ (i : nat) (z : Z), key !! i = Some z → h !! (q +ₗ i) = Some #z) →\n  byte_map p pad ##ₘ byte_map q key →\n  adequate NotStuck (pair_setup #0) (initialized_state h)\n    (λ v σ, v = #0 ∧ frame_observed σ (pair_outside h p pad q key))."
+      },
+      {
+        "name": "controls.empty_key_same_address_setup_observed",
+        "kind": "Theorem",
+        "line": 81,
+        "statement": "Theorem empty_key_same_address_setup_observed h p pad :\n  Forall (λ z, 0 ≤ z < 256) pad →\n  (∀ (i : nat) (z : Z), pad !! i = Some z → h !! (p +ₗ i) = Some #z) →\n  adequate NotStuck (pair_setup #0) (initialized_state h)\n    (λ v σ, v = #0 ∧ frame_observed σ (pair_outside h p pad p []))."
+      },
+      {
+        "name": "controls.strict_interior_pair_setup_observed",
+        "kind": "Theorem",
+        "line": 93,
+        "statement": "Theorem strict_interior_pair_setup_observed base (prefix middle suffix : list val)\n    pad key f :\n  prefix ≠ [] → middle ≠ [] → suffix ≠ [] →\n  interval_map base (prefix ++ byte_values pad ++ middle ++ byte_values key ++ suffix) ##ₘ f →\n  Forall (λ z, 0 ≤ z < 256) pad → Forall (λ z, 0 ≤ z < 256) key →\n  let h := interval_map base (prefix ++ byte_values pad ++ middle ++ byte_values key ++ suffix) ∪ f in\n  let p := base +ₗ length prefix in\n  let q := base +ₗ length (prefix ++ byte_values pad ++ middle) in\n  adequate NotStuck (pair_setup #0) (initialized_state h)\n    (λ v σ, v = #0 ∧ frame_observed σ (pair_outside h p pad q key))."
+      }
+    ],
+    "count": 18,
+    "constructors": [],
+    "projections": [],
+    "generated_obligations": [],
+    "assumptions": {
+      "setup.byte_values": [],
+      "setup.byte_map": [],
+      "setup.pair_outside": [],
+      "setup.pair_setup": [],
+      "setup.shared_key_view": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "setup.shared_key_view_own": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "setup.pair_lifetimes_recombine": [],
+      "setup.raw_pair_payload": [],
+      "setup.model_key_share": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "setup.raw_pair_model_context_wp": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "setup.raw_pair_model_observed": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "controls.byte_map_disjoint_iff": [],
+      "controls.byte_map_empty_alias": [],
+      "controls.byte_map_same_block_gap": [],
+      "controls.shared_key_aliases": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "controls.pair_setup_outside_observed": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "controls.empty_key_same_address_setup_observed": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ],
+      "controls.strict_interior_pair_setup_observed": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep",
+        "Coq.Logic.Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    }
+  },
+  "shared": {
+    "declarations": [
+      {
+        "name": "shared_read.shared_key_view",
+        "kind": "Definition",
+        "line": 12,
+        "statement": "Definition shared_key_view n κ q (x : ~~(bytes_sort n)) d g tid : iProp Σ :=\n    ty_own (&shr{κ} (bytes_ty n)) ((q, repeat [] n), x) d g tid [FVal #q]."
+      },
+      {
+        "name": "shared_read.shared_key_view_persistent",
+        "kind": "Instance",
+        "line": 15,
+        "statement": "Instance shared_key_view_persistent n κ q x d g tid :\n    Persistent (shared_key_view n κ q x d g tid)."
+      },
+      {
+        "name": "shared_read.shared_key_cap",
+        "kind": "Definition",
+        "line": 21,
+        "statement": "Definition shared_key_cap n κ q (x : ~~(bytes_sort n)) d g tid : iProp Σ :=\n    shared_key_view n κ q x d g tid ∗\n    ⌜Forall (λ z, 0 ≤ z < 256) (byte_list n x)⌝."
+      },
+      {
+        "name": "shared_read.shared_key_cap_persistent",
+        "kind": "Instance",
+        "line": 25,
+        "statement": "Instance shared_key_cap_persistent n κ q x d g tid :\n    Persistent (shared_key_cap n κ q x d g tid)."
+      },
+      {
+        "name": "shared_read.bytes_index_guard",
+        "kind": "Lemma",
+        "line": 29,
+        "statement": "Lemma bytes_index_guard n (x : ~~(bytes_sort n)) tid q (i : nat) (z : Z) F :\n    byte_list n x !! i = Some z →\n    ⊢ (q ↦[^ repeat [] n]!∗ ty_phys (bytes_ty n) x tid)\n      &&{F}&&> ((q +ₗ i) ↦[^ []] #z)."
+      },
+      {
+        "name": "shared_read.shared_key_prepare",
+        "kind": "Lemma",
+        "line": 46,
+        "statement": "Lemma shared_key_prepare n κ q x d g tid E L :\n    lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_view n κ q x d g tid -∗ £(g+1) ={⊤}=∗\n    llctx_interp L ∗ shared_key_cap n κ q x d g tid."
+      },
+      {
+        "name": "shared_read.shared_key_read",
+        "kind": "Lemma",
+        "line": 66,
+        "statement": "Lemma shared_key_read n κ q x d g tid E L (i : nat) (Frame : iProp Σ) :\n    (i < n)%nat → lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_cap n κ q x d g tid -∗ Frame -∗ £(g+1) -∗\n    WP Read ScOrd #(q +ₗ i) @ ⊤ {{ v, ∃ z : Z,\n      ⌜byte_list n x !! i = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗\n      llctx_interp L ∗ shared_key_cap n κ q x d g tid ∗ Frame }}."
+      },
+      {
+        "name": "shared_read.shared_view_read",
+        "kind": "Lemma",
+        "line": 95,
+        "statement": "Lemma shared_view_read n κ q x d g tid E L (i : nat) (Frame : iProp Σ) :\n    (i < n)%nat → lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_view n κ q x d g tid -∗ Frame -∗ £(2*(g+1)) -∗\n    WP Read ScOrd #(q +ₗ i) @ ⊤ {{ v, ∃ z : Z,\n      ⌜byte_list n x !! i = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗\n      llctx_interp L ∗ shared_key_view n κ q x d g tid ∗ Frame }}."
+      },
+      {
+        "name": "observation.shared_key_heap_observe",
+        "kind": "Lemma",
+        "line": 12,
+        "statement": "Lemma shared_key_heap_observe n κ q x d g tid E L (i : nat) σ (Frame : iProp Σ) :\n    (i < n)%nat → lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_cap n κ q x d g tid -∗ Frame -∗ heap_ctx σ -∗ £(g+1)\n    ={⊤}=∗ heap_ctx σ ∗ llctx_interp L ∗\n      shared_key_cap n κ q x d g tid ∗ Frame ∗\n      ⌜∃ (z : Z) r, byte_list n x !! i = Some z ∧\n        σ.1 !! (q +ₗ i) = Some (RSt r, #z) ∧ 0 ≤ z < 256⌝."
+      },
+      {
+        "name": "instances.empty_key_has_no_index",
+        "kind": "Lemma",
+        "line": 8,
+        "statement": "Lemma empty_key_has_no_index (i : nat) : ¬ (i < 0)%nat."
+      },
+      {
+        "name": "instances.shared_view_depth_zero",
+        "kind": "Lemma",
+        "line": 14,
+        "statement": "Lemma shared_view_depth_zero n κ q x g tid :\n    shared_key_view n κ q x 0 g tid ⊢ False."
+      },
+      {
+        "name": "instances.shared_cap_duplicate",
+        "kind": "Lemma",
+        "line": 18,
+        "statement": "Lemma shared_cap_duplicate n κ q x d g tid :\n    shared_key_cap n κ q x d g tid ⊢\n      shared_key_cap n κ q x d g tid ∗ shared_key_cap n κ q x d g tid."
+      },
+      {
+        "name": "instances.shared_read_same_alias",
+        "kind": "Lemma",
+        "line": 23,
+        "statement": "Lemma shared_read_same_alias n κ q x d g tid E L (i : nat) (Frame : iProp Σ) :\n    (i < n)%nat → lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_cap n κ q x d g tid -∗\n    (shared_key_cap n κ q x d g tid ∗ Frame) -∗ £(g+1) -∗\n    WP Read ScOrd #(q +ₗ i) @ ⊤ {{ v, ∃ z : Z,\n      ⌜byte_list n x !! i = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗\n      llctx_interp L ∗ shared_key_cap n κ q x d g tid ∗\n      (shared_key_cap n κ q x d g tid ∗ Frame) }}."
+      },
+      {
+        "name": "instances.shared_read129",
+        "kind": "Lemma",
+        "line": 34,
+        "statement": "Lemma shared_read129 κ q (x : ~~(bytes_sort 129)) tid E L (Frame : iProp Σ) :\n    lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_cap 129 κ q x 1 0 tid -∗ Frame -∗ £1 -∗\n    WP Read ScOrd #(q +ₗ 128) @ ⊤ {{ v, ∃ z : Z,\n      ⌜byte_list 129 x !! 128%nat = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗\n      llctx_interp L ∗ shared_key_cap 129 κ q x 1 0 tid ∗ Frame }}."
+      },
+      {
+        "name": "instances.list_shared_read",
+        "kind": "Lemma",
+        "line": 43,
+        "statement": "Lemma list_shared_read zs κ q tid E L (i : nat) (z : Z) d g (Frame : iProp Σ) :\n    zs !! i = Some z → lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_view (length zs) κ q (bytes_of_list zs) d g tid -∗ Frame -∗ £(2*(g+1)) -∗\n    WP Read ScOrd #(q +ₗ i) @ ⊤ {{ v,\n      ⌜v = #z ∧ 0 ≤ z < 256⌝ ∗ llctx_interp L ∗\n      shared_key_view (length zs) κ q (bytes_of_list zs) d g tid ∗ Frame }}."
+      },
+      {
+        "name": "session.key_reader",
+        "kind": "Definition",
+        "line": 13,
+        "statement": "Definition key_reader n κ q (x : ~~(bytes_sort n)) d g tid (R : iProp Σ) : iProp Σ :=\n    □ (∀ (i : nat) (Frame : iProp Σ), ⌜(i < n)%nat⌝ -∗ R -∗ Frame -∗ £(g+1) -∗\n      WP Read ScOrd #(q +ₗ i) @ ⊤ {{ v, ∃ z : Z,\n        ⌜byte_list n x !! i = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗\n        R ∗ shared_key_cap n κ q x d g tid ∗ Frame }})."
+      },
+      {
+        "name": "session.key_reader_persistent",
+        "kind": "Instance",
+        "line": 19,
+        "statement": "Instance key_reader_persistent n κ q x d g tid R :\n    Persistent (key_reader n κ q x d g tid R)."
+      },
+      {
+        "name": "session.key_reader_read",
+        "kind": "Lemma",
+        "line": 25,
+        "statement": "Lemma key_reader_read n κ q x d g tid R (i : nat) (Frame : iProp Σ) :\n    (i < n)%nat → key_reader n κ q x d g tid R -∗ R -∗ Frame -∗ £(g+1) -∗\n    WP Read ScOrd #(q +ₗ i) @ ⊤ {{ v, ∃ z : Z,\n      ⌜byte_list n x !! i = Some z ∧ v = #z ∧ 0 ≤ z < 256⌝ ∗\n      R ∗ shared_key_cap n κ q x d g tid ∗ Frame }}."
+      },
+      {
+        "name": "session.shared_key_reader_session",
+        "kind": "Lemma",
+        "line": 35,
+        "statement": "Lemma shared_key_reader_session n κ q x d g tid E L :\n    lctx_lft_alive E L κ →\n    llft_ctx -∗ elctx_interp E -∗ llctx_interp L -∗\n    shared_key_view n κ q x d g tid -∗ £(g+1) ={⊤}=∗\n      ∃ (R G : iProp Σ), ⌜Timeless R ∧ Timeless G⌝ ∗\n      R ∗ G ∗ shared_key_cap n κ q x d g tid ∗\n      (G &&{↑NllftG}&&> llctx_interp L) ∗\n      key_reader n κ q x d g tid R ∗\n      (R -∗ G ={⊤}=∗ llctx_interp L)."
+      }
+    ],
+    "count": 19,
+    "constructors": [],
+    "projections": [],
+    "generated_obligations": [],
+    "assumptions": {
+      "shared_read.shared_key_view": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.shared_key_view_persistent": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.shared_key_cap": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.shared_key_cap_persistent": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.bytes_index_guard": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.shared_key_prepare": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.shared_key_read": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "shared_read.shared_view_read": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "observation.shared_key_heap_observe": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "instances.empty_key_has_no_index": [],
+      "instances.shared_view_depth_zero": [],
+      "instances.shared_cap_duplicate": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "instances.shared_read_same_alias": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "instances.shared_read129": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "instances.list_shared_read": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "session.key_reader": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "session.key_reader_persistent": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "session.key_reader_read": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "session.shared_key_reader_session": [
+        "Coq.Logic.FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    }
+  }
+}
