@@ -1,0 +1,600 @@
+[
+  {
+    "name": "normal/source_map.py/between_validation_and_guard",
+    "frozen_binding_sha256": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+    "actual_binding_sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+    "binding": {
+      "schema": 1,
+      "purpose": "Reviewed frozen extraction evidence, authenticated before source audits; no native semantic proof.",
+      "source_handoff_commit": "05581f4b",
+      "source_fixture": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "outputs": {
+        "drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+        "drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e"
+      }
+    },
+    "actual_receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+    "extraction_receipt": {
+      "success": true
+    },
+    "accepted_receipt": {
+      "schema": 1,
+      "publication": false,
+      "native_bridge_proved": false,
+      "success": true,
+      "artifacts": {
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/ballast.bin": {
+          "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+          "size": 134217728,
+          "mtime_ns": 1794289909932082779,
+          "inode": 27591679
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/extraction/drop-borrowck.json": {
+          "sha256": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e",
+          "size": 9181,
+          "mtime_ns": 1794289909931082781,
+          "inode": 27591677
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/extraction/drop-native.json": {
+          "sha256": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+          "size": 46177,
+          "mtime_ns": 1794289909931082781,
+          "inode": 27591676
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/extraction/receipt.json": {
+          "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+          "size": 17,
+          "mtime_ns": 1794289910316081828,
+          "inode": 27591678
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/freeze.json": {
+          "sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+          "size": 1021,
+          "mtime_ns": 1794289910268081947,
+          "inode": 27591682
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/infer_eval_support.py": {
+          "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+          "size": 7981,
+          "mtime_ns": 1794289909931082781,
+          "inode": 27591673
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/infer_experiment.py": {
+          "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+          "size": 11144,
+          "mtime_ns": 1794289909931082781,
+          "inode": 27591674
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/research/native_heap_lowering/fixtures/drop.rs": {
+          "sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+          "size": 164,
+          "mtime_ns": 1794289909931082781,
+          "inode": 27591672
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/research/native_heap_lowering/lower.py": {
+          "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+          "size": 13095,
+          "mtime_ns": 1794289909931082781,
+          "inode": 27591670
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/audit.py": {
+          "sha256": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+          "size": 3316,
+          "mtime_ns": 1794289909930082784,
+          "inode": 27591667
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source-bindings.json": {
+          "sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+          "size": 548,
+          "mtime_ns": 1794289910317081825,
+          "inode": 27591668
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source_map.py": {
+          "sha256": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+          "size": 9377,
+          "mtime_ns": 1794289909930082784,
+          "inode": 27591666
+        }
+      },
+      "output_sha256": "a56de2a34ffd2d9c195648787336a7e6a9ec51957b7eefcab1e0ad768bf49569",
+      "native_operations": 44,
+      "unproved_rejected": 44
+    },
+    "freeze": {
+      "before_first_trial": true,
+      "files": {
+        "source/tools/research/native_semantic_bridge/source_map.py": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+        "source/tools/research/native_semantic_bridge/audit.py": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+        "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "source/tools/research/native_heap_lowering/lower.py": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "source/tools/research/native_heap_lowering/fixtures/drop.rs": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "ballast.bin": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      }
+    },
+    "controller_receipt_sha256": "620ab1dc7a10a913303fb91ae36ac63570f9ca69ef415768162999c02a320192"
+  },
+  {
+    "name": "normal/audit.py/between_validation_and_guard",
+    "frozen_binding_sha256": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+    "actual_binding_sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+    "binding": {
+      "schema": 1,
+      "purpose": "Reviewed frozen extraction evidence, authenticated before source audits; no native semantic proof.",
+      "source_handoff_commit": "05581f4b",
+      "source_fixture": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "outputs": {
+        "drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+        "drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e"
+      }
+    },
+    "actual_receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+    "extraction_receipt": {
+      "success": true
+    },
+    "accepted_receipt": {
+      "schema": 1,
+      "publication": false,
+      "native_bridge_proved": false,
+      "cases": [
+        {
+          "name": "wrong-original-loan",
+          "classification": "source_eligibility_rejection",
+          "message": "original_array_loan"
+        },
+        {
+          "name": "missing-issued-loan",
+          "classification": "source_eligibility_rejection",
+          "message": "loan_issued_fact"
+        },
+        {
+          "name": "incomplete-native-inventory",
+          "classification": "source_eligibility_rejection",
+          "message": "incomplete_native_inventory"
+        },
+        {
+          "name": "unknown-retag",
+          "classification": "source_eligibility_rejection",
+          "message": "retag_unknown"
+        },
+        {
+          "name": "wrong-raw-borrow-kind",
+          "classification": "source_eligibility_rejection",
+          "message": "raw_kind"
+        },
+        {
+          "name": "wrong-byte-offset-operation",
+          "classification": "source_eligibility_rejection",
+          "message": "offset_type"
+        },
+        {
+          "name": "wrong-input-extent",
+          "classification": "source_eligibility_rejection",
+          "message": "input_type"
+        },
+        {
+          "name": "missing-physical-instance",
+          "classification": "source_eligibility_rejection",
+          "message": "missing_drop_body"
+        },
+        {
+          "name": "borrowck-unsize-wrong-source",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck unsize source"
+        },
+        {
+          "name": "borrowck-call-wrong-argument",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck constructor operand"
+        },
+        {
+          "name": "borrowck-reborrow-wrong-place",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck reborrow operand"
+        },
+        {
+          "name": "borrowck-unsize-copy",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck unsize source"
+        }
+      ],
+      "semantic_negative_count": 0,
+      "success": true,
+      "healthy_audit": {
+        "native_operations": 44,
+        "unproved_rejected": 44,
+        "phase_obligations": 3
+      },
+      "artifacts": {
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/ballast.bin": {
+          "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+          "size": 134217728,
+          "mtime_ns": 1794289913915072914,
+          "inode": 27592157
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/extraction/drop-borrowck.json": {
+          "sha256": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e",
+          "size": 9181,
+          "mtime_ns": 1794289913915072914,
+          "inode": 27592155
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/extraction/drop-native.json": {
+          "sha256": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+          "size": 46177,
+          "mtime_ns": 1794289913915072914,
+          "inode": 27592154
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/extraction/receipt.json": {
+          "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+          "size": 17,
+          "mtime_ns": 1794289914279072012,
+          "inode": 27592156
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/freeze.json": {
+          "sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+          "size": 1021,
+          "mtime_ns": 1794289914229072136,
+          "inode": 27592160
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/infer_eval_support.py": {
+          "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+          "size": 7981,
+          "mtime_ns": 1794289913914072916,
+          "inode": 27592151
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/infer_experiment.py": {
+          "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+          "size": 11144,
+          "mtime_ns": 1794289913914072916,
+          "inode": 27592152
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/research/native_heap_lowering/fixtures/drop.rs": {
+          "sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+          "size": 164,
+          "mtime_ns": 1794289913914072916,
+          "inode": 27592150
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/research/native_heap_lowering/lower.py": {
+          "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+          "size": 13095,
+          "mtime_ns": 1794289913914072916,
+          "inode": 27592148
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/audit.py": {
+          "sha256": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+          "size": 3316,
+          "mtime_ns": 1794289913914072916,
+          "inode": 27592145
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source-bindings.json": {
+          "sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+          "size": 548,
+          "mtime_ns": 1794289914280072010,
+          "inode": 27592146
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source_map.py": {
+          "sha256": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+          "size": 9377,
+          "mtime_ns": 1794289913914072916,
+          "inode": 27592144
+        }
+      }
+    },
+    "freeze": {
+      "before_first_trial": true,
+      "files": {
+        "source/tools/research/native_semantic_bridge/source_map.py": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+        "source/tools/research/native_semantic_bridge/audit.py": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+        "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "source/tools/research/native_heap_lowering/lower.py": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "source/tools/research/native_heap_lowering/fixtures/drop.rs": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "ballast.bin": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      }
+    },
+    "controller_receipt_sha256": "46ed1efeb4651c72607fa4e50a13374f8139629f1f54a269e0c9e7aede08bd41"
+  },
+  {
+    "name": "optimized/source_map.py/between_validation_and_guard",
+    "frozen_binding_sha256": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+    "actual_binding_sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+    "binding": {
+      "schema": 1,
+      "purpose": "Reviewed frozen extraction evidence, authenticated before source audits; no native semantic proof.",
+      "source_handoff_commit": "05581f4b",
+      "source_fixture": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "outputs": {
+        "drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+        "drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e"
+      }
+    },
+    "actual_receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+    "extraction_receipt": {
+      "success": true
+    },
+    "accepted_receipt": {
+      "schema": 1,
+      "publication": false,
+      "native_bridge_proved": false,
+      "success": true,
+      "artifacts": {
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/ballast.bin": {
+          "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+          "size": 134217728,
+          "mtime_ns": 1794289926864040848,
+          "inode": 27592646
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/extraction/drop-borrowck.json": {
+          "sha256": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e",
+          "size": 9181,
+          "mtime_ns": 1794289926863040850,
+          "inode": 27592644
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/extraction/drop-native.json": {
+          "sha256": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+          "size": 46177,
+          "mtime_ns": 1794289926863040850,
+          "inode": 27592643
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/extraction/receipt.json": {
+          "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+          "size": 17,
+          "mtime_ns": 1794289927410039496,
+          "inode": 27592645
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/freeze.json": {
+          "sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+          "size": 1021,
+          "mtime_ns": 1794289927202040011,
+          "inode": 27592647
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/infer_eval_support.py": {
+          "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+          "size": 7981,
+          "mtime_ns": 1794289926863040850,
+          "inode": 27592640
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/infer_experiment.py": {
+          "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+          "size": 11144,
+          "mtime_ns": 1794289926863040850,
+          "inode": 27592641
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/research/native_heap_lowering/fixtures/drop.rs": {
+          "sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+          "size": 164,
+          "mtime_ns": 1794289926862040853,
+          "inode": 27592639
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/research/native_heap_lowering/lower.py": {
+          "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+          "size": 13095,
+          "mtime_ns": 1794289926862040853,
+          "inode": 27592637
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/audit.py": {
+          "sha256": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+          "size": 3316,
+          "mtime_ns": 1794289926862040853,
+          "inode": 27592634
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source-bindings.json": {
+          "sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+          "size": 548,
+          "mtime_ns": 1794289927411039494,
+          "inode": 27592635
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source_map.py": {
+          "sha256": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+          "size": 9377,
+          "mtime_ns": 1794289926862040853,
+          "inode": 27592633
+        }
+      },
+      "output_sha256": "a56de2a34ffd2d9c195648787336a7e6a9ec51957b7eefcab1e0ad768bf49569",
+      "native_operations": 44,
+      "unproved_rejected": 44
+    },
+    "freeze": {
+      "before_first_trial": true,
+      "files": {
+        "source/tools/research/native_semantic_bridge/source_map.py": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+        "source/tools/research/native_semantic_bridge/audit.py": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+        "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "source/tools/research/native_heap_lowering/lower.py": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "source/tools/research/native_heap_lowering/fixtures/drop.rs": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "ballast.bin": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      }
+    },
+    "controller_receipt_sha256": "5deaa744ca0b5174371f3867f5189a665dd4673ce68b89dd9419b3cd3bdb59a9"
+  },
+  {
+    "name": "optimized/audit.py/between_validation_and_guard",
+    "frozen_binding_sha256": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+    "actual_binding_sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+    "binding": {
+      "schema": 1,
+      "purpose": "Reviewed frozen extraction evidence, authenticated before source audits; no native semantic proof.",
+      "source_handoff_commit": "05581f4b",
+      "source_fixture": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+      "outputs": {
+        "drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+        "drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e"
+      }
+    },
+    "actual_receipt_sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+    "extraction_receipt": {
+      "success": true
+    },
+    "accepted_receipt": {
+      "schema": 1,
+      "publication": false,
+      "native_bridge_proved": false,
+      "cases": [
+        {
+          "name": "wrong-original-loan",
+          "classification": "source_eligibility_rejection",
+          "message": "original_array_loan"
+        },
+        {
+          "name": "missing-issued-loan",
+          "classification": "source_eligibility_rejection",
+          "message": "loan_issued_fact"
+        },
+        {
+          "name": "incomplete-native-inventory",
+          "classification": "source_eligibility_rejection",
+          "message": "incomplete_native_inventory"
+        },
+        {
+          "name": "unknown-retag",
+          "classification": "source_eligibility_rejection",
+          "message": "retag_unknown"
+        },
+        {
+          "name": "wrong-raw-borrow-kind",
+          "classification": "source_eligibility_rejection",
+          "message": "raw_kind"
+        },
+        {
+          "name": "wrong-byte-offset-operation",
+          "classification": "source_eligibility_rejection",
+          "message": "offset_type"
+        },
+        {
+          "name": "wrong-input-extent",
+          "classification": "source_eligibility_rejection",
+          "message": "input_type"
+        },
+        {
+          "name": "missing-physical-instance",
+          "classification": "source_eligibility_rejection",
+          "message": "missing_drop_body"
+        },
+        {
+          "name": "borrowck-unsize-wrong-source",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck unsize source"
+        },
+        {
+          "name": "borrowck-call-wrong-argument",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck constructor operand"
+        },
+        {
+          "name": "borrowck-reborrow-wrong-place",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck reborrow operand"
+        },
+        {
+          "name": "borrowck-unsize-copy",
+          "classification": "source_eligibility_rejection",
+          "message": "borrowck unsize source"
+        }
+      ],
+      "semantic_negative_count": 0,
+      "success": true,
+      "healthy_audit": {
+        "native_operations": 44,
+        "unproved_rejected": 44,
+        "phase_obligations": 3
+      },
+      "artifacts": {
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/ballast.bin": {
+          "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+          "size": 134217728,
+          "mtime_ns": 1794289940915006064,
+          "inode": 27593155
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/extraction/drop-borrowck.json": {
+          "sha256": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e",
+          "size": 9181,
+          "mtime_ns": 1794289940915006064,
+          "inode": 27593153
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/extraction/drop-native.json": {
+          "sha256": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+          "size": 46177,
+          "mtime_ns": 1794289940915006064,
+          "inode": 27593152
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/extraction/receipt.json": {
+          "sha256": "b493cdb3b30ea63f6a924f814dfccfcfe305dac02106f9994ce2bcb2e8ed28c4",
+          "size": 17,
+          "mtime_ns": 1794289941406004849,
+          "inode": 27593154
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/freeze.json": {
+          "sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+          "size": 1021,
+          "mtime_ns": 1794289941219005312,
+          "inode": 27593156
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/infer_eval_support.py": {
+          "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+          "size": 7981,
+          "mtime_ns": 1794289940914006067,
+          "inode": 27593149
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/infer_experiment.py": {
+          "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+          "size": 11144,
+          "mtime_ns": 1794289940915006064,
+          "inode": 27593150
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/research/native_heap_lowering/fixtures/drop.rs": {
+          "sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+          "size": 164,
+          "mtime_ns": 1794289940914006067,
+          "inode": 27593148
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/research/native_heap_lowering/lower.py": {
+          "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+          "size": 13095,
+          "mtime_ns": 1794289940914006067,
+          "inode": 27593146
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/audit.py": {
+          "sha256": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+          "size": 3316,
+          "mtime_ns": 1794289940914006067,
+          "inode": 27593143
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source-bindings.json": {
+          "sha256": "0357cb9d499c28e149d791ae57799c6797d85b4c6c63a4c94dc9fcc8a893375a",
+          "size": 548,
+          "mtime_ns": 1794289941406004849,
+          "inode": 27593144
+        },
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source_map.py": {
+          "sha256": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+          "size": 9377,
+          "mtime_ns": 1794289940914006067,
+          "inode": 27593142
+        }
+      }
+    },
+    "freeze": {
+      "before_first_trial": true,
+      "files": {
+        "source/tools/research/native_semantic_bridge/source_map.py": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+        "source/tools/research/native_semantic_bridge/audit.py": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+        "source/tools/research/native_semantic_bridge/source-bindings.json": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "source/tools/research/native_heap_lowering/lower.py": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "source/tools/research/native_heap_lowering/fixtures/drop.rs": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "ballast.bin": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      }
+    },
+    "controller_receipt_sha256": "acc1ab5963150a4e9d36d1303e3c5b37a6537ca96fe8b8f81e03eac6de03cc5f"
+  }
+]

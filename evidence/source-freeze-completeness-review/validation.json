@@ -1,0 +1,3402 @@
+{
+  "base": "0912d2a70912cf69834e0755640563fb28d00892",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/01.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/01.stderr",
+        "sha256": "fcd9e2771fcdaefaeda4a598ea0825cf29518849a5fb9e23bb2872c9fe98cf85"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source-freeze-fix.json",
+        "--extraction",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/normal-source_map.py"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/02.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/02.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source-freeze-fix.json",
+        "--extraction",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/normal-audit.py"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/03.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/03.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/freeze.py",
+        "--candidate",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/candidates/loan-v12",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/normal-generated-freeze.json"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/04.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/04.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/05.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/05.stderr",
+        "sha256": "99fc8c7f5788f02daa2604a56b9a017e753a01a4a10a37525ff3f0186f4b62bc"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source-freeze-fix.json",
+        "--extraction",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/optimized-source_map.py"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/06.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/06.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source-freeze-fix.json",
+        "--extraction",
+        "/tmp/native-semantic-bridge-e4a8dcab/source-v1",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/optimized-audit.py"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/07.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/07.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/freeze.py",
+        "--candidate",
+        "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/candidates/loan-v12",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/optimized-generated-freeze.json"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/08.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/08.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "publication": false,
+  "native_correspondences_proved": 0,
+  "semantic_proofs_run": 0,
+  "coq_compilation_run": false,
+  "active_freeze": {
+    "path": "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source-freeze-fix.json",
+    "sha256": "ec9cdd4c64336e23921c75f21e5c62e1cac6e1e051a29463a8be7708e2eb53e1",
+    "files": 21,
+    "required": [
+      "source/tools/research/native_semantic_bridge/source_map.py",
+      "source/tools/research/native_semantic_bridge/audit.py",
+      "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "source/tools/research/native_heap_lowering/lower.py",
+      "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "source/tools/infer_eval_support.py",
+      "source/tools/infer_experiment.py"
+    ],
+    "proof_controller_compatible": true
+  },
+  "inherited_math": {
+    "replay_receipt_sha256": "00515b9cd8ad8cb84cec24219d33506a3d5cb0a6f54e972d603cd33569d5d5e6",
+    "proof_receipt_sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41",
+    "object_identities": {
+      "borrow_handoff": {
+        "source_sha256": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+        "object_sha256": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286"
+      },
+      "byte_array": {
+        "source_sha256": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+        "object_sha256": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4"
+      },
+      "raw_view": {
+        "source_sha256": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+        "object_sha256": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e"
+      },
+      "model_limits": {
+        "source_sha256": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+        "object_sha256": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6"
+      }
+    },
+    "assumptions": 25,
+    "fresh_compile": false
+  },
+  "source_entry": {
+    "receipt_sha256": "4aa0336715f2fff0d285f05e45f1733c04783a82a2144b6cf3ea078f111a537b",
+    "object_sha256": "4117e44f47e664c0e6753bedfcbb6fd61186465fd9ad81730616f0b415532cff",
+    "statements": 42,
+    "closed": 30,
+    "dependent_FE": 12,
+    "new_declarations": 0,
+    "source_entry_proved": false,
+    "historical_freeze": {
+      "source/tools/research/native_source_entry/entry_audit.py": {
+        "sha256": "1aaecf8261737e96177a595e428ca213ccbf358fe855c31eaa6cc9802b1a30c2",
+        "matches_current": true
+      },
+      "source/tools/research/native_source_entry/candidates/entry-v1/EntryInventory.v": {
+        "sha256": "0bd3101fe34239867741d6e508bcf567ccad1ea54755e467d93c34cad013f019",
+        "matches_current": true
+      },
+      "source/tools/research/native_source_entry/INTERFACE.md": {
+        "sha256": "c890bf27c8164a1c603017a4db8d44605896ab649626dcb6615014c244011df1",
+        "matches_current": true
+      },
+      "source/tools/infer_eval_support.py": {
+        "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+        "matches_current": true
+      },
+      "source/tools/infer_experiment.py": {
+        "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+        "matches_current": true
+      },
+      "source/tools/research/native_semantic_bridge/source_map.py": {
+        "sha256": "5efa019a6c5b612eb5b05736fd669867967cc510540e988ce914aae612fba0fc",
+        "matches_current": false
+      },
+      "source/tools/research/native_semantic_bridge/source-bindings.json": {
+        "sha256": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+        "matches_current": true
+      },
+      "source/tools/research/native_semantic_bridge/baseline-bindings.json": {
+        "sha256": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+        "matches_current": true
+      },
+      "source/tools/research/native_semantic_bridge/proof_checks.py": {
+        "sha256": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+        "matches_current": true
+      },
+      "source/tools/research/native_heap_lowering/lower.py": {
+        "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+        "matches_current": true
+      },
+      "source/tools/research/native_heap_lowering/fixtures/drop.rs": {
+        "sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+        "matches_current": true
+      },
+      "source/tools/research/mutable_buffer_goal/foundation-baseline.json": {
+        "sha256": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+        "matches_current": true
+      },
+      "source/tools/research/native_semantic_bridge/review-fix-freeze.json": {
+        "sha256": "3c3afacf4d4676bd33766c826347e02337cbae5d6642468fd34a71f0fb1d5fb2",
+        "matches_current": true
+      },
+      "source/tools/research/native_semantic_bridge/audit.py": {
+        "sha256": "5b52299bc4df375013a6c70226dc075f71ee09d7895b693cd8f52c15a8d68ad0",
+        "matches_current": false
+      }
+    },
+    "replayed": false,
+    "historical_freeze_rewritten": false
+  },
+  "fact_provenance": {
+    "receipt_sha256": "73d69327af8dd6c954803713ed1f95a91f4e5a3b192e3285372b20f09abf69f4",
+    "freeze_sha256": "04eb3da762d1a7db1507564a5dc087070bc05cc61d5ac185f90b5979638e7f3d",
+    "source_inputs": 4,
+    "log_files": 4,
+    "anchors": 7,
+    "canonical": "6/0",
+    "checked_exec": [
+      "u64"
+    ],
+    "checked_proof": [],
+    "helpers": [],
+    "causal_or_native_proof": false,
+    "rerun": false
+  },
+  "artifacts_before": {
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/infer_eval_support.py": {
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "size": 7981,
+      "mtime_ns": 1794289549748979447,
+      "inode": 27586522
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/infer_experiment.py": {
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+      "size": 11144,
+      "mtime_ns": 1794289549930978991,
+      "inode": 27586523
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/mutable_buffer_goal/foundation-baseline.json": {
+      "sha256": "cb2a9217ec1df37630442dd27fe4290e2845a1176aef5e0aa366d164d6443dcd",
+      "size": 5679,
+      "mtime_ns": 1794289551563974899,
+      "inode": 27588119
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/mutable_buffer_goal/foundation-pin.json": {
+      "sha256": "2fdc47b284ae2eddb7399419a650884d967eae667b58dff4ce784403c5cc134f",
+      "size": 1428,
+      "mtime_ns": 1794289551563974899,
+      "inode": 27588120
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/mutable_buffer_goal/transfer-freeze.json": {
+      "sha256": "49fffebaf78f3e2202ed2473937de199226074c31b4e782e23d11d61d5b6c85d",
+      "size": 872,
+      "mtime_ns": 1794289551796974315,
+      "inode": 27588501
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_heap_lowering/final-freeze.json": {
+      "sha256": "0de591416d91d025951745fd4f8f1def9ccb810718822fb647130b22f08532c8",
+      "size": 13250,
+      "mtime_ns": 1794289549971978888,
+      "inode": 27586990
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_heap_lowering/fixtures/drop.rs": {
+      "sha256": "086e9c5ee18c898ba08ec742c59e4f588e6099fb3382101f2d52da9de97e0cfb",
+      "size": 164,
+      "mtime_ns": 1794289549995978828,
+      "inode": 27586993
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_heap_lowering/lower.py": {
+      "sha256": "396a8d8219f251116f66f7889caab73de7c697bf99de3de474fc1d553b9f3445",
+      "size": 13095,
+      "mtime_ns": 1794289550328977993,
+      "inode": 27587211
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/audit.py": {
+      "sha256": "bea8700b3f3eb558465c8259151cc03e276182992b3be0d9f42bb402d98fc404",
+      "size": 3316,
+      "mtime_ns": 1794289552076973613,
+      "inode": 27588702
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/baseline-bindings.json": {
+      "sha256": "b633a25a388fe34cff955d4871accf0984b9a4ca309e2d5d2164ac82c26a866d",
+      "size": 786,
+      "mtime_ns": 1794289552076973613,
+      "inode": 27588703
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/candidates/loan-v12/borrow_handoff.v": {
+      "sha256": "016944cf6b98423dcc4c58947330d9808f75feb4cf301ab0ee1b400e180984a4",
+      "size": 3669,
+      "mtime_ns": 1794289552076973613,
+      "inode": 27588705
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/candidates/loan-v12/byte_array.v": {
+      "sha256": "8a8044d9e2b5b4ac012eab73ea1fc11afbe1c3be5c068d65e67c18758c0d0b70",
+      "size": 4912,
+      "mtime_ns": 1794289552076973613,
+      "inode": 27588706
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/candidates/loan-v12/model_limits.v": {
+      "sha256": "3bd0027cc37b0e277233ffc014161a97aa818830407fc9cf2d520488fd80065a",
+      "size": 1898,
+      "mtime_ns": 1794289552076973613,
+      "inode": 27588708
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/candidates/loan-v12/raw_view.v": {
+      "sha256": "b9ab1180d23cad0c14017e8ab7aab774d590f8d2f691a614ed53de3a49777909",
+      "size": 2705,
+      "mtime_ns": 1794289552076973613,
+      "inode": 27588709
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/check.py": {
+      "sha256": "0010edc31acf30646ef50f400d2f7906812e4fa97c8b880b6eb8a77a33724bbc",
+      "size": 8820,
+      "mtime_ns": 1794289552077973611,
+      "inode": 27588711
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/freeze.py": {
+      "sha256": "4cfedb31740698c79374054402f9e8e083cbfbbbc476eb73aec37ecdda51aba4",
+      "size": 1726,
+      "mtime_ns": 1794289552077973611,
+      "inode": 27588713
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/gate_controls.py": {
+      "sha256": "1a1a8df69249ccff6594e9a04462af32c57c159905807f0c493625582be3e1a0",
+      "size": 3648,
+      "mtime_ns": 1794289552077973611,
+      "inode": 27588714
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/guard_controls.py": {
+      "sha256": "5553bbdbf253aaf081916ec152ae02cd15716540abbeda7273f2db0d0cc9b856",
+      "size": 5235,
+      "mtime_ns": 1794289552077973611,
+      "inode": 27588715
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/proof_checks.py": {
+      "sha256": "5b0a134e3f2d1d817810655ab741da6eb4cb0d12f7b0400bbae5e503b1d9997d",
+      "size": 5033,
+      "mtime_ns": 1794289552079973606,
+      "inode": 27588733
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source-bindings.json": {
+      "sha256": "29e33c547fe381684280fdc737a2080d46923e75e8eea2cd06de993bfe80305a",
+      "size": 548,
+      "mtime_ns": 1794289552079973606,
+      "inode": 27588736
+    },
+    "/home/dev/.t3/worktrees/verus/t3-c9d6b6dc/source/tools/research/native_semantic_bridge/source_map.py": {
+      "sha256": "40aca426a2d6bf6b417fad59ecdb84d88f1503661978f1775d6df1e6cd2c060f",
+      "size": 9377,
+      "mtime_ns": 1794289552079973606,
+      "inode": 27588739
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/borrow_handoff.vo": {
+      "sha256": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+      "size": 60004,
+      "mtime_ns": 1794282612081015630,
+      "inode": 26279716
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/byte_array.vo": {
+      "sha256": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+      "size": 42655,
+      "mtime_ns": 1794282638582923163,
+      "inode": 26280120
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/model_limits.vo": {
+      "sha256": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+      "size": 39017,
+      "mtime_ns": 1794282659797850083,
+      "inode": 26282976
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/proof-v12/proofs/raw_view.vo": {
+      "sha256": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+      "size": 65877,
+      "mtime_ns": 1794282652890873786,
+      "inode": 26279780
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-borrowck.json": {
+      "sha256": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e",
+      "size": 9181,
+      "mtime_ns": 1794278984513508969,
+      "inode": 14476086
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-native.json": {
+      "sha256": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+      "size": 46177,
+      "mtime_ns": 1794278982322512484,
+      "inode": 14476073
+    },
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json": {
+      "sha256": "2e1b60de13ad025f55d8a84aaa442956c33fd5fa01cb878adf5785c01c213b3b",
+      "size": 70154,
+      "mtime_ns": 1794279008352470561,
+      "inode": 14476329
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/.EntryInventory.aux": {
+      "sha256": "8e7d2fb29e0824e6f34cf718e48e077908243822c929d66bb0514ca469f59897",
+      "size": 141,
+      "mtime_ns": 1794288374892118490,
+      "inode": 27580134
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/00-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288287615386453,
+      "inode": 27580141
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/00-statement.out": {
+      "sha256": "09ee18afe3c0c60c298635bd8d3e6a11b86eb5f83f45e81daa8237c48a9f58df",
+      "size": 610,
+      "mtime_ns": 1794288286285390611,
+      "inode": 27580140
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/01-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288290232378280,
+      "inode": 27580146
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/01-statement.out": {
+      "sha256": "0cf3ce079b320329b2e55259818501e8275ea3bbddf7a9249cf89bd74d334992",
+      "size": 606,
+      "mtime_ns": 1794288287618386444,
+      "inode": 27580144
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/02-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288291705373683,
+      "inode": 27580124
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/02-statement.out": {
+      "sha256": "b054618fca44c999052a0f9bd9f0241f5e1b87dcfe5d7a61d3ae876261d9fd52",
+      "size": 226,
+      "mtime_ns": 1794288290234378274,
+      "inode": 27566895
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/03-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288292290371859,
+      "inode": 27580152
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/03-statement.out": {
+      "sha256": "8bc1a033224b0aad61993f223c0f13a18e22146e2d37c912ec52a33396135c08",
+      "size": 322,
+      "mtime_ns": 1794288291706373680,
+      "inode": 27580135
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/04-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288292942369825,
+      "inode": 27580154
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/04-statement.out": {
+      "sha256": "11f67b5b6b1fd32314f34d2cbae431d63cbe15aa13b3a2b6afdf9034d1fb82cb",
+      "size": 243,
+      "mtime_ns": 1794288292291371856,
+      "inode": 27580153
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/05-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288293501368083,
+      "inode": 27580158
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/05-statement.out": {
+      "sha256": "948b8de9ebea797d15b3d0005b431cfb2c1232d685b778d8247898a45f87fd28",
+      "size": 673,
+      "mtime_ns": 1794288292944369819,
+      "inode": 27580157
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/06-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288294047366381,
+      "inode": 27580601
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/06-statement.out": {
+      "sha256": "20a3704cd54343b88fecaebc6f7427f776c8100a163cd8dc72077cc2d77df13d",
+      "size": 864,
+      "mtime_ns": 1794288293503368076,
+      "inode": 27580475
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/07-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288295121363035,
+      "inode": 27580659
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/07-statement.out": {
+      "sha256": "14ca8e62f22d8b53f20fcfe84cdc084fd66709b6cac8d5afe9d3968e2a9d924c",
+      "size": 419,
+      "mtime_ns": 1794288294068366315,
+      "inode": 27580658
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/08-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288295746361088,
+      "inode": 27580716
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/08-statement.out": {
+      "sha256": "15db6879043bfeb5d47c0728d2b196c90463d590985accdfbae8d0f806f14859",
+      "size": 314,
+      "mtime_ns": 1794288295123363029,
+      "inode": 27580678
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/09-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288296417358999,
+      "inode": 27580721
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/09-statement.out": {
+      "sha256": "138fb1206e384085787880a048297a44ab6792fcfa4eb291e8bf5203cc214246",
+      "size": 303,
+      "mtime_ns": 1794288295748361082,
+      "inode": 27580720
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/10-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288298575352284,
+      "inode": 27580726
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/10-statement.out": {
+      "sha256": "2ad78a07ccbe7a65a146409cb585e17f01f0de4ac6c46486cc1b2ed56e53c793",
+      "size": 1100,
+      "mtime_ns": 1794288296424358977,
+      "inode": 27580724
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/11-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288302117341275,
+      "inode": 27580786
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/11-statement.out": {
+      "sha256": "837bfa2a7ba582b4f4a05e632a6fb8b1bb29b6494f71de7d2ae9a72be29c6e5d",
+      "size": 1223,
+      "mtime_ns": 1794288298583352259,
+      "inode": 27580785
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/12-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288307678324023,
+      "inode": 27581115
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/12-statement.out": {
+      "sha256": "0b40cd2378a186956d9bed6b91804c4a29a5e794e61586b5d1e9cc65ad05d4bd",
+      "size": 1230,
+      "mtime_ns": 1794288302122341259,
+      "inode": 27581114
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/13-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288308660320980,
+      "inode": 27581122
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/13-statement.out": {
+      "sha256": "ec46a3bffd403fb8b474289e3ec276845a7a5a9b80d019d1858e80e37fcfeed8",
+      "size": 481,
+      "mtime_ns": 1794288307681324013,
+      "inode": 27581117
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/14-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288309809317422,
+      "inode": 27581136
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/14-statement.out": {
+      "sha256": "f693282aaacc5f5243822dd8afe1ca7b9490759c2e953b5b93d7394b21e30015",
+      "size": 558,
+      "mtime_ns": 1794288308665320965,
+      "inode": 27581123
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/15-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288311212313080,
+      "inode": 27581138
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/15-statement.out": {
+      "sha256": "2a2e218050c65f2e0230f1a17bd37728fba1eee9a99548cde9bff25761191030",
+      "size": 364,
+      "mtime_ns": 1794288309813317410,
+      "inode": 27581137
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/16-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288312911307824,
+      "inode": 27581141
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/16-statement.out": {
+      "sha256": "cdd8d9640c580acbe828df62037cb8f39d538963fabf378910468055863b02ef",
+      "size": 321,
+      "mtime_ns": 1794288311215313070,
+      "inode": 27581140
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/17-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288317433293854,
+      "inode": 27581155
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/17-statement.out": {
+      "sha256": "e59f5ddd9a5451048203e37dd872e8384153dc524cbb64a952ea4e79a7496e9a",
+      "size": 1166,
+      "mtime_ns": 1794288312920307796,
+      "inode": 27581154
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/18-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288327332263362,
+      "inode": 27579835
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/18-statement.out": {
+      "sha256": "1fb0abe996f47aece29c10eaf1973a48b9b367ac7536ce14a229c04765bed9da",
+      "size": 583,
+      "mtime_ns": 1794288317438293839,
+      "inode": 27579834
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/19-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288333173245425,
+      "inode": 27579879
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/19-statement.out": {
+      "sha256": "fc84c01342d86ab4f150e26468055690caf91bc6aea735cb3a5236e3dd98fd30",
+      "size": 1133,
+      "mtime_ns": 1794288327342263331,
+      "inode": 27579861
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/20-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288333197245352,
+      "inode": 27581243
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/20-statement.out": {
+      "sha256": "205d2f48d0e3ab948fc9d7d5e89efc228c7519dc21644f571580e5e06bcb7d14",
+      "size": 269,
+      "mtime_ns": 1794288333181245401,
+      "inode": 27581242
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/21-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288334858240259,
+      "inode": 27581266
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/21-statement.out": {
+      "sha256": "2f6d12c94af6a7858eb62972a3f16e0d2fa94f9eb21e16231c4e885f67fa0440",
+      "size": 260,
+      "mtime_ns": 1794288333204245330,
+      "inode": 27581265
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/22-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288336261235960,
+      "inode": 27581285
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/22-statement.out": {
+      "sha256": "d67f79cd4260c29766c8853d54cc6ce0cefa6fa038d06d065c80346e3ff76eae",
+      "size": 372,
+      "mtime_ns": 1794288334862240247,
+      "inode": 27581284
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/23-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288338011230601,
+      "inode": 27581286
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/23-statement.out": {
+      "sha256": "2172b493a2083d203e80fa3f356566299b07c93819673b444f352b401a41c870",
+      "size": 438,
+      "mtime_ns": 1794288336460235350,
+      "inode": 27581327
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/24-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288339307226634,
+      "inode": 27581343
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/24-statement.out": {
+      "sha256": "77b68b3a8d3277a5067561b5fdcf0ab308b0222faeb980572b2160ad1c84b662",
+      "size": 288,
+      "mtime_ns": 1794288338015230588,
+      "inode": 27581342
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/25-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288348825197564,
+      "inode": 27581345
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/25-statement.out": {
+      "sha256": "e44f9c1cce7505f7c813b5dbac4286a9ff13dabb23060e64edb157140989629b",
+      "size": 538,
+      "mtime_ns": 1794288339323226585,
+      "inode": 27581344
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/26-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288352804185443,
+      "inode": 27568921
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/26-statement.out": {
+      "sha256": "845094ae8c77d285ab00dd103f7b81b2b6ee70510199ee42c9751659fc762414",
+      "size": 1295,
+      "mtime_ns": 1794288348842197512,
+      "inode": 27568541
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/27-assumptions.out": {
+      "sha256": "ea9e6f3dab62e230db9913df6730134d4ac57c730d25987c7256fda9efdb6e0a",
+      "size": 129,
+      "mtime_ns": 1794288357553171001,
+      "inode": 27580142
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/27-statement.out": {
+      "sha256": "c2626e344fd15765f3c09a1e16bfaae19749d7117b30c4a04dc504ae3e6fbb40",
+      "size": 1252,
+      "mtime_ns": 1794288352816185407,
+      "inode": 27569224
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/28-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288359701164477,
+      "inode": 27581182
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/28-statement.out": {
+      "sha256": "c1828201886ab43aab25021d118ae00b0127c5cc127a2620c23cfe2122a9cb36",
+      "size": 824,
+      "mtime_ns": 1794288357892169971,
+      "inode": 27581116
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/29-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288361964157609,
+      "inode": 27580727
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/29-statement.out": {
+      "sha256": "54753901e325532c70c40d15024cbec7e843eef8df52dfa86dd8d14aec9108aa",
+      "size": 869,
+      "mtime_ns": 1794288359869163967,
+      "inode": 27580559
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/30-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288370882130604,
+      "inode": 27581238
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/30-statement.out": {
+      "sha256": "2cb76f741a80ac6950a77dcc88b4750be9cfe6690c784c17e9ec90b512a9c7f5",
+      "size": 819,
+      "mtime_ns": 1794288363524152879,
+      "inode": 27581139
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/31-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288372645125276,
+      "inode": 27581274
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/31-statement.out": {
+      "sha256": "a9c40a79dc47301ecd386a81cf64311df68867a9093bfe309bf27a9dc2734412",
+      "size": 386,
+      "mtime_ns": 1794288371681128189,
+      "inode": 27565496
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/32-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288372651125258,
+      "inode": 27581352
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/32-statement.out": {
+      "sha256": "da5b653fc1ccf672106f5144b5207be837824a5eaa00821a6340d1835185f7ad",
+      "size": 414,
+      "mtime_ns": 1794288372646125273,
+      "inode": 27581346
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/33-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288372653125252,
+      "inode": 27581361
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/33-statement.out": {
+      "sha256": "719b9c1ab147d079201f4d428190c2252a508d38ff7a14d40984932107a9f361",
+      "size": 336,
+      "mtime_ns": 1794288372651125258,
+      "inode": 27581353
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/34-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373714122047,
+      "inode": 27581365
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/34-statement.out": {
+      "sha256": "95a91c76c872b5afe052d1747e33a4e35f885be91aacc1784354c5d54fa15338",
+      "size": 423,
+      "mtime_ns": 1794288372654125249,
+      "inode": 27581362
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/35-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373721122026,
+      "inode": 27581367
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/35-statement.out": {
+      "sha256": "e195bb981da9609f6d133d6a7e68200a55ca0991d12c6943e9bb90bf9d4eaa6d",
+      "size": 297,
+      "mtime_ns": 1794288373715122044,
+      "inode": 27581366
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/36-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373722122022,
+      "inode": 27581369
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/36-statement.out": {
+      "sha256": "90ab93eeb590c971137bf68914f16f1b1cedec19d1a1b1a297d5ef20628507be",
+      "size": 232,
+      "mtime_ns": 1794288373722122022,
+      "inode": 27581368
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/37-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373726122010,
+      "inode": 27581371
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/37-statement.out": {
+      "sha256": "fe95c53bfb9fe52836fd915772a71464a7be0c5094aca150c33c24bf99316f34",
+      "size": 295,
+      "mtime_ns": 1794288373723122020,
+      "inode": 27581370
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/38-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373945121349,
+      "inode": 27581373
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/38-statement.out": {
+      "sha256": "3d7e179211d59c34e7ac850e172a335bd32d4ec9682f05d6c269f7aecf0d9cd1",
+      "size": 326,
+      "mtime_ns": 1794288373727122008,
+      "inode": 27581372
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/39-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373949121337,
+      "inode": 27581375
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/39-statement.out": {
+      "sha256": "0a98f8df31cf578c7b1ab2554bffe90cd118547f938a3d16ce4802f8116e0d49",
+      "size": 295,
+      "mtime_ns": 1794288373946121346,
+      "inode": 27581374
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/40-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288373954121322,
+      "inode": 27581377
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/40-statement.out": {
+      "sha256": "4a1fa709a0e1d91f8cdfd2df01f76663e377077209999968f4036e74293abaa7",
+      "size": 283,
+      "mtime_ns": 1794288373950121334,
+      "inode": 27581376
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/41-assumptions.out": {
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf",
+      "size": 32,
+      "mtime_ns": 1794288374891118493,
+      "inode": 27581379
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/41-statement.out": {
+      "sha256": "12927dd73d14c6fc1f2f1584de5a3ab07a0fff8f3e743a96402d789e35baf9b3",
+      "size": 213,
+      "mtime_ns": 1794288373955121319,
+      "inode": 27581378
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/EntryInventory.glob": {
+      "sha256": "ac0cb02acfb9c70c66e3228d70f743d52d70c18db5698c5e4e40dec69cb00fab",
+      "size": 5828,
+      "mtime_ns": 1794288374892118490,
+      "inode": 27580136
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/EntryInventory.v": {
+      "sha256": "0bd3101fe34239867741d6e508bcf567ccad1ea54755e467d93c34cad013f019",
+      "size": 7374,
+      "mtime_ns": 1794288284810395224,
+      "inode": 27580131
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/EntryInventory.vo": {
+      "sha256": "4117e44f47e664c0e6753bedfcbb6fd61186465fd9ad81730616f0b415532cff",
+      "size": 991,
+      "mtime_ns": 1794288374892118490,
+      "inode": 27581384
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/EntryInventory.vok": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "mtime_ns": 1794288374892118490,
+      "inode": 27581386
+    },
+    "/tmp/native-source-entry-e84eed6c/entry-v1/inspection/EntryInventory.vos": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "mtime_ns": 1794288374892118490,
+      "inode": 27581385
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/canonical-fact-provenance-ja5ejv7b/logs/root-sst.vir": {
+      "sha256": "b2f7c35911dbd1e90a2c60f2e79428180c5d94423116a5c69042e5b76618da96",
+      "size": 2748002,
+      "mtime_ns": 1794288509276722059,
+      "inode": 27281523
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/canonical-fact-provenance-ja5ejv7b/logs/root.air": {
+      "sha256": "ca2c889f9fd7ca307fc7611e1aec5b48c7f26f414b60a59aa248315eac75339f",
+      "size": 667170,
+      "mtime_ns": 1794288509834720448,
+      "inode": 27281524
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/canonical-fact-provenance-ja5ejv7b/logs/rootcanonical!u64._01.air": {
+      "sha256": "444bbd24ce89c290856661626a25c9fe38803846e4e4d98e1688f5ac9c967f65",
+      "size": 880,
+      "mtime_ns": 1794288509525721340,
+      "inode": 27281525
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/canonical-fact-provenance-ja5ejv7b/logs/rootcanonical!u64._02.air": {
+      "sha256": "fdb803884bf6e4f7536c7abf53f6388b7ffd9ef323c05a389cda7efdd37f2610",
+      "size": 849,
+      "mtime_ns": 1794288509542721291,
+      "inode": 27281526
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/baseline-ready.json": {
+      "sha256": "d5462c63b81a87382fca07b17085cbc006a784e6a96de167aad5103f3b626007",
+      "size": 674,
+      "mtime_ns": 1794281918316755153,
+      "inode": 25690311
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/durable-build-2/receipt.json": {
+      "sha256": "f3490fd0b0eae837194503b04fb95bd0a2881938c0db26362875e07d2306e13e",
+      "size": 361844,
+      "mtime_ns": 1794281918324755138,
+      "inode": 26243035
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/borrow_handoff.vo": {
+      "sha256": "20e45423a7bdeb96380f865907bab68e454dc2e9491b202cc684091856532286",
+      "size": 60004,
+      "mtime_ns": 1794286223275643405,
+      "inode": 27564968
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/byte_array.vo": {
+      "sha256": "1f09a29760dd4457743bf24f33ab7bf33b4c77ee586fcf7645f8bec1bc2098a4",
+      "size": 42655,
+      "mtime_ns": 1794286256781478914,
+      "inode": 27565011
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/model_limits.vo": {
+      "sha256": "e1defe41a5e3746f55eb3d5471b37d66218085b88231124d83c9e28f0fbed3f6",
+      "size": 39017,
+      "mtime_ns": 1794286281414361491,
+      "inode": 27565042
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/proofs/raw_view.vo": {
+      "sha256": "14447220c43800c42a2e09c9892c0260a65abeaf4b6978ec59aa03f9d3c9996e",
+      "size": 65877,
+      "mtime_ns": 1794286275395389912,
+      "inode": 27565032
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs/receipt.json": {
+      "sha256": "790aaa8e2eadd1a668bef67cdce938dc3048318d85ee753057cfb805e7982e41",
+      "size": 216199,
+      "mtime_ns": 1794286643038900460,
+      "inode": 27565573
+    }
+  },
+  "generator_byte_identical_in_both_modes": true,
+  "normal_and_optimized_unit_tests": 11,
+  "normal_and_optimized_source_controls": 12,
+  "success": true,
+  "raw_validation": {
+    "path": "/tmp/source-freeze-completeness-review-0912d2a7-validation-final/validation.json",
+    "sha256": "86b6e747f0da2e085289f49d8c83ae7aa8defaa0f045c3178ba1cb5382d4abdc"
+  },
+  "raw_adversarial_results": {
+    "path": "/tmp/source-freeze-completeness-review-0912d2a7-final/results.json",
+    "sha256": "a7b0c448b41fbfe19e8045e9dc09de16d9bdbaa8806f7027373e40acb6bba000"
+  },
+  "cases": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/healthy/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/healthy/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/healthy/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/healthy/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "93d7deb4b3b15674fe45a23c98fb657d33f7e242cc7a9bd75f37e5cb092a62a9",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "normal/source_map.py/healthy",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/healthy/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-0/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "feac87e6d84dc4ee17a1f1701d0fd323d27d1be9e9b53d9219b587ee4dc2da7d",
+      "name": "normal/source_map.py/omission-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-1/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "57e8d38d2699ac08f42725adbf76df5e71cd919d725a71fd5203c0f07ff04004",
+      "name": "normal/source_map.py/omission-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-2/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "5d607ee2a050c8e8742d0524e80aa7d1e7297378b9f61f9502656dabaffea528",
+      "name": "normal/source_map.py/omission-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-3/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "860d2a8560d73d03072ef39b3bbe735fc2a12270336e207fce223d134faba8b1",
+      "name": "normal/source_map.py/omission-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-4/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "f06467b5eac578828522dfcf83642d3c9f660435c8eb28596baadf106debac3e",
+      "name": "normal/source_map.py/omission-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-5/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "7cbf88f6848850f330ce762a2c59c717f97f3827309601faf2271f0281b023e0",
+      "name": "normal/source_map.py/omission-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-6/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "bf30575e361e87a98151c59251eeea7c3168d8f84fc479991248993351ca0262",
+      "name": "normal/source_map.py/omission-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/omission-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-0/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "5a13f312156f527e70f360b3a1743a118eb41027c791056bae18c6c4194837b0",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "6e1a89d7863671bc5c7025807a26e66ddba97719a423c1f659e7922118d63f98",
+      "name": "normal/source_map.py/mutation-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source_map.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-1/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "35f2a6bf4c115af6fa348909435518fdb685fbcaf5b6ff633ab43e606ca274f3",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "32c55128bfd4381d9fdb3a461c7fd7416b2b3d26ee7cc6bb80f3a65adb56fe52",
+      "name": "normal/source_map.py/mutation-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/audit.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-2/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "30fe5d67ab57b0fe888a1fb3a72d24db99d45871f53d8b18cc7116942c22871a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c87bc7eb5f433f16f1546cc4e196c127f5a7d3e4b50be932b03e1c5ce8caf319",
+      "name": "normal/source_map.py/mutation-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-3/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "103e606157c16f02f2375234d2af4bc824237da047d5d2d48426ac6ea8a9eed2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "bb7287260cf0303bb38556edf943a43db32299ee16cf294068524342e92b87f7",
+      "name": "normal/source_map.py/mutation-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/lower.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-4/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "3d6ab2722e56effb0eebc02c77ffb1cc3498193873c0619bf0ba75bbc9859922",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "329b09beb1afded61475172ed3b5018f46668cb7db71428985224c3316c7e53a",
+      "name": "normal/source_map.py/mutation-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/fixtures/drop.rs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-5/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "8bd32ca83a7ea09f9ff5e11c2c96758fd40ee83d307c1043a38c90ebf99feded",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e68bc1119ae1dbf418709086f43a9121a7d84fbf6d1ebacf1d4a5c1e8e9eb8c2",
+      "name": "normal/source_map.py/mutation-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_eval_support.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-6/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "7eccc51f1d37aff2f99e92ab73283c08d75bb43f73f76cc8105f8b7e79271275",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "5d5a2a13a4cbd114b56a2544ff6b6f0f082cb15d6d78bbe14f2d6733d01316b0",
+      "name": "normal/source_map.py/mutation-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/mutation-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-omitted/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-omitted/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-omitted/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-omitted/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "9b38ce7f3f3a17040527577f5b4949d1df38326dcce14aca522fb617207e3127",
+      "name": "normal/source_map.py/synthetic-omitted",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-omitted/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-complete/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-complete/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-complete/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-complete/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "30fe5d67ab57b0fe888a1fb3a72d24db99d45871f53d8b18cc7116942c22871a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "ac06cfd77c43e175bf09496d8bb1666fd89de9abde2f43f2420913b55aaa63ab",
+      "name": "normal/source_map.py/synthetic-complete",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-complete/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-receipt-only/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-receipt-only/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-receipt-only/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-receipt-only/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "unbound extraction receipt",
+      "receipt_sha256": "c9008b447b92dbef49fc8615140e59af31c2eeffa99975e9b82c7337b103d718",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0332750ab0997033e74916d713369cf95720266bfab43c65a9942a1802eebb98",
+      "name": "normal/source_map.py/synthetic-receipt-only",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/synthetic-receipt-only/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unbound extraction receipt"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "620ab1dc7a10a913303fb91ae36ac63570f9ca69ef415768162999c02a320192",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "between_validation_and_guard",
+      "freeze_sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+      "persistent_frozen_mismatches": [
+        "source/tools/research/native_semantic_bridge/source-bindings.json"
+      ],
+      "name": "normal/source_map.py/between_validation_and_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/between_validation_and_guard/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/after_initial_guard/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/after_initial_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/after_initial_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/after_initial_guard/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "tool inputs changed during evaluation",
+      "receipt_sha256": "c5ebb36a8f82141208d9bd931d69f5ce892e37d462a469bfb0c2e0263f30ed76",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c395ad7138bd37df74fc28e3950f4e31623132f5a06af4b34e3203d9fb689f68",
+      "stage": "after_initial_guard",
+      "freeze_sha256": "cdd716a62a591f2efa50ab6ac60db3d70b6485f400c4a2cdc8c6e89ffa98787b",
+      "persistent_frozen_mismatches": [
+        "source/tools/infer_experiment.py"
+      ],
+      "name": "normal/source_map.py/after_initial_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/after_initial_guard/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ArtifactChanged",
+        "message": "tool inputs changed during evaluation: /tmp/source-freeze-completeness-review-0912d2a7-final/normal/source_map.py/after_initial_guard/source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/healthy/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/healthy/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/healthy/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/healthy/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "6030496507220c7e07adfcf56e73afea7b8ec49f9fc6dff86d569968ac137996",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "normal/audit.py/healthy",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/healthy/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-0/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0c88c90f5f83b021ab352c23d3b9f986afba7ffb41523de15b53f9cf2a437512",
+      "name": "normal/audit.py/omission-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-1/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "cf64a2fbd9a57ca43ccf4575281e6b09457272c236bcdc82cddaa955412f5b55",
+      "name": "normal/audit.py/omission-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-2/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "748fa5c5fce30d1749fc25d4cbf43a71ace296e7df9f1b9af277bec7cf89c0d3",
+      "name": "normal/audit.py/omission-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-3/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "d9993491ba7c8cb0a4f9f8411e552b5a5d42c5c16bb97a944be2fe648491406e",
+      "name": "normal/audit.py/omission-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-4/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "df0d4bddc57b90983d66e13c33d93f74c81490a7704c5d37920de42a2142d240",
+      "name": "normal/audit.py/omission-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-5/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b1ab0ade0b5c4e1afc63f0a277153d8028144323ba9628d58c5fec33ba7ee2b0",
+      "name": "normal/audit.py/omission-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-6/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b093288582ea949656971335d713e0cb7acbb02f42f6f5a2b44bf42653e6bf0e",
+      "name": "normal/audit.py/omission-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/omission-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-0/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "800f36394794938bb9858e685cd8ce81008a1aa1e6478f163caff5a0b32d6ad7",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "47b54b62a2e93efda3a3117e4ae6b0d4bb5599b9706f709a1327b3dbd6546a31",
+      "name": "normal/audit.py/mutation-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source_map.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-1/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ce8a3d29128f1bb3009a592070448e92eac05adfe796e3c253abaeecbac57191",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "51824577ebdfefc6e89d4af6aa2daea1209a4a262b15315b6d9c778e3ea8c5fb",
+      "name": "normal/audit.py/mutation-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/audit.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-2/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "d67688286ffddd96e3cc0f73e10127abc864da80098434377116aafec6c74673",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c2b746bf2c45bade79e356f5b18596e29d50b7fddd4ce21ec6a957935b80ae6e",
+      "name": "normal/audit.py/mutation-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-3/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ed9f3e367b2a4937d572409f6a43e89056fe1dde3d85730a4c4f1e2fc700b04d",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0bce2d85328828b6606f7cebf79fe630afdf52ba61553a0bba103f44b2af6ff1",
+      "name": "normal/audit.py/mutation-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/lower.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-4/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ae439c51169c5efe990bc2a7db2aab6e59b5843466c3575bddf7728d38ac7e6a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "85a70b5d449ee872d69bc241c47ec13b94730f4c5831b05ba23ef9bb2595034c",
+      "name": "normal/audit.py/mutation-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/fixtures/drop.rs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-5/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ee1a0e30d3b4276c3b2fea81c06823589aaf13afc6c660757b8753003c0110f1",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c332189b91bf326691a3064b92b8064a22d1c50785f8b475d173ac8a9129a27c",
+      "name": "normal/audit.py/mutation-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_eval_support.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-6/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "67ea097ef8a8ad6e8cefa1e6d4eb1d51fc65c9a048334311e56d2c0f1172ecfd",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "770b0c158b6a355fbc6fe7ec1fd7dd8690d1ef4dd610c4f6c1d3498ed83be90b",
+      "name": "normal/audit.py/mutation-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/mutation-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-omitted/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-omitted/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-omitted/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-omitted/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "5eeeb3b787c6abce294a422d78c01d484447e991dfccc674c57a3bc9d66dfac0",
+      "name": "normal/audit.py/synthetic-omitted",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-omitted/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-complete/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-complete/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-complete/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-complete/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "d67688286ffddd96e3cc0f73e10127abc864da80098434377116aafec6c74673",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "00ead83eeb075a0c72668eadb7a6100ba29dced681484b3a343c60fb82d038ea",
+      "name": "normal/audit.py/synthetic-complete",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-complete/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-receipt-only/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-receipt-only/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-receipt-only/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-receipt-only/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "unbound extraction receipt",
+      "receipt_sha256": "c8d44babd744aff0e272f7134f9d58947c09d36499b052ac7d087140ed749ec7",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "058e4e0888bce8484a3d61a3ed35f9174bba0b83ff777d57a25dd6e4d7b2e936",
+      "name": "normal/audit.py/synthetic-receipt-only",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/synthetic-receipt-only/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unbound extraction receipt"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "46ed1efeb4651c72607fa4e50a13374f8139629f1f54a269e0c9e7aede08bd41",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "between_validation_and_guard",
+      "freeze_sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+      "persistent_frozen_mismatches": [
+        "source/tools/research/native_semantic_bridge/source-bindings.json"
+      ],
+      "name": "normal/audit.py/between_validation_and_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/between_validation_and_guard/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/after_initial_guard/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/after_initial_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/after_initial_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/after_initial_guard/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "tool inputs changed during evaluation",
+      "receipt_sha256": "05a327851c92ae39402a7031116289527210be8c9ceab14462ceb997e386605a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "a89ac107689e6f59813df647b76e1a928e3f471ae8ac22f74858d4379bbffb4c",
+      "stage": "after_initial_guard",
+      "freeze_sha256": "cdd716a62a591f2efa50ab6ac60db3d70b6485f400c4a2cdc8c6e89ffa98787b",
+      "persistent_frozen_mismatches": [
+        "source/tools/infer_experiment.py"
+      ],
+      "name": "normal/audit.py/after_initial_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/after_initial_guard/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ArtifactChanged",
+        "message": "tool inputs changed during evaluation: /tmp/source-freeze-completeness-review-0912d2a7-final/normal/audit.py/after_initial_guard/source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/healthy/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/healthy/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/healthy/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/healthy/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "e3189a70f3ead32c766daa61f8523525fa5ebec7881d2ae223cdeb78cdccc193",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "optimized/source_map.py/healthy",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/healthy/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-0/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "9994de703411d8c61a92c4108f44450497f830e3826da30b1c9d071c8a9caa26",
+      "name": "optimized/source_map.py/omission-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-1/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "b06561ef1071ab9a113f2249910ac4de5a47ccea4687e14e2be218b4437f5640",
+      "name": "optimized/source_map.py/omission-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-2/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "17258a79c1747f43ce4ae8f133352b272f21ef5f070e3a2d62d1ee5093c89c56",
+      "name": "optimized/source_map.py/omission-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-3/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "663cda8aac3692d15ff420da31490d289a82bbcf94dffc2424446cb609b39a09",
+      "name": "optimized/source_map.py/omission-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-4/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "30811771c03bc8975acaaba2a9323e6b63bd933a1f84b6b8f4275d2a532ca7da",
+      "name": "optimized/source_map.py/omission-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-5/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "2d9343dfeaaae68293ce90ef892ed50f6f239529f11cce7f27607f3ccfdc05e9",
+      "name": "optimized/source_map.py/omission-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-6/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "751b39b931f579921d95cfcb29c46a47684fc961d6ea1b2841b22607193186b6",
+      "name": "optimized/source_map.py/omission-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/omission-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-0/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "5a13f312156f527e70f360b3a1743a118eb41027c791056bae18c6c4194837b0",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e155c9ca8bccd0ad82085900fb4aa535d68fabf56cc8ce96375b14e5843c95c9",
+      "name": "optimized/source_map.py/mutation-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source_map.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-1/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "35f2a6bf4c115af6fa348909435518fdb685fbcaf5b6ff633ab43e606ca274f3",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "49d71e30919e235849d24297f78a57876479891eb06b38a556146668da6daf80",
+      "name": "optimized/source_map.py/mutation-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/audit.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-2/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "30fe5d67ab57b0fe888a1fb3a72d24db99d45871f53d8b18cc7116942c22871a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c05c12306bf374b7e49c3e79751ef21c86a2f6bff6ea8239517e38fd8e78375e",
+      "name": "optimized/source_map.py/mutation-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-3/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "103e606157c16f02f2375234d2af4bc824237da047d5d2d48426ac6ea8a9eed2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0ec1d2cc5bcb726396e87fb5adf3e87a5e1a8f4cfb09f99f6fd932511906e078",
+      "name": "optimized/source_map.py/mutation-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/lower.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-4/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "3d6ab2722e56effb0eebc02c77ffb1cc3498193873c0619bf0ba75bbc9859922",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "910d8ba2a07de0ac92411907d5efa0d86a1cd3b947e6c3660fa40144332fbef0",
+      "name": "optimized/source_map.py/mutation-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/fixtures/drop.rs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-5/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "8bd32ca83a7ea09f9ff5e11c2c96758fd40ee83d307c1043a38c90ebf99feded",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e49c68a4a8852d20fa7cc759216c3db5da98621f1be1cd4566a1d77d46be3317",
+      "name": "optimized/source_map.py/mutation-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_eval_support.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-6/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "7eccc51f1d37aff2f99e92ab73283c08d75bb43f73f76cc8105f8b7e79271275",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "38b8a22804bbc75b7be4e943c46a4cae2ebf56b96d3ef9f4a8c687b6d7534534",
+      "name": "optimized/source_map.py/mutation-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/mutation-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-omitted/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-omitted/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-omitted/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-omitted/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "2cff3b9a60af262a3a9333c934564a64f3eb64224813ba85db31e3ea48a6fc5b",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "c7b43d97d2df9b9a43acf4394dc338ec6198ba57e341033a4dc42ab547ca0ad1",
+      "name": "optimized/source_map.py/synthetic-omitted",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-omitted/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-complete/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-complete/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-complete/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-complete/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "30fe5d67ab57b0fe888a1fb3a72d24db99d45871f53d8b18cc7116942c22871a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0328a0dd7753bf5f1a591ad94814f569f4439eecccb302c46ce7a25a5c94dc57",
+      "name": "optimized/source_map.py/synthetic-complete",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-complete/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-receipt-only/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-receipt-only/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-receipt-only/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-receipt-only/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "unbound extraction receipt",
+      "receipt_sha256": "c9008b447b92dbef49fc8615140e59af31c2eeffa99975e9b82c7337b103d718",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "f6c973441c1a704004f428f7b47768708c4b4b8193c02f5ca4577fceb2bc3f0b",
+      "name": "optimized/source_map.py/synthetic-receipt-only",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/synthetic-receipt-only/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unbound extraction receipt"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "5deaa744ca0b5174371f3867f5189a665dd4673ce68b89dd9419b3cd3bdb59a9",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "between_validation_and_guard",
+      "freeze_sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+      "persistent_frozen_mismatches": [
+        "source/tools/research/native_semantic_bridge/source-bindings.json"
+      ],
+      "name": "optimized/source_map.py/between_validation_and_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/between_validation_and_guard/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/after_initial_guard/source/tools/research/native_semantic_bridge/source_map.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/after_initial_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/after_initial_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/after_initial_guard/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "tool inputs changed during evaluation",
+      "receipt_sha256": "ab0d8b9efa919dfa434a32f624115511376cb5f911f780ff35d4f8aff07424f7",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "68f4549a1bcbe6bff9d1c010fd4346f052fc4e0059f9d1e576f2ba21d511ea4c",
+      "stage": "after_initial_guard",
+      "freeze_sha256": "cdd716a62a591f2efa50ab6ac60db3d70b6485f400c4a2cdc8c6e89ffa98787b",
+      "persistent_frozen_mismatches": [
+        "source/tools/infer_experiment.py"
+      ],
+      "name": "optimized/source_map.py/after_initial_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/after_initial_guard/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ArtifactChanged",
+        "message": "tool inputs changed during evaluation: /tmp/source-freeze-completeness-review-0912d2a7-final/optimized/source_map.py/after_initial_guard/source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/healthy/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/healthy/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/healthy/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/healthy/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "e7630b8364738349ff0b6278ebf0bba80a17ac6f66ced64798e7a15c6a424f5e",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "optimized/audit.py/healthy",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/healthy/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-0/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "1764c76b0b3b898dc7e8cb766a3ce948961fd1132a9bfe78515c54d0dbc67554",
+      "name": "optimized/audit.py/omission-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-1/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "777c78ef1af256966140f3641a626cc030bdb91cc0b642e8f743419c9e845d25",
+      "name": "optimized/audit.py/omission-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-2/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3a94ceb8961e85ccc4a1bc6db63d94bc029ae1c5b35f20ba91ad44297188849f",
+      "name": "optimized/audit.py/omission-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-3/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "09fee42908bf14ea506f914683004152ac388129c09dd1ea3ed51fdb7e9fe044",
+      "name": "optimized/audit.py/omission-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-4/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "423364f689b60b27ead1b1e62b2a79dd89c38c1d03650b78ea894fbf71558dd5",
+      "name": "optimized/audit.py/omission-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-5/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "81f0549b05565828b5f2c2239a8ec332df98f3c4bebc64edd121a0bd4872b521",
+      "name": "optimized/audit.py/omission-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-6/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "084a2e43fa0857763a0791c3d7c41f8ab41cb121142700e9caa4c816130086e4",
+      "name": "optimized/audit.py/omission-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/omission-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-0/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-0/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-0/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-0/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "800f36394794938bb9858e685cd8ce81008a1aa1e6478f163caff5a0b32d6ad7",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "1eb0879f0c69a2b26b12a54ad37b502cec99c2139db958280a469c6860ec3c4e",
+      "name": "optimized/audit.py/mutation-0",
+      "input": "source/tools/research/native_semantic_bridge/source_map.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-0/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source_map.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-1/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-1/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-1/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-1/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ce8a3d29128f1bb3009a592070448e92eac05adfe796e3c253abaeecbac57191",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "8e1c70bde1945ac0e8940af7eb437f77adfc9e8336dd9a61feaa9d9b1b284feb",
+      "name": "optimized/audit.py/mutation-1",
+      "input": "source/tools/research/native_semantic_bridge/audit.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-1/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/audit.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-2/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-2/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-2/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-2/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "d67688286ffddd96e3cc0f73e10127abc864da80098434377116aafec6c74673",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0030135f812e9817ae53fb684e8754108233ce22246057f8ab3eeefa511f4f9d",
+      "name": "optimized/audit.py/mutation-2",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-2/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-3/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-3/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-3/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-3/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ed9f3e367b2a4937d572409f6a43e89056fe1dde3d85730a4c4f1e2fc700b04d",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3e872af58dbd6a8c79b157b35180b4cb2607b81dfc9f128ef5ec6b421e62181a",
+      "name": "optimized/audit.py/mutation-3",
+      "input": "source/tools/research/native_heap_lowering/lower.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-3/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/lower.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-4/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-4/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-4/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-4/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ae439c51169c5efe990bc2a7db2aab6e59b5843466c3575bddf7728d38ac7e6a",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "87edb24ad1b1620d951d29203cbdfdf1feedb809a9c2e043cb89251cfa437404",
+      "name": "optimized/audit.py/mutation-4",
+      "input": "source/tools/research/native_heap_lowering/fixtures/drop.rs",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-4/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_heap_lowering/fixtures/drop.rs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-5/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-5/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-5/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-5/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "ee1a0e30d3b4276c3b2fea81c06823589aaf13afc6c660757b8753003c0110f1",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "84fe9f13d72b7e4b8ceb95c9d4a7e34009b7c1d4879468342a59ca82674f4836",
+      "name": "optimized/audit.py/mutation-5",
+      "input": "source/tools/infer_eval_support.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-5/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_eval_support.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-6/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-6/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-6/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-6/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "67ea097ef8a8ad6e8cefa1e6d4eb1d51fc65c9a048334311e56d2c0f1172ecfd",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "4775c8b28a9cbf2c0e6ccf4c545bade89c96a264d2436e81cc5642bf00f71331",
+      "name": "optimized/audit.py/mutation-6",
+      "input": "source/tools/infer_experiment.py",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/mutation-6/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-omitted/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-omitted/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-omitted/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-omitted/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "incomplete frozen source-audit inputs",
+      "receipt_sha256": "a6600b43f661835305bd8c2376f26d01c15b3e1d9ea69e41b49d17fa365628f2",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "f42d620ff04bb12f50eb74a4c8ebfec39428fc9d5f2ee31894d69a4fbc95320b",
+      "name": "optimized/audit.py/synthetic-omitted",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-omitted/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "incomplete frozen source-audit inputs"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-complete/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-complete/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-complete/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-complete/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "frozen source changed",
+      "receipt_sha256": "d67688286ffddd96e3cc0f73e10127abc864da80098434377116aafec6c74673",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "03722f4b833093ca6126561ecc5201ca093ce6e3f96fa843f2639c8e90bf223d",
+      "name": "optimized/audit.py/synthetic-complete",
+      "input": "source/tools/research/native_semantic_bridge/source-bindings.json",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-complete/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "frozen source changed source/tools/research/native_semantic_bridge/source-bindings.json"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-receipt-only/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-receipt-only/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-receipt-only/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-receipt-only/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "unbound extraction receipt",
+      "receipt_sha256": "c8d44babd744aff0e272f7134f9d58947c09d36499b052ac7d087140ed749ec7",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "27627a4640396b77e195d7d367b2e8cb6b33ec1d5e77b8e036940617b573534f",
+      "name": "optimized/audit.py/synthetic-receipt-only",
+      "input": null,
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/synthetic-receipt-only/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "unbound extraction receipt"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/output"
+      ],
+      "returncode": 0,
+      "expected_failure": null,
+      "receipt_sha256": "acc1ab5963150a4e9d36d1303e3c5b37a6537ca96fe8b8f81e03eac6de03cc5f",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "between_validation_and_guard",
+      "freeze_sha256": "444ce34c50155b100dfbe12b3cdd96fc210316af1abd184c5fbd0ec3fe978924",
+      "persistent_frozen_mismatches": [
+        "source/tools/research/native_semantic_bridge/source-bindings.json"
+      ],
+      "name": "optimized/audit.py/between_validation_and_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/between_validation_and_guard/output/receipt.json",
+      "success": true,
+      "failure": null,
+      "publication": false,
+      "native_bridge_proved": false
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-O",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/after_initial_guard/source/tools/research/native_semantic_bridge/audit.py",
+        "--freeze",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/after_initial_guard/freeze.json",
+        "--extraction",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/after_initial_guard/extraction",
+        "--output",
+        "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/after_initial_guard/output"
+      ],
+      "returncode": 1,
+      "expected_failure": "tool inputs changed during evaluation",
+      "receipt_sha256": "96e81c400b56a6791476a3830acc74db025851a7e6ffbd828d9f15158aabb8be",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "308b391e73e445cf850a106ea0f4a7d889ac8a91f7597a2d4092b6fa42dd4586",
+      "stage": "after_initial_guard",
+      "freeze_sha256": "cdd716a62a591f2efa50ab6ac60db3d70b6485f400c4a2cdc8c6e89ffa98787b",
+      "persistent_frozen_mismatches": [
+        "source/tools/infer_experiment.py"
+      ],
+      "name": "optimized/audit.py/after_initial_guard",
+      "receipt_path": "/tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/after_initial_guard/output/receipt.json",
+      "success": false,
+      "failure": {
+        "type": "ArtifactChanged",
+        "message": "tool inputs changed during evaluation: /tmp/source-freeze-completeness-review-0912d2a7-final/optimized/audit.py/after_initial_guard/source/tools/infer_experiment.py"
+      },
+      "publication": false,
+      "native_bridge_proved": false
+    }
+  ],
+  "fresh_maps_match_committed_after_instance_expansion": true,
+  "additional_authenticated_historical_logs": {
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/unit.log": "042964724e97c829972afe2ead45cd91039a6d62735a46ea8a80ae4523d61be4",
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/unit-optimized.log": "8642a1ac72c63530bbaa2c1f2526767cc3b14a928c117e4bff18cd4c4a88ad42",
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/map.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/audit.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/readiness.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/proofs.log": "4cb0dfc6ce5091de49b9731c082e4b4865cd91e1598c51517dba3b59ec419290",
+    "/tmp/verus-infer-buffer-cycle-20261109/semantic-guard-validation-1efbd004/acceptance-controls.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-entry-e84eed6c/entry-v1/compile-inspection.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-entry-e84eed6c/entry-v1/compile-inspection.stderr": "05c7e3bad1e993a53e04008642016db6cb51d712a8786b0169af723bcf309b28",
+    "/tmp/native-source-entry-e84eed6c/entry-v1/recursive-kernel.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/native-source-entry-e84eed6c/entry-v1/recursive-kernel.stderr": "960298c45af69cab79feb24986db3c1625fa949b59775c1fd8c11bf410bdb526"
+  }
+}
