@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "scope": "Parent optimized-Python fresh integration replay of exact conditional MODEL handoffs",
+  "parent_source_commit": "eb7778b5",
+  "stacked": {
+    "declarations": 25,
+    "all_individually_closed": true,
+    "recursive_libraries": 282,
+    "acceptance": {
+      "path": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/acceptance.json",
+      "sha256": "e178df9b7adb2714ed6ae177271db895da11e972ab2488d7088d8a1445b666e0"
+    },
+    "controller_exit": {
+      "path": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/controller-exit.json",
+      "sha256": "ff1b76b862ff5f6a716a315bacdbfb6abb209f9ad03a5095fe1ecdda09b0eb21"
+    },
+    "product_map": {
+      "path": "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/products.json",
+      "sha256": "42c2d0ed744fd929bad5c4cf05b10b493aec6d2159f5f0f6e2e08970dee135dc"
+    },
+    "rebuilt_objects_identical_to_worker_and_independent_review": true
+  },
+  "tree": {
+    "declarations": 17,
+    "all_individually_closed": true,
+    "recursive_libraries": 458,
+    "receipt": {
+      "path": "/tmp/parent-tree-entry-handoff-eb7778b5/receipt.json",
+      "sha256": "3a6739bbeb9b697c59184a40085cc8dd12aa084029fde67077912b6e141b94d5"
+    },
+    "source_identical_to_worker_and_independent_review": true,
+    "object_sha256": "f7a7260b715cbc96ea9669302ea7697e864028d9d514b4bf3b40e47a7bd216fd",
+    "object_note": "Rocq embeds physical source path; no byte identity claimed across roots."
+  },
+  "controller_gate_revision": {
+    "converted_checks": 29,
+    "runtime_assertions": 0,
+    "normal_and_optimized_bytecode_checks": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-entry-replay-eb7778b5/guard-bytecode-audit.json",
+      "sha256": "61b271915b8c980fcf203e7f8fbafad7348caad8140d92d0f8f6440649ab8e27"
+    },
+    "AST_transformation": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/stbor-controller-gate-transformation.json",
+      "sha256": "da0fd581d135124b985c583024b1a453cc55ac499684d4e9898bcf87ad90ef6f"
+    },
+    "math_source_changed": false,
+    "independently_reviewed_revision": false
+  },
+  "independent_review": {
+    "commit": "e03ce8c237bf57efc32fb63be54f77ca5345304e",
+    "scope": "exact conditional handoffs and compiler checkpoint accepted; original controller normal Python",
+    "P3": "milestone label corrected without changing original receipt exits or proof sources"
+  },
+  "native_correspondences": 0,
+  "source_validity_proved": false,
+  "original_reference_CF": false,
+  "full_HMAC": "1/1 unproved; inherited not rerun",
+  "canonical": "6/0 inherited not rerun",
+  "open_obligations": {
+    "minimal": 44,
+    "phase": 3,
+    "writer_effects": 101
+  },
+  "publication": false,
+  "goal_complete": false
+}

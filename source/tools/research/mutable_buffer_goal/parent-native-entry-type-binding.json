@@ -8,7 +8,11 @@
   "actual_layouts": "10 and 128 bytes, alignment 1; key [u8] remains unsized, with no added runtime length restriction",
   "universal_array_trait_check": true,
   "ordinary_negative_trait_controls": 3,
-  "independent_combined_review": "pending",
+  "independent_combined_review": {
+    "commit": "e03ce8c237bf57efc32fb63be54f77ca5345304e",
+    "recommendation": "accept exact compiler checkpoint; all9 outcomes and3 E0277 controls independently reproduced",
+    "whole_goal_accepted": false
+  },
   "actual_input_to_valid_block": false,
   "successful_runtime_retag_derived": false,
   "actual_argument_copy_frame": false,

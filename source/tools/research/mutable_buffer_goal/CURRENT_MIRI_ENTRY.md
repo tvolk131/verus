@@ -2,7 +2,9 @@
 
 The published entry handoffs now provide 25 individually closed historical
 Stacked Borrows declarations and17 closed Tree Borrows declarations. They are
-conditional MODEL results, pending independent review. The actual compiler
+conditional MODEL results accepted at that scope by independent review
+`e03ce8c2`. The fresh optimized-Python parent replay is recorded in
+[parent-entry-replay.json](parent-entry-replay.json). The actual compiler
 type/layout checks are in [parent-native-entry-type-binding.json](parent-native-entry-type-binding.json).
 Neither result establishes incoming runtime permissions or source C/F.
 

@@ -26,7 +26,11 @@
   },
   "schema": 1,
   "scope": "Parent artifact/source authentication of exact conditional MODEL handoffs; no fresh parent proof replay",
-  "independent_review": "pending fresh isolated combined review",
+  "independent_review": {
+    "commit": "e03ce8c237bf57efc32fb63be54f77ca5345304e",
+    "scope": "exact conditional handoffs and compiler checkpoint accepted; original controller normal Python",
+    "P3": "milestone label corrected without changing original receipt exits or proof sources"
+  },
   "native_correspondences": 0,
   "publication": false,
   "goal_complete": false,
@@ -35,5 +39,9 @@
     "minimal": 44,
     "phase": 3,
     "writer_effects": 101
+  },
+  "parent_replay": {
+    "path": "parent-entry-replay.json",
+    "sha256": "1ea1b1b932b6cc393dd9ac63727351e2aca63f0bf1a483386ff9f8899984b4e6"
   }
 }

@@ -1,5 +1,24 @@
 # Conditional historical MODEL entry handoff
 
+Parent integration: independent review `e03ce8c2` accepted these exact 25
+declarations and the separate17-declaration Tree Borrows/9-command compiler
+checkpoints at their stated conditional scope. Parent commit `eb7778b5` replaces
+29 Python assert gates across checker/summarizer with explicit failure checks;
+the conditions are preserved by AST comparison, and all calls/failure raises
+remain in both normal and optimized bytecode. Mathematical sources are unchanged.
+The fresh parent `-B -O` replay passed normal compilation, individual assumptions,
+the282-library recursive kernel and final guards, reproducing both proof objects.
+See [parent-entry-replay.json](../mutable_buffer_goal/parent-entry-replay.json).
+The controller revision itself has parent validation, not a new independent
+review. Historical controller hashes/receipts below retain their original scope.
+
+Use a fresh output root for current replay, leaving completed artifacts read-only:
+
+```sh
+STBOR_ENTRY_OUTPUT_ROOT=/tmp/stbor-entry-FRESH \
+  python3 -B -O source/tools/research/stbor_entry_handoff/check.py accepted025 accept
+```
+
 **25 own declarations normally compiled and recursively kernel checked at
 conditional historical MODEL scope: 3 definitions and 22 proved lemmas.** Every
 own declaration's `Check` and `Print Assumptions` reports it individually closed.
