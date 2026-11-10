@@ -1,0 +1,602 @@
+{
+  "before_first_trial": true,
+  "control_source_sha256": {
+    "disabled": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+    "disabled-guard-removed": "d5e2da160192d5c438b47e5c036b2aa0ce9f4175ee4fae8e39a076538c9d09a8",
+    "enabled-cold": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+    "enabled-warm": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788",
+    "read-inverted": "55d9b4b245da3a61307bf2780db045cea4f9433f5912ea50b99a8a01f08add37",
+    "readonly-guard-removed": "01e68e97025845a9c6258dff2cffef2fee443beb54d45dbfd1ae4ec99211938a"
+  },
+  "executable": "/usr/bin/python3",
+  "files": {
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/SCOPE.md": {
+      "bytes": 1924,
+      "sha256": "fef2cefac0bd556d3b54f6c17436907c69fe1293ba428a6c569684ccec2a53ed"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/freeze-own.json": {
+      "bytes": 5613,
+      "sha256": "7c450a4258aee4fd59e136254a47b397c477f9395660b4ca003511299149202b"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/evidence/miri-permission-gate-review/prepare.py": {
+      "bytes": 3068,
+      "sha256": "4ea732968e63c113615e04424dd42bd07cc742b91bcda019020daa09f5d4ac46"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/infer_eval_support.py": {
+      "bytes": 7981,
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/infer_experiment.py": {
+      "bytes": 11144,
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/mutable_buffer_goal/parent-entry-replay.json": {
+      "bytes": 2734,
+      "sha256": "1ea1b1b932b6cc393dd9ac63727351e2aca63f0bf1a483386ff9f8899984b4e6"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/INTERFACE.md": {
+      "bytes": 1606,
+      "sha256": "fd7b385bb62dad16f1bd04090725545b904242dad3e94995956138fc84d8270f"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/REPORT.md": {
+      "bytes": 3148,
+      "sha256": "ab6156cdb4a68acda8461049a760f0d006f7debff4cd9ca687c9f822537fbbb5"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/component.rs": {
+      "bytes": 1196,
+      "sha256": "9c5b1d0036006d7b4ae4b0249b89857cd8cbbdd6971ef1aa49ab62d80027b788"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/freeze001.json": {
+      "bytes": 3140,
+      "sha256": "703f9eb42e03d01ec908a444686e2f8625b04f3901f2cccaf4d8e4dba56b00f8"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/freeze002.json": {
+      "bytes": 3293,
+      "sha256": "7d11f55d17fcb6836d096c27e0f683f031d49e5b43f5f8f8e9fa3bb383a0a3b9"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/freeze003.json": {
+      "bytes": 3339,
+      "sha256": "286584b1b91ba1854b506028ab0c9f5a2365ae37ad74466930957fb23d00bbbc"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/replay.py": {
+      "bytes": 10097,
+      "sha256": "929d82d276753af5619233596c5e473de881cecf42b65609796d1a3765d23c6f"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_permission_grants/results.json": {
+      "bytes": 4624,
+      "sha256": "8253f6bf75feb4588d424fcbaaee3bc8f57b40dbe9be51bd9c30c6f1cdf8a755"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/native_miri_policy_pin/pins.json": {
+      "bytes": 4507,
+      "sha256": "6d26b722a7f9f656d36942ae836326e8e656ff2613ad381fc41c4ba52e174e2c"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/COMMANDS.json": {
+      "bytes": 72191,
+      "sha256": "7b69b3f8c856d0d3f1ad0e5af82f1f38cba839fa3e2e332b936b0c368db8c245"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/INVENTORY.json": {
+      "bytes": 11112,
+      "sha256": "ab9c04f26f9658893afb7529c8c9a7cbcef536a6bff8f71168360aaca6444898"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/OBJECTS.json": {
+      "bytes": 94779,
+      "sha256": "ddf17009ca60eb8583c3db9985c910dec3e8fdbd888085d25a47353f1c1437f0"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/README.md": {
+      "bytes": 1878,
+      "sha256": "ad24b79c93f468374448db755f71c48f3452530701a3dded54f560e084b04857"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/REPORT.md": {
+      "bytes": 12464,
+      "sha256": "8dd2d197cc4599ca2acdb8d7f97ce598a34b8069ce31a22e73f473c27b3cab82"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/SCOPE.md": {
+      "bytes": 2023,
+      "sha256": "cf8ebf950db137b0e8242435e4884d2118a507e76b4d8f28e07f9c652ed68696"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/candidate.v": {
+      "bytes": 7938,
+      "sha256": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/candidate001-freeze.json": {
+      "bytes": 1797,
+      "sha256": "10a87df312f4226d7208fb7732a5c787ae614ae86ac9bdf72fc4038cbdac3fda"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/candidate002-freeze.json": {
+      "bytes": 1938,
+      "sha256": "4effd4bc558b9ee823dfdf74c2ec64cc01d440758c271fcc18405923d397aeb1"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/candidate003-freeze.json": {
+      "bytes": 1921,
+      "sha256": "be5a76c004b710f4e5a9b64032f538b866082b807ab8133daa813d54c1c7dc07"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/candidate004-freeze.json": {
+      "bytes": 1993,
+      "sha256": "be63bd35e4ded53c6642a3537b0c350719b9e0ac4b572b582b10cc7524af0dd0"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/candidate004-status.json": {
+      "bytes": 776,
+      "sha256": "5f254f3ab039dcd52cc9128216e317cf5cb46a1f3715fbd5dc663addaa44aec7"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/check.py": {
+      "bytes": 10669,
+      "sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/composition.v": {
+      "bytes": 9710,
+      "sha256": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/status.json": {
+      "bytes": 3974,
+      "sha256": "f357d28d183a972cbcd9f5ed95695a77a4a0b8998cffd629f0e761650be87d04"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/stbor_entry_handoff/summarize.py": {
+      "bytes": 7056,
+      "sha256": "fcf5fc56ea9d1e27a7a49e350d6f695597bf576c784d158f5c1c8c116b4a4b83"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/AUTHENTICATION.json": {
+      "bytes": 6513,
+      "sha256": "cf90bdb72eb74f6b446f6bd20a0865fd1c9eacd80a3c0e4b3e8f7ba62988c741"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/COMMANDS.json": {
+      "bytes": 46933,
+      "sha256": "650376b7a2f9f97108234af9c5d74cd10cab3ae0a05c54f4a4ef76322d86f50f"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/Entry.v": {
+      "bytes": 9812,
+      "sha256": "92d5b6c7949d038d5c75f299ff5969dd46f11160f5bb91fca9f1602e1bc69dcf"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/INVENTORY.json": {
+      "bytes": 56126,
+      "sha256": "3e092159c91263a8f49358007252abb7200fedd2d2607cbc0203ff67227261d9"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/MILESTONE.json": {
+      "bytes": 5282,
+      "sha256": "e2825c81745c1fdc95b4b99ced0c0cd2db5a5b9e2a94f7dd5817455bfbfa5e79"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/OBJECTS.json": {
+      "bytes": 65478,
+      "sha256": "2717ccd6333174af211b6f2117d89255cb6c9abc562373a1680c3152837e3db7"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/PLAN.md": {
+      "bytes": 2110,
+      "sha256": "b12a161ab9d88c23db9cc5ef8e0b754e39662b9a064931c9981ad2096433b80c"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/REPORT.md": {
+      "bytes": 7690,
+      "sha256": "64567843b9579e9f4d2e6562e8d7a4bb6608604f9dee28fe98eb51b868bd9d3a"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/SOURCES.json": {
+      "bytes": 2097,
+      "sha256": "69b6d85e7dbf0c1c71521f13622cec8f9cc0b79c45dbebd23fb20a1ace01d3df"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/SOURCE_AUDIT.json": {
+      "bytes": 831,
+      "sha256": "c36d3e47fb5aaf140ee95c8da6c4d74c16ea8d3e53d9077a2735239e364f313c"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/TRIALS.json": {
+      "bytes": 10716,
+      "sha256": "2aec716e49d728daf305a12c35ca9987e28fc4c98fd73d82ea2b1ab23324d7ec"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/check.py": {
+      "bytes": 7889,
+      "sha256": "b9e13b554de493bf77c4b6efdb06f413718a45aa13c788f9304f33051e3c9431"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/finalize.py": {
+      "bytes": 6980,
+      "sha256": "9c81c0a279c9ee841abe04cbac5892d8823ff1190f758992426c2ffe948cab55"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/inventory.py": {
+      "bytes": 4304,
+      "sha256": "2ec9d231fea484436933f6ad7995b5270dd3014fc9e33ea190f04d051f2bc80e"
+    },
+    "/home/dev/.t3/worktrees/verus/t3-0d586d34/source/tools/research/tree_borrows_entry_handoff/results.json": {
+      "bytes": 3688,
+      "sha256": "c4393b695ff8cb12320c88c0716e32b789d989c2ad7e72f75d3103f738c06d49"
+    },
+    "/tmp/native-miri-permission-grants-parent001/receipt.json": {
+      "bytes": 6456,
+      "sha256": "a9c698f5a1159e8649588603b52cde41cbd89340221aa2d12f5556a1073177a0"
+    },
+    "/tmp/native-miri-permission-grants-parent002/receipt.json": {
+      "bytes": 6443,
+      "sha256": "a70e285175ae4b313ac0ace42d3a72871f4a8023d63e6b76a0585072aa7944e3"
+    },
+    "/tmp/native-miri-permission-grants-parent003/receipt.json": {
+      "bytes": 14682,
+      "sha256": "31c75c1118c787cef6420e65d96fdbc5ad8fc39bc1a0f146a1b8b8330d354ce3"
+    },
+    "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/mod.rs": {
+      "bytes": 19743,
+      "sha256": "8dec93f2a161caff23bbae3d52ee95eaf690d5d921d46847caf80ceb5d29a896"
+    },
+    "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/item.rs": {
+      "bytes": 3381,
+      "sha256": "a6c597296ed545bd76c8367c21ba807847290b196ead1aec38123efdc243c289"
+    },
+    "/tmp/native-miri-policy-pin-20261110/sources/src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs": {
+      "bytes": 42904,
+      "sha256": "079a54f8d8bd0845afd5a81c61f2c6c9f1fb4bc401de1c69336ddf9626e16cd6"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/.candidate.aux": {
+      "bytes": 1883,
+      "sha256": "c6be41f8a76bea97bb7ad15c9d68913accaeca1d15bc1effdac3c0f00ea12c9e"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/.composition.aux": {
+      "bytes": 1650,
+      "sha256": "82f7d3a4509d53366b664d6a40f76c9ca8010daf02efbeccf7bc2fde10a13706"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/.lia.cache": {
+      "bytes": 196,
+      "sha256": "39ff471c237aa4e6ee3818cb80e6d98d664acd016d45b5bda8cebc4995c75085"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/acceptance.json": {
+      "bytes": 9161,
+      "sha256": "e178df9b7adb2714ed6ae177271db895da11e972ab2488d7088d8a1445b666e0"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate.glob": {
+      "bytes": 36090,
+      "sha256": "61356ee9093720a1466cbc894829ab21c0ef9321e1fd9c7c9100b30bf6102e34"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate.v": {
+      "bytes": 7938,
+      "sha256": "6785f4b8fda1264468a757714a39d9aec049953b8589db1170d107b7a97cc085"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate.vo": {
+      "bytes": 133391,
+      "sha256": "a36d4ee9ed2da396a44aba069a70bff0582deabe0428cd407771c23abc872ff8"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate001-freeze.json": {
+      "bytes": 1797,
+      "sha256": "10a87df312f4226d7208fb7732a5c787ae614ae86ac9bdf72fc4038cbdac3fda"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate002-freeze.json": {
+      "bytes": 1938,
+      "sha256": "4effd4bc558b9ee823dfdf74c2ec64cc01d440758c271fcc18405923d397aeb1"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate003-freeze.json": {
+      "bytes": 1921,
+      "sha256": "be5a76c004b710f4e5a9b64032f538b866082b807ab8133daa813d54c1c7dc07"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/candidate004-freeze.json": {
+      "bytes": 1993,
+      "sha256": "be63bd35e4ded53c6642a3537b0c350719b9e0ac4b572b582b10cc7524af0dd0"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/compile-candidate.json": {
+      "bytes": 1520,
+      "sha256": "21f3e576dd3efea9eab5ab0ae193a3ff72299c02479e3665e0e63975afcc93ef"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/compile-candidate.log": {
+      "bytes": 295,
+      "sha256": "d7b55108e1a62eb5c9888b2e8cf53795ea2d6f63195f112a3d3c7575d121a353"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/compile-composition.json": {
+      "bytes": 1523,
+      "sha256": "13a704f604eddb2958e25bd36b1fc2788b142d935915aebd3b9d38d6d81aabd2"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/compile-composition.log": {
+      "bytes": 295,
+      "sha256": "d7b55108e1a62eb5c9888b2e8cf53795ea2d6f63195f112a3d3c7575d121a353"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/composition.glob": {
+      "bytes": 42684,
+      "sha256": "9ec7f3313a3f00a4a009d32bbfdbd62ad52e072b6c0f57d5095178dc69cd418d"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/composition.v": {
+      "bytes": 9710,
+      "sha256": "21d7e30985a96b3a6721a8c42a112dd078e8e53c3a18ec70c51fa9ddc5cef653"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/composition.vo": {
+      "bytes": 146630,
+      "sha256": "55fab0cdc9286f39fe0e95751aa4727049c3f44a667754cabc0402163ef98f8b"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/controller-exit.json": {
+      "bytes": 76,
+      "sha256": "ff1b76b862ff5f6a716a315bacdbfb6abb209f9ad03a5095fe1ecdda09b0eb21"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/controller.py": {
+      "bytes": 10669,
+      "sha256": "f42b4fc5e74ef6c72733e75ce768ff2440d8d1ff489e12be92b1ead45a8b455e"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declaration-inventory.json": {
+      "bytes": 76246,
+      "sha256": "0fcf22e00b412d2336a63f1de0ac82341bb364d471e867b8b6f07415f5222b88"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/0-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/0-type.out": {
+      "bytes": 564,
+      "sha256": "9b3842d318cdb2843f4a10de49c710a138d1d442e6dd4b9230e730c4909327d6"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/1-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/1-type.out": {
+      "bytes": 2404,
+      "sha256": "c88ecebadb747cf20402c3f6ed79cdad2f3043aeea0ab678eae403fcfcbd8ea2"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/10-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/10-type.out": {
+      "bytes": 506,
+      "sha256": "1cac6f1595adafa1ee801d4ddcc946cfe9d5b73af9d1b384a2af85b74a378f60"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/11-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/11-type.out": {
+      "bytes": 1338,
+      "sha256": "f7524b403e80b1bf9f777a783eae4f8eb1372321f0c6a551caa4af7bf98d83ba"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/12-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/12-type.out": {
+      "bytes": 18693,
+      "sha256": "b85742b03cb6495bd3f0a8068cb3c5e9bd4b49eb74d4afc0a6b9a6bf687ae8b4"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/13-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/13-type.out": {
+      "bytes": 1034,
+      "sha256": "7bb7e48989e127c73b4cd1d4a5d9f501f1c14d9f5010a04c66aa92c86cb33f21"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/14-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/14-type.out": {
+      "bytes": 235,
+      "sha256": "40bdcc0771ab68020e6cc4d6ef0991c3649ebeb53068b9c3ec5a45eb9e34c79f"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/15-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/15-type.out": {
+      "bytes": 2241,
+      "sha256": "ffd410a0bb98e84f8d303231d98394b37462ec7237c68f672b47f44bd652401a"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/16-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/16-type.out": {
+      "bytes": 1623,
+      "sha256": "65028d2a94ab9fe0c015d2c87081e252f9d7477972b25139814afbb6fa9937db"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/17-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/17-type.out": {
+      "bytes": 141,
+      "sha256": "5c89bee295136754538d2dd75f9bbc872f9907a21e160f75c44d47e0c5cb6947"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/18-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/18-type.out": {
+      "bytes": 262,
+      "sha256": "e8a92793138c2ed6a1f7eb80c1ad82cc24d6a4193927074fe71d99ede0b10f10"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/19-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/19-type.out": {
+      "bytes": 815,
+      "sha256": "a4daf1c731863fabf7fdf4edae75d53f47cd27f821dddb42116d78af8a05b45d"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/2-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/2-type.out": {
+      "bytes": 2897,
+      "sha256": "1f77245e1a98c8add48f8bc0f055c97e4e084fa3cd140a7b5838579cfd0879a9"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/20-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/20-type.out": {
+      "bytes": 883,
+      "sha256": "fbb5c01bff2474d787eb5b55455a5f9b402dfc01802a199d411bc47bb073739e"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/21-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/21-type.out": {
+      "bytes": 18180,
+      "sha256": "f5ec5f1bcd0b6a61e400ae61e84da74612a20781abef6150abc03d87e35dcd02"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/22-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/22-type.out": {
+      "bytes": 1154,
+      "sha256": "80759057f5ea4324234133b7b9fbe7ee44466398ea9f38b1576e872da844fbe8"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/23-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/23-type.out": {
+      "bytes": 2536,
+      "sha256": "8e40fce15200ea881332b99e3f66ecd97e7fcf3c486daa704e5362fe34158dd0"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/24-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/24-type.out": {
+      "bytes": 815,
+      "sha256": "1ce277f092f7e6e679a5dcda4eea5ab4cb9c96e53aeefe389ebda67ee53784fd"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/3-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/3-type.out": {
+      "bytes": 593,
+      "sha256": "bfccc3ff54b5a47eef3e1e28b9c9d0ccef485cfda398d874e7267fe87f938006"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/4-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/4-type.out": {
+      "bytes": 1436,
+      "sha256": "58080e2b3ed933f3533fa1988123a7218fc4907a81551db9cd21cb2e1a4a66a0"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/5-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/5-type.out": {
+      "bytes": 118,
+      "sha256": "c4ea05a6c8491abaf679a88ab91141659b3c1c4389820c5fa93ce0ea82e16140"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/6-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/6-type.out": {
+      "bytes": 839,
+      "sha256": "3794ba4998f67723ec4d0eb05daf8574313dffa6c0ea47914f9ef3d7d4a61f18"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/7-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/7-type.out": {
+      "bytes": 2655,
+      "sha256": "25c381106d976e890c388d29b850aea6499f6aea698be3f772a1d902a9f17b9c"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/8-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/8-type.out": {
+      "bytes": 1923,
+      "sha256": "9eae32e46f227cf8b7606cee23495898c50a33ed430c091b06d17ef624090aeb"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/9-assumptions.out": {
+      "bytes": 32,
+      "sha256": "188ff29b8a0705f491438ebf47623e533fe60658944f3f1f58e1f9b5badb1bcf"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/declarations/9-type.out": {
+      "bytes": 320,
+      "sha256": "9a1f4cfb21879f16ba8d84624a3bf39dfdf5b7f060808dd54ce53174954015ec"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/foundation-guard.json": {
+      "bytes": 294485,
+      "sha256": "eb12b5228c3b919357cd5b270aca407913e1d27b6742dfb151eed2fbff5eef38"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/inventory.json": {
+      "bytes": 1551,
+      "sha256": "19dde465112cced75622674f7c25a231c69283795cb395f967bda9eacee00a0b"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/inventory.log": {
+      "bytes": 8227,
+      "sha256": "78e6661fc2c03190b906231bf50ff14c99b611d4d550a5c18e7daf0ff636565c"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/inventory.v": {
+      "bytes": 7494,
+      "sha256": "98eff05100214e2f2a4a78274a8ebd26437bcf46f821b29956d9adbe8b3da68c"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/kernel.json": {
+      "bytes": 1501,
+      "sha256": "a2c90284dd706e4c3e6a8473735ed3f7597dabf56871e0f2f499a63cff1eb5e6"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/kernel.log": {
+      "bytes": 2727652,
+      "sha256": "7664df6d63a95798ee8a6727a3f19f216f79013f9fbf618374591c94cb567ca6"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/loaded-objects.json": {
+      "bytes": 79952,
+      "sha256": "2cc9f684b81b7d0481e18ee18eee1ac135dca4401858d2046292adc8a0ab6319"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/object-dependency-map.json": {
+      "bytes": 2221725,
+      "sha256": "97250297523882599f311194615026cc31bec6f00468f0204f1c4709a2d7ca97"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/object-summary.json": {
+      "bytes": 1327,
+      "sha256": "3ea55102da66c39ce95c5175d49889f5b0bc152d18ddb381ac2c6607daeb899a"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/object-summary.log": {
+      "bytes": 32117,
+      "sha256": "c1a1ea9a695d37544870b7ba46eccacfa986357b5f0b9ae00ab67600672ada29"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/pretrial-freeze.json": {
+      "bytes": 406,
+      "sha256": "e307b71393047a429ceca1ec35900f8d86f35cc2f898d69f1711a4f7a250d684"
+    },
+    "/tmp/parent-stbor-entry-handoff-eb7778b5/accepted025/products.json": {
+      "bytes": 2839,
+      "sha256": "42c2d0ed744fd929bad5c4cf05b10b493aec6d2159f5f0f6e2e08970dee135dc"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-entry-replay-eb7778b5/guard-bytecode-audit.json": {
+      "bytes": 613,
+      "sha256": "61b271915b8c980fcf203e7f8fbafad7348caad8140d92d0f8f6440649ab8e27"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin.rlib": {
+      "bytes": 957086,
+      "sha256": "37ea321a744186f0cb5464295c9ff56dc470341d028246a189053a8b49ad47be"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_builtin_macros.so": {
+      "bytes": 15430608,
+      "sha256": "56f614d61874170ddd5b043f93d53d2eb14ea4e7d59fe3d21b0c43388fdfaff4"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libverus_state_machines_macros.so": {
+      "bytes": 9725248,
+      "sha256": "2d90bd7974349dc201a305590e3f99c55b975866ef936372855e25d04e666bb6"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/libvstd.rlib": {
+      "bytes": 10289426,
+      "sha256": "b80f671bec239239dbf5c01dd9eac99141b92ee78c007c7642cd1c13c728f3a2"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/rust_verify": {
+      "bytes": 36140968,
+      "sha256": "c06517e336994e6f1cea0a30815d90407d7699d6fe64a1c2f6c668562a77ba94"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/verus": {
+      "bytes": 4682296,
+      "sha256": "b3f6702a69fe67fd3c6792440d1b9e5d1dd6c74bc4417061e8b552b0b9c36147"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/vstd.vir": {
+      "bytes": 32918636,
+      "sha256": "008baf00ba274705253e5f9b79e4b25dd6d9a8e13738a0e974641ce18a69dba9"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-stable-key-bundle-a93b774a/z3": {
+      "bytes": 34954456,
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/stable-key-validation-a93b774a/canonical/canonical-zgtzh85h/receipt.json": {
+      "bytes": 1870209,
+      "sha256": "2dda5d93603528fe2623f4e37bc7cbaa48a537e3184c653a1abe1a4028f4ed3a"
+    },
+    "/tmp/verus-infer-buffer-cycle-20261109/stbor-controller-gate-transformation.json": {
+      "bytes": 863,
+      "sha256": "da0fd581d135124b985c583024b1a453cc55ac499684d4e9898bcf87ad90ef6f"
+    }
+  },
+  "goal_complete": false,
+  "native_correspondences": 0,
+  "publication": false,
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+}
