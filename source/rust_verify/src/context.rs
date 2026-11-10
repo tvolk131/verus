@@ -63,6 +63,7 @@ pub struct ContextX<'tcx> {
     pub(crate) crate_name: CrateId,
     pub(crate) name_def_id_map: Rc<RefCell<HashMap<Path, DefId>>>,
     pub(crate) next_read_kind_id: AtomicU64,
+    pub(crate) constructor_functions: RefCell<std::collections::HashSet<DefId>>,
 }
 
 /// The context in which a given header node might be interpretted
@@ -135,6 +136,7 @@ impl<'tcx> ContextX<'tcx> {
             crate_name,
             name_def_id_map: Rc::new(RefCell::new(HashMap::new())),
             next_read_kind_id: AtomicU64::new(0),
+            constructor_functions: RefCell::new(std::collections::HashSet::new()),
         }
     }
 

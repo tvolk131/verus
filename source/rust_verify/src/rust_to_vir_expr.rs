@@ -3005,10 +3005,15 @@ pub(crate) fn expr_to_vir_innermost<'tcx>(
                 },
                 (_, Some((ctor, ctor_kind))) => {
                     if ctor_kind != CtorKind::Const {
-                        unsupported_err!(
-                            expr.span,
-                            "using a datatype constructor as a function value"
-                        );
+                        let id = ctor.variant_def.ctor_def_id().ok_or_else(|| {
+                            vir::messages::error(&crate::spans::err_air_span(expr.span), "expected tuple constructor")
+                        })?;
+                        if !bctx.ctxt.constructor_functions.borrow().contains(&id) {
+                            return err_span(expr.span,
+                                "constructor function values require a local transparent exec datatype with exec fields and no type invariant");
+                        }
+                        let fun = Arc::new(FunX { path: bctx.ctxt.def_id_to_vir_path(id) });
+                        return mk_expr(ExprX::ExecFnByName(fun));
                     }
                     Ok(ExprOrPlace::Expr(expr_tuple_datatype_ctor_to_vir(
                         bctx,

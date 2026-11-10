@@ -1608,6 +1608,8 @@ pub(crate) enum FunctionOrConstInfo<'tcx> {
     Function(FunctionInfo<'tcx>),
     ForeignFunction(ForeignFunctionInfo),
     Const(ConstInfo),
+    /// Checked lowering of a Rust tuple-constructor function item.
+    Constructor { stub: vir::ast::FunctionStub, full: vir::ast::Function },
 }
 
 impl<'tcx> FunctionOrConstInfo<'tcx> {
@@ -1616,6 +1618,7 @@ impl<'tcx> FunctionOrConstInfo<'tcx> {
             FunctionOrConstInfo::Function(f) => (&f.function, f.function_for_autospec.as_ref()),
             FunctionOrConstInfo::Const(f) => (&f.function, f.function_for_autospec.as_ref()),
             FunctionOrConstInfo::ForeignFunction(f) => (&f.function_stub, None),
+            FunctionOrConstInfo::Constructor { stub, .. } => (stub, None),
         };
         std::iter::once(f).chain(opt_f.into_iter())
     }
@@ -2336,6 +2339,10 @@ pub(crate) fn finish_item<'tcx>(
     functions: &mut Vec<vir::ast::Function>,
 ) -> Result<(), VirErr> {
     match info {
+        FunctionOrConstInfo::Constructor { full, .. } => {
+            functions.push(full.clone());
+            Ok(())
+        }
         FunctionOrConstInfo::Function(function_info) => {
             finish_function(ctxt, function_info, functions)
         }

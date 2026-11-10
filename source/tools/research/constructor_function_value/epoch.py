@@ -6,12 +6,12 @@ def digest(p):
     return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def freeze(extra=()):
     paths = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
-    paths = [ROOT / p for p in paths if p and (ROOT / p).is_file()]
+    paths = [ROOT / p for p in paths if p and (ROOT / p).is_file() and (p.startswith(('source/', 'dependencies/')) and pathlib.Path(p).suffix in ('.rs', '.toml', '.lock', '.py', '.json') or p in ('rust-toolchain.toml', 'Cargo.lock'))]
     paths += list((ROOT / 'source/tools/research/constructor_function_value').glob('*.py'))
     paths += list((ROOT / 'source/tools/research/constructor_function_value').glob('*.rs'))
     paths += [pathlib.Path(p).resolve() for p in extra]
     return {str(p): digest(p) for p in sorted(set(paths))}
-def run(label, argv, extra=(), env=None, cwd=None):
+def run(label, argv, extra=(), env=None, cwd=None, products=()):
     directory = PRIVATE / label
     directory.mkdir(parents=True, exist_ok=False)
     before = freeze(extra)
@@ -22,7 +22,8 @@ def run(label, argv, extra=(), env=None, cwd=None):
         result=subprocess.run(argv,cwd=cwd or ROOT,env={**os.environ,**(env or {})},stdout=out,stderr=err)
     after=freeze(extra)
     record.update(exit=result.returncode,seconds=time.monotonic()-t,final_guards=before==after,
-                  stdout_sha256=digest(directory/'stdout'),stderr_sha256=digest(directory/'stderr'))
+                  stdout_sha256=digest(directory/'stdout'),stderr_sha256=digest(directory/'stderr'),
+                  products={str(p):digest(p) for p in products if pathlib.Path(p).is_file()})
     (directory/'receipt.json').write_text(json.dumps(record,indent=2)+'\n')
     print(json.dumps({k:v for k,v in record.items() if k!='frozen'}))
     if before!=after: raise RuntimeError('identity changed within epoch')
