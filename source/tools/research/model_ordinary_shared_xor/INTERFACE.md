@@ -21,8 +21,9 @@ pad/key lengths including 128-byte pads and empty/>128 keys, with no first-cell
 access in the zero-count case. Persistent Cap is a separate base-case input.
 
 For parent integration, a checked adapter may close the SC session from
-ModelPairReader using its R/G closure, then open a fresh Na session with one
-extra preparation credit at d=1,g=0. Preserve pad/Lpad, exact outside frame and
+ModelPairReader using its R/G closure, then open a fresh Na session at d=1,g=0.
+If reusing its already prepared Cap avoids preparation, prove that fact; a raw
+view still needs the advertised preparation budget. Preserve pad/Lpad, outside frame and
 same Outer. Return genuine new session tokens; the closed SC reader must not
 retain a usable old token. Extra proof credits are internally allocated by
 public model adequacy, never appended to Rust application premises.
