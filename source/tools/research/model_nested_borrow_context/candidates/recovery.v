@@ -1,4 +1,5 @@
 From ModelNestedBorrowContext Require Export instances.
+From ModelInputContext Require Import instances.
 From lrust.typing Require Import soundness inv_context programs_util.
 From lrust.lifetime Require Import lifetime_full.
 From guarding Require Import guard tactics.
