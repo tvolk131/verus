@@ -1,0 +1,618 @@
+AUDIT-BEGIN borrow_handoff.source_loan_access
+source_loan_access
+     : forall (ty : type.type ?𝔄) (κ : lifetime_full.lft) 
+         (l : heap.cloc) (x : syn_type.indep_interp_of_syn_type ?𝔄)
+         (ξi : BinNums.positive) (di gi : nat) (idx : lifetime_full.Idx)
+         (d g : nat) (tid : type.thread_id) (p : lang.loc)
+         (E : coPset.coPset)
+         (G : interface.bi_car (bi.uPredI (iprop.iProp_solution.iResUR ?Σ))),
+       derived_connectives.Timeless G ->
+       base.subseteq (base.up_close lifetime_full.Nllft) E ->
+       interface.bi_emp_valid
+         (interface.bi_wand lifetime_full.llft_ctx
+            (interface.bi_wand uniq_cmra.uniq_ctx
+               (interface.bi_wand
+                  (guard.guards 0 (base.up_close lifetime_full.NllftG) G
+                     (lifetime_full.llft_alive κ))
+                  (interface.bi_wand
+                     (type.ty_own (uniq_bor.uniq_bor κ ty)
+                        (l, x, ξi, di, gi, idx) d g tid
+                        (heap.FVal (lang.LitV (lang.LitLoc p)) :: nil))
+                     (interface.bi_wand G
+                        (updates.fupd E E
+                           (interface.bi_sep (interface.bi_pure (p = fst l))
+                              (interface.bi_sep
+                                 (interface.bi_later
+                                    (interface.bi_sep
+                                       (time.persistent_time_receipt
+                                          (PeanoNat.Nat.max (S di) gi))
+                                       (interface.bi_sep
+                                          (type.ty_gho ty x di gi tid)
+                                          (heap.heap_complete_mapsto_fancy_vec
+                                             l (type.ty_phys ty x tid)))))
+                                 (interface.bi_sep
+                                    (time.cumulative_time_receipt 1)
+                                    (interface.bi_wand
+                                       (interface.bi_later
+                                          (interface.bi_sep
+                                             (time.persistent_time_receipt
+                                                (PeanoNat.Nat.max (S di) gi))
+                                             (interface.bi_sep
+                                                (type.ty_gho ty x di gi tid)
+                                                (heap.heap_complete_mapsto_fancy_vec
+                                                 l (type.ty_phys ty x tid)))))
+                                       (interface.bi_wand
+                                          (time.cumulative_time_receipt 1)
+                                          (updates.fupd
+                                             (base.up_close
+                                                lifetime_full.Nllft)
+                                             (base.up_close
+                                                lifetime_full.Nllft)
+                                             (interface.bi_sep
+                                                (type.ty_own
+                                                 (uniq_bor.uniq_bor κ ty)
+                                                 (l, x, ξi, di, gi, idx) d g
+                                                 tid
+                                                 (heap.FVal
+                                                 (lang.LitV (lang.LitLoc p))
+                                                 :: nil)) G)))))))))))))
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+?𝔄 : [ |- syn_type.syn_type]
+Closed under the global context
+AUDIT-END borrow_handoff.source_loan_access
+AUDIT-BEGIN borrow_handoff.source_loan_release
+source_loan_release
+     : forall (E : list lft_contexts.elctx_elt)
+         (L : list lft_contexts.llctx_elt) (κ : lifetime_full.lft)
+         (ty : type.type ?𝔄),
+       lft_contexts.lctx_lft_alive E L κ ->
+       type.resolve E L (uniq_bor.uniq_bor κ ty)
+         (fun (m : syn_type.indep_interp_of_syn_type (syn_type.uniq_borₛ ?𝔄))
+            (π : syn_type.proph_asn) =>
+          uniq_bor.uniq_bor_future m π =
+          syn_type.vπ (uniq_bor.uniq_bor_current m) π)
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+?𝔄 : [ |- syn_type.syn_type]
+Closed under the global context
+AUDIT-END borrow_handoff.source_loan_release
+AUDIT-BEGIN borrow_handoff.source_context_access
+source_context_access
+     : forall (ty : type.type ?𝔄) (κ : lifetime_full.lft)
+         (E : list lft_contexts.elctx_elt) (L : list lft_contexts.llctx_elt)
+         (l : heap.cloc) (x : syn_type.indep_interp_of_syn_type ?𝔄)
+         (ξi : BinNums.positive) (di gi : nat) (idx : lifetime_full.Idx)
+         (d g : nat) (tid : type.thread_id) (p : lang.loc),
+       lft_contexts.lctx_lft_alive E L κ ->
+       interface.bi_emp_valid
+         (interface.bi_wand lifetime_full.llft_ctx
+            (interface.bi_wand uniq_cmra.uniq_ctx
+               (interface.bi_wand
+                  (big_op.big_opL interface.bi_sep
+                     (fun _ : nat => lft_contexts.elctx_elt_interp) E)
+                  (interface.bi_wand (lft_contexts.llctx_interp L)
+                     (interface.bi_wand
+                        (type.ty_own (uniq_bor.uniq_bor κ ty)
+                           (l, x, ξi, di, gi, idx) d g tid
+                           (heap.FVal (lang.LitV (lang.LitLoc p)) :: nil))
+                        (updates.fupd base.top base.top
+                           (interface.bi_sep (interface.bi_pure (p = fst l))
+                              (interface.bi_sep
+                                 (interface.bi_later
+                                    (interface.bi_sep
+                                       (time.persistent_time_receipt
+                                          (PeanoNat.Nat.max (S di) gi))
+                                       (interface.bi_sep
+                                          (type.ty_gho ty x di gi tid)
+                                          (heap.heap_complete_mapsto_fancy_vec
+                                             l (type.ty_phys ty x tid)))))
+                                 (interface.bi_sep
+                                    (time.cumulative_time_receipt 1)
+                                    (interface.bi_wand
+                                       (interface.bi_later
+                                          (interface.bi_sep
+                                             (time.persistent_time_receipt
+                                                (PeanoNat.Nat.max (S di) gi))
+                                             (interface.bi_sep
+                                                (type.ty_gho ty x di gi tid)
+                                                (heap.heap_complete_mapsto_fancy_vec
+                                                 l (type.ty_phys ty x tid)))))
+                                       (interface.bi_wand
+                                          (time.cumulative_time_receipt 1)
+                                          (updates.fupd base.top base.top
+                                             (interface.bi_sep
+                                                (type.ty_own
+                                                 (uniq_bor.uniq_bor κ ty)
+                                                 (l, x, ξi, di, gi, idx) d g
+                                                 tid
+                                                 (heap.FVal
+                                                 (lang.LitV (lang.LitLoc p))
+                                                 :: nil))
+                                                (lft_contexts.llctx_interp L))))))))))))))
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+?𝔄 : [ |- syn_type.syn_type]
+Closed under the global context
+AUDIT-END borrow_handoff.source_context_access
+AUDIT-BEGIN byte_array.byte_list_length
+byte_list_length
+     : forall (n : nat)
+         (x : syn_type.indep_interp_of_syn_type (bytes_sort n)),
+       length (byte_list n x) = n
+Closed under the global context
+AUDIT-END byte_array.byte_list_length
+AUDIT-BEGIN byte_array.bytes_size
+bytes_size
+     : forall n : nat, type.ty_size (bytes_ty n) = n
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.bytes_size
+AUDIT-BEGIN byte_array.bytes_physical
+bytes_physical
+     : forall (n : nat)
+         (x : syn_type.indep_interp_of_syn_type (bytes_sort n))
+         (tid : type.thread_id),
+       type.ty_phys (bytes_ty n) x tid =
+       List.map (fun z : BinNums.Z => heap.FVal (lang.LitV (lang.LitInt z)))
+         (byte_list n x)
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.bytes_physical
+AUDIT-BEGIN byte_array.bytes_initialized
+bytes_initialized
+     : forall (n : nat)
+         (x : syn_type.indep_interp_of_syn_type (bytes_sort n)) 
+         (d g : nat) (tid : type.thread_id),
+       base.equiv (type.ty_gho (bytes_ty n) x d g tid)
+         (interface.bi_pure
+            (List.Forall
+               (fun z : BinNums.Z =>
+                BinInt.Z.le BinNums.Z0 z /\
+                BinInt.Z.lt z
+                  (BinNums.Zpos
+                     (BinNums.xO
+                        (BinNums.xO
+                           (BinNums.xO
+                              (BinNums.xO
+                                 (BinNums.xO
+                                    (BinNums.xO
+                                       (BinNums.xO (BinNums.xO BinNums.xH))))))))))
+               (byte_list n x)))
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.bytes_initialized
+AUDIT-BEGIN byte_array.byte_array128_size
+byte_array128_size
+     : type.ty_size byte_array128_ty = 128
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.byte_array128_size
+AUDIT-BEGIN byte_array.byte_array128_release
+byte_array128_release
+     : forall (E : list lft_contexts.elctx_elt)
+         (L : list lft_contexts.llctx_elt) (κ : lifetime_full.lft),
+       lft_contexts.lctx_lft_alive E L κ ->
+       type.resolve E L (uniq_bor.uniq_bor κ byte_array128_ty)
+         (fun
+            (m : syn_type.indep_interp_of_syn_type
+                   (syn_type.uniq_borₛ (bytes_sort 128)))
+            (π : syn_type.proph_asn) =>
+          uniq_bor.uniq_bor_future m π =
+          syn_type.vπ (uniq_bor.uniq_bor_current m) π)
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.byte_array128_release
+AUDIT-BEGIN byte_array.byte_array128_scoped_handoff
+byte_array128_scoped_handoff
+     : forall (κ : lifetime_full.lft) (l : heap.cloc)
+         (x : syn_type.indep_interp_of_syn_type (bytes_sort 128))
+         (ξi : BinNums.positive) (di gi : nat) (idx : lifetime_full.Idx)
+         (d g : nat) (tid : type.thread_id) (p : lang.loc)
+         (E : coPset.coPset)
+         (G : interface.bi_car (bi.uPredI (iprop.iProp_solution.iResUR ?Σ))),
+       derived_connectives.Timeless G ->
+       base.subseteq (base.up_close lifetime_full.Nllft) E ->
+       interface.bi_emp_valid
+         (interface.bi_wand lifetime_full.llft_ctx
+            (interface.bi_wand uniq_cmra.uniq_ctx
+               (interface.bi_wand
+                  (guard.guards 0 (base.up_close lifetime_full.NllftG) G
+                     (lifetime_full.llft_alive κ))
+                  (interface.bi_wand
+                     (type.ty_own (uniq_bor.uniq_bor κ byte_array128_ty)
+                        (l, x, ξi, di, gi, idx) d g tid
+                        (heap.FVal (lang.LitV (lang.LitLoc p)) :: nil))
+                     (interface.bi_wand G
+                        (updates.fupd E E
+                           (interface.bi_sep (interface.bi_pure (p = fst l))
+                              (interface.bi_sep
+                                 (interface.bi_later
+                                    (interface.bi_sep
+                                       (time.persistent_time_receipt
+                                          (PeanoNat.Nat.max (S di) gi))
+                                       (interface.bi_sep
+                                          (interface.bi_pure
+                                             (List.Forall
+                                                (fun z : BinNums.Z =>
+                                                 BinInt.Z.le BinNums.Z0 z /\
+                                                 BinInt.Z.lt z
+                                                 (BinNums.Zpos
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO (...))))))))
+                                                (byte_list 128 x)))
+                                          (heap.heap_complete_mapsto_fancy_vec
+                                             l
+                                             (List.map
+                                                (fun z : BinNums.Z =>
+                                                 heap.FVal
+                                                 (lang.LitV (lang.LitInt z)))
+                                                (byte_list 128 x))))))
+                                 (interface.bi_sep
+                                    (time.cumulative_time_receipt 1)
+                                    (interface.bi_wand
+                                       (interface.bi_later
+                                          (interface.bi_sep
+                                             (time.persistent_time_receipt
+                                                (PeanoNat.Nat.max (S di) gi))
+                                             (interface.bi_sep
+                                                (interface.bi_pure
+                                                 (List.Forall
+                                                 (fun z : BinNums.Z =>
+                                                 BinInt.Z.le BinNums.Z0 z /\
+                                                 BinInt.Z.lt z
+                                                 (BinNums.Zpos
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO (...))))))
+                                                 (byte_list 128 x)))
+                                                (heap.heap_complete_mapsto_fancy_vec
+                                                 l
+                                                 (List.map
+                                                 (fun z : BinNums.Z =>
+                                                 heap.FVal
+                                                 (lang.LitV (lang.LitInt z)))
+                                                 (byte_list 128 x))))))
+                                       (interface.bi_wand
+                                          (time.cumulative_time_receipt 1)
+                                          (updates.fupd
+                                             (base.up_close
+                                                lifetime_full.Nllft)
+                                             (base.up_close
+                                                lifetime_full.Nllft)
+                                             (interface.bi_sep
+                                                (type.ty_own
+                                                 (uniq_bor.uniq_bor κ
+                                                 byte_array128_ty)
+                                                 (l, x, ξi, di, gi, idx) d g
+                                                 tid
+                                                 (heap.FVal
+                                                 (lang.LitV (lang.LitLoc p))
+                                                 :: nil)) G)))))))))))))
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.byte_array128_scoped_handoff
+AUDIT-BEGIN byte_array.byte_array128_context_handoff
+byte_array128_context_handoff
+     : forall (κ : lifetime_full.lft) (E : list lft_contexts.elctx_elt)
+         (L : list lft_contexts.llctx_elt) (l : heap.cloc)
+         (x : syn_type.indep_interp_of_syn_type (bytes_sort 128))
+         (ξi : BinNums.positive) (di gi : nat) (idx : lifetime_full.Idx)
+         (d g : nat) (tid : type.thread_id) (p : lang.loc),
+       lft_contexts.lctx_lft_alive E L κ ->
+       interface.bi_emp_valid
+         (interface.bi_wand lifetime_full.llft_ctx
+            (interface.bi_wand uniq_cmra.uniq_ctx
+               (interface.bi_wand
+                  (big_op.big_opL interface.bi_sep
+                     (fun _ : nat => lft_contexts.elctx_elt_interp) E)
+                  (interface.bi_wand (lft_contexts.llctx_interp L)
+                     (interface.bi_wand
+                        (type.ty_own (uniq_bor.uniq_bor κ byte_array128_ty)
+                           (l, x, ξi, di, gi, idx) d g tid
+                           (heap.FVal (lang.LitV (lang.LitLoc p)) :: nil))
+                        (updates.fupd base.top base.top
+                           (interface.bi_sep (interface.bi_pure (p = fst l))
+                              (interface.bi_sep
+                                 (interface.bi_later
+                                    (interface.bi_sep
+                                       (time.persistent_time_receipt
+                                          (PeanoNat.Nat.max (S di) gi))
+                                       (interface.bi_sep
+                                          (interface.bi_pure
+                                             (List.Forall
+                                                (fun z : BinNums.Z =>
+                                                 BinInt.Z.le BinNums.Z0 z /\
+                                                 BinInt.Z.lt z
+                                                 (BinNums.Zpos
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO (BinNums.xO ...))))))))
+                                                (byte_list 128 x)))
+                                          (heap.heap_complete_mapsto_fancy_vec
+                                             l
+                                             (List.map
+                                                (fun z : BinNums.Z =>
+                                                 heap.FVal
+                                                 (lang.LitV (lang.LitInt z)))
+                                                (byte_list 128 x))))))
+                                 (interface.bi_sep
+                                    (time.cumulative_time_receipt 1)
+                                    (interface.bi_wand
+                                       (interface.bi_later
+                                          (interface.bi_sep
+                                             (time.persistent_time_receipt
+                                                (PeanoNat.Nat.max (S di) gi))
+                                             (interface.bi_sep
+                                                (interface.bi_pure
+                                                 (List.Forall
+                                                 (fun z : BinNums.Z =>
+                                                 BinInt.Z.le BinNums.Z0 z /\
+                                                 BinInt.Z.lt z
+                                                 (BinNums.Zpos
+                                                 (BinNums.xO
+                                                 (BinNums.xO
+                                                 (BinNums.xO (BinNums.xO ...))))))
+                                                 (byte_list 128 x)))
+                                                (heap.heap_complete_mapsto_fancy_vec
+                                                 l
+                                                 (List.map
+                                                 (fun z : BinNums.Z =>
+                                                 heap.FVal
+                                                 (lang.LitV (lang.LitInt z)))
+                                                 (byte_list 128 x))))))
+                                       (interface.bi_wand
+                                          (time.cumulative_time_receipt 1)
+                                          (updates.fupd base.top base.top
+                                             (interface.bi_sep
+                                                (type.ty_own
+                                                 (uniq_bor.uniq_bor κ
+                                                 byte_array128_ty)
+                                                 (l, x, ξi, di, gi, idx) d g
+                                                 tid
+                                                 (heap.FVal
+                                                 (lang.LitV (lang.LitLoc p))
+                                                 :: nil))
+                                                (lft_contexts.llctx_interp L))))))))))))))
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+AUDIT-END byte_array.byte_array128_context_handoff
+AUDIT-BEGIN raw_view.typed_source_raw_view
+typed_source_raw_view
+     : forall (E : list lft_contexts.elctx_elt)
+         (L : list lft_contexts.llctx_elt) (I : inv_context.invctx)
+         (p : type_context.path) (κ : lifetime_full.lft) 
+         (ty : type.type ?𝔄),
+       programs.typed_instr E L I
+         (fancy_lists.hcons type_context.tctx_elt
+            (type_context.TCtx_hasty (syn_type.uniq_borₛ ?𝔄) p
+               (uniq_bor.uniq_bor κ ty))
+            (fancy_lists.hnil type_context.tctx_elt)) p
+         (fun v : lang.val =>
+          fancy_lists.hcons type_context.tctx_elt
+            (type_context.TCtx_hasty (syn_type.uniq_borₛ ?𝔄) p
+               (uniq_bor.uniq_bor κ ty))
+            (fancy_lists.hcons type_context.tctx_elt
+               (type_context.TCtx_hasty syn_type.locₛ 
+                  (lang.of_val v) pptr.ptr_ty)
+               (fancy_lists.hnil type_context.tctx_elt)))
+         (fun
+            (post : fancy_lists.plist syn_type.indep_interp_of_syn_type
+                      (syn_type.uniq_borₛ ?𝔄 :: syn_type.locₛ :: nil) ->
+                    syn_type.Mask -> syn_type.proph_asn -> Prop)
+            '{|
+               fancy_lists.phd := m; fancy_lists.ptl := fancy_lists.nil_tt
+             |} =>
+          post
+            {|
+              fancy_lists.phd := m;
+              fancy_lists.ptl :=
+                {|
+                  fancy_lists.phd := fst (uniq_bor.uniq_bor_loc m);
+                  fancy_lists.ptl := fancy_lists.nil_tt
+                |}
+            |})
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+?𝔄 : [ |- syn_type.syn_type]
+Closed under the global context
+AUDIT-END raw_view.typed_source_raw_view
+AUDIT-BEGIN raw_view.typed_source_raw_offset
+typed_source_raw_offset
+     : forall (E : list lft_contexts.elctx_elt)
+         (L : list lft_contexts.llctx_elt) (I : inv_context.invctx)
+         (p : type_context.path) (κ : lifetime_full.lft) 
+         (ty : type.type ?𝔄) (n : BinNums.Z),
+       programs.typed_instr E L I
+         (fancy_lists.hcons type_context.tctx_elt
+            (type_context.TCtx_hasty (syn_type.uniq_borₛ ?𝔄) p
+               (uniq_bor.uniq_bor κ ty))
+            (fancy_lists.hnil type_context.tctx_elt))
+         (lang.BinOp lang.OffsetOp p (lang.Lit (lang.LitInt n)))
+         (fun v : lang.val =>
+          fancy_lists.hcons type_context.tctx_elt
+            (type_context.TCtx_hasty (syn_type.uniq_borₛ ?𝔄) p
+               (uniq_bor.uniq_bor κ ty))
+            (fancy_lists.hcons type_context.tctx_elt
+               (type_context.TCtx_hasty syn_type.locₛ 
+                  (lang.of_val v) pptr.ptr_ty)
+               (fancy_lists.hnil type_context.tctx_elt)))
+         (fun
+            (post : fancy_lists.plist syn_type.indep_interp_of_syn_type
+                      (syn_type.uniq_borₛ ?𝔄 :: syn_type.locₛ :: nil) ->
+                    syn_type.Mask -> syn_type.proph_asn -> Prop)
+            '{|
+               fancy_lists.phd := m; fancy_lists.ptl := fancy_lists.nil_tt
+             |} =>
+          post
+            {|
+              fancy_lists.phd := m;
+              fancy_lists.ptl :=
+                {|
+                  fancy_lists.phd :=
+                    lang.shift_loc (fst (uniq_bor.uniq_bor_loc m)) n;
+                  fancy_lists.ptl := fancy_lists.nil_tt
+                |}
+            |})
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+?𝔄 : [ |- syn_type.syn_type]
+Closed under the global context
+AUDIT-END raw_view.typed_source_raw_offset
+AUDIT-BEGIN raw_view.typed_source_loan_release
+typed_source_loan_release
+     : forall (E : list lft_contexts.elctx_elt)
+         (L : list lft_contexts.llctx_elt) (I : inv_context.invctx)
+         (p : type_context.path) (κ : lifetime_full.lft) 
+         (ty : type.type ?𝔄),
+       lft_contexts.lctx_lft_alive E L κ ->
+       programs.typed_instr E L I
+         (fancy_lists.hcons type_context.tctx_elt
+            (type_context.TCtx_hasty (syn_type.uniq_borₛ ?𝔄) p
+               (uniq_bor.uniq_bor κ ty))
+            (fancy_lists.hnil type_context.tctx_elt))
+         (lang.App
+            (lang.Rec binders.BAnon (binders.BAnon :: nil)
+               (lang.Lit lang.LitPoison))
+            (lang.Lit lang.LitPoison :: nil)%list)
+         (fun _ : lang.val => fancy_lists.hnil type_context.tctx_elt)
+         (fun
+            (post : fancy_lists.plist syn_type.indep_interp_of_syn_type nil ->
+                    syn_type.Mask -> syn_type.proph_asn -> Prop)
+            '{|
+               fancy_lists.phd := m; fancy_lists.ptl := fancy_lists.nil_tt
+             |} (mask : syn_type.Mask) (π : syn_type.proph_asn) =>
+          uniq_bor.uniq_bor_future m π =
+          syn_type.vπ (uniq_bor.uniq_bor_current m) π ->
+          post fancy_lists.nil_tt mask π)
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+?𝔄 : [ |- syn_type.syn_type]
+Closed under the global context
+AUDIT-END raw_view.typed_source_loan_release
+AUDIT-BEGIN model_limits.arbitrary_raw_pointer_typed
+arbitrary_raw_pointer_typed
+     : forall l : lang.loc,
+       programs.typed_val (lang.LitV (lang.LitLoc l)) pptr.ptr_ty l
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Closed under the global context
+AUDIT-END model_limits.arbitrary_raw_pointer_typed
+AUDIT-BEGIN model_limits.raw_read_empty_head_stuck
+raw_read_empty_head_stuck
+     : forall (l : lang.loc) (κ : list Empty_set) 
+         (e : lang.expr) (σ : lang.state) (efs : list lang.expr),
+       ~
+       lang.head_step (lang.Read lang.ScOrd (lang.Lit (lang.LitLoc l)))
+         (base.empty, false) κ e σ efs
+Closed under the global context
+AUDIT-END model_limits.raw_read_empty_head_stuck
+AUDIT-BEGIN model_limits.model_offset_unrestricted
+model_offset_unrestricted
+     : forall (σ : lang.state) (l : lang.loc) (z : BinNums.Z),
+       lang.bin_op_eval σ lang.OffsetOp (lang.LitLoc l) 
+         (lang.LitInt z) (lang.LitLoc (lang.shift_loc l z))
+Closed under the global context
+AUDIT-END model_limits.model_offset_unrestricted
+AUDIT-BEGIN model_limits.empty_heap_offset_adequate
+empty_heap_offset_adequate
+     : forall (l : lang.loc) (n : BinNums.Z),
+       adequacy.adequate weakestpre.NotStuck
+         (lang.BinOp lang.OffsetOp (lang.Lit (lang.LitLoc l))
+            (lang.Lit (lang.LitInt n))) (base.empty, false)
+         (fun (v : language.val lang.lrust_lang)
+            (_ : language.state lang.lrust_lang) =>
+          v = lang.LitV (lang.LitLoc (lang.shift_loc l n)))
+Closed under the global context
+AUDIT-END model_limits.empty_heap_offset_adequate
+AUDIT-BEGIN byte_array.byte_ty_obligation_1
+byte_array.byte_ty_obligation_1
+     : forall x : syn_type.indep_interp_of_syn_type syn_type.Zₛ,
+       length (heap.FVal (lang.LitV (lang.LitInt x)) :: nil) = 1
+Closed under the global context
+AUDIT-END byte_array.byte_ty_obligation_1
+AUDIT-BEGIN byte_array.byte_ty_obligation_2
+byte_array.byte_ty_obligation_2
+     : syn_type.size_of syn_type.Zₛ = 1
+Closed under the global context
+AUDIT-END byte_array.byte_ty_obligation_2
+AUDIT-BEGIN byte_array.byte_ty_obligation_3
+byte_array.byte_ty_obligation_3
+     : forall x : syn_type.indep_interp_of_syn_type syn_type.Zₛ,
+       syn_type.syn_phys x =
+       (heap.FVal (lang.LitV (lang.LitInt x)) :: nil)%list
+Closed under the global context
+AUDIT-END byte_array.byte_ty_obligation_3
+AUDIT-BEGIN byte_array.byte_ty_obligation_4
+byte_array.byte_ty_obligation_4
+     : forall (x : syn_type.indep_interp_of_syn_type syn_type.Zₛ)
+         (π1 π2 : syn_type.proph_asn), syn_type.vπ x π1 = syn_type.vπ x π2
+Closed under the global context
+AUDIT-END byte_array.byte_ty_obligation_4
+AUDIT-BEGIN byte_array.byte_ty_obligation_5
+byte_array.byte_ty_obligation_5
+     : forall x : syn_type.indep_interp_of_syn_type syn_type.Zₛ,
+       heap.all_concrete (heap.FVal (lang.LitV (lang.LitInt x)) :: nil)
+Closed under the global context
+AUDIT-END byte_array.byte_ty_obligation_5
+AUDIT-BEGIN byte_array.byte_ty_obligation_6
+byte_array.byte_ty_obligation_6
+     : forall x : syn_type.indep_interp_of_syn_type syn_type.Zₛ,
+       syn_type.ξl x = nil
+Closed under the global context
+AUDIT-END byte_array.byte_ty_obligation_6
+AUDIT-BEGIN byte_array.byte_ty
+byte_ty
+     : type.type syn_type.Zₛ
+where
+?Σ : [ |- iprop.gFunctors]
+?typeG0 : [ |- type.typeG ?Σ]
+Closed under the global context
+AUDIT-END byte_array.byte_ty
