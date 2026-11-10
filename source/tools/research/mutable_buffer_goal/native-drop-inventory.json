@@ -97,5 +97,24 @@
       },
       "classification": "controller failure; not semantic evidence"
     }
-  ]
+  ],
+  "reference_rules": {
+    "pointer_add": {
+      "url": "https://doc.rust-lang.org/std/primitive.pointer.html#method.add",
+      "note": "Offset bytes must fit isize; the mathematical result address must fit usize; a nonzero movement stays within the originating allocation. These safety conditions precede any dereference."
+    },
+    "allocation": {
+      "url": "https://doc.rust-lang.org/core/ptr/index.html#allocation",
+      "note": "Allocation base is nonzero, base+size fits usize, size fits isize. A valid array subregion need not start at the allocation base; coallocated disjoint fields remain allowed."
+    },
+    "reference_validity": {
+      "url": "https://doc.rust-lang.org/reference/behavior-considered-undefined.html#invalid-values",
+      "note": "References require alignment, non-nullness, a live allocation covering the pointee span and valid referent values. Full alias/liveness semantics are not completely specified; this is not a proof that a source-to-heap embedding is adequate."
+    },
+    "proof_boundary": "Documentation motivates the checked interpretation of existing input types. It supplies no native certificate, raw PointsTo constructor, new application requires clause or final/current theorem."
+  },
+  "pinned_rule_sources": {
+    "library/core/src/ptr/docs/add.md": "0520055f33e6c11c05184783f3fbdae393778da452c98e78ee66804c508d7efa",
+    "library/core/src/ptr/mod.rs": "26ae83efd6c6a25ded03dcde647502f4a243c0d237a05e0316340b3d3625f8e2"
+  }
 }
