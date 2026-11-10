@@ -48,13 +48,17 @@ impl rustc_driver::Callbacks for Query {
                     _ => (*parameter, "value".to_owned()),
                 };
                 let sized = subject.is_sized(tcx, env);
+                let byte_array = matches!(subject.kind(), ty::Array(element, _)
+                    if matches!(element.kind(), ty::Uint(ty::UintTy::U8)));
+                let byte_slice = matches!(subject.kind(), ty::Slice(element)
+                    if matches!(element.kind(), ty::Uint(ty::UintTy::U8)));
                 let layout = tcx.layout_of(env.as_query_input(subject)).expect("subject layout");
                 let parameter_layout =
                     tcx.layout_of(env.as_query_input(*parameter)).expect("parameter layout");
                 records.push(format!(
-                    "{{\"function\":{},\"parameter\":{},\"parameter_type\":{},\"reference_kind\":{},\"subject_type\":{},\"unpin\":{},\"unsafe_unpin\":{},\"freeze\":{},\"sized\":{},\"static_size\":{},\"minimum_size\":{},\"align\":{},\"backend\":{},\"parameter_size\":{}}}",
+                    "{{\"function\":{},\"parameter\":{},\"parameter_type\":{},\"reference_kind\":{},\"subject_type\":{},\"byte_array\":{},\"byte_slice\":{},\"unpin\":{},\"unsafe_unpin\":{},\"freeze\":{},\"sized\":{},\"static_size\":{},\"minimum_size\":{},\"align\":{},\"backend\":{},\"parameter_size\":{}}}",
                     quote(&name), index, quote(&parameter.to_string()), quote(&reference_kind),
-                    quote(&subject.to_string()), subject.is_unpin(tcx, env),
+                    quote(&subject.to_string()), byte_array, byte_slice, subject.is_unpin(tcx, env),
                     subject.is_unsafe_unpin(tcx, env), subject.is_freeze(tcx, env), sized,
                     if sized { layout.size.bytes().to_string() } else { "null".to_owned() },
                     layout.size.bytes(), layout.align.abi.bytes(),

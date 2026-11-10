@@ -83,7 +83,7 @@ def main():
             data = json.loads(output.read_text())
             require(data['classification'] == 'compiler_type_queries_only'
                     and data['native_correspondences'] == 0
-                    and data['publication'] is False, 'query scope')
+                    and data['publication'] is False and data['pointer_bits'] == 64, 'query scope/target')
             queries[name] = data
         records = {name: {(v['function'], v['parameter']): v for v in data['records']}
                    for name, data in queries.items()}
@@ -91,14 +91,15 @@ def main():
                 and len(records['canonical']) == 2, 'unexpected parameter inventory')
         for table in records.values():
             for v in table.values():
-                if v['subject_type'] in ['u8', '[u8; 0]', '[u8; 10]', '[u8; 128]', '[u8]']:
+                if v['subject_type'] == 'u8' or v['byte_array'] or v['byte_slice']:
                     require(all(v[x] is True for x in ['unpin', 'unsafe_unpin', 'freeze']),
                             'byte-type trait classification')
-        require(records['writer'][('xor_key', 0)]['subject_type'] == '[u8; 128]'
+        require(records['writer'][('xor_key', 0)]['byte_array'] is True
                 and records['writer'][('xor_key', 0)]['reference_kind'] == 'Mut'
-                and records['writer'][('xor_key', 1)]['subject_type'] == '[u8]',
+                and records['writer'][('xor_key', 1)]['byte_slice'] is True
+                and records['writer'][('xor_key', 1)]['reference_kind'] == 'Not',
                 'unchanged writer input types')
-        require(records['canonical'][('u64', 1)]['subject_type'] == '[u8; 10]'
+        require(records['canonical'][('u64', 1)]['byte_array'] is True
                 and records['canonical'][('u64', 1)]['reference_kind'] == 'Mut',
                 'unchanged canonical buffer input')
         for table, key, size in [('writer', ('xor_key', 0), 128),
