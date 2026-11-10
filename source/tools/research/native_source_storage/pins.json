@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "compiler_commit": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "compiler_version": "1.99.1",
+  "classification": "implementation_guidance_not_formal_import_or_simulation",
+  "constructor_commit": "3d668d29",
+  "committed_inputs": {
+    "source/tools/research/native_constructor_erasure/graph.json": "ce114902ac22d593393d08737c619e88a226c47fe2dbeb9d52a7fd8bc6940b29",
+    "source/tools/research/native_constructor_erasure/INTERFACE.md": "0272fb687ce4c19895e0926047e2b241873c41fdbd763d018a6092211d8f0870",
+    "source/tools/research/native_constructor_erasure/REPORT.md": "826107c02a389b8be0e5c8b92b791636952880ad85ef5a1e19a6d80e6c4320f3",
+    "source/tools/research/native_constructor_erasure/candidates/Interface.v": "7081211bc52d95b3a3f5d8052284d0ef885be730b6fb68d0a3bf63eec5451db5",
+    "source/tools/research/native_constructor_erasure/candidates/Graph.v": "984bc4bf99a2403748077d5edb79d743673b482deca99b29d305cb8752e5230c",
+    "source/tools/research/native_constructor_erasure/candidates/Composition.v": "ab60813b9b6912775d747e9468f92757e57557a551cb1366e1aa083223875245"
+  },
+  "rust_sources": [
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_middle/src/mir/syntax.rs",
+      "upstream": "compiler/rustc_middle/src/mir/syntax.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_middle/src/mir/syntax.rs",
+      "sha256": "dbba0792fb1299f6c69d564be6e651ddb75d082f647708fd207a4b88810f1223"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/step.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/step.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/step.rs",
+      "sha256": "b904b4a99b48d083aad4fe53f80db0617955ec0551800568a99fdff0edffbe02"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/eval_context.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/eval_context.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/eval_context.rs",
+      "sha256": "3ea559b9c3dfe8011d12294adea77ddac353450a79cae372766a88991e881f35"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/memory.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/memory.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/memory.rs",
+      "sha256": "f5b238e35ea7309a43b1df68cb98d65fba5c14d1bfdcd2f648a94d9a1057901b"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/place.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/place.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/place.rs",
+      "sha256": "4ed0a0ca5ce612ade8d6aa7e73df43a86f3d7244491171c311e725d6770dc808"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/machine.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/machine.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/machine.rs",
+      "sha256": "9611e6945607bc5f9c07d53e249c3f449fafff6b8963ad657c2168c418b5eab8"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/mod.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/mod.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/mod.rs",
+      "sha256": "2ad93da05930827d247ac9d9aa196e1ddc7fa517df5c33d0c028d91d2a1a9883"
+    },
+    {
+      "path": "/tmp/native-source-storage-rust-3f865efc/compiler/rustc_const_eval/src/interpret/stack.rs",
+      "upstream": "compiler/rustc_const_eval/src/interpret/stack.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/58cf8f9c35b355199727627d07ae34a4e2846d67/compiler/rustc_const_eval/src/interpret/stack.rs",
+      "sha256": "983865c727a65a359b713fddf4abbcc4a104fa706c8db3a3ae1bb43a5f1df614"
+    }
+  ],
+  "completed_extraction": {
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/receipt.json": "2e1b60de13ad025f55d8a84aaa442956c33fd5fa01cb878adf5785c01c213b3b",
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-native.json": "e24df78dcac3123b448b4bc92b366de6d8310fcfa9fe2f7bb742dadf5c3e39cf",
+    "/tmp/native-semantic-bridge-e4a8dcab/source-v1/drop-borrowck.json": "92d49f313f1fca55aee963065200d11f8fcb4edc336aec2f8a9a52daab02082e"
+  },
+  "coq_library_dependency_pin": {
+    "root": "/tmp/verus-infer-buffer-cycle-20261109/rocq-toolchain/switch/_opam/lib",
+    "count": 1121,
+    "map_sha256": "14c4b43b1eaa1ee216c2aedd34303a3d28a536682a8efdc1758355481bf457fa",
+    "classification": "targeted_immutable_Coq_standard_sources_objects_and_plugins_no_new_formal_import"
+  }
+}
