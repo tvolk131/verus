@@ -3,7 +3,7 @@
 //! and used verbatim. No callee summary, application premise or assertion changes.
 use num_bigint::BigInt;
 use std::{
-    collections::{BTreeSet, HashMap},
+    collections::{BTreeSet, HashMap, HashSet},
     sync::Arc,
 };
 use vir::{
@@ -16,7 +16,7 @@ use vir::{
 // Exact identity for the closed subset emitted below. This is intentionally not
 // general SST equivalence: unsupported shapes are always retained. Spans carry
 // diagnostics only here; no formula or variable identity is normalized.
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 enum KeyTyp {
     Bool,
     Int(IntRange),
@@ -33,9 +33,7 @@ enum KeyExp {
 fn key_typ(t: &Typ) -> Option<KeyTyp> {
     match &**t {
         TypX::Bool => Some(KeyTyp::Bool),
-        TypX::Int(r @ (IntRange::Int | IntRange::U(8 | 16 | 32 | 64))) => {
-            Some(KeyTyp::Int(*r))
-        }
+        TypX::Int(r @ (IntRange::Int | IntRange::U(8 | 16 | 32 | 64))) => Some(KeyTyp::Int(*r)),
         _ => None,
     }
 }
@@ -48,11 +46,20 @@ fn closed_key(e: &Exp) -> Option<ClosedKey> {
             ExpX::Var(v) if bound.iter().any(|(name, typ)| name == v && *typ == t) => {
                 KeyExp::Var(v.clone())
             }
-            ExpX::Binary(op @ (sst::BinaryOp::And | sst::BinaryOp::Implies
-                | sst::BinaryOp::Eq | sst::BinaryOp::Inequality(_)
-                | sst::BinaryOp::Arith(_) | sst::BinaryOp::Bitwise(_)), a, b) => {
-                KeyExp::Binary(*op, Box::new(visit(a, bound, budget)?), Box::new(visit(b, bound, budget)?))
-            }
+            ExpX::Binary(
+                op @ (sst::BinaryOp::And
+                | sst::BinaryOp::Implies
+                | sst::BinaryOp::Eq
+                | sst::BinaryOp::Inequality(_)
+                | sst::BinaryOp::Arith(_)
+                | sst::BinaryOp::Bitwise(_)),
+                a,
+                b,
+            ) => KeyExp::Binary(
+                *op,
+                Box::new(visit(a, bound, budget)?),
+                Box::new(visit(b, bound, budget)?),
+            ),
             ExpX::Bind(bnd, body) if bound.is_empty() => {
                 let sst::BndX::Quant(q, binders, triggers, None) = &bnd.x else { return None };
                 if *q != vir::ast_util::QUANT_FORALL || binders.is_empty() || binders.len() > 3 {
@@ -60,16 +67,18 @@ fn closed_key(e: &Exp) -> Option<ClosedKey> {
                 }
                 let mut vars = Vec::new();
                 for b in binders.iter() {
-                    if vars.iter().any(|(name, _)| name == &b.name) { return None; }
+                    if vars.iter().any(|(name, _)| name == &b.name) {
+                        return None;
+                    }
                     vars.push((b.name.clone(), key_typ(&b.a)?));
                 }
-                let triggers = triggers.iter().map(|trig| {
-                    trig.iter().map(|e| visit(e, &vars, budget)).collect::<Option<Vec<_>>>()
-                }).collect::<Option<Vec<_>>>()?;
-                KeyExp::Forall(*q, vars.iter().map(|(v, t)| {
-                    // KeyTyp is small; keep the binder's complete supported type.
-                    (v.clone(), match t { KeyTyp::Bool => KeyTyp::Bool, KeyTyp::Int(r) => KeyTyp::Int(*r) })
-                }).collect(), triggers, Box::new(visit(body, &vars, budget)?))
+                let triggers = triggers
+                    .iter()
+                    .map(|trig| {
+                        trig.iter().map(|e| visit(e, &vars, budget)).collect::<Option<Vec<_>>>()
+                    })
+                    .collect::<Option<Vec<_>>>()?;
+                KeyExp::Forall(*q, vars.clone(), triggers, Box::new(visit(body, &vars, budget)?))
             }
             _ => return None,
         };
@@ -466,7 +475,21 @@ pub(crate) fn prepare(
     for (w, lo, hi) in fields.into_iter().take(16) {
         proposed.push(Arithmetic::new(&check.body.span, w).field(lo, hi));
     }
+    append_checked(&mut stms, proposed);
+    stms.push(check.body.clone());
+    let mut result = check.clone();
+    result.body = Spanned::new(check.body.span.clone(), StmX::Block(Arc::new(stms)));
+    result
+}
+
+fn append_checked(stms: &mut Vec<Stm>, proposed: Vec<Exp>) {
+    // Scope is exactly this ordinary function. A hash collision still requires
+    // full typed structural Eq; failed key construction never drops a fact.
+    let mut seen = HashSet::new();
     for fact in proposed {
+        if closed_key(&fact).is_some_and(|key| !seen.insert(key)) {
+            continue;
+        }
         // The exact same Arc is checked and used. There is no unchecked
         // theorem, and failure of any proposal fails ordinary verification.
         stms.push(Spanned::new(
@@ -478,8 +501,112 @@ pub(crate) fn prepare(
         ));
         stms.push(Spanned::new(fact.span.clone(), StmX::Assume(fact)));
     }
-    stms.push(check.body.clone());
-    let mut result = check.clone();
-    result.body = Spanned::new(check.body.span.clone(), StmX::Block(Arc::new(stms)));
-    result
+}
+
+#[cfg(test)]
+mod dedup_tests {
+    use super::*;
+    fn span(id: u64) -> vir::messages::Span {
+        vir::messages::Span {
+            raw_span: Arc::new(()),
+            id,
+            data: vec![id],
+            as_string: id.to_string(),
+        }
+    }
+    fn key(e: &Exp) -> ClosedKey {
+        closed_key(e).expect("generated closed fact")
+    }
+    fn paired(stms: &[Stm], expected: &[Exp]) {
+        assert_eq!(stms.len(), expected.len() * 2);
+        for (pair, original) in stms.chunks_exact(2).zip(expected) {
+            let StmX::AssertBitVector { requires, ensures } = &pair[0].x else { panic!() };
+            let StmX::Assume(used) = &pair[1].x else { panic!() };
+            assert!(requires.is_empty());
+            assert_eq!(ensures.len(), 1);
+            assert!(Arc::ptr_eq(&ensures[0], original));
+            assert!(Arc::ptr_eq(used, original));
+        }
+    }
+    #[test]
+    fn duplicate_identity_and_proof_before_use() {
+        let a = Arithmetic::new(&span(1), 64).field(12, 15);
+        let duplicate = Arithmetic::new(&span(2), 64).field(12, 15);
+        assert!(!Arc::ptr_eq(&a, &duplicate));
+        assert_eq!(key(&a), key(&duplicate));
+        let mut stms = vec![];
+        append_checked(&mut stms, vec![a.clone(), duplicate]);
+        paired(&stms, &[a.clone()]);
+        // A separate function still gets a checked proof, even for this Arc.
+        let mut next = vec![];
+        append_checked(&mut next, vec![a.clone()]);
+        paired(&next, &[a]);
+    }
+    #[test]
+    fn semantic_type_binder_and_trigger_changes_are_distinct() {
+        let s = span(1);
+        let a = Arithmetic::new(&s, 64);
+        let fact = a.field(12, 15);
+        assert_ne!(key(&fact), key(&a.field(12, 16)));
+        assert_ne!(key(&fact), key(&Arithmetic::new(&s, 32).field(12, 15)));
+        let mut renamed = Arithmetic::new(&s, 64);
+        renamed.names[0].1 = VarIdentDisambiguate::RustcId(7);
+        assert_ne!(key(&fact), key(&renamed.field(12, 15)));
+        let v = a.v(0);
+        let eq = a.eq(v.clone(), a.n(0.into()));
+        let domain = a.within(0, 64);
+        let quantified = a.closed(1, v.clone(), domain.clone(), eq.clone());
+        assert_ne!(
+            key(&quantified),
+            key(&a.closed(1, a.shr(v.clone(), 0), domain.clone(), eq.clone()))
+        );
+        assert_ne!(
+            key(&quantified),
+            key(&a.closed(
+                1,
+                v.clone(),
+                domain.clone(),
+                a.b(sst::BinaryOp::Inequality(InequalityOp::Le), v, a.n(0.into()))
+            ))
+        );
+        let ExpX::Bind(bnd, body) = &quantified.x else { panic!() };
+        let sst::BndX::Quant(q, bs, trigs, _) = &bnd.x else { panic!() };
+        let mut bs = bs.as_ref().clone();
+        bs[0] = Arc::new(VarBinderX { name: bs[0].name.clone(), a: int_typ() });
+        let bad = SpannedTyped::new(
+            &s,
+            &bool_typ(),
+            ExpX::Bind(
+                Spanned::new(s.clone(), sst::BndX::Quant(*q, Arc::new(bs), trigs.clone(), None)),
+                body.clone(),
+            ),
+        );
+        assert!(closed_key(&bad).is_none()); // bound/reference type mismatch
+        let changed_type = SpannedTyped::new(&s, &int_typ(), fact.x.clone());
+        assert_ne!(key(&fact), key(&changed_type));
+    }
+    #[test]
+    fn distinct_false_and_unsupported_proposals_remain_checked() {
+        let s = span(1);
+        let a = Arithmetic::new(&s, 64);
+        let good = a.eq(a.n(0.into()), a.n(0.into()));
+        let bad = a.eq(a.n(0.into()), a.n(1.into()));
+        let free = a.eq(a.v(0), a.n(0.into()));
+        let unsupported = SpannedTyped::new(&s, &bool_typ(), ExpX::Const(Constant::Bool(false)));
+        assert!(closed_key(&free).is_none());
+        assert!(closed_key(&unsupported).is_none());
+        let mut stms = vec![];
+        append_checked(
+            &mut stms,
+            vec![
+                good.clone(),
+                bad.clone(),
+                good.clone(),
+                free.clone(),
+                free.clone(),
+                unsupported.clone(),
+            ],
+        );
+        paired(&stms, &[good, bad, free.clone(), free, unsupported]);
+    }
 }
