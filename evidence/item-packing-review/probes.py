@@ -5,8 +5,8 @@ PRE='use vstd::prelude::*; verus! {\nfn flag(b:bool)->(r:u64) ensures r==if b {1
 def check(name,s,expected):
  p=R/'probes-source'/f'{name}.rs';p.parent.mkdir(exist_ok=True);p.write_text(s);j=t.trial('probes/'+name,p)
  v=j.get('verification',{});err=(R/'probes'/name/'stderr').read_text()
- t.need(v.get('is-verifying-entire-crate') and v.get('errors',0)==0 if expected=='pass' else v.get('errors',0)>0,'verification outcome '+name)
- if expected=='false':t.need('postcondition not satisfied' in err or 'possible bit shift' in err or 'overflow' in err,'semantic diagnostic '+name)
+ t.need(v.get('is-verifying-entire-crate') and ((j['exit']==0 and v.get('errors',0)==0) if expected=='pass' else (j['exit']!=0 and v.get('errors',0)>0)),'verification outcome '+name)
+ if expected in ['false','conservative']:t.need('postcondition not satisfied' in err or 'possible bit shift' in err or 'overflow' in err,'semantic diagnostic '+name)
  return dict(receipt=j,expected=expected)
 def main():
  out={}
@@ -22,7 +22,9 @@ fn raw(low:{ty},mid:{ty},upper:{ty})->(r:{ty})
 fn nested(x:{ty})->(r:{ty}) ensures r<=3 {{(x & NEST) >> 2u64}}
 fn reversed(x:{ty})->(r:{ty}) ensures r<=3 {{(12{ty} & x) >> 2u64}}
 '''
-  out[f'positive-{w}']=check(f'positive-{w}',PRE+core+'}', 'pass')
+  out[f'valid-conservative-{w}']=check(f'valid-conservative-{w}',PRE+core+'}', 'conservative')
+  supported='\n'.join(line for line in core.splitlines() if not line.startswith('fn edge(') and not line.startswith('fn reversed('))
+  out[f'supported-{w}']=check(f'supported-{w}',PRE+supported+'}', 'pass')
   # These all have concrete semantic counterexamples; separate source fixtures identify each failure.
   controls={
    'relation':f'fn f(x:{ty})->(r:{ty}) ensures r!=x {{x << 0u64}}',

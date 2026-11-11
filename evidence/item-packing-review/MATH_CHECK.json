@@ -1,0 +1,42 @@
+{
+  "16": {
+    "checks": {
+      "field": 544,
+      "low_projection": 232,
+      "split": 224,
+      "three_fields": 5840,
+      "zero": 4
+    },
+    "coverage": "boundary samples only"
+  },
+  "32": {
+    "checks": {
+      "field": 2112,
+      "low_projection": 488,
+      "split": 480,
+      "three_fields": 27856,
+      "zero": 4
+    },
+    "coverage": "boundary samples only"
+  },
+  "64": {
+    "checks": {
+      "field": 8320,
+      "low_projection": 1000,
+      "split": 992,
+      "three_fields": 121040,
+      "zero": 4
+    },
+    "coverage": "boundary samples only"
+  },
+  "8": {
+    "checks": {
+      "field": 9216,
+      "low_projection": 65024,
+      "split": 1792,
+      "three_fields": 328704,
+      "zero": 256
+    },
+    "coverage": "exhaustive finite variables"
+  }
+}

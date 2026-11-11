@@ -1,0 +1,10 @@
+{
+  "actual_fixture": "/tmp/item-packing-review-vr4p8_bo/packe/component.rs",
+  "committed_fixture": "/tmp/item-packing-jmxyh6mz/stable-reuse/component.rs",
+  "hashes": {
+    "component::CHANNEL_MASK": "dfee3de05024629859ecde232ec395ca55ce3c06495a12a9b395b330b4cbb498",
+    "component::checked_foreign_bool_to_u64%": "6da5fecc9d031d8e4a5e2073b8e6420e9de6b8ef3b44d553e6eae456957bd65d",
+    "component::packet": "4a1ad1a3e964ee93c05356fc836528be3602f66bd5b1cf438b01b0175fc82afb"
+  },
+  "normalization": "Only exact fixture filename replacement; no whitespace/operator/type/coordinate normalization."
+}

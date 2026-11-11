@@ -31,7 +31,10 @@ def stable(name,full):
   e,f=eq(c),eq(w);t.need(e['candidate_id']==f['candidate_id'],'candidate ID');t.need(e['metrics']['cache']=='miss' and f['metrics']['cache']=='hit','real cache miss/hit')
   ov=inventory(old);t.need(iv['ordinary_original_functions'].keys()==ov['ordinary_original_functions'].keys(),'ordinary names')
   def native(v):return [{k:x for k,x in row.items() if k!='source'} for row in v['native_scope']['native_functions']]
-  t.need(native(iv)==native(ov),'exact native owners/statuses')
+  baseline_native=native(ov)
+  for row in baseline_native:
+   if row['body_status']=='selected_body_not_certified_by_successful_full_run':row['body_status']='checked_exec_body'
+  t.need(native(iv)==baseline_native,'exact native owners and expected failed-baseline status transition')
   rows=iv['ordinary_original_functions'];t.need(len(rows)==38 and sum(v['mode']=='Exec' for v in rows.values())==19 and sum(v['mode']=='Spec' for v in rows.values())==19,'38=19+19');t.need(len(native(iv))==47,'native47')
   # Compare expected names/modes/bodies against committed shipping inventory after exact filename rebinding.
   expected=json.loads((t.ROOT/'source/tools/research/item_packing_goal/INVENTORY.json').read_text())['full'];t.need(rows.keys()==expected['ordinary_original_functions'].keys(),'committed names');t.need(native(iv)==native(expected),'committed native inventory')

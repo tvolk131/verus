@@ -16,7 +16,7 @@ def main(name):
  try:
   t.build(name+'-build');t.vstd(name+'-vstd');t.need('2250 verified, 0 errors' in (R/(name+'-vstd')/'stdout').read_text(),'vstd2250')
   for target in (['full','packet'] if name=='ablation' else ['full']):
-   label=name+'-'+target;j=t.trial(label,R/(target+'.rs'));t.need(j['exit']!=0 and j['verification']['errors']>0 and j['verification']['is-verifying-entire-crate'],'semantic rejection')
+   label=name+'-'+target;j=t.trial(label,R/target/'component.rs');t.need(j['exit']!=0 and j['verification']['errors']>0 and j['verification']['is-verifying-entire-crate'],'semantic rejection')
    if target=='full':health(label)
    if name=='false-constant':t.need('bitvector assertion not satisfied' in (R/label/'stderr').read_text(),'isolated failure propagates')
   shutil.copytree(R/'bundle',R/('bundle-'+name))

@@ -18,7 +18,7 @@ def module(n,p):
 def root():return Path((HERE/'PRIVATE_ROOT').read_text().strip())
 def manifest(base):
  return {p:sha(base/p) for p in subprocess.check_output(['git','ls-files','-z','source','dependencies','tools','rust-toolchain.toml'],cwd=ROOT).decode().split('\0') if p}
-def env(r,b):return dict(HOME=str(r/'home'),PATH=str(TC/'bin')+':/usr/bin:/bin',RUSTUP_TOOLCHAIN='1.99.1',VARGO_TOOLCHAIN='1.99.1-x86_64-unknown-linux-gnu',RUSTUP_HOME='/home/dev/.rustup',RUSTC_BOOTSTRAP='1',LD_LIBRARY_PATH=str(TC/'lib'),CARGO_HOME=str(r/'cargo-home'),CARGO_TARGET_DIR=str(r/'target'),CARGO_BUILD_BUILD_DIR=str(r/'cargo-build'),CARGO_BUILD_JOBS='2',CARGO_NET_OFFLINE='true',XDG_CACHE_HOME=str(r/'cache'),TMPDIR=str(r/'tmp'),VERUS_ROOT=str(b),VERUS_Z3_PATH=str(b/'z3'),VERUS_INFER_CACHE=str(r/'candidate-cache'),RUST_MIN_STACK='20971520',RUSTFLAGS='--cfg proc_macro_span --cfg verus_keep_ghost --cfg span_locations --cfg procmacro2_semver_exempt',VERUS_IN_VARGO='1',VERUS_TEST_LOG_DIR=str(r/'test-logs'))
+def env(r,b):return dict(HOME=str(r/'home'),PATH=str(TC/'bin')+':/home/dev/.cargo/bin:/usr/bin:/bin',RUSTUP_TOOLCHAIN='1.99.1',VARGO_TOOLCHAIN='1.99.1-x86_64-unknown-linux-gnu',RUSTUP_HOME='/home/dev/.rustup',RUSTC_BOOTSTRAP='1',LD_LIBRARY_PATH=str(TC/'lib'),CARGO_HOME=str(r/'cargo-home'),CARGO_TARGET_DIR=str(r/'target'),CARGO_BUILD_BUILD_DIR=str(r/'cargo-build'),CARGO_BUILD_JOBS='2',CARGO_NET_OFFLINE='true',XDG_CACHE_HOME=str(r/'cache'),TMPDIR=str(r/'tmp'),VERUS_ROOT=str(b),VERUS_Z3_PATH=str(b/'z3'),VERUS_INFER_CACHE=str(r/'candidate-cache'),RUST_MIN_STACK='20971520',RUSTFLAGS='--cfg proc_macro_span --cfg verus_keep_ghost --cfg span_locations --cfg procmacro2_semver_exempt',VERUS_IN_VARGO='1',VERUS_TEST_LOG_DIR=str(r/'test-logs'))
 def run(label,argv,b=None,extra=None,outputs=()):
  r=root();b=b or r/'bundle';d=r/label;d.mkdir(parents=True,exist_ok=True);need(not (d/'receipt.json').exists(),'immutable label '+label)
  f=dict(argv=list(map(str,argv)),cwd=str(r/'src/source'),environment=env(r,b)|dict(extra or {}),source=manifest(r/'src'),tools={n:sha(b/n) for n in TOOLS if (b/n).exists() and n not in outputs},fixtures={str(p):sha(p) for p in argv if str(p).endswith('.rs') and Path(p).is_file()},runner_sha256=sha(__file__))
@@ -49,6 +49,9 @@ def setup():
  for rel in manifest(ROOT):
   p=ROOT/rel;q=r/'src'/rel;q.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,q)
  write(r/'shipping-source.json',manifest(ROOT));need(manifest(ROOT)==manifest(r/'src'),'private source identity')
+ subprocess.run(['git','init','-q',str(r/'src')],check=True)
+ subprocess.run(['git','add','source','dependencies','tools','rust-toolchain.toml'],cwd=r/'src',check=True)
+ subprocess.run(['git','-c','user.name=Codex Review','-c','user.email=codex-review@local','commit','-q','-m','Private exact review source snapshot'],cwd=r/'src',check=True)
  shutil.copy2(PARENT/'z3',r/'bundle/z3')
  # ONLY fixture() is called; other historical methods are never executed.
  m=module('pure_fixture',ROOT/'source/tools/research/item_packing_goal/run.py');full,helped,fidelity=m.fixture()
