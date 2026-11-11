@@ -1,0 +1,58 @@
+{
+  "parent_head": "902041b304157577c01deb5e769060fcc5398382",
+  "own_source": {
+    "source/vir/src/infer/set_goals.rs": "378ff5c40cf1e1ca8005d897e5f72e70a4bca11a88db51a25e4af0da09d33740",
+    "source/vir/src/infer/pipeline.rs": "0a3fb6bf4070b534cb7de0d51e5dbf92ac6d284cb7da48b3235bfc10bbf8e786",
+    "source/vir/src/infer/report.rs": "9c1eaec94efbf593c5ad9c3fd7443379f3b39f6c9b0b740c11d71a9d941c4783",
+    "source/vir/src/infer/registry.rs": "bc5df0e11c232d0fd6178db96167c4801e4c2aa11779ba258203ec322c7b1995",
+    "source/vir/src/infer.rs": "493e9ea54722c3f6fcabc56835c6b0fa86c8cd86b44880a597c40e767a43261f",
+    "source/rust_verify/src/infer_report.rs": "2d01443b5b614b884841bcf6cd0d01ca55c28619c2717a2233f95cf1e7e20824",
+    "source/rust_verify/src/import_export.rs": "db4243b3324ab728e889a197e3861af1ee596fecf6a28dc1ed839a1e86f317ec",
+    "source/vstd/set_lib.rs": "f19258b7c4c71874ae4812e172a02e739602692abd59dfeaaca80a75318bc616"
+  },
+  "historical": {
+    "final-bundle/receipt.json": "cc6075405aa795849423115c55f120d29e76488f562c4c3daa7e6fd404bab12d",
+    "source-pins.json": "ca5c030a982d69c7b33abebf4f3be0fb98277e67c2665f5c32d814f8ff6c5bf3",
+    "protected-originals.json": "75729ddad0fccb17547cd917f845dda58fe9913a8e67b5c915ada54970f1897b",
+    "ablation-build.json": "db2f0b34f981b25010a0298d31755a19aa2ba8f961e3bf9a931ca0441315b4d5",
+    "ablation-pipeline.rs": "1fa0d18c2167c36005b2dc796ed6ec357f268379ec88fdf838bcc82f7ad3994e",
+    "helper.stdout": "f5eaae80814e0ca0fb38c8ac0e6dfbac4a174efcea661b0e540fee86b5b1da21",
+    "helper.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vstd-normal.stdout": "8777f5c240ba1eb7d222adc46e9a042207dc8a51a8e1285f7cc0815b53fbec15",
+    "vstd-normal.stderr": "e2a2aba9d9641b7bc1bdb3cc84b408ae355cf8d1b4d9da2601dd45321dd57f7c",
+    "vstd-final.stdout": "8777f5c240ba1eb7d222adc46e9a042207dc8a51a8e1285f7cc0815b53fbec15",
+    "vstd-final.stderr": "34d3f9559326823398c39de0975b082c7100e23d0432c0b4be1a229abd56d035",
+    "units-final-shape.stdout": "eeaba5c5b7e1e70c9f2535c501ea7a5acb74c1ea0cc469fd6628abb9dc78fe3b",
+    "units-final-shape.stderr": "c469035ead4a046a28fdf0f263a5f045287e558295dd5dae515a763643512b40",
+    "/tmp/practical-set-s1-3b931894/baseline2/receipt.json": "473adf293e2bc6c8a3c6796b146394daa1ba940ff73bd523efb4c91c0006bf8b",
+    "/tmp/practical-set-s1-3b931894/ablation2/receipt.json": "756b459c4ee9daa0914744141a148964223529093e0db5e6fee2d8abe9fde4d8",
+    "/tmp/practical-set-s1-3b931894/final-trials/receipt.json": "45d81efe921b13a2f60e5538f2e7b10b9f2853696d5a1aff58a60413ea87f56c"
+  },
+  "selected_sources": {
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/bitmap.rs": {
+      "sha256": "d57724dcbc9701e8fb7a2e268febba1fbe2ff2a00e14e000c27a703afe3af9ff",
+      "bytes": 17248
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/buddy_allocator.rs": {
+      "sha256": "88e6c4df1e0fa85651bd0373eeab653d2d2299a18b241fd337a127d13025fb26",
+      "bytes": 20555
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/fedimint/fedimint-core/src/peer_id.rs": {
+      "sha256": "0464dfe02db7a175fc4ad1a60327a6bedc9687c11e069f9c30793f84c5378b99",
+      "bytes": 3148
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/fedimint/fedimint-server/src/consensus/aleph_bft/keychain.rs": {
+      "sha256": "76225d0be3e169f438e9ddc6ce506cffdbda8fa9544dbb8d536a85210731f2fd",
+      "bytes": 4004
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/fedimint/fedimint-server/src/consensus/engine.rs": {
+      "sha256": "dffbb300941944f3360ec15377f86f6befd203319de321b52c7e924f901323d1",
+      "bytes": 47801
+    }
+  },
+  "annotation_diff": {
+    "r2": "--- \n+++ \n@@ -144,13 +144,13 @@\n         tree_wf(b), path_frame(m,b,i as int), b.last() == m.last(),\n     ensures mutation(a,b,i,value),\n {\n-    broadcast use vstd::set_lib::range_set_properties;\n+    \n     assert forall|h: int, j: int| 0 <= h < a.len() && 0 <= j < a[h].data@.len()*64 &&\n         j != ancestor(i as int,a.len()-1-h) implies physical_bit(b[h],j) == physical_bit(a[h],j) by {\n         assert(physical_bit(m[h],j) == physical_bit(a[h],j));\n         assert(physical_bit(b[h],j) == physical_bit(m[h],j));\n     }\n-    assert(allocated(b) =~= (if value { allocated(a).insert(i as int) } else { allocated(a).remove(i as int) }));\n+    \n }\n spec fn pending_at(t: Seq<U64GroupedBitmap>, h: int, e: int) -> bool {\n     shape(t) && 0 <= h < t.len()-1 && 0 <= e < t[h].len &&\n",
+    "f2": "--- \n+++ \n@@ -61,8 +61,8 @@\n         a.len() >= quorum(n), b.len() >= quorum(n),\n     ensures a.intersect(b).len() > fault(n),\n {\n-    vstd::set_lib::lemma_set_intersect_union_lens(a, b);\n-    vstd::set_lib::lemma_len_subset(a.union(b), u);\n+    \n+    \n }\n \n pub proof fn quorum_has_honest(n: int, u: Set<usize>, a: Set<usize>, bad: Set<usize>)\n@@ -70,9 +70,7 @@\n         a.len() >= quorum(n), bad.len() <= fault(n),\n     ensures !a.subset_of(bad), exists|p: usize| a.contains(p) && !bad.contains(p),\n {\n-    if a.subset_of(bad) {\n-        vstd::set_lib::lemma_len_subset(a, bad);\n-    }\n+    \n }\n \n pub proof fn one_honest_margin(n: int, u: Set<usize>, chosen: Set<usize>, bad: Set<usize>)\n@@ -80,9 +78,7 @@\n         chosen.len() >= fault(n) + 1, bad.len() <= fault(n),\n     ensures exists|p: usize| chosen.contains(p) && !bad.contains(p),\n {\n-    if chosen.subset_of(bad) {\n-        vstd::set_lib::lemma_len_subset(chosen, bad);\n-    }\n+    \n }\n \n // Numeric observation client, not an implementation of either cryptographic guard.\n"
+  },
+  "ablation_diff": "--- \n+++ \n@@ -46,7 +46,7 @@\n         // statements. Observation IDs include every preceding proposal.\n         functions = buffer_observation_goals::prepare(&functions, self.imported, report)?;\n         let functions = sequence_triggers::prepare(&functions, report)?;\n-        let functions = set_goals::prepare(&functions, self.imported, report)?;\n+        let functions = functions; // private S1-only disable-pass ablation\n         report.assistance_preparation_completed = true;\n         Ok(functions)\n     }\n"
+}
