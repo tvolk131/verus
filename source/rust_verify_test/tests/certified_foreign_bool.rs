@@ -6,6 +6,15 @@ const PROVIDER: &str = "use vstd::prelude::*; verus! {pub fn all_bool(b:bool)->(
 fn ok(o: &std::process::Output) {
     assert!(o.status.success(), "{}", String::from_utf8_lossy(&o.stderr));
 }
+fn build(
+    c: &InferCrates,
+    name: &str,
+    body: &str,
+    deps: &[&str],
+    options: &[&str],
+) -> std::process::Output {
+    c.build_source(name, &format!("use vstd::prelude::*; verus! {{ {body} }}"), deps, options, true)
+}
 fn metadata(path: &std::path::Path) -> (Vec<u8>, serde_json::Value) {
     let b = std::fs::read(path).unwrap();
     assert!(b.ends_with(b"VRINFER1"));
@@ -23,16 +32,18 @@ fn checked_full_domain_export_and_ordinary_transitive_import() {
     assert!(j["proofs"].as_array().unwrap().is_empty());
     let client =
         "pub fn result(b:bool)->(r:u64) ensures r==if b {1u64}else{0u64}, {provider::all_bool(b)}";
-    ok(&c.build("bridge", client, &["provider"], &["--no-cheating"]));
+    ok(&build(&c, "bridge", client, &["provider"], &["--no-cheating"]));
     let (_, b) = metadata(&c.vir("bridge"));
     assert_eq!(j["foreign_dependencies"], b["foreign_dependencies"]);
-    ok(&c.build(
+    ok(&build(
+        &c,
         "third",
         &client.replace("provider::all_bool", "bridge::result"),
         &["provider", "bridge"],
         &["--no-cheating"],
     ));
-    let bad = c.build(
+    let bad = build(
+        &c,
         "false_client",
         &client.replace("r==if b {1u64}else{0u64}", "r==0u64"),
         &["provider"],
@@ -41,7 +52,8 @@ fn checked_full_domain_export_and_ordinary_transitive_import() {
     assert!(!bad.status.success());
     assert!(String::from_utf8_lossy(&bad.stderr).contains("postcondition not satisfied"));
     assert!(!c.vir("false_client").exists());
-    let missing = c.build(
+    let missing = build(
+        &c,
         "missing",
         &client.replace("provider::all_bool", "bridge::result"),
         &["bridge"],
@@ -59,21 +71,23 @@ fn private_helper_evidence_survives_pruning_and_disabled_checks_refuse() {
     ok(&c.build_source("private", &source, &[], &["--infer-goals", "--no-cheating"], true));
     let (_, j) = metadata(&c.vir("private"));
     assert_eq!(j["foreign_dependencies"].as_array().unwrap().len(), 1);
-    ok(&c.build(
+    ok(&build(
+        &c,
         "client",
         "pub fn value()->(r:u64) ensures r==7u64, {private::value()}",
         &["private"],
         &["--no-cheating"],
     ));
     for flag in ["--no-verify", "--no-lifetime", "--no-trait-conflicts", "--no-erasure-check"] {
-        let o = c.build(
+        let o = build(
+            &c,
             "disabled",
             "pub fn value()->u64 {private::value()}",
             &["private"],
             &[flag, "--no-cheating"],
         );
-        assert!(!o.status.success(), "{flag}");
-        assert!(!c.vir("disabled").exists(), "{flag}");
+        assert!(!o.status.success(), "{}", flag);
+        assert!(!c.vir("disabled").exists(), "{}", flag);
     }
 }
 
@@ -105,8 +119,14 @@ fn missing_stale_or_incompatible_required_evidence_refuses() {
         bytes.extend(serde_json::to_vec(&m).unwrap());
         bytes.extend(b"VRINFER1");
         std::fs::write(c.vir("provider"), bytes).unwrap();
-        let o=c.build("consumer","pub fn result(b:bool)->(r:u64) ensures r==if b {1u64}else{0u64}, {provider::all_bool(b)}",&["provider"],&["--no-cheating"]);
-        assert!(!o.status.success(), "{change}");
-        assert!(!c.vir("consumer").exists(), "{change}");
+        let o = build(
+            &c,
+            "consumer",
+            "pub fn result(b:bool)->(r:u64) ensures r==if b {1u64}else{0u64}, {provider::all_bool(b)}",
+            &["provider"],
+            &["--no-cheating"],
+        );
+        assert!(!o.status.success(), "{}", change);
+        assert!(!c.vir("consumer").exists(), "{}", change);
     }
 }
