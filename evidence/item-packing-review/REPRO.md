@@ -31,6 +31,8 @@ for name in ['full','packet']:
 PYCODE
 ```
 
+After restored replay, run `python3 -B evidence/item-packing-review/aux_only.py` then `python3 -B evidence/item-packing-review/restored_warm.py` and `python3 -B evidence/item-packing-review/finish.py` to reproduce the additional auxiliary-only rejection and final receipt index. The returned original/masked values and actual flag are real outputs; no application assertion is weakened.
+
 The recorded run used shipping-build5 following four excluded setup attempts, not a hidden successful first build. Details and exact argv/environment/source/tool/fixture hashes are in each private freeze.json/receipt.json indexed by RESULTS.json. The final runner includes the setup corrections. `setup` creates a new private snapshot repository solely because the normal version build scripts require Git metadata. Its source bytes match the review checkout; its private metadata commit is a label, not the parent commit. No parent/sibling worktree/build/cache/config is consulted.
 
 The first packet path has one extra character relative to the completed worker fixture, causing only a pretty-printer line wrap in CHANNEL_MASK. The separate `packe` path has equal length in this recorded private root and matches every committed raw typed-body hash after replacing only the exact fixture filename. For a new randomized root of another length, choose a private relative fixture directory name that preserves the total filename length52, keep it outside the completed worker root, and update strict_bodies.py's local target label. Do not normalize coordinates, operators, types or whitespace. Both packet invocations retain identical source bytes and32/0 cold/warm; all30 actual AIR files match within each pair.
