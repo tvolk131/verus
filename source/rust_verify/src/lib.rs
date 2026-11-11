@@ -42,6 +42,7 @@ pub mod cargo_verus_dep_tracker;
 mod checked_foreign;
 mod checked_foreign_packing;
 mod checked_nonzero_ord;
+pub mod internal_repr;
 pub mod context;
 pub mod def;
 pub mod driver;

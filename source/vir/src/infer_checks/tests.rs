@@ -1489,7 +1489,7 @@ fn opaque_return_precision_checks_complete_identity_without_candidate_fields() {
     datatype.transparency = DatatypeTransparency::Never;
     datatype.variants = Arc::new(vec![]);
     ctx.datatype_map.insert(dt.clone(), Spanned::new(span(), datatype));
-    ctx.datatype_is_transparent.insert(dt.clone(), false);
+    ctx.datatype_is_encoded.insert(dt.clone(), false);
     let typ = Arc::new(TypX::Datatype(dt, Arc::new(vec![]), Arc::new(vec![])));
     ctx.mono_types.push(crate::poly::typ_as_mono(&typ).unwrap());
     let vars =
@@ -1697,3 +1697,5 @@ fn scalar_pair_precision_uses_whole_output_not_candidate_components() {
         Arc::new(vec![encode(binary(eq, field(0), integer(7))), encode(binary(eq, field(1), x))]);
     assert!(!verifies(&ctx, &pars, &exact(&swapped)));
 }
+
+mod internal_representation;

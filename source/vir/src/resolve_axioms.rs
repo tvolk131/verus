@@ -51,7 +51,7 @@ impl ResolvedTypeCollection {
         match &**typ {
             TypX::Datatype(dt, args, _) => {
                 let datatype = &self.datatype_map[dt];
-                if crate::ast_util::is_transparent_to(&datatype.x.transparency, &self.module) {
+                if crate::ast_util::is_encoded_to(&datatype.x.transparency, &self.module) {
                     self.append(ResolvableType::Datatype(dt.clone()));
                 }
                 for arg in args.iter() {
@@ -218,7 +218,7 @@ pub fn resolve_decoration_axiom(dec: &TypDecoration) -> Node {
 
 fn resolve_datatype_axiom(ctx: &Ctx, dt: &Dt) -> Vec<Command> {
     let datatype = &ctx.datatype_map[dt];
-    if !crate::ast_util::is_transparent_to(&datatype.x.transparency, &ctx.module.x.path) {
+    if !crate::ast_util::is_encoded_to(&datatype.x.transparency, &ctx.module.x.path) {
         return vec![];
     }
     if datatype.x.destructor {

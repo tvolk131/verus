@@ -2910,6 +2910,22 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
+        // Experimental internal datatype definitions are local compiler state,
+        // never import/publication authority. Inspect the complete selected
+        // pre-crate before pruning, independently of inference/helper counts.
+        if vir::internal_repr::contains_internal_representation(&pre_crate.krate_without_funs)
+            && (self.args.export.is_some() || self.export_vir_path_via_cargo.is_some())
+        {
+            crate::import_export::invalidate_local_inference_export(
+                &self.args,
+                &self.export_vir_path_via_cargo,
+            )
+            .map_err(map_err_diagnostics)?;
+            return Err(map_err_diagnostics(vir::messages::error_bare(
+                "experimental internal datatype encoding is local-only; selected VIR export is unsupported",
+            )));
+        }
+
         // Local NonZero ordering has no publication kind or import format.
         // Requests using existing PartialOrd may need no new Ord helper.
         let local_wrapper_ordering =

@@ -5040,3 +5040,25 @@ fn loop_set_pre_stms(the_loop: Stm, new_pre_stms: Stms) -> Stm {
     }
     the_loop
 }
+
+/// Test adapter into the *ordinary* place/reborrow lowering. It adds no new
+/// semantic rule: both phases and all local declarations come from State.
+#[cfg(test)]
+pub(crate) fn internal_repr_test_borrow(
+    ctx: &Ctx,
+    diagnostics: &impl Diagnostics,
+    root: &VarIdent,
+    root_typ: &Typ,
+    expr: &Expr,
+) -> (Vec<Stm>, Stm, Exp, Vec<LocalDecl>) {
+    let mut state = State::new(diagnostics);
+    state.declare_var_stm(root, root_typ, PreLocalDeclKind::Param, false);
+    let (phase1, value) = borrow_mut_to_sst(ctx, &mut state, expr).unwrap();
+    let Maybe::Some((borrow, obligations)) = value else { panic!("expected field reborrow") };
+    assert!(obligations.is_empty());
+    let phase1 = phase1.iter().map(|s| state.finalize_stm(ctx, s).unwrap()).collect();
+    let writeback = state.finalize_stm(ctx, &borrow.phase2_stm).unwrap();
+    let reference = state.finalize_exp(ctx, &borrow.mut_ref_exp).unwrap();
+    let locals = state.finalize().unwrap().local_decls;
+    (phase1, writeback, reference, locals)
+}

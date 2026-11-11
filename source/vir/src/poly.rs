@@ -210,7 +210,7 @@ pub(crate) fn typ_is_poly(ctx: &Ctx, typ: &Typ) -> bool {
             panic!("internal error: AnonymousClosure should be removed by ast_simplify")
         }
         TypX::Datatype(path, _, _) => {
-            if ctx.datatype_is_transparent[path] {
+            if ctx.datatype_is_encoded[path] {
                 false
             } else {
                 typ_as_mono(typ).is_none()
@@ -244,7 +244,7 @@ pub(crate) fn coerce_typ_to_native(ctx: &Ctx, typ: &Typ) -> Typ {
             panic!("internal error: AnonymousClosure should be removed by ast_simplify")
         }
         TypX::Datatype(path, _, _) => {
-            if ctx.datatype_is_transparent[path] {
+            if ctx.datatype_is_encoded[path] {
                 typ.clone()
             } else {
                 if typ_as_mono(typ).is_none() {
@@ -1455,4 +1455,17 @@ pub fn poly_krate_for_module(ctx: &mut Ctx, krate: &KrateSst) -> KrateSst {
         ctx.datatype_map.insert(datatype.x.name.clone(), datatype.clone());
     }
     Arc::new(kratex)
+}
+
+#[cfg(test)]
+pub(crate) fn internal_repr_test_check(ctx: &Ctx, check: &FuncCheckSst) -> FuncCheckSst {
+    let mut state = State {
+        remaining_temps: HashSet::new(),
+        types: ScopeMap::new(),
+        temp_types: HashMap::new(),
+        is_trait: false,
+        in_exec_closure: false,
+        is_poly_ret_with_opaque: false,
+    };
+    visit_func_check_sst(ctx, &mut state, check, &InsertPars::Native, &InsertPars::Native, &crate::ast_util::unit_typ())
 }

@@ -1,8 +1,8 @@
 use crate::ast::{
-    DatatypeTransparency, Dt, Field, Ident, Idents, Mode, Path, Typ, TypX, VarIdent, Variants,
+    Dt, Field, Ident, Idents, Mode, Path, Typ, TypX, VarIdent, Variants,
 };
 use crate::ast_util::{
-    LowerUniqueVar, air_unique_var, is_visible_to_of_owner, path_as_friendly_rust_name,
+    LowerUniqueVar, air_unique_var, path_as_friendly_rust_name,
 };
 use crate::context::Ctx;
 use crate::def::{
@@ -44,13 +44,8 @@ fn datatype_to_air(ctx: &Ctx, datatype: &crate::ast::Datatype) -> air::ast::Data
     })
 }
 
-pub fn is_datatype_transparent(source_module: &Path, datatype: &crate::ast::Datatype) -> bool {
-    match &datatype.x.transparency {
-        DatatypeTransparency::Never => false,
-        DatatypeTransparency::WhenVisible(vis) => {
-            is_visible_to_of_owner(&vis.restricted_to, source_module)
-        }
-    }
+pub fn is_datatype_encoded(source_module: &Path, datatype: &crate::ast::Datatype) -> bool {
+    crate::ast_util::is_encoded_to(&datatype.x.transparency, source_module)
 }
 
 fn field_to_par(span: &Span, f: &Field) -> Par {
@@ -762,7 +757,7 @@ pub fn datatypes_and_primitives_to_air(ctx: &Ctx, datatypes: &crate::ast::Dataty
 
     for datatype in datatypes.iter() {
         let dt = &datatype.x.name;
-        let is_transparent = is_datatype_transparent(&source_module.x.path, datatype);
+        let is_transparent = is_datatype_encoded(&source_module.x.path, datatype);
 
         if is_transparent {
             // Encode transparent types as AIR datatypes

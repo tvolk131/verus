@@ -4,7 +4,7 @@ use crate::ast::{
     TypPositives, TypX, Variants, VirErr,
 };
 use crate::ast_util::{dt_as_friendly_rust_name_raw, path_as_friendly_rust_name_raw};
-use crate::datatype_to_air::is_datatype_transparent;
+use crate::datatype_to_air::is_datatype_encoded;
 use crate::def::{FUEL_ID, NameCtxt};
 use crate::messages::{Span, WarningAllow, error};
 use crate::poly::MonoTyp;
@@ -102,7 +102,7 @@ pub struct FunctionCtx {
 // Context for verifying one module
 pub struct Ctx {
     pub(crate) module: Module,
-    pub(crate) datatype_is_transparent: HashMap<Dt, bool>,
+    pub(crate) datatype_is_encoded: HashMap<Dt, bool>,
     pub(crate) datatypes_with_invariant: HashSet<Dt>,
     pub(crate) mono_types: Vec<MonoTyp>,
     pub(crate) spec_fn_types: Vec<usize>,
@@ -201,7 +201,7 @@ fn datatypes_inv_visit(
 // If a datatype's fields have invariants, the datatype needs an invariant
 fn datatypes_invs(
     module: &Path,
-    datatype_is_transparent: &HashMap<Dt, bool>,
+    datatype_is_encoded: &HashMap<Dt, bool>,
     datatypes: &Vec<Datatype>,
 ) -> HashSet<Dt> {
     let mut back_pointers: HashMap<Dt, HashSet<Dt>> =
@@ -209,7 +209,7 @@ fn datatypes_invs(
     let mut has_inv: HashSet<Dt> = HashSet::new();
     let mut roots: HashSet<Dt> = HashSet::new();
     for datatype in datatypes {
-        if is_datatype_transparent(module, datatype) {
+        if is_datatype_encoded(module, datatype) {
             let container_name = &datatype.x.name;
             for variant in datatype.x.variants.iter() {
                 for field in variant.fields.iter() {
@@ -228,7 +228,7 @@ fn datatypes_invs(
                             roots.insert(container_name.clone());
                         }
                         TypX::Datatype(field_dt, _, _) => {
-                            if datatype_is_transparent[field_dt] {
+                            if datatype_is_encoded[field_dt] {
                                 back_pointers
                                     .get_mut(field_dt)
                                     .expect("datatypes_invs")
@@ -810,14 +810,17 @@ impl Ctx {
         fndef_types: Vec<Fun>,
         resolved_typs: Vec<crate::resolve_axioms::ResolvableType>,
     ) -> Result<Self, VirErr> {
+        for datatype in &krate.datatypes {
+            crate::internal_repr::validate_datatype(datatype)?;
+        }
         let name_ctxt = NameCtxt::new();
-        let mut datatype_is_transparent: HashMap<Dt, bool> = HashMap::new();
+        let mut datatype_is_encoded: HashMap<Dt, bool> = HashMap::new();
         for datatype in krate.datatypes.iter() {
-            datatype_is_transparent
-                .insert(datatype.x.name.clone(), is_datatype_transparent(&module.x.path, datatype));
+            datatype_is_encoded
+                .insert(datatype.x.name.clone(), is_datatype_encoded(&module.x.path, datatype));
         }
         let datatypes_with_invariant =
-            datatypes_invs(&module.x.path, &datatype_is_transparent, &krate.datatypes);
+            datatypes_invs(&module.x.path, &datatype_is_encoded, &krate.datatypes);
         let mut functions: Vec<Function> = Vec::new();
         let mut func_map: HashMap<Fun, Function> = HashMap::new();
         let mut fun_ident_map: HashMap<Ident, Fun> = HashMap::new();
@@ -859,7 +862,7 @@ impl Ctx {
 
         Ok(Ctx {
             module,
-            datatype_is_transparent,
+            datatype_is_encoded,
             datatypes_with_invariant,
             mono_types,
             spec_fn_types,
