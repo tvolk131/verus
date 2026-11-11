@@ -1,0 +1,17 @@
+{
+  "before_proofs": true,
+  "private_freeze_sha256": "dfaf57199544abb1ff59f08481524d2fa19cd504d4b20c7f68063190e158f2fa",
+  "source_count": 3112,
+  "source_inventory_sha256": "ab1fd1eadeea528464a1814f55631ae3b378557b5f09b78a85952b307727893c",
+  "source_snapshot_git_head": "3905b349c468296e8616f8b0e07d8f24bf826c3b",
+  "tools": {
+    "libverus_builtin.rlib": "a86c5029401ab0c42bfb9de498506cefba53f8786db2a055586e1c83ad257129",
+    "libverus_builtin_macros.so": "bf5fe15dd9cbba6e83a36f3b2394308ae10555b81c5795a954d302bbb98eb2df",
+    "libverus_state_machines_macros.so": "6b9ec1be0f93dbd956cf68ef5ff200718e26c0540bd4218697e167504dbfdfdc",
+    "libvstd.rlib": "61ecd8caf1eddee65c4861b546a2f8fa207877590dd9f7a3b278b58b853e7bfc",
+    "rust_verify": "70a19cfab65a68ba52c1fe98205984d40cacb4a251fe6099f8229c9288ac08e8",
+    "verus": "4b13a9ae6fd3f093b5394f25b9307a684985099248e269a69c9aed09959d5a08",
+    "vstd.vir": "e4936f548411b3613d33556c8ae795ee1883cc28a60d0c2805e789abc1133dba",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  }
+}

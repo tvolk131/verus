@@ -1,0 +1,29 @@
+{
+  "files": {
+    "PREREGISTRATION.md": "18bf34e033b72d63803a21e0531a9eaabc91ce714559cf2a758200695e74ef51",
+    "PRIVATE_ROOT": "7f677e177144015d9bf1e87e1e04339f4997644da7cf269f60584e6b47ce35af",
+    "REPORT.md": "427a77a220ca00461ef8222ed109d2820a330b18cde0b432e90d5d9d46044660",
+    "REPRO.md": "65fb75173c9133ab9d7a1fbd26ee3f7f3dcdb032a59f3a7f4e72c30db5eb568b",
+    "RESULTS.json": "ace3ce413c7077f704670a397d887d0b7cc8b607d93ba945040e8091f4bd4102",
+    "SOURCE_AUTHENTICATION.json": "921eef26fff1277aa222e1420524fcfc1231d53f792e22eadc334c2d325d9be5",
+    "SOURCE_REVIEW.md": "2a8cc59878fd91c24f3530aae6dacc0c861e5db6b99b28b0e291fbaaa0637222",
+    "TOOL_FREEZE.json": "0709a2b3c2cfa974b07c044e116ad69a8aed3691a2e0d49c74953415b9ab1126",
+    "VALIDATION.json": "fb31c840091b159e22303d6a8a21927dd1874064dfb6b064c2d0dfac0744b4c8",
+    "audit.py": "4262a465ab5fc2ac2b371941201836cc36e84fa165ae53d6dc3207db8554620c",
+    "authenticate.py": "c172e4c6f1890f099484e6e05d85095e9886f9a125b5e8d7fbdf51c270ebf3ff",
+    "build.py": "86bf3f574f190dd20d9ea64050606763463ccfa7fe14398fe1636ad136e2612b",
+    "build_tests.py": "3c15b249fae11b5c841b7bc1a50be8f6ec99d1cae72d14e4a51bbe04ec3fe00f",
+    "compatibility.py": "32aa7798dc471dd1a35e32d3c257882339854445b905c840d72145a88bde0204",
+    "dual.py": "03d8923b4c38eebfa6ea27f78c5fcd4d3f5c6ce817e22584a705362137c81438",
+    "finalize.py": "85e680e450acd3fb6aeae3b27408141b16137aad40004cd260ea1335feed3e2e",
+    "independent.py": "702cab11517443d08b8452879f4dbb526537fd0e0ab883e994b40ceca0a078ac",
+    "matrix.py": "cb22647ccd5cb8e65852faddce8c9889a0e3bb26db3f9d0afc5c8bf2837aaa78",
+    "packet.py": "d3b030d7095c5d4d089d3b8da9b2f9466d863356a59b365701b566156c7f9c06",
+    "relation.py": "46ff736b74a9f759792b0093fa410904ce15c94f8acc71298148622509ca723b",
+    "structural.py": "f661d34d1934acd06593e689da8c87b7cbd6a976bd74a8fa09f8a85de050c41f",
+    "tests.py": "2910924f449f8e7c2e5309d8ce29b8d0dc9856100c2b41285d5608ee6d6d7acf",
+    "trials.py": "92d9a775340159f86c6998bc26ce76990d9daf25c1e61c69c9457f992f362932"
+  },
+  "goal_complete": false,
+  "publication": false
+}

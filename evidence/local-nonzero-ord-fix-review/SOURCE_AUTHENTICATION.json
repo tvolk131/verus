@@ -1,0 +1,23 @@
+{
+  "compiler_core": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-1d288395a3394ed3.rlib": "b346ce2305e13b1a5ec9ab6e093028caee38227c540cdaf78d7b253f59ae5913"
+  },
+  "fix": "297332c265e85bcc0fbcaac253277f307906c3f2",
+  "fix_files": {
+    "source/rust_verify/src/checked_nonzero_ord.rs": "0cd96dbd9d1ebe4b94d7740f07a89714dfab825d0c2d3d0410828d6cf1a69fb5",
+    "source/rust_verify/src/checked_nonzero_ord_tests.rs": "7e8d35bc7be994750de64b668ce0855d3f91ec095338aa695b229726b306b7d2",
+    "source/rust_verify/src/import_export.rs": "bf77111292c95fae18bcc40141f4b2624001f662c24b7a62798bb43b1fb283a8"
+  },
+  "item_fixture_sha256": "1adb8b6c2ee64cc1c6930c9530920105ad26cee8abf3212caff53dda0c36518d",
+  "prepared_head": "913044c43a476188537a087618a205e01aafc9eb",
+  "prior_results_sha256": "20e2188c0829b1991ed09d839adcb5303a2872ab4d32d92bd2a8d35e3309bae5",
+  "prior_tools_authenticated": true,
+  "prior_validation_sha256": "3867c07797fddf1f5fac465c4211008e8077daa14549a3ab46546879378eda09",
+  "versions": {
+    "cache": 76,
+    "policy": 73,
+    "schema": 39
+  }
+}
