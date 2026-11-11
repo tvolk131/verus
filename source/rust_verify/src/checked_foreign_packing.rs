@@ -13,6 +13,71 @@ use vir::{
     sst::{self, Exp, ExpX, FuncCheckSst, Stm, StmX},
 };
 
+// Exact identity for the closed subset emitted below. This is intentionally not
+// general SST equivalence: unsupported shapes are always retained. Spans carry
+// diagnostics only here; no formula or variable identity is normalized.
+#[derive(Debug, PartialEq, Eq, Hash)]
+enum KeyTyp {
+    Bool,
+    Int(IntRange),
+}
+#[derive(Debug, PartialEq, Eq, Hash)]
+struct ClosedKey(KeyTyp, KeyExp);
+#[derive(Debug, PartialEq, Eq, Hash)]
+enum KeyExp {
+    Int(BigInt),
+    Var(VarIdent),
+    Binary(sst::BinaryOp, Box<ClosedKey>, Box<ClosedKey>),
+    Forall(Quant, Vec<(VarIdent, KeyTyp)>, Vec<Vec<ClosedKey>>, Box<ClosedKey>),
+}
+fn key_typ(t: &Typ) -> Option<KeyTyp> {
+    match &**t {
+        TypX::Bool => Some(KeyTyp::Bool),
+        TypX::Int(r @ (IntRange::Int | IntRange::U(8 | 16 | 32 | 64))) => {
+            Some(KeyTyp::Int(*r))
+        }
+        _ => None,
+    }
+}
+fn closed_key(e: &Exp) -> Option<ClosedKey> {
+    fn visit(e: &Exp, bound: &[(VarIdent, KeyTyp)], budget: &mut usize) -> Option<ClosedKey> {
+        *budget = budget.checked_sub(1)?;
+        let t = key_typ(&e.typ)?;
+        let x = match &e.x {
+            ExpX::Const(Constant::Int(n)) => KeyExp::Int(n.clone()),
+            ExpX::Var(v) if bound.iter().any(|(name, typ)| name == v && *typ == t) => {
+                KeyExp::Var(v.clone())
+            }
+            ExpX::Binary(op @ (sst::BinaryOp::And | sst::BinaryOp::Implies
+                | sst::BinaryOp::Eq | sst::BinaryOp::Inequality(_)
+                | sst::BinaryOp::Arith(_) | sst::BinaryOp::Bitwise(_)), a, b) => {
+                KeyExp::Binary(*op, Box::new(visit(a, bound, budget)?), Box::new(visit(b, bound, budget)?))
+            }
+            ExpX::Bind(bnd, body) if bound.is_empty() => {
+                let sst::BndX::Quant(q, binders, triggers, None) = &bnd.x else { return None };
+                if *q != vir::ast_util::QUANT_FORALL || binders.is_empty() || binders.len() > 3 {
+                    return None;
+                }
+                let mut vars = Vec::new();
+                for b in binders.iter() {
+                    if vars.iter().any(|(name, _)| name == &b.name) { return None; }
+                    vars.push((b.name.clone(), key_typ(&b.a)?));
+                }
+                let triggers = triggers.iter().map(|trig| {
+                    trig.iter().map(|e| visit(e, &vars, budget)).collect::<Option<Vec<_>>>()
+                }).collect::<Option<Vec<_>>>()?;
+                KeyExp::Forall(*q, vars.iter().map(|(v, t)| {
+                    // KeyTyp is small; keep the binder's complete supported type.
+                    (v.clone(), match t { KeyTyp::Bool => KeyTyp::Bool, KeyTyp::Int(r) => KeyTyp::Int(*r) })
+                }).collect(), triggers, Box::new(visit(body, &vars, budget)?))
+            }
+            _ => return None,
+        };
+        Some(ClosedKey(t, x))
+    }
+    visit(e, &[], &mut 4096)
+}
+
 fn number(e: &Exp, functions: &HashMap<Fun, Function>) -> Option<u32> {
     let n = match &e.x {
         ExpX::Const(Constant::Int(n)) => n,

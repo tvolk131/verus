@@ -1,0 +1,1262 @@
+{
+  "base": "efd9fb5680ece75f871058677afe10c9ce7e64eb",
+  "bundle_receipt_sha256": "5c81930271eeae212f1a4d92cb3d7f226c8cf72a4028063ba01a9837e6b01ea5",
+  "cases": {
+    "full": {
+      "cold_seconds": 27.85627497197129,
+      "kept": 102,
+      "owners": {
+        "component::Item::new": {
+          "kept": 19,
+          "proposed": 23,
+          "removed": 4
+        },
+        "component::Item::perm": {
+          "kept": 19,
+          "proposed": 23,
+          "removed": 4
+        },
+        "component::Item::protected": {
+          "kept": 12,
+          "proposed": 14,
+          "removed": 2
+        },
+        "component::Item::tag": {
+          "kept": 13,
+          "proposed": 14,
+          "removed": 1
+        },
+        "component::PERM_MASK": {
+          "kept": 13,
+          "proposed": 14,
+          "removed": 1
+        },
+        "component::PROTECTED_MASK": {
+          "kept": 12,
+          "proposed": 14,
+          "removed": 2
+        },
+        "component::TAG_MASK": {
+          "kept": 14,
+          "proposed": 14,
+          "removed": 0
+        }
+      },
+      "proposed": 116,
+      "queries": [
+        {
+          "file": "rootcomponent!PERM_MASK._01-final.air",
+          "first": "rootcomponent!PERM_MASK._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "b75cb53f9b1597a6dbd8e4d539f710cafbad1ed613dcc649fdbba2beb4ccef12"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._02-final.air",
+          "first": "rootcomponent!PERM_MASK._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "4cf95d78877c7da994314dff05a982b11215bc2c8a5e008bab2ada125ebdafc9"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._03-final.air",
+          "first": "rootcomponent!PERM_MASK._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "193230f2b9a5605487c11c854d0ada4ca7c61428c5507ee82ca50f8f92eb073e"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._04-final.air",
+          "first": "rootcomponent!PERM_MASK._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "0e4bfe6129363f52b8fd70c197f61c4fe6569537755f89d67fdc2868ae13f0ef"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._05-final.air",
+          "first": "rootcomponent!PERM_MASK._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "fa4fba01ff7c126485eca22f6030a3c9c9407df5d834b913662edd7ca9da00eb"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._06-final.air",
+          "first": "rootcomponent!PERM_MASK._06-final.air",
+          "formula_sha256": "9c9ac951f9fa4afd81f1ddfa982937141dbc5d6dd7e46465399a9218c9d8e050",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "9823bff6d1f84e85c9d989171bb3d954357da800c7df72c2e87b1056a7ac29db"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._07-final.air",
+          "first": "rootcomponent!PERM_MASK._07-final.air",
+          "formula_sha256": "4b9d735a6101e1f51e3eac83b6c70d81d9754a3101c607d0377b20150fac774c",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "16c8ec84c75cbcdc4170cf727b6303ff8d8128f8c18b92b3a888c66bc4160550"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._08-final.air",
+          "first": "rootcomponent!PERM_MASK._08-final.air",
+          "formula_sha256": "e53944677ed0682efd907623caa6b3e651fe956c429005efda215332048f5e54",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "c0b72986284f887e4f55dc6b31dd8a8f6962c21a9d53b1ed0b3a23f280ad3d1e"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._09-final.air",
+          "first": "rootcomponent!PERM_MASK._09-final.air",
+          "formula_sha256": "50987694ddf7f43122d44c6179c59f23d5c4dd28c0a59bb6cd40781bdf16e0cb",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "9473a8d2d98be2a011f369888d70c2a2f9c716e423bcf422de8a5cec53724aa3"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._10-final.air",
+          "first": "rootcomponent!PERM_MASK._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "27bb062043eddb776d9950a6c608d56aaf147a606c866e895c797f42b7129053"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._11-final.air",
+          "first": "rootcomponent!PERM_MASK._11-final.air",
+          "formula_sha256": "3db3ddb4d86aed1950539609a3e2735f2ac8acff779581a590ee5a4f80fc9b56",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "6dcae54f73af466d737673e361310168391a2aef8ad726efdb18dff37fcf848f"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._12-final.air",
+          "first": "rootcomponent!PERM_MASK._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": false,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "8df58c86f406b9ecfdce5a3657932fa85032db53076838b70d0ba4b5175bf332"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._13-final.air",
+          "first": "rootcomponent!PERM_MASK._13-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "de9e04083fbf08f77a5a1ecf6c9264edabcfb8ba2e7c7d5a2981abbad048b0af"
+        },
+        {
+          "file": "rootcomponent!PERM_MASK._14-final.air",
+          "first": "rootcomponent!PERM_MASK._14-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::PERM_MASK",
+          "raw_sha256": "f1f6e18663c56d5fbce0c591ecfce8fa9f02d4dab6b3e36c0f44115ed13a6285"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._01-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "41f386e9cf1476b6d5c57b820c87345bbae6e68baf69d9c9e5d010d90a9530e9"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._02-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "bc35a764bb904f53a4c923f8a861aa1eb8b175ab4d6b6916d0cc307ff4ec8ae8"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._03-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "12a04cbf11ccb62a4440fc160d1e4412c8ab0966538e039bf9e58404e111dd8d"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._04-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "b516c7489ea6ab01a659e4d5d1492a10a7e39c52041cf46d03929d26c043469c"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._05-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "186fab0dff594949e4a5767c11f9554c90b07f23fd5a9f311579b071e480922e"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._06-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._06-final.air",
+          "formula_sha256": "ac0761ecfe3548399f5f37ed2d1b0aa9f2d0d5e3f34ded7315761a4f210cc070",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "e4c330190c94b63f30606f28c7eddd15ac36b8d1dc48f86cda273b98e3b0dafd"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._07-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._07-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "1f90df6b31f9bb5a1d38b0c9e2a730ce5e4bdecda6ffeef639d59465af32221c"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._08-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._07-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": false,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "1b7a335be0016a7ecdbeeea3b65aa72b0bdc38d7e4caad32ffe1ef9ae1e5a879"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._09-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._09-final.air",
+          "formula_sha256": "717bc604d23da872cb91167b5871296e2eaf2167bdfe86b27dbf0a8c7dd3b60c",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "820bfbb236f6586546dbe5c56f4aac14f780107686789e125252ad800c2772a1"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._10-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._10-final.air",
+          "formula_sha256": "67bd67d40ccf39a2ccd842bb857790ce61807286a52f9d9fba1c0c92d1cbdb50",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "5c8ea38c8ae7ba0d8f776c8c087e7e886ad55080e79747e25e77adaa447ee970"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._11-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._11-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "c5cb827c8a1e21f34165c1b0cff853a7df5095296639dafad81b094af17f00b7"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._12-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._12-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "4b729e7805b7774a7de84c8087ac42640a2858dea1208b3afd09ce7f51945e64"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._13-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._13-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "c86aa42f73e2c53aeb96c96e7144525673e091b80ce61887828d2a21eeb1a97a"
+        },
+        {
+          "file": "rootcomponent!PROTECTED_MASK._14-final.air",
+          "first": "rootcomponent!PROTECTED_MASK._11-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": false,
+          "owner": "component::PROTECTED_MASK",
+          "raw_sha256": "3391ee4414510d4acc4455150943510f1a76a26bd58ac3bfe3eea4c4dfe1b51b"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._01-final.air",
+          "first": "rootcomponent!TAG_MASK._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "c3024f874353af4a815428f569274a2a91f76b3a9bffb9d89db6511dea4a29b0"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._02-final.air",
+          "first": "rootcomponent!TAG_MASK._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "45b249648317c9a534b2606cfafe576a80ca972eeb22c411d04829e20a5bb2af"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._03-final.air",
+          "first": "rootcomponent!TAG_MASK._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "23885fc4a44f237ce090f6cca50b4d3368695d2d1092046c3f962af9142a8bd8"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._04-final.air",
+          "first": "rootcomponent!TAG_MASK._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "b0831bdf07fa46f91a07eb564feee820f5057ddedd9f925719c235bb89c1e3af"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._05-final.air",
+          "first": "rootcomponent!TAG_MASK._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "b72994a269298f009fd4143f5307587e88a6a647345beea2003b98d2de15dec8"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._06-final.air",
+          "first": "rootcomponent!TAG_MASK._06-final.air",
+          "formula_sha256": "4c60324a6f3b5e4218229993fd8a75e6be8de64decb272c69738faf757c4b029",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "9944244210f6cce176eed9005e2e48d311bd5565d15d5bee85f25b89e7ea81f1"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._07-final.air",
+          "first": "rootcomponent!TAG_MASK._07-final.air",
+          "formula_sha256": "2a6cf363d12db911ac4838b290ed2d659c631abe088b90a242d093d5a23c118c",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "f4ab35a9559454c4e1795534acf29572e227e7221e09519e0461f8c77677926b"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._08-final.air",
+          "first": "rootcomponent!TAG_MASK._08-final.air",
+          "formula_sha256": "5f4778ead506e0f9eae6b43eb679636ab1d30f5072f2c9c7089d2c4490c4ddf2",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "7fa635f8624baeddd0aab208f72b22a4b9052d02453139b8fd43ce90c466ec35"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._09-final.air",
+          "first": "rootcomponent!TAG_MASK._09-final.air",
+          "formula_sha256": "025d769d50d1a16d587ac26d2ccdb8e795dd0f6e4f01cd7dcefdcfe5bf7532c1",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "90935139fae3affc597839ed479da1285da8835ede3effd1f33ee2f96ca37b9d"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._10-final.air",
+          "first": "rootcomponent!TAG_MASK._10-final.air",
+          "formula_sha256": "7d6f0877df520ba01ea0a59e88025fd7bfd5c361d6d6e3b19cddfc43c54249ae",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "5ac625d91587df5c97548fc7b27bdd17ebeb369fc98e13e1f44ba9c86ecb7021"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._11-final.air",
+          "first": "rootcomponent!TAG_MASK._11-final.air",
+          "formula_sha256": "84d22fc1829017a2aabd7ebbd319fc1c5879354cfe6f806b039d6aaffee8c42c",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "2c7dfe0bcaf4b04e0be241131a68532de31f61d52014954bf0e894bba55fe7b1"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._12-final.air",
+          "first": "rootcomponent!TAG_MASK._12-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "20b9ff0a6641ff8a5e62c0059a49015aef8d12148972b450b5c439f16bd80339"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._13-final.air",
+          "first": "rootcomponent!TAG_MASK._13-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "c8c610d88299abb45f16bac816c0ad5f2186c23b7005aab0e63b615b7f90c8f5"
+        },
+        {
+          "file": "rootcomponent!TAG_MASK._14-final.air",
+          "first": "rootcomponent!TAG_MASK._14-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::TAG_MASK",
+          "raw_sha256": "2160eff9006bec6a0d504381eb5c89d459ce64a89fe700ce829c20eb3361724a"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._01-final.air",
+          "first": "rootcomponent!impl&%20.new._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "a518b57ea762c2b236975013aa4369e1483dd2b109a85a93034561a874352a32"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._02-final.air",
+          "first": "rootcomponent!impl&%20.new._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "19b65038d87f6c20295dd4f1494b4d71da5ebbb238b791dcd7fbfc9080d10205"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._03-final.air",
+          "first": "rootcomponent!impl&%20.new._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "cd5b81ecc74d79ac650bac253a6803f4a352c60be4f1dba296abce607dc2e6f3"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._04-final.air",
+          "first": "rootcomponent!impl&%20.new._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "9c019eb1faf2884eec54f8accbe55c931c5af5fe7f5e094330a0faac335e5e3b"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._05-final.air",
+          "first": "rootcomponent!impl&%20.new._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "a4a92433989d87ca77071e403ad2859a22143742d2a00e2be00b889b8a69914e"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._06-final.air",
+          "first": "rootcomponent!impl&%20.new._06-final.air",
+          "formula_sha256": "9c9ac951f9fa4afd81f1ddfa982937141dbc5d6dd7e46465399a9218c9d8e050",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "1f3f12aba926db9407df63ee110cb26048ae264540f99ba45651eec88453ec1a"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._07-final.air",
+          "first": "rootcomponent!impl&%20.new._07-final.air",
+          "formula_sha256": "4b9d735a6101e1f51e3eac83b6c70d81d9754a3101c607d0377b20150fac774c",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "52dd7f4d41bd9f23700433f18da4c3c8bb24a2859ae5f032ed38c4844da09e61"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._08-final.air",
+          "first": "rootcomponent!impl&%20.new._08-final.air",
+          "formula_sha256": "e53944677ed0682efd907623caa6b3e651fe956c429005efda215332048f5e54",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "8d16d7a89c5887997dc2d9c500f439cb38744c3f4b04afb251a937ab36a1629b"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._09-final.air",
+          "first": "rootcomponent!impl&%20.new._09-final.air",
+          "formula_sha256": "50987694ddf7f43122d44c6179c59f23d5c4dd28c0a59bb6cd40781bdf16e0cb",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "0ef6cf665574292defeb3e0d8c6faf7faf38da99b9011ef08d37e09ffba1bc18"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._10-final.air",
+          "first": "rootcomponent!impl&%20.new._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "749df2aca990fb66d1a51a55fe780cef6e6ef2b363df9e240e5b94686533568d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._11-final.air",
+          "first": "rootcomponent!impl&%20.new._11-final.air",
+          "formula_sha256": "3db3ddb4d86aed1950539609a3e2735f2ac8acff779581a590ee5a4f80fc9b56",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "9c8b5ed6a6bfe2e50ebe079daacc8cca7951e37c6054d44fea91c7612533982d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._12-final.air",
+          "first": "rootcomponent!impl&%20.new._12-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "8e7b8ac41c246d1b37f98cc4b4ec4a4e64456621165f00abb5ae38a8fb869b9d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._13-final.air",
+          "first": "rootcomponent!impl&%20.new._13-final.air",
+          "formula_sha256": "8f4393504e9dc5ff8238a5d018ddfa2db825929d0fc2e7c2cb19ec3545cfe3cf",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "ffb7bf2043ab4580768b9f669f13ffa59a860c26f2618e671a9f21a65744a4ae"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._14-final.air",
+          "first": "rootcomponent!impl&%20.new._14-final.air",
+          "formula_sha256": "00804b1368c51b5171f7d85ecea6b7ea0a05a15b3ce90952813b6b59607c5c49",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "ee6b4d2a0fd884a9c689448e894e9ab75a0a1ef07072f5e305a2bc0da94e9995"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._15-final.air",
+          "first": "rootcomponent!impl&%20.new._15-final.air",
+          "formula_sha256": "ac0761ecfe3548399f5f37ed2d1b0aa9f2d0d5e3f34ded7315761a4f210cc070",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "86a72fff319c582eac2bcdaf1b0c51cd3a8d77bb9319204879d7984553978f50"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._16-final.air",
+          "first": "rootcomponent!impl&%20.new._16-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "971182523470b433963073dda13f8b9b8d9271d0db9f650514511a6e15e216cd"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._17-final.air",
+          "first": "rootcomponent!impl&%20.new._16-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": false,
+          "owner": "component::Item::new",
+          "raw_sha256": "7c3751c4c15738af98edf01437cf54d5c54077a0b692a176316ae457484ba3e8"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._18-final.air",
+          "first": "rootcomponent!impl&%20.new._18-final.air",
+          "formula_sha256": "717bc604d23da872cb91167b5871296e2eaf2167bdfe86b27dbf0a8c7dd3b60c",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "f2596689a630fd92b76d6917320cf2745efbf4843abbc52ed0d5c661613d036d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._19-final.air",
+          "first": "rootcomponent!impl&%20.new._19-final.air",
+          "formula_sha256": "67bd67d40ccf39a2ccd842bb857790ce61807286a52f9d9fba1c0c92d1cbdb50",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "b2ee6ceb39a75a5843e03e5a36a36793a7fefa84c7b8f3e75edf2654a2de72d0"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._20-final.air",
+          "first": "rootcomponent!impl&%20.new._20-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::Item::new",
+          "raw_sha256": "447394ab967798fe28e278208ea389b3de6eb69d5a7dbe74c2ea9b43d66d4cc2"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._21-final.air",
+          "first": "rootcomponent!impl&%20.new._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": false,
+          "owner": "component::Item::new",
+          "raw_sha256": "30eb6e778cf66641d54d33ff6680813609e94ad7bf37cbddc90aa39d8ce1360c"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._22-final.air",
+          "first": "rootcomponent!impl&%20.new._12-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": false,
+          "owner": "component::Item::new",
+          "raw_sha256": "4712254983a7340366c53dcf8e4ce7528dab97609a7ef8b350c0a14efa21e825"
+        },
+        {
+          "file": "rootcomponent!impl&%20.new._23-final.air",
+          "first": "rootcomponent!impl&%20.new._20-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": false,
+          "owner": "component::Item::new",
+          "raw_sha256": "d94717782a6d715be3222f76e428a9b68e4405ee84e8c156f5fcdc4a295e121a"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._01-final.air",
+          "first": "rootcomponent!impl&%20.perm._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "96bae0add341f16b13cbecc24907535e2af82ee9104d6c662e7fc54b73d68f42"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._02-final.air",
+          "first": "rootcomponent!impl&%20.perm._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "4faf49b2fc87de75119bc11911e9d8061e29e3e171e664dda0e0ce29ea4b31f1"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._03-final.air",
+          "first": "rootcomponent!impl&%20.perm._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "4f11ba53a5146e20a152ea7d9f7a0703ee6d7077bea66c1779277d8071ddb0e1"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._04-final.air",
+          "first": "rootcomponent!impl&%20.perm._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "39e17328901511dfaf07e800c7f12f55d15c015db51077f50044ac6b58169d78"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._05-final.air",
+          "first": "rootcomponent!impl&%20.perm._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "99316a36d8982c5917fdeb9208e773d4acf2f9b1f1950ce012006b59ba657642"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._06-final.air",
+          "first": "rootcomponent!impl&%20.perm._06-final.air",
+          "formula_sha256": "9c9ac951f9fa4afd81f1ddfa982937141dbc5d6dd7e46465399a9218c9d8e050",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "5d0e6a3632d5e90bd8d22ca7bc51dacd6f67a46f03cbe14d2a54a844c9f486ec"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._07-final.air",
+          "first": "rootcomponent!impl&%20.perm._07-final.air",
+          "formula_sha256": "4b9d735a6101e1f51e3eac83b6c70d81d9754a3101c607d0377b20150fac774c",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "9dc44c99faf18b76e8f7919423ba90b9cba37f5efc23ce2d799b559e0ba93e39"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._08-final.air",
+          "first": "rootcomponent!impl&%20.perm._08-final.air",
+          "formula_sha256": "e53944677ed0682efd907623caa6b3e651fe956c429005efda215332048f5e54",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "3f678c7622f449d6fb6d51ebca319a9876bf3344a85a42564804528338e88370"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._09-final.air",
+          "first": "rootcomponent!impl&%20.perm._09-final.air",
+          "formula_sha256": "50987694ddf7f43122d44c6179c59f23d5c4dd28c0a59bb6cd40781bdf16e0cb",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "372a9e8966549ae14e3f63543521d47bb112784e2f383bef5a762890dbf3751b"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._10-final.air",
+          "first": "rootcomponent!impl&%20.perm._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "2282ce9794b05cd916b3dad067b2e74d25e5e545f836b5b349daf9df66c9a6d8"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._11-final.air",
+          "first": "rootcomponent!impl&%20.perm._11-final.air",
+          "formula_sha256": "3db3ddb4d86aed1950539609a3e2735f2ac8acff779581a590ee5a4f80fc9b56",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "8f8d24811e10289de6e8311855a33d5a4721a71ae84881383594b9b3edc52a17"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._12-final.air",
+          "first": "rootcomponent!impl&%20.perm._12-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "347f08089fb49a03565bac5abda21b5e04c714d951246e5a5b7e70c8aed81006"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._13-final.air",
+          "first": "rootcomponent!impl&%20.perm._13-final.air",
+          "formula_sha256": "8f4393504e9dc5ff8238a5d018ddfa2db825929d0fc2e7c2cb19ec3545cfe3cf",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "c29efa582f93b99bb4fce776d9cedf96feab20751e728aec4873a9b46ad17c25"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._14-final.air",
+          "first": "rootcomponent!impl&%20.perm._14-final.air",
+          "formula_sha256": "00804b1368c51b5171f7d85ecea6b7ea0a05a15b3ce90952813b6b59607c5c49",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "1adb789cda9671e0f0e1c6bc28ae20db492b60df2c22f95ac2e53558f0f4e5c6"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._15-final.air",
+          "first": "rootcomponent!impl&%20.perm._15-final.air",
+          "formula_sha256": "ac0761ecfe3548399f5f37ed2d1b0aa9f2d0d5e3f34ded7315761a4f210cc070",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "1599cb8e35f11c80748a9dd8f6eccb11b31ef5e35c2600bd2882ef5d175d2665"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._16-final.air",
+          "first": "rootcomponent!impl&%20.perm._16-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "cd1b53b92ac950b4d009f4f609547baf8e51033258022e7c767cd3eb4b050445"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._17-final.air",
+          "first": "rootcomponent!impl&%20.perm._16-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": false,
+          "owner": "component::Item::perm",
+          "raw_sha256": "1b5553d36e5d29564edb573973f8dc5db04f875399a003fcaf078e4b571da90d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._18-final.air",
+          "first": "rootcomponent!impl&%20.perm._18-final.air",
+          "formula_sha256": "717bc604d23da872cb91167b5871296e2eaf2167bdfe86b27dbf0a8c7dd3b60c",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "b223da49c814dbaf8f79ceb0dff05999cbe1f04e9f1665316988915a25ad257d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._19-final.air",
+          "first": "rootcomponent!impl&%20.perm._19-final.air",
+          "formula_sha256": "67bd67d40ccf39a2ccd842bb857790ce61807286a52f9d9fba1c0c92d1cbdb50",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "1e4e5f53174a93706e514d1810fb029bb0774cbcf0a9479755193d53f5166051"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._20-final.air",
+          "first": "rootcomponent!impl&%20.perm._20-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::Item::perm",
+          "raw_sha256": "993c43fc7f633c6c3a3d651beda31d32e85d8c678934ac8115b392631879b18d"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._21-final.air",
+          "first": "rootcomponent!impl&%20.perm._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": false,
+          "owner": "component::Item::perm",
+          "raw_sha256": "455b76d66e742b60edd131e1347033c1a9a5953f19e82507cb13771c8593e227"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._22-final.air",
+          "first": "rootcomponent!impl&%20.perm._12-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": false,
+          "owner": "component::Item::perm",
+          "raw_sha256": "03e38c6a2929d568091fe29f155d562f341c8897dc20c00f5e895b0d04cce742"
+        },
+        {
+          "file": "rootcomponent!impl&%20.perm._23-final.air",
+          "first": "rootcomponent!impl&%20.perm._20-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": false,
+          "owner": "component::Item::perm",
+          "raw_sha256": "8806855fceac89c91867b3e2985a5e373f845cfb89fd16117fb41be31c8e06ae"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._01-final.air",
+          "first": "rootcomponent!impl&%20.protected._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "6835595fe01515c37e027a97243321ab65ba69a09480ffd404d92093e78a9de0"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._02-final.air",
+          "first": "rootcomponent!impl&%20.protected._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "f2e79203efedc9bb0279024c6e3ab90a0ebe552040cadadbe35353a80cf6c9b2"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._03-final.air",
+          "first": "rootcomponent!impl&%20.protected._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "3166bc71bf5878ab011d1c65ef3a794a80c29d384476ac8cbe82cd3aceee9479"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._04-final.air",
+          "first": "rootcomponent!impl&%20.protected._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "c044b8ae8dfcdfe84721a66cba07ef23af1666696a45f36443d313aebc5e38e7"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._05-final.air",
+          "first": "rootcomponent!impl&%20.protected._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "e00d9469cd15060737ac48efbe6d32baef0c8321585f2afe5de496409e444723"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._06-final.air",
+          "first": "rootcomponent!impl&%20.protected._06-final.air",
+          "formula_sha256": "ac0761ecfe3548399f5f37ed2d1b0aa9f2d0d5e3f34ded7315761a4f210cc070",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "c948e5b470b9576f56d5f803a39c70a85b6354f7e243f77b829bf25c7ff5da9b"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._07-final.air",
+          "first": "rootcomponent!impl&%20.protected._07-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "500f063cc0334e74c1d0103e4d00528140be0c512228b07aa31f82f421eb3634"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._08-final.air",
+          "first": "rootcomponent!impl&%20.protected._07-final.air",
+          "formula_sha256": "0cd97be761f2ea9af5536a236072c588b60d1111087e5774c5a957f99b7e8b2c",
+          "keep": false,
+          "owner": "component::Item::protected",
+          "raw_sha256": "180e159823896e725d236333a0720b007eb39b64eb9c38da8f18da538563dab8"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._09-final.air",
+          "first": "rootcomponent!impl&%20.protected._09-final.air",
+          "formula_sha256": "717bc604d23da872cb91167b5871296e2eaf2167bdfe86b27dbf0a8c7dd3b60c",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "2a8d242890ac45a8ecf4eda2737675361877689a8efad33fb84c1471b39cf4ba"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._10-final.air",
+          "first": "rootcomponent!impl&%20.protected._10-final.air",
+          "formula_sha256": "67bd67d40ccf39a2ccd842bb857790ce61807286a52f9d9fba1c0c92d1cbdb50",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "c82c29fbe89e4e0e79b1c291975c95eb5d579b5b078803dcb44bdb80f79259b1"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._11-final.air",
+          "first": "rootcomponent!impl&%20.protected._11-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "7174f850c42fa00b8ab0c5bbef4361c68f50fa74d65cd5baa809c0828dbb365e"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._12-final.air",
+          "first": "rootcomponent!impl&%20.protected._12-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "0b9b0cd4c59c762286b59d1c2e558bd55f4db46921da5a6e09f0e3a852d9e483"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._13-final.air",
+          "first": "rootcomponent!impl&%20.protected._13-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::Item::protected",
+          "raw_sha256": "fc4dd2e5bca8c1988f924badc6d7ca33d744d8f893c7604e3a159cea1d4bb19a"
+        },
+        {
+          "file": "rootcomponent!impl&%20.protected._14-final.air",
+          "first": "rootcomponent!impl&%20.protected._11-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": false,
+          "owner": "component::Item::protected",
+          "raw_sha256": "a10d6acec368dfdf5e9ce702e591899f6fe9aeb1b841c67a7b0f18a3406c0bc3"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._01-final.air",
+          "first": "rootcomponent!impl&%20.tag._01-final.air",
+          "formula_sha256": "339b5c0139e6699e71610fe17586677e1a5fc648505b069d86b17fbaacc49120",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "5c0906ef10b29af96d9dcd4aa772a18e315d8262c156cbe81b747740bed4e523"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._02-final.air",
+          "first": "rootcomponent!impl&%20.tag._02-final.air",
+          "formula_sha256": "db0540cc8604da5275f69dc10b2de21276e49d4f09b142c786331fdc4237a3cf",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "38b2dfc36992a309889c5eba6f540726875d02bac4db66c1b657e7d4867968df"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._03-final.air",
+          "first": "rootcomponent!impl&%20.tag._03-final.air",
+          "formula_sha256": "ba0673390eb51739d65174e88e7911de8416d4d41dd85c1a8ed1cbe59cb19845",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "ab18f856fa55dbdf3c9a59391818bd0968a0755a90315fa9d78579e1f405a07e"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._04-final.air",
+          "first": "rootcomponent!impl&%20.tag._04-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "c92ef0bc3781baac47c213c9c42dd0c6c54cb9724786f7b484295b2eb3125a03"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._05-final.air",
+          "first": "rootcomponent!impl&%20.tag._05-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "f195b40b6fad516a1cf3b411744aec4753a71476072b0a398488c9c03bc494cb"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._06-final.air",
+          "first": "rootcomponent!impl&%20.tag._06-final.air",
+          "formula_sha256": "9c9ac951f9fa4afd81f1ddfa982937141dbc5d6dd7e46465399a9218c9d8e050",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "fd5863af8c9ef64f7da53235dc2d4e7cd917da25386a3b652227e20f12bf72d2"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._07-final.air",
+          "first": "rootcomponent!impl&%20.tag._07-final.air",
+          "formula_sha256": "4b9d735a6101e1f51e3eac83b6c70d81d9754a3101c607d0377b20150fac774c",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "305977d2fa9fce15abf94cf1e63cc778095fada41cd1afbc8c45e964160b2ef6"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._08-final.air",
+          "first": "rootcomponent!impl&%20.tag._08-final.air",
+          "formula_sha256": "e53944677ed0682efd907623caa6b3e651fe956c429005efda215332048f5e54",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "836f1759a9ece8714867244804a65dc71712502362c077a4b875c4bfe14ed7cd"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._09-final.air",
+          "first": "rootcomponent!impl&%20.tag._09-final.air",
+          "formula_sha256": "50987694ddf7f43122d44c6179c59f23d5c4dd28c0a59bb6cd40781bdf16e0cb",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "341be0f8b8fb5fccf991948bb8eb421227506c31a55bfc330da431f95b8c7043"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._10-final.air",
+          "first": "rootcomponent!impl&%20.tag._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "33c2f93aafe921ac806543366ea7eec0fd483836f83b6bb4e8392aba8146632c"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._11-final.air",
+          "first": "rootcomponent!impl&%20.tag._11-final.air",
+          "formula_sha256": "3db3ddb4d86aed1950539609a3e2735f2ac8acff779581a590ee5a4f80fc9b56",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "5af61d874adaa5b0005533ce6964e5ae1ba4b50877ce363947ae07d1de28e2d4"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._12-final.air",
+          "first": "rootcomponent!impl&%20.tag._10-final.air",
+          "formula_sha256": "ad025a05b59bd78d0eed51188d9014088053062c507174d6c9aaca69e66358e6",
+          "keep": false,
+          "owner": "component::Item::tag",
+          "raw_sha256": "1cda9641047f4305c63984b95193eccf484989e9ede8d1a8abba4cf1d6c7a7d7"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._13-final.air",
+          "first": "rootcomponent!impl&%20.tag._13-final.air",
+          "formula_sha256": "1e11e2e856fc9907682e05c9bbc5a6e0a3f0f429ea9e8a151d1d102ca5ff7fbd",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "c719e48dedda7bd353bf3f20fc477e7a9365b191e03019bde234fe60a5b545bc"
+        },
+        {
+          "file": "rootcomponent!impl&%20.tag._14-final.air",
+          "first": "rootcomponent!impl&%20.tag._14-final.air",
+          "formula_sha256": "018bdf729e7effde707e0dd31faec8f2c70b91bc9a54d6b4c1c21559e62efca6",
+          "keep": true,
+          "owner": "component::Item::tag",
+          "raw_sha256": "4385b369f9d12e7af47f078af864e3d44c069ed9f9555204bb765365557f1fbd"
+        }
+      ],
+      "receipt_sha256": "3a58ac8b1371d93f6de7d269aec57350c555d9294816a5d019b308af370e55e9",
+      "removed": 14,
+      "verified": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 146
+      },
+      "warm_seconds": 26.84646164899459
+    },
+    "packet": {
+      "cold_seconds": 23.267975714989007,
+      "kept": 28,
+      "owners": {
+        "component::CHANNEL_MASK": {
+          "kept": 10,
+          "proposed": 10,
+          "removed": 0
+        },
+        "component::packet": {
+          "kept": 18,
+          "proposed": 19,
+          "removed": 1
+        }
+      },
+      "proposed": 29,
+      "queries": [
+        {
+          "file": "rootcomponent!CHANNEL_MASK._01-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._01-final.air",
+          "formula_sha256": "f69a98e72866ca60f354b7b78a81e1e354939038f7c591653e462abbce75573b",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "611ac5e49cea836cb90928927f22cf2b78ff7fb37f26d767479793267877d1d0"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._02-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._02-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "6f7d33c75617347357995843093fa8b74e0be05ae78b69d4d2a4998f334bea2c"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._03-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._03-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "b4b14fa326d92d344535f4b1e901f33cfc087c41ee4fc23a30d58a5ad2b151e5"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._04-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._04-final.air",
+          "formula_sha256": "57179a8759c0c1a6b3bd30bfc8d396faa0b3556a8e9710d1ae99b9e61f8ac47a",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "c3221c675547be1593035d394878d082c62d25be1818c4a048bce90c8b0a86b3"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._05-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._05-final.air",
+          "formula_sha256": "b73a3f0b51f1cf0d5f9feb8c90ee96bcbf0bec95baf2741a745b2818ee5018de",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "3eb43ef99be54b1a97907918a4a81dee4511e3cebd6bd20d176bcb3baa325f43"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._06-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._06-final.air",
+          "formula_sha256": "5f1c4be1ce6534353d32514fb1e99afb69df9c3726729e09d7a8a5a237e09a44",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "010d23eec74da49d15e81d79ce3e016e3631e51cd294e522b5b31b0a16973a26"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._07-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._07-final.air",
+          "formula_sha256": "ae7ad8e415abfb8e633a99c2f769007a2e96288e941d67e3f687b830d35f51e7",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "6333196d80220e988531f144358f78ec8d42367c082e462d6eb515b0f0929208"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._08-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._08-final.air",
+          "formula_sha256": "a965a011e01ce717b3c1e74a8b4fe66fe7af6e73523d598681d66d9fc3b14474",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "d79c763391f850cd52e9569b2ef07f2f993f8e24988574f37a07f468c1b661df"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._09-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._09-final.air",
+          "formula_sha256": "94f885fb2345fc6bdcb3515192af8f94b08830d32a6cf9707152cd2f1f900b18",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "652ea8358b49116e97a248b89dd58f93f0224165a645974484e1ec6dc51bde6c"
+        },
+        {
+          "file": "rootcomponent!CHANNEL_MASK._10-final.air",
+          "first": "rootcomponent!CHANNEL_MASK._10-final.air",
+          "formula_sha256": "b75c24228125918a95f97d025e178d888af6a71f50e9814b49f738bce1348d72",
+          "keep": true,
+          "owner": "component::CHANNEL_MASK",
+          "raw_sha256": "a8268a5c08a84d8db4c5762c19609ccbfb30f144cb555797fffc9456b544f3d5"
+        },
+        {
+          "file": "rootcomponent!packet._01-final.air",
+          "first": "rootcomponent!packet._01-final.air",
+          "formula_sha256": "f69a98e72866ca60f354b7b78a81e1e354939038f7c591653e462abbce75573b",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "497350ae493e6f16dfa4d813cc548e2a195ad27d1c481612b980fc624a75d373"
+        },
+        {
+          "file": "rootcomponent!packet._02-final.air",
+          "first": "rootcomponent!packet._02-final.air",
+          "formula_sha256": "03ef7c5f134afbd439b4ebbfdb08b305efc0d4cef3df682ef9aa173ea033e8d6",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "27a2a846a8a065292bbf96dc4407bd8fbe14e44ef62aa1eeb126a10ad361dbb6"
+        },
+        {
+          "file": "rootcomponent!packet._03-final.air",
+          "first": "rootcomponent!packet._03-final.air",
+          "formula_sha256": "ffb45562ab89df0b3e450f6d8c4e08168fd7b065106d1f80427ed0985ddaca31",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "1f20b77ef2edbd579bcd70855fa8be0767279d69d85e45d7792d12a675c51ad5"
+        },
+        {
+          "file": "rootcomponent!packet._04-final.air",
+          "first": "rootcomponent!packet._04-final.air",
+          "formula_sha256": "57179a8759c0c1a6b3bd30bfc8d396faa0b3556a8e9710d1ae99b9e61f8ac47a",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "4eab8dfeba847e3d4966dcc96d3e5f1d44291d18e1a3ed2c5d817324c5c76a6f"
+        },
+        {
+          "file": "rootcomponent!packet._05-final.air",
+          "first": "rootcomponent!packet._05-final.air",
+          "formula_sha256": "b73a3f0b51f1cf0d5f9feb8c90ee96bcbf0bec95baf2741a745b2818ee5018de",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "e4c4996a33e24c4e2ec497758faea5d3ea58391b82f1e097284e8778aac3dfda"
+        },
+        {
+          "file": "rootcomponent!packet._06-final.air",
+          "first": "rootcomponent!packet._06-final.air",
+          "formula_sha256": "5f1c4be1ce6534353d32514fb1e99afb69df9c3726729e09d7a8a5a237e09a44",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "5e8320a5a2fb82c1edecc8fdc9935382f8d896ef2ecbcefec01ee0d85173d774"
+        },
+        {
+          "file": "rootcomponent!packet._07-final.air",
+          "first": "rootcomponent!packet._07-final.air",
+          "formula_sha256": "ae7ad8e415abfb8e633a99c2f769007a2e96288e941d67e3f687b830d35f51e7",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "ed2e070e1707215150f922474f5562ea89ac6dca79f2f877fffefc6af97ff152"
+        },
+        {
+          "file": "rootcomponent!packet._08-final.air",
+          "first": "rootcomponent!packet._08-final.air",
+          "formula_sha256": "a965a011e01ce717b3c1e74a8b4fe66fe7af6e73523d598681d66d9fc3b14474",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "02de78a63ffc73ce40581ac18595d86a6c180a35217c3569e641997e0519710c"
+        },
+        {
+          "file": "rootcomponent!packet._09-final.air",
+          "first": "rootcomponent!packet._09-final.air",
+          "formula_sha256": "94f885fb2345fc6bdcb3515192af8f94b08830d32a6cf9707152cd2f1f900b18",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "96b96c71e279eb3818db2086d34338cc427fd14eaa193beb6df1f07549ae3183"
+        },
+        {
+          "file": "rootcomponent!packet._10-final.air",
+          "first": "rootcomponent!packet._10-final.air",
+          "formula_sha256": "b75c24228125918a95f97d025e178d888af6a71f50e9814b49f738bce1348d72",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "8d968f32f90395da9f6d636c291617c4d39cb316b6f0f24f185959f3e56a8f64"
+        },
+        {
+          "file": "rootcomponent!packet._11-final.air",
+          "first": "rootcomponent!packet._11-final.air",
+          "formula_sha256": "7bc878bb0a659c65337a106aaf84e9e2a9fb75909a4f1caa9361b3ab85a75857",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "9f7a497490df05402c4df6f0c399e5f162dacc152705767fae33d0c302f251bb"
+        },
+        {
+          "file": "rootcomponent!packet._12-final.air",
+          "first": "rootcomponent!packet._12-final.air",
+          "formula_sha256": "db19234a10c2974473b2772ce0c6377105f9b9c953e58aa437f4b6f82d9adee5",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "d0f992b403a278004cb777b81456471e8de8f80fabda96cdb5454630fd3e1f50"
+        },
+        {
+          "file": "rootcomponent!packet._13-final.air",
+          "first": "rootcomponent!packet._13-final.air",
+          "formula_sha256": "990df6e960b25b78591877d338d01022bc5bad04254b0cd9795d3114d8e29765",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "5d33156864fd9947b54d18b9d725afb4fd03c84d0146b67ae9acedacaa1a9b2a"
+        },
+        {
+          "file": "rootcomponent!packet._14-final.air",
+          "first": "rootcomponent!packet._14-final.air",
+          "formula_sha256": "ce382f3e34d2c54905630b31bd663cc11d853b77adfbca042f88aa0e517fc475",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "f0f941ecde41bc9265b46761a02faba949de06d6240b39fc96a6099558d43f46"
+        },
+        {
+          "file": "rootcomponent!packet._15-final.air",
+          "first": "rootcomponent!packet._15-final.air",
+          "formula_sha256": "ac08c125dd5b721b93ffc6c5223c03f0c98e60cdbadc25180fe3a9e213215b23",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "75234ce99e5c4a0b639bf701a558d3358af298c2d55f997641e1a57f2d5b1ef2"
+        },
+        {
+          "file": "rootcomponent!packet._16-final.air",
+          "first": "rootcomponent!packet._16-final.air",
+          "formula_sha256": "8ba61b826559ab67c41aed07e7410a0dc6849dedac6d06089014254934db21ac",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "47b05a48e0b4ce06c090321e73dc1f5c47e8487469e88e4568f8a8156d544ed8"
+        },
+        {
+          "file": "rootcomponent!packet._17-final.air",
+          "first": "rootcomponent!packet._17-final.air",
+          "formula_sha256": "285fb3c9da6e9b1c30401be45d8137a100d7479adf2a771105e7416cad613f0a",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "a6e96e088f09acd99ca5f3753bd00e75ca00e78645f6cc4a7c722937a5eaddd5"
+        },
+        {
+          "file": "rootcomponent!packet._18-final.air",
+          "first": "rootcomponent!packet._18-final.air",
+          "formula_sha256": "4531c88dca114f73d06c23d443d38cd0bfa0be7bc51d57878dc3b7063c0d1185",
+          "keep": true,
+          "owner": "component::packet",
+          "raw_sha256": "3052f6b5faf5c060420d6d765f0928f14f87c08f3fadf738457d87d0d8406bbd"
+        },
+        {
+          "file": "rootcomponent!packet._19-final.air",
+          "first": "rootcomponent!packet._10-final.air",
+          "formula_sha256": "b75c24228125918a95f97d025e178d888af6a71f50e9814b49f738bce1348d72",
+          "keep": false,
+          "owner": "component::packet",
+          "raw_sha256": "434420aa7ba1dd24c94c6f44c7a7647fdd2ab65a149f4089df5648c580f95a9b"
+        }
+      ],
+      "receipt_sha256": "a3612ebd1263d18219498370138944a926317ca1eb5f56809ec1aeeba686d8ef",
+      "removed": 1,
+      "verified": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 32
+      },
+      "warm_seconds": 24.887459799007047
+    }
+  },
+  "production": "21eeabbb6e0eade862798e4dbe022d69c4a564c5",
+  "tools": {
+    "libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+    "libverus_builtin_macros.so": "dea7b6d63f30d92df8ca309f6d48d687b47c7f175fd3e082de85cac817c7484f",
+    "libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+    "libvstd.rlib": "4f378da2367283d4b3f1e7b98f4d5c0823d428b62814db1ed17f29dd08a755dd",
+    "rust_verify": "be819c7a46278eecfdcb9b56dc52284489379598aa6e2230d0bfc0bac74bddb0",
+    "verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+    "vstd.vir": "775d3493230da13981b3a7a4130a70a6e77f1b015d28409bac50b54dc02c8f20",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  }
+}
