@@ -17,6 +17,12 @@ Historical single-word REDB bitmap and Fedimint request-helper transfers are reu
 
 Rev Stage B at `98931edc` with independent review `5f9533d6` is an opt-in NEW compiler-semantics prototype; parent checks completed but it is not promoted as this goal's accepted baseline. All Miri, native borrowing, Coq/Iris foundations, foreign-MIR expansion and HMAC-suffix work are deferred. Do not follow old Miri next-dependency notes.
 
+## Current experiment state
+
+R1 (multiword REDB resize) and F1 (Fedimint fee-policy component) are preregistered in [SELECTION.json](SELECTION.json); [initial baselines and ranked backlog](CASES_AND_BASELINES.md) distinguish unproved properties from historical helper successes. Both isolated baseline/manual-proof lanes are running; no engine improvement is approved yet.
+
+[Value checkpoint1](VALUE_CHECKPOINT.md) inventories accepted mechanisms and flags potential native-call model gaps (`div_ceil` / `saturating_div`). These are source-inspection warnings, not measured failures. Confirm original-call eligibility/contracts first; unsupported cases remain in coverage and do not trigger new foundations.
+
 ## Immediate execution order
 
 1. Inspect real pinned REDB allocator/page-state and Fedimint amount/accounting/validation code. Select and preregister one substantive component each BEFORE proof trials/engine edits.
