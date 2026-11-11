@@ -45,5 +45,9 @@
   "native_correspondences": 0,
   "full_HMAC": "1/1 UNPROVED",
   "publication": false,
-  "goal_complete": false
+  "goal_complete": false,
+  "supplemental_exception_gated_authentication": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/local-nonzero-ord-parent-auth-v2/receipt.json",
+    "sha256": "3c28a24a0d53dd7f1962ebef620560cd3ad1169773a041c0f83d19ecd4a2f4a3"
+  }
 }
