@@ -1219,5 +1219,11 @@
     "vstd-final.stderr": "34d3f9559326823398c39de0975b082c7100e23d0432c0b4be1a229abd56d035",
     "units-final-shape.stdout": "eeaba5c5b7e1e70c9f2535c501ea7a5acb74c1ea0cc469fd6628abb9dc78fe3b",
     "units-final-shape.stderr": "c469035ead4a046a28fdf0f263a5f045287e558295dd5dae515a763643512b40"
+  },
+  "formatting_check": {
+    "command": "git diff --check bfdf5883",
+    "exit_code": 2,
+    "finding": "six trailing-space blank lines in frozen reduced proof slots; bytes preserved",
+    "raw_sha256": "b333a10896da781ee859b99e6ae0c9408e53607556e7bf95f446c639ba41c5ed"
   }
 }

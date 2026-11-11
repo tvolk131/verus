@@ -112,3 +112,7 @@ or a healthy semantic negative. No resource failure is relabelled as proof.
 
 Stop after S1. No frame/loop/semantic next layer is authorized here. Parent owns
 selection/combined acceptance, including any future S2 composition.
+
+Formatting check: `git diff --check bfdf5883` reports six trailing-space blank
+lines in the already-frozen reduced proof slots. Their bytes were deliberately
+retained after trials; this formatting finding is not a verification result.
