@@ -111,7 +111,7 @@
       "component": "Complete NumPeers quorum policy: total,max_evil,one_honest,threshold,degree, with original From<usize> where needed",
       "call_sites": [
         "Keychain::is_complete partial.iter().count() < num_peers.threshold guard",
-        "ConsensusProcessor::validate_signed_session_outcome signatures.len() != num_peers.threshold guard (exact containing source retained)"
+        "ConsensusEngine::validate_signed_session_outcome signatures.len() != num_peers.threshold guard (exact containing source retained)"
       ],
       "why_substantive": "Complete caller-visible guardian/fault-budget/quorum policy and its intersection/honest-margin consequences, not one numeric helper. Used by real federation signature admission. Selected validation component after amount/fee candidates hit unsupported APIs; no financial correctness is claimed.",
       "domain": "All positive usize guardian counts on supported32/64-bit targets, without artificial maximum/small-federation restriction. total/from retain all usize including0; max_evil and dependent methods require positive n as their original subtraction/nonempty-federation safety domain. Zero must be exposed as a safety-negative, not silently accepted or hidden. peer_ids iterator is outside this component; no claim about its u16 cast.",
