@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "status": "authenticated_logical_diagnostics_no_native_definition_or_compiler_implementation",
+  "worker_commits": [
+    "c21ec836",
+    "b86260d5",
+    "f90a6679"
+  ],
+  "integrated_commits": [
+    "93c06c69",
+    "096a383d",
+    "3aa3290d"
+  ],
+  "report": "source/tools/research/rev_nominal_definition/REPORT.md",
+  "report_sha256": "0deace290435b1db8be9d603a69f502dff802b667c9befd49e5ae3fe184ac48a",
+  "results_sha256": "a0b75080ad1b7204bef9cadc5dd9ddb9993c8026c20d12a834aad96ee23bff9f",
+  "normal_optimized_identical": true,
+  "audit_stdout_sha256": "06940d4f6219c6bbf6aff6bc05e5982ae91a6cf37df69a41963e02ee4ed331f9",
+  "logical_model": "10/0, generic Carrier only",
+  "controls": "three intended false assertions and one missing-frame diagnostic10/1 each",
+  "actual_Item_core_instances": 4,
+  "baseline_probes": 8,
+  "definition_installed": false,
+  "production_changes": [],
+  "first_code_obligation": "Separate source visibility from module-uniform internal datatype encoding/field elaboration, including existing normal field-borrow/current-future writeback and box/unbox paths.",
+  "next_scope_clarification": "Implement that compiler lowering/TCB rule first. No kernel-level native memory proof is required by this compiler subtask; no native theorem will be inferred. The missing rule is implementation work, not an existing theorem to assume before writing code.",
+  "independent_acceptance_pending": true,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}

@@ -75,6 +75,11 @@ the pure core aggregate alone cannot define the unrelated opaque `rev_iter`
 observation. A [separate representation/definition prototype](parent-rev-definition-prototype.json)
 will investigate a coherent compiler interpretation; it is a new semantic/TCB
 scope, not an accepted law or production capability.
+The [first prototype checkpoint](parent-rev-representation-checkpoint.json)
+contains checked logical diagnostics but no compiler hook. The next code step
+separates source privacy from internal datatype encoding and routes field
+borrow/writeback through the ordinary backend; native memory correspondence is
+still a separate, unproved obligation.
 
 Prove that actual `find_granting(Write, ...) = Ok(Some(g))` preserves borrows,
 `unknown_bottom` and `unique_range`, and returns an in-bounds granting item.
