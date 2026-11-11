@@ -1467,5 +1467,12 @@ pub(crate) fn internal_repr_test_check(ctx: &Ctx, check: &FuncCheckSst) -> FuncC
         in_exec_closure: false,
         is_poly_ret_with_opaque: false,
     };
-    visit_func_check_sst(ctx, &mut state, check, &InsertPars::Native, &InsertPars::Native, &crate::ast_util::unit_typ())
+    visit_func_check_sst(
+        ctx,
+        &mut state,
+        check,
+        &InsertPars::Native,
+        &InsertPars::Native,
+        &crate::ast_util::unit_typ(),
+    )
 }

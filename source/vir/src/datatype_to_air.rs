@@ -1,9 +1,5 @@
-use crate::ast::{
-    Dt, Field, Ident, Idents, Mode, Path, Typ, TypX, VarIdent, Variants,
-};
-use crate::ast_util::{
-    LowerUniqueVar, air_unique_var, path_as_friendly_rust_name,
-};
+use crate::ast::{Dt, Field, Ident, Idents, Mode, Path, Typ, TypX, VarIdent, Variants};
+use crate::ast_util::{LowerUniqueVar, air_unique_var, path_as_friendly_rust_name};
 use crate::context::Ctx;
 use crate::def::{
     QID_ACCESSOR, QID_APPLY, QID_BOX_AXIOM, QID_CONSTRUCTOR, QID_CONSTRUCTOR_INNER,

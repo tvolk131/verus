@@ -6,8 +6,8 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **39**, inference policy **74** and
-candidate-cache version **77**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **39**, inference policy **75** and
+candidate-cache version **78**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -87,6 +87,12 @@ requests refuse selected exports even when no Ord helper is needed.
 and [independent review](../../../../evidence/nonzero-wrapper-parent-review/REPORT.md)
 passed. The original full-domain chain verifies 28/0 cold/warm, including five
 candidates and fifteen fresh precision checks. Ordering imports remain unsupported.
+
+Policy75/cache78 provisionally stage an inactive internal nominal encoding for
+the pinned core Rev family, separate from source field visibility. It has no
+source installer or `rev_iter` definition, refuses serialization, and adds no
+usable iterator fact. [Stage A evidence](../../../../source/tools/research/rev_nominal_definition/stage_a/REPORT.md)
+records backend tests; parent validation and independent review are pending.
 
 ## Checked local bool conversion and packing
 

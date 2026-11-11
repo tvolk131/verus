@@ -80,6 +80,11 @@ contains checked logical diagnostics but no compiler hook. The next code step
 separates source privacy from internal datatype encoding and routes field
 borrow/writeback through the ordinary backend; native memory correspondence is
 still a separate, unproved obligation.
+The [inactive Stage A slice](parent-rev-stage-a-provisional.json) now implements
+that encoding/privacy split and routes ordinary field handling through the
+backend. Its installer and Rev observation definition remain absent. Worker
+157/0 VIR and 2250/0 vstd results await parent validation and independent review;
+the staged build uses policy75/cache78, while accepted production remains74/77.
 
 Prove that actual `find_granting(Write, ...) = Ok(Some(g))` preserves borrows,
 `unknown_bottom` and `unique_range`, and returns an in-bounds granting item.

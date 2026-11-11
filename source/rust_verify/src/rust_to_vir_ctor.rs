@@ -181,7 +181,10 @@ pub(crate) fn register_function_items<'tcx>(
         // an unconditional constructor when a user invariant must be established.
         if d.proxy.is_some()
             || d.mode != Mode::Exec
-            || matches!(d.transparency, DatatypeTransparency::Never | DatatypeTransparency::Internal(_))
+            || matches!(
+                d.transparency,
+                DatatypeTransparency::Never | DatatypeTransparency::Internal(_)
+            )
             || d.user_defined_invariant_fn.is_some()
         {
             continue;
