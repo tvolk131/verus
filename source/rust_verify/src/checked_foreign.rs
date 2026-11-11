@@ -17,6 +17,25 @@ use vir::{
     ast_util::{bool_typ, const_int_from_u128, str_unique_var},
     def::Spanned,
 };
+/// Required, versioned evidence, retained independently of public function pruning.
+/// Hashes bind inherited artifacts; they are not independent proof objects.
+#[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+pub(crate) struct ForeignIdentity {
+    pub semantic_instance: String,
+    pub typed_mir: String,
+    pub compiler: String,
+    pub core_artifact: String,
+    pub target: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+pub(crate) struct ForeignCertificate {
+    pub identity: ForeignIdentity,
+    pub checked_function: String,
+}
+
 type Reject = &'static str;
 #[derive(Clone, Debug, PartialEq, Eq)]
 enum Primitive {
