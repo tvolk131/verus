@@ -556,12 +556,34 @@ fn visible_catalog(f: &Function, all: &HashMap<Fun, Function>) -> HashMap<Fun, F
         })
         .collect()
 }
+// An exit annotation may precede only a readonly boolean result. In particular
+// never propose it before a tail call/assignment which still mutates the state.
+fn exit_ready(body: &Expr, all: &HashMap<Fun, Function>) -> bool {
+    let ExprX::Block(_, tail) = &body.x else { return false };
+    let Some(tail) = tail else { return true };
+    if matches!(&tail.x, ExprX::Block(..)) {
+        return exit_ready(tail, all);
+    }
+    if !matches!(&*tail.typ, TypX::Bool) {
+        return false;
+    }
+    fn value(e: &Expr) -> &Expr {
+        match &e.x {
+            ExprX::EvalAndResolve(e, _) => value(e),
+            _ => e,
+        }
+    }
+    as_spec(value(tail)).is_ok_and(|e| assistance::pure(&e, all).is_ok())
+}
 fn plan(f: &Function, all: &HashMap<Fun, Function>) -> Option<Plan> {
     if !header(f) {
         return None;
     }
     let body = f.x.body.as_ref()?;
     let ExprX::Block(_, _) = &body.x else { return None };
+    if !exit_ready(body, all) {
+        return None;
+    }
     let mut ineligible = false;
     let mut nodes = 0;
     expr_visitor_walk(body, &mut |e| {
@@ -1709,5 +1731,18 @@ mod tests {
             substitute(&quant, &f, &Arc::new(vec![]), &Arc::new(vec![var(&s, &n, &int_typ())]))
                 .is_err()
         );
+    }
+    #[test]
+    fn effectful_or_nonboolean_tails_skip_without_moving_original_code() {
+        let (f, all) = fixture();
+        let body = f.x.body.as_ref().unwrap();
+        for tail in [integer(0), call(&span(), &f, vec![], vec![], &bool_typ())] {
+            let mut x = f.x.clone();
+            x.body = Some(body.new_x(ExprX::Block(Arc::new(vec![]), Some(tail))));
+            assert!(plan(&f.new_x(x), &all).is_none());
+        }
+        let mut x = f.x.clone();
+        x.body = Some(body.new_x(ExprX::Block(Arc::new(vec![]), Some(truth()))));
+        assert!(plan(&f.new_x(x), &all).is_some());
     }
 }
