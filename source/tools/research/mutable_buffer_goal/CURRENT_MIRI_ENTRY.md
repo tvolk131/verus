@@ -3,13 +3,13 @@
 The branch supports checked direct core bool-to-u64 bodies, tuple-constructor
 function items, genuine NonZero equality, and bounded unsigned packing
 assistance and local direct NonZero ordering. The accepted interface uses
-**schema 39 / policy 74 / cache 77**.
+**schema 39 / policy 75 / cache 78**.
 Rebuild compiler/macros/vstd, providers and consumers together; certificates bind
 the executing compiler, loaded core body/artifacts, target and dependencies.
 
 [Combined certificate review](parent-certified-foreign-review.json) records
 independent acceptance of this bounded capability. [Parent validation](parent-combined72-validation.json)
-records the preceding certificate runtime. [Current validation](parent-combined74-validation.json)
+records the preceding certificate runtime. [Current validation](parent-combined75-validation.json)
 records the matching runtime and full regression/replay results. Certified
 export waits for every required ordinary, inference and auxiliary proof plus
 erased Rust compilation. Ordinary imports validate required foreign evidence,
@@ -80,11 +80,12 @@ contains checked logical diagnostics but no compiler hook. The next code step
 separates source privacy from internal datatype encoding and routes field
 borrow/writeback through the ordinary backend; native memory correspondence is
 still a separate, unproved obligation.
-The [inactive Stage A slice](parent-rev-stage-a-provisional.json) now implements
+The [reviewed inactive Stage A slice](parent-rev-stage-a-review.json) implements
 that encoding/privacy split and routes ordinary field handling through the
-backend. Its installer and Rev observation definition remain absent. Worker
-157/0 VIR and 2250/0 vstd results await parent validation and independent review;
-the staged build uses policy75/cache78, while accepted production remains74/77.
+backend. Its installer and Rev observation definition remain absent. Parent
+887 Rust tests, 148 Python tests per mode, vstd2250/0 and the feature/replay gates
+passed, as did independent privacy/wire/field controls. This accepts policy75/cache78
+as dormant infrastructure; Stage B activation and native loop proofs are separate.
 
 Prove that actual `find_granting(Write, ...) = Ok(Some(g))` preserves borrows,
 `unknown_bottom` and `unique_range`, and returns an in-bounds granting item.

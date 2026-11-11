@@ -88,11 +88,13 @@ and [independent review](../../../../evidence/nonzero-wrapper-parent-review/REPO
 passed. The original full-domain chain verifies 28/0 cold/warm, including five
 candidates and fifteen fresh precision checks. Ordering imports remain unsupported.
 
-Policy75/cache78 provisionally stage an inactive internal nominal encoding for
+Policy75/cache78 include an inactive internal nominal encoding for
 the pinned core Rev family, separate from source field visibility. It has no
 source installer or `rev_iter` definition, refuses serialization, and adds no
-usable iterator fact. [Stage A evidence](../../../../source/tools/research/rev_nominal_definition/stage_a/REPORT.md)
-records backend tests; parent validation and independent review are pending.
+usable iterator fact. [Parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined75-validation.json)
+and [independent review](../../../../evidence/rev-stage-a-parent-review/REPORT.md)
+passed for this dormant slice. The existing two transparency variants retain
+their serde/bincode encoding; the Internal variant refuses encoding and decoding.
 
 ## Checked local bool conversion and packing
 

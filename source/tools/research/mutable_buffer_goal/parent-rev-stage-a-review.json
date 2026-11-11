@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "decision": "accept_implemented_but_inactive_StageA_backend_slice",
+  "reviewed_engine": "f4415999876559504756ff9b4b9bfd245a09dd21",
+  "review_commit": "1259d8de",
+  "integrated_commit": "82c2ea0d",
+  "report": "evidence/rev-stage-a-parent-review/REPORT.md",
+  "report_sha256": "fce5f3eb41f31199e37dabd5c03dae2524e3d3dc1320d1ba168f263ba6abbc8a",
+  "results_sha256": "773de32ba4a2e757f546f7bca306cc340e42f16748cb99e27b7c9cb75c9b83a9",
+  "parent_authentication": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/rev-stage-a-review-parent-auth/receipt.json",
+    "sha256": "fc121b5bb871bd021fdbca554b5eccdfd7aedd221effae0abe43bb0d311ac802"
+  },
+  "findings": [],
+  "independent_results": {
+    "VIR": 157,
+    "additional_IR_wire_controls": 6,
+    "library": 8,
+    "constructors": 13,
+    "normal_vstd": "2250/0",
+    "Item": "132/0",
+    "wrapper": "28/0",
+    "packet": "31/0",
+    "ordinary_field_reborrow": "3/0",
+    "generic_nested_recursive_source": "4/0",
+    "Bool_provider_ordinary_import": "2/0;1/0",
+    "normal_optimized_readonly_audits": "identical and parent authenticated"
+  },
+  "wire": {
+    "old_variants": "Actual serde_json and bincode-next legacy Never=0/WhenVisible=1 encoding/roundtrip matches old enum for public/private visibility.",
+    "Internal": "Encoding constructed Internal or enclosing datatype refuses; deserialize cases omit it, unsupported/truncated tags refuse.",
+    "limits": "Not a general cross-version VIR format promise; no new import authority."
+  },
+  "semantics": "One module-uniform nominal backend encoding with actual field/generic mappings; normal Ctx/poly/prune/boxing/AIR/resolution/reborrow/writeback paths. Source WF/public-contract/privacy/constructor registration retain private source gates.",
+  "authority": "Closed descriptor and actual core metadata validation are compiler TCB, not a native certificate. No production installer, source attribute or rev_iter definition exists.",
+  "activation": false,
+  "stage_b": "unimplemented/unreviewed",
+  "versions": {
+    "schema": 39,
+    "policy": 75,
+    "cache": 78
+  },
+  "standard_axioms_added": 0,
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "publication": false,
+  "goal_complete": false
+}
