@@ -65,16 +65,20 @@ it explicitly. Opt into sound summaries with
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
 
-## Local NonZero carrier ordering (provisional)
+## Local NonZero carrier ordering
 
-Policy73/cache76 stage a separate checked direct `NonZero<u64>::cmp` path.
+Policy73/cache76 support a separate checked direct `NonZero<u64>::cmp` path.
 It factors two getter expansions only after whole-MIR and independent actual
 function checks, then uses the existing getter and primitive u64-order models.
 No new transmute/view or primitive comparison law is assumed. Successful users
 of this path are local-only: selected VIR exports are refused, including mixed
-bool/ordering crates. Existing bool-only certified imports remain supported.
-Genuine BorTag ordering derives and ordering imports remain unproved. Matching
-parent validation and fresh independent review are pending.
+bool/ordering crates. Rejection removes both explicit and Cargo outputs when
+both are selected. Existing bool-only certified imports remain supported.
+[Matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined73-validation.json)
+and [independent fix review](../../../../evidence/local-nonzero-ord-fix-review/REPORT.md)
+passed. Complete recursive type witnesses are checked at registration and after
+normal well-formedness and mode processing. Genuine BorTag ordering derives and
+ordering imports remain unproved.
 
 ## Checked local bool conversion and packing
 

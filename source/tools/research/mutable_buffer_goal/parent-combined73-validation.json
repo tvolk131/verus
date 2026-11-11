@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "status": "parent_and_independent_review_passed_bounded_local_carrier_scope",
+  "validated_engine_commit": "913044c43a476188537a087618a205e01aafc9eb",
+  "production_fix": "297332c265e85bcc0fbcaac253277f307906c3f2",
+  "previous_accepted_record": "parent-combined72-validation.json",
+  "review_record": "parent-local-nonzero-ord-review.json",
+  "scope": "Actual direct NonZero<u64>::cmp, checked inverse-inlining of both get expansions, existing primitive Ord/get models, all normal helper proofs; every ordering-using selected export remains refused.",
+  "versions": {
+    "schema": 39,
+    "policy": 73,
+    "cache": 76
+  },
+  "matching_vstd": "2250/0",
+  "frozen_bundle": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined73-bundle-fix1-913044c4",
+  "receipts": {
+    "build": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-build-fix1-913044c4/receipt.json",
+      "sha256": "6ff4297e3da692c145672a0066cc32509dcaf31d20d40f2afb664519a9fe57c8"
+    },
+    "bundle": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined73-bundle-fix1-913044c4/receipt.json",
+      "sha256": "980872abd98ce6c9689dd4d7300998fef31f5e3bf84f5b95958eae2b553ff8d3"
+    },
+    "features": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-local/receipt.json",
+      "sha256": "b3fc4e6d0b38ff41562a358c1dd72d53910cf3e189549a027ad065c6e9c1c233"
+    },
+    "ordering": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-ordering/receipt.json",
+      "sha256": "40671a98dc5734127718add2732c052e3388e5e67ab1b9b150f2f59a2d49cb38"
+    },
+    "broad": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-validation/receipt.json",
+      "sha256": "33595aa94a31d92ac7ec751020c6f3906ba65b7918a7f7f27d85f42fbd71f60d"
+    },
+    "supplement": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-supplement/receipt.json",
+      "sha256": "b748981ff7f50497ee1fcc9e458860ba6ccf5dec1b986063c7b44a7349093748"
+    },
+    "previous_review_auth": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/local-ord-review-parent-auth/receipt.json",
+      "sha256": "d0d1b9cb6be9e5ee710239e8b353505283d27d6c33dce56260cd849ff0a6c59f"
+    }
+  },
+  "parent_validation": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-parent-validation/receipt.json",
+    "sha256": "0adf460409498c225928d1c7dbfd79f21f334fd25d9fe0da74a3540ba178e38f"
+  },
+  "postcompletion_seal": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-final-seal/receipt.json",
+    "sha256": "11af6bb445174e92213b1986e9beb36474bab1d55fd7fc8d96f8f2c332365b92"
+  },
+  "fix_review_authentication": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/local-ord-fix-review-parent-auth/receipt.json",
+    "sha256": "c19b0be0072b6078fcdaca18f8a7a35c488382ca228e4024e89b0e51be5e42d0"
+  },
+  "regressions": {
+    "compiler_integration_tests": 717,
+    "VIR_tests": 149,
+    "rust_verify_library_units": 8,
+    "total_Rust_tests": 874,
+    "Python_tests_each_mode": 148,
+    "prior_feature_cases": 25,
+    "ordering_cases": 46,
+    "canonical_cases": 26,
+    "observer_cases": 23,
+    "ignored": "Only preexisting fndef_types::exec_calling_no_vstd"
+  },
+  "feature_results": {
+    "local_NonZero_Ord": "2/0 cold/warm, full-domain actual helper plus original caller",
+    "aliases": "2/0",
+    "false_swapped": "1/1, only intended caller fails and helper healthy",
+    "assistance_off": "0/1, no new standard ordering law",
+    "full_Item": "132/0 cold/warm unchanged",
+    "natural_packet": "31/0 cold/warm unchanged",
+    "ordinary_bool_client": "1/0 without infer-goals",
+    "ordinary_full_observers": "5/0 without infer-goals",
+    "false_full_observer": "4/1, protector property is not exposed by new contract",
+    "dual_selected_output_controls": {
+      "dual-distinct": {
+        "prior_sha256": "5735a9a17469fc2813f8def623abbd876ce1761f190c160d3eb3646aa3449f43",
+        "cargo_removed": true,
+        "explicit_removed": true
+      },
+      "dual-same": {
+        "prior_sha256": "5735a9a17469fc2813f8def623abbd876ce1761f190c160d3eb3646aa3449f43",
+        "cargo_removed": true,
+        "explicit_removed": true
+      }
+    }
+  },
+  "helper_cold_warm_identity": {
+    "normal_query_sha256": "efa89848041539c4a21f1e764c90671bfd46de1a317f3bf679d8504537b0cef6",
+    "actual_Function_log_sha256": "5b8e540bcdb1c29741349ee41f2184d02df6d951e4d723e06d804f1570b9f582",
+    "full_VIR_sha256": "ccc266b7621974790e0b20da2c0ae115267fb202b9a04bb7e794a328da5e7127",
+    "full_AIR_sha256": "555d9f078e6aea44fe69ff1a2f405a19c332c45ead4507e1234ba8635aa04cf0"
+  },
+  "source_fidelity": {
+    "full_Item_sha256": "1adb8b6c2ee64cc1c6930c9530920105ad26cee8abf3212caff53dda0c36518d",
+    "unchanged_runtime": "Original direct core cmp call retained by erased Rust; no executable synthetic helper replaces std behavior. Existing original Item/packet bodies, domains, private carriers, authored contracts and three fresh Eq checks preserved."
+  },
+  "canonical": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-supplement/canonical/canonical-7xuuqivt/receipt.json",
+    "sha256": "e8b4f48beb702ff70ae596a5e044fc727a7fc5ab2e33e8fa3385e59b3a3802b8",
+    "case_count": 26,
+    "audit_sha256": "f190e7ce943fdbcc6a42101343376c5d925fb9e7454a34c4da4802dc6a0bbd78"
+  },
+  "observer": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-supplement/observer/observations-04u1aplg/receipt.json",
+    "sha256": "356eb77853ab6aca6e6b38062fe07935ce797f6248accec663fc65c975167589",
+    "case_count": 23
+  },
+  "postcompletion_authentication": {
+    "input_bindings_checked": 8791,
+    "recorded_products_checked": 1845
+  },
+  "excluded_setup": [
+    {
+      "receipt": {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-ordering/receipt.json",
+        "sha256": "a339d04f9abe5fbfb153c454c66d29202aef5d50777e8324e3290fcb3db1c229"
+      },
+      "reason": "Earlier collector included runtime bundle receipt as a source trial; all completed trials retained, failed aggregate excluded; corrected isolated collector reran unchanged cases."
+    },
+    {
+      "receipt": {
+        "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-fix1-validation/receipt.json",
+        "sha256": "33595aa94a31d92ac7ec751020c6f3906ba65b7918a7f7f27d85f42fbd71f60d"
+      },
+      "reason": "Broad runner initially omitted RUSTUP_HOME: loaded structural test panicked before compiler work. All40 broad targets completed; only setup-failed library result replaced by full8/0 matching supplement. Wrapper exit143 did not stop the isolated broad test runner."
+    },
+    {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined73-parent-collection.stderr",
+      "sha256": "c26be3eadaa3da8afdb0f2e5be266566793f097ca3031461420820d7ce8b52ad",
+      "reason": "Read-only collector expected top-level command logs for per-case feature receipts. V2 binds each feature directory/receipt explicitly; no source/proof change or weakened outcome."
+    }
+  ],
+  "trust": "New bounded translator/checker in existing compiler TCB; unchanged get/View/u64Ord model assumptions and existing compiler/lifetime/logical/SMT/erased-Rust trust. No new standard law, native refinement or independent proof-object guarantee.",
+  "ordering_exports": 0,
+  "ordering_imports": 0,
+  "wrapper_ordering_proved": false,
+  "bounded_bool_certificate_publication": true,
+  "native_correspondences": 0,
+  "canonical_status": "6/0",
+  "full_HMAC": "1/1 UNPROVED",
+  "open_native_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "publication": false,
+  "goal_complete": false
+}
