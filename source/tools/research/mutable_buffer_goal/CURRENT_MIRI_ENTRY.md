@@ -118,6 +118,18 @@ removal of remaining authored mechanical packing help, and runtime/provenance
 correspondence remain separate obligations. The
 [staged interface](FOREIGN_BODY_STAGES.md) records the preimplementation boundary.
 
+The next arithmetic implementation is provisionally integrated, with independent
+review pending. Its frozen original full Item fixture removes the packing lemma,
+all three proof blocks and their calls; authored semantics/domain and original
+runtime remain unchanged. Reported cold/warm results are146/0 for full Item and
+32/0 for a natural packet writer. This shifts work into116 isolated BV checks
+for Item and29 for packet, not fewer logical obligations. Arithmetic ablation
+makes both fail while the actual bool helper and required Eq checks stay healthy.
+The [provisional record](parent-item-packing-provisional.json) authenticates53
+retained receipts and distinguishes this pending extension from the last accepted
+parent regression matrix. Foreign certification continues in a separate lane;
+no export embargo or global/native goal status changes here.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection

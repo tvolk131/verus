@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "status": "provisionally_integrated_independent_review_pending",
+  "worker_commits": [
+    "eea87441a9674a098810ea847ea04bc8f6041891",
+    "883e183de2bc9bbe198b59b4236fb080041dce85"
+  ],
+  "integrated_commits": [
+    "a2aa379f",
+    "f711aa51"
+  ],
+  "source_base": "d27f4dd94ff7d3f09abfeedf6cdb0aa7c3f44b9f",
+  "production_change": "source/rust_verify/src/checked_foreign_packing.rs only",
+  "production_sha256": "4a3d1b0ac082393530f4fe22a1b6fcf225a18951267e121143c991a9129b218a",
+  "report": "../item_packing_goal/REPORT.md",
+  "parent_authentication_receipt": "/tmp/verus-infer-buffer-cycle-20261109/packing-parent-provisional/receipt.json",
+  "parent_authentication_sha256": "dd7cf275060c4e488a0377e6eafa3126e5dda158f43b5ec8a0fed741b9aa997c",
+  "retained_receipts_authenticated": 53,
+  "retained_fixtures_authenticated": 34,
+  "setup_guard_failure_excluded": [
+    "focused-build"
+  ],
+  "full_frozen_source_sha256": "1adb8b6c2ee64cc1c6930c9530920105ad26cee8abf3212caff53dda0c36518d",
+  "reported_full": "146/0 cold/warm and final restored shipping replay",
+  "reported_natural_packet": "32/0 cold/warm and final restored shipping replay",
+  "authored_semantics": "Original six views/specifications, nine constants and original method contracts/domain remain authored; private carriers and all original runtime/debug assertions unchanged.",
+  "mechanical_source_cost": {
+    "proof_functions": 0,
+    "proof_blocks": 0,
+    "theorem_calls": 0,
+    "snapshots": 0,
+    "mechanical_assertions": 0
+  },
+  "old_full_help_manual_cost": {
+    "proof_functions": 1,
+    "proof_blocks": 3,
+    "quantified_bridge": 1,
+    "lemma_call": 1,
+    "bitvector_assertions": 7
+  },
+  "checked_solver_cost": {
+    "full": {
+      "actual_AIR_files": 118,
+      "fresh_eq": 3,
+      "isolated_bv": 116,
+      "ordinary_root": 27
+    },
+    "packet": {
+      "actual_AIR_files": 30,
+      "fresh_eq": 0,
+      "isolated_bv": 29,
+      "ordinary_root": 3
+    }
+  },
+  "causal_controls": {
+    "arithmetic_ablation_full": "27/3 with healthy bool helper and all3 required Eq checks",
+    "arithmetic_ablation_packet": "2/1",
+    "false_closed_constant_proposal": "122/24 isolated BV failures, helper/Eq healthy"
+  },
+  "cold_warm": "Identical frozen invocation/source/tools and all actual AIR files; same Eq candidate with fresh3required checks and cache miss/hit; ordinary helper query identical.",
+  "ordinary_full_inventory": "38 bodies:19 Exec,19 Spec,0 Proof; checked bool and both constructors present",
+  "native_full_inventory": "47 entries;16 checked exec,0 checked proof; excluded derives explicitly inventoried",
+  "worker_reported_validation": {
+    "VIR_tests": 149,
+    "compiler_tests": 37,
+    "matching_vstd": 2250
+  },
+  "parent_broad_validation": "Last complete710compiler/149VIR/148Python each mode/canonical26/observer23 belongs to accepted35bc7b12 before arithmetic extension; not claimed rerun here.",
+  "independent_review": "Required, next isolated review. Source-matching fresh compilation/control replay not yet independently accepted.",
+  "versions": "schema38/policy70/cache73 unchanged; final reconciliation with certificate lane reserved39/71/74 remains parent-owned",
+  "foreign_exports": "Local embargo unchanged; no imported foreign law enabled",
+  "zero_shift_gap": "Reportedly closed by checked finite-width shift-zero laws; independent review required",
+  "new_std_models": false,
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED inherited; not rerun",
+  "canonical": "parent6/0 inherited; not rerun",
+  "open_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "publication": false,
+  "goal_complete": false
+}
