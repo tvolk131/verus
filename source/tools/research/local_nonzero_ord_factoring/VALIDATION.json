@@ -1,0 +1,117 @@
+{
+  "goal_complete": false,
+  "implementation_commit": "06d248f4",
+  "normal_optimized_identical": true,
+  "preregistration_commit": "4e2914f7",
+  "publication": false,
+  "report_sha256": "3b0ef63881c9f635f38c9db7a9241164dbd9004bc219b2efaf4d9c0c38542906",
+  "results_sha256": "b69f2d49f8e8e0b769031f5122e85b7397a8e7fc6c50a101073f68456f5a5bae",
+  "runs": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "source/tools/research/local_nonzero_ord_factoring/audit.py"
+      ],
+      "exit": 0,
+      "result": {
+        "export_refusals": 24,
+        "goal_complete": false,
+        "matching_vstd": 2250,
+        "ordinary_cases": 15,
+        "publication": false,
+        "results_sha256": "b69f2d49f8e8e0b769031f5122e85b7397a8e7fc6c50a101073f68456f5a5bae",
+        "success": true,
+        "tests": {
+          "certified_foreign_bool": {
+            "passed": 3,
+            "receipt_sha256": "c6c4578b6b36fc3746054ce11be5421f4667b55150a9b22a0c5a942e17fb96a5"
+          },
+          "constructor_function_values": {
+            "passed": 13,
+            "receipt_sha256": "cc17ece2c2e9efe20720252be4dbde49f5576e4ea9eb7a1536c80f3876343175"
+          },
+          "infer_goals": {
+            "passed": 12,
+            "receipt_sha256": "895cc1c4a078fd965b69991cdf5444237655e53705d8d554f34eb76eb14b652f"
+          },
+          "infer_nonzero_derive": {
+            "passed": 3,
+            "receipt_sha256": "9d86e35372e1091cf3486e514b331a9647362b654b9e87024ca06e5ece3d75eb"
+          },
+          "local_checked_foreign": {
+            "passed": 5,
+            "receipt_sha256": "992f6e453aeb7dc4da540c64bfaa161aa403760445516f9e6017d881725bd615"
+          },
+          "local_checked_packing": {
+            "passed": 4,
+            "receipt_sha256": "9cda8503980f38db5a815c65acb36c1211ad05ef9d8e55735e4fffeb05a3ca5d"
+          },
+          "rust_verify-unit": {
+            "passed": 7,
+            "receipt_sha256": "2dcc88e020ef18d04aaf87c8ef9c7fdf5f93758f7c22c43c39558c6e74f13895"
+          },
+          "vir": {
+            "passed": 149,
+            "receipt_sha256": "67ad4fef4defdb4dec9edcfff57d44b01a5e66d9c636bb10683fab4ac167f384"
+          }
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-O",
+        "-B",
+        "source/tools/research/local_nonzero_ord_factoring/audit.py"
+      ],
+      "exit": 0,
+      "result": {
+        "export_refusals": 24,
+        "goal_complete": false,
+        "matching_vstd": 2250,
+        "ordinary_cases": 15,
+        "publication": false,
+        "results_sha256": "b69f2d49f8e8e0b769031f5122e85b7397a8e7fc6c50a101073f68456f5a5bae",
+        "success": true,
+        "tests": {
+          "certified_foreign_bool": {
+            "passed": 3,
+            "receipt_sha256": "c6c4578b6b36fc3746054ce11be5421f4667b55150a9b22a0c5a942e17fb96a5"
+          },
+          "constructor_function_values": {
+            "passed": 13,
+            "receipt_sha256": "cc17ece2c2e9efe20720252be4dbde49f5576e4ea9eb7a1536c80f3876343175"
+          },
+          "infer_goals": {
+            "passed": 12,
+            "receipt_sha256": "895cc1c4a078fd965b69991cdf5444237655e53705d8d554f34eb76eb14b652f"
+          },
+          "infer_nonzero_derive": {
+            "passed": 3,
+            "receipt_sha256": "9d86e35372e1091cf3486e514b331a9647362b654b9e87024ca06e5ece3d75eb"
+          },
+          "local_checked_foreign": {
+            "passed": 5,
+            "receipt_sha256": "992f6e453aeb7dc4da540c64bfaa161aa403760445516f9e6017d881725bd615"
+          },
+          "local_checked_packing": {
+            "passed": 4,
+            "receipt_sha256": "9cda8503980f38db5a815c65acb36c1211ad05ef9d8e55735e4fffeb05a3ca5d"
+          },
+          "rust_verify-unit": {
+            "passed": 7,
+            "receipt_sha256": "2dcc88e020ef18d04aaf87c8ef9c7fdf5f93758f7c22c43c39558c6e74f13895"
+          },
+          "vir": {
+            "passed": 149,
+            "receipt_sha256": "67ad4fef4defdb4dec9edcfff57d44b01a5e66d9c636bb10683fab4ac167f384"
+          }
+        }
+      },
+      "stderr": ""
+    }
+  ],
+  "success": true
+}

@@ -1,0 +1,978 @@
+{
+  "compiler_core": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-1d288395a3394ed3.rlib": "b346ce2305e13b1a5ec9ab6e093028caee38227c540cdaf78d7b253f59ae5913"
+  },
+  "engine_sources": {
+    "source/rust_verify/src/checked_nonzero_ord.rs": "a1a743ee5666f7704779d2177c6d6027e034046c4fe2116d05122283105abef3",
+    "source/rust_verify/src/checked_nonzero_ord_tests.rs": "b135959ca438f2181664b0573f91d0dfa80dd3913c98c41c34b2ed138fd61616",
+    "source/rust_verify/src/context.rs": "6c322991c230f6c0ced12f112afbb77394828146ff1b5e16a85fa1d15db48068",
+    "source/rust_verify/src/fn_call_to_vir.rs": "9a47a6d3565d549f1bc803a647418676b95c0b1c711e6298412225807fd55b11",
+    "source/rust_verify/src/lib.rs": "39a82dfb0bf2f4727833f39982825256909234da3bec7a9c92436d35d2dbf689",
+    "source/rust_verify/src/query.rs": "af760086e637de061bffcfc7cbb46548316a6920a67193b0aa534017d87d885c",
+    "source/rust_verify/src/rust_to_vir.rs": "59e6edf3dd6531913575089c4cc104a900dcce63267ffa2be4366faa94f095cd",
+    "source/rust_verify/src/verifier.rs": "7796a6beb3b861cffa630da43bdd9c4b1fb3e1becbc53807effb81f36a07453c"
+  },
+  "excluded_failed_runs": {
+    "build": {
+      "exit": 101,
+      "receipt_sha256": "d8e27de37a13f7a1f37b1382deddebd1ab60f749afbd298043c35c4422f13c90"
+    },
+    "build-02": {
+      "exit": 101,
+      "receipt_sha256": "1e896d13ddbfcb0d12835cca1c53065212746962ab4c28a9b0c191bb7de90fe4"
+    },
+    "bundle-epoch02-direct": {
+      "exit": 1,
+      "receipt_sha256": "59893aa9034b05aa89aca86005b6548ff985aaaf400a57b902a39db53d49323a"
+    },
+    "bundle-final-export---no-erasure-check-explicit": {
+      "exit": 255,
+      "receipt_sha256": "ea9570617533c606fc4c4015eceb7ade2c9bf25e087af5e24bbf22baa1dfb24c"
+    },
+    "bundle-final-filter-function-explicit": {
+      "exit": 255,
+      "receipt_sha256": "31ce890e029ffc5d82be8712e09645a5513d42865f98bca7100bf8d6cb5d161d"
+    },
+    "direct-epoch01": {
+      "exit": 1,
+      "receipt_sha256": "91f33da3ae06682f93c67e365b30805a214a04310c67d5b1be6ccf0adcc5f779"
+    },
+    "unit-build-01": {
+      "exit": 101,
+      "receipt_sha256": "82a23704aab697db64995bc1ae4bb49014cbfb920b9d25c73ce74bd3353032d6"
+    }
+  },
+  "final_freeze_sha256": "8fa4cd333e83e3ecb18a110f41491eb4fa3585032cabd36bc8db81a78cbc8b4a",
+  "goal_complete": false,
+  "matching_vstd": 2250,
+  "native_correspondences": 0,
+  "native_source_inventory": {
+    "alias": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-837ad6729efcda3f.rs:5:1: 5:43"
+        }
+      ]
+    },
+    "cold": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "exact-cold": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "exact-warm": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "false": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-a351d9c182fbb8ba.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "observations": {
+      "checked_exec_bodies": 10,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_0_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_0_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:5:1: 5:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_0_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_0_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:6:1: 6:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_1_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_1_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:7:1: 7:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_1_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_1_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:8:1: 8:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_2_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_2_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:9:1: 9:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_2_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_2_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:10:1: 10:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_3_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_3_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:11:1: 11:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_3_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_3_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:12:1: 12:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_4_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_4_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:13:1: 13:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_4_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_4_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-dbc2bb626927fc13.rs:14:1: 14:69"
+        }
+      ]
+    },
+    "swapped": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-2a9329e5a5af6a3c.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "three-relations": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::relation",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "relation",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-4e16949076c895bf.rs:5:1: 5:62"
+        }
+      ]
+    },
+    "warm": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "weak": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-v7uci4z2/source-e6532fd44d0e2249.rs:5:1: 5:59"
+        }
+      ]
+    }
+  },
+  "new_StdModel_admissions": 0,
+  "ordering_exports": 0,
+  "ordering_imports": 0,
+  "ordinary_helpers": {
+    "alias": {
+      "actual_Function_log_sha256": "2d9779f5b6fac49369716337cb5c65d1fb25c7295a2c963105d366f8674783fd",
+      "full_AIR_sha256": "cfc816078a5ef91f553061546829bd5e07a30cad9820d62a0045fd31938c20cb",
+      "full_VIR_sha256": "4257e9f5d2c1d24e6ac1417379ca8ecd993cc72d0a1c1de2718159c82b3ee236",
+      "normal_query_sha256": "64bdf0d13d48f8d6435580ca69db6e3b25e7970781b82e35fa525e1143651f05"
+    },
+    "cold": {
+      "actual_Function_log_sha256": "08e303f1af845f40ab45af0a2f0f77f46da47fee1ba18a2820d919aa433234f2",
+      "full_AIR_sha256": "fb66b86f6988cdd91cfa4b119138337490b02fd151de71c8b46ee93125d3489b",
+      "full_VIR_sha256": "10d67c33db976b09e5a90cfc2554779299e995f9fba115b66a28de68b5eb2d43",
+      "normal_query_sha256": "3eceee37382c804d0cf0ef17ccda5c0438a073e16246ce3e150baf32b4e2f809"
+    },
+    "exact-cold": {
+      "actual_Function_log_sha256": "08e303f1af845f40ab45af0a2f0f77f46da47fee1ba18a2820d919aa433234f2",
+      "full_AIR_sha256": "fb66b86f6988cdd91cfa4b119138337490b02fd151de71c8b46ee93125d3489b",
+      "full_VIR_sha256": "10d67c33db976b09e5a90cfc2554779299e995f9fba115b66a28de68b5eb2d43",
+      "normal_query_sha256": "3eceee37382c804d0cf0ef17ccda5c0438a073e16246ce3e150baf32b4e2f809"
+    },
+    "exact-warm": {
+      "actual_Function_log_sha256": "08e303f1af845f40ab45af0a2f0f77f46da47fee1ba18a2820d919aa433234f2",
+      "full_AIR_sha256": "fb66b86f6988cdd91cfa4b119138337490b02fd151de71c8b46ee93125d3489b",
+      "full_VIR_sha256": "10d67c33db976b09e5a90cfc2554779299e995f9fba115b66a28de68b5eb2d43",
+      "normal_query_sha256": "3eceee37382c804d0cf0ef17ccda5c0438a073e16246ce3e150baf32b4e2f809"
+    },
+    "false": {
+      "actual_Function_log_sha256": "91085369e5298777fe8c874c96ed3237633f3b34ed1750dfc40bfa784b753f2b",
+      "full_AIR_sha256": "d32b8798528ad1df17e65cbf0d2ec11ff63559ce3fd334cea7f3f665b637aacc",
+      "full_VIR_sha256": "5c7618b52b1c989d296bcbea19e472866ddf27f805ff618e1458cf9e5c6684a8",
+      "normal_query_sha256": "fd204bed45a8c720ec4c2f58729fe208108394f808e5c79e3eb56a35b8f18de5"
+    },
+    "observations": {
+      "actual_Function_log_sha256": "c157399349fb866216cfb893384a67e80bec1558297abdba5da7ec43f07d565a",
+      "full_AIR_sha256": "a4f4ede39888e07186e5b5e49a51613ff3c0a59cd78088693eaeeb009634028f",
+      "full_VIR_sha256": "ceab7e49117c7b5a1d0579b655a453161d2119906c30a6c9b047aba27149628d",
+      "normal_query_sha256": "d8ad44e0fca597158667b0e47f1d52c207c586cfa58947efd1a8eea5a4e325fa"
+    },
+    "swapped": {
+      "actual_Function_log_sha256": "790c3b83922388d2a97a8947b827ae637c2ad90246c23e127e224decbd1a89b7",
+      "full_AIR_sha256": "1f8fce6c73e4d399f234cda6c1b9ea968eafe5c7f4613689b794a9dd35d157aa",
+      "full_VIR_sha256": "6c7ee588d5aaa3bb5040d5665b4d424e87269f9e1cba14027942bf662a2be4e5",
+      "normal_query_sha256": "dc4ca7c503b124ed6363e90bebc1cf9084fe5599d63a3269b1494f7fab2de934"
+    },
+    "three-relations": {
+      "actual_Function_log_sha256": "8b09148577b8988508cf12708450595d44621400352255060422ac4c6a212ed0",
+      "full_AIR_sha256": "305ef055793a6838f0f400444c3cf524bee82caf4b2918bf3ff8e861bd3367db",
+      "full_VIR_sha256": "05dae1a4e27ce577fa14febff927230feaa0061d3c4271241d00b41086e0e030",
+      "normal_query_sha256": "d2abea0ec844fee4b1485fca74d98332061c2696bb0a351d4c9f5d596752c30a"
+    },
+    "warm": {
+      "actual_Function_log_sha256": "08e303f1af845f40ab45af0a2f0f77f46da47fee1ba18a2820d919aa433234f2",
+      "full_AIR_sha256": "fb66b86f6988cdd91cfa4b119138337490b02fd151de71c8b46ee93125d3489b",
+      "full_VIR_sha256": "10d67c33db976b09e5a90cfc2554779299e995f9fba115b66a28de68b5eb2d43",
+      "normal_query_sha256": "3eceee37382c804d0cf0ef17ccda5c0438a073e16246ce3e150baf32b4e2f809"
+    },
+    "weak": {
+      "actual_Function_log_sha256": "1896f37ae001ba8570af69a9c4c79ab8c4836bc5b305df9c3a1e8967258fe273",
+      "full_AIR_sha256": "c9cc92d8c1fc7a05bf134f5e1a3e88bb22501198083706096ba5bf56a24911ee",
+      "full_VIR_sha256": "cfdbcdfa45fb0822ea80813c59098c2e983c3d1b3f0cbbcfd2b4df2c412fbd99",
+      "normal_query_sha256": "1f1441821b6d12904e4c7d905f568762049a29887b283c72ce923a5ed965526b"
+    }
+  },
+  "original_native_symbols_sha256": "1c3cdc29f18b23233aa2c5c33c4dfcb758c8eccc771966a24c4c2a1dbc6e6c9c",
+  "publication": false,
+  "refusals": {
+    "bundle-final-export---no-lifetime-cargo": {
+      "receipt_sha256": "79013d65b6d7cdea7839fcb625a69b2242d66837f8ea4e8e1d6eb0206f031d31",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export---no-lifetime-explicit": {
+      "receipt_sha256": "9e6ffd44e13878feba558da5fa343277573f241d3e2c2a6d9856bdb27b373462",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export---no-trait-conflicts-cargo": {
+      "receipt_sha256": "3971170b20615c98c9d874011d111bd5c6d0cb0abaeef934a4c079d1a6655f96",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export---no-trait-conflicts-explicit": {
+      "receipt_sha256": "53832d3e16cd19f668cf6ba70104c7f0113651f3b1f027e36fad0e8d0f82c8f8",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export---no-verify-cargo": {
+      "receipt_sha256": "fa3d98f5c989caa980ffdc9c1af870d579a4411380982a88d2f22ed7ab7772e1",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-final-export---no-verify-explicit": {
+      "receipt_sha256": "9ae992f59f5e68ff946f0f11c5a914bc5d85f6ac39b44bcd964cd5ed6d61d63a",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-final-export-direct-cargo": {
+      "receipt_sha256": "47847e4fbef72f3a4a91dc5d58b6ccaf6ea9c936dddf4fc79fffae8ee5d081f1",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-direct-explicit": {
+      "receipt_sha256": "2ba487d28070e532dbd3784b23b61732e5ae7844c594bcc6d0976e583a93ae54",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-erasure-v2-cargo": {
+      "receipt_sha256": "f82363cb92cfab78770f80fa10c003e438eb87a20844b3d1f424d27c957115a9",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-erasure-v2-explicit": {
+      "receipt_sha256": "4a30c1c3e4342dc180ed94073ec15d5317158c0c2eab9e5990c90b09a49ddfd2",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-false-cargo": {
+      "receipt_sha256": "754d30b05aabe1d87279990623bf1fced9076eb8d48184c084bd885b44701028",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-false-explicit": {
+      "receipt_sha256": "c94e0308e02355ddc99c0eda25f7aebdc4db14201049ad53ce0f18e69327b668",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-mixed-cargo": {
+      "receipt_sha256": "8f48d8c4912f2f3e950c27f7b98b25849268d255ba719f577c5ff9d8ec0403f8",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-mixed-explicit": {
+      "receipt_sha256": "67f08b0fedcb256d3c03c046d0b87237d0e777472bb9ae91e2d114259731d27d",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-private-cargo": {
+      "receipt_sha256": "dfca80e6237a2de67bad303630d332e79997f9c5c36bca147ad0ede444fa6f26",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-export-private-explicit": {
+      "receipt_sha256": "f1c4a48d531719e6409febb755c5496cd95e2ac5eb82b8a676cb49d2b32fe4c4",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-final-filter-v2-function-cargo": {
+      "receipt_sha256": "13df65d9f8952037b6f6b25c6ff84a0a6695e40ff6390a71cf3ad0a9ac5de4b0",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-final-filter-v2-function-explicit": {
+      "receipt_sha256": "a74c44e91f14d5dc6002d36edfee7808531cb95eaa1dc41a4a9f52e105488435",
+      "stderr_sha256": "8b75c39586a70c40cc65584c03c684940ec82e467ecf6515bbfa3430b64f03ca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-final-filter-v2-module-cargo": {
+      "receipt_sha256": "cc7bc370bb9a30381ad37bf5cd907e30ec6eb1305329a571f93de59244c5673f",
+      "stderr_sha256": "de2241fef3a3ea668a2ef19ce56bcdbb82ba633eeee30f3e8a2cd8590639f113",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-final-filter-v2-module-explicit": {
+      "receipt_sha256": "5686402a18bfe63711feee3a03cf598e9787af4ca056d907d0548cd438460ab4",
+      "stderr_sha256": "de2241fef3a3ea668a2ef19ce56bcdbb82ba633eeee30f3e8a2cd8590639f113",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-final-global-auxiliary-cargo": {
+      "receipt_sha256": "c5c91a0d094dfc4f67c06c26e75651ef27cbe2be47dc03503e65ff5232600011",
+      "stderr_sha256": "929420548c46a27b210e5b9ba6f5ad73cd380ea97ff6514032266d0a97dd3db6",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "bundle-final-global-auxiliary-explicit": {
+      "receipt_sha256": "68328c2debc72f6a7067a6cb07fe9d1e7f8836a62f277b26b467a5fe408ab726",
+      "stderr_sha256": "929420548c46a27b210e5b9ba6f5ad73cd380ea97ff6514032266d0a97dd3db6",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "bundle-final-global-erased-cargo": {
+      "receipt_sha256": "a8493fd5d04ba1557363cf1225b42929365503d282adf4b00f3b178ba32633ae",
+      "stderr_sha256": "af244a3ad02435f9478f3af9470d3c9f96b2e7df114bff627837abb5a737a934",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "bundle-final-global-erased-explicit": {
+      "receipt_sha256": "73f187d985f46c9095d805f933a3565932fdfbd9d5097db6504918d22f451327",
+      "stderr_sha256": "af244a3ad02435f9478f3af9470d3c9f96b2e7df114bff627837abb5a737a934",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    }
+  },
+  "runs": {
+    "alias": {
+      "failed_functions": [],
+      "receipt_sha256": "f5aa25db4633fb613edd1b282a6ba21c7f0d49324bb34362f0967adb1403007e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bool-false": {
+      "failed_functions": [
+        "bool_false::observe"
+      ],
+      "receipt_sha256": "6420e94682d5b8ff93eb2df8fcf5ead9b1eb6fb6fb329b7625121acc461b8a1e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "bool-ordinary": {
+      "failed_functions": [],
+      "receipt_sha256": "d4ebe9f7dcfd5f9e920ee0f0ca41e3c2ab4a40525c430c16e38f89dd7a33f290",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "bool-provider": {
+      "failed_functions": [],
+      "receipt_sha256": "90384e748acf88c0830c2790038af4820ed01ee08d380ad1124ea0e1e43ee551",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "cold": {
+      "failed_functions": [],
+      "receipt_sha256": "fbcba0c2367f21c5aab86f0cd4f20e6953110b874c930171be957be313d801d2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "exact-cold": {
+      "failed_functions": [],
+      "receipt_sha256": "47d3506e1f68590808171e1900fa4334faacb5cd806fab0c64dc4ad42f24fc15",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "exact-warm": {
+      "failed_functions": [],
+      "receipt_sha256": "184d66a845236f6ef43eb75bc0736dd6fb1acbd886fc49000c40ab427bd3266b",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "false": {
+      "failed_functions": [
+        "local_order::total"
+      ],
+      "receipt_sha256": "28eb91bef03cf124be2fe91f5a84716937ee57e297b98d82adbb76b694e3feee",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "observations": {
+      "failed_functions": [],
+      "receipt_sha256": "23666a1234c6111f90dfb95b4e2a373f0933f7ff7a7aefb9f6d386d9cd0d27ba",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 11
+      }
+    },
+    "off": {
+      "failed_functions": [
+        "local_order::total"
+      ],
+      "receipt_sha256": "f6e13bd8627323244ecc8df70f85d2252c26abd56160d82601d877c6770e5734",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "partial": {
+      "failed_functions": [],
+      "receipt_sha256": "9663137fbf7074b5264b8ad48de1f6b2f671814060d455dae4dd3502f9260bf7",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 5
+      }
+    },
+    "swapped": {
+      "failed_functions": [
+        "local_order::total"
+      ],
+      "receipt_sha256": "4090d186cabe817df7100dce4f8469e0d149f82ba8c3a0925c71d41d0dbb545b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "three-relations": {
+      "failed_functions": [],
+      "receipt_sha256": "41e2678be94fb19abc0f526cf1c9e5c602f5b3bc2677eec3bd37e0ce6645c51a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "warm": {
+      "failed_functions": [],
+      "receipt_sha256": "fd5e7639dba7c07d6d99e7e08530c7118f2f0ae94b843ef82571572ed035eacd",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "weak": {
+      "failed_functions": [],
+      "receipt_sha256": "aa369cb7497446d57f28cc3c8cc9511d94ba02cb40a46538bc2ceceefc09a07b",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    }
+  },
+  "scope": "Stage1 checked local genuine NonZero<u64> carrier only; independent parent review required",
+  "source_inventory_sha256": "9f1e5dedaa67a88f3a17864b50f583670d15f67d56befb87b6adf31b49f5100c",
+  "tests": {
+    "certified_foreign_bool": {
+      "passed": 3,
+      "receipt_sha256": "c6c4578b6b36fc3746054ce11be5421f4667b55150a9b22a0c5a942e17fb96a5"
+    },
+    "constructor_function_values": {
+      "passed": 13,
+      "receipt_sha256": "cc17ece2c2e9efe20720252be4dbde49f5576e4ea9eb7a1536c80f3876343175"
+    },
+    "infer_goals": {
+      "passed": 12,
+      "receipt_sha256": "895cc1c4a078fd965b69991cdf5444237655e53705d8d554f34eb76eb14b652f"
+    },
+    "infer_nonzero_derive": {
+      "passed": 3,
+      "receipt_sha256": "9d86e35372e1091cf3486e514b331a9647362b654b9e87024ca06e5ece3d75eb"
+    },
+    "local_checked_foreign": {
+      "passed": 5,
+      "receipt_sha256": "992f6e453aeb7dc4da540c64bfaa161aa403760445516f9e6017d881725bd615"
+    },
+    "local_checked_packing": {
+      "passed": 4,
+      "receipt_sha256": "9cda8503980f38db5a815c65acb36c1211ad05ef9d8e55735e4fffeb05a3ca5d"
+    },
+    "rust_verify-unit": {
+      "passed": 7,
+      "receipt_sha256": "2dcc88e020ef18d04aaf87c8ef9c7fdf5f93758f7c22c43c39558c6e74f13895"
+    },
+    "vir": {
+      "passed": 149,
+      "receipt_sha256": "67ad4fef4defdb4dec9edcfff57d44b01a5e66d9c636bb10683fab4ac167f384"
+    }
+  },
+  "tools": {
+    "libverus_builtin.rlib": "3dd3f9d4232ee4a31161e3a0b26e2e9bf3cc80c2182ab83deb2beeb9537aeaa7",
+    "libverus_builtin_macros.so": "58ad24bbe88c254c3b3e6927ee3713f68f774050016ea97c4c58c704855eea9b",
+    "libverus_state_machines_macros.so": "756fff3d6846a8567ac0b433d353ce0ce4a756d8207f347a5ded9febeef8bc20",
+    "libvstd.rlib": "34cafcf0f727ea20c07392b4f3813183f3fc5bdf7fa400c57a7814f4b535f401",
+    "rust_verify": "324cf33252e7d07df7b33ad680eb23988a48f59a95617955bff4265d9d259fcf",
+    "verus": "1e3b74cde8d6c40315d575738a37c6c4efb68a8d0db536696e3cae06db8d45f1",
+    "vstd.vir": "5bb7738e1171de45091d9dd59b7b56d7fe9d6f0ff144b2dfcd4c126288f22598",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "unsupported": {
+    "function-value": {
+      "classification": "frontend unsupported",
+      "exit": 1,
+      "receipt_sha256": "14747779c6bbcb546de1f00625261457b7c7004aed5eb1e6efbcc990f4721bb7",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "unsupported-generic": {
+      "classification": "ordinary property only; no concrete helper",
+      "exit": 0,
+      "receipt_sha256": "19cf860af167c48e2c7dab142b54193fcc7d010a1450faa7ad7c629f731039c7",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "unsupported-lookalike": {
+      "classification": "ordinary property only; no concrete helper",
+      "exit": 0,
+      "receipt_sha256": "070f29bc19935ba017d272553a57b7cde8af4c18286b6552fa824a67739c232b",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 3
+      }
+    },
+    "unsupported-overloaded-deref": {
+      "classification": "ordinary property only; no concrete helper",
+      "exit": 0,
+      "receipt_sha256": "c59902905682416a14ec203d26254bd09154921f456eff79fa9344736e3b7f65",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 3
+      }
+    }
+  },
+  "versions": {
+    "cache": 75,
+    "policy": 72,
+    "schema": 39
+  },
+  "vstd_receipt_sha256": "43307ed01abe323e40deff0f28112d7b6390cdf324bd27f231444375d7402cc3",
+  "wrapper_ordering_proved": false
+}

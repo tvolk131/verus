@@ -14,10 +14,11 @@ def write(p,j):Path(p).write_text(json.dumps(j,indent=2,sort_keys=True)+'\n')
 def root():return Path(os.environ.get('LOCAL_NONZERO_ORD_ROOT') or (HERE/'PRIVATE_ROOT').read_text().strip())
 def manifest(base):
  return {p:sha(base/p) for p in subprocess.check_output(['git','ls-files','-z','source','dependencies','tools','rust-toolchain.toml'],cwd=ROOT).decode().split('\0') if p and not p.startswith('source/tools/research/local_nonzero_ord_factoring/')}
+def bundle():return root()/os.environ.get("LOCAL_NONZERO_ORD_BUNDLE", "bundle")
 def env():
- r=root();return dict(HOME=str(r/'home'),PATH='/home/dev/.cargo/bin:/usr/bin:/bin',RUSTUP_TOOLCHAIN='1.99.1',VARGO_TOOLCHAIN='1.99.1-x86_64-unknown-linux-gnu',RUSTUP_HOME='/home/dev/.rustup',RUSTC_BOOTSTRAP='1',LD_LIBRARY_PATH=str(TC/'lib'),CARGO_HOME=str(r/'cargo-home'),CARGO_TARGET_DIR=str(r/'target'),CARGO_BUILD_BUILD_DIR=str(r/'build'),CARGO_BUILD_JOBS='2',CARGO_NET_OFFLINE='true',XDG_CACHE_HOME=str(r/'cache'),TMPDIR=str(r/'tmp'),VERUS_ROOT=str(r/'bundle'),VERUS_Z3_PATH=str(r/'bundle/z3'),VERUS_INFER_CACHE=str(r/'candidate-cache'),RUST_MIN_STACK='20971520',RUSTFLAGS='--cfg proc_macro_span --cfg verus_keep_ghost --cfg span_locations --cfg procmacro2_semver_exempt',VERUS_IN_VARGO='1',VERUS_TEST_LOG_DIR=str(r/'test-logs'))
+ r=root();return dict(HOME=str(r/'home'),PATH='/home/dev/.cargo/bin:/usr/bin:/bin',RUSTUP_TOOLCHAIN='1.99.1',VARGO_TOOLCHAIN='1.99.1-x86_64-unknown-linux-gnu',RUSTUP_HOME='/home/dev/.rustup',RUSTC_BOOTSTRAP='1',LD_LIBRARY_PATH=str(TC/'lib'),CARGO_HOME=str(r/'cargo-home'),CARGO_TARGET_DIR=str(r/'target'),CARGO_BUILD_BUILD_DIR=str(r/'build'),CARGO_BUILD_JOBS='2',CARGO_NET_OFFLINE='true',XDG_CACHE_HOME=str(r/'cache'),TMPDIR=str(r/'tmp'),VERUS_ROOT=str(bundle()),VERUS_Z3_PATH=str(bundle()/'z3'),VERUS_INFER_CACHE=str(r/'candidate-cache'),RUST_MIN_STACK='20971520',RUSTFLAGS='--cfg proc_macro_span --cfg verus_keep_ghost --cfg span_locations --cfg procmacro2_semver_exempt',VERUS_IN_VARGO='1',VERUS_TEST_LOG_DIR=str(r/'test-logs'))
 def run(label,argv,extra=None,outputs=()):
- r=root();b=r/'bundle';d=r/label;d.mkdir(parents=True,exist_ok=True);need(not (d/'receipt.json').exists(),'immutable label '+label)
+ r=root();b=bundle();d=r/label;d.mkdir(parents=True,exist_ok=True);need(not (d/'receipt.json').exists(),'immutable label '+label)
  f=dict(argv=list(map(str,argv)),cwd=str(r/'src/source'),environment=env()|dict(extra or {}),source=manifest(r/'src'),tools={n:sha(b/n) for n in TOOLS if (b/n).exists() and n not in outputs},fixtures={str(p):sha(p) for p in argv if str(p).endswith('.rs') and Path(p).is_file()},runner_sha256=sha(__file__))
  write(d/'freeze.json',f);start=time.monotonic()
  with (d/'stdout').open('wb') as out,(d/'stderr').open('wb') as err:p=subprocess.run(f['argv'],cwd=f['cwd'],env=f['environment'],stdout=out,stderr=err)
@@ -47,14 +48,14 @@ def setup():
  subprocess.run(['git','add','source','dependencies','tools','rust-toolchain.toml'],cwd=r/'src',check=True)
  subprocess.run(['git','-c','user.name=Codex Review','-c','user.email=codex-review@local','commit','-q','-m','Private local NonZero Ord source snapshot'],cwd=r/'src',check=True)
  need(sha(OLD/'bundle/z3')=='e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765','solver')
- shutil.copy2(OLD/'bundle/z3',r/'bundle/z3')
+ shutil.copy2(OLD/'bundle/z3',bundle()/'z3')
  write(r/'toolchain.json',dict(rustc=subprocess.check_output([TC/'bin/rustc','-vV']).decode(),files={str(p):sha(p) for p in [TC/'bin/rustc',TC/'bin/cargo',*sorted((TC/'lib').glob('librustc_driver*'))]}))
  print(r,flush=True)
 def build():
  r=root();j=run('build',[TC/'bin/cargo','build','--offline','--locked','-j','2',*sum((['-p',p] for p in ['rust_verify','verus','verus_builtin','verus_builtin_macros','verus_state_machines_macros','vstd_build']),[])])
  need(j['exit']==0,'build failed')
  for n in TOOLS:
-  if n not in ['z3','vstd.vir','libvstd.rlib']:shutil.copy2(r/'target/debug'/n,r/'bundle'/n)
+  if n not in ['z3','vstd.vir','libvstd.rlib']:shutil.copy2(r/'target/debug'/n,bundle()/n)
  (r/'bundle/verus-root').touch();shutil.copytree(r/'src/source/vstd',r/'bundle/vstd')
 if __name__=='__main__':
  need(sys.flags.dont_write_bytecode,'python -B required')
