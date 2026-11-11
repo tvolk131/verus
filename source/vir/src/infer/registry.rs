@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::io::Read;
 use std::path::PathBuf;
 
-const VERSION: &str = "verus-infer-v80:checked-set-pairs:4096";
+const VERSION: &str = "verus-infer-v81:checked-set-and-word-sequence:4096";
 const MAX_BYTES: u64 = 2 * 1024 * 1024;
 
 fn candidate_key(function: &Function, dependencies: &[String], configuration: &str) -> String {
