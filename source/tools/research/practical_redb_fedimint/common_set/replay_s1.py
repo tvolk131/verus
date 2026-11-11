@@ -18,7 +18,7 @@ F2_PROOF = ['quorum_intersection','quorum_has_honest','one_honest_margin']
 GENERIC_PROOF = ['subset_size','extensional','inclusion','unsupported_mutable']
 
 
-def body_inventory(label):
+def body_inventory(label, combined=False):
  if label.startswith('r2_import_'):
   return ['free_membership','record_alloc_membership','repeat_alloc_membership'],[]
  if label.startswith('r2_'):
@@ -27,7 +27,7 @@ def body_inventory(label):
    ex+=['CheckedBitmap::mark_allocated','CheckedBitmap::mark_free']
   if label.startswith('r2_negative_'):
    ex+=[{'leaf':'wrong_set_membership','count':'wrong_repeat_count','frame':'wrong_clear_frame'}[label.removeprefix('r2_negative_')]]
-  return ex,R2_PROOF
+  return ex,[n for n in R2_PROOF if not combined or n not in ('word_bits','word_frame')]
  if label.startswith('f2_import_'):
   return ['admission_observation','boundary_observations'],[]
  if label=='f2_zero':
@@ -105,11 +105,12 @@ def main():
  p.add_argument('--bundle',type=Path,required=True)
  p.add_argument('--output',type=Path,required=True)
  p.add_argument('--baseline',action='store_true')
+ p.add_argument('--combined',action='store_true',help='use preregistered combined R2 fixture and word-frame inventory')
  p.add_argument('--policy',type=int,choices=[77,78],default=77)
  a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
- receipt={'kind':'S1_BOUNDED_LOCAL_CHECK_NOT_PARENT_ACCEPTANCE','baseline':a.baseline,'policy':a.policy,'inputs':{},'commands':[],'outcomes':[]}
+ receipt={'kind':'S1_BOUNDED_LOCAL_CHECK_NOT_PARENT_ACCEPTANCE','baseline':a.baseline,'combined':a.combined,'policy':a.policy,'inputs':{},'commands':[],'outcomes':[]}
  with replay_receipt(a.output,receipt):
-  freeze=json.loads((HERE/'S1_FIXTURE_FREEZE.json').read_text())
+  freeze=json.loads((HERE/('COMBINED_FIXTURE_FREEZE.json' if a.combined else 'S1_FIXTURE_FREEZE.json')).read_text())
   for n,h in freeze.items():require(digest(HERE/n)==h,'fixture freeze '+n)
   inputs=[HERE/n for n in freeze]+[Path(__file__),HERE/'compiler.rs']+[a.bundle/n for n in ['verus','rust_verify','vstd.vir','libvstd.rlib','libverus_builtin.rlib','libverus_builtin_macros.so','libverus_state_machines_macros.so','z3']]
   guard=ArtifactGuard(inputs)
@@ -128,29 +129,38 @@ def main():
    require(data['verification-results'].get('is-verifying-entire-crate') is True,'full crate required')
    inf=data['verus-infer']
    require_exact(inf.get('functions',[]));require_function_coverage(inf.get('functions',[]),inventory)
-   executable,proofs=body_inventory(label)
+   executable,proofs=body_inventory(label,a.combined)
    require_native_scope(data,source,executable,proofs,failures,expected_pairs(label,goals,a.baseline))
+   if a.combined:
+    frames=inf.get('word_sequence_assistance',[])
+    expected=['U64GroupedBitmap::clear','U64GroupedBitmap::set'] if goals and not a.baseline and label.startswith('r2_') and not label.startswith('r2_import_') else []
+    native={b['function']:b['rust_function'] for b in inf['verification_scope']['native_functions']}
+    require(all(x['function'] in native for x in frames),'word frame outside native scope')
+    require(sorted(native[x['function']] for x in frames)==expected,'exact word frame identities')
+    require(all(x['snapshots']==x['quantified_blocks']==x['library_calls']==1
+     and x['library']=='vstd::word::checked_seq_bit_update_at' for x in frames),'word frame library/template inventory')
    actual=set(failures)
    if failures:
     require(diagnostic in stderr,'expected semantic failure')
     require(not any(s in stderr for s in [s for s in ['error[E','precondition not satisfied','possible arithmetic underflow/overflow','assertion failed'] if s!=diagnostic]),'unhealthy negative')
-   item={'label':label,'verification':data['verification-results'],'failed_functions':sorted(actual),'inferred_helpers':inf.get('functions',[]),'set_pairs':inf.get('set_pair_assistance',[]),'scope':inf['verification_scope'],'times':data['times-ms'],'stdout_sha256':digest(a.output/(label+'.stdout')),'stderr_sha256':digest(a.output/(label+'.stderr'))}
+   item={'label':label,'verification':data['verification-results'],'failed_functions':sorted(actual),'inferred_helpers':inf.get('functions',[]),'set_pairs':inf.get('set_pair_assistance',[]),'word_frames':inf.get('word_sequence_assistance',[]),'scope':inf['verification_scope'],'times':data['times-ms'],'stdout_sha256':digest(a.output/(label+'.stdout')),'stderr_sha256':digest(a.output/(label+'.stderr'))}
    receipt['outcomes'].append(item);print(label,item['verification'],flush=True)
    return data
   for case,failed in [('r2',{'finish_mutation'}),('f2',{'quorum_intersection','quorum_has_honest','one_honest_margin'})]:
-   source=HERE/(case+'-reduced.rs')
+   if a.combined and case=='r2':failed=failed|{'U64GroupedBitmap::set','U64GroupedBitmap::clear'}
+   source=HERE/('r2-combined.rs' if a.combined and case=='r2' else case+'-reduced.rs')
    check(case+'_off',source,False,failed)
    check(case+'_cold',source,True,failed if a.baseline else set())
    if not a.baseline:
     data=check(case+'_repeat',source,True,set())
     scope=data['verus-infer']['verification_scope']
-    require((scope['checked_exec_bodies'],scope['checked_proof_bodies'])==((12,8) if case=='r2' else (8,3)),'original body inventory')
+    require((scope['checked_exec_bodies'],scope['checked_proof_bodies'])==((12,6 if a.combined else 8) if case=='r2' else (8,3)),'original body inventory')
     counts=[x['pairs'] for x in data['verus-infer']['set_pair_assistance']]
     require(counts==([20] if case=='r2' else [20,6,6]),'exact pair inventory')
   if not a.baseline:
    # Imported callers consume unchanged ordinary contracts, not cached helpers.
    for case,crate in [('r2','r2_api'),('f2','f2_ordinary')]:
-    text=(HERE/(case+'-reduced.rs')).read_text()
+    text=(HERE/('r2-combined.rs' if a.combined and case=='r2' else case+'-reduced.rs')).read_text()
     if case=='r2':text+='\n'+(HERE.parent/'redb_tree/interface.rs').read_text()
     src=a.output/(case+'_api.rs');src.write_text(text)
     artifact=a.output/(case+'.vir');rlib=a.output/('lib'+case+'.rlib')
