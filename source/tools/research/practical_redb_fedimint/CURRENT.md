@@ -21,7 +21,7 @@ Rev Stage B at `98931edc` with independent review `5f9533d6` is an opt-in NEW co
 
 R1 resize and F1 fee-policy baselines are **unsupported/unproved**, not successes: the accepted runtime rejects their original `div_ceil`/`saturating_div` calls before checking bodies. Their source/property freezes and results remain unchanged and in [coverage](COVERAGE.md), together with the F0 funding-map boundary.
 
-[Replacement registration](SELECTION_R2_F2.json) selects R2 bitmap-tree set/clear ancestor-summary propagation and F2 the complete guardian/quorum admission policy, before their trials. Both selected properties now have source-connected ordinary manual proofs; the parent has authenticated both deliveries and replayed F2 with ordinary/imported clients. R2 parent replay is in progress. Independent acceptance remains pending. Neither lane shows an Infer reduction. No new engine layer is approved before a concrete common mechanism is justified. See [value checkpoint1](VALUE_CHECKPOINT.md) for why unsupported native APIs were deferred rather than becoming prerequisites.
+[Replacement registration](SELECTION_R2_F2.json) selects R2 bitmap-tree set/clear ancestor-summary propagation and F2 the complete guardian/quorum admission policy, before their trials. Both selected properties now have source-connected ordinary manual proofs; the parent has authenticated both deliveries and replayed F2 with ordinary/imported clients. R2 parent replay also passes its11 focused outcomes, including strict semantic/export controls and ordinary/inferred imports. Fresh independent review of both proofs and their actual common-demand claim is running. Independent acceptance remains pending. Neither lane shows an Infer reduction. No new engine layer is approved before a concrete common mechanism is justified. See [value checkpoint1](VALUE_CHECKPOINT.md) for why unsupported native APIs were deferred rather than becoming prerequisites.
 
 ## Current application checkpoint
 
@@ -31,7 +31,7 @@ R1 resize and F1 fee-policy baselines are **unsupported/unproved**, not successe
 
 ## Next bounded work
 
-1. Complete parent R2 replay and fresh independent application-proof review of both results, their source/domain fidelity, negative/import/publication gates and manual inventories.
+1. Complete fresh independent application-proof review of both results, their source/domain fidelity, negative/import/publication gates and manual inventories.
 2. Compare actual demands: R2 needs word/nested-sequence frames, ancestor-loop transport and a finite-range predicate-update equality; F2 needs subset cardinality and inclusion-exclusion. Already automatic arithmetic/count facts cannot be charged as removable work.
 3. Authorize a common checked engineering layer only if its concrete mechanism removes nontrivial local work in both unchanged selected properties. A label covering two unrelated fixes or synthetic examples is insufficient. If no direct common mechanism is justified, report that bounded-experiment shortfall; do not widen into another prerequisite program.
 4. Retain the45-active-minute blocker limit, focused existing-utility checks and independent review. No foundations, new trusted contracts, disabled checks, narrowed inputs or unregistered replacement cases.
