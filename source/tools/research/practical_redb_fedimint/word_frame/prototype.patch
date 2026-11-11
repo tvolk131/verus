@@ -1,0 +1,86 @@
+--- a/redb_tree/manual.rs
++++ b/word_frame/prototype-component.rs
+@@ -1,3 +1,4 @@
++use wordlaws::*;
+ use vstd::prelude::*;
+ verus! {
+ // All items/contracts private: original private fields never become public-open.
+@@ -62,40 +63,8 @@
+     } else { a.data@[i as int / 64] & !(1u64 << ((i as int % 64) as u64)) }) &&
+     (forall|j: int| 0 <= j < a.data@.len()*64 ==> physical_bit(b,j) == (if j == i as int { value } else { physical_bit(a,j) }))
+ }
+-proof fn word_bits(x: u64, p: u64, j: u64)
+-    requires p < 64, j < 64,
+-    ensures
+-        member(x | (1u64 << p), j as int) == (j == p || member(x, j as int)),
+-        member(x & !(1u64 << p), j as int) == (j != p && member(x, j as int)),
+-        member(u64::MAX, j as int),
+-{
+-    assert((p < 64 && j < 64) ==> (((x | (1u64 << p)) & (1u64 << j) != 0) ==
+-        (j == p || (x & (1u64 << j) != 0)))) by(bit_vector);
+-    assert(((x & !(1u64 << p)) & (1u64 << j) != 0) ==
+-        (j != p && (x & (1u64 << j) != 0))) by(bit_vector);
+-    assert(j < 64 ==> (u64::MAX & (1u64 << j)) != 0) by(bit_vector);
+-}
+-proof fn word_frame(a: U64GroupedBitmap, b: U64GroupedBitmap, i: u32, value: bool)
+-    requires layer_wf(a), i < a.len,
+-        b.len == a.len,
+-        b.data@ == a.data@.update(i as int / 64, if value {
+-            a.data@[i as int / 64] | (1u64 << ((i as int % 64) as u64))
+-        } else { a.data@[i as int / 64] & !(1u64 << ((i as int % 64) as u64)) }),
+-    ensures word_change(a,b,i,value),
+-{
+-    assert(0 <= i as int / 64 < a.data@.len());
+-    assert forall|j: int| 0 <= j < a.data@.len()*64 implies
+-        physical_bit(b,j) == (if j == i as int { value } else { physical_bit(a,j) }) by {
+-        if j / 64 == i as int / 64 {
+-            word_bits(a.data@[j/64], (i as int % 64) as u64, (j%64) as u64);
+-            assert((j % 64 == i as int % 64) == (j == i as int));
+-        }
+-    }
+-    assert forall|j: int| b.len <= j < words(b.len)*64 implies physical_bit(b,j) by {
+-        assert(j != i as int);
+-        assert(physical_bit(a,j));
+-    }
+-}
++
++
+ 
+ proof fn layer_edit(a: Seq<U64GroupedBitmap>, b: Seq<U64GroupedBitmap>, h: int, i: u32, value: bool)
+     requires shape(a), 0 <= h < a.len(), i < a[h].len,
+@@ -136,7 +105,8 @@
+     requires i < t.len, layer_wf(t), !physical_bit(t,i as int),
+     ensures t.data@[i as int / 64] != u64::MAX,
+ {
+-    word_bits(t.data@[i as int / 64], (i as int % 64) as u64, (i as int % 64) as u64);
++    vstd::word::lemma_full_view(t.data@[i as int / 64],64);
++    assert(vstd::word::view(t.data@[i as int / 64],64)[i as int % 64] == physical_bit(t,i as int));
+ }
+ proof fn finish_mutation(a: Seq<U64GroupedBitmap>, m: Seq<U64GroupedBitmap>, b: Seq<U64GroupedBitmap>, i: u32, value: bool)
+     requires tree_wf(a), i < a.last().len, path_frame(a,m,i as int),
+@@ -328,7 +298,11 @@
+         group |= Self::select_mask(bit_index);
+         self.data[index] = group;
+ 
+-        proof { word_frame(before, *self, bit, true); }
++        proof {
++assert forall|j: int| 0 <= j < before.data@.len()*64 implies physical_bit(*self,j) == (if j == bit as int { true } else { physical_bit(before,j) }) by {
++checked_seq_bit_update_at(before.data@,bit as int,true,j);
++}
++}
+         group == u64::MAX
+     }
+ fn clear(&mut self, bit: u32)
+@@ -339,7 +313,11 @@
+         assert!(bit < self.len, "{bit} must be less than {}", self.len);
+         let (index, bit_index) = Self::data_index_of(bit);
+         self.data[index] &= !Self::select_mask(bit_index);
+-        proof { word_frame(before, *self, bit, false); }
++        proof {
++assert forall|j: int| 0 <= j < before.data@.len()*64 implies physical_bit(*self,j) == (if j == bit as int { false } else { physical_bit(before,j) }) by {
++checked_seq_bit_update_at(before.data@,bit as int,false,j);
++}
++}
+     }
+ }
+ }
