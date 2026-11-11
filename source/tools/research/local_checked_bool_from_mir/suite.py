@@ -13,6 +13,7 @@ def raw(label,text,options=(),goals=True,export=None,cargo=False):
     args=[B/'verus',src,'--crate-name=component','--crate-type=lib','--no-cheating','--output-json','--compile','-o',d/'libcomponent.rlib']
     if goals: args+=['--infer-goals']
     args+=list(options)
+    if '--no-erasure-check' in options: args.remove('--compile')
     if export:args+=['--export',export]
     env={}
     if cargo:
@@ -34,7 +35,7 @@ if __name__=='__main__':
     t.need(sys.flags.dont_write_bytecode,'use -B')
     mode=sys.argv[2]
     if mode=='proofs':
-        for label,kind,v,e in [('final-cold','actual',2,0),('final-warm','actual',2,0),('final-false','false',1,1),('final-off','off',0,1),('final-full','full-help',52,0),('final-support','full-helpers',36,0)]:
+        for label,kind,v,e in [('final-cold','actual',2,0),('final-warm','actual',2,0),('final-false','false',1,1),('final-off','off',0,1),('final-full','full-help',52,0),('final-full-warm','full-help',52,0),('final-support','full-helpers',36,0)]:
             d,r=t.trial(R,B,label,kind);counts(r,v,e)
             if kind=='false': t.need(r['failed_functions']==['component::all_bool'],'false caller only')
     elif mode=='exports':
@@ -43,10 +44,13 @@ if __name__=='__main__':
         d,r=raw('ordinary-seed',seed,goals=False,export=legacy)
         t.need(r['exit']==0 and legacy.exists(),'healthy ordinary legacy export')
         old=legacy.read_bytes()
+        other=R/'ordinary-infer-goals.vir'
+        out,record=raw('ordinary-goals-seed',seed,export=other)
+        t.need(record['exit']==0 and other.exists(),'ordinary infer-aware export changed')
         cases=[('complete',(),t.source('actual')),('false',(),t.source('false')),
                ('no-verify',('--no-verify',),t.source('actual')),('no-lifetime',('--no-lifetime',),t.source('actual')),
                ('no-erasure',('--no-erasure-check',),t.source('actual')),('no-traits',('--no-trait-conflicts',),t.source('actual')),
-               ('filter-function',('--verify-function','all_bool'),t.source('actual')),
+               ('filter-function',('--verify-root','--verify-function','all_bool'),t.source('actual')),
                ('filter-module',('--verify-module','root'),t.source('actual')),
                ('filter-only-module',('--verify-only-module','root'),t.source('actual')),
                ('filter-root',('--verify-root',),t.source('actual')),

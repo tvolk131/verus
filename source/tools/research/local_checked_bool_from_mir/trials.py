@@ -47,11 +47,11 @@ def environment(d, bundle):
             'VERUS_ROOT':str(bundle),'VERUS_Z3_PATH':str(bundle/'z3'),
             'VERUS_INFER_CACHE':str(d/'candidate-cache'),'XDG_CACHE_HOME':str(d/'cache')}
 
-def run(root, label, argv, bundle, extra=None):
+def run(root, label, argv, bundle, extra=None, outputs=()):
     d=root/label; d.mkdir(parents=True,exist_ok=True)
     before=snapshot()
     fixtures={str(Path(a)):sha(a) for a in argv if str(a).endswith('.rs') and Path(a).is_absolute() and Path(a).is_file()}
-    tools={n:sha(bundle/n) for n in TOOLS if (bundle/n).is_file()}
+    tools={n:sha(bundle/n) for n in TOOLS if n not in outputs and (bundle/n).is_file()}
     env=environment(root,bundle); env.update(extra or {})
     frozen=dict(argv=list(map(str,argv)),cwd=str(ROOT/'source'),source=before,fixtures=fixtures,tools=tools,
                 environment={k:env[k] for k in environment(root,bundle) if k not in os.environ
@@ -62,7 +62,7 @@ def run(root, label, argv, bundle, extra=None):
     guards=before==snapshot() and all(sha(p)==h for p,h in fixtures.items()) and tools=={n:sha(bundle/n) for n in tools} and sha(__file__)==frozen['controller_sha256']
     record=dict(exit=proc.returncode,seconds=time.monotonic()-start,guards=guards,
                 freeze_sha256=sha(d/'freeze.json'),stdout_sha256=sha(d/'stdout'),
-                stderr_sha256=sha(d/'stderr'))
+                stderr_sha256=sha(d/'stderr'),outputs={n:sha(bundle/n) for n in outputs if (bundle/n).is_file()})
     try:
         output=json.loads((d/'stdout').read_text())
         record['verification']=output.get('verification-results')
@@ -104,6 +104,6 @@ if __name__=='__main__':
     need(sys.flags.dont_write_bytecode,'use Python -B')
     root=Path(sys.argv[2]); bundle=root/'bundle'
     if sys.argv[1]=='vstd':
-        run(root,'vstd',[root/'target/debug/vstd_build',bundle],bundle,{'VERUS_IN_VARGO':'1'})
+        run(root,'vstd',[root/'target/debug/vstd_build',bundle],bundle,{'VERUS_IN_VARGO':'1'},outputs=('vstd.vir','libvstd.rlib'))
     elif sys.argv[1]=='trial':
         trial(root,bundle,sys.argv[3],sys.argv[4] if len(sys.argv)>4 else 'actual')

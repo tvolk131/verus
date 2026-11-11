@@ -96,14 +96,17 @@ fn local_foreign_export_refuses_and_removes_legacy_output() {
         vec!["--no-lifetime"],
         vec!["--no-trait-conflicts"],
         vec!["--no-erasure-check"],
-        vec!["--verify-function", "all_bool"],
+        vec!["--verify-root", "--verify-function", "all_bool"],
     ] {
         let run = |source: &str, options: &[&str]| {
             let file = crates.directory.path().join("component.rs");
             std::fs::write(&file, source).unwrap();
-            std::process::Command::new(crates.profile.join("verus"))
-                .arg(file)
-                .args(["--crate-type=lib", "--crate-name=component", "--no-cheating", "--compile"])
+            let mut command = std::process::Command::new(crates.profile.join("verus"));
+            command.arg(file).args(["--crate-type=lib", "--crate-name=component", "--no-cheating"]);
+            if !options.contains(&"--no-erasure-check") {
+                command.arg("--compile");
+            }
+            command
                 .arg("--export")
                 .arg(crates.vir("component"))
                 .arg("-o")
