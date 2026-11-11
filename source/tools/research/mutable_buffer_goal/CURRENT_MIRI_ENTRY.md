@@ -1,3 +1,5 @@
+> **DEFERRED AND UNACHIEVED.** The user replaced this critical path with [practical REDB/Fedimint automation](../practical_redb_fedimint/CURRENT.md). This file is a historical checkpoint. None of its next-dependency items authorize further Miri/native/foundational work. The original full HMAC suffix/native objective remains unproved.
+
 # Current Miri proof boundary
 
 The branch supports checked direct core bool-to-u64 bodies, tuple-constructor
@@ -58,7 +60,7 @@ proof assistance and show no causal inference gain. Their
 [cache record](parent-miri-cache-component.json) retain their exact scope.
 They do not establish full lookup or runtime permission grants.
 
-## Next source obligation
+## Deferred source obligation (inactive)
 
 The [historical ordering baseline](parent-nonzero-ordering-baseline.json) exposed
 the carrier and generated-wrapper gaps now closed above. No new standard
