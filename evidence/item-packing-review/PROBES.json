@@ -1,0 +1,1042 @@
+{
+  "field-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "5f26144b4e4e70d995cb94f452360de03f4b8fb283f8ccbba57f8ceb3ea597e4",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.767438514973037,
+      "stderr_sha256": "d01f44e09c10b1712089777db2122f824521593b1e0a89f0b69be250cf63257a",
+      "stdout_sha256": "db20955eba003ff5bf772f6d642d5b885eb4ef4ba5fd3df0dffe3d1426d6d511",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 19
+      }
+    }
+  },
+  "field-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "da3d1e6f2f8ffc0a98153eae5312623061266d8ee9ec63b4a49540617086341e",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.95058791199699,
+      "stderr_sha256": "212dbf81d1506e3e11f298c87bd813444e6cb96b53ad9e34d438e1ac23e9d3d9",
+      "stdout_sha256": "809dc83c693905701297bec70058303c89ba2ff9559ab6acd15d658a2f013069",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 19
+      }
+    }
+  },
+  "field-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "eb68cfb7f54cfac8043f7d75a9b9969d57fba3e99e537ead9fb89b165f47b425",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.79949139902601,
+      "stderr_sha256": "537847eebf5c6a6bb68fb870b2b8736ef52078c94271e7c9c09f22cb98b87316",
+      "stdout_sha256": "9f965049c0d2dfbe38adc6dd452cf85264e14a682db2e5a1106fa334cde16e9b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 19
+      }
+    }
+  },
+  "field-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b0803f021045b0f2ef6a56e577c59fa50ee3333f5f741fabad339b8e7cf76b64",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.804779574042186,
+      "stderr_sha256": "a4bbf0fc7c828f986757170c80714ee809eeb3310d26ab0723173106b3373a79",
+      "stdout_sha256": "e715f64daad80f88d1b60e17683d5d544bd754213038e5d0da53d8873e7894dd",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 19
+      }
+    }
+  },
+  "flag-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "66d183f82d4f6c2a180f947bda6fd478350220e8c532964cef464080e8072d58",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.568470988015179,
+      "stderr_sha256": "6c50ab198c78b1b431118f363a405bcb0c636e1c3f7b549258b16e2b97a01f21",
+      "stdout_sha256": "09792f30105642c3731a8e37aecd155b42e30bd947b1d85dfcfcf72f87abed7e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "flag-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b8d4bb7ffbcc688f45230703890a842c792a7637e7177ba14b34faefc45fcfdb",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.280559053993784,
+      "stderr_sha256": "21fb620c6b682d0a993752583c4543a2ecc8c3c8c202150107aff97a593df468",
+      "stdout_sha256": "ec58f91a4616a315338db43ffbcbbcd604a0c956bad722f908bed990df42a740",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "flag-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "6346bc98eb23ca8517cd40ac2ccc97fb34a7a875afecd1157d224f21b67fabd6",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.107188903028145,
+      "stderr_sha256": "54535367a812ee43ce5a8651be8b0eb7769f98a069506ec5b11156a9b24f18b8",
+      "stdout_sha256": "8e37b2c823a0bce88536a983015b1a04638e786807dbe091bf127f556037ccff",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "flag-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "71903d23cd3c8fb7941cf28b832c078c6d3fed7a001b89a52c5be2dbf362029e",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.55347417597659,
+      "stderr_sha256": "792dbd1ede889ac6d937736c89c2923a60cb56d26a74f2e30b553af43f22852b",
+      "stdout_sha256": "d27bbd59758d20484b4cfb1d5edc6f2b68eb322d1cb6ae4a243ac8400d1c09b0",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "full-false-relation": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "8d00324d5a61e9112aa0be5ca98758ca4fc0e8df10cc2fb1c14838896d01d57c",
+      "guards": true,
+      "outputs": {},
+      "seconds": 11.675328476005234,
+      "stderr_sha256": "c2513e927d42be5962633046d255135645ab68f9d0888eb33b8e8eff0129a5ad",
+      "stdout_sha256": "d8eda36e5b6d02e576558e86f6756dadc21cb9a2ccc44335e7f1463ee409d19f",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 145
+      }
+    }
+  },
+  "full-permission-shift": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "1789cc52b0a8e367104c06974a89e9bdcd679f9bca84ccb6c442239976077761",
+      "guards": true,
+      "outputs": {},
+      "seconds": 11.227313450013753,
+      "stderr_sha256": "4558b898e5a5e3feac2af18f3f0f52533de43a6e181912e3b7fdc73d8456afa4",
+      "stdout_sha256": "12bc595f2f9b181e04c351ff165416aaf0cc1a0b51208560e1748d4c7abeac82",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 136
+      }
+    }
+  },
+  "full-protector": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b43b7ce0f2436c939241d833ca9d05dcf18ead816034561bf1d13b41b4b3044d",
+      "guards": true,
+      "outputs": {},
+      "seconds": 11.481018858961761,
+      "stderr_sha256": "6e0fa9c07f1a92d8c1ca60ea2e2755efd44a3498d0910cb759bd7189b6c3ba70",
+      "stdout_sha256": "b29260d35c89a62823ef02c87f01ee9ba7d2465414ec74ccd3da39067d6e0c9c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 145
+      }
+    }
+  },
+  "full-range": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "1e1d125eb0ae4980fa6e0805f2f25f07fa89b6f5b4eaa3fe4d32ca88dfaaf1b0",
+      "guards": true,
+      "outputs": {},
+      "seconds": 11.625263855967205,
+      "stderr_sha256": "656f1ff7cc9b8ed4a3d17866fdf811a340d33f4cce33b01c59b0d9da61bc34aa",
+      "stdout_sha256": "426a2103207c92682d33cd22ba17857591b13cb8363beae9b61911d6d7b11b6b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 145
+      }
+    }
+  },
+  "nested-constant-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "676b207cc5a157d87603f00184bdcd3511695cfb8f24a476e1e2e4a60860d2ad",
+      "guards": true,
+      "outputs": {},
+      "seconds": 12.602887559041847,
+      "stderr_sha256": "9f219ce31a471c22c0fccf46592c60c1189f0f0b6587546bf55834013a66f333",
+      "stdout_sha256": "7d22d3378873261146ca797cec2a838b0e6b9d9212d3ab5eba7b7d89682db688",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    }
+  },
+  "nested-constant-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "1df77cdf82b1ff45f152713f1c2149a215b5dbb46bbb9e7a8c7820bd643d9e3d",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.768179734994192,
+      "stderr_sha256": "7b554c34c07f310dcdf57b405f9408d6b25383697149916fd50c98d95d9f6ed3",
+      "stdout_sha256": "c3e9cad2d84ca5d4f3c1b2b7810982bfe33e0f765436a7526fc9adb1f4d71cf8",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    }
+  },
+  "nested-constant-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "4177f3f94f205076b23a4f133660d1e3b6fa28d8a0c8a0bbf252ef3d26df7329",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.196714722958859,
+      "stderr_sha256": "eb7777988e865cf9f6f4010e71afda74447ed4d830ab9b5bb2e6a5d179252457",
+      "stdout_sha256": "3bd6baf4c97100572508b9c7b8ea74d1463c3bf9b6a1a2f53051a578f86efb29",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    }
+  },
+  "nested-constant-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "8fb1f662483e2e3085e316ece2185b477d3942d983326a5b4bb39a2d8be553f5",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.558415294042788,
+      "stderr_sha256": "793bcc1cb3632d7c3b00c19c8babec431b95464a213bc3bb2cbd40ffa6946fad",
+      "stdout_sha256": "03ecda8262d6e8a13af62d4f29b14b0cd844708dfc847a8b17d2749161bd2156",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    }
+  },
+  "noncontiguous-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "af835c19eebe42b8dd6feff912268bcbaa491d3517d7418930532bd7a3b67c23",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.058898292016238,
+      "stderr_sha256": "f1cf0821fc26326d06f1423b99dd37a31df64cee6168e51ef61f4586b670ea95",
+      "stdout_sha256": "31d6c141d4009b63d77e9ba0215d2ee6f8acb2e35c5e812fc2d0e6722a787f2c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "noncontiguous-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "bb7faea977e0406333fa5b85ae5ec8fa606cb601849221a23dd2256c56da4a1a",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.628216527984478,
+      "stderr_sha256": "fe4ccabc15b24fae9b8c51ead713f3da1a789e449a6dd0ec4408cb7b1af707a9",
+      "stdout_sha256": "61a77573341d4aa6f9ea7679080a806cd618c60cd13a022a0177a30117c49993",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "noncontiguous-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "8a5a31da7fee3dd655f3c924430b3202018ed5b46abc0405e4d86a867ff390e2",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.832149470981676,
+      "stderr_sha256": "868458fa6ddf711ad325ce1870dd3e52e85cd1ce2464b6c7e7820461f74f5122",
+      "stdout_sha256": "458f934f10e4b594e9687c46fa90d5e556320902e2e2b34cb7b40c230d01f51f",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "noncontiguous-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "bcee88745c0c3ca3ce7d0d4db15ca3d5f180cc32381da9e3d041b1806117adb3",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.532213267986663,
+      "stderr_sha256": "8dce27db29ae5a5eb8bc174495b83f07bce0443364e957bcfd927d5f3b1dbee2",
+      "stdout_sha256": "e3d283ce119ef3f789a355e4b3986c5c21821830cfd15a0828c508b69c7d89e8",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "range-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "7b1947c08782a414e05196c75abff91d226514214143933bd9164148b520d3bb",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.613026790029835,
+      "stderr_sha256": "ad575513bf8b73893ed72419f3a0ce6ee3f919fd3135051adc1f46e0cc8f1b38",
+      "stdout_sha256": "444f56cc9a1adb80985e30f76b1d247cac964e5e5daaf9aa75c85f9ff687fd1c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "range-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "35ec183f8174a0838b0b76dcf7d0ea0c61ec476bf35ed613a88bf40549998013",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.953372376039624,
+      "stderr_sha256": "e6381e2d11d39c4b297e7a72b87a18f98e1462d4dcb4c7f29dcc5aeb0a8e2512",
+      "stdout_sha256": "3b8fe6538ec7a9bcf2f739e4971ccfd56e14711dcd9461c76caaaf4d9d08d25d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "range-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "2105933738374dfc84594c6f69473fd6806330ccfd143a1f2dbbe0ec03b8452e",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.289861647994258,
+      "stderr_sha256": "6e9b99b595f0893f2735c2d0ffef283219533b065a3d751463feb66f39d9aa58",
+      "stdout_sha256": "9c485d549a7b571ade63ed21a93a433e2f1c2adda7e75c9b4e37df60480f8ea5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "range-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "6153c310cd5f57ace09f499640613cbad8abf97bb2a73d5c50109222a687d8ce",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.262473241018597,
+      "stderr_sha256": "c0284e9c474cc92da1749f1ee9761d6c338b5666e4dadde763bbe7b0beb6822d",
+      "stdout_sha256": "4a545c98f816b6d95abed3ecb7aa7127fec73525981b1c388d28ec1b8f54b89b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "relation-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "0a9bcc67938a547d8793d1c0c0f7b97777ed2e4f8b54ad8f8255046c063ce7cf",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.583749915997032,
+      "stderr_sha256": "a3e63d458269421fe751111f03579425a06646ba36e0109aa1cc63418aef1184",
+      "stdout_sha256": "003247751359cc4f2126b2ed6d3ce29b88e9cd926b36763dbd3caec177e0e54d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "relation-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "ac7ccc05f3d87051832ecdcf52bf26854983cd8d999c14aa5b8ba94626fc6369",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.08100777695654,
+      "stderr_sha256": "fd5f6515da87f0112c2fcd32f9f0d731d6fd2dee9ad8e6d7d7f3b59ae69479f2",
+      "stdout_sha256": "1359730d24949050181a85a1ca2830eb069b4b889c32b5f10d38f104f7025f9a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "relation-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "f3a385d515e3c9a15a36b9c00efb9346fd9dd712d1df1c92b5bc770cfaae08b2",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.022041579999495,
+      "stderr_sha256": "a57ec8ac924c88aacb3f6d4bdeb24014e5ca2517c5a9686e66d236aa52ff315d",
+      "stdout_sha256": "d685b48b33547f954a0ced497d5f4bcf281c7e6b33c4100f70a15c41e7d9ee51",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "relation-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b7e8e5b8e6788fdefe88175fc44d3abda7b04d9a05265d7b31532e25861137d5",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.211849494022317,
+      "stderr_sha256": "b91b90d805a7badf297f7d356df7384f4ea0566bfdffc0901c7ffc889a5cb51a",
+      "stdout_sha256": "4e0ec412ba25229f621d06f68b8e17a0181234e80430f0740b68eb60b7c9f459",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "reversed-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "7d856eba7f4bb1a588d30191df56e93934a09d07b1a5a4e0a4c550d3f2a18260",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.320507182972506,
+      "stderr_sha256": "3320c31cdcef3e45e28df2c45248ab560b2d51d9e7555572c044f074a4032d62",
+      "stdout_sha256": "659b404d08a7b6ea446264a4ce643316e6e4b33b6a5cc0741395d26709c6c8d3",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "reversed-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "f111e38425d241852487e0562163bff7da830c6ee05b04cfbe2cb1f023f3cf2a",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.115581384976394,
+      "stderr_sha256": "bf480af9ca06c5f54cf6d2110e0a9b30cea590c2298f3ab0836f42a88c237338",
+      "stdout_sha256": "abb42b3cdb4a506d03df44ffd37ed520de31b5d788db8d935c4079f84fa99732",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "reversed-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "fa46f6a376c49a2b18e575afbf1564106b6ffde992fc77ff7048a0639b1cee26",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.739324953989126,
+      "stderr_sha256": "32706e7f0982370c72a6c3bcb8a8b7a3b84e86fade75ac187e618401cbfb0f61",
+      "stdout_sha256": "44cc899e5d28c62b851b3a4cc809bcf7b02c525372dc1c965bef71f9e061787a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "reversed-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "343f5e62962ca3b8778e945cb20398151c01fc34d37dd627a5e4ae20af8c2da7",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.560406776028685,
+      "stderr_sha256": "e5bc67185f233f4d7d48ab7b959e0028683916d8bb443aa1cde558811d541bcb",
+      "stdout_sha256": "8c944fb706740454fa9ab949a771acbdeb2b73d53af220fb2dac38eb6055116c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "shift-safety-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "261ab11363e91f54565a822e218be381ce9f67023a4c5a8f83bb5abe30aaf0bf",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.082389966002665,
+      "stderr_sha256": "92493974e5c64d6b9d6d1d26585053e721e8fef0bdba5ddd4b2c4a61cf6a0aa8",
+      "stdout_sha256": "c5f7bc3fbf85b4382fb0c3eca335be71d4dfa5b179b3228071686dc04e68b260",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "shift-safety-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "f3761ca6af5bd7c0dfcb67aeb89a90793f0d6357e7f8a12e1bdce3dfc73402e9",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.579989961988758,
+      "stderr_sha256": "93da1c2b9d07ed982d0afd5d9cd55de1b211965b1917d3234c411a6b2eb9f6f3",
+      "stdout_sha256": "343c0d41b95a35a9177244c09e558f3571dc3125f03519988c5da6383d2e62b1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "shift-safety-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "970c732ac898dc580dac81a5a539b8bab05ca8a0b975d414d2ca9f3a9f4a863f",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.262431511946488,
+      "stderr_sha256": "b33bb77aa2a8a1a0796902ffa708e715256cb403dd8217f6160834e2c9d8ffd5",
+      "stdout_sha256": "647b6a6557ab9075b1dffc61b24e86da1e47bd71771497205eff61bc3fd55270",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "shift-safety-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "4140cb769d83f0eb50c0f93ba193d44fe8bd39ee5e5c7cbf94f6c20c7d4d043e",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.829367447993718,
+      "stderr_sha256": "f46d5fe80cd3f151e60629b1a836f54e1aef957b3f204f629e89bd998bcf5c62",
+      "stdout_sha256": "e1ecd354cac1543323ad1a9573acb7cbcb2aca048609edb98288b71952ca7b3e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 4
+      }
+    }
+  },
+  "signed-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "28f5355b5343e3ce1881dea2e162cd645687c5c7f9931ae3da93f15a048125ad",
+      "guards": true,
+      "outputs": {},
+      "seconds": 8.838821340992581,
+      "stderr_sha256": "04957a83c827fd57370ac9386f7dc0a91039dbb1e979bcd125c0ebb844617415",
+      "stdout_sha256": "8d68f18c507d1ac18ed496dc20671c79e5aa6246fb4eeda646dd671ba9cf0a3d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    }
+  },
+  "signed-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "af5a0725eb3f3f9156a0e5f730a2f4cd0573bba46f3b3d53290a9a54d94d7741",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.156114433018956,
+      "stderr_sha256": "0a89ca6ab087e37fcaf9cf7a566e18f11350724278ef5ea6464374a9ad15def0",
+      "stdout_sha256": "dc21bc7c58cf63046b729681fbabed42a8bc9bbbace9b7773e091116b6530f7b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    }
+  },
+  "signed-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "81fee8a210597048f71c19f3d83ea99311322e2948b2a5bae015ceacffb0230d",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.285336993983947,
+      "stderr_sha256": "a7ce85adc02373cadaa076a62d92e426d98ef790f7c055e62ca464e75074aaf9",
+      "stdout_sha256": "4f3078650af3575a51ebfa18bba62856006e02705026e34392af901f999f8730",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    }
+  },
+  "signed-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "c5fbcaa0086569347edb966bf88c62fa6e2df143c2513a0abe797c4e1c92185d",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.61091965000378,
+      "stderr_sha256": "0f8d526190f289b71c9303e6dcf19d1be5853d35d039799126c2c27b7faafa21",
+      "stdout_sha256": "283ebec7b64a119b70b6efde9e583458d6b9b2f4bda4afad98779dd488c28fca",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    }
+  },
+  "supported-16": {
+    "expected": "pass",
+    "receipt": {
+      "exit": 0,
+      "freeze_sha256": "14041533c81233dba710b3e9c11c0034308ebddc7f313c29cd3be63bd8dda43f",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.030556788027752,
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "41e804868ed4f582441b40169e11480a62286200091acaa4eb7ed3f00a1e78b0",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 58
+      }
+    }
+  },
+  "supported-32": {
+    "expected": "pass",
+    "receipt": {
+      "exit": 0,
+      "freeze_sha256": "5a7411e982f267eec6249d25bdd72a71d4b93b0b01f51191401322200886c710",
+      "guards": true,
+      "outputs": {},
+      "seconds": 12.80489857099019,
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "c86f1432bec07143cfd37061f5d97f89f41f25b2011ff6d655865da261073018",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 58
+      }
+    }
+  },
+  "supported-64": {
+    "expected": "pass",
+    "receipt": {
+      "exit": 0,
+      "freeze_sha256": "f6caecca49d7d4632daad8da7d302607e963317db3f986e8c0cd8112f9a99a9f",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.2086231430294,
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "f2997313ded35dec72f17d16bdbd6c5c15dd6a74acdb551bede7b19aaee6a646",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 58
+      }
+    }
+  },
+  "supported-8": {
+    "expected": "pass",
+    "receipt": {
+      "exit": 0,
+      "freeze_sha256": "e6fbcb5bac437dd24f775dd02a8a0ba7b68323b4caa3f5614bba4593f61dd6e2",
+      "guards": true,
+      "outputs": {},
+      "seconds": 11.655779209977482,
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "6d6c5c473023813f83dd1e7125cf49e668aacf9e69779d3d8a60accc8790f780",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 58
+      }
+    }
+  },
+  "valid-conservative-16": {
+    "expected": "conservative",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "63c50dc12dda7cb75177b07f3bfcb09fec12e67b131a944ea56b13e91039cc17",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.265153179992922,
+      "stderr_sha256": "70f2351d9736e5e3d1a413be6cf3a79da87de8426d5a22f9cb263b37e3876216",
+      "stdout_sha256": "7897c484565c993c85321db61f93de3135ae07d965361f4e137aeb6cd74b3034",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 78
+      }
+    }
+  },
+  "valid-conservative-32": {
+    "expected": "conservative",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b1c03e35bc06645464994f8ab035982bcbadbef3c93e8806d67ff4ae6fbab673",
+      "guards": true,
+      "outputs": {},
+      "seconds": 12.688625924987718,
+      "stderr_sha256": "e55550bf5954e6c8fe15c90f86f9ec5222744d7c7df215dcea042877e3bad24f",
+      "stdout_sha256": "f1905a486601449ce907979a13d2d70397b8f0ea0c110c2687b13bcfff092efd",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 78
+      }
+    }
+  },
+  "valid-conservative-64": {
+    "expected": "conservative",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b6496bdbcf10f74a71863e94e909da0a03616b97b607e8294c0b414e87465bce",
+      "guards": true,
+      "outputs": {},
+      "seconds": 11.321903289004695,
+      "stderr_sha256": "c49a39726013cc604f89d5d87064d9e02d8b7f9b9e1bffa28bbaa97343ec74d4",
+      "stdout_sha256": "6b7568a801f33a79c90df287bc7eeca040865b8e5526e36480d4843ab01ce470",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 78
+      }
+    }
+  },
+  "valid-conservative-8": {
+    "expected": "conservative",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "b8e6add7c8e8d53801f547d86f1ec11608028fe2733071d01100e27a9b38952a",
+      "guards": true,
+      "outputs": {},
+      "seconds": 12.5577641010168,
+      "stderr_sha256": "6e86c6057425c521e486cd1a2fc946ec02e7c3fa6c1940ed3e880136e368ece0",
+      "stdout_sha256": "0a59284a47faa099a85a2c21646b69b5bd4df0e90b80334e7f9a42e278eef6fc",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 78
+      }
+    }
+  },
+  "xor-overlap-16": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "43a8f6d02ebf182d141738587b33f2d08a7845c5075d18a9f8887c914faee01c",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.903709333040752,
+      "stderr_sha256": "f369520a3e139acd50223961bfe84309b75ca373e4db68fbaae965a1a841c8ae",
+      "stdout_sha256": "86be54d7b4c3ec0958da9bc41d6b428a362183a8dafe9b5f4b62c0fe79dc782c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "xor-overlap-32": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "6a11da679b8585f01701214bd21549a22613d20309e7235891378ccdd4b47f75",
+      "guards": true,
+      "outputs": {},
+      "seconds": 10.69934919202933,
+      "stderr_sha256": "a7e390629c6c094be256e9f74d77db76cbed185dba6802a1674ae1b5b46b9b58",
+      "stdout_sha256": "d6e537d2e3472c58a58df7db17e23afb73b1739a20d6d6e39f517b1eb7c77b6e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "xor-overlap-64": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "a4e8d2bc1439bf977106cf5e48f13917420d323b075f774ef94b37ab4dbd8696",
+      "guards": true,
+      "outputs": {},
+      "seconds": 8.601667716982774,
+      "stderr_sha256": "0f7f7d775f84bf3643c013ae4acf9e83ed4febdc3ab646fe758add9b11f245fb",
+      "stdout_sha256": "e7c2d33b133a4fe599f7db3ce60495e0420d88f1085263f02fe8314c3d74f3a1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  },
+  "xor-overlap-8": {
+    "expected": "false",
+    "receipt": {
+      "exit": 1,
+      "freeze_sha256": "da1026e82fb629509ad8dfad3719b882706cf23718524f51cb59e4636b2d8b5b",
+      "guards": true,
+      "outputs": {},
+      "seconds": 9.747169680020306,
+      "stderr_sha256": "fc1d39588ee209f867ef29ef0f43cec06e97cb79b38a6088a6b5faff882ec307",
+      "stdout_sha256": "2a01e3ef78cfa6d5d538541aa5f4304cb89b81ccf744b9c37e504e680d07a627",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    }
+  }
+}

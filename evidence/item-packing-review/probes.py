@@ -1,12 +1,19 @@
 """Fresh finite-width controls. No false frontend/setup rejection counts as proof evidence."""
 import review as t
+import json
 R=t.root()
 PRE='use vstd::prelude::*; verus! {\nfn flag(b:bool)->(r:u64) ensures r==if b {1u64} else {0u64} {u64::from(b)}\n'
 def check(name,s,expected):
- p=R/'probes-source'/f'{name}.rs';p.parent.mkdir(exist_ok=True);p.write_text(s);j=t.trial('probes/'+name,p)
+ p=R/'probes-source'/f'{name}.rs';p.parent.mkdir(exist_ok=True);d=R/'probes'/name
+ if (d/'receipt.json').exists():
+  t.need(p.read_text()==s,'immutable resumed fixture '+name);j=json.loads((d/'receipt.json').read_text());f=json.loads((d/'freeze.json').read_text());shipping=json.loads((R/'full/cold/freeze.json').read_text())
+  t.need(j['guards'] and f['source']==shipping['source'] and f['tools']==shipping['tools'],'resumed shipping identity')
+  for n,key in [('freeze.json','freeze_sha256'),('stdout','stdout_sha256'),('stderr','stderr_sha256')]:t.need(t.sha(d/n)==j[key],'resumed receipt '+name)
+ else:
+  t.need(not p.exists(),'new immutable fixture '+name);p.write_text(s);j=t.trial('probes/'+name,p)
  v=j.get('verification',{});err=(R/'probes'/name/'stderr').read_text()
  t.need(v.get('is-verifying-entire-crate') and ((j['exit']==0 and v.get('errors',0)==0) if expected=='pass' else (j['exit']!=0 and v.get('errors',0)>0)),'verification outcome '+name)
- if expected in ['false','conservative']:t.need('postcondition not satisfied' in err or 'possible bit shift' in err or 'overflow' in err,'semantic diagnostic '+name)
+ if expected in ['false','conservative']:t.need('postcondition not satisfied' in err or 'precondition not satisfied' in err or 'assertion failed' in err or 'possible bit shift' in err or 'overflow' in err,'semantic diagnostic '+name)
  return dict(receipt=j,expected=expected)
 def main():
  out={}

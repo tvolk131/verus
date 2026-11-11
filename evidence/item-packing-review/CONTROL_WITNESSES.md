@@ -1,6 +1,6 @@
 # Fresh semantic controls and conservative omissions
 
-All finite-width witnesses below apply unchanged to W=8,16,32,64. Applications use the actual bool conversion helper in the crate, normal source checks, --no-cheating and --compile. Rejections count only when verifier JSON reports full-scope proof errors and stderr locates a postcondition or shift-safety failure, never a parser/type/setup error.
+All finite-width witnesses below apply unchanged to W=8,16,32,64. Applications use the actual bool conversion helper in the crate, normal source checks, --no-cheating and --compile. Rejections count only when verifier JSON reports full-scope proof errors and stderr locates a postcondition, original runtime-assert precondition, or shift-safety failure, never a parser/type/setup error.
 
 * False zero-shift relation `r != x`: x=0 gives r=0.
 * Weakened low range low<8 instead of low<4, low projection r&3==low: low=4,high=0 yields0!=4.

@@ -1,0 +1,78 @@
+{
+  "ablation-full": {
+    "Eq": {
+      "available_to_same_crate_callers": true,
+      "candidate_id": "3d8519d03b94ccbeb2d2f2e738a00540321d74411aeddf9a4684b035044c588f",
+      "contract": {
+        "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))",
+        "requires": "true"
+      },
+      "dependencies": [],
+      "exported": false,
+      "function": "component::BorTag::eq",
+      "loop_proofs": [],
+      "metrics": {
+        "cache": "miss",
+        "cache_policy": "candidate_cache",
+        "ensures_nodes": 7,
+        "generation_micros": 3265,
+        "requires_nodes": 1,
+        "solver_micros": 2839
+      },
+      "mode": "exact",
+      "parameters": [
+        {
+          "name": "self",
+          "type": "&component::BorTag"
+        },
+        {
+          "name": "other",
+          "type": "&component::BorTag"
+        }
+      ],
+      "proofs": {
+        "exactness": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        },
+        "maximality": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        },
+        "soundness": {
+          "reason": null,
+          "required": true,
+          "status": "proved"
+        }
+      },
+      "required_checks_passed": true,
+      "result_type": "bool",
+      "source": "/tmp/item-packing-review-vr4p8_bo/full/component.rs:4:29: 4:38 (#18)",
+      "summary_kind": "value"
+    },
+    "helper_failures": [],
+    "ordinary_helper_query_sha256": "4b3edff635748327a6dffa123d66b1ab120a974e2cd48a4a2a8694898294afa6",
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 3,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 27
+    }
+  },
+  "ablation-packet": {
+    "helper_failures": [],
+    "ordinary_helper_query_sha256": "65fc68a0849e9c1693b23657426af21e7407ed134bc118a3d531551351c7369d",
+    "verification": {
+      "encountered-error": true,
+      "encountered-vir-error": false,
+      "errors": 1,
+      "is-verifying-entire-crate": true,
+      "success": false,
+      "verified": 2
+    }
+  }
+}
