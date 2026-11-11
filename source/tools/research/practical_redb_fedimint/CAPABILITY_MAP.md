@@ -1,6 +1,6 @@
 # Practical capability map — incomplete integration checkpoint
 
-This is a scoped evidence map for the [replacement goal](GOAL.md), not a completed automation claim. Accepted baseline is engine f4415999/schema39/policy75/cache78. New S1/S2 code has not been accepted. Original bodies/domains and preregistrations remain in SELECTION.json and SELECTION_R2_F2.json.
+This is a scoped evidence map for the [replacement goal](GOAL.md), not a completed automation claim. Accepted baseline is engine f4415999/schema39/policy75/cache78. S1 has been delivered and integrated as a proposal, with worker causal results; independent/combined acceptance is pending. S2 has not been delivered or accepted. Original bodies/domains and preregistrations remain in SELECTION.json and SELECTION_R2_F2.json.
 
 ## Application coverage
 
@@ -26,7 +26,7 @@ Existing scalar arithmetic, callee/field propagation, accessors/reborrows and de
 
 Current measured accepted75 Infer reduction: **zero in both applications**. Original R2 manual inventory is8 local helpers/15 calls/9 exec proof blocks/9 snapshots/37 assertions/6 loop-entry invariants/3 BV directives, with exit/fuel/trigger work detailed in its report. F2 retains4 generic set calls+2 conditionals. Counts overlap; do not sum categories.
 
-[C0](common_set/PAIR_PROTOTYPE.md) and independent review prove the SAME generic Set-pair helper supplies necessary observations to both actual properties. Explicit prototype replacement calls remain charged. S1 should select those calls automatically, removing the required R2 extensional assertion and F2 set glue. The already-default R2 range broadcast is redundant and earns no credit.
+[C0](common_set/PAIR_PROTOTYPE.md) and independent review prove the SAME generic Set-pair helper supplies necessary observations to both actual properties. Explicit prototype replacement calls remain charged. S1 worker evidence selects those calls automatically (R2 25/0, F2 12/0; narrow S1-only ablation fails the intended functions), removing the required R2 extensional assertion and F2 set glue. The already-default R2 range broadcast is redundant and earns no credit.
 
 [W0](word_frame/PROTOTYPE.md) factors the word proof into a separately checked generic library. Its explicit application prototype has6 local helpers/31 assertions/9 snapshots/0 BV directives; replacement transport/snapshots/calls remain manual. S2 should generate that transport, aiming for6/29/7/0 with2 generated snapshots/forall blocks and remaining loop/tree proofs still authored. These are projected S2 author costs, NOT accepted engine measurements. The extra clear_not_full view bridge remains charged.
 
@@ -42,6 +42,6 @@ Trust remains the existing compiler/macros, Verus backend/SMT and imported vstd 
 
 ## Completion remains unproved
 
-S1 actual causal cross-project removal, S2 material author-work reduction, matching combined checks, fresh independent implementation review, final measured costs and residual manual-work report remain open. Full Function/source/ID/binding preservation and all ordinary import/precision/publication gates must be validated on the combined engine. Application review and prototype success do not discharge them.
+Independent acceptance of S1 causal cross-project removal, S2 material author-work reduction, matching combined checks, fresh independent implementation review, final measured costs and residual manual-work report remain open. Full Function/source/ID/binding preservation and all ordinary import/precision/publication gates must be validated on the combined engine. Application review and prototype success do not discharge them.
 
 No additional layer beyond S1/S2 is authorized without a concrete value checkpoint; each blocker stops at45 active minutes excluding builds. No foundational prerequisite chain, new assurance subsystem, narrowed input or replacement algorithm. Earlier HMAC suffix/native work remains explicitly deferred and unachieved; no whole-database, whole-protocol, cryptographic, crash-consistency or broader native correctness claim. No push/PR is authorized.
