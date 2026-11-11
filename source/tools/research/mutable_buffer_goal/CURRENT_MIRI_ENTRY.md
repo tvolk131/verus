@@ -113,22 +113,30 @@ accepts the exact LOCAL scope after fresh compilation,33 focused compiler tests,
 149 VIR tests and all export controls; the
 [review record](parent-local-foreign-review.json) binds parent authentication.
 Zero-shift arithmetic remains an informational automation gap. Every crate
-using the local foreign path refuses VIR export. Certified publication/import,
-removal of remaining authored mechanical packing help, and runtime/provenance
-correspondence remain separate obligations. The
+using the local foreign path refuses VIR export. Certified publication/import
+and runtime/provenance correspondence remain separate obligations. The next
+arithmetic reduction below removes the remaining mechanical packing help. The
 [staged interface](FOREIGN_BODY_STAGES.md) records the preimplementation boundary.
 
-The next arithmetic implementation is provisionally integrated, with independent
-review pending. Its frozen original full Item fixture removes the packing lemma,
-all three proof blocks and their calls; authored semantics/domain and original
-runtime remain unchanged. Reported cold/warm results are146/0 for full Item and
-32/0 for a natural packet writer. This shifts work into116 isolated BV checks
-for Item and29 for packet, not fewer logical obligations. Arithmetic ablation
-makes both fail while the actual bool helper and required Eq checks stay healthy.
-The [provisional record](parent-item-packing-provisional.json) authenticates53
-retained receipts and distinguishes this pending extension from the last accepted
-parent regression matrix. Foreign certification continues in a separate lane;
-no export embargo or global/native goal status changes here.
+The arithmetic reduction is now independently accepted at its source/model
+scope. The unchanged full Item fixture verifies146/0 and a natural packet writer
+32/0, both cold/warm and after restored shipping replay. No application proof
+functions, proof blocks/calls, snapshots or mechanical assertions remain; original
+semantic views, constants, contracts/domain and runtime assertions stay authored
+and unchanged. The cost moves into116 isolated BV checks for Item and29 for
+packet, not fewer logical obligations. Arithmetic-only ablation makes both fail
+while actual bool/Eq checks stay healthy. An auxiliary-only false proposal also
+rejects despite successful ordinary return contracts.
+
+The [arithmetic review record](parent-item-packing-review.json) binds fresh
+vstd2250/0,37 focused compiler tests,149 VIR tests and parent authentication of
+87 review receipts. All118/30 AIR identities and fresh Eq cache miss/hit checks
+match within each exact tool pair. Bare high-shift multiplication without an OR
+trigger and reversed mask operands remain conservative coverage gaps; duplicate
+facts remain a possible cost reduction. Foreign certification and combined
+schema/policy/cache reconciliation continue separately. The last broad710-test
+parent matrix belongs to35bc7b12, before this arithmetic extension; it is not
+claimed rerun here.
 
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit

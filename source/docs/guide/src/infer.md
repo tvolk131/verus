@@ -54,6 +54,31 @@ it explicitly. Opt into sound summaries with
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
 
+## Checked local bool conversion and packing
+
+With `--infer-goals`, eligible direct calls to core `From<bool> for u64` resolve
+the actual compiler instance and its complete typed optimized MIR. The supported
+body copies the Boolean, casts to `u64` and returns. Its generated ordinary
+function must pass normal body checking; recognition alone supplies no law.
+Function values, coercions and other conversion bodies gain no new support.
+Crates using this local path cannot export VIR. Certified foreign-body imports
+and runtime/provenance correspondence remain separate work.
+
+In these local crates, bounded unsigned arithmetic assistance proposes closed
+shift-zero, disjoint packing, contiguous-mask extraction and two/three-field
+projection laws for `u8`, `u16`, `u32` and `u64`. Each exact fact receives an
+isolated bitvector proof before use, with no application assumptions. Failed
+auxiliary checks fail verification even if ordinary return contracts succeed.
+The author still supplies field meaning, views, range requirements and intended
+postconditions. Frozen full Item and natural packet examples remove all local
+mechanical proof blocks and lemmas while retaining those semantic inputs.
+
+Discovery and proposal counts are bounded, with at most 180 closed facts per
+ordinary body. These add solver work and can repeat across bodies. Bare high
+shifts without the packing trigger, reversed mask operands, loops, closures and
+unsupported expression shapes may receive insufficient assistance. This is
+bounded proof assistance, not general arithmetic or Rust MIR verification.
+
 ## Macro-produced loops
 
 A `for` loop emitted by `macro_rules!` needs syntax processing inside the macro

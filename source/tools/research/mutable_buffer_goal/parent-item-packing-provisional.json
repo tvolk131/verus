@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "provisionally_integrated_independent_review_pending",
+  "status": "independent_scoped_arithmetic_reduction_accepted",
   "worker_commits": [
     "eea87441a9674a098810ea847ea04bc8f6041891",
     "883e183de2bc9bbe198b59b4236fb080041dce85"
@@ -66,7 +66,7 @@
     "matching_vstd": 2250
   },
   "parent_broad_validation": "Last complete710compiler/149VIR/148Python each mode/canonical26/observer23 belongs to accepted35bc7b12 before arithmetic extension; not claimed rerun here.",
-  "independent_review": "Required, next isolated review. Source-matching fresh compilation/control replay not yet independently accepted.",
+  "independent_review": "parent-item-packing-review.json; no blocking findings after fresh compilation/proofs/controls",
   "versions": "schema38/policy70/cache73 unchanged; final reconciliation with certificate lane reserved39/71/74 remains parent-owned",
   "foreign_exports": "Local embargo unchanged; no imported foreign law enabled",
   "zero_shift_gap": "Reportedly closed by checked finite-width shift-zero laws; independent review required",
