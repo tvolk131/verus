@@ -50,6 +50,7 @@ pub mod infer;
 pub mod infer_checks;
 pub mod infer_proof;
 pub mod interpreter;
+pub mod internal_repr;
 mod inv_masks;
 pub mod layout;
 pub mod messages;
