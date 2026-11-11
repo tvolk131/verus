@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "experimental_semantic_definition_prototype_authorized_within_branch_work_not_accepted",
+  "accepted_baseline": "1171bdf7 / engine d3b2aa6e / schema39policy74cache77",
+  "scope": "Coherent compiler-owned internal nominal representation of actual core Rev and definitional binding of exact rev_iter to actual field selector, with checked native aggregate construction and complete source/Function checks.",
+  "reason": "Existing uninterpreted observation cannot be related to field merely by checking constructor MIR; unchanged-semantics route is unavailable.",
+  "TCB_change": "Explicit compiler semantic-definition/representation extension, not a proof under unchanged semantics. Requires separate independent review and matching full validation before any acceptance.",
+  "required": [
+    "No new/strengthened assume_specification, axiom, external_body or trusted helper postcondition.",
+    "All relevant actual Rev values, aliases, equality, boxing, type/lifetime arguments, visibility and state operations use one coherent interpretation.",
+    "No call-site-only ghost identity map or unsupported semantic alias assertion.",
+    "Prove useful law through datatype computation and ordinary checked constructor/helper body; preserve original source evaluation and Rust checking.",
+    "Initial local-only use, no cached proof/import/export authority; parent owns future epochs.",
+    "Stop with precise evidence if coherence cannot be supplied without an assumption."
+  ],
+  "publication": false,
+  "goal_complete": false,
+  "native_correspondences": 0
+}

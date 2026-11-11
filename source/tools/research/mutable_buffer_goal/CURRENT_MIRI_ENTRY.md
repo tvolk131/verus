@@ -70,6 +70,12 @@ The literal reverse-enumerate fallback remains unproved. Its
 the needed Enumerate lawfulness/returned-inner linkage. No trusted bridge was
 added. The cache-hit prelude is excluded from that extracted fallback.
 
+[Constructor inspection](parent-rev-bridge-design.json) confirms that checking
+the pure core aggregate alone cannot define the unrelated opaque `rev_iter`
+observation. A [separate representation/definition prototype](parent-rev-definition-prototype.json)
+will investigate a coherent compiler interpretation; it is a new semantic/TCB
+scope, not an accepted law or production capability.
+
 Prove that actual `find_granting(Write, ...) = Ok(Some(g))` preserves borrows,
 `unknown_bottom` and `unique_range`, and returns an in-bounds granting item.
 Cover the enabled cache, concrete/wildcard/unknown provenance and all error outcomes; do not add a
