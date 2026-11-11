@@ -35,6 +35,22 @@ fn number(e: &Exp, functions: &HashMap<Fun, Function>) -> Option<u32> {
     };
     u32::try_from(n).ok()
 }
+fn mask_number(e: &Exp, functions: &HashMap<Fun, Function>) -> Option<BigInt> {
+    match &e.x {
+        ExpX::Const(Constant::Int(n)) => Some(n.clone()),
+        ExpX::Unary(UnaryOp::Clip { .. }, a) => mask_number(a, functions),
+        ExpX::Call(sst::CallFun::Fun(f, None), typs, args)
+            if typs.is_empty() && args.is_empty() =>
+        {
+            let f = functions.get(f)?;
+            if !matches!(f.x.item_kind, ItemKind::Const) {
+                return None;
+            }
+            constant(f.x.body.as_ref()?, &mut 64).map(|(_, n)| n)
+        }
+        _ => None,
+    }
+}
 fn expression(
     e: &Exp,
     functions: &HashMap<Fun, Function>,
@@ -52,7 +68,28 @@ fn expression(
                 false,
             )) = op
             {
-                if let Some(k) = number(b, functions).filter(|k| *k > 0 && *k < *w) {
+                if let Some(k) = number(b, functions).filter(|k| *k < *w) {
+                    shapes.insert((*w, k));
+                }
+            }
+            if matches!(op, sst::BinaryOp::Bitwise(_))
+                && let TypX::Int(IntRange::U(w @ (8 | 16 | 32 | 64))) = &*a.typ
+            {
+                // Width/zero is also a bounded activation hint for mask/shift
+                // constants in readers, which need not contain a left shift.
+                shapes.insert((*w, 0));
+                if matches!(op, sst::BinaryOp::Bitwise(BitwiseOp::BitAnd))
+                    && let Some(value) = mask_number(b, functions)
+                    && let Some((lo, hi)) = mask_field(&value, *w)
+                {
+                    shapes.insert((*w, lo));
+                    if hi < *w {
+                        shapes.insert((*w, hi));
+                    }
+                }
+                if matches!(op, sst::BinaryOp::Bitwise(BitwiseOp::Shr))
+                    && let Some(k) = number(b, functions).filter(|k| *k < *w)
+                {
                     shapes.insert((*w, k));
                 }
             }
@@ -92,73 +129,183 @@ fn statements(
             }
         }
         StmX::Assign { rhs, .. } => expression(rhs, functions, shapes, budget),
+        StmX::Return { ret_exp: Some(e), .. } => expression(e, functions, shapes, budget),
         StmX::Assert(_, _, e) | StmX::Assume(e) => expression(e, functions, shapes, budget),
         // No traversal into loops or isolated proof/closure scopes is required.
         _ => (),
     }
 }
-fn facts(span: &vir::messages::Span, w: u32, k: u32) -> [Exp; 2] {
-    let t = Arc::new(TypX::Int(IntRange::U(w)));
-    let names = ["packing_low", "packing_high"]
-        .map(|s| VarIdent(Arc::new(s.into()), VarIdentDisambiguate::AirLocal));
-    let v = |i: usize| SpannedTyped::new(span, &t, ExpX::Var(names[i].clone()));
-    let n = |x: BigInt| SpannedTyped::new(span, &int_typ(), ExpX::Const(Constant::Int(x)));
-    let b = |op, a, b| SpannedTyped::new(span, &bool_typ(), ExpX::Binary(op, a, b));
-    let typed = |op, a, b| SpannedTyped::new(span, &t, ExpX::Binary(op, a, b));
-    let within = |v: Exp, max: BigInt| {
-        b(
-            sst::BinaryOp::And,
-            b(sst::BinaryOp::Inequality(InequalityOp::Le), n(0.into()), v.clone()),
-            b(sst::BinaryOp::Inequality(InequalityOp::Le), v, n(max)),
+/// Formula construction only: all variables are freshly bound finite unsigned
+/// values. Discovery never supplies application expressions or assumptions.
+struct Arithmetic<'a> {
+    span: &'a vir::messages::Span,
+    w: u32,
+    t: Typ,
+    names: [VarIdent; 3],
+}
+impl<'a> Arithmetic<'a> {
+    fn new(span: &'a vir::messages::Span, w: u32) -> Self {
+        Self {
+            span,
+            w,
+            t: Arc::new(TypX::Int(IntRange::U(w))),
+            names: ["packing_low", "packing_high", "packing_upper"]
+                .map(|s| VarIdent(Arc::new(s.into()), VarIdentDisambiguate::AirLocal)),
+        }
+    }
+    fn v(&self, i: usize) -> Exp {
+        SpannedTyped::new(self.span, &self.t, ExpX::Var(self.names[i].clone()))
+    }
+    fn n(&self, n: BigInt) -> Exp {
+        SpannedTyped::new(self.span, &int_typ(), ExpX::Const(Constant::Int(n)))
+    }
+    fn b(&self, op: sst::BinaryOp, a: Exp, b: Exp) -> Exp {
+        SpannedTyped::new(self.span, &bool_typ(), ExpX::Binary(op, a, b))
+    }
+    fn bit(&self, op: BitwiseOp, a: Exp, b: Exp) -> Exp {
+        SpannedTyped::new(self.span, &self.t, ExpX::Binary(sst::BinaryOp::Bitwise(op), a, b))
+    }
+    fn shift(&self, a: Exp, k: u32) -> Exp {
+        self.bit(BitwiseOp::Shl(IntegerTypeBitwidth::Width(self.w), false), a, self.n(k.into()))
+    }
+    fn shr(&self, a: Exp, k: u32) -> Exp {
+        self.bit(BitwiseOp::Shr, a, self.n(k.into()))
+    }
+    fn and(&self, a: Exp, b: Exp) -> Exp {
+        self.b(sst::BinaryOp::And, a, b)
+    }
+    fn eq(&self, a: Exp, b: Exp) -> Exp {
+        self.b(sst::BinaryOp::Eq, a, b)
+    }
+    fn within(&self, i: usize, bits: u32) -> Exp {
+        self.and(
+            self.b(sst::BinaryOp::Inequality(InequalityOp::Le), self.n(0.into()), self.v(i)),
+            self.b(
+                sst::BinaryOp::Inequality(InequalityOp::Lt),
+                self.v(i),
+                self.n(BigInt::from(1u8) << bits),
+            ),
         )
-    };
-    let factor = BigInt::from(1u8) << k;
-    let domain = b(
-        sst::BinaryOp::And,
-        within(v(0), &factor - 1),
-        within(v(1), (BigInt::from(1u8) << (w - k)) - 1),
-    );
-    let shifted = typed(
-        sst::BinaryOp::Bitwise(BitwiseOp::Shl(IntegerTypeBitwidth::Width(w), false)),
-        v(1),
-        n(k.into()),
-    );
-    let packed = typed(sst::BinaryOp::Bitwise(BitwiseOp::BitOr), v(0), shifted);
-    let product = SpannedTyped::new(
-        span,
-        &int_typ(),
-        ExpX::Binary(sst::BinaryOp::Arith(sst::ArithOp::Mul), n(factor.clone()), v(1)),
-    );
-    let sum = SpannedTyped::new(
-        span,
-        &int_typ(),
-        ExpX::Binary(sst::BinaryOp::Arith(sst::ArithOp::Add), v(0), product),
-    );
-    let mask = (BigInt::from(1u8) << w) - &factor;
-    let masked = typed(sst::BinaryOp::Bitwise(BitwiseOp::BitAnd), packed.clone(), n(mask));
-    let positive = |a| b(sst::BinaryOp::Inequality(InequalityOp::Gt), a, n(0.into()));
-    let conclusions = [
-        b(sst::BinaryOp::Eq, packed.clone(), sum),
-        b(sst::BinaryOp::Eq, positive(masked), positive(v(1))),
-    ];
-    conclusions.map(|c| {
+    }
+    fn closed(&self, count: usize, trigger: Exp, domain: Exp, conclusion: Exp) -> Exp {
         let binders = Arc::new(
-            names
+            self.names[..count]
                 .iter()
-                .map(|name| Arc::new(VarBinderX { name: name.clone(), a: t.clone() }))
+                .map(|name| Arc::new(VarBinderX { name: name.clone(), a: self.t.clone() }))
                 .collect(),
         );
-        let triggers = Arc::new(vec![Arc::new(vec![packed.clone()])]);
         let binder = Spanned::new(
-            span.clone(),
-            sst::BndX::Quant(vir::ast_util::QUANT_FORALL, binders, triggers, None),
+            self.span.clone(),
+            sst::BndX::Quant(
+                vir::ast_util::QUANT_FORALL,
+                binders,
+                Arc::new(vec![Arc::new(vec![trigger])]),
+                None,
+            ),
         );
         SpannedTyped::new(
-            span,
+            self.span,
             &bool_typ(),
-            ExpX::Bind(binder, b(sst::BinaryOp::Implies, domain.clone(), c)),
+            ExpX::Bind(binder, self.b(sst::BinaryOp::Implies, domain, conclusion)),
         )
-    })
+    }
+    fn split(&self, k: u32) -> Vec<Exp> {
+        if k == 0 {
+            return [self.shift(self.v(0), 0), self.shr(self.v(0), 0)]
+                .map(|e| self.closed(1, e.clone(), self.within(0, self.w), self.eq(e, self.v(0))))
+                .into();
+        }
+        let factor = BigInt::from(1u8) << k;
+        let shifted = self.shift(self.v(1), k);
+        let packed = self.bit(BitwiseOp::BitOr, self.v(0), shifted);
+        let domain = self.and(self.within(0, k), self.within(1, self.w - k));
+        let product = SpannedTyped::new(
+            self.span,
+            &int_typ(),
+            ExpX::Binary(
+                sst::BinaryOp::Arith(sst::ArithOp::Mul),
+                self.n(factor.clone()),
+                self.v(1),
+            ),
+        );
+        let sum = SpannedTyped::new(
+            self.span,
+            &int_typ(),
+            ExpX::Binary(sst::BinaryOp::Arith(sst::ArithOp::Add), self.v(0), product),
+        );
+        let masked = self.bit(
+            BitwiseOp::BitAnd,
+            packed.clone(),
+            self.n((BigInt::from(1u8) << self.w) - &factor),
+        );
+        let positive = |a| self.b(sst::BinaryOp::Inequality(InequalityOp::Gt), a, self.n(0.into()));
+        vec![
+            self.closed(2, packed.clone(), domain.clone(), self.eq(packed.clone(), sum)),
+            self.closed(2, packed.clone(), domain, self.eq(positive(masked), positive(self.v(1)))),
+            self.closed(
+                2,
+                packed.clone(),
+                self.and(self.within(0, k), self.within(1, 1)),
+                self.eq(
+                    positive(self.bit(BitwiseOp::BitAnd, packed.clone(), self.n(factor.clone()))),
+                    positive(self.v(1)),
+                ),
+            ),
+            self.closed(
+                2,
+                packed.clone(),
+                self.and(self.within(0, k), self.within(1, self.w)),
+                self.eq(self.bit(BitwiseOp::BitAnd, packed, self.n(&factor - 1)), self.v(0)),
+            ),
+        ]
+    }
+    fn field(&self, lo: u32, hi: u32) -> Exp {
+        let mask = (BigInt::from(1u8) << hi) - (BigInt::from(1u8) << lo);
+        let masked = self.bit(BitwiseOp::BitAnd, self.v(0), self.n(mask));
+        let extracted = if lo == 0 { masked } else { self.shr(masked, lo) };
+        self.closed(
+            1,
+            extracted.clone(),
+            self.within(0, self.w),
+            self.b(
+                sst::BinaryOp::Inequality(InequalityOp::Lt),
+                extracted,
+                self.n(BigInt::from(1u8) << (hi - lo)),
+            ),
+        )
+    }
+    fn three_fields(&self, lo: u32, hi: u32) -> [Exp; 2] {
+        let lower = self.bit(BitwiseOp::BitOr, self.v(0), self.shift(self.v(1), lo));
+        let packed = self.bit(BitwiseOp::BitOr, lower, self.shift(self.v(2), hi));
+        let domain =
+            self.and(self.within(0, lo), self.and(self.within(1, hi - lo), self.within(2, self.w)));
+        let low_mask = (BigInt::from(1u8) << lo) - 1;
+        let mid_mask = (BigInt::from(1u8) << hi) - (BigInt::from(1u8) << lo);
+        [
+            self.eq(self.bit(BitwiseOp::BitAnd, packed.clone(), self.n(low_mask)), self.v(0)),
+            self.eq(
+                self.shr(self.bit(BitwiseOp::BitAnd, packed.clone(), self.n(mid_mask)), lo),
+                self.v(1),
+            ),
+        ]
+        .map(|c| self.closed(3, packed.clone(), domain.clone(), c))
+    }
+}
+
+// Recognizers only select closed theorem shapes. A noncontiguous/empty/outside
+// mask supplies no proposal, and cannot affect the logical acceptance boundary.
+fn mask_field(value: &BigInt, w: u32) -> Option<(u32, u32)> {
+    if value <= &BigInt::from(0u8) || value >= &(BigInt::from(1u8) << w) {
+        return None;
+    }
+    for lo in 0..w {
+        for hi in lo + 1..=w {
+            if *value == (BigInt::from(1u8) << hi) - (BigInt::from(1u8) << lo) {
+                return Some((lo, hi));
+            }
+        }
+    }
+    None
 }
 
 // Constant folding is only a proposal. Its input expression, rather than a
@@ -212,12 +359,18 @@ pub(crate) fn prepare(
         .collect();
     constants.sort_by(|a, b| a.x.name.cmp(&b.x.name));
     let mut proposed = vec![];
+    let mut fields = BTreeSet::new();
     if !shapes.is_empty() {
         for f in constants.into_iter().take(32) {
             if let Some(body) = &f.x.body
                 && let Some((e, value)) = constant(body, &mut 64)
                 && !matches!(e.x, ExpX::Const(_))
             {
+                if let TypX::Int(IntRange::U(w @ (8 | 16 | 32 | 64))) = &*e.typ
+                    && let Some((lo, hi)) = mask_field(&value, *w)
+                {
+                    fields.insert((*w, lo, hi));
+                }
                 let rhs = SpannedTyped::new(&e.span, &e.typ, ExpX::Const(Constant::Int(value)));
                 proposed.push(SpannedTyped::new(
                     &e.span,
@@ -228,8 +381,25 @@ pub(crate) fn prepare(
         }
     }
 
-    for (w, k) in shapes.into_iter().take(4) {
-        proposed.extend(facts(&check.body.span, w, k));
+    // At most eight width/shift shapes, 32 constants and 16 mask fields.
+    // Pairwise laws use only the admitted bounded shifts of the same width.
+    let shapes: Vec<_> = shapes.into_iter().take(8).collect();
+    for &(w, k) in &shapes {
+        let a = Arithmetic::new(&check.body.span, w);
+        proposed.extend(a.split(k));
+        if k > 0 {
+            proposed.push(a.field(0, k));
+            proposed.push(a.field(k, w));
+            for &(w2, hi) in &shapes {
+                if w2 == w && hi > k {
+                    proposed.push(a.field(k, hi));
+                    proposed.extend(a.three_fields(k, hi));
+                }
+            }
+        }
+    }
+    for (w, lo, hi) in fields.into_iter().take(16) {
+        proposed.push(Arithmetic::new(&check.body.span, w).field(lo, hi));
     }
     for fact in proposed {
         // The exact same Arc is checked and used. There is no unchecked

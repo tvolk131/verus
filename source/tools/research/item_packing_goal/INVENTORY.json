@@ -1,0 +1,1173 @@
+{
+  "full": {
+    "failed_functions": [],
+    "helper_query_sha256": "ac01e43e99631f79f54d7263cd92481deba010754717503896dfb59f2d937195",
+    "helpers": [
+      {
+        "available_to_same_crate_callers": true,
+        "candidate_id": "ebbaeb8ad1095985c00c4276157f79e893bf9a6d68fee0592025451f36ff46ea",
+        "contract": {
+          "ensures": "(result == (component::BorTag::__verus_infer_nonzero_u64_view(self) == component::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "exported": false,
+        "function": "component::BorTag::eq",
+        "loop_proofs": [],
+        "metrics": {
+          "cache": "miss",
+          "cache_policy": "candidate_cache",
+          "ensures_nodes": 7,
+          "generation_micros": 3110,
+          "requires_nodes": 1,
+          "solver_micros": 3001
+        },
+        "mode": "exact",
+        "parameters": [
+          {
+            "name": "self",
+            "type": "&component::BorTag"
+          },
+          {
+            "name": "other",
+            "type": "&component::BorTag"
+          }
+        ],
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true,
+        "result_type": "bool",
+        "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:29: 4:38 (#18)",
+        "summary_kind": "value"
+      }
+    ],
+    "inference_interface_written": false,
+    "local_function_details": {
+      "component::BorTag::__verus_infer_derived_eq": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::__verus_infer_nonzero_u64_view": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::clone": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::ctor%": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::eq": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::eq_spec": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::get": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::new": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::obeys_eq_spec": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::BorTag::value": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::clone": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::ctor%": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::new": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::perm": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::permission": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::protected": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::tag": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Item::word": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::PERM_MASK": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::PERM_SHIFT": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::PROTECTED_MASK": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::PROTECTED_SHIFT": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Permission::clone": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Permission::from_bits": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::Permission::to_bits": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::TAG_MASK": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::bits": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::boundaries": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::compare_equal": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::decode": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::impl&%29::DISABLED": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::impl&%29::SHARED_READ_ONLY": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::impl&%29::SHARED_READ_WRITE": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::impl&%29::UNIQUE": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::item_word_wf": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::lookup": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::roundtrip": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      }
+    },
+    "native_scope": {
+      "checked_exec_bodies": 16,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:16: 4:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:40: 4:42"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::Ord>::cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:56: 4:59"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::eq",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:29: 4:38"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:44: 4:54"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:4:23: 4:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::obeys_eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<Item as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:7:16: 7:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:7:40: 7:42"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Item as std::cmp::PartialEq>::eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Item as std::cmp::PartialEq>::eq",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:7:29: 7:38"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Item as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Item as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:7:23: 7:27"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::Permission::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<Permission as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:51:16: 51:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:51:47: 51:49"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::cmp::PartialEq>::eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:51:36: 51:45"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::fmt::Debug>::fmt",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::fmt::Debug>::fmt",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:51:23: 51:28"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:51:30: 51:34"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::__verus_infer_derived_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_eq",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::get",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "BorTag::get",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:20:1: 20:26"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::new",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "BorTag::new",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:17:1: 17:35"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::value",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::value",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:16:1: 16:37"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::new",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::new",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:29:1: 29:63"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::perm",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::perm",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:44:1: 44:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::Item::permission",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Item::permission",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:43:1: 43:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::protected",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::protected",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:47:1: 47:32"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::tag",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::tag",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:26:1: 26:28"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::Item::word",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Item::word",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:25:1: 25:35"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:69:5: 69:24"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:68:5: 68:32"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:67:5: 67:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:66:5: 66:22"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Permission::from_bits",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Permission::from_bits",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:78:1: 78:32"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Permission::to_bits",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Permission::to_bits",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:70:1: 70:25"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:10:1: 10:21"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:12:1: 12:22"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:11:1: 11:26"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:13:1: 13:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:9:1: 9:20"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "selected_item_without_translated_body",
+          "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:51:1: 62:2"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::bits",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "bits",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:63:1: 63:43"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::boundaries",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "boundaries",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:94:1: 94:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::compare_equal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "compare_equal",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:90:1: 90:51"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::decode",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "decode",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:64:1: 64:45"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::item_word_wf",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "item_word_wf",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:14:1: 14:43"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::lookup",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "lookup",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:92:1: 92:29"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::roundtrip",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "roundtrip",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-full/component.rs:88:1: 88:32"
+        }
+      ]
+    },
+    "ordinary_original_functions": {
+      "component::BorTag::ctor%": {
+        "body_present": true,
+        "body_sha256": "f8ebf93ad5c23ed2669a8f6110a7aa70dc77a26ae98767b114fcee0bd3b2c072",
+        "mode": "Exec",
+        "normalized_body_sha256": "483cfc01021074523bebe0dad653a2abaf4751378672d334de21ff006f81e004"
+      },
+      "component::Item::ctor%": {
+        "body_present": true,
+        "body_sha256": "debc5b8f0f494460555ba21e554fa67d24caebecb93e068badbcb0def8d934da",
+        "mode": "Exec",
+        "normalized_body_sha256": "eccc6aab6724a98811012604228b979bf1ed3c428143a6d0925d4b2a83c64aba"
+      },
+      "component::PERM_MASK": {
+        "body_present": true,
+        "body_sha256": "822e91acbe755d50293d31d71533980accf1bdb57e44970f6b8cbddfba0be03c",
+        "mode": "Spec",
+        "normalized_body_sha256": "18fbe794014d34ad655df3d9ad78f74e66599b57e76f2242b5ee0cf95f3cecc2"
+      },
+      "component::PERM_SHIFT": {
+        "body_present": true,
+        "body_sha256": "4d80459fb3cadca0fb2cae00f7055aa923e36377634f5babf5f19faf36ad4c4d",
+        "mode": "Spec",
+        "normalized_body_sha256": "2b9c788eaf76fe8cc461a725a0bc4f32de2d0a7aa9a16fdf7b67a425fda8b657"
+      },
+      "component::PROTECTED_MASK": {
+        "body_present": true,
+        "body_sha256": "385ef024a95db98cad39eea221c44f62046ae28c5de1af1526e96c11f88043f4",
+        "mode": "Spec",
+        "normalized_body_sha256": "74e8cc93c45d5ec8788e82a4fd0b250a52815a745eb92d768d4fbd3e8bf6e031"
+      },
+      "component::PROTECTED_SHIFT": {
+        "body_present": true,
+        "body_sha256": "911668f232667e53e95b6b28543ddc2e15cfe784024a462a2da7039a7edc88ea",
+        "mode": "Spec",
+        "normalized_body_sha256": "3cb55d11dd3233814082d833d1816d634553a69bfc332198e9119900e24afaa2"
+      },
+      "component::TAG_MASK": {
+        "body_present": true,
+        "body_sha256": "7ec64b2305849f85a9fc2abf19db079b6283c2e313cd51c0c7645d19e66efc46",
+        "mode": "Spec",
+        "normalized_body_sha256": "eabfc234da4fcf79297dc3958e5c95396fdaef26a91defa9100eb44d548a1be6"
+      },
+      "component::bits": {
+        "body_present": true,
+        "body_sha256": "d964d952b805a3e9fcfa35c48909e2020bf4fda6a9eb4d792c7ccf7a1dc6a0ac",
+        "mode": "Spec",
+        "normalized_body_sha256": "892e4b3754f706cbb6dc51ff9ab030006034647b6fe813b0181e4c1fa00ae583"
+      },
+      "component::boundaries": {
+        "body_present": true,
+        "body_sha256": "fd44b9df6bd656ea043addf019c9cb3d3708c937077483a054a7d1b0b1504a73",
+        "mode": "Exec",
+        "normalized_body_sha256": "32a9007d0c4bbbb509d952b1088796ab37d00b351b4d7c68c03b7ef523566156"
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "body_present": true,
+        "body_sha256": "3773873d7b8e48be83750a783fec0e3c888fb13e8e27a06ceed2c80abff181ba",
+        "mode": "Exec",
+        "normalized_body_sha256": "534ad2fb726c0acb96942e958f8960b8ccfff2dfb275d9a45ee778b2f33fc132"
+      },
+      "component::compare_equal": {
+        "body_present": true,
+        "body_sha256": "85c5522a141deea35803eee4c12e1276886d7ed2ad07f45f067652d99884cc50",
+        "mode": "Exec",
+        "normalized_body_sha256": "c2e043e13f2b44b83e24bac83ee4d00d87f3bf0d12db90e929e01b848de18184"
+      },
+      "component::decode": {
+        "body_present": true,
+        "body_sha256": "d598172b1fb3e0ade3f2d86e7f63466c8d0dc61abd8fddc140e2857425a8e6ea",
+        "mode": "Spec",
+        "normalized_body_sha256": "d9f9641f845b431665dc77f1f265b5420d21c0714d01fa1fa1e331ce68df517a"
+      },
+      "component::impl&%10::__verus_infer_derived_eq": {
+        "body_present": true,
+        "body_sha256": "d0b9336c01e45520782a5adcae2b47f9026db06f75303623f58a12dc588e33ce",
+        "mode": "Spec",
+        "normalized_body_sha256": "514c098f9e0ea928758718aeefd19ddc20d39d126bc1a33063da59aef051234f"
+      },
+      "component::impl&%11::eq_spec": {
+        "body_present": true,
+        "body_sha256": "87878313c640e557c8e0cad7165e57433c7b45f916dbf2a6226ef57d42b3bb8e",
+        "mode": "Spec",
+        "normalized_body_sha256": "e0db3299bb28d01c58b6d8237d0c29a642ef8222f1de70d3d63d94565bc26f6c"
+      },
+      "component::impl&%11::obeys_eq_spec": {
+        "body_present": true,
+        "body_sha256": "d0b9336c01e45520782a5adcae2b47f9026db06f75303623f58a12dc588e33ce",
+        "mode": "Spec",
+        "normalized_body_sha256": "514c098f9e0ea928758718aeefd19ddc20d39d126bc1a33063da59aef051234f"
+      },
+      "component::impl&%14::clone": {
+        "body_present": true,
+        "body_sha256": "ffa22db55ea2a10cb17fb788eb20d4fcae3d226c7b4f42535edc1781a399a2dd",
+        "mode": "Exec",
+        "normalized_body_sha256": "4043fa7c436123a4c6e72a4019ca1c9a8ce302e29ce9615717d0218800dc1fc6"
+      },
+      "component::impl&%19::get": {
+        "body_present": true,
+        "body_sha256": "6e5f1aebcf9f14dc1e5b38844f580719aad70ef2531b14d769a2f1bbd45ee7be",
+        "mode": "Exec",
+        "normalized_body_sha256": "037a40626586474ae4c6d421e338f138c762f0e69561eddf49c9cf597eec138a"
+      },
+      "component::impl&%19::new": {
+        "body_present": true,
+        "body_sha256": "b4367376c62f5de59348fe4e39ad79a58540839e14e2d557f176b087603f8b84",
+        "mode": "Exec",
+        "normalized_body_sha256": "f90c83da9909e090b2859c152b42cf338940549195a8a816af86600dd02d2b32"
+      },
+      "component::impl&%19::value": {
+        "body_present": true,
+        "body_sha256": "c1dd3762cff474c168f1ebc95923dfd85eca0a72d16c80391e9ffc719ffbb757",
+        "mode": "Spec",
+        "normalized_body_sha256": "bc423856cf8f1d2ba5883bbc9556f1a7d3ee2a1bbac5cec400dceae8d245d171"
+      },
+      "component::impl&%20::new": {
+        "body_present": true,
+        "body_sha256": "14e39e0c124aac852b0fa733d93f40052de31923e41a39b2cc3bab4f694a080a",
+        "mode": "Exec",
+        "normalized_body_sha256": "438e91562fc05f8c950b51642a36cd25a12d7eb8f8750e94f0556aa808496f34"
+      },
+      "component::impl&%20::perm": {
+        "body_present": true,
+        "body_sha256": "426022160d206a4b94e5597ad0c6206ae025d2ece330c52cda0dac67845ebb87",
+        "mode": "Exec",
+        "normalized_body_sha256": "48114cbe90f1a28a91f3731285fb830cdd153298be52a88340b1b2d5c04c389b"
+      },
+      "component::impl&%20::permission": {
+        "body_present": true,
+        "body_sha256": "bc9b6a9e97e6092992b57e664fda78f2c2fca5b06105218c3eb19231b08297fe",
+        "mode": "Spec",
+        "normalized_body_sha256": "6064abca0fc8783a3b2a027335c2a340f26952559396aa85bb608d516dcb3fc7"
+      },
+      "component::impl&%20::protected": {
+        "body_present": true,
+        "body_sha256": "8e9dc0ad1ec376883e329cbe32ae6473f258c0ceb382bf73dbf59a5045e9e8e0",
+        "mode": "Exec",
+        "normalized_body_sha256": "f0641b742debce1a0b5baddbc1aa37100f39f30822f800fe603cab012cc692d6"
+      },
+      "component::impl&%20::tag": {
+        "body_present": true,
+        "body_sha256": "aac2bc948588bd2f7c8d1b15dfb88a924c28cea58ddba0ae0fd3e048e659284b",
+        "mode": "Exec",
+        "normalized_body_sha256": "c68082e236f956b2df604feadd061261f40c8b836ab3773be2f99ace49ddc0c4"
+      },
+      "component::impl&%20::word": {
+        "body_present": true,
+        "body_sha256": "6189537448332a2196870616cdd52de640f4f8d3c412c99ad92deddb857670a6",
+        "mode": "Spec",
+        "normalized_body_sha256": "7ca37ebd9fa1633e76e97ef75d76f9ab72a9b9b59ffcff43075c567fe138ab7e"
+      },
+      "component::impl&%23::clone": {
+        "body_present": true,
+        "body_sha256": "04f642260ff7710bfd8371dd597b43e227848f1ddb15ab42e1cd00505e2abbed",
+        "mode": "Exec",
+        "normalized_body_sha256": "1e1066a6e19dacc9c8f42e511e369d44ce7f472dcfd9cbd17285cc3633f7c3b7"
+      },
+      "component::impl&%29::DISABLED": {
+        "body_present": true,
+        "body_sha256": "f64aa057599d779482a2d67033cd3ff34c8a114ada23c47d3eaa9e6f28644f1f",
+        "mode": "Spec",
+        "normalized_body_sha256": "38250f6c59eaff248581f6ed540845e79fa5ca08759d10a1501f20e88e2c335e"
+      },
+      "component::impl&%29::SHARED_READ_ONLY": {
+        "body_present": true,
+        "body_sha256": "b2f5bd97d6c58a95ab448ac17fe02f61669409200bb1cef2f3fdb36d25f15072",
+        "mode": "Spec",
+        "normalized_body_sha256": "75cef2c1c93a8fb6691da1243f32d0d0b5e8f58ed6f0e316e96fd004d780d075"
+      },
+      "component::impl&%29::SHARED_READ_WRITE": {
+        "body_present": true,
+        "body_sha256": "4eab3d3f94d09cd59234face54e8abcc234af119abe655ce17ee9b4dea4d8bf4",
+        "mode": "Spec",
+        "normalized_body_sha256": "517cf8ac350865b0a338dc990cbe6f1290aa1518d64fe8a60ca3212dae056409"
+      },
+      "component::impl&%29::UNIQUE": {
+        "body_present": true,
+        "body_sha256": "3b79176a96083effc90b1b1f47abd5a76195a3602d473e81b86344265160668c",
+        "mode": "Spec",
+        "normalized_body_sha256": "f2bb631913e2eab83df87e3218ff031e37c5964e30a327c0342f528514be0f3a"
+      },
+      "component::impl&%29::from_bits": {
+        "body_present": true,
+        "body_sha256": "aaff20a2118947bdacba37e1d2349349ff566e176eb4d28ba58215fb9ddbec3b",
+        "mode": "Exec",
+        "normalized_body_sha256": "d5aff1cff39d2f1999a516ad792bb85a03cf452f40813865ebf8f62d3bcebf97"
+      },
+      "component::impl&%29::to_bits": {
+        "body_present": true,
+        "body_sha256": "08f2c381fa9a0ff287c149c7e2c5344448606dbd326a82db93dc115483ad1828",
+        "mode": "Exec",
+        "normalized_body_sha256": "b5c8d9d7a0b068cefa5f750986cb4546441c48e697d48fbc4270374e1bd511d8"
+      },
+      "component::impl&%2::clone": {
+        "body_present": true,
+        "body_sha256": "cb4ea5e69aded20216f90e8a5334c46881099bfe98cc9d3fdbeae74831933485",
+        "mode": "Exec",
+        "normalized_body_sha256": "2bc1d29b821fb660beb7cae6ecb45147e1ba7916f31355ec4ea1efa65923709c"
+      },
+      "component::impl&%5::eq": {
+        "body_present": true,
+        "body_sha256": "7f558777a6dfebaef7d0fd847d6077b7a3b257005980052402bb762b331b1b09",
+        "mode": "Exec",
+        "normalized_body_sha256": "bf8cfad95ea15ca9bed9ac1a82badfdfdafb1e3d4462284383296f83dd8e20ed"
+      },
+      "component::impl&%9::__verus_infer_nonzero_u64_view": {
+        "body_present": true,
+        "body_sha256": "32bbe055b88ce7749d2dbbc785448e89a16f3e4f2b8af3f96973071f1bfc7280",
+        "mode": "Spec",
+        "normalized_body_sha256": "b4f92bb12f2c6ce315df232c17dc730cd4c9c54d5875532727a1b555fcf02dbf"
+      },
+      "component::item_word_wf": {
+        "body_present": true,
+        "body_sha256": "cf471899b3228448d39147adc4a2efdf854b705d0bc53cbf1562d285d479296e",
+        "mode": "Spec",
+        "normalized_body_sha256": "cbd24a6d8d7c575d2e68d443180aede23237f3aa7fce89dead5a62f902b2f08b"
+      },
+      "component::lookup": {
+        "body_present": true,
+        "body_sha256": "5f7637f6057cc238b71bc53c5207b6060d260aa5d463d46b02b0892006ba3cad",
+        "mode": "Exec",
+        "normalized_body_sha256": "77ef8c9df8e292b6b9cf16d6d71ec7afbef5c6256a45ad84c65d496a97fbf933"
+      },
+      "component::roundtrip": {
+        "body_present": true,
+        "body_sha256": "000f4e4d0281f966aa44d27a9e55b0b43ea09d5dff76c973175b7f9933092db8",
+        "mode": "Exec",
+        "normalized_body_sha256": "f37dc3685dc72b263caa6d6d6458a2867099a2c71c537017f6f724387259f3b9"
+      }
+    },
+    "query_identities": {
+      "impl&%5__eq-final.air": "7fa7781deafc6deb60b03018413a19b4d2577b82226fe4e135ae235101a14f66",
+      "root-final.air": "0df6a9b20e0a95634af329dd2e8a989aa23c8844cda698bad001f2701ca6e35f",
+      "rootcomponent!PERM_MASK._01-final.air": "5d627a6680b0e1e1943fa64d8857618ff36efc479b80b7c1bd8ec87ac693075c",
+      "rootcomponent!PERM_MASK._02-final.air": "4c5ea685dde2bf0561166b752125a777d8eb0e0ae12c2041d9de077e616bfff6",
+      "rootcomponent!PERM_MASK._03-final.air": "2c324cf87a96b1261fcd4c0f92382d46f85b3559d3b49816955b0323901d09f1",
+      "rootcomponent!PERM_MASK._04-final.air": "db1008df499fc5ad18005ef5920f7584fd1ae7901657af888a89b34da9095258",
+      "rootcomponent!PERM_MASK._05-final.air": "185d8ac79e3aefba1a417e74f5e3eec6a539c13c604ba54175e98a5000c167b0",
+      "rootcomponent!PERM_MASK._06-final.air": "997f967a463b926719ff44fc5cfe824749fbfa541b46cdaa6449cef8e6139e25",
+      "rootcomponent!PERM_MASK._07-final.air": "386e4d7c01b38a300c88f7f65e4684aca0f5cd60908087de84c9008b21354c5c",
+      "rootcomponent!PERM_MASK._08-final.air": "d2b7cc18a94922978ad6fe57e80d7122a8cef68a4173f744519e8021b5841efc",
+      "rootcomponent!PERM_MASK._09-final.air": "bc04f102f881327eb0fbffaef07ab28416924471720bb255acefc4020191b0ad",
+      "rootcomponent!PERM_MASK._10-final.air": "e22ee7ce3bbf429125615f11b96897db7ab3f31ed765bd02172492bae68c441f",
+      "rootcomponent!PERM_MASK._11-final.air": "3ee0fda46e0285d6d531b837c0de4cf1b76232ab7cb4278abd7bade4c8097d1a",
+      "rootcomponent!PERM_MASK._12-final.air": "ef6c3967e8f7382f8bab1b0bf00b717ffc60ed67a1c55f658aed1da1d80c36be",
+      "rootcomponent!PERM_MASK._13-final.air": "8af5cb3bb47fef0b5405f3b151d17eb31f8697510327448c9a8af54bcee281a7",
+      "rootcomponent!PERM_MASK._14-final.air": "b1e91ecded56eb8f8d2e458a279547d52a2f1eb1d8b6c100a87d5dd9538683b7",
+      "rootcomponent!PROTECTED_MASK._01-final.air": "2d306b6a8c255b6f08d95b15c3aa13d32cb39ed7b54b8feddbcd5580213506c0",
+      "rootcomponent!PROTECTED_MASK._02-final.air": "95af37be6e1566dd8a593e32ee6aa4942030e64985df3882adcd502ae73ab6e9",
+      "rootcomponent!PROTECTED_MASK._03-final.air": "76041b49e0c023451c8c90a9f4428ca38b7c9198481bd1e01e48ac02f145ce1a",
+      "rootcomponent!PROTECTED_MASK._04-final.air": "2f4cef1b1c4caf28ff1cb7cb056dade53796dfeb35fe071b0f7723b6404eb565",
+      "rootcomponent!PROTECTED_MASK._05-final.air": "9e4b1a8b5e8c60e158d8edab1bed25d3ffd8a50601ba7fe93095c49bcae2024a",
+      "rootcomponent!PROTECTED_MASK._06-final.air": "d9c67bdacd72fe3c5533b208eb425d345de5de36be7789cf45134767a430bba2",
+      "rootcomponent!PROTECTED_MASK._07-final.air": "25be38dac66e088fd473309c3e5cad14f7fe43418edb843ced0c1473c6f58d72",
+      "rootcomponent!PROTECTED_MASK._08-final.air": "d867b2310d28bf886656c5cc06fb31b2ac5454af04944b57fa5b7c09c5d79261",
+      "rootcomponent!PROTECTED_MASK._09-final.air": "66f9732a5ffa2e2d2b30caa63152de811acaed1b8981a6fbc17bf471dd14001c",
+      "rootcomponent!PROTECTED_MASK._10-final.air": "47b5b2aed409f998a0589033e6d94df17cf8587ec8937c1b2f798baffdeb8b21",
+      "rootcomponent!PROTECTED_MASK._11-final.air": "9e3cb886cd1a40d6d749a1a03466a71e5550acd9661407a74d6a891f89570386",
+      "rootcomponent!PROTECTED_MASK._12-final.air": "e2767af769572fe2a4b0c7f50ca269e64b4ebcaeff8214d5e24937cf4eea8b74",
+      "rootcomponent!PROTECTED_MASK._13-final.air": "595370bce58f119aa6b5f0d70b1b619c5ad1196d2a0b53f0012f00d4d0eb3020",
+      "rootcomponent!PROTECTED_MASK._14-final.air": "87defcf89875c8bb963df7750edf3cf0ba5dcbd4e76cf46cbfcb71a952f7339f",
+      "rootcomponent!TAG_MASK._01-final.air": "0c335420bbc8c1206cb665f14293eb81d221df33f6b70f12411fb32eabc62d41",
+      "rootcomponent!TAG_MASK._02-final.air": "e92fc6c85645a08196f45aafd81b58631007a6d151498ae66a27bdad32295a21",
+      "rootcomponent!TAG_MASK._03-final.air": "59ba44a6a5f3b1363c58143f514ed1a4403c4ce936a712653580654f70ff139d",
+      "rootcomponent!TAG_MASK._04-final.air": "e21a186c92cad17884653dcfc71928593be4ba2b2eb63e36e481fee463167314",
+      "rootcomponent!TAG_MASK._05-final.air": "e5050cd088246824ca924d80a34dfa58f4450a324b653e04b95533754cd027d2",
+      "rootcomponent!TAG_MASK._06-final.air": "cae6daef04dddbe8fa4483865e1942c3f0d476ef9569bf91fd582e3eb271fd7f",
+      "rootcomponent!TAG_MASK._07-final.air": "80fa0d4ae2fc7edb6741bcd1086c45a4ab40f524fd91016b2eecb7c34ffdcd19",
+      "rootcomponent!TAG_MASK._08-final.air": "09b1612397967314b7695a6d0654c249239ebe872884d6c7c7b3c48a1550a98b",
+      "rootcomponent!TAG_MASK._09-final.air": "99bff7e215fb56e9ec96e0eaf698783a5e082809920c9601234d62b8806c1db5",
+      "rootcomponent!TAG_MASK._10-final.air": "ca9340c506a18c83ad48a578b6f059547de469f84dd290ab5fcdfac22eaba337",
+      "rootcomponent!TAG_MASK._11-final.air": "0978fd47302d4127a76c453f75702d49ae3284faa260ab5bda42563abe827f5e",
+      "rootcomponent!TAG_MASK._12-final.air": "835ebc3f8125bbb12af56de212f5a0d3a5b4b31090fd3ef4aea1612d56700439",
+      "rootcomponent!TAG_MASK._13-final.air": "85466cae53ada6c7c686f4d87171617d68272af16035fbe6b219a2a98e03de03",
+      "rootcomponent!TAG_MASK._14-final.air": "9d2f19d3f30618ecf2681879f38cf1a6d3fee2c547194f1cc07fbf360906d0dd",
+      "rootcomponent!impl&%20.new._01-final.air": "5072548f2031938ee165b4a46b42c16252f3db3a5446a43dacc62f27e9e893a6",
+      "rootcomponent!impl&%20.new._02-final.air": "117d4bd23c7413ee88bb0c04d37d1a5c75c816374176b4a5643bff0f973d20dd",
+      "rootcomponent!impl&%20.new._03-final.air": "ec722ca688757b6f6a601168562c6ec69f57da93659c92a0f6106e72319f40c5",
+      "rootcomponent!impl&%20.new._04-final.air": "128b83821600d1be119d8e95a4cb099483970b5b5d4bfc282b40f11db658d7ba",
+      "rootcomponent!impl&%20.new._05-final.air": "85a5e0853dfd2b5c4570d2da83b1ccd88d418e9886f9fd4383dc107fae73bf47",
+      "rootcomponent!impl&%20.new._06-final.air": "ed77036ab733bc3c02ba668a5167f099d2b85d49c7115dd9cd8d1528aa8f9675",
+      "rootcomponent!impl&%20.new._07-final.air": "917cd866778123cd2f2afe266bd176a99d92483a3fab08ca8a61241942bef75d",
+      "rootcomponent!impl&%20.new._08-final.air": "7b534ff4f2ccf7212b75f7263432835ed34581d89d153a62a43652ea99e2135b",
+      "rootcomponent!impl&%20.new._09-final.air": "a8b5a4f9a001810f7796990ee8d9be350329ee5bbf8ede81588dc0bc1af14131",
+      "rootcomponent!impl&%20.new._10-final.air": "6e9dfbb6e1840960659cb0407a7b27c599109fb81d5fa6518eeaefec0258fe6c",
+      "rootcomponent!impl&%20.new._11-final.air": "db6a382a4b57dd583cda9b0cd43ff0259b9bc803120051b11a98c39cece41230",
+      "rootcomponent!impl&%20.new._12-final.air": "17a709c10ca0d9d977629c4d237a0ea815892f76b775ea5f05a100cb5d245d44",
+      "rootcomponent!impl&%20.new._13-final.air": "d7925a8f855536e860e372280fe617298c68cb912bb7a64dbfdcbf696e2c17e4",
+      "rootcomponent!impl&%20.new._14-final.air": "4a773998359915e5c35d28a894db091afc2a577d0ca86d1ac96ed3e9e603c9ae",
+      "rootcomponent!impl&%20.new._15-final.air": "8014a2b014ae2bbb771a013eb7126a39ff03e599ad03bdd838bc9deeb9142115",
+      "rootcomponent!impl&%20.new._16-final.air": "ed2b1879c471cea9dd7cf73d5f8e150daeb6e78566d8ac71db53c87938a638db",
+      "rootcomponent!impl&%20.new._17-final.air": "eb5c9ccef3e6e725bb78d92e1d17a67f11f63297d541e6136be930327dbfe375",
+      "rootcomponent!impl&%20.new._18-final.air": "69518b54ecb3ef126cb30c16790c911ecb61ac99da0cb5000c1072bc2d9b8aeb",
+      "rootcomponent!impl&%20.new._19-final.air": "167af3989ae78c9f86f9030a26727671f38933f4507ec2ed6a56b6951e43b1cb",
+      "rootcomponent!impl&%20.new._20-final.air": "cb24472ab8567bb3ca8d9ddbea54037a8249b693e9af27fb40a62e992ad0000d",
+      "rootcomponent!impl&%20.new._21-final.air": "e7450d76cc2d6dcef85751cc8ff60f5fbab7446928a9e93052e8e0730b6be1d9",
+      "rootcomponent!impl&%20.new._22-final.air": "0a41cb0f9f50c6f8dfa29128deff4cc62f62e6d488e861e87f3146a500afdef0",
+      "rootcomponent!impl&%20.new._23-final.air": "5590a5c43a4bec371957378f4dc396b927a66370dc991f2afbfe748cf78e2ce7",
+      "rootcomponent!impl&%20.perm._01-final.air": "fa4c934a13d526f142cbf37068b291510b0c82cf7e709aee7082662c968e9d92",
+      "rootcomponent!impl&%20.perm._02-final.air": "5d8f04b5032af54b6042b4e178af64d24eb80381a26da0f6338316381491263e",
+      "rootcomponent!impl&%20.perm._03-final.air": "c8497e7351a8d4a5af90a38620e8d9cea04ba6b3636c19db17082b6466e97bb8",
+      "rootcomponent!impl&%20.perm._04-final.air": "e917339427d123fdd4f8649fcd7c8bdefb9b305c2a4dfacd40323d9ff0afd0a6",
+      "rootcomponent!impl&%20.perm._05-final.air": "4e987aaf1e51279f12e4206c5a123562cc527f307b0ba67599d0ad22f5cb61a2",
+      "rootcomponent!impl&%20.perm._06-final.air": "4d9c5f16bbda9900a28aeaade530e5455117ed28963d79de16253eee9e472413",
+      "rootcomponent!impl&%20.perm._07-final.air": "30678c808b90f69fc328be1aceac0e85c4c6d485bd16a39971142fb607447110",
+      "rootcomponent!impl&%20.perm._08-final.air": "94abb92cc09720804f8c3eba62eba794e8231b0b77cdd3c795e2c5fa389f2452",
+      "rootcomponent!impl&%20.perm._09-final.air": "972e8f53838b8aebcb37a82b98c798c9202afab62c4cb47b568b14022a0d276f",
+      "rootcomponent!impl&%20.perm._10-final.air": "fee1efc575a5596a32bbb6665dcfd55fe74db642713f2dd57d40acab0a35426a",
+      "rootcomponent!impl&%20.perm._11-final.air": "2c6b9a6e18d3678b271e410e6a1e2d2b2abf20f31751a916b8f5fd28fa48522b",
+      "rootcomponent!impl&%20.perm._12-final.air": "4957e4a021648b2d74645a94819b8d5ce4353ba9b369223b251d38a2287d6d09",
+      "rootcomponent!impl&%20.perm._13-final.air": "71f8fb0851726d532cfa3dc3e83c31146bca83200497dc9d9d12cd6a610943c4",
+      "rootcomponent!impl&%20.perm._14-final.air": "b06d7f4cf9788837cead27635879c03063d7c3fbefa119ecc2b9ed295279addb",
+      "rootcomponent!impl&%20.perm._15-final.air": "ded6d2778bf4d3fd975dcc40e992b485e03c083cd20f7a31f7b4b84105afd269",
+      "rootcomponent!impl&%20.perm._16-final.air": "d5be1c5b7e9648437dec208235bf443d3c938f70eb3aa3f2bf2ee65fb224f2e6",
+      "rootcomponent!impl&%20.perm._17-final.air": "2e35af901332fe1fdc09ee8cc6e5363b1e333fb1d9b9efca1caef73c2ee95d30",
+      "rootcomponent!impl&%20.perm._18-final.air": "f9f8a8ef200e9e148a224f8d64b3abc94deaa10e487b17d32adf6ddfb2650c19",
+      "rootcomponent!impl&%20.perm._19-final.air": "30d9e585c6098046b063bf70b17f0d7316b92c75778d7d87cab20f153d5dfae6",
+      "rootcomponent!impl&%20.perm._20-final.air": "d22df6c7c5248c0d32c725db668cdf6d0050ba973616c3a4b0f69ac39c154704",
+      "rootcomponent!impl&%20.perm._21-final.air": "d7a7869c521911a0f0325a889744759ac06490cc04c111c537833a98890421d7",
+      "rootcomponent!impl&%20.perm._22-final.air": "b245ea7294a41d3d36ad69ee14fd385caff5ad567fc45af78be4d1837117b7f3",
+      "rootcomponent!impl&%20.perm._23-final.air": "53bf5d20b1e8218d9fd3deb6829bcaedad12b786367089a8bde9e78f7d61d2bc",
+      "rootcomponent!impl&%20.protected._01-final.air": "9ca205196f9eca844fc74c5c7a9f9e88f476ed7a799896ca8bad0788ba8b1c8b",
+      "rootcomponent!impl&%20.protected._02-final.air": "57871f6b433cb467257b237d0b0b636606840c34cb9565ccd5ba433148462b9b",
+      "rootcomponent!impl&%20.protected._03-final.air": "bd21a897bef1ba0a54974c94c10091bf36836c0672a14f35fc1fb3ef5fd46477",
+      "rootcomponent!impl&%20.protected._04-final.air": "5a12db61cefdffb63432455e5870b79f7a69287bc00a2060855797315b5c611a",
+      "rootcomponent!impl&%20.protected._05-final.air": "4b9fef32619b66cf6379943c2b57369ddd526644fb07e9412c460ca5e76eeaa7",
+      "rootcomponent!impl&%20.protected._06-final.air": "fcfd7efed5253e2c8d49006693060ba89d19d283fa824b061983a6dd39053cf7",
+      "rootcomponent!impl&%20.protected._07-final.air": "7c7f63d51d99adc462cd71f06a28202e2aa3e311b724496c35363f56d033a2b6",
+      "rootcomponent!impl&%20.protected._08-final.air": "ab664a19e4d765e48dcc8ad2a9bb4559dd8d52d28c2a70b1c6c6192f430cee33",
+      "rootcomponent!impl&%20.protected._09-final.air": "a35a052224299f6ec3717fb35bce409b1f53018611b98e79de5becadd10a050b",
+      "rootcomponent!impl&%20.protected._10-final.air": "57d5bd269626c88301b7267725512322cc192f2840521500f0a401752ca8586b",
+      "rootcomponent!impl&%20.protected._11-final.air": "c236f21ebab30116f1cdf3371bb61f5dbefaec1d3bb32fef6913bb4c6eac1f6f",
+      "rootcomponent!impl&%20.protected._12-final.air": "c0d44f1fbae71cafc44f9a96c527fdda364fc408ce15f120a26786d20631c852",
+      "rootcomponent!impl&%20.protected._13-final.air": "fd1ebf9890682d25e385d2e335c50b8d5f4242cad7c8a6238fdf8bd76160084d",
+      "rootcomponent!impl&%20.protected._14-final.air": "e7fdb42b2607de8390b20abf1acefefbc7f515b422dd61914807c6fd5677a949",
+      "rootcomponent!impl&%20.tag._01-final.air": "6b648dc7617894e9f792126d59f586fa8ab30cd955a387cc73cbee6c1538a248",
+      "rootcomponent!impl&%20.tag._02-final.air": "b658e27d3ad80a9d6122dc2015034e70a0a2606d4487694d38bfcd059a2f873a",
+      "rootcomponent!impl&%20.tag._03-final.air": "9fee6a725107259e2c1617df25d532aa5826f8b48493288e488ec6d857400a49",
+      "rootcomponent!impl&%20.tag._04-final.air": "bc553dd1e16175669a8aab934cd26b40bec036233051b2dfca770c1bd1e78ea4",
+      "rootcomponent!impl&%20.tag._05-final.air": "a682b51fd10765447e7f14792c191f5677609258230f9c7d9f8f26f7d9e11ade",
+      "rootcomponent!impl&%20.tag._06-final.air": "f9d57bc5f4130da9a94adcc50be563940367a1fa2d780f1831d64144e5b66a51",
+      "rootcomponent!impl&%20.tag._07-final.air": "8d3330cacefdb0b2bd84fcf5021c500db25051712e44f224f4f7fdd9fc2b3620",
+      "rootcomponent!impl&%20.tag._08-final.air": "0403f486b075d79a6da85e964959da460a8f9fe3748b965ab63165d725021edc",
+      "rootcomponent!impl&%20.tag._09-final.air": "f8ac8d6543bf1d21dbd6bdc605d26700da734cffc1f491a6904cab4e2a43dc89",
+      "rootcomponent!impl&%20.tag._10-final.air": "d0a4677169365cf6dce938bc6c31c4404d7aa9c0f8e38ab8ade1aa74c9d3f4a8",
+      "rootcomponent!impl&%20.tag._11-final.air": "26915102238c08fe57bea9e1fbd9b84eb854585706490519970079f4f40f7764",
+      "rootcomponent!impl&%20.tag._12-final.air": "b86553e380214ac73ac4b4f8c8c325141811b788bb5c04473620ba815b35b2f9",
+      "rootcomponent!impl&%20.tag._13-final.air": "2e770eaba94fabfcdeeea87e55e401dea9c8c149541106cc7e4ac8c8a53475ac",
+      "rootcomponent!impl&%20.tag._14-final.air": "335967d798aa870fc2011e504472bcd285bf0648ba1aefd00bcdeb679dda8ae1"
+    },
+    "verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 146
+    }
+  },
+  "reuse": {
+    "failed_functions": [],
+    "helper_query_sha256": "e6fa199027edac7a3fd799ba7f1e575f86f0984e6ff42efc8a17b514bce8295e",
+    "helpers": [],
+    "inference_interface_written": false,
+    "local_function_details": {
+      "component::CHANNEL_MASK": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      },
+      "component::packet": {
+        "failed_proof_notes": [],
+        "obligation_proof_notes": []
+      }
+    },
+    "native_scope": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__CHANNEL_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__CHANNEL_MASK",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-reuse/component.rs:3:1: 3:23"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::packet",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "packet",
+          "selected": true,
+          "source": "/tmp/item-packing-jmxyh6mz/stable-reuse/component.rs:5:1: 5:58"
+        }
+      ]
+    },
+    "ordinary_original_functions": {
+      "component::CHANNEL_MASK": {
+        "body_present": true,
+        "body_sha256": "dfee3de05024629859ecde232ec395ca55ce3c06495a12a9b395b330b4cbb498",
+        "mode": "Spec",
+        "normalized_body_sha256": "c40e0a2658d7b52107366e3e072eac3225a23142641eedf35de6720ff49387d5"
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "body_present": true,
+        "body_sha256": "6da5fecc9d031d8e4a5e2073b8e6420e9de6b8ef3b44d553e6eae456957bd65d",
+        "mode": "Exec",
+        "normalized_body_sha256": "3c56b2d9802e541d569f65da6d9d90e1394b277bb574cb5e81f2426917fbcbd6"
+      },
+      "component::packet": {
+        "body_present": true,
+        "body_sha256": "4a1ad1a3e964ee93c05356fc836528be3602f66bd5b1cf438b01b0175fc82afb",
+        "mode": "Exec",
+        "normalized_body_sha256": "732a7f11593b3d8d6f331d816a7811b4396b56c04b2b939e754515a85de5578b"
+      }
+    },
+    "query_identities": {
+      "root-final.air": "6f5c989133c3f097ff4ddbdafea0d1be812ae9049188f1b6142dd81a7b3b6cfa",
+      "rootcomponent!CHANNEL_MASK._01-final.air": "e055a6cb5e696505fb234ae36f6b6564c7d5d554e0c180dc6f69eaa77db88ee6",
+      "rootcomponent!CHANNEL_MASK._02-final.air": "82c98df8ba4562663eb1a17b8de95801d9b22e7ce2289c49ab263a24d0a5906b",
+      "rootcomponent!CHANNEL_MASK._03-final.air": "943ed220ed9bfdcc4d5467e4b8689d606b4d7d88a8c0deb709e3d123b209137a",
+      "rootcomponent!CHANNEL_MASK._04-final.air": "1669f06eb03feb20b932a9b68aa6363fbd0cf68feb03896e89cab313df5198f5",
+      "rootcomponent!CHANNEL_MASK._05-final.air": "46c92bd0280a8628d934a2205d463e0d6156d3e8b693810b41a7dbff6cbfdec8",
+      "rootcomponent!CHANNEL_MASK._06-final.air": "e07ff132467a93cfc2b2941db2f6f3e1e297dd22d89fe24c0bfceb69b1b2c4fe",
+      "rootcomponent!CHANNEL_MASK._07-final.air": "1b7f4546cfdd7b42411e20962c7d3462548450371e6e6b87e55691e107e4edf8",
+      "rootcomponent!CHANNEL_MASK._08-final.air": "26d2b8e8bd5704b98a4cbc640bc6197724dd6effd82b4a9b3cffedff50111b94",
+      "rootcomponent!CHANNEL_MASK._09-final.air": "87bc1f75c90e06f42301a1c6d4da279045293e996befa06828b310432dc42e6c",
+      "rootcomponent!CHANNEL_MASK._10-final.air": "5cff71e521e1ddbc9d8bb611c75f2e8f65a3543836d8e1e5cf64062170aa2049",
+      "rootcomponent!packet._01-final.air": "e0330595a93f02f249858b7af238505955b9111e17b7894472a3773cee2a3ec5",
+      "rootcomponent!packet._02-final.air": "5e81251476282b89aa7a2949da1db08be0ac50422853dadc3565b639d05161f3",
+      "rootcomponent!packet._03-final.air": "084735ba7e042ef54721ef9417f8eb38589713eb1c5be36e52d9692c790ed4da",
+      "rootcomponent!packet._04-final.air": "47787533a865dbbd9ce9ae34976279925a451c3d4803115a064937c6d58e144f",
+      "rootcomponent!packet._05-final.air": "ad27b59966a108cee1335a56af8a99e07b30d6aefcde0b640a8424f28ecf6220",
+      "rootcomponent!packet._06-final.air": "eb5fa6cdb483e61da1b5811c8f1bcc949931176b3201338efe5badde96c4a893",
+      "rootcomponent!packet._07-final.air": "7cd965de8047605be64dfe2a7d55e01408f9a57a2ce2eada09198d1cc8d35b9a",
+      "rootcomponent!packet._08-final.air": "9bdd3670577da010543f5d9dcbf94ad2dd27d25d7e9b15c12bf1eeec6000cc11",
+      "rootcomponent!packet._09-final.air": "692447af1525a357f8b82de9e751be6344b6faf7ad4b1b5c168a2fee1eb0a0c5",
+      "rootcomponent!packet._10-final.air": "2e85fbcb0b66a993bccac70df0c25dcfdc94cf2ac3d17399516fabed6710199f",
+      "rootcomponent!packet._11-final.air": "66ccdbd519e55d507d7842aba64d45f84f9d34ad9d59d7d91536c11e2f14626b",
+      "rootcomponent!packet._12-final.air": "dff3a6a7d97282cdfa22f046377d575ed0b77c51cc5a38008dfa1d142a635eb0",
+      "rootcomponent!packet._13-final.air": "06be7f00d669204d9fa3f089435797d72d885ac9a740b6b8d7ae504c68aea7e3",
+      "rootcomponent!packet._14-final.air": "5c87892fa221a3fc34b65b13c4a837ce7b48da09377bcbdcb246e25d376c3e76",
+      "rootcomponent!packet._15-final.air": "e9c0b10dd23702520d33e006842b9763807241d14296fc76f3efe8c45cd8ef94",
+      "rootcomponent!packet._16-final.air": "edd2f9923eec32f29c44c4708169ea00cd545687c515d58c08237345ec5c233d",
+      "rootcomponent!packet._17-final.air": "d89e5fa6e16a7b25547baade6e99ec3f18f4af33c1f57aa229bce25f6bacf45c",
+      "rootcomponent!packet._18-final.air": "0e4e0d5cb5af1e1d1ee59542d4d82957c806b3647c17fd3f3fde7053c692ad30",
+      "rootcomponent!packet._19-final.air": "4eddb6a74bf9d275069724aa3476c8ce34493ddbf6e7fa8d599a83123c88b928"
+    },
+    "verification": {
+      "encountered-error": false,
+      "encountered-vir-error": false,
+      "errors": 0,
+      "is-verifying-entire-crate": true,
+      "success": true,
+      "verified": 32
+    }
+  }
+}

@@ -40,26 +40,33 @@ def fixture():
  full=S.generate('full');helped=S.generate('full-help')
  need(helped==text,'pure full-help regeneration byte mismatch')
  need(not re.search(r'\bproof\b|\bassert\s*\(',full),'local proof glue')
- return full,helped,S.fidelity(full)
+ fidelity=S.fidelity(full)
+ original=json.loads((ROOT/'evidence/local-checked-foreign-review/RESULTS.json').read_text())['fidelity']
+ need(set(fidelity)==set(original),'fidelity inventory')
+ for n,v in fidelity.items():need(v['adapted_body_sha256']==original[n]['original_body_sha256'],'original body '+n)
+ return full,helped,fidelity
 def root(): return Path((HERE/'PRIVATE_ROOT').read_text().strip())
 def env(r):
  return dict(HOME='/home/dev',PATH='/home/dev/.cargo/bin:/usr/bin:/bin',RUSTUP_TOOLCHAIN='1.99.1',RUSTUP_HOME='/home/dev/.rustup',RUSTC_BOOTSTRAP='1',LD_LIBRARY_PATH=str(TC/'lib'),CARGO_HOME=str(r/'cargo-home'),CARGO_TARGET_DIR=str(r/'target'),CARGO_BUILD_BUILD_DIR=str(r/'cargo-build'),CARGO_BUILD_JOBS='2',CARGO_NET_OFFLINE='true',XDG_CACHE_HOME=str(r/'cache'),TMPDIR=str(r/'tmp'),VERUS_ROOT=str(r/'bundle'),VERUS_Z3_PATH=str(r/'bundle/z3'),VERUS_INFER_CACHE=str(r/'candidate-cache'),RUST_MIN_STACK='20971520',RUSTFLAGS='--cfg proc_macro_span --cfg verus_keep_ghost --cfg span_locations --cfg procmacro2_semver_exempt',VERUS_IN_VARGO='1',VERUS_TEST_LOG_DIR=str(r/'test-logs'))
 def manifest():
  paths=subprocess.check_output(['git','ls-files','-z','source','dependencies'],cwd=ROOT).decode().split('\0')
- return {p:sha(ROOT/p) for p in paths if p and '/research/item_packing_goal/' not in p}
-def run(label,argv,extra=None,bundle=None):
+ paths += ['source/rust_verify_test/tests/local_checked_packing.rs']
+ return {p:sha(ROOT/p) for p in sorted(set(paths)) if p and '/research/item_packing_goal/' not in p}
+def run(label,argv,extra=None,bundle=None,outputs=()):
  r=root();d=r/label;d.mkdir(parents=True,exist_ok=True);need(not (d/'receipt.json').exists(),'immutable '+label)
- b=bundle or r/'bundle';f=dict(argv=list(map(str,argv)),cwd=str(ROOT/'source'),environment=env(r)|dict(VERUS_ROOT=str(b),VERUS_Z3_PATH=str(b/'z3'))|dict(extra or {}),source=manifest(),tools={n:sha(b/n) for n in TOOLS if (b/n).exists()},fixtures={str(p):sha(p) for p in argv if str(p).endswith('.rs') and Path(p).is_file()})
+ b=bundle or r/'bundle';f=dict(argv=list(map(str,argv)),cwd=str(ROOT/'source'),environment=env(r)|dict(VERUS_ROOT=str(b),VERUS_Z3_PATH=str(b/'z3'))|dict(extra or {}),source=manifest(),tools={n:sha(b/n) for n in TOOLS if (b/n).exists() and n not in outputs},fixtures={str(p):sha(p) for p in argv if str(p).endswith('.rs') and Path(p).is_file()})
+ f['runner_sha256']=sha(__file__)
  write(d/'freeze.json',f);start=time.monotonic()
  with (d/'stdout').open('wb') as out,(d/'stderr').open('wb') as err:p=subprocess.run(f['argv'],cwd=f['cwd'],env=f['environment'],stdout=out,stderr=err)
- guards=f['source']==manifest() and all(sha(p)==h for p,h in f['fixtures'].items()) and all(sha(b/n)==h for n,h in f['tools'].items())
- j=dict(exit=p.returncode,guards=guards,seconds=time.monotonic()-start,freeze_sha256=sha(d/'freeze.json'),stdout_sha256=sha(d/'stdout'),stderr_sha256=sha(d/'stderr'))
+ guards=f['runner_sha256']==sha(__file__) and f['source']==manifest() and all(sha(p)==h for p,h in f['fixtures'].items()) and all(sha(b/n)==h for n,h in f['tools'].items())
+ j=dict(exit=p.returncode,guards=guards,seconds=time.monotonic()-start,freeze_sha256=sha(d/'freeze.json'),stdout_sha256=sha(d/'stdout'),stderr_sha256=sha(d/'stderr'),outputs={n:sha(b/n) for n in outputs if (b/n).exists()})
  try:j['verification']=json.loads((d/'stdout').read_text())['verification-results']
  except (ValueError,KeyError):pass
  write(d/'receipt.json',j);print(label,json.dumps(j),flush=True);need(guards,'trial drift');return j
 
 def trial(label,src,b=None,on=True,extra=()):
  r=root();b=b or r/'bundle';d=r/label;d.mkdir(parents=True,exist_ok=True)
+ need(not (d/'receipt.json').exists(),'immutable fixture '+label)
  p=d/'component.rs';p.write_text(src)
  return run(label,[b/'verus',p,'--crate-name=component','--crate-type=lib','--no-cheating','--compile','--output-json','--multiple-errors','20','--log-all','--log-dir',d/'vir','-o',d/'libcomponent.rlib',*(['--infer-goals'] if on else []),*extra],bundle=b)
 def setup():
@@ -67,11 +74,23 @@ def setup():
  need(sha(PARENT/'receipt.json')=='f24584b8ccfde3ac92e84c146d87317b04231b2b165ef759411a0c53ea3199e3','parent receipt')
  j=json.loads((PARENT/'receipt.json').read_text());need(j['success'] and j['matching_vstd_verified']==2250,'parent status')
  for n,h in j['tools'].items():need(sha(PARENT/n)==h,'parent tool '+n)
- need(not subprocess.check_output(['git','diff','35bc7b12','--','source/rust_verify','source/vir','source/vstd','source/builtin','source/builtin_macros','source/state_machines_macros'],cwd=ROOT),'baseline source drift')
+ delta=subprocess.check_output(['git','diff','35bc7b12','--name-only','--','source','dependencies'],cwd=ROOT).decode().splitlines()
+ relevant=[p for p in delta if '/research/' not in p]
+ need(set(relevant)<=set(['source/rust_verify/src/checked_foreign_packing.rs','source/rust_verify_test/tests/local_checked_packing.rs']),'non-owned production source drift')
+ write(r/'accepted-source-delta.json',dict(accepted_git='35bc7b12',working_source_delta=relevant,baseline_uses_authenticated_accepted_tools=True))
  write(r/'parent-authentication.json',j)
  for d in ['tmp','bundle','cargo-home/registry','cargo-home/git']:(r/d).mkdir(parents=True,exist_ok=True)
  for part in ['cache','index']:shutil.copytree(REVIEW/'cargo-home/registry'/part,r/'cargo-home/registry'/part)
  shutil.copytree(REVIEW/'cargo-home/git/db',r/'cargo-home/git/db')
+ input_identities={}
+ for part in ['cargo-home/registry/index','cargo-home/git/db']:
+  original=REVIEW/part;copied=r/part
+  before={str(p.relative_to(original)):sha(p) for p in original.rglob('*') if p.is_file()}
+  after={str(p.relative_to(copied)):sha(p) for p in copied.rglob('*') if p.is_file()}
+  need(before==after,'immutable copied index/git inputs '+part);input_identities[part]=before
+ input_identities['lock_sha256']=sha(ROOT/'source/Cargo.lock')
+ write(r/'index-git-input-identities.json',input_identities)
+
  j=json.loads((REVIEW/'cache-manifest.json').read_text())
  for p,h in j['validated'].items():need(sha(r/p)==h,'archive '+p)
  shutil.copy2(PARENT/'z3',r/'bundle/z3')
@@ -92,5 +111,5 @@ if __name__=='__main__':
   for name in ['full','full-help']:
    for on in [True,False]:trial('baseline2-'+name+('-on' if on else '-off'),(root()/(name+'.rs')).read_text(),PARENT,on)
  elif sys.argv[1]=='build':build(sys.argv[2])
- elif sys.argv[1]=='vstd':run(sys.argv[2],[root()/'target/debug/vstd_build',root()/'bundle'])
+ elif sys.argv[1]=='vstd':run(sys.argv[2],[root()/'target/debug/vstd_build',root()/'bundle'],outputs=('vstd.vir','libvstd.rlib'))
  elif sys.argv[1]=='full':trial(sys.argv[2],(root()/'full.rs').read_text())
