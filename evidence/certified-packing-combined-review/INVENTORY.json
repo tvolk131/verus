@@ -1,0 +1,1016 @@
+{
+  "bool": {
+    "failed_functions": [],
+    "functions": {
+      "component::all_bool": {
+        "body_present": true,
+        "body_sha256": "6f6ce0b7e98595a02d5845c935afaaef5953be95f1243baf02a6e320791ed93c",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "756af8c90aa1b5056ad5ae9a0349f9ffddd1aa925a19cd71596d29f9a3052e88",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "body_present": true,
+        "body_sha256": "8f945d06fc4be57860b44949a286ee29ee50e293e999d50ed39ac0f6d4df46a2",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "0f3a8f92c95cf03b7c38ed2c72a6e32c3d3177b007a93d760d2feb0355dd74fc",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      }
+    },
+    "native_scope": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::all_bool",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "all_bool",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-bool.rs:1:31: 1:62"
+        }
+      ]
+    }
+  },
+  "full": {
+    "failed_functions": [],
+    "functions": {
+      "component::BorTag::ctor%": {
+        "body_present": true,
+        "body_sha256": "e2933728b10ce83db04bd9eb04c6c895c872c1ca1ca4c864ab0caad67fecb3ef",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "7384cafbebb9a99736cc1aecfd4318f59bc7adfe87f1078cdb33c9be91cb5617",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::Item::ctor%": {
+        "body_present": true,
+        "body_sha256": "ea5841d087333924efb844f059df09aac1eaa587074b220f2d98c62c09611a61",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "f98f5edf4f5d8c2d21b315211059c635c83af1aeb7b9a7549758cf914ad051a5",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::PERM_MASK": {
+        "body_present": true,
+        "body_sha256": "016e130aef87cff356be0dbd8557f387be19f16fef8916cd5dd5acc4d96a4ef8",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::PERM_SHIFT": {
+        "body_present": true,
+        "body_sha256": "46fa1acc15aefb7dbe9f2fc5c652a09f1c0e69b8f08bd644062895d1e45317e9",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::PROTECTED_MASK": {
+        "body_present": true,
+        "body_sha256": "4d482d249b997d3cd8122fe5c13383e98c2b5e672fe8c2b70298316a0dade077",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::PROTECTED_SHIFT": {
+        "body_present": true,
+        "body_sha256": "087ce5d4b1f3a61ed83b184adce33e334ae1d7ada5f6018d4ce75e3423e8dc09",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::TAG_MASK": {
+        "body_present": true,
+        "body_sha256": "03644f4631fc35f4346b550d6c036f8c7f44a5c27597b60c50947add4a69f6f8",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::bits": {
+        "body_present": true,
+        "body_sha256": "9fb45e21104f97b3073d15458160a52ce56735f28f245e92e7ba99654b824aef",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::boundaries": {
+        "body_present": true,
+        "body_sha256": "c8fb1e8cab302e8dd826ca865a83a22c428eef55e0ddd7fc2c926e0eb50cd1d9",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "5516b2a03d2d637d2390f4a993c991942446d30bd9d8fe605a053a78b757a445",
+        "mode": "Exec",
+        "require_sha256": "d39dfd2933877e9a5ccfdafb1723fd19e9f02e61b6fa767cb9c308fec4213f1d",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "body_present": true,
+        "body_sha256": "5c644445c05934a01cb6de9b8b3d42719ee98a98d6ccf58066a021b38c04940a",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "ec7b58f1d58c2cba34be6a82bf979e976a27f00c858c26a2226f81b9ee82120b",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::compare_equal": {
+        "body_present": true,
+        "body_sha256": "38b06a654146b064a97aebe13318138c35c6e4e361e577abcdf0473847cde095",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "8e04c26e9f3dd7a04e3759685666cdd5ddaed6ac4482bf369bd78cdaf525cae0",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::decode": {
+        "body_present": true,
+        "body_sha256": "bef1b4f5f0d39acaa11ac85b3e136eae14795b45301671b161a40f1e78ee9136",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%10::__verus_infer_derived_eq": {
+        "body_present": true,
+        "body_sha256": "53f12600ab5e07aa722ce238c42f34c5ca480801742153a8215557c2122d816b",
+        "body_visibility_sha256": "3dd96e5877da6357fffb227ce7a6f11501287cee03ae60c390ab7200e28500ed",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%11::eq_spec": {
+        "body_present": true,
+        "body_sha256": "6e7e8f6f8e0af88459d2f4509761a115d4f2bca665946aefa9bbbd81d7fffa16",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%11::obeys_eq_spec": {
+        "body_present": true,
+        "body_sha256": "53f12600ab5e07aa722ce238c42f34c5ca480801742153a8215557c2122d816b",
+        "body_visibility_sha256": "3dd96e5877da6357fffb227ce7a6f11501287cee03ae60c390ab7200e28500ed",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%14::clone": {
+        "body_present": true,
+        "body_sha256": "eba1542f0f266da52862e7a0e893d9250c3780cef9f96eff5b7eb691e618431a",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "cd9189aaea0c1b570c94a1a0cb7d7a8e8d7404ed45477b15faf7f7e6a24b3650",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%19::get": {
+        "body_present": true,
+        "body_sha256": "c8f0b27b34b658f47be62cc3a1e4ffd5ca9d31bff41b48791d7d913e2ff53409",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "19e23383a6758abc7eedc7fa40c67980f9481e50269b51bf9059c4d6821d0cc8",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%19::new": {
+        "body_present": true,
+        "body_sha256": "b1cf80e1f320fb7b99faa1b8594323aa5f16227aaedf9bbfbff509091ca09009",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "2ef9dcc9773a5a081c49611ee881419201fe62a99461659fe02b618d2aa9925f",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%19::value": {
+        "body_present": true,
+        "body_sha256": "e9e7074adc26fafa60c1d76d03bc81363efa4ccce877526e5a899f89599c6193",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%20::new": {
+        "body_present": true,
+        "body_sha256": "daffad13058af7d2b6a0d5c21e5b7a769d878ec8abd93417ee15a98b7c62342c",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "8a43f54145bac240a808fa4575538ffa74c72810222a22dd59e7b98dcb8f6cc7",
+        "mode": "Exec",
+        "require_sha256": "f6d769191f4792d2f264708dfde89cfa13e597359cbda15749ee23e8865039b9",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%20::perm": {
+        "body_present": true,
+        "body_sha256": "809958b7138bfc8a8fe02bf5c7b89a0f628505837d5e80b43d86605d719f89dc",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "377051ad4f0780e589203f5221bc934615fe40a8064bcddf3186dd13e033bfdb",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%20::permission": {
+        "body_present": true,
+        "body_sha256": "48cfbafa689da675d8873318416579b98aeea7f41d3c49ba7f0c3a103fdebc87",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%20::protected": {
+        "body_present": true,
+        "body_sha256": "2f013d1b479ddaf99eb4fac12e98e5cdc6ae4e4a2f8a5548671c4aa58fb483eb",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "bba8653d903ea2d45167753f02868e3651151bafc023fcab22a8991fd3a87c05",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%20::tag": {
+        "body_present": true,
+        "body_sha256": "8e233a00da74eed2412357fada27ad38d88d85413839f682f1d9d3cd916a060c",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "f3be4aa0c027fff567eec843dfa14c7aedf2066762eede0ca0d340311b18f39d",
+        "mode": "Exec",
+        "require_sha256": "5c77bd2e3d8b23a4e05ffa94a160516abbb1ab6eeb3ac1bc0d0d3498cdcd4969",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%20::word": {
+        "body_present": true,
+        "body_sha256": "1adb82f5cf89fd7405d9dd75b6d800255b89f1c32c12a134b16798a9887b50a4",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%23::clone": {
+        "body_present": true,
+        "body_sha256": "6493c0dc190bba68f6cd71b1635bdfc812a3f2c2f73c84c07322b7213614dc8d",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "ba657f3bd8cae4eed7bd153e5563fefa7ef569a26f185480cf030a449a7a5933",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%29::DISABLED": {
+        "body_present": true,
+        "body_sha256": "3ca791ad5bdf6c82796934d7acf094c85909132ee8c1c7d12a7fcc6d92ae66e9",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::impl&%29::SHARED_READ_ONLY": {
+        "body_present": true,
+        "body_sha256": "85e6754a33df0001983c16290da78656b3251a52397edb9a4879185e50a663be",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::impl&%29::SHARED_READ_WRITE": {
+        "body_present": true,
+        "body_sha256": "2d60b1a62c996cb82bc99e4696fb07b7774cde7b170db1f4c75d4dd2c78d07de",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::impl&%29::UNIQUE": {
+        "body_present": true,
+        "body_sha256": "bd60b98254c1bde760730c369727a76b63d59c5af14a09cd1cb0e349af3674c8",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::impl&%29::from_bits": {
+        "body_present": true,
+        "body_sha256": "8970665374f6c87166e0aeab123d27b03802ddbbd1bcc52466693c53a05f8f43",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "5a109f2ae48463edfd00b796f4adc63560f6cff7dc2fa5df44eb9c3e8ae52096",
+        "mode": "Exec",
+        "require_sha256": "2190460f6906564fe391c20b0cc2c3cf23081d6b1889789be3562bcb975f0614",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::impl&%29::to_bits": {
+        "body_present": true,
+        "body_sha256": "d8b40e30c072af5a0536530421210f286d5ee9c6df916ca8c4e58b1fce62a761",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "bcd8d832021a13d35301a0a0bc25bff1afe5ce9c095aa6ceb17f0e62a1d14f04",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::impl&%2::clone": {
+        "body_present": true,
+        "body_sha256": "ee878cf66d5d180a6eba778dc308983ea0190f45a4b3af11fc9828976f52d915",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "144985ed20ba91fd707229ba6b296dbc4e82a828748b16545f62dd63739ea495",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%5::eq": {
+        "body_present": true,
+        "body_sha256": "3da0cd72bfb615de40648087f6164ba247c80922cf795644b8a817e8a194349a",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "fde9af09b2024cc5fea9bbc8c66b5e21ba821faa70b405caa6bd3039b4a775a9",
+        "mode": "Exec",
+        "require_sha256": "792844c57ec3f7e212506334f340b7bf2498deddc2f5a491d65a6d0e26cca02f",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::impl&%9::__verus_infer_nonzero_u64_view": {
+        "body_present": true,
+        "body_sha256": "0c8f86bf5fd3ae2eac0dd1f44d600804be4effc17c56e152c3e3d5001a27282b",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::item_word_wf": {
+        "body_present": true,
+        "body_sha256": "4c3c877209ca7c484036f82963cdb20190d21f4c8821dd87bd150ceaddbfee15",
+        "body_visibility_sha256": "3dd96e5877da6357fffb227ce7a6f11501287cee03ae60c390ab7200e28500ed",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::lookup": {
+        "body_present": true,
+        "body_sha256": "7d9d5f4a70997bc4986407838e5ebf7f2cc0926511d21fe4d24398fefa9682a9",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "6df81cb82fc8924497c75988724ae537a90b86db72c28e420098700c29a33ff8",
+        "mode": "Exec",
+        "require_sha256": "3bc3512279c22bf9f7dea2a46d3146c5f9662451f7c3e7eb79e4fc671cadcc30",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::roundtrip": {
+        "body_present": true,
+        "body_sha256": "cd19729387f6898812d9adc1442fcb2f38f4bd01dd825f57fe0f6a9bcd103a90",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "304de855b7b2042c050e7d5e6d37823b9879f9c9803a5e47af001ce843f3b5a4",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      }
+    },
+    "native_scope": {
+      "checked_exec_bodies": 16,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:4:16: 4:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:4:40: 4:42"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::Ord>::cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:4:56: 4:59"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::eq",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:4:29: 4:38"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:4:44: 4:54"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:4:23: 4:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::obeys_eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<Item as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:7:16: 7:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Item as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:7:40: 7:42"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Item as std::cmp::PartialEq>::eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Item as std::cmp::PartialEq>::eq",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:7:29: 7:38"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Item as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Item as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:7:23: 7:27"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "component::Permission::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<Permission as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:51:16: 51:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:51:47: 51:49"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::cmp::PartialEq>::eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::cmp::PartialEq>::eq",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:51:36: 51:45"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::fmt::Debug>::fmt",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::fmt::Debug>::fmt",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:51:23: 51:28"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<Permission as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<Permission as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:51:30: 51:34"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::__verus_infer_derived_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_eq",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::__verus_infer_nonzero_u64_view",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:3:1: 3:41"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::get",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "BorTag::get",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:20:1: 20:26"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::BorTag::new",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "BorTag::new",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:17:1: 17:35"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::BorTag::value",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::value",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:16:1: 16:37"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::new",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::new",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:29:1: 29:63"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::perm",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::perm",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:44:1: 44:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::Item::permission",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Item::permission",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:43:1: 43:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::protected",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::protected",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:47:1: 47:32"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Item::tag",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Item::tag",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:26:1: 26:28"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::Item::word",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Item::word",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:25:1: 25:35"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__DISABLED",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:69:5: 69:24"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:68:5: 68:32"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:67:5: 67:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:66:5: 66:22"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Permission::from_bits",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Permission::from_bits",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:78:1: 78:32"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::Permission::to_bits",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "Permission::to_bits",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:70:1: 70:25"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PERM_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PERM_MASK",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:10:1: 10:21"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PERM_SHIFT",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:12:1: 12:22"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:11:1: 11:26"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:13:1: 13:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__TAG_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__TAG_MASK",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:9:1: 9:20"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "selected_item_without_translated_body",
+          "function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:51:1: 62:2"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::bits",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "bits",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:63:1: 63:43"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::boundaries",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "boundaries",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:94:1: 94:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::compare_equal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "compare_equal",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:90:1: 90:51"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::decode",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "decode",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:64:1: 64:45"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "component::item_word_wf",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "item_word_wf",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:14:1: 14:43"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::lookup",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "lookup",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:92:1: 92:29"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::roundtrip",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "roundtrip",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-full.rs:88:1: 88:32"
+        }
+      ]
+    }
+  },
+  "packet": {
+    "failed_functions": [],
+    "functions": {
+      "component::CHANNEL_MASK": {
+        "body_present": true,
+        "body_sha256": "eaf4476ef95452f748506c75149f9297b81c5ef612c2a362658e02503e3ac176",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "body_present": true,
+        "body_sha256": "b70d0e36423d784b1adc42519a49173620a9a186bc345a320874f3b69c31295c",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "590f75d6ad9dd218b2aca2d43b6cab8ec126c6f8ee0ff173aeaa726707661db3",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::packet": {
+        "body_present": true,
+        "body_sha256": "519cb85cf9506abf9a88d7d6c19337e6a8054d7201120ab4af5655a1b6e53e19",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "c0718bed52818059a668aa7b0617d7b5f0a24a5a4ceb4258c34a6dc4221d8146",
+        "mode": "Exec",
+        "require_sha256": "5b0361d4be8006b5edd5cf0f67577949295c61bb60d1bf61192b7931c72b6169",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      }
+    },
+    "native_scope": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__CHANNEL_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__CHANNEL_MASK",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-packet.rs:3:1: 3:23"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::packet",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "packet",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-packet.rs:5:1: 5:58"
+        }
+      ]
+    }
+  },
+  "packet-public-api": {
+    "failed_functions": [],
+    "functions": {
+      "component::CHANNEL_MASK": {
+        "body_present": true,
+        "body_sha256": "36ccf0e58283c4e81c34a1aecf00eb6c583ffc10e5e42afd0ce705e47d470439",
+        "body_visibility_sha256": "3dd96e5877da6357fffb227ce7a6f11501287cee03ae60c390ab7200e28500ed",
+        "ensure_sha256": "00fbf47b9e82023ae1d081d28043d45ac23d8c2b270f305e3f4e775342c0f246",
+        "mode": "Spec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      },
+      "component::checked_foreign_bool_to_u64%": {
+        "body_present": true,
+        "body_sha256": "b70d0e36423d784b1adc42519a49173620a9a186bc345a320874f3b69c31295c",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "590f75d6ad9dd218b2aca2d43b6cab8ec126c6f8ee0ff173aeaa726707661db3",
+        "mode": "Exec",
+        "require_sha256": "dc770f73d67b98c02e899d59a6480a2e4d2ad23bb071b1ded35d6ba1619b0ca6",
+        "visibility_sha256": "61ed3d0d3ee4156e606f788f12b53240fbf8bb8333fae48d65ece73f4d6136ea"
+      },
+      "component::packet": {
+        "body_present": true,
+        "body_sha256": "519cb85cf9506abf9a88d7d6c19337e6a8054d7201120ab4af5655a1b6e53e19",
+        "body_visibility_sha256": "a14c664a66df6d3615a21e280b0b95e105e9d296c13373ec885283c045b2a02b",
+        "ensure_sha256": "c0718bed52818059a668aa7b0617d7b5f0a24a5a4ceb4258c34a6dc4221d8146",
+        "mode": "Exec",
+        "require_sha256": "5b0361d4be8006b5edd5cf0f67577949295c61bb60d1bf61192b7931c72b6169",
+        "visibility_sha256": "74741e42f6cfce544e10d8c016be654c34535e04b40f806b3c53c356c50a8599"
+      }
+    },
+    "native_scope": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_item_without_translated_body",
+          "function": "VERUS_UNERASED_PROXY__CHANNEL_MASK",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "VERUS_UNERASED_PROXY__CHANNEL_MASK",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-packet-public-api.rs:3:1: 3:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "component::packet",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "packet",
+          "selected": true,
+          "source": "/tmp/certified-packing-combined-review-uedtt2b_/fixtures/stable-packet-public-api.rs:5:1: 5:62"
+        }
+      ]
+    }
+  }
+}

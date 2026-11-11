@@ -1,0 +1,32 @@
+{
+  "controller_sha256": "5a3dff78f5b8d66b39f880cac286d62aac9ddbbc63be20187c2aa579b912dedb",
+  "identical_products": {
+    "INVENTORY.json": "005ce23395e19e058cc0ed2b084f2b8f678d9dca4aeae8b8aaab11dd821bcd0d",
+    "RESULTS.json": "2cd35ec95b5831a9ca1dc0b7bf07522b52bc55614ab48b93b3993af1feb56898"
+  },
+  "runs": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-36260d4e/evidence/certified-packing-combined-review/audit.py"
+      ],
+      "exit": 0,
+      "seconds": 5.269474177970551,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "7196ea951db48296b5a06a356507d3a37b8f5bcf3a577079cb7910352775c030"
+    },
+    {
+      "argv": [
+        "python3",
+        "-O",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-36260d4e/evidence/certified-packing-combined-review/audit.py"
+      ],
+      "exit": 0,
+      "seconds": 5.363768726005219,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "7196ea951db48296b5a06a356507d3a37b8f5bcf3a577079cb7910352775c030"
+    }
+  ]
+}
