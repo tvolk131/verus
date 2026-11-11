@@ -45,6 +45,12 @@ They do not establish full lookup or runtime permission grants.
 
 ## Next source obligation
 
+The [ordering baseline](parent-nonzero-ordering-baseline.json) distinguishes
+passing direct NonZero partial-order contracts from an unproved `Ord::cmp`
+contract. Genuine BorTag ordering remains unproved. Its exact MIR exposes the
+get-fragment/view and numeric-comparison correspondence needed next; no new
+standard contract or representation law has been assumed.
+
 Prove that actual `find_granting(Write, ...) = Ok(Some(g))` preserves borrows,
 `unknown_bottom` and `unique_range`, and returns an in-bounds granting item.
 Cover the enabled cache, concrete/wildcard/unknown provenance and all error outcomes; do not add a
