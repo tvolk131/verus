@@ -19,3 +19,14 @@ First prioritize an exact accepted-runtime eligibility/contract baseline for the
 Only after a full-domain ordinary proof and baseline evidence identify a concrete common need in both actual components should the integrator authorize a generic checked saturation/range/observation layer. The value question is which application property gets closer and which literal local proof calls/invariants/blocks disappear. A shared layer that helps only a synthetic formula, an already automatic helper, or one project does not satisfy the goal.
 
 The original HMAC/native objective remains deferred and unachieved.
+
+## Replacement-case library inventory (R2/F2; source inspection only)
+
+R1/F1 stopped unsupported; the following is relevant to the newly registered R2 allocation count/frame and F2 quorum-intersection properties, not a new engineering layer or measured reduction.
+
+- `vstd::set::lemma_set_insert_len` and `lemma_set_remove_len` are existing public broadcast proofs. `set::group_set_lemmas` includes them, and `group_vstd_default` includes that group. Do not omit existing default facts merely to manufacture a later gain.
+- `vstd::set_lib::lemma_set_intersect_union_lens` and `lemma_set_difference_len` are existing public broadcast proofs in `group_set_properties`. That cardinality group is distinct from `group_set_lib_default`, which is the set-lib group in `group_vstd_default`.
+- `vstd::set_lib::lemma_len_subset(s1,s2)` is an existing ordinary proof requiring `s1.subset_of(s2)`, ensuring `s1.len()<=s2.len()`. `Set::lemma_len_filter` is another existing ordinary proof. Their calls and any required instantiations/side-condition proofs are mechanical work, not semantic policy assumptions.
+- R2's allocated-page count may use bounded index sets and point updates; F2's explicit universe/quorum/fault model uses subset/intersection/difference cardinality. These are concrete candidate library interfaces, but the actual manual component proofs must establish which are needed and whether they are already automatic.
+
+No new theorem, trusted law, blanket broadcast or engine profile is proposed by this inventory. Do not count enabling an unused or redundant group as cross-project progress. Any future generic checked selection must preserve the authored semantic model and demonstrate causal removal of necessary local work at both actual components.
