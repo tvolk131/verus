@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "stage": "pretrial_before_any_production_edit",
+  "parent_head": "fdd0b0c6709785bf7c6bbf78efb049b36a39e078",
+  "inputs": {
+    "source/tools/research/checked_rev_bridge_design/REPORT.md": "ef9f976f0259558db19d4e173c7c9d4a6cdfa17e9c5f33f96051265ed80fa491",
+    "source/tools/research/checked_rev_bridge_design/DECISION.json": "c2f847cb23cb7c1f23c20dfce016e928a5676953f4f53b1baa6f08b3b5586c16",
+    "source/tools/research/checked_rev_bridge_design/IDENTITIES.json": "6b2e6a4bf6daa6b612b244454f1a8c2521eef028e2fc3f88487c847116fee319",
+    "source/tools/research/checked_rev_bridge_design/INVENTORY.json": "a56b5b778d2b162b1f354ce484960311fd071c61a6f59239eb003858a63aecc6",
+    "source/tools/research/checked_rev_bridge_design/FREEZE.json": "bff2312bb7912aa697aeb930e109b3c022ac7bee7918d9e76dc9c12bf8e912f4",
+    "source/tools/research/checked_rev_bridge_design/RESULTS.json": "a040b6a47fa24972594f5639444a14c1bac5414fbd78f4ab0f85ac0b9db7d6d3",
+    "source/tools/research/mutable_buffer_goal/parent-rev-bridge-design.json": "6e6c7df486993112b2957840d86adda18c4f6c6cd58a73e3193a33338695c71d",
+    "source/tools/research/mutable_buffer_goal/parent-rev-definition-prototype.json": "baf5c173d70a993e97693b1d6b38413b8cb8db43f3a6d66811f0a6b2951f879e",
+    "source/tools/research/mutable_buffer_goal/CURRENT_MIRI_ENTRY.md": "d2a49f17d0f6df4537733d0bcda639dd3801920ce8f7173009bbcc3d4a6fc4f4"
+  },
+  "interface_sha256": "90c8b4cd972b697c6da9f8c41de6944025a8c57352099f5d8768af8bddba445b",
+  "allowed_item": {
+    "path": "/tmp/local-nonzero-ord-09t1tshb/source-1adb8b6c2ee64cc1.rs",
+    "sha256": "1adb8b6c2ee64cc1c6930c9530920105ad26cee8abf3212caff53dda0c36518d"
+  },
+  "toolchain": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "/home/dev/.cargo/bin/rustup": "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-1d288395a3394ed3.rlib": "b346ce2305e13b1a5ec9ab6e093028caee38227c540cdaf78d7b253f59ae5913",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-7e719de9c4abc98f.rlib": "ea104615e69d068c8a12c749135c7138b3ec28c7275ae163f91169a03561f75b",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/liballoc-3988244237fec6ee.rlib": "1713afb7fc9da7a917293bafdede9562ceddd75700d5a5ff57d4eeb2e42ce9b1",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-2d9557d6e902a200.rlib": "a98391e40d69b94b5d63d4c4dcfcfa76612688ba93e93acd8c9f5e23232dc2b6",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/rev.rs": "2c733c153c7ca12c09f3d7639709ab005843e25fb80fd348480db349b80004ff",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/enumerate.rs": "b64a625b876695472133816d411fc3fce3e2d5221178ff30a34370ab24ab9c95",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs": "73b8d516443f0e73a1b1f59c94215e2dd5b6d2ec482c91f245b61e21edac46fb"
+  },
+  "publication": false,
+  "goal_complete": false
+}
