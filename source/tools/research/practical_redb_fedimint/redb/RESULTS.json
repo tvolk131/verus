@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "case": "R1",
+  "status": "DEFERRED_UNSUPPORTED_STDLIB_BOUNDARY",
+  "counts_in_denominator": true,
+  "counts_as_success": false,
+  "application_property_proved": false,
+  "manual_whole_component_proof": "not feasible on accepted runtime: original dependency fails before VC generation",
+  "freeze_commits": [
+    "97311f5c",
+    "88499a7e"
+  ],
+  "receipt": "/tmp/redb-r1-baseline-lanlwtfe/checked-baseline/receipt.json",
+  "replay_expected_outcomes_passed": true,
+  "runs": [
+    {
+      "mode": "ordinary",
+      "outcome": "FRONTEND_UNSUPPORTED",
+      "exit_code": 1,
+      "seconds": 0.8222796400077641,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "inferred_helpers": []
+    },
+    {
+      "mode": "infer",
+      "outcome": "FRONTEND_UNSUPPORTED",
+      "exit_code": 1,
+      "seconds": 0.7230493369861506,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "inferred_helpers": []
+    },
+    {
+      "mode": "diagnostic_ordinary",
+      "outcome": "FRONTEND_UNSUPPORTED",
+      "exit_code": 1,
+      "seconds": 0.7528765390161425,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "inferred_helpers": []
+    },
+    {
+      "mode": "diagnostic_infer",
+      "outcome": "FRONTEND_UNSUPPORTED",
+      "exit_code": 1,
+      "seconds": 0.6844258370110765,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "inferred_helpers": []
+    }
+  ],
+  "inferred_helpers": [],
+  "inference_precision_checks": "zero inferred helpers; no check or publication success claimed",
+  "manual_mechanical_burden": {
+    "before": {
+      "proof_blocks": 0,
+      "proof_calls": 0,
+      "lemmas": 0,
+      "loop_invariants": 0,
+      "ghost_snapshots": 0,
+      "infer_annotations": 0
+    },
+    "after": {
+      "proof_blocks": 0,
+      "proof_calls": 0,
+      "lemmas": 0,
+      "loop_invariants": 0,
+      "ghost_snapshots": 0,
+      "infer_annotations": 0
+    },
+    "reduction": 0
+  },
+  "body_inventory": {
+    "executable_selected": [
+      "U64GroupedBitmap::required_words",
+      "U64GroupedBitmap::resize",
+      "bits_in_range"
+    ],
+    "spec_selected": [
+      "words",
+      "physical_bit",
+      "U64GroupedBitmap::logical_len",
+      "U64GroupedBitmap::storage"
+    ],
+    "proof_selected": [],
+    "outside_selected": [
+      "main"
+    ]
+  },
+  "negative_controls": "not run: no positive property, so frontend rejection cannot count as intended-property negative",
+  "new_engine_edits": false,
+  "new_vstd_edits": false,
+  "shared_need_established": false,
+  "old_HMAC_native": "DEFERRED_AND_UNACHIEVED",
+  "total_final_compiler_seconds": 2.9826313530211337,
+  "blocker_wall_upper_bound_seconds_at_checkpoint": 179.4,
+  "blocker_budget": "stopped at unsupported stdlib boundary well before45 active minutes; no builds or prerequisite work",
+  "prior_attempts": [
+    {
+      "path": "/tmp/redb-r1-baseline-lanlwtfe/baseline/receipt.json",
+      "classification": "ENVIRONMENT_SETUP_FAILURE: rustup absent from PATH; fixed launcher PATH"
+    },
+    {
+      "path": "/tmp/redb-r1-baseline-lanlwtfe/baseline2/receipt.json",
+      "classification": "FRONTEND_ONLY: div_ceil unsupported plus contract visibility adaptation error; frozen correction not automation progress"
+    },
+    {
+      "path": "/tmp/redb-r1-baseline-lanlwtfe/final-baseline/receipt.json",
+      "classification": "HARNESS_EXPECTATION_ERROR: counted error: substring in compiler help; fixed line-prefix count; actual sole div_ceil boundary preserved"
+    }
+  ]
+}

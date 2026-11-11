@@ -74,7 +74,7 @@ def main():
             helpers = data.get('verus-infer', {}).get('functions', [])
             require_exact(helpers)
             require(code != 0 and frontend, 'expected unsupported frontend boundary changed; inspect before updating expectations')
-            require('div_ceil` is not supported' in stderr and stderr.count('error:') == 2, 'expected sole unsupported div_ceil diagnostic plus abort')
+            require('div_ceil` is not supported' in stderr and sum(line.startswith('error:') for line in stderr.splitlines()) == 2, 'expected sole unsupported div_ceil diagnostic plus abort')
             require(not helpers, 'unexpected inferred helper identities')
             scope = data['verus-infer']['verification_scope']
             require(scope['native_collection_completed'] is True and scope['complete_selected_scope_verified'] is False, 'incomplete/misclassified frontend scope')
