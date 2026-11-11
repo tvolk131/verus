@@ -47,3 +47,5 @@ S1 expected author removals: F2's4 existing set calls+2 conditional blocks; R2 f
 ## Direct R2 word-frame layer
 
 W0 ordinary prototype succeeds with separately compiled checked generic word-sequence library and healthy weak-summary/semantic controls. It preserves the full registered mutation property but retains explicit replacement transport/snapshots. Parent authorizes bounded S2 to generate that transport for the two word mutators, aiming to remove2 local helpers,3 BV directives and2 author snapshots/proof blocks; all remaining loop/ancestor/nested-frame work stays charged. See word_frame/PROTOTYPE.md. This is a direct practical layer, no ownership/native/representation prerequisite, and has no automated result yet.
+
+S1 Set-pair selection and S2 word-sequence proof transport are now running in separate isolated implementation worktrees. Parent has no active local build/proof job. Both implementations remain unaccepted; no automation reduction is claimed until their causal runs and fresh independent implementation review pass. Application-proof review is complete and accepted; no need to repeat that broad baseline matrix for documentation changes.
