@@ -1,6 +1,6 @@
 # Practical capability map — incomplete integration checkpoint
 
-This is a scoped evidence map for the [replacement goal](GOAL.md), not a completed automation claim. Accepted baseline is engine f4415999/schema39/policy75/cache78. S1 has been delivered and integrated as a proposal, with worker causal results; independent/combined acceptance is pending. S2 has not been delivered or accepted. Original bodies/domains and preregistrations remain in SELECTION.json and SELECTION_R2_F2.json.
+This is a scoped evidence map for the [replacement goal](GOAL.md), not a completed automation claim. Accepted baseline is engine f4415999/schema39/policy75/cache78. S1 has been delivered and integrated as a proposal, with worker causal results independently reproduced by the parent6-outcome smoke; NEW implementation review/combined acceptance is pending. S2 has not been delivered or accepted. Original bodies/domains and preregistrations remain in SELECTION.json and SELECTION_R2_F2.json.
 
 ## Application coverage
 
