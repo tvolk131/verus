@@ -1,0 +1,60 @@
+{
+  "goal_complete": false,
+  "normal_optimized_identical": true,
+  "production_changed": false,
+  "publication": false,
+  "runs": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "evidence/nonzero-ord-factoring-design/verify_inputs.py"
+      ],
+      "exit": 0,
+      "result": {
+        "MIR_instances": 7,
+        "base": "778c5e6a2a048e4a776be65ea354f73da4de10ba",
+        "baseline_cases": 11,
+        "controller_inputs": 4,
+        "goal_complete": false,
+        "inputs_sha256": "d4a6b26347da89a16427a30b17e7325d16ef6ea1f39dcc4904be270fa0645280",
+        "native_correspondences": 0,
+        "new_foreign_certificates": 0,
+        "new_proofs": 0,
+        "ordering_accepted": false,
+        "publication": false,
+        "scope": "read-only source/dataset/review byte integrity; no semantic or native checks",
+        "sealed_artifacts": 168,
+        "success": true
+      },
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-O",
+        "-B",
+        "evidence/nonzero-ord-factoring-design/verify_inputs.py"
+      ],
+      "exit": 0,
+      "result": {
+        "MIR_instances": 7,
+        "base": "778c5e6a2a048e4a776be65ea354f73da4de10ba",
+        "baseline_cases": 11,
+        "controller_inputs": 4,
+        "goal_complete": false,
+        "inputs_sha256": "d4a6b26347da89a16427a30b17e7325d16ef6ea1f39dcc4904be270fa0645280",
+        "native_correspondences": 0,
+        "new_foreign_certificates": 0,
+        "new_proofs": 0,
+        "ordering_accepted": false,
+        "publication": false,
+        "scope": "read-only source/dataset/review byte integrity; no semantic or native checks",
+        "sealed_artifacts": 168,
+        "success": true
+      },
+      "stderr": ""
+    }
+  ],
+  "scope": "integrity audit only, not compilation/tests/proofs or checker implementation"
+}
