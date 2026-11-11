@@ -138,6 +138,20 @@ schema/policy/cache reconciliation continue separately. The last broad710-test
 parent matrix belongs to35bc7b12, before this arithmetic extension; it is not
 claimed rerun here.
 
+A provisional certificate integration now composes the accepted packing work
+with checked foreign-body exports. The [certificate handoff record](parent-certified-foreign-provisional.json)
+binds the isolated 96-trial delivery and parent authentication. That delivery
+verified the older full-help fixture52/0; it does not establish the combined
+proofless146/0 result. The new interface uses schema39/policy71/cache74 and
+binds the checked body/contract, typed MIR, loaded core, compiler and target.
+Ordinary and transitive imports check the required foreign evidence; export
+waits for all proof queries and erased Rust compilation. Auxiliary-only proof
+failure and later erased-type failure must both withhold the selected output.
+The earlier LOCAL export embargo above describes its historical checkpoint.
+Parent matching build, proofless arithmetic composition, full regressions and
+independent combined review are pending. Full HMAC/native obligations and
+whole-goal publication remain unchanged.
+
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
 58cf8f9c35b355199727627d07ae34a4e2846d67. The following are source-inspection
