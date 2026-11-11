@@ -1,0 +1,29 @@
+{
+  "auditor_sha256": "a49ee6926f816a1c9e20483f74b354c4f574c2b3c98904ca908c286ea8f2e481",
+  "normal_optimized_identical": true,
+  "runs": {
+    "normal": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-5f755d47/evidence/packing-dedup-parent-review/audit.py"
+      ],
+      "exit": 0,
+      "seconds": 6.832907835952938,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "be447ece60dfca1e196d519d662bac7805b69513f729c3d3ebee5c7efda14572"
+    },
+    "optimized": {
+      "argv": [
+        "/usr/bin/python3",
+        "-O",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-5f755d47/evidence/packing-dedup-parent-review/audit.py"
+      ],
+      "exit": 0,
+      "seconds": 6.749076533014886,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "be447ece60dfca1e196d519d662bac7805b69513f729c3d3ebee5c7efda14572"
+    }
+  }
+}
