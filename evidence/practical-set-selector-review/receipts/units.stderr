@@ -1,0 +1,41 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling serde_core v1.0.229
+   Compiling once_cell v1.21.4
+   Compiling quote v1.0.47
+   Compiling syn v2.0.119
+   Compiling syn v3.0.3
+   Compiling getrandom v0.4.3
+   Compiling futures-macro v0.3.33
+   Compiling serde v1.0.229
+   Compiling serde_derive v1.0.229
+   Compiling futures-util v0.3.33
+   Compiling proc-macro-error-attr v1.0.4
+   Compiling syn v1.0.109
+   Compiling ahash v0.8.12
+   Compiling hashbrown v0.14.5
+   Compiling futures-executor v0.3.33
+   Compiling futures v0.3.33
+   Compiling strum_macros v0.26.4
+   Compiling proc-macro-error v1.0.4
+   Compiling clap_derive v4.6.4
+   Compiling serde_json v1.0.151
+   Compiling clap v4.6.4
+   Compiling duplicate v1.0.0
+   Compiling tempfile v3.27.0
+   Compiling wasm-timer v0.2.5
+   Compiling strum v0.26.3
+   Compiling lasso v0.7.3
+   Compiling bitmask-enum v2.2.5
+   Compiling either v1.17.0
+   Compiling block-buffer v0.12.1
+   Compiling digest v0.11.3
+   Compiling smt-scope v0.1.7
+   Compiling synstructure v0.13.2
+   Compiling sha2 v0.11.0
+   Compiling vir-macros v0.1.0 (/home/dev/.t3/worktrees/verus/t3-37b5504b/source/vir_macros)
+   Compiling num-bigint v0.5.1
+   Compiling air v0.1.0 (/home/dev/.t3/worktrees/verus/t3-37b5504b/source/air)
+   Compiling vir v0.1.0 (/home/dev/.t3/worktrees/verus/t3-37b5504b/source/vir)
+    Finished `release` profile [optimized] target(s) in 2m 56s
+     Running unittests src/lib.rs (/tmp/practical-set-review-902041b3/target/release/deps/air-6f6562e79eec0918)
+     Running unittests src/lib.rs (/tmp/practical-set-review-902041b3/target/release/deps/vir-a479f5c08d409338)

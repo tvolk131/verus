@@ -1,0 +1,228 @@
+[35mvstd_build running: RUST_MIN_STACK="10485760" VSTD_KIND="IsVstd" "/tmp/practical-set-review-902041b3/bundle/rust_verify" "--internal-test-mode" "--extern" "verus_builtin=/tmp/practical-set-review-902041b3/bundle/libverus_builtin.rlib" "--extern" "verus_builtin_macros=/tmp/practical-set-review-902041b3/bundle/libverus_builtin_macros.so" "--extern" "verus_state_machines_macros=/tmp/practical-set-review-902041b3/bundle/libverus_state_machines_macros.so" "--crate-type=lib" "--export" "/tmp/practical-set-review-902041b3/bundle/vstd.vir" "--out-dir" "/tmp/practical-set-review-902041b3/bundle" "--multiple-errors" "2" "--is-vstd" "--compile" "-C" "opt-level=3" "--cfg" "feature=\"std\"" "--cfg" "feature=\"alloc\"" "--cfg" "feature=\"nonzero_internals\"" "vstd/vstd.rs"[0m
+note: automatically chose triggers for this expression:
+  --> vstd/word.rs:20:9
+   |
+20 | /         forall|j: u64|
+21 | |             j < 64 ==> (((word | (1u64 << index)) & (1u64 << j)) != 0) == (j == index || (word & (
+22 | |             1u64 << j)) != 0),
+   | |_____________________________^
+
+note:   trigger 1 of 1:
+  --> vstd/word.rs:21:53
+   |
+21 |             j < 64 ==> (((word | (1u64 << index)) & (1u64 << j)) != 0) == (j == index || (word & (
+   |                                                     ^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+  --> vstd/word.rs:29:31
+   |
+29 |         (word == u64::MAX) == (forall|j: u64| j < 64 ==> (word & (1u64 << j)) != 0),
+   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note:   trigger 1 of 1:
+  --> vstd/word.rs:29:66
+   |
+29 |         (word == u64::MAX) == (forall|j: u64| j < 64 ==> (word & (1u64 << j)) != 0),
+   |                                                                  ^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+  --> vstd/word.rs:62:5
+   |
+62 |     assert forall|j: int| 0 <= j < size implies view(word | (1u64 << index), size)[j] == view(
+   |     ^^^^^^
+
+note:   trigger 1 of 1:
+  --> vstd/word.rs:62:90
+   |
+62 |       assert forall|j: int| 0 <= j < size implies view(word | (1u64 << index), size)[j] == view(
+   |  __________________________________________________________________________________________^
+63 | |         word,
+64 | |         size,
+65 | |     ).update(index as int, true)[j] by {
+   | |___________________________________^
+
+note: automatically chose triggers for this expression:
+  --> vstd/word.rs:86:9
+   |
+86 |         assert forall|j: u64| j < 64 implies (word & (1u64 << j)) != 0 by {
+   |         ^^^^^^
+
+note:   trigger 1 of 1:
+  --> vstd/word.rs:86:54
+   |
+86 |         assert forall|j: u64| j < 64 implies (word & (1u64 << j)) != 0 by {
+   |                                                      ^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iter.rs:204:9
+    |
+204 | /         forall|i: int|
+205 | |             0 <= i < items@.len() && items@[i].is_some() ==> f.requires((&items@[i].unwrap(),)),
+    | |_______________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iter.rs:205:38
+    |
+205 |             0 <= i < items@.len() && items@[i].is_some() ==> f.requires((&items@[i].unwrap(),)),
+    |                                      ^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iter.rs:232:13
+    |
+232 | /             forall|j: int|
+233 | |                 0 <= j < items@.len() && items@[j].is_some() ==> f.requires((&items@[j].unwrap(),)),
+    | |___________________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iter.rs:233:42
+    |
+233 |                 0 <= j < items@.len() && items@[j].is_some() ==> f.requires((&items@[j].unwrap(),)),
+    |                                          ^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iter.rs:257:9
+    |
+257 | /         forall|i: int|
+258 | |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |___________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iter.rs:258:70
+    |
+258 |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                      ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iter.rs:279:13
+    |
+279 | /             forall|i: int|
+280 | |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |_______________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iter.rs:280:74
+    |
+280 |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                          ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iter.rs:309:9
+    |
+309 | /         forall|i: int|
+310 | |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |___________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iter.rs:310:70
+    |
+310 |             0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                      ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iter.rs:333:13
+    |
+333 | /             forall|i: int|
+334 | |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    | |_______________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iter.rs:334:74
+    |
+334 |                 0 <= i < iter.remaining().len() ==> predicate.requires((&iter.remaining()[i],)),
+    |                                                                          ^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/std_specs/clone.rs:162:13
+    |
+162 |             assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
+    |             ^^^^^^
+
+note:   trigger 1 of 2:
+   --> vstd/std_specs/clone.rs:162:61
+    |
+162 |             assert forall|i: int| 0 <= i < a@.len() implies a@[i].deep_view()
+    |                                                             ^^^^^
+
+note:   trigger 2 of 2:
+   --> vstd/std_specs/clone.rs:163:20
+    |
+163 |                 == b@[i].deep_view() by {
+    |                    ^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/std_specs/iter_adapters.rs:299:51
+    |
+299 |               0 <= k < result.remaining().len() ==> exists|i: int|
+    |  ___________________________________________________^
+300 | |                 0 <= i < input.remaining().len() && f.ensures(
+301 | |                     (input.remaining()[i],),
+302 | |                     Some(#[trigger] result.remaining()[k]),
+303 | |                 ),
+    | |_________________^
+
+note:   trigger 1 of 1:
+   --> vstd/std_specs/iter_adapters.rs:301:22
+    |
+301 |                     (input.remaining()[i],),
+    |                      ^^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iterator_view.rs:198:9
+    |
+198 | /         exists|f: F, full: Seq<I::Item>|
+199 | |             map_post(input, f, result) && finite_native_view(input, full) && output.len()
+200 | |                 == full.len() && (forall|i: int|
+201 | |                 0 <= i < full.len() ==> f.requires((#[trigger] full[i],))) && (forall|
+...   |
+205 | |                 0 <= i < full.len() && #[trigger] f.ensures((full[i],), value) ==> value
+206 | |                     == output[i]),
+    | |_________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iterator_view.rs:199:13
+    |
+199 |             map_post(input, f, result) && finite_native_view(input, full) && output.len()
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+200 |                 == full.len() && (forall|i: int|
+    |                    ^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> vstd/iterator_view.rs:217:21
+    |
+217 |       let (f, full) = choose|f: F, full: Seq<I::Item>|
+    |  _____________________^
+218 | |         map_post(input, f, result) && finite_native_view(input, full) && output.len() == full.len()
+219 | |             && (forall|i: int| 0 <= i < full.len() ==> f.requires((#[trigger] full[i],))) && (
+220 | |         forall|i: int, value: B|
+221 | |             0 <= i < full.len() && #[trigger] f.ensures((full[i],), value) ==> value == output[i]);
+    | |__________________________________________________________________________________________________^
+
+note:   trigger 1 of 1:
+   --> vstd/iterator_view.rs:218:9
+    |
+218 |         map_post(input, f, result) && finite_native_view(input, full) && output.len() == full.len()
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^                                                       ^^^^^^^^^^
+
+note: Verus printed one or more automatically chosen quantifier triggers
+      because it had low confidence in the chosen triggers.
+      To suppress these messages, do one of the following:
+        (1) manually annotate a single desired trigger using #[trigger]
+            (example: forall|i: int, j: int| f(i) && #[trigger] g(i) && #[trigger] h(j)),
+        (2) manually annotate multiple desired triggers using #![trigger ...]
+            (example: forall|i: int| #![trigger f(i)] #![trigger g(i)] f(i) && g(i)),
+        (3) accept the automatically chosen trigger using #![auto]
+            (example: forall|i: int, j: int| #![auto] f(i) && g(i) && h(j))
+        (4) use the --triggers-mode silent command-line option to suppress all printing of triggers.
+      (Note: triggers are used by the underlying SMT theorem prover to instantiate quantifiers;
+      the theorem prover instantiates a quantifier whenever some expression matches the
+      pattern specified by one of the quantifier's triggers.)
+   --> vstd/iterator_view.rs:217:21
+    |
+217 |       let (f, full) = choose|f: F, full: Seq<I::Item>|
+    |  _____________________^
+218 | |         map_post(input, f, result) && finite_native_view(input, full) && output.len() == full.len()
+219 | |             && (forall|i: int| 0 <= i < full.len() ==> f.requires((#[trigger] full[i],))) && (
+220 | |         forall|i: int, value: B|
+221 | |             0 <= i < full.len() && #[trigger] f.ensures((full[i],), value) ==> value == output[i]);
+    | |__________________________________________________________________________________________________^
+

@@ -1,0 +1,1694 @@
+{
+  "func-details": {
+    "vstd::seq::Seq::index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "review_recommends_true::bad": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::iset::lemma_iset_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::axiom_set_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::axiom_set_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::Set::contains": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::iset::ISet::contains": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::impl&%0::to_iset": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::iset::lemma_iset_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::axiom_set_decreases_to_member": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 0,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_functions": [
+        {
+          "function": "review_recommends_true::bad",
+          "rust_function": "bad",
+          "source": "/tmp/practical-set-review-902041b3/independent/recommends.rs:1:43: 1:82",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "no_inference",
+    "crate_success": true,
+    "requested_functions": 0,
+    "generated_functions": 0,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": true,
+      "profiles": [
+        "growth_loop",
+        "pointwise_transport",
+        "range_loop",
+        "mutable_buffer_u64_radix128"
+      ],
+      "preparation_started": true,
+      "preparation_completed": true,
+      "decisions": [
+        {
+          "profile": "growth_loop",
+          "function": "review_recommends_true::bad",
+          "source": "/tmp/practical-set-review-902041b3/independent/recommends.rs:1:43: 1:82 (#0)",
+          "status": "skipped",
+          "reason": "non_executable_function",
+          "message": "This assistance profile targets executable functions."
+        },
+        {
+          "profile": "pointwise_transport",
+          "function": "review_recommends_true::bad",
+          "source": "/tmp/practical-set-review-902041b3/independent/recommends.rs:1:43: 1:82 (#0)",
+          "status": "skipped",
+          "reason": "non_executable_function",
+          "message": "This assistance profile targets executable functions."
+        },
+        {
+          "profile": "range_loop",
+          "function": "review_recommends_true::bad",
+          "source": "/tmp/practical-set-review-902041b3/independent/recommends.rs:1:43: 1:82 (#0)",
+          "status": "skipped",
+          "reason": "non_executable_function",
+          "message": "This assistance profile targets executable functions."
+        }
+      ]
+    },
+    "buffer_observation_assistance": [],
+    "range_loop_assistance": [],
+    "set_pair_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [],
+    "functions": [],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [
+      {
+        "function": "core::cmp::PartialEq::eq",
+        "fingerprint": "e8d725ad15217224be892834fa5783610af826e73d89ceffc044a188bcfa476c"
+      },
+      {
+        "function": "core::cmp::PartialEq::ne",
+        "fingerprint": "9e5db50bd5b62e065cbf7d2b81256a00f10803897720f42ac1e6f3b6ad8a38e8"
+      },
+      {
+        "function": "core::cmp::PartialOrd::ge",
+        "fingerprint": "3534c2e11edbad87367be21ae6a6be5acf40b3669b2161ba0cb050594f8a610b"
+      },
+      {
+        "function": "core::cmp::PartialOrd::gt",
+        "fingerprint": "61f6e68f9047a3e76da95c819b58e63f7d61d940e965137bd1998b7dd64082d2"
+      },
+      {
+        "function": "core::cmp::PartialOrd::le",
+        "fingerprint": "0347590b5600cfd1dbbcd397cf49d81afa15d82beed9d795fcd8b3090cde2454"
+      },
+      {
+        "function": "core::cmp::PartialOrd::lt",
+        "fingerprint": "a506ba38098b6bf410eb09b1d53c77ef97c0cee14e1f2190e03cf21fd6acd613"
+      },
+      {
+        "function": "core::convert::From::from",
+        "fingerprint": "a97c15c0d9f48a3c868141da082632742c4941c2524963941a5faa4207161c04"
+      },
+      {
+        "function": "core::convert::Into::into",
+        "fingerprint": "a3dd45aae765767fb23ce3335b7501dbf90dd9cc56373fac266ed688c6dd25f0"
+      },
+      {
+        "function": "core::convert::TryFrom::try_from",
+        "fingerprint": "d0bc090467b997b7e5c04586e712edd57c62438552a93bb3bb3e4040c48afd79"
+      },
+      {
+        "function": "core::convert::impl&%3::into",
+        "fingerprint": "f38406b1cea319d98a733786c3154474648cf2a5dbd3f0d1f882deca9dc05e00"
+      },
+      {
+        "function": "core::convert::num::impl&%135::try_from",
+        "fingerprint": "5bf83bca5521e2356f1b8be9d2e684f40463219458ce563eafcf7eb46efe0cc5"
+      },
+      {
+        "function": "core::convert::num::impl&%136::try_from",
+        "fingerprint": "fc083ea0705252297fcd375087ac0359eafc0049bfa6502734226b23c03dac38"
+      },
+      {
+        "function": "core::convert::num::impl&%137::try_from",
+        "fingerprint": "79efd9af5442cbd3a2ba6b4e8314ce9fe48d93e6f6fc53576e3d613263fe725e"
+      },
+      {
+        "function": "core::convert::num::impl&%138::try_from",
+        "fingerprint": "932be59dd14cbafc26c94f1bee25bd2eb7cf9c60132d0ea143990c0a53032af1"
+      },
+      {
+        "function": "core::convert::num::impl&%139::try_from",
+        "fingerprint": "baf8b00cdcdb12bd74895fe4a55bae39bf3ea3010296133baf248c257a8dfa1f"
+      },
+      {
+        "function": "core::convert::num::impl&%140::try_from",
+        "fingerprint": "7adb00c7946c211f7cd181526817eabd864802f1a504a2396258e156e376b197"
+      },
+      {
+        "function": "core::convert::num::impl&%141::try_from",
+        "fingerprint": "438daedd39d1e4165af86d4a83ad1b58b7622c3505d3673c16babfe323f5e966"
+      },
+      {
+        "function": "core::convert::num::impl&%142::try_from",
+        "fingerprint": "ac17fbfa8565e3a5a64be24817f0becd274acf116930f053bcfec08c7a028786"
+      },
+      {
+        "function": "core::convert::num::impl&%143::try_from",
+        "fingerprint": "a065b7bc6e0ce8c8e1924a6cb3a5aeedcdd8ac70cfdade1f95d128d006b6acc0"
+      },
+      {
+        "function": "core::convert::num::impl&%144::try_from",
+        "fingerprint": "2d0cb418c11536901ebc0c1dbef581c5fd2846ada6a790c06cfed8f9a6a7b90c"
+      },
+      {
+        "function": "core::convert::num::impl&%145::try_from",
+        "fingerprint": "3d620a649623466ab4bb2edc43e7866a904577f3922024b08dd978b2e00e5f66"
+      },
+      {
+        "function": "core::convert::num::impl&%146::try_from",
+        "fingerprint": "b757b8bd71a2f83d0561c73a969bf016f79cea805d923d12537cf6253e19ddc5"
+      },
+      {
+        "function": "core::convert::num::impl&%147::try_from",
+        "fingerprint": "18904f99b240be7271865b120f001f80bb2c8acdc30f989db309d205e457fb3b"
+      },
+      {
+        "function": "core::convert::num::impl&%148::try_from",
+        "fingerprint": "167ec9b13c7731cb108db692b0ca3c25eb922f468095be30b58c66b48b2fae23"
+      },
+      {
+        "function": "core::convert::num::impl&%149::try_from",
+        "fingerprint": "714a34badb9732bd3a0ca340c184f9bf89ee6c4e4f2762ecd5d12e038db1488b"
+      },
+      {
+        "function": "core::convert::num::impl&%150::try_from",
+        "fingerprint": "fa63954da3b1b78bf77bc57db09b08e7d8585674ac22c2cf7d22245bd556ffc7"
+      },
+      {
+        "function": "core::convert::num::impl&%151::try_from",
+        "fingerprint": "abc4839056183b2ca940439f9d81ff3251669670ba41ffe574285897bd610651"
+      },
+      {
+        "function": "core::convert::num::impl&%152::try_from",
+        "fingerprint": "e6001dde680942b3ebe0064db93fa7992d61fc0427718ce32151f823025fac71"
+      },
+      {
+        "function": "core::convert::num::impl&%153::try_from",
+        "fingerprint": "499632d5a599ce5a954eb509fc5fca0f633819c9cf748474021f9a52baefbd5e"
+      },
+      {
+        "function": "core::convert::num::impl&%154::try_from",
+        "fingerprint": "7a1870a86ae8f6428707233b39f22b91db33ab33cc8ebaebb8f5fce22ebff5d8"
+      },
+      {
+        "function": "core::convert::num::impl&%155::try_from",
+        "fingerprint": "9c274aaf5f9823f1c359770914057f37e71751b5ff600e8e52b5c7fa624bc0bd"
+      },
+      {
+        "function": "core::convert::num::impl&%156::try_from",
+        "fingerprint": "bbcbca5784f6f2d7e059679b4a7896e29e1eae7e04c7031041b0f78bd252c9b9"
+      },
+      {
+        "function": "core::convert::num::impl&%157::try_from",
+        "fingerprint": "c0ce3ae3fc3e20e86a0f15b9df6e5807f463f159273b77a4db789623fb1fd01e"
+      },
+      {
+        "function": "core::convert::num::impl&%158::try_from",
+        "fingerprint": "3fdb037d115cabf8b7750301dd0d3930f0b9cf1029621cdd208c6ffbf8a1e7d3"
+      },
+      {
+        "function": "core::convert::num::impl&%159::try_from",
+        "fingerprint": "192b03684ce9678a8689d6be3f3bd89487e13b3ca103725be78f345feeac5ae4"
+      },
+      {
+        "function": "core::convert::num::impl&%160::try_from",
+        "fingerprint": "6076ec083cbde0801f5e5d1791fb1d600d37647319e341ae12dad10f864effd1"
+      },
+      {
+        "function": "core::convert::num::impl&%161::try_from",
+        "fingerprint": "627128bd3451378f07205aa602fb2ded182880c39568662911718d036c731504"
+      },
+      {
+        "function": "core::convert::num::impl&%162::try_from",
+        "fingerprint": "9707c4146ad30abc49bed0f6259dc7a01ce4314092da01f9cdd8aae0f5d9d481"
+      },
+      {
+        "function": "core::convert::num::impl&%163::try_from",
+        "fingerprint": "6bbde3a2e3f16b92e381ed2e22baf251a7d0ed1b3554259313a579f67eac8ca9"
+      },
+      {
+        "function": "core::convert::num::impl&%164::try_from",
+        "fingerprint": "e8b51d4b94d665bb46f4fcde3bbc4d7ed16726d78dbd3c0776c3193f7cba1836"
+      },
+      {
+        "function": "core::convert::num::impl&%165::try_from",
+        "fingerprint": "9bec91d8e9c2ec23fe2964fb7e2a90bc378829ce405706ad9cbef2e5f1538824"
+      },
+      {
+        "function": "core::convert::num::impl&%166::try_from",
+        "fingerprint": "db7229dd9b6ddbb5b22d71bc7b8a3db034fb08ec12a52ecf1712e40b1af5e8a8"
+      },
+      {
+        "function": "core::convert::num::impl&%167::try_from",
+        "fingerprint": "3cad23b69625b1d1f8bc981750af9589446f9ba1d81ae617d201964a5a7533a9"
+      },
+      {
+        "function": "core::convert::num::impl&%168::try_from",
+        "fingerprint": "935586abc7d4d11c58b2a1e5459f0faa07bef9d55110e07178a128ec097ba471"
+      },
+      {
+        "function": "core::convert::num::impl&%169::try_from",
+        "fingerprint": "53aa13d4b205f4305669b84cc72fe843a137fbdb652122ca483a21855170af5b"
+      },
+      {
+        "function": "core::convert::num::impl&%170::try_from",
+        "fingerprint": "3c83e2b8ea7f94ce5ae0ccb498b9700ffc33f5682f8905bef484f40104fc033e"
+      },
+      {
+        "function": "core::convert::num::impl&%171::try_from",
+        "fingerprint": "b35855273019e9fc49de16bc874e1f33024e11b94ffe8a8ca2409f83b6fab79b"
+      },
+      {
+        "function": "core::convert::num::impl&%172::try_from",
+        "fingerprint": "c704f0c8e1aefbed104cd171e16f4ced9ef91f8492460e6070a6b9d41081741d"
+      },
+      {
+        "function": "core::convert::num::impl&%173::try_from",
+        "fingerprint": "82f139bc762bd4ad54f3ea4f40b8479756f8de6ddaad7ecf0c89335bd4370c92"
+      },
+      {
+        "function": "core::convert::num::impl&%174::try_from",
+        "fingerprint": "1e1ac81e7ef5b96b4e10c9ef649aca6b1d4cc4ca61cac5ed8f3f05a591ef8bfa"
+      },
+      {
+        "function": "core::convert::num::impl&%175::try_from",
+        "fingerprint": "b1a96629695d043c6db466077e4415616e672043f3037965c045dcd6966bc9f9"
+      },
+      {
+        "function": "core::convert::num::impl&%176::try_from",
+        "fingerprint": "85889421c87c19a628551072535ce37440074e8bf922f61f550e86e56ce2db3b"
+      },
+      {
+        "function": "core::convert::num::impl&%177::try_from",
+        "fingerprint": "208af52f60361c936ec95b311c59f329daf363687f64907e937a1507d590f0e8"
+      },
+      {
+        "function": "core::convert::num::impl&%178::try_from",
+        "fingerprint": "7b3d33c59f42e6653bb3afef4915534cee7ec95786b540965dfafde86023d203"
+      },
+      {
+        "function": "core::convert::num::impl&%179::try_from",
+        "fingerprint": "7309e7b79b0286f29f27f0d1c725b1a96fa780c483193f79df9674ee8bb43147"
+      },
+      {
+        "function": "core::convert::num::impl&%180::try_from",
+        "fingerprint": "95620ce49426f52ab2539ef2b821da9ca2806701280cbb66badd9d61dd6f8881"
+      },
+      {
+        "function": "core::convert::num::impl&%181::try_from",
+        "fingerprint": "9d2421254a6109149e1faa78ebc64bf19be990a5854873852a451dff90ebcdfa"
+      },
+      {
+        "function": "core::convert::num::impl&%182::try_from",
+        "fingerprint": "ebd02495ff9206d5de2478adbccb2a614bcae8b0f6fa882fc996da9e2e414207"
+      },
+      {
+        "function": "core::convert::num::impl&%183::try_from",
+        "fingerprint": "e7aa645742302fc4a92918b174dcf2f84a9d0fedf567b1dba44e3388133b923d"
+      },
+      {
+        "function": "core::convert::num::impl&%184::try_from",
+        "fingerprint": "054c155181684ce5725dbd86141cab9805f5582f870beda674839ecef4087c87"
+      },
+      {
+        "function": "core::convert::num::impl&%185::try_from",
+        "fingerprint": "6d151cc3f12a4eddb6a4728807904830acbb5d2b07296ad87577878dcc327197"
+      },
+      {
+        "function": "core::convert::num::impl&%186::try_from",
+        "fingerprint": "1ecd273f853a09c911152125e73052d46d020084e1770a942335cfa3f6ab91f6"
+      },
+      {
+        "function": "core::convert::num::impl&%187::try_from",
+        "fingerprint": "744814707772280838a0a2cd958626bbfe48f361f100e8373a42a4f51fa45bcd"
+      },
+      {
+        "function": "core::convert::num::impl&%188::try_from",
+        "fingerprint": "396c69aa4b665e0caf5bcf832da5ce6daf16de6ff4d255acb654faed76851a47"
+      },
+      {
+        "function": "core::convert::num::impl&%189::try_from",
+        "fingerprint": "3d2e2c60857e4061391893fb9d7cd3d1a000d29d3c4e53d8eb75b656ab2ae985"
+      },
+      {
+        "function": "core::convert::num::impl&%190::try_from",
+        "fingerprint": "e0e1a4a919dec28c21d955a0ad2a2a98952246f148aa4558887623e623bc9c98"
+      },
+      {
+        "function": "core::convert::num::impl&%191::try_from",
+        "fingerprint": "782724f2f79c31514f7faa044bcf57bb564c6954554c91caab9e0c12386f1b98"
+      },
+      {
+        "function": "core::convert::num::impl&%192::try_from",
+        "fingerprint": "5e231866cc795ffae5772f5d1fa5a4ce1390caf954e32cb8267b0f7aaceff155"
+      },
+      {
+        "function": "core::convert::num::impl&%193::try_from",
+        "fingerprint": "0c93a46953ba29f8e4d8e38e1ebf273c299d47f1db677c24d3111f6ab0771c00"
+      },
+      {
+        "function": "core::convert::num::impl&%194::try_from",
+        "fingerprint": "9d2b0c820923fa6050db627bed51889598193533dddcffc6868d1e6ea3f5117f"
+      },
+      {
+        "function": "core::convert::num::impl&%60::from",
+        "fingerprint": "e4933b1c8c132987a8d37338a223d5e364192d2cf1eec90889bd0d857902b176"
+      },
+      {
+        "function": "core::convert::num::impl&%61::from",
+        "fingerprint": "4952f4cb657a9de32071d0fdd26a39063392639a73c67fe58dc37caa7b6aa27c"
+      },
+      {
+        "function": "core::convert::num::impl&%62::from",
+        "fingerprint": "131d64afdd1d89fdfb7505895ea6d2cb3e0b733e06f5f7e28e14d7c7d8184594"
+      },
+      {
+        "function": "core::convert::num::impl&%63::from",
+        "fingerprint": "47be6886c601db18994837c46761abe2f2aa4bb7b79a3eafba6ace7f8baeb499"
+      },
+      {
+        "function": "core::convert::num::impl&%64::from",
+        "fingerprint": "9553dbdc45900e0985e6cb3c09ace5232eb034a5dce5c3c39571645110ce170d"
+      },
+      {
+        "function": "core::convert::num::impl&%65::from",
+        "fingerprint": "e4e78e6dccdae44d51b6d4a349eb9620425fe67792716bd44b079fe0ea8d2104"
+      },
+      {
+        "function": "core::convert::num::impl&%66::from",
+        "fingerprint": "fb8ad641f37e39592b420413a509ecd20476ebe5f370e8ca7905630502d1aeae"
+      },
+      {
+        "function": "core::convert::num::impl&%67::from",
+        "fingerprint": "dcea99cafd5a8f204671e80f4e2afbb5ec94a49a9bc339323a4d849bb27a0c76"
+      },
+      {
+        "function": "core::convert::num::impl&%68::from",
+        "fingerprint": "0745aad2016266cf9beb1a8eb20430748520b6040dbc8e4bf0aa38beec71225c"
+      },
+      {
+        "function": "core::convert::num::impl&%69::from",
+        "fingerprint": "9892a48e4d18202cdc4aa75ca933c38dedb6a05daa9b25762edbf8acf1015661"
+      },
+      {
+        "function": "core::convert::num::impl&%70::from",
+        "fingerprint": "6698a227c535630d879b20edc02bc5f76bf4b876158f7b5cd65b5c3d9f5b9ec0"
+      },
+      {
+        "function": "core::convert::num::impl&%71::from",
+        "fingerprint": "aa97a119b6a22bb1a42b11424711e45f58b1b9aeb3c5101aee6af496f0f21e6d"
+      },
+      {
+        "function": "core::convert::num::impl&%72::from",
+        "fingerprint": "3957eb32acd07d9c83fe5b493b677c3c84c36d9288fe013a11fef914b931f0d1"
+      },
+      {
+        "function": "core::convert::num::impl&%73::from",
+        "fingerprint": "bb560c931c471e3c16f8b3cb79b1e4834008cfad88cdd561229298c11f48d1bd"
+      },
+      {
+        "function": "core::convert::num::impl&%74::from",
+        "fingerprint": "ed1b924b2c7cddb0bc10ee070ffe16dcdfb2e978397e5f463fe936b65c2058c8"
+      },
+      {
+        "function": "core::convert::num::impl&%75::from",
+        "fingerprint": "1fcd17ca5bd8aa766bdbd3069d33cee14986a282b76f27852651dc6f0ca0fb5a"
+      },
+      {
+        "function": "core::convert::num::impl&%76::from",
+        "fingerprint": "8d833fe861cd7435e84b24a6cd4c005628655fb4d35a04f9b445edbf0fbe29ef"
+      },
+      {
+        "function": "core::convert::num::impl&%77::from",
+        "fingerprint": "f048d9159bdd8d6053c505c9b30c546c22e13a968892fdd73f4bbadc7a3f8c6d"
+      },
+      {
+        "function": "core::convert::num::impl&%78::from",
+        "fingerprint": "2afa6ad77584f8fd4aef1a8f3c5f322fe87cc335c223e1ca526d22817659128f"
+      },
+      {
+        "function": "core::convert::num::impl&%79::from",
+        "fingerprint": "a3a19ac2151d5b45e7d428bf33eb776ec7062246fe40f27fbf1c9681c8388ca7"
+      },
+      {
+        "function": "core::convert::num::impl&%80::from",
+        "fingerprint": "df744a081d4f5ee248e80b9ccf398138191d1a02e141b14313d1b430c613428d"
+      },
+      {
+        "function": "core::convert::num::impl&%81::from",
+        "fingerprint": "cff17c77c41c879c3ab4a526849fa801142866cdcddb82c053125ce60848828f"
+      },
+      {
+        "function": "core::convert::num::impl&%82::from",
+        "fingerprint": "8658de29069b5139993ce58dae1338eabf0942afeefa2b9647b8ad8f5770d601"
+      },
+      {
+        "function": "core::convert::num::impl&%83::from",
+        "fingerprint": "daa75fdd2fa01cc3aefb7f05a83e68662d21967312d6a24b5c68aa8b55d641a2"
+      },
+      {
+        "function": "core::convert::num::impl&%84::from",
+        "fingerprint": "f2f24a11354d9faeb6706fa6ed86d22ad9f566d487bd7b6216f91ab2ea9cd335"
+      },
+      {
+        "function": "core::convert::num::impl&%85::from",
+        "fingerprint": "b5429b5de0c3467f74937616a022ddec07558c22a5082d54d0297b47559b5294"
+      },
+      {
+        "function": "core::convert::num::impl&%86::from",
+        "fingerprint": "0bb3dcbffd9ec5c05c2b66a252c98a37684292b0888cb510b47dcce93bc3de35"
+      },
+      {
+        "function": "core::convert::num::impl&%87::from",
+        "fingerprint": "6a2007089d3f4be5dfe3915260a1e6c82b781a0c8556b3992a8cf2b99dbaecf1"
+      },
+      {
+        "function": "core::convert::num::impl&%88::from",
+        "fingerprint": "242f2699642595ffcb55cb5f19b86e77d73a079dd37ed9af1a23691bf28f17ca"
+      },
+      {
+        "function": "core::convert::num::impl&%89::from",
+        "fingerprint": "4af24ae2795ec030424d725eae08eb24bce6106f6e557ee76a38d8260f3905e4"
+      },
+      {
+        "function": "core::convert::num::impl&%90::from",
+        "fingerprint": "2abdecb393151a1b39c2ba557c8fc4a70621b9a48cbd0bf69aa1971be3528eab"
+      },
+      {
+        "function": "core::convert::num::impl&%91::from",
+        "fingerprint": "c4a48197cbba5250bf2d543257cc13b26488feb0d076f4e742d25af204e19c7c"
+      },
+      {
+        "function": "core::convert::num::impl&%92::from",
+        "fingerprint": "6f3478c9f1a0dbd7d90e63e2fd748949baa36275ddfb0c3d161aec4bf2450427"
+      },
+      {
+        "function": "core::convert::num::impl&%93::from",
+        "fingerprint": "3878e0e5d24bf45a999d8a4ad152454d6fb0e65cba85b747463bf7197e446cae"
+      },
+      {
+        "function": "core::convert::num::impl&%94::from",
+        "fingerprint": "b57e184170f83e18405853a72aa7dcf0acfe63aaedf6d3855c93df0f09c3a9b0"
+      },
+      {
+        "function": "core::fmt::impl&%6::from_str",
+        "fingerprint": "362dc67576136a5ef240986d7b0fe7b7e8cffbba4c3a93cc8bb84f6008145c43"
+      },
+      {
+        "function": "core::iter::traits::iterator::Iterator::any",
+        "fingerprint": "870a9598ce4f5022a0cac26c5be11e171da7312fdc637db2ef0517db4947700c"
+      },
+      {
+        "function": "core::iter::traits::iterator::Iterator::count",
+        "fingerprint": "46f681ffdf9f8cfeebca31f9564e3d03e1a476b2b7fccf2b816d668fb4db55af"
+      },
+      {
+        "function": "core::iter::traits::iterator::Iterator::filter",
+        "fingerprint": "9e7e2e8414dd8ea675c9fe67c20a4729412b4a55b26c32947afe72b9785fa8f5"
+      },
+      {
+        "function": "core::num::impl&%0::checked_add",
+        "fingerprint": "3316be9efda65e596dd0f47dbb0bced25e8eab76225c0add39fd416bdf77b2b2"
+      },
+      {
+        "function": "core::num::impl&%0::checked_add_unsigned",
+        "fingerprint": "8d16a94e53f47488f87023de53efbf50be23f50d558dc5d40acfd4b8563f0da2"
+      },
+      {
+        "function": "core::num::impl&%0::checked_div",
+        "fingerprint": "52a52a8ba6ad9d19f1e9c34e64a86f1c950407cbf17651105d433d81b60227f9"
+      },
+      {
+        "function": "core::num::impl&%0::checked_div_euclid",
+        "fingerprint": "9e0c692168b19ebef691c4faec37722df8c1a2d9c6dcf42b082078d8887d7274"
+      },
+      {
+        "function": "core::num::impl&%0::checked_mul",
+        "fingerprint": "f4587ffd0022ebb93e399b669b50be2faec7b5fa4de17567878eade09c452b4e"
+      },
+      {
+        "function": "core::num::impl&%0::checked_neg",
+        "fingerprint": "a4d193e8abe67e6a434629ab2e910a17c207caa1985ca2f4c55b70501ec3111e"
+      },
+      {
+        "function": "core::num::impl&%0::checked_rem",
+        "fingerprint": "807dad21acf288ad51186d46bcd1e3aca8d7d690995ea8ba6a2cd9c73235c9b9"
+      },
+      {
+        "function": "core::num::impl&%0::checked_rem_euclid",
+        "fingerprint": "10f1f7eddbf8a418fd10dfe3ac9ec308af3e8578e102e42e64c2b3ecfffb77fa"
+      },
+      {
+        "function": "core::num::impl&%0::checked_sub",
+        "fingerprint": "960a10aba140314a86e38f1d3242c648f02ec1908118076c97c30a341c8cf260"
+      },
+      {
+        "function": "core::num::impl&%0::checked_sub_unsigned",
+        "fingerprint": "2d95f77e39dc15ff09646db405009dffdac74281d2f8055104899b40c2b25270"
+      },
+      {
+        "function": "core::num::impl&%0::saturating_add",
+        "fingerprint": "904a68c8d55e9b7d327c0537a24e434454473d8a8355701759d619db02d050b0"
+      },
+      {
+        "function": "core::num::impl&%0::saturating_mul",
+        "fingerprint": "ad829d77677058656f45a69b96aa54473e9cb6ce885fc49e5984879d811e2314"
+      },
+      {
+        "function": "core::num::impl&%0::saturating_sub",
+        "fingerprint": "e4208a87d6267e359a9db2dd56a8fe7b05eac72fe46e5fd22d87987da330e0b3"
+      },
+      {
+        "function": "core::num::impl&%0::wrapping_add",
+        "fingerprint": "f25b21e741e4c76e0b1156b2a8784d329c6393bfb05ead27d4e0b20b7de8f94c"
+      },
+      {
+        "function": "core::num::impl&%0::wrapping_mul",
+        "fingerprint": "4e1dbe649cd0ae6ef014bb126c54cc6427565c6fecd71d0880915adda3f52ac4"
+      },
+      {
+        "function": "core::num::impl&%0::wrapping_sub",
+        "fingerprint": "b704dfd3cd9887b58b60d55bfcb1cfef319cec09b3d41cd21ee1fd3526989933"
+      },
+      {
+        "function": "core::num::impl&%1::checked_add",
+        "fingerprint": "1d2e6a9b468b7aa645fc8e9b43dd9efadc7a7848fff550c4cf021272c987ed19"
+      },
+      {
+        "function": "core::num::impl&%1::checked_add_unsigned",
+        "fingerprint": "05557c39346c3b1e400dc07626e60342db96d8fd99b278778613623001a4a15d"
+      },
+      {
+        "function": "core::num::impl&%1::checked_div",
+        "fingerprint": "08676c919b4fd551bee277bb0891b37b1efd965b645fee7b2dc09d7b34d68a6c"
+      },
+      {
+        "function": "core::num::impl&%1::checked_div_euclid",
+        "fingerprint": "731b74e81a26a116b7488fb9b38600fe0a538f83dd86b31a43b375e2e0dda8e3"
+      },
+      {
+        "function": "core::num::impl&%1::checked_mul",
+        "fingerprint": "1b6a7ed76a7d0fee89c25b86365603db53b3baf7d500a1501c70ef26c5f9389b"
+      },
+      {
+        "function": "core::num::impl&%1::checked_neg",
+        "fingerprint": "ef761f65715e910e1d14d7b7fa6fe740ed08f80043f786c068d1776d05c26d99"
+      },
+      {
+        "function": "core::num::impl&%1::checked_rem",
+        "fingerprint": "ece501489527bb89e9412bcb9c66cc2a99dd2460bbaba32e11a6921edbcbdf98"
+      },
+      {
+        "function": "core::num::impl&%1::checked_rem_euclid",
+        "fingerprint": "e05d2d9144a5ce51eb8bd88a85f917b1a3571a7b97d5c108ea57f7a9d12e65f1"
+      },
+      {
+        "function": "core::num::impl&%1::checked_sub",
+        "fingerprint": "293ec4c53659d422647720e7b936bbc2349070f08f9fcea1683537ab95dd92d1"
+      },
+      {
+        "function": "core::num::impl&%1::checked_sub_unsigned",
+        "fingerprint": "f157818fc529e937218f71ca56f25cf5fc894cdbcb42f841285ac12e2a6e8db7"
+      },
+      {
+        "function": "core::num::impl&%1::saturating_add",
+        "fingerprint": "6dc110422850a26cbb542cbdacebb2973cea2256cd0ae565f42a2c1279d9237f"
+      },
+      {
+        "function": "core::num::impl&%1::saturating_mul",
+        "fingerprint": "93329cf54da56c9ca36413b694fa9acf9819dabcc1fa98d8f1ef27d75adea2c1"
+      },
+      {
+        "function": "core::num::impl&%1::saturating_sub",
+        "fingerprint": "f19d4d12a6d3d4c8aa6d0d84c6a3bdcde9f44d149336efdebb75ebe0999c2693"
+      },
+      {
+        "function": "core::num::impl&%1::wrapping_add",
+        "fingerprint": "da5885af8aa87466925ee298ee8a0859f534ca75fd352245e1308c0b56c64db4"
+      },
+      {
+        "function": "core::num::impl&%1::wrapping_mul",
+        "fingerprint": "8a67c80e9457d2846e2daee635fb8bec0b69acf1e8a6b9e3d78e3845718a20bf"
+      },
+      {
+        "function": "core::num::impl&%1::wrapping_sub",
+        "fingerprint": "6b04bbc460442b098de400cd940c54ee27be735324a591094bce0e8e768effa9"
+      },
+      {
+        "function": "core::num::impl&%10::checked_add",
+        "fingerprint": "5941073da96361c4cbd0632d1d817e942606e0688eba308c5751c609f4773751"
+      },
+      {
+        "function": "core::num::impl&%10::checked_add_signed",
+        "fingerprint": "63e9e57f6bc2a82f6d3a00dbc381c37e89705bfbaa14d10a4f7e85c0a77e3e5d"
+      },
+      {
+        "function": "core::num::impl&%10::checked_div",
+        "fingerprint": "0876d28406921b0cabcf1b6573d0cb558103246811f5bcf57173f2da445b4070"
+      },
+      {
+        "function": "core::num::impl&%10::checked_div_euclid",
+        "fingerprint": "60a51b3ce4b95c71ab49ee46e2ae405206d3fe942e4740c6e70787ab06056384"
+      },
+      {
+        "function": "core::num::impl&%10::checked_mul",
+        "fingerprint": "e0a811d097a475118b0daf342e14b657f52ddfe7d61c49f5fd4abcb71b6498e0"
+      },
+      {
+        "function": "core::num::impl&%10::checked_neg",
+        "fingerprint": "8261f9f40fd2da5e0e887d5df26c1d8ab923e56f975bd105f65d75fd74dbfe64"
+      },
+      {
+        "function": "core::num::impl&%10::checked_rem",
+        "fingerprint": "cf1a6f3fa4af0284c89310538453578ff20974ef888db7161256f5e20a295357"
+      },
+      {
+        "function": "core::num::impl&%10::checked_rem_euclid",
+        "fingerprint": "1e2f60dba53b0d26ccbccc9336a7b8f2f258cefa16bf01941c74eca669561cfe"
+      },
+      {
+        "function": "core::num::impl&%10::checked_sub",
+        "fingerprint": "702988fbbb6d99be9c60955275a006c6a8a8c02c4b39692c916ca472cff8a683"
+      },
+      {
+        "function": "core::num::impl&%10::checked_sub_signed",
+        "fingerprint": "27472193d6f06dfe9cea27bbfa0247b6c1de887bd6aca46d3ac9b0025d03b133"
+      },
+      {
+        "function": "core::num::impl&%10::saturating_add",
+        "fingerprint": "3cf1ee613ef5cbca0a4b5353f3b5397a609d73e7caa88c9942a869165b3c548e"
+      },
+      {
+        "function": "core::num::impl&%10::saturating_mul",
+        "fingerprint": "ed8ece2e4a66cd7368b258d5095f281a16144719a78b346d3c75ef414a4478be"
+      },
+      {
+        "function": "core::num::impl&%10::saturating_sub",
+        "fingerprint": "4375fe221ebf60ad5140183095dfde2057c124591f08b831dd3b73c18be07779"
+      },
+      {
+        "function": "core::num::impl&%10::wrapping_add",
+        "fingerprint": "df73aa4f833d0d1a435b545ba7edb7624d9dcf9953ed7838cd8e63b7da9cd974"
+      },
+      {
+        "function": "core::num::impl&%10::wrapping_mul",
+        "fingerprint": "c4140a11aa321e0aa02d0a55b1afbc805ea9ee475af0d37b2cf3e06d9268a799"
+      },
+      {
+        "function": "core::num::impl&%10::wrapping_sub",
+        "fingerprint": "664388f993ec46c5a801ec660deb08a5066e241bb8ec73d20997b33028aac5fa"
+      },
+      {
+        "function": "core::num::impl&%11::checked_add",
+        "fingerprint": "f519b49875265d081a2bbfabde1f7d48bd601517db1ab2d278bf6540b6bf3334"
+      },
+      {
+        "function": "core::num::impl&%11::checked_add_signed",
+        "fingerprint": "7bfa7004f8eb7fd5feb37a6a0dfc28619b7245ebac5aa4b5b99c69d95fa10142"
+      },
+      {
+        "function": "core::num::impl&%11::checked_div",
+        "fingerprint": "af9fbef80ac50159c32595736a34faa2fb695f481131a402b161b8ba2566e6f1"
+      },
+      {
+        "function": "core::num::impl&%11::checked_div_euclid",
+        "fingerprint": "09deefcb99443d6a23cec364623e78021a5138152eb41b3e09ee69dfc487058d"
+      },
+      {
+        "function": "core::num::impl&%11::checked_mul",
+        "fingerprint": "74bfbbb139841f2ddc4330306ffd595bd399bc9f349f270354d7ef7aaf8d4003"
+      },
+      {
+        "function": "core::num::impl&%11::checked_neg",
+        "fingerprint": "f659fb48dfd03fbb49bc7b47123993a23e26ec8863b432a7072c47c33f8052ab"
+      },
+      {
+        "function": "core::num::impl&%11::checked_rem",
+        "fingerprint": "7e7200fb53ec3c1aa839de5ff6d28cf1be45bd4b45394dd90ff59a5342637e6c"
+      },
+      {
+        "function": "core::num::impl&%11::checked_rem_euclid",
+        "fingerprint": "0417ad0c5e3a1dac504fb91ffe19fb81096cf1d650050cff1d3c01e4e7feeccc"
+      },
+      {
+        "function": "core::num::impl&%11::checked_sub",
+        "fingerprint": "c536a754a45c96e952ffe4c7a89c90ea22fb8b4b969a50bc4896a16e0f489dce"
+      },
+      {
+        "function": "core::num::impl&%11::checked_sub_signed",
+        "fingerprint": "a1924c8b09298b222c188a96d91e71e0447f3e3bd7936c3b17012464b3c4a8ec"
+      },
+      {
+        "function": "core::num::impl&%11::saturating_add",
+        "fingerprint": "9ddc8db044f85644b903190898135e098d6f9a6c2f4fbfd752dc9e131f50ff99"
+      },
+      {
+        "function": "core::num::impl&%11::saturating_mul",
+        "fingerprint": "8f11895f94bf17bb2f47ffeb4d3ad0aef911011770242f88fd591ab9f1f3cbd4"
+      },
+      {
+        "function": "core::num::impl&%11::saturating_sub",
+        "fingerprint": "82602d83ceedd4a4676034e5e4159975dedce12a66f35626c03997fd5559a863"
+      },
+      {
+        "function": "core::num::impl&%11::wrapping_add",
+        "fingerprint": "83ef4909d5c0a4c9dcb26614f9dfcbd852fea84dab2022e6977ea06e5c2c8afa"
+      },
+      {
+        "function": "core::num::impl&%11::wrapping_mul",
+        "fingerprint": "44382cc590c5338c36600f372e8f6981e3c8a5216b0a76786f26e1dc1d9dd258"
+      },
+      {
+        "function": "core::num::impl&%11::wrapping_sub",
+        "fingerprint": "d88344d33559cb4d51d6fd56dbd9c3abf93e2236ae5f473109f215278f7f5ec0"
+      },
+      {
+        "function": "core::num::impl&%2::checked_add",
+        "fingerprint": "eee4eb205428b7b06eb5a2d24dd1ea399fc562731e25ddc6403dea3522038535"
+      },
+      {
+        "function": "core::num::impl&%2::checked_add_unsigned",
+        "fingerprint": "e07f424b628764ae6a6ad4217a14a2354dda8bb8e7c8cc73eaa085ece9fd0bf4"
+      },
+      {
+        "function": "core::num::impl&%2::checked_div",
+        "fingerprint": "81416344c75bdbc4dcac337f95112e3d14ed0a41c537611d66adfa90d530e62e"
+      },
+      {
+        "function": "core::num::impl&%2::checked_div_euclid",
+        "fingerprint": "23f45302346ef6395af7ef6c8d9aa4dabd5a4bbc6e9847705fb6a1cf7e58a1d3"
+      },
+      {
+        "function": "core::num::impl&%2::checked_mul",
+        "fingerprint": "5bf8ea1d60a0515e8d04fbda9215906c24d1feac29ca1ff778b7491f31759f1f"
+      },
+      {
+        "function": "core::num::impl&%2::checked_neg",
+        "fingerprint": "59902d5feee65c3ceac6ccd8d40c122f76421ce7c3324f12cab8dd99eec95b6e"
+      },
+      {
+        "function": "core::num::impl&%2::checked_rem",
+        "fingerprint": "09359e2836b7c9e806aa942cb1febcc4ddf488408d9f0de6f7d2954bb7ed4175"
+      },
+      {
+        "function": "core::num::impl&%2::checked_rem_euclid",
+        "fingerprint": "2e8cbf6ad24b9cd0afcaad57743c7c43d6defa72b5ca2ccfd9421cb1c8ae08e0"
+      },
+      {
+        "function": "core::num::impl&%2::checked_sub",
+        "fingerprint": "2ffa39c0237de65c4acc67f346e3ffdfab266a2ba0b02dcbfce7e1569eef5c1c"
+      },
+      {
+        "function": "core::num::impl&%2::checked_sub_unsigned",
+        "fingerprint": "addbf76ad211503446d5cc838ec8064e2d9411de5253d2a2d7ecef2a63c8d9a6"
+      },
+      {
+        "function": "core::num::impl&%2::saturating_add",
+        "fingerprint": "5b5e2c54147b00aad8099eafeb5a8c46c1298c2a659373cf5bbecb049eb0f33f"
+      },
+      {
+        "function": "core::num::impl&%2::saturating_mul",
+        "fingerprint": "e9fb5f3058d2f2e8380a1d136c69babe8adc373f53e65e732329504a7565bf70"
+      },
+      {
+        "function": "core::num::impl&%2::saturating_sub",
+        "fingerprint": "03960f524c52c9fd64074cdc3da9bb7571f38c169940505f8f925282ba583279"
+      },
+      {
+        "function": "core::num::impl&%2::wrapping_add",
+        "fingerprint": "bf61832c1f091f81f6dceec95f9bfc6ba5430142eb779c26adb5c25eee7be74b"
+      },
+      {
+        "function": "core::num::impl&%2::wrapping_mul",
+        "fingerprint": "c57ad47e98bf2398db954a166fa1c0fc7e9fd971adb46fe38a3bd65a28ea22ff"
+      },
+      {
+        "function": "core::num::impl&%2::wrapping_sub",
+        "fingerprint": "7f80ab763da5857a7d19a653ad4eb1935e98f390bb50a886820e5b92ee67e5e5"
+      },
+      {
+        "function": "core::num::impl&%3::checked_add",
+        "fingerprint": "108d5b3d0d5e2e4a39136d33274ea787d360b84cac719364120ba58f94fa4667"
+      },
+      {
+        "function": "core::num::impl&%3::checked_add_unsigned",
+        "fingerprint": "e6a7fdd1bdf922789a84bfcd678203a4a4be1c7d775c0b3b69f3307355691539"
+      },
+      {
+        "function": "core::num::impl&%3::checked_div",
+        "fingerprint": "a529ba70f2e780e3eb8ea9c0cfc7312136199ffae7c889d5d60aff930ccb0d35"
+      },
+      {
+        "function": "core::num::impl&%3::checked_div_euclid",
+        "fingerprint": "a09b3b2ee21cc0a3c585d57698c3fe654d8b2b18f5708ac1d1d43e8c12ab7670"
+      },
+      {
+        "function": "core::num::impl&%3::checked_mul",
+        "fingerprint": "997f40167aa1352503ce10b9958c402d1590c094a21fd0a40c2e100182dd6783"
+      },
+      {
+        "function": "core::num::impl&%3::checked_neg",
+        "fingerprint": "0d576b861376dc7f8b004d37f725ab76ef726c8f6ebdc627a25032c50de9a578"
+      },
+      {
+        "function": "core::num::impl&%3::checked_rem",
+        "fingerprint": "168b8e58a393fc18e949e7e85c14375aa767b97a33c1600c6b8e05ff320d0d72"
+      },
+      {
+        "function": "core::num::impl&%3::checked_rem_euclid",
+        "fingerprint": "aaf89a3aa838a02a69680d08147c65421887c61eee0362a7abd517145f75e07b"
+      },
+      {
+        "function": "core::num::impl&%3::checked_sub",
+        "fingerprint": "5fbaea8b399922b2d5ea6b281a6479ff002cadca254250e82a21585d22dc678c"
+      },
+      {
+        "function": "core::num::impl&%3::checked_sub_unsigned",
+        "fingerprint": "aafd235c5d337f276518d804a5cf53eef6527ea679c2ed4fabb9b0a65a23c3b7"
+      },
+      {
+        "function": "core::num::impl&%3::saturating_add",
+        "fingerprint": "df48abaa589f6d90c6fecd8f1d395a76a0ddf60c2d3696f6e5ca421fe4f198e4"
+      },
+      {
+        "function": "core::num::impl&%3::saturating_mul",
+        "fingerprint": "db020324ebb2ed0dd536743696e6cc30deb8935eaa1fa36a6d16b7b4dad41e68"
+      },
+      {
+        "function": "core::num::impl&%3::saturating_sub",
+        "fingerprint": "5e61fd200019e19a5b5aecbd2d7db52328f6399025351df5265d095b21129221"
+      },
+      {
+        "function": "core::num::impl&%3::wrapping_add",
+        "fingerprint": "6512b9fe2728109975653d5fe84e4ad89020658750017cdf5e011b5dfa281565"
+      },
+      {
+        "function": "core::num::impl&%3::wrapping_mul",
+        "fingerprint": "26a90952beeef15634c97494d1ddae2af4af4b701b4381bf9fa738c41895dd50"
+      },
+      {
+        "function": "core::num::impl&%3::wrapping_sub",
+        "fingerprint": "d0cd100bb95623bde8bd714130a6afbcf97b901e51c4c726a68e1fed5158ebce"
+      },
+      {
+        "function": "core::num::impl&%4::checked_add",
+        "fingerprint": "f50367f3541f229e4f9fa2a08379182e51d830d8f60261ff638016c8b91238de"
+      },
+      {
+        "function": "core::num::impl&%4::checked_add_unsigned",
+        "fingerprint": "47806c2bceacb672a38ce7269c56102f734bfd8cf2d536b6e54d5cb0cd35c1f1"
+      },
+      {
+        "function": "core::num::impl&%4::checked_div",
+        "fingerprint": "73524bc0ccf977cd9ef5e07118d98cf03d616c06b671e3490519a844f340baaa"
+      },
+      {
+        "function": "core::num::impl&%4::checked_div_euclid",
+        "fingerprint": "c31147779593a8365ddfbcde955d9855e599efcfbe1181ff31062a0f74ba832e"
+      },
+      {
+        "function": "core::num::impl&%4::checked_mul",
+        "fingerprint": "c901a92630d1d811d727fd4b1cb5429c5f3b43a2fab22f4b8b2829fe77479e11"
+      },
+      {
+        "function": "core::num::impl&%4::checked_neg",
+        "fingerprint": "04ea1f446cc0ebeb57d27b496ca066b83d7c6d65497f4a900b2792afa768387e"
+      },
+      {
+        "function": "core::num::impl&%4::checked_rem",
+        "fingerprint": "c94f6692b22ec6249ee58988d1bb7cad008b08dc5a634aca6f021cd28641e498"
+      },
+      {
+        "function": "core::num::impl&%4::checked_rem_euclid",
+        "fingerprint": "ae34744ce30d3efeaa893b11dac95500ba089ca770d85e8e910c2cdb195725a6"
+      },
+      {
+        "function": "core::num::impl&%4::checked_sub",
+        "fingerprint": "8242c2a75227eb430a789562b6c42d3362e9c18586ae01e0b81f67c0f986548c"
+      },
+      {
+        "function": "core::num::impl&%4::checked_sub_unsigned",
+        "fingerprint": "9c1c733bed9e5a1cd5c84b338dc4e8bd515ff3b6c82075be41b986fb7591906b"
+      },
+      {
+        "function": "core::num::impl&%4::saturating_add",
+        "fingerprint": "c03d33921b0659e39382233dde6f83424d35434e18e810b7aaf0f1166124a0e1"
+      },
+      {
+        "function": "core::num::impl&%4::saturating_mul",
+        "fingerprint": "7cb889e301f51a6e11a79b0b215a25707d5ba3e64ba6c43423b5cd82aefcd641"
+      },
+      {
+        "function": "core::num::impl&%4::saturating_sub",
+        "fingerprint": "439a8bad2af859f101a1da59bbf6118fdf04adfcc058b4ed28a29028d436549a"
+      },
+      {
+        "function": "core::num::impl&%4::wrapping_add",
+        "fingerprint": "f9d2aebb4f75845bf15c693708e163329e1c602c1441898abb3478300e07c3d8"
+      },
+      {
+        "function": "core::num::impl&%4::wrapping_mul",
+        "fingerprint": "5c4d45648dfe6a6aedf403f293aa38c7745c9ce65570dd5a226b6c20bd2da600"
+      },
+      {
+        "function": "core::num::impl&%4::wrapping_sub",
+        "fingerprint": "649f244d3c77295c860efe7c2307a91da3b73fbe87d4d67b4f3cf5a34de5d637"
+      },
+      {
+        "function": "core::num::impl&%5::checked_add",
+        "fingerprint": "cf99b0ca829752e598d94e07125925bb28522d34fc38df2bf88eb26e185bd9b1"
+      },
+      {
+        "function": "core::num::impl&%5::checked_add_unsigned",
+        "fingerprint": "f1a45886f36a309a70e1cb41a98bb7cd808e6a6415599a92b0fd1349fb5758e4"
+      },
+      {
+        "function": "core::num::impl&%5::checked_div",
+        "fingerprint": "914163cd9d9dc81637ebd5c22f2611da36a956ef1e42b08aad4ad795dea44d45"
+      },
+      {
+        "function": "core::num::impl&%5::checked_div_euclid",
+        "fingerprint": "8ae4e038faff599ee28b5b98814acc1afb54348022205534b9f2b73971690283"
+      },
+      {
+        "function": "core::num::impl&%5::checked_mul",
+        "fingerprint": "597bed7bf83f39215d02104daf08f5ac1467612fe84831a13fa45e44ecfa9e8e"
+      },
+      {
+        "function": "core::num::impl&%5::checked_neg",
+        "fingerprint": "f383f9337399b1b077ef58e6961866ca49b58e9781f454b27730de9b66383b27"
+      },
+      {
+        "function": "core::num::impl&%5::checked_rem",
+        "fingerprint": "b444a99b7f42ac305530a143506fd5e318ce6796bfdecb113ef23be500891a7c"
+      },
+      {
+        "function": "core::num::impl&%5::checked_rem_euclid",
+        "fingerprint": "92bb89e2a4605cbe8b79533be3def00f1129a61a904545d9cc7588ffca062661"
+      },
+      {
+        "function": "core::num::impl&%5::checked_sub",
+        "fingerprint": "a2247e4d44260d8de916eda66957c55d9d97a404e97c9a3c6d4f10261cb89c41"
+      },
+      {
+        "function": "core::num::impl&%5::checked_sub_unsigned",
+        "fingerprint": "5206eb89529cf204ecbed5619304e3d1db1698aa231a9b8a0ec2aba55d07bc38"
+      },
+      {
+        "function": "core::num::impl&%5::saturating_add",
+        "fingerprint": "b5f8adbcf91c2f0c36e562f02116801f5df26b7c6bbff5eaafa02a5acfd09f5f"
+      },
+      {
+        "function": "core::num::impl&%5::saturating_mul",
+        "fingerprint": "a48b5bee7b875f073641405563f0258bc0720c533c7c0490d3df2963cbfd2024"
+      },
+      {
+        "function": "core::num::impl&%5::saturating_sub",
+        "fingerprint": "e31af044be866798707ea21073a954ee7237f4061cadf43e2a2172012f95e18b"
+      },
+      {
+        "function": "core::num::impl&%5::wrapping_add",
+        "fingerprint": "1f917c7884e6bc4fa8830871946168af3257f9368b4cba3c01d4e7bc94cf2a93"
+      },
+      {
+        "function": "core::num::impl&%5::wrapping_mul",
+        "fingerprint": "c8b22227b0b1c0ef388b03ba2587e0e32b053dc957b423b55cc0bb2eaecab224"
+      },
+      {
+        "function": "core::num::impl&%5::wrapping_sub",
+        "fingerprint": "cc1acd2311d6398018464fdb54c63b4925b94d446bb5ba0d640fad4e1e0058be"
+      },
+      {
+        "function": "core::num::impl&%6::checked_add",
+        "fingerprint": "60c2e3c9363d254fb6ee4acc1f03c1f13aeda9476e9a47410e1ec852e5eaf6c2"
+      },
+      {
+        "function": "core::num::impl&%6::checked_add_signed",
+        "fingerprint": "174493b2bd9c140fd08cd7caccc2c82c9d783cc21a2bfbdce22ea3506df5934a"
+      },
+      {
+        "function": "core::num::impl&%6::checked_div",
+        "fingerprint": "ed14b128edd9fea1a8248d6292ba14753f397999f93a5a2816799ed40b5d1954"
+      },
+      {
+        "function": "core::num::impl&%6::checked_div_euclid",
+        "fingerprint": "f678c21a1a2d4310666396023063c65e74301af04c659a1dd1a9f3eb15478e26"
+      },
+      {
+        "function": "core::num::impl&%6::checked_mul",
+        "fingerprint": "e6586b11d0a8caac7f7aab439c8f9416d8535764a8b27f75e50f6003854254a1"
+      },
+      {
+        "function": "core::num::impl&%6::checked_neg",
+        "fingerprint": "b2d5b2f2481dd41fbab31df3ab06971daefaf9766aedbb6a9e1e4e742247bdbe"
+      },
+      {
+        "function": "core::num::impl&%6::checked_rem",
+        "fingerprint": "9c8db359e613a0635cad3d0ae7680eaffc9ed3f73a2ed21f7d0c827ebef0b0f8"
+      },
+      {
+        "function": "core::num::impl&%6::checked_rem_euclid",
+        "fingerprint": "bd1a4ae95a4aaa5d328a21424075d0482115c52e293433e4034e15abb3d8aee7"
+      },
+      {
+        "function": "core::num::impl&%6::checked_sub",
+        "fingerprint": "7530ad410fde8f39342ac81f8c3448f56245e8289fbd28125dc3f0976f1b449a"
+      },
+      {
+        "function": "core::num::impl&%6::checked_sub_signed",
+        "fingerprint": "b9e866ae41b715555240eb40078c78d1ef72e14ae48a1d5a039bf275331bb11d"
+      },
+      {
+        "function": "core::num::impl&%6::saturating_add",
+        "fingerprint": "ba0ba29f880a569ade24709f79621d5071b385d8f90e03d241c1fa11aa9b7e6d"
+      },
+      {
+        "function": "core::num::impl&%6::saturating_mul",
+        "fingerprint": "e0364e7935fa30d8470585ef0f6bf0ca32b591762ccf2992ede27d340961aa6b"
+      },
+      {
+        "function": "core::num::impl&%6::saturating_sub",
+        "fingerprint": "4b95902c2630e48f85b8cc45840255c93a0f70e3004cc0a2ff79d77672cf847d"
+      },
+      {
+        "function": "core::num::impl&%6::wrapping_add",
+        "fingerprint": "7277a7d3fad87d837d98e87501f21efe934eac0ad374f4216bcb5a8c301218d2"
+      },
+      {
+        "function": "core::num::impl&%6::wrapping_mul",
+        "fingerprint": "f27be6505d51d443fb89fa04dcfd9f9873103872a82311b6b68375263cc11d96"
+      },
+      {
+        "function": "core::num::impl&%6::wrapping_sub",
+        "fingerprint": "a09574c6b3d80f9279fe4314cebd2e35416ed6cf579b5349d5c8fc0abef47b22"
+      },
+      {
+        "function": "core::num::impl&%7::checked_add",
+        "fingerprint": "a92f159aad2e7f7d9640ebd9b3da26792a063fb9f1a7e2f5d67799655b8f24cf"
+      },
+      {
+        "function": "core::num::impl&%7::checked_add_signed",
+        "fingerprint": "fd3290608ac0fe4737ec70e9113b960278d50c057d72624599d8c8f4f38ebe8a"
+      },
+      {
+        "function": "core::num::impl&%7::checked_div",
+        "fingerprint": "b8d7525e59516e9fed46eb474c5b1e4f38c47f6742b8aadde128f90195d89a74"
+      },
+      {
+        "function": "core::num::impl&%7::checked_div_euclid",
+        "fingerprint": "ceb0df1b8b11b38d581081115605ee2c4c1235354e6c24d15826a22270dd17d0"
+      },
+      {
+        "function": "core::num::impl&%7::checked_mul",
+        "fingerprint": "9b508865824e4d4eff094e10e3e83e8cd66a78e55b865f893bed63f52e33d6a3"
+      },
+      {
+        "function": "core::num::impl&%7::checked_neg",
+        "fingerprint": "a3bbccf830febc76447e484703c6527f2b42fafd8b13118b4a02a177d152c9df"
+      },
+      {
+        "function": "core::num::impl&%7::checked_rem",
+        "fingerprint": "3cdf37549b630c20282b2e9667b0796eeeda729f49bde953de65a2ff0b5884d5"
+      },
+      {
+        "function": "core::num::impl&%7::checked_rem_euclid",
+        "fingerprint": "9753fa1a4959bda91c996555e9d9ce326d258515503b8d4c7817a91ec5f33b08"
+      },
+      {
+        "function": "core::num::impl&%7::checked_sub",
+        "fingerprint": "0ccc42244838c7d1e8ca46ff0a18b81cb24b8640b609c034c6bb7a8abd16b025"
+      },
+      {
+        "function": "core::num::impl&%7::checked_sub_signed",
+        "fingerprint": "b2a9490ac470e7be15f68f544675ac5f76fce58a35006e83a54ce23eed8abaae"
+      },
+      {
+        "function": "core::num::impl&%7::saturating_add",
+        "fingerprint": "cbb585066c8703ce9741f10f601dec56d075ef044bd955bed83f7e6844c16eb6"
+      },
+      {
+        "function": "core::num::impl&%7::saturating_mul",
+        "fingerprint": "41f99ed997f98a395e6bae12517f9be0dc2c17f2a89bb95c0e4ff1e8acc47538"
+      },
+      {
+        "function": "core::num::impl&%7::saturating_sub",
+        "fingerprint": "55e40942dbd0f4ba5623a4f85771da83db66db9d7934ee0d0ca1c2b4b5080b17"
+      },
+      {
+        "function": "core::num::impl&%7::wrapping_add",
+        "fingerprint": "86db01062f573ef186d6f93375e7d3bd1b52809969285d3648a537b55d2fc8ee"
+      },
+      {
+        "function": "core::num::impl&%7::wrapping_mul",
+        "fingerprint": "633d05e2995bde033c8225867aafb478ab10c74093da7ad25910942e624489ba"
+      },
+      {
+        "function": "core::num::impl&%7::wrapping_sub",
+        "fingerprint": "a6b1635300524ffd40a24d48ee3b94354221ec8868162b216884de01f272bd1b"
+      },
+      {
+        "function": "core::num::impl&%8::checked_add",
+        "fingerprint": "e8e253564387c77d263a4d16dbd7df1b4acd7ce0f1326cb5771c6e0be9186957"
+      },
+      {
+        "function": "core::num::impl&%8::checked_add_signed",
+        "fingerprint": "00f474c93f3e3d0998a8b656387532bc483e3693c66d8d4804b28956f08ed3f1"
+      },
+      {
+        "function": "core::num::impl&%8::checked_div",
+        "fingerprint": "e0e2d946b5b67c5d5f0aaf37da33f6e2e8e20e43d0ff6c0a87d6a25937d0e4b7"
+      },
+      {
+        "function": "core::num::impl&%8::checked_div_euclid",
+        "fingerprint": "3bb8ce15a6147b13b84d08edc462afff324e333a68be40d6d0813ca302d11a62"
+      },
+      {
+        "function": "core::num::impl&%8::checked_mul",
+        "fingerprint": "016343b1ab378719163c5ed39382d098318608b572299bbf0ba6d8b67226fa1f"
+      },
+      {
+        "function": "core::num::impl&%8::checked_neg",
+        "fingerprint": "b4919aeb0fc153676dc36c3734a855093d42ed5a49225f773a11bcac4d2b0fc8"
+      },
+      {
+        "function": "core::num::impl&%8::checked_rem",
+        "fingerprint": "135f3111ba65205e3fefa355feccf961a3805ecf1ce7bf90034e9eda872c9157"
+      },
+      {
+        "function": "core::num::impl&%8::checked_rem_euclid",
+        "fingerprint": "e9e55a9f9d4db3ccd58625142c863f7a4a14ddb5660225ec606729b197352706"
+      },
+      {
+        "function": "core::num::impl&%8::checked_sub",
+        "fingerprint": "078ac9ddef16d6a4a27f4112fd2674c5cc3ceb64e4ff323be05aff717b99d90d"
+      },
+      {
+        "function": "core::num::impl&%8::checked_sub_signed",
+        "fingerprint": "ef90d0ce1d9aced2b80404cc5834ff73403c85c92e52830816673702a6920afe"
+      },
+      {
+        "function": "core::num::impl&%8::saturating_add",
+        "fingerprint": "4d36bab2176e5b6df8a5e9f7ebab4fba7a45fa95442a444c038fda87851865cc"
+      },
+      {
+        "function": "core::num::impl&%8::saturating_mul",
+        "fingerprint": "9b528b3a2ffe0261255e004b7e81b2f52d82018cfc25ae8e414483fe69457d6c"
+      },
+      {
+        "function": "core::num::impl&%8::saturating_sub",
+        "fingerprint": "f6f14e739cfb479ce17aad1f5b22f57625cd2f6dd976bb579e796b49af4c34fe"
+      },
+      {
+        "function": "core::num::impl&%8::wrapping_add",
+        "fingerprint": "1dbd93cebbf5d01726bdf27d3aec7f178cd3b5f18d95014272b47f1aea543867"
+      },
+      {
+        "function": "core::num::impl&%8::wrapping_mul",
+        "fingerprint": "12166c4999bfcbec9fb98170e805abf3b09f75deff1e9652fc8fb3489a7bed6f"
+      },
+      {
+        "function": "core::num::impl&%8::wrapping_sub",
+        "fingerprint": "3ab1138dd0781dcf50871401a743febabe2a947bf226267b7af618998196e407"
+      },
+      {
+        "function": "core::num::impl&%9::checked_add",
+        "fingerprint": "5831832b1ea06e86c75de9edd66c7d3226bf90c2f4015739fe2292b18c62489a"
+      },
+      {
+        "function": "core::num::impl&%9::checked_add_signed",
+        "fingerprint": "3be068b8af915662f9f7771851d87fcbbe7135df0068e4cb88e151d00afdc324"
+      },
+      {
+        "function": "core::num::impl&%9::checked_div",
+        "fingerprint": "98ea5a2f3297ef46ae3a7b77c48209cbca9d0bc005fc6ce738c617e2bb4b5919"
+      },
+      {
+        "function": "core::num::impl&%9::checked_div_euclid",
+        "fingerprint": "52be62cc30a651b201b7888f229e3c9c2973012e197d7ff9185b8b5d7f8a53b4"
+      },
+      {
+        "function": "core::num::impl&%9::checked_mul",
+        "fingerprint": "5f8790f8c9e1e55da986860cdace6a240230739bb75f521336c2aa606fd90f20"
+      },
+      {
+        "function": "core::num::impl&%9::checked_neg",
+        "fingerprint": "98a919513dee24c7bbe515c76cf376c2baa64ba5e35d0c8b947b3e619cb9c8a0"
+      },
+      {
+        "function": "core::num::impl&%9::checked_rem",
+        "fingerprint": "b5a78a2abc6e4f497e8e8ef6b7f38b7e9727a82417c78fb426405206b5247306"
+      },
+      {
+        "function": "core::num::impl&%9::checked_rem_euclid",
+        "fingerprint": "19bb52b0f68609fd313e1fb6daf8be5978cf3dd4547b49c1bff330e6fe6cd214"
+      },
+      {
+        "function": "core::num::impl&%9::checked_sub",
+        "fingerprint": "7f9942432c2fb843adb98b90a8cac0bbed3720e29f78e6f7069921aefb32c9ce"
+      },
+      {
+        "function": "core::num::impl&%9::checked_sub_signed",
+        "fingerprint": "ff2f12761bf9c6b9041b565bb9243b06b433f00cd7ec673bc2bc8edc3972490e"
+      },
+      {
+        "function": "core::num::impl&%9::from_le_bytes",
+        "fingerprint": "9a679296c7eb5ed7d00e6d3faf3816b90abd12b4b1490d7e5f6e083fd1511f0a"
+      },
+      {
+        "function": "core::num::impl&%9::saturating_add",
+        "fingerprint": "6d8eb57fada6a5a4c77eabc4d81d56729e89169301f02de855515f88a063c759"
+      },
+      {
+        "function": "core::num::impl&%9::saturating_mul",
+        "fingerprint": "856293025802895b578e68ec0a4897eca0413bba7169999f0f36df1e8fdaa61a"
+      },
+      {
+        "function": "core::num::impl&%9::saturating_sub",
+        "fingerprint": "f0e122e03764444082a688fb68442d1683465f613bde1fb899bbf58dd6704b9e"
+      },
+      {
+        "function": "core::num::impl&%9::to_le_bytes",
+        "fingerprint": "e6bae49796c30c0108c3c5d2bb0b968b0f49126e91649c7b76731073adc26b79"
+      },
+      {
+        "function": "core::num::impl&%9::wrapping_add",
+        "fingerprint": "422bc2df7a38058861b86be7dbb387565edf2496dc9217eb7aadeb108bacedf5"
+      },
+      {
+        "function": "core::num::impl&%9::wrapping_mul",
+        "fingerprint": "7ce3d284782ca612c6bd535ef52b1e6dca08f5c9b42de324793b72b90b78a80f"
+      },
+      {
+        "function": "core::num::impl&%9::wrapping_sub",
+        "fingerprint": "3ad466daae0116603cd1deb9f143d26308b732c39d27b00e75b95e4dc6ed4170"
+      },
+      {
+        "function": "core::ops::arith::Add::add",
+        "fingerprint": "dad7465cf3a7fecc58da7a086ff07ba6591098780d3d16bd400f55be845a07c3"
+      },
+      {
+        "function": "core::ops::arith::AddAssign::add_assign",
+        "fingerprint": "073ef1e02f304d861d6c8d8972ebf3200463d751df00d0c71d0bdaba902ecefe"
+      },
+      {
+        "function": "core::ops::arith::Div::div",
+        "fingerprint": "ff95114a283c1d6d3e90051cae8092b7bb4903c7c5a0af066151bd14ba3baa0a"
+      },
+      {
+        "function": "core::ops::arith::Mul::mul",
+        "fingerprint": "92c95cbc718898af2ae558e366719d581be1939ecc54890202dba509efe14ec2"
+      },
+      {
+        "function": "core::ops::arith::Rem::rem",
+        "fingerprint": "3ebc148d412ee21a0f8b7357eaa728d4258c29c8d743b761532191bb0626ccac"
+      },
+      {
+        "function": "core::ops::arith::Sub::sub",
+        "fingerprint": "929335b051831121abc08bce89856a67f2b664a7d1de3671037234f84acdcdbb"
+      },
+      {
+        "function": "core::option::impl&%0::as_ref",
+        "fingerprint": "cc80a448069b4904f3b4f345b1c31ed1244a94cbc0998ebc07ee6ba819c80cf0"
+      },
+      {
+        "function": "core::option::impl&%0::is_some",
+        "fingerprint": "250c5a82242d7b863c8361398d88e08df5f3e9290bc66190f7d07740bd0d4108"
+      },
+      {
+        "function": "core::option::impl&%0::ok_or",
+        "fingerprint": "93e487a6cdb023c907c451d8cdfd634f61a08d6e3e15931dc614341a8157afe2"
+      },
+      {
+        "function": "core::option::impl&%47::branch",
+        "fingerprint": "440c6ad13e7d1d565453598c8d02b882e92263f942342da6ecb35acbe4051b9c"
+      },
+      {
+        "function": "core::option::impl&%48::from_residual",
+        "fingerprint": "6c57a8c5eeb430219c6c94346d7b2e79965e0777b91df9cc11331ac1271c8f9a"
+      },
+      {
+        "function": "core::panicking::panic",
+        "fingerprint": "d31648098114edc99a8b6561802185f4c7ae8298971fb65e9bff56cce16fa089"
+      },
+      {
+        "function": "core::panicking::panic_fmt",
+        "fingerprint": "5d3c19960f48328ec04d754ca3685b356ec2d49a2c8fbb0fe7f8d9a2605f7a1b"
+      },
+      {
+        "function": "core::result::impl&%0::map_err",
+        "fingerprint": "ba0ce3c5f92683134166e34bfd040e9bc72f9aa2265836eb0e9d46f81f51bb1a"
+      },
+      {
+        "function": "core::result::impl&%0::unwrap",
+        "fingerprint": "d646ef5c93f95d9d6d40fbb2cf9ef0aaa7bf98145e19ef1bdd4268d57ee2b338"
+      },
+      {
+        "function": "core::result::impl&%27::branch",
+        "fingerprint": "06a96bf5c02236e0a51f327cef0830abb490b0a5aa1695ecd2ccd722e1de75f0"
+      },
+      {
+        "function": "core::result::impl&%28::from_residual",
+        "fingerprint": "c5198b818a8e70f1491c4bb7f241327f9842b5c05029d574e60a78fc35ae2c26"
+      },
+      {
+        "function": "core::slice::impl&%0::len",
+        "fingerprint": "be1f954ce70838488134cf3d5fe3af1f08be82ff0a22bde2a57a6015e3ed1adb"
+      },
+      {
+        "function": "core::slice::index::impl&%0::index",
+        "fingerprint": "198d7c12bc9d4a32a657ff2b30827eb01a28da922878305b15c99919b329a9db"
+      },
+      {
+        "function": "alloc::vec::from_elem",
+        "fingerprint": "b00ca81c4bc45f9559fab3e703ec62c3712f75721d748b74f8bb7106fea5e097"
+      },
+      {
+        "function": "alloc::vec::impl&%0::new",
+        "fingerprint": "c8b8f75e6afa0d116add9f5dd9d31ee9d01649ed866228604bb7d13bcf0a0d66"
+      },
+      {
+        "function": "alloc::vec::impl&%0::with_capacity",
+        "fingerprint": "5ac9e665ad7cf7abacef2295207731e58d44ec6f373cb27409905085793e4164"
+      },
+      {
+        "function": "alloc::vec::impl&%1::len",
+        "fingerprint": "90c217e095c54304f34b49cfd9af6c876bf45651e9129e332c3190abe8a743e9"
+      },
+      {
+        "function": "alloc::vec::impl&%13::clone",
+        "fingerprint": "a6e41dc63dc3c195d25d56ed602454315c034be8f926080eb2d71a99cbc17292"
+      },
+      {
+        "function": "alloc::vec::impl&%44::push",
+        "fingerprint": "e2d91a68975c9c85abca1c8230df11dae0dd76d7a00ad1b72f1dc74b8b0ac0dc"
+      },
+      {
+        "function": "vstd::arithmetic::div_mod::rust_div",
+        "fingerprint": "25e1ce0e40aae291301d952d58c1a64a278e41a4d77da8387a3b0f654e36ffcd"
+      },
+      {
+        "function": "vstd::arithmetic::div_mod::rust_rem",
+        "fingerprint": "26bd0ef244805155574eb6bc00a1196d52fd6651cdb99a98a2caed2ca72030ce"
+      },
+      {
+        "function": "vstd::array::array_as_slice",
+        "fingerprint": "c912f1c12c28882af14bf31f99ed9e50ce1f0a216feb2b8005441f0c05407c8f"
+      },
+      {
+        "function": "vstd::array::array_fill_for_copy_types",
+        "fingerprint": "bac3f026e08a661f066db8c7f602d85cc77bb15f105c6815050564f5bf087b23"
+      },
+      {
+        "function": "vstd::array::axiom_array_ext_equal",
+        "fingerprint": "6048d56b4c5e00874409d75948dbb23c2ea3f0198d3505ce9d4d7de8401b9189"
+      },
+      {
+        "function": "vstd::native_option::map_or",
+        "fingerprint": "5e46dd56267b6589782e4506ef882d029309f312789787f1675cfd06ef84653f"
+      },
+      {
+        "function": "vstd::native_option::then_some",
+        "fingerprint": "f9671d87047390ef93e4b1e0ed030dbb30df810990186edbecb6b20782c03299"
+      },
+      {
+        "function": "vstd::pervasive::cloned",
+        "fingerprint": "50b61e090ade27b82db457501ea93ba9149a4f14f2202efe264445e0577dcb39"
+      },
+      {
+        "function": "vstd::seq::Seq::empty",
+        "fingerprint": "e5fa45a0c5afbc16b520fea5fcc7a6605a90fb526036f68642e9540cb268370e"
+      },
+      {
+        "function": "vstd::seq::Seq::index",
+        "fingerprint": "df4ed3e5f169fc6b2370994ab59ae09dc1440759b1f5a7bf7633510d469a4d3e"
+      },
+      {
+        "function": "vstd::seq::Seq::len",
+        "fingerprint": "58410f0930b02fe23acf35839dbd2ab9294096439d3d0ad84423cf929b8503d3"
+      },
+      {
+        "function": "vstd::seq::Seq::new",
+        "fingerprint": "886c87f2fda32c428523a36a3a4361720932dbf92e71d4ab855b2d3b3c5276d4"
+      },
+      {
+        "function": "vstd::seq::Seq::push",
+        "fingerprint": "76f8ba9ababd1c0c2a8c7102ad64bc05167e7cc47af34251d55219e026fb8d2d"
+      },
+      {
+        "function": "vstd::seq::Seq::update",
+        "fingerprint": "6059d47278a47642e9703c69585f83a5a5bfd57e572149f3f7aceb9fc13d2fce"
+      },
+      {
+        "function": "vstd::seq::impl&%2::take",
+        "fingerprint": "f5d85c709b9ce059bb2a3fd086d52e59ce8d921ac1ad0b0e1024db3a541b0825"
+      },
+      {
+        "function": "vstd::seq_lib::impl&%0::filter",
+        "fingerprint": "4fe27293dea8bd9b134f15b13e7a98bec084405b02976093731a980f23e563a7"
+      },
+      {
+        "function": "vstd::seq_lib::impl&%0::fold_left",
+        "fingerprint": "6699b46dd962822c8db03dc2b78f0d201a14f91d4317bf8739a1ae4b43a05d03"
+      },
+      {
+        "function": "vstd::seq_update::scatter",
+        "fingerprint": "898cd7d3f7687bd1342f74cdd02ae1d87f948caf831e4e412dbcfd65b2a5f230"
+      },
+      {
+        "function": "vstd::slice::spec_slice_index",
+        "fingerprint": "3ef4e809b04c879f7f1c993dcc0de95b9f324f99e84232cb885f687ad8775b7f"
+      },
+      {
+        "function": "vstd::slice::spec_slice_len",
+        "fingerprint": "a26a0ec104dccb905688558ae68e7b4fc1f732337eb03df775424363e0d28452"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_1",
+        "fingerprint": "44b8602b904409e21db354567442494dc25a5ca11372cd6fc43bfed8ce91e5c4"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_2",
+        "fingerprint": "3d764fdb3532b3a54e9eba9a59714d8c9abf65da095dc0c07d82691256b0cd65"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_3",
+        "fingerprint": "aa0d92fb254add21c450961e8b30ee6f72e5af92439e78afe45f450aeee83892"
+      },
+      {
+        "function": "vstd::std_specs::clone::tuple_clone_4",
+        "fingerprint": "f09c55d3b995c2ebeb62ccd48ac98a961b95efd57b185159b70b647455d36d3a"
+      },
+      {
+        "function": "vstd::std_specs::iter::impl&%11::index",
+        "fingerprint": "478dff564d05928b1340ed47e3b5bd78c1f7a4a36c990544bf2d05dafef29228"
+      },
+      {
+        "function": "vstd::std_specs::iter::impl&%11::seq",
+        "fingerprint": "b36485fad4adeb4f08cc318705419c8c3c50bd222afafad06fae41fdd96feb85"
+      },
+      {
+        "function": "vstd::std_specs::vec::axiom_spec_len",
+        "fingerprint": "3d9dd9ade57060579188578579dcda900b2a5ab0cecffda36a3bffa8679f1618"
+      },
+      {
+        "function": "vstd::std_specs::vec::spec_vec_len",
+        "fingerprint": "98e5e9fbf1de182d4f1278d0b1685c12aaf75641e434a14a13765a59cc486a73"
+      },
+      {
+        "function": "vstd::std_specs::vec::vec_index",
+        "fingerprint": "93ce6cda6d89f9422c7cd8eee800445a97ad38da37e8a381186d40201bbb6365"
+      },
+      {
+        "function": "vstd::std_specs::vec::vec_index_mut",
+        "fingerprint": "f1b62e7873fc0a5cda1163634541fb8f303a81b65dfabb943532065185efaf42"
+      },
+      {
+        "function": "vstd::view::impl&%8::view",
+        "fingerprint": "fadf59d7e6aecd7e8072d61822ee28c48eeb85a2de93b6f6af176340e92e13ef"
+      }
+    ],
+    "interface_written": false,
+    "metrics": {
+      "generation_micros": 0,
+      "total_micros": 2742216
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.11.11.8bd8e07"
+    },
+    "num-threads": 1,
+    "total": 2742,
+    "estimated-cpu-time": 2742,
+    "rust": {
+      "total": 65,
+      "init-and-types": 10,
+      "trait-conflicts": 42,
+      "compile": 11
+    },
+    "verification": {
+      "total": 2453,
+      "vir": {
+        "total": 2393,
+        "hir": 1,
+        "import": 636,
+        "rust-to-vir": 1662
+      }
+    },
+    "total-verify": 49,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 49
+      }
+    ],
+    "air": {
+      "total": 31,
+      "module-times": [
+        {
+          "module": "",
+          "time": 31
+        }
+      ]
+    },
+    "smt": {
+      "total": 1,
+      "smt-init": 0,
+      "rlimit-init": 20,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 0,
+          "time-micros": 81,
+          "rlimit": 20
+        }
+      ],
+      "smt-run": 1,
+      "rlimit-run": 1158,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 1,
+          "time-micros": 1210,
+          "rlimit": 1158,
+          "function-breakdown": [
+            {
+              "function": "review_recommends_true::bad",
+              "mode:": "spec",
+              "time": 1,
+              "time-micros": 1210,
+              "rlimit": 1158,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.11.11.8bd8e07",
+    "platform": {
+      "os": "linux",
+      "arch": "x86_64"
+    },
+    "toolchain": "1.99.1-x86_64-unknown-linux-gnu",
+    "commit": "8bd8e073098b024ce2f92931377eda5e2b537a87"
+  }
+}

@@ -19,6 +19,8 @@ with replay_receipt(D,receipt):
  helper=D/'helper.rs';helper.write_text('use vstd::prelude::*;\nuse vstd::set_lib::*;\nverus! {\n'+body+'}\n')
  d=trial('helper',helper,False);assert d['verification-results']['success'] and d['verification-results']['verified']==1
  for goals in [False,True]:trial('compatibility_'+str(goals).lower(),E/'compatibility.rs',goals)
+ neg=D/'recommends.rs';neg.write_text('use vstd::prelude::*;verus!{spec(checked) fn bad(s:Seq<Set<int>>,i:int)->Set<int>{s[i]}}')
+ for goals in [False,True]:trial('recommends_'+str(goals).lower(),neg,goals)
  neg=D/'termination.rs';neg.write_text('use vstd::prelude::*;verus!{ proof fn recursive(a:Set<int>,b:Set<int>,n:nat) ensures a==a,b==b, decreases n {if n>0 {recursive(a,b,n);}} }')
  trial('termination',neg,True)
  neg=D/'bound_false.rs';neg.write_text('use vstd::prelude::*;verus!{proof fn bound_false() ensures forall|s:Set<int>| s.len()==0, {}}')

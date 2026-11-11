@@ -1,0 +1,890 @@
+{
+  "status": "SCOPED_S1_IMPLEMENTATION_ACCEPT",
+  "blocking_findings": [],
+  "goal_complete": false,
+  "substantial_overall_R2_reduction": false,
+  "S2": "UNREVIEWED_NOT_INSPECTED",
+  "HMAC_native": "DEFERRED_AND_UNACHIEVED",
+  "unsupported_counted": [
+    "F0",
+    "R1",
+    "F1"
+  ],
+  "parent": "902041b304157577c01deb5e769060fcc5398382",
+  "private_output": "/tmp/practical-set-review-902041b3",
+  "epochs": {
+    "schema": 39,
+    "policy": 77,
+    "cache": 80
+  },
+  "source": {
+    "source/vir/src/infer/set_goals.rs": "378ff5c40cf1e1ca8005d897e5f72e70a4bca11a88db51a25e4af0da09d33740",
+    "source/vir/src/infer/pipeline.rs": "0a3fb6bf4070b534cb7de0d51e5dbf92ac6d284cb7da48b3235bfc10bbf8e786",
+    "source/vir/src/infer/report.rs": "9c1eaec94efbf593c5ad9c3fd7443379f3b39f6c9b0b740c11d71a9d941c4783",
+    "source/vir/src/infer/registry.rs": "bc5df0e11c232d0fd6178db96167c4801e4c2aa11779ba258203ec322c7b1995",
+    "source/vir/src/infer.rs": "493e9ea54722c3f6fcabc56835c6b0fa86c8cd86b44880a597c40e767a43261f",
+    "source/rust_verify/src/infer_report.rs": "2d01443b5b614b884841bcf6cd0d01ca55c28619c2717a2233f95cf1e7e20824",
+    "source/rust_verify/src/import_export.rs": "db4243b3324ab728e889a197e3861af1ee596fecf6a28dc1ed839a1e86f317ec",
+    "source/vstd/set_lib.rs": "f19258b7c4c71874ae4812e172a02e739602692abd59dfeaaca80a75318bc616"
+  },
+  "tools": {
+    "verus": "6df8f4985f10f6d8b8d038e60786cc2bc4592a93a3557ebc6ac66f750d85cd42",
+    "rust_verify": "1201afa31928a84875caeaa6b6b4f63e602d315f55e2dedb327041d36e6e50da",
+    "libverus_builtin.rlib": "5b42e89e502546611c69ba4e5722c65c8f09d05d80039f0a3e239aae5b9b45e8",
+    "libverus_builtin_macros.so": "2808c9807549787c3dd75739e35138afdeefc929dcbfede04aa8a4be8448d94b",
+    "libverus_state_machines_macros.so": "0f3304a70c61e26ebc203e184821f40e7b16197fa3ecade175f8ee405f8ed7e7",
+    "vstd.vir": "f69e92d0e9bd042dcc34d5b23a9cf6e2db535094e53570338bb7f1368835f95e",
+    "libvstd.rlib": "fbbe4a93cc4f1cbb2ec3f6d3485985147a5095895a9636c3de0f56e49fa01a50",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "receipt_hashes": {
+    "receipt.json": "868dc67e2d0725635c6a150e3dd9207ebfb03cc878ce3724a322ae39cfc40a93",
+    "bundle/receipt.json": "0033dc8dfb11ce3497c8f1e16859f9ca5fe5a907d5d086cb7584ec1d4a2d87be",
+    "baseline-2/receipt.json": "b2df99341a90789280795070e9eaeb51fb7ad837db6900a6c12188905cf08a7e",
+    "fresh-replay/receipt.json": "b36a6edd4f5b59b7a57f1d74c50b91876fdbacbec91dbff6b7e5b89dc863a0c8",
+    "independent/receipt.json": "60a94f3fbbda7e2353a332894540468843225dc9ff3949718f92f08ea7d883f5"
+  },
+  "full_units": {
+    "air": 145,
+    "vir": 163
+  },
+  "full_NORMAL_vstd": {
+    "verified": 2251,
+    "errors": 0
+  },
+  "standalone_helper_no_cheating": {
+    "verified": 1,
+    "errors": 0,
+    "infer_goals": false
+  },
+  "focused_outcomes": [
+    {
+      "label": "r2_off",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 24,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "finish_mutation"
+      ],
+      "set_pairs": []
+    },
+    {
+      "label": "r2_cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 25,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "s1_r2_cold::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "r2_repeat",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 25,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "s1_r2_repeat::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "f2_off",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 9,
+        "errors": 3,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "one_honest_margin",
+        "quorum_has_honest",
+        "quorum_intersection"
+      ],
+      "set_pairs": []
+    },
+    {
+      "label": "f2_cold",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "s1_f2_cold::quorum_intersection",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_cold::quorum_has_honest",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_cold::one_honest_margin",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "f2_repeat",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "s1_f2_repeat::quorum_intersection",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_repeat::quorum_has_honest",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_repeat::one_honest_margin",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "r2_export",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 27,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "r2_api::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "r2_import_False",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": []
+    },
+    {
+      "label": "r2_import_True",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": []
+    },
+    {
+      "label": "r2_version_rejection",
+      "classification": "EXPECTED_VERSION_FRONTEND_REJECTION"
+    },
+    {
+      "label": "r2_negative_leaf",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 27,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "wrong_set_membership"
+      ],
+      "set_pairs": [
+        {
+          "function": "s1_r2_negative_leaf::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "r2_negative_count",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 27,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "wrong_repeat_count"
+      ],
+      "set_pairs": [
+        {
+          "function": "s1_r2_negative_count::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "r2_negative_frame",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 27,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "wrong_clear_frame"
+      ],
+      "set_pairs": [
+        {
+          "function": "s1_r2_negative_frame::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "f2_export",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "f2_ordinary::quorum_intersection",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "f2_ordinary::quorum_has_honest",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "f2_ordinary::one_honest_margin",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "f2_import_False",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": []
+    },
+    {
+      "label": "f2_import_True",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 2,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": []
+    },
+    {
+      "label": "f2_version_rejection",
+      "classification": "EXPECTED_VERSION_FRONTEND_REJECTION"
+    },
+    {
+      "label": "f2_negative_intersection",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 11,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "quorum_intersection"
+      ],
+      "set_pairs": [
+        {
+          "function": "s1_f2_negative_intersection::quorum_intersection",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_negative_intersection::quorum_has_honest",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_negative_intersection::one_honest_margin",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "f2_negative_fault",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 11,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "quorum_has_honest"
+      ],
+      "set_pairs": [
+        {
+          "function": "s1_f2_negative_fault::quorum_intersection",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_negative_fault::quorum_has_honest",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_f2_negative_fault::one_honest_margin",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "f2_zero",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 7,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "max_evil"
+      ],
+      "set_pairs": []
+    },
+    {
+      "label": "precision",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 4,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": []
+    },
+    {
+      "label": "safety",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 3,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "unsafe_client"
+      ],
+      "set_pairs": []
+    },
+    {
+      "label": "generic_relations",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 4,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "set_pairs": [
+        {
+          "function": "s1_generic_relations::subset_size",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_generic_relations::extensional",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_generic_relations::inclusion",
+          "terms": 4,
+          "pairs": 12,
+          "lemma_calls": 12,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "generic_false",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 4,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "false_cardinality",
+        "false_equality"
+      ],
+      "set_pairs": [
+        {
+          "function": "s1_generic_false::subset_size",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_generic_false::extensional",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_generic_false::inclusion",
+          "terms": 4,
+          "pairs": 12,
+          "lemma_calls": 12,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_generic_false::false_cardinality",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "s1_generic_false::false_equality",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "generic_caller",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "false_caller"
+      ],
+      "set_pairs": []
+    }
+  ],
+  "independent_outcomes": [
+    {
+      "label": "helper",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "compatibility_false",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 7,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "compatibility_true",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 7,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": [
+        {
+          "function": "review_compatibility_true::guarded",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "review_compatibility_true::entry_guard",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "review_compatibility_true::guarded_index",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "review_compatibility_true::nested",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "recommends_false",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "recommends_true",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 0,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "termination",
+      "exit_code": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "review_termination::recursive"
+      ],
+      "pairs": [
+        {
+          "function": "review_termination::recursive",
+          "terms": 2,
+          "pairs": 2,
+          "lemma_calls": 2,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ]
+    },
+    {
+      "label": "bound_false",
+      "exit_code": 1,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "review_bound_false::bound_false"
+      ],
+      "pairs": []
+    },
+    {
+      "label": "plain_0_false",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "plain_0_true",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "plain_1_false",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "plain_1_true",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "plain_2_false",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    },
+    {
+      "label": "plain_2_true",
+      "exit_code": 0,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "pairs": []
+    }
+  ],
+  "commands_seconds": {
+    "fresh_accepted75": 19.445129167928826,
+    "focused_25": 70.92231930710841,
+    "supplemental_13": 26.922639165830333,
+    "final_build_units_vstd": [
+      {
+        "label": "build-release",
+        "seconds": 82.01276261400199,
+        "exit_code": 0
+      },
+      {
+        "label": "units",
+        "seconds": 205.12623223598348,
+        "exit_code": 0
+      },
+      {
+        "label": "vstd",
+        "seconds": 71.65965416398831,
+        "exit_code": 0
+      }
+    ]
+  },
+  "no_demand_seconds": {
+    "False": [
+      1.1986159340012819,
+      1.297090373991523,
+      1.1984237959841266
+    ],
+    "True": [
+      2.7900425299885683,
+      2.861561242956668,
+      2.8342861509881914
+    ]
+  },
+  "application_seconds": {
+    "r2_off": 3.8659544899710454,
+    "r2_cold": 5.562567948014475,
+    "r2_repeat": 5.846896091999952,
+    "f2_off": 1.932755702000577,
+    "f2_cold": 2.7925497940159403,
+    "f2_repeat": 2.597157695039641
+  },
+  "author_removals": {
+    "R2_required_extensional_assertions": 1,
+    "R2_redundant_range_gain": 0,
+    "F2_set_calls": 4,
+    "F2_conditionals": 2,
+    "arithmetic_FromSpec_gain": 0
+  },
+  "cost_limits": [
+    "No speedup/cache-hit claim.",
+    "No matching release S1-only disabled compiler; no-demand off/on overhead measures all goal preparation.",
+    "Authenticated historical narrow S1-only ablation is not a fresh independent disabled build.",
+    "No statistical/RSS/regression-threshold or full32-target claim."
+  ]
+}

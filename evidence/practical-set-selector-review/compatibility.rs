@@ -9,6 +9,11 @@ proof fn guarded(s: Seq<Set<int>>, i: int, b: Set<int>)
     ensures 0 <= i < s.len() ==> selected(s,i).union(b).contains(7) == (selected(s,i).contains(7) || b.contains(7)),
 {}
 
+// A checked Spec definition retains the guard for its recommendation proof.
+spec(checked) fn checked_observation(s: Seq<Set<int>>, i: int, b: Set<int>) -> bool {
+    0 <= i < s.len() ==> selected(s,i).union(b).contains(7) == (selected(s,i).contains(7) || b.contains(7))
+}
+
 // Positive-domain control: the same prefix argument is legal at entry.
 proof fn entry_guard(s: Seq<Set<int>>, i: int, b: Set<int>)
     requires 0 <= i < s.len(),

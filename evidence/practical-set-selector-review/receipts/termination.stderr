@@ -1,0 +1,8 @@
+error: could not prove termination
+ --> /tmp/practical-set-review-902041b3/independent/termination.rs:1:118
+  |
+1 | ...:Set<int>,n:nat) ensures a==a,b==b, decreases n {if n>0 {recursive(a,b,n);}} }
+  |                                                             ^^^^^^^^^^^^^^^^
+
+error: aborting due to 1 previous error
+

@@ -1,0 +1,51 @@
+{
+  "kind": "S1_BOUNDED_LOCAL_CHECK_NOT_PARENT_ACCEPTANCE",
+  "baseline": true,
+  "inputs": {
+    "/home/dev/.t3/worktrees/verus/t3-37b5504b/source/tools/research/practical_redb_fedimint/common_set/r2-reduced.rs": "08531d372275bb639705326869689c493a30cbf9515e5aa6365a641b1dac4ae6",
+    "/home/dev/.t3/worktrees/verus/t3-37b5504b/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs": "e6cdd62ef5d7278e18bd7afae10dab0e7802324d6010b40377a23b9b02fc4600",
+    "/home/dev/.t3/worktrees/verus/t3-37b5504b/source/tools/research/practical_redb_fedimint/common_set/replay_s1.py": "8e64e5814657dbf7e37bb9a292895f9491720f2eea48574f4a4ca0047b974ad6",
+    "/home/dev/.t3/worktrees/verus/t3-37b5504b/source/tools/research/practical_redb_fedimint/common_set/compiler.rs": "dea1f96637e328e82c0d7d49911afcda0b24bea6c9fdd46138393bb998ddeea7",
+    "/tmp/practical-set-review-902041b3/accepted75/verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+    "/tmp/practical-set-review-902041b3/accepted75/rust_verify": "1e804d7fe91933f4a8b713e26e90400d02a4060d586383b7342fd0cb5df097be",
+    "/tmp/practical-set-review-902041b3/accepted75/vstd.vir": "47a9768043fedebe3d2bfc8d67388c4bd6c214f42002983623ce74bc544a2d5b",
+    "/tmp/practical-set-review-902041b3/accepted75/libvstd.rlib": "3e64055d3a5c90190cac7304dd2adc6420c33d05483a0907b5628293f8ef7391",
+    "/tmp/practical-set-review-902041b3/accepted75/libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+    "/tmp/practical-set-review-902041b3/accepted75/libverus_builtin_macros.so": "29838896efb807a8cd172cd1d8fc735999e39e5b2a55c0af7a9d0abf6a5c2bcd",
+    "/tmp/practical-set-review-902041b3/accepted75/libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+    "/tmp/practical-set-review-902041b3/accepted75/z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "commands": [
+    {
+      "label": "r2_off",
+      "argv": [
+        "/tmp/practical-set-review-902041b3/accepted75/verus",
+        "/home/dev/.t3/worktrees/verus/t3-37b5504b/source/tools/research/practical_redb_fedimint/common_set/r2-reduced.rs",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--crate-name",
+        "s1_r2_off",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/practical-set-review-902041b3/baseline",
+      "exit_code": 128,
+      "seconds": 0.005288662970997393,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/practical-set-review-902041b3/accepted75/z3",
+        "VERUS_INFER_CACHE": "/tmp/practical-set-review-902041b3/baseline/cache",
+        "CARGO_TARGET_DIR": "/tmp/practical-set-review-902041b3/target"
+      }
+    }
+  ],
+  "outcomes": [],
+  "success": false,
+  "failure": {
+    "type": "JSONDecodeError",
+    "message": "Expecting value: line 1 column 1 (char 0)"
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "func-details": {
+    "vstd::set::impl&%0::to_iset": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::lemma_set_intersect": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::iset::lemma_iset_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::iset::ISet::contains": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::impl&%0::union": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::axiom_set_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::lemma_set_contains_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::impl&%0::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::Set::contains": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::iset::lemma_iset_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::lemma_set_union": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::axiom_set_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::impl&%0::spec_add": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set_lib::lemma_set_intersect_union_lens": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::axiom_set_decreases_to_member": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "review_helper::lemma_set_pair_observations": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::impl&%0::intersect": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set::Set::subset_of": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::set_lib::lemma_len_subset": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 1,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": true,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 1,
+      "native_functions": [
+        {
+          "function": "review_helper::lemma_set_pair_observations",
+          "rust_function": "lemma_set_pair_observations",
+          "source": "/tmp/practical-set-review-902041b3/independent/helper.rs:4:1: 4:66",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "checked_proof_body",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "no_inference",
+    "crate_success": true,
+    "requested_functions": 0,
+    "generated_functions": 0,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": false,
+      "profiles": [
+        "growth_loop",
+        "pointwise_transport",
+        "range_loop",
+        "mutable_buffer_u64_radix128"
+      ],
+      "preparation_started": false,
+      "preparation_completed": false,
+      "decisions": []
+    },
+    "buffer_observation_assistance": [],
+    "range_loop_assistance": [],
+    "set_pair_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [],
+    "functions": [],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [],
+    "interface_written": false,
+    "metrics": {
+      "generation_micros": 0,
+      "total_micros": 892725
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.11.11.8bd8e07"
+    },
+    "num-threads": 1,
+    "total": 892,
+    "estimated-cpu-time": 892,
+    "rust": {
+      "total": 58,
+      "init-and-types": 11,
+      "trait-conflicts": 32,
+      "compile": 14
+    },
+    "verification": {
+      "total": 637,
+      "vir": {
+        "total": 595,
+        "hir": 3,
+        "import": 465,
+        "rust-to-vir": 49
+      }
+    },
+    "total-verify": 33,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 33
+      }
+    ],
+    "air": {
+      "total": 20,
+      "module-times": [
+        {
+          "module": "",
+          "time": 20
+        }
+      ]
+    },
+    "smt": {
+      "total": 1,
+      "smt-init": 0,
+      "rlimit-init": 155,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 0,
+          "time-micros": 117,
+          "rlimit": 155
+        }
+      ],
+      "smt-run": 1,
+      "rlimit-run": 3996,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 1,
+          "time-micros": 1351,
+          "rlimit": 3996,
+          "function-breakdown": [
+            {
+              "function": "review_helper::lemma_set_pair_observations",
+              "mode:": "proof",
+              "time": 1,
+              "time-micros": 1351,
+              "rlimit": 3996,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.11.11.8bd8e07",
+    "platform": {
+      "os": "linux",
+      "arch": "x86_64"
+    },
+    "toolchain": "1.99.1-x86_64-unknown-linux-gnu",
+    "commit": "8bd8e073098b024ce2f92931377eda5e2b537a87"
+  }
+}

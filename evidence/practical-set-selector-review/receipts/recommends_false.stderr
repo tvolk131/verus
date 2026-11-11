@@ -1,0 +1,12 @@
+warning: recommendation not met
+ --> /tmp/practical-set-review-902041b3/independent/recommends.rs:1:83
+  |
+1 | use vstd::prelude::*;verus!{spec(checked) fn bad(s:Seq<Set<int>>,i:int)->Set<int>{s[i]}}
+  |                                                                                   ^^^^
+  |
+ --> vstd/seq.rs:980:12
+  |
+  = note: recommendation not met
+
+warning: 1 warning emitted
+
