@@ -2372,16 +2372,35 @@ pub fn check_crate_merged(merged_krate: &Krate) -> Result<(), VirErr> {
 /// manufacture an internal representation. Synthetic IR only, not Rust privacy.
 #[cfg(test)]
 pub(crate) fn internal_repr_test_source_access(
-    krate: &Krate, path: &Path, module: Option<Path>, public_contract: bool,
+    krate: &Krate,
+    path: &Path,
+    module: Option<Path>,
+    public_contract: bool,
 ) -> bool {
     let lookup = Arc::new(WfLookup {
         reveal_groups: HashSet::new(),
-        dts: Arc::new(krate.datatypes.iter().map(|d| (d.x.name.expect_path(), d.clone())).collect()),
-        merged_traits: Arc::new(crate::traits::MergedTraitsX { traits: vec![], trait_impls: vec![], trait_map: HashMap::new() }),
+        dts: Arc::new(
+            krate.datatypes.iter().map(|d| (d.x.name.expect_path(), d.clone())).collect(),
+        ),
+        merged_traits: Arc::new(crate::traits::MergedTraitsX {
+            traits: vec![],
+            trait_impls: vec![],
+            trait_map: HashMap::new(),
+        }),
     });
     let ctxt = Ctxt { funs: Arc::new(HashMap::new()), lookup, krate, no_cheating: true };
     run_function_check(|emit| {
         let public = Visibility { restricted_to: None };
-        check_datatype_access(&ctxt, path, public_contract.then_some((&public, "public spec")), &module, &krate.datatypes[0].span, "field access", emit)
-    }).0.is_ok()
+        check_datatype_access(
+            &ctxt,
+            path,
+            public_contract.then_some((&public, "public spec")),
+            &module,
+            &krate.datatypes[0].span,
+            "field access",
+            emit,
+        )
+    })
+    .0
+    .is_ok()
 }
