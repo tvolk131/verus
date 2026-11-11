@@ -1,0 +1,13 @@
+# Independent S1 implementation review
+
+Prepared isolated checkout HEAD 902041b304157577c01deb5e769060fcc5398382. Historical paths are labels; all production review and builds bind to this checkout. No parent history, other checkout, S2 output, shared target, network, subagent, production edit, push or PR is used.
+
+Read own ancestor instructions (none present), GOAL/CURRENT/WORKER_BRIEFS/CAPABILITY_MAP/SELECTION_R2_F2 and S1 scope/replay/report. Review only new S1 proposal generation, checked generic Set-pair library, full typed projection/ID audit, pipeline rechecks/reporting and schema39/policy77/cache80 import/cache behavior. Application manual proofs and C0 are already accepted; this is not whole-goal acceptance.
+
+Fixed interface: ordinary checked lemma_set_pair_observations<A>(Set<A>,Set<A>), no preconditions, conditional subset length, inclusion/exclusion and equality iff pointwise membership. Selector only immutable Spec parameter-rooted terms in ordinary proof contracts/visible spec definitions, exact types, bounded discovery and one intersection-to-union closure, fail closed. Preserve complete original Function and all ordinary checking. Examine partial/recommended observations and nested/reference types for compatibility. Bind real names/source scopes independently of count-only replay checks.
+
+Expected literal reduction ONLY: R2 finish_mutation one necessary extensional assertion; F2 four set calls/two conditional blocks. R2's eight helpers/fifteen calls/nine proof blocks/nine snapshots/six entry invariants remain charged. Range broadcast/arithmetic/FromSpec earn no credit. Frozen fixture whitespace retained exactly. R2 domain and source/consumer boundaries, and all F2 positive-usize policy/explicit finite-set assumptions, remain as registered.
+
+Fresh release build with own authenticated offline Cargo home/target, Rust1.99.1/jobs2, matching macros and full NORMAL vstd2251; standalone helper/apps --no-cheating. Full AIR/VIR units, supplied 25-outcome focused replay, accepted75 and authenticated narrow-ablation inventories, independently chosen compatibility/negative probes. No full32-target matrix. Default bwrap failed loopback; exact authorized commands use require_escalated. Record setup/frontend/resource failures separately. Stop each blocker after45 active minutes excluding builds, with scoped checkpoint and no new prerequisite.
+
+Only this new evidence directory will be committed, using command-local Codex/codex@openai.com. Final verdict scoped accept/request changes with concrete evidence and limitations. HMAC/native deferred AND unachieved; F0/R1/F1 unsupported and counted; S2 unreviewed; global practical goal incomplete.
