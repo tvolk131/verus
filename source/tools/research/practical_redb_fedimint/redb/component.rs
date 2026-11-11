@@ -25,20 +25,22 @@ fn required_words(elements: u32) -> (result: usize)
         let words = elements.div_ceil(64);
         words as usize
     }
+pub closed spec fn logical_len(&self) -> u32 { self.len }
+pub closed spec fn storage(&self) -> Seq<u64> { self.data@ }
 pub fn resize(&mut self, new_len: u32, full: bool)
-    requires words(old(self).len) <= old(self).data@.len(),
+    requires words(old(self).logical_len()) <= old(self).storage().len(),
     ensures
-        final(self).len == new_len,
-        final(self).data@.len() == if old(self).data@.len() >= words(new_len) {
-            old(self).data@.len()
+        final(self).logical_len() == new_len,
+        final(self).storage().len() == if old(self).storage().len() >= words(new_len) {
+            old(self).storage().len()
         } else { words(new_len) },
-        words(final(self).len) <= final(self).data@.len(),
-        forall|j: int| 0 <= j < old(self).len && j < new_len ==>
-            physical_bit(final(self).data@, j) == physical_bit(old(self).data@, j),
-        forall|j: int| old(self).len <= j < new_len ==>
-            physical_bit(final(self).data@, j) == full,
-        forall|j: int| 0 <= j < old(self).data@.len() * 64 && !(old(self).len <= j < new_len) ==>
-            physical_bit(final(self).data@, j) == physical_bit(old(self).data@, j),
+        words(final(self).logical_len()) <= final(self).storage().len(),
+        forall|j: int| 0 <= j < old(self).logical_len() && j < new_len ==>
+            physical_bit(final(self).storage(), j) == physical_bit(old(self).storage(), j),
+        forall|j: int| old(self).logical_len() <= j < new_len ==>
+            physical_bit(final(self).storage(), j) == full,
+        forall|j: int| 0 <= j < old(self).storage().len() * 64 && !(old(self).logical_len() <= j < new_len) ==>
+            physical_bit(final(self).storage(), j) == physical_bit(old(self).storage(), j),
 {
         if self.data.len() < Self::required_words(new_len) {
             let default_value = if full { u64::MAX } else { 0 };

@@ -46,17 +46,22 @@ def main():
         require(token not in fixture, 'forbidden trust: ' + token)
     frozen = out / 'component.rs'
     shutil.copyfile(HERE / 'component.rs', frozen)
+    diagnostic = out / 'required_words_diagnostic.rs'
+    require(digest(HERE / diagnostic.name) == freeze['diagnostic_sha256'], 'diagnostic changed')
+    shutil.copyfile(HERE / diagnostic.name, diagnostic)
     env = dict(os.environ, RUSTUP_HOME='/home/dev/.rustup', RUSTUP_TOOLCHAIN='1.99.1',
-               PATH='/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin:' + os.environ['PATH'],
+               PATH='/home/dev/.cargo/bin:/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin:' + os.environ['PATH'],
                VERUS_Z3_PATH=str(runtime / 'z3'), VERUS_INFER_CACHE=str(out / 'infer-cache'))
-    guard = ArtifactGuard([runtime / n for n in expected['tools']] + [runtime / 'receipt.json', frozen])
+    guard = ArtifactGuard([runtime / n for n in expected['tools']] + [runtime / 'receipt.json', frozen, diagnostic])
     receipt = dict(case='R1', application_property_proved=False, commands=[], outcomes=[],
                    fixture_sha256=digest(frozen), exec_inventory=['bits_in_range', 'required_words', 'resize', 'main'],
-                   proof_inventory=[], spec_inventory=['words', 'physical_bit'], inferred_helpers=[])
+                   proof_inventory=[], spec_inventory=['words', 'physical_bit', 'logical_len', 'storage'], inferred_helpers=[])
     with replay_receipt(out, receipt):
         run = LoggedCommands(out, out, receipt['commands'], timeout=120, guard=guard)
-        for mode, flags in [('ordinary', []), ('infer', ['--infer-goals'])]:
-            code = run(mode, [str(runtime / 'verus'), str(frozen), '--edition=2024', '--no-cheating',
+        for mode, flags, target in [('ordinary', [], frozen), ('infer', ['--infer-goals'], frozen),
+                                    ('diagnostic_ordinary', [], diagnostic),
+                                    ('diagnostic_infer', ['--infer-goals'], diagnostic)]:
+            code = run(mode, [str(runtime / 'verus'), str(target), '--edition=2024', '--no-cheating',
                               '--output-json', '--multiple-errors', '20', *flags], env)
             stdout = (out / (mode + '.stdout')).read_text()
             stderr = (out / (mode + '.stderr')).read_text()
@@ -68,6 +73,12 @@ def main():
             outcome = 'FRONTEND_UNSUPPORTED' if frontend else ('VERIFIED' if code == 0 and verification.get('success') is True else 'VERIFICATION_FAILED')
             helpers = data.get('verus-infer', {}).get('functions', [])
             require_exact(helpers)
+            require(code != 0 and frontend, 'expected unsupported frontend boundary changed; inspect before updating expectations')
+            require('div_ceil` is not supported' in stderr and stderr.count('error:') == 2, 'expected sole unsupported div_ceil diagnostic plus abort')
+            require(not helpers, 'unexpected inferred helper identities')
+            scope = data['verus-infer']['verification_scope']
+            require(scope['native_collection_completed'] is True and scope['complete_selected_scope_verified'] is False, 'incomplete/misclassified frontend scope')
+            require(scope['checked_exec_bodies'] == 0 and scope['checked_proof_bodies'] == 0, 'unexpected checked bodies')
             receipt['outcomes'].append(dict(mode=mode, outcome=outcome, verification=verification,
                                             inferred_helpers=helpers, scope=data.get('verus-infer', {}).get('verification_scope'),
                                             stderr_sha256=digest(out / (mode + '.stderr'))))

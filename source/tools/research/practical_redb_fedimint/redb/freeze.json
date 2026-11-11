@@ -29,7 +29,7 @@
     }
   },
   "private_artifacts": "/tmp/redb-r1-baseline-lanlwtfe",
-  "fixture_sha256": "70cae0ff8652de32ce8879fa1cff49b1499bcd16f4f8007c84f5cce6199c027a",
+  "fixture_sha256": "b8428eadedb37c557040793113dafd057a76b51d43f83bf26a356419df2f5b48",
   "items": {
     "struct": {
       "sha256": "bc87504c87831eb045b73c298532f4568b1ae0f9f90592666d0f0da6471ed3b1",
@@ -58,7 +58,8 @@
   "adaptations": [
     "Verus wrapper and vstd prelude; genuine len:u32,data:Vec<u64> unchanged",
     "return names and authored contracts added; no executable edits",
-    "only required_words,bits_in_range,resize selected; no BtreeBitmap/BuddyAllocator executable proof claimed"
+    "only required_words,bits_in_range,resize selected; no BtreeBitmap/BuddyAllocator executable proof claimed",
+    "After initial frontend-only run: public closed logical_len/storage observations repair contract visibility for original pub resize; same mathematical property/domain/body. No solver/backend proof reached before correction."
   ],
   "mechanical_baseline": {
     "proof_blocks": 0,
@@ -67,5 +68,13 @@
     "loop_invariants": 0,
     "ghost_snapshots": 0,
     "infer_annotations": 0
-  }
+  },
+  "initial_fixture_sha256": "70cae0ff8652de32ce8879fa1cff49b1499bcd16f4f8007c84f5cce6199c027a",
+  "diagnostic_sha256": "e753dd5ca0bbf01d74b79d2124f75f14a28413075c65a6eac53786b47a8fc88f",
+  "spec_inventory": [
+    "words",
+    "physical_bit",
+    "logical_len",
+    "storage"
+  ]
 }
