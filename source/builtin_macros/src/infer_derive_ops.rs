@@ -32,9 +32,10 @@ pub(crate) fn expand(
             if a.args.len() == 1 && matches!(&a.args[0], syn::GenericArgument::Type(syn::Type::Path(p))
                 if p.qself.is_none() && p.path.is_ident("u64"))));
     if nonzero {
-        if operators.iter().any(|op| {
-            !matches!(op.to_string().as_str(), "PartialEq" | "PartialOrd" | "Ord")
-        }) {
+        if operators
+            .iter()
+            .any(|op| !matches!(op.to_string().as_str(), "PartialEq" | "PartialOrd" | "Ord"))
+        {
             return Err(syn::Error::new(
                 item.span(),
                 "NonZero<u64> checked derives support only PartialEq/PartialOrd/Ord",

@@ -6,8 +6,8 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **39**, inference policy **73** and
-candidate-cache version **76**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **39**, inference policy **74** and
+candidate-cache version **77**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -79,6 +79,14 @@ and [independent fix review](../../../../evidence/local-nonzero-ord-fix-review/R
 passed. Complete recursive type witnesses are checked at registration and after
 normal well-formedness and mode processing. Genuine BorTag ordering derives and
 ordering imports remain unproved.
+
+Policy74/cache77 provisionally extend the local path to the original generated
+Ord/PartialOrd methods on nongeneric single-field `NonZero<u64>` wrappers.
+Boolean comparison candidates still need all three fresh precision checks;
+requests refuse selected exports even when no Ord helper is needed.
+[Worker evidence](../../../../source/tools/research/nonzero_wrapper_ordering/IMPLEMENTATION_REPORT.md)
+records 28/0 cold/warm; matching parent validation and independent review are
+pending. Ordering imports remain unsupported.
 
 ## Checked local bool conversion and packing
 

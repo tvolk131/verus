@@ -2912,9 +2912,13 @@ impl Verifier {
 
         // Local NonZero ordering has no publication kind or import format.
         // Requests using existing PartialOrd may need no new Ord helper.
-        let local_wrapper_ordering = pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| {
-            vir::infer::local_nonzero_ordering_request(f, &pre_crate.krate_without_funs.datatypes)
-        });
+        let local_wrapper_ordering =
+            pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| {
+                vir::infer::local_nonzero_ordering_request(
+                    f,
+                    &pre_crate.krate_without_funs.datatypes,
+                )
+            });
         if (local_wrapper_ordering || !pre_crate.ctxt.local_ordering_calls.borrow().is_empty())
             && (self.args.export.is_some() || self.export_vir_path_via_cargo.is_some())
         {

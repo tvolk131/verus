@@ -28,6 +28,11 @@ witnesses. All ordering exports are refused; rejection clears both explicit and
 Cargo destinations. Parent validation and independent review passed. BorTag
 ordering derives and ordering imports remain unproved.
 
+A [provisional wrapper stage](parent-nonzero-wrapper-provisional.json) adds
+checked original Ord/PartialOrd bodies and boolean comparison candidates at
+policy74/cache77. Worker cold/warm28/0 is not parent acceptance; a new matching
+runtime and independent review are pending. All ordering exports remain refused.
+
 ## What now verifies
 
 The original full Item fixture verifies **132/0 cold/warm**, retaining genuine
