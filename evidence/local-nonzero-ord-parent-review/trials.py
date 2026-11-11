@@ -2,7 +2,7 @@
 from build import *
 R=root()
 def freeze():
- need(json.loads((R/('vstd-'+os.environ.get('LOCAL_NONZERO_ORD_BUNDLE','bundle').replace('bundle-','')+'/receipt.json')).read_text())['exit']==0,'matching vstd failed')
+ need(json.loads((R/'vstd/receipt.json').read_text())['exit']==0,'matching vstd failed')
  need(not (R/(os.environ.get('LOCAL_NONZERO_ORD_BUNDLE','bundle')+'-final-tools.json')).exists(),'immutable tools already frozen')
  need(manifest(ROOT)==manifest(R/'src'),'own source snapshot differs')
  write(R/(os.environ.get('LOCAL_NONZERO_ORD_BUNDLE','bundle')+'-final-tools.json'),dict(tools={n:sha(bundle()/n) for n in TOOLS},source=manifest(ROOT),before_proofs=True))

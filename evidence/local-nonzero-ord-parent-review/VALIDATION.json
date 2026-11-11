@@ -1,0 +1,78 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "ordinary stale-output invalidation failure",
+      "root_cause": "explicit.or_else(cargo) invalidates only one destination",
+      "valid_prior_artifact": true
+    },
+    {
+      "id": "F2",
+      "kind": "synthetic actual Function dependency correspondence gap",
+      "root_cause": "types_equal ignores datatype ImplPaths",
+      "semantic_false_success_claimed": false
+    }
+  ],
+  "goal_complete": false,
+  "immutable_run_receipts": 71,
+  "matching_vstd": 2250,
+  "native_correspondences": 0,
+  "new_std_contracts": 0,
+  "normal_python_audit_passed": true,
+  "optimized_python_audit_passed": true,
+  "preregistration_commit": "56210c34",
+  "publication": false,
+  "report_sha256": "fe2ecd7381644da61e75ebfdde1b1be1fa16d4401630b573f063479babaf21b2",
+  "results_sha256": "20e2188c0829b1991ed09d839adcb5303a2872ab4d32d92bd2a8d35e3309bae5",
+  "review_base": "7fde950cf87f67c2fe755c4f5f1e96f358436a37",
+  "single_path_refusals": 24,
+  "source_authentication_sha256": "0a084deddb3d831347145c89273664ee1126aa19cebe83b4632160251f938f7e",
+  "source_inventory_count": 3112,
+  "source_review_sha256": "4e17a6c382594ec5464c553fa247c0353f988538a41eede0bd464f549014ae27",
+  "status": "REQUEST_CHANGES_F1_DUAL_OUTPUT_F2_TYPE_DEPENDENCIES",
+  "tests": {
+    "certified_foreign_bool": {
+      "passed": 3,
+      "receipt_sha256": "3e38cd5e8bb51547cdb09dcec0e1e9245302e1985ab7137346e00c56d72d8ba9"
+    },
+    "constructor_function_values": {
+      "passed": 13,
+      "receipt_sha256": "481793bab321b96adcba539b248ab6ab593a880917274e3fa26fcfc3b4f37fdc"
+    },
+    "infer_goals": {
+      "passed": 12,
+      "receipt_sha256": "9bf5c2b382a1e7094ed6c9897d9d28caf79f619a83e7d415e62fdef36f600f0d"
+    },
+    "infer_nonzero_derive": {
+      "passed": 3,
+      "receipt_sha256": "a0b8499f8ce7f08a45241cb045b64f1b1d1660f3bdc7f5ae695bd1731384ffd0"
+    },
+    "local_checked_foreign": {
+      "passed": 5,
+      "receipt_sha256": "7b0ec5d711ad9484b3a1375e459dcce090f922223c891dc80d1301001decf66a"
+    },
+    "local_checked_packing": {
+      "passed": 4,
+      "receipt_sha256": "5c13d386b8824cac42532d3942342a1ddf2e25bcfa8d0020f4561ae9746e5381"
+    },
+    "rust_verify-unit": {
+      "passed": 7,
+      "receipt_sha256": "bd56adad5b9344d33222d9cdb4de082bcf2d5fcc7dc416b69bf0aae5a8ad0d04"
+    },
+    "vir": {
+      "passed": 149,
+      "receipt_sha256": "768e0e72a835790f23e0348c10cff59d927786b465c96cbb38e55c0bc04b50ac"
+    }
+  },
+  "tools": {
+    "libverus_builtin.rlib": "c2143f4bb2dfd6abd435dc4c78e9d8c35ef66c075133d0c3b6aa1167a21b9112",
+    "libverus_builtin_macros.so": "3b4f17af00936c1d782cf3b049ba8799bf2b4b1640dea0d02673debec64662d6",
+    "libverus_state_machines_macros.so": "488bfba53a7b41fc1ecfcedcd58a09549a8d32b014ae123a5ccb39f8a94ab3ce",
+    "libvstd.rlib": "8300fd3a83ee262e242789597214ebbde4972fd91836a7b933ac43ae990bfd8d",
+    "rust_verify": "8eb82e9ef314c14e7ca85ba9271234434fb870cf06d75879d0d838cf390af6c4",
+    "verus": "29e3eab284c13453c0424180e81c30b555faaab3eae4e2bcb1191725c1a420e3",
+    "vstd.vir": "d1f703567ddd031972ec7aeaec3807491e68079ae30bf2ddf38334a5c4e79deb",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "wrapper_ordering_proved": false
+}

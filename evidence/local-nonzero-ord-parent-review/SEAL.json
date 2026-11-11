@@ -1,0 +1,28 @@
+{
+  "files": {
+    "PREREGISTRATION.md": "8b19cbee48ecc88a4061d9888785d04d543a87fd478e499374bd3a8ad6f985bd",
+    "PRIVATE_ROOT": "9a72ca6066c671a693b1f402733259d7734d648dddf886d0b34eb28632857b87",
+    "REPORT.md": "fe2ecd7381644da61e75ebfdde1b1be1fa16d4401630b573f063479babaf21b2",
+    "REPRO.md": "7c2f81bf44790f73f5a21ea28b18f8549d57806920459b1b8d6d63c74e2f3565",
+    "RESULTS.json": "20e2188c0829b1991ed09d839adcb5303a2872ab4d32d92bd2a8d35e3309bae5",
+    "SOURCE_AUTHENTICATION.json": "0a084deddb3d831347145c89273664ee1126aa19cebe83b4632160251f938f7e",
+    "SOURCE_REVIEW.md": "4e17a6c382594ec5464c553fa247c0353f988538a41eede0bd464f549014ae27",
+    "VALIDATION.json": "3867c07797fddf1f5fac465c4211008e8077daa14549a3ab46546879378eda09",
+    "additional.py": "7e39f8c5012c72ea61252e395edc8be5833351a31721e1b1d21f2baddba9d649",
+    "audit.py": "6efdd0291a82e3e68a85ba17fe8d932660f4649c4495e46708229decd5ff8452",
+    "build.py": "276c885852d69c1f0a7cd91efd6569118f0a6b40d50141b548a98f1a0aa09149",
+    "build_tests.py": "3c15b249fae11b5c841b7bc1a50be8f6ec99d1cae72d14e4a51bbe04ec3fe00f",
+    "compatibility.py": "a7b5fdf81ed64bd38d05db587db2383a0c7339e1e425c955931d77c29921b710",
+    "dual_valid.py": "304d01ae047138d3d775b9f7be8117a4bfd45e1f4218d4179904030aaada453f",
+    "erasure_diagnostic.py": "76d22beea85419f0708d4b278d1f576ef5334e2320e7b1feec8a20e0dac304c2",
+    "independent.py": "702cab11517443d08b8452879f4dbb526537fd0e0ab883e994b40ceca0a078ac",
+    "matrix.py": "cb22647ccd5cb8e65852faddce8c9889a0e3bb26db3f9d0afc5c8bf2837aaa78",
+    "packet.py": "d3b030d7095c5d4d089d3b8da9b2f9466d863356a59b365701b566156c7f9c06",
+    "source_audit.py": "e5eda0005d233b290ac47bc58be3a831cd358fa57b8090c4ca8a2d568c4d5f7b",
+    "tests.py": "0606c6b6d40e26b3bab79c9c6b13f12f471550df91613caf4df177cc852cdd70",
+    "trials.py": "92d9a775340159f86c6998bc26ce76990d9daf25c1e61c69c9457f992f362932",
+    "type_dependency_control.py": "ce41421e1c74215792ca218e3b3253d2c8a5bf32dff33b598225f62ea4fb4e63"
+  },
+  "goal_complete": false,
+  "publication": false
+}

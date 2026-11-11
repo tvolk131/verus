@@ -1,0 +1,1979 @@
+{
+  "compiler_core": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-1d288395a3394ed3.rlib": "b346ce2305e13b1a5ec9ab6e093028caee38227c540cdaf78d7b253f59ae5913"
+  },
+  "controllers": {
+    "additional.py": "7e39f8c5012c72ea61252e395edc8be5833351a31721e1b1d21f2baddba9d649",
+    "audit.py": "6efdd0291a82e3e68a85ba17fe8d932660f4649c4495e46708229decd5ff8452",
+    "build.py": "276c885852d69c1f0a7cd91efd6569118f0a6b40d50141b548a98f1a0aa09149",
+    "build_tests.py": "3c15b249fae11b5c841b7bc1a50be8f6ec99d1cae72d14e4a51bbe04ec3fe00f",
+    "compatibility.py": "a7b5fdf81ed64bd38d05db587db2383a0c7339e1e425c955931d77c29921b710",
+    "dual_valid.py": "304d01ae047138d3d775b9f7be8117a4bfd45e1f4218d4179904030aaada453f",
+    "erasure_diagnostic.py": "76d22beea85419f0708d4b278d1f576ef5334e2320e7b1feec8a20e0dac304c2",
+    "independent.py": "702cab11517443d08b8452879f4dbb526537fd0e0ab883e994b40ceca0a078ac",
+    "matrix.py": "cb22647ccd5cb8e65852faddce8c9889a0e3bb26db3f9d0afc5c8bf2837aaa78",
+    "packet.py": "d3b030d7095c5d4d089d3b8da9b2f9466d863356a59b365701b566156c7f9c06",
+    "source_audit.py": "e5eda0005d233b290ac47bc58be3a831cd358fa57b8090c4ca8a2d568c4d5f7b",
+    "tests.py": "0606c6b6d40e26b3bab79c9c6b13f12f471550df91613caf4df177cc852cdd70",
+    "trials.py": "92d9a775340159f86c6998bc26ce76990d9daf25c1e61c69c9457f992f362932",
+    "type_dependency_control.py": "ce41421e1c74215792ca218e3b3253d2c8a5bf32dff33b598225f62ea4fb4e63"
+  },
+  "dual_selected_output_finding": {
+    "after_sha256": "f040dd4531604ac2b3cdccbd198bfd87510d02e185d5dd7de34aba78b854d393",
+    "before_sha256": "f040dd4531604ac2b3cdccbd198bfd87510d02e185d5dd7de34aba78b854d393",
+    "cargo_exists": true,
+    "classification": "fresh valid Bool Cargo interface survives rejected new Ord verification with both paths selected; not an accepted new ordering artifact",
+    "explicit_exists": false,
+    "prior_policy": "candidate-bound-evidence-v73",
+    "prior_provider_receipt_sha256": "4d0f08c564b3a39236b03c125d09e87711f6746660820a9e13f1d2cfdf90ad74",
+    "prior_schema": 39,
+    "refusal_receipt_sha256": "6a13915f6929ed89c50f900bbd19b2341a8b48a5ed0ee5321fef353be9cd461e"
+  },
+  "erased_source_observation": {
+    "classification": "ordinary rustc macro-erased source diagnostic; not native correspondence",
+    "erased_source_sha256": "581ea63e5402a35f86a4ae3963a3115b5704754b6cf22fbd8502c59934cdee3f",
+    "std_cmp_kept": true,
+    "synthetic_helper_present": false
+  },
+  "freeze_sha256": "a3cbe861dd0ebef264c617f692626c702c5f857ff8cdedcfdc774b585fe3782b",
+  "goal_complete": false,
+  "helpers": {
+    "bundle-alias": {
+      "actual_full_Function_log_sha256": "559296e62e51c2e70cb2ba0f1c3b82adcade6724e10cd82a1a63c9db8b7b9183",
+      "full_AIR_sha256": "e0d66c505f17b1be12c5211f9c719782ca0dcf4da59cf1aa62094b605ccf77ac",
+      "full_VIR_sha256": "890b4daecb4b109e934f9dbfacd62ac3cba63045ac7dfb94c33bdd89e269e9c6",
+      "normal_query_sha256": "bc4fb6e359bce47776627f7eb9394b6ab3f2a6b571f3b778270eab5402a0e1e1"
+    },
+    "bundle-cold": {
+      "actual_full_Function_log_sha256": "f244aa5e5ed03f51ebe9da8218af0f2a754b22f7c09d3b3ebb30fabfa85ea63e",
+      "full_AIR_sha256": "e2d52f9232987b50c09ebe23811847608643fa6db78b62f59c9c400a4fd62a4b",
+      "full_VIR_sha256": "5714259f1ff33a2836a62a142ebd306b5f7807189ac9432fb4f0cd7f20411d66",
+      "normal_query_sha256": "95068474e371a4e4ea2c5412336f70f231f42f220607ee10bf0b49fe9a8337de"
+    },
+    "bundle-exact-cold": {
+      "actual_full_Function_log_sha256": "f244aa5e5ed03f51ebe9da8218af0f2a754b22f7c09d3b3ebb30fabfa85ea63e",
+      "full_AIR_sha256": "e2d52f9232987b50c09ebe23811847608643fa6db78b62f59c9c400a4fd62a4b",
+      "full_VIR_sha256": "5714259f1ff33a2836a62a142ebd306b5f7807189ac9432fb4f0cd7f20411d66",
+      "normal_query_sha256": "95068474e371a4e4ea2c5412336f70f231f42f220607ee10bf0b49fe9a8337de"
+    },
+    "bundle-exact-warm": {
+      "actual_full_Function_log_sha256": "f244aa5e5ed03f51ebe9da8218af0f2a754b22f7c09d3b3ebb30fabfa85ea63e",
+      "full_AIR_sha256": "e2d52f9232987b50c09ebe23811847608643fa6db78b62f59c9c400a4fd62a4b",
+      "full_VIR_sha256": "5714259f1ff33a2836a62a142ebd306b5f7807189ac9432fb4f0cd7f20411d66",
+      "normal_query_sha256": "95068474e371a4e4ea2c5412336f70f231f42f220607ee10bf0b49fe9a8337de"
+    },
+    "bundle-false": {
+      "actual_full_Function_log_sha256": "b0ae570481767731edf7e444a3d97c883d832b21d0de0f8eb7e5188845d70f73",
+      "full_AIR_sha256": "54af8531def90ac6859c011571fcaa0fa1ce96a610a169082ba23f8a82ac4c8e",
+      "full_VIR_sha256": "3884d4216ff61290716468593fff37211ac7df344fb654e1dac332fd8ac0c28b",
+      "normal_query_sha256": "f182579b9b60dabc10bbbeb20bf1fd8e50772883a6c624936fcfdd78f24dc036"
+    },
+    "bundle-observations": {
+      "actual_full_Function_log_sha256": "97517dd5b11846251367b14439cd83c7720ea7a89dad4d84b9a9ae924783fea8",
+      "full_AIR_sha256": "628d79bd3c0699afb9b32d7e116a591a3e526efa75ad528f55bfaed015bb4507",
+      "full_VIR_sha256": "3de8dad5b50c2010dfaf803433b960320d4259d6a87b75d934dede902a189463",
+      "normal_query_sha256": "b6b7476e81b5766d49678dc33aab7e90aa346bfbc7990fd905a9a0f2280418d5"
+    },
+    "bundle-swapped": {
+      "actual_full_Function_log_sha256": "1fde8a27a91e9ce8eebb3ef3cc0a189b11871a7238ad512301752dc94a7f46e4",
+      "full_AIR_sha256": "266fa81588f2abfefeb518ad7f48897b8d3879d3376909b0584c84ec7cc23581",
+      "full_VIR_sha256": "432e836114fa018ffc6e7ccf770450398146a5a11a6e061324f45f76cdeb85bf",
+      "normal_query_sha256": "91c82533a60c5a822c4527979374b77ea8745171359bc1ef4bf2a34564fb9638"
+    },
+    "bundle-warm": {
+      "actual_full_Function_log_sha256": "f244aa5e5ed03f51ebe9da8218af0f2a754b22f7c09d3b3ebb30fabfa85ea63e",
+      "full_AIR_sha256": "e2d52f9232987b50c09ebe23811847608643fa6db78b62f59c9c400a4fd62a4b",
+      "full_VIR_sha256": "5714259f1ff33a2836a62a142ebd306b5f7807189ac9432fb4f0cd7f20411d66",
+      "normal_query_sha256": "95068474e371a4e4ea2c5412336f70f231f42f220607ee10bf0b49fe9a8337de"
+    },
+    "bundle-weak": {
+      "actual_full_Function_log_sha256": "cfa3eec8cf27898cfcc49be2d8906c25e3871b8f30c7b6fdc8e7c1b15b354135",
+      "full_AIR_sha256": "9552b40143c392b2831fc603ab1b7cb3ada46f739dd108f7d63744d8c968bb03",
+      "full_VIR_sha256": "8a68ebe05b49d4cf73a94e1e3c38f6497acca9d2f069ab7abf6b6f9bd727c26e",
+      "normal_query_sha256": "d90b3c4a218fee6a4ec8007180b71964014c5a59c994835b80999b0aaeeb362d"
+    },
+    "review-contexts": {
+      "actual_full_Function_log_sha256": "39a7215cb150d8ee6099467c9770b406b9e26e4974977ab68f9bcff8cf277e12",
+      "full_AIR_sha256": "535313fbc8e4815a0e90fd3081cdb20f9ec07f30bcf9f9057bb8d7f943a0aeea",
+      "full_VIR_sha256": "bcec18283e3fddc96e5014398e7de81eb1ef8aa4c809a3d6ae19563596ff9d3c",
+      "normal_query_sha256": "137a454f7a64bf7ba7ce9974f751bb818a9db79c634837c21166ab2d44547ffc"
+    },
+    "review-effects": {
+      "actual_full_Function_log_sha256": "dbaa7e49b672e5e4b3d1dd99fd1609c8ccf8e75993517b8ceca48d7ac883be89",
+      "full_AIR_sha256": "e01dff31474873b1017bd5d1cc4d2bec9d96a64bedfc20d498176cc66188d047",
+      "full_VIR_sha256": "5930ba3080b86ac194d45adbb313a9a7155a708f541e7249f096e351a9af9697",
+      "normal_query_sha256": "46eeca645fe7cd1862c4035abf157f7e40b88df8ce3b36cf217a391f59e75d3a"
+    },
+    "review-effects-false": {
+      "actual_full_Function_log_sha256": "6ef91e60336b2e301800fb167e8322386d8e0f02370be238be6c8060f4d69e29",
+      "full_AIR_sha256": "747691c5854939cce717f688fa2b04a5d2c792c5732e053aef17f503883ef50c",
+      "full_VIR_sha256": "8419c063ea0366aee0129efd1c96a135ae5e805481f328a3eeac574803c64596",
+      "normal_query_sha256": "d689aa38c7130980a2528ed083f7c96dde4d8690836a884f0040f4f3d339cc6e"
+    },
+    "review-ord-auxiliary": {
+      "actual_full_Function_log_sha256": "47f6f0a6c20df6243c449cfda482275ce12fb683ed978726d700588b946b9870",
+      "full_AIR_sha256": "039f16ec248c2488d2b69245eb40b93c056c0bbfb2e96d1ac98d11efeb2053e2",
+      "full_VIR_sha256": "63f419058d016707aac1fc49fb83fba50e24746607909dd87f6ba6e82aef26e7",
+      "normal_query_sha256": "6df5ce78b136787ecd16d598ed06e4fdfbbcc7fe6c05fae36a83c18ea8139254"
+    },
+    "review-three-relations": {
+      "actual_full_Function_log_sha256": "0dca937366e6583500401ba165a703c13b564ed7ef5d507bdb88129b91a2c9ae",
+      "full_AIR_sha256": "ceb944dc003a169b5c460d4f1cdaa8219887932e65a1eabfd401eda459c9b674",
+      "full_VIR_sha256": "ff499b2a51276adf1e3c348c39f5b8bc9a8606386fe9eccb2a2fac3a58f61915",
+      "normal_query_sha256": "7c85cd71b10f3a086ab88aee9c508f52d0d551a845df5c7d4cb70ec6db8cc914"
+    }
+  },
+  "inherited_models": [
+    "opaque genuine NonZero View",
+    "NonZero get/spec_get",
+    "actual u64 Ord/obeys_cmp_spec/numeric cmp_spec"
+  ],
+  "matching_vstd": 2250,
+  "models": {
+    "helper_model_targets_sha256": "eec341b1be0e589652b97c7f5b2dbada9abd2c4abf8621d091e93d7780e10874",
+    "mirror_is_diagnostic_only": true,
+    "observed_model_Functions": {
+      "core::cmp::Ord::cmp": "341d4d73d849c0fdb7b2f28bceee44c18d30037dfac4a56d5cf99f23631182ba",
+      "core::cmp::impls::impl&%67::cmp": "55e58dff586e6e27685f0749142eb701129536c5b061ada06f2806ff423d4527",
+      "core::num::nonzero::impl&%16::get": "ba9184ed33c626a445b8af7bed3863f92a61ea0c9db166a5bde4863f6d63f45d",
+      "vstd::std_specs::nonzero::impl&%13::view": "f597fd3a017f69b94deeb2e2b1a3536781f50010a99108cc34113959cd4c184e",
+      "vstd::std_specs::nonzero::nonzero_spec_get": "1109622ce2e7dd44e672c3516f9be24f482f2f2771861d55018459892d02e440",
+      "vstd::std_specs::num::u64_specs_tmp::impl&%3::cmp_spec": "7428c5664f53e2f12bd56c58ccb777b7e6039781b160999b44b47d5a4bdc281e",
+      "vstd::std_specs::num::u64_specs_tmp::impl&%3::obeys_cmp_spec": "cba04cc5a6c0ee673d08cb654ecbee38646d0a3be59b8eefca85cb4f16e204d2",
+      "vstd::view::View::view": "4db29537d4f6c66154139cb64ec8a97c5ed749776fce2bc180b2c18fff163358"
+    },
+    "ordinary_mirror_targets_identical": true
+  },
+  "native_correspondences": 0,
+  "native_source_scope": {
+    "bundle-alias": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-837ad6729efcda3f.rs:5:1: 5:43"
+        }
+      ]
+    },
+    "bundle-cold": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "bundle-exact-cold": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "bundle-exact-warm": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "bundle-false": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-a351d9c182fbb8ba.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "bundle-observations": {
+      "checked_exec_bodies": 10,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_0_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_0_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:5:1: 5:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_0_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_0_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:6:1: 6:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_1_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_1_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:7:1: 7:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_1_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_1_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:8:1: 8:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_2_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_2_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:9:1: 9:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_2_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_2_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:10:1: 10:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_3_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_3_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:11:1: 11:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_3_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_3_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:12:1: 12:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_4_0",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_4_0",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:13:1: 13:69"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::observation_4_1",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "observation_4_1",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-dbc2bb626927fc13.rs:14:1: 14:69"
+        }
+      ]
+    },
+    "bundle-swapped": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-2a9329e5a5af6a3c.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "bundle-warm": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-8353e32ab039dcca.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "bundle-weak": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-e6532fd44d0e2249.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "review-contexts": {
+      "checked_exec_bodies": 5,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::nested",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "nested",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-0e46ac5e25228a92.rs:12:1: 12:63"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::one",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "one",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-0e46ac5e25228a92.rs:6:1: 6:50"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::reversed",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "reversed",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-0e46ac5e25228a92.rs:8:1: 8:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::twice",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "twice",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-0e46ac5e25228a92.rs:10:1: 10:45"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::two",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "two",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-0e46ac5e25228a92.rs:7:1: 7:55"
+        }
+      ]
+    },
+    "review-effects": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::effect_args",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "effect_args",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-da9fce3b74543f75.rs:5:1: 5:65"
+        }
+      ]
+    },
+    "review-effects-false": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "local_order::effect_args",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "effect_args",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-17b1333f677c9c45.rs:5:1: 5:65"
+        }
+      ]
+    },
+    "review-ord-auxiliary": {
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": false,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "function": "local_order::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-659ff888cdf9aa5e.rs:5:1: 5:59"
+        }
+      ]
+    },
+    "review-three-relations": {
+      "checked_exec_bodies": 1,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "local_order::relation",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "relation",
+          "selected": true,
+          "source": "/tmp/local-nonzero-ord-09t1tshb/source-4e16949076c895bf.rs:5:1: 5:62"
+        }
+      ]
+    }
+  },
+  "new_std_contracts": 0,
+  "ordering_certificates": 0,
+  "ordering_imports": 0,
+  "original_native_symbols_sha256": "1c3cdc29f18b23233aa2c5c33c4dfcb758c8eccc771966a24c4c2a1dbc6e6c9c",
+  "preregistration_commit": "56210c34",
+  "private_root": "/tmp/local-nonzero-ord-09t1tshb",
+  "publication": false,
+  "review_base": "7fde950cf87f67c2fe755c4f5f1e96f358436a37",
+  "runs": {
+    "build": {
+      "exit": 0,
+      "freeze_sha256": "38791471289d428d19fd9a5c90ed15653113fe91de70daa37e799a663a18c471",
+      "receipt_sha256": "bb686d19314625913b464e34990bf725e17cba3c7963782e97355def5ca97f7c",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "ced116c821788b0386a4aa0cee00912664a3f4bb15c0679f761637ddea50a7c0",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verification": null
+    },
+    "bundle-alias": {
+      "exit": 0,
+      "freeze_sha256": "d6e6a1e136b90e8695baa11dd7022e0d8785dc8c3342e88530d70ed18f6a059a",
+      "receipt_sha256": "a46a66d08a1b6c8ed9311c3ca2333adbd5b239cd73184b6da2723d15b7e00413",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "74863f5cafdfc654fc95234e2190a2ebde5c7b1fa8fe4d8d5af18e41fe9d4038",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bundle-bool-false": {
+      "exit": 1,
+      "freeze_sha256": "05e0aa710f700948de81d90bce1538b9ca6a68cf751ca027baa1cc876d1b7a76",
+      "receipt_sha256": "501628267fba18422f61386b2af535ac66462d7783d674089bdea263ceaa31bb",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "4c357fb53304e3cd71d44e7e56cd434a1a4f93272091642e51fa2b3d2f8b1a00",
+      "stdout_sha256": "689d7d2aeea0a81541f16bcb7b47e634af134224ae536ccea6e68fe452154a64",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "bundle-bool-ordinary": {
+      "exit": 0,
+      "freeze_sha256": "011c02beb77e7ab90392dd7dfee3ed19d116d9f734ee00f82e6fe486f64b6bfa",
+      "receipt_sha256": "807a9bd76b98105d75ae2ed9e00b4982d34f069d4f8a243b61d5b901576a81d0",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "d54f1820b0cd52e824d1f4e68439d79c917c710dce0d578e96c6401947165fe4",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "bundle-bool-provider": {
+      "exit": 0,
+      "freeze_sha256": "3cf39c3627a705b74b029f9b672d33af2473b2e6a2b32e09f5cc1358dbe3d777",
+      "receipt_sha256": "377d5698190db909c3eee364c5d2e2e91b5707818b5f70c9e5694b82908c1f7d",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "ce7d1dc2f36192a1029fcef9febe4a6e5470467a87c49d8cccc6623210863e8c",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bundle-cold": {
+      "exit": 0,
+      "freeze_sha256": "a25e23e1c554529f8039f30c3f78f2d4dd8f51d8f05a4ac386e10c5c8bb4d819",
+      "receipt_sha256": "33dbd26842d4bb94bca0945b3fb52773548ba29839fdfca3ec8d1289d54fed24",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "ce0d4d3b553a98383883603a0c84adc09b6daa1688333ae163b8cb42350d482d",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bundle-exact-cold": {
+      "exit": 0,
+      "freeze_sha256": "ac3c911765111a5a9b4c6f68eabe03a459f658a287d22762549dbab410ad2cf5",
+      "receipt_sha256": "67f66b4ec97cdcdc560eb22895c3fefc5665be6dc4eb922a47e94189f5e8eff1",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "8934a6d104065ca6bb503f7a54b2a7e6a7914f67c36c221a9624b5dd9577ecfb",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bundle-exact-warm": {
+      "exit": 0,
+      "freeze_sha256": "ac3c911765111a5a9b4c6f68eabe03a459f658a287d22762549dbab410ad2cf5",
+      "receipt_sha256": "6e9b3484ba148bfd4c81b65c3e6cfc80f333104a1949b58a54b2fc94819c9dd2",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "5f2fdfdc1f3955e678359367ef6c9ac81e81c53e8118662bdef668ba6dda9771",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bundle-export---no-erasure-check-cargo": {
+      "exit": 1,
+      "freeze_sha256": "74c9e02c64cd8a1955bf8c01e7b232265fb705bfb8dbc3897f03a00e876e0a8e",
+      "receipt_sha256": "1356b18546588fb57153a9dff88d62704cfc3d3b8f29694cd44df1c280ff9953",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "fc1b956db89e6bf25b8bd073ac973815a4fb3bf1570d8b8c5b22d86d3c707295",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-erasure-check-explicit": {
+      "exit": 1,
+      "freeze_sha256": "59d1f07d2870c9ebf298fce56d8823fe9bec06bb58c883942d678c2f1163ada6",
+      "receipt_sha256": "e9591371684baa77b0ae8ef3c8f7672d60a475866b6a9806e48d793b01c999bb",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "f62147589637a2fc35fe489a726d4ad7a67dfc6883973bf0b5ba683da763f3a9",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-lifetime-cargo": {
+      "exit": 1,
+      "freeze_sha256": "0670de82e038de2d7d410d6995d3edb4f0f294d4137338734d2520dd4c533644",
+      "receipt_sha256": "9b55765ea7dee1ec2a234508f5becbfb170654cc8a1a24921eac6de45879bbdc",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "ee202c92a6f34a7256f44bf72a0f6ed88da5a5103d819ca113c8de7fbd4db20c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-lifetime-explicit": {
+      "exit": 1,
+      "freeze_sha256": "e020601f8414fca540d37991944892c41b347e067c7036deb47af7c1cc34e075",
+      "receipt_sha256": "6522122def86d417a8de7e5bdba8b770e5b8bb9175f239651f7824957093d7ec",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "8b27f1c46912328b3e14768107e58c606ad10a9d428c8b4e97584b571bddf04c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-trait-conflicts-cargo": {
+      "exit": 1,
+      "freeze_sha256": "ce3aa0959b546b22f66ef010032b27fd27d8db27b5d0c94961754f38ce52c000",
+      "receipt_sha256": "168c35cdb1c82517a1a2897e52ef9387c5988f67d8521409c92aae94a5f2e0c6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "1fb3c707f50038df363e382cb9cea17ef52ad289a91ab2b8bb926a52f2b65cbd",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-trait-conflicts-explicit": {
+      "exit": 1,
+      "freeze_sha256": "523de6e0387945a971344dd861aaddb46075005fa06f635dee35a3e7f604f93e",
+      "receipt_sha256": "11c96c45fd9aa333fa143b15b9a6670b1873010ef777559e444dd1623b9d56ab",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "20180705f1c9ee461dc4abd3bc4db30025ed5690b19eeab6d744ee8122042c53",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-verify-cargo": {
+      "exit": 1,
+      "freeze_sha256": "9cfb08471b68cccf45806c9e33478985a717e503aac7cac85e1e6c8a8cbdc14e",
+      "receipt_sha256": "8354f76b11295ccc88ddc3f2908f409baab21ef69c285fc4d73e54a2a92dc6e7",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "ac5581ed84823164ec529e050801fa5c64ff3226dd1dc9c8a04c52e2affc1c62",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-export---no-verify-explicit": {
+      "exit": 1,
+      "freeze_sha256": "e56d26f430ad2eba7f7a6771bd211a958bbca82b836f48c10562290e6e1f0708",
+      "receipt_sha256": "8659c7350704b7fd87dc4d22cffefbff14c927e04308795c7297f353e1b77810",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "7604d70bc29beab39ece42847f8fdd4922ac0afbeeb088b45685fd7d84e700c2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-export-direct-cargo": {
+      "exit": 1,
+      "freeze_sha256": "f8740b2f6337401fc24ba398b1ac7b51a9a635e25107898161b717cb734c494a",
+      "receipt_sha256": "16408833aedebebd380a31f9b61842af58589694f053d9f30761581be5ffd482",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "2a33b3445b28a87800ac460e0a4d6d81889504a7d6d7ba14ff8f2b2000d7298f",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-direct-explicit": {
+      "exit": 1,
+      "freeze_sha256": "118ba825e8368ac11e35441db667631661cdf0b258df950d5c04c987ab210676",
+      "receipt_sha256": "facf0a71c0d13cbf27c9de838848712c0bd6c7366433203f62d9ad1a265b1a9f",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "df85377b882ead77559f9bfaf2ba9ea98a5d8b6efe2245dfa259a9c9a37ab801",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-false-cargo": {
+      "exit": 1,
+      "freeze_sha256": "91143c8787c633a8049dbfc282ca436e3b25c40ed00735d2489ad22c1b4cb386",
+      "receipt_sha256": "856b2119650caaa8e75f4bcd3363163f49e7139be94df0721bf2fcd1f3b0acc6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "e58c30e544a6708c36687b2fb0d2fbdd36367293c122060fd9351e0bb221d3f8",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-false-explicit": {
+      "exit": 1,
+      "freeze_sha256": "31920500e4d50647be7d8b21a7de72052abd4ad5a32f9d6e5a8182068e21fcf3",
+      "receipt_sha256": "ebb1245a23aa4c80edeb1e72fa365fb0a2a3c4eb834ec4edf7e587517af59db0",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "d18cf3ddc33f8b68b384b1874e76959fdaa94c78015c34023a0af8ac5f1d7390",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-mixed-cargo": {
+      "exit": 1,
+      "freeze_sha256": "258391acb0ec369445a0162030634267cc5d07d4afd54f236e17984f0c42d7cb",
+      "receipt_sha256": "5f28f8f7c88b995cf94115d3b21b34f252fcc3be3b93627fe128538bbe858bc6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "7dcf95b778a71620e484f526a3dad7c06ce6cf9b2256171c85cdc7ec9bb109a2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-mixed-explicit": {
+      "exit": 1,
+      "freeze_sha256": "2d27d82830585d3bba638aa491837ea09ae2678ee470d0a8c99bfde1ed0cd661",
+      "receipt_sha256": "96b162be23c94b848e2c0c5deb8bbca4028b0e0aebf2bfecf33c5d530fba95bd",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "d76333af138d85a43a3e219a9881910b6e92775f60581a7388b467f0b8925bd5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-private-cargo": {
+      "exit": 1,
+      "freeze_sha256": "ccfb16a3418832ec3c6ed811dad6316d02209e14af5ce13974a0e67bf87e4205",
+      "receipt_sha256": "1021b6de1f48f56690f0419928fa4fdcf67b205a63f83c867d6e49c3d2a700ba",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "fc2424c7ee998d5773b3035b5ccb2e1315417703793c4b3ae8903ff43d80e286",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-private-explicit": {
+      "exit": 1,
+      "freeze_sha256": "c4fdac0e7951b24cc2a9732627a44a75a18f94f999c824395c9305b088ebbc5e",
+      "receipt_sha256": "eb90103282a6af688b8dedc9143d32dfc6948ca0f453ecec44a87e51354895fc",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "6ea38ded709e6ecc68fccb447b4a3598fcf6f4f95500cf62a1cddf377fe63967",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-false": {
+      "exit": 1,
+      "freeze_sha256": "6c758610c251b2852c5e6a9e6ff47454ef2317f1b4decc5822466813d3a70206",
+      "receipt_sha256": "88518895365b0a35c4ff84c56699599bf34cae1b9848665ce270e76712d42ec7",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "4a71ea7f6ca650d927b5dcaef7029e9625e949da3d2873bbd1fe211b8421221a",
+      "stdout_sha256": "6ad0198b91c4823333710b89ad7bba791dc3e46c75d5ce761c71fbcb56b810ce",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "bundle-filter-v2-function-cargo": {
+      "exit": 1,
+      "freeze_sha256": "e720c84b863baeef7c9c915a8040174031d718f9a6535281bf15678b2ae3438e",
+      "receipt_sha256": "bdbe5f97b8720fca1ffc66ddb71738ca8ad0986c358e26425b218e3fbceaf641",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "25e44ad577f5a846dc8c705d7dcb3cfa51603712ec414e527704b04d935d6eb1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-filter-v2-function-explicit": {
+      "exit": 1,
+      "freeze_sha256": "a659daec9973b8142d050cde7ac1957ee81a82ce779272417ae23aa5e12b6870",
+      "receipt_sha256": "c0672a286bea14293f55079aaad7a0b7286f3e378fbc34f42c77982186b74947",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "026b50c026384445d3d16b952f81aa5176dd611e9a10a53e31d4d10e0bc8d959",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-filter-v2-module-cargo": {
+      "exit": 1,
+      "freeze_sha256": "e48e154b11defa1822131c5704be2ecc2a6d4f7688b37fc1895e785c8d259393",
+      "receipt_sha256": "6b024f03d0f10305f977096d378232a4143b0e19f68652f21da550a9838800aa",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "fcffb64beb537e54566d740d61ddcecffb20d1ebd91d4bddc8303e41ee8977fb",
+      "stdout_sha256": "c1b20c2c831055ae0be7e13253ef5be37cd6cec38d67df859a5b55c746929b7e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-filter-v2-module-explicit": {
+      "exit": 1,
+      "freeze_sha256": "d269bffdf3ac43870d41fdb3fb0bd90ea13944310144fabfd125407f82b4a1ac",
+      "receipt_sha256": "acb5ab3494360ae536ce951a4f173320759eae0225715af075febde8bf3c4584",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "fcffb64beb537e54566d740d61ddcecffb20d1ebd91d4bddc8303e41ee8977fb",
+      "stdout_sha256": "95a9a36d1bc34d2cbfeea3ff918215d1d4af1ca465da43c1e90a56cdd0b9f2d4",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-global-auxiliary-cargo": {
+      "exit": 1,
+      "freeze_sha256": "373eab412de9457904c66e2b3e3849036c1bd356343e6984b3b5b7131cb60294",
+      "receipt_sha256": "8bb77597738042c7c004ff94c1f1b3288d8c1aa7319d2b12684d8cd451a95a17",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "2cc285cc87722e2beb8dedbfaf6d57cdb03a1f832f8ae327a0b1f0f5d03e7ad3",
+      "stdout_sha256": "55a109f35d1a191460f5815cd58e3e2a93c18c41f1b1c467258ebe8bca815a48",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "bundle-global-auxiliary-explicit": {
+      "exit": 1,
+      "freeze_sha256": "428ff1bd9e6402b8ae085f0bb4dd50c237671391c5a670e7c6e2deebb89fb194",
+      "receipt_sha256": "404c9cef692b678a07ca8085feb4de1c3db8b974de134d7ebaa2d24c126d6626",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "2cc285cc87722e2beb8dedbfaf6d57cdb03a1f832f8ae327a0b1f0f5d03e7ad3",
+      "stdout_sha256": "9ffab87e184ae83ec1faecbb88f3fce69adbf4d3c849575601c6dd3c6c2bf94c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "bundle-global-erased-cargo": {
+      "exit": 1,
+      "freeze_sha256": "7481c1927f43f7383560619850a381d55d175f056afa9565252f851297c1cb49",
+      "receipt_sha256": "b47709397a02f1db38ff711522e6e70d688bf9b9802bb890e9374e77d0c66f8d",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "5e763a2378f5e044ddf8f12a9cf6c1346a70185213df54c48cdb853030cfaca3",
+      "stdout_sha256": "fedf91491080fd89fbdfb5d5f6bb1821105c7fdbbb2df2d1c5596b7bc7493c43",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "bundle-global-erased-explicit": {
+      "exit": 1,
+      "freeze_sha256": "8832571dee47930334abad2d0321aa1093b2f66256a0689a4f9ef301b5c0c57c",
+      "receipt_sha256": "cc717e703562f4d11daf2aca052429bf7ad051271ea77faec4cf3c9b1b6d1734",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "5e763a2378f5e044ddf8f12a9cf6c1346a70185213df54c48cdb853030cfaca3",
+      "stdout_sha256": "776a6b1313a4b551330cc22c87ab215595fc4c8d043a15ceed7d8ba894e05762",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "bundle-observations": {
+      "exit": 0,
+      "freeze_sha256": "24daa4d8028aa189790abebab76f4e86ce888cd4fab1cc33e934aa989257c3e9",
+      "receipt_sha256": "9a551df03729f1989b21607f54f8f66d07b9f3f5cdee0393f81b4dce13cf29e3",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "d387501df3ce85e984fc86cf2cca272c3db6fec114a5123323b2e7b6fbf51b5c",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 11
+      }
+    },
+    "bundle-off": {
+      "exit": 1,
+      "freeze_sha256": "e6142c3a3a280a37354e346663da98518965a4255a364550321b5dd3fe8230fc",
+      "receipt_sha256": "da72d4c6dfd65e9b4acf18bb71d710183bdab160c5657f5840bc867abaf24087",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "f33079701a71ce76cc4ac350ca9669b18410674d32563ab923acd4458b96b399",
+      "stdout_sha256": "664c7ab10664f8f57efbacef0b344905754b19d2ffd29f9ae925eda13dc28577",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "bundle-partial": {
+      "exit": 0,
+      "freeze_sha256": "b0a37a8c899b4d261dd9f45044013bc27b8e700d36b7d02b9a3700e73848d41a",
+      "receipt_sha256": "fb786389495694a9c0cfe9051b0e3de9cf10ef171ba624409096b989fc9b093a",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "1942fe673db396c96606f89f4bf9645008093785f71fa4820b25234ca7ce726c",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 5
+      }
+    },
+    "bundle-swapped": {
+      "exit": 1,
+      "freeze_sha256": "a4f0fd5de5fbc21bd08ebda0dbde9b3bc10e4e588a3dfd3d6c905eb7bda0ed3b",
+      "receipt_sha256": "f4e78cfe06516c3f12bdf6686aacf6c071770eb37e2348fe0d35bfe060645e8d",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7743f4b290a51f7876a11f75a766c97ddeaa4c0bc1b3f36602aa86ac50db9e0d",
+      "stdout_sha256": "a15bbab234f331ff393479548dc7dec7c204de3390597dab807a8864c2673746",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "bundle-unsupported-generic": {
+      "exit": 0,
+      "freeze_sha256": "73382ecc080ad42fdbdce0755d7c9617c83324c47a1f66a9269ed5ac2a84c440",
+      "receipt_sha256": "6b08f45b106bddaa4732d99fdd84bac2e0a7f4fc2b72aa5640bcdde31adf1602",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "d42bea40a658970f8ab4e93f2d47531750a62960f51b61d197490df0c6d06525",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "bundle-unsupported-lookalike": {
+      "exit": 0,
+      "freeze_sha256": "1833d04efb83df8e71cab125ebf9c00cc1b69e82ad63bc2065d6774643e59237",
+      "receipt_sha256": "6f5628151207fe1e84863360eb152d3b417413683549f13a9be6acb08993b142",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "a2a5072f049b980abc889fa0c91bc450a10abf25847136439989894fef0186c3",
+      "stdout_sha256": "52704dddfcbfa1f676cbcc52a9231e547e02c110e29e89b5cbae71a6ec782787",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 3
+      }
+    },
+    "bundle-unsupported-overloaded-deref": {
+      "exit": 0,
+      "freeze_sha256": "08d0494fb805362845b6e6b144d723f87d2228abab3216ed73dce7aa6f6c0800",
+      "receipt_sha256": "69a1dcfa703207dfed57aabf8b3a83f7e04e55db8aa82d9f0ce077e5a546de86",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "bdeb3fe58d98dee238c1581a44a1e09129f0c6192b85217ba4cc91bf4f749f8a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 3
+      }
+    },
+    "bundle-warm": {
+      "exit": 0,
+      "freeze_sha256": "916b1650938a5cd1cefd5badabfa9f073bbadb95c8bb0641a62cf96112bebb9f",
+      "receipt_sha256": "2b9c0667a0755eaa630df426b7949064644de00f9b25c2c28fbf87c6e671aa84",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "abea3f033bedf3d2714215c1ca58aa2f085cd46b098d117b44fcc1855a0f554e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "bundle-weak": {
+      "exit": 0,
+      "freeze_sha256": "4936e225e823c7581efefac4d9a848b768da08939af23de8ad337498a1c1aec6",
+      "receipt_sha256": "6764a2fbb1cb667e2e47e4fe1092ea61978a188504c4441543488811af3cb188",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "fa0739b4d6c97a4948a366c323afe17a4b8a7ab29407c9c66f9785de9c8a5e11",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "final-test-certified_foreign_bool": {
+      "exit": 0,
+      "freeze_sha256": "a7814e5bba02c4467ef0b99a75078a70152d8a2b55dac5d05ae10bc45d6e179e",
+      "receipt_sha256": "3e38cd5e8bb51547cdb09dcec0e1e9245302e1985ab7137346e00c56d72d8ba9",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "4ba81883d2143a64ae4142757c40092d8df1b5db0e3db7924aa7acdae7ee4a62",
+      "verification": null
+    },
+    "final-test-constructor_function_values": {
+      "exit": 0,
+      "freeze_sha256": "07d158f548f7ba184e2c2b77ffa933759450d1ce8abc50a19588304ac2012ce0",
+      "receipt_sha256": "481793bab321b96adcba539b248ab6ab593a880917274e3fa26fcfc3b4f37fdc",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "9300efe221caaf182ad165490dabf11b8e7486d6ff24eb0d7d02fb37d6a3dbf1",
+      "verification": null
+    },
+    "final-test-infer_goals": {
+      "exit": 0,
+      "freeze_sha256": "4f4ead2fcd264e833fc33ef76b2cbdd266e011316863692fa72cb66dd5218ce7",
+      "receipt_sha256": "9bf5c2b382a1e7094ed6c9897d9d28caf79f619a83e7d415e62fdef36f600f0d",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "ab4f81e7007f376b7f4a45db47393b65884bc420850c3b7513463908bcc51edf",
+      "verification": null
+    },
+    "final-test-infer_nonzero_derive": {
+      "exit": 0,
+      "freeze_sha256": "abf3ec980ccdb44263ea241710f345da75e26e0b2cd7ac54271b974233a117eb",
+      "receipt_sha256": "a0b8499f8ce7f08a45241cb045b64f1b1d1660f3bdc7f5ae695bd1731384ffd0",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6c4a884addc7dc9534ff9077b8f107f876f2af9b6a1333401a213b617d3869be",
+      "verification": null
+    },
+    "final-test-local_checked_foreign": {
+      "exit": 0,
+      "freeze_sha256": "e8d5e0a959051452565011a96f455d4e49303efa57bca62539036782f65de8a3",
+      "receipt_sha256": "7b0ec5d711ad9484b3a1375e459dcce090f922223c891dc80d1301001decf66a",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "2bc88cd9f0204e8e35e5701f44679bce3ed96293c521532e13b23208ee1210ef",
+      "verification": null
+    },
+    "final-test-local_checked_packing": {
+      "exit": 0,
+      "freeze_sha256": "ea97adc3d3c18e3ff1f9eb9dc01ff36a2db3fc5efa7f26a743e45db069fe3bc9",
+      "receipt_sha256": "5c13d386b8824cac42532d3942342a1ddf2e25bcfa8d0020f4561ae9746e5381",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "08add360dfee0a9823ae5f9fb5b15b33eb9daa5117f6cfcb5962eacd6acb43c8",
+      "verification": null
+    },
+    "final-test-rust_verify-unit": {
+      "exit": 0,
+      "freeze_sha256": "142b81c52e0d20e40f7c8ef89da0499af61b51e5d0fc319613332fedb801acaf",
+      "receipt_sha256": "bd56adad5b9344d33222d9cdb4de082bcf2d5fcc7dc416b69bf0aae5a8ad0d04",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a254cad6ea4157e77429e0b220286be4635ae45c558628437337391bbf5f675e",
+      "verification": null
+    },
+    "final-test-vir": {
+      "exit": 0,
+      "freeze_sha256": "fec00c34e0e2360023a125f7c2751d108e0965594f4bee51c809fc9f457bd17a",
+      "receipt_sha256": "768e0e72a835790f23e0348c10cff59d927786b465c96cbb38e55c0bc04b50ac",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "58d9cb1180c75d3391e03b117fc1812ccb0df421618454e46f5688404144cfbd",
+      "verification": null
+    },
+    "focused-test-build": {
+      "exit": 0,
+      "freeze_sha256": "42f6139c009da7853703ab3d7cbe9addfe76b6bc993955a8a1a1c78a01f42eea",
+      "receipt_sha256": "34cd2c2fb16f12c3972896935e817a58b35b5c2e0947e79570fe6ba05fb025ff",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "0819b7167033191acf0ad627e1f099b14909970c696bc08e58a439727a61d0ae",
+      "stdout_sha256": "2a0d26de8d402dd6cbf187c7db2535cfef2796bc400af13d763bc69b927df34d",
+      "verification": null
+    },
+    "review-contexts": {
+      "exit": 0,
+      "freeze_sha256": "7280b0e95a0097574bfe2fc0279d2b283c7df362317e689f953a326b487e23c8",
+      "receipt_sha256": "a82115320c5aa212a48fef823e5068c4bcf4619b8be9736b5680955628420bc6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "f91fececbb2bce3da673b24eb2033208ebfe7b2e6f10ce3bf1616970ddaec50e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    },
+    "review-dual-selected-outputs": {
+      "exit": 1,
+      "freeze_sha256": "c6a45ec6349a33e2751398dab7574d253771d34d25786b6c87c2ec1d7dc12362",
+      "receipt_sha256": "c814849a8f2aeb548ceeae55903f8159061b0874c6559f0751be34a45f6c364b",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "49fb0fadb5d86c28714b9c11cc93e4ba7b8d21c95c98b9607230861ed9a2ce32",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "review-dual-valid-prior": {
+      "exit": 0,
+      "freeze_sha256": "8473a9362d132073231f18e1903965224fea04abdd139edf6b370a1b0a84eb3b",
+      "receipt_sha256": "4d0f08c564b3a39236b03c125d09e87711f6746660820a9e13f1d2cfdf90ad74",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "5f304d2bbc7aeac44d1047e7094854af00063e8a69cab58ae9da1ce50383e58c",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "review-dual-valid-refusal": {
+      "exit": 1,
+      "freeze_sha256": "895639c0d4e8ae7703d9fd2716aab4400677b1d3f7a5684352883ae95a25191e",
+      "receipt_sha256": "6a13915f6929ed89c50f900bbd19b2341a8b48a5ed0ee5321fef353be9cd461e",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "c9689d93f8087d30d3ad30b1a54833999b601d1545bfc61d3d13c7172395fed2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "review-effects": {
+      "exit": 0,
+      "freeze_sha256": "9eb033a4be0784a1016ab77fbe5f0ec5a365b3dab251ce9361a75d011d80b8d6",
+      "receipt_sha256": "e83d4fdfabb2713eb3b06429c09edfeb992bcd0db04c909ed443f82b130d2265",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "1535621ae216d0ed367dce46b6a92b83bc0fe7e2699c1c6f40f57ab78648dabb",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "review-effects-false": {
+      "exit": 1,
+      "freeze_sha256": "30e5bf1a3063f03dada68a827e767f2ae7664e298b762692d42785c1c8451fd4",
+      "receipt_sha256": "b9dad42a4bd04eba6ff87657ec78da4ac01ec1c8b206d53b73e9e5e68cb37ff9",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "a030b2f5acccd4a3c7dc598e3645bc8890c4d1cb352541e4776de12b06c0b515",
+      "stdout_sha256": "994956e6a9e0398d1780ed871219756c4f552c1b27dc3b858a1d004acbd436b6",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "review-erased-expansion": {
+      "exit": 0,
+      "freeze_sha256": "402e7f3d4e0d894632abe887a4e58aac1489e97b202c9659ad6264971d01cf84",
+      "receipt_sha256": "142df2e7eb3af8e79d80d4f5470f3ab03e1a268cba1ebf271dbc824ec919848d",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "581ea63e5402a35f86a4ae3963a3115b5704754b6cf22fbd8502c59934cdee3f",
+      "verification": null
+    },
+    "review-full-proofless-export": {
+      "exit": 0,
+      "freeze_sha256": "9635f413f8c9e0efa14a6853cd0feddca33b9123480659958744f27afcc011d1",
+      "receipt_sha256": "33123ccda00e627a96d15f0319bc9c2cc5fff89af50affd65278b605f5259465",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "183558ca7a25768e25657027db2c92958e0af6e6695257d181d32467cd4748bf",
+      "stdout_sha256": "1ef8fa9bf7be720d0ac04c01a2db99de0c1648fa310ea0ff1a3b49cd5486d437",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 132
+      }
+    },
+    "review-function-value": {
+      "exit": 1,
+      "freeze_sha256": "f94c10e225d45d2ce82465475922cba166d574380796baf42603663e5c6ffdde",
+      "receipt_sha256": "9c56871dd748f2940d0c750e4a94a1a29b48f640a3d28f671d757f264e7305f6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "4fd320de7faed93727b4d4cf3213465625da34dad493897e04a00d39859815cf",
+      "stdout_sha256": "3a2a6da1bf6d227314257c823db54c72f31687b4966873e73cf587bdbb26c579",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "review-ignored-derive-export": {
+      "exit": 0,
+      "freeze_sha256": "d11c666fd8712766fac4e0f9147ca74542f6296388dc534cbd40426970ba8701",
+      "receipt_sha256": "a62aad5bc388a29ddbacf338aa5f9979d781dcbbd42726318fad699bf9ab6e1e",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "be86f228220a327ebafc6594e290d38839992851a84f63fe20a996fbec3d799e",
+      "stdout_sha256": "7863521a21f2f796b2118d2a98f8c2968aaf6ef1cb700697eb8ce213980a20ea",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    },
+    "review-mirror": {
+      "exit": 0,
+      "freeze_sha256": "3f38be15a56f8b00823861434f3fba0591e369be1ac7da99ba09e55d495735b6",
+      "receipt_sha256": "e2031a679e8969b6991a91419c66cec6c2cf4a8eec110f317550c884ceb8c100",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "25e38d322d5d3a37647cd604d2e3db538ff1e87ef7cbbd68effe93a2989f8b03",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "review-old-policy-import": {
+      "exit": 1,
+      "freeze_sha256": "e1f598db5db2d2872dff9f5cf2b39e361e186558a6abb6115c0cbd6c11f51bf9",
+      "receipt_sha256": "2e3f0321aa6454fb7d21d88989ce46cbb874bab22926e471387573be90bbfa45",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "5e69fb8efbbd97769d38249ae5c1828068813d7de25d4b37c23847c4d79416d6",
+      "stdout_sha256": "5f34b89886c57e58ce5e67828e25e8371bde8d8b13b0ce2866b2111f7006f04e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "review-ord-auxiliary": {
+      "exit": 1,
+      "freeze_sha256": "94f74c43db0fe30c835299ee61a58ac474e9dee91b0f394a7a2c00274a0abb2e",
+      "receipt_sha256": "29b4e359c054bad13e2dfcae8eda020c7aeb75285d5c29f3661cb717df7e26a3",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "eabaf5bd352ae6a75db7e208cc69f97d8e63f62c8c1a8f11adbf143502e563a6",
+      "stdout_sha256": "3658df98f4c596e33edcdb1d234f062928a8881cfef7fab86807bdb31dc0a5da",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "review-packet-export": {
+      "exit": 0,
+      "freeze_sha256": "75e0709109aac720cab69246aff6b4bcbc29cced413f501631d4029be1b1395a",
+      "receipt_sha256": "42dd304e6e7bc4600a09f04cb3e84a710ace5178822b1923ce5e9665d69bcf04",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "322f76387144197cbe19c17e0eb92a32f454498212e7394e753f74817eb94d04",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 31
+      }
+    },
+    "review-three-relations": {
+      "exit": 0,
+      "freeze_sha256": "419f8b4fa6e8a668cf2e6110459a42fd2492452cd7e1d58bbec82a813a45125c",
+      "receipt_sha256": "7a9c11b7cb77e60a3db0ee227cbf167c21c4a7bcf6a0fad708f146c44afe61d4",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "7c76b471bc784495b1168bd76598f7533cdc9268e6400d65f07f395924d493e5",
+      "stdout_sha256": "a725f88f71fd82133b3fa674ceb141865e191d680b4d46c98355a53a61e172be",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "review-type-dependency-actual-function": {
+      "exit": 0,
+      "freeze_sha256": "eaeb5ec6c16deeb223efc8d7282cce1b9d4d965b8984f711f86a7e9503b72a4d",
+      "receipt_sha256": "f456119657332d0cfa439978d792f4c2a9e5acab171cb3515eb615577213dabd",
+      "source_kind": "separate cfg(test)-only control variant; see structural_variant",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "29c87147acc6b9c328b096116e62c06a9d288b3c7bc8b9fb65618ec49a312910",
+      "verification": null
+    },
+    "review-type-dependency-test-build": {
+      "exit": 0,
+      "freeze_sha256": "88a310937097b74d4c284a305deb6f86417ed0c09b6c40aab085faf6ae03c948",
+      "receipt_sha256": "6e61a95a8d9a7c6718d0b16a7024b823b4bb3c760929ba48bf65c621ee974479",
+      "source_kind": "separate cfg(test)-only control variant; see structural_variant",
+      "stderr_sha256": "97e77ec458d3972f13e1832622cadd80482a6cab295e17d761068024fbf98495",
+      "stdout_sha256": "d6a98145aec0ecd6a315c8798d11ae3969f0b7243cd770d8995b7172a1f3d32f",
+      "verification": null
+    },
+    "review-wrapper-unproved": {
+      "exit": 1,
+      "freeze_sha256": "5cee3be61ed4b038849908323d89be76408721ae0b1f14492fb605d06602a6f0",
+      "receipt_sha256": "f6f7e0efd9ca9ca0c79ed52793c1a522c494c6ee931178b856a5cf742258714e",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "1602d6fa306a4ba58c96eedaa6416991805241b52838e3d9e8300a84c4b5038f",
+      "stdout_sha256": "39eece530d111db0ec2d62ba3834a76e3c050de82a58cc865b766284c74afc83",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 6,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "unit-build-03": {
+      "exit": 0,
+      "freeze_sha256": "8cf1a691282f8af899fb623e78e9d81b9c86f3371b0220763a92dcb7893851ca",
+      "receipt_sha256": "6fb7c7e562e63ea4aa4994ad8f593088b338d1bc23ed62960e7c08d74e05cd99",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "e4ec125470d171d8fbe6d3a2e061a83593f4ceeea49b4abec797ea80641af73e",
+      "stdout_sha256": "bc29be86e543e9125968fc503def76f4954ba64a5f944aff7a05b9ce2cf4d174",
+      "verification": null
+    },
+    "vstd": {
+      "exit": 0,
+      "freeze_sha256": "f9252e3b2ee0439f50a8a02b3e8ec9cccf3fd2c01adaef088753f12cdb033d90",
+      "receipt_sha256": "06cc217226522d11214792b4a259b5efbc85a694fca23bc4465b78b029cade83",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "60dcbe677ac100b160bf80fc7aa9f0ad58332d5a71e3ee67933102b09998b929",
+      "stdout_sha256": "37b545691557f6890ec583d03b9bf6473a7019b2554504453bd34705e5993934",
+      "verification": null
+    }
+  },
+  "single_path_refusals": {
+    "bundle-export---no-erasure-check-cargo": {
+      "exit": 1,
+      "freeze_sha256": "74c9e02c64cd8a1955bf8c01e7b232265fb705bfb8dbc3897f03a00e876e0a8e",
+      "receipt_sha256": "1356b18546588fb57153a9dff88d62704cfc3d3b8f29694cd44df1c280ff9953",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "fc1b956db89e6bf25b8bd073ac973815a4fb3bf1570d8b8c5b22d86d3c707295",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-erasure-check-explicit": {
+      "exit": 1,
+      "freeze_sha256": "59d1f07d2870c9ebf298fce56d8823fe9bec06bb58c883942d678c2f1163ada6",
+      "receipt_sha256": "e9591371684baa77b0ae8ef3c8f7672d60a475866b6a9806e48d793b01c999bb",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "f62147589637a2fc35fe489a726d4ad7a67dfc6883973bf0b5ba683da763f3a9",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-lifetime-cargo": {
+      "exit": 1,
+      "freeze_sha256": "0670de82e038de2d7d410d6995d3edb4f0f294d4137338734d2520dd4c533644",
+      "receipt_sha256": "9b55765ea7dee1ec2a234508f5becbfb170654cc8a1a24921eac6de45879bbdc",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "ee202c92a6f34a7256f44bf72a0f6ed88da5a5103d819ca113c8de7fbd4db20c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-lifetime-explicit": {
+      "exit": 1,
+      "freeze_sha256": "e020601f8414fca540d37991944892c41b347e067c7036deb47af7c1cc34e075",
+      "receipt_sha256": "6522122def86d417a8de7e5bdba8b770e5b8bb9175f239651f7824957093d7ec",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "8b27f1c46912328b3e14768107e58c606ad10a9d428c8b4e97584b571bddf04c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-trait-conflicts-cargo": {
+      "exit": 1,
+      "freeze_sha256": "ce3aa0959b546b22f66ef010032b27fd27d8db27b5d0c94961754f38ce52c000",
+      "receipt_sha256": "168c35cdb1c82517a1a2897e52ef9387c5988f67d8521409c92aae94a5f2e0c6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "1fb3c707f50038df363e382cb9cea17ef52ad289a91ab2b8bb926a52f2b65cbd",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-trait-conflicts-explicit": {
+      "exit": 1,
+      "freeze_sha256": "523de6e0387945a971344dd861aaddb46075005fa06f635dee35a3e7f604f93e",
+      "receipt_sha256": "11c96c45fd9aa333fa143b15b9a6670b1873010ef777559e444dd1623b9d56ab",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "20180705f1c9ee461dc4abd3bc4db30025ed5690b19eeab6d744ee8122042c53",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export---no-verify-cargo": {
+      "exit": 1,
+      "freeze_sha256": "9cfb08471b68cccf45806c9e33478985a717e503aac7cac85e1e6c8a8cbdc14e",
+      "receipt_sha256": "8354f76b11295ccc88ddc3f2908f409baab21ef69c285fc4d73e54a2a92dc6e7",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "ac5581ed84823164ec529e050801fa5c64ff3226dd1dc9c8a04c52e2affc1c62",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-export---no-verify-explicit": {
+      "exit": 1,
+      "freeze_sha256": "e56d26f430ad2eba7f7a6771bd211a958bbca82b836f48c10562290e6e1f0708",
+      "receipt_sha256": "8659c7350704b7fd87dc4d22cffefbff14c927e04308795c7297f353e1b77810",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "7604d70bc29beab39ece42847f8fdd4922ac0afbeeb088b45685fd7d84e700c2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-export-direct-cargo": {
+      "exit": 1,
+      "freeze_sha256": "f8740b2f6337401fc24ba398b1ac7b51a9a635e25107898161b717cb734c494a",
+      "receipt_sha256": "16408833aedebebd380a31f9b61842af58589694f053d9f30761581be5ffd482",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "2a33b3445b28a87800ac460e0a4d6d81889504a7d6d7ba14ff8f2b2000d7298f",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-direct-explicit": {
+      "exit": 1,
+      "freeze_sha256": "118ba825e8368ac11e35441db667631661cdf0b258df950d5c04c987ab210676",
+      "receipt_sha256": "facf0a71c0d13cbf27c9de838848712c0bd6c7366433203f62d9ad1a265b1a9f",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "df85377b882ead77559f9bfaf2ba9ea98a5d8b6efe2245dfa259a9c9a37ab801",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-false-cargo": {
+      "exit": 1,
+      "freeze_sha256": "91143c8787c633a8049dbfc282ca436e3b25c40ed00735d2489ad22c1b4cb386",
+      "receipt_sha256": "856b2119650caaa8e75f4bcd3363163f49e7139be94df0721bf2fcd1f3b0acc6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "e58c30e544a6708c36687b2fb0d2fbdd36367293c122060fd9351e0bb221d3f8",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-false-explicit": {
+      "exit": 1,
+      "freeze_sha256": "31920500e4d50647be7d8b21a7de72052abd4ad5a32f9d6e5a8182068e21fcf3",
+      "receipt_sha256": "ebb1245a23aa4c80edeb1e72fa365fb0a2a3c4eb834ec4edf7e587517af59db0",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "d18cf3ddc33f8b68b384b1874e76959fdaa94c78015c34023a0af8ac5f1d7390",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-mixed-cargo": {
+      "exit": 1,
+      "freeze_sha256": "258391acb0ec369445a0162030634267cc5d07d4afd54f236e17984f0c42d7cb",
+      "receipt_sha256": "5f28f8f7c88b995cf94115d3b21b34f252fcc3be3b93627fe128538bbe858bc6",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "7dcf95b778a71620e484f526a3dad7c06ce6cf9b2256171c85cdc7ec9bb109a2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-mixed-explicit": {
+      "exit": 1,
+      "freeze_sha256": "2d27d82830585d3bba638aa491837ea09ae2678ee470d0a8c99bfde1ed0cd661",
+      "receipt_sha256": "96b162be23c94b848e2c0c5deb8bbca4028b0e0aebf2bfecf33c5d530fba95bd",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "d76333af138d85a43a3e219a9881910b6e92775f60581a7388b467f0b8925bd5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-private-cargo": {
+      "exit": 1,
+      "freeze_sha256": "ccfb16a3418832ec3c6ed811dad6316d02209e14af5ce13974a0e67bf87e4205",
+      "receipt_sha256": "1021b6de1f48f56690f0419928fa4fdcf67b205a63f83c867d6e49c3d2a700ba",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "fc2424c7ee998d5773b3035b5ccb2e1315417703793c4b3ae8903ff43d80e286",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-export-private-explicit": {
+      "exit": 1,
+      "freeze_sha256": "c4fdac0e7951b24cc2a9732627a44a75a18f94f999c824395c9305b088ebbc5e",
+      "receipt_sha256": "eb90103282a6af688b8dedc9143d32dfc6948ca0f453ecec44a87e51354895fc",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "stdout_sha256": "6ea38ded709e6ecc68fccb447b4a3598fcf6f4f95500cf62a1cddf377fe63967",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "bundle-filter-v2-function-cargo": {
+      "exit": 1,
+      "freeze_sha256": "e720c84b863baeef7c9c915a8040174031d718f9a6535281bf15678b2ae3438e",
+      "receipt_sha256": "bdbe5f97b8720fca1ffc66ddb71738ca8ad0986c358e26425b218e3fbceaf641",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "25e44ad577f5a846dc8c705d7dcb3cfa51603712ec414e527704b04d935d6eb1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-filter-v2-function-explicit": {
+      "exit": 1,
+      "freeze_sha256": "a659daec9973b8142d050cde7ac1957ee81a82ce779272417ae23aa5e12b6870",
+      "receipt_sha256": "c0672a286bea14293f55079aaad7a0b7286f3e378fbc34f42c77982186b74947",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "9293fbe28713fa285498230574b8de07db5892b9c802ed96d109717b7d3cdc0d",
+      "stdout_sha256": "026b50c026384445d3d16b952f81aa5176dd611e9a10a53e31d4d10e0bc8d959",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-filter-v2-module-cargo": {
+      "exit": 1,
+      "freeze_sha256": "e48e154b11defa1822131c5704be2ecc2a6d4f7688b37fc1895e785c8d259393",
+      "receipt_sha256": "6b024f03d0f10305f977096d378232a4143b0e19f68652f21da550a9838800aa",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "fcffb64beb537e54566d740d61ddcecffb20d1ebd91d4bddc8303e41ee8977fb",
+      "stdout_sha256": "c1b20c2c831055ae0be7e13253ef5be37cd6cec38d67df859a5b55c746929b7e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-filter-v2-module-explicit": {
+      "exit": 1,
+      "freeze_sha256": "d269bffdf3ac43870d41fdb3fb0bd90ea13944310144fabfd125407f82b4a1ac",
+      "receipt_sha256": "acb5ab3494360ae536ce951a4f173320759eae0225715af075febde8bf3c4584",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "fcffb64beb537e54566d740d61ddcecffb20d1ebd91d4bddc8303e41ee8977fb",
+      "stdout_sha256": "95a9a36d1bc34d2cbfeea3ff918215d1d4af1ca465da43c1e90a56cdd0b9f2d4",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "bundle-global-auxiliary-cargo": {
+      "exit": 1,
+      "freeze_sha256": "373eab412de9457904c66e2b3e3849036c1bd356343e6984b3b5b7131cb60294",
+      "receipt_sha256": "8bb77597738042c7c004ff94c1f1b3288d8c1aa7319d2b12684d8cd451a95a17",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "2cc285cc87722e2beb8dedbfaf6d57cdb03a1f832f8ae327a0b1f0f5d03e7ad3",
+      "stdout_sha256": "55a109f35d1a191460f5815cd58e3e2a93c18c41f1b1c467258ebe8bca815a48",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "bundle-global-auxiliary-explicit": {
+      "exit": 1,
+      "freeze_sha256": "428ff1bd9e6402b8ae085f0bb4dd50c237671391c5a670e7c6e2deebb89fb194",
+      "receipt_sha256": "404c9cef692b678a07ca8085feb4de1c3db8b974de134d7ebaa2d24c126d6626",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "2cc285cc87722e2beb8dedbfaf6d57cdb03a1f832f8ae327a0b1f0f5d03e7ad3",
+      "stdout_sha256": "9ffab87e184ae83ec1faecbb88f3fce69adbf4d3c849575601c6dd3c6c2bf94c",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "bundle-global-erased-cargo": {
+      "exit": 1,
+      "freeze_sha256": "7481c1927f43f7383560619850a381d55d175f056afa9565252f851297c1cb49",
+      "receipt_sha256": "b47709397a02f1db38ff711522e6e70d688bf9b9802bb890e9374e77d0c66f8d",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "5e763a2378f5e044ddf8f12a9cf6c1346a70185213df54c48cdb853030cfaca3",
+      "stdout_sha256": "fedf91491080fd89fbdfb5d5f6bb1821105c7fdbbb2df2d1c5596b7bc7493c43",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "bundle-global-erased-explicit": {
+      "exit": 1,
+      "freeze_sha256": "8832571dee47930334abad2d0321aa1093b2f66256a0689a4f9ef301b5c0c57c",
+      "receipt_sha256": "cc717e703562f4d11daf2aca052429bf7ad051271ea77faec4cf3c9b1b6d1734",
+      "source_kind": "original prepared source",
+      "stderr_sha256": "5e763a2378f5e044ddf8f12a9cf6c1346a70185213df54c48cdb853030cfaca3",
+      "stdout_sha256": "776a6b1313a4b551330cc22c87ab215595fc4c8d043a15ceed7d8ba894e05762",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    }
+  },
+  "source_count": 3112,
+  "source_inventory_sha256": "b963bf7ff80cedfec4e488dc85408103a8685674cb0c1c0a9d3341390136852d",
+  "status": "REQUEST_CHANGES_F1_DUAL_OUTPUT_F2_TYPE_DEPENDENCIES",
+  "structural_variant": {
+    "accepted_cleared_param_embedded_impl_paths": true,
+    "base_source_sha256": "b963bf7ff80cedfec4e488dc85408103a8685674cb0c1c0a9d3341390136852d",
+    "build_receipt_sha256": "6e61a95a8d9a7c6718d0b16a7024b823b4bb3c760929ba48bf65c621ee974479",
+    "classification": "synthetic actual compiler-loaded MIR/actual Function clone; no semantic false-success claim",
+    "only_cfg_test_changed": true,
+    "production_tools_unchanged": true,
+    "run_receipt_sha256": "f456119657332d0cfa439978d792f4c2a9e5acab171cb3515eb615577213dabd",
+    "variant_source_sha256": "dd4ca7389926f59c2c34d8d469a50861b5811545abc940b4f68ca651dd12c8c5"
+  },
+  "structural_variant_inputs_sha256": "dc7997dd0f3acfeef621502fafdb7e609b6ef1a437d99a02def2f411e2a3473e",
+  "tests": {
+    "certified_foreign_bool": {
+      "passed": 3,
+      "receipt_sha256": "3e38cd5e8bb51547cdb09dcec0e1e9245302e1985ab7137346e00c56d72d8ba9"
+    },
+    "constructor_function_values": {
+      "passed": 13,
+      "receipt_sha256": "481793bab321b96adcba539b248ab6ab593a880917274e3fa26fcfc3b4f37fdc"
+    },
+    "infer_goals": {
+      "passed": 12,
+      "receipt_sha256": "9bf5c2b382a1e7094ed6c9897d9d28caf79f619a83e7d415e62fdef36f600f0d"
+    },
+    "infer_nonzero_derive": {
+      "passed": 3,
+      "receipt_sha256": "a0b8499f8ce7f08a45241cb045b64f1b1d1660f3bdc7f5ae695bd1731384ffd0"
+    },
+    "local_checked_foreign": {
+      "passed": 5,
+      "receipt_sha256": "7b0ec5d711ad9484b3a1375e459dcce090f922223c891dc80d1301001decf66a"
+    },
+    "local_checked_packing": {
+      "passed": 4,
+      "receipt_sha256": "5c13d386b8824cac42532d3942342a1ddf2e25bcfa8d0020f4561ae9746e5381"
+    },
+    "rust_verify-unit": {
+      "passed": 7,
+      "receipt_sha256": "bd56adad5b9344d33222d9cdb4de082bcf2d5fcc7dc416b69bf0aae5a8ad0d04"
+    },
+    "vir": {
+      "passed": 149,
+      "receipt_sha256": "768e0e72a835790f23e0348c10cff59d927786b465c96cbb38e55c0bc04b50ac"
+    }
+  },
+  "tools": {
+    "libverus_builtin.rlib": "c2143f4bb2dfd6abd435dc4c78e9d8c35ef66c075133d0c3b6aa1167a21b9112",
+    "libverus_builtin_macros.so": "3b4f17af00936c1d782cf3b049ba8799bf2b4b1640dea0d02673debec64662d6",
+    "libverus_state_machines_macros.so": "488bfba53a7b41fc1ecfcedcd58a09549a8d32b014ae123a5ccb39f8a94ab3ce",
+    "libvstd.rlib": "8300fd3a83ee262e242789597214ebbde4972fd91836a7b933ac43ae990bfd8d",
+    "rust_verify": "8eb82e9ef314c14e7ca85ba9271234434fb870cf06d75879d0d838cf390af6c4",
+    "verus": "29e3eab284c13453c0424180e81c30b555faaab3eae4e2bcb1191725c1a420e3",
+    "vstd.vir": "d1f703567ddd031972ec7aeaec3807491e68079ae30bf2ddf38334a5c4e79deb",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "versions": {
+    "cache": 76,
+    "policy": 73,
+    "schema": 39
+  },
+  "wrapper_ordering_proved": false
+}
