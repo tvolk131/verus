@@ -2910,9 +2910,12 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
-        // Stage1 ordering has no publication kind or import format. Refuse ALL
-        // selected outputs before private pruning, including mixed bool/order.
-        if !pre_crate.ctxt.local_ordering_calls.borrow().is_empty()
+        // Local NonZero ordering has no publication kind or import format.
+        // Requests using existing PartialOrd may need no new Ord helper.
+        let local_wrapper_ordering = pre_crate.infos.iter().flat_map(|info| info.iter_stubs()).any(|f| {
+            vir::infer::local_nonzero_ordering_request(f, &pre_crate.krate_without_funs.datatypes)
+        });
+        if (local_wrapper_ordering || !pre_crate.ctxt.local_ordering_calls.borrow().is_empty())
             && (self.args.export.is_some() || self.export_vir_path_via_cargo.is_some())
         {
             crate::import_export::invalidate_local_inference_export(

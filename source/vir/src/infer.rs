@@ -1196,6 +1196,19 @@ pub fn infer_functions_with_report(
     infer_functions_with_datatypes(functions, imported, &[], configuration, report)
 }
 
+/// Local-only export refusal, independent of whether an Ord helper was needed.
+/// This recognizes a request, not eligibility or a proved ordering theorem.
+pub fn local_nonzero_ordering_request(f: &FunctionStub, datatypes: &[Datatype]) -> bool {
+    f.x.mode == Mode::Spec
+        && matches!(
+            f.x.name.path.last_segment().as_str(),
+            "__verus_infer_derived_cmp" | "__verus_infer_derived_partial_cmp"
+        )
+        && f.x.params.len() == 1
+        && trait_getters::shared(&f.x.params[0].x.typ)
+            .is_some_and(|owner| wrapper_compare::nonzero_owner(owner, datatypes))
+}
+
 pub fn infer_functions_with_datatypes(
     functions: &[Function],
     imported: &[Function],

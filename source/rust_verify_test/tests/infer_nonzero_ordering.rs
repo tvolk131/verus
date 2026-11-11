@@ -82,11 +82,19 @@ fn unsupported_shapes_and_missing_delegate_fail_closed() {
 fn selected_wrapper_ordering_removes_genuine_prior_bool_export() {
     let crates=common::infer::InferCrates::new();
     let old="use vstd::prelude::*;verus!{pub fn old_api(b:bool)->(r:u64) ensures r==if b {1u64}else{0u64}, {u64::from(b)}}";
-    let p=crates.build_source("nonzero_local_only",old,&[],&["--infer-goals","--no-cheating","--output-json"],true);
-    assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
-    assert!(crates.vir("nonzero_local_only").exists());
-    let p=crates.build_source("nonzero_local_only",BASE,&[],&["--infer-goals","--no-cheating","--output-json"],true);
-    assert!(!p.status.success());
-    assert!(String::from_utf8_lossy(&p.stderr).contains("local-only"));
-    assert!(!crates.vir("nonzero_local_only").exists());
+    let partial_only=BASE.replace("infer_derive(PartialEq,PartialOrd,Ord)","infer_derive(PartialEq,PartialOrd)")
+        .replace("Eq, PartialOrd, Ord)]","Eq, PartialOrd)]");
+    // PartialOrd can use its existing carrier model without registering Ord.
+    // Request detection must still refuse publication, including with goals off.
+    for (source, options) in [(BASE, vec!["--infer-goals","--no-cheating","--output-json"]),
+        (partial_only.as_str(),vec!["--infer-goals","--no-cheating","--output-json"]),
+        (partial_only.as_str(),vec!["--no-cheating","--output-json"])] {
+        let p=crates.build_source("nonzero_local_only",old,&[],&["--infer-goals","--no-cheating","--output-json"],true);
+        assert!(p.status.success(),"{}",String::from_utf8_lossy(&p.stderr));
+        assert!(crates.vir("nonzero_local_only").exists());
+        let p=crates.build_source("nonzero_local_only",source,&[],&options,true);
+        assert!(!p.status.success());
+        assert!(String::from_utf8_lossy(&p.stderr).contains("local-only"));
+        assert!(!crates.vir("nonzero_local_only").exists());
+    }
 }
