@@ -6,8 +6,8 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **39**, inference policy **72** and
-candidate-cache version **75**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **39**, inference policy **73** and
+candidate-cache version **76**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -64,6 +64,17 @@ it explicitly. Opt into sound summaries with
 `#[verus_infer(precision = "sound")]`; inside `verus!`, the equivalent spellings
 are `#[verifier::infer]` and `#[verifier::infer(sound)]`. Native attribute
 rewriting also supports `#[verus_verify(infer(sound))]`.
+
+## Local NonZero carrier ordering (provisional)
+
+Policy73/cache76 stage a separate checked direct `NonZero<u64>::cmp` path.
+It factors two getter expansions only after whole-MIR and independent actual
+function checks, then uses the existing getter and primitive u64-order models.
+No new transmute/view or primitive comparison law is assumed. Successful users
+of this path are local-only: selected VIR exports are refused, including mixed
+bool/ordering crates. Existing bool-only certified imports remain supported.
+Genuine BorTag ordering derives and ordering imports remain unproved. Matching
+parent validation and fresh independent review are pending.
 
 ## Checked local bool conversion and packing
 

@@ -19,6 +19,11 @@ Per-function [deduplication](parent-packing-dedup-review.json) removes only
 identical closed proposals after retaining an ordinary checked copy. No wall-time
 speedup is demonstrated.
 
+A [provisional local carrier integration](parent-local-nonzero-ord-provisional.json)
+uses schema39/policy73/cache76. Direct NonZero Ord has an isolated2/0 proof;
+all new ordering exports are refused. BorTag derives/imports remain unproved,
+and matching parent validation plus independent review are pending.
+
 ## What now verifies
 
 The original full Item fixture verifies **132/0 cold/warm**, retaining genuine

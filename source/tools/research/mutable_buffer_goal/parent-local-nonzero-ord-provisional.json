@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "provisional Stage1 local carrier integration; fresh parent review and combined validation pending",
+  "worker_commits": [
+    "4e2914f7",
+    "06d248f4",
+    "0e3d3a4c"
+  ],
+  "root_commits": [
+    "8d1ec136",
+    "a3b1e280",
+    "e2318a62"
+  ],
+  "previous_accepted": "131ffc35 / engine5d79f711 / schema39policy72cache75",
+  "worker_authentication": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/local-nonzero-ord-parent-auth/receipt.json",
+    "sha256": "f62bb525df3ddc2bb2409974f87d62f43dbcc0858483f650d0df87992e0f3295"
+  },
+  "versions": {
+    "schema": 39,
+    "policy": 73,
+    "cache": 76
+  },
+  "worker_versions": {
+    "schema": 39,
+    "policy": 72,
+    "cache": 75
+  },
+  "scope": "Actual direct carrier NonZero<u64> Ord, full ordinary numeric contract over all genuine inputs/shared aliases, checked inverse getter expansion and inherited get/u64Ord models. No wrapper derive or ordering publication support.",
+  "worker_results": {
+    "actual_carrier": "2/0 cold/warm, actual helper plus original caller",
+    "false_swapped_callers": "1/1, helper healthy",
+    "aliases": "2/0",
+    "boundary_observations": "11/0, samples supporting domain proof",
+    "focused_compiler": 40,
+    "VIR_tests": 149,
+    "library_units": 7,
+    "vstd": "2250/0",
+    "refusals": 24
+  },
+  "publication_boundary": "Every new ordering-using crate refuses selected VIR exports before pruning, including mixed bool/order; bool-only certification unchanged.",
+  "trust": "New bounded checker in existing compiler TCB, inherited get/Ord model assumptions reused; no new std contract/representation law/primitiveCmp encoding.",
+  "wrapper_ordering_proved": false,
+  "ordering_imports": 0,
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "publication": false,
+  "goal_complete": false
+}
