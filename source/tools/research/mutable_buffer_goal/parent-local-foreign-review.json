@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "decision": "scoped_accept_LOCAL_capability",
+  "reviewed_engine": "35bc7b12fff34551da06a9b81e65f1f20d530992",
+  "review_commits": [
+    "d62a28962d7395cb49fe13f1db500e7b3738500e",
+    "6a520babe8f555ee9e94076af7521fa66d2739a6"
+  ],
+  "integrated_commits": [
+    "716411d3",
+    "fe99d423"
+  ],
+  "report": "evidence/local-checked-foreign-review/REPORT.md",
+  "report_sha256": "f89bd6361560afa7ee48cabc95f86d53552f7b8c8b74ae0acbb2b49a89e7ff37",
+  "review_results_sha256": "76abf5e15dea011c143d6641efeeaf906a3354f02ccde665bb8a4e907b46245f",
+  "parent_authentication_receipt": "/tmp/verus-infer-buffer-cycle-20261109/local-foreign-review-parent-auth-v2/receipt.json",
+  "parent_authentication_sha256": "c721960c681462b41069e5feb3f66a579e2a71119cf4debf5f73881c76257abd",
+  "authenticated_sources": 3951,
+  "authenticated_receipts": 121,
+  "authenticated_fixture_bindings": 103,
+  "production_source_files": 14,
+  "frozen_tools": 8,
+  "versions": {
+    "schema": 38,
+    "policy": 70,
+    "cache": 73
+  },
+  "verified_components": {
+    "actual_conversion": "2/0 cold/warm",
+    "false_caller": "1/1 only caller postcondition, helper checked",
+    "goals_off": "0/1",
+    "original_Item_new": "52/0 cold/warm, original runtime/debug assertions and existing manual packing help unchanged",
+    "support": "36/0",
+    "vstd": "2250/0",
+    "compiler_tests": 33,
+    "VIR_tests": 149,
+    "export_refusals": 24,
+    "incomplete_local_refusals": 8,
+    "additional_cargo_output_path_controls": 9,
+    "semantic_controls": 37,
+    "independent_source_controls": 6
+  },
+  "candidate_identity": "Equal identical-input cold/warm Eq candidate IDs; all3 mandatory full-domain checks freshly proved and actual warm cache hit. Actual generated-helper query/body identities also match.",
+  "findings": [
+    {
+      "off": "0/1, same source",
+      "on": "1/1, healthy bool helper",
+      "ordinary_BV": "3/0",
+      "priority": "informational",
+      "repro": "semantic-shift-zero/component.rs",
+      "scope": "Conservative k=0 omission; no false success; does not block LOCAL bool capability",
+      "summary": "Zero-shift arithmetic automation remains incomplete"
+    }
+  ],
+  "full_parent_validation": "parent-combined70-validation.json; passed 710 compiler/149 VIR/148 Python each mode/canonical26/observer23",
+  "scope_boundary": "Same-crate checked direct bool conversion and checked arithmetic assistance only; every using crate still refuses VIR export. No certified foreign-body import/export implemented.",
+  "worker_prebuild_snapshot_limit": {
+    "bytes": "unavailable; superseded prebuild snapshot, not a final build input or accepted proof tool",
+    "sha256": "80aa23c06acab915474781da22d1f3c8e2d8d59718f0c6ef9d0c44bea6e9b5b3",
+    "tool": "rust_verify"
+  },
+  "excluded_parent_authentication_controller": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/local-foreign-review-parent-auth/receipt.json",
+    "reason": "Read-only adapter did not resolve relative core/sysroot inventory paths; stopped before review acceptance. No proof was rerun or changed."
+  },
+  "inherited_trust": "Compiler/frontend including whole-MIR translation, arithmetic/BV encodings, solver, standard models/vstd admissions, and existing artifact trust boundary. No native/provenance theorem or new std model.",
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "open_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "publication": false,
+  "goal_complete": false
+}

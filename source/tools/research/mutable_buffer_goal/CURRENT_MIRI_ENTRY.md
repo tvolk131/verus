@@ -108,9 +108,13 @@ without changing installed formulas or diagnostics. Cold/warm Eq candidate IDs
 now match, with a real warm cache hit and all three original Eq checks freshly
 proved. The [validation record](parent-combined70-validation.json) binds the
 matching vstd2250/0, all710 compiler tests,149 VIR tests,148 Python tests per
-mode,26 canonical cases and23 observer cases. All parent checks pass;
-independent review remains pending. Every crate using the local foreign path
-refuses VIR export. Certified publication/import and runtime/provenance
+mode,26 canonical cases and23 observer cases. Independent review6a520bab
+accepts the exact LOCAL scope after fresh compilation,33 focused compiler tests,
+149 VIR tests and all export controls; the
+[review record](parent-local-foreign-review.json) binds parent authentication.
+Zero-shift arithmetic remains an informational automation gap. Every crate
+using the local foreign path refuses VIR export. Certified publication/import,
+removal of remaining authored mechanical packing help, and runtime/provenance
 correspondence remain separate obligations. The
 [staged interface](FOREIGN_BODY_STAGES.md) records the preimplementation boundary.
 

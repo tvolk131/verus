@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "parent_validation_passed_independent_review_pending",
+  "status": "parent_and_independent_review_passed_scoped_LOCAL",
   "validated_engine_commit": "35bc7b12fff34551da06a9b81e65f1f20d530992",
   "policy": 70,
   "cache": 73,
@@ -87,7 +87,7 @@
     "case_count": 23
   },
   "observer_result": "Prefix2/0 cold/warm; full HMAC1/1 postcondition failure cold/warm and after seeded prefix export removal. Full property remains UNPROVED.",
-  "independent_review": "Running in isolated worktree at35bc7b12; no review acceptance claimed.",
+  "independent_review": "parent-local-foreign-review.json; scoped acceptance of LOCAL capability, no blocking findings",
   "export_boundary": "Every crate using local foreign capability refuses VIR export; certified foreign-body imports/publication remain unimplemented. Other ordinary and inference-aware export regressions pass.",
   "new_std_models": false,
   "native_correspondences": 0,
