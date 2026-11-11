@@ -497,3 +497,166 @@ pub(crate) fn direct_helper<'tcx>(
     }
     Some(helper.clone())
 }
+
+fn hash(bytes: impl AsRef<[u8]>) -> String {
+    use sha2::{Digest, Sha256};
+    hex::encode(Sha256::digest(bytes))
+}
+
+fn hash_file(path: &std::path::Path) -> Result<String, VirErr> {
+    std::fs::read(path).map(hash).map_err(|e| {
+        crate::util::error(format!("checked foreign artifact unavailable: {}: {e}", path.display()))
+    })
+}
+
+/// Fresh typed inspection, shared by provider and ordinary (goals-off) imports.
+/// No supplied certificate or candidate cache participates in resolution.
+pub(crate) fn current_identity(
+    tcx: TyCtxt<'_>,
+    checked: Option<&Function>,
+) -> Result<ForeignIdentity, VirErr> {
+    use rustc_data_structures::stable_hash::{StableHash, StableHasher};
+    let fail = |s| crate::util::error(format!("checked foreign identity: {s}"));
+    let from = tcx
+        .get_diagnostic_item(rustc_span::Symbol::intern("From"))
+        .ok_or_else(|| fail("missing From diagnostic trait"))?;
+    let methods: Vec<_> = tcx
+        .associated_items(from)
+        .in_definition_order()
+        .filter(|i| tcx.def_kind(i.def_id) == rustc_hir::def::DefKind::AssocFn)
+        .collect();
+    if methods.len() != 1 {
+        return Err(fail("unsupported From interface"));
+    }
+    let env = ty::TypingEnv::fully_monomorphized();
+    let args = tcx.mk_args(&[tcx.types.u64.into(), tcx.types.bool.into()]);
+    let instance = semantic_instance(tcx, env, methods[0].def_id, args).map_err(fail)?;
+    let body = instance.instantiate_mir_and_normalize_erasing_regions(
+        tcx,
+        env,
+        ty::EarlyBinder::bind(tcx, tcx.instance_mir(instance.def).clone()),
+    );
+    inspect(tcx, env, &body).map_err(fail)?;
+    if let Some(function) = checked {
+        if !corresponds_vir(&body, function) || !full_domain_contract(function) {
+            return Err(fail(
+                "actual checked Function differs from the typed MIR/full-domain contract",
+            ));
+        }
+    }
+    // rustc's whole Body stable hash includes all typed operations, locals,
+    // ABI/body properties and effects, not a descriptor or source text hash.
+    // Only source locations are excluded. Diagnostic names may overinvalidate.
+    let mut hasher = StableHasher::new();
+    tcx.with_stable_hashing_context(|mut hcx| {
+        hcx.while_hashing_spans(false, |hcx| body.stable_hash(hcx, &mut hasher));
+    });
+    let mir: rustc_data_structures::fingerprint::Fingerprint = hasher.finish();
+    let core = tcx.used_crate_source(instance.def_id().krate);
+    let mut artifacts = vec![];
+    for (kind, path) in [("rlib", &core.rlib), ("rmeta", &core.rmeta), ("dylib", &core.dylib)] {
+        if let Some(path) = path {
+            artifacts.push((kind, hash_file(path)?));
+        }
+    }
+    if artifacts.is_empty() {
+        return Err(fail("no loaded core artifact"));
+    }
+    let mut compiler_artifacts = vec![];
+    for entry in std::fs::read_dir(tcx.sess.opts.sysroot.path().join("lib"))
+        .map_err(|_| fail("compiler library directory"))?
+    {
+        let entry = entry.map_err(|_| fail("compiler library entry"))?;
+        if entry.file_name().to_string_lossy().starts_with("librustc_driver") {
+            compiler_artifacts.push(hash_file(&entry.path())?);
+        }
+    }
+    compiler_artifacts.sort();
+    if compiler_artifacts.is_empty() {
+        return Err(fail("compiler driver artifact unavailable"));
+    }
+    let executable = std::env::current_exe().map_err(|_| fail("compiler executable"))?;
+    let semantic_instance = format!(
+        "{:?}:{:?}:{:?}:{:?}",
+        tcx.def_path_hash(from),
+        tcx.def_path_hash(methods[0].def_id),
+        tcx.def_path_hash(tcx.parent(instance.def_id())),
+        tcx.def_path_hash(instance.def_id())
+    );
+    Ok(ForeignIdentity {
+        semantic_instance,
+        typed_mir: format!("{mir:?}"),
+        compiler: hash(format!(
+            "{:?}:{compiler_artifacts:?}:{}:{}",
+            crate::util::verus_build_info().toolchain,
+            hash_file(&tcx.sess.opts.sysroot.path().join("bin/rustc"))?,
+            hash_file(&executable)?
+        )),
+        core_artifact: hash(serde_json::to_vec(&artifacts).unwrap()),
+        target: hash(format!(
+            "{:?}:{:?}:{:?}:{:?}:{:?}:{:?}",
+            tcx.sess.target,
+            tcx.sess.opts.target_triple,
+            tcx.sess.opts.cg.target_cpu,
+            tcx.sess.opts.cg.target_feature,
+            tcx.sess.opts.unstable_opts.mir_opt_level,
+            tcx.sess.overflow_checks()
+        )),
+    })
+}
+
+/// Bind the actual full checked Function, not a reconstructed proposal. Remove
+/// only diagnostic locations and alpha-rename its generated binders/read IDs.
+pub(crate) fn function_identity(function: &Function) -> Result<String, VirErr> {
+    let mut value = serde_json::to_value(function)
+        .map_err(|_| crate::util::error("checked foreign Function serialization failed"))?;
+    let input = serde_json::to_value(&function.x.params[0].x.name).unwrap();
+    let output = serde_json::to_value(&function.x.inner_ret.x.name).unwrap();
+    fn canonical(v: &mut serde_json::Value, input: &serde_json::Value, output: &serde_json::Value) {
+        if v == input {
+            *v = serde_json::json!(["$input", "NoBodyParam"]);
+            return;
+        }
+        if v == output {
+            *v = serde_json::json!(["$result", "NoBodyParam"]);
+            return;
+        }
+        match v {
+            serde_json::Value::Object(o) => {
+                o.remove("span");
+                // This exact record type has only the read identity and kind.
+                if o.len() == 2 && o.contains_key("preliminary_kind") && o.contains_key("id") {
+                    o.insert("id".into(), 0.into());
+                }
+                for v in o.values_mut() {
+                    canonical(v, input, output);
+                }
+            }
+            serde_json::Value::Array(a) => {
+                for v in a {
+                    canonical(v, input, output);
+                }
+            }
+            _ => (),
+        }
+    }
+    canonical(&mut value, &input, &output);
+    Ok(hash(serde_json::to_vec(&value).unwrap()))
+}
+
+fn full_domain_contract(f: &Function) -> bool {
+    if !f.x.require.is_empty() || f.x.ensure.0.len() != 1 || !f.x.ensure.1.is_empty() {
+        return false;
+    }
+    let ExprX::Binary(BinaryOp::Eq(Mode::Spec), result, cast) = &f.x.ensure.0[0].x else {
+        return false;
+    };
+    let ExprX::If(input, one, Some(zero)) = &cast.x else { return false };
+    matches!(&result.x, ExprX::Var(n) if *n == f.x.inner_ret.x.name)
+        && is_u64(&result.typ)
+        && is_u64(&cast.typ)
+        && matches!(&input.x, ExprX::Var(n) if *n == f.x.params[0].x.name)
+        && matches!(&*input.typ, TypX::Bool)
+        && literal(one, 1)
+        && literal(zero, 0)
+}

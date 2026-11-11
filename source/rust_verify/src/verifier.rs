@@ -333,6 +333,9 @@ pub struct Verifier {
     import_virs_via_cargo: Option<Vec<(String, String)>>,
     export_vir_path_via_cargo: Option<std::path::PathBuf>,
     local_checked_foreign: bool,
+    foreign_dependencies: Vec<crate::checked_foreign::ForeignCertificate>,
+    local_foreign_functions: HashSet<Fun>,
+    foreign_body_queries: HashSet<Fun>,
     imported_inference_dependencies: Vec<crate::import_export::InferenceDependency>,
     inference_trusted_models: Vec<(Fun, String)>,
     available_trusted_models: HashMap<Fun, String>,
@@ -537,6 +540,9 @@ impl Verifier {
             import_virs_via_cargo: None,
             export_vir_path_via_cargo: None,
             local_checked_foreign: false,
+            foreign_dependencies: Vec::new(),
+            local_foreign_functions: HashSet::new(),
+            foreign_body_queries: HashSet::new(),
             imported_inference_dependencies: Vec::new(),
             inference_trusted_models: Vec::new(),
             available_trusted_models: HashMap::new(),
@@ -595,6 +601,9 @@ impl Verifier {
             import_virs_via_cargo: self.import_virs_via_cargo.clone(),
             export_vir_path_via_cargo: self.export_vir_path_via_cargo.clone(),
             local_checked_foreign: self.local_checked_foreign,
+            foreign_dependencies: self.foreign_dependencies.clone(),
+            local_foreign_functions: self.local_foreign_functions.clone(),
+            foreign_body_queries: HashSet::new(),
             imported_inference_dependencies: self.imported_inference_dependencies.clone(),
             inference_trusted_models: self.inference_trusted_models.clone(),
             available_trusted_models: self.available_trusted_models.clone(),
@@ -623,6 +632,7 @@ impl Verifier {
 
     /// merges two verifiers by summing up times and verified stats from other into self.
     pub fn merge(&mut self, other: Self) {
+        self.foreign_body_queries.extend(other.foreign_body_queries);
         self.count_verified += other.count_verified;
         self.count_errors += other.count_errors;
         self.func_fails.extend(other.func_fails);
@@ -1851,6 +1861,15 @@ impl Verifier {
                             }
                         }
 
+                        if self.local_foreign_functions.contains(&function.x.name)
+                            && matches!(query_op, QueryOp::Body(Style::Normal))
+                            && !profile_rerun
+                            && !any_invalid
+                            && !any_timed_out
+                            && inference_outcome.outcome() == vir::infer_proof::Outcome::Valid
+                        {
+                            self.foreign_body_queries.insert(function.x.name.clone());
+                        }
                         if function.x.attrs.infer && !profile_rerun {
                             let claim = match query_op {
                                 QueryOp::Body(Style::Normal) => Some("soundness"),
@@ -2891,22 +2910,23 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
-        // This stage is LOCAL ONLY. Test the preregistered category before
-        // public/private pruning and before Query or any export can run.
-        if pre_crate.infos.iter().any(|i| {
-            matches!(&**i, crate::rust_to_vir_func::FunctionOrConstInfo::BodyBackedForeign { .. })
-        }) {
+        // Detect before any pruning. Required evidence cannot be inferred from
+        // the public helper count or from a candidate-cache hit.
+        for info in &pre_crate.infos {
+            if let crate::rust_to_vir_func::FunctionOrConstInfo::BodyBackedForeign {
+                full, ..
+            } = &**info
+            {
+                self.local_foreign_functions.insert(full.x.name.clone());
+            }
+        }
+        if !self.local_foreign_functions.is_empty() {
             self.local_checked_foreign = true;
             crate::import_export::invalidate_local_inference_export(
                 &self.args,
                 &self.export_vir_path_via_cargo,
             )
             .map_err(map_err_diagnostics)?;
-            if self.args.export.is_some() || self.export_vir_path_via_cargo.is_some() {
-                return Err(map_err_diagnostics(vir::messages::error_bare(
-                    "checked foreign bodies are local-only; all VIR exports are unsupported",
-                )));
-            }
             if !self.args.can_certify_inference() || self.args.no_erasure_check {
                 return Err(map_err_diagnostics(vir::messages::error_bare(
                     "checked foreign bodies require complete source/body, lifetime and trait checking",
@@ -2947,6 +2967,40 @@ impl Verifier {
         let local_crate = query.get_exportable_crate();
         self.inference_generation = query.inference_generation.clone();
         let local_crate = local_crate.map_err(map_query_err)?;
+        if !self.local_foreign_functions.is_empty() {
+            for name in &self.local_foreign_functions {
+                // This is the full Function returned by ordinary Query after
+                // WF/mode/resolution, also used to construct the verification
+                // crate below. Never fingerprint a separately built mirror.
+                let function =
+                    local_crate.functions.iter().find(|f| &f.x.name == name).ok_or_else(|| {
+                        map_err_diagnostics(vir::messages::error_bare(
+                            "checked foreign full checked Function is missing",
+                        ))
+                    })?;
+                if function.x.body.is_none() {
+                    return Err(map_err_diagnostics(vir::messages::error_bare(
+                        "checked foreign full body is missing",
+                    )));
+                }
+                let identity = crate::checked_foreign::current_identity(tcx, Some(function))
+                    .map_err(map_err_diagnostics)?;
+                let checked_function = crate::checked_foreign::function_identity(function)
+                    .map_err(map_err_diagnostics)?;
+                let certificate = crate::checked_foreign::ForeignCertificate {
+                    identity: identity.clone(),
+                    checked_function,
+                };
+                if !self.foreign_dependencies.contains(&certificate) {
+                    self.foreign_dependencies.push(certificate);
+                }
+            }
+        }
+        if !self.foreign_dependencies.is_empty() && self.args.no_erasure_check {
+            return Err(map_err_diagnostics(vir::messages::error_bare(
+                "checked foreign dependencies require normal erasure checking",
+            )));
+        }
         if self.args.no_lifetime
             && (local_crate.functions.iter().any(vir::infer::uses_byte_vec_resources)
                 || !self.imported_inference_dependencies.is_empty())
@@ -3445,19 +3499,23 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
         self.verifier.crate_id = Some(mk_crate_id(tcx, LOCAL_CRATE));
 
         let time_import0 = Instant::now();
-        let imported =
-            match crate::import_export::import_crates(&self.verifier.args, import_virs_via_cargo) {
-                Ok(imported) => imported,
-                Err(err) => {
-                    assert!(err.spans.len() == 0);
-                    assert!(err.level == MessageLevel::Error);
-                    compiler.sess.dcx().err(err.note.clone());
-                    self.verifier.encountered_vir_error = true;
-                    return rustc_driver::Compilation::Stop;
-                }
-            };
+        let imported = match crate::import_export::import_crates(
+            &self.verifier.args,
+            import_virs_via_cargo,
+            tcx,
+        ) {
+            Ok(imported) => imported,
+            Err(err) => {
+                assert!(err.spans.len() == 0);
+                assert!(err.level == MessageLevel::Error);
+                compiler.sess.dcx().err(err.note.clone());
+                self.verifier.encountered_vir_error = true;
+                return rustc_driver::Compilation::Stop;
+            }
+        };
         let time_import1 = Instant::now();
         self.verifier.time_import = time_import1 - time_import0;
+        self.verifier.foreign_dependencies = imported.foreign_dependencies;
         self.verifier.imported_inference_dependencies = imported.inference_dependencies;
         if !self.verifier.imported_inference_dependencies.is_empty() {
             if let Err(err) = crate::import_export::invalidate_local_inference_export(
@@ -3639,30 +3697,15 @@ impl VerifierCallbacksEraseMacro {
             reporter.report_as(&err.to_any(), MessageLevel::Error);
             self.verifier.encountered_vir_error = true;
         }
-        if let Some((metadata, krate)) = self.verifier.pending_inference_export.take() {
-            if self.verifier.count_errors == 0
-                && !self.verifier.encountered_error
-                && !self.verifier.encountered_vir_error
-                && compiler.sess.dcx().has_errors().is_none()
-            {
-                if let Err(err) = crate::import_export::export_crate(
-                    &self.verifier.args,
-                    &self.verifier.export_vir_path_via_cargo,
-                    metadata,
-                    krate,
-                    Some((
-                        &self.verifier.imported_inference_dependencies,
-                        &self.verifier.inference_proofs,
-                        &self.verifier.inference_trusted_models,
-                    )),
-                ) {
-                    reporter.report_as(&err.to_any(), MessageLevel::Error);
-                    self.verifier.encountered_vir_error = true;
-                } else {
-                    self.verifier.inference_exported = self.verifier.args.export.is_some()
-                        || self.verifier.export_vir_path_via_cargo.is_some();
-                }
-            }
+        if !self.verifier.local_foreign_functions.is_subset(&self.verifier.foreign_body_queries) {
+            reporter.report_as(&vir::messages::error_bare(
+                "checked foreign certification requires a fresh successful ordinary body query for every helper",
+            ).to_any(), MessageLevel::Error);
+            self.verifier.encountered_vir_error = true;
+        }
+        // Publication waits for the driver's final erased Rust compilation.
+        if compiler.sess.dcx().has_errors().is_some() && self.verifier.count_errors == 0 {
+            self.verifier.encountered_vir_error = true;
         }
         if !self.verifier.args.output_json
             && !self.verifier.args.no_verify
@@ -3680,5 +3723,32 @@ impl VerifierCallbacksEraseMacro {
                 }
             );
         }
+    }
+}
+
+impl Verifier {
+    /// Called only after both compiler invocations succeeded. All proof and
+    /// deferred errors have already been accounted for by finish_verus.
+    pub(crate) fn publish_verified_interface(&mut self) -> Result<(), VirErr> {
+        if self.count_errors != 0 || self.encountered_error || self.encountered_vir_error {
+            return Ok(());
+        }
+        if let Some((metadata, krate)) = self.pending_inference_export.take() {
+            crate::import_export::export_crate(
+                &self.args,
+                &self.export_vir_path_via_cargo,
+                metadata,
+                krate,
+                Some((
+                    &self.imported_inference_dependencies,
+                    &self.inference_proofs,
+                    &self.inference_trusted_models,
+                    &self.foreign_dependencies,
+                )),
+            )?;
+            self.inference_exported =
+                self.args.export.is_some() || self.export_vir_path_via_cargo.is_some();
+        }
+        Ok(())
     }
 }

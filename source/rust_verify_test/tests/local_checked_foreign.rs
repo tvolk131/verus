@@ -87,11 +87,10 @@ fn pack(low:u64,b:bool)->(r:bool)
 }
 
 #[test]
-fn local_foreign_export_refuses_and_removes_legacy_output() {
+fn incomplete_foreign_export_refuses_and_removes_legacy_output() {
     use common::infer::InferCrates;
     let crates = InferCrates::new();
     for options in [
-        vec![],
         vec!["--no-verify"],
         vec!["--no-lifetime"],
         vec!["--no-trait-conflicts"],
@@ -123,7 +122,7 @@ fn local_foreign_export_refuses_and_removes_legacy_output() {
         let r = run(BOOL, &args);
         assert!(!r.status.success());
         assert!(
-            String::from_utf8_lossy(&r.stderr).contains("local-only"),
+            String::from_utf8_lossy(&r.stderr).contains("complete source/body"),
             "{}",
             String::from_utf8_lossy(&r.stderr)
         );

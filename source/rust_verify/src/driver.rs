@@ -302,7 +302,7 @@ pub fn run(
     };
     let status = run_compiler(rustc_args_verify.clone(), true, false, &mut verifier_callbacks);
     let VerifierCallbacksEraseMacro {
-        verifier,
+        mut verifier,
         rust_start_time,
         rust_end_time,
         tc_start_time,
@@ -355,6 +355,11 @@ pub fn run(
         return (verifier, stats, Err(()));
     }
 
+    if let Err(err) = verifier.publish_verified_interface() {
+        eprintln!("error: {}", err.note);
+        verifier.encountered_vir_error = true;
+        return (verifier, stats, Err(()));
+    }
     (verifier, stats, Ok(()))
 }
 
