@@ -85,3 +85,17 @@ fn unrelated_valid_and_false_programs_remain_compatible() {
         &[],
     );
 }
+
+#[test]
+fn missing_valid_bit_safety_domain_is_not_invented() {
+    check(
+        "word_sequence_missing_safety",
+        REDUCED.replace(
+            "requires layer_wf(*old(self)), bit < old(self).len,",
+            "requires layer_wf(*old(self)),",
+        ),
+        true,
+        false,
+        &[],
+    );
+}
