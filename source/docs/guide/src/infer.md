@@ -6,8 +6,8 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **38**, inference policy **68** and
-candidate-cache version **71**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **38**, inference policy **70** and
+candidate-cache version **73**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -19,6 +19,15 @@ and providers must be rebuilt. Policy 68 and cache version 71 add bounded
 canonical byte-loop assistance with full checking of generated body statements.
 Candidates still require fresh proofs; readonly record templates regenerate as
 documented below.
+
+Policy 69 added checked tuple-constructor function items and genuine
+`NonZero<u64>` derived equality. Policy 70/cache 73 add a bounded local
+`--infer-goals` path for the actual core `From<bool> for u64` MIR body and
+normalize proposal expression locations when binding candidate identities.
+The foreign helper must pass ordinary body checking. Crates using this local
+path cannot export VIR; certified foreign-body imports remain unsupported.
+Observed unsigned packing formulas receive separate ordinary bitvector checks
+before use. No standard-library contract or application precondition is added.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
