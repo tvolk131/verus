@@ -62,15 +62,6 @@ fn producer() -> String {
     format!("{}:{}:{}", info.version, info.toolchain, info.sha)
 }
 
-#[cfg(test)]
-fn summaries(krate: &Krate) -> Result<String, VirErr> {
-    // Trait observations may resolve to ordinary spec implementations or helper
-    // definitions. Bind the entire exported API, not only marked declarations.
-    bincode_next::serde::encode_to_vec(krate, bincode_next::config::legacy())
-        .map(digest)
-        .map_err(|_| crate::util::error("failed to fingerprint inferred contracts"))
-}
-
 fn certified_summaries(
     krate: &Krate,
     foreign: &[crate::checked_foreign::ForeignCertificate],
@@ -501,9 +492,8 @@ mod infer_arch_tests {
     use super::*;
     use vir::ast::{Arch, ArchWordBits, KrateX};
 
-    #[test]
-    fn inference_fingerprint_binds_architecture_without_function_changes() {
-        let mut krate = Arc::new(KrateX {
+    fn empty_crate() -> Krate {
+        Arc::new(KrateX {
             functions: vec![],
             reveal_groups: vec![],
             datatypes: vec![],
@@ -516,14 +506,44 @@ mod infer_arch_tests {
             path_as_rust_names: vec![],
             opaque_types: vec![],
             arch: Arch { word_bits: ArchWordBits::Either32Or64 },
-        });
-        let portable = summaries(&krate).unwrap();
+        })
+    }
+
+    #[test]
+    fn inference_fingerprint_binds_architecture_without_function_changes() {
+        let mut krate = empty_crate();
+        let portable = certified_summaries(&krate, &[]).unwrap();
         Arc::make_mut(&mut krate).arch.word_bits = ArchWordBits::Exactly(32);
-        let bits32 = summaries(&krate).unwrap();
+        let bits32 = certified_summaries(&krate, &[]).unwrap();
         Arc::make_mut(&mut krate).arch.word_bits = ArchWordBits::Exactly(64);
-        let bits64 = summaries(&krate).unwrap();
+        let bits64 = certified_summaries(&krate, &[]).unwrap();
         assert_ne!(portable, bits32);
         assert_ne!(portable, bits64);
         assert_ne!(bits32, bits64);
+    }
+
+    #[test]
+    fn inference_fingerprint_binds_required_foreign_evidence() {
+        use crate::checked_foreign::{ForeignCertificate, ForeignIdentity};
+        let krate = empty_crate();
+        let certificate = ForeignCertificate {
+            identity: ForeignIdentity {
+                semantic_instance: "semantic instance".into(),
+                typed_mir: "typed body".into(),
+                compiler: "compiler".into(),
+                core_artifact: "core".into(),
+                target: "target".into(),
+            },
+            checked_function: "checked function and contract".into(),
+        };
+        let fingerprint = certified_summaries(&krate, &[certificate.clone()]).unwrap();
+        assert_eq!(fingerprint, certified_summaries(&krate, &[certificate.clone()]).unwrap());
+        assert_ne!(fingerprint, certified_summaries(&krate, &[]).unwrap());
+        let mut other_body = certificate.clone();
+        other_body.identity.typed_mir = "other typed body".into();
+        assert_ne!(fingerprint, certified_summaries(&krate, &[other_body]).unwrap());
+        let mut other_contract = certificate;
+        other_contract.checked_function = "other checked function and contract".into();
+        assert_ne!(fingerprint, certified_summaries(&krate, &[other_contract]).unwrap());
     }
 }

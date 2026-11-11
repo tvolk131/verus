@@ -6,8 +6,8 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **38**, inference policy **70** and
-candidate-cache version **73**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **39**, inference policy **71** and
+candidate-cache version **74**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -24,10 +24,14 @@ Policy 69 added checked tuple-constructor function items and genuine
 `NonZero<u64>` derived equality. Policy 70/cache 73 add a bounded local
 `--infer-goals` path for the actual core `From<bool> for u64` MIR body and
 normalize proposal expression locations when binding candidate identities.
-The foreign helper must pass ordinary body checking. Crates using this local
-path cannot export VIR; certified foreign-body imports remain unsupported.
-Observed unsigned packing formulas receive separate ordinary bitvector checks
-before use. No standard-library contract or application precondition is added.
+The foreign helper must pass ordinary body checking. Schema39/policy71/cache74
+add required foreign-body evidence to certified exports and ordinary imports.
+Imports freshly inspect the actual core body, compiler/core/target identities
+and required dependencies before using imported contracts. Publication waits
+for complete proofs and the erased Rust compilation. Observed unsigned packing
+formulas receive separate ordinary bitvector checks before use. No standard-
+library contract or application precondition is added. The combined certificate
+and packing implementation still requires independent composed-engine review.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
@@ -61,8 +65,13 @@ the actual compiler instance and its complete typed optimized MIR. The supported
 body copies the Boolean, casts to `u64` and returns. Its generated ordinary
 function must pass normal body checking; recognition alone supplies no law.
 Function values, coercions and other conversion bodies gain no new support.
-Crates using this local path cannot export VIR. Certified foreign-body imports
-and runtime/provenance correspondence remain separate work.
+Certified exports retain required foreign evidence even after helper pruning.
+Ordinary consumers validate current loaded core MIR, compiler/core/target and
+transitive dependencies before using closed facts. Use the same compiler bundle
+and matching target options, and rebuild providers and dependents together.
+Missing, incompatible or conflicting evidence refuses import. Failed proofs,
+required auxiliaries or erased Rust compilation refuse publication and remove
+selected stale outputs. Runtime/provenance correspondence remains separate work.
 
 In these local crates, bounded unsigned arithmetic assistance proposes closed
 shift-zero, disjoint packing, contiguous-mask extraction and two/three-field
