@@ -9,15 +9,16 @@ def toolchain():
     j=json.loads((R/'toolchain.json').read_text());j['files']['/home/dev/.cargo/bin/rustup']=b.sha('/home/dev/.cargo/bin/rustup');return j
 
 def freeze():
-    p=R/'application-freeze.json';b.need(not p.exists(),'immutable application freeze')
+    p=R/'application-freeze-v2.json';b.need(not p.exists(),'immutable application freeze')
     b.need(json.loads((R/'vstd/receipt.json').read_text())['exit']==0,'vstd required')
     b.write(p,dict(source=b.manifest(),controllers=b.controllers(),tools={n:b.sha(B/n) for n in b.TOOLS},toolchain=toolchain(),before_applications=True))
 
 def app(label,text,goals=False,options=(),fidelity=None):
-    frozen=json.loads((R/'application-freeze.json').read_text());b.need(frozen['source']==b.manifest(),'source drift');b.need(all(b.sha(B/n)==h for n,h in frozen['tools'].items()),'tool drift')
+    frozen=json.loads((R/'application-freeze-v2.json').read_text());b.need(frozen['source']==b.manifest(),'source drift');b.need(all(b.sha(B/n)==h for n,h in frozen['tools'].items()),'tool drift')
     p=R/('source-'+hashlib.sha256(text.encode()).hexdigest()+'.rs')
     if p.exists():b.need(p.read_text()==text,'immutable source')
     else:p.write_text(text)
+    label=('v2-' if label.split('-',1)[-1] in ['forward_loop','slice_reverse_loop','forward_laws','reverse_law','reverse_decrease','reverse_remaining','reverse_inner','reverse_loop'] else 'v4-')+label
     d=R/label;d.mkdir();argv=list(map(str,[B/'verus',p,'--crate-type=lib','--crate-name','tagged','--no-cheating','--compile','-o',d/'libtagged.rlib','--output-json','--multiple-errors','30','--log-all','--log-dir',d/'vir',*(['--infer-goals'] if goals else []),*options]))
     controllers=b.controllers();archive=R/'controllers';archive.mkdir(exist_ok=True)
     for n,h in controllers.items():
@@ -36,12 +37,17 @@ def app(label,text,goals=False,options=(),fidelity=None):
 
 def probes():
     for n in ['forward_loop','slice_reverse_loop','forward_laws','reverse_law','reverse_decrease','reverse_remaining','reverse_inner','reverse_loop']:
-        for g in [False,True]:app(('goals-' if g else 'plain-')+n,s.probe(n),g)
+        for g in [False,True]:
+            j=app(('goals-' if g else 'plain-')+n,s.probe(n),g)
+            b.need('errors' in j.get('verification',{}),'probe frontend/setup failure; stop batch')
 
 def components():
     for n in ['dependencies','fallback_plain','fallback','full_original']:
         text=s.component(n);f=s.fidelity(text,n)
-        for g in [False,True]:app(('goals-' if g else 'plain-')+n,text,g,['--cfg','feature="stack-cache"'],f)
+        for g in [False,True]:
+            j=app(('goals-' if g else 'plain-')+n,text,g,['--cfg','feature="stack-cache"'],f)
+            if n=='dependencies':b.need(j.get('verification',{}).get('success') is True,'dependency health failure; stop batch')
+            elif n!='full_original':b.need(j.get('verification',{}).get('errors',0)>0 or j['exit']==0,'component frontend/setup failure; stop batch')
 
 def controls():
     text=s.component('dependencies');f=s.fidelity(text,'dependencies')

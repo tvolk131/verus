@@ -16,7 +16,7 @@ def primary():
         need(sha(p['path'])==p['sha256'],'primary digest '+n);ts[n]=Path(p['path']).read_text()
     for p,h in f['dependencies'].items():need(sha(ROOT/p)==h,'committed dependency '+p)
     return ts
-PRE='use vstd::prelude::*;\nuse vstd::std_specs::iter::IteratorSpec;\nverus! {\nbroadcast use vstd::std_specs::iter::group_iter_axioms;\nbroadcast use vstd::std_specs::iter_adapters::group_native_adapter_axioms;\n'
+PRE='use vstd::prelude::*;\nuse vstd::std_specs::iter::IteratorSpec;\nverus! {\nbroadcast use {vstd::std_specs::iter::group_iter_axioms, vstd::std_specs::iter_adapters::group_native_adapter_axioms};\n'
 def probe(kind):
     bodies={
         'forward_loop':'for (_, _) in v.iter().enumerate() { }',
@@ -35,8 +35,9 @@ def probe(kind):
 def component(kind='dependencies'):
     ts=primary();st=ts['src/tools/miri/src/borrow_tracker/stacked_borrows/stack.rs'];bor=ts['src/tools/miri/src/borrow_tracker/mod.rs'];sb=ts['src/tools/miri/src/borrow_tracker/stacked_borrows/mod.rs']
     # Selected tag subset only: original new/get/tag, no Item packing constructor.
-    tag=T.generate('tag');tag=tag[:tag.index('pub fn roundtrip(')]+'}\n'
-    tag=tag.replace('infer_derive(PartialEq)','infer_derive(PartialEq,PartialOrd,Ord)')
+    tag=T.generate('tag').replace('use std::num::NonZero;', 'use std::num::NonZero;\nuse std::ops::Range;');tag=tag[:tag.index('pub fn roundtrip(')]+'}\n'
+    # Equality only is used by fallback. Original Ord/PartialOrd derives stay,
+    # but their proof requests are excluded; no ordering import or export.
     cache=(HERE.parent/'native_miri_find_granting/cache_component.rs').read_text()
     sections=[block(cache,'pub struct Stack'),block(cache,'struct StackCache'),block(cache,'spec fn cache_consistent('),block(cache,'spec fn add_effect('),'impl StackCache {\n'+block(cache,'fn add(')+'\n}',block(cache,'proof fn add_effect_preserves_consistency(')]
     perm=block(cache,'spec fn decode(')+'\nimpl Permission {\n'+ '\n'.join(re.findall(r'^    const \w+: u64 = .*;',cache,re.M))+'\n'+block(cache,'fn from_bits(')+'\n}\nimpl Item {\n'+block(cache,'spec fn permission(')+'\n'+block(cache,'fn perm(')+'\n}\n'

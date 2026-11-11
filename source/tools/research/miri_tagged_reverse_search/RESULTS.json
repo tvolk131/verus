@@ -1,0 +1,833 @@
+{
+  "base": "38b09d18",
+  "cache_import": "no new assistance or reusable iterator lemma; no cache/import theorem claimed; illegal ordering exports not attempted",
+  "conclusions": {
+    "HMAC": "1/1 UNPROVED",
+    "canonical": "6/0 unchanged",
+    "fallback_internal_theorem": "UNPROVED",
+    "goal_complete": false,
+    "native_correspondences": 0,
+    "publication": false,
+    "whole_tagged_method": "UNPROVED",
+    "writer_effects": "44+3/101 OPEN"
+  },
+  "early_commit": "dc65ef77",
+  "final_trials": {
+    "v2-goals-forward_laws": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "7a8e29da4d9980e605e91b9eaaa5f0283b91bfe64102aaf663095208ab126514",
+      "receipt_sha256": "faa51470f711604a21e451f5c8a87c154238a201d63142e96eb1088076665c54",
+      "source_sha256": "4f9242ba9ad65a4210658552198026a9ec2bd1aecd6f0688c634672bc1aea72e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "v2-goals-forward_loop": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "22b3da87dda31a0e88d7bc13c1157d3c13146126d5fb40c56890a0de831aa8ae",
+      "receipt_sha256": "00294412031110c3095d42ff7e1e2e3164c7214a4b81b4a4dad89094ec3adf16",
+      "source_sha256": "34acaeddd53f071e38eb1be8795f6301691bf50fd62ec712d6e5b871b88b29f1",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "v2-goals-reverse_decrease": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "0b00bcf4599385110c69573117096e681e1af26f3b66799d0837ec3c679312c1",
+      "receipt_sha256": "2df6f385cc001ea9febbb40744bec6129abc556526f5a2356e2d92fca5c5febe",
+      "source_sha256": "b7411378d080452f8dc7a6cad82d3c35142b3797a73997149f4eef087755d527",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "v2-goals-reverse_inner": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::reverse_inner"
+      ],
+      "freeze_sha256": "801a601be1ec8baddd71492c41961d106f0b0891572a45bb8f73c52ae536786e",
+      "receipt_sha256": "784465500c785b25fedf9d0f98d45dcf117d86af3a61df3b6cab402a4f4578a7",
+      "source_sha256": "79daba7a1cc2cf631f8ee79c7e0dd759a7eae654e85cb27844dc04249de12c2e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "v2-goals-reverse_law": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::reverse_law"
+      ],
+      "freeze_sha256": "36a4614a7686ea7e2c526630436c9b50673e8f706ab89be69d6fbd3a78c6debe",
+      "receipt_sha256": "aaa84c2e77bc15b2417634eb86c619a0334a070a30cd77bebfa5a14a0d12f664",
+      "source_sha256": "a65023cfb2582cd9e47bd89f2ccc329d9823ef35a5c46ab793b841f7e2f3bd9a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "v2-goals-reverse_loop": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::reverse_loop"
+      ],
+      "freeze_sha256": "22b32252cbb0ddea1dda87fc3824d9862dd5c687ff261df0af159e7e07088555",
+      "receipt_sha256": "c4ac045c21ffd60848b81c8f23686ec57d9f420b47c08f0a86b188ae73875b8b",
+      "source_sha256": "1190591829dfbd4d3d63d5ef12a90c7421b44f0fa69ce8fcc730e485503999b9",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "v2-goals-reverse_remaining": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "d61922516d0a1a8258d2473d0ded890be21cdadc4b3905801e8ece9b6530dca9",
+      "receipt_sha256": "8a4a25a4b74b70a3bc15f0a953d8ce5e18f2ea980677f1cb3831f042ea72a09a",
+      "source_sha256": "288bdfcdf8b6d38a70108cad297830d949fd4193cc33081ee0f5a3aaf855e2be",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "v2-goals-slice_reverse_loop": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "8ce32c377c9313af565069ef40bff44ae1b590a83750e0b660c3e2c538750eb7",
+      "receipt_sha256": "6c510908080220c075394b0dc9002f955a48f3a7caafc61d140ccff5ef4a71ea",
+      "source_sha256": "d4314e20558b4091378b13c857e531490e23595bb7456d2b848fe37f5133d9c8",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "v2-plain-forward_laws": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "bdc00af3d8eaf1dad58f6724da3fbbdcdd29936cb8af5dcff0b97d9208f4ad3d",
+      "receipt_sha256": "503cc6a1a6384ce32aba120dd2606825b14170269bce6d115dff7718910d08d0",
+      "source_sha256": "4f9242ba9ad65a4210658552198026a9ec2bd1aecd6f0688c634672bc1aea72e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "v2-plain-forward_loop": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "c443b221947e77ba6a428339b4ace177b901c6f766f3d129e77e73947f66c37a",
+      "receipt_sha256": "c6b1319fcc7afbf76ddbcef02dba249ea584f214877d17db8b3aac93b55930ba",
+      "source_sha256": "34acaeddd53f071e38eb1be8795f6301691bf50fd62ec712d6e5b871b88b29f1",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "v2-plain-reverse_decrease": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "e88b0878bd7074c82064c4a5d09f8373bd52e51fbef3decb1250aa7eeffa3d06",
+      "receipt_sha256": "ce8dc1d40e19e92468f1f387dda3ee27b69a8fcdec676f4965ccffe22cadf5eb",
+      "source_sha256": "b7411378d080452f8dc7a6cad82d3c35142b3797a73997149f4eef087755d527",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "v2-plain-reverse_inner": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::reverse_inner"
+      ],
+      "freeze_sha256": "dd83e905aea5c8e99e7d9fcac8de8d4c1c78b8ef7495dce3da95586a14951632",
+      "receipt_sha256": "d18c0b5650d511fc1815a0975e6d96264c454e56563f8f76df1a4fe2b742ae7d",
+      "source_sha256": "79daba7a1cc2cf631f8ee79c7e0dd759a7eae654e85cb27844dc04249de12c2e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "v2-plain-reverse_law": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::reverse_law"
+      ],
+      "freeze_sha256": "943c2c5d1d575b71d64890a972956a63d176da51a95cb6b10e5593e2a7373eae",
+      "receipt_sha256": "35d752a379c86b125481a1b13ed1fc5864ee3067c27ca95a586aaef0079618e3",
+      "source_sha256": "a65023cfb2582cd9e47bd89f2ccc329d9823ef35a5c46ab793b841f7e2f3bd9a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "v2-plain-reverse_loop": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::reverse_loop"
+      ],
+      "freeze_sha256": "3b03e54ae86fc3d90dcbc0f2dd45acb5bdd706e5ab4594f13be1e484096dd71b",
+      "receipt_sha256": "200e1ead6b833a6b341337860d2ccf625180224e034ed6f8419427bb5f157538",
+      "source_sha256": "1190591829dfbd4d3d63d5ef12a90c7421b44f0fa69ce8fcc730e485503999b9",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 1
+      }
+    },
+    "v2-plain-reverse_remaining": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "8a1e9e0e19f9c371bda4c56e4915a53ad5eb20caab4d6a234d9f20ea09db57ff",
+      "receipt_sha256": "bdccadd74c194f2077b45275bba66b53a1247ec12f6b4502b2e48ece15a054bd",
+      "source_sha256": "288bdfcdf8b6d38a70108cad297830d949fd4193cc33081ee0f5a3aaf855e2be",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "v2-plain-slice_reverse_loop": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "462f1b3380608ee51a9aaa1625ae10d977c5f695dc6bbaa6ddc5fbb2eac8e56c",
+      "receipt_sha256": "3819cf600570af527fd9ec4ee9ec68d56a8f6c574aba613770a5888c8c31cd2f",
+      "source_sha256": "d4314e20558b4091378b13c857e531490e23595bb7456d2b848fe37f5133d9c8",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "v4-goals-dependencies": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "2a5411e79e78c44fa7bd29e0bb979e0079eb84275c5094821641ec6a4da3428b",
+      "receipt_sha256": "91eb02edf917850acb768dbf14a79604a508dfaae984cc1b96bdca45ef7a6a90",
+      "source_sha256": "5a0a2c69c85195c125b9c177fddad9dc4080f80c0711ffd0913673959f2012aa",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 31
+      }
+    },
+    "v4-goals-fallback": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::Stack::tagged_fallback"
+      ],
+      "freeze_sha256": "d4c38b8346c62c49c4861c6db129016b4b3f7365eefe4d2a6b98fba66b2eb5a9",
+      "receipt_sha256": "6c10129f5bbde5cb67c48204a4249a3b802b1332f2b399759cdb5e4d9c8ed800",
+      "source_sha256": "d3527c485d44040fc82da52447711d146c40f91284fea67a3cbf841d53660eec",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 31
+      }
+    },
+    "v4-goals-fallback_plain": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::Stack::tagged_fallback"
+      ],
+      "freeze_sha256": "c73ec0bda38791cdb16ada34cbf9f1a04e9c95b8dd1980aa241580d4c758a366",
+      "receipt_sha256": "e43c09e9c2fb1794866ea1897c7279dfcb73d7f25f2cfb37d536e0a6f9c34308",
+      "source_sha256": "9fdcb4b43c7f17b466ada45e889e0ab60c323ae6cd404b1038d909cb358666d5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    },
+    "v4-goals-full_original": {
+      "classification": "unsupported_frontend_not_semantic_control",
+      "failed_functions": [],
+      "freeze_sha256": "c11b365ce3d506cb087da037d88b91a1b4b76bd28e6098ee7b8c8766d42638a4",
+      "receipt_sha256": "50068b67ee32706d0291b241d4b11d2280468cf7179248b9f5115759938fe39e",
+      "source_sha256": "089df9533050a7b40d943b3fd3ae87c91c505dee756e9eaca665938a9f13930d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "v4-goals-mutated_grants": {
+      "classification": "strict_dependency_control",
+      "failed_functions": [
+        "tagged::Permission::grants"
+      ],
+      "freeze_sha256": "ac4e77a5f8c9d8ad63f8be5295b9ae834df3c0247a8864e43fc2737a723ee3a1",
+      "receipt_sha256": "d6a9436d3f98800cd76c3fa7f2264a99b79f3c8a081bc549ba9040b9ae391445",
+      "source_sha256": "87021362076354b61c88ad3e6c8dd1051034f34137f15428fa09c6f83350d346",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 30
+      }
+    },
+    "v4-goals-wrong_write_property": {
+      "classification": "strict_dependency_control",
+      "failed_functions": [
+        "tagged::write_precision"
+      ],
+      "freeze_sha256": "54ee4e552f94ad9e6c7e3cbaaa03b87e8f17974ad2e35092c3b51d69d21f57a2",
+      "receipt_sha256": "98115f3900c971b005f8bd5c5746aaa2fffdd0223dbed56010853a9bd91546c4",
+      "source_sha256": "d918b665163c6b9ba44c2265dc875a6b70d70463068c1620946a77a1520b900a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 30
+      }
+    },
+    "v4-plain-dependencies": {
+      "classification": "positive",
+      "failed_functions": [],
+      "freeze_sha256": "5e34704b6b2fbb42f3bc8b4e7c584b7dfa8c5d2d4ec67abb47e55467735214c2",
+      "receipt_sha256": "a6a4e05edb63b817634506914bc65ac4ac1c99fb8a29ecc6ffb9de5d79f1930a",
+      "source_sha256": "5a0a2c69c85195c125b9c177fddad9dc4080f80c0711ffd0913673959f2012aa",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 31
+      }
+    },
+    "v4-plain-fallback": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::Stack::tagged_fallback"
+      ],
+      "freeze_sha256": "dba7c17de72a05775ce36142e8427a34ff32380fa28242f52b51cbf2b51988a1",
+      "receipt_sha256": "a46fb88479a6a526b6719e11b6bba05de5948fa0144e1a7e9834efe61fe56062",
+      "source_sha256": "d3527c485d44040fc82da52447711d146c40f91284fea67a3cbf841d53660eec",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 2,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 31
+      }
+    },
+    "v4-plain-fallback_plain": {
+      "classification": "open_ordinary_support_or_application_obligation",
+      "failed_functions": [
+        "tagged::Stack::tagged_fallback"
+      ],
+      "freeze_sha256": "16e4dee9d8969f13807163cbcb63c64791dd86ee27e33decd6db3cff1b496753",
+      "receipt_sha256": "f76fad9189829397dfbe93b006a7d3cfe1b356afb78f3343500604d002fdce60",
+      "source_sha256": "9fdcb4b43c7f17b466ada45e889e0ab60c323ae6cd404b1038d909cb358666d5",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    },
+    "v4-plain-full_original": {
+      "classification": "unsupported_frontend_not_semantic_control",
+      "failed_functions": [],
+      "freeze_sha256": "f480d5091d9449ae95a1e0155872b5ca61f2e621db49d7e96cd3902c1cbcddbb",
+      "receipt_sha256": "1193a890686e00da71e8444f06c1e5fe1e83edfbc0a251e9c43c5bae060de8e5",
+      "source_sha256": "089df9533050a7b40d943b3fd3ae87c91c505dee756e9eaca665938a9f13930d",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "v4-plain-mutated_grants": {
+      "classification": "strict_dependency_control",
+      "failed_functions": [
+        "tagged::Permission::grants"
+      ],
+      "freeze_sha256": "96fb2853125b6db9ead90315730d7015fd76b63e526e36124c2e1b006f8904ec",
+      "receipt_sha256": "27da8d9e49e26bdb2b589624074346e05323288e900e595962af9cb4440cfa17",
+      "source_sha256": "87021362076354b61c88ad3e6c8dd1051034f34137f15428fa09c6f83350d346",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 30
+      }
+    },
+    "v4-plain-wrong_write_property": {
+      "classification": "strict_dependency_control",
+      "failed_functions": [
+        "tagged::write_precision"
+      ],
+      "freeze_sha256": "491945dcc9365aa18b7659efc6cb7ef0dabc1b9be427e9b830ca6a75d2de09b4",
+      "receipt_sha256": "003be8a4b0d66e38dae730566a5190e97e22953f56456eb47ae5ed9bb1207096",
+      "source_sha256": "d918b665163c6b9ba44c2265dc875a6b70d70463068c1620946a77a1520b900a",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 30
+      }
+    }
+  },
+  "inherited_ordering_diagnostic": {
+    "v3-goals-dependencies": {
+      "receipt_sha256": "afdfd34df991e28a03aab496709592dbad7114e9f7347f764630cf6872d401e7",
+      "scope": {
+        "all_local_query_items": [
+          "tagged::AccessKind::clone",
+          "tagged::BorTag::__verus_infer_derived_cmp",
+          "tagged::BorTag::__verus_infer_derived_eq",
+          "tagged::BorTag::__verus_infer_derived_partial_cmp",
+          "tagged::BorTag::__verus_infer_nonzero_u64_view",
+          "tagged::BorTag::clone",
+          "tagged::BorTag::cmp",
+          "tagged::BorTag::cmp_spec",
+          "tagged::BorTag::ctor%",
+          "tagged::BorTag::eq",
+          "tagged::BorTag::eq_spec",
+          "tagged::BorTag::get",
+          "tagged::BorTag::new",
+          "tagged::BorTag::obeys_cmp_spec",
+          "tagged::BorTag::obeys_eq_spec",
+          "tagged::BorTag::obeys_partial_cmp_spec",
+          "tagged::BorTag::partial_cmp",
+          "tagged::BorTag::partial_cmp_spec",
+          "tagged::BorTag::value",
+          "tagged::CACHE_LEN",
+          "tagged::Item::clone",
+          "tagged::Item::ctor%",
+          "tagged::Item::perm",
+          "tagged::Item::permission",
+          "tagged::Item::tag",
+          "tagged::Item::word",
+          "tagged::PERM_MASK",
+          "tagged::PERM_SHIFT",
+          "tagged::PROTECTED_MASK",
+          "tagged::PROTECTED_SHIFT",
+          "tagged::Permission::clone",
+          "tagged::Permission::from_bits",
+          "tagged::Permission::grants",
+          "tagged::StackCache::add",
+          "tagged::StackCache::idx::anon_const%0",
+          "tagged::StackCache::items::anon_const%0",
+          "tagged::TAG_MASK",
+          "tagged::add_effect",
+          "tagged::add_effect_preserves_consistency",
+          "tagged::cache_consistent",
+          "tagged::checked_nonzero_u64_ord%",
+          "tagged::decode",
+          "tagged::granting",
+          "tagged::impl&%42::DISABLED",
+          "tagged::impl&%42::SHARED_READ_ONLY",
+          "tagged::impl&%42::SHARED_READ_WRITE",
+          "tagged::impl&%42::UNIQUE",
+          "tagged::item_word_wf",
+          "tagged::matching",
+          "tagged::result_ok",
+          "tagged::stack_wf",
+          "tagged::structural",
+          "tagged::tag_equal",
+          "tagged::write_precision"
+        ],
+        "body_sets_by_reported_status": {
+          "checked_exec_body": [
+            "tagged::AccessKind::clone",
+            "tagged::BorTag::clone",
+            "tagged::BorTag::cmp",
+            "tagged::BorTag::eq",
+            "tagged::BorTag::get",
+            "tagged::BorTag::new",
+            "tagged::BorTag::partial_cmp",
+            "tagged::Item::clone",
+            "tagged::Item::perm",
+            "tagged::Item::tag",
+            "tagged::Permission::clone",
+            "tagged::Permission::from_bits",
+            "tagged::Permission::grants",
+            "tagged::StackCache::add",
+            "tagged::tag_equal",
+            "tagged::write_precision"
+          ],
+          "checked_proof_body": [
+            "tagged::add_effect_preserves_consistency"
+          ],
+          "outside_selected_scope": [
+            "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "<AccessKind as std::cmp::PartialEq>::eq",
+            "<AccessKind as std::fmt::Debug>::fmt",
+            "<AccessKind as std::hash::Hash>::hash",
+            "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+            "<BorTag as std::hash::Hash>::hash",
+            "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "<Item as std::cmp::PartialEq>::eq",
+            "<Item as std::hash::Hash>::hash",
+            "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "<Permission as std::cmp::PartialEq>::eq",
+            "<Permission as std::fmt::Debug>::fmt",
+            "<Permission as std::hash::Hash>::hash"
+          ],
+          "selected_item_without_translated_body": [
+            "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "VERUS_UNERASED_PROXY__CACHE_LEN",
+            "VERUS_UNERASED_PROXY__PERM_MASK",
+            "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+            "VERUS_UNERASED_PROXY__TAG_MASK",
+            "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+          ],
+          "specification_definition_or_declaration": [
+            "tagged::BorTag::__verus_infer_derived_cmp",
+            "tagged::BorTag::__verus_infer_derived_eq",
+            "tagged::BorTag::__verus_infer_derived_partial_cmp",
+            "tagged::BorTag::__verus_infer_nonzero_u64_view",
+            "tagged::BorTag::cmp_spec",
+            "tagged::BorTag::eq_spec",
+            "tagged::BorTag::obeys_cmp_spec",
+            "tagged::BorTag::obeys_eq_spec",
+            "tagged::BorTag::obeys_partial_cmp_spec",
+            "tagged::BorTag::partial_cmp_spec",
+            "tagged::BorTag::value",
+            "tagged::Item::permission",
+            "tagged::Item::word",
+            "tagged::add_effect",
+            "tagged::cache_consistent",
+            "tagged::decode",
+            "tagged::granting",
+            "tagged::item_word_wf",
+            "tagged::matching",
+            "tagged::result_ok",
+            "tagged::stack_wf",
+            "tagged::structural"
+          ]
+        },
+        "complete_selected_scope_verified": true,
+        "failed_functions": [],
+        "goal_assistance": [],
+        "inferred_function_count": 1,
+        "inferred_functions": [
+          {
+            "exported": false,
+            "function": "tagged::BorTag::eq",
+            "proofs": {
+              "exactness": {
+                "reason": null,
+                "required": true,
+                "status": "proved"
+              },
+              "maximality": {
+                "reason": null,
+                "required": true,
+                "status": "proved"
+              },
+              "soundness": {
+                "reason": null,
+                "required": true,
+                "status": "proved"
+              }
+            },
+            "required_checks_passed": true
+          }
+        ],
+        "reported_checked_exec_count": 16,
+        "reported_checked_proof_count": 1,
+        "synthetic_constructor_queries": [
+          "tagged::BorTag::ctor%",
+          "tagged::Item::ctor%"
+        ]
+      },
+      "source_sha256": "453eb60d984f33a9ef678fc0d20640d3e1855f8bfdbd002723e8d4cd53b938a7",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 105
+      }
+    },
+    "v3-plain-dependencies": {
+      "receipt_sha256": "2b79c74cc22b55efba9416a5fa47002979745f5817bac3c3ac446588d39b3986",
+      "scope": {
+        "all_local_query_items": [
+          "tagged::AccessKind::clone",
+          "tagged::BorTag::__verus_infer_derived_cmp",
+          "tagged::BorTag::__verus_infer_derived_eq",
+          "tagged::BorTag::__verus_infer_derived_partial_cmp",
+          "tagged::BorTag::__verus_infer_nonzero_u64_view",
+          "tagged::BorTag::clone",
+          "tagged::BorTag::cmp",
+          "tagged::BorTag::cmp_spec",
+          "tagged::BorTag::ctor%",
+          "tagged::BorTag::eq",
+          "tagged::BorTag::eq_spec",
+          "tagged::BorTag::get",
+          "tagged::BorTag::new",
+          "tagged::BorTag::obeys_cmp_spec",
+          "tagged::BorTag::obeys_eq_spec",
+          "tagged::BorTag::obeys_partial_cmp_spec",
+          "tagged::BorTag::partial_cmp",
+          "tagged::BorTag::partial_cmp_spec",
+          "tagged::BorTag::value",
+          "tagged::CACHE_LEN",
+          "tagged::Item::clone",
+          "tagged::Item::ctor%",
+          "tagged::Item::perm",
+          "tagged::Item::permission",
+          "tagged::Item::tag",
+          "tagged::Item::word",
+          "tagged::PERM_MASK",
+          "tagged::PERM_SHIFT",
+          "tagged::PROTECTED_MASK",
+          "tagged::PROTECTED_SHIFT",
+          "tagged::Permission::clone",
+          "tagged::Permission::from_bits",
+          "tagged::Permission::grants",
+          "tagged::StackCache::add",
+          "tagged::StackCache::idx::anon_const%0",
+          "tagged::StackCache::items::anon_const%0",
+          "tagged::TAG_MASK",
+          "tagged::add_effect",
+          "tagged::add_effect_preserves_consistency",
+          "tagged::cache_consistent",
+          "tagged::decode",
+          "tagged::granting",
+          "tagged::impl&%42::DISABLED",
+          "tagged::impl&%42::SHARED_READ_ONLY",
+          "tagged::impl&%42::SHARED_READ_WRITE",
+          "tagged::impl&%42::UNIQUE",
+          "tagged::item_word_wf",
+          "tagged::matching",
+          "tagged::result_ok",
+          "tagged::stack_wf",
+          "tagged::structural",
+          "tagged::tag_equal",
+          "tagged::write_precision"
+        ],
+        "body_sets_by_reported_status": {
+          "outside_selected_scope": [
+            "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+            "<AccessKind as std::cmp::PartialEq>::eq",
+            "<AccessKind as std::fmt::Debug>::fmt",
+            "<AccessKind as std::hash::Hash>::hash",
+            "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+            "<BorTag as std::hash::Hash>::hash",
+            "<Item as std::cmp::Eq>::assert_fields_are_eq",
+            "<Item as std::cmp::PartialEq>::eq",
+            "<Item as std::hash::Hash>::hash",
+            "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+            "<Permission as std::cmp::PartialEq>::eq",
+            "<Permission as std::fmt::Debug>::fmt",
+            "<Permission as std::hash::Hash>::hash"
+          ],
+          "selected_body_not_certified_by_successful_full_run": [
+            "tagged::AccessKind::clone",
+            "tagged::BorTag::clone",
+            "tagged::BorTag::cmp",
+            "tagged::BorTag::eq",
+            "tagged::BorTag::get",
+            "tagged::BorTag::new",
+            "tagged::BorTag::partial_cmp",
+            "tagged::Item::clone",
+            "tagged::Item::perm",
+            "tagged::Item::tag",
+            "tagged::Permission::clone",
+            "tagged::Permission::from_bits",
+            "tagged::Permission::grants",
+            "tagged::StackCache::add",
+            "tagged::add_effect_preserves_consistency",
+            "tagged::tag_equal",
+            "tagged::write_precision"
+          ],
+          "selected_item_without_translated_body": [
+            "Permission::VERUS_UNERASED_PROXY__DISABLED",
+            "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+            "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+            "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+            "VERUS_UNERASED_PROXY__CACHE_LEN",
+            "VERUS_UNERASED_PROXY__PERM_MASK",
+            "VERUS_UNERASED_PROXY__PERM_SHIFT",
+            "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+            "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+            "VERUS_UNERASED_PROXY__TAG_MASK",
+            "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+            "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+          ],
+          "specification_definition_or_declaration": [
+            "tagged::BorTag::__verus_infer_derived_cmp",
+            "tagged::BorTag::__verus_infer_derived_eq",
+            "tagged::BorTag::__verus_infer_derived_partial_cmp",
+            "tagged::BorTag::__verus_infer_nonzero_u64_view",
+            "tagged::BorTag::cmp_spec",
+            "tagged::BorTag::eq_spec",
+            "tagged::BorTag::obeys_cmp_spec",
+            "tagged::BorTag::obeys_eq_spec",
+            "tagged::BorTag::obeys_partial_cmp_spec",
+            "tagged::BorTag::partial_cmp_spec",
+            "tagged::BorTag::value",
+            "tagged::Item::permission",
+            "tagged::Item::word",
+            "tagged::add_effect",
+            "tagged::cache_consistent",
+            "tagged::decode",
+            "tagged::granting",
+            "tagged::item_word_wf",
+            "tagged::matching",
+            "tagged::result_ok",
+            "tagged::stack_wf",
+            "tagged::structural"
+          ]
+        },
+        "complete_selected_scope_verified": false,
+        "failed_functions": [
+          "tagged::BorTag::cmp"
+        ],
+        "goal_assistance": [],
+        "inferred_function_count": 1,
+        "inferred_functions": [
+          {
+            "exported": false,
+            "function": "tagged::BorTag::eq",
+            "proofs": {
+              "exactness": {
+                "reason": null,
+                "required": true,
+                "status": "proved"
+              },
+              "maximality": {
+                "reason": null,
+                "required": true,
+                "status": "proved"
+              },
+              "soundness": {
+                "reason": null,
+                "required": true,
+                "status": "proved"
+              }
+            },
+            "required_checks_passed": true
+          }
+        ],
+        "reported_checked_exec_count": 0,
+        "reported_checked_proof_count": 0,
+        "synthetic_constructor_queries": [
+          "tagged::BorTag::ctor%",
+          "tagged::Item::ctor%"
+        ]
+      },
+      "source_sha256": "453eb60d984f33a9ef678fc0d20640d3e1855f8bfdbd002723e8d4cd53b938a7",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 32
+      }
+    }
+  },
+  "private_root": "/tmp/miri-tagged-reverse-search-pv89zy2r",
+  "runtime_tools": {
+    "libverus_builtin.rlib": "a07753180cdf5949af16daf27edd95ef4fad7b212c76b83dce3d251c3463661b",
+    "libverus_builtin_macros.so": "6717936a05b0e26d95f3440ceec95f354b2ac2e25613bcf02e03326aaa24a9a8",
+    "libverus_state_machines_macros.so": "0d3cf7564b5c1eea52e2a00265a2fb006d44e88fb1bd133a3ddb446ba66b12fa",
+    "libvstd.rlib": "3487dc60aaab146acd5f850143599024f200023101944832916286d624a80f63",
+    "rust_verify": "a58c98909b73ff5d1ff817f965db0cefde96734cf15328a352cebe31c2792609",
+    "verus": "59b7262cf367fb1379c5dce9813129084e12841de075444786535071e12ba75a",
+    "vstd.vir": "40effe708f67e762f91cc4fa76819c162aa370b024a3ce8a5b974e1f34659039",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "schema": 1,
+  "vstd": "2250/0"
+}

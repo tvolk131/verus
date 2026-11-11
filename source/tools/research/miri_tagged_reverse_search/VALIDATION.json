@@ -1,0 +1,40 @@
+{
+  "agreement": {
+    "audit": "passed",
+    "fallback": "UNPROVED",
+    "final_trials": 28,
+    "goal_complete": false,
+    "native": 0,
+    "publication": false,
+    "result_sha256": "6825f9b6f5b9aac278fe2f658fa7fee714af7b93a50308c8c1c4b7e6f11632e4"
+  },
+  "audit_freeze_sha256": "915ad6e20b34aabf137ad55bf87729e08826c2c75312e911f53a33866599a198",
+  "goal_complete": false,
+  "normal": {
+    "argv": [
+      "python3",
+      "-B",
+      "source/tools/research/miri_tagged_reverse_search/audit.py",
+      "check"
+    ],
+    "exit": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "d04143c1b64c7037292c07619351a3caf37a133e6e5a65f1424fbe087ab1c789"
+  },
+  "optimized": {
+    "argv": [
+      "python3",
+      "-O",
+      "-B",
+      "source/tools/research/miri_tagged_reverse_search/audit.py",
+      "check"
+    ],
+    "exit": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "d04143c1b64c7037292c07619351a3caf37a133e6e5a65f1424fbe087ab1c789"
+  },
+  "production_changes": [],
+  "publication": false,
+  "source_directory_only": "source/tools/research/miri_tagged_reverse_search",
+  "tests": "28 final full-crate applications, full matching vstd2250/0; all retained exclusions in ATTEMPTS.json"
+}

@@ -1,0 +1,2160 @@
+{
+  "v2-goals-forward_laws": {
+    "all_local_query_items": [
+      "tagged::forward_laws"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::forward_laws"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-forward_loop": {
+    "all_local_query_items": [
+      "tagged::forward_loop"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::forward_loop"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-reverse_decrease": {
+    "all_local_query_items": [
+      "tagged::reverse_decrease"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::reverse_decrease"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-reverse_inner": {
+    "all_local_query_items": [
+      "tagged::reverse_inner"
+    ],
+    "body_sets_by_reported_status": {
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::reverse_inner"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::reverse_inner"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-reverse_law": {
+    "all_local_query_items": [
+      "tagged::reverse_law"
+    ],
+    "body_sets_by_reported_status": {
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::reverse_law"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::reverse_law"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-reverse_loop": {
+    "all_local_query_items": [
+      "tagged::reverse_loop"
+    ],
+    "body_sets_by_reported_status": {
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::reverse_loop"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::reverse_loop"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-reverse_remaining": {
+    "all_local_query_items": [
+      "tagged::reverse_remaining"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::reverse_remaining"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-goals-slice_reverse_loop": {
+    "all_local_query_items": [
+      "tagged::slice_reverse_loop"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::slice_reverse_loop"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-forward_laws": {
+    "all_local_query_items": [
+      "tagged::forward_laws"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::forward_laws"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-forward_loop": {
+    "all_local_query_items": [
+      "tagged::forward_loop"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::forward_loop"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-reverse_decrease": {
+    "all_local_query_items": [
+      "tagged::reverse_decrease"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::reverse_decrease"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-reverse_inner": {
+    "all_local_query_items": [
+      "tagged::reverse_inner"
+    ],
+    "body_sets_by_reported_status": {
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::reverse_inner"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::reverse_inner"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-reverse_law": {
+    "all_local_query_items": [
+      "tagged::reverse_law"
+    ],
+    "body_sets_by_reported_status": {
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::reverse_law"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::reverse_law"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-reverse_loop": {
+    "all_local_query_items": [
+      "tagged::reverse_loop"
+    ],
+    "body_sets_by_reported_status": {
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::reverse_loop"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::reverse_loop"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-reverse_remaining": {
+    "all_local_query_items": [
+      "tagged::reverse_remaining"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::reverse_remaining"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v2-plain-slice_reverse_loop": {
+    "all_local_query_items": [
+      "tagged::slice_reverse_loop"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::slice_reverse_loop"
+      ],
+      "selected_item_without_translated_body": [
+        "_::__VERUS_REVEAL_INTERNAL__",
+        "_::__VERUS_REVEAL_INTERNAL__"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 1,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": []
+  },
+  "v4-goals-dependencies": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::StackCache::add",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "checked_proof_body": [
+        "tagged::add_effect_preserves_consistency"
+      ],
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 14,
+    "reported_checked_proof_count": 1,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-goals-fallback": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::Stack::tagged_fallback",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::Stack::tagged_fallback",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::Stack::tagged_fallback"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-goals-fallback_plain": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::Stack::tagged_fallback",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::Stack::tagged_fallback",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::Stack::tagged_fallback"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-goals-full_original": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::Stack::find_granting_cache",
+      "tagged::Stack::find_granting_tagged",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_item_without_translated_body": [
+        "<AccessKind as std::clone::Clone>::clone",
+        "<BorTag as std::clone::Clone>::clone",
+        "<BorTag as std::cmp::PartialEq>::eq",
+        "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+        "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+        "<Item as std::clone::Clone>::clone",
+        "<Permission as std::clone::Clone>::clone",
+        "BorTag::__verus_infer_derived_eq",
+        "BorTag::__verus_infer_nonzero_u64_view",
+        "BorTag::get",
+        "BorTag::new",
+        "BorTag::value",
+        "Item::perm",
+        "Item::permission",
+        "Item::tag",
+        "Item::word",
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "Permission::from_bits",
+        "Permission::grants",
+        "Stack::find_granting_cache",
+        "Stack::find_granting_tagged",
+        "StackCache::add",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+        "add_effect",
+        "add_effect_preserves_consistency",
+        "cache_consistent",
+        "decode",
+        "granting",
+        "item_word_wf",
+        "matching",
+        "result_ok",
+        "stack_wf",
+        "structural",
+        "tag_equal",
+        "write_precision"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-goals-mutated_grants": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::Permission::grants"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-goals-wrong_write_property": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::write_precision"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-plain-dependencies": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "checked_exec_body": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::StackCache::add",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "checked_proof_body": [
+        "tagged::add_effect_preserves_consistency"
+      ],
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": true,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 14,
+    "reported_checked_proof_count": 1,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-plain-fallback": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::Stack::tagged_fallback",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::Stack::tagged_fallback",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::Stack::tagged_fallback"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-plain-fallback_plain": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::Stack::tagged_fallback",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::Stack::tagged_fallback",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::Stack::tagged_fallback"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-plain-full_original": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::Stack::find_granting_cache",
+      "tagged::Stack::find_granting_tagged",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_item_without_translated_body": [
+        "<AccessKind as std::clone::Clone>::clone",
+        "<BorTag as std::clone::Clone>::clone",
+        "<BorTag as std::cmp::PartialEq>::eq",
+        "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+        "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+        "<Item as std::clone::Clone>::clone",
+        "<Permission as std::clone::Clone>::clone",
+        "BorTag::__verus_infer_derived_eq",
+        "BorTag::__verus_infer_nonzero_u64_view",
+        "BorTag::get",
+        "BorTag::new",
+        "BorTag::value",
+        "Item::perm",
+        "Item::permission",
+        "Item::tag",
+        "Item::word",
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "Permission::from_bits",
+        "Permission::grants",
+        "Stack::find_granting_cache",
+        "Stack::find_granting_tagged",
+        "StackCache::add",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural",
+        "add_effect",
+        "add_effect_preserves_consistency",
+        "cache_consistent",
+        "decode",
+        "granting",
+        "item_word_wf",
+        "matching",
+        "result_ok",
+        "stack_wf",
+        "structural",
+        "tag_equal",
+        "write_precision"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [],
+    "goal_assistance": [],
+    "inferred_function_count": 0,
+    "inferred_functions": [],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-plain-mutated_grants": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::Permission::grants"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  },
+  "v4-plain-wrong_write_property": {
+    "all_local_query_items": [
+      "tagged::AccessKind::clone",
+      "tagged::BorTag::__verus_infer_derived_eq",
+      "tagged::BorTag::__verus_infer_nonzero_u64_view",
+      "tagged::BorTag::clone",
+      "tagged::BorTag::ctor%",
+      "tagged::BorTag::eq",
+      "tagged::BorTag::eq_spec",
+      "tagged::BorTag::get",
+      "tagged::BorTag::new",
+      "tagged::BorTag::obeys_eq_spec",
+      "tagged::BorTag::value",
+      "tagged::CACHE_LEN",
+      "tagged::Item::clone",
+      "tagged::Item::ctor%",
+      "tagged::Item::perm",
+      "tagged::Item::permission",
+      "tagged::Item::tag",
+      "tagged::Item::word",
+      "tagged::PERM_MASK",
+      "tagged::PERM_SHIFT",
+      "tagged::PROTECTED_MASK",
+      "tagged::PROTECTED_SHIFT",
+      "tagged::Permission::clone",
+      "tagged::Permission::from_bits",
+      "tagged::Permission::grants",
+      "tagged::StackCache::add",
+      "tagged::StackCache::idx::anon_const%0",
+      "tagged::StackCache::items::anon_const%0",
+      "tagged::TAG_MASK",
+      "tagged::add_effect",
+      "tagged::add_effect_preserves_consistency",
+      "tagged::cache_consistent",
+      "tagged::decode",
+      "tagged::granting",
+      "tagged::impl&%38::DISABLED",
+      "tagged::impl&%38::SHARED_READ_ONLY",
+      "tagged::impl&%38::SHARED_READ_WRITE",
+      "tagged::impl&%38::UNIQUE",
+      "tagged::item_word_wf",
+      "tagged::matching",
+      "tagged::result_ok",
+      "tagged::stack_wf",
+      "tagged::structural",
+      "tagged::tag_equal",
+      "tagged::write_precision"
+    ],
+    "body_sets_by_reported_status": {
+      "outside_selected_scope": [
+        "<AccessKind as std::cmp::Eq>::assert_fields_are_eq",
+        "<AccessKind as std::cmp::PartialEq>::eq",
+        "<AccessKind as std::fmt::Debug>::fmt",
+        "<AccessKind as std::hash::Hash>::hash",
+        "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+        "<BorTag as std::cmp::Ord>::cmp",
+        "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+        "<BorTag as std::hash::Hash>::hash",
+        "<Item as std::cmp::Eq>::assert_fields_are_eq",
+        "<Item as std::cmp::PartialEq>::eq",
+        "<Item as std::hash::Hash>::hash",
+        "<Permission as std::cmp::Eq>::assert_fields_are_eq",
+        "<Permission as std::cmp::PartialEq>::eq",
+        "<Permission as std::fmt::Debug>::fmt",
+        "<Permission as std::hash::Hash>::hash"
+      ],
+      "selected_body_not_certified_by_successful_full_run": [
+        "tagged::AccessKind::clone",
+        "tagged::BorTag::clone",
+        "tagged::BorTag::eq",
+        "tagged::BorTag::get",
+        "tagged::BorTag::new",
+        "tagged::Item::clone",
+        "tagged::Item::perm",
+        "tagged::Item::tag",
+        "tagged::Permission::clone",
+        "tagged::Permission::from_bits",
+        "tagged::Permission::grants",
+        "tagged::StackCache::add",
+        "tagged::add_effect_preserves_consistency",
+        "tagged::tag_equal",
+        "tagged::write_precision"
+      ],
+      "selected_item_without_translated_body": [
+        "Permission::VERUS_UNERASED_PROXY__DISABLED",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_ONLY",
+        "Permission::VERUS_UNERASED_PROXY__SHARED_READ_WRITE",
+        "Permission::VERUS_UNERASED_PROXY__UNIQUE",
+        "VERUS_UNERASED_PROXY__CACHE_LEN",
+        "VERUS_UNERASED_PROXY__PERM_MASK",
+        "VERUS_UNERASED_PROXY__PERM_SHIFT",
+        "VERUS_UNERASED_PROXY__PROTECTED_MASK",
+        "VERUS_UNERASED_PROXY__PROTECTED_SHIFT",
+        "VERUS_UNERASED_PROXY__TAG_MASK",
+        "_::<impl vstd::prelude::Structural for AccessKind>::assert_receiver_is_structural",
+        "_::<impl vstd::prelude::Structural for Permission>::assert_receiver_is_structural"
+      ],
+      "specification_definition_or_declaration": [
+        "tagged::BorTag::__verus_infer_derived_eq",
+        "tagged::BorTag::__verus_infer_nonzero_u64_view",
+        "tagged::BorTag::eq_spec",
+        "tagged::BorTag::obeys_eq_spec",
+        "tagged::BorTag::value",
+        "tagged::Item::permission",
+        "tagged::Item::word",
+        "tagged::add_effect",
+        "tagged::cache_consistent",
+        "tagged::decode",
+        "tagged::granting",
+        "tagged::item_word_wf",
+        "tagged::matching",
+        "tagged::result_ok",
+        "tagged::stack_wf",
+        "tagged::structural"
+      ]
+    },
+    "complete_selected_scope_verified": false,
+    "failed_functions": [
+      "tagged::write_precision"
+    ],
+    "goal_assistance": [],
+    "inferred_function_count": 1,
+    "inferred_functions": [
+      {
+        "exported": false,
+        "function": "tagged::BorTag::eq",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        },
+        "required_checks_passed": true
+      }
+    ],
+    "reported_checked_exec_count": 0,
+    "reported_checked_proof_count": 0,
+    "synthetic_constructor_queries": [
+      "tagged::BorTag::ctor%",
+      "tagged::Item::ctor%"
+    ]
+  }
+}
