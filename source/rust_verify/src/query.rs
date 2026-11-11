@@ -481,6 +481,8 @@ impl<'r, 'tcx> Query<'r, 'tcx> {
             &lookup,
         )
         .map_err(|e| self.emit_errors(e))?;
+        crate::checked_nonzero_ord::validate_actual(ctxt, &function, &self.get_other_vir_crates()?)
+            .map_err(|e| self.emit_error(e))?;
         let erasure_modes = Arc::new(erasure_modes);
         let resolution_info = resolution_info.map(Arc::new);
 

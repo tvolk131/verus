@@ -2910,6 +2910,21 @@ impl Verifier {
         let pre_crate = crate::rust_to_vir::crate_to_vir(ctxtx, &other_vir_crates, &crate_items)
             .map_err(map_errs_diagnostics)?;
 
+        // Stage1 ordering has no publication kind or import format. Refuse ALL
+        // selected outputs before private pruning, including mixed bool/order.
+        if !pre_crate.ctxt.local_ordering_calls.borrow().is_empty()
+            && (self.args.export.is_some() || self.export_vir_path_via_cargo.is_some())
+        {
+            crate::import_export::invalidate_local_inference_export(
+                &self.args,
+                &self.export_vir_path_via_cargo,
+            )
+            .map_err(map_err_diagnostics)?;
+            return Err(map_err_diagnostics(vir::messages::error_bare(
+                "NonZero Ord factoring is local-only; selected VIR export is unsupported",
+            )));
+        }
+
         // Detect before any pruning. Required evidence cannot be inferred from
         // the public helper count or from a candidate-cache hit.
         for info in &pre_crate.infos {

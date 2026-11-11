@@ -375,10 +375,10 @@ fn fn_call_or_assoc_const_to_vir<'tcx>(
     let impl_paths = get_impl_paths(bctx, f, node_substs, None, const_var, expr.span)?;
     let call_target_attrs =
         vir::ast::CallTargetAttrs { autospec: autospec_usage, assume_external_allowed, const_var };
-    let target = if let Some(helper) = args
-        .as_ref()
-        .and_then(|_| crate::checked_foreign::direct_helper(bctx, expr, f, node_substs))
-    {
+    let target = if let Some(helper) = args.as_ref().and_then(|_| {
+        crate::checked_foreign::direct_helper(bctx, expr, f, node_substs)
+            .or_else(|| crate::checked_nonzero_ord::direct_helper(bctx, expr, f, node_substs))
+    }) {
         CallTarget::Fun(
             vir::ast::CallTargetKind::Static,
             helper,

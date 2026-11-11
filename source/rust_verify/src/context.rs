@@ -64,6 +64,8 @@ pub struct ContextX<'tcx> {
     pub(crate) name_def_id_map: Rc<RefCell<HashMap<Path, DefId>>>,
     pub(crate) next_read_kind_id: AtomicU64,
     pub(crate) checked_foreign_calls: RefCell<HashMap<HirId, (DefId, vir::ast::Fun)>>,
+    pub(crate) local_ordering_calls:
+        RefCell<HashMap<HirId, crate::checked_nonzero_ord::LocalCall<'tcx>>>,
     pub(crate) constructor_functions: RefCell<std::collections::HashSet<DefId>>,
 }
 
@@ -138,6 +140,7 @@ impl<'tcx> ContextX<'tcx> {
             name_def_id_map: Rc::new(RefCell::new(HashMap::new())),
             next_read_kind_id: AtomicU64::new(0),
             checked_foreign_calls: RefCell::new(HashMap::new()),
+            local_ordering_calls: RefCell::new(HashMap::new()),
             constructor_functions: RefCell::new(std::collections::HashSet::new()),
         }
     }
