@@ -10,11 +10,11 @@
 
 Independent application review accepted both scoped manual proofs and C0 demand. R2 baseline cost:8 local mechanical helpers,15 call sites,9 exec proof blocks,9 snapshots,37 assertions,6 loop-entry invariants and3 BV directives (categories overlap). F2 cost:4 existing set-lemma calls+2 conditionals. Infer75 removes zero. Arithmetic in F2 and post-update count-length algebra in R2 are already automatic. The R2 range broadcast is redundant/default; no removal credit. Specification corrections are disclosed: R2 finite Set constructor; F2 existing checked FromSpec adaptation.
 
-## S1 common Set selector — current implementation assignment
+## S1 common Set selector — independently accepted bounded implementation
 
 Only C0-backed generic Set-pair observations and typed selection. Actual benefit: remove the required R2 extensional set assertion and F2's4 calls+2ifs, with no equivalent author replacement calls. Ordinary checked helper exposes membership/equality, conditional subset length and union/intersection cardinality. Pure parameter-rooted Set terms from requested contracts/visible spec observations, bounded union closure, typed dedup and fail-closed budgets. No project-name or semantic-symbol recognizer, contract rewrite or new authority.
 
-Preserve full original Function independently; fresh IDs/binders against ALL preceding functions/decorators, not just the current body. Insert only ordinary proof calls, register complete body_rechecks and normal mode/WF/resolution refresh. Provisional versions schema39/policy77/cache80. Protect every original R2/F2 freeze/manual/report/replay file. S1 alone cannot satisfy substantial R2 reduction.
+Preserve full original Function independently; fresh IDs/binders against ALL preceding functions/decorators, not just the current body. Insert only ordinary proof calls, register complete body_rechecks and normal mode/WF/resolution refresh. Provisional versions schema39/policy77/cache80. Protect every original R2/F2 freeze/manual/report/replay file. S1 alone cannot satisfy substantial R2 reduction. Independent implementation review accepted this scope (review evidence integrated in57fb481c); no further S1 engineering layer is assigned.
 
 ## S2 direct word-frame proposer — current implementation assignment
 
