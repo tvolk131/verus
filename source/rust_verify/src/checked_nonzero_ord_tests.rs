@@ -142,6 +142,68 @@ impl rustc_driver::Callbacks for Structural {
             &ctxt, caller, e.span, &ids, &carrier, &get, &primitive, &models, &original,
         )
         .unwrap();
+        // Embedded implementation witnesses are not diagnostic spans. Keep
+        // nominal type/arguments/decoration unchanged while editing only paths.
+        for change in 0..3 {
+            for parameter in 0..2 {
+                let mut x = original.x.clone();
+                let mut param = x.params[parameter].x.clone();
+                param.typ = altered_type_dependencies(&param.typ, change).unwrap();
+                Arc::make_mut(&mut x.params)[parameter] = x.params[parameter].new_x(param);
+                assert!(
+                    check_ordering_function(
+                        &ctxt,
+                        caller,
+                        e.span,
+                        &ids,
+                        &carrier,
+                        &get,
+                        &primitive,
+                        &models,
+                        &original.new_x(x),
+                    )
+                    .is_err(),
+                    "parameter implementation paths {parameter}/{change}"
+                );
+            }
+            for contract in [false, true] {
+                let mut x = original.x.clone();
+                let edits = std::cell::Cell::new(0);
+                let mutate = |e: &Expr| -> Result<Expr, VirErr> {
+                    if let Some(t) = altered_type_dependencies(&e.typ, change) {
+                        edits.set(edits.get() + 1);
+                        Ok(SpannedTyped::new(&e.span, &t, e.x.clone()))
+                    } else {
+                        Ok(e.clone())
+                    }
+                };
+                if contract {
+                    Arc::make_mut(&mut x.ensure.0)[0] =
+                        vir::ast_visitor::map_expr_visitor(&x.ensure.0[0], &mutate).unwrap();
+                } else {
+                    x.body = Some(
+                        vir::ast_visitor::map_expr_visitor(x.body.as_ref().unwrap(), &mutate)
+                            .unwrap(),
+                    );
+                }
+                assert!(edits.get() > 0);
+                assert!(
+                    check_ordering_function(
+                        &ctxt,
+                        caller,
+                        e.span,
+                        &ids,
+                        &carrier,
+                        &get,
+                        &primitive,
+                        &models,
+                        &original.new_x(x),
+                    )
+                    .is_err(),
+                    "nested implementation paths contract={contract}/{change}"
+                );
+            }
+        }
         // Additional model/type/operand/constructor changes in the actual
         // Function, without changing the recognizer's expansion maps.
         for mutation in 0..8 {
@@ -261,6 +323,39 @@ impl rustc_driver::Callbacks for Structural {
         rustc_driver::Compilation::Stop
     }
 }
+fn altered_type_dependencies(t: &Typ, change: usize) -> Option<Typ> {
+    match &**t {
+        TypX::Decorate(decoration, arg, inner) => Some(Arc::new(TypX::Decorate(
+            decoration.clone(),
+            arg.clone(),
+            altered_type_dependencies(inner, change)?,
+        ))),
+        TypX::Boxed(inner) => {
+            Some(Arc::new(TypX::Boxed(altered_type_dependencies(inner, change)?)))
+        }
+        TypX::Datatype(name, args, paths) if !paths.is_empty() => {
+            let mut changed = paths.as_ref().clone();
+            match change {
+                0 => changed.clear(),
+                1 => {
+                    changed[0] = match &changed[0] {
+                        ImplPath::TraitImplPath(path) => ImplPath::TraitImplPath(
+                            path.push_segment(Arc::new("wrong_implementation".into())),
+                        ),
+                        ImplPath::FnDefImplPath(fun) => ImplPath::FnDefImplPath(Arc::new(FunX {
+                            path: fun.path.push_segment(Arc::new("wrong_implementation".into())),
+                        })),
+                    };
+                }
+                2 => changed.push(changed[0].clone()),
+                _ => unreachable!(),
+            }
+            Some(Arc::new(TypX::Datatype(name.clone(), args.clone(), Arc::new(changed))))
+        }
+        _ => None,
+    }
+}
+
 fn e_span(f: &Function) -> vir::messages::Span {
     f.span.clone()
 }

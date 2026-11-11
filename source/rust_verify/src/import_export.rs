@@ -363,11 +363,37 @@ fn invalidate_export(
     via_cargo: &Option<PathBuf>,
     _local_inference: bool,
 ) -> Result<(), VirErr> {
-    let Some(path) = export_path(args, via_cargo) else { return Ok(()) };
-    match std::fs::remove_file(&path) {
-        Ok(()) => Ok(()),
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
-        Err(e) => Err(io_vir_err("invalidate requested export".into(), e)),
+    // Selection for writing has precedence, but invalidation must clear every
+    // selected destination: Cargo's sibling can outlive an explicit --export.
+    let mut paths = Vec::new();
+    if let Some(path) = &args.export {
+        paths.push(PathBuf::from(path));
+    }
+    if let Some(path) = via_cargo {
+        if !paths.contains(path) {
+            paths.push(path.clone());
+        }
+    }
+    let mut first_error = None;
+    for path in paths {
+        match std::fs::remove_file(&path) {
+            Ok(()) => (),
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+            Err(e) => {
+                // A failure at one destination must not spare another stale
+                // interface. Report the first error after attempting all paths.
+                if first_error.is_none() {
+                    first_error = Some(io_vir_err(
+                        format!("invalidate requested export `{}`", path.display()),
+                        e,
+                    ));
+                }
+            }
+        }
+    }
+    match first_error {
+        Some(error) => Err(error),
+        None => Ok(()),
     }
 }
 
@@ -507,6 +533,34 @@ mod infer_arch_tests {
             opaque_types: vec![],
             arch: Arch { word_bits: ArchWordBits::Either32Or64 },
         })
+    }
+
+    #[test]
+    fn invalidation_clears_both_selected_outputs_and_attempts_all_paths() {
+        let nonce =
+            std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
+        let dir = std::env::temp_dir()
+            .join(format!("infer-selected-exports-{}-{nonce}", std::process::id()));
+        std::fs::create_dir(&dir).unwrap();
+        let a = dir.join("explicit.vir");
+        let b = dir.join("cargo.vir");
+        for (explicit, cargo) in [(&a, &b), (&b, &a), (&a, &a)] {
+            std::fs::write(explicit, b"previous interface").unwrap();
+            std::fs::write(cargo, b"previous interface").unwrap();
+            let mut args = crate::config::ArgsX::new();
+            args.export = Some(explicit.display().to_string());
+            invalidate_local_inference_export(&Arc::new(args), &Some(cargo.clone())).unwrap();
+            assert!(!explicit.exists() && !cargo.exists());
+        }
+        // A non-file destination fails deletion, but the other selected file
+        // must still be removed and the failure must still be reported.
+        std::fs::create_dir(&a).unwrap();
+        std::fs::write(&b, b"previous interface").unwrap();
+        let mut args = crate::config::ArgsX::new();
+        args.export = Some(a.display().to_string());
+        assert!(invalidate_inferred_export(&Arc::new(args), &Some(b.clone())).is_err());
+        assert!(a.is_dir() && !b.exists());
+        std::fs::remove_dir_all(dir).unwrap();
     }
 
     #[test]

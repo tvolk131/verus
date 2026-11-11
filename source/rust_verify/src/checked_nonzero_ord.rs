@@ -451,7 +451,7 @@ fn check_get_expansion<'tcx>(
 use crate::context::Context;
 use std::sync::Arc;
 use vir::ast::*;
-use vir::ast_util::{bool_typ, str_unique_var, types_equal};
+use vir::ast_util::{bool_typ, str_unique_var};
 use vir::def::Spanned;
 
 fn bind_models(
@@ -517,7 +517,7 @@ fn bind_models(
         let mut found = fs.iter().filter(|f| {
             matches!(&f.x.kind,FunctionKind::TraitMethodImpl{trait_path,trait_typ_args,..}
                 if trait_path == implementation && trait_typ_args.len() == 1
-                && types_equal(&trait_typ_args[0],&u64t))
+                && same_serial(&trait_typ_args[0],&u64t))
                 && f.x.mode == Mode::Spec
                 && f.x.name.path.last_segment().as_str() == name
                 && f.x.name.path.krate == CrateId::Vstd
@@ -805,6 +805,9 @@ fn translate<'tcx>(
     ))
 }
 
+// Correspondence requires complete structural identity, including recursively
+// embedded datatype/dyn implementation paths. General VIR types_equal deliberately
+// omits those witnesses and is too weak for this independent checker.
 fn same_serial<T: serde::Serialize>(a: &T, b: &T) -> bool {
     matches!((serde_json::to_value(a),serde_json::to_value(b)),(Ok(a),Ok(b)) if a==b)
 }
@@ -890,7 +893,7 @@ fn check_ordering_function<'tcx>(
             &carrier.local_decls[mir::Local::from_usize(i)].ty,
             None,
         )?;
-        if !types_equal(&p.x.typ, &t)
+        if !same_serial(&p.x.typ, &t)
             || p.x.mode != Mode::Exec
             || p.x.user_mut
             || p.x.unwrapped_info.is_some()
@@ -913,7 +916,7 @@ fn check_ordering_function<'tcx>(
         Ok(e.clone())
     })?;
     let ExprX::Block(stmts, Some(tail)) = &body.x else { return Err(reject("whole block")) };
-    if stmts.len() != 6 || !types_equal(&body.typ, &x.inner_ret.x.typ) {
+    if stmts.len() != 6 || !same_serial(&body.typ, &x.inner_ret.x.typ) {
         return Err(reject("whole block type/count"));
     }
     let mut initializers = vec![];
@@ -935,8 +938,8 @@ fn check_ordering_function<'tcx>(
             &carrier.local_decls[mir::Local::from_usize(i)].ty,
             None,
         )?;
-        if !types_equal(&pattern.typ, &t)
-            || !types_equal(&binding.typ, &t)
+        if !same_serial(&pattern.typ, &t)
+            || !same_serial(&binding.typ, &t)
             || !matches!(binding.by_ref, ByRef::No)
             || binding.user_mut != Some(false)
             || !binding.copy
@@ -944,7 +947,7 @@ fn check_ordering_function<'tcx>(
             return Err(reject("local binding type/mode"));
         }
         let PlaceX::Temporary(e) = &init.x else { return Err(reject("local initializer place")) };
-        if !types_equal(&init.typ, &e.typ) || !types_equal(&e.typ, &t) {
+        if !same_serial(&init.typ, &e.typ) || !same_serial(&e.typ, &t) {
             return Err(reject("local initializer type"));
         }
         names[i] = Some(binding.name.clone());
@@ -975,8 +978,8 @@ fn check_ordering_function<'tcx>(
         };
         matches!(&p.x,PlaceX::Local(n) if n==&names[i])
             && same_serial(&k.preliminary_kind, &kind)
-            && types_equal(&p.typ, &t)
-            && types_equal(&e.typ, &output)
+            && same_serial(&p.typ, &t)
+            && same_serial(&e.typ, &output)
     };
     let get_target = model_target(ctxt, caller, origin, ids.get, &models.get)?;
     let primitive_target = model_target(ctxt, caller, origin, ids.primitive, &models.primitive)?;
@@ -995,7 +998,7 @@ fn check_ordering_function<'tcx>(
         || !call(initializers[4], &get_target, &[(8, ReadKind::Copy)])
         || !read(initializers[5], 7, ReadKind::ImmutBor)
         || !call(tail, &primitive_target, &[(3, ReadKind::Move), (6, ReadKind::Move)])
-        || !types_equal(&tail.typ, &x.inner_ret.x.typ)
+        || !same_serial(&tail.typ, &x.inner_ret.x.typ)
     {
         return Err(reject("read/borrow/call target or operand order"));
     }
@@ -1006,23 +1009,23 @@ fn check_ordering_function<'tcx>(
     let u = Arc::new(TypX::Int(IntRange::U(64)));
     let value = |e: &Expr, i: usize| -> bool {
         let ExprX::Call { target, args, post_args: None, body: None } = &e.x else { return false };
-        types_equal(&e.typ, &u)
+        same_serial(&e.typ, &u)
             && same_serial(target, &spec_target)
             && args.len() == 1
             && matches!(&args[0].x,ExprX::Var(n) if n==&names[i])
             && ctxt
                 .mid_ty_to_vir(caller, origin, &ids.nonzero, None)
-                .is_ok_and(|t| types_equal(&args[0].typ, &t))
+                .is_ok_and(|t| same_serial(&args[0].typ, &t))
     };
     let relation = |e: &Expr, op: InequalityOp| -> bool {
         matches!(&e.x,ExprX::Binary(BinaryOp::Inequality(actual),a,b)
             if *actual==op && value(a,1) && value(b,2))
-            && types_equal(&e.typ, &bool_typ())
+            && same_serial(&e.typ, &bool_typ())
     };
     let variant = |e: &Expr, name: &str| -> bool {
         matches!((&e.x,&*x.inner_ret.x.typ),(ExprX::Ctor(dt,v,fields,None),TypX::Datatype(expected,..))
             if dt==expected && v.as_str()==name && fields.is_empty())
-            && types_equal(&e.typ, &x.inner_ret.x.typ)
+            && same_serial(&e.typ, &x.inner_ret.x.typ)
     };
     let ensure = &x.ensure.0[0];
     let ExprX::Binary(BinaryOp::Eq(Mode::Spec), result, numeric) = &ensure.x else {
@@ -1034,11 +1037,11 @@ fn check_ordering_function<'tcx>(
     let ExprX::If(gt, greater, Some(equal)) = &other.x else {
         return Err(reject("numeric Greater condition"));
     };
-    if !types_equal(&ensure.typ, &bool_typ())
-        || !types_equal(&result.typ, &x.inner_ret.x.typ)
+    if !same_serial(&ensure.typ, &bool_typ())
+        || !same_serial(&result.typ, &x.inner_ret.x.typ)
         || !matches!(&result.x,ExprX::Var(n) if n==&names[0])
-        || !types_equal(&numeric.typ, &x.inner_ret.x.typ)
-        || !types_equal(&other.typ, &x.inner_ret.x.typ)
+        || !same_serial(&numeric.typ, &x.inner_ret.x.typ)
+        || !same_serial(&other.typ, &x.inner_ret.x.typ)
         || !relation(lt, InequalityOp::Lt)
         || !relation(gt, InequalityOp::Gt)
         || !variant(less, "Less")
