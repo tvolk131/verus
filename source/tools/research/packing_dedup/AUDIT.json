@@ -1,0 +1,32 @@
+{
+  "auditor_sha256": "66c56d9fa85ffc431faead6248fe01aa7865f6d7b4d6aa2c81751f4823850398",
+  "goal_complete": false,
+  "normal_optimized_identical": true,
+  "publication": false,
+  "results_sha256": "61eab46b4e15e811a351b9e80fbea1c4b0f87b2621e1d0d173476abffc2ba80a",
+  "runs": {
+    "normal": {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-d03bb974/source/tools/research/packing_dedup/audit.py"
+      ],
+      "exit": 0,
+      "seconds": 6.101893053972162,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a60f68605dc0651cef7fe30367f1ce4ba8cfc2eb659ae3a80210ae90b23715cc"
+    },
+    "optimized": {
+      "argv": [
+        "/usr/bin/python3",
+        "-O",
+        "-B",
+        "/home/dev/.t3/worktrees/verus/t3-d03bb974/source/tools/research/packing_dedup/audit.py"
+      ],
+      "exit": 0,
+      "seconds": 6.45792223297758,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a60f68605dc0651cef7fe30367f1ce4ba8cfc2eb659ae3a80210ae90b23715cc"
+    }
+  }
+}
