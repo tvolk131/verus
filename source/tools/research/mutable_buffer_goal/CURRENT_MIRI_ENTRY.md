@@ -76,9 +76,10 @@ lookup checks1/0. The [source-component record](parent-item-tag-composition.json
 binds the fresh parent replay and retained evidence. Its internal representation
 predicate allows arbitrary high flag bits; no preservation across native stack
 transitions or extra application precondition is claimed. Full original
-`Item::new` remains36/1 at its protector debug assertion. Actual bool conversion
-is0/1; the inspected one-cast MIR and passing local mirror are not a checked
-foreign-body bridge.
+`Item::new` remained36/1 at its protector debug assertion in that checkpoint.
+Actual bool conversion was0/1 there; the inspected one-cast MIR and passing local
+mirror alone supplied no checked foreign-body bridge. The subsequent local
+implementation below now verifies these bodies, pending independent acceptance.
 
 Imported Eq/value compatibility is now checked with one authored public
 broadcast lemma and one client broadcast import. The original closed value
@@ -93,15 +94,25 @@ obligations and absent imported closed/proof bodies. This is manual semantic
 interface work, with no causal automation gain claimed. The simpler public
 alias alone remains insufficient.
 
-The actual foreign bool-conversion lane remains incomplete. Its typed MIR/VIR
-prototype passes20 structural controls and four call-shape rejections; fresh
-parent verification of the actual conversion is still0/1. The
-[diagnostic record](parent-bool-mir-diagnostics.json) authenticates16 epochs,
-including the excluded input-drift run, without accepting any foreign law.
-The [staged interface](FOREIGN_BODY_STAGES.md) next requires ordinary same-crate
-body checking while every export using the capability remains blocked.
-Certified publication/import and current runtime/provenance correspondence
-remain separate obligations.
+The diagnostic-only foreign bool checkpoint is retained in the
+[diagnostic record](parent-bool-mir-diagnostics.json). The subsequent actual-MIR
+local implementation now passes fresh parent verification: conversion2/0
+cold/warm, false caller1/1 with helper checked, goals-off0/1, original full-help
+Item.new52/0 cold/warm, and support36/0. The helper is an ordinary checked body,
+not a new trusted standard model or an inferred summary. Existing authored
+packing help remains; fourteen additional generic arithmetic checks establish
+the proposed packing facts before use.
+
+Parent policy70/cache73/schema38 reconcile proposal diagnostic spans for hashing
+without changing installed formulas or diagnostics. Cold/warm Eq candidate IDs
+now match, with a real warm cache hit and all three original Eq checks freshly
+proved. The [validation record](parent-combined70-validation.json) binds the
+matching vstd2250/0, all710 compiler tests,149 VIR tests,148 Python tests per
+mode,26 canonical cases and23 observer cases. All parent checks pass;
+independent review remains pending. Every crate using the local foreign path
+refuses VIR export. Certified publication/import and runtime/provenance
+correspondence remain separate obligations. The
+[staged interface](FOREIGN_BODY_STAGES.md) records the preimplementation boundary.
 
 The next comparison must use the current compiler-matched source in
 [native_miri_policy_pin](../native_miri_policy_pin/pins.json), Rust commit
@@ -144,11 +155,12 @@ library proof needs, recorded in
 precondition and unsupported source construct must remain explicit; successful
 helper verification is not a full native certificate.
 
-Fresh parent validation covers 624 Infer tests across33 targets,705 compiler
-regressions total,148 VIR tests, and148 Python tests in each mode. The canonical
-26-case audit and23-case observer replay pass. One native smoke-test launcher
-needed rustup first in PATH; its targeted rerun passed and the original failed
-batch remains retained.
+Latest parent validation covers629 Infer/local tests across34 targets,
+710 compiler regressions total,149 VIR tests, and148 Python tests in each mode.
+Every target passes in the completed policy70 batch; the only ignored test is
+the existing exec_calling_no_vstd case. The canonical26-case audit and23-case
+observer replay pass. Policy69's earlier launcher failure and corrected rerun
+remain retained in their historical record.
 
 Full canonical is6/0 cold/warm with no local proof bodies or inferred helpers.
 The frozen full HMAC XOR-prefix-and-suffix property remains1/1 unproved in fresh

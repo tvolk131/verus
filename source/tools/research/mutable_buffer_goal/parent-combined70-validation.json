@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "status": "parent_validation_passed_independent_review_pending",
+  "validated_engine_commit": "35bc7b12fff34551da06a9b81e65f1f20d530992",
+  "policy": 70,
+  "cache": 73,
+  "schema_version": 38,
+  "scope": "Local body-backed actual core bool-to-u64 conversion, checked generic packing proposals and stable candidate identity; foreign-body export remains unsupported.",
+  "matching_vstd": "2250/0",
+  "worker_report": "../local_checked_bool_from_mir/REPORT.md",
+  "worker_implementation_commits": [
+    "8b265532",
+    "ff1c65e4",
+    "d393a373",
+    "3e4c8d94",
+    "d13e8b8b"
+  ],
+  "integrated_commits": [
+    "4fb2050d",
+    "389a6169",
+    "f233fae0",
+    "b3b60a2d",
+    "472117ab"
+  ],
+  "candidate_identity_fix": "35bc7b12: normalize proposal expression spans for hash only; preserve installed formulas/diagnostics and complete original source/dependency binding.",
+  "frozen_bundle": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined70-bundle-35bc7b12",
+  "bundle_receipt_sha256": "f24584b8ccfde3ac92e84c146d87317b04231b2b165ef759411a0c53ea3199e3",
+  "build": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined70-build-35bc7b12/receipt.json",
+    "sha256": "bd8039730af7d92802c5340863cd43282e932bcc1d238f64ab971e7a0effd127"
+  },
+  "local": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined70-local/receipt.json",
+    "sha256": "27f83469837ced87e8640fb91c83f7cec89e87207359932dba5b628c57e02f1a"
+  },
+  "validation": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined70-validation/receipt.json",
+    "sha256": "cf789d11ecdac41da711cf2e22abc4664dc30e637320c5eb20f6ef9a06305140"
+  },
+  "postcompletion_seal": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined70-seal/receipt.json",
+    "sha256": "777cbd78f903bb5d11522c6c0379316b26364bf40c8820f26c7effec08d4daea"
+  },
+  "postcompletion_authentication": {
+    "products": 580,
+    "build_validation_bindings": 2919,
+    "local_case_bindings": 27587
+  },
+  "regressions": {
+    "infer_and_local_targets": 34,
+    "infer_and_local_tests": 629,
+    "compiler_tests": 710,
+    "vir_tests": 149,
+    "python": {
+      "python-normal": 148,
+      "python-optimized": 148
+    },
+    "canonical_cases": 26,
+    "observer_cases": 23,
+    "existing_ignored_fndef_test": "exec_calling_no_vstd"
+  },
+  "local_results": {
+    "actual": "2/0 cold/warm",
+    "original_Item_new": "52/0 cold/warm",
+    "Eq_candidate_id": "f372c58c5b7d4b5ed9b97e399e04f0dba1c785f3129634f35b84a2c658aedd42",
+    "Eq_warm_cache": "hit, all three required checks freshly proved",
+    "false_caller": "1/1 only all_bool postcondition",
+    "goals_off": "0/1",
+    "support": "36/0"
+  },
+  "local_generated_body": "component::checked_foreign_bool_to_u64%, ordinary body proof; not an inferred summary",
+  "original_Eq": "Full genuine NonZero<u64> domain, all soundness/maximality/exactness required and freshly proved cold/warm",
+  "cold_warm_invocations": "Byte-identical argv, environment, source, tools and ordinary body/helper identities; warm Eq cache hit.",
+  "original_Item_new_source": "Byte-identical full-help source, u64::from(protected) and all assertions/debug assertions retained. Existing authored packing proof support remains inventoried.",
+  "additional_arithmetic": "14 ordinary checked generic packing/constant queries in the successful full Item.new case; no assumed application facts or new local proof glue.",
+  "root_export_controls": "5 compiler tests include explicit stale-export and incomplete-source/body refusal; complete worker24 explicit/cargo and8 local-control coverage remains subject to independent review.",
+  "canonical": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined70-validation/canonical/canonical-m3_2vom4/receipt.json",
+    "sha256": "689cf41c33b201cd6453688709cabd1e6cf9cf8cb6757cb3e515355d01d200a3",
+    "case_count": 26,
+    "audit_sha256": "b35f9e6cc66b1bfbaa46e42de6c05d9b8474c3174b752d66452623cfe2d61992"
+  },
+  "canonical_result": "6/0 cold/warm, empty local proof bodies and inferred helpers",
+  "observer": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined70-validation/observer/observations-1ftq7h8i/receipt.json",
+    "sha256": "d5984d0d447130889e90a73f7943d64f4914d1ba4f8bf77e2bdd0104623f1ba3",
+    "case_count": 23
+  },
+  "observer_result": "Prefix2/0 cold/warm; full HMAC1/1 postcondition failure cold/warm and after seeded prefix export removal. Full property remains UNPROVED.",
+  "independent_review": "Running in isolated worktree at35bc7b12; no review acceptance claimed.",
+  "export_boundary": "Every crate using local foreign capability refuses VIR export; certified foreign-body imports/publication remain unimplemented. Other ordinary and inference-aware export regressions pass.",
+  "new_std_models": false,
+  "native_correspondences": 0,
+  "open_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "shared_necessary_automation_on_both_full_goals": "NOT established",
+  "publication": false,
+  "goal_complete": false
+}
