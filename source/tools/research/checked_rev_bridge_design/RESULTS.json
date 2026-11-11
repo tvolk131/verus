@@ -1,0 +1,412 @@
+{
+  "schema": 1,
+  "private_root": "/tmp/checked-rev-bridge-iqcqennv",
+  "trials": {
+    "rustc_version": {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "-vV"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/rustc_version/stdout",
+        "sha256": "f22d5e4e9ced367e774ce5bc140d9e6b1235c1882fec80d011044851f3ae6369"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/rustc_version/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "driver_build": {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/home/dev/.t3/worktrees/verus/t3-6275a65e/source/tools/research/checked_rev_bridge_design/inspect.rs",
+        "--edition=2024",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/inspect",
+        "-L",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib",
+        "-C",
+        "rpath=yes"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/driver_build/stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/driver_build/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "mir": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/inspect",
+        "/tmp/checked-rev-bridge-iqcqennv/native.rs",
+        "--crate-name",
+        "rev_witness",
+        "--crate-type=lib",
+        "--edition=2024",
+        "--sysroot",
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "-C",
+        "opt-level=0",
+        "-Z",
+        "mir-opt-level=0",
+        "--emit=metadata",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/witness.rmeta"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/mir/stdout",
+        "sha256": "d9bd81abcc092c1a6a97d9052fc370b3169d8c0f703b9591cbcdddf2454bd162"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/mir/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "native_compile": {
+      "argv": [
+        "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc",
+        "/tmp/checked-rev-bridge-iqcqennv/native.rs",
+        "--crate-name",
+        "rev_witness",
+        "--crate-type=lib",
+        "--edition=2024",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/libwitness.rlib"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/native_compile/stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/native_compile/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "available-off": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/available.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/available-off.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/available-off/stdout",
+        "sha256": "d5cde1a3b9530334f3037246ee42db8bb6f20828330605e5b0f40df8471cae90"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/available-off/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "available-on": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/available.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/available-on.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10",
+        "--infer-goals"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/available-on/stdout",
+        "sha256": "052aa2115b1ee9264bc821735f631293fa16aecd67f2dfb5849c677db3a2b0a2"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/available-on/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "lawful-off": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/lawful.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/lawful-off.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10"
+      ],
+      "exit": 1,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/lawful-off/stdout",
+        "sha256": "01258011baedcd0192deeedd7df02bd84b9f230270eaf3b5da6224fc0ba5ea1c"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/lawful-off/stderr",
+        "sha256": "b872cecfddb3a49f60ed61aa6ef9e08a2c95a3a22d0560a9518f296ca7460f7e"
+      },
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "lawful-on": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/lawful.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/lawful-on.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10",
+        "--infer-goals"
+      ],
+      "exit": 1,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/lawful-on/stdout",
+        "sha256": "4e5bf090f8fb4a88eb1560fcf78769941d8a5f5401409744f9e2abe1535f0233"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/lawful-on/stderr",
+        "sha256": "b872cecfddb3a49f60ed61aa6ef9e08a2c95a3a22d0560a9518f296ca7460f7e"
+      },
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "inner-off": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/inner.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/inner-off.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10"
+      ],
+      "exit": 1,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/inner-off/stdout",
+        "sha256": "71e8d47aa5f89d452eebfbc0c0ea17e9dd7a8bf789426af89c206ba2f9ae2328"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/inner-off/stderr",
+        "sha256": "05389a63989d28aea4830e02867eca80dba2078ad3d1b4ba67f69cb9fc208f82"
+      },
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "inner-on": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/inner.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/inner-on.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10",
+        "--infer-goals"
+      ],
+      "exit": 1,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/inner-on/stdout",
+        "sha256": "151044e5775b946f0e208871564a076fc2715ce574c900d2f5779312209b6801"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/inner-on/stderr",
+        "sha256": "05389a63989d28aea4830e02867eca80dba2078ad3d1b4ba67f69cb9fc208f82"
+      },
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "loop-off": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/loop.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/loop-off.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10"
+      ],
+      "exit": 1,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/loop-off/stdout",
+        "sha256": "34fe5a1f4a41b63790883533ce81be176d42f8a32d2102f8eadf7caa2f40f287"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/loop-off/stderr",
+        "sha256": "0a556441e7db9a5b54f78e50e1ac9e881e6e9f67d6ce3c84b3e08d988391c53b"
+      },
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 1,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "loop-on": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/verus",
+        "/tmp/checked-rev-bridge-iqcqennv/loop.rs",
+        "--crate-name",
+        "rev_probe",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--compile",
+        "-o",
+        "/tmp/checked-rev-bridge-iqcqennv/loop-on.rlib",
+        "--output-json",
+        "--multiple-errors",
+        "10",
+        "--infer-goals"
+      ],
+      "exit": 1,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/loop-on/stdout",
+        "sha256": "b4a9cca05f905af8f6556ee37ef5cc3421500d9d8ab6fe6819e2a95cec9362fd"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/loop-on/stderr",
+        "sha256": "0a556441e7db9a5b54f78e50e1ac9e881e6e9f67d6ce3c84b3e08d988391c53b"
+      },
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 1,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    "observations": {
+      "argv": [
+        "/tmp/checked-rev-bridge-iqcqennv/bundle/z3",
+        "/tmp/checked-rev-bridge-iqcqennv/observations.smt2"
+      ],
+      "exit": 0,
+      "stdout": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/observations/stdout",
+        "sha256": "00dbd7cffdbc017f2ec9a3cd82aa99b38629ac72655488e6b913b8203003f27e"
+      },
+      "stderr": {
+        "path": "/tmp/checked-rev-bridge-iqcqennv/observations/stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "products": {
+    "/tmp/checked-rev-bridge-iqcqennv/freeze.json": "dbdae188d8ab2745edcfe9e18cceab5e82b6fddba93b06a82441a10c1f305fc4",
+    "/tmp/checked-rev-bridge-iqcqennv/inspect": "6f8d7383d38d2f4047f01157e5ac84aa6fad270cfc45785af74e3086338d4736",
+    "/tmp/checked-rev-bridge-iqcqennv/native.rs": "adc4ffe81dcb79b8b70c29078ccd53188cd76b7bef70110073083b7022fc52c5",
+    "/tmp/checked-rev-bridge-iqcqennv/libwitness.rlib": "cec4df84d69027acf4cac6afb194400676fe7588bed7f2c9302a3c82adcdff1e",
+    "/tmp/checked-rev-bridge-iqcqennv/observations.smt2": "291407db4f08546ccec9e2a27bc818ebe47256e8b00fea70b0d5636bf4993aee",
+    "/tmp/checked-rev-bridge-iqcqennv/lawful.rs": "ef481b158350ab3efbfa66e484cc879a4ed9efe108a3d5c1b45ed587425b28d8",
+    "/tmp/checked-rev-bridge-iqcqennv/inner.rs": "1c846a19f3430a5e592626f50cf2d426a71c999ea3198f4831acb1bcaf5eff6a",
+    "/tmp/checked-rev-bridge-iqcqennv/available.rs": "bc4a4bb7c3e486754be3460dcfc26d1e51b0a59dc077a2dcef61180c14d82eef",
+    "/tmp/checked-rev-bridge-iqcqennv/loop.rs": "0733f18142327e4d864106b3001e73491018b74d5912c6d6206220133f6b99f1"
+  },
+  "tools": {
+    "rust_verify": "0d24525b799cffdd7a257783ee929632bf08bd7522417250e589280bfaa892b1",
+    "verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+    "libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+    "libverus_builtin_macros.so": "29838896efb807a8cd172cd1d8fc735999e39e5b2a55c0af7a9d0abf6a5c2bcd",
+    "libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+    "vstd.vir": "37236375200775ede8cd64c438f077cb374357b4f6c449705582b32b9a847497",
+    "libvstd.rlib": "5e8198ef2a0ed2706c790879a2855c3a59b738b6be77dce720e072d23ba936ac",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "toolchain": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+    "/home/dev/.cargo/bin/rustup": "b1c8cb14e30889e7e2999e6b69e62d9e9b9ffc0f4df8180564d306d9680e6c55",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-1d288395a3394ed3.rlib": "b346ce2305e13b1a5ec9ab6e093028caee38227c540cdaf78d7b253f59ae5913",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-7e719de9c4abc98f.rlib": "ea104615e69d068c8a12c749135c7138b3ec28c7275ae163f91169a03561f75b",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/liballoc-3988244237fec6ee.rlib": "1713afb7fc9da7a917293bafdede9562ceddd75700d5a5ff57d4eeb2e42ce9b1",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-2d9557d6e902a200.rlib": "a98391e40d69b94b5d63d4c4dcfcfa76612688ba93e93acd8c9f5e23232dc2b6",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/rev.rs": "2c733c153c7ca12c09f3d7639709ab005843e25fb80fd348480db349b80004ff",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/enumerate.rs": "b64a625b876695472133816d411fc3fce3e2d5221178ff30a34370ab24ab9c95",
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs": "73b8d516443f0e73a1b1f59c94215e2dd5b6d2ec482c91f245b61e21edac46fb"
+  },
+  "goal_complete": false,
+  "publication": false,
+  "native_correspondences": 0,
+  "diagnostic_only": true
+}

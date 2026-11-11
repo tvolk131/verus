@@ -1,0 +1,65 @@
+[
+  {
+    "root": "/tmp/checked-rev-bridge-k1o73t5b",
+    "classification": "pre-execution gate rejected documentation-only differences",
+    "evidence": {}
+  },
+  {
+    "root": "/tmp/checked-rev-bridge-pj54hdhb",
+    "classification": "diagnostic build API mismatch; no semantic trials",
+    "evidence": {
+      "/tmp/checked-rev-bridge-pj54hdhb/freeze.json": "c614c81a32e963d2046a1cc139568838ff5e08d69d4fddc2d4236a62e09a95b8",
+      "/tmp/checked-rev-bridge-pj54hdhb/driver_build/receipt.json": "1127820b1c084cb62417e4bacd6861be142fa76d1f2b463d6d6584164f892b7a",
+      "/tmp/checked-rev-bridge-pj54hdhb/rustc_version/receipt.json": "5619fc49875cdc52c8adb8036e8d066132872f1e658b0bf0f8a0be681c86a65f"
+    }
+  },
+  {
+    "root": "/tmp/checked-rev-bridge-duwfvb6j",
+    "classification": "diagnostic build API mismatch; no semantic trials",
+    "evidence": {
+      "/tmp/checked-rev-bridge-duwfvb6j/freeze.json": "1d7c11a3d0cf49ae62cb9442655bae69ac9ded8b0f5d662313d1a4334636ae49",
+      "/tmp/checked-rev-bridge-duwfvb6j/driver_build/receipt.json": "61ba2c56203a31f5527ae569d92c20959397f9415c2803d74ccaed1776aa1af7",
+      "/tmp/checked-rev-bridge-duwfvb6j/rustc_version/receipt.json": "413f3ba73b78dba9746ad3d06a8d461f776e3941e3e95f3e8a5677782186e2d3"
+    }
+  },
+  {
+    "root": "/tmp/checked-rev-bridge-efjc26qy",
+    "classification": "completed preliminary diagnostics/support probes; loop keyword parse failure excluded; final epoch supersedes",
+    "evidence": {
+      "/tmp/checked-rev-bridge-efjc26qy/freeze.json": "8423906da5455b25e9a4f30405d2046e8208731efacd2b93cba1bba004f07280",
+      "/tmp/checked-rev-bridge-efjc26qy/RESULTS.json": "e2cf2cf08a5bce87c18a7e018744072028d33f28f3424fbba1f96911c37c4903",
+      "/tmp/checked-rev-bridge-efjc26qy/driver_build/receipt.json": "6bacd38913555c1b02f7ed1f875b1f596d767f615d2b5f99bc53629f8ae8c48e",
+      "/tmp/checked-rev-bridge-efjc26qy/native_compile/receipt.json": "66fc1537f97eb8d663d02d97b7d16b4cdea58d3dd0ee24b4a98426e38ed65c2f",
+      "/tmp/checked-rev-bridge-efjc26qy/lawful-on/receipt.json": "f8717593002e13c5180b8c6ae026c260e60cff0b4498bcf6b981a2dbdfcd748c",
+      "/tmp/checked-rev-bridge-efjc26qy/loop-on/receipt.json": "22d87bc72355c22bbed83f38f4babc4efbe4b98885b64c901c324eae407e14d6",
+      "/tmp/checked-rev-bridge-efjc26qy/inner-on/receipt.json": "635e03e6a3036d5c39e477d79b9038213e6f28f3340fb93891e4d0f6ee1ec3ff",
+      "/tmp/checked-rev-bridge-efjc26qy/available-on/receipt.json": "b77be31e95cb88ab63c21d2134b17264a0aa751a8350e4fa6c77c1bfc9b6e4ff",
+      "/tmp/checked-rev-bridge-efjc26qy/rustc_version/receipt.json": "54ecffe8f1422930db90bd037a410053c3fc2cf309f8df7b9200a54f2d20a896",
+      "/tmp/checked-rev-bridge-efjc26qy/inner-off/receipt.json": "5125dd0523f12c7f3230bb5e0f474eb7b68f33e01d0fee99c5ceb2fd50af5eef",
+      "/tmp/checked-rev-bridge-efjc26qy/mir/receipt.json": "54ed621f827a0dd9ea6153cd3c57b7ba2f55cd9c6105643a8d6d1047ae8621df",
+      "/tmp/checked-rev-bridge-efjc26qy/available-off/receipt.json": "3cccc5a71f475740e9ae1fdd1bc9dbef362946c21496943c75af8960983ea174",
+      "/tmp/checked-rev-bridge-efjc26qy/lawful-off/receipt.json": "33d4a1a273d15b8f1213db5c3d625f963f889dc8b4dd382e7f55fc0a1507dcc6",
+      "/tmp/checked-rev-bridge-efjc26qy/loop-off/receipt.json": "e1df9bd4ac72d4cab5fb35719b4cbebe07a13ae41a0f88843d214d0ad76579a7"
+    }
+  },
+  {
+    "root": "/tmp/checked-rev-bridge-l9f9dk49",
+    "classification": "successful preliminary epoch; superseded by final epoch with rustup and observation probe prebound",
+    "evidence": {
+      "/tmp/checked-rev-bridge-l9f9dk49/freeze.json": "1faf3d86efcb8a802486aaa37fdbe0d8e76b76ca7a11363ac2345095e93aa4b0",
+      "/tmp/checked-rev-bridge-l9f9dk49/RESULTS.json": "6f21adfed120fcdc88b8027eb1390284a5e5076c10dc70ccfcf220898bb7072a",
+      "/tmp/checked-rev-bridge-l9f9dk49/driver_build/receipt.json": "5546e45911306cfcec832f87d68007883e930192790c8abef17b0b44ffa5f8e6",
+      "/tmp/checked-rev-bridge-l9f9dk49/native_compile/receipt.json": "95db7b93df94902fadc407efcb5a0a7763791d5acd43729dfc1fbc19ce264ee1",
+      "/tmp/checked-rev-bridge-l9f9dk49/lawful-on/receipt.json": "6f82384efc36a9b9c95244034a31472588a2ed08f0b3f64f9f33ddd0f371b668",
+      "/tmp/checked-rev-bridge-l9f9dk49/loop-on/receipt.json": "58fd72f6ce117c5606f4ea7aae2ceb45bd83e56bd5d443d1d1d03c6312ff2216",
+      "/tmp/checked-rev-bridge-l9f9dk49/inner-on/receipt.json": "acc1a59ee11f3cee57568f1a7cc6df781a0b79d0782171d1f2b749cd756e1165",
+      "/tmp/checked-rev-bridge-l9f9dk49/available-on/receipt.json": "ce75bac1b94b4bb3f0e98c5f63fbb7253ec9c3095dc40ae79e623e2c6788765a",
+      "/tmp/checked-rev-bridge-l9f9dk49/rustc_version/receipt.json": "522b971fb4d8680bf376e4ff64c39f1753610d6c015e7655c014e87126669af6",
+      "/tmp/checked-rev-bridge-l9f9dk49/inner-off/receipt.json": "db3e1fcc4e676e464037bb8eb8bc64dda427a1feb512b4aeba1a4a7d6f9c12a3",
+      "/tmp/checked-rev-bridge-l9f9dk49/mir/receipt.json": "340afc3388e4b3aba42544825faf9d7d9cf2a6cf4a907304ef4651a7c5bc468a",
+      "/tmp/checked-rev-bridge-l9f9dk49/available-off/receipt.json": "21d11a60864702d7c014d238d2ae606cb422f23739a0b4ce5fac3459b42aea34",
+      "/tmp/checked-rev-bridge-l9f9dk49/lawful-off/receipt.json": "2327ee58840d0fcc864c17313f316bccab5bbb46830e6930d0c0e8e94b78e41e",
+      "/tmp/checked-rev-bridge-l9f9dk49/loop-off/receipt.json": "d0d3fe905fcc4fc042a6d5b1345300fcc9e4aec5cc63d206e696097eb4e69326"
+    }
+  }
+]
