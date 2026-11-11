@@ -1,0 +1,1798 @@
+{
+  "schema": 1,
+  "trials": {
+    "available-off": {
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/available.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/available.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_available",
+            "rust_function": "probe_available",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/available.rs:5:1: 5:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "available-on": {
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 1,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 1,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/available.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/available.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_available",
+            "rust_function": "probe_available",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/available.rs:5:1: 5:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "lawful-off": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/lawful.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/lawful.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_lawful",
+            "rust_function": "probe_lawful",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/lawful.rs:5:1: 5:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "lawful-on": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/lawful.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/lawful.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_lawful",
+            "rust_function": "probe_lawful",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/lawful.rs:5:1: 5:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "inner-off": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/inner.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/inner.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_inner",
+            "rust_function": "probe_inner",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/inner.rs:5:1: 5:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "inner-on": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 0,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/inner.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/inner.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_inner",
+            "rust_function": "probe_inner",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/inner.rs:5:1: 5:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "loop-off": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 1,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/loop.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/loop.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_loop",
+            "rust_function": "probe_loop",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/loop.rs:5:1: 5:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "loop-on": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 1,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/loop.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "_::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "_::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/loop.rs:4:1: 4:119",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "rev_probe::probe_loop",
+            "rust_function": "probe_loop",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/loop.rs:5:1: 5:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "compatibility": {
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 10,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 10,
+        "native_functions": [
+          {
+            "function": "compatibility::back_law",
+            "rust_function": "back_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:36:1: 36:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::c",
+            "rust_function": "c",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:5:1: 5:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::computation",
+            "rust_function": "computation",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:7:1: 7:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::constructor_observations",
+            "rust_function": "constructor_observations",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:84:1: 84:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::decrease",
+            "rust_function": "decrease",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:32:1: 32:61",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::equality",
+            "rust_function": "equality",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:10:1: 10:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::f",
+            "rust_function": "f",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:6:1: 6:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::front_law",
+            "rust_function": "front_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:43:1: 43:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::indexed_reference",
+            "rust_function": "indexed_reference",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:90:1: 90:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:95:5: 95:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::law",
+            "rust_function": "law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:24:1: 24:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::lift_back",
+            "rust_function": "lift_back",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:77:1: 77:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::lift_next",
+            "rust_function": "lift_next",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:67:1: 67:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::metric",
+            "rust_function": "metric",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:26:1: 26:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::none",
+            "rust_function": "none",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:25:1: 25:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::peeks",
+            "rust_function": "peeks",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:103:1: 103:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::poly_context",
+            "rust_function": "poly_context",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:16:1: 16:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "compatibility::preserved",
+            "rust_function": "preserved",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::rem",
+            "rust_function": "rem",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:23:1: 23:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::reverse_identities",
+            "rust_function": "reverse_identities",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:53:1: 53:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:60:5: 60:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::reversed",
+            "rust_function": "reversed",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:50:1: 50:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "compatibility::worlds",
+            "rust_function": "worlds",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/compatibility.rs:99:1: 99:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "false-inner": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "false_inner::back_law",
+            "rust_function": "back_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:36:1: 36:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::c",
+            "rust_function": "c",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:5:1: 5:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::computation",
+            "rust_function": "computation",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:7:1: 7:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::constructor_observations",
+            "rust_function": "constructor_observations",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:84:1: 84:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::decrease",
+            "rust_function": "decrease",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:32:1: 32:61",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::equality",
+            "rust_function": "equality",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:10:1: 10:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::f",
+            "rust_function": "f",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:6:1: 6:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::front_law",
+            "rust_function": "front_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:43:1: 43:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::indexed_reference",
+            "rust_function": "indexed_reference",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:90:1: 90:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:95:5: 95:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::law",
+            "rust_function": "law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:24:1: 24:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::lift_back",
+            "rust_function": "lift_back",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:77:1: 77:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::lift_next",
+            "rust_function": "lift_next",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:67:1: 67:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::metric",
+            "rust_function": "metric",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:26:1: 26:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::negative",
+            "rust_function": "negative",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:111:10: 111:44",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::none",
+            "rust_function": "none",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:25:1: 25:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::peeks",
+            "rust_function": "peeks",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:103:1: 103:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::poly_context",
+            "rust_function": "poly_context",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:16:1: 16:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_inner::preserved",
+            "rust_function": "preserved",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::rem",
+            "rust_function": "rem",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:23:1: 23:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::reverse_identities",
+            "rust_function": "reverse_identities",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:53:1: 53:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:60:5: 60:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::reversed",
+            "rust_function": "reversed",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:50:1: 50:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_inner::worlds",
+            "rust_function": "worlds",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_inner.rs:99:1: 99:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "false-law": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "false_law::back_law",
+            "rust_function": "back_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:36:1: 36:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::c",
+            "rust_function": "c",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:5:1: 5:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::computation",
+            "rust_function": "computation",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:7:1: 7:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::constructor_observations",
+            "rust_function": "constructor_observations",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:84:1: 84:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::decrease",
+            "rust_function": "decrease",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:32:1: 32:61",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::equality",
+            "rust_function": "equality",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:10:1: 10:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::f",
+            "rust_function": "f",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:6:1: 6:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::front_law",
+            "rust_function": "front_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:43:1: 43:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::indexed_reference",
+            "rust_function": "indexed_reference",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:90:1: 90:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:95:5: 95:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::law",
+            "rust_function": "law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:24:1: 24:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::lift_back",
+            "rust_function": "lift_back",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:77:1: 77:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::lift_next",
+            "rust_function": "lift_next",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:67:1: 67:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::metric",
+            "rust_function": "metric",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:26:1: 26:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::negative",
+            "rust_function": "negative",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:111:10: 111:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::none",
+            "rust_function": "none",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:25:1: 25:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::peeks",
+            "rust_function": "peeks",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:103:1: 103:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::poly_context",
+            "rust_function": "poly_context",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:16:1: 16:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_law::preserved",
+            "rust_function": "preserved",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::rem",
+            "rust_function": "rem",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:23:1: 23:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::reverse_identities",
+            "rust_function": "reverse_identities",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:53:1: 53:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:60:5: 60:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::reversed",
+            "rust_function": "reversed",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:50:1: 50:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_law::worlds",
+            "rust_function": "worlds",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_law.rs:99:1: 99:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "false-index": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "false_index::back_law",
+            "rust_function": "back_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:36:1: 36:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::c",
+            "rust_function": "c",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:5:1: 5:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::computation",
+            "rust_function": "computation",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:7:1: 7:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::constructor_observations",
+            "rust_function": "constructor_observations",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:84:1: 84:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::decrease",
+            "rust_function": "decrease",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:32:1: 32:61",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::equality",
+            "rust_function": "equality",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:10:1: 10:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::f",
+            "rust_function": "f",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:6:1: 6:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::front_law",
+            "rust_function": "front_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:43:1: 43:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::indexed_reference",
+            "rust_function": "indexed_reference",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:90:1: 90:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:95:5: 95:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::law",
+            "rust_function": "law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:24:1: 24:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::lift_back",
+            "rust_function": "lift_back",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:77:1: 77:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::lift_next",
+            "rust_function": "lift_next",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:67:1: 67:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::metric",
+            "rust_function": "metric",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:26:1: 26:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::negative",
+            "rust_function": "negative",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:111:10: 111:52",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::none",
+            "rust_function": "none",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:25:1: 25:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::peeks",
+            "rust_function": "peeks",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:103:1: 103:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::poly_context",
+            "rust_function": "poly_context",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:16:1: 16:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "false_index::preserved",
+            "rust_function": "preserved",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::rem",
+            "rust_function": "rem",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:23:1: 23:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::reverse_identities",
+            "rust_function": "reverse_identities",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:53:1: 53:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:60:5: 60:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::reversed",
+            "rust_function": "reversed",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:50:1: 50:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "false_index::worlds",
+            "rust_function": "worlds",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/false_index.rs:99:1: 99:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    },
+    "missing-frame": {
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "helpers_requested": 0,
+      "helpers_generated": 0,
+      "verification_scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "missing_frame::back_law",
+            "rust_function": "back_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:36:1: 36:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::c",
+            "rust_function": "c",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:5:1: 5:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::computation",
+            "rust_function": "computation",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:7:1: 7:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::constructor_observations",
+            "rust_function": "constructor_observations",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:84:1: 84:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::decrease",
+            "rust_function": "decrease",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:32:1: 32:61",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::equality",
+            "rust_function": "equality",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:10:1: 10:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::f",
+            "rust_function": "f",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:6:1: 6:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::front_law",
+            "rust_function": "front_law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:43:1: 43:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::indexed_reference",
+            "rust_function": "indexed_reference",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:90:1: 90:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "indexed_reference::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:95:5: 95:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::law",
+            "rust_function": "law",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:24:1: 24:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::lift_back",
+            "rust_function": "lift_back",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:77:1: 77:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::lift_next",
+            "rust_function": "lift_next",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:67:1: 67:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::metric",
+            "rust_function": "metric",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:26:1: 26:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::missing_frame",
+            "rust_function": "missing_frame",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:112:9: 113:72",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::none",
+            "rust_function": "none",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:25:1: 25:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::peeks",
+            "rust_function": "peeks",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:103:1: 103:41",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::poly_context",
+            "rust_function": "poly_context",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:16:1: 16:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "missing_frame::preserved",
+            "rust_function": "preserved",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::rem",
+            "rust_function": "rem",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:23:1: 23:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::reverse_identities",
+            "rust_function": "reverse_identities",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:53:1: 53:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "reverse_identities::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:60:5: 60:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::reversed",
+            "rust_function": "reversed",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:50:1: 50:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "missing_frame::worlds",
+            "rust_function": "worlds",
+            "source": "/tmp/rev-nominal-definition-sy4c6v_f/missing_frame.rs:99:1: 99:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      }
+    }
+  },
+  "state_coverage": {
+    "baseline_infer": "off/on, all zero helpers; no assistance gain",
+    "cold_warm": "not claimed; no changed semantic implementation or candidate cache",
+    "export_import_failure": "not exercised: stopped before hooks/definition, no new publication authority",
+    "full_matching_rebuild": "not needed for unchanged baseline/model diagnostics; mandatory and not done for any semantic extension",
+    "constructor_helper_bodies": 0,
+    "new_native_checked_bodies": 0,
+    "model_checked_proof_bodies": 10
+  },
+  "publication": false,
+  "goal_complete": false,
+  "native_correspondences": 0
+}

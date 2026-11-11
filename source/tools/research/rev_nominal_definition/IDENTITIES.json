@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "instances": [
+    {
+      "instance": "Instance { def: Item(DefId(2:11127 ~ core[efd5]::iter::traits::iterator::Iterator::rev)), args: [std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>] }",
+      "metadata": {
+        "PATH": "std::iter::Iterator::rev",
+        "PATH_HASH": "DefPathHash(Fingerprint(17281971461272426270, 7851962908759521366))",
+        "CRATE": "core STABLE_CRATE_ID StableCrateId(17281971461272426270)",
+        "SIGNATURE": "Unnormalized { value: Binder { value: fn(std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>) -> std::iter::Rev<std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>>, bound_vars: [] }, .. }",
+        "PREDICATES": "ParamEnv { caller_bounds: [Binder { value: HostEffectClause { trait_ref: <Self as std::iter::Iterator>, constness: Maybe }, bound_vars: [] }, Binder { value: TraitPredicate(<Self as std::iter::DoubleEndedIterator>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<Self as std::marker::Sized>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<Self as std::iter::Iterator>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<Self as std::marker::MetaSized>, polarity:Positive), bound_vars: [] }] }",
+        "PARENT": "std::iter::Iterator",
+        "IMPL_TRAIT": "Some(DefId(2:10903 ~ core[efd5]::iter::traits::iterator::Iterator))",
+        "SOURCE": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:3439:5: 3441:43"
+      },
+      "generic_mir_text_sha256": "74f79396a63a1c8d2b6923899608612e098480b7db3073b09c0a36dd2f0bf0fe",
+      "instantiated_mir_text_sha256": "b2dce20b6e6997de2378b4c94218963d55a3e7bd6feeefe8b0b06451845284fc",
+      "blocks": [
+        "bb0 CLEANUP false STATEMENTS [_0 = std::iter::Rev::<std::iter::Enumerate<std::slice::Iter<'_, Item>>> { iter: copy _1 }] TERMINATOR return"
+      ],
+      "fields": [
+        "0/0 iter ID DefId(2:51304 ~ core[efd5]::iter::adapters::rev::Rev::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 5029879297925419223)) VIS Restricted(ModId(DefId(2:9476 ~ core[efd5]::iter::adapters::rev))) TY Unnormalized { value: std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>, .. }",
+        "0/0 iter ID DefId(2:51199 ~ core[efd5]::iter::adapters::enumerate::Enumerate::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 13552164119256428120)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: std::slice::Iter<'{erased}, Item>, .. }",
+        "0/1 count ID DefId(2:51200 ~ core[efd5]::iter::adapters::enumerate::Enumerate::count) HASH DefPathHash(Fingerprint(17281971461272426270, 16025364363042851509)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: usize, .. }"
+      ]
+    },
+    {
+      "instance": "Instance { def: Item(DefId(2:9489 ~ core[efd5]::iter::adapters::rev::{impl#1}::next)), args: [std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>] }",
+      "metadata": {
+        "PATH": "<std::iter::Rev<I> as std::iter::Iterator>::next",
+        "PATH_HASH": "DefPathHash(Fingerprint(17281971461272426270, 10205437234608415064))",
+        "CRATE": "core STABLE_CRATE_ID StableCrateId(17281971461272426270)",
+        "SIGNATURE": "Unnormalized { value: Binder { value: fn(&'^0.Named(DefId(2:75615 ~ core[efd5]::iter::adapters::rev::{impl#1}::next::'_)) mut std::iter::Rev<std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>>) -> std::option::Option<Alias(No, Alias { kind: Projection { def_id: DefId(2:10904 ~ core[efd5]::iter::traits::iterator::Iterator::Item) }, args: [std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>], .. })>, bound_vars: [Region(BrNamed(DefId(2:75615 ~ core[efd5]::iter::adapters::rev::{impl#1}::next::'_)))] }, .. }",
+        "PREDICATES": "ParamEnv { caller_bounds: [Binder { value: TraitPredicate(<I as std::iter::DoubleEndedIterator>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<I as std::iter::Iterator>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<I as std::marker::MetaSized>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<I as std::marker::Sized>, polarity:Positive), bound_vars: [] }] }",
+        "PARENT": "<std::iter::Rev<I> as std::iter::Iterator>",
+        "IMPL_TRAIT": "None",
+        "SOURCE": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/rev.rs:52:5: 52:56"
+      },
+      "generic_mir_text_sha256": "f8c235368da1063f9a1692cebec9261e364c93bc063a467b195566ad8da5f508",
+      "instantiated_mir_text_sha256": "86683cf503ee6a19382b801e17c2212eff3dab918ab77f66ae7f71de3ad2a7fb",
+      "blocks": [
+        "bb0 CLEANUP false STATEMENTS [StorageLive(_2), _2 = &mut ((*_1).0: std::iter::Enumerate<std::slice::Iter<'_, Item>>)] TERMINATOR _0 = <std::iter::Enumerate<std::slice::Iter<'_, Item>> as std::iter::DoubleEndedIterator>::next_back(move _2) -> [return: bb1, unwind continue]",
+        "bb1 CLEANUP false STATEMENTS [StorageDead(_2)] TERMINATOR return"
+      ],
+      "fields": [
+        "1/0 0 ID DefId(2:53330 ~ core[efd5]::option::Option::Some::0) HASH DefPathHash(Fingerprint(17281971461272426270, 17440493292657237617)) VIS Public TY Unnormalized { value: (usize, &'{erased} Item), .. }",
+        "0/0 iter ID DefId(2:51304 ~ core[efd5]::iter::adapters::rev::Rev::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 5029879297925419223)) VIS Restricted(ModId(DefId(2:9476 ~ core[efd5]::iter::adapters::rev))) TY Unnormalized { value: std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>, .. }",
+        "0/0 iter ID DefId(2:51199 ~ core[efd5]::iter::adapters::enumerate::Enumerate::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 13552164119256428120)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: std::slice::Iter<'{erased}, Item>, .. }",
+        "0/1 count ID DefId(2:51200 ~ core[efd5]::iter::adapters::enumerate::Enumerate::count) HASH DefPathHash(Fingerprint(17281971461272426270, 16025364363042851509)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: usize, .. }"
+      ]
+    },
+    {
+      "instance": "Instance { def: Item(DefId(2:9504 ~ core[efd5]::iter::adapters::rev::{impl#2}::next_back)), args: [std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>] }",
+      "metadata": {
+        "PATH": "<std::iter::Rev<I> as std::iter::DoubleEndedIterator>::next_back",
+        "PATH_HASH": "DefPathHash(Fingerprint(17281971461272426270, 12523330740332240196))",
+        "CRATE": "core STABLE_CRATE_ID StableCrateId(17281971461272426270)",
+        "SIGNATURE": "Unnormalized { value: Binder { value: fn(&'^0.Named(DefId(2:75622 ~ core[efd5]::iter::adapters::rev::{impl#2}::next_back::'_)) mut std::iter::Rev<std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>>) -> std::option::Option<Alias(No, Alias { kind: Projection { def_id: DefId(2:10904 ~ core[efd5]::iter::traits::iterator::Iterator::Item) }, args: [std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>], .. })>, bound_vars: [Region(BrNamed(DefId(2:75622 ~ core[efd5]::iter::adapters::rev::{impl#2}::next_back::'_)))] }, .. }",
+        "PREDICATES": "ParamEnv { caller_bounds: [Binder { value: TraitPredicate(<I as std::iter::DoubleEndedIterator>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<I as std::iter::Iterator>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<I as std::marker::MetaSized>, polarity:Positive), bound_vars: [] }, Binder { value: TraitPredicate(<I as std::marker::Sized>, polarity:Positive), bound_vars: [] }] }",
+        "PARENT": "<std::iter::Rev<I> as std::iter::DoubleEndedIterator>",
+        "IMPL_TRAIT": "None",
+        "SOURCE": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/rev.rs:101:5: 101:61"
+      },
+      "generic_mir_text_sha256": "c28e88dc6b64f346d74f65319fef5dac3b3ca3175954bcb32b02945104153c60",
+      "instantiated_mir_text_sha256": "a8adf860ce60fa48abb3d932d2309a2d70802aa5d51005a588ae7ade588210f3",
+      "blocks": [
+        "bb0 CLEANUP false STATEMENTS [StorageLive(_2), _2 = &mut ((*_1).0: std::iter::Enumerate<std::slice::Iter<'_, Item>>)] TERMINATOR _0 = <std::iter::Enumerate<std::slice::Iter<'_, Item>> as std::iter::Iterator>::next(move _2) -> [return: bb1, unwind continue]",
+        "bb1 CLEANUP false STATEMENTS [StorageDead(_2)] TERMINATOR return"
+      ],
+      "fields": [
+        "1/0 0 ID DefId(2:53330 ~ core[efd5]::option::Option::Some::0) HASH DefPathHash(Fingerprint(17281971461272426270, 17440493292657237617)) VIS Public TY Unnormalized { value: (usize, &'{erased} Item), .. }",
+        "0/0 iter ID DefId(2:51304 ~ core[efd5]::iter::adapters::rev::Rev::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 5029879297925419223)) VIS Restricted(ModId(DefId(2:9476 ~ core[efd5]::iter::adapters::rev))) TY Unnormalized { value: std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>, .. }",
+        "0/0 iter ID DefId(2:51199 ~ core[efd5]::iter::adapters::enumerate::Enumerate::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 13552164119256428120)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: std::slice::Iter<'{erased}, Item>, .. }",
+        "0/1 count ID DefId(2:51200 ~ core[efd5]::iter::adapters::enumerate::Enumerate::count) HASH DefPathHash(Fingerprint(17281971461272426270, 16025364363042851509)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: usize, .. }"
+      ]
+    },
+    {
+      "instance": "Instance { def: Item(DefId(2:9484 ~ core[efd5]::iter::adapters::rev::{impl#0}::new)), args: [std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>] }",
+      "metadata": {
+        "PATH": "std::iter::Rev::<T>::new",
+        "PATH_HASH": "DefPathHash(Fingerprint(17281971461272426270, 12228536045849133720))",
+        "CRATE": "core STABLE_CRATE_ID StableCrateId(17281971461272426270)",
+        "SIGNATURE": "Unnormalized { value: Binder { value: fn(std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>) -> std::iter::Rev<std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>>, bound_vars: [] }, .. }",
+        "PREDICATES": "ParamEnv { caller_bounds: [Binder { value: TraitPredicate(<T as std::marker::Sized>, polarity:Positive), bound_vars: [] }] }",
+        "PARENT": "std::iter::Rev<T>",
+        "IMPL_TRAIT": "None",
+        "SOURCE": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/rev.rs:20:5: 20:56"
+      },
+      "generic_mir_text_sha256": "ac588f156b9d70754858bba5b0039fcbe2b4dd4b333d1f06efff9a26f0b53575",
+      "instantiated_mir_text_sha256": "b0a3f40cb161e7d5489776d985abb304ae9a52cf22226a2517879aa11c525afa",
+      "blocks": [
+        "bb0 CLEANUP false STATEMENTS [_0 = std::iter::Rev::<std::iter::Enumerate<std::slice::Iter<'_, Item>>> { iter: copy _1 }] TERMINATOR return"
+      ],
+      "fields": [
+        "0/0 iter ID DefId(2:51304 ~ core[efd5]::iter::adapters::rev::Rev::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 5029879297925419223)) VIS Restricted(ModId(DefId(2:9476 ~ core[efd5]::iter::adapters::rev))) TY Unnormalized { value: std::iter::Enumerate<std::slice::Iter<'{erased}, Item>>, .. }",
+        "0/0 iter ID DefId(2:51199 ~ core[efd5]::iter::adapters::enumerate::Enumerate::iter) HASH DefPathHash(Fingerprint(17281971461272426270, 13552164119256428120)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: std::slice::Iter<'{erased}, Item>, .. }",
+        "0/1 count ID DefId(2:51200 ~ core[efd5]::iter::adapters::enumerate::Enumerate::count) HASH DefPathHash(Fingerprint(17281971461272426270, 16025364363042851509)) VIS Restricted(ModId(DefId(2:8203 ~ core[efd5]::iter::adapters::enumerate))) TY Unnormalized { value: usize, .. }"
+      ]
+    }
+  ],
+  "local_adts": [
+    "DefId(0:13 ~ rev_item_witness[741c]::BorTag) HASH DefPathHash(Fingerprint(8366798427500286400, 13743773521435762934)) TYPE EarlyBinder { value: BorTag, .. } SOURCE /tmp/rev-nominal-definition-sy4c6v_f/genuine_item.rs:5:1: 5:18",
+    "DefId(0:56 ~ rev_item_witness[741c]::Item) HASH DefPathHash(Fingerprint(8366798427500286400, 14337569339286284155)) TYPE EarlyBinder { value: Item, .. } SOURCE /tmp/rev-nominal-definition-sy4c6v_f/genuine_item.rs:8:1: 8:16"
+  ],
+  "local_fields": [
+    "DefId(0:15 ~ rev_item_witness[741c]::BorTag::0) HASH DefPathHash(Fingerprint(8366798427500286400, 5026027388256524347)) VIS Restricted(ModId(DefId(0:0 ~ rev_item_witness[741c]))) TYPE EarlyBinder { value: std::num::NonZero<u64>, .. }",
+    "DefId(0:58 ~ rev_item_witness[741c]::Item::0) HASH DefPathHash(Fingerprint(8366798427500286400, 5435949997803587029)) VIS Restricted(ModId(DefId(0:0 ~ rev_item_witness[741c]))) TYPE EarlyBinder { value: u64, .. }"
+  ],
+  "transcript": {
+    "path": "/tmp/rev-nominal-definition-sy4c6v_f/item-mir/stdout",
+    "sha256": "437d1ffb8cff25a60f31f40abeac1d6bbccb64e822396de900ccce641a1420ad"
+  },
+  "binding_authority": "NONE: diagnostic DefIds/hashes and actual bodies only; no loaded vstd observation identity descriptor/semantic definition installed",
+  "publication": false,
+  "goal_complete": false,
+  "native_correspondences": 0
+}
