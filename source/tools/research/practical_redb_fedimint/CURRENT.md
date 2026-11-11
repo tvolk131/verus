@@ -21,15 +21,19 @@ Rev Stage B at `98931edc` with independent review `5f9533d6` is an opt-in NEW co
 
 R1 resize and F1 fee-policy baselines are **unsupported/unproved**, not successes: the accepted runtime rejects their original `div_ceil`/`saturating_div` calls before checking bodies. Their source/property freezes and results remain unchanged and in [coverage](COVERAGE.md), together with the F0 funding-map boundary.
 
-[Replacement registration](SELECTION_R2_F2.json) selects R2 bitmap-tree set/clear ancestor-summary propagation and F2 the complete guardian/quorum admission policy, before their trials. Source inspection finds only existing arithmetic/conversion/indexing dependencies in these closures; this is not a solver result. No new engine layer is approved before common baseline evidence and manual proof inventories. See [value checkpoint1](VALUE_CHECKPOINT.md) for why unsupported native APIs were deferred rather than becoming prerequisites.
+[Replacement registration](SELECTION_R2_F2.json) selects R2 bitmap-tree set/clear ancestor-summary propagation and F2 the complete guardian/quorum admission policy, before their trials. Both selected properties now have source-connected ordinary manual proofs; the parent has authenticated both deliveries and replayed F2 with ordinary/imported clients. R2 parent replay is in progress. Independent acceptance remains pending. Neither lane shows an Infer reduction. No new engine layer is approved before a concrete common mechanism is justified. See [value checkpoint1](VALUE_CHECKPOINT.md) for why unsupported native APIs were deferred rather than becoming prerequisites.
 
-## Immediate execution order
+## Current application checkpoint
 
-1. Inspect real pinned REDB allocator/page-state and Fedimint amount/accounting/validation code. Select and preregister one substantive component each BEFORE proof trials/engine edits.
-2. Present property, actual domain, accepted-runtime baseline and remaining authored semantic/mechanical burden; freeze sources/definitions and rank common practical fixes.
-3. Run independent project lanes in isolated worktrees. Integrator owns common fixes. Every brief names actual call sites, obligation, expected shared benefit and stopping condition.
-4. Before each new engineering layer, record which selected property gets closer and what local proof work disappears. Prefer common mechanisms over project-specific recognizers.
-5. At most45 active-investigation minutes per blocker, excluding build waits, before a recorded checkpoint. Unsupported cases stay in the denominator. Foundations/ownership/private representation prerequisites mean defer the case, not launch another prerequisite.
-6. Reuse existing proof/replay utilities, focused checks first, broader suite at integration and independent review. No new custom evidence subsystem. Proof-glue reduction and causal reuse in BOTH projects are the primary outcomes.
+- **R2:** full registered multiheight leaf membership/count, ancestor-summary and storage/padding/frame mutation property proved manually, ordinary/infer. Cost: 8 mechanical helper bodies, 15 static lemma call sites, 9 exec-local proof blocks, 9 snapshots, 6 loop-entry invariants, plus the detailed assertions/exit facts in [R2 report](redb_tree/REPORT.md). Infer removes zero annotations. Default insert/remove length algebra is already automatic after allocated-set equality.
+- **F2:** complete selected NumPeers policy and quorum intersection/honest-margin consequences proved manually, ordinary/infer; ordinary imported client passes. Four existing set-lemma calls and two conditional blocks remain. Policy arithmetic already verifies automatically. [F2 report](fedimint_quorum/REPORT.md) discloses the checked FromSpec adaptation, explicit fault/set/count assumptions and omitted consensus implementation.
+- R2's finite-set constructor correction and F2's missing conversion-spec adapter are specification corrections, not automation gains. Original executable bodies and registered domains/properties remain preserved. Neither proves complete original allocator/consensus callers.
+
+## Next bounded work
+
+1. Complete parent R2 replay and fresh independent application-proof review of both results, their source/domain fidelity, negative/import/publication gates and manual inventories.
+2. Compare actual demands: R2 needs word/nested-sequence frames, ancestor-loop transport and a finite-range predicate-update equality; F2 needs subset cardinality and inclusion-exclusion. Already automatic arithmetic/count facts cannot be charged as removable work.
+3. Authorize a common checked engineering layer only if its concrete mechanism removes nontrivial local work in both unchanged selected properties. A label covering two unrelated fixes or synthetic examples is insufficient. If no direct common mechanism is justified, report that bounded-experiment shortfall; do not widen into another prerequisite program.
+4. Retain the45-active-minute blocker limit, focused existing-utility checks and independent review. No foundations, new trusted contracts, disabled checks, narrowed inputs or unregistered replacement cases.
 
 No push/PR without authorization. All ordinary source/body/domain/fidelity/lifetime/trait/WF/mode/precision/erasure/publication checks remain required. No new trusted axioms, stronger hidden contracts, disabled checks or narrowed application inputs.
