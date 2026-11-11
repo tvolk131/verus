@@ -16,11 +16,11 @@ Only C0-backed generic Set-pair observations and typed selection. Actual benefit
 
 Preserve full original Function independently; fresh IDs/binders against ALL preceding functions/decorators, not just the current body. Insert only ordinary proof calls, register complete body_rechecks and normal mode/WF/resolution refresh. Provisional versions schema39/policy77/cache80. Protect every original R2/F2 freeze/manual/report/replay file. S1 alone cannot satisfy substantial R2 reduction. Independent implementation review accepted this scope (review evidence integrated in57fb481c); no further S1 engineering layer is assigned.
 
-## S2 direct word-frame proposer — current implementation assignment
+## S2 direct word-frame proposer — delivered proposal, review pending
 
 Only W0-backed Seq<u64> single-bit update/pointwise laws and generic typed transport at the two original word mutators. Remove local word_bits/word_frame and2 authored entry snapshots/proof blocks; generate the checked snapshot/forall/call template. Keep all other original semantics, rootward-loop/frame helpers and annotations. The clear_not_full existing full-view call PLUS explicit view bridge remain mechanical/manual and charged.
 
-Generic visible observation/Seq.update/mask patterns, immutable index, proper entry/current roots; no REDB/field/function names or opaque/native representation law. Independent complete Function projection, pure checked annotations, scope/name/type/index/value/placement validation, global fresh-ID/binder audit, full body rechecks and ordinary lifetime/trait/WF/mode/body/erasure/precision/export gates. Provisional schema39/policy78/cache81, parent reconciles with S1. Protect original freezes and the committed W0 prototype files.
+Generic visible observation/Seq.update/mask patterns, immutable index, proper entry/current roots; no REDB/field/function names or opaque/native representation law. Independent complete Function projection, pure checked annotations, scope/name/type/index/value/placement validation, global fresh-ID/binder audit, full body rechecks and ordinary lifetime/trait/WF/mode/body/erasure/precision/export gates. Integrated proposal schema39/policy78/cache81 with a distinct combined cache tag; both report fields/hooks remain. Protect original freezes and the committed W0 prototype files. S2 worker is terminal/completed; do not automatically resume or extend its assignment. Parent owns combined validation and a NEW independent review, using the frozen common_set/r2-combined.rs and unchanged f2-reduced.rs.
 
 ## Shared execution and handoff
 
