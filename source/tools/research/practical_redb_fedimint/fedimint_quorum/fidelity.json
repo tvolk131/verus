@@ -1,0 +1,13 @@
+{
+  "fixture_sha256": "dbb4031698860dc726b84a76afe8123b95be13ea9ec3df9bdb03cd1891d6b1db",
+  "methods_sha256": {
+    "total": "578f855219c8d0cae1e520add3f6b5437f948e467d17c93162a7dd8c751fef50",
+    "max_evil": "083676d77640c997f2c214389a851741986ab28c4e801c1cd4afe5b2b2954b0a",
+    "one_honest": "8579de2ece1c01716f0e0398c48ab4e248d50c2701cdc0991f5c5e83cd637087",
+    "degree": "562045243a6aded1904e59929573da241e59354a596cc73929b065a0fd3f9414",
+    "threshold": "0f984cb1a34d73143ff1345754171eb25411d9293ca820e38db647c2ddb51deb",
+    "from": "26a08d49de1c77141208b79de7ee6ca30d3bcc22e84725316bf59b93c751ad00"
+  },
+  "source": "fedimint-core/src/peer_id.rs",
+  "source_commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236"
+}
