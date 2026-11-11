@@ -44,6 +44,7 @@ pub struct GenerationReport {
     pub growth_loops: Vec<(Fun, Span)>,
     pub local_folds: Vec<(Fun, Span)>,
     pub range_loops: Vec<(Fun, Span)>,
+    pub set_pairs: Vec<(Fun, usize, usize)>,
     pub pointwise_facts: Vec<(Fun, usize)>,
     pub mutable_selectors: Vec<(Fun, usize)>,
     pub sequence_patterns: Vec<(Fun, usize)>,

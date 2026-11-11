@@ -56,6 +56,7 @@ mod record_models;
 mod records;
 mod registry;
 mod selector_goals;
+mod set_goals;
 mod sequence_triggers;
 mod sequence_views;
 mod trait_getters;
