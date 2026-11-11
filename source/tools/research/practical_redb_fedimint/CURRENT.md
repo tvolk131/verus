@@ -1,51 +1,27 @@
-# Active priority: practical Infer for REDB and Fedimint
+# Practical Infer checkpoint
 
-The user replaced the active goal on 2026-11-11. [Goal and execution constraints](GOAL.md) govern this work. The previous HMAC/native objective is [deferred and unachieved](DEFERRED_HMAC_NATIVE.md), not a prerequisite or a completed result.
+[User goal and stopping rules](GOAL.md) remain active. One substantive property in each project PLUS materially reduced local mechanical work and a causal common Infer improvement are required. Earlier [HMAC/native work is deferred and unachieved](DEFERRED_HMAC_NATIVE.md).
 
-Active branch starts from accepted `a8194fc0` / engine `f4415999`, schema39/policy75/cache78. Original provisional work is preserved on local `verus-infer` at `b76abf27`; no files/evidence were deleted. Runtime tests must use the matching accepted bundle, not the provisional binaries left in target directories.
+## Authoritative state
 
-## Useful accepted building blocks
+- Branch: infer-practical-redb-fedimint. Accepted baseline: a8194fc0 / engine f4415999, schema39/policy75/cache78. New S1/S2 implementations are unaccepted, isolated assignments; no delivery is assumed before its completion notification.
+- Use the pinned accepted bundle in SELECTION_R2_F2.json; ignored root target binaries are provisional. Historical Rev76/79 is preserved on verus-infer b76abf27 and is not a prerequisite.
+- Independent review [accepted both scoped manual application proofs and C0 demand](../../../../evidence/practical-redb-fedimint-proof-review/REVIEW.md). It corrected one measurement: REDB's literal range broadcast is already default/redundant and earns no automation credit.
+- Both complete selected application properties pass ordinary/infer manual checks and relevant imports/controls. Accepted75 removes zero measured manual steps. F0/R1/F1 remain unsupported/unproved and counted in [coverage](COVERAGE.md).
 
-- Bounded scalar and scalar-pair inference, range/bounds and checked unsigned arithmetic/bitvector assistance.
-- Checked word-view laws, source-connected packed-field observations and typed packing deduplication; finite collection/sequence and bounded native-loop assistance within documented eligibility.
-- Tuple constructor function items, genuine NonZero equality, and checked bool conversion evidence with ordinary import/publication checks. Local NonZero ordering has no ordering export authority.
-- Checked canonical-varint assistance and readonly mutable-buffer observations are bounded capabilities, not general loop/ownership inference.
+## Current bounded implementations
 
-Historical single-word REDB bitmap and Fedimint request-helper transfers are reusable scaffolding, not new progress for this goal. Whole database/protocol correctness is not claimed.
+**S1: shared Set observations.** C0 and C1 establish ordinary checked demand at R2 finish_mutation and F2's quorum/honesty corollaries. A generic typed Set-pair selector should remove R2's required extensional assertion and F2's4 lemma calls+2 conditional blocks. The SAME checked generic helper works at Set<int>/Set<usize>; weak-summary controls isolate actual need. S1 alone is not substantial overall R2 reduction. Reserved provisional schema39/policy77/cache80.
 
-## Provisional/research-only, off the critical path
+**S2: R2 word-frame transport.** W0 establishes a reusable checked Seq<u64> update/pointwise library. A generic proposer should remove local word_bits/word_frame definitions and the2 authored writer snapshots/proof blocks, generating ordinary checked snapshots/transport instead. All other tree/ancestor/loop proofs stay charged. The clear_not_full full-view call+bridge assertion remains manual. Reserved schema39/policy78/cache81; parent reconciles with S1.
 
-Rev Stage B at `98931edc` with independent review `5f9533d6` is an opt-in NEW compiler-semantics prototype; parent checks completed but it is not promoted as this goal's accepted baseline. All Miri, native borrowing, Coq/Iris foundations, foreign-MIR expansion and HMAC-suffix work are deferred. Do not follow old Miri next-dependency notes.
+[Capability map](CAPABILITY_MAP.md), [C0](common_set/PAIR_PROTOTYPE.md), [W0](word_frame/PROTOTYPE.md) and [C1 composition](common_set/COMPOSITION.md) distinguish real proof results from projected author-work removal. None is an accepted engine reduction. No speedup/cache-hit claim.
 
-## Current experiment state
+## Next actions and limits
 
-R1 resize and F1 fee-policy baselines are **unsupported/unproved**, not successes: the accepted runtime rejects their original `div_ceil`/`saturating_div` calls before checking bodies. Their source/property freezes and results remain unchanged and in [coverage](COVERAGE.md), together with the F0 funding-map boundary.
+1. Read only announced completed S1/S2 results; authenticate frozen source/runtime/evidence and integrate actual code. Follow delegate next: completion wakes parent; do not poll or restart a child based on elapsed time.
+2. Reconcile pipeline hooks, semantic/cache epochs and cross-profile IDs/bindings. Verify exact original Function projection and ordinary WF/mode/lifetime/trait/body/erasure/precision/publication checks.
+3. Run matching combined application/caller/import/cold-warm/negative controls and appropriate broader checks, then NEW independent implementation review. Measure author work separately from generated/library work; update final capability map from evidence.
+4. At most45 active investigation minutes per blocker excluding build waits, then checkpoint. No new Rust/native/ownership/private-representation/general foreign-MIR foundation or expanding prerequisite chain. A new direct layer requires a concrete value checkpoint; none beyond S1/S2 is authorized.
 
-[Replacement registration](SELECTION_R2_F2.json) selects R2 bitmap-tree set/clear ancestor-summary propagation and F2 the complete guardian/quorum admission policy, before their trials. Both selected properties now have source-connected ordinary manual proofs; the parent has authenticated both deliveries and replayed F2 with ordinary/imported clients. R2 parent replay also passes its11 focused outcomes, including strict semantic/export controls and ordinary/inferred imports. Fresh independent review accepts both scoped manual proofs and C0 common demand. It finds the literal R2 range broadcast redundant; no removal credit is allowed for it. S1 implementation and later independent implementation acceptance remain pending. Neither lane shows an Infer reduction. The preregistered C0 annotation experiment now supplies a concrete common Set-pair mechanism (see below); only that bounded selector layer is authorized. See [value checkpoint1](VALUE_CHECKPOINT.md) for why unsupported native APIs were deferred rather than becoming prerequisites.
-
-## Current application checkpoint
-
-- **R2:** full registered multiheight leaf membership/count, ancestor-summary and storage/padding/frame mutation property proved manually, ordinary/infer. Cost: 8 mechanical helper bodies, 15 static lemma call sites, 9 exec-local proof blocks, 9 snapshots, 6 loop-entry invariants, plus the detailed assertions/exit facts in [R2 report](redb_tree/REPORT.md). Infer removes zero annotations. Default insert/remove length algebra is already automatic after allocated-set equality.
-- **F2:** complete selected NumPeers policy and quorum intersection/honest-margin consequences proved manually, ordinary/infer; ordinary imported client passes. Four existing set-lemma calls and two conditional blocks remain. Policy arithmetic already verifies automatically. [F2 report](fedimint_quorum/REPORT.md) discloses the checked FromSpec adaptation, explicit fault/set/count assumptions and omitted consensus implementation.
-- R2's finite-set constructor correction and F2's missing conversion-spec adapter are specification corrections, not automation gains. Original executable bodies and registered domains/properties remain preserved. Neither proves complete original allocator/consensus callers.
-
-## Next bounded work
-
-1. Complete fresh independent application-proof review of both results, their source/domain fidelity, negative/import/publication gates and manual inventories.
-2. Compare actual demands: R2 needs word/nested-sequence frames, ancestor-loop transport and a finite-range predicate-update equality; F2 needs subset cardinality and inclusion-exclusion. Already automatic arithmetic/count facts cannot be charged as removable work.
-3. Authorize a common checked engineering layer only if its concrete mechanism removes nontrivial local work in both unchanged selected properties. A label covering two unrelated fixes or synthetic examples is insufficient. If no direct common mechanism is justified, report that bounded-experiment shortfall; do not widen into another prerequisite program.
-4. Retain the45-active-minute blocker limit, focused existing-utility checks and independent review. No foundations, new trusted contracts, disabled checks, narrowed inputs or unregistered replacement cases.
-
-No push/PR without authorization. All ordinary source/body/domain/fidelity/lifetime/trait/WF/mode/precision/erasure/publication checks remain required. No new trusted axioms, stronger hidden contracts, disabled checks or narrowed application inputs.
-
-## Authorized next direct layer S1
-
-C0 ordinary checked generic set-pair observations pass at both actual sites, and healthy weak-summary controls fail precisely R2 finish_mutation or F2 corollaries. The parent authorizes a bounded generic selector for this SAME helper; pair-prototype.rs is the literal checked prototype. No project names, semantic changes or foundation. See common_set/PAIR_PROTOTYPE.md for proposals, limits and charged costs.
-
-S1 expected author removals: F2's4 existing set calls+2 conditional blocks; R2 finish_mutation's1 required extensional assertion (the literal range broadcast is redundant and earns no automation credit). All remaining R2 mechanical helpers/frames/snapshots/loop facts remain authored and charged; S1 alone cannot satisfy substantial overall R2 reduction or mark the goal complete. Independent application review is running separately. New selector needs its own independent implementation review and combined validation before acceptance. Parent reserves schema39/policy77/cache80, skipping deferred76/79. Stop any blocker at45 active minutes excluding build waits; no automatic next prerequisite.
-
-## Direct R2 word-frame layer
-
-W0 ordinary prototype succeeds with separately compiled checked generic word-sequence library and healthy weak-summary/semantic controls. It preserves the full registered mutation property but retains explicit replacement transport/snapshots. Parent authorizes bounded S2 to generate that transport for the two word mutators, aiming to remove2 local helpers,3 BV directives and2 author snapshots/proof blocks; all remaining loop/ancestor/nested-frame work stays charged. See word_frame/PROTOTYPE.md. This is a direct practical layer, no ownership/native/representation prerequisite, and has no automated result yet.
-
-S1 Set-pair selection and S2 word-sequence proof transport are now running in separate isolated implementation worktrees. Parent has no active local build/proof job. Both implementations remain unaccepted; no automation reduction is claimed until their causal runs and fresh independent implementation review pass. Application-proof review is complete and accepted; no need to repeat that broad baseline matrix for documentation changes.
+No new trusted axiom, silently stronger contract, disabled check, narrower input or replacement algorithm. Preserve original freezes and unsuccessful denominator. Reuse existing proof/replay utilities; no new evidence subsystem or full matrices for docs. No push/PR without authorization. Overall goal completion remains unproved.
