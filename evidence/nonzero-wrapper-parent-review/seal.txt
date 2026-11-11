@@ -1,0 +1,42 @@
+"""Finalize own compact evidence after every required private command has finished."""
+from pathlib import Path
+import hashlib,json,os,subprocess,sys
+H=Path(__file__).resolve().parent
+R=Path((H/'PRIVATE_ROOT').read_text().strip())
+PHASE=sys.argv[1] if len(sys.argv)>1 else 'v1'
+def need(x,m):
+    if not x:raise RuntimeError(m)
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def write(p,j):p.write_text(json.dumps(j,indent=2,sort_keys=True)+'\n')
+def snapshot():return {str(p.relative_to(H)):sha(p) for p in H.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.name not in ['VALIDATION.json','SEAL.json']}
+for p in R.glob('*/freeze.json'):need((p.parent/'receipt.json').exists(),'unfinished own command '+p.parent.name)
+# This is a controller-only final amendment; executing old bytes remain captured per receipt.
+for n in ['extra.py','audit.py']:
+    src=Path('/tmp/wrapper-final-fixes')/n
+    need(src.is_file(),'prepared controller amendment '+n)
+    (H/n).write_bytes(src.read_bytes())
+# Remove only our own temporary in-worktree harness aliases.
+B=R/'bundle-proofs';ROOT=H.parents[1]
+for p in [ROOT/'source/z3',ROOT/'source/target-verus/release']:
+    if p.is_symlink():
+        need(p.resolve()==(B/'z3' if p.name=='z3' else B),'own harness alias '+str(p));p.unlink()
+    else:need(not p.exists(),'unexpected harness path '+str(p))
+env=os.environ|{'WRAPPER_EPOCH':'proofs'}
+args=[sys.executable,'-B',str(H/'audit.py')]
+d=R/('acceptance-write-'+PHASE);d.mkdir()
+with (d/'stdout').open('wb') as out,(d/'stderr').open('wb') as err:
+    j=subprocess.run([*args,'--write'],cwd=ROOT,env=env,stdout=out,stderr=err)
+need(j.returncode==0,'acceptance collection failed; see '+str(d/'stderr'))
+base=snapshot();rows={}
+for label,flags in [('normal',['-B']),('optimized',['-O','-B'])]:
+    d=R/('acceptance-'+label+'-'+PHASE);d.mkdir()
+    argv=[sys.executable,*flags,str(H/'audit.py')]
+    with (d/'stdout').open('wb') as out,(d/'stderr').open('wb') as err:
+        p=subprocess.run(argv,cwd=ROOT,env=env,stdout=out,stderr=err)
+    need(p.returncode==0,'read-only audit failure '+label)
+    need(snapshot()==base,'read-only audit wrote evidence '+label)
+    rows[label]=dict(argv=argv,exit=p.returncode,output=json.loads((d/'stdout').read_text()),stdout_sha256=sha(d/'stdout'),stderr_sha256=sha(d/'stderr'))
+a=rows['normal']['output'].copy();b=rows['optimized']['output'].copy();a.pop('optimized');b.pop('optimized');need(a==b,'normal/optimized audit disagreement')
+write(H/'VALIDATION.json',dict(normal=rows['normal'],optimized=rows['optimized'],read_only=True,evidence_unchanged_during_audits=True,source_tool_fixture_controller_last_guards=True,results_sha256=sha(H/'RESULTS.json'),publication=False,goal_complete=False))
+write(H/'SEAL.json',{str(p.relative_to(H)):sha(p) for p in H.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.name!='SEAL.json'})
+print(json.dumps(dict(audit=a,seal_sha256=sha(H/'SEAL.json'),private_root=str(R)),sort_keys=True))

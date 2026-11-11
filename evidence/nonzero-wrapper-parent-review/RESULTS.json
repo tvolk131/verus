@@ -1,0 +1,3957 @@
+{
+  "HMAC": "1/1 UNPROVED",
+  "actual_loaded_MIR": {
+    "classification": "actual pinned compiler MIR and macro-erased runtime diagnostics only; not new source/native laws",
+    "controller_sha256": "a3125480e0ab0e86377e3c1986aa58a4480648c1e065baa479e55bd15f257070",
+    "erased_expansion_sha256": "c79ae94d6071d6c1cf21dfca70fd6105c9b11593d30352d6e9667b7838181e42",
+    "erased_mir_sha256": "2fc35ff3449a8a783bc935d2fcdab1d7f462a73b601971bfe4477d798ad98397",
+    "native_correspondences": 0,
+    "seven_loaded_bodies": {
+      "carrier_cmp.txt": "71ee035e4fa77147472ff80072895ccbeeb9e44aa1b62b7d71d0146b05ce664e",
+      "derived_cmp.txt": "269e0acd3b4b917ec1b5047069bd5efaefcdf67e98d6841e7aca6c3d7456c910",
+      "derived_partial_cmp.txt": "e0071fec146cc36429854ba486a145d68e4eab98cabe8d64524beb6d428f5a79",
+      "get.txt": "14ef02a5745ff87edff45e0b354df4a2d7e851fc9e97663f78eb62be5018f287",
+      "partial.txt": "de36062bfc84c7ec0d5d9edeb627253ea7906ebd56be0d3edb635e522c76f5d7",
+      "primitive_cmp.txt": "c3a3315c8c7f30abc40f10397df633e682b7f42f3067a4c4c923681e4cce5106",
+      "total.txt": "993d3c48525432672249b88b99344cab29941010b12673a1c429587ed5c014e6"
+    },
+    "source": "bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514"
+  },
+  "actual_native_Functions": {
+    "final-exact-v3-cold": {
+      "wrapper::BorTag::clone": {
+        "actual_Function_name": "wrapper::impl&%2::clone",
+        "actual_Function_sha256": "120e11551c7e97fe3c7638102b82c04c197d536f24c9bc96f1ab649c31a9b0bc"
+      },
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "740906faa1be0a53f2bc825276272d73c7374947618d0d116f2d2eb403e595ff"
+      },
+      "wrapper::BorTag::eq": {
+        "actual_Function_name": "wrapper::impl&%5::eq",
+        "actual_Function_sha256": "d013888a3d794ad1817f3f7cd7f7abf3206984a39805b4e3d058c1a9b7be6aac"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "11b4687fe4d0427aafe4ec9b628960026fcf66f54fbc4354e62926f098a6de37"
+      },
+      "wrapper::greater": {
+        "actual_Function_name": "wrapper::greater",
+        "actual_Function_sha256": "fefe398b27082f277d657836f030ee917be0c992551bcf24d358fc13682ac851"
+      },
+      "wrapper::greater_equal": {
+        "actual_Function_name": "wrapper::greater_equal",
+        "actual_Function_sha256": "220a83e6680d08df98340589d6ccf5f44c5ff58de45d0cac56d0a3c4a6cbaa9d"
+      },
+      "wrapper::inferred_ge": {
+        "actual_Function_name": "wrapper::inferred_ge",
+        "actual_Function_sha256": "f334457dfcecea0b26b3e222740870296a3fa55e35e4b8f9ffcf06e7c38261cd"
+      },
+      "wrapper::inferred_greater": {
+        "actual_Function_name": "wrapper::inferred_greater",
+        "actual_Function_sha256": "664decdbeb5410c688c2e46ffc23c66e7e0cb34a982296e4ae8ab54138104689"
+      },
+      "wrapper::inferred_le": {
+        "actual_Function_name": "wrapper::inferred_le",
+        "actual_Function_sha256": "9bbb7e76d1dbc1757f4956972600769a7a1e32b4b88259a825fac1b921224fc2"
+      },
+      "wrapper::inferred_less": {
+        "actual_Function_name": "wrapper::inferred_less",
+        "actual_Function_sha256": "f9001b50d492cdd93c49e68c3367d0666caca1bc3e28aebed0f0f3832d3bb2c7"
+      },
+      "wrapper::less": {
+        "actual_Function_name": "wrapper::less",
+        "actual_Function_sha256": "a4ccbc3717091c850184580889d4fb9dfd97d5a7126f777b16fdbddc14576ff7"
+      },
+      "wrapper::less_equal": {
+        "actual_Function_name": "wrapper::less_equal",
+        "actual_Function_sha256": "30069a69b9147fc6d3cfda293fc1a0170d90dee85b720c62b4d964010ae87754"
+      },
+      "wrapper::observe_inferred": {
+        "actual_Function_name": "wrapper::observe_inferred",
+        "actual_Function_sha256": "9a87f0ca0533c76fa625a67b95f2042406ba9cf61ec9cf5b05778a30f6dc74f0"
+      },
+      "wrapper::partial": {
+        "actual_Function_name": "wrapper::partial",
+        "actual_Function_sha256": "487d0b67c203ae529dc2bded0c760b6d7a9a33c9381824f31fdb6d83f76fdf50"
+      },
+      "wrapper::same_reference": {
+        "actual_Function_name": "wrapper::same_reference",
+        "actual_Function_sha256": "5daab9324bafd13c73093cd07672d4e89e35c6de1e0a22cbac9e9a27e5ac1e5c"
+      },
+      "wrapper::total": {
+        "actual_Function_name": "wrapper::total",
+        "actual_Function_sha256": "b4ad46d0b97fd03d3893a84a562465d975d1240af79a85ebec595e05a42eab6d"
+      }
+    },
+    "final-exact-v3-warm": {
+      "wrapper::BorTag::clone": {
+        "actual_Function_name": "wrapper::impl&%2::clone",
+        "actual_Function_sha256": "120e11551c7e97fe3c7638102b82c04c197d536f24c9bc96f1ab649c31a9b0bc"
+      },
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "740906faa1be0a53f2bc825276272d73c7374947618d0d116f2d2eb403e595ff"
+      },
+      "wrapper::BorTag::eq": {
+        "actual_Function_name": "wrapper::impl&%5::eq",
+        "actual_Function_sha256": "ff1b60bceac2c0b2eb6a60d3d51b7d3ff81cbc8f93f30ea4fd869fa0e32e1019"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "11b4687fe4d0427aafe4ec9b628960026fcf66f54fbc4354e62926f098a6de37"
+      },
+      "wrapper::greater": {
+        "actual_Function_name": "wrapper::greater",
+        "actual_Function_sha256": "fefe398b27082f277d657836f030ee917be0c992551bcf24d358fc13682ac851"
+      },
+      "wrapper::greater_equal": {
+        "actual_Function_name": "wrapper::greater_equal",
+        "actual_Function_sha256": "220a83e6680d08df98340589d6ccf5f44c5ff58de45d0cac56d0a3c4a6cbaa9d"
+      },
+      "wrapper::inferred_ge": {
+        "actual_Function_name": "wrapper::inferred_ge",
+        "actual_Function_sha256": "7abaf9268078344ce258e8708f7c23943613b2cc8a11fff020e4bc5c5abd24f2"
+      },
+      "wrapper::inferred_greater": {
+        "actual_Function_name": "wrapper::inferred_greater",
+        "actual_Function_sha256": "3962a1f93f85d15fa0332486e03af33cf7210d4650799e75055961f78cd9daa4"
+      },
+      "wrapper::inferred_le": {
+        "actual_Function_name": "wrapper::inferred_le",
+        "actual_Function_sha256": "ff19790a1b039650a3186e9fc7b10459bd622794259225457dbbb7f8597b5aeb"
+      },
+      "wrapper::inferred_less": {
+        "actual_Function_name": "wrapper::inferred_less",
+        "actual_Function_sha256": "675830403a9082085ecf8a663ec7c28646f5ddb6965b7d6de1b5f9c91362fc59"
+      },
+      "wrapper::less": {
+        "actual_Function_name": "wrapper::less",
+        "actual_Function_sha256": "a4ccbc3717091c850184580889d4fb9dfd97d5a7126f777b16fdbddc14576ff7"
+      },
+      "wrapper::less_equal": {
+        "actual_Function_name": "wrapper::less_equal",
+        "actual_Function_sha256": "30069a69b9147fc6d3cfda293fc1a0170d90dee85b720c62b4d964010ae87754"
+      },
+      "wrapper::observe_inferred": {
+        "actual_Function_name": "wrapper::observe_inferred",
+        "actual_Function_sha256": "9a87f0ca0533c76fa625a67b95f2042406ba9cf61ec9cf5b05778a30f6dc74f0"
+      },
+      "wrapper::partial": {
+        "actual_Function_name": "wrapper::partial",
+        "actual_Function_sha256": "487d0b67c203ae529dc2bded0c760b6d7a9a33c9381824f31fdb6d83f76fdf50"
+      },
+      "wrapper::same_reference": {
+        "actual_Function_name": "wrapper::same_reference",
+        "actual_Function_sha256": "5daab9324bafd13c73093cd07672d4e89e35c6de1e0a22cbac9e9a27e5ac1e5c"
+      },
+      "wrapper::total": {
+        "actual_Function_name": "wrapper::total",
+        "actual_Function_sha256": "b4ad46d0b97fd03d3893a84a562465d975d1240af79a85ebec595e05a42eab6d"
+      }
+    }
+  },
+  "candidate_query_inventory": {
+    "final-exact-v3-cold": {
+      "wrapper::BorTag::eq": {
+        "air_sha256": "35002bcfe06dff162251f7978ad3193c0a50cb1aa70159c651ddd7d9a5de9a06",
+        "queries": {
+          "Function-Def": "2ef3f1038ca5cd845999854319bcae5eabeb2501502194c00935161bef58a373",
+          "Infer-output exactness": "f50114b63d23f447ece4185310137613e926b1cbc0b02a785ea96cced8d3c49f",
+          "Infer-safe-domain maximality": "21ce344d1d31ff0de0d2e976bb43c4388b5a2f54fc0833c1957466bf3de86ae2"
+        }
+      },
+      "wrapper::inferred_ge": {
+        "air_sha256": "8ca61d13ae2005da336e2cd293639918773a5c195105a3af6caf4dc1081342cd",
+        "queries": {
+          "Function-Def": "97e861b7189890bd84ef28382c4f9c7522eb7d9bbba043bc12284ddd34a71a79",
+          "Infer-output exactness": "f39137b68c60427107f006c5a2f80cd3305d764b444d7ffed2f5291144d31087",
+          "Infer-safe-domain maximality": "c52661470bef2600c430dde6b66b1a6699870cbbd4cda43ea55fcb35ed6a6b98"
+        }
+      },
+      "wrapper::inferred_greater": {
+        "air_sha256": "3525e9052ff4f8168cf882dbd39fca0e925fed9637d87a9a4dd8de3187d03b0d",
+        "queries": {
+          "Function-Def": "9e12c81c68dd5e05c58fdf609cde1bbb2ceb5231e3b4583771d7392e92a9963a",
+          "Infer-output exactness": "418c0ce224b9191a976f0fca90fd333ceb3f8293e327ac6b4ccaf145ae8784c0",
+          "Infer-safe-domain maximality": "ce0c388cb05cea50122e86f84e68434d97d3418a23556c76bba5fd2927790936"
+        }
+      },
+      "wrapper::inferred_le": {
+        "air_sha256": "fe6d0cb13e90ed9960f05dfe8c24daef855d1e98c919dfb48a62d9468373a721",
+        "queries": {
+          "Function-Def": "41ad9b99d266644419fa961a975f2b15c3b121b41002409e34508b46f6074917",
+          "Infer-output exactness": "0e8f6449b3fa143494a87cd14acebaa9b42cd5f5617544bbe66f7d134d4c9be9",
+          "Infer-safe-domain maximality": "243783365ca426dd497ce905937e680a3a75b7a21b4de86d22493e382429982e"
+        }
+      },
+      "wrapper::inferred_less": {
+        "air_sha256": "0c3f38a13b524ba620f675b2e6b228f2e8e83f4233c62ecc21cf07ff0f1b545f",
+        "queries": {
+          "Function-Def": "2b12a7254616998ee58764dede620c94a22d75059e586e8c1565d5152df2ddf8",
+          "Infer-output exactness": "183188dfc53b7cd57e89c1198af08dece0c50d5e6547c9b9e4b645402368619a",
+          "Infer-safe-domain maximality": "82af0b7ac23c2429af8f22820b37b820495aefc79410c93a397a8490586cabd3"
+        }
+      }
+    },
+    "final-exact-v3-warm": {
+      "wrapper::BorTag::eq": {
+        "air_sha256": "35002bcfe06dff162251f7978ad3193c0a50cb1aa70159c651ddd7d9a5de9a06",
+        "queries": {
+          "Function-Def": "2ef3f1038ca5cd845999854319bcae5eabeb2501502194c00935161bef58a373",
+          "Infer-output exactness": "f50114b63d23f447ece4185310137613e926b1cbc0b02a785ea96cced8d3c49f",
+          "Infer-safe-domain maximality": "21ce344d1d31ff0de0d2e976bb43c4388b5a2f54fc0833c1957466bf3de86ae2"
+        }
+      },
+      "wrapper::inferred_ge": {
+        "air_sha256": "8ca61d13ae2005da336e2cd293639918773a5c195105a3af6caf4dc1081342cd",
+        "queries": {
+          "Function-Def": "97e861b7189890bd84ef28382c4f9c7522eb7d9bbba043bc12284ddd34a71a79",
+          "Infer-output exactness": "f39137b68c60427107f006c5a2f80cd3305d764b444d7ffed2f5291144d31087",
+          "Infer-safe-domain maximality": "c52661470bef2600c430dde6b66b1a6699870cbbd4cda43ea55fcb35ed6a6b98"
+        }
+      },
+      "wrapper::inferred_greater": {
+        "air_sha256": "3525e9052ff4f8168cf882dbd39fca0e925fed9637d87a9a4dd8de3187d03b0d",
+        "queries": {
+          "Function-Def": "9e12c81c68dd5e05c58fdf609cde1bbb2ceb5231e3b4583771d7392e92a9963a",
+          "Infer-output exactness": "418c0ce224b9191a976f0fca90fd333ceb3f8293e327ac6b4ccaf145ae8784c0",
+          "Infer-safe-domain maximality": "ce0c388cb05cea50122e86f84e68434d97d3418a23556c76bba5fd2927790936"
+        }
+      },
+      "wrapper::inferred_le": {
+        "air_sha256": "fe6d0cb13e90ed9960f05dfe8c24daef855d1e98c919dfb48a62d9468373a721",
+        "queries": {
+          "Function-Def": "41ad9b99d266644419fa961a975f2b15c3b121b41002409e34508b46f6074917",
+          "Infer-output exactness": "0e8f6449b3fa143494a87cd14acebaa9b42cd5f5617544bbe66f7d134d4c9be9",
+          "Infer-safe-domain maximality": "243783365ca426dd497ce905937e680a3a75b7a21b4de86d22493e382429982e"
+        }
+      },
+      "wrapper::inferred_less": {
+        "air_sha256": "0c3f38a13b524ba620f675b2e6b228f2e8e83f4233c62ecc21cf07ff0f1b545f",
+        "queries": {
+          "Function-Def": "2b12a7254616998ee58764dede620c94a22d75059e586e8c1565d5152df2ddf8",
+          "Infer-output exactness": "183188dfc53b7cd57e89c1198af08dece0c50d5e6547c9b9e4b645402368619a",
+          "Infer-safe-domain maximality": "82af0b7ac23c2429af8f22820b37b820495aefc79410c93a397a8490586cabd3"
+        }
+      }
+    }
+  },
+  "candidates": {
+    "final-exact-v3-cold": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "656f0540bf072a845ac82bf41037511277741561efbbc62601a4b28e33d1ba73",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "c2306d9a41ef39534e26ba147e7244d7a9d9f3fc6afcc9ce6f96271fce67d586",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "30ad228cade01da186eaba289f918a50d9bca94dcd69a0a6a0fa27af8dbbddfa",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "3c45b4bf9797316a82fa6aafb3f515bff179d6c5d08d6c3c67e101a29e0e5686",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "3eebab17ff09440a395a71dec81e2e27badd197025b0890d7a6b3e9f5aa3ba68",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "final-exact-v3-warm": {
+      "wrapper::BorTag::eq": {
+        "cache": "hit",
+        "candidate_id": "656f0540bf072a845ac82bf41037511277741561efbbc62601a4b28e33d1ba73",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "hit",
+        "candidate_id": "c2306d9a41ef39534e26ba147e7244d7a9d9f3fc6afcc9ce6f96271fce67d586",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "hit",
+        "candidate_id": "30ad228cade01da186eaba289f918a50d9bca94dcd69a0a6a0fa27af8dbbddfa",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "hit",
+        "candidate_id": "3c45b4bf9797316a82fa6aafb3f515bff179d6c5d08d6c3c67e101a29e0e5686",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "hit",
+        "candidate_id": "3eebab17ff09440a395a71dec81e2e27badd197025b0890d7a6b3e9f5aa3ba68",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "final-false-Equal": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "04471882c61d084edfb7ddede08f05467dd4723de964a79fbb1ab18ec2abd0ed",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "a5c523dc46a365d9028cee739d5a24def3dd386784f0f922ba5d5d0291261a90",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "c6e40d94d7a5bd8a5a3c23e11b099c4016f30bb86fac846731655202f61e96d0",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "8a202dc19f188b7d39ce5bd64ba198b4ef323585d3c4573a6e27ef3d206ea3cd",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "42f7e53c1512259e2e649511ef1ec155c353e2c8186e5750ea90d307cfb6f454",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "final-false-Greater": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "b09f99b8a02e341fef5f2744f8b6cd7f27daecd3fdd9dbc3a1545f45d00e1932",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "f47d3490a6cc64ef3ea0e8a9f41475fdb5c614d2f092cf46be3ecc8c11970b18",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "e75c4a362865f351ff58fe072a8ffc313a4c347909f65ea56e9236dac659b050",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "6ad695feefcfda5cd3ece26e439c13a26b69cebfb12dd04cb23aa137ca94f570",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "16b382a43e6b1e0d8335e05fe70ce8de2b4c0850670b5d4497075b27414c0a8a",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "final-false-Less": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "1b103dd1a747c858f11c3d141b746cda0d931190e6b86c81e1ff063bad0b9809",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "6f73f9b0c73e820052ee0e2adb81a8e70977cd2ba794349b8f9cadf41f47eaa3",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "649493b1899f667c84ce5b661fe34bc825b3c2eccf6b3f96721ea79f71cd82fb",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "84828f59adc4bdf5e1c4c07e1cf988845625d4225464448c6bb703effa6174d4",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "c8144ae0ebb11d564c7dda53e29d5e58ecedd3f9a51f4d0595b1e8250ba87e54",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "final-false-swapped": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "068ace7465d5a728e0ab4d7b6e756208c1e22302068e8cd140b4e9f85637d371",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "eec7ad3e2c4d92d3b3831b0918c10ffa9f072c66fcec57dcec84cb7a5f94c69d",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "a4338e55a31e58f356eb6fbebe94a1945765630a066b394e201fe3891c6d9121",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "592f77d6d3843a949a067b9afdd252d66328ee58109516a19232aed0b87e170c",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "7ff7e4974c4b890c01d285588f60594c35b90770dbe4166c09987c6c64eb8aac",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "independent-alias-arguments": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "a0b1976f5901e6574b1b6dc52ababf5b38271cf26af4e007cf4494f63e829227",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "e7dfa8aca547b06293e48ded5c635da25ce4e69fc68e50ef283a02534871f63f",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "c79dce17ec4729580967ca78347b3937ac80696da72a76f9f585932a44bcc616",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "b0e0f1db886446e542a118cf48360341307b563c4f316f58ad4154da1aced745",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "2353d571ca41f3c3b647e0cc3b786340b90c755838edb5c2437178c19a007c9b",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    },
+    "proof-wrapper-auxiliary": {
+      "wrapper::BorTag::eq": {
+        "cache": "miss",
+        "candidate_id": "5f1adcfec1b6c5827084ff4b3a2dcee95d5baae077cdcf944f08905d51989346",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(self) == wrapper::BorTag::__verus_infer_nonzero_u64_view(other)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_ge": {
+        "cache": "miss",
+        "candidate_id": "8b0842c39add23952888f983fda6527b7e55724873896edc0998db4e63c17d35",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) >= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_greater": {
+        "cache": "miss",
+        "candidate_id": "d0c0e620885f8f28c4a943232ee9589c22c36f59c3c5d9723eb4949a7936a2ef",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) > wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_le": {
+        "cache": "miss",
+        "candidate_id": "c0e6a7d477fb7a4f505a01dbb77c6daaae14e3090b49a38d5e0ad0525730dd1f",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) <= wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      },
+      "wrapper::inferred_less": {
+        "cache": "miss",
+        "candidate_id": "ce789c7a5b518667f6ef5ddbcd9cfe9475affebbc39baaef5bec6717b5c73e83",
+        "contract": {
+          "ensures": "(result == (wrapper::BorTag::__verus_infer_nonzero_u64_view(a) < wrapper::BorTag::__verus_infer_nonzero_u64_view(b)))",
+          "requires": "true"
+        },
+        "dependencies": [],
+        "mode": "exact",
+        "proofs": {
+          "exactness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          }
+        }
+      }
+    }
+  },
+  "canonical": "inherited6/0",
+  "controllers": {
+    "additional.py": "cd0e752d3baf32fd913e6a47883398e719eca0d933ed57fa9083ccca2daf5c03",
+    "audit.py": "ae120e996414adf23524b4385269ea065b9e2becbc701f794db30636480e4cca",
+    "authenticate.py": "2af9b0dc08392bc33c3b90941bfe8842555e975e4986d98153cc49f0294311aa",
+    "build.py": "89e261691b71e14e3581c975e51d15afc2a9302fb004b11521e5080cd1e3af2e",
+    "checks.py": "ff475e1d14d8d597b8fc125fb65c408700044db24b30940df48a7d131e49a0ce",
+    "controls.py": "688841c253b4d10fd690d10c2ff95b955a15c390f36fe94049355b42b3b569f8",
+    "extra.py": "6c0208b03af33b616e5e11f2ac0bccdacc08aff8b39c988409bcfb87c97cd9e7",
+    "fixtures.py": "3a63f28bfc02477981c189718a05857f42bc63011dd8e0132ad843926398b84c",
+    "global_controls.py": "c0b6329284034d8c004adf986c20b5e6811d164b53715aff3b7000bc213e3c39",
+    "mir_inventory.py": "a3125480e0ab0e86377e3c1986aa58a4480648c1e065baa479e55bd15f257070",
+    "resume.py": "fb6c02ff115c585e34b453ab9d317d34df25ff167e269c3a7af782ce8200a6ff"
+  },
+  "decision": "accept_bounded_local_wrapper_source_stage",
+  "excluded_setup_sha256": "5bdd891888bb482bf8408a1cdf7da15e0154304dfc1edc08aabaa918b2feef0f",
+  "findings": [],
+  "goal_complete": false,
+  "historical_authentication_sha256": "02c1a5dd2098e0fb7989858ed337e357517cf4b5e6552c1e6e8f2b1d90d11a7a",
+  "native_correspondences": 0,
+  "native_scope": {
+    "final-exact-v3-cold": {
+      "checked_exec_bodies": 16,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:16: 5:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:40: 5:42"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:56: 5:59"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::eq",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:29: 5:38"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:44: 5:54"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:23: 5:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::OrdSpecImpl>::cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::obeys_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::OrdSpecImpl>::obeys_cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::obeys_eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::obeys_partial_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialOrdSpecImpl>::obeys_partial_cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::partial_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialOrdSpecImpl>::partial_cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_derived_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_derived_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_eq",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_derived_partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_partial_cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_nonzero_u64_view",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::greater",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "greater",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:20:1: 20:45"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::greater_equal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "greater_equal",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:21:1: 21:51"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_ge",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_ge",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:27:16: 27:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_greater",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_greater",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:26:16: 26:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_le",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_le",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:25:16: 25:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_less",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_less",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:24:16: 24:63"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::less",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "less",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:18:1: 18:42"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::less_equal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "less_equal",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:19:1: 19:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::observe_inferred",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "observe_inferred",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:28:9: 28:53"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::partial",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "partial",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:13:1: 13:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::same_reference",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "same_reference",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:16:1: 16:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:10:1: 10:47"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::value",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "value",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:9:1: 9:41"
+        }
+      ]
+    },
+    "final-exact-v3-warm": {
+      "checked_exec_bodies": 16,
+      "checked_proof_bodies": 0,
+      "complete_selected_scope_verified": true,
+      "coverage": "selected local Verus items; not all Rust code",
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ],
+      "native_collection_completed": true,
+      "native_functions": [
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::clone",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:16: 5:21"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:40: 5:42"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:56: 5:59"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::eq",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:29: 5:38"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::BorTag::partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:44: 5:54"
+        },
+        {
+          "automatically_derived": true,
+          "body_status": "outside_selected_scope",
+          "function": "<BorTag as std::hash::Hash>::hash",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:5:23: 5:27"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::OrdSpecImpl>::cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::obeys_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::OrdSpecImpl>::obeys_cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::eq_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::obeys_eq_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialEqSpecImpl>::obeys_eq_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::obeys_partial_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialOrdSpecImpl>::obeys_partial_cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::partial_cmp_spec",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialOrdSpecImpl>::partial_cmp_spec",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_derived_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_derived_eq",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_eq",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_derived_partial_cmp",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_derived_partial_cmp",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::BorTag::__verus_infer_nonzero_u64_view",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "BorTag::__verus_infer_nonzero_u64_view",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:4:1: 4:56"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::greater",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "greater",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:20:1: 20:45"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::greater_equal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "greater_equal",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:21:1: 21:51"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_ge",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_ge",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:27:16: 27:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_greater",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_greater",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:26:16: 26:66"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_le",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_le",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:25:16: 25:61"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::inferred_less",
+          "inference_candidate": true,
+          "ordinary_contract": false,
+          "rust_function": "inferred_less",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:24:16: 24:63"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::less",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "less",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:18:1: 18:42"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::less_equal",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "less_equal",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:19:1: 19:48"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::observe_inferred",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "observe_inferred",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:28:9: 28:53"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::partial",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "partial",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:13:1: 13:57"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::same_reference",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "same_reference",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:16:1: 16:33"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "checked_exec_body",
+          "function": "wrapper::total",
+          "inference_candidate": false,
+          "ordinary_contract": true,
+          "rust_function": "total",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:10:1: 10:47"
+        },
+        {
+          "automatically_derived": false,
+          "body_status": "specification_definition_or_declaration",
+          "function": "wrapper::value",
+          "inference_candidate": false,
+          "ordinary_contract": false,
+          "rust_function": "value",
+          "selected": true,
+          "source": "/tmp/nonzero-wrapper-ordering-ui1zg3af/source-bec6ff700f89b396fb9f75e84c1029a38f64f1e1b834467aa6a4f76fd48d9514.rs:9:1: 9:41"
+        }
+      ]
+    }
+  },
+  "new_standard_laws": 0,
+  "open_obligations": "44+3/101 OPEN",
+  "ordering_exports": 0,
+  "ordering_imports": 0,
+  "ordinary_body_queries": {
+    "final-exact-v3-cold": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "740906faa1be0a53f2bc825276272d73c7374947618d0d116f2d2eb403e595ff",
+        "query_sha256": "7631453c314ac2ce30424251cb292116508eda807e1b940fbe74326b43d41f74"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "11b4687fe4d0427aafe4ec9b628960026fcf66f54fbc4354e62926f098a6de37",
+        "query_sha256": "1eb2c66d66d5e079cd08a974f32b33875b67ec70cdd8c5047ef96659b60cfddc"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "fba36774158a48320bc0196c1cdf2383ff2557b69526c09d6f129a3f42314d94",
+        "query_sha256": "969ffae2b86d8679f4da36ba8981d0836961ef7d2559f6ed4c2b529fdb00ec67"
+      }
+    },
+    "final-exact-v3-warm": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "740906faa1be0a53f2bc825276272d73c7374947618d0d116f2d2eb403e595ff",
+        "query_sha256": "7631453c314ac2ce30424251cb292116508eda807e1b940fbe74326b43d41f74"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "11b4687fe4d0427aafe4ec9b628960026fcf66f54fbc4354e62926f098a6de37",
+        "query_sha256": "1eb2c66d66d5e079cd08a974f32b33875b67ec70cdd8c5047ef96659b60cfddc"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "fba36774158a48320bc0196c1cdf2383ff2557b69526c09d6f129a3f42314d94",
+        "query_sha256": "969ffae2b86d8679f4da36ba8981d0836961ef7d2559f6ed4c2b529fdb00ec67"
+      }
+    },
+    "final-false-Equal": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "add943ba896c7b1c92233f3aa767b5714f535b9a898cfe7804cd03aa3417f9e3",
+        "query_sha256": "95736c42e1a68909cce204d9a98b539ac6571c52b3b26c4fda6e2456cc050c5b"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "9047e8d3332de9ef4ee93a82816fbfe3707115409e314f9bb9f56e94d2aaf9c5",
+        "query_sha256": "2341bebd51dce9ecc4c0409a2d0d66cbe97313212a08b1d1fb69bfe7ce1a96a7"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "c6c4d54a07f385056b11fe4c36cc0853409d8717f3f3d5d99357863aa6271043",
+        "query_sha256": "bbef6a257e3796c0e64a233cb4972eba278ec0c841a4975a0d8cafa29b070ee5"
+      }
+    },
+    "final-false-Greater": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "2c4f44fe7f1d4b49ea6dbc2ac5ec4a29a0bbfab0f13b4773e12f18f388b9affa",
+        "query_sha256": "ff4822a6b2229bacab6e5cb8f8d585492cd5b865ab6b334ef2588cf61174920c"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "a5745fe7f14afb80ee32ba80aebbc80d2d2f964078560d692af283d867e1cc0c",
+        "query_sha256": "80e3b074d33add19b51582016d49f93013698365dea6c1889103a55ed6027dbe"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "7186e0e7d47c967e9d4411a9dee8dd61178c8c414ae04e75b20be5b144f6f0f5",
+        "query_sha256": "11608d988e5cbbdbace0f482b82c239b42672ab5d9db62a0c35292b280e78d27"
+      }
+    },
+    "final-false-Less": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "9745d001ec0175994d07c244e0c7c2d4fe8bbf5a012922972175c59e34dcdefb",
+        "query_sha256": "3eab8294d377e4fcd83323e66a5b1a2be9e1d9980a06681daefbbf9a837090c5"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "bff1f73213ec6d987b6a8b4673fce666be2e73cf03b56e8188e7a22fea5257c8",
+        "query_sha256": "e0f07b28056990305882e0de6d1da025e082064d2ae020a5cc4f4ae7940b5c0d"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "3dc088346da8d20b690c2a5100aec261029b822f6d8f20e41bd1cbcfedbf41fe",
+        "query_sha256": "415ac71b86836979816257bd7f464711800a767b6580962e1ba1547dc9b3fa4d"
+      }
+    },
+    "final-false-swapped": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "100605c16365e644d04a832b176b5fd6b712a5bc2b951854a4a5ab62f900a439",
+        "query_sha256": "099fa78e116ebe8ef6e3e644bdaf4bcbaa07fd88fd31f662c0eb30cd2e8e55bf"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "dd5caa19a92f2761b8aa0440ab7ddb7b4ba65b6b69d36457f49ef49d2beb67df",
+        "query_sha256": "87d913dd28a9fd9934f3256dde3dc82c547c25da50e8afe5b7762e5fd877a023"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "51e01f2c28aed9a71dbda92a419f75ecb14fd23e4f6a58ea44f792beb0817097",
+        "query_sha256": "47342ee54a41c1f80f996905a9be85094a704b1aedcd5119cff9ba705941502a"
+      }
+    },
+    "independent-alias-arguments": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "b7f14f859ea2da373aecbcb51f5803f3f1bbe4dccbac7c3fe9b9d4fa227b96e5",
+        "query_sha256": "8fbb331f96a82d4e34f6fd5c62ecfc9c9db7309a65d66f31bf41e9c954e411f1"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "9cad350e0673e112aeca6f02119560e11995d3e5b4881a335d132b45d8dddf3a",
+        "query_sha256": "abd3fa383492cbe07d5fff78fff073fe7f7955d7d6ec28008b8381614d6359b8"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "0ae075b452e41fdaf54f007200e53d9c5b840c826585a5ffbbc4b41d5a4069d5",
+        "query_sha256": "4431ea550945aabd8d13546823e4f46427c6f30af619100b0b6487cb978c793b"
+      }
+    },
+    "proof-wrapper-auxiliary": {
+      "wrapper::BorTag::cmp": {
+        "actual_Function_name": "wrapper::impl&%8::cmp",
+        "actual_Function_sha256": "518f5ffce9cf56ea121fb5b3c957641acef1b89e52cea26c69c64dbcf52fe733",
+        "query_sha256": "571f70cbee422312be83740d3eab3b9963582e6d4f48032ad5caa36af2e2d2f6"
+      },
+      "wrapper::BorTag::partial_cmp": {
+        "actual_Function_name": "wrapper::impl&%7::partial_cmp",
+        "actual_Function_sha256": "ad5f01fb3ef4363ec37e5bf2f3ded22eba3c1873a07a2d02061ebd16e61d5756",
+        "query_sha256": "017e23fe44be1ba6a5ae525673f09e7e775539395dc958855dcef5a18eb0bba4"
+      },
+      "wrapper::checked_nonzero_u64_ord%": {
+        "actual_Function_name": "wrapper::checked_nonzero_u64_ord%",
+        "actual_Function_sha256": "a58dad295e237751b3c8c9aec373f88234d0ff22c79666146e6aad8bc5a4d32d",
+        "query_sha256": "05e73c9e8ad6fa1f048cdae750649746984d603abacd0ed08a21b83ba980cb19"
+      }
+    }
+  },
+  "ordinary_query_inventory": {
+    "final-exact-v3-cold": {
+      "wrapper::BorTag::clone": "95feb966970d5549840aa6fea1834e4e8fdf844eac35f4a142af19bd28553662",
+      "wrapper::BorTag::cmp": "7631453c314ac2ce30424251cb292116508eda807e1b940fbe74326b43d41f74",
+      "wrapper::BorTag::ctor%": "83c8f258c61be30940563445731df4961a3ece8c9663da07b02971f0f9f88aa6",
+      "wrapper::BorTag::partial_cmp": "1eb2c66d66d5e079cd08a974f32b33875b67ec70cdd8c5047ef96659b60cfddc",
+      "wrapper::checked_nonzero_u64_ord%": "969ffae2b86d8679f4da36ba8981d0836961ef7d2559f6ed4c2b529fdb00ec67",
+      "wrapper::greater": "eb67877f57ca8970ddd95697e1195cb672a7b041ebd26cff1cd195b073378992",
+      "wrapper::greater_equal": "610ed98a667023c606831f35413e21a4232094a9ab20bdc18f7277c7032ce6cb",
+      "wrapper::less": "f99f808da8524258cf5e363dd34cec8e6d2bc2246956c5bd0097486924787f3e",
+      "wrapper::less_equal": "98838a0c553f80e8035c4a2fbfe280ddc2beefcf4cd015ab580d8f7297ef8341",
+      "wrapper::observe_inferred": "83454ec7dad98ef92672bb10182aa883cc488339853d5d2af991285638628af7",
+      "wrapper::partial": "6b533cb015c92e82ba0ac984d4f309f69a45bbfcf0e5377a77368c9ce557a18b",
+      "wrapper::same_reference": "14a16071d6932c35f51f88d3934cb30a5a5361e0772dce1c4ae7bab90a77c3b9",
+      "wrapper::total": "ffa7311aefda9d4f6a56952efd524984ad63f81adcb48959e16e137d080b3984"
+    },
+    "final-exact-v3-warm": {
+      "wrapper::BorTag::clone": "95feb966970d5549840aa6fea1834e4e8fdf844eac35f4a142af19bd28553662",
+      "wrapper::BorTag::cmp": "7631453c314ac2ce30424251cb292116508eda807e1b940fbe74326b43d41f74",
+      "wrapper::BorTag::ctor%": "83c8f258c61be30940563445731df4961a3ece8c9663da07b02971f0f9f88aa6",
+      "wrapper::BorTag::partial_cmp": "1eb2c66d66d5e079cd08a974f32b33875b67ec70cdd8c5047ef96659b60cfddc",
+      "wrapper::checked_nonzero_u64_ord%": "969ffae2b86d8679f4da36ba8981d0836961ef7d2559f6ed4c2b529fdb00ec67",
+      "wrapper::greater": "eb67877f57ca8970ddd95697e1195cb672a7b041ebd26cff1cd195b073378992",
+      "wrapper::greater_equal": "610ed98a667023c606831f35413e21a4232094a9ab20bdc18f7277c7032ce6cb",
+      "wrapper::less": "f99f808da8524258cf5e363dd34cec8e6d2bc2246956c5bd0097486924787f3e",
+      "wrapper::less_equal": "98838a0c553f80e8035c4a2fbfe280ddc2beefcf4cd015ab580d8f7297ef8341",
+      "wrapper::observe_inferred": "83454ec7dad98ef92672bb10182aa883cc488339853d5d2af991285638628af7",
+      "wrapper::partial": "6b533cb015c92e82ba0ac984d4f309f69a45bbfcf0e5377a77368c9ce557a18b",
+      "wrapper::same_reference": "14a16071d6932c35f51f88d3934cb30a5a5361e0772dce1c4ae7bab90a77c3b9",
+      "wrapper::total": "ffa7311aefda9d4f6a56952efd524984ad63f81adcb48959e16e137d080b3984"
+    }
+  },
+  "proof_artifacts": {
+    "final-exact-v3-cold": {
+      "crate-simple.vir": "d1eb3710a4125c35233d88671845392778440c1352a27be4ef5ee14744ea5d51",
+      "crate.impl_names": "ac243cd6b53e0dbf25c69f6cd3324d885327d5a409ec81d28d1005d4d6d07731",
+      "crate.vir": "ec87a02b1f8aaf4cda7f4048f3cbee60743066e2f1e76afc1aeafb1cbbe877e0",
+      "impl&%5__eq-final.air": "35002bcfe06dff162251f7978ad3193c0a50cb1aa70159c651ddd7d9a5de9a06",
+      "impl&%5__eq-poly.vir": "74e1777dc8feb9d2fa35cca1a399dc0fd7d7998e9489494fab3e443d5701d604",
+      "impl&%5__eq-sst.vir": "17743e111021b153e8779b266b98afbdbc0f3089f9c6183f1451ea5f92115d4d",
+      "impl&%5__eq.air": "16335398face4ba9e69acee8d2aa47eef78ce44f6b2ebcb21d6b5ad152fef0fd",
+      "impl&%5__eq.smt_transcript": "e671e7f9d374e58eeabbf3d48aafe3f01a9ce64e17d7ec4971e9d81e0af589bf",
+      "inferred_ge-final.air": "8ca61d13ae2005da336e2cd293639918773a5c195105a3af6caf4dc1081342cd",
+      "inferred_ge-poly.vir": "370c2ee24fb0a0957b7a9c6afeaff64400f4b0e456d91efe8c62fc58ac09e0d5",
+      "inferred_ge-sst.vir": "1d413ba34df1e34f1a56a05c65148c3649ef4f4418fa93f4816a98f98ccd083c",
+      "inferred_ge.air": "cc2c783bb6593f695b754e9db5ff269cb9f0ece3c11e24b88b4c51962fe1ebee",
+      "inferred_ge.smt_transcript": "c73a3d336ba632834bd523e041310f209574a0308462a349869a45cb66e18109",
+      "inferred_greater-final.air": "3525e9052ff4f8168cf882dbd39fca0e925fed9637d87a9a4dd8de3187d03b0d",
+      "inferred_greater-poly.vir": "99bbd37fbb1fbe7b313e17125c1125ca29912edb324065c9eb9ee144e32095b2",
+      "inferred_greater-sst.vir": "55fa67a75f3ab1286c70ace2940d632ac054246427565a2be0662f28073e9513",
+      "inferred_greater.air": "b122a217ceb6c6e1ba6c6643ced7874ca2d41c6000ccbe21caf4f4c582a11c69",
+      "inferred_greater.smt_transcript": "3b99c2e8312147fbe8854b302d209c6810b576c020ca6af13fd579c064a271bd",
+      "inferred_le-final.air": "fe6d0cb13e90ed9960f05dfe8c24daef855d1e98c919dfb48a62d9468373a721",
+      "inferred_le-poly.vir": "dcc4bf5651e150f443ab34082934d897f3e1d5c7c313a93f394eeb0f27719b80",
+      "inferred_le-sst.vir": "81343fd93648330e0caa9300010cf5b70e5e46b521d967d190fc81d482ec7583",
+      "inferred_le.air": "0e3ebfbf58a838f5b38526a954705a0770a67f45df522262fc6586c89b4366c0",
+      "inferred_le.smt_transcript": "6c8c5d29150052fd4e03a8652e17049017671c5b90b6820d81f23c13a8b6c06a",
+      "inferred_less-final.air": "0c3f38a13b524ba620f675b2e6b228f2e8e83f4233c62ecc21cf07ff0f1b545f",
+      "inferred_less-poly.vir": "dacde3f8ad5ae83bf4732f13959c9696f5b8d6a20ed06a67f8b6acb076d21053",
+      "inferred_less-sst.vir": "edf28db4643dfcfd8c6cec3a195461f5a563c96dcef3416d4e987d5881610423",
+      "inferred_less.air": "bbfa77486d7b65e03e1a62c11766ab0297bd01d19db71b88de13a67b21f5def3",
+      "inferred_less.smt_transcript": "0914f64b55af1168528fd29643d6026d7004bca99e05f6e55e23b6532319030a",
+      "root-final.air": "bf06da0706892007b6234dd2b7bf1ca63d8f2b413e9424a2ac40b8d0debf12d6",
+      "root-poly.vir": "8d2851da3b0ed5b299ac1f1a96d1c9ccb1dc78eb980834bc1248e93ff8d04c46",
+      "root-sst.vir": "d660b41ce10291be11488b17116694660fca7e882a5b456a1a1fc8eaa51bdc68",
+      "root.air": "ae947cd8d487f030c56cb8424fc38c60ae561a644252b78a6a40d9815b567ac2",
+      "root.smt_transcript": "3693e72eb0eb30cb249e596aece8f624bd665ca9c4f50d822225cd0833743384"
+    },
+    "final-exact-v3-warm": {
+      "crate-simple.vir": "f98add06a93d8f960b76b9a56b97c563cf722fa165291910d2b8251e523058fc",
+      "crate.impl_names": "ac243cd6b53e0dbf25c69f6cd3324d885327d5a409ec81d28d1005d4d6d07731",
+      "crate.vir": "b17623baf37a268318c23e72563f3ac1d47b47743d0555c52acd16046f6979f4",
+      "impl&%5__eq-final.air": "35002bcfe06dff162251f7978ad3193c0a50cb1aa70159c651ddd7d9a5de9a06",
+      "impl&%5__eq-poly.vir": "fb1ed118c64e4d8e412e8da13bea805865385efbe7e972f0eef252b100ca4dc5",
+      "impl&%5__eq-sst.vir": "e6b0c2e35cfd728876718951dbed01e89cb19a94c122d6f1950eb085995fa14f",
+      "impl&%5__eq.air": "16335398face4ba9e69acee8d2aa47eef78ce44f6b2ebcb21d6b5ad152fef0fd",
+      "impl&%5__eq.smt_transcript": "e671e7f9d374e58eeabbf3d48aafe3f01a9ce64e17d7ec4971e9d81e0af589bf",
+      "inferred_ge-final.air": "8ca61d13ae2005da336e2cd293639918773a5c195105a3af6caf4dc1081342cd",
+      "inferred_ge-poly.vir": "b00773870f2b2547646db19f59b3b43180a853b41857ebc1e4b22c281ba0855c",
+      "inferred_ge-sst.vir": "3257a9778f4a228ed7e89a35ea22c431acb94f73381f9b691942fe7038301e4a",
+      "inferred_ge.air": "cc2c783bb6593f695b754e9db5ff269cb9f0ece3c11e24b88b4c51962fe1ebee",
+      "inferred_ge.smt_transcript": "c73a3d336ba632834bd523e041310f209574a0308462a349869a45cb66e18109",
+      "inferred_greater-final.air": "3525e9052ff4f8168cf882dbd39fca0e925fed9637d87a9a4dd8de3187d03b0d",
+      "inferred_greater-poly.vir": "daa229e5508e1f6d7e596ce5697cf3fd0fe3df8d578ae993c87abbb477728224",
+      "inferred_greater-sst.vir": "2ed372fe2233e7c124d2bb743c6319962f64caf5ed6e1fad679f06b18e19281f",
+      "inferred_greater.air": "b122a217ceb6c6e1ba6c6643ced7874ca2d41c6000ccbe21caf4f4c582a11c69",
+      "inferred_greater.smt_transcript": "3b99c2e8312147fbe8854b302d209c6810b576c020ca6af13fd579c064a271bd",
+      "inferred_le-final.air": "fe6d0cb13e90ed9960f05dfe8c24daef855d1e98c919dfb48a62d9468373a721",
+      "inferred_le-poly.vir": "ee7aec7284b89bc8b1c7e3e5c2632cb38cb12c3b15392d2f3d0371228a2a1762",
+      "inferred_le-sst.vir": "138d4386941aac79443998e1f8da9877dddec71d0a2420f8fa199a19d29dca67",
+      "inferred_le.air": "0e3ebfbf58a838f5b38526a954705a0770a67f45df522262fc6586c89b4366c0",
+      "inferred_le.smt_transcript": "6c8c5d29150052fd4e03a8652e17049017671c5b90b6820d81f23c13a8b6c06a",
+      "inferred_less-final.air": "0c3f38a13b524ba620f675b2e6b228f2e8e83f4233c62ecc21cf07ff0f1b545f",
+      "inferred_less-poly.vir": "a2dc0e016f43bca0a269504c2661716d9462f3907febc0709f355e1efaee75a1",
+      "inferred_less-sst.vir": "83b585f7f2723df6f64cb0bec77d04e5c44a9168a747e1f2f32d0cd63aabf492",
+      "inferred_less.air": "bbfa77486d7b65e03e1a62c11766ab0297bd01d19db71b88de13a67b21f5def3",
+      "inferred_less.smt_transcript": "0914f64b55af1168528fd29643d6026d7004bca99e05f6e55e23b6532319030a",
+      "root-final.air": "bf06da0706892007b6234dd2b7bf1ca63d8f2b413e9424a2ac40b8d0debf12d6",
+      "root-poly.vir": "269bd82132a504b9f5ec24fb0aa94213f1a5eb19a07dfe94eb04e0f156d0e1dc",
+      "root-sst.vir": "338197d43ee18103902562d79595d57fcfca61bc58582e21df002672032a36eb",
+      "root.air": "ae947cd8d487f030c56cb8424fc38c60ae561a644252b78a6a40d9815b567ac2",
+      "root.smt_transcript": "3693e72eb0eb30cb249e596aece8f624bd665ca9c4f50d822225cd0833743384"
+    }
+  },
+  "proposals": {
+    "proposal-swapped_view": {
+      "classification": "inference rejection; dependent helper checks not credited",
+      "proofs": {
+        "wrapper::inferred_ge": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_greater": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_le": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_less": {
+          "exactness": {
+            "reason": "solver_did_not_establish_obligation",
+            "required": true,
+            "status": "not_proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": "solver_did_not_establish_obligation",
+            "required": true,
+            "status": "not_proved"
+          }
+        }
+      },
+      "receipt_sha256": "7a08d1740370eb9854b4fe21b64f0b23cd4aaf5fae7ea7c363e30c041b2c4bb3"
+    },
+    "proposal-weak_view": {
+      "classification": "inference rejection; dependent helper checks not credited",
+      "proofs": {
+        "wrapper::inferred_ge": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_greater": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_le": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_less": {
+          "exactness": {
+            "reason": "solver_did_not_establish_obligation",
+            "required": true,
+            "status": "not_proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": "solver_did_not_establish_obligation",
+            "required": true,
+            "status": "not_proved"
+          }
+        }
+      },
+      "receipt_sha256": "7edeeea0b7752f40ed3918b6685bde7bb43caa7448011d5547ad45ae7ec42130"
+    },
+    "proposal-wrong_view": {
+      "classification": "inference rejection; dependent helper checks not credited",
+      "proofs": {
+        "wrapper::inferred_ge": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_greater": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_le": {
+          "exactness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "maximality": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          },
+          "soundness": {
+            "reason": "check_not_run",
+            "required": true,
+            "status": "not_established"
+          }
+        },
+        "wrapper::inferred_less": {
+          "exactness": {
+            "reason": "solver_did_not_establish_obligation",
+            "required": true,
+            "status": "not_proved"
+          },
+          "maximality": {
+            "reason": null,
+            "required": true,
+            "status": "proved"
+          },
+          "soundness": {
+            "reason": "solver_did_not_establish_obligation",
+            "required": true,
+            "status": "not_proved"
+          }
+        }
+      },
+      "receipt_sha256": "2b22d29e4b82390b5b991f348a991949c7d430b5547c061ef8ad084593ea8365"
+    }
+  },
+  "publication": false,
+  "refusals": {
+    "final-disabled-no-erasure-check-both": {
+      "local_only": false,
+      "receipt_sha256": "ee0730dc804b4b0669997653019bad8315fc884ae15f764ceab47feb3dfd5069",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-erasure-check-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-erasure-check-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-disabled-no-erasure-check-explicit": {
+      "local_only": false,
+      "receipt_sha256": "6ab75faae702b71128ed55abe0577ce6d3f4e19e6ada466efdb8a0eb4173db15",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-erasure-check-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-disabled-no-lifetime-both": {
+      "local_only": false,
+      "receipt_sha256": "abdd39bd7e3f38f746744b8b1e88342c855a5b96aba4526e57a47c4f9ecc831e",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-lifetime-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-lifetime-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-disabled-no-lifetime-explicit": {
+      "local_only": false,
+      "receipt_sha256": "de7a777d375e27ad744cf580f69f9e3577fdc6314d6346b386de7a15170f4f78",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-lifetime-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-disabled-no-trait-conflicts-both": {
+      "local_only": false,
+      "receipt_sha256": "2fda1df030ce6b78eb5568961a69c55403f88c817f6ca4b7625ae45123ed303c",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-trait-conflicts-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-trait-conflicts-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-disabled-no-trait-conflicts-explicit": {
+      "local_only": false,
+      "receipt_sha256": "8d232988b8b2a5efbd08652b3e67ab926f77df5c43db02085f4db4e3343dea91",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-trait-conflicts-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-disabled-no-verify-both": {
+      "local_only": false,
+      "receipt_sha256": "09241a789476b47591373562cc66dd17e177a0891845a70c49dfe7b86925deea",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-verify-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-verify-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "final-disabled-no-verify-explicit": {
+      "local_only": false,
+      "receipt_sha256": "f488d177d623fb6f219574ad393c8e33ce789cd9f974a7e7bf8661841822b016",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-disabled-no-verify-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "final-export-mixed-both": {
+      "local_only": true,
+      "receipt_sha256": "bd4ad8e3b9cd97a746a536a3504fd7268f8b98c9c2e7d22aabae9cfb1ce6945d",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-mixed-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-mixed-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-mixed-cargo": {
+      "local_only": true,
+      "receipt_sha256": "92354873aa3d9ec20828a9521523929e1c87d88b6b8e94561d46429de0f06633",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-mixed-cargo/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-mixed-equal": {
+      "local_only": true,
+      "receipt_sha256": "9c18e4470c3bdbde8323f6f9389df9ba34241fb74710ade5fa0eab8837ae390a",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-mixed-equal/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-mixed-explicit": {
+      "local_only": true,
+      "receipt_sha256": "75ae7359be6e84349a10550b609f81551f92b05f5d7dcd6329cf4b04f80f2813",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-mixed-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-private-both": {
+      "local_only": true,
+      "receipt_sha256": "b57f444819fed41f6d0453215f7ee4682c5d37e61ddd7efcd79104ef55b031b9",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-private-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-private-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-private-cargo": {
+      "local_only": true,
+      "receipt_sha256": "78dd8f0e471b04bb86c476fe555750a81dbf8635162f76fdb90830575c58036f",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-private-cargo/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-private-equal": {
+      "local_only": true,
+      "receipt_sha256": "9122e57e9a84b2503ee4b9adbda53c8307db9e9064918772e7a334ae1edcb284",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-private-equal/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-private-explicit": {
+      "local_only": true,
+      "receipt_sha256": "e8f0dd24be3233f351cd800a7c3906a0da16e2d84ef83fe3e85258bb19e82d32",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-private-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-wrapper-both": {
+      "local_only": true,
+      "receipt_sha256": "e3a87c51bc7d7f9f579f774d77977a3e9bd398949b37c73ccf290c708414d851",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-wrapper-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-wrapper-both/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-wrapper-cargo": {
+      "local_only": true,
+      "receipt_sha256": "7404ae32678ab0623f5d2da320caa1ade8e1dfd4e8b41e7e3f7d8338549d92e4",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-wrapper-cargo/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-wrapper-equal": {
+      "local_only": true,
+      "receipt_sha256": "1f60546bfc36fb979f43538e5da756c1a8a8ecd77d909560c04f3c8db3e3566a",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-wrapper-equal/libwrapper.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "final-export-wrapper-explicit": {
+      "local_only": true,
+      "receipt_sha256": "472ddd06491284f8b068d4c6d7c117195eac1178298f9015f67ee4efabffaf7e",
+      "selection": {
+        "paths": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/final-export-wrapper-explicit/selected.vir"
+        ],
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": true
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-mixed-both": {
+      "local_only": true,
+      "receipt_sha256": "c77421ada09618b80e38c3d030aa1f13acc6773c979206fe17203b02787bc546",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-mixed-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-mixed-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-mixed-cargo": {
+      "local_only": true,
+      "receipt_sha256": "5102fcd317ebd92c1efbef23a9f67b1be2ab91640c720deed326f1aaed70ad81",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-mixed-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-mixed-equal": {
+      "local_only": true,
+      "receipt_sha256": "020959828b614b2c86cf4c3f7dafcd94a689ef68937ca6d534e571f02c81d86d",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-mixed-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-mixed-explicit": {
+      "local_only": true,
+      "receipt_sha256": "c749933ca92d365b2d0e06e9507ede2c790acc87a9d527dbae68a0639b0a0f2e",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-mixed-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-private-both": {
+      "local_only": true,
+      "receipt_sha256": "7430b6a8b2942e8515bd5cea445146c975290c017197555645ec05d1c0c32ac9",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-private-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-private-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-private-cargo": {
+      "local_only": true,
+      "receipt_sha256": "4ca92bdeb7c9f6e4353ca593eebfc82f13ee4f6da93286f1345894618b3ecaae",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-private-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-private-equal": {
+      "local_only": true,
+      "receipt_sha256": "4ac7b3c30720626f6725a9eb7cc44ba04526483fab9fc33262a2c83f66e1a3fa",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-private-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-private-explicit": {
+      "local_only": true,
+      "receipt_sha256": "5ead466b814488579109012a39feb44b7921fa5d0e103f0c49a7ce26e13d6ca1",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-private-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-wrapper-both": {
+      "local_only": true,
+      "receipt_sha256": "829293298d1b80f92dd08b572eef08c0cd0ae12b60f6e455040e79aa0c4eec1c",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-wrapper-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-wrapper-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-wrapper-cargo": {
+      "local_only": true,
+      "receipt_sha256": "312cac56b6b23de671c4ca1d83727e906e66ab7906ed5476702de36ad9091b2a",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-wrapper-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-wrapper-equal": {
+      "local_only": true,
+      "receipt_sha256": "54c1b80950c02343240731781fa62c1bb108ee049d91f4c140c8d227b33f23c0",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-wrapper-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-off-wrapper-explicit": {
+      "local_only": true,
+      "receipt_sha256": "73db64e7947f00ce349b968797fc9296d338d2bf4e6d7ec02e2ce62fe97cd96b",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-off-wrapper-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-False-both": {
+      "local_only": true,
+      "receipt_sha256": "3b66fea81a0f900b3ac6db07907c5919eafb62116289818b0c9fde30044a633a",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-False-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-False-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-False-cargo": {
+      "local_only": true,
+      "receipt_sha256": "0819d25b7e50c3c577495ad0057a7f57eec55dacc553ba370b9b7ccc72ab1109",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-False-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-False-equal": {
+      "local_only": true,
+      "receipt_sha256": "0215223fa1a0b155bcf33c2f51fbdf5d139fdb52931d27f5cbd5403a103746d8",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-False-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-False-explicit": {
+      "local_only": true,
+      "receipt_sha256": "a66cd29986adedf5ab310150b8aeb1e77a25d9d14fdc5adcd01ee1cd04ea36a4",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-False-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-True-both": {
+      "local_only": true,
+      "receipt_sha256": "6eaabe6abaeb89bc9b1ddf67730137b17d6c6fce5735f1a74425ef9e373d74fa",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-True-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-True-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-True-cargo": {
+      "local_only": true,
+      "receipt_sha256": "1ccc56c12b7e53c9aadf50ba5d638235cdec2242764ab0c0eb6c5ce9af71b184",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-True-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-True-equal": {
+      "local_only": true,
+      "receipt_sha256": "548303060cca4d38c7be40496bbba0447d19e1fd8885bd49ef2968154efa61a7",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-True-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "independent-unused-True-explicit": {
+      "local_only": true,
+      "receipt_sha256": "6c92dc7327534e91c30550ddf9171d7b7ab35d96dade812f021910a1eaaa9c7d",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/independent-unused-True-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-off-both": {
+      "local_only": true,
+      "receipt_sha256": "c2029a5c53d36a6b49e4f515c8b75c42a435ceac194a48f619f98bd965c1d201",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-off-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-off-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-off-cargo": {
+      "local_only": true,
+      "receipt_sha256": "ffe46057c06a1f3301018bf70cf908d837330c76f9bb889143cad046ed63abc1",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-off-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-off-equal": {
+      "local_only": true,
+      "receipt_sha256": "8fd4c18764ba385c00778d064cedac0cc1fc15207657a188b500b767bdd5cb91",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-off-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-off-explicit": {
+      "local_only": true,
+      "receipt_sha256": "761ef03540fd57afdbf0185aa6d7b88c4701075a7f521e174095a3bface41dba",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-off-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-on-both": {
+      "local_only": true,
+      "receipt_sha256": "17477b8a9dad9b2be000acd28a36ac674c13ee483c8c15c430274ac60450f488",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-on-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-on-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-on-cargo": {
+      "local_only": true,
+      "receipt_sha256": "10fc1fa13b25f1358a1a5f7b38eca848a4182bd236e5a3a9b4f0f282e0ae9988",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-on-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-on-equal": {
+      "local_only": true,
+      "receipt_sha256": "07e2a649a1d0f36e681bb07edec992f4573c76f56ad24544f5df14ccacadf1ca",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-on-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "partial-request-on-explicit": {
+      "local_only": true,
+      "receipt_sha256": "2800d7d273754f2cf7bf7d56277d1608fb87bb5ad08e3ddb48d0328ff87cb958",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/partial-request-on-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-cargo-prior-refusal-both": {
+      "local_only": true,
+      "receipt_sha256": "433b80dc274571448900ba9d53181d5ebf6ac07087e13e3f30a41653e8647581",
+      "selection": {
+        "prior_policy": "candidate-bound-evidence-v74",
+        "prior_schema": 39,
+        "prior_sha256": "6b6a64ccc4702e6d00b7298d169e5e0c4b8c903a505d7fd4e9b0401bccd96e35",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-cargo-prior-refusal-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-cargo-prior-refusal-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-cargo-prior-refusal-cargo": {
+      "local_only": true,
+      "receipt_sha256": "6985f49fe32a100b41ebbee7ee27e0a3efe3380309bf0ad610bde7aa4c63ba44",
+      "selection": {
+        "prior_policy": "candidate-bound-evidence-v74",
+        "prior_schema": 39,
+        "prior_sha256": "6b6a64ccc4702e6d00b7298d169e5e0c4b8c903a505d7fd4e9b0401bccd96e35",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-cargo-prior-refusal-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-cargo-prior-refusal-equal": {
+      "local_only": true,
+      "receipt_sha256": "16cc84b371ab961f18f8e2ae2fcda39513f77cbbd78e6cc45f70b674b4cb8c75",
+      "selection": {
+        "prior_policy": "candidate-bound-evidence-v74",
+        "prior_schema": 39,
+        "prior_sha256": "6b6a64ccc4702e6d00b7298d169e5e0c4b8c903a505d7fd4e9b0401bccd96e35",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-cargo-prior-refusal-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-cargo-prior-refusal-explicit": {
+      "local_only": true,
+      "receipt_sha256": "6cb4e3f5691d236509b7b1bff3a93feec56f985a845c764f95f85f27aaa2fac4",
+      "selection": {
+        "prior_policy": "candidate-bound-evidence-v74",
+        "prior_schema": 39,
+        "prior_sha256": "6b6a64ccc4702e6d00b7298d169e5e0c4b8c903a505d7fd4e9b0401bccd96e35",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-cargo-prior-refusal-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-export-auxiliary-both": {
+      "local_only": false,
+      "receipt_sha256": "d2801cd37ce2cd8aee586f6a6d8a1493b5b6d8550e659c6c0c3e1a3ac70b0c79",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-auxiliary-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-auxiliary-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "223982d852a3df2c2a4fe534fbd3b2fb29c222cb399e69bac8fe6c45ef74e4b4",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "proof-export-auxiliary-cargo": {
+      "local_only": false,
+      "receipt_sha256": "b8ad967b0bb615992f90a7ffd26379ddffc5b224c3f953dc6c0f6441ad8931e0",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-auxiliary-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "223982d852a3df2c2a4fe534fbd3b2fb29c222cb399e69bac8fe6c45ef74e4b4",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "proof-export-auxiliary-equal": {
+      "local_only": false,
+      "receipt_sha256": "0fcdea75fb27f7c2bbbf23e065cd12491ae7a5b4f2685f4849b42530af05007e",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-auxiliary-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "223982d852a3df2c2a4fe534fbd3b2fb29c222cb399e69bac8fe6c45ef74e4b4",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "proof-export-auxiliary-explicit": {
+      "local_only": false,
+      "receipt_sha256": "542b7448b38f050077c3731aec69875227c85a86b683560a2ad96269ffb12ec2",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-auxiliary-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "223982d852a3df2c2a4fe534fbd3b2fb29c222cb399e69bac8fe6c45ef74e4b4",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 10
+      }
+    },
+    "proof-export-erased-both": {
+      "local_only": false,
+      "receipt_sha256": "371aa6a107b3b0c80bcdd03d48cf1d74106d2f3bba451109d9f64ba2a8b9640d",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-erased-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-erased-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "aee3d0e0313ec579b739b315fc01b1b9186a3e9f670fdfa4a3de8a2f6b69bf60",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "proof-export-erased-cargo": {
+      "local_only": false,
+      "receipt_sha256": "2472b8dcee14dee58fb19a8fa213f964a88f935d82a1e5ff3278aa797f05f14a",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-erased-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "aee3d0e0313ec579b739b315fc01b1b9186a3e9f670fdfa4a3de8a2f6b69bf60",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "proof-export-erased-equal": {
+      "local_only": false,
+      "receipt_sha256": "9be2e9cc4fe483346fb67ae8303c48896f4daa9042a2578473d9c2eec6efd05c",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-erased-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "aee3d0e0313ec579b739b315fc01b1b9186a3e9f670fdfa4a3de8a2f6b69bf60",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "proof-export-erased-explicit": {
+      "local_only": false,
+      "receipt_sha256": "1f854d9f8cc6cee8e41c0d63b28f5f62574018853f38d5217eed242690dd3a8c",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-erased-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "aee3d0e0313ec579b739b315fc01b1b9186a3e9f670fdfa4a3de8a2f6b69bf60",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "proof-export-false_wrapper-both": {
+      "local_only": true,
+      "receipt_sha256": "4b2f01805f7060000729adfd5e64512c92960da136087560aae729793facf173",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-false_wrapper-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-false_wrapper-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-export-false_wrapper-cargo": {
+      "local_only": true,
+      "receipt_sha256": "634ae4bbc6fcb8e309578ed32ad59604963abc0f78fe2f71ba78e28f559978a2",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-false_wrapper-cargo/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-export-false_wrapper-equal": {
+      "local_only": true,
+      "receipt_sha256": "7e8ebbe73dd5db057b3d6b6ef2488a15d76d7c49931f93c17818f17058b075aa",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-false_wrapper-equal/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-export-false_wrapper-explicit": {
+      "local_only": true,
+      "receipt_sha256": "51a43d22949d75d5548d3c24085d9a209ffc2ef6a9c849eb2d86bb758df59141",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-export-false_wrapper-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "82f448fb2ded52a7eb354cecb4a41e4034bbc1394fdd96537d8d1506fced3c84",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "proof-filter-function-both": {
+      "local_only": false,
+      "receipt_sha256": "a41a0bee243dbb15b8273c32a1adae249d1e74f53cb36ce0cf141e6e9cfaa166",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-filter-function-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-filter-function-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "proof-filter-function-explicit": {
+      "local_only": false,
+      "receipt_sha256": "8ee3e699fedb3f47e47d8c73154a09d457587304f6b4aac4e808ffe862f5604e",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-filter-function-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "d6cf16c9b1445345c38d3ca86d7b39216df2355eaaf3b988504bf1ef379309fa",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "proof-filter-module-both": {
+      "local_only": false,
+      "receipt_sha256": "fce6d5485c49fdc0410520eabac14dd9cb82df760737870b86dc182b82b0855b",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-filter-module-both/selected.vir",
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-filter-module-both/libwrapper.vir"
+        ]
+      },
+      "stderr_sha256": "ffa8c188c5462419a4e0bcf1daf93238d5fb613320af7d021200c4a6226bdd6e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    },
+    "proof-filter-module-explicit": {
+      "local_only": false,
+      "receipt_sha256": "3630d2ebd0f62a67c8771ab772ab03772f8b2a91ada665283b1728e5ebf71931",
+      "selection": {
+        "prior_sha256": "66e3bb8ad7f246d8eed7e6ef8a3e5e7c0495f51ba2d198ad561ae6e4e3d76106",
+        "removed": [
+          "/tmp/nonzero-wrapper-ordering-ui1zg3af/proof-filter-module-explicit/selected.vir"
+        ]
+      },
+      "stderr_sha256": "ffa8c188c5462419a4e0bcf1daf93238d5fb613320af7d021200c4a6226bdd6e",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true
+      }
+    }
+  },
+  "reviewed_parent": "d3b2aa6e63cbc440e09cd5764d99df94e315e959",
+  "runs": {
+    "final-bool-false": {
+      "failed_functions": [
+        "bool_false::client"
+      ],
+      "receipt_sha256": "211563ab6549f6938df2b382349c6da860f200db1d6e38ac0289121094291bbd",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "final-bool-ordinary": {
+      "failed_functions": [],
+      "receipt_sha256": "c4e625f1104a46768236bc230005d2b960ab5db161e347e94518315bc836349b",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 1
+      }
+    },
+    "final-bool-prior": {
+      "failed_functions": [],
+      "receipt_sha256": "9c38b033c4961318d7caf0233641a969e8d4a2a8c51aa59ad6dfca3675f55c6b",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "final-boundaries": {
+      "failed_functions": [],
+      "receipt_sha256": "f0e8dd3d7e423d13bbbea64ba4159fce4f1610d212294b88e9634bc5ed36c389",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 25
+      }
+    },
+    "final-exact-v3-cold": {
+      "failed_functions": [],
+      "receipt_sha256": "7d8d2bd053b57bc5b228243849ed5cd7e057ef210ede8625e6c8e67e16f4a158",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 28
+      }
+    },
+    "final-exact-v3-warm": {
+      "failed_functions": [],
+      "receipt_sha256": "4c41ac3f700cd4a26f1b98ba2a2e7235be0e590dcc7c548f3f3d2ba940b6f853",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 28
+      }
+    },
+    "final-false-Equal": {
+      "failed_functions": [
+        "wrapper::wrong"
+      ],
+      "receipt_sha256": "222f5f430808a6167086f2f8e9db4d5898114f80ce8df658bafd2b3bf5ecf1a1",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 28
+      }
+    },
+    "final-false-Greater": {
+      "failed_functions": [
+        "wrapper::wrong"
+      ],
+      "receipt_sha256": "9db0d83429b72af6405ea3d819fa49a5ecf0a7d1361f2c0a5303364cc8a28929",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 28
+      }
+    },
+    "final-false-Less": {
+      "failed_functions": [
+        "wrapper::wrong"
+      ],
+      "receipt_sha256": "505851d18e6b7344a75c895997bcaf9bdfceec9100ae9c812cb1b8fc9afbb891",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 28
+      }
+    },
+    "final-false-swapped": {
+      "failed_functions": [
+        "wrapper::wrong"
+      ],
+      "receipt_sha256": "694f081adc1c8ad10981cff66070fd5505cfad1054afd7e9cd724ab6877c0d99",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 28
+      }
+    },
+    "final-packet": {
+      "failed_functions": [],
+      "receipt_sha256": "cebacffa0bc7033df78f6b53d4cd3a1e4c7c1c010c6553b0a02646098395f5f6",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 31
+      }
+    },
+    "final-proofless-item": {
+      "failed_functions": [],
+      "receipt_sha256": "d8b113f6ac2d374505f452cd7725085e15bce5e0dd40cc5b559c7743479cb70a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 132
+      }
+    },
+    "final-stage1-alias": {
+      "failed_functions": [],
+      "receipt_sha256": "6c210bc278d9f8b209bc6f11969bcbe365ee6bffa0da956db784fc8422a98a75",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "final-stage1-direct": {
+      "failed_functions": [],
+      "receipt_sha256": "ba6e5bba69af2803b7f16993f2af76b20761412eb85625561f3b8953eea840fb",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "final-stage1-off": {
+      "failed_functions": [
+        "wrapper::total"
+      ],
+      "receipt_sha256": "9c155e2be7a9f218e7bf326712a2f55283fa8ed0eb76810a61f93bbc2d3cfacf",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "final-stage1-partial": {
+      "failed_functions": [],
+      "receipt_sha256": "187eadf1f18b84755f04632388c0e35ec3733bb04dae73e08e15e1025004fb25",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 5
+      }
+    },
+    "independent-alias-arguments": {
+      "failed_functions": [],
+      "receipt_sha256": "bb78339e50776a2908ec8624d9b99bd473d86370c76bb7151d4f2d625063503e",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 29
+      }
+    },
+    "partial-only-local": {
+      "failed_functions": [],
+      "receipt_sha256": "ad17b87fb988b468b297087d257d4f9905a045dbc282df69a44692635a95ee6a",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    },
+    "proof-cargo-bool-prior": {
+      "failed_functions": [],
+      "receipt_sha256": "26df28e67452380779806749f69acb600ef84bfbc32f042a65b2516897334aa2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 2
+      }
+    },
+    "proof-wrapper-auxiliary": {
+      "failed_functions": [],
+      "receipt_sha256": "2d3730cd0eb1925eb7e97d641972a8bc8463f5e4a702624b139cb2c18d46cf2b",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 37
+      }
+    },
+    "proposal-correct": {
+      "failed_functions": [],
+      "receipt_sha256": "663226cd1a77a8aa19b52938ff72b812aa732f08c121b29a4b59d61f13b8e422",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 25
+      }
+    }
+  },
+  "source_authentication_sha256": "6a9c37c87f4d52da247ea69056ce9f18d05e2a7b6b2a27d914c666729c37269d",
+  "source_manifest_sha256": "c685cea925cad25fe3933b1f692d0f2b76d1796db0497023237a4576407e327e",
+  "source_review_sha256": "28c7e5dbf1e1257576788925a84ec8a733abd32162f55dafd48a462d7af70ad6",
+  "tests": {
+    "certified_foreign_bool": {
+      "passed": 3,
+      "receipt_sha256": "7c4b1b17ace35c9889e8997a1759ac62d3ac891f44556f2b4e566585b4d646a5"
+    },
+    "constructor_function_values": {
+      "passed": 13,
+      "receipt_sha256": "c31a10624fc5fd33e81f99c5dc71f0fe21f07e9a3e1a0cd896c57a80c9d547d6"
+    },
+    "infer_compare_derive": {
+      "passed": 7,
+      "receipt_sha256": "325a7ca8fd44b144577abb39ada8863b52dcf09fe6e5bdde27832f39880286a4"
+    },
+    "infer_goals": {
+      "passed": 12,
+      "receipt_sha256": "9ebb52f0f16e1390240ad4b3edbcf01aeae2f0bbdda8f7c8c349340a018443b8"
+    },
+    "infer_nonzero_derive": {
+      "passed": 3,
+      "receipt_sha256": "8cf58ce1e65e33d20e18f26696082a5942761fd30d3ab3f95e92ec76a77f8acf"
+    },
+    "infer_nonzero_ordering": {
+      "passed": 5,
+      "receipt_sha256": "eba00c659ed301eee7421654eee63d33f5bf0aa71d8b872c4ea929922bfca4aa"
+    },
+    "local_checked_foreign": {
+      "passed": 5,
+      "receipt_sha256": "771b84ce67cf85891736c8cda79293d78d63a413e59dae2ed7e27b17df38bf32"
+    },
+    "local_checked_packing": {
+      "passed": 4,
+      "receipt_sha256": "042930085bb097fce094a9e41dffc0e2f2166d4467098f056fa314ef73ae58a1"
+    },
+    "rust_verify-unit": {
+      "passed": 8,
+      "receipt_sha256": "b42313831277d9454506caecff7e756676747fd3131ee964b012b62271dcda86"
+    },
+    "vir": {
+      "passed": 149,
+      "receipt_sha256": "4530d602abddd6ed83d20fe5eb0adca2d016ea91b26f113b707a00d2422bb607"
+    }
+  },
+  "tool_freeze_sha256": "9ed2e5527e736fe7384f2ba0e5d6d658f1a4238c6d77b5e01945953f96578646",
+  "toolchain": {
+    "files": {
+      "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo": "a670e02cfa39ac2e53f77a2d911ca1fc9e2c479b0603ec956625be1daf24e3af",
+      "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+      "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/librustc_driver-7ed0375ae352bd75.so": "5a2cd52edba7d15f8d898b92a912638f5b73a089c7c1bfde5604ab45665602c7",
+      "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-1d288395a3394ed3.rlib": "b346ce2305e13b1a5ec9ab6e093028caee38227c540cdaf78d7b253f59ae5913"
+    },
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n"
+  },
+  "tools": {
+    "libverus_builtin.rlib": "d4155a63cb03f4df505139f950d59977da4ed771ec91aea84b708fe3f5b9d61d",
+    "libverus_builtin_macros.so": "2898651684e9ea1377839f79b1aba315d78cac0342677d312bd4aa401865cdbd",
+    "libverus_state_machines_macros.so": "90c9ad0b4a0fa169ca0e4fb7541ec4ca58f4bd53cf9a7838ba9c33e658c749d0",
+    "libvstd.rlib": "c3633cf6c8cc0a051698857652b3a455e1accc19107f4a5d25b29884940524c7",
+    "rust_verify": "1accfded193a830fe3a8fff3fee2c0e8edd61cbac34dae4075eff365618dc6da",
+    "verus": "8c07e73446d9aa97f85e7fcb6b0bec2a45648c6392a39d78046f67e6c9ba1f22",
+    "vstd.vir": "cb7c196bc17985f6c952d58def24fde4fb6b33f971b202aa71e57b355d95a8bd",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "unsupported_shapes": {
+    "generic": {
+      "classification": "frontend/profile refusal, not semantic negative",
+      "receipt_sha256": "12ca852e8cccd371b4a16494a2d0461811a2829b07ab6f8c21715b8dd76e1dd3"
+    },
+    "lookalike": {
+      "classification": "frontend/profile refusal, not semantic negative",
+      "receipt_sha256": "20f9f7f3569c0d7ebc5fc7f048daedd9cf926a25ab9d4e42698c300bb2fe1c54"
+    },
+    "missing-ord": {
+      "classification": "frontend/profile refusal, not semantic negative",
+      "receipt_sha256": "fa30332b2932811e8ce9a987d3667bca7b5d42bfc5bbf4d8aa79add2a4d4fe8b"
+    },
+    "multi": {
+      "classification": "frontend/profile refusal, not semantic negative",
+      "receipt_sha256": "23cf44cf02e6bd777f79afdddcb7318b2d240c56df74162d949f3299ede10683"
+    },
+    "u32": {
+      "classification": "frontend/profile refusal, not semantic negative",
+      "receipt_sha256": "f4678d0a3161a5a8b61cac67448936d14ca9521f610c1adf7eab89127efe8209"
+    }
+  },
+  "versions": {
+    "cache": 77,
+    "policy": 74,
+    "schema": 39
+  },
+  "vstd_verified": 2250
+}

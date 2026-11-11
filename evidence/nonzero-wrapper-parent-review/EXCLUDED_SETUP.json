@@ -1,0 +1,16 @@
+{
+  "classification": "review setup only, not semantic negatives or implementation findings",
+  "events": [
+    "Sandbox launcher failed RTM_NEWADDR before commands; continued through reviewed shell escalation.",
+    "Initial instruction discovery included find .. -name AGENTS.md; interrupted with no AGENTS output, no sibling file content used as evidence; subsequent discovery remained scoped.",
+    "First preregistration commit lacked a configured author; committed with command-local Codex identity, without global configuration edits.",
+    "Historical authentication initially required all dependency labels to be permitted paths; rejected a historical test executable label before reading it. Final authentication binds permitted files/captured controllers and never reads out-of-scope historical executables or checkout labels.",
+    "Extraction of two worker review-controller functions omitted c/x import bindings. One pre-invocation attempt made no trial; a second completed the valid partial-only6/0 and first refusal before failing result collection. Completed receipts retained. Fixed review-controller imports resume only missing cases; no source/proof/tool change.",
+    "Focused test compilation overlapped normal vstd build before proof trials; its command receipt captures the then-existing tool subset. Application and executed-test receipts use all eight final frozen tools.",
+    "Long sequential global-control launcher exited143 between completed commands. Completed receipts retained; hash-bound supplemental controller resumes only absent receipts after validating exact fixture sources. Infrastructure exit143 is not semantic evidence."
+  ],
+  "goal_complete": false,
+  "historical_executables": "Recorded receipt dependency hashes only; not rehashed or rerun from historical paths.",
+  "production_edits": 0,
+  "publication": false
+}
