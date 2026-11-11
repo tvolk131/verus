@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "provisional integration; parent build/regression and independent review pending",
+  "status": "accepted bounded integration; superseded by parent-packing-dedup-review.json and parent-combined72-validation.json",
   "worker_commits": [
     "8c2445a0",
     "a7ca94cf",
@@ -60,5 +60,7 @@
     "full_HMAC": "1/1 UNPROVED",
     "publication": false,
     "goal_complete": false
-  }
+  },
+  "accepted_review": "parent-packing-dedup-review.json",
+  "accepted_validation": "parent-combined72-validation.json"
 }

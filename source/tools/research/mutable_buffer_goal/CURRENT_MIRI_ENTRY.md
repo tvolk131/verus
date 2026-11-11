@@ -2,12 +2,12 @@
 
 The branch supports checked direct core bool-to-u64 bodies, tuple-constructor
 function items, genuine NonZero equality, and bounded unsigned packing
-assistance. The last accepted interface uses **schema 39 / policy 71 / cache 74**.
+assistance. The accepted interface uses **schema 39 / policy 72 / cache 75**.
 Rebuild compiler/macros/vstd, providers and consumers together; certificates bind
 the executing compiler, loaded core body/artifacts, target and dependencies.
 
 [Combined certificate review](parent-certified-foreign-review.json) records
-independent acceptance of this bounded capability. [Parent validation](parent-combined71-validation.json)
+independent acceptance of this bounded capability. [Parent validation](parent-combined72-validation.json)
 records the matching runtime and full regression/replay results. Certified
 export waits for every required ordinary, inference and auxiliary proof plus
 erased Rust compilation. Ordinary imports validate required foreign evidence,
@@ -15,19 +15,18 @@ including evidence retained through private-helper pruning and transitive export
 These are proof-produced interfaces under existing compiler/artifact/model trust;
 they are not native refinement certificates.
 
-A [provisional deduplication integration](parent-packing-dedup-provisional.json)
-uses schema39/policy72/cache75. It reports fewer duplicate queries, with no
-demonstrated wall-time speedup; matching validation and review remain pending.
-The accepted counts below belong to the preceding implementation.
+Per-function [deduplication](parent-packing-dedup-review.json) removes only
+identical closed proposals after retaining an ordinary checked copy. No wall-time
+speedup is demonstrated.
 
 ## What now verifies
 
-The original full Item fixture verifies **146/0 cold/warm**, retaining genuine
+The original full Item fixture verifies **132/0 cold/warm**, retaining genuine
 private carriers, authored semantic views/contracts and original runtime bodies
 and debug assertions. It has no application mechanical proof blocks, theorem
-calls, snapshots or proof functions. Its cost includes 116 isolated bitvector
+calls, snapshots or proof functions. Its cost includes 102 isolated bitvector
 checks and all three fresh full-domain Eq precision checks. The natural packet
-writer verifies **32/0**; a separate public-visibility adapter enables an ordinary
+writer verifies **31/0**; a separate public-visibility adapter enables an ordinary
 imported client. The [arithmetic review](parent-item-packing-review.json) records
 source fidelity, ablation, costs and coverage limits.
 

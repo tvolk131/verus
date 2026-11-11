@@ -34,9 +34,11 @@ library contract or application precondition is added. The bounded combined
 capability has [independent acceptance](../../../../evidence/certified-packing-combined-review/REPORT.md)
 and [matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined71-validation.json).
 These results do not establish native correspondence or the full HMAC theorem.
-Policy72/cache75 stage typed per-function deduplication of identical closed
-packing proposals. Schema39 is unchanged. This cleanup still requires matching
-parent validation and independent review; fewer queries do not imply faster proofs.
+Policy72/cache75 deduplicate identical closed packing proposals within each
+ordinary function, retaining one ordinary checked copy before use. Schema39 is
+unchanged. [Independent review](../../../../evidence/packing-dedup-parent-review/REPORT.md)
+and [matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined72-validation.json)
+passed. Fewer queries do not establish a wall-time speedup.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:

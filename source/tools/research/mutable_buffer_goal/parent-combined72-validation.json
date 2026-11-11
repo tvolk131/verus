@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "status": "parent_and_independent_review_passed_bounded_dedup_scope",
+  "validated_engine_commit": "5d79f711adc331d917e3b55271f44533c01903fb",
+  "review_record": "parent-packing-dedup-review.json",
+  "previous_accepted_record": "parent-combined71-validation.json",
+  "scope": "Typed exact closed packing proposal deduplication within ordinary functions; all preceding checked foreign export/ordinary import gates preserved.",
+  "matching_vstd": "2250/0",
+  "frozen_bundle": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined72-bundle-5d79f711",
+  "receipts": {
+    "build": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined72-build-5d79f711/receipt.json",
+      "sha256": "7f0148610c8497e4ae6e9d7da90d6b849b5d6171b1f31443bb26f63cf28eecde"
+    },
+    "bundle": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined72-bundle-5d79f711/receipt.json",
+      "sha256": "43b29d75d63b897675449ac1bfd56024c4245ff6475d88ef85563349b495f679"
+    },
+    "features": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined72-local/receipt.json",
+      "sha256": "013a4e886392bb0e9043a3048d6077eef9464e58ac62919e6d47949d1a16c4d3"
+    },
+    "regressions": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined72-validation/receipt.json",
+      "sha256": "26e181da7252dc5edc73be6d9f2dce199cab738b494952bb79639005e71ef6a3"
+    },
+    "delivery_auth": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/packing-dedup-parent-auth-v3/receipt.json",
+      "sha256": "161211d914c2d26e668f20d7bbf242da05d0f773694f51efda3cd050c6266a4f"
+    },
+    "review_auth": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/packing-dedup-review-auth/receipt.json",
+      "sha256": "f090ec71ed3e266af2e06cba1b5a4a5c1d9805601a0162399db8733b11b2dcd7"
+    }
+  },
+  "postcompletion_seal": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined72-seal-v2/receipt.json",
+    "sha256": "94c5115bd4d08a1ed75746c894b26a48d2b927c5fed9758b9a786e7057520994"
+  },
+  "regressions": {
+    "infer_and_feature_targets": 36,
+    "infer_and_feature_tests": 636,
+    "compiler_integration_tests": 717,
+    "VIR_tests": 149,
+    "rust_verify_library_units": 6,
+    "Python_tests_each_mode": 148,
+    "feature_cases": 25,
+    "canonical_cases": 26,
+    "observer_cases": 23,
+    "existing_ignored_fndef_test": "exec_calling_no_vstd"
+  },
+  "feature_results": {
+    "full_Item": "132/0 cold/warm, original full source/body/domain/contracts and no local mechanical proofs",
+    "natural_packet": "31/0 cold/warm unchanged",
+    "public_packet_adapter": "31/0 cold/warm, only function/constant visibility changed",
+    "bool_provider": "2/0 cold/warm",
+    "ordinary_bool_client": "1/0 without infer-goals",
+    "ordinary_full_observers": "5/0 without infer-goals",
+    "ordinary_packet_client": "1/0 without infer-goals, all three original fields",
+    "false_bool_client": "0/1, intended postcondition",
+    "false_full_observer": "4/1, intended protector postcondition",
+    "goals_off": "0/1; any inherited ordinary export remains uncertified",
+    "auxiliary_only_failure": "10/1, failed_functions=[], no output despite healthy helper/ordinary contracts",
+    "erased_Rust_failure": "2/0 then E0308, no output"
+  },
+  "stable": {
+    "bool": {
+      "AIR_file_count": 1,
+      "foreign_certificate_count": 1,
+      "api_summary_fingerprints": [
+        "9b204ac5d4e9716df103cc691326c55f4b165d721ef8c28edfa0b25e75f367ce",
+        "9b204ac5d4e9716df103cc691326c55f4b165d721ef8c28edfa0b25e75f367ce"
+      ]
+    },
+    "full": {
+      "AIR_file_count": 104,
+      "foreign_certificate_count": 1,
+      "api_summary_fingerprints": [
+        "5a0e7dfefbe8c79c856c77206146ff43c8ffc578303b8ac3436f13674d639e1d",
+        "1d3ce2f28bd658ea04c207e9185063b4be1f4f11d51a9873830625a150e7b892"
+      ]
+    },
+    "naturalpacket": {
+      "AIR_file_count": 29,
+      "foreign_certificate_count": 1,
+      "api_summary_fingerprints": [
+        "76d127cedd593b5088d7177631886c90c8601dec9e78c3cb3efd6b4653f3414b",
+        "76d127cedd593b5088d7177631886c90c8601dec9e78c3cb3efd6b4653f3414b"
+      ]
+    },
+    "packet": {
+      "AIR_file_count": 29,
+      "foreign_certificate_count": 1,
+      "api_summary_fingerprints": [
+        "393b47d3e7edb83d10bde173975adff63089f24b187a5d63f7127069d3c34eb7",
+        "393b47d3e7edb83d10bde173975adff63089f24b187a5d63f7127069d3c34eb7"
+      ]
+    }
+  },
+  "source_fidelity": {
+    "full_sha256": "1adb8b6c2ee64cc1c6930c9530920105ad26cee8abf3212caff53dda0c36518d",
+    "application_manual_inputs": "Semantic definitions, constants, range contracts and intended behavior remain authored; no local mechanical proof blocks/calls/snapshots/functions/assertions.",
+    "full_Isolated_BV": 102,
+    "packet_Isolated_BV": 28,
+    "retained_full_ordinary": 27,
+    "retained_packet_ordinary": 3,
+    "retained_full_fresh_Eq": 3
+  },
+  "canonical": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined72-validation/canonical/canonical-u1kjbbv0/receipt.json",
+    "sha256": "7e68f9a42e56e1246c1e5706e67742ea980690fef146ac6861a4cfe8ad7a43d6",
+    "case_count": 26,
+    "audit_sha256": "591654c7503f4dbd2a3ad0ecfe747dcf5daa96f8380ab26ec11a4aa2fd146664"
+  },
+  "observer": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined72-validation/observer/observations-x8vq12_v/receipt.json",
+    "sha256": "5595501b340b5fd69de3df7235a8537e31953e4a7be565ba25894fe13dfe2818",
+    "case_count": 23
+  },
+  "postcompletion_authentication": {
+    "input_bindings_checked": 7062,
+    "recorded_products_checked": 1923
+  },
+  "excluded_setup": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined72-seal/receipt.json",
+    "sha256": "0bc5c68980706853a3046f7b48b029151d19527bec42a0b34ac71b385da41f2c",
+    "reason": "Read-only seal adapter used inherited local-v2 suffix; missing path refused before auth; corrected local path, no proof or source change/rerun."
+  },
+  "performance": "Fewer duplicate queries; no demonstrated wall-time speedup.",
+  "bounded_certificate_publication": true,
+  "versions": {
+    "schema": 39,
+    "policy": 72,
+    "cache": 75
+  },
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "open_native_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "publication": false,
+  "goal_complete": false
+}
