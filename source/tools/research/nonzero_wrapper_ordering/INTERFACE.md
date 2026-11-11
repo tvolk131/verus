@@ -21,8 +21,9 @@ the same reference. Domain: every already-created genuine tag, with true require
 
 Exact original source-body inventory (fixture generator in fixtures.py):
 - native Copy/Clone/Hash/PartialEq/Eq/PartialOrd/Ord are retained;
-- only selected original PartialEq::eq, Ord::cmp, PartialOrd::partial_cmp may
-  acquire checked status; Hash and Eq remain excluded and cannot count as proofs;
+- newly checked ordering bodies must be original Ord::cmp and
+  PartialOrd::partial_cmp; requested PartialEq::eq and existing ordinary Clone
+  handling must be inventoried separately; Hash and Eq remain excluded;
 - total(&BorTag,&BorTag) -> Ordering invokes actual a.cmp(b);
 - partial(&BorTag,&BorTag) -> Option<Ordering> invokes actual a.partial_cmp(b);
 - less/less_equal/greater/greater_equal call inherited actual operators;
