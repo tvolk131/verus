@@ -32,10 +32,12 @@ pub(crate) fn expand(
             if a.args.len() == 1 && matches!(&a.args[0], syn::GenericArgument::Type(syn::Type::Path(p))
                 if p.qself.is_none() && p.path.is_ident("u64"))));
     if nonzero {
-        if operators.iter().any(|op| op != "PartialEq") {
+        if operators.iter().any(|op| {
+            !matches!(op.to_string().as_str(), "PartialEq" | "PartialOrd" | "Ord")
+        }) {
             return Err(syn::Error::new(
                 item.span(),
-                "NonZero<u64> checked derives currently support only PartialEq",
+                "NonZero<u64> checked derives support only PartialEq/PartialOrd/Ord",
             ));
         }
     } else if t.qself.is_some()
@@ -136,6 +138,14 @@ pub(crate) fn expand(
             let (result, body) = match method {
                 "eq" if nonzero => (quote!(bool), quote!(self.0@ == rhs.0@)),
                 "eq" => (quote!(bool), quote!(self.0 == rhs.0)),
+                "cmp" if nonzero => (
+                    quote!(::core::cmp::Ordering),
+                    quote!(#vstd::std_specs::cmp::OrdSpec::cmp_spec(&self.0@,&rhs.0@)),
+                ),
+                "partial_cmp" if nonzero => (
+                    quote!(Option<::core::cmp::Ordering>),
+                    quote!(Some(#vstd::std_specs::cmp::OrdSpec::cmp_spec(&self.0@,&rhs.0@))),
+                ),
                 "cmp" => (
                     quote!(::core::cmp::Ordering),
                     quote!(#vstd::std_specs::cmp::#base::#spec(&self.0,&rhs.0)),

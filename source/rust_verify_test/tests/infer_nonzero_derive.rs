@@ -54,11 +54,11 @@ verus! {{fn wrong(a:&BorTag,b:&BorTag){{let r=a==b;assert(r!=(a.0@==b.0@));}}}}
 }
 
 #[test]
-fn nonzero_ordering_and_other_payloads_are_not_in_the_checked_profile() {
+fn nonzero_arithmetic_and_other_payloads_are_not_in_the_checked_profile() {
     for (name, s) in [
         (
-            "nonzero_order",
-            BASE.replace("infer_derive(PartialEq)", "infer_derive(PartialEq,PartialOrd,Ord)"),
+            "nonzero_arithmetic",
+            BASE.replace("infer_derive(PartialEq)", "infer_derive(PartialEq,Add)"),
         ),
         ("nonzero_u32", BASE.replace("NonZero<u64>", "NonZero<u32>")),
     ] {

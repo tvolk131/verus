@@ -52,7 +52,14 @@ pub(super) fn source_call(
     else {
         return None;
     };
+    // Candidate projection only: borrowed operators may resolve Self=&Wrapper.
+    // Retain the original call for soundness, maximality and exactness checks.
+    let mut owner = types.first()?;
+    while let Some(inner) = trait_getters::shared(owner) {
+        owner = inner;
+    }
     if !all.get(name).is_some_and(boundary)
+        || (trait_getters::shared(&types[0]).is_some() && !nonzero_owner(owner, datatypes))
         || types.len() != 2
         || args.len() != 2
         || !crate::ast_util::types_equal(&types[0], &types[1])
@@ -61,7 +68,7 @@ pub(super) fn source_call(
             kind,
             CallTargetKind::DynamicResolved { .. } | CallTargetKind::ExternalTraitDefault
         ) && !(matches!(kind, CallTargetKind::Dynamic)
-            && nonzero_u64(&types[0])
+            && nonzero_u64(owner)
             && matches!(name.path.last_segment().as_str(), "eq" | "ne"))
         || !args.iter().all(|a| {
             let mut typ = &a.typ;
@@ -70,14 +77,14 @@ pub(super) fn source_call(
             while let Some(inner) = trait_getters::shared(typ) {
                 typ = inner;
             }
-            crate::ast_util::types_equal(typ, &types[0])
+            crate::ast_util::types_equal(typ, owner)
         })
     {
         return None;
     }
     // Project genuine field equality only as a candidate. The original call
     // retains the standard NonZero contract during all three checks.
-    if nonzero_u64(&types[0]) && matches!(name.path.last_segment().as_str(), "eq" | "ne") {
+    if nonzero_u64(owner) && matches!(name.path.last_segment().as_str(), "eq" | "ne") {
         return Some(e.new_x(ExprX::Binary(
             if name.path.last_segment().as_str() == "eq" {
                 BinaryOp::Eq(Mode::Spec)
@@ -88,7 +95,7 @@ pub(super) fn source_call(
             args[1].clone(),
         )));
     }
-    let TypX::Datatype(dt, ts, _) = &*types[0] else {
+    let TypX::Datatype(dt, ts, _) = &**owner else {
         return None;
     };
     // Native derive requests propose ordinary field ordering. Preserve custom
@@ -103,7 +110,7 @@ pub(super) fn source_call(
         f.x.name.path.last_segment().as_str() == marker
             && f.x.params.len() == 1
             && trait_getters::shared(&f.x.params[0].x.typ)
-                .is_some_and(|t| crate::ast_util::types_equal(t, &types[0]))
+                .is_some_and(|t| crate::ast_util::types_equal(t, owner))
     }) {
         return None;
     }
@@ -125,7 +132,7 @@ pub(super) fn source_call(
     let field = &variant.fields[0];
     if field.a.1 != Mode::Exec
         || !(matches!(&*field.a.0,TypX::Int(r) if arithmetic::exact_range(*r))
-            || matches!(name.path.last_segment().as_str(), "eq" | "ne") && nonzero_u64(&field.a.0))
+            || nonzero_u64(&field.a.0))
     {
         return None;
     }
