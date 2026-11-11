@@ -3,13 +3,13 @@
 The branch supports checked direct core bool-to-u64 bodies, tuple-constructor
 function items, genuine NonZero equality, and bounded unsigned packing
 assistance and local direct NonZero ordering. The accepted interface uses
-**schema 39 / policy 73 / cache 76**.
+**schema 39 / policy 74 / cache 77**.
 Rebuild compiler/macros/vstd, providers and consumers together; certificates bind
 the executing compiler, loaded core body/artifacts, target and dependencies.
 
 [Combined certificate review](parent-certified-foreign-review.json) records
 independent acceptance of this bounded capability. [Parent validation](parent-combined72-validation.json)
-records the preceding certificate runtime. [Current validation](parent-combined73-validation.json)
+records the preceding certificate runtime. [Current validation](parent-combined74-validation.json)
 records the matching runtime and full regression/replay results. Certified
 export waits for every required ordinary, inference and auxiliary proof plus
 erased Rust compilation. Ordinary imports validate required foreign evidence,
@@ -25,13 +25,14 @@ speedup is demonstrated.
 NonZero Ord **2/0 cold/warm** using a freshly checked ordinary helper and existing
 get/u64 comparison models. Full actual-function checks include embedded type
 witnesses. All ordering exports are refused; rejection clears both explicit and
-Cargo destinations. Parent validation and independent review passed. BorTag
-ordering derives and ordering imports remain unproved.
+Cargo destinations. Parent validation and independent review passed. Ordering
+imports remain unsupported.
 
-A [provisional wrapper stage](parent-nonzero-wrapper-provisional.json) adds
+[The checked wrapper stage](parent-nonzero-wrapper-review.json) adds
 checked original Ord/PartialOrd bodies and boolean comparison candidates at
-policy74/cache77. Worker cold/warm28/0 is not parent acceptance; a new matching
-runtime and independent review are pending. All ordering exports remain refused.
+policy74/cache77. The full-domain chain is **28/0 cold/warm**, with all fifteen
+required precision checks fresh. Matching parent validation and independent
+review passed. All ordering exports remain refused.
 
 ## What now verifies
 
@@ -60,10 +61,14 @@ They do not establish full lookup or runtime permission grants.
 ## Next source obligation
 
 The [historical ordering baseline](parent-nonzero-ordering-baseline.json) exposed
-the direct carrier gap now closed above. The next ordering step is to prove the
-unchanged generated BorTag `Ord::cmp` through that checked carrier helper, then
-its generated `PartialOrd::partial_cmp`. No new standard contract or
-representation law has been assumed.
+the carrier and generated-wrapper gaps now closed above. No new standard
+contract or representation law has been assumed.
+
+The literal reverse-enumerate fallback remains unproved. Its
+[boundary evidence](parent-miri-reverse-boundary.json) checks genuine dependencies
+31/0 and strict controls30/1, but native Rev's postcondition does not establish
+the needed Enumerate lawfulness/returned-inner linkage. No trusted bridge was
+added. The cache-hit prelude is excluded from that extracted fallback.
 
 Prove that actual `find_granting(Write, ...) = Ok(Some(g))` preserves borrows,
 `unknown_bottom` and `unique_range`, and returns an in-bounds granting item.
@@ -72,7 +77,7 @@ new restriction on application callers. The
 [typed needs](../native_miri_find_granting/NEEDS.json) record reverse-iterator,
 hasher/key, Option callback, swap and global cache-preservation gaps. Its tag
 constructor/equality entries describe an older checkpoint and are now supported
-within the scope above; ordering remains separate.
+within the scope above, including local ordering; ordering imports remain separate.
 
 Use the [compiler-matched source pin](../native_miri_policy_pin/pins.json), Rust
 commit 58cf8f9c35b355199727627d07ae34a4e2846d67. Current-source features prevent a

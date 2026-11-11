@@ -77,16 +77,16 @@ both are selected. Existing bool-only certified imports remain supported.
 [Matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined73-validation.json)
 and [independent fix review](../../../../evidence/local-nonzero-ord-fix-review/REPORT.md)
 passed. Complete recursive type witnesses are checked at registration and after
-normal well-formedness and mode processing. Genuine BorTag ordering derives and
-ordering imports remain unproved.
+normal well-formedness and mode processing. Ordering imports remain unsupported.
 
-Policy74/cache77 provisionally extend the local path to the original generated
+Policy74/cache77 extend the local path to the original generated
 Ord/PartialOrd methods on nongeneric single-field `NonZero<u64>` wrappers.
 Boolean comparison candidates still need all three fresh precision checks;
 requests refuse selected exports even when no Ord helper is needed.
-[Worker evidence](../../../../source/tools/research/nonzero_wrapper_ordering/IMPLEMENTATION_REPORT.md)
-records 28/0 cold/warm; matching parent validation and independent review are
-pending. Ordering imports remain unsupported.
+[Matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined74-validation.json)
+and [independent review](../../../../evidence/nonzero-wrapper-parent-review/REPORT.md)
+passed. The original full-domain chain verifies 28/0 cold/warm, including five
+candidates and fifteen fresh precision checks. Ordering imports remain unsupported.
 
 ## Checked local bool conversion and packing
 

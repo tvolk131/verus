@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "authenticated_worker_boundary_evidence_not_independent_acceptance_or_fallback_completion",
+  "worker_commits": [
+    "dc65ef77",
+    "5e40f8ec",
+    "a743466c"
+  ],
+  "integrated_commits": [
+    "e5f8053f",
+    "d6538852",
+    "a8f01f41"
+  ],
+  "report": "source/tools/research/miri_tagged_reverse_search/REPORT.md",
+  "needs": "source/tools/research/miri_tagged_reverse_search/NEEDS.json",
+  "worker_results_sha256": "6825f9b6f5b9aac278fe2f658fa7fee714af7b93a50308c8c1c4b7e6f11632e4",
+  "normal_optimized_identical": true,
+  "audit_stdout_sha256": "d04143c1b64c7037292c07619351a3caf37a133e6e5a65f1424fbe087ab1c789",
+  "final_trials": 28,
+  "matching_vstd": "2250/0",
+  "genuine_dependencies": "31/0 on/off, 14exec +1 manual proof +3required Eq checks",
+  "strict_controls": "30/1, intended named function only and helper checks healthy",
+  "literal_fallback": "31/2 UNPROVED",
+  "cache_hit_prelude": "excluded/unproved",
+  "missing": "lawfulness and returned-inner linkage for native Rev<Enumerate<slice::Iter<Item>>>; remaining-sequence and finite decrease-existence already check",
+  "standard_trust": "No new trusted law/model/axiom/bridge added",
+  "production_changes": [],
+  "independent_review_pending": true,
+  "native_correspondences": 0,
+  "publication": false,
+  "goal_complete": false
+}
