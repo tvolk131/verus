@@ -23,3 +23,13 @@ Exact selected component/call-site addenda will be registered after source inspe
 **REDB R1:** actual `U64GroupedBitmap::resize` and its `required_words`/`bits_in_range` closure in pinned bitmap.rs. Callers are BtreeBitmap::resize and BuddyAllocator::resize. Full-domain property and prohibited restrictions are fixed in SELECTION.json. Baseline/manual proof only first; return exact typed common arithmetic/frame needs to integrator before engine edits.
 
 **Fedimint F1:** actual PaymentFee is_within/checked_add/absolute_fee/fee/add_to/subtract_from with genuine Amount dependencies. Concrete consumers are send/add_to, receive/subtract_from and gateway checked_add/is_within. Full-domain nested-saturation and dominance/accounting properties are fixed in SELECTION.json. No tiny helper alone can close the lane. Baseline/manual proof first; return exact common arithmetic/observation needs before engine edits. F0 funding-map scope stays unsupported/deferred and counted.
+
+## Replacement addenda (supersede R1/F1 execution)
+
+R1/F1 are closed unsupported checkpoints, not live prerequisites. Their proofs stay unachieved. F0 remains unsupported at inspection. No worker may turn these into core-MIR/representation/model projects.
+
+**R2 REDB:** select BtreeBitmap::set/clear/update_to_root and their exact multiword scalar/level dependencies, as registered in SELECTION_R2_F2.json. Establish leaf membership and count update, ancestor summaries and hierarchy/frame preservation for all valid trees/indices, without one-word/fixed-height/freshness assumptions. Freeze exact application contracts before trials. Only baseline/manual proof and focused controls first; return shared arithmetic/frame/count needs before production edits.
+
+**F2 Fedimint:** select the complete NumPeers policy total/max_evil/one_honest/threshold/degree. Establish full-domain positive-count machine safety/exact arithmetic and explicit finite-universe quorum intersection/honest-margin consequences. total/from include0; show the existing positive-count safety requirement for subtraction methods openly. Do not claim peer_ids/crypto/wholeconsensus verification. Freeze contracts/corollaries before trials; ordinary/infer/manual inventory first, with generic math/set proof calls charged as mechanical.
+
+Both lanes use the same accepted75 runtime and existing replay utilities;45active-minute blocker checkpoints and all prior trust/fidelity/stopping constraints still apply. Source/private machinery expansion is not approved. No engineered shared gain is claimed until it causally removes local work at both selected real components.
