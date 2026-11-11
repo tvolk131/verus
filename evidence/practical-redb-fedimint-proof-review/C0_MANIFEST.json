@@ -1,0 +1,87 @@
+{
+  "parent_commit": "411e4a97ecbd308e43ebc6d6ec543049bc4a38b6",
+  "parent_receipt_sha256": "3ead0adf8ac24dced937ca483e01c1644efa093ba483dc32bf9112fe678205e4",
+  "fresh_receipt_sha256": "8a641645807a815f53088cd26df204ccc7a900f29eeaa10118b4b5f00f0fb2b1",
+  "fresh_output": "/tmp/practical-set-pair-REVIEW-4ac48a9a",
+  "commands": [
+    {
+      "label": "r2",
+      "seconds": 2.0513702970347367,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 26,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "checked_exec": 12,
+      "checked_proof": 9,
+      "source_sha256": "091f1d24ae9d3de0cda8cb34b4338208c83748ab3886de1d4a05b4387f4f6116",
+      "stdout_sha256": "98bb03f88ad7ecc41f22fd0f58dcef8298de6f7081843b13b57114a21f3d34fa",
+      "stderr_sha256": "2b16e1735390fa6edff4a5fb4cb052a46f63cb95b83ea729f0127c4513798cec"
+    },
+    {
+      "label": "f2",
+      "seconds": 1.0142093710019253,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 13,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [],
+      "checked_exec": 8,
+      "checked_proof": 4,
+      "source_sha256": "0983333f406470705348604f16e0e628ed74d8eb318e2439b88544a163cf5699",
+      "stdout_sha256": "9fa833236d0f66ed43ec1d5736184a037e23d84ffe9eac55000d0b025d2ef393",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "r2_no_extensional",
+      "seconds": 2.3658991070115007,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 25,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "r2_no_extensional::finish_mutation"
+      ],
+      "checked_exec": 0,
+      "checked_proof": 0,
+      "source_sha256": "e732fcc9511ed2966b6a7dc8049db35d7369b44987480b0dfd1f33e440f6ee77",
+      "stdout_sha256": "9b117d5011bea752d52663a6dab55b8f3fda3646f32c3e4ee36a7aab5bd02b38",
+      "stderr_sha256": "8bfe45b359db75b3b367fbe68af8d7eb85811a8a5fdb4cd672d893015080f546"
+    },
+    {
+      "label": "f2_no_cardinality",
+      "seconds": 1.0684414510033093,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 3,
+        "is-verifying-entire-crate": true
+      },
+      "failed_functions": [
+        "f2_no_cardinality::one_honest_margin",
+        "f2_no_cardinality::quorum_has_honest",
+        "f2_no_cardinality::quorum_intersection"
+      ],
+      "checked_exec": 0,
+      "checked_proof": 0,
+      "source_sha256": "343dfe8675611d57222b31e4a19dff0da6aa33aa38ad81bded2395c7332b88a8",
+      "stdout_sha256": "675a6b2291b84c015a20f2408a50fc0e98c39ea78f98abebebf4cf70ecc33666",
+      "stderr_sha256": "1ac81ec711db86d628985f6d3dd698955e420c0b2038e0b653db3467f28c609c"
+    }
+  ],
+  "compiler_wall_seconds": 6.499920226051472
+}

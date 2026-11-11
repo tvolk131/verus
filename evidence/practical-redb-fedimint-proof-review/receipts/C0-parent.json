@@ -1,0 +1,1398 @@
+{
+  "kind": "C0_CHECKED_ANNOTATION_PROTOTYPE_NOT_ENGINE_GAIN",
+  "registration_commit": "628cca05",
+  "inputs": {
+    "/tmp/practical-set-pair-c0/experiment.py": "a8ea3e86837371a8ad0df19707028f737414fc2827703526c871d5c8e419807f",
+    "/home/dev/projects/verus/source/tools/research/practical_redb_fedimint/redb_tree/manual.rs": "6fefe21d32e050e0a4cd7199e95451a7c25aeed80fc9166b3b73667aab2378bf",
+    "/home/dev/projects/verus/source/tools/research/practical_redb_fedimint/fedimint_quorum/manual.json": "e514292a36adfc3d5e19ab711157d5bac81a22996ae8fbf4bbb1f87bb941fdd0",
+    "/tmp/practical-f2-parent-manual-572d9847/component.rs": "62982aa2069029b8ceb71a67bd8d49db745427d1bf11bf02f84bbbf4bc1cb13d",
+    "/tmp/practical-set-pair-c0/helper.rs": "d61932cbeeaa00863faca0986b243b5f84bf1ab109b267fd2722f8a1ac590784",
+    "/tmp/practical-set-pair-c0/r2.rs": "091f1d24ae9d3de0cda8cb34b4338208c83748ab3886de1d4a05b4387f4f6116",
+    "/tmp/practical-set-pair-c0/f2.rs": "0983333f406470705348604f16e0e628ed74d8eb318e2439b88544a163cf5699",
+    "/tmp/practical-set-pair-c0/r2_no_extensional.rs": "e732fcc9511ed2966b6a7dc8049db35d7369b44987480b0dfd1f33e440f6ee77",
+    "/tmp/practical-set-pair-c0/f2_no_cardinality.rs": "343dfe8675611d57222b31e4a19dff0da6aa33aa38ad81bded2395c7332b88a8",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/rust_verify": "1e804d7fe91933f4a8b713e26e90400d02a4060d586383b7342fd0cb5df097be",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/libverus_builtin_macros.so": "29838896efb807a8cd172cd1d8fc735999e39e5b2a55c0af7a9d0abf6a5c2bcd",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/vstd.vir": "47a9768043fedebe3d2bfc8d67388c4bd6c214f42002983623ce74bc544a2d5b",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/libvstd.rlib": "3e64055d3a5c90190cac7304dd2adc6420c33d05483a0907b5628293f8ef7391",
+    "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "commands": [
+    {
+      "label": "r2",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/verus",
+        "/tmp/practical-set-pair-c0/r2.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/practical-set-pair-c0",
+      "exit_code": 0,
+      "seconds": 2.1722928319941275,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/z3",
+        "VERUS_INFER_CACHE": "/tmp/practical-set-pair-c0/cache"
+      }
+    },
+    {
+      "label": "f2",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/verus",
+        "/tmp/practical-set-pair-c0/f2.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/practical-set-pair-c0",
+      "exit_code": 0,
+      "seconds": 1.0119847690220922,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/z3",
+        "VERUS_INFER_CACHE": "/tmp/practical-set-pair-c0/cache"
+      }
+    },
+    {
+      "label": "r2_no_extensional",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/verus",
+        "/tmp/practical-set-pair-c0/r2_no_extensional.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/practical-set-pair-c0",
+      "exit_code": 1,
+      "seconds": 2.4147793279844336,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/z3",
+        "VERUS_INFER_CACHE": "/tmp/practical-set-pair-c0/cache"
+      }
+    },
+    {
+      "label": "f2_no_cardinality",
+      "argv": [
+        "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/verus",
+        "/tmp/practical-set-pair-c0/f2_no_cardinality.rs",
+        "--edition=2024",
+        "--crate-type=lib",
+        "--no-cheating",
+        "--output-json",
+        "--time",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/practical-set-pair-c0",
+      "exit_code": 1,
+      "seconds": 1.0252943999948911,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999/z3",
+        "VERUS_INFER_CACHE": "/tmp/practical-set-pair-c0/cache"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "name": "r2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 26,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 12,
+        "checked_proof_bodies": 9,
+        "native_functions": [
+          {
+            "function": "r2::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::checked_set_pair",
+            "rust_function": "checked_set_pair",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:349:7: 349:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::count",
+            "rust_function": "count",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::edge",
+            "rust_function": "edge",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::member",
+            "rust_function": "member",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::pending",
+            "rust_function": "pending",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::shape",
+            "rust_function": "shape",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2::words",
+            "rust_function": "words",
+            "source": "/tmp/practical-set-pair-c0/r2.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "failed_functions": [],
+      "stdout_sha256": "dac769989a72749beb6ca009500f32d00aaa9f2512ebc51db0209c8673075576",
+      "stderr_sha256": "33efe9b9301687e1bac9328ccd18a57eebc3cf86f801999d31e51d45802b7e72"
+    },
+    {
+      "name": "f2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 13,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 8,
+        "checked_proof_bodies": 4,
+        "native_functions": [
+          {
+            "function": "f2::NumPeers::clone",
+            "rust_function": "<NumPeers as std::clone::Clone>::clone",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:5:16: 5:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::NumPeers::from",
+            "rust_function": "<NumPeers as std::convert::From<usize>>::from",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:52:5: 52:34",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::NumPeers::from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::from_spec",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:109:17: 109:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2::NumPeers::obeys_from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::obeys_from_spec",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:108:15: 108:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2::NumPeers::count",
+            "rust_function": "NumPeers::count",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:11:5: 11:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2::NumPeers::degree",
+            "rust_function": "NumPeers::degree",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:38:5: 38:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::NumPeers::max_evil",
+            "rust_function": "NumPeers::max_evil",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:26:5: 26:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::NumPeers::one_honest",
+            "rust_function": "NumPeers::one_honest",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:32:5: 32:37",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::NumPeers::threshold",
+            "rust_function": "NumPeers::threshold",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:44:5: 44:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::NumPeers::total",
+            "rust_function": "NumPeers::total",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:20:5: 20:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::checked_set_pair",
+            "rust_function": "checked_set_pair",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:114:7: 114:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::fault",
+            "rust_function": "fault",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:13:1: 13:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2::one_honest_margin",
+            "rust_function": "one_honest_margin",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:76:1: 76:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::policy_client",
+            "rust_function": "policy_client",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:85:1: 85:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::quorum",
+            "rust_function": "quorum",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:14:1: 14:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2::quorum_has_honest",
+            "rust_function": "quorum_has_honest",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:68:1: 68:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2::quorum_intersection",
+            "rust_function": "quorum_intersection",
+            "source": "/tmp/practical-set-pair-c0/f2.rs:59:1: 59:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "failed_functions": [],
+      "stdout_sha256": "91dc239342656ed1e08d4e3cc6da818fab1aba22ae3cb2419adad5d13da1b83d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "r2_no_extensional",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 25,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "r2_no_extensional::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::checked_set_pair",
+            "rust_function": "checked_set_pair",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:349:7: 349:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::count",
+            "rust_function": "count",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::edge",
+            "rust_function": "edge",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::member",
+            "rust_function": "member",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::pending",
+            "rust_function": "pending",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::shape",
+            "rust_function": "shape",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_no_extensional::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_no_extensional::words",
+            "rust_function": "words",
+            "source": "/tmp/practical-set-pair-c0/r2_no_extensional.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "failed_functions": [
+        "finish_mutation"
+      ],
+      "stdout_sha256": "45c25ac627edf67fb066fe35428bb8ed88f776b1a24e08a690eedb107c5d58cf",
+      "stderr_sha256": "ea806a3fa0c18892d8a31e565217c35c639870de23cab7c796992378fac6fc9d"
+    },
+    {
+      "name": "f2_no_cardinality",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 10,
+        "errors": 3,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "f2_no_cardinality::NumPeers::clone",
+            "rust_function": "<NumPeers as std::clone::Clone>::clone",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:5:16: 5:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::from",
+            "rust_function": "<NumPeers as std::convert::From<usize>>::from",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:52:5: 52:34",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::from_spec",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:109:17: 109:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::obeys_from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::obeys_from_spec",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:108:15: 108:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::count",
+            "rust_function": "NumPeers::count",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:11:5: 11:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::degree",
+            "rust_function": "NumPeers::degree",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:38:5: 38:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::max_evil",
+            "rust_function": "NumPeers::max_evil",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:26:5: 26:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::one_honest",
+            "rust_function": "NumPeers::one_honest",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:32:5: 32:37",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::threshold",
+            "rust_function": "NumPeers::threshold",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:44:5: 44:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::NumPeers::total",
+            "rust_function": "NumPeers::total",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:20:5: 20:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::checked_set_pair",
+            "rust_function": "checked_set_pair",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:114:7: 114:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::fault",
+            "rust_function": "fault",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:13:1: 13:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2_no_cardinality::one_honest_margin",
+            "rust_function": "one_honest_margin",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:76:1: 76:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::policy_client",
+            "rust_function": "policy_client",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:85:1: 85:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::quorum",
+            "rust_function": "quorum",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:14:1: 14:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "f2_no_cardinality::quorum_has_honest",
+            "rust_function": "quorum_has_honest",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:68:1: 68:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "f2_no_cardinality::quorum_intersection",
+            "rust_function": "quorum_intersection",
+            "source": "/tmp/practical-set-pair-c0/f2_no_cardinality.rs:59:1: 59:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "failed_functions": [
+        "one_honest_margin",
+        "quorum_has_honest",
+        "quorum_intersection"
+      ],
+      "stdout_sha256": "9f96474837f1549b81ac480339bc77b493a9b6ec894156cfc923e48028741ee2",
+      "stderr_sha256": "5b01cab8adc103accfd4d673d6ab99a8cb15383dcb9b05f33cac9e25b0073eb6"
+    }
+  ],
+  "success": true
+}
