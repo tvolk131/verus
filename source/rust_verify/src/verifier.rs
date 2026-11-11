@@ -2967,7 +2967,9 @@ impl Verifier {
         let local_crate = query.get_exportable_crate();
         self.inference_generation = query.inference_generation.clone();
         let local_crate = local_crate.map_err(map_query_err)?;
-        if !self.local_foreign_functions.is_empty() {
+        if !self.local_foreign_functions.is_empty()
+            && (self.args.export.is_some() || self.export_vir_path_via_cargo.is_some())
+        {
             for name in &self.local_foreign_functions {
                 // This is the full Function returned by ordinary Query after
                 // WF/mode/resolution, also used to construct the verification
