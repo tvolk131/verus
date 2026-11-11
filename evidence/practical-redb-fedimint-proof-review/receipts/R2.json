@@ -1,0 +1,4195 @@
+{
+  "case": "R2",
+  "application_property_proved": true,
+  "commands": [
+    {
+      "label": "baseline_ordinary",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 1,
+      "seconds": 3.136029928980861,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "manual_ordinary",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 0,
+      "seconds": 2.220686790999025,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "baseline_infer",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 1,
+      "seconds": 3.6318321900325827,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "manual_infer",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 0,
+      "seconds": 2.9030114440247416,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "manual_infer_warm",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 0,
+      "seconds": 2.901242366991937,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "negative_leaf",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals",
+        "--cfg",
+        "negative_leaf",
+        "--export",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/negative_leaf.vir"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 1,
+      "seconds": 2.9056349259917624,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "negative_count",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals",
+        "--cfg",
+        "negative_count",
+        "--export",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/negative_count.vir"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 1,
+      "seconds": 2.9812280050246045,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "negative_frame",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--infer-goals",
+        "--cfg",
+        "negative_frame",
+        "--export",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/negative_frame.vir"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 1,
+      "seconds": 2.902986572997179,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "provider",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--crate-type=lib",
+        "--crate-name=r2_api",
+        "--compile",
+        "--export",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/api.vir",
+        "-o",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/libapi.rlib",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 0,
+      "seconds": 2.8567386050126515,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "caller_ordinary",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--crate-type=lib",
+        "--extern",
+        "r2_api=/tmp/redb-r2-REVIEW-4ac48a9a/libapi.rlib",
+        "--import",
+        "r2_api=/tmp/redb-r2-REVIEW-4ac48a9a/api.vir"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 0,
+      "seconds": 0.8734009260078892,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    },
+    {
+      "label": "caller_infer",
+      "argv": [
+        "/tmp/redb-r2-zm6t7x2z/runtime/verus",
+        "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs",
+        "--edition=2024",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--crate-type=lib",
+        "--extern",
+        "r2_api=/tmp/redb-r2-REVIEW-4ac48a9a/libapi.rlib",
+        "--import",
+        "r2_api=/tmp/redb-r2-REVIEW-4ac48a9a/api.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-r2-REVIEW-4ac48a9a",
+      "exit_code": 0,
+      "seconds": 1.4748535020044073,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "1.99.1",
+        "VERUS_Z3_PATH": "/tmp/redb-r2-zm6t7x2z/runtime/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-r2-REVIEW-4ac48a9a/cache"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "label": "baseline_ordinary",
+      "success": false,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 8,
+        "errors": 6,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "eligible::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:81:1: 81:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:68:1: 68:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:61:1: 61:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:88:1: 88:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:74:1: 74:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:96:1: 96:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:166:1: 166:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:128:1: 128:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:144:1: 144:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:139:1: 139:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:133:1: 133:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:153:1: 153:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:37:6: 37:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:24:6: 24:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:40:6: 40:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:18:6: 18:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:9:6: 9:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:176:1: 176:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:7:6: 7:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:41:6: 41:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:33:6: 33:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:48:6: 48:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:8:6: 8:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:13:6: 13:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:29:6: 29:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:21:6: 21:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:53:6: 53:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:6:6: 6:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "a38033f74ca158990b1c1d9fa48314a5a4bb63421d9555cd68247aa3fe75bb96",
+      "stdout_sha256": "754d0ea64f98c7cf846f2c4d569bcff206793e76b54e7a9665c886d57f9abd5c"
+    },
+    {
+      "label": "manual_ordinary",
+      "success": true,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 25,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 12,
+        "checked_proof_bodies": 8,
+        "native_functions": [
+          {
+            "function": "manual::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "916a9e837fd426ab9f3549c0d22de2db7c68f4bb7bcbf888605920a9502f6a3a",
+      "stdout_sha256": "3a56dc75165b4faefc8da89ee57d927c8f1158d081c28536628c1fb7792060c0"
+    },
+    {
+      "label": "baseline_infer",
+      "success": false,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 8,
+        "errors": 6,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "eligible::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:81:1: 81:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:68:1: 68:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:61:1: 61:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:88:1: 88:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:74:1: 74:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:96:1: 96:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:166:1: 166:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:128:1: 128:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:144:1: 144:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:139:1: 139:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:133:1: 133:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:153:1: 153:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "eligible::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:37:6: 37:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:24:6: 24:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:40:6: 40:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:18:6: 18:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:9:6: 9:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:176:1: 176:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:7:6: 7:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:41:6: 41:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:33:6: 33:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:48:6: 48:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:8:6: 8:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:13:6: 13:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:29:6: 29:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:21:6: 21:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:53:6: 53:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "eligible::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/eligible.rs:6:6: 6:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "82fbfc4088317d1f723664c0d859274034dc7e6be365c75b379356806a70a3be",
+      "stdout_sha256": "d9c5b6f1b4103994299813715b0c8c54dec96118672eaa4e719e548af82bb50e"
+    },
+    {
+      "label": "manual_infer",
+      "success": true,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 25,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 12,
+        "checked_proof_bodies": 8,
+        "native_functions": [
+          {
+            "function": "manual::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "51b2403432c13d47e3c0e5a77aee522865ea5157820822beae9a19740f212600",
+      "stdout_sha256": "64564344889b589aca17a01240b3c48fa1ebeecef1b4cbcf1caeed87cbc45dfb"
+    },
+    {
+      "label": "manual_infer_warm",
+      "success": true,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 25,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 12,
+        "checked_proof_bodies": 8,
+        "native_functions": [
+          {
+            "function": "manual::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "manual::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "manual::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/manual.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "51b2403432c13d47e3c0e5a77aee522865ea5157820822beae9a19740f212600",
+      "stdout_sha256": "fba743819c980e0fb7c1f2eb28b303679469bcd45634e8eee341e50fcae7700a"
+    },
+    {
+      "label": "negative_leaf",
+      "success": false,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 25,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "controls::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::wrong_set_membership",
+            "rust_function": "wrong_set_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:349:1: 349:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "3bda0e83b73dafe834e5b83ff9ce0021d5b9de4cafcf83fc3eb2eabd14e66373",
+      "stdout_sha256": "4a8e452bf0246fa92274e3ab992a1525dc03edc4381817500bee044ee95359ef"
+    },
+    {
+      "label": "negative_count",
+      "success": false,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 25,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "controls::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::wrong_repeat_count",
+            "rust_function": "wrong_repeat_count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:356:1: 356:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "4ae30dcaba939e8896da172ed1a891a5b1b6915f1a1adbdaeca268157bc0dbe4",
+      "stdout_sha256": "5ec6b6f6c81b1e2c00b7c1e1dd8aa391afa55d1be45bea24b29edd103ff8d9b7"
+    },
+    {
+      "label": "negative_frame",
+      "success": false,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 25,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "controls::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "controls::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "controls::wrong_clear_frame",
+            "rust_function": "wrong_clear_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/controls.rs:364:1: 364:61",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "7c46f6c35020933c2f0aea6caa9887bad7136e4a10965aeba1a73a55c75fd975",
+      "stdout_sha256": "ec5447698125495f77f72aed749a36dca7a6767f95a318f5f27ed23133d61e2b"
+    },
+    {
+      "label": "provider",
+      "success": true,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 27,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 14,
+        "checked_proof_bodies": 8,
+        "native_functions": [
+          {
+            "function": "r2_api::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:219:1: 219:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:202:1: 202:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:195:1: 195:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:230:1: 230:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:208:1: 208:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:238:1: 238:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:252:17: 252:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::CheckedBitmap::allocated_count",
+            "rust_function": "CheckedBitmap::allocated_count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:355:5: 355:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::CheckedBitmap::logical_len",
+            "rust_function": "CheckedBitmap::logical_len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:353:5: 353:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::CheckedBitmap::mark_allocated",
+            "rust_function": "CheckedBitmap::mark_allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:356:5: 356:45",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "CheckedBitmap::mark_allocated::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "CheckedBitmap::mark_allocated::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:363:17: 363:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::CheckedBitmap::mark_free",
+            "rust_function": "CheckedBitmap::mark_free",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:366:5: 366:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "CheckedBitmap::mark_free::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "CheckedBitmap::mark_free::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:373:17: 373:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::CheckedBitmap::members",
+            "rust_function": "CheckedBitmap::members",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:354:5: 354:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::CheckedBitmap::valid",
+            "rust_function": "CheckedBitmap::valid",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:352:5: 352:44",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:334:1: 334:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:294:1: 294:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:310:1: 310:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:305:1: 305:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:299:1: 299:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:319:1: 319:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::allocated",
+            "rust_function": "allocated",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::ancestor",
+            "rust_function": "ancestor",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:185:7: 185:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:190:5: 190:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:135:7: 135:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::count",
+            "rust_function": "count",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::edge",
+            "rust_function": "edge",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:141:7: 141:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "finish_mutation::__VERUS_REVEAL_INTERNAL__",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:147:5: 147:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:100:7: 100:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:121:7: 121:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:346:1: 346:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::member",
+            "rust_function": "member",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::mutation",
+            "rust_function": "mutation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::path_frame",
+            "rust_function": "path_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::pending",
+            "rust_function": "pending",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::pending_at",
+            "rust_function": "pending_at",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:155:6: 155:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::propagation",
+            "rust_function": "propagation",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:160:7: 160:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::shape",
+            "rust_function": "shape",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::word_bits",
+            "rust_function": "word_bits",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:65:7: 65:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::word_change",
+            "rust_function": "word_change",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "r2_api::word_frame",
+            "rust_function": "word_frame",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:78:7: 78:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "r2_api::words",
+            "rust_function": "words",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/api.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": true,
+      "stderr_sha256": "3fa0bc4cd8d2ee4ab53f33798d8376e0cc743c891d20d0129f8a12db4192815b",
+      "stdout_sha256": "59a58c552b776137f748ceaf8a41a27085131a8a02526519cc2212c0b155327e"
+    },
+    {
+      "label": "caller_ordinary",
+      "success": true,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 3,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "callers::free_membership",
+            "rust_function": "free_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs:14:1: 14:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "callers::record_alloc_membership",
+            "rust_function": "record_alloc_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs:6:1: 6:71",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "callers::repeat_alloc_membership",
+            "rust_function": "repeat_alloc_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs:22:1: 22:71",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c2b1427cf7a8a6dfbe63250bd73db7d2486c949ae9c3ee723d0e69c7e90b96c4"
+    },
+    {
+      "label": "caller_infer",
+      "success": true,
+      "frontend": false,
+      "resource": false,
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 3,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 3,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "callers::free_membership",
+            "rust_function": "free_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs:14:1: 14:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "callers::record_alloc_membership",
+            "rust_function": "record_alloc_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs:6:1: 6:71",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "callers::repeat_alloc_membership",
+            "rust_function": "repeat_alloc_membership",
+            "source": "/tmp/redb-r2-REVIEW-4ac48a9a/callers.rs:22:1: 22:71",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "inferred_helpers": [],
+      "goal_assistance": [],
+      "interface_written": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "fe287fc1fa5db6175c9a079d1ebeee7547e5c3ac4c83cc9574674993c2c8d783"
+    }
+  ],
+  "success": true,
+  "fidelity": {
+    "tree_get_level": "56f4551a72e889e51bf8bd992cad77f354f816e479ee351e546f6b2187c19322",
+    "tree_get_height": "328f401feb79f090e1802b4d222dddae01eefc7ec5a0107a36a3b1c8228c23cb",
+    "tree_set": "feb31327fc4323201bc55149121c75030c7254529533b567da30f2438c7d5bf0",
+    "tree_clear": "b16c9a9e51312ef0e50e9dd811746f9e19157d8afc610bb7f012ebd4bbb79f9d",
+    "tree_get_level_mut": "62c87813e746b61b3368118f24d2c9c0d2850a420504c01a0de867320b5183bd",
+    "tree_update_to_root": "57f01a8f7615d4843e56d7c0cfb469b2734b1efdaaaee9ed5affc13f88e3479c",
+    "word_data_index_of": "8e543eb9e7afe6bf3323813d78e0869a6e920ad0289eb42cfa9609f1c9524a44",
+    "word_select_mask": "47b8283ddbe8656f81a3c58a5912c97764c852553499c3d475e98749100ad684",
+    "word_len": "def1443eb4bf70242958cb207555a0d25c49c353777f9ed0d6b9972b3921b555",
+    "word_get": "3c6f9a6fd3a26b2feb602451248ab1a360d0cf2ae7ef76833639999b348d86ac",
+    "word_set": "26fb3a49b569eb62d2777c744c2eeb32d7d5c996bbe0d366ec55820a4e999de1",
+    "word_clear": "c5321e37a5439f8d08b31d4ce289ef76b908d5e771b11c00be8da04472eac664"
+  },
+  "fixture_sha256": {
+    "component.rs": "e29bc0bbc4fe6a9d20bfbefa3054c20a2d71629cec9c920abcb0a0d84867b5c6",
+    "corrected.rs": "d65c71f57ae2bdd5116b797af0f2fc7ae8a7c54f56f65ffc9d6a044540846ebc",
+    "baseline.rs": "3ba0f30cc420936066355997ce2fedd6fd379e89c559701091e75540ecde4b36",
+    "manual.rs": "6fefe21d32e050e0a4cd7199e95451a7c25aeed80fc9166b3b73667aab2378bf",
+    "interface.rs": "c72ebeec8fff32a51ec2bd60a94c674126b1197a1883ab79e1a2012a410fbd21",
+    "callers.rs": "6615403fd17c501151a583d87adb6911f3f69de503dd2c1d813f05501bac7512",
+    "controls.rs": "d7c0969db806595886d0a7ffd1cb40a280c74e9ade56ab516c73684af32bb853",
+    "private.json": "08d4e488ee6215173161293370d7a23be54dbe0be7f50fa3eb5133c82f97ac47",
+    "replay.py": "153fcfcb0dbede09c467f95787af2301a0821fecd9e36a09fe2acd3544771197"
+  }
+}
