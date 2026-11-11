@@ -17,3 +17,9 @@ Each isolated worktree owns only its checkout and private temporary artifacts. U
 At most45 minutes active blocker investigation excluding build waits before a recorded scope checkpoint. A checkpoint is not permission to begin a prerequisite. If new Rust semantics, ownership foundations or substantial private representation is needed, return the unsupported boundary; keep the failed case in the denominator. Register replacements before trials. Report property/scope/baseline, authored semantic inputs, mechanical burden before/after, causal automation, remaining proofs/assumptions, cost and negative controls. Freeze body/domain/property within an experiment; specification corrections are disclosed, not automation progress.
 
 Exact selected component/call-site addenda will be registered after source inspection and presented to the user before proof experiments start.
+
+## Registered selected-case addenda (binding)
+
+**REDB R1:** actual `U64GroupedBitmap::resize` and its `required_words`/`bits_in_range` closure in pinned bitmap.rs. Callers are BtreeBitmap::resize and BuddyAllocator::resize. Full-domain property and prohibited restrictions are fixed in SELECTION.json. Baseline/manual proof only first; return exact typed common arithmetic/frame needs to integrator before engine edits.
+
+**Fedimint F1:** actual PaymentFee is_within/checked_add/absolute_fee/fee/add_to/subtract_from with genuine Amount dependencies. Concrete consumers are send/add_to, receive/subtract_from and gateway checked_add/is_within. Full-domain nested-saturation and dominance/accounting properties are fixed in SELECTION.json. No tiny helper alone can close the lane. Baseline/manual proof first; return exact common arithmetic/observation needs before engine edits. F0 funding-map scope stays unsupported/deferred and counted.

@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "status": "PREREGISTERED_BEFORE_NEW_PROOF_TRIALS_AND_ENGINE_EDITS",
+  "accepted_baseline": "a8194fc0 / f4415999 schema39policy75cache78",
+  "runtime": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined75-bundle-f4415999",
+    "receipt_sha256": "761ae34bc811fe116ddd23d6347d57bef96223dd208837b05acaa744591d2e05",
+    "tools": {
+      "rust_verify": "1e804d7fe91933f4a8b713e26e90400d02a4060d586383b7342fd0cb5df097be",
+      "verus": "ee910cb490e8f953fc81c7982f1765088457e79f54fcb6e8dea9099c698c05ca",
+      "libverus_builtin.rlib": "bb4f6cc16f5374663a7e595f673d1a930fc590b4ca755ca957435cb93e31f1ef",
+      "libverus_builtin_macros.so": "29838896efb807a8cd172cd1d8fc735999e39e5b2a55c0af7a9d0abf6a5c2bcd",
+      "libverus_state_machines_macros.so": "4f1d419094487e1f673446e95d0c2e9fa5e9e35af5a468759eb8f183007a1aba",
+      "vstd.vir": "47a9768043fedebe3d2bfc8d67388c4bd6c214f42002983623ce74bc544a2d5b",
+      "libvstd.rlib": "3e64055d3a5c90190cac7304dd2adc6420c33d05483a0907b5628293f8ef7391",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    }
+  },
+  "sources": {
+    "redb": {
+      "commit": "c82ab865bb362bc4af067d332adc44978ff64813",
+      "root": "/tmp/verus-infer-cycle-20261109/applications/redb",
+      "files": {
+        "src/tree_store/page_store/bitmap.rs": {
+          "sha256": "d57724dcbc9701e8fb7a2e268febba1fbe2ff2a00e14e000c27a703afe3af9ff",
+          "bytes": 17248
+        },
+        "src/tree_store/page_store/buddy_allocator.rs": {
+          "sha256": "88e6c4df1e0fa85651bd0373eeab653d2d2299a18b241fd337a127d13025fb26",
+          "bytes": 20555
+        }
+      }
+    },
+    "fedimint": {
+      "commit": "b8bd3d8ef61e1410bd4ad01d2e3b6425f7973236",
+      "root": "/tmp/verus-infer-cycle-20261109/applications/fedimint",
+      "files": {
+        "modules/fedimint-lnv2-common/src/gateway_api.rs": {
+          "sha256": "a3eda308673486e831abbf74c73adc6043fe28a9389e74773f804e70c0f551b6",
+          "bytes": 13109
+        },
+        "modules/fedimint-lnv2-common/src/gateway_api/tests.rs": {
+          "sha256": "e7a862ec02d078e79fd092d7aebdcbe0877c07aea09bfcc68b82fd914e1dbbb2",
+          "bytes": 5165
+        },
+        "fedimint-core/src/amount.rs": {
+          "sha256": "9b1095eb5ed2f2500887bc7875d28e4cf46177a6d860680a23e08bef7b253dd1",
+          "bytes": 7186
+        },
+        "modules/fedimint-lnv2-client/src/lib.rs": {
+          "sha256": "f00b2c853867235569338c3cb7ec9c5c0768633811fd4c678b2e697d07f4df95",
+          "bytes": 71305
+        },
+        "gateway/fedimint-gateway-server/src/lib.rs": {
+          "sha256": "2f15bfa050213c3fd041b93d5736d83882ad814ac36472eb7df64688824ca831",
+          "bytes": 172231
+        },
+        "fedimint-server/src/consensus/transaction.rs": {
+          "sha256": "d382c6060f5d03bfe74fb716cdff870c1996016846c50b394afb1e40b0f396b2",
+          "bytes": 6928
+        },
+        "fedimint-core/src/module/mod.rs": {
+          "sha256": "174a9c0cd5064b06c8244840e957f51da2140d5c111bbe6696e2aa338720bcb8",
+          "bytes": 29406
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "R1",
+      "project": "redb",
+      "component": "U64GroupedBitmap::resize with required_words/bits_in_range and genuine Vec<u64> representation",
+      "file": "src/tree_store/page_store/bitmap.rs",
+      "call_sites": [
+        "BtreeBitmap::resize",
+        "BuddyAllocator::resize through BtreeBitmap::resize"
+      ],
+      "domain": "All u32 old/new lengths, both full flags, arbitrary existing words and excess physical storage satisfying storage coverage ceil(old_len/64)<=data.len; includes zero, shrink, unchanged, multiword growth and partial words. No single-word/fixed-capacity restriction.",
+      "property": "Final logical length=new_len; old logical prefix preserved; grown interval exactly full; old physical bits outside growth interval unchanged; storage length=max(old storage length,ceil(new_len/64)). No invented all-padding-allocated invariant.",
+      "semantic_inputs": [
+        "logical bit view",
+        "storage-coverage well-formedness",
+        "interval-update intended behavior"
+      ],
+      "mechanical_candidates": [
+        "word quotient/remainder/cast bounds",
+        "min/saturating-sub range normalization",
+        "bit-mask membership/frame laws",
+        "loop iteration/Vec point-update frame propagation"
+      ],
+      "baseline": "New whole property unproved/not yet solver-measured; old single-word set proof is not this result. First experiment freezes specs before ordinary/infer baseline.",
+      "stopping": "45active min per blocker excluding builds; new ownership/IterMut/private representation/stdlib axioms -> unsupported checkpoint, not prerequisite."
+    },
+    {
+      "id": "F1",
+      "project": "fedimint",
+      "component": "PaymentFee policy/arithmetic closure: is_within,checked_add,absolute_fee,fee,add_to,subtract_from plus actual Amount dependencies",
+      "file": "modules/fedimint-lnv2-common/src/gateway_api.rs",
+      "call_sites": [
+        "LightningClientModule::send uses send_fee.add_to",
+        "LightningClientModule::receive uses receive_fee.subtract_from",
+        "gateway handle_set_fees_msg checked_add/is_within policy checks"
+      ],
+      "domain": "All u64 base.msats/ppm/payment values; no fee-limit or no-overflow precondition. Limit relations are conditional theorem hypotheses, not narrowed executable input domains.",
+      "property": "Exact ORIGINAL nested saturating fee formula (clamp product BEFORE divide, then saturating base add), exact checked component addition/overflow rejection, componentwise limit check, monotone fee dominance under componentwise limits, saturating send/receive accounting and bounds. No assertion of unbounded rational arithmetic when multiplication saturates.",
+      "semantic_inputs": [
+        "mathematical original saturating fee policy",
+        "Amount/PaymentFee numeric observations",
+        "componentwise limit relation",
+        "send/receive amount policy"
+      ],
+      "mechanical_candidates": [
+        "saturation/min/max and checked-branch normalization",
+        "division/range/cast bounds",
+        "lifting field observations through actual helper calls",
+        "nonlinear monotonicity steps using existing checked arithmetic laws"
+      ],
+      "baseline": "New full component properties unproved/not yet solver-measured; historical request helpers are unrelated and do not count. Baseline will separate already automatic methods from semantic/mechanical gaps.",
+      "stopping": "45active min per blocker excluding builds; new core MIR/ordering semantic/ownership foundation -> unsupported checkpoint, not prerequisite."
+    }
+  ],
+  "unsupported_coverage": [
+    {
+      "id": "F0-inspection",
+      "component": "FundingVerifier::verify_funding plus Amounts checked map accumulation",
+      "status": "DEFERRED_UNSUPPORTED_AT_SOURCE_MODEL_INSPECTION_NO_SOLVER_TRIAL",
+      "reason": "Actual body requires BTreeMap::entry(...).or_default and consuming BTreeMap iteration; accepted std_specs/btree.rs exposes neither route. Do not start new trusted contracts, foreign MIR or private representation prerequisites.",
+      "property_unachieved": "Version-dependent complete per-currency funding balance/overflow theorem",
+      "counts_as_success": false
+    }
+  ],
+  "shared_improvement_hypothesis": "Checked reusable saturation/min/max/interval-bound arithmetic and structured observation propagation; derive precise shared demand from baseline. Do not claim cross-project causal reuse until ablation succeeds at actual R1 and F1 call sites.",
+  "proof_trials_started": false,
+  "new_engine_edits": false,
+  "old_HMAC_native": "DEFERRED_AND_UNACHIEVED_NOT_A_PREREQUISITE"
+}
