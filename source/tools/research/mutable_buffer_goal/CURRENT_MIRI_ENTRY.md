@@ -2,7 +2,7 @@
 
 The branch supports checked direct core bool-to-u64 bodies, tuple-constructor
 function items, genuine NonZero equality, and bounded unsigned packing
-assistance. The combined interface uses **schema 39 / policy 71 / cache 74**.
+assistance. The last accepted interface uses **schema 39 / policy 71 / cache 74**.
 Rebuild compiler/macros/vstd, providers and consumers together; certificates bind
 the executing compiler, loaded core body/artifacts, target and dependencies.
 
@@ -14,6 +14,11 @@ erased Rust compilation. Ordinary imports validate required foreign evidence,
 including evidence retained through private-helper pruning and transitive exports.
 These are proof-produced interfaces under existing compiler/artifact/model trust;
 they are not native refinement certificates.
+
+A [provisional deduplication integration](parent-packing-dedup-provisional.json)
+uses schema39/policy72/cache75. It reports fewer duplicate queries, with no
+demonstrated wall-time speedup; matching validation and review remain pending.
+The accepted counts below belong to the preceding implementation.
 
 ## What now verifies
 

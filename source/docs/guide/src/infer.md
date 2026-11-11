@@ -6,8 +6,8 @@ explicit proofs and dependency boundaries, start with
 Use the [capability map](infer_capabilities.md) to locate a profile and identify
 which semantic inputs remain authored without reading every checkpoint below.
 
-The current build uses metadata schema **39**, inference policy **71** and
-candidate-cache version **74**. Rebuild compiler/macros/vstd and providers
+The current build uses metadata schema **39**, inference policy **72** and
+candidate-cache version **75**. Rebuild compiler/macros/vstd and providers
 together. Historical checkpoint version numbers below describe when a feature
 was introduced, rather than compatible alternatives to the current build.
 
@@ -34,6 +34,9 @@ library contract or application precondition is added. The bounded combined
 capability has [independent acceptance](../../../../evidence/certified-packing-combined-review/REPORT.md)
 and [matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined71-validation.json).
 These results do not establish native correspondence or the full HMAC theorem.
+Policy72/cache75 stage typed per-function deduplication of identical closed
+packing proposals. Schema39 is unchanged. This cleanup still requires matching
+parent validation and independent review; fewer queries do not imply faster proofs.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:
