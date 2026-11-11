@@ -115,7 +115,10 @@ fn rooted(e: &Expr, f: &Function, all: &HashMap<Fun, Function>) -> bool {
                 && match &e.x {
                     ExprX::Const(_) => true,
                     ExprX::Var(v) => names.contains(v),
-                    ExprX::ReadPlace(_, k) => matches!(k.preliminary_kind, ReadKind::Spec),
+                    ExprX::ReadPlace(_, k) => matches!(
+                        k.preliminary_kind,
+                        ReadKind::Spec | ReadKind::Copy | ReadKind::Move | ReadKind::ImmutBor
+                    ),
                     ExprX::Unary(UnaryOp::Clip { .. } | UnaryOp::Not, _) => true,
                     ExprX::UnaryOpr(UnaryOpr::Field(_), _)
                     | ExprX::Binary(..)
@@ -198,9 +201,13 @@ fn normalized(e: &Expr) -> Expr {
 }
 fn compact(e: &Expr) -> &Expr {
     match &e.x {
-        ExprX::Block(ss, Some(t)) if ss.is_empty() => compact(t),
+        ExprX::Block(ss, Some(t)) if ss.is_empty() && bytes(&e.typ) == bytes(&t.typ) => compact(t),
         ExprX::ReadPlace(p, _) => match &p.x {
-            PlaceX::Temporary(t) => compact(t),
+            PlaceX::Temporary(t)
+                if bytes(&e.typ) == bytes(&p.typ) && bytes(&p.typ) == bytes(&t.typ) =>
+            {
+                compact(t)
+            }
             _ => e,
         },
         _ => e,
@@ -208,7 +215,27 @@ fn compact(e: &Expr) -> &Expr {
 }
 fn term_key(e: &Expr) -> Vec<u8> {
     // Source locations are not semantic term identity. Types/impl paths ARE.
-    let mut v = serde_json::to_value(normalized(compact(e))).expect("VIR serialization");
+    let canonical = crate::ast_visitor::map_expr_visitor(e, &|e| {
+        let e = compact(e);
+        Ok(if let ExprX::ReadPlace(p, _) = &e.x {
+            if let PlaceX::Local(n) = &p.x {
+                if bytes(&e.typ) == bytes(&p.typ) {
+                    e.new_x(ExprX::Var(n.clone()))
+                } else {
+                    e.clone()
+                }
+            } else {
+                e.clone()
+            }
+        } else {
+            e.clone()
+        })
+    })
+    .expect("pure term canonicalization");
+    let mut v = serde_json::to_value(normalized(
+        &assistance::current(&canonical).expect("term normalization"),
+    ))
+    .expect("VIR serialization");
     fn strip(v: &mut serde_json::Value) {
         match v {
             serde_json::Value::Object(o) => {
@@ -318,7 +345,9 @@ fn demanded(f: &Function, all: &HashMap<Fun, Function>) -> Option<Vec<Expr>> {
                 // Keep actual compact calls such as allocated(t). Never expand
                 // their Set-returning definitions into filter/closure internals.
                 if keys.insert(term_key(e)) {
-                    terms.push(compact(e).clone());
+                    terms.push(
+                        assistance::current(compact(e)).expect("rooted term has no snapshots"),
+                    );
                 }
             }
             if let ExprX::Call {
@@ -375,16 +404,23 @@ fn demanded(f: &Function, all: &HashMap<Fun, Function>) -> Option<Vec<Expr>> {
             body: None,
         } = &e.x
         {
-            if models::path_is(&n.path, CrateId::Vstd, &["set", "Set", "intersect"])
+            if models::path_is(&n.path, CrateId::Vstd, &["set", "impl&%0", "intersect"])
                 && args.len() == 2
             {
                 let unions: Vec<_> = all
                     .values()
                     .filter(|g| {
-                        models::path_is(&g.x.name.path, CrateId::Vstd, &["set", "Set", "union"])
+                        models::path_is(&g.x.name.path, CrateId::Vstd, &["set", "impl&%0", "union"])
                             && g.x.mode == Mode::Spec
+                            && ordinary(g)
                             && g.x.params.len() == 2
-                            && g.x.typ_params.len() == ts.len()
+                            && g.x.typ_params.len() == 1
+                            && ts.len() == 1
+                            && g.x.params.iter().all(|p| {
+                                matches!(set(&p.x.typ),Some(t)
+                                if matches!(&**t,TypX::TypParam(n) if n==&g.x.typ_params[0]))
+                            })
+                            && bytes(&g.x.inner_ret.x.typ) == bytes(&g.x.params[0].x.typ)
                     })
                     .collect();
                 if unions.len() != 1 {
@@ -425,7 +461,7 @@ fn calls(
     let mut out = vec![];
     for a in &terms {
         for b in &terms {
-            if bytes(&a.typ) != bytes(&b.typ) {
+            if bytes(&a.typ) != bytes(&b.typ) || term_key(a) == term_key(b) {
                 continue;
             }
             out.push(SpannedTyped::new(
@@ -948,5 +984,112 @@ mod tests {
         );
         assert!(instantiate(&q, &g, &Arc::new(vec![int_typ()]), &actual).is_err());
         assert!(demanded(&f, &all).is_some());
+    }
+    #[test]
+    fn projection_preserves_original_loops_effects_and_all_metadata() {
+        let (f, l) = fixture();
+        let mut x = f.x.clone();
+        x.body = crate::infer::loops::tests::counted_function().x.body.clone();
+        let f = f.new_x(x);
+        let (candidate, all, reserved) = installed(&f, &l);
+        assert!(validate(&f, &candidate, &all, &l, &reserved).is_ok());
+        for attack in 0..3 {
+            let mut x = candidate.x.clone();
+            x.body = Some(
+                crate::ast_visitor::map_expr_visitor(x.body.as_ref().unwrap(), &|e| {
+                    if let ExprX::Loop {
+                        loop_isolation,
+                        allow_complex_invariants,
+                        is_for_loop,
+                        assume_termination,
+                        label,
+                        cond,
+                        body,
+                        invs,
+                        decrease,
+                        atomic_call,
+                    } = &e.x
+                    {
+                        return Ok(e.new_x(ExprX::Loop {
+                            loop_isolation: *loop_isolation,
+                            allow_complex_invariants: *allow_complex_invariants,
+                            is_for_loop: *is_for_loop,
+                            assume_termination: *assume_termination,
+                            label: label.clone(),
+                            cond: cond.clone(),
+                            body: body.clone(),
+                            invs: if attack == 0 { Arc::new(vec![]) } else { invs.clone() },
+                            decrease: if attack == 1 {
+                                Arc::new(vec![boolean(&e.span, false).expr])
+                            } else {
+                                decrease.clone()
+                            },
+                            atomic_call: *atomic_call,
+                        }));
+                    }
+                    if attack == 2 {
+                        if let ExprX::Assign { place, op, typ, resolve, .. } = &e.x {
+                            return Ok(e.new_x(ExprX::Assign {
+                                place: place.clone(),
+                                rhs: boolean(&e.span, false).expr,
+                                op: *op,
+                                typ: typ.clone(),
+                                resolve: *resolve,
+                            }));
+                        }
+                    }
+                    Ok(e.clone())
+                })
+                .unwrap(),
+            );
+            if attack == 0 {
+                // The original loop has no authored invariants: inject one.
+                let mut d = x.decrease.clone();
+                Arc::make_mut(&mut d).push(boolean(&span(), false).expr);
+                x.decrease = d;
+            }
+            assert!(validate(&f, &candidate.new_x(x), &all, &l, &reserved).is_err());
+        }
+    }
+    #[test]
+    fn term_pair_caps_and_shadowed_bound_root_fail_closed() {
+        let (f, l) = fixture();
+        let mut x = f.x.clone();
+        x.params = Arc::new(
+            (0..9)
+                .map(|i| {
+                    let mut p = x.params[0].x.clone();
+                    p.name = VarIdent(Arc::new(format!("set{i}")), VarIdentDisambiguate::AirLocal);
+                    Spanned::new(span(), p)
+                })
+                .collect(),
+        );
+        x.require = Arc::new(
+            x.params
+                .iter()
+                .map(|p| SpannedTyped::new(&span(), &p.x.typ, ExprX::Var(p.x.name.clone())))
+                .collect(),
+        );
+        let many = f.new_x(x.clone());
+        let all = pipeline::function_map(&[many.clone()], &[l.clone()]);
+        assert!(demanded(&many, &all).is_none());
+        x.params = Arc::new(x.params[..7].to_vec());
+        x.require = Arc::new(x.require[..7].to_vec());
+        assert!(calls(&f.new_x(x), &all, &l).is_none());
+        let q = SpannedTyped::new(
+            &span(),
+            &bool_typ(),
+            ExprX::Quant(
+                Quant { quant: air::ast::Quant::Forall },
+                Arc::new(vec![Arc::new(VarBinderX {
+                    name: f.x.params[0].x.name.clone(),
+                    a: f.x.params[0].x.typ.clone(),
+                })]),
+                f.x.require[0].clone(),
+            ),
+        );
+        let mut x = f.x.clone();
+        x.require = Arc::new(vec![q]);
+        assert!(demanded(&f.new_x(x), &all).unwrap().is_empty());
     }
 }
