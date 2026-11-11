@@ -1,0 +1,782 @@
+{
+  "blocker": "Original BorTag Ord delegates to core NonZero<u64> Ord; no existing OrdSpecImpl links its result to the NonZero view. Macro and typed derive profile also reject ordering. No ordering proof claimed.",
+  "bundle_receipt_sha256": "43b29d75d63b897675449ac1bfd56024c4245ff6475d88ef85563349b495f679",
+  "cases": {
+    "carrier_ord": {
+      "exit": 1,
+      "failed_functions": [
+        "carrier_ord::total"
+      ],
+      "helpers": [],
+      "interface_written": false,
+      "native_functions": [
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "total",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "92a979a402573c0d02afa89c5298735797a3ed46fda8d12615739199ec8b6391",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 1,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "carrier_partial": {
+      "exit": 0,
+      "failed_functions": [],
+      "helpers": [],
+      "interface_written": true,
+      "native_functions": [
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "greater",
+          "selected": true
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "greater_equal",
+          "selected": true
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "less",
+          "selected": true
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "less_equal",
+          "selected": true
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "partial",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "d081a75bc64c4febfc3313fcf8bc1d5d44dc4c392633985391498591f019fd60",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 5
+      }
+    },
+    "eq": {
+      "exit": 0,
+      "failed_functions": [],
+      "helpers": [
+        {
+          "available_to_same_crate_callers": true,
+          "candidate_id": "194191088e0372c1765426ff2d5eb0c4f0205e7d1b80e48ec4e732b6b0796787",
+          "contract": {
+            "ensures": "(result == (eq::BorTag::__verus_infer_nonzero_u64_view(self) == eq::BorTag::__verus_infer_nonzero_u64_view(other)))",
+            "requires": "true"
+          },
+          "dependencies": [],
+          "exported": true,
+          "function": "eq::BorTag::eq",
+          "loop_proofs": [],
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "ensures_nodes": 7,
+            "generation_micros": 598,
+            "requires_nodes": 1,
+            "solver_micros": 2685
+          },
+          "mode": "exact",
+          "parameters": [
+            {
+              "name": "self",
+              "type": "&eq::BorTag"
+            },
+            {
+              "name": "other",
+              "type": "&eq::BorTag"
+            }
+          ],
+          "proofs": {
+            "exactness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "maximality": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "soundness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            }
+          },
+          "required_checks_passed": true,
+          "result_type": "bool",
+          "source": "/tmp/nonzero-ordering-baseline-qoptrgkf/eq.rs:5:29: 5:38 (#18)",
+          "summary_kind": "value"
+        }
+      ],
+      "interface_written": true,
+      "native_functions": [
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "equal",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "c8fd50a0228fd5ead093047f3901e9a57676aa49d843ab8349d7234d73760e40",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    },
+    "eq_warm": {
+      "exit": 0,
+      "failed_functions": [],
+      "helpers": [
+        {
+          "available_to_same_crate_callers": true,
+          "candidate_id": "194191088e0372c1765426ff2d5eb0c4f0205e7d1b80e48ec4e732b6b0796787",
+          "contract": {
+            "ensures": "(result == (eq::BorTag::__verus_infer_nonzero_u64_view(self) == eq::BorTag::__verus_infer_nonzero_u64_view(other)))",
+            "requires": "true"
+          },
+          "dependencies": [],
+          "exported": true,
+          "function": "eq::BorTag::eq",
+          "loop_proofs": [],
+          "metrics": {
+            "cache": "hit",
+            "cache_policy": "candidate_cache",
+            "ensures_nodes": 7,
+            "generation_micros": 562,
+            "requires_nodes": 1,
+            "solver_micros": 2631
+          },
+          "mode": "exact",
+          "parameters": [
+            {
+              "name": "self",
+              "type": "&eq::BorTag"
+            },
+            {
+              "name": "other",
+              "type": "&eq::BorTag"
+            }
+          ],
+          "proofs": {
+            "exactness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "maximality": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "soundness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            }
+          },
+          "required_checks_passed": true,
+          "result_type": "bool",
+          "source": "/tmp/nonzero-ordering-baseline-qoptrgkf/eq.rs:5:29: 5:38 (#18)",
+          "summary_kind": "value"
+        }
+      ],
+      "interface_written": true,
+      "native_functions": [
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "equal",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "d617416fd89d5d71b1bf06dd2ceca4317dad8595fcdd2d85be5812876464f5b1",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    },
+    "expanded": {
+      "exit": 0,
+      "failed_functions": null,
+      "helpers": [],
+      "interface_written": null,
+      "native_functions": [],
+      "receipt_sha256": "4ce8b265efb18a7a89cf0965321a005b2d3f88ecb6fe88f88dab61b5131d43e0",
+      "verification": {}
+    },
+    "mir": {
+      "exit": 0,
+      "failed_functions": null,
+      "helpers": [],
+      "interface_written": null,
+      "native_functions": [],
+      "receipt_sha256": "d7440c0966f29b7e4943f68e0cde88a8a99ada592f9089831596848d7758705d",
+      "verification": {}
+    },
+    "ordinary_derive": {
+      "exit": 1,
+      "failed_functions": [],
+      "helpers": [],
+      "interface_written": false,
+      "native_functions": [
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": false
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::OrdSpecImpl>::cmp_spec",
+          "selected": true
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::OrdSpecImpl>::obeys_cmp_spec",
+          "selected": true
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialOrdSpecImpl>::obeys_partial_cmp_spec",
+          "selected": true
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as vstd::std_specs::cmp::PartialOrdSpecImpl>::partial_cmp_spec",
+          "selected": true
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "BorTag::__verus_infer_derived_cmp",
+          "selected": true
+        },
+        {
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "rust_function": "BorTag::__verus_infer_derived_partial_cmp",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "5876480ea2c60b3ade4cabd3002f56cab5725dbd1c61433add0d4e5020e1cd27",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    "original_calls": {
+      "exit": 1,
+      "failed_functions": [
+        "original_calls::greater",
+        "original_calls::greater_equal",
+        "original_calls::less",
+        "original_calls::less_equal",
+        "original_calls::partial",
+        "original_calls::total"
+      ],
+      "helpers": [],
+      "interface_written": false,
+      "native_functions": [
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::Ord>::cmp",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::PartialEq>::eq",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<BorTag as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "greater",
+          "selected": true
+        },
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "greater_equal",
+          "selected": true
+        },
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "less",
+          "selected": true
+        },
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "less_equal",
+          "selected": true
+        },
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "partial",
+          "selected": true
+        },
+        {
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "rust_function": "total",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "8d4c37c8c13c29d0cd421f84eb9788eb9ab34bd19e4a315d6ded1f0bf969c1d7",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 6,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 2
+      }
+    },
+    "request": {
+      "exit": 1,
+      "failed_functions": [],
+      "helpers": [],
+      "interface_written": false,
+      "native_functions": [],
+      "receipt_sha256": "75a7fd4c712e210a6bef437ce22d60425cb1d6adb8371cb3ee1106b9f694b1eb",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": false,
+        "verified": 0
+      }
+    },
+    "unrelated_eq": {
+      "exit": 0,
+      "failed_functions": [],
+      "helpers": [
+        {
+          "available_to_same_crate_callers": true,
+          "candidate_id": "78263d48dc70403f20d5b19259da5514cc4e4840a5cb264bdbc7c9297ca36acf",
+          "contract": {
+            "ensures": "(result == (unrelated_eq::CounterKey::__verus_infer_nonzero_u64_view(self) == unrelated_eq::CounterKey::__verus_infer_nonzero_u64_view(other)))",
+            "requires": "true"
+          },
+          "dependencies": [],
+          "exported": true,
+          "function": "unrelated_eq::CounterKey::eq",
+          "loop_proofs": [],
+          "metrics": {
+            "cache": "miss",
+            "cache_policy": "candidate_cache",
+            "ensures_nodes": 7,
+            "generation_micros": 516,
+            "requires_nodes": 1,
+            "solver_micros": 2678
+          },
+          "mode": "exact",
+          "parameters": [
+            {
+              "name": "self",
+              "type": "&unrelated_eq::CounterKey"
+            },
+            {
+              "name": "other",
+              "type": "&unrelated_eq::CounterKey"
+            }
+          ],
+          "proofs": {
+            "exactness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "maximality": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "soundness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            }
+          },
+          "required_checks_passed": true,
+          "result_type": "bool",
+          "source": "/tmp/nonzero-ordering-baseline-qoptrgkf/unrelated_eq.rs:5:29: 5:38 (#18)",
+          "summary_kind": "value"
+        }
+      ],
+      "interface_written": true,
+      "native_functions": [
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::cmp::Ord>::cmp",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "rust_function": "<CounterKey as std::cmp::PartialEq>::eq",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "equal",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "54735442bb3083ec93670ac60607c4719685d26ad0c02dcd8722af17f21d307d",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    },
+    "unrelated_eq_warm": {
+      "exit": 0,
+      "failed_functions": [],
+      "helpers": [
+        {
+          "available_to_same_crate_callers": true,
+          "candidate_id": "78263d48dc70403f20d5b19259da5514cc4e4840a5cb264bdbc7c9297ca36acf",
+          "contract": {
+            "ensures": "(result == (unrelated_eq::CounterKey::__verus_infer_nonzero_u64_view(self) == unrelated_eq::CounterKey::__verus_infer_nonzero_u64_view(other)))",
+            "requires": "true"
+          },
+          "dependencies": [],
+          "exported": true,
+          "function": "unrelated_eq::CounterKey::eq",
+          "loop_proofs": [],
+          "metrics": {
+            "cache": "hit",
+            "cache_policy": "candidate_cache",
+            "ensures_nodes": 7,
+            "generation_micros": 527,
+            "requires_nodes": 1,
+            "solver_micros": 2653
+          },
+          "mode": "exact",
+          "parameters": [
+            {
+              "name": "self",
+              "type": "&unrelated_eq::CounterKey"
+            },
+            {
+              "name": "other",
+              "type": "&unrelated_eq::CounterKey"
+            }
+          ],
+          "proofs": {
+            "exactness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "maximality": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            },
+            "soundness": {
+              "reason": null,
+              "required": true,
+              "status": "proved"
+            }
+          },
+          "required_checks_passed": true,
+          "result_type": "bool",
+          "source": "/tmp/nonzero-ordering-baseline-qoptrgkf/unrelated_eq.rs:5:29: 5:38 (#18)",
+          "summary_kind": "value"
+        }
+      ],
+      "interface_written": true,
+      "native_functions": [
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::clone::Clone>::clone",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::cmp::Eq>::assert_fields_are_eq",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::cmp::Ord>::cmp",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": true,
+          "rust_function": "<CounterKey as std::cmp::PartialEq>::eq",
+          "selected": true
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::cmp::PartialOrd>::partial_cmp",
+          "selected": false
+        },
+        {
+          "body_status": "outside_selected_scope",
+          "inference_candidate": false,
+          "rust_function": "<CounterKey as std::hash::Hash>::hash",
+          "selected": false
+        },
+        {
+          "body_status": "checked_exec_body",
+          "inference_candidate": false,
+          "rust_function": "equal",
+          "selected": true
+        }
+      ],
+      "receipt_sha256": "05d01e6e319c27041c43076ad52ea3753933375c5fb82d3c9154e809838baa9b",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "errors": 0,
+        "is-verifying-entire-crate": true,
+        "success": true,
+        "verified": 6
+      }
+    }
+  },
+  "declaration_sha256": "0107890f5ffee6b94a4179c0351a4ff121e0e61b9886067e94370a65391e9abd",
+  "engine_changed": false,
+  "generated_bodies": {
+    "assert_fields_are_eq": {
+      "bytes": 66,
+      "sha256": "7f2f25a202e8fbae714129daa8069fd4f978c1b94f786ed4093ab22ef5c7d01c"
+    },
+    "clone": {
+      "bytes": 85,
+      "sha256": "aa9808abef1c7f89f053e653fedbe2458b88c8c0e62a153eaf7db7109608ec05"
+    },
+    "cmp": {
+      "bytes": 56,
+      "sha256": "159b2e84c3957881c117614b5ab2bc1b9267e911759fef6b2178ee0bc93be271"
+    },
+    "eq": {
+      "bytes": 21,
+      "sha256": "1774afdac1844226361985602334fc3b076cb8194e4f4efcc8c0b18fd2eb229b"
+    },
+    "hash": {
+      "bytes": 56,
+      "sha256": "3bf3b96abd1eea2453855a4a8b6a2c8f3f04735117f4bc9c1c231acb84720d39"
+    },
+    "partial_cmp": {
+      "bytes": 80,
+      "sha256": "797883722a51f7ee956afc0cd96eabfeab125867c9e716facefdeed13aab0c26"
+    }
+  },
+  "goal_complete": false,
+  "native_correspondences": 0,
+  "native_mir_sha256": "5cb861652c63081955727b5f0d79234d2ec6379c1dc4d149f490ac8701ff2c08",
+  "private_root": "/tmp/nonzero-ordering-baseline-qoptrgkf",
+  "publication": false,
+  "receipt_sha256": "c8a126c5220377ea3ae52e9ab49afb6f65e7f85fd2703f7d3a3d7e9932593e7f",
+  "schema": 1,
+  "versions": {
+    "cache": 75,
+    "policy": 72,
+    "schema": 39
+  }
+}
