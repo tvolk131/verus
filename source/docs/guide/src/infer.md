@@ -30,8 +30,10 @@ Imports freshly inspect the actual core body, compiler/core/target identities
 and required dependencies before using imported contracts. Publication waits
 for complete proofs and the erased Rust compilation. Observed unsigned packing
 formulas receive separate ordinary bitvector checks before use. No standard-
-library contract or application precondition is added. The combined certificate
-and packing implementation still requires independent composed-engine review.
+library contract or application precondition is added. The bounded combined
+capability has [independent acceptance](../../../../evidence/certified-packing-combined-review/REPORT.md)
+and [matching parent validation](../../../../source/tools/research/mutable_buffer_goal/parent-combined71-validation.json).
+These results do not establish native correspondence or the full HMAC theorem.
 
 Verus Infer generates and checks contracts for a small subset of executable Rust.
 Opt a function in with `#[verus_infer]`, imported by `vstd::prelude::*`:

@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "status": "parent_and_independent_review_passed_bounded_combined_scope",
+  "validated_engine_commit": "21eeabbb6e0eade862798e4dbe022d69c4a564c5",
+  "versions": {
+    "schema": 39,
+    "policy": 71,
+    "cache": 74
+  },
+  "scope": "Actual direct core bool-to-u64 body checking with certified export/ordinary import plus accepted checked generic unsigned packing; source/model scope only.",
+  "review_record": "parent-certified-foreign-review.json",
+  "matching_vstd": "2250/0",
+  "frozen_bundle": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined71-bundle-21eeabbb",
+  "receipts": {
+    "build": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined71-build-21eeabbb/receipt.json",
+      "sha256": "80786e88fcc2652de851dde63569772d5335156c971506901587281ab8523e2d"
+    },
+    "bundle": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/parent-combined71-bundle-21eeabbb/receipt.json",
+      "sha256": "5c81930271eeae212f1a4d92cb3d7f226c8cf72a4028063ba01a9837e6b01ea5"
+    },
+    "features": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined71-local-v2/receipt.json",
+      "sha256": "1898ab035dea806144cd5eddc607d4706d091ee3c62c0e28a9a0fe038975f958"
+    },
+    "regressions": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/combined71-validation/receipt.json",
+      "sha256": "7233bdf59d10b4754b7f042c55daa2c47e5acd6f0dab5cbb2b44a9a872082180"
+    },
+    "delivery_auth": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/certificate-parent-delivery-auth/receipt.json",
+      "sha256": "b226d2663bc7077a7abb39fc361b70536c879513811cad2bfc5373746a21f712"
+    },
+    "review_auth": {
+      "path": "/tmp/verus-infer-buffer-cycle-20261109/certificate-combined-review-auth/receipt.json",
+      "sha256": "8dd001c08552f00d7dc14bf926d4f9a1f9d6c26b68ed9afc022e4bc31a57f4e4"
+    }
+  },
+  "postcompletion_seal": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined71-seal/receipt.json",
+    "sha256": "29d2c8ab20bb8b4f7510702de83f10bc8fddc4740b36a266abd61b91b82ee927"
+  },
+  "regressions": {
+    "infer_and_feature_targets": 36,
+    "infer_and_feature_tests": 636,
+    "compiler_integration_tests": 717,
+    "VIR_tests": 149,
+    "rust_verify_library_unit_tests": 3,
+    "production_certificate_API_unit_tests_within_library": 2,
+    "Python_tests_each_mode": 148,
+    "feature_cases": 25,
+    "canonical_cases": 26,
+    "observer_cases": 23,
+    "existing_ignored_fndef_test": "exec_calling_no_vstd"
+  },
+  "feature_results": {
+    "bool": "2/0 cold/warm, actual full-domain helper",
+    "full_Item": "146/0 cold/warm, original body/domain/contracts/debug assertions and no application proof glue",
+    "natural_packet": "32/0 cold/warm unchanged",
+    "public_packet_adapter": "32/0 cold/warm; public function and constant only",
+    "ordinary_bool_import": "1/0 without infer-goals",
+    "ordinary_full_observers": "5/0 without infer-goals",
+    "ordinary_packet_import": "1/0 without infer-goals",
+    "false_bool_client": "0/1, intended postcondition",
+    "false_full_observer": "4/1, intended protector postcondition",
+    "goals_off": "0/1; any inherited ordinary-only export remains uncertified",
+    "auxiliary_only_failure": "10/1, failed_functions=[], no export despite healthy helper and ordinary contracts",
+    "erased_Rust_failure": "2/0 then E0308, no export",
+    "disabled_checks": "all four selected parent controls refused; review also checks remaining explicit/Cargo paths"
+  },
+  "source_fidelity": {
+    "full_sha256": "1adb8b6c2ee64cc1c6930c9530920105ad26cee8abf3212caff53dda0c36518d",
+    "manual_inputs": "Authored semantic views, constants, range contracts and intended behavior remain. No application proof definitions/blocks/calls/snapshots/mechanical assertions.",
+    "packing_cost": "116 isolated BV checks for full Item and29 for natural packet; optimization experiment separate and unaccepted."
+  },
+  "stable": {
+    "bool": {
+      "foreign_dependencies": [
+        {
+          "identity": {
+            "semantic_instance": "DefPathHash(Fingerprint(17281971461272426270, 11605245819450143739)):DefPathHash(Fingerprint(17281971461272426270, 15071683025041489962)):DefPathHash(Fingerprint(17281971461272426270, 13560369672756079173)):DefPathHash(Fingerprint(17281971461272426270, 1802834199475816209))",
+            "typed_mir": "Fingerprint(9745051394096871426, 10086113300995503997)",
+            "compiler": "09d0aabd6e6186ab564ec9929f9bf9816e3884e6bfc7300606fbe0f008fb62e1",
+            "core_artifact": "18c8a48fad4d96a0dc0ed9c2c6a78eee0bf7b53804434fb688e82e4325e8d121",
+            "target": "fac5c351fbc8de83f2320f485c292ca8921382734155cc8b2433d7b490b5a4a2"
+          },
+          "checked_function": "106a200f9e51ca6b94ad07145f5a0ae65359a8ce2ac5b6e092fe3c55829a671a"
+        }
+      ],
+      "api_summaries": [
+        "fa6b980c6cf8a4703a2cf5e58190af004262aecb6b6a31cdbba75e62e5e7a573",
+        "fa6b980c6cf8a4703a2cf5e58190af004262aecb6b6a31cdbba75e62e5e7a573"
+      ],
+      "AIR_file_count": 1
+    },
+    "full": {
+      "foreign_dependencies": [
+        {
+          "identity": {
+            "semantic_instance": "DefPathHash(Fingerprint(17281971461272426270, 11605245819450143739)):DefPathHash(Fingerprint(17281971461272426270, 15071683025041489962)):DefPathHash(Fingerprint(17281971461272426270, 13560369672756079173)):DefPathHash(Fingerprint(17281971461272426270, 1802834199475816209))",
+            "typed_mir": "Fingerprint(9745051394096871426, 10086113300995503997)",
+            "compiler": "09d0aabd6e6186ab564ec9929f9bf9816e3884e6bfc7300606fbe0f008fb62e1",
+            "core_artifact": "18c8a48fad4d96a0dc0ed9c2c6a78eee0bf7b53804434fb688e82e4325e8d121",
+            "target": "fac5c351fbc8de83f2320f485c292ca8921382734155cc8b2433d7b490b5a4a2"
+          },
+          "checked_function": "362c546fda0902e9126c7281002ee3ac760bab3fa8a9ac88e5e102021c2fad41"
+        }
+      ],
+      "api_summaries": [
+        "56ad37d6f185963f3dbe02a68f6d9af7c40ea1b717d608ba8c34cfcba85dbbf8",
+        "07dfa740b013ca01cf8c63344261fce5380e282b011c9a779879c052860895ad"
+      ],
+      "AIR_file_count": 118
+    },
+    "naturalpacket": {
+      "foreign_dependencies": [
+        {
+          "identity": {
+            "semantic_instance": "DefPathHash(Fingerprint(17281971461272426270, 11605245819450143739)):DefPathHash(Fingerprint(17281971461272426270, 15071683025041489962)):DefPathHash(Fingerprint(17281971461272426270, 13560369672756079173)):DefPathHash(Fingerprint(17281971461272426270, 1802834199475816209))",
+            "typed_mir": "Fingerprint(9745051394096871426, 10086113300995503997)",
+            "compiler": "09d0aabd6e6186ab564ec9929f9bf9816e3884e6bfc7300606fbe0f008fb62e1",
+            "core_artifact": "18c8a48fad4d96a0dc0ed9c2c6a78eee0bf7b53804434fb688e82e4325e8d121",
+            "target": "fac5c351fbc8de83f2320f485c292ca8921382734155cc8b2433d7b490b5a4a2"
+          },
+          "checked_function": "3518d66d28a5934365882df6db0c6e51c59e43025d3c9090016a2c167a0b66f9"
+        }
+      ],
+      "api_summaries": [
+        "b6bd72764e74366c4e80ace46f4723c862b00acdf7878bf12f233cd857b7fda8",
+        "b6bd72764e74366c4e80ace46f4723c862b00acdf7878bf12f233cd857b7fda8"
+      ],
+      "AIR_file_count": 30
+    },
+    "packet": {
+      "foreign_dependencies": [
+        {
+          "identity": {
+            "semantic_instance": "DefPathHash(Fingerprint(17281971461272426270, 11605245819450143739)):DefPathHash(Fingerprint(17281971461272426270, 15071683025041489962)):DefPathHash(Fingerprint(17281971461272426270, 13560369672756079173)):DefPathHash(Fingerprint(17281971461272426270, 1802834199475816209))",
+            "typed_mir": "Fingerprint(9745051394096871426, 10086113300995503997)",
+            "compiler": "09d0aabd6e6186ab564ec9929f9bf9816e3884e6bfc7300606fbe0f008fb62e1",
+            "core_artifact": "18c8a48fad4d96a0dc0ed9c2c6a78eee0bf7b53804434fb688e82e4325e8d121",
+            "target": "fac5c351fbc8de83f2320f485c292ca8921382734155cc8b2433d7b490b5a4a2"
+          },
+          "checked_function": "9891c044a7ce601c3842f119f995a201c7f25635be90fc2fed94cc8499a092f0"
+        }
+      ],
+      "api_summaries": [
+        "7a47119d7948f08275d9c89939cfdb04315cdcf359d2eb39088501fec4f5f007",
+        "7a47119d7948f08275d9c89939cfdb04315cdcf359d2eb39088501fec4f5f007"
+      ],
+      "AIR_file_count": 30
+    }
+  },
+  "canonical": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined71-validation/canonical/canonical-h7ynt0rr/receipt.json",
+    "sha256": "322dc0e2566340fc0540e610772940bcb23f925ed0df821fa6bc5ff62179c35d",
+    "case_count": 26,
+    "audit_sha256": "3572fecc2cc7ab9113e64821c6aad545e04ef59a4f8dc3e77350fa74210a0012"
+  },
+  "observer": {
+    "receipt": "/tmp/verus-infer-buffer-cycle-20261109/combined71-validation/observer/observations-lk5c66dg/receipt.json",
+    "sha256": "9f3be6425a40d13fc96b55de51e011e5050a74bc4560514a17a9e48c91bf5a2e",
+    "case_count": 23
+  },
+  "postcompletion_authentication": {
+    "input_bindings_checked": 7022,
+    "products_checked": 2051
+  },
+  "excluded_setup": {
+    "path": "/tmp/verus-infer-buffer-cycle-20261109/combined71-local/receipt.json",
+    "sha256": "62801e75313e5170db4432d5ac7dc3909d3bc7b52bd9a79971f3d70ac3a6585e",
+    "reason": "public packet adapter referred to private contract constant; frontend/WF setup failure; no production change; not semantic evidence"
+  },
+  "native_correspondences": 0,
+  "full_HMAC": "1/1 UNPROVED",
+  "open_native_obligations": "44 minimal +3 phase /101 writer effects OPEN",
+  "bounded_certificate_publication": true,
+  "publication": false,
+  "goal_complete": false
+}

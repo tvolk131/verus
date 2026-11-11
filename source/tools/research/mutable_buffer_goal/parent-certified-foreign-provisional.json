@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "provisional composition; independent combined review and parent regressions pending",
+  "status": "accepted bounded composition; superseded by parent-certified-foreign-review.json and parent-combined71-validation.json",
   "worker_head": "66204695",
   "worker_source": "3a23cdd5",
   "root_source": "21eeabbb",
@@ -32,9 +32,11 @@
   "composition": "accepted f711aa51 generic packing arithmetic plus checked foreign interface; root unit tests use certificate-aware API hash",
   "bounded_test_publication_enabled": true,
   "whole_goal_publication": false,
-  "combined_acceptance": false,
+  "combined_acceptance": true,
   "native_correspondences": 0,
   "open_native_obligations": "44+3/101",
   "full_HMAC": "1/1 UNPROVED; inherited",
-  "goal_complete": false
+  "goal_complete": false,
+  "accepted_review_record": "parent-certified-foreign-review.json",
+  "accepted_parent_validation": "parent-combined71-validation.json"
 }
