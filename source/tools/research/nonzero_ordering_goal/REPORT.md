@@ -60,3 +60,39 @@ Ordering, full find_granting and native correspondence remain open. Native=0;
 full HMAC=1/1 UNPROVED; all 44 minimal +3 phase /101 writer effects OPEN.
 Whole-goal publication=false, goal_complete=false. Independent parent acceptance
 is still required.
+
+## Completed exact MIR follow-up
+
+MIR.json and PROPOSAL.md now isolate the next dependency. The actual optimized
+NonZero<u64> Ord body has **two inlined get transmutes** followed by actual u64
+Ord; the primitive body has a typed Cmp rvalue. The separate get body is also
+inventoried. All seven selected call-closure instances resolve and have complete
+MIR. The final sidecar authenticated loaded core/compiler bytes and recorded
+spanless whole-Body fingerprints. It produced zero foreign certificates and
+checked zero new standard-library contracts. Original ordering VIR cannot be
+certified at the existing derive profile gate; native MIR inventory is not
+misreported as a checked VIR body.
+
+This exceeds the bool-cast-only foreign subset. The earliest missing bridge is
+actual get-fragment/ordinary-get-contract correspondence with result=n@, followed
+by typed u64 Cmp-to-Ordering body correspondence and the ordinary carrier contract.
+No transmute/view equality is assumed. Production, vstd, global versions and
+historical fixtures/evidence remain unchanged. Ordering remains UNPROVED.
+
+Final private MIR epoch: /tmp/nonzero-ordering-mir-x1sbsnfo. Earlier completed
+partial diagnostic /tmp/nonzero-ordering-mir-_se2tuxi lacked separate get inventory
+and spanless fingerprints; it is not the final acceptance input. A second setup
+failure /tmp/nonzero-ordering-mir-ila4281c built the sidecar but its binary name
+collided with the output directory; retained, excluded. The first diagnostic
+compile failure was a rustc FnDef generic-args Binder API mismatch. The audit
+also initially missed generic hash syntax; both audit mismatches were fixed
+without repeating the successful baseline proofs. Command-local Git identity
+was needed for the first commit. Sandbox startup failed before running commands;
+all shell work used explicit require_escalated, without host-process enumeration
+or live parent/sibling access.
+
+No new ordering cache/import/semantic-negative certification is claimed. Those
+acceptance cases remain listed explicitly in PROPOSAL.md; existing Eq miss/hit
+checks are regression evidence only. The unchanged production engine makes
+rebuilding/rerunning 149 VIR, 6 rust_verify units or vstd2250 unnecessary here;
+parent historical results remain attributed to parent, not this worker.

@@ -1,0 +1,98 @@
+{
+  "baseline_receipt_sha256": "c8a126c5220377ea3ae52e9ab49afb6f65e7f85fd2703f7d3a3d7e9932593e7f",
+  "compiler_matches_Miri_pin": "58cf8f9c35b355199727627d07ae34a4e2846d67",
+  "diagnostic_only": true,
+  "earliest_required_correspondence": "actual instantiated/inlined NonZero<u64>::get transmute fragment must refine its existing get boundary with result=n@; not established by recognizing a cast or hashing MIR",
+  "foreign_certificates_produced": 0,
+  "goal_complete": false,
+  "inventory": [
+    {
+      "block_count": 2,
+      "body_fingerprint": "Fingerprint(7999546472175062165, 13015418819113858352)",
+      "calls": [
+        "bb0 => Instance { def: Item(DefId(0:26 ~ native[b964]::{impl#7}::partial_cmp)), args: [] }"
+      ],
+      "instance": "Instance { def: Item(DefId(0:8 ~ native[b964]::partial)), args: [] }",
+      "path": "partial",
+      "unavailable": false,
+      "whole_mir_bytes": 4475,
+      "whole_mir_sha256": "e3e29b6df2d207ed4a1a47eb5c9d471a18061767be4af107487faedae9c433fd"
+    },
+    {
+      "block_count": 2,
+      "body_fingerprint": "Fingerprint(3047699770786303426, 1132458824615453392)",
+      "calls": [
+        "bb0 => Instance { def: Item(DefId(0:28 ~ native[b964]::{impl#8}::cmp)), args: [] }"
+      ],
+      "instance": "Instance { def: Item(DefId(0:9 ~ native[b964]::total)), args: [] }",
+      "path": "total",
+      "unavailable": false,
+      "whole_mir_bytes": 4351,
+      "whole_mir_sha256": "991f4c56459244cfca351807902060ce54c6cef2031f4adeed83be541fb26943"
+    },
+    {
+      "block_count": 2,
+      "body_fingerprint": "Fingerprint(15345086728816279840, 512449219048882318)",
+      "calls": [
+        "bb0 => Instance { def: Item(DefId(0:28 ~ native[b964]::{impl#8}::cmp)), args: [] }"
+      ],
+      "instance": "Instance { def: Item(DefId(0:26 ~ native[b964]::{impl#7}::partial_cmp)), args: [] }",
+      "path": "<BorTag as std::cmp::PartialOrd>::partial_cmp",
+      "unavailable": false,
+      "whole_mir_bytes": 4957,
+      "whole_mir_sha256": "b91b9b27f3771c8b68477f830580f99365530002a4d453bd10a6ef739120f873"
+    },
+    {
+      "block_count": 2,
+      "body_fingerprint": "Fingerprint(14189698446655764266, 15625821324284237111)",
+      "calls": [
+        "bb0 => Instance { def: Item(DefId(2:1417 ~ core[efd5]::num::nonzero::{impl#8}::cmp)), args: [u64] }"
+      ],
+      "instance": "Instance { def: Item(DefId(0:28 ~ native[b964]::{impl#8}::cmp)), args: [] }",
+      "path": "<BorTag as std::cmp::Ord>::cmp",
+      "unavailable": false,
+      "whole_mir_bytes": 5384,
+      "whole_mir_sha256": "b0efce5e5d759013f9df042b409f174863b03111fd100f6a732730f7791a85d5"
+    },
+    {
+      "block_count": 2,
+      "body_fingerprint": "Fingerprint(3460169956582797115, 9880955153952654265)",
+      "calls": [
+        "bb0 => Instance { def: Item(DefId(2:40108 ~ core[efd5]::cmp::impls::{impl#67}::cmp)), args: [] }"
+      ],
+      "instance": "Instance { def: Item(DefId(2:1417 ~ core[efd5]::num::nonzero::{impl#8}::cmp)), args: [u64] }",
+      "path": "<std::num::NonZero<T> as std::cmp::Ord>::cmp",
+      "unavailable": false,
+      "whole_mir_bytes": 10008,
+      "whole_mir_sha256": "619d9f9a00e9aa730ed501a8898511d1690cdaa8f009ce3ca02be999af059e53"
+    },
+    {
+      "block_count": 1,
+      "body_fingerprint": "Fingerprint(15529946591627451151, 7787577824831584328)",
+      "calls": [],
+      "instance": "Instance { def: Item(DefId(2:1452 ~ core[efd5]::num::nonzero::{impl#16}::get)), args: [u64] }",
+      "path": "std::num::NonZero::<T>::get",
+      "unavailable": false,
+      "whole_mir_bytes": 3018,
+      "whole_mir_sha256": "ef0d7ae690550c90544a4b0e53e4c2e2b9aa52f3de9baf725a99860802b6b397"
+    },
+    {
+      "block_count": 1,
+      "body_fingerprint": "Fingerprint(4909505883204094699, 666715921565686924)",
+      "calls": [],
+      "instance": "Instance { def: Item(DefId(2:40108 ~ core[efd5]::cmp::impls::{impl#67}::cmp)), args: [] }",
+      "path": "std::cmp::impls::<impl std::cmp::Ord for u64>::cmp",
+      "unavailable": false,
+      "whole_mir_bytes": 4503,
+      "whole_mir_sha256": "dfdd3a394d2979c42321571ef7ba509b52b356c9ed1b474ca1f49ab3bee3c32a"
+    }
+  ],
+  "ordering_accepted": false,
+  "private_root": "/tmp/nonzero-ordering-mir-x1sbsnfo",
+  "publication": false,
+  "receipt_sha256": "a132df6b2dc651fecb477714859bf1a88c1c46caf66ade8394eca32033d5d59a",
+  "required_primitive": "actual u64 Ord Cmp rvalue must correspond to ordinary typed numeric Ordering body and prove result contract",
+  "rustc_version": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "schema": 1,
+  "whole_mir_fingerprint": "rustc whole Body StableHash with spans excluded; diagnostic, not a foreign certificate"
+}
