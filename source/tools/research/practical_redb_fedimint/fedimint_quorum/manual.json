@@ -1,0 +1,5 @@
+{
+  "INTERSECTION": "vstd::set_lib::lemma_set_intersect_union_lens(a, b);\n    vstd::set_lib::lemma_len_subset(a.union(b), u);",
+  "HONEST": "if a.subset_of(bad) {\n        vstd::set_lib::lemma_len_subset(a, bad);\n    }",
+  "MARGIN": "if chosen.subset_of(bad) {\n        vstd::set_lib::lemma_len_subset(chosen, bad);\n    }"
+}

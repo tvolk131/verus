@@ -1,0 +1,616 @@
+{
+  "case": "F2",
+  "selected_property_achieved": true,
+  "source_native_or_whole_consensus_claim": false,
+  "shared_engineering_gain": false,
+  "freeze_commit": "52063df6",
+  "manual": {
+    "proof_bodies": 3,
+    "set_lemma_calls": 4,
+    "conditional_blocks": 2,
+    "local_assertions": 0,
+    "arithmetic_lemma_calls": 0,
+    "invariants": 0,
+    "snapshots": 0,
+    "fuel_or_solver_directives": 0,
+    "generated_helpers": 0
+  },
+  "inputs": {
+    "component.rs": "dbb4031698860dc726b84a76afe8123b95be13ea9ec3df9bdb03cd1891d6b1db",
+    "fidelity.json": "83291b8aa8f44759a477fd44e8f15fc68cc4ebfea9bccb4ef364ce60abb55fb5",
+    "adapter.rs": "354b683fd49ba144d5e9ec02b0dfd1934afa5e1f9b5639443914cc52cba7be4b",
+    "manual.json": "e514292a36adfc3d5e19ab711157d5bac81a22996ae8fbf4bbb1f87bb941fdd0",
+    "client.rs": "5d93fd0871862504d4ffd3f6468ff796d3c03e1483a0cea026293b697d27c083",
+    "replay.py": "52e4542decc8ef9f278e2b6488142220de1ab9cd7498e21f06a4a0a4b15ae3e0"
+  },
+  "runs": [
+    {
+      "name": "baseline2",
+      "classification": "BASELINE_UNCORRECTED",
+      "private_path": "/tmp/fedimint-f2-baseline2-dcf9",
+      "receipt_sha256": "446a0a40549509b0a39cae293e7da940bc3440cde70231e2bae199e9b58a216f",
+      "fixture_sha256": "dbb4031698860dc726b84a76afe8123b95be13ea9ec3df9bdb03cd1891d6b1db",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.0736592310131527,
+          "verify_ms": 212,
+          "verified": 8,
+          "errors": 4,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::NumPeers::from",
+            "f2_ordinary::one_honest_margin",
+            "f2_ordinary::quorum_has_honest",
+            "f2_ordinary::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "4a0a328cbc587cfa32c7f87a9828ceace34a7e6346bf508b2402ad23aeaf1398",
+          "stderr_sha256": "97d166001622ee3dad0d692b21f7ca7e7a623155fff2d7a3da932187256fd771"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.7230492520029657,
+          "verify_ms": 216,
+          "verified": 8,
+          "errors": 4,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_infer::NumPeers::from",
+            "f2_infer::one_honest_margin",
+            "f2_infer::quorum_has_honest",
+            "f2_infer::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "1ca4fed3eef7ffcad741564057e828d3cb7461f60df2ea616f9de7d67f131986",
+          "stderr_sha256": "97d166001622ee3dad0d692b21f7ca7e7a623155fff2d7a3da932187256fd771"
+        }
+      ]
+    },
+    {
+      "name": "corrected-baseline",
+      "classification": "BASELINE_CORRECTED",
+      "private_path": "/tmp/fedimint-f2-corrected-baseline-dcf9",
+      "receipt_sha256": "bcc46d1b7b8b6ff5741a5aac9dfb48b45b4e3356bff4dad29f204bba5288627f",
+      "fixture_sha256": "9136bbe58f76ba0820e8fcee6f42d390a461a31c24dbd3f9e508b7341a897e18",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.1255919000250287,
+          "verify_ms": 190,
+          "verified": 9,
+          "errors": 3,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::one_honest_margin",
+            "f2_ordinary::quorum_has_honest",
+            "f2_ordinary::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "f5f7ba2d10c50f8e6b3bbe9164aca09373dbf3d283d0a0e56cd03f44f88fb3e4",
+          "stderr_sha256": "814a9f316aa33a7672fd90ef780c38ac7d6d695adbda2a630a90db34add030ca"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.6411658059805632,
+          "verify_ms": 196,
+          "verified": 9,
+          "errors": 3,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_infer::one_honest_margin",
+            "f2_infer::quorum_has_honest",
+            "f2_infer::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "060d3dbda2e3878245503f72654063ab4bb9a9d5da259ba57a766baed4646134",
+          "stderr_sha256": "814a9f316aa33a7672fd90ef780c38ac7d6d695adbda2a630a90db34add030ca"
+        }
+      ]
+    },
+    {
+      "name": "policy",
+      "classification": "POLICY_AUTOMATIC",
+      "private_path": "/tmp/fedimint-f2-policy-dcf9",
+      "receipt_sha256": "fdfe14eb94fe50d947a3e191ecc7bbbe9a86db3c5a010b9ba64fbb16dff87113",
+      "fixture_sha256": "4b294ada2f3919b2e0f238aa6a5919ce2c3761228e92e9bdc71c3290517c5d30",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.8577825980028138,
+          "verify_ms": 102,
+          "verified": 9,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 0,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "26d38b85ac904f9097868f39dd2770dee4c6c439b5e9bc0ed67c6eb3bd7a913a",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.8037662440328859,
+          "verify_ms": 97,
+          "verified": 9,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 0,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": true,
+          "native_export_exists": true,
+          "stdout_sha256": "68e852dd34c942b2b3985d24cb9a2db7b60cbe72e8d621d2d58da33284677fa1",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "name": "accepted",
+      "classification": "MANUAL_CHECKED",
+      "private_path": "/tmp/fedimint-f2-accepted-dcf9",
+      "receipt_sha256": "d9130a319136fa8ef7a485cc85ede33473ed9ff0e4b5b97541a7f71a93503d2c",
+      "fixture_sha256": "62982aa2069029b8ceb71a67bd8d49db745427d1bf11bf02f84bbbf4bc1cb13d",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 0.9618385389912874,
+          "verify_ms": 113,
+          "verified": 12,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 3,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "289455a83be16c8599b9aca860bcce521d4271b3cf7bb6f9eaa819609beb88dd",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.595941509003751,
+          "verify_ms": 113,
+          "verified": 12,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 3,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": true,
+          "native_export_exists": true,
+          "stdout_sha256": "c351a90cf1d73d16b6b26fa48b76fb5ff6c7386534a7add008001c9e4149f653",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "ordinary_warm",
+          "seconds": 1.0094603140023537,
+          "verify_ms": 115,
+          "verified": 12,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 3,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "347b743dbccce7537b47ed319ec08c022960b65b1732adbacc24a8473b442689",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "infer_warm",
+          "seconds": 1.5633421579841524,
+          "verify_ms": 116,
+          "verified": 12,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 3,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": true,
+          "native_export_exists": true,
+          "stdout_sha256": "1d30237d79ae53657256d8c9234e1ed9eb5eb1edc0beb14590a872bd20f58b97",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "client",
+          "seconds": 0.9178802120150067,
+          "verify_ms": 68,
+          "verified": 2,
+          "errors": 0,
+          "checked_exec": 2,
+          "checked_proof": 0,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "a95cee4050422b07ade8aad225b8191f1d1994f512ce0f963ae328ba543d180a",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "name": "intersection-negative",
+      "classification": "SEMANTIC_NEGATIVE",
+      "private_path": "/tmp/fedimint-f2-intersection-negative-dcf9",
+      "receipt_sha256": "8d4f6d17390cc99802ad06156ea11029d694bc81dcd82891cf3c791de502fabd",
+      "fixture_sha256": "ce2b1246b7b280b210dd025d11993f0d685a545a623f610676daa4950fc39a21",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.0547470150049776,
+          "verify_ms": 153,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "77c2508a01aef11b0143e29d1dc6260c5f6a74aaa67dc08a7a001563cf94f9da",
+          "stderr_sha256": "8c4c1a211d42698ca89f561bc53b8d76987ae1cf8c9d3fbfc6f83535df208c7b"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.8779685550252907,
+          "verify_ms": 181,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_infer::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "54cd9422d12f9ffd20308f984531ed908a7b8dc610f8c62544d5686200387766",
+          "stderr_sha256": "8c4c1a211d42698ca89f561bc53b8d76987ae1cf8c9d3fbfc6f83535df208c7b"
+        }
+      ]
+    },
+    {
+      "name": "fault-negative",
+      "classification": "SEMANTIC_NEGATIVE",
+      "private_path": "/tmp/fedimint-f2-fault-negative-dcf9",
+      "receipt_sha256": "24dc84f3423cf858e5802d8cfc28a3f7d15ccc45c82845e222d226da26813fa9",
+      "fixture_sha256": "1263dd64618ef1d599eeb623d41eedabcc593eff7fb94895682cbb6cdbc0334f",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.2511896940413862,
+          "verify_ms": 193,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::quorum_has_honest"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "85cbc8fe834ef6af2be2cf3681baa94c8a77c0157d7157ed8bbbf14b4f74ed4e",
+          "stderr_sha256": "cf7ef2241d52bdd407ae10f5ab1010e7fa7727add06cb1b92e7d2fa392d61df9"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.8669893820188008,
+          "verify_ms": 175,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_infer::quorum_has_honest"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "033887e49ec0d355f133b660731db5e1682e7fee886b2157f59ac7c34bc98d61",
+          "stderr_sha256": "cf7ef2241d52bdd407ae10f5ab1010e7fa7727add06cb1b92e7d2fa392d61df9"
+        }
+      ]
+    },
+    {
+      "name": "zero",
+      "classification": "SAFETY_NEGATIVE",
+      "private_path": "/tmp/fedimint-f2-zero-dcf9",
+      "receipt_sha256": "38adac9e385ca1d93a9eaf015fdd1ea928eedaad22db58731d3cb17cda3a0614",
+      "fixture_sha256": "ed0aef98ac49a218cb912b811f3e42f3a23faba74cd9da5d66a4163eb01c2a7c",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.0748252720222808,
+          "verify_ms": 124,
+          "verified": 7,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::NumPeers::max_evil"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "ba2aa1fb66ccdedfed5bd504bb639edada70711bb054b1f1e372fa0468656a96",
+          "stderr_sha256": "0c0ef5c9c78a5d843c2c959996a86301944fe2686cc30fc18a9c2b2dc44f24fc"
+        },
+        {
+          "label": "infer",
+          "seconds": 1.7203135410090908,
+          "verify_ms": 110,
+          "verified": 7,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_infer::NumPeers::max_evil"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "9641ebc07b2febef362999ac3a2e59f0d703c2a97e4afa206ea95b038b1cd4d5",
+          "stderr_sha256": "0c0ef5c9c78a5d843c2c959996a86301944fe2686cc30fc18a9c2b2dc44f24fc"
+        }
+      ]
+    },
+    {
+      "name": "omit-union_lens",
+      "classification": "MECHANICAL_ABLATION",
+      "private_path": "/tmp/fedimint-f2-omit-union_lens-dcf9",
+      "receipt_sha256": "116e484ec7d13de1ce49a5c0ee3f7aa5f98303222f680fa736f411a02e64fd7e",
+      "fixture_sha256": "bcd24d0d36a0b83f75bbff3fd8d1028d352b5a624e5729a342a932cfc34afbaf",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.3126666150055826,
+          "verify_ms": 198,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "8572417098d33f3b8d711bb9e05c6b13a84641364b043e4f7ebc01cee40a87d8",
+          "stderr_sha256": "63f86992c497939b4a5d1d16d4da1d8cea167f782247d651a540a34317f1ccbd"
+        }
+      ]
+    },
+    {
+      "name": "omit-union_subset",
+      "classification": "MECHANICAL_ABLATION",
+      "private_path": "/tmp/fedimint-f2-omit-union_subset-dcf9",
+      "receipt_sha256": "2d8ac080fac751f63119291fc501db2b28b2dcd4a2d9019e809540f0d951d937",
+      "fixture_sha256": "e804c91889c94e2d3fb19f080b7fd10fd1dc94efc865fa60c141b0aced576d6c",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.1774963089847006,
+          "verify_ms": 159,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::quorum_intersection"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "99263d114fc35c8161e9557d287c74bb0fe4b646fc4f544a6e8ced8839e20783",
+          "stderr_sha256": "95a1aa8cf1ae887ad479c7e48611e16eee645a53731644aedeb76dc5b397519e"
+        }
+      ]
+    },
+    {
+      "name": "omit-honest_subset",
+      "classification": "MECHANICAL_ABLATION",
+      "private_path": "/tmp/fedimint-f2-omit-honest_subset-dcf9",
+      "receipt_sha256": "4b766c35bcc6867e6e0cb701d3cb0b974ea5a6836bcc4fa304c5682bd0ccb74a",
+      "fixture_sha256": "b8d29c9d64d6410075a8a665768b52aa645158bb8662e72ce63caf7db23a39c1",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.1509573829825968,
+          "verify_ms": 186,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::quorum_has_honest"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "d354014e1d9e604eebaf93f80bf10348675235138169aec8928007d06c19efd1",
+          "stderr_sha256": "333546f0789fe89098e2ab269c1f66da7880ec1ab9ae007ceca94f38fa5e22bc"
+        }
+      ]
+    },
+    {
+      "name": "omit-margin_subset",
+      "classification": "MECHANICAL_ABLATION",
+      "private_path": "/tmp/fedimint-f2-omit-margin_subset-dcf9",
+      "receipt_sha256": "17a86259f9f65734c20eb63a4e2f43676d48b5b340caf592376a4e91c543fed6",
+      "fixture_sha256": "a29dcff4a0db3b51272a0cd1e8ef0c7033ee385807db03eb08c5528b921a8169",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.1421305459807627,
+          "verify_ms": 142,
+          "verified": 11,
+          "errors": 1,
+          "checked_exec": 0,
+          "checked_proof": 0,
+          "failed_functions": [
+            "f2_ordinary::one_honest_margin"
+          ],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "034a18079911bec521a610b7cc6497aa61249f8211973291d8b0d5191b2ffffc",
+          "stderr_sha256": "c6dc5201f64c966d3eade220dbaec30eda7801da422301e783c2bd845649858a"
+        }
+      ]
+    },
+    {
+      "name": "importguard",
+      "classification": "ORDINARY_IMPORT_INPUT_GUARD_CHECKED",
+      "private_path": "/tmp/fedimint-f2-importguard-dcf9",
+      "receipt_sha256": "5a7acb3cc99d52718b1794a086fa43fee6bbad190de40426c326138e0ba453d2",
+      "fixture_sha256": "62982aa2069029b8ceb71a67bd8d49db745427d1bf11bf02f84bbbf4bc1cb13d",
+      "runs": [
+        {
+          "label": "ordinary",
+          "seconds": 1.4049034779891372,
+          "verify_ms": 123,
+          "verified": 12,
+          "errors": 0,
+          "checked_exec": 8,
+          "checked_proof": 3,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": true,
+          "stdout_sha256": "2530d4fcf24315f68b950c61bf25b68639e4e2e6e125722b17a3424ac6ba1c5e",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "client",
+          "seconds": 1.1843858620268293,
+          "verify_ms": 69,
+          "verified": 2,
+          "errors": 0,
+          "checked_exec": 2,
+          "checked_proof": 0,
+          "failed_functions": [],
+          "helper_identities": [],
+          "interface_written": false,
+          "native_export_exists": false,
+          "stdout_sha256": "3a60f612422648191d6675b1d0ee687ff8d890304cfcd26ca9c3f850c911e337",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "exploratory_runs": [
+    {
+      "path": "/tmp/fedimint-f2-baseline-dcf9",
+      "receipt_sha256": "4ea95dadad01ce6b2680f8cf2bbd4742ee9476a957f4660e1211c3049fa484c0",
+      "classification": "RUNNER_VALIDATION_ERROR_NOT_PROOF_SUCCESS",
+      "receipt_success": false,
+      "failure": {
+        "type": "ValueError",
+        "message": "verification and interface publication disagree"
+      },
+      "commands": [
+        {
+          "label": "ordinary",
+          "seconds": 7.363774703990202,
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "path": "/tmp/fedimint-f2-manual-dcf9",
+      "receipt_sha256": "134e0d5907c06b9f836aef3a7409d97bc3f4efe7e30991fda0994cdd9d985f42",
+      "classification": "INITIAL_MANUAL_WITH_REDUNDANT_ASSERTION",
+      "receipt_success": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "seconds": 1.0808443769929,
+          "exit_code": 0
+        },
+        {
+          "label": "infer",
+          "seconds": 1.6913626039749943,
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "path": "/tmp/fedimint-f2-noassert-dcf9",
+      "receipt_sha256": "53c5398ff9a61c968741ce8f70bfc31a3d69e5e4197266ac8fcf5a45cc1990af",
+      "classification": "ASSERTION_OMISSION_PASSED",
+      "receipt_success": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "seconds": 1.2065195390023291,
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "path": "/tmp/fedimint-f2-final-dcf9",
+      "receipt_sha256": "af0df74b33880b3a3796c931e5856dee71776c5086c22d214ffb484b328362e7",
+      "classification": "POSITIVE_BEFORE_FINAL_VALIDATOR_STRENGTHENING",
+      "receipt_success": true,
+      "failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "seconds": 1.1996349389664829,
+          "exit_code": 0
+        },
+        {
+          "label": "infer",
+          "seconds": 1.9017571129952557,
+          "exit_code": 0
+        },
+        {
+          "label": "ordinary_warm",
+          "seconds": 0.9954733890481293,
+          "exit_code": 0
+        },
+        {
+          "label": "infer_warm",
+          "seconds": 1.5346966210054234,
+          "exit_code": 0
+        },
+        {
+          "label": "client",
+          "seconds": 0.9867492260527797,
+          "exit_code": 0
+        }
+      ]
+    }
+  ],
+  "all_compiler_invocations": 32,
+  "all_compiler_wall_seconds": 49.452863927173894,
+  "specification_correction": "adapter.rs defines the existing FromSpecImpl extension; no executable/body/domain/target-property change. Uncorrected and corrected baselines remain recorded separately.",
+  "ordinary_export_caveat": "Without --infer-goals a native .vir export may exist even after verification failure, and interface_written is false; only successful checked ordinary provider is imported. All goals-enabled failed-export gates checked absent.",
+  "native_target": "x86_64-unknown-linux-gnu; verifier default Either32Or64 conditional architecture model; no native equivalence proof",
+  "cache": "private cache initially absent and remained empty (no inference candidates); repeats check stability, not a cache hit or speedup",
+  "setup_failures": [
+    "Initial git commit needed command-local existing Codex identity before any solver run.",
+    "Initial runner expected native export publication to match Infer interface; rejected with ValueError, receipt retained, then corrected.",
+    "Two Python SyntaxError starts from reserved keyword in temporary runner, zero compiler invocations; fixed before measured omission tests."
+  ]
+}
