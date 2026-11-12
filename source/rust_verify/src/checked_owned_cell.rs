@@ -24,6 +24,10 @@ mod admission;
 #[path = "checked_owned_cell_lowering.rs"]
 mod lowering;
 
+#[cfg(test)]
+#[path = "checked_owned_cell_clients.rs"]
+mod clients;
+
 type Reject = &'static str;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

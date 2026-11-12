@@ -29,6 +29,16 @@ struct HeaderInventory {
     predicates: Vec<hir::HirId>,
 }
 impl AdmittedUnit {
+    #[cfg(test)]
+    pub(super) fn original_inventory(
+        &self,
+    ) -> (&HashSet<DefId>, &HashSet<LocalDefId>, HashSet<LocalDefId>) {
+        (&self.functions, &self.bodies, self.headers.iter().filter_map(|h| h.closure).collect())
+    }
+    #[cfg(test)]
+    pub(super) fn original_headers(&self) -> std::collections::HashSet<hir::HirId> {
+        self.headers.iter().map(|h| h.call).collect()
+    }
     pub(super) fn later_phase_refusal(self) -> VirErr {
         crate::util::error(format!(
             "experimental owned UnsafeCell: inactive: F1 admission passed; functions={}, bodies={}, headers={}; native body lowering, F2 diagnostic/field authority, F3 erasure and correspondence/state gates remain unavailable",
