@@ -1,0 +1,18 @@
+#![feature(prelude_import)]
+extern crate std;
+#[prelude_import]
+use std::prelude::rust_2024::*;
+pub struct NodeCount(pub usize);
+#[automatically_derived]
+impl derive_more::From<(usize)> for NodeCount {
+    #[inline]
+    fn from(value: (usize)) -> Self { NodeCount(value) }
+}
+#[allow(clippy :: unused_unit)]
+#[automatically_derived]
+impl derive_more::core::convert::From<NodeCount> for (usize) {
+    #[inline]
+    fn from(value: NodeCount) -> Self {
+        (<usize as derive_more::core::convert::From<_>>::from(value.0))
+    }
+}
