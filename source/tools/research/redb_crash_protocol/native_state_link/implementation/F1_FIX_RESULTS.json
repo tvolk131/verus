@@ -1,0 +1,139 @@
+{
+  "scope": "F1 skip-marker admission correction only",
+  "source_fix_commit": "9cc0f65c5e8ebb75f6858475277991e3bfd940d7",
+  "finding_review": "61c39752",
+  "status": "parent_validation_passed_independent_recheck_pending",
+  "sources": {
+    "source/rust_verify/src/checked_owned_cell_admission.rs": "e637070be8fe8505c20b72c3fbcbcc6a8aef208191461e940652605892d5f320",
+    "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": "8b848c61fb6a8dc76417cfa2120c692ed0ce0192b109b9b982085b1953737712"
+  },
+  "snapshot": {
+    "path": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-parent-snapshot/receipt.json",
+    "sha256": "9b414f0493385c649d856fd181625ec74778173e10623ee6ba3c3fda959b945f"
+  },
+  "tools": {
+    "rust_verify": "d48a95360484cda8128131b6fd33548de2a454d48c03bf1a23e66d48806c0dd3",
+    "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+    "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+    "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+    "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+    "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+    "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "fresh_focused_tests": 10,
+  "fresh_focused_invocations": 166,
+  "invocations_added": 18,
+  "commands": {
+    "compiler-build": {
+      "receipt": {
+        "path": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/compiler-build/receipt.json",
+        "sha256": "40976287cd572e4dee15dab06e7c31facb62e68ae32d9fdaee9029ebc7ec319c"
+      },
+      "commands": [
+        {
+          "label": "compiler-build",
+          "argv": [
+            "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "build",
+            "--offline",
+            "--locked",
+            "-p",
+            "rust_verify"
+          ],
+          "cwd": "/home/dev/projects/verus/source",
+          "exit_code": 0,
+          "seconds": 160.61582081700908,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/compiler-build/infer-cache",
+            "CARGO_TARGET_DIR": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/target"
+          }
+        }
+      ],
+      "guard_passed": true,
+      "exit": 0
+    },
+    "focused-tests": {
+      "receipt": {
+        "path": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/focused-tests/receipt.json",
+        "sha256": "9f39c8e52addeb8385ba8fe16b34c5d6a08ee4410f2571581449fa85aed2084c"
+      },
+      "commands": [
+        {
+          "label": "focused-tests",
+          "argv": [
+            "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--offline",
+            "--locked",
+            "-p",
+            "rust_verify_test",
+            "--test",
+            "local_checked_owned_cell",
+            "--test",
+            "local_checked_owned_cell_admission",
+            "--",
+            "--test-threads=1"
+          ],
+          "cwd": "/home/dev/projects/verus/source",
+          "exit_code": 0,
+          "seconds": 99.37846438604174,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "1.99.1",
+            "VERUS_Z3_PATH": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/focused-tests/infer-cache",
+            "CARGO_TARGET_DIR": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v3/target"
+          }
+        }
+      ],
+      "guard_passed": true,
+      "exit": 0
+    }
+  },
+  "direct_before": {
+    "path": "/tmp/owned-cell-F1-skip-before-9cc0f65c/receipt.json",
+    "sha256": "c0f073b29008d05ae7c4d608427e546328c0b73efa75873dd536d13d2b078b2e"
+  },
+  "direct_after": {
+    "path": "/tmp/owned-cell-F1-skip-after-9cc0f65c/receipt.json",
+    "sha256": "8bba2fe3204cceba132c52204962911896d1c3bb95d3c79ccb34be97d43a8589"
+  },
+  "direct_cases_each": 12,
+  "default_off_comparisons": 6,
+  "new_native_body_proofs": 0,
+  "new_state_proofs": 0,
+  "stage_accepted": false,
+  "native_bridge_proved": false,
+  "source_coupling_proved": false,
+  "publication": false,
+  "goal_complete": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "vstd": {
+    "verified": 2257,
+    "errors": 0,
+    "rebuilt": false,
+    "scope": "unchanged seven matching supporting runtime artifacts inherited"
+  },
+  "controllers": [
+    {
+      "path": "/tmp/run-owned-cell-F1-skip-fix-9cc0f65c-v3.py",
+      "sha256": "19d323f275b090a40293308385a592c43a22d3c6daf5c651b88944bc3e11a381"
+    },
+    {
+      "path": "/tmp/run-owned-cell-F1-skip-confirmation.py",
+      "sha256": "e62f9fc3083998286dfc4157697bbd2946f7fdcb5c1e3f3c347ca3322eecaa89"
+    }
+  ],
+  "excluded_setup_failures": [
+    {
+      "path": "/tmp/owned-cell-F1-skip-fix-9cc0f65c",
+      "reason": "read-only solver destination; no compiler command ran"
+    },
+    {
+      "path": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-v2",
+      "reason": "external controller passed to repository-relative extra-input helper; no compiler command ran"
+    }
+  ]
+}

@@ -1,5 +1,16 @@
 # Initial bounded worker assignments
 
+F1 review61c39752 requested changes for actual internal const_body/reveal_fn
+skip markers omitted by ordinary translation. Root correction9cc0f65c excludes
+both flags on items and all ancestors; fresh parent checks pass166 invocations
+and12 corrected direct witnesses, with unchanged default-off classifications.
+A NEW independent recheck must authenticate the corrected immutable snapshot
+named in implementation/F1_FIX_RESULTS.json. The continuing body worker has
+the exact patch and may not activate authority before admission and all native
+body/state/correspondence/erasure gates are satisfied. Recheck evidence should
+stay compact; keep raw repeated compiler logs privately with hashes and exact
+reproduction instructions. No new trusted law, wider grammar or global version.
+
 After F1 checkpoint2cb432c6: root holds immutable /tmp/owned-cell-F1-2cb432c6-parent-snapshot (all8 hashes checked) before continuation. The same implementation worker may continue on checked descriptor/native body/authority/correspondence/F2/F3 integration in a new bounded phase, without widening the owned-only grammar. Do not enable positive user proofs if any required final-state/erasure/privacy/correspondence gate remains absent. A NEW independent reviewer audits only frozen F1 and its snapshot, not live continuation files. Preserve old receipts and prior snapshot; new build labels only. Full source-to-cache/guard/publication/recovery and atomic constructor debt remain open. No version/default/trust change, shared cache/output, recursive delegate or remote publication.
 
 After the first implementation checkpoint: native preflight/flag code is locally integrated but INACTIVE and UNACCEPTED; every experimental request still rejects. Root holds an authenticated immutable eight-tool snapshot at /tmp/owned-cell-preflight-6e5fb54d-parent-snapshot. The existing implementation worker may continue in its own checkout on a new bounded F1 phase: complete typed executable/header-spec admission, exact positives reaching the explicit next-phase refusal, and specific escape/admission controls. Do not activate a native body or representation while F2/F3/correspondence/state gates are missing. A NEW independent review worker may audit only the frozen inactive preflight checkpoint and snapshot, not the live continuation. No shared outputs/caches or recursive delegates. Global versions unchanged; parent retains all acceptance.
