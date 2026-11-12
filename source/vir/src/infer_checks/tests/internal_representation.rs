@@ -415,3 +415,175 @@ fn internal_representation_pruning_retains_fields_and_never_makes_abstract_sorts
         crate::internal_repr::validate_datatype(&pruned.datatypes[0]).unwrap();
     }
 }
+// Synthetic backend-boundary controls only: these metadata fixtures do not
+// claim to pass the full source/WF pipeline or prove a native body.
+fn owned_cell_definition() -> Datatype {
+    let mut d = definition().x.clone();
+    let name = path(&["cell", "UnsafeCell"]);
+    let module = name.pop_segment();
+    let param: Ident = Arc::new("T".into());
+    let t = Arc::new(TypX::TypParam(param.clone()));
+    d.name = Dt::Path(name);
+    d.owning_module = Some(module.clone());
+    d.transparency = DatatypeTransparency::Never;
+    d.typ_params = Arc::new(vec![(param, AcceptRecursiveType::Reject)]);
+    d.sized_constraint = Some(t.clone());
+    d.variants = Arc::new(vec![Variant {
+        name: Arc::new("UnsafeCell".into()),
+        ctor_style: CtorPrintStyle::Braces,
+        fields: Arc::new(vec![crate::ast_util::ident_binder(
+            &crate::def::field_ident_from_rust("value"),
+            &(t, Mode::Exec, Visibility { restricted_to: Some(module) }),
+        )]),
+    }]);
+    d.transparency = DatatypeTransparency::Internal(
+        InternalRepresentation::owned_unsafe_cell_u64(
+            &d,
+            crate::internal_repr::CORE_OWNED_CELL_IDENTITY,
+        )
+        .unwrap(),
+    );
+    Spanned::new(span(), d)
+}
+
+fn metadata_backend_accepts(k: &Krate, base: &Krate) -> bool {
+    let global = GlobalCtx::new(
+        base,
+        CrateId::Core,
+        span(),
+        10.0,
+        Arc::new(Mutex::new(None)),
+        Arc::new(Mutex::new(None)),
+        Arc::new(WarningCtx { fun_warn_configs: HashMap::new() }),
+        SmtSolver::Z3,
+        true,
+        false,
+        false,
+        false,
+        false,
+    )
+    .unwrap();
+    Ctx::new(
+        k,
+        global,
+        Spanned::new(span(), ModuleX { path: path(&["consumer"]), reveals: None }),
+        vec![],
+        vec![],
+        HashSet::new(),
+        crate::prune::UsedBuiltins {
+            uses_array: false,
+            uses_bytestr: false,
+            uses_pointee_metadata: false,
+            uses_ieee_float: false,
+        },
+        vec![],
+        vec![],
+    )
+    .is_ok()
+}
+
+#[test]
+fn internal_representation_checks_owned_cell_types_in_all_metadata() {
+    let d = owned_cell_definition();
+    let base = bare_krate(d.clone(), path(&["consumer"]));
+    let p = path(&["test_trait"]);
+    let labels = [
+        "trait implementation arguments",
+        "trait implementation bounds",
+        "associated implementation RHS",
+        "associated implementation arguments",
+        "associated implementation bounds",
+        "trait declaration bounds",
+        "trait associated-type bounds",
+        "opaque parameters",
+        "opaque bounds",
+    ];
+    let mut failures = vec![];
+    for width in [32, 64] {
+        let t = typ(&d, Arc::new(TypX::Int(IntRange::U(width))));
+        let bounds = Arc::new(vec![Arc::new(GenericBoundX::Trait(
+            TraitId::Path(p.clone()),
+            Arc::new(vec![t.clone()]),
+        ))]);
+        for (placement, label) in labels.iter().enumerate() {
+            let mut k = (*base).clone();
+            match placement {
+                0 | 1 => k.trait_impls.push(Spanned::new(
+                    span(),
+                    TraitImplX {
+                        impl_path: p.clone(),
+                        typ_params: Arc::new(vec![]),
+                        typ_bounds: if placement == 1 { bounds.clone() } else { Arc::new(vec![]) },
+                        trait_path: p.clone(),
+                        trait_typ_args: Arc::new(if placement == 0 {
+                            vec![t.clone()]
+                        } else {
+                            vec![]
+                        }),
+                        trait_typ_arg_impls: Spanned::new(span(), Arc::new(vec![])),
+                        owning_module: None,
+                        auto_imported: false,
+                        external_trait_blanket: false,
+                    },
+                )),
+                2 | 3 | 4 => k.assoc_type_impls.push(Spanned::new(
+                    span(),
+                    AssocTypeImplX {
+                        name: Arc::new("A".into()),
+                        impl_path: p.clone(),
+                        typ_params: Arc::new(vec![]),
+                        typ_bounds: if placement == 4 { bounds.clone() } else { Arc::new(vec![]) },
+                        trait_path: p.clone(),
+                        trait_typ_args: Arc::new(if placement == 3 {
+                            vec![t.clone()]
+                        } else {
+                            vec![]
+                        }),
+                        typ: if placement == 2 { t.clone() } else { Arc::new(TypX::Bool) },
+                        impl_paths: Arc::new(vec![]),
+                    },
+                )),
+                5 | 6 => k.traits.push(Spanned::new(
+                    span(),
+                    TraitX {
+                        name: p.clone(),
+                        proxy: None,
+                        visibility: Visibility { restricted_to: None },
+                        typ_params: Arc::new(vec![]),
+                        typ_bounds: if placement == 5 { bounds.clone() } else { Arc::new(vec![]) },
+                        assoc_typs: Arc::new(vec![]),
+                        assoc_typs_bounds: if placement == 6 {
+                            bounds.clone()
+                        } else {
+                            Arc::new(vec![])
+                        },
+                        methods: Arc::new(vec![]),
+                        is_unsafe: false,
+                        dyn_compatible: None,
+                        external_trait_extension: None,
+                    },
+                )),
+                7 | 8 => k.opaque_types.push(Spanned::new(
+                    span(),
+                    OpaqueTypeX {
+                        def_fun: Arc::new(FunX { path: p.clone() }),
+                        name: p.clone(),
+                        typ_params: Arc::new(if placement == 7 { vec![t.clone()] } else { vec![] }),
+                        typ_bounds: if placement == 8 { bounds.clone() } else { Arc::new(vec![]) },
+                    },
+                )),
+                _ => unreachable!(),
+            }
+            let k = Arc::new(k);
+            let expected = width == 64;
+            let direct = crate::internal_repr::validate_krate_uses(&k).is_ok();
+            let backend = metadata_backend_accepts(&k, &base);
+            if direct != expected || backend != expected {
+                failures.push(format!(
+                    "{label}: C<u{width}>, expected={expected}, direct={direct}, backend={backend}"
+                ));
+            }
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n"));
+}

@@ -262,11 +262,14 @@ pub fn validate_krate_uses(krate: &Krate) -> Result<(), VirErr> {
     };
     let mut env = ();
     let mut visitor = WalkTypVisitorEnv { env: &mut env, ft: &check };
-    for f in &krate.functions {
-        visitor.visit_function(f)?;
-    }
-    for d in &krate.datatypes {
-        visitor.visit_datatype(d)?;
+    visitor.visit_krate(krate)?;
+    // The general visitor deliberately leaves opaque constructors unchanged.
+    // Check both of their type-bearing fields explicitly; destructure all fields
+    // so a future metadata extension cannot silently escape this boundary.
+    for opaque in &krate.opaque_types {
+        let OpaqueTypeX { def_fun: _, name: _, typ_params, typ_bounds } = &opaque.x;
+        visitor.visit_typs(typ_params)?;
+        visitor.visit_generic_bounds(typ_bounds)?;
     }
     Ok(())
 }
