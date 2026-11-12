@@ -17,11 +17,13 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--context', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--source', type=Path, default=HERE / 'field-eligibility.rs')
+    p.add_argument('--freeze', type=Path, default=HERE / 'FIELD_FREEZE.json')
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=False)
     r = {'kind': 'F3C_GENUINE_FIELD_ELIGIBILITY_NOT_CALLER_PROOF', 'commands': [], 'outcomes': [], 'bootstrap_proved': False}
     with replay_receipt(a.output, r):
-        freeze = json.loads((HERE / 'FIELD_FREEZE.json').read_text())
+        freeze = json.loads(a.freeze.read_text())
         for name, expected in freeze['inputs'].items():
             path = Path(name) if Path(name).is_absolute() else ROOT / name
             require(digest(path) == expected, 'frozen input changed: ' + name)
@@ -35,10 +37,11 @@ def main():
         require(digest(bundle / 'receipt.json') == '3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452', 'accepted runtime identity')
         for name, expected in manifest['tools'].items():
             require(digest(bundle / name) == expected, 'runtime tool changed')
-        source = HERE / 'field-eligibility.rs'
-        inputs = libs + [a.context / 'receipt.json', HERE / 'FIELD_FREEZE.json', source, Path(__file__)] + [bundle / n for n in manifest['tools']]
+        source = a.source.resolve()
+        inputs = libs + [a.context / 'receipt.json', a.freeze, source, Path(__file__)] + [bundle / n for n in manifest['tools']]
         guard = ArtifactGuard(inputs)
         r['inputs'] = {str(x): digest(x) for x in inputs}
+        r['manual_nominal_type_declarations'] = source.read_text().count('#[verifier::external_type_specification]')
         run = LoggedCommands(a.output, a.output, r['commands'], timeout=180, guard=guard)
         tc = Path('/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu')
         env = dict(os.environ, PATH='/home/dev/.cargo/bin:' + str(tc / 'bin') + ':/usr/bin:/bin', RUSTUP_HOME='/home/dev/.rustup', RUSTUP_TOOLCHAIN=str(tc), LD_LIBRARY_PATH=str(tc / 'lib'), VERUS_Z3_PATH=str(bundle / 'z3'), VERUS_INFER_CACHE=str(a.output / 'cache'))
