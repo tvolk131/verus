@@ -1,0 +1,11 @@
+error: postcondition not satisfied
+  --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/f2_negative_intersection.rs:62:13
+   |
+59 | pub proof fn quorum_intersection(n: int, u: Set<usize>, a: Set<usize>, b: Set<usize>)
+   | ------------------------------------------------------------------------------------- at the end of the function body
+...
+62 |     ensures a.intersect(b).len() > fault(n) + 1,
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: aborting due to 1 previous error
+

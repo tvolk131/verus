@@ -20,7 +20,7 @@ with replay_receipt(D,receipt):
  scope=inf['verification_scope'];actual=[b['rust_function'] for b in scope['native_functions'] if b['body_status']=='checked_proof_body']
  require(sorted(actual)==sorted(['checked_word_bits','checked_seq_bit_update','checked_seq_bit_update_at','lemma_set_pair_observations']),'exact ordinary bodies')
  receipt['outcomes'].append({'label':'helpers','verification':data['verification-results'],'scope':scope,'times':data['times-ms']})
- R=O/'combined-replay';artifact=R/'r2.vir';rlib=R/'libr2.rlib';client=ROOT/'source/tools/research/practical_redb_fedimint/redb_tree/callers.rs'
+ R=O/'combined-replay-fresh';artifact=R/'r2.vir';rlib=R/'libr2.rlib';client=ROOT/'source/tools/research/practical_redb_fedimint/redb_tree/callers.rs'
  original=artifact.read_bytes();start=original.rfind(b'{"schema":');require(start>=0 and original.endswith(b'VRINFER1'),'trailer')
  metadata=json.loads(original[start:-8]);require(metadata['proofs']==[],'empty candidate inventory')
  g=ArtifactGuard([artifact,rlib,client])

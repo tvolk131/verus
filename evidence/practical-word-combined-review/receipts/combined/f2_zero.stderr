@@ -1,0 +1,8 @@
+error: possible arithmetic underflow/overflow
+  --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/f2_zero.rs:26:9
+   |
+26 |         (self.total() - 1) / 3
+   |         ^^^^^^^^^^^^^^^^^^
+
+error: aborting due to 1 previous error
+

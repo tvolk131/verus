@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/dev/.t3/worktrees/verus/t3-52a44ba5/evidence/practical-word-combined-review/probes.py", line 44, in <module>
+    check('effectful_tail_valid_on',call,True,[],['U64GroupedBitmap::clear'])
+  File "/home/dev/.t3/worktrees/verus/t3-52a44ba5/evidence/practical-word-combined-review/probes.py", line 40, in check
+    require(sorted(native[x['function']] for x in inf.get('word_sequence_assistance',[]))==sorted(expected_frames),'exact frame selection')
+  File "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/infer_experiment.py", line 21, in require
+    raise ValueError(message)
+ValueError: exact frame selection

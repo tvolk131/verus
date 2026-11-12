@@ -1,0 +1,107 @@
+error: postcondition not satisfied
+   --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:288:13
+    |
+288 |       ensures word_change(*old(self), *final(self), bit, true),
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+289 |           r == (final(self).data@[bit as int / 64] == u64::MAX),
+290 | / {
+291 | |         assert!(bit < self.len);
+292 | |         let (index, bit_index) = Self::data_index_of(bit);
+293 | |         let mut group = self.data[index];
+...   |
+298 | |         group == u64::MAX
+299 | |     }
+    | |_____- at the end of the function body
+
+note: automatically chose triggers for this expression:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:21:5
+   |
+21 |     (forall|h: int| 0 <= h < t.len() ==> layer_wf(t[h])) &&
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note:   trigger 1 of 1:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:21:51
+   |
+21 |     (forall|h: int| 0 <= h < t.len() ==> layer_wf(t[h])) &&
+   |                                                   ^^^^
+
+note: automatically chose triggers for this expression:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:64:5
+   |
+64 |     (forall|j: int| 0 <= j < a.data@.len()*64 ==> physical_bit(b,j) == (if j == i as int { value } else { physical_bit(a,j) }))
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note:   trigger 1 of 1:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:64:51
+   |
+64 |     (forall|j: int| 0 <= j < a.data@.len()*64 ==> physical_bit(b,j) == (if j == i as int { value } else { physical_bit(a,j) }))
+   |                                                   ^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:74:5
+   |
+74 |     assert forall|k: int| 0 <= k < a.len() implies layer_wf(b[k]) by {
+   |     ^^^^^^
+
+note:   trigger 1 of 1:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:74:61
+   |
+74 |     assert forall|k: int| 0 <= k < a.len() implies layer_wf(b[k]) by {
+   |                                                             ^^^^
+
+note: automatically chose triggers for this expression:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:77:5
+   |
+77 |     assert forall|k: int| 0 <= k < a.len() implies
+   |     ^^^^^^
+
+note:   trigger 1 of 2:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:78:9
+   |
+78 |         b[k].len == a[k].len && b[k].data@.len() == a[k].data@.len() by {
+   |         ^^^^
+
+note:   trigger 2 of 2:
+  --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:78:21
+   |
+78 |         b[k].len == a[k].len && b[k].data@.len() == a[k].data@.len() by {
+   |                     ^^^^
+
+note: automatically chose triggers for this expression:
+   --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:300:1
+    |
+300 | fn clear(&mut self, bit: u32)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: automatically chose triggers for this expression:
+   --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:246:17
+    |
+246 |                 assert forall|h: int, j: int| 0 <= h < start.len() && 0 <= j < start[h].data@.len()*64 &&
+    |                 ^^^^^^
+
+note:   trigger 1 of 1:
+   --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:247:105
+    |
+247 |                     j != ancestor(i as int,start.len()-1-h) implies physical_bit(self.heights@[h],j) == physical_bit(start[h],j) by {
+    |                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus printed one or more automatically chosen quantifier triggers
+      because it had low confidence in the chosen triggers.
+      To suppress these messages, do one of the following:
+        (1) manually annotate a single desired trigger using #[trigger]
+            (example: forall|i: int, j: int| f(i) && #[trigger] g(i) && #[trigger] h(j)),
+        (2) manually annotate multiple desired triggers using #![trigger ...]
+            (example: forall|i: int| #![trigger f(i)] #![trigger g(i)] f(i) && g(i)),
+        (3) accept the automatically chosen trigger using #![auto]
+            (example: forall|i: int, j: int| #![auto] f(i) && g(i) && h(j))
+        (4) use the --triggers-mode silent command-line option to suppress all printing of triggers.
+      (Note: triggers are used by the underlying SMT theorem prover to instantiate quantifiers;
+      the theorem prover instantiates a quantifier whenever some expression matches the
+      pattern specified by one of the quantifier's triggers.)
+   --> /tmp/practical-word-combined-review-5ecea5fe/independent-probes-v3/unrelated_field_missing_proof.rs:246:17
+    |
+246 |                 assert forall|h: int, j: int| 0 <= h < start.len() && 0 <= j < start[h].data@.len()*64 &&
+    |                 ^^^^^^
+
+error: aborting due to 1 previous error
+

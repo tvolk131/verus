@@ -1,0 +1,20 @@
+error: postcondition not satisfied
+  --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/generic_false.rs:20:13
+   |
+18 | proof fn false_cardinality(a: Set<int>, b: Set<int>)
+   |       ---------------------------------------------- at the end of the function body
+19 |     requires a.subset_of(b),
+20 |     ensures a.len() > b.len(),
+   |             ^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: postcondition not satisfied
+  --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/generic_false.rs:25:13
+   |
+23 | proof fn false_equality(a: Set<int>, b: Set<int>)
+   |       ------------------------------------------- at the end of the function body
+24 |     requires a.len() == b.len(),
+25 |     ensures a == b,
+   |             ^^^^^^ failed this postcondition
+
+error: aborting due to 2 previous errors
+

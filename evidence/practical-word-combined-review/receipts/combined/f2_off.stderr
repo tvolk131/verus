@@ -1,0 +1,38 @@
+error: postcondition not satisfied
+  --> /home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:62:13
+   |
+59 | pub proof fn quorum_intersection(n: int, u: Set<usize>, a: Set<usize>, b: Set<usize>)
+   | ------------------------------------------------------------------------------------- at the end of the function body
+...
+62 |     ensures a.intersect(b).len() > fault(n),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: postcondition not satisfied
+  --> /home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:71:13
+   |
+68 | pub proof fn quorum_has_honest(n: int, u: Set<usize>, a: Set<usize>, bad: Set<usize>)
+   | ------------------------------------------------------------------------------------- at the end of the function body
+...
+71 |     ensures !a.subset_of(bad), exists|p: usize| a.contains(p) && !bad.contains(p),
+   |             ^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: postcondition not satisfied
+  --> /home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:71:32
+   |
+68 | pub proof fn quorum_has_honest(n: int, u: Set<usize>, a: Set<usize>, bad: Set<usize>)
+   | ------------------------------------------------------------------------------------- at the end of the function body
+...
+71 |     ensures !a.subset_of(bad), exists|p: usize| a.contains(p) && !bad.contains(p),
+   |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: postcondition not satisfied
+  --> /home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:79:13
+   |
+76 | pub proof fn one_honest_margin(n: int, u: Set<usize>, chosen: Set<usize>, bad: Set<usize>)
+   | ------------------------------------------------------------------------------------------ at the end of the function body
+...
+79 |     ensures exists|p: usize| chosen.contains(p) && !bad.contains(p),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+
+error: aborting due to 4 previous errors
+

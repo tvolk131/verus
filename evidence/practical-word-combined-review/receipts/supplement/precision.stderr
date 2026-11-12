@@ -1,0 +1,4 @@
+error: Verus Infer: incomplete inference proof guarantees in imported library `/tmp/practical-word-combined-review-5ecea5fe/supplement/precision.vir`; rebuild the library and its dependents
+
+error: aborting due to 1 previous error
+

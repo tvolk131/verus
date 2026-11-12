@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/dev/.t3/worktrees/verus/t3-52a44ba5/evidence/practical-word-combined-review/probes.py", line 47, in <module>
+    check('nested_tail_write',nested,True,[],['U64GroupedBitmap::clear','U64GroupedBitmap::set'])
+  File "/home/dev/.t3/worktrees/verus/t3-52a44ba5/evidence/practical-word-combined-review/probes.py", line 34, in check
+    code=run(label,cmd,env);g.check();stdout=(D/(label+'.stdout')).read_text();stderr=(D/(label+'.stderr')).read_text();data=validate_run(dict(returncode=code,stdout=stdout,stderr=stderr),not failed)
+                                                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/infer_experiment.py", line 83, in validate_run
+    raise ValueError(f"unexpected verification outcome: {result}")
+ValueError: unexpected verification outcome: {'encountered-error': True, 'encountered-vir-error': False, 'success': False, 'verified': 19, 'errors': 1, 'is-verifying-entire-crate': True}

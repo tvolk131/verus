@@ -1,0 +1,26 @@
+note: Verus Infer s1_precision::bump candidate (mathematical integer arithmetic): requires (x <= 254); ensures result == (x + 1)
+ --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/precision.rs:1:37
+  |
+1 | use vstd::prelude::*;#[verus_infer] pub fn bump(x:u8)->u8{x+1} verus!{fn client(){let r=bump(254);assert(r==255);}}
+  |                                     ^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer s1_precision::bump: soundness: PROVED
+ --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/precision.rs:1:37
+  |
+1 | use vstd::prelude::*;#[verus_infer] pub fn bump(x:u8)->u8{x+1} verus!{fn client(){let r=bump(254);assert(r==255);}}
+  |                                     ^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer s1_precision::bump: safe-domain maximality: PROVED
+ --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/precision.rs:1:37
+  |
+1 | use vstd::prelude::*;#[verus_infer] pub fn bump(x:u8)->u8{x+1} verus!{fn client(){let r=bump(254);assert(r==255);}}
+  |                                     ^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer s1_precision::bump: output exactness: PROVED
+ --> /tmp/practical-word-combined-review-5ecea5fe/combined-replay-fresh/precision.rs:1:37
+  |
+1 | use vstd::prelude::*;#[verus_infer] pub fn bump(x:u8)->u8{x+1} verus!{fn client(){let r=bump(254);assert(r==255);}}
+  |                                     ^^^^^^^^^^^^^^^^^^^^^
+
+note: Verus Infer: 1 verified contracts available to same-crate callers
+

@@ -1,7 +1,7 @@
 """Bounded independent source probes; existing execution and scope gates only."""
 import os,json,sys
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[2];O=Path('/tmp/practical-word-combined-review-5ecea5fe');D=O/'independent-probes';D.mkdir(exist_ok=False)
+ROOT=Path(__file__).resolve().parents[2];O=Path('/tmp/practical-word-combined-review-5ecea5fe');D=O/'independent-probes-v3';D.mkdir(exist_ok=False)
 sys.path[:0]=[str(ROOT/'source/tools'),str(ROOT/'source/tools/research/practical_redb_fedimint/common_set')]
 from infer_experiment import LoggedCommands,replay_receipt,validate_run,require_exact,require
 from infer_eval_support import ArtifactGuard,digest
@@ -10,11 +10,11 @@ B=O/'bundle';C=ROOT/'source/tools/research/practical_redb_fedimint';env=dict(os.
 manual=(C/'redb_tree/manual.rs').read_text();s2=(C/'word_frame/s2-reduced.rs').read_text()
 ret='        group == u64::MAX\n'
 assert manual.count(ret)==s2.count(ret)==1
-helper='''fn return_full(&mut self, group: u64) -> (r: bool)
-    ensures *final(self) == *old(self), r == (group == u64::MAX),
+helper='''fn return_full(group: u64) -> (r: bool)
+    ensures r == (group == u64::MAX),
 { group == u64::MAX }
 '''
-call=manual.replace(ret,'        self.return_full(group)\n').replace('impl U64GroupedBitmap {','impl U64GroupedBitmap {\n'+helper)
+call=manual.replace(ret,'        Self::return_full(group)\n').replace('impl U64GroupedBitmap {','impl U64GroupedBitmap {\n'+helper)
 # Build ordinary valid compatibility controls before stripping the one authored
 # writer scaffold for the independent expected-skip probe.
 missing=call.replace('        proof { word_frame(before, *self, bit, true); }\n','')
@@ -22,6 +22,7 @@ missing=call.replace('        proof { word_frame(before, *self, bit, true); }\n'
 pos=missing.index('fn set(&mut self, bit: u32)');prefix=missing[:pos];tail=missing[pos:];assert tail.count('        let ghost before = *self;')==2
 tail=tail.replace('        let ghost before = *self;\n','',1);missing=prefix+tail
 nested=s2.replace(ret,'        { self.data[index] = group; group == u64::MAX }\n')
+field_reduced=s2.replace('    data: Vec<u64>,','    data: Vec<u64>,\n    audit: u32,').replace(ret,'        self.audit = self.audit;\n'+ret)
 field=manual.replace('    data: Vec<u64>,','    data: Vec<u64>,\n    audit: u32,').replace(ret,'        self.audit = self.audit;\n'+ret)
 # Probe a wrong final frame postcondition while preserving the real implementation.
 receipt={'commands':[],'outcomes':[]}
@@ -41,8 +42,10 @@ with replay_receipt(D,receipt):
   if failed:require('postcondition not satisfied' in stderr and not any(x in stderr for x in ['error[E','assertion failed','possible arithmetic underflow/overflow','precondition not satisfied']),'healthy exact postcondition negative')
   receipt['outcomes'].append(dict(label=label,verification=data['verification-results'],failed=failed,scope=scope,frames=inf.get('word_sequence_assistance',[]),pairs=inf.get('set_pair_assistance',[]),times=data['times-ms'],source_sha256=digest(src),stdout_sha256=digest(D/(label+'.stdout')),stderr_sha256=digest(D/(label+'.stderr'))))
  check('effectful_tail_valid_off',call,False,[],[])
- check('effectful_tail_valid_on',call,True,[],['U64GroupedBitmap::clear'])
- check('effectful_tail_missing_proof',missing,True,['U64GroupedBitmap::set'],['U64GroupedBitmap::clear'])
- check('nested_tail_write',nested,True,[],['U64GroupedBitmap::clear','U64GroupedBitmap::set'])
- check('unrelated_field_write',field,True,[],['U64GroupedBitmap::clear'])
+ check('effectful_tail_valid_on',call,True,[],[])
+ check('effectful_tail_missing_proof',missing,True,['U64GroupedBitmap::set'],[])
+ check('nested_tail_write',nested,True,['U64GroupedBitmap::set'],['U64GroupedBitmap::clear','U64GroupedBitmap::set'])
+ check('nested_boolean_tail',s2.replace(ret,'        { group == u64::MAX }\n'),True,[],['U64GroupedBitmap::clear','U64GroupedBitmap::set'])
+ check('unrelated_field_write',field,True,[],[])
+ check('unrelated_field_missing_proof',field_reduced,True,['U64GroupedBitmap::set'],['U64GroupedBitmap::clear'])
 print('INDEPENDENT SOURCE PROBES COMPLETE')
