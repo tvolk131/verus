@@ -1,0 +1,28 @@
+{
+  "original_receipt_sha256": "fbb1d5730822c199df38c5405b067e00b472367016bba0a477ab60f94eec3302",
+  "private_receipt": "/tmp/fedimint-bootstrap-worker-3ad8038e/context/original-receipt.json",
+  "private_artifacts": {
+    "/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libarrayvec.rlib": "a666f86192ebb6966645c2f3cba80ff73e003d8496ea445cd0c731b64834b9c3",
+    "/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libhex_conservative.rlib": "8eeeac3915eac58717022dc3861ddd34661e1c9c647196e63d25267774463345",
+    "/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libbitcoin_hashes.rlib": "767d0d9e2fa71671f08cbeb00e07329ea46b8f7f7fd7b3f1da02bcd1aa7d6581",
+    "/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1_sys.rlib": "0a7fcd273b6492063ef5a21c9f9b74541fa849c8b3df58552c9415f9c5302d74",
+    "/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib": "53326f5d7c7b1704d914fc0177bf7cf970dc6016aedc123d22d254873f958c25"
+  },
+  "runtime_receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+  "runtime_tools": {
+    "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+    "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+    "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+    "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+    "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+    "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+    "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "initial_preparation_receipt": "/tmp/fedimint-bootstrap-worker-3ad8038e/receipt.json",
+  "initial_preparation_receipt_sha256": "08d098e97985910623e1417f575976340077b2171dbe4595b77b50e35231ea49",
+  "native_expansion_receipt": "/tmp/fedimint-bootstrap-worker-3ad8038e/expansion-command/receipt.json",
+  "native_expansion_receipt_sha256": "8abbd4082f3be60be62b8cb70fee35e5b328912565eb98486562a0032a571730",
+  "nominal_domains": 3,
+  "behavioral_laws_added": 0
+}

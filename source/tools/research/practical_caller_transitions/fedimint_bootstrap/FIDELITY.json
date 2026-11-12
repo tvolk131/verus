@@ -1,0 +1,22 @@
+{
+  "field_identity": "all four Keychain original field strings exactly equal",
+  "nominal_type_declarations": 3,
+  "closed_observations": [
+    "NodeMap::slots",
+    "Keychain::configured_len"
+  ],
+  "open_observation": "NodeMap::signers",
+  "erased_from_interfaces": 4,
+  "original_keychain_sha256": "76225d0be3e169f438e9ddc6ce506cffdbda8fa9544dbb8d536a85210731f2fd",
+  "original_node_sha256": "4dd1a0495537ca73a81a345f92e3bfc16adfeea1ceaf8317d22ef0724ac77f41",
+  "runtime_bodies": {
+    "with_size": "78382348ceebc2976f37e85407c04ce063d905c31998ad78ead7007aa60c96ac",
+    "insert": "697a457cd5a29235dd44350b0c7ef9210b4b4e2d90241baaae844bcad49ef186",
+    "bootstrap_multi": "798c402c00139a08121e84aa18898a1aca2e618ae6fd4cfd658c2504c9120b69"
+  },
+  "generated_from_bodies": {
+    "usize_to_count": "20044742b2003c5e04bf1e9dd8a03206fd2272f78c121e02e68737e5eaf61b43",
+    "count_to_usize": "c10d15782bbfe2183ff1efbe21288c73391e592996ced38bd23f997b846fdafc"
+  },
+  "source_features": "Actual aleph-bft-crypto0.9.1 dependency enables derive_more full. This preparation selects only std/from/into and omits all unused derives. It checks actual published macro output for the identical tuple carrier, not a feature-complete upstream build or native equivalence."
+}
