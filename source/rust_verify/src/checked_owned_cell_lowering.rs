@@ -1057,6 +1057,13 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
             &authority,
         )
         .expect("ordinary native backend");
+        let mut empty = (*simple).clone();
+        empty.functions.clear();
+        empty.datatypes.clear();
+        assert!(
+            ctx.revalidate_owned_native_unit(&Arc::new(empty)).is_err(),
+            "D2-R1: reject an empty reconstructed unit without panicking"
+        );
         struct Report;
         impl air::messages::Diagnostics for Report {
             fn report(&self, m: &air::messages::ArcDynMessage) {

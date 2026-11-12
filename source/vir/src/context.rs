@@ -802,9 +802,11 @@ impl GlobalCtx {
 impl Ctx {
     pub fn revalidate_owned_native_unit(&self, unit: &Krate) -> Result<(), VirErr> {
         if let Some(b) = &self.owned_native {
-            b.validate_unit(unit).map_err(|m| error(&unit.datatypes[0].span, m))?;
+            // A rejected reconstructed unit may have no datatypes at all.
+            // Report it using the context's stable span, not rejected input.
+            b.validate_unit(unit).map_err(|m| error(&self.global.no_span, m))?;
         } else if crate::internal_repr::has_owned_cell_descriptor(unit) {
-            return Err(error(&unit.datatypes[0].span, "owned native backend: missing authority"));
+            return Err(error(&self.global.no_span, "owned native backend: missing authority"));
         }
         Ok(())
     }
