@@ -19,6 +19,7 @@ if action=='replay':
  r=dict(commands=[],builds=0,provenance=B['build_provenance'],full_parent_case=True)
  with replay_receipt(O,r):
   g=ArtifactGuard(inputs)
+  r['input_hashes']={str(p):digest(p) for p in inputs}
   env=dict(os.environ,PATH='/home/dev/.cargo/bin:/usr/bin:/bin',RUSTUP_HOME='/home/dev/.rustup',RUSTUP_TOOLCHAIN='1.99.1',RUSTC_BOOTSTRAP='1',VERUS_IN_VARGO='1',VERUS_ROOT=str(S),VERUS_Z3_PATH=str(S/'z3'),RUST_MIN_STACK='20971520',LD_LIBRARY_PATH=str(TC/'lib')+':'+str(TC/'lib/rustlib/x86_64-unknown-linux-gnu/lib'),TMPDIR=str(O/'tmp'),XDG_CACHE_HOME=str(O/'cache'),VERUS_INFER_CACHE=str(O/'infer-cache'))
   env.pop('C1_PRIVATE_SOURCE_CASE',None)
   r['environment']={k:env[k] for k in ['PATH','RUSTUP_HOME','RUSTUP_TOOLCHAIN','RUSTC_BOOTSTRAP','VERUS_IN_VARGO','VERUS_ROOT','VERUS_Z3_PATH','RUST_MIN_STACK','LD_LIBRARY_PATH','TMPDIR','XDG_CACHE_HOME','VERUS_INFER_CACHE']}

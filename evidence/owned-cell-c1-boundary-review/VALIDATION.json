@@ -482,6 +482,115 @@
           "run.stdout": "f77f69e6197904054c4c2159abd50fcb0ba3ba49d38fa1366bb41f55a766a1c9"
         }
       }
+    },
+    {
+      "path": "/tmp/owned-cell-c1-review-replay-final-20261112-2033/receipt.json",
+      "sha256": "146256f9089902cc7c9cfd80e6d112b39f09db92b904cf4ab17195407d3bc21b",
+      "receipt": {
+        "commands": [
+          {
+            "label": "native",
+            "argv": [
+              "/tmp/owned-cell-client-C1-20261112-freeze/native-client-test",
+              "--exact",
+              "checked_owned_cell::tests::loaded_native_methods_and_complete_mir_corruptions",
+              "--nocapture",
+              "--test-threads=1"
+            ],
+            "cwd": "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source",
+            "exit_code": 0,
+            "seconds": 0.27428554999642074,
+            "environment": {
+              "RUSTUP_TOOLCHAIN": "1.99.1",
+              "VERUS_Z3_PATH": "/tmp/owned-cell-client-C1-20261112-freeze/z3",
+              "VERUS_INFER_CACHE": "/tmp/owned-cell-c1-review-replay-final-20261112-2033/infer-cache"
+            }
+          },
+          {
+            "label": "clients",
+            "argv": [
+              "/tmp/owned-cell-client-C1-20261112-freeze/native-client-test",
+              "--exact",
+              "checked_owned_cell::clients::original_frontend_inventory_and_first_unproved_native_boundary",
+              "--nocapture",
+              "--test-threads=1"
+            ],
+            "cwd": "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source",
+            "exit_code": 0,
+            "seconds": 5.738672084000427,
+            "environment": {
+              "RUSTUP_TOOLCHAIN": "1.99.1",
+              "VERUS_Z3_PATH": "/tmp/owned-cell-client-C1-20261112-freeze/z3",
+              "VERUS_INFER_CACHE": "/tmp/owned-cell-c1-review-replay-final-20261112-2033/infer-cache"
+            }
+          }
+        ],
+        "builds": 0,
+        "provenance": "Frozen worker-built rust_verify and original test; seven inherited tools, normal vstd2257/0 not reverified; replay is not independent compiler rebuild.",
+        "full_parent_case": true,
+        "success": true,
+        "input_hashes": {
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/evidence/owned-cell-c1-boundary-review/validate.py": "482842203c49950e76496266619fbca3512f6f2d8fe5d06d44212a3a7f1b9e1b",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/evidence/owned-cell-c1-boundary-review/BINDING.json": "7edfdb1d45ba5e19a43efea3a6bc26d89011a215e15572f235d8e3560aedccf7",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+          "/tmp/owned-cell-client-C1-20261112-freeze/receipt.json": "a72a986cc6cf667991f49466d8cb18643d3057530e9e2b2d46b7876070077ce0",
+          "/tmp/owned-cell-client-C1-20261112-freeze/native-client-test": "25ce4eb4b49b7a0186fe44bfc276c663a398e029a09679ee8153bff6fc6d890d",
+          "/tmp/owned-cell-client-C1-20261112-freeze/rust_verify": "3379b6d6db628dde5bf7369560e099af7978b76933cb92c35acf6b1205a0be91",
+          "/tmp/owned-cell-client-C1-20261112-freeze/verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+          "/tmp/owned-cell-client-C1-20261112-freeze/libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+          "/tmp/owned-cell-client-C1-20261112-freeze/libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+          "/tmp/owned-cell-client-C1-20261112-freeze/libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+          "/tmp/owned-cell-client-C1-20261112-freeze/vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+          "/tmp/owned-cell-client-C1-20261112-freeze/libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+          "/tmp/owned-cell-client-C1-20261112-freeze/z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/rust_verify/src/checked_owned_cell.rs": "26415e46fc753226b2a30b3bbbaed367dba790ea5a9f6387c6e8af2eb278ac31",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/rust_verify/src/checked_owned_cell_admission.rs": "2e4db7d8124e4e16209da7e61d4b1a4ab719a1ca97d502852418beca89975980",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/rust_verify/src/checked_owned_cell_client_correspondence.rs": "b9772ae4fad60434f19607ead1a3950ca664dc5c9498225d7fae337c8ec86caf",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/rust_verify/src/checked_owned_cell_clients.rs": "6e46f5eb54ec9b5f0bdbe8e72d2d02c1ea10d8e1803cd5da8c7a54910da282c9",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/rust_verify/src/checked_owned_cell_lowering.rs": "fe5a1ce0406ceb0d028c285802ee5417e19e869d550f07161304f76fd969c73d",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/rust_verify/src/config.rs": "224fc7a59360601caf4134c1c64d607b321de86f2c2902023eac8716884b39a1",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/research/redb_crash_protocol/native_state_link/implementation/C1_BASELINE.json": "7cbfaa2d71cc76afb7aed661ab3b6b8d7704a481d6e3e27b73cb8e4724293acc",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/research/redb_crash_protocol/native_state_link/implementation/C1_INTERFACE.md": "1dc4ccdac62681297e63bca6f83be82db7495f658fdd748df9d766d8337c078b",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/research/redb_crash_protocol/native_state_link/implementation/d1.py": "c8a5d9ce18548658cd60254dde836062a26e58fb1f5f5fbc0dc6b799939753bd",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/tools/research/redb_crash_protocol/native_state_link/owned_native.rs": "29c59c2507b2e50671622184e56ee4445ea3f237e9e9a5dcfea8394e49f5cf70",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/vir/src/context.rs": "de7c89f2780409ba9ce053327cabad7aa42fe36a7edb25c51df47df6384cc03c",
+          "/home/dev/.t3/worktrees/verus/t3-75cc5fd8/source/vir/src/internal_repr.rs": "4b201fe2ae75b906e257bf6738170d5e2d4343dd5d384e82ab25bfe3d227e7dc"
+        },
+        "environment": {
+          "PATH": "/home/dev/.cargo/bin:/usr/bin:/bin",
+          "RUSTUP_HOME": "/home/dev/.rustup",
+          "RUSTUP_TOOLCHAIN": "1.99.1",
+          "RUSTC_BOOTSTRAP": "1",
+          "VERUS_IN_VARGO": "1",
+          "VERUS_ROOT": "/tmp/owned-cell-client-C1-20261112-freeze",
+          "VERUS_Z3_PATH": "/tmp/owned-cell-client-C1-20261112-freeze/z3",
+          "RUST_MIN_STACK": "20971520",
+          "LD_LIBRARY_PATH": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib:/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib",
+          "TMPDIR": "/tmp/owned-cell-c1-review-replay-final-20261112-2033/tmp",
+          "XDG_CACHE_HOME": "/tmp/owned-cell-c1-review-replay-final-20261112-2033/cache",
+          "VERUS_INFER_CACHE": "/tmp/owned-cell-c1-review-replay-final-20261112-2033/infer-cache"
+        },
+        "wf_notes": [
+          "C1 actual checked reconciliation: checked=1/1, notes=[]",
+          "C1 actual checked reconciliation: checked=0/3, notes=[\"`core::cell::impl&%60::into_inner` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%60::new` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::UnsafeCell` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::UnsafeCell` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%60::new` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%61::get_mut` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%60::into_inner` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::UnsafeCell` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%61::get_mut` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\"]",
+          "C1 actual checked reconciliation: checked=0/3, notes=[\"`core::cell::impl&%60::into_inner` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%60::new` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::UnsafeCell` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::UnsafeCell` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%60::new` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%61::get_mut` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%60::into_inner` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::UnsafeCell` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\", \"`core::cell::impl&%61::get_mut` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)\"]"
+        ],
+        "guard_passed": true,
+        "standalone_native_queries": 9,
+        "repeated_native_queries_in_source_sessions": 18,
+        "original_client_solver_queries": 0,
+        "F2": 0,
+        "F3": 0,
+        "complete_checked_inventory": false,
+        "logs": {
+          "native.stderr": "a803e019a40319dc6a49d2d8f171e6934633343aa35d9d5007482548d211c525",
+          "native.stdout": "5c47665c406e0821aeac7c83e46ed9888395a31cc7e673b9d3bad18ec48522f2",
+          "clients.stderr": "9a3ac74ed59e5de67c074ae559040bfab7832e525fbc4ecafb8318dc4620713f",
+          "clients.stdout": "e592c1db91a131599b20bf6521b3e1432185e48d8ee5e879bb5457a24afe8000"
+        }
+      }
     }
   ],
   "production_changes": 0,
@@ -490,5 +599,25 @@
   "CP1": false,
   "CP2": false,
   "source_coupling_proved": false,
-  "hmac_native": "DEFERRED AND UNACHIEVED"
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "necessary_inherited_context_sha256": {
+    "source/rust_verify/src/checked_foreign.rs": "549fc16aeadd2b751eb1ffe5f34e95a11742bd00229cbe24d384f3a6597f3fb4",
+    "source/rust_verify/src/rust_to_vir.rs": "59e6edf3dd6531913575089c4cc104a900dcce63267ffa2be4366faa94f095cd",
+    "source/rust_verify/src/verifier.rs": "94373b62b62f011ec14202f452c6416739a44d801168125497710f9f8b199e16",
+    "source/vir/src/well_formed.rs": "be7fb09e31222d4b055cbcec5ee3c6e0e6ef16914fc8a50edccbccc2db09412e",
+    "source/vir/src/modes.rs": "51699040d63c88312a8367521c35b0bf83f6c9d20626092248494539e9175b2a",
+    "source/vir/src/ast_to_sst_crate.rs": "25fe67251d503259118270d36790402bf1a56624719c1d148fe1c42c41628d97",
+    "source/vir/src/ast_to_sst_func.rs": "6990e2e2265b8bdb5f6a63b3d964bcedfc1026ab63295271594d13f17e7eaed4",
+    "source/vir/src/sst_to_air.rs": "d27d0dc6194fda17d9a9a5a055b76d0fc393d54f5e0ed4f22d61c1b72d5aa2ee",
+    "source/vir/src/sst_to_air_func.rs": "49b77c6e4f17418bef6fc2579737df900eedae69919c448e286ac840d29996bc",
+    "source/vir/src/messages.rs": "9b2f6f50d4d15463e1cfdbd5e1a29a5ac712c5fb8bcf6309920afa4356bcbb90",
+    "source/air/src/context.rs": "0e16140da08e2fb84d4bbd5bbc3ec1329ac7098028815946d43db84c52f2f99f",
+    "evidence/owned-cell-d1-review/boundary.rs": "cb05a7d8b1ebca92765383bc5e8aba3849e6ac17eb31a88319e6cd4e5504a9f1",
+    "evidence/owned-cell-d2-method-review/REVIEW.md": "17655934c0e433022d36fc1f9abf537e6c4929afa1f51c0f18573c2e7780e1de"
+  },
+  "root_R1_adoption_two_file_diff_sha256": "cf327589159c876eff0b8a65c5f643037aa2273cb8b8417c61cd9544c592bd76",
+  "original_client_solver_queries": 0,
+  "F2": 0,
+  "F3": 0,
+  "complete_checked_inventory": false
 }
