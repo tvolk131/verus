@@ -1,0 +1,563 @@
+{
+  "kind": "PARENT_F3C_SOURCE_CLOSURE_CHECKPOINT_NOT_INDEPENDENT_ACCEPTANCE",
+  "worker_head": "1f68024e",
+  "integrated_head": "59de4ffe",
+  "source_report": "fedimint_bootstrap/REPORT.md",
+  "source_sha256": "4a45716fa393c5f5d172013e7dfa4bb9939b98fe4873844e6ae05d8516722cc5",
+  "generated_conversion_source_sha256": "05b751c01ef52d868db029471c88e5871ac8414aebf5e87413f798a0c88f363d",
+  "provider": "10/0 ordinary and Infer; six local executable bodies and zero proof/inferred bodies",
+  "client": "2/0 ordinary and Infer; separate compiled provider",
+  "scope": "original initializer body and actual constructor/insert/generated-conversion closure; declared inherent/trait-context projection",
+  "property": [
+    "initialized slot length equals actual configured BTreeMap reported length",
+    "exact supplied signature at arbitrary in-bounds supplied index",
+    "all other slots None",
+    "occupied signer set singleton and cardinality1"
+  ],
+  "manual_proof_statements": 0,
+  "charged_specification": {
+    "manual_proof_statements": 0,
+    "proof_helpers": 0,
+    "inferred_helpers": 0,
+    "semantic_definitions": [
+      "NodeMap::slots CLOSED",
+      "NodeMap::signers open",
+      "Keychain::configured_len CLOSED",
+      "4 FromSpecImpl interface definitions"
+    ],
+    "nominal_type_domains": 3,
+    "local_exec_contracts": 5,
+    "new_std_or_behavioral_axioms": 0,
+    "bodies_checked_as_automatic_derived": 1,
+    "runtime_algorithms_changed": false
+  },
+  "fresh_parent_runs": [
+    {
+      "scenario": "positive",
+      "receipt": "/tmp/practical-f3c-parent-positive/receipt.json",
+      "sha256": "4aba1747d07b69dcc8eb815a324a6f3b567a6e4596c25e6a6d16081df949d29b",
+      "commands": [
+        {
+          "label": "ordinary",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-positive/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_bootstrap",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-positive/ordinary.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-positive/libordinary.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-positive",
+          "exit_code": 0,
+          "seconds": 2.4500639630132355,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-positive/cache"
+          }
+        },
+        {
+          "label": "infer",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-positive/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_bootstrap",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-positive/infer.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-positive/libinfer.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--infer-goals"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-positive",
+          "exit_code": 0,
+          "seconds": 3.931811062968336,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-positive/cache"
+          }
+        }
+      ],
+      "outcomes": [
+        {
+          "mode": "ordinary",
+          "kind": "checked",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 10,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "checked_exec_bodies": 6,
+          "checked_proof_bodies": 0
+        },
+        {
+          "mode": "infer",
+          "kind": "checked",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 10,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "checked_exec_bodies": 6,
+          "checked_proof_bodies": 0
+        }
+      ]
+    },
+    {
+      "scenario": "client",
+      "receipt": "/tmp/practical-f3c-parent-client/receipt.json",
+      "sha256": "02b28301a03381c3f7cec8c9e5e7ceb64ec519a8981fd72a0ea4657745ae7566",
+      "commands": [
+        {
+          "label": "ordinary",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-client/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_client",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-client/ordinary.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-client/libordinary.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--extern",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-positive/libordinary.rlib",
+            "--import",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-positive/ordinary.vir",
+            "-L",
+            "dependency=/tmp/practical-f3c-parent-positive"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-client",
+          "exit_code": 0,
+          "seconds": 1.6386888129636645,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-client/cache"
+          }
+        },
+        {
+          "label": "infer",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-client/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_client",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-client/infer.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-client/libinfer.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--extern",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-positive/libordinary.rlib",
+            "--import",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-positive/ordinary.vir",
+            "-L",
+            "dependency=/tmp/practical-f3c-parent-positive",
+            "--infer-goals"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-client",
+          "exit_code": 0,
+          "seconds": 3.597034294041805,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-client/cache"
+          }
+        }
+      ],
+      "outcomes": [
+        {
+          "mode": "ordinary",
+          "kind": "checked",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 2,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "checked_exec_bodies": 2,
+          "checked_proof_bodies": 0
+        },
+        {
+          "mode": "infer",
+          "kind": "checked",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 2,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "checked_exec_bodies": 2,
+          "checked_proof_bodies": 0
+        }
+      ]
+    },
+    {
+      "scenario": "count",
+      "receipt": "/tmp/practical-f3c-parent-count/receipt.json",
+      "sha256": "c064a31b4da44abbc483899f60ca2a780c38cb54193f49e42a795dcf9e5c2767",
+      "commands": [
+        {
+          "label": "ordinary",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-count/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_bootstrap",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-count/ordinary.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-count/libordinary.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-count",
+          "exit_code": 1,
+          "seconds": 2.00812994397711,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-count/cache"
+          }
+        },
+        {
+          "label": "infer",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-count/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_bootstrap",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-count/infer.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-count/libinfer.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--infer-goals"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-count",
+          "exit_code": 1,
+          "seconds": 3.526698410976678,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-count/cache"
+          }
+        }
+      ],
+      "outcomes": [
+        {
+          "mode": "ordinary",
+          "kind": "semantic_negative",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 9,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "f3c_bootstrap::Keychain::bootstrap_multi"
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "mode": "infer",
+          "kind": "semantic_negative",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 9,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "f3c_bootstrap::Keychain::bootstrap_multi"
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        }
+      ]
+    },
+    {
+      "scenario": "safety",
+      "receipt": "/tmp/practical-f3c-parent-safety/receipt.json",
+      "sha256": "4786e71ec2bcd0f40939a6b9d5a35aecf202850ae60a4e795faf63d9514c3cca",
+      "commands": [
+        {
+          "label": "ordinary",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-safety/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_bootstrap",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-safety/ordinary.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-safety/libordinary.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-safety",
+          "exit_code": 1,
+          "seconds": 2.040829567995388,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-safety/cache"
+          }
+        },
+        {
+          "label": "infer",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-safety/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_bootstrap",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-safety/infer.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-safety/libinfer.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--infer-goals"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-safety",
+          "exit_code": 1,
+          "seconds": 4.035932283964939,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-safety/cache"
+          }
+        }
+      ],
+      "outcomes": [
+        {
+          "mode": "ordinary",
+          "kind": "safety_negative",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 9,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "f3c_bootstrap::Keychain::bootstrap_multi"
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        },
+        {
+          "mode": "infer",
+          "kind": "safety_negative",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 9,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "f3c_bootstrap::Keychain::bootstrap_multi"
+          ],
+          "checked_exec_bodies": 0,
+          "checked_proof_bodies": 0
+        }
+      ]
+    },
+    {
+      "scenario": "failed-import",
+      "receipt": "/tmp/practical-f3c-parent-failed-import/receipt.json",
+      "sha256": "25e89d8b25b3bbcd8fc696c786b0107e7c2edfa195a9bc4d9fbd5fd09470c147",
+      "commands": [
+        {
+          "label": "ordinary",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-failed-import/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_client",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-failed-import/ordinary.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-failed-import/libordinary.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--extern",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-positive/libordinary.rlib",
+            "--import",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-count/infer.vir",
+            "-L",
+            "dependency=/tmp/practical-f3c-parent-positive"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-failed-import",
+          "exit_code": 1,
+          "seconds": 0.059638977982103825,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-failed-import/cache"
+          }
+        },
+        {
+          "label": "infer",
+          "argv": [
+            "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/verus",
+            "/tmp/practical-f3c-parent-failed-import/initializer.rs",
+            "--edition=2024",
+            "--crate-type=lib",
+            "--crate-name",
+            "f3c_client",
+            "--no-cheating",
+            "--output-json",
+            "--time",
+            "--compile",
+            "--export",
+            "/tmp/practical-f3c-parent-failed-import/infer.vir",
+            "-o",
+            "/tmp/practical-f3c-parent-failed-import/libinfer.rlib",
+            "--extern",
+            "secp256k1=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs/libsecp256k1.rlib",
+            "-L",
+            "dependency=/tmp/fedimint-bootstrap-worker-3ad8038e/context/libs",
+            "--extern",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-positive/libordinary.rlib",
+            "--import",
+            "f3c_bootstrap=/tmp/practical-f3c-parent-count/infer.vir",
+            "-L",
+            "dependency=/tmp/practical-f3c-parent-positive",
+            "--infer-goals"
+          ],
+          "cwd": "/tmp/practical-f3c-parent-failed-import",
+          "exit_code": 1,
+          "seconds": 0.054302798002026975,
+          "environment": {
+            "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+            "VERUS_Z3_PATH": "/tmp/fedimint-bootstrap-worker-3ad8038e/bundle/z3",
+            "VERUS_INFER_CACHE": "/tmp/practical-f3c-parent-failed-import/cache"
+          }
+        }
+      ],
+      "outcomes": [
+        {
+          "mode": "ordinary",
+          "kind": "failed_import_not_proof"
+        },
+        {
+          "mode": "infer",
+          "kind": "failed_import_not_proof"
+        }
+      ]
+    }
+  ],
+  "worker_final_receipts_authenticated": 8,
+  "independent_acceptance": "pending_NEW_combined_review",
+  "full_trait_crypto_native_count_or_known_peer_claim": false,
+  "goal_complete": false,
+  "hmac_native": "DEFERRED AND UNACHIEVED",
+  "parent_native_rebuild_or_new_std_law_added": false,
+  "worker_bounded_native_preparation": "actual pinned From/Into macro expansion only; existing Rust-only crypto type artifacts reused; no crypto/native correspondence proved"
+}

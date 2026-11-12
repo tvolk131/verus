@@ -12,9 +12,11 @@ The fixed-source isolated evidence-only review completed with scoped acceptance 
 
 Own only redb_imports/ and integration/status files. The preregistered visibility-only compiled provider retains private fields and all original formulas/bodies. A separate arbitrary-domain client must prove that repeated allocation of the same interval cannot both succeed. Charge explicit library lemmas/assertions and preserve failed development trials. No engine change or Infer reduction is claimed. Finish within the bounded scope, then review the delivered API adaptation separately; the accepted V2 review does not certify future changes.
 
-## Fedimint initializer implementation — isolated ownership handoff
+## Fedimint initializer implementation — completed, parent-integrated
 
-Own the new fedimint_bootstrap/ constructor stage. Parent stops editing this directory while the implementation runs. Preserve all root field/type preflight files/freezes/results, F3-B files and prior reports. Root genuine-field eligibility is complete: all four original fields, real crypto types from pinned Rust-only metadata and three charged identity-only opaque declarations; ordinary/Infer2/0 on the synthetic length subexpression. This is not bootstrap proof or key ordering/cardinality/crypto evidence.
+The isolated worker delivered1f68024e; parent integrated only its six new commits through59de4ffe, preserving all root preflights and F3-B artifacts. Fresh parent provider10/0, imported clients2/0, count/safety9/1 and actual failed-import rejection all pass in ordinary/Infer modes. PARENT_FEDIMINT_BOOTSTRAP.json binds the reproduction. No implementation worker remains active; do not poll or resume it without a concrete new assignment. The original genuine-field diagnostic remains historical2/0 eligibility only.
+
+The completed assignment below is retained as the acceptance specification for the NEW combined review. It does not authorize starting another prerequisite or native-count/crypto stage.
 
 Freeze before new proof trials. Check the exact original NodeMap::with_size / NodeCount conversion / Keychain::bootstrap_multi closure, retaining original runtime expressions and full safe-input domain. Connect returned capacity to actual runtime configured `.pks.len()`, store the arbitrary supplied64-byte signature at exactly its supplied in-bounds index, and prove all other slots empty/exact occupied-set cardinality. No arbitrary numeric n replacing configuration. Distinguish reported runtime length from a proved recognized-key universe or native iterator count.
 
