@@ -1,5 +1,14 @@
 # Initial bounded worker assignments
 
+F1 recheck2b31d7632 closed the old two-marker issue but found remaining frontend
+directives (reveal_group, item_broadcast_use and special-const markers) outside
+the ordinary Function inventory. Root owns the small four-flag item/ancestor
+correction and32 new controls; source/fresh validation/recheck are separate from
+the inactive D1/D2 work. The D2 actor has been informed and must preserve this
+next exact patch. Complete F1 admission is not yet accepted. No activation
+without actual admitted-versus-checked inventory reconciliation and all other
+body/state/correspondence/erasure gates. Avoid duplicating root's correction.
+
 D1 checkpoint2e7b8b319 is now locally integrated and unaccepted. Root authenticated
 all12 source hashes,10 receipt/log sets and all8 runtime tools, then froze
 /tmp/owned-cell-D1-2e7b8b319-parent-snapshot (receipt SHA256

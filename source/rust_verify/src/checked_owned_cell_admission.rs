@@ -654,6 +654,16 @@ fn checked_item(tcx: TyCtxt<'_>, id: LocalDefId, default_verify: bool) -> Result
                 "frontend-skipped const_body/reveal_fn local item or ancestor is forbidden",
             ));
         }
+        // These items become frontend directives rather than ordinary checked
+        // Functions (rust_to_vir::check_item / rust_to_vir_func::check_item_fn).
+        // Conservatively reject the markers on ancestors as well.
+        if v.reveal_group || v.item_broadcast_use || v.size_of_global || v.structural_const_wrapper
+        {
+            return Err(fail(
+                tcx.def_span(id),
+                "frontend directive/special-const local item or ancestor is forbidden",
+            ));
+        }
         if a.external
             || a.external_body
             || a.external_fn_specification

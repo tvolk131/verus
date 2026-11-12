@@ -374,6 +374,50 @@ fn frontend_skip_markers_on_items_and_ancestors_are_refused() {
     finish();
 }
 #[test]
+fn frontend_directives_and_special_consts_are_refused() {
+    for (marker, is_const) in [
+        ("reveal_group", false),
+        ("item_broadcast_use", true),
+        ("size_of", true),
+        ("structural_const_wrapper", true),
+    ] {
+        let attr = format!("#[verus::internal({marker})]");
+        let item = if is_const {
+            format!("#[verifier::verify] {attr} const K:()={{}};")
+        } else {
+            format!("#[verifier::verify] {attr} pub fn skipped() {{}}")
+        };
+        let cases = [
+            ("item", raw_source(&item)),
+            (
+                "ancestor",
+                raw_source(&format!(
+                    "{attr} mod outer {{mod inner {{#[verifier::verify] pub fn client(v:u64)->u64 {{v}}}}}}"
+                )),
+            ),
+            (
+                "unused_nested_item",
+                raw_source(&format!("#[verifier::verify] pub fn outer(v:u64)->u64 {{{item} v}}")),
+            ),
+            (
+                "macro_item",
+                raw_source(&format!("macro_rules! marked {{()=>{{{item}}};}} marked!();")),
+            ),
+        ];
+        for infer in [false, true] {
+            for (label, s) in &cases {
+                outcome(
+                    &format!("{marker}/{label}/infer={infer}"),
+                    run(s, infer, &[]),
+                    "frontend directive/special-const local item or ancestor is forbidden",
+                    false,
+                );
+            }
+        }
+    }
+    finish();
+}
+#[test]
 fn imported_direct_abstract_dyn_and_projected_escapes_are_refused() {
     let c = InferCrates::new();
     let ext = c.directory.path().join("callbacks.rs");
