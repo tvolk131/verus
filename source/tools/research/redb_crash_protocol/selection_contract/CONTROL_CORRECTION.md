@@ -1,0 +1,5 @@
+# Retained strict-gate correction
+
+The first strict trial proved both ordinary cold/warm providers23/0 and rejected the false selection relation with healthy derive checks and removed exports. Its missing-domain control also retained the full out-of-domain semantic postconditions, causing both a precondition and a postcondition failure. The controller correctly refused this mixed case; the overall receipt is not accepted. It is retained at /tmp/redb-crash-selection-strict-20261112-v1/.
+
+The second prospective freeze isolates domain safety: for the provider control, omit selection's semantic postcondition as well as its entry domain while retaining its complete original executable body and all called-method preconditions. The imported missing-domain caller has no semantic postcondition. Both must fail only the callee precondition. Positive providers and semantic negatives retain the exact full original registered contract/body/domain. This scope difference belongs only to the safety controls and is charged explicitly; it is not a weakened positive theorem.

@@ -56,14 +56,29 @@ pub fn imported_selection(h: &mut UnrepairedDatabaseHeader) -> (r: Result<bool>)
 }
 '''
 
+UNSAFE_CLIENT = r'''extern crate selection_checked;
+use selection_checked::*;
+use vstd::prelude::*;
+verus! {
+pub fn imported_selection(h: &mut UnrepairedDatabaseHeader) -> Result<bool>
+{ h.select_primary_slot() }
+}
+'''
+
+def unsafe_provider(source):
+    start = source.index('    pub fn select_primary_slot')
+    body = source.index('{\n        // If the primary', start)
+    return source[:start] + '    pub fn select_primary_slot(&mut self) -> Result<bool>\nrequires true,\n' + source[body:]
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--freeze', type=Path, default=HERE / 'VALIDATION_FREEZE.json')
     args = parser.parse_args(); out = args.output.resolve(); out.mkdir(parents=True, exist_ok=False)
     receipt = dict(kind='CHECKED_ORIGINAL_SELECTION_STRICT_CLOSEOUT', commands=[], outcomes=[],
                    source_coupling_proved=False)
     with replay_receipt(out, receipt):
-        freeze = json.loads((HERE / 'VALIDATION_FREEZE.json').read_text())
+        freeze = json.loads(args.freeze.read_text())
         for name, value in freeze['inputs'].items(): require(digest(Path(name)) == value, 'input ' + name)
         rt = freeze['runtime']; original = Path(rt['bundle']); bundle = out / 'bundle'; bundle.mkdir()
         require(digest(original / 'receipt.json') == rt['receipt_sha256'], 'accepted receipt')
@@ -74,11 +89,11 @@ def main():
         source = (HERE / 'checked_derives.rs').read_text()
         sources = {'provider': source,
                    'wrong': source.replace('kept == !selection_switches(*old(self))', 'kept == selection_switches(*old(self))'),
-                   'unsafe': source.replace('requires old(self).inner.primary_slot < 2, (old(self).inner.primary_slot ^ 1) < 2, old(self).inner.primary_slot != (old(self).inner.primary_slot ^ 1),', 'requires true,')}
+                   'unsafe': unsafe_provider(source)}
         for name, text in sources.items():
             path = out / (name + '.rs'); path.write_text(text)
             require(digest(path) == freeze['fixtures'][name], 'frozen variant ' + name)
-        guard = ArtifactGuard([HERE / 'VALIDATION_FREEZE.json'] + [Path(p) for p in freeze['inputs']] +
+        guard = ArtifactGuard([args.freeze] + [Path(p) for p in freeze['inputs']] +
                               [bundle / n for n in rt['tool_hashes']] + [out / (n + '.rs') for n in sources])
         run = LoggedCommands(out, out, receipt['commands'], timeout=120, guard=guard)
         tc = freeze['toolchain']
@@ -107,7 +122,7 @@ def main():
             for case in ['healthy', 'wrong', 'unsafe', 'failed_import']:
                 text = CLIENT
                 if case == 'wrong': text = text.replace('r.is_Err() == selection_errors(*old(h))', 'r.is_Err() == !selection_errors(*old(h))')
-                if case == 'unsafe': text = text.replace('requires old(h).inner.primary_slot < 2, (old(h).inner.primary_slot ^ 1) < 2,\n        old(h).inner.primary_slot != (old(h).inner.primary_slot ^ 1),', 'requires true,')
+                if case == 'unsafe': text = UNSAFE_CLIENT
                 label = mode + '_client_' + case; path = out / (label + '.rs'); path.write_text(text)
                 require(digest(path) == freeze['clients'][case], 'frozen client ' + case)
                 artifact = out / (label + '.vir')
