@@ -1,5 +1,7 @@
 # Full goal blocked and unachieved
 
+Subsequent user decision: the single bounded checked-bridge experiment was authorized and completed. It stopped at native UnsafeCell access/physical-permission interpretation without proving a bridge or adding a trusted law. The pending-scope condition described below is historical; the full theorem remains unachieved at the now-specific technical boundary. See native_lock_bridge/REPORT.md and MISSING_SEQUENT.md. This does not authorize extending the prerequisite chain.
+
 The goal API returned **blocked** after three consecutive audits of the same condition: actual native lock/cache/write-trace correspondence is not supplied by the inherited specifications, and the charter forbids automatically introducing the missing native state/private-representation or foundational semantics. The exact scope question remains authoritatively pending. No exception has been authorized or started; no implementation worker or command is running.
 
 The audits confirmed the existing checkpoint, then twice revalidated the same pending request and unchanged source/constraints. The final audit checked clean HEAD e6a86b87, unchanged GOAL/COVERAGE_AUDIT/NEXT_SCOPE, empty worker/job lists, active goal status before the update, and the exact still-pending question. Elapsed time and automatic continuation messages were not interpreted as authorization. The goal was not marked complete or paused.

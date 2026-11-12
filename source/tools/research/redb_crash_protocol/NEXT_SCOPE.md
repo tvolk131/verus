@@ -1,5 +1,7 @@
 # Concrete decision for further source coupling
 
+Authorization/result update: the user approved exactly this experiment. It is now completed and stopped at the first further foundational blocker, native UnsafeCell access/physical-permission correspondence. See native_lock_bridge/REPORT.md. No production fact was added and no subsequent foundation is authorized. The proposal below remains its historical pre-experiment scope, not an outstanding approval request.
+
 The full crash-protocol goal is unachieved. Preserve it; do not redefine success around the accepted components. The bounded work authorized by the current charter has produced a real source-selector theorem, checked backend body context, conditional persistence laws, finite native failure coverage and independent review. The next missing kind of evidence is actual native lock/cache/write-trace correspondence.
 
 ## Proposed exception, not authorized or started
