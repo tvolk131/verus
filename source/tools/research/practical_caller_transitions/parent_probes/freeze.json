@@ -1,0 +1,42 @@
+{
+  "kind": "P0_PREREGISTRATION_BEFORE_TRIALS",
+  "runtime": "/tmp/practical-combined78-5ecea5fe-core/bundle",
+  "r2_provider": "source/tools/research/practical_redb_fedimint/redb_tree/manual.rs",
+  "scope_utility": "source/tools/research/practical_redb_fedimint/common_set/replay_s1.py",
+  "inputs": {
+    "source/tools/research/practical_caller_transitions/parent_probes/REGISTRATION.md": "0d1c227a57c0ec6404534479ba5d6537a5f356363ee00724339028161dd0059d",
+    "source/tools/research/practical_caller_transitions/parent_probes/redb-tail.rs": "f30f73f96dcdff4ea3c95e74eea8c63ba1982bba12928488bd9eb0a9b0c9fed4",
+    "source/tools/research/practical_caller_transitions/parent_probes/node-slot.rs": "8e4f83cb6a9bd5ec3566e0b53c6c2d126e1cb4a7650a37b9a25b3f7e6097239f",
+    "source/tools/research/practical_caller_transitions/parent_probes/run.py": "8f3a2137603444284565f62d822cbbdaf70163a4288c7a0c19ff55e18a0ca924",
+    "source/tools/research/practical_redb_fedimint/redb_tree/manual.rs": "6fefe21d32e050e0a4cd7199e95451a7c25aeed80fc9166b3b73667aab2378bf",
+    "source/tools/research/practical_redb_fedimint/common_set/replay_s1.py": "69d292d7dbba3591d065d9b68f2a1b02b513cd4a0adfbbfe3ca7489d1521c72b",
+    "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/buddy_allocator.rs": "88e6c4df1e0fa85651bd0373eeab653d2d2299a18b241fd337a127d13025fb26",
+    "/home/dev/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/aleph-bft-crypto-0.9.1.crate": "4e99189e0c434af4bb0f4238925df15091962ae843f509561def48ecf36c163d",
+    "/tmp/practical-combined78-5ecea5fe-core/bundle/receipt.json": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452"
+  },
+  "source_fidelity": {
+    "redb-tail.rs": {
+      "original_function": "get_order_free_mut",
+      "original_body_sha256": "1ddf252b2f091d187ae4f0bd2c90fde07f1120799bffd3292bd62409cd22cb89",
+      "whitespace_only_body_equality": true
+    },
+    "node-slot.rs": {
+      "original_function": "insert",
+      "original_body_sha256": "697a457cd5a29235dd44350b0c7ef9210b4b4e2d90241baaae844bcad49ef186",
+      "whitespace_only_body_equality": true
+    }
+  },
+  "expected_new_body_inventories": {
+    "redb": [
+      "BuddyAllocator::get_order_free_mut"
+    ],
+    "node": [
+      "NodeMap::insert"
+    ]
+  },
+  "full_caller_claim": false,
+  "new_trust": false,
+  "trials_started": false
+}
