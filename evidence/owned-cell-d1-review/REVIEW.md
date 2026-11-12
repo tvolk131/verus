@@ -60,7 +60,7 @@ otherwise equivalent MIR, which is fail-closed on this pinned toolchain.
 current/future relations are not independently validated. Nor are admitted
 client input/store/reload/writeback effects. No complete certificate or
 semantic proof follows. In particular the three normal full Function WF
-queries all refuse `disallowed: field expression for an opaque datatype`.
+checks all refuse `disallowed: field expression for an opaque datatype`.
 Those expected failures and wrong-width/admission refusals are negative
 controls, not passed native body proofs. No mode/lifetime/SMT/body/state credit
 is awarded to the proposals.
@@ -74,6 +74,33 @@ F2 same-client final input-field state query (arbitrary entry), false-state and
 store/writeback deletion controls remain necessary. F3 must inspect original
 native erasure calls and original-name mode entries under real compilation.
 No scalar result proof or supplied constructor history substitutes for these.
+
+Fresh validation: loaded-native unit **1/1**, complete VIR **171/171** (including
+all eight Rev tests), separate Rev rerun **8/8**, and combined focused suites
+**10/10**, covering **166 verifier invocations** by exact test-source enumeration
+(32 preflight +134 admission) plus one native callback rustc build. Every
+verifier invocation carries --no-cheating. Both ordinary and Infer are represented;
+malformed parse cases are refusal controls. Independent synthetic boundary
+fixture **2/2**, after an earlier reduced **2/2** run. Its three accepted
+malformed placements witness D1-R1; those passes are not acceptance evidence.
+The loaded-native unit reruns 54 MIR +4 signature/region, eight descriptor,
+six type-argument and45 emitted-Function corruptions, both wire refusals,
+two wrong-width hooks and three normal private-field WF refusals.
+
+Combined compiler SHA256:
+`a3aa9a1cb805996b6a00045d81d73549159268ae6b0e489567c7341cdf67369d`.
+Seven supporting files are inherited unchanged from the authenticated frozen
+D1 snapshot; vstd2257/0 is inherited, not rerun. All eight snapshot files and
+twelve prepared-source hashes were reauthenticated after testing. Eleven
+logged commands took451.177s, including failed harness attempts. Validation
+froze at2026-11-12T17:25:17.693742Z; conservatively counting the entire interval
+from17:05 snapshot availability takes1217.694s (20.295 minutes), including
+all builds/waits. No build subtraction is needed for the45-minute limit.
+CPU and monetary meters were unavailable. Setup/guard/fixture failures are
+explicitly retained in RESULTS.json and private receipts; none is a suppressed
+production failure. The first compile took180.080s and succeeded, but its
+wrapper guard failed on this review's driver mtime; the stable-driver build
+rerun passed before any combined runtime use.
 
 The prepared root's F1 skip fix is preserved byte-for-byte in its two files.
 The old D1 binary intentionally lacks it; combined runtime claims use the
