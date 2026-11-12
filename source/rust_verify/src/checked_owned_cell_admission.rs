@@ -676,7 +676,12 @@ fn checked_item(tcx: TyCtxt<'_>, id: LocalDefId, default_verify: bool) -> Result
                 "external/abstract/skipped/trusted local item or ancestor is forbidden",
             ));
         }
-        checked |= a.verify || a.verus_macro || a.sets_mode;
+        // Ordinary get_crate_items visits the root contents without applying
+        // crate-owner opt-in flags. Keep root exclusions above, but only actual
+        // item/module contexts (or the real default option) establish checking.
+        if d != hir::CRATE_OWNER_ID.def_id {
+            checked |= a.verify || a.verus_macro || a.sets_mode;
+        }
         current = tcx.opt_parent(d.to_def_id());
     }
     if !checked {

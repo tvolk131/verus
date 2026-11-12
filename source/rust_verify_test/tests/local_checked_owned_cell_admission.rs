@@ -418,6 +418,52 @@ fn frontend_directives_and_special_consts_are_refused() {
     finish();
 }
 #[test]
+fn crate_root_opt_in_does_not_replace_ordinary_body_coverage() {
+    for root_attr in
+        ["#![verifier::verify]", "#![verus::internal(verus_macro)]", "#![verifier::exec]"]
+    {
+        for infer in [false, true] {
+            let plain = format!("{root_attr}\n{}", raw_source("pub fn unit() {}"));
+            outcome(
+                root_attr,
+                run(&plain, infer, &[]),
+                "native/unverified/skipped local body is forbidden",
+                false,
+            );
+            for body in [
+                "#[verifier::verify] pub fn unit() {}",
+                "#[verifier::verify] mod checked {pub fn unit() {}}",
+            ] {
+                let marked = format!("{root_attr}\n{}", raw_source(body));
+                outcome(root_attr, run(&marked, infer, &[]), LATER, true);
+            }
+            outcome(
+                "actual default-verify option",
+                run(&plain, infer, &["--no-external-by-default"]),
+                LATER,
+                true,
+            );
+        }
+    }
+    // Do not skip the crate owner entirely: all root exclusions still apply.
+    for infer in [false, true] {
+        let body = raw_source("#[verifier::verify] pub fn unit() {}");
+        outcome(
+            "root external exclusion",
+            run(&format!("#![verifier::external]\n{body}"), infer, &[]),
+            "external/abstract/skipped/trusted",
+            false,
+        );
+        outcome(
+            "root skipped-body exclusion",
+            run(&format!("#![verus::internal(const_body)]\n{body}"), infer, &[]),
+            "frontend-skipped const_body/reveal_fn",
+            false,
+        );
+    }
+    finish();
+}
+#[test]
 fn imported_direct_abstract_dyn_and_projected_escapes_are_refused() {
     let c = InferCrates::new();
     let ext = c.directory.path().join("callbacks.rs");
