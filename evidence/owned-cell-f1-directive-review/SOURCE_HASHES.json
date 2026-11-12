@@ -11,5 +11,14 @@
   "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": "67b8a56c70fafb99f68e4fdedb983e591da527a04336753eabc920c984b1b2a1",
   "source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
   "source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
-  "source/tools/research/redb_crash_protocol/native_state_link/implementation/check.py": "dc53696a21e05377eaf2be38ca08db17137b311f91e1e5fc3be9bf9273254e73"
+  "source/tools/research/redb_crash_protocol/native_state_link/implementation/check.py": "dc53696a21e05377eaf2be38ca08db17137b311f91e1e5fc3be9bf9273254e73",
+  "source/rust_verify/src/external.rs": "f77017d44eb8ce08385a4019ffc5466bdf343fe4f522055378cbc3bf2cbb7efe",
+  "source/rust_verify/src/pre_header.rs": "fc3371daf92fdb9a2af5cba949ba35626ab91a877ae701a67901d0f6714eb07f",
+  "source/rust_verify/src/verifier.rs": "94373b62b62f011ec14202f452c6416739a44d801168125497710f9f8b199e16",
+  "source/rust_verify/src/config.rs": "224fc7a59360601caf4134c1c64d607b321de86f2c2902023eac8716884b39a1",
+  "source/builtin_macros/src/unerased_proxies.rs": "dc591aa4864ddc692d4c55e8308b74d40a9cca886651e3e03b0dac8687f4531b",
+  "source/builtin_macros/src/syntax.rs": "a0d8edf38d8799676a85935e1ac60bb1aeacd859c4fe6450456fb6b957951af0",
+  "source/vir/src/def.rs": "611cd3a774c401e2da92cd6c03debba1d5217090000c5bfba3f34f3d568111be",
+  "rust-toolchain.toml": "6aa218e09a62da9dac4c1e3bf0f0ecc922c179d77d100da44d099da2194e70b1",
+  "source/Cargo.lock": "30cd48d355d863cc714c0768bb1b69adb618d77fcd395c916acedb8e63456bc4"
 }
