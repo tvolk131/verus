@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import time
@@ -15,6 +16,8 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[4]
 PARENT = 'c008326bfed88eab958335412cdc5ec0e9c8130e'
+sys.path.insert(0, str(ROOT/'source/tools'))
+from infer_experiment import require
 
 def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -24,39 +27,52 @@ def main():
     ap.add_argument('--candidate', type=Path, default=HERE/'protocol.rs')
     ap.add_argument('--expected', choices=('pass','assertion','postcondition'), default='pass')
     ap.add_argument('--label', default='model')
+    ap.add_argument('--output', type=Path)
     args = ap.parse_args()
     start = time.monotonic()
     cases = json.loads((HERE.parent/'CASES.json').read_text())
-    # These are immutable fixed-parent files, not a live sibling or parent lane.
+    # The registration is immutable; current progress documents may evolve.
+    registration = subprocess.check_output(['git','-C',str(ROOT),'show',
+        PARENT+':'+str((HERE.parent/'CASES.json').relative_to(ROOT))])
+    require(hashlib.sha256(registration).hexdigest() == sha(HERE.parent/'CASES.json'),
+        'CASES differs from the original registration')
     for n, h in cases['shared_helpers'].items():
-        assert sha(ROOT/n) == h, n
+        require(sha(ROOT/n) == h, n)
     for n, h in cases['source_sha256'].items():
-        assert sha(Path(cases['redb_checkout'])/n) == h, n
+        require(sha(Path(cases['redb_checkout'])/n) == h, n)
+    charter = {}
     for n, h in cases['charter_sha256'].items():
-        assert sha(HERE.parent/n) == h, n
+        data = subprocess.check_output(['git','-C',str(ROOT),'show',
+            PARENT+':'+str((HERE.parent/n).relative_to(ROOT))])
+        require(hashlib.sha256(data).hexdigest() == h, 'historical charter '+n)
+        charter[n] = data
     runtime = cases['accepted_runtime']
     original = Path(runtime['bundle'])
-    assert sha(original/'receipt.json') == runtime['receipt_sha256']
+    require(sha(original/'receipt.json') == runtime['receipt_sha256'], 'accepted receipt')
     for n, h in runtime['tool_hashes'].items():
-        assert sha(original/n) == h, n
-    assert (original/'verus-root').is_file()
+        require(sha(original/n) == h, n)
+    require((original/'verus-root').is_file(), 'verus-root')
     private = Path(tempfile.mkdtemp(prefix='redb-model-accepted78-'))
     bundle = private/'bundle'
     shutil.copytree(original,bundle,symlinks=False)
-    assert sorted(p.name for p in bundle.iterdir()) == sorted(p.name for p in original.iterdir())
+    require(sorted(p.name for p in bundle.iterdir()) == sorted(p.name for p in original.iterdir()), 'complete private bundle')
     for n,h in runtime['tool_hashes'].items():
-        assert sha(bundle/n) == h, n
-    assert sha(bundle/'receipt.json') == runtime['receipt_sha256']
+        require(sha(bundle/n) == h, n)
+    require(sha(bundle/'receipt.json') == runtime['receipt_sha256'], 'copied receipt')
+    historical = private/'registered-charter'
+    historical.mkdir()
+    for n,data in charter.items():
+        (historical/n).write_bytes(data)
     helpers = private/'helpers'
     helpers.mkdir()
     for n,h in cases['shared_helpers'].items():
         shutil.copyfile(ROOT/n, helpers/Path(n).name)
-        assert sha(helpers/Path(n).name) == h
+        require(sha(helpers/Path(n).name) == h, 'copied helper '+n)
     sys.path.insert(0,str(helpers))
     from infer_eval_support import ArtifactGuard, tool_artifacts
-    from infer_experiment import LoggedCommands, replay_receipt, validate_goal_run, require
-    out = HERE/'evidence'/private.name
-    out.mkdir(parents=True)
+    from infer_experiment import LoggedCommands, replay_receipt, validate_goal_run
+    out = args.output.resolve() if args.output else HERE/'evidence'/private.name
+    out.mkdir(parents=True, exist_ok=False)
     source = out/'candidate.rs'
     shutil.copyfile(args.candidate,source)
     text = source.read_text()
@@ -64,19 +80,21 @@ def main():
     proofs = re.findall(r'pub proof fn (\w+)',text)
     execs = re.findall(r'pub fn (\w+)',text)
     specs = re.findall(r'pub open spec fn (\w+)',text)
-    assert len(proofs) == len(set(proofs)) and proofs
-    assert not re.search(r'\b(assume|admit|axiom)\s*[(!]|external_body|external_fn_specification|verifier::external',text)
+    require(len(proofs) == len(set(proofs)) and bool(proofs), 'proof inventory')
+    require(not re.search(r'\b(assume|admit|axiom)\s*[(!]|external_body|external_fn_specification|verifier::external',text), 'unchecked proof input')
     freeze = dict(parent=PARENT, candidate_sha256=sha(source), original_candidate=str(args.candidate),
         expected=args.expected, exec_bodies=execs, proof_bodies=proofs, full_body_identities=["model::"+n for n in execs+proofs],
         full_spec_identities=["model::"+n for n in specs], spec_definitions=specs,
         expected_infer_helpers=[], infer_helper_count=0, prospective=True,
         existing_infer_registry_sha256=sha(HERE/'ACCEPTED78_INFER_REGISTRY.json'),
         source_coupling_proved=False, model_only=True,
+        registered_charter={n:sha(historical/n) for n in charter},
+        integrated_checkpoint=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
         all_trace_domain='arbitrary finite Seq; no bounded enumeration implied')
     (out/'freeze.json').write_text(json.dumps(freeze,indent=2)+'\n')
     extra = [source,out/'freeze.json',Path(__file__),HERE/'ACCEPTED78_INFER_REGISTRY.json',HERE.parent/'CASES.json',bundle/'receipt.json',bundle/'verus-root',
         *[Path(cases['redb_checkout'])/n for n in cases['source_sha256']],
-        *[HERE.parent/n for n in cases['charter_sha256']],
+        *[historical/n for n in cases['charter_sha256']],
         *[helpers/Path(n).name for n in cases['shared_helpers']]]
     toolchain = Path(cases['toolchain'])
     extra += [toolchain/'bin/rustc',toolchain/'bin/rustup'] if (toolchain/'bin/rustup').exists() else [toolchain/'bin/rustc']
@@ -99,7 +117,7 @@ def main():
                 VERUS_Z3_PATH=str(bundle/'z3'), VERUS_INFER_CACHE=str(cache),
                 CARGO_TARGET_DIR=str(target), TMPDIR=str(temp))
             artifact = out/(label+'.vir')
-            assert not artifact.exists()
+            require(not artifact.exists(), 'fresh export path')
             cmd = [str(bundle/'verus'),str(source),'--crate-type=lib','--crate-name=model',
                 '--no-cheating','--output-json','--multiple-errors','20','--num-threads','1',
                 ]

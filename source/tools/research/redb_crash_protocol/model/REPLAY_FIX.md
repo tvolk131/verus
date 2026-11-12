@@ -1,0 +1,7 @@
+# Historical registration versus current progress documents
+
+Independent review at1ca1cae5 found that normal replay compared current CURRENT.md/WORKER_BRIEFS.md against their initial registration hashes and refused before verification. Those status documents legitimately evolve. Replay now authenticates CASES and charter bytes directly from fixed registration c008326b, copies the authenticated historical charter into its private runtime and guards that copy. The current integrated HEAD is recorded separately. No historical registration, protocol theorem or proof/control candidate was changed.
+
+The old preflight used Python assert, so optimized Python disabled those preflight checks, including the stale-document comparison. This explains why the earlier optimized parent positive ran while normal independent replay refused. Independent review authenticated a private restoration and reproduced the actual unchanged proofs normally; no incorrect theorem result was observed. All replay preflight assertions are now existing require checks and remain active in both modes. The new optional --output chooses a fresh private raw-output directory without changing verification semantics.
+
+Acceptance needs fresh normal and optimized positive/negative replay against the actual evolved documents and a separate independent recheck. Full source coupling remains unproved; this is a controller correction only.
