@@ -1,0 +1,191 @@
+{
+  "fixed_objects": {
+    "86fb0f9ce5a6fc5b0b812ca4a99022fe32d3a5ab": {
+      "commit": "86fb0f9ce5a6fc5b0b812ca4a99022fe32d3a5ab",
+      "tree": "0be1a1901798ca65c24c5a399a14af7e96aeaf1e"
+    },
+    "423a8504": {
+      "commit": "423a850421951c7c9f4e5e2d6ddb55e024dfeecb",
+      "tree": "88549dea88ac1e09b1c5fdf3647eb2038d174ef7"
+    },
+    "96447dcb": {
+      "commit": "96447dcbdb390fd4308b90b5395a683bce6aec9b",
+      "tree": "01033d30300e84190e1d505186b5fcc537188648"
+    },
+    "4092d6432ef0fa90415fe5ff7eb58b83c1a2e6de": {
+      "commit": "4092d6432ef0fa90415fe5ff7eb58b83c1a2e6de",
+      "tree": "40fd74ec87a019d35c84f62e855b669c65bebde1"
+    }
+  },
+  "worker_redb_subtree_equals_fixed_parent": true,
+  "runtime_authentication": {
+    "/tmp/practical-combined78-5ecea5fe-core/bundle": {
+      "receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+      "tools": {
+        "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+        "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+        "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+        "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+        "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+        "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+        "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+        "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+      }
+    },
+    "/tmp/redb-semantic-v2-3fa15230/bundle": {
+      "receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+      "tools": {
+        "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+        "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+        "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+        "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+        "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+        "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+        "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+        "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+      }
+    },
+    "parent_support_receipt": {
+      "path": "/tmp/practical-r3-v2-parent-final/receipt.json",
+      "sha256": "c50b04f62d31619dbe94b7590f3e38edc6ab7f5dd52a84551d5f3bdb16463cfa"
+    },
+    "private_copy": "/tmp/practical-redb-full-semantic-review-86fb0f9c/bundle",
+    "replay_runtime_note": "Unmodified replay authenticates and uses its frozen immutable completed private runtime /tmp/redb-semantic-v2-3fa15230/bundle; independently copied and rehashed accepted78 bundle is also retained here."
+  },
+  "files": {
+    "source/tools/infer_eval_support.py": {
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "git_blob": "50d41a41e3c20046c67eb02534153db66093710a"
+    },
+    "source/tools/infer_experiment.py": {
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+      "git_blob": "f02d1583be78d951a1f4c15b50fc462355d7eb31"
+    },
+    "source/tools/research/practical_caller_transitions/redb/ALLOC_FREEZE_V2.md": {
+      "sha256": "8d8ecd5150428d894b279bef6aaaa042f6da1db9203d8098eea6172c1bcdd081",
+      "git_blob": "81f04c4b93407317ee9c5b9f8b1ae779bdd8d94c"
+    },
+    "source/tools/research/practical_caller_transitions/redb/COSTS.json": {
+      "sha256": "b1318332e31e949211667093c43f9e99ad9e568a87d1b585957f10ab88d5f71f",
+      "git_blob": "aa97faed7e057daf3cee8c143c0ff7d3c21cf576"
+    },
+    "source/tools/research/practical_caller_transitions/redb/COSTS_V2.json": {
+      "sha256": "291edb2bad3ffb659f7893babbde9cfbff72e2d767b083062ad0e9e6e9ec133f",
+      "git_blob": "b9281bb1ca9003c7f64298410773084a50ade28c"
+    },
+    "source/tools/research/practical_caller_transitions/redb/FREEZE.json": {
+      "sha256": "ad305a8adb92ba5e0b8314b107f60de5041e2b4961ccc02c56ee263fdddd94b5",
+      "git_blob": "b3f5f80142f66f803ba6fe6eea50571b7eb0c3ae"
+    },
+    "source/tools/research/practical_caller_transitions/redb/FREEZE.md": {
+      "sha256": "b89054de89948767283f183f23443abf4f13d1898c29c6e632d1b40c68ab911b",
+      "git_blob": "b2586329b6e52f2150574c335e52b13cbea7154e"
+    },
+    "source/tools/research/practical_caller_transitions/redb/FREEZE_V2.json": {
+      "sha256": "efe534dee15fae5c16685022858d9db6887febaf3d50e50bb999cce9b43ca34f",
+      "git_blob": "c60230a8472978e2e4e031ef5aee343c836ed956"
+    },
+    "source/tools/research/practical_caller_transitions/redb/FREEZE_V2.md": {
+      "sha256": "ed44cc84085ee7e7d45060873cc231672fbe2947f71371e72528a965b89fb6e5",
+      "git_blob": "b1e8069d36b0fe99b8ad926e280824ff7c791e22"
+    },
+    "source/tools/research/practical_caller_transitions/redb/MANUAL_SCOPE.md": {
+      "sha256": "e9bf3af504362f3bb75a142e28df4c8ad06c471e23e06a53195c61a22dc9e545",
+      "git_blob": "4f83b09052bfe9a7867796772365919b8397b99d"
+    },
+    "source/tools/research/practical_caller_transitions/redb/REPORT.md": {
+      "sha256": "3d76cfb2d341a11add696a5cce0dd5e943c478a58319d51ee9aea8acb68537ce",
+      "git_blob": "0ae0d8793378acc06214f4d374380e603d722806"
+    },
+    "source/tools/research/practical_caller_transitions/redb/REPORT_V2.md": {
+      "sha256": "cf0ec1e0447fcaa2a9bb4539690a910ba096664a059a2a416d0dcc0206079c5a",
+      "git_blob": "ea32c08a2218683cb6e8e05473a1c6ba5eecd212"
+    },
+    "source/tools/research/practical_caller_transitions/redb/RESULTS.json": {
+      "sha256": "b5b9ec196e9b31da647aa49c7c4c19686b9c23c1594463a81f67fa17f09952a5",
+      "git_blob": "b61695887cef24ac499597657e45e81b5df20464"
+    },
+    "source/tools/research/practical_caller_transitions/redb/RESULTS_V2.json": {
+      "sha256": "3d201d343a64b9db39afcc1c07dd3d510823b5a46120020368ba0fd6659b9ba5",
+      "git_blob": "2ac0d7de89db5fb1d28efb8891db456df6ce0202"
+    },
+    "source/tools/research/practical_caller_transitions/redb/RUN_FREEZE_V2.json": {
+      "sha256": "c4dd97cc1ef1e6759ed0dbc68338c35cfd54ce34fb1c33ae1b02c783538ffa23",
+      "git_blob": "7794a1eb6b630fd58436b2022d4b64bf6bbd6831"
+    },
+    "source/tools/research/practical_caller_transitions/redb/SPEC_CORRECTION.md": {
+      "sha256": "c784416f80048dc3cfc144a08a43a45cb2058a0a2f297266235a307bf5624423",
+      "git_blob": "71a7ac90cef02acdd3347ca2199d29ff650ad5f8"
+    },
+    "source/tools/research/practical_caller_transitions/redb/STATUS_V2.md": {
+      "sha256": "2c7d7eeb634198921b3a4175e34df352e8d78ab04f1582af3a794113f7af9c47",
+      "git_blob": "8c4c25e8c27e08fa0f16243346dcb2a6c4d7f526"
+    },
+    "source/tools/research/practical_caller_transitions/redb/baseline.rs": {
+      "sha256": "96ce8f6ab98a34b7d6d053ddb4ec12ea4bd524dec7a7054bdedbb7416f218d88",
+      "git_blob": "85857c94f27b6805d01295e4e636a59c4dc36209"
+    },
+    "source/tools/research/practical_caller_transitions/redb/cases_v2.rs": {
+      "sha256": "33f919240e1b916481e1f9355a117743f61c5998dddfb0e1aa96b379f464d3fd",
+      "git_blob": "affc2cb6f546d2019a5e4c0743f2f75a6712ae40"
+    },
+    "source/tools/research/practical_caller_transitions/redb/checks.rs": {
+      "sha256": "25e088cfbfb525cfde365ba94d84359d88b0a1106baf445ba0ff0a9c10cfb95f",
+      "git_blob": "cdbfd50d4b70bb240ae69a434da539cffdd21693"
+    },
+    "source/tools/research/practical_caller_transitions/redb/controls_v2.rs": {
+      "sha256": "f1aee72acdf7f6540ea29df961430610e60f86ac0c9fafa51195b64109f30e54",
+      "git_blob": "ce2894c2521ebbdbb1e2db70b3acb83928684ee2"
+    },
+    "source/tools/research/practical_caller_transitions/redb/corrected.rs": {
+      "sha256": "a40b714b35d145f005568dcea06994728314da280d4dc96e70625360b4409bb8",
+      "git_blob": "b57b2f26b1b1fa5ba048cd81824523f1e052970b"
+    },
+    "source/tools/research/practical_caller_transitions/redb/domain.rs": {
+      "sha256": "d895c194de7b3eafffc2825e52d8ffea4f27ceebaec1b7e24b667e210730b44d",
+      "git_blob": "95a744408395dba5626c90dc57bdee42576e1aee"
+    },
+    "source/tools/research/practical_caller_transitions/redb/interior_diagnostic.rs": {
+      "sha256": "59b5ded7f2404e481190c1aa2da5241195cc31422b852b912698f61d25260976",
+      "git_blob": "28e01fc663e052b97d27cdf8a4760e907add068c"
+    },
+    "source/tools/research/practical_caller_transitions/redb/manual.rs": {
+      "sha256": "2432bf633f6c65bef6dc3052169ef97c319803e776f412e30ed40fabb7f5d889",
+      "git_blob": "cffe78ef995b8079a5594dc474eddd25e17722b8"
+    },
+    "source/tools/research/practical_caller_transitions/redb/replay.py": {
+      "sha256": "fa3c9670e13b08b872d402b4ab51f4186bf22f9087b5ee953c8df53d6084acae",
+      "git_blob": "cd89af3bfbcdd959e187f09ce429b1103dd41c74"
+    },
+    "source/tools/research/practical_caller_transitions/redb/replay_v2.py": {
+      "sha256": "02b39a4f05d93e2fde2f51bbb5384947079a3480bb9b00d574fd80a277f2a10f",
+      "git_blob": "35c51350e1f4fee634732dafdf85157c45f40c25"
+    },
+    "source/tools/research/practical_caller_transitions/redb/reverse_diagnostic.rs": {
+      "sha256": "24f09fff3874f74e4a2e7d780b6822c45f8bf8b55acb0abb270bc681bfedc86d",
+      "git_blob": "2c50fb18daabc2eb5d9ecf9778be16c60cb5d8fe"
+    },
+    "source/tools/research/practical_caller_transitions/redb/semantic_v2.rs": {
+      "sha256": "ba9850a8105fbe2096d58d1986b37d65d96b216d47f5ca9a63c6949bf11c0224",
+      "git_blob": "36425ce63aad6545f71fd07660ecd7344d4863ca"
+    },
+    "source/tools/research/practical_redb_fedimint/common_set/replay_s1.py": {
+      "sha256": "69d292d7dbba3591d065d9b68f2a1b02b513cd4a0adfbbfe3ca7489d1521c72b",
+      "git_blob": "b42e00b703e53349b0875b22746ce0969053253a"
+    },
+    "source/tools/research/practical_redb_fedimint/redb_tree/corrected.rs": {
+      "sha256": "d65c71f57ae2bdd5116b797af0f2fc7ae8a7c54f56f65ffc9d6a044540846ebc",
+      "git_blob": "7daa34ee2c14cabbc91820fc3277bea11534e1ff"
+    },
+    "source/tools/research/practical_redb_fedimint/redb_tree/private.json": {
+      "sha256": "08d4e488ee6215173161293370d7a23be54dbe0be7f50fa3eb5133c82f97ac47",
+      "git_blob": "04bdda15b03e6bef40833b176ee51f2e02362f7d"
+    },
+    "source/tools/research/practical_redb_fedimint/redb_tree/replay.py": {
+      "sha256": "153fcfcb0dbede09c467f95787af2301a0821fecd9e36a09fe2acd3544771197",
+      "git_blob": "e7a4bd2641e7b1a3ddd90bb9aeb86731f1be576e"
+    }
+  },
+  "static_audit_sha256": "0b9f44dcea73a8ca572801565e887fd24520f4a48e09820e9d4f456f34f2c6f2",
+  "historical_audit_sha256": "a502ce287a7c2976e679f5caa47c905113cf7c5b5d11f9ca342ad9f0469d57d8"
+}
