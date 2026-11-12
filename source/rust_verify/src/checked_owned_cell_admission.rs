@@ -646,6 +646,14 @@ fn checked_item(tcx: TyCtxt<'_>, id: LocalDefId, default_verify: bool) -> Result
         let attrs = tcx.hir_attrs(tcx.local_def_id_to_hir_id(d));
         let a = crate::attributes::get_external_attrs(attrs, None)?;
         let v = crate::attributes::get_verifier_attrs(attrs, None)?;
+        // rust_to_vir::check_item omits these bodies. Reject the markers on
+        // every ancestor too, so admission cannot count an untranslated local.
+        if v.internal_const_body || v.internal_reveal_fn {
+            return Err(fail(
+                tcx.def_span(id),
+                "frontend-skipped const_body/reveal_fn local item or ancestor is forbidden",
+            ));
+        }
         if a.external
             || a.external_body
             || a.external_fn_specification

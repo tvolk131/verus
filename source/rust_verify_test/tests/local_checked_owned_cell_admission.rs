@@ -315,6 +315,65 @@ fn macros_fake_headers_and_unverified_items_receive_no_exemptions() {
     finish();
 }
 #[test]
+fn frontend_skip_markers_on_items_and_ancestors_are_refused() {
+    for marker in ["const_body", "reveal_fn"] {
+        let attr = format!("#[verus::internal({marker})]");
+        let cases = [
+            (
+                "native_body",
+                raw_source(&format!(
+                    "#[verifier::verify] {attr} pub fn skipped(v:u64)->u64 {{core::cell::UnsafeCell::new(v).into_inner()}}"
+                )),
+            ),
+            (
+                "false_contract",
+                raw_source(&format!(
+                    "#[verifier::verify] {attr} pub fn skipped(v:u64)->u64 {{verus_builtin::ensures(|r:u64| [verus_builtin::constrain_type(r,skipped(v)),false]);v}}"
+                )),
+            ),
+            (
+                "ancestor_module",
+                raw_source(&format!(
+                    "{attr} mod skipped {{mod inner {{#[verifier::verify] pub fn client(v:u64)->u64 {{core::cell::UnsafeCell::new(v).into_inner()}}}}}}"
+                )),
+            ),
+            (
+                "nested_function",
+                raw_source(&format!(
+                    "#[verifier::verify] pub fn outer(v:u64)->u64 {{#[verifier::verify] {attr} fn skipped(v:u64)->u64 {{v}} v}}"
+                )),
+            ),
+        ];
+        for infer in [false, true] {
+            for (label, s) in &cases {
+                outcome(
+                    &format!("{marker}/{label}/infer={infer}"),
+                    run(s, infer, &[]),
+                    "frontend-skipped const_body/reveal_fn local item or ancestor is forbidden",
+                    false,
+                );
+            }
+        }
+    }
+    // A false predicate itself is valid admission input; ordinary checking is
+    // still pending at this inactive checkpoint. Only its skip marker rejects.
+    for infer in [false, true] {
+        outcome(
+            "unmarked_false_contract",
+            run(
+                &raw_source(
+                    "#[verifier::verify] pub fn checked(v:u64)->u64 {verus_builtin::ensures(|r:u64| [verus_builtin::constrain_type(r,checked(v)),false]);v}",
+                ),
+                infer,
+                &[],
+            ),
+            LATER,
+            true,
+        );
+    }
+    finish();
+}
+#[test]
 fn imported_direct_abstract_dyn_and_projected_escapes_are_refused() {
     let c = InferCrates::new();
     let ext = c.directory.path().join("callbacks.rs");
