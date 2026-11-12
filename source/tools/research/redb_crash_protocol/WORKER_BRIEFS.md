@@ -1,5 +1,17 @@
 # Initial bounded worker assignments
 
+Root gate correction packet: productionef662ee3 (complete metadata type-use
+traversal) andc4df45e8 (crate-root positive coverage), build/runnerd18c0f62,
+reportab77511f. Parent checks pass172 VIR,1 loaded-native control unit,226 focused
+invocations/12 tests,20 direct cases and three relocated original-bin smoke
+replays. NEW independent review must authenticate the snapshot named in
+implementation/ROOT_GATE_FIXES_RESULTS.json and its four original test binaries.
+Prefer replaying those binaries with fresh private TMPDIR/cache over another
+large compiler build or harness transformation; disclose source review versus
+parent-built binary replay. No live D2/root cache reads. The whole stage remains
+inactive; all three normal native Function WF checks still fail opaque fields.
+No source/field authority or source theorem follows. Keep evidence compact.
+
 F1 recheck2b31d7632 closed the old two-marker issue but found remaining frontend
 directives (reveal_group, item_broadcast_use and special-const markers) outside
 the ordinary Function inventory. Root owns the small four-flag item/ancestor
