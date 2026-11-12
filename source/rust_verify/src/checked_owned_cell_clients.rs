@@ -9,6 +9,12 @@ use std::{
 };
 use vir::ast::*;
 
+fn expected_missing_native_boundary(checked: usize, notes: &[String], missing: &[String]) -> bool {
+    checked == 0
+        && missing.iter().all(|prefix| notes.iter().any(|note| note.starts_with(prefix)))
+        && notes.iter().all(|note| missing.iter().any(|prefix| note.starts_with(prefix)))
+}
+
 #[path = "checked_owned_cell_client_correspondence.rs"]
 mod correspondence;
 struct Original {
@@ -127,6 +133,25 @@ impl rustc_driver::Callbacks for Original {
                 admitted.original_headers(),
             )
             .expect("independent whole typed runtime-body/call/place correspondence");
+            let f = &functions[before];
+            let mut bad_mutability = f.x.clone();
+            let parameter = Arc::make_mut(&mut Arc::make_mut(&mut bad_mutability.params)[0]);
+            parameter.x.user_mut = !parameter.x.user_mut;
+            assert!(
+                correspondence::check(
+                    tcx,
+                    cell,
+                    source.def_id.expect_local(),
+                    &f.new_x(bad_mutability),
+                    admitted.original_headers()
+                )
+                .is_err(),
+                "changed parameter mutability cannot preserve correspondence"
+            );
+            eprintln!(
+                "C1 parameter-mutability control: original={:?}, changed binding rejected",
+                f.x.params.iter().map(|p| p.x.user_mut).collect::<Vec<_>>()
+            );
             // Negative actual-Function controls never create or query a twin.
             if self.frozen {
                 let f = &functions[before];
@@ -329,13 +354,41 @@ impl rustc_driver::Callbacks for Original {
             "C1 actual checked reconciliation: checked={checked}/{expected}, notes={notes:?}"
         );
         if self.frozen {
+            let mut declarations = vec![(cell, "type")];
+            for operation in [Operation::New, Operation::IntoInner, Operation::GetMut] {
+                declarations.push((native_method(tcx, cell, operation).unwrap(), "function"));
+            }
+            let missing: Vec<_> = declarations
+                .into_iter()
+                .map(|(id, kind)| {
+                    let path = crate::rust_to_vir_base::def_id_to_vir_path_option(tcx, None, id)
+                        .expect("actual missing native declaration path");
+                    format!(
+                        "`{}` is not supported (note: you may be able to add a Verus specification to this {kind} with ",
+                        vir::ast_util::path_as_friendly_rust_name(&path)
+                    )
+                })
+                .collect();
+            assert_eq!(checked, 0, "the registered missing-native WF boundary must stay exact");
             assert!(
-                checked < expected,
-                "no partial installer may manufacture native client support"
+                expected_missing_native_boundary(checked, &notes, &missing),
+                "only the registered native type/call declaration failures are expected"
             );
-            assert!(!notes.is_empty());
+            for partial in 1..expected {
+                assert!(!expected_missing_native_boundary(partial, &notes, &missing));
+            }
+            assert!(!expected_missing_native_boundary(0, &[], &missing));
+            let unrelated = vec!["unrelated native field authority failure".to_string()];
+            assert!(!expected_missing_native_boundary(0, &unrelated, &missing));
+            let missing_type: Vec<_> =
+                notes.iter().filter(|note| !note.starts_with(&missing[0])).cloned().collect();
+            assert!(!expected_missing_native_boundary(0, &missing_type, &missing));
+            eprintln!(
+                "C1 exact missing-native boundary: partial counts and unrelated/missing diagnostics rejected"
+            );
         } else {
             assert_eq!(checked, 1, "zero-helper scalar control is normally WF");
+            assert!(notes.is_empty(), "scalar WF control must have no errors");
         }
         self.reached = true;
         rustc_driver::Compilation::Stop
@@ -345,7 +398,7 @@ impl rustc_driver::Callbacks for Original {
 fn original_frontend_inventory_and_first_unproved_native_boundary() {
     const NAME: &str = "checked_owned_cell::clients::original_frontend_inventory_and_first_unproved_native_boundary";
     if std::env::var("C1_PRIVATE_SOURCE_CASE").is_err() {
-        for case in ["scalar", "goals", "native"] {
+        for case in ["scalar", "scalar_mut", "goals", "native"] {
             let r = std::process::Command::new(std::env::current_exe().unwrap())
                 .args([NAME, "--exact", "--nocapture", "--test-threads=1"])
                 .env("C1_PRIVATE_SOURCE_CASE", case)
@@ -358,7 +411,8 @@ fn original_frontend_inventory_and_first_unproved_native_boundary() {
         return;
     }
     let case = std::env::var("C1_PRIVATE_SOURCE_CASE").unwrap();
-    let frozen = case != "scalar";
+    assert!(["scalar", "scalar_mut", "goals", "native"].contains(&case.as_str()));
+    let frozen = matches!(case.as_str(), "goals" | "native");
     let raw = case == "native";
     {
         let source = if raw {
@@ -369,6 +423,8 @@ fn original_frontend_inventory_and_first_unproved_native_boundary() {
             include_str!(
                 "../../tools/research/redb_crash_protocol/native_state_link/owned_goals.rs"
             )
+        } else if case == "scalar_mut" {
+            "use vstd::prelude::*; verus! {pub fn scalar(mut v:u64)->(r:u64) ensures r==v, {v}}"
         } else {
             "use vstd::prelude::*; verus! {pub fn scalar(v:u64)->(r:u64) ensures r==v, {v}}"
         };

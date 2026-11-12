@@ -360,10 +360,14 @@ pub(super) fn check<'tcx>(
         vvars: HashMap::new(),
     };
     for (i, (p, v)) in body.params.iter().zip(f.x.params.iter()).enumerate() {
-        let hir::PatKind::Binding(_, id, _, None) = p.pat.kind else {
+        let hir::PatKind::Binding(mode, id, _, None) = p.pat.kind else {
             return Err("source parameter binding");
         };
-        if v.x.mode != Mode::Exec || c.ht(types.pat_ty(p.pat))? != c.vt(&v.x.typ)? {
+        if mode.0 != rustc_ast::ByRef::No
+            || v.x.user_mut != (mode.1 == hir::Mutability::Mut)
+            || v.x.mode != Mode::Exec
+            || c.ht(types.pat_ty(p.pat))? != c.vt(&v.x.typ)?
+        {
             return Err("actual/source parameter type");
         }
         c.hvars.insert(id, i);
