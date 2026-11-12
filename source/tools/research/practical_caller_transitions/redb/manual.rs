@@ -366,6 +366,9 @@ spec fn sizes(a: BuddyAllocator) -> Seq<int> {
 spec fn flags(a: BuddyAllocator) -> Seq<Set<int>> {
     Seq::new(a.free@.len(), |o: int| allocated(a.free@[o].heights@))
 }
+spec fn state_eq(a: BuddyAllocator, b: BuddyAllocator) -> bool {
+    a.len == b.len && a.max_order == b.max_order && a.free@ == b.free@
+}
 spec fn geometry_frame(a: BuddyAllocator, b: BuddyAllocator) -> bool {
     a.len == b.len && a.max_order == b.max_order && a.free@.len() == b.free@.len() &&
     forall|o: int| 0 <= o < a.free@.len() ==> storage_frame(a.free@[o].heights@,b.free@[o].heights@)
@@ -388,9 +391,20 @@ spec fn free_trace(bits: Seq<Set<int>>, ns: Seq<int>, p: int, o: int, m: int) ->
         (bits.update(o,bits[o].remove(p)),o)
     } else { free_trace(bits.update(o,bits[o].insert(buddy)),ns,p/2,o+1,m) }
 }
+proof fn state_transport(a: BuddyAllocator, b: BuddyAllocator)
+    requires layout(a), state_eq(a,b),
+    ensures layout(b), geometry_frame(a,b), sizes(b) == sizes(a), flags(b) == flags(a),
+{
+    assert(representation(b));
+    assert(sizes(b) =~= sizes(a));
+    assert(flags(b) =~= flags(a));
+    assert forall|o: int| 0 <= o < b.max_order implies #[trigger] order_len(b,o+1) == order_len(b,o)/2 by {
+        assert(order_len(a,o+1) == order_len(a,o)/2);
+    }
+}
 proof fn edit_frame(a: BuddyAllocator, b: BuddyAllocator, o: int, p: u32, value: bool)
     requires layout(a), 0 <= o <= a.max_order, p < order_len(a,o),
-        a.len == b.len, a.max_order == b.max_order,
+        a.len == b.len, a.max_order == b.max_order, a.free@.len() == b.free@.len(),
         b.free@ == a.free@.update(o,b.free@[o]),
         mutation(a.free@[o].heights@,b.free@[o].heights@,p,value),
     ensures layout(b), geometry_frame(a,b), sizes(b) == sizes(a),
@@ -400,7 +414,14 @@ proof fn edit_frame(a: BuddyAllocator, b: BuddyAllocator, o: int, p: u32, value:
         tree_wf(b.free@[k].heights@) && storage_frame(a.free@[k].heights@,b.free@[k].heights@) by {
         if k != o { assert(b.free@[k] == a.free@[k]); }
     }
+    assert(representation(b));
     assert(sizes(b) =~= sizes(a));
+    assert forall|k: int| 0 <= k < b.max_order implies #[trigger] order_len(b,k+1) == order_len(b,k)/2 by {
+        assert(order_len(a,k+1) == order_len(a,k)/2);
+        assert(sizes(a)[k] == sizes(b)[k]);
+        assert(sizes(a)[k+1] == sizes(b)[k+1]);
+    }
+    assert(order_len(b,0) == order_len(a,0));
     assert(flags(b) =~= flags(a).update(o,if value { flags(a)[o].insert(p as int) } else { flags(a)[o].remove(p as int) }));
 }
 proof fn frame_trans(a: BuddyAllocator, b: BuddyAllocator, c: BuddyAllocator)
@@ -427,11 +448,13 @@ fn len(&self) -> (r: u32)
     }
 }
 fn next_higher_order(page_number: u32) -> (r: u32)
- ensures r == page_number as int / 2, {
+ ensures r == page_number as int / 2,
+{
     page_number / 2
 }
 fn buddy_page(page_number: u32) -> (r: u32)
- ensures r == (page_number ^ 1), r as int == (if page_number%2 == 0 {page_number as int+1} else {page_number as int-1}), {
+ ensures r == (page_number ^ 1), r as int == (if page_number%2 == 0 {page_number as int+1} else {page_number as int-1}),
+{
     proof { assert((page_number ^ 1) == (if page_number%2 == 0 {page_number+1} else {page_number-1})) by(bit_vector); }
     page_number ^ 1
 }
@@ -440,14 +463,15 @@ fn get_order_free_mut(&mut self, order: u8) -> (r: &mut BtreeBitmap)
     requires representation(*old(self)), order <= old(self).max_order,
     ensures *r == old(self).free@[order as int],
         final(self).len == old(self).len, final(self).max_order == old(self).max_order,
-        final(self).free@ == old(self).free@.update(order as int,*final(r)), {
+        final(self).free@ == old(self).free@.update(order as int,*final(r)),
+{
         &mut self.free[order as usize]
     }
 fn record_alloc_inner(&mut self, page_number: u32, order: u8) -> (r: bool)
     requires layout(*old(self)),
     ensures layout(*final(self)), geometry_frame(*old(self),*final(self)), sizes(*final(self)) == sizes(*old(self)),
         (flags(*final(self)),r) == alloc_trace(flags(*old(self)),sizes(*old(self)),page_number as int,order as int,old(self).max_order as int),
-        !r ==> *final(self) == *old(self),
+        !r ==> state_eq(*old(self),*final(self)),
         r ==> order <= old(self).max_order && page_number < order_len(*old(self),order as int),
         forall|o: int| 0 <= o < order as int && o < old(self).free@.len() ==> final(self).free@[o] == old(self).free@[o],
     decreases old(self).max_order as int + 1 - order as int,
@@ -461,14 +485,25 @@ fn record_alloc_inner(&mut self, page_number: u32, order: u8) -> (r: bool)
         }
         let allocator = self.get_order_free_mut(order);
         if page_number >= allocator.len() {
-            proof { assert(*self == start); }
+            proof {
+                assert(*allocator == start.free@[order as int]);
+                assert(self.free@ =~= start.free@);
+                assert(state_eq(start,*self));
+                state_transport(start,*self);
+            }
             return false;
         }
         if allocator.get(page_number) {
             // Need to split parent page
             let upper_page = next_higher_order(page_number);
-            proof { assert(*self == start); }
+            proof {
+                assert(*allocator == start.free@[order as int]);
+                assert(self.free@ =~= start.free@);
+                assert(state_eq(start,*self));
+                state_transport(start,*self);
+            }
             if !self.record_alloc_inner(upper_page, order + 1) {
+                proof { state_transport(start,*self); }
                 return false;
             }
             let ghost mid = *self;
@@ -482,7 +517,7 @@ fn record_alloc_inner(&mut self, page_number: u32, order: u8) -> (r: bool)
                 allocator.clear(free1);
             }
             proof {
-                edit_frame(mid,*self,order as int,if page_number%2 == 0 {page_number+1} else {page_number-1},false);
+                edit_frame(mid,*self,order as int,(if page_number%2 == 0 {page_number+1} else {page_number-1}) as u32,false);
                 frame_trans(start,mid,*self);
             }
         } else {
