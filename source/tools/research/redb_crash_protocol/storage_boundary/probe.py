@@ -23,6 +23,12 @@ pub struct ExIoError(std::io::Error);
 #[verifier::external_body]
 pub struct ExPanicLocation<'a>(core::panic::Location<'a>);
 '''
+ADAPTER = '''
+impl vstd::std_specs::convert::FromSpecImpl<std::io::Error> for StorageError {
+    open spec fn obeys_from_spec() -> bool { true }
+    closed spec fn from_spec(error: std::io::Error) -> Self { StorageError::Io(error) }
+}
+'''
 
 
 def fixture(directory):
@@ -39,6 +45,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--freeze', type=Path, default=HERE / 'FROZEN.json')
+    parser.add_argument('--adapter', action='store_true')
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -49,7 +56,10 @@ def main():
         for path, value in freeze['inputs'].items():
             require(digest(Path(path)) == value, 'frozen input ' + path)
         source = out / 'backend_nominal.rs'
-        source.write_text(fixture(out))
+        text = fixture(out)
+        if args.adapter:
+            text = text.rsplit('}', 1)[0] + ADAPTER + '\n}\n'
+        source.write_text(text)
         require(digest(source) == freeze['fixture_sha256'], 'prospective fixture')
         cases = json.loads((CRASH / 'CASES.json').read_text())
         rt = freeze['runtime']
