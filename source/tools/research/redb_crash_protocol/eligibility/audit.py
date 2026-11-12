@@ -18,7 +18,12 @@ def erase_visibility(text):return re.sub(r'\bpub(?:\([^)]*\))?\s+', '',text)
 def audit(out):
     frozen=json.loads((HERE/'FROZEN.json').read_text())
     for n,h in frozen['inputs'].items():require(digest(HERE.parent/n)==h,n)
+    source_freeze=json.loads((HERE.parent/'source/FROZEN.json').read_text())
+    for n,h in source_freeze['source_sha256'].items():
+        if 'source/original/'+n in frozen['inputs']:
+            require(digest(HERE.parent/'source/original'/n)==h,'registered original '+n)
     require((out/'eligible.rs').read_text()==eligible(),'eligible regeneration')
+    require((HERE/'checked_eligibility.rs').read_text()==eligible(),'checked source regeneration')
     body_inventory={}
     for name,expected in frozen['bodies'].items():
         original=p.item(p.H,'fn',name);body=original[original.index('{'):]
