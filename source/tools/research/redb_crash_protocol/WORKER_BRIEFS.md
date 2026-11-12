@@ -1,5 +1,7 @@
 # Initial bounded worker assignments
 
+Status update: both initial lanes completed and their source/model subtrees are integrated. Historical assignments below retain their original meaning. The only next implementation delegation is a bounded stock nominal-type eligibility probe, owning eligibility/ only: use existing external_type_specification without any method/behavior axiom for actual std::io::Error and core::panic::Location, preserve original error variants and complete selected header bodies, freeze before trials, and classify any further failure. No production edits, native callbacks, checksum shortcut or prerequisite chain.45 active minutes maximum; no delegation or publication. Root owns native fault schedules. Fresh independent reviewers receive frozen commits separately.
+
 Common charter: GOAL.md and CASES.json at the parent registration commit. Exact pinned REDB input is /tmp/verus-infer-cycle-20261109/applications/redb, commit c82ab865bb362bc4af067d332adc44978ff64813, read-only. Accepted complete eight-tool bundle is /tmp/practical-combined78-5ecea5fe-core/bundle; receipt SHA3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452. Authenticate all eight hashes before private copying. Existing Rust1.99.1 toolchain and existing replay helpers only. Do not use ignored root tools. No sibling/live parent reads, shared writes, recursive delegates or remote publication.
 
 ## Persistence model worker — owns model/ only
