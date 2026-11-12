@@ -9,7 +9,10 @@
     {
       "id": "R3",
       "project": "REDB",
-      "targets": ["BuddyAllocator::record_alloc_inner", "BuddyAllocator::free_inner"],
+      "targets": [
+        "BuddyAllocator::record_alloc_inner",
+        "BuddyAllocator::free_inner"
+      ],
       "property": "exact allocation/free split-merge effect, represented-block consistency/non-overlap/conservation, logical no-change on rejected allocation",
       "domain_status": "must be established from real allocator invariants and callers before trial freeze",
       "proof_status": "not_run",
@@ -18,7 +21,10 @@
     {
       "id": "F3",
       "project": "Fedimint",
-      "targets": ["Keychain::is_complete", "ConsensusEngine::validate_signed_session_outcome"],
+      "targets": [
+        "Keychain::is_complete",
+        "ConsensusEngine::validate_signed_session_outcome"
+      ],
       "property": "concrete distinct signer membership/cardinality linked to quorum admission and insufficient-count rejection",
       "domain_status": "actual collection/dependency domain must be frozen after source eligibility inspection",
       "proof_status": "not_run",
@@ -29,5 +35,30 @@
   "common_automation_demand": "not_established",
   "previous_practical_goal": "complete_preserved",
   "hmac_native": "deferred_and_unachieved",
-  "remote_push_or_pr": false
+  "remote_push_or_pr": false,
+  "preflight_backlog": [
+    {
+      "id": "F3-bookkeeping-alternative",
+      "status": "source_inspected_only_not_selected_not_trialed",
+      "actual_caller": "Keychain::bootstrap_multi",
+      "actual_dependency_transition": "aleph_bft_crypto::SignatureSet::add_signature",
+      "data_path": [
+        "NodeMap::with_size",
+        "NodeMap::insert",
+        "NodeMap::get",
+        "NodeMap::iter",
+        "NodeMap::item_count"
+      ],
+      "expected_value": "exact signer/value update and unaffected frame; repeated signer does not inflate concrete distinct cardinality; connect actual count to existing quorum policy",
+      "requires_worker_preregistration": true,
+      "preserve_attempted_full_guards_in_denominator": true,
+      "source_archive": "/home/dev/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/aleph-bft-crypto-0.9.1.crate",
+      "archive_sha256": "4e99189e0c434af4bb0f4238925df15091962ae843f509561def48ecf36c163d",
+      "members": {
+        "aleph-bft-crypto-0.9.1/src/node.rs": "4dd1a0495537ca73a81a345f92e3bfc16adfeea1ceaf8317d22ef0724ac77f41",
+        "aleph-bft-crypto-0.9.1/src/signature.rs": "c1695f0620ba6adcce0456649150c7523d5a864e37acbcfb1227e6d95e47ac7d"
+      },
+      "stop": "no assumed clone, conversion, container, key ordering, opaque field or callback law; no foundation chain"
+    }
+  ]
 }

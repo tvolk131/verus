@@ -8,4 +8,6 @@ Accepted reusable results: original REDB bitmap-tree update/frame/count laws, Fe
 
 Next: worker source/domain/property freezes, explicit unsupported boundaries and measured caller proof burden; then parent value checkpoint. Nested update/frame reuse is unconfirmed. Fee/resize API blockers F0/R1/F1 remain separately recorded backlog, not prerequisites. No new engine layer is assigned before demand is measured.
 
+Parent inspected the checksum-pinned Aleph0.9.1 source and added a source-only fallback to SELECTION.json: genuine Keychain::bootstrap_multi plus SignatureSet::add_signature and NodeMap observation/count dependencies. Potential value is exact signer update/frame and no duplicate count inflation. It is **not selected or trialed by parent**; worker registration must precede any replacement trial. SessionOutcome::verify still invokes hashing/signature checks, and the server collector additionally uses async/select; neither is a shortcut around full admission dependencies.
+
 HMAC/native is **deferred and unachieved**. No active foundation worker, native theorem, full HMAC suffix proof or whole-project claim is authorized by this milestone. The previous practical milestone remains complete; its final reports/freezes are preserved.
