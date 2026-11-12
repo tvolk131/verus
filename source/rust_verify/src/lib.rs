@@ -27,6 +27,18 @@ extern crate rustc_span;
 extern crate rustc_trait_selection;
 extern crate rustc_type_ir;
 
+#[cfg(test)]
+pub(crate) fn test_verus_root() -> std::path::PathBuf {
+    std::env::var_os("VERUS_TEST_ROOT")
+        .map(|p| std::path::absolute(p).expect("absolute VERUS_TEST_ROOT"))
+        .unwrap_or_else(|| {
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .parent()
+                .unwrap()
+                .join("target-verus/release")
+        })
+}
+
 mod attributes;
 mod buckets;
 pub mod commands;

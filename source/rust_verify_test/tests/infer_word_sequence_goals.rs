@@ -3,10 +3,8 @@
 mod common;
 use common::*;
 
-const REDUCED: &str =
-    include_str!("../fixtures/infer/word_sequence/redb_tree_reduced.rs");
-const CONTROLS: &str =
-    include_str!("../fixtures/infer/word_sequence/redb_tree_controls.rs");
+const REDUCED: &str = include_str!("../fixtures/infer/word_sequence/redb_tree_reduced.rs");
+const CONTROLS: &str = include_str!("../fixtures/infer/word_sequence/redb_tree_controls.rs");
 fn check(name: &str, source: String, infer: bool, success: bool, extra: &[&str]) {
     let mut options = vec!["vstd", "--no-cheating", "--output-json", "--edition 2024"];
     if infer {
@@ -25,7 +23,8 @@ fn check(name: &str, source: String, infer: bool, success: bool, extra: &[&str])
         );
         assert!(
             !e.errors.iter().any(|e| e.message.to_lowercase().contains("resource limit")),
-            "resource outcome: {e:?}"
+            "resource outcome: {:?}",
+            e
         );
     }
 }

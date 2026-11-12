@@ -11,7 +11,8 @@ impl InferCrates {
         let executable = std::env::current_exe().unwrap();
         Self {
             directory: tempfile::tempdir().unwrap(),
-            profile: executable.parent().unwrap().parent().unwrap().into(),
+            profile: super::configured_test_root()
+                .unwrap_or_else(|| executable.parent().unwrap().parent().unwrap().into()),
         }
     }
     pub(crate) fn vir(&self, name: &str) -> std::path::PathBuf {

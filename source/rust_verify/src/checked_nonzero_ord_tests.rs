@@ -128,10 +128,7 @@ impl rustc_driver::Callbacks for Structural {
                 "MIR mutation {mutation}"
             );
         }
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .parent()
-            .unwrap()
-            .join("target-verus/release/vstd.vir");
+        let path = crate::test_verus_root().join("vstd.vir");
         let mut file = std::io::BufReader::new(std::fs::File::open(path).unwrap());
         let k: Krate =
             bincode_next::serde::decode_from_std_read(&mut file, bincode_next::config::legacy())
@@ -361,8 +358,7 @@ fn e_span(f: &Function) -> vir::messages::Span {
 }
 #[test]
 fn local_ordering_whole_mir_and_actual_function_structural_controls() {
-    let base = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
-    let bundle = base.join("target-verus/release");
+    let bundle = crate::test_verus_root();
     let path = std::env::temp_dir().join(format!("local-ord-structural-{}.rs", std::process::id()));
     std::fs::write(&path,"extern crate vstd; use std::num::NonZero; pub fn total(a:&NonZero<u64>,b:&NonZero<u64>)->core::cmp::Ordering{a.cmp(b)}").unwrap();
     let args = vec![
