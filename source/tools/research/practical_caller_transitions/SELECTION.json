@@ -15,7 +15,7 @@
       ],
       "property": "exact allocation/free split-merge effect, represented-block consistency/non-overlap/conservation, logical no-change on rejected allocation",
       "domain_status": "must be established from real allocator invariants and callers before trial freeze",
-      "proof_status": "partial_operational_trace_proved; full_interval_invariant_conservation0of2",
+      "proof_status": "both_full_semantic_guarantees_locally_checked96/0; parent_reproduced; NEW_independent_review_pending",
       "previous_component_reused": "R2 bitmap-tree mutation and frame proof"
     },
     {
@@ -78,5 +78,13 @@
       "full_validation_or_bootstrap": "unproved",
       "independent_review": "pending"
     }
-  ]
+  ],
+  "registered_next_stage": {
+    "id": "F3-C",
+    "source": "fedimint_bootstrap/ELIGIBILITY_SCOPE.md",
+    "field_eligibility": "actual4fields_real_crypto_types_stock3nominal_declarations2/0_both",
+    "bootstrap_proof": "pending_exact_initializer_closure",
+    "owner": "isolated_initializer_implementation",
+    "no_new_engine_or_behaviour_laws": true
+  }
 }
