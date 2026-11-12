@@ -1,0 +1,26 @@
+{
+  "identities": {
+    "HEAD": "ad51b8c25f59900a6f79f9694a363024419cb12c",
+    "9cc0f65c": "9cc0f65c5e8ebb75f6858475277991e3bfd940d7",
+    "6f0b3b4c": "6f0b3b4c45377aca312d68ea5d678d684ffbde5c"
+  },
+  "snapshot": "/tmp/owned-cell-F1-skip-fix-9cc0f65c-parent-snapshot",
+  "receipt_sha256": "9b414f0493385c649d856fd181625ec74778173e10623ee6ba3c3fda959b945f",
+  "tools": {
+    "rust_verify": "d48a95360484cda8128131b6fd33548de2a454d48c03bf1a23e66d48806c0dd3",
+    "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+    "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+    "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+    "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+    "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+    "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "sources": {
+    "source/rust_verify/src/checked_owned_cell_admission.rs": "e637070be8fe8505c20b72c3fbcbcc6a8aef208191461e940652605892d5f320",
+    "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": "8b848c61fb6a8dc76417cfa2120c692ed0ce0192b109b9b982085b1953737712"
+  },
+  "private": "/tmp/owned-cell-f1-fix-review-ad51b8c2",
+  "authenticated_before_copy": true,
+  "unchanged_seven": true
+}
