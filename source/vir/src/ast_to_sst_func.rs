@@ -374,6 +374,7 @@ pub fn func_decl_to_sst(
     diagnostics: &impl air::messages::Diagnostics,
     function: &Function,
 ) -> Result<FuncDeclSst, VirErr> {
+    ctx.revalidate_owned_native_function(function)?;
     let (pars, reqs) = req_ens_to_sst(ctx, diagnostics, function, &function.x.require, true)?;
     let (ens_pars, enss0) =
         req_ens_to_sst(ctx, diagnostics, function, &function.x.ensure.0, false)?;
@@ -476,6 +477,7 @@ pub fn func_axioms_to_sst(
     public_body: bool,
     verifying_owning_bucket: bool,
 ) -> Result<FuncAxiomsSst, VirErr> {
+    ctx.revalidate_owned_native_function(function)?;
     match function.x.mode {
         Mode::Spec => {
             // Body
@@ -744,6 +746,7 @@ pub fn func_def_to_sst(
     function: &Function,
     check_api_safety: bool,
 ) -> Result<FuncCheckSst, VirErr> {
+    ctx.revalidate_owned_native_function(function)?;
     let body = if check_api_safety {
         &crate::safe_api::body_that_havocs_all_outputs(function)
     } else {
@@ -1037,6 +1040,7 @@ pub fn function_to_sst(
     bucket_funs: &HashSet<Fun>,
     function: &Function,
 ) -> Result<FunctionSst, VirErr> {
+    ctx.revalidate_owned_native_function(function)?;
     let module = ctx.module_path();
     let is_recursive = crate::recursion::fun_is_recursive(ctx, function);
 

@@ -84,7 +84,13 @@ fn datatype(tcx: TyCtxt<'_>, cell: DefId) -> Result<Datatype, Reject> {
     );
     Ok(Spanned::new(span(tcx, cell), d))
 }
-fn build(tcx: TyCtxt<'_>, native: DefId, op: Operation, d: &Datatype) -> Function {
+fn build(
+    tcx: TyCtxt<'_>,
+    native: DefId,
+    op: Operation,
+    d: &Datatype,
+    spans: &crate::spans::SpanContext,
+) -> Function {
     let s = span(tcx, native);
     let c = cellt(d);
     let u = u64t();
@@ -98,13 +104,20 @@ fn build(tcx: TyCtxt<'_>, native: DefId, op: Operation, d: &Datatype) -> Functio
     let arg = str_unique_var("owned_cell_input", VarIdentDisambiguate::NoBodyParam);
     let ret = str_unique_var("owned_cell_result", VarIdentDisambiguate::NoBodyParam);
     let param = |name, typ| {
+        let mut node_span = s.clone();
+        node_span.id = spans.get_next_span_id();
         Spanned::new(
-            s.clone(),
+            node_span,
             ParamX { name, typ, mode: Mode::Exec, user_mut: false, unwrapped_info: None },
         )
     };
-    let e = |t: &Typ, x| SpannedTyped::new(&s, t, x);
-    let p = |t: &Typ, x| SpannedTyped::new(&s, t, x);
+    let fresh = || {
+        let mut s = s.clone();
+        s.id = spans.get_next_span_id();
+        s
+    };
+    let e = |t: &Typ, x| SpannedTyped::new(&fresh(), t, x);
+    let p = |t: &Typ, x| SpannedTyped::new(&fresh(), t, x);
     let root = p(&argty, PlaceX::Local(arg.clone()));
     let read = |p: Place, kind| {
         e(
@@ -122,7 +135,20 @@ fn build(tcx: TyCtxt<'_>, native: DefId, op: Operation, d: &Datatype) -> Functio
             ),
         )
     };
-    let select = |value: Expr| e(&u, ExprX::UnaryOpr(UnaryOpr::Field(field(d)), value));
+    let select = |value: Expr| {
+        let base = match &value.x {
+            ExprX::Var(v) => p(&value.typ, PlaceX::Local(v.clone())),
+            _ => p(&value.typ, PlaceX::Temporary(value.clone())),
+        };
+        let place = p(&u, PlaceX::Field(field(d), base));
+        e(
+            &u,
+            ExprX::ReadPlace(
+                place,
+                UnfinalizedReadKind { preliminary_kind: ReadKind::Spec, id: u64::MAX },
+            ),
+        )
+    };
     let av = e(&argty, ExprX::Var(arg.clone()));
     let rv = e(&retty, ExprX::Var(ret.clone()));
     let eq = |a, b| e(&bool_typ(), ExprX::Binary(BinaryOp::Eq(Mode::Spec), a, b));
@@ -324,7 +350,36 @@ fn corresponds(
             && !op.get_variant
             && matches!(op.check, VariantCheck::None)
     }
-    match (&assign.1, &body.x) {
+    let observed = if let ExprX::EvalAndResolve(value, resolve) = &body.x {
+        if !matches!(mir.local_decls[mir::Local::from_usize(1)].ty.kind(),ty::Ref(_,t,hir::Mutability::Mut) if matches!(t.kind(),ty::Adt(dt,_) if dt.did()==cell))
+            || !types_equal(&value.typ, &body.typ)
+            || !matches!(&*resolve.typ,TypX::Datatype(Dt::Tuple(0),ts,is) if ts.is_empty()&&is.is_empty())
+        {
+            return false;
+        }
+        let ExprX::AssertAssume { is_assume: true, expr, msg: None } = &resolve.x else {
+            return false;
+        };
+        let ExprX::UnaryOpr(UnaryOpr::HasResolved(typ), read) = &expr.x else {
+            return false;
+        };
+        if !matches!(&*expr.typ, TypX::Bool)
+            || !types_equal(typ, &a.typ)
+            || !types_equal(&read.typ, &a.typ)
+        {
+            return false;
+        }
+        let ExprX::ReadPlace(p, r) = &read.x else {
+            return false;
+        };
+        if !is_root(p, a) || !matches!(r.preliminary_kind, ReadKind::Spec) || r.id != u64::MAX {
+            return false;
+        }
+        value
+    } else {
+        body
+    };
+    match (&assign.1, &observed.x) {
         (mir::Rvalue::Aggregate(kind, operands), ExprX::Ctor(dt, variant, fields, None)) => {
             let mir::AggregateKind::Adt(native, idx, args, user, active) = &**kind else {
                 return false;
@@ -396,6 +451,13 @@ pub(super) fn propose(tcx: TyCtxt<'_>) -> Result<Proposal, Reject> {
     let cell = native_cell(tcx)?;
     let d = datatype(tcx, cell)?;
     let mut methods = vec![];
+    let spans = crate::spans::SpanContextX::new(
+        tcx,
+        tcx.stable_crate_id(rustc_hir::def_id::LOCAL_CRATE),
+        tcx.sess.source_map(),
+        Default::default(),
+        None,
+    );
     for op in [Operation::New, Operation::IntoInner, Operation::GetMut] {
         let native = native_method(tcx, cell, op)?;
         let instance = signature(tcx, cell, native, op)?;
@@ -406,13 +468,57 @@ pub(super) fn propose(tcx: TyCtxt<'_>) -> Result<Proposal, Reject> {
             ty::EarlyBinder::bind(tcx, tcx.instance_mir(instance.def).clone()),
         );
         inspect(tcx, cell, op, &mir)?;
-        let f = build(tcx, native, op, &d);
+        let f = build(tcx, native, op, &d, &spans);
         if !corresponds(tcx, cell, &d, &mir, &f) {
             return Err("native owned cell emitted-Function/place/type correspondence failed");
         }
         methods.push((native, f));
     }
     Ok(Proposal { datatype: d, methods })
+}
+
+/// The sole frontend acquisition path. Fresh original loaded metadata, regions
+/// and typed MIR are checked again against the ACTUAL current full Functions.
+/// No user-crate consumer or installer exists.
+fn method_authority<'a>(
+    tcx: TyCtxt<'_>,
+    unit: &'a Krate,
+) -> Result<vir::internal_repr::OwnedNativeMethodAuthority<'a>, Reject> {
+    method_authority_kind(tcx, unit, false)
+}
+fn method_authority_kind<'a>(
+    tcx: TyCtxt<'_>,
+    unit: &'a Krate,
+    negative: bool,
+) -> Result<vir::internal_repr::OwnedNativeMethodAuthority<'a>, Reject> {
+    let cell = native_cell(tcx)?;
+    let Some(d) = unit.datatypes.first() else {
+        return Err("native authority: datatype inventory");
+    };
+    let mut ids = [0; 3];
+    if unit.functions.len() != 3 {
+        return Err("native authority: method inventory");
+    }
+    for (i, op) in [Operation::New, Operation::IntoInner, Operation::GetMut].into_iter().enumerate()
+    {
+        let native = native_method(tcx, cell, op)?;
+        let instance = signature(tcx, cell, native, op)?;
+        let original = instance.instantiate_mir_and_normalize_erasing_regions(
+            tcx,
+            ty::TypingEnv::fully_monomorphized(),
+            ty::EarlyBinder::bind(tcx, tcx.instance_mir(instance.def).clone()),
+        );
+        inspect(tcx, cell, op, &original)?;
+        if !corresponds(tcx, cell, d, &original, &unit.functions[i]) {
+            return Err("native authority: actual emitted Function correspondence");
+        }
+        ids[i] = tcx.def_path_hash(native).local_hash().as_u64();
+    }
+    if negative {
+        vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_negative_unit(unit, ids)
+    } else {
+        vir::internal_repr::OwnedNativeMethodAuthority::from_checked_native_unit(unit, ids)
+    }
 }
 
 #[cfg(test)]
@@ -692,4 +798,355 @@ pub(super) fn test_actual_proposals(tcx: TyCtxt<'_>) {
             "expected ordinary private-field WF refusal, got {notes:?}"
         );
     }
+    let authority = method_authority(tcx, &k).expect("fresh native full Function authority");
+    let copied = Arc::new((*k).clone());
+    assert!(authority.validate(&copied).is_err(), "cloned unit must not retain authority");
+    for (i, f) in k.functions.iter().enumerate() {
+        for change in 0..8 {
+            let mut x = f.x.clone();
+            match change {
+                0 => {
+                    Arc::make_mut(&mut Arc::make_mut(&mut x.params)[0]).x.typ = Arc::new(TypX::Bool)
+                }
+                1 => Arc::make_mut(&mut x.inner_ret).x.mode = Mode::Spec,
+                2 => x.body = None,
+                3 => {
+                    x.ensure.0 = Arc::new(vec![SpannedTyped::new(
+                        &f.span,
+                        &bool_typ(),
+                        ExprX::Const(Constant::Bool(false)),
+                    )])
+                }
+                4 => Arc::make_mut(&mut x.attrs).is_external_body = true,
+                5 => {
+                    x.require = Arc::new(vec![SpannedTyped::new(
+                        &f.span,
+                        &bool_typ(),
+                        ExprX::Const(Constant::Bool(true)),
+                    )])
+                }
+                6 => x.owning_module = d.x.owning_module.clone(),
+                7 => x.visibility.restricted_to = None,
+                _ => unreachable!(),
+            }
+            let mut bad = (*k).clone();
+            bad.functions[i] = f.new_x(x);
+            let bad = Arc::new(bad);
+            assert!(authority.validate(&bad).is_err(), "authority must not survive mutation");
+            assert!(
+                method_authority(tcx, &bad).is_err(),
+                "fresh actual full Function corruption {i}/{change}"
+            );
+        }
+    }
+    // Current and future are independently checked contract relationships.
+    for side in [false, true] {
+        let f = &k.functions[2];
+        let mut x = f.x.clone();
+        let last = &x.ensure.0[1];
+        let ExprX::Binary(op, left, right) = &last.x else { unreachable!() };
+        let changed = if side {
+            let ExprX::Unary(_, v) = &right.x else { unreachable!() };
+            last.new_x(ExprX::Binary(
+                *op,
+                left.clone(),
+                right.new_x(ExprX::Unary(UnaryOp::MutRefCurrent, v.clone())),
+            ))
+        } else {
+            let ExprX::ReadPlace(place, read) = &left.x else { unreachable!() };
+            let PlaceX::Field(field, temp) = &place.x else { unreachable!() };
+            let PlaceX::Temporary(v) = &temp.x else { unreachable!() };
+            let ExprX::Unary(_, arg) = &v.x else { unreachable!() };
+            let v = v.new_x(ExprX::Unary(UnaryOp::MutRefCurrent, arg.clone()));
+            let p = place.new_x(PlaceX::Field(field.clone(), temp.new_x(PlaceX::Temporary(v))));
+            last.new_x(ExprX::Binary(
+                *op,
+                left.new_x(ExprX::ReadPlace(p, read.clone())),
+                right.clone(),
+            ))
+        };
+        Arc::make_mut(&mut x.ensure.0)[1] = changed;
+        let mut bad = (*k).clone();
+        bad.functions[2] = f.new_x(x);
+        let bad = Arc::new(bad);
+        assert!(authority.validate(&bad).is_err());
+        assert!(method_authority(tcx, &bad).is_err(), "future/current contract mutation {side}");
+    }
+    let global = |unit: &Krate, after_simplify: bool| {
+        vir::context::GlobalCtx::new(
+            unit,
+            root.krate.clone(),
+            d.span.clone(),
+            10.0,
+            Arc::new(std::sync::Mutex::new(None)),
+            Arc::new(std::sync::Mutex::new(None)),
+            Arc::new(vir::context::WarningCtx {
+                fun_warn_configs: warnings.fun_warn_configs.clone(),
+            }),
+            air::context::SmtSolver::Z3,
+            after_simplify,
+            true,
+            false,
+            false,
+            false,
+        )
+        .unwrap()
+    };
+    let used = || vir::prune::UsedBuiltins {
+        uses_array: false,
+        uses_bytestr: false,
+        uses_pointee_metadata: false,
+        uses_ieee_float: false,
+    };
+    let module = k.modules[0].clone();
+    assert!(
+        vir::context::Ctx::new(
+            &k,
+            global(&k, true),
+            module.clone(),
+            vec![],
+            vec![],
+            Default::default(),
+            used(),
+            vec![],
+            vec![]
+        )
+        .is_err()
+    );
+    let mut ctx = vir::context::Ctx::new_owned_native_methods(
+        &k,
+        global(&k, true),
+        module,
+        vec![],
+        vec![],
+        Default::default(),
+        used(),
+        vec![],
+        vec![],
+        &authority,
+    )
+    .unwrap();
+    assert!(ctx.revalidate_owned_native_unit(&copied).is_err());
+    for f in &k.functions {
+        ctx.revalidate_owned_native_function(f).unwrap();
+        let changed = f.new_x(f.x.clone());
+        assert!(ctx.revalidate_owned_native_function(&changed).is_err());
+        ctx.func_map.insert(f.x.name.clone(), changed);
+        assert!(ctx.revalidate_owned_native_function(f).is_err());
+        ctx.func_map.insert(f.x.name.clone(), f.clone());
+        let clone_d = d.new_x(d.x.clone());
+        assert!(!authority.authorizes(&k, f, &clone_d));
+    }
+    eprintln!(
+        "D2 authority: 26 full-Function/contract corruptions, 3 cloned lookup descriptors and exact backend boundaries rejected"
+    );
+    let run_queries = |unit: &Krate, negative: bool| {
+        let k = unit.clone();
+        let authority =
+            method_authority_kind(tcx, &k, negative).expect("fresh scoped query authority");
+        vir::well_formed::check_crate_merged(&k).unwrap();
+        vir::well_formed::check_crate_final(&k, &warnings).0.unwrap();
+        let mut modes = (*k).clone();
+        let mut infos = HashMap::new();
+        for (i, f) in k.functions.iter().enumerate() {
+            let copied = f.new_x(f.x.clone());
+            assert!(!authority.authorizes(&k, &copied, d));
+            let (wf, errors, _) = vir::well_formed::check_owned_native_method(
+                &k,
+                stubs.clone(),
+                initial.lookup.clone(),
+                &demote,
+                f,
+                &warnings,
+                &authority,
+            );
+            if let Err(e) = &wf {
+                eprintln!("D2 authorized WF errors: {:?}", e.errors);
+            }
+            assert!(wf.is_ok() && errors.is_empty(), "full authorized native WF");
+            let mode =
+                vir::modes::check_function(stubs.clone(), initial.lookup.clone(), f, &demote);
+            if let Err(e) = &mode {
+                eprintln!("D2 native mode errors: {e:?}");
+            }
+            assert!(mode.is_ok(), "full native mode check");
+            let (mf, _, info) = mode.unwrap();
+            modes.functions[i] = mf;
+            infos.insert(f.x.name.clone(), Arc::new(info.unwrap()));
+
+            eprintln!(
+                "D2 full Function WF + mode passed {}",
+                f.x.name.path.segments.last().unwrap()
+            );
+        }
+        let modes = Arc::new(modes);
+        method_authority_kind(tcx, &modes, negative).expect("fresh authority after ordinary modes");
+        let resolved =
+            vir::resolution_inference::krate_infer_resolution(&modes, &infos, &Default::default())
+                .expect("ordinary full native resolution");
+        method_authority_kind(tcx, &resolved, negative)
+            .expect("fresh independently checked resolution Function");
+        if !negative {
+            for change in 0..5 {
+                let f = &resolved.functions[2];
+                let mut x = f.x.clone();
+                let body = x.body.as_ref().unwrap();
+                let ExprX::EvalAndResolve(value, tail) = &body.x else {
+                    panic!("expected exact ordinary get_mut resolution");
+                };
+                let mut tail_x = tail.x.clone();
+                let ExprX::AssertAssume { is_assume, expr, .. } = &mut tail_x else {
+                    unreachable!()
+                };
+                if change == 0 {
+                    *is_assume = false;
+                } else if change == 1 {
+                    *expr = expr.new_x(ExprX::Const(Constant::Bool(true)));
+                } else {
+                    let ExprX::UnaryOpr(UnaryOpr::HasResolved(typ), read) = &expr.x else {
+                        unreachable!()
+                    };
+                    let mut changed = read.x.clone();
+                    let ExprX::ReadPlace(place, kind) = &mut changed else { unreachable!() };
+                    if change == 2 {
+                        *place = place.new_x(PlaceX::Local(f.x.inner_ret.x.name.clone()));
+                    }
+                    if change == 3 {
+                        kind.preliminary_kind = ReadKind::Copy;
+                    }
+                    let typ = if change == 4 { u64t() } else { typ.clone() };
+                    *expr = expr
+                        .new_x(ExprX::UnaryOpr(UnaryOpr::HasResolved(typ), read.new_x(changed)));
+                }
+                x.body = Some(body.new_x(ExprX::EvalAndResolve(value.clone(), tail.new_x(tail_x))));
+                let mut bad = (*resolved).clone();
+                bad.functions[2] = f.new_x(x);
+                let bad = Arc::new(bad);
+                assert!(
+                    method_authority(tcx, &bad).is_err(),
+                    "resolved input/writeback corruption {change}"
+                );
+            }
+            eprintln!("D2 exact native-input resolution: five independent corruption refusals");
+        }
+        let mut before = global(&resolved, false);
+        let simple = vir::ast_simplify::simplify_krate(&mut before, &resolved)
+            .expect("ordinary ast_simplify");
+        let (simple, info) = vir::prune::prune_krate_for_module_or_krate(
+            &simple,
+            &root.krate,
+            None,
+            Some(root.clone()),
+            None,
+            true,
+            true,
+        );
+        let authority = method_authority_kind(tcx, &simple, negative)
+            .expect("fresh native correspondence after normal simplify/prune");
+        let module = simple.modules.iter().find(|m| m.x.path == root).unwrap().clone();
+        let mut ctx = vir::context::Ctx::new_owned_native_methods(
+            &simple,
+            global(&simple, true),
+            module,
+            info.mono_abstract_datatypes.unwrap(),
+            info.spec_fn_types,
+            info.dyn_traits,
+            info.used_builtins,
+            info.fndef_types,
+            info.resolved_typs.unwrap(),
+            &authority,
+        )
+        .expect("ordinary native backend");
+        struct Report;
+        impl air::messages::Diagnostics for Report {
+            fn report(&self, m: &air::messages::ArcDynMessage) {
+                eprintln!("D2 diagnostic: {m:?}");
+            }
+            fn report_now(&self, m: &air::messages::ArcDynMessage) {
+                self.report(m);
+            }
+            fn report_as(&self, m: &air::messages::ArcDynMessage, _: air::messages::MessageLevel) {
+                self.report(m);
+            }
+            fn report_as_now(
+                &self,
+                m: &air::messages::ArcDynMessage,
+                _: air::messages::MessageLevel,
+            ) {
+                self.report(m);
+            }
+        }
+        let all = simple.functions.iter().map(|f| f.x.name.clone()).collect();
+        let sst = vir::ast_to_sst_crate::ast_to_sst_krate(&mut ctx, &Report, &all, &simple)
+            .expect("ordinary full AST-to-SST");
+        let sst = vir::poly::poly_krate_for_module(&mut ctx, &sst);
+        let interface = Arc::new(vir::messages::VirMessageInterface {});
+        let mut solver = air::context::Context::new(interface.clone(), air::context::SmtSolver::Z3);
+        solver.set_solver_option("air_recommended_options", "true");
+        solver.set_rlimit(3_000_000);
+        let declarations = ctx.prelude(vir::prelude::PreludeConfig {
+            arch_word_bits: ArchWordBits::Exactly(64),
+            smt_encoding: air::context::SmtSolver::Z3.default_encoding(),
+        });
+        let datatypes = vir::datatype_to_air::datatypes_and_primitives_to_air(
+            &ctx,
+            &Arc::new(sst.datatypes.clone()),
+        );
+        for c in declarations.iter().chain(ctx.fuel().iter()).chain(datatypes.iter()) {
+            assert!(matches!(
+                solver.command(&*interface, &Report, c, Default::default()),
+                air::context::ValidityResult::Valid(_)
+            ));
+        }
+        let mut queries = 0;
+        assert_eq!(sst.functions.len(), 3, "complete helper query inventory");
+        for f in &sst.functions {
+            ctx.fun = vir::ast_to_sst_func::mk_fun_ctx(f, false);
+            let check = f.x.exec_proof_check.as_ref().expect("full native executable body query");
+            let commands = vir::sst_to_air_func::func_sst_to_air(&ctx, f, check)
+                .expect("ordinary complete body-to-AIR");
+            for commands in commands.iter() {
+                for command in commands.commands.iter() {
+                    let result = solver.command(&*interface, &Report, command, Default::default());
+                    let is_query = matches!(&**command, air::ast::CommandX::CheckValid(_));
+                    assert!(
+                        match result {
+                            air::context::ValidityResult::Valid(_) => !is_query || !negative,
+                            air::context::ValidityResult::Invalid(..) => is_query && negative,
+                            _ => false,
+                        },
+                        "unexpected native body query result (negative={negative}): {result:?}"
+                    );
+                    if matches!(&**command, air::ast::CommandX::CheckValid(_)) {
+                        queries += 1;
+                        solver.finish_query();
+                    }
+                }
+            }
+            eprintln!("D2 ordinary full native body result (negative={negative}): {:?}", f.x.name);
+        }
+        assert_eq!(queries, 3, "ordinary native full body queries");
+        eprintln!(
+            "D2 complete native body query inventory: 3 bodies, 3 queries, negative={negative}"
+        );
+    };
+    run_queries(&k, false);
+    let mut false_unit = (*k).clone();
+    for f in &mut false_unit.functions {
+        let mut x = f.x.clone();
+        let e = &x.ensure.0[0];
+        let e = e.new_x(ExprX::Unary(UnaryOp::Not, e.clone()));
+        Arc::make_mut(&mut x.ensure.0)[0] = e;
+        *f = f.new_x(x);
+    }
+    let false_unit = Arc::new(false_unit);
+    assert!(
+        authority.validate(&false_unit).is_err(),
+        "positive authority never transfers to false contracts"
+    );
+    assert!(
+        method_authority(tcx, &false_unit).is_err(),
+        "normal factory rejects diagnostic contracts"
+    );
+    run_queries(&false_unit, true);
 }

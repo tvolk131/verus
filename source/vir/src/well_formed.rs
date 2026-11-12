@@ -33,6 +33,7 @@ struct Ctxt<'a> {
     pub(crate) lookup: Arc<WfLookup>,
     pub(crate) krate: &'a Krate,
     no_cheating: bool,
+    native: Option<(&'a crate::internal_repr::OwnedNativeMethodAuthority<'a>, &'a Function)>,
 }
 
 pub type DynCompatabilityChecks = Arc<IndexMap<Path, Span>>;
@@ -388,6 +389,11 @@ fn check_datatype_access(
         assert!(emit.has_fatal_errors());
         return Ok(());
     };
+    if let Some((authority, function)) = ctxt.native {
+        if authority.authorizes(ctxt.krate, function, &dt) {
+            return Ok(());
+        }
+    }
     match crate::ast_util::source_datatype_visibility(&dt.x.transparency) {
         None => {
             // This can only happen if the datatype is 'external_body'
@@ -1043,6 +1049,37 @@ pub fn check_function(
             warning_ctx,
             no_cheating,
             no_verify,
+            None,
+        )
+    })
+}
+
+/// Compiler-only exact native method context; no production caller installs it.
+pub fn check_owned_native_method(
+    krate: &Krate,
+    funs: Arc<HashMap<Fun, FunctionStub>>,
+    lookup: Arc<WfLookup>,
+    demote: &DemoteTraitLookup,
+    function: &Function,
+    warnings: &crate::context::WarningCtx,
+    authority: &crate::internal_repr::OwnedNativeMethodAuthority<'_>,
+) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
+    run_function_check(|emit| {
+        authority.validate(krate).map_err(|m| error(&function.span, m))?;
+        if !krate.functions.iter().any(|f| Arc::ptr_eq(f, function)) {
+            return Err(error(&function.span, "owned native authority: foreign Function object"));
+        }
+        check_function_inner(
+            krate,
+            funs,
+            lookup,
+            demote,
+            function,
+            emit,
+            warnings,
+            true,
+            false,
+            Some(authority),
         )
     })
 }
@@ -1058,7 +1095,7 @@ pub fn check_generated_contracts(
     no_cheating: bool,
 ) -> (Result<PerFunctionCheckResults, WFErr>, Vec<VirErr>, Vec<VirErrAs>) {
     run_function_check(|emit| {
-        let ctxt = Ctxt { funs, lookup, krate, no_cheating };
+        let ctxt = Ctxt { funs, lookup, krate, no_cheating, native: None };
         let warn_config = warning_ctx
             .fun_warn_configs
             .get(&function.x.name)
@@ -1136,8 +1173,9 @@ fn check_function_inner(
     warning_ctx: &crate::context::WarningCtx,
     no_cheating: bool,
     _no_verify: bool,
+    native: Option<&crate::internal_repr::OwnedNativeMethodAuthority<'_>>,
 ) -> Result<(), VirErr> {
-    let ctxt = Ctxt { funs, lookup, krate, no_cheating };
+    let ctxt = Ctxt { funs, lookup, krate, no_cheating, native: native.map(|a| (a, function)) };
 
     // TODO remove once `uninterp` is enforced for uninterpreted functions
     let Some(warn_config) = warning_ctx.fun_warn_configs.get(&function.x.name) else {
@@ -2284,7 +2322,7 @@ fn check_all_but_functions(
         deferred_errors: vec![],
         dyn_compatability_checks: IndexMap::new(),
     };
-    let ctxt = Ctxt { funs, lookup, krate, no_cheating };
+    let ctxt = Ctxt { funs, lookup, krate, no_cheating, native: None };
 
     let mut errors = vec![];
 
@@ -2392,7 +2430,8 @@ pub(crate) fn internal_repr_test_source_access(
             trait_map: HashMap::new(),
         }),
     });
-    let ctxt = Ctxt { funs: Arc::new(HashMap::new()), lookup, krate, no_cheating: true };
+    let ctxt =
+        Ctxt { funs: Arc::new(HashMap::new()), lookup, krate, no_cheating: true, native: None };
     run_function_check(|emit| {
         let public = Visibility { restricted_to: None };
         check_datatype_access(
