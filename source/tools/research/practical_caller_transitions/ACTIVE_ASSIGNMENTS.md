@@ -1,3 +1,7 @@
+# Closed assignments — caller milestone complete
+
+The required NEW combined initializer/API review6039e3ef is accepted and integrated as a87b8427. FINAL_REPORT.md and FINAL_VALIDATION.json bind the completed parent audit. All workers are terminal; there is no active implementation/review or automatic next prerequisite. The assignment text below is retained as history and acceptance criteria, not an instruction to restart work. HMAC/native remains DEFERRED AND UNACHIEVED.
+
 # Active next assignments after full REDB local proof
 
 REDB V2 is integrated through96447dcb; parent independently reproduced both ordinary/Infer96/0 and all six intended96/1 controls. A NEW independent full-semantic review has now accepted the original-body wrappers, validity preservation, exact interval effects and semantic conservation. REDB_SEMANTIC_ACCEPTANCE.json binds reviewed source86fb0f9c and integrated evidence5c88acc7/cae10729. The earlier partial review remains a separate historical scope. Runtime weighted counting, construction/search/resize, crashes and whole-database correctness remain excluded.
@@ -24,4 +28,4 @@ Derived conversion bodies must come from the pinned derive_more native expansion
 
 Use named immutable parent code/artifacts supplied in the task, private copied tools/output, all --no-cheating and ordinary checks, existing replay utilities and focused semantic/safety/import/publication controls. Return a full proof or a precise bounded unsupported checkpoint within45 active minutes per blocker (build waits excluded). No subdelegates, pushes/PRs or live parent/sibling reads. Parent integrates and requests a NEW independent review of delivered initializer code; previous reviews accept none of it.
 
-The primary integration lead owns integration, scope/value/completion audits and any justified common-fix decision; no common new engineering is assigned. The full caller goal remains active. HMAC/native remains DEFERRED AND UNACHIEVED, native0 and historical44+3/101 unchanged.
+The primary integration lead owns integration, scope/value/completion audits and any justified common-fix decision; no common new engineering is assigned. The caller milestone is complete within the final documented scopes. HMAC/native remains DEFERRED AND UNACHIEVED, native0 and historical44+3/101 unchanged.

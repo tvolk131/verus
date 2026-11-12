@@ -1,5 +1,5 @@
 {
-  "stage": "registered_caller_proofs_and_independent_acceptance",
+  "stage": "caller_milestone_requirements_established_and_independently_accepted",
   "parent_base": "d1668d0d9d425e274860d2e8cb304cbaf1861bcc",
   "engine_source": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4",
   "schema": 39,
@@ -83,18 +83,19 @@
     "id": "F3-C",
     "source": "fedimint_bootstrap/BOOTSTRAP_FREEZE.md",
     "field_eligibility": "actual4fields_real_crypto_types_stock3nominal_declarations2/0_both",
-    "bootstrap_proof": "original initializer body and actual dependency/conversion closure parent-reproduced10/0 both; imported clients2/0; independent review pending",
-    "owner": "parent_integrated_completed_isolated_delivery",
+    "bootstrap_proof": "ACCEPTED original initializer BODY and dependency/conversion closure10/0 both; imported clients2/0; full trait/native integration excluded",
+    "owner": "completed; no active implementation",
     "no_new_engine_or_behaviour_laws": true,
-    "original_full_admission_still_unproved": true
+    "original_full_admission_still_unproved": true,
+    "independent_review": "ACCEPT_6039e3ef_integrated_a87b8427"
   },
   "additional_registered_validation": {
     "id": "R3-import",
     "scope": "redb_imports/SCOPE.md",
     "current_freeze": "redb_imports/FREEZE_3.json",
-    "result": "parent_all10_expected_outcomes_passed; providers96/0, four imported callers1/0, four intended controls1/1; independent review pending",
-    "owner": "parent",
+    "result": "ACCEPTED all10 expected outcomes independently reproduced",
+    "owner": "completed",
     "automation_removal": 0
   },
-  "capability_and_audit": "CAPABILITY_MAP.md; completion still pending new independent review"
+  "capability_and_audit": "FINAL_REPORT.md, FINAL_VALIDATION.json and CAPABILITY_MAP.md; requirements established; original unsupported cases remain unproved"
 }
