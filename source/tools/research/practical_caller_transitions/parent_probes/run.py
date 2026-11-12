@@ -78,7 +78,7 @@ def main():
             inf = data['verus-infer']
             require_exact(inf['functions'])
             require_function_coverage(inf['functions'], [])
-            target = 'BuddyAllocator::get_order_free_mut' if case.startswith('redb') else 'NodeMap::insert'
+            target = 'BuddyAllocator::get_order_free_mut' if case.startswith('redb') else 'NodeMap::<T>::insert'
             executable = previous.R2_EXEC + [target] if case.startswith('redb') else [target]
             proofs = previous.R2_PROOF if case.startswith('redb') else []
             pairs = {'finish_mutation': 20} if goals and case.startswith('redb') else {}
