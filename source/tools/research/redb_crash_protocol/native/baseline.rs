@@ -119,6 +119,7 @@ fn check_pair(db: &Database, a: u8, b: u8) -> Result<(), Box<dyn std::error::Err
     let table = txn.open_table(TABLE)?;
     for (key, expected) in [(0u64, a), (1u64, b)] {
         let value = table.get_owned(key)?.ok_or("missing record")?;
+        let value = value.value();
         if value.len() != VALUE_LEN || !value.iter().all(|x| *x == expected) {
             return Err("mixed or wrong record contents".into());
         }

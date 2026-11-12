@@ -37,10 +37,11 @@ def unpack(data, destination, strip=0):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--freeze', type=Path, default=HERE / 'FREEZE.json')
     a = p.parse_args()
     out = a.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
-    registration = json.loads((HERE / 'FREEZE.json').read_text())
+    registration = json.loads(a.freeze.read_text())
     receipt = {'kind': 'NATIVE_PREPARATION_NOT_CRASH_PROOF', 'commands': []}
     with replay_receipt(out, receipt):
         for name, value in registration['inputs'].items():
