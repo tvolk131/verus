@@ -1,0 +1,1 @@
+{"prior":false,"scenario":"corrupt_rewrite","forced_recovery_prior_mode":false,"repair_aborted":true,"raw_slot_preserved":true,"header_rewrites":1,"repair_callbacks":1,"formal_source_proof":false}

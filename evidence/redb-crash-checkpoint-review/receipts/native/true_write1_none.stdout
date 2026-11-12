@@ -1,0 +1,1 @@
+{"prior":true,"scenario":"write1_none","commit_ok":false,"injection_fired":true,"fixed_layout":true,"reopened_pair":"old","repair_callbacks":3,"partial_slot_invalid":null,"events":[{"kind":"write","offset":0,"len":320,"ordinal":1},{"kind":"failure","operation":"write","persisted":"prefix_0"}],"formal_source_proof":false}

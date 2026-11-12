@@ -1,0 +1,160 @@
+[
+  {
+    "case": "positive",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_positive"
+    ],
+    "returncode": 0,
+    "wall_seconds": 10.239341574953869,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-wxgduuk9",
+    "receipt_sha256": "b47af9f8588ce200fbcd7cb1d1e679504cbd2aa390f697cc10609c989f205f33"
+  },
+  {
+    "case": "early_ack",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_early_ack",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/early_ack.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 11.126330390048679,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-oug4vpfr",
+    "receipt_sha256": "0fd878f80bdec40179e965ec5b65e5bb53be8b12265d48a9e22c4a591748e137"
+  },
+  {
+    "case": "publication_before_barrier",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_publication_before_barrier",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/publication_before_barrier.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 9.177440072002355,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-cc8578x3",
+    "receipt_sha256": "4c66608ef6febd04df87f4ad4b9eaff24f9d5bfe33469f22bcca899b3a01614e"
+  },
+  {
+    "case": "launder_corrupt_bytes",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_launder_corrupt_bytes",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/launder_corrupt_bytes.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 8.394913327007089,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-iiowjwyi",
+    "receipt_sha256": "e5f2e69f7fec150d3f6a615007a5bb95848bd470b34b3ab0c1e3cc207ef906c2"
+  },
+  {
+    "case": "header_only_coherence",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_header_only_coherence",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/header_only_coherence.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 7.966336974001024,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-earv3a69",
+    "receipt_sha256": "205272b2f57321866d4aa6036474e794555cd19b9fad5577da19f33626cf77ec"
+  },
+  {
+    "case": "error_implies_rollback",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_error_implies_rollback",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/error_implies_rollback.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 7.250222856004257,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-1x7zodq0",
+    "receipt_sha256": "18ba933ed6ed7b96b734d53d1214dfc6f4ab3d3eab38d635ed7a77f85064ecfd"
+  },
+  {
+    "case": "whole_write_atomic",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_whole_write_atomic",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/whole_write_atomic.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 7.879404731967952,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-mfw6khs7",
+    "receipt_sha256": "328492f6f73940d686b8c20c7571f9fe690290fe02a8dcc84e48be63a00a3b8d"
+  },
+  {
+    "case": "missing_write_coverage",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_missing_write_coverage",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/missing_write_coverage.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 7.346983071998693,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-k7x_c4v7",
+    "receipt_sha256": "39fb68d3f086af7111515e9b52dd31b621ad9c37407d3458f11dc463b4b124bb"
+  },
+  {
+    "case": "missing_retention",
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/replay.py",
+      "--label",
+      "review_missing_retention",
+      "--candidate",
+      "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/checkout/source/tools/research/redb_crash_protocol/model/controls/missing_retention.rs",
+      "--expected",
+      "postcondition"
+    ],
+    "returncode": 0,
+    "wall_seconds": 6.9916985660092905,
+    "raw_output": "/tmp/redb-crash-checkpoint-review-20261112-1ca1cae5/model/redb-model-accepted78-a9ety6sg",
+    "receipt_sha256": "77f83c81d5f06c224b24005c3e92c7e8b27b1329329f34f862792d1fa83e9457"
+  }
+]
