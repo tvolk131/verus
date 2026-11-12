@@ -1,0 +1,34 @@
+{
+  "native_bridge_proved": false,
+  "source_coupling_proved": false,
+  "compiler_seconds": 1.4803154160035774,
+  "outcomes": [
+    {
+      "label": "ordinary",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    },
+    {
+      "label": "infer",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": true,
+        "success": false
+      }
+    }
+  ],
+  "raw_artifacts": {
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/receipt.json": "05dbe1aeb8196792e43588b9881192f9b7e540a119e3207605831ef85b124c14",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/owned_native.mir": "969757fd6e8060f87270fe985f67aa4c383960d6fb3439eabc99c689792d3485",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/infer.stdout": "f63cf94d73e5bd0d2afbc5e99ef326d948ebc2389ce19230bb249e3fe2cd1a7a",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/native_mir.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/ordinary.stdout": "8a2b247d1f219792cfe9154719b3358a89528aac1a245235f4cad05cc8618601",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/infer.stderr": "c1ef66d10cd425062566ee6bb2324f27c264e7fe6382429603d7a392be77ab76",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/native_mir.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/redb-native-state-owned-baseline-20261112-v1/ordinary.stderr": "c1ef66d10cd425062566ee6bb2324f27c264e7fe6382429603d7a392be77ab76"
+  },
+  "interpretation": "Native owned functions can optimize to scalar moves; this is not a proof of live native cell/guard identity or permission."
+}
