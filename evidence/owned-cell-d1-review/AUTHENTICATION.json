@@ -1,0 +1,95 @@
+{
+  "start_utc": "2026-11-12T17:11:57.868508+00:00",
+  "root_commit": "5c503b74955b2594e91d7f0b2809541936f53d5b",
+  "snapshot": "/tmp/owned-cell-D1-2e7b8b319-parent-snapshot",
+  "receipt_sha256": "c15b5585f14cb9c5441b25b3667d3aa31ac34fed3ad37830a3edfdaacfcfe0ed",
+  "tools_sha256": {
+    "rust_verify": "d6f766f264925bf350980f26fa087163ced9839196ce448bdb3b187b1f5f670c",
+    "verus": "980e705f81ffd234726ee0f4a829c5a345df6d1cd4517f7d0b8a7406db1c5442",
+    "libverus_builtin.rlib": "60f5ff618d302075783eb2d48bc65f403433b8b0120ac41cc1dc27bd5b58c0db",
+    "libverus_builtin_macros.so": "265d3e82bf9ce06e8e8caaa43b0da575d8588e3e5ae3c58dbe9922e545279c39",
+    "libverus_state_machines_macros.so": "f8b500b05f72c03c6b4e851ead0e3671a7a63321731d30c87f6f852706329443",
+    "vstd.vir": "e0364f9982ac0c119b019f7ea13013d49ce893a5b4c764535c0ea8f3acf5104d",
+    "libvstd.rlib": "7906b4a490da4dc8fb8f113bce723ece4aba23d4a46f22a561af0f133cb2cf13",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "worker_source_authenticated": {
+    "source/rust_verify/src/checked_owned_cell.rs": true,
+    "source/rust_verify/src/checked_owned_cell_lowering.rs": true,
+    "source/vir/src/internal_repr.rs": true,
+    "source/vir/src/context.rs": true,
+    "source/vir/src/well_formed.rs": true,
+    "source/rust_verify/src/checked_owned_cell_admission.rs": true,
+    "source/rust_verify/src/config.rs": true,
+    "source/rust_verify_test/tests/local_checked_owned_cell.rs": true,
+    "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": true,
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": true,
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/D1_INTERFACE.md": true,
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/d1.py": true
+  },
+  "prepared_source": {
+    "source/rust_verify/src/checked_owned_cell.rs": {
+      "expected": "d09cdd3ae60b659ac04024a47ac3f70f32b5bf1804dce3b5f51a081f2c97aa5e",
+      "actual": "d09cdd3ae60b659ac04024a47ac3f70f32b5bf1804dce3b5f51a081f2c97aa5e",
+      "matches": true
+    },
+    "source/rust_verify/src/checked_owned_cell_lowering.rs": {
+      "expected": "0cac8c807e041ac162e7a43ca1ce138c376d69caf1c070c250d4e09f3bfebe90",
+      "actual": "0cac8c807e041ac162e7a43ca1ce138c376d69caf1c070c250d4e09f3bfebe90",
+      "matches": true
+    },
+    "source/vir/src/internal_repr.rs": {
+      "expected": "1d6320098b8573cd18ee86ba8eddaa131a401ee5e7e7ffe04be54f22a2dd0e7c",
+      "actual": "1d6320098b8573cd18ee86ba8eddaa131a401ee5e7e7ffe04be54f22a2dd0e7c",
+      "matches": true
+    },
+    "source/vir/src/context.rs": {
+      "expected": "2e3648601f75c67d68b39dd252cdc964bc3f035227aecf450834f681e7ee1694",
+      "actual": "2e3648601f75c67d68b39dd252cdc964bc3f035227aecf450834f681e7ee1694",
+      "matches": true
+    },
+    "source/vir/src/well_formed.rs": {
+      "expected": "00bf03a1403f9417498cc7795c203621bd4fb0856fba54f481bca15299d5b47f",
+      "actual": "00bf03a1403f9417498cc7795c203621bd4fb0856fba54f481bca15299d5b47f",
+      "matches": true
+    },
+    "source/rust_verify/src/checked_owned_cell_admission.rs": {
+      "expected": "b2614b6f45776993a9983e879ef26493d34e7bf0c0e6bbe5cbfe67319c4f6e49",
+      "actual": "e637070be8fe8505c20b72c3fbcbcc6a8aef208191461e940652605892d5f320",
+      "matches": false
+    },
+    "source/rust_verify/src/config.rs": {
+      "expected": "224fc7a59360601caf4134c1c64d607b321de86f2c2902023eac8716884b39a1",
+      "actual": "224fc7a59360601caf4134c1c64d607b321de86f2c2902023eac8716884b39a1",
+      "matches": true
+    },
+    "source/rust_verify_test/tests/local_checked_owned_cell.rs": {
+      "expected": "b313ab34d6e627b72c4cca6be47b901968c5e7966ca4fa61aa020083431bcaa0",
+      "actual": "b313ab34d6e627b72c4cca6be47b901968c5e7966ca4fa61aa020083431bcaa0",
+      "matches": true
+    },
+    "source/rust_verify_test/tests/local_checked_owned_cell_admission.rs": {
+      "expected": "3bc1ebe6eece1beab4b880b7aa065c4b9909540d8517a9109725175ba2ae6bd6",
+      "actual": "8b848c61fb6a8dc76417cfa2120c692ed0ce0192b109b9b982085b1953737712",
+      "matches": false
+    },
+    "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs": {
+      "expected": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+      "actual": "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be",
+      "matches": true
+    },
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/D1_INTERFACE.md": {
+      "expected": "b448b43af822604458deb48d5c58f7e2008b3efe63ccd8019a9e25a4f14e8b85",
+      "actual": "b448b43af822604458deb48d5c58f7e2008b3efe63ccd8019a9e25a4f14e8b85",
+      "matches": true
+    },
+    "source/tools/research/redb_crash_protocol/native_state_link/implementation/d1.py": {
+      "expected": "bf30610afc6728c9d7c645660bb342581d4d5501544123d9b4027f9e085c08bd",
+      "actual": "bf30610afc6728c9d7c645660bb342581d4d5501544123d9b4027f9e085c08bd",
+      "matches": true
+    }
+  },
+  "F1_fix_preserved": true,
+  "ancestor_AGENTS_or_CLAUDE_files_found": [],
+  "sandbox_launch_failure": "bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted; commands use reviewed escalation"
+}
