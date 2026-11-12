@@ -1,0 +1,17 @@
+   Compiling serde v1.0.229
+   Compiling tempfile v3.27.0
+   Compiling clap v4.6.4
+   Compiling tracing-attributes v0.1.31
+   Compiling smt-scope v0.1.7
+   Compiling tracing v0.1.44
+   Compiling cargo-verus-toolchains v0.1.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/cargo-verus-toolchains)
+   Compiling bincode-next v3.1.1
+   Compiling rust_verify v0.1.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/rust_verify)
+   Compiling num-bigint v0.5.1
+   Compiling air v0.1.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/air)
+   Compiling vir v0.1.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/vir)
+   Compiling internals_interface v0.1.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/internals_interface)
+   Compiling rustc_mir_build v0.0.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/rustc_mir_build)
+   Compiling rustc_hir_analysis v0.0.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/rustc_hir_analysis)
+   Compiling rust_verify_test_macros v0.1.0 (/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/rust_verify_test_macros)
+    Finished `release` profile [optimized] target(s) in 3m 33s

@@ -1,0 +1,13 @@
+
+running 8 tests
+test checked_foreign_packing::dedup_tests::distinct_false_and_unsupported_proposals_remain_checked ... ok
+test checked_foreign_packing::dedup_tests::duplicate_identity_and_proof_before_use ... ok
+test checked_foreign_packing::dedup_tests::semantic_type_binder_and_trigger_changes_are_distinct ... ok
+test import_export::infer_arch_tests::inference_fingerprint_binds_architecture_without_function_changes ... ok
+test import_export::infer_arch_tests::inference_fingerprint_binds_required_foreign_evidence ... ok
+test import_export::infer_arch_tests::invalidation_clears_both_selected_outputs_and_attempts_all_paths ... ok
+test tuple_clone::tests::tuple_shim_mapping_rejects_stronger_contracts_and_signature_changes ... ok
+test checked_nonzero_ord::tests::local_ordering_whole_mir_and_actual_function_structural_controls ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+

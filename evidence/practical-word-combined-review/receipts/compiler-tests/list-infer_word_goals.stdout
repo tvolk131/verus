@@ -1,0 +1,5 @@
+no_word_automation_without_flag: test
+word_view_grant_and_count: test
+xor_is_not_a_grant: test
+
+3 tests, 0 benchmarks
