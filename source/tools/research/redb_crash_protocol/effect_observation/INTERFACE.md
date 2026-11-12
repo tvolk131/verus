@@ -1,0 +1,7 @@
+# Minimal source-effect observation checkpoint
+
+The original backend bodies now check, but they have no proved write/persistence/latching effects. The next concrete source need involves native atomic flags and actual std Mutex/RwLock-protected cache contents. This bounded diagnostic uses the accepted runtime unchanged to distinguish ordinary type/body support from state observations.
+
+Freeze before trials: (1) a healthy native AtomicBool new/store/load body without a semantic postcondition; (2) the exact same body with the expected sequential read-true postcondition; (3) a native std Mutex<u64> lock/deref body. Use ordinary and Infer, full --no-cheating checks and the existing shared replay helpers. Atomic read-true failure is a measured lack of specification support, not a false property of Rust or a semantic mutation of REDB. Mutex frontend failure is an eligibility boundary, not semantic evidence. No extra type proxy, behavior axiom, callback summary, state adapter, core semantics or production edit may be added. Stop after this classification.
+
+These are deliberately minimal diagnostic bodies, not extracted application functions or a source-coupling proof. Their relevance is pinned to actual source CheckedBackend's io_failed/closed atomics and PagedCachedFile's native Mutex/RwLock cache fields/flush loop. The registered application scope, both prior modes, checksum/retention/coverage obligations and CP1/CP2 remain unchanged and unproved. HMAC/native remains DEFERRED AND UNACHIEVED.45 active minutes maximum; no prerequisite chain.
