@@ -928,5 +928,6 @@
   "HMAC_native": "DEFERRED AND UNACHIEVED",
   "model_compiler_seconds": 47.946687068091705,
   "model_setup_seconds": 12.070912446128204,
-  "manual_cost": "Approximately 15 active minutes of scope/source/replay/evidence review so far; coarse estimate, no stopwatch; no blocker approached 45 active minutes. No engine or dependency rebuild."
+  "manual_cost": "No separate active-work stopwatch. Scope/source tracing, reproductions, authentication and evidence packaging were performed in this bounded review; interface and final timestamps bound the post-interface interval. Initial requested-file reading preceded the interface. No blocker approached 45 active minutes; no engine or dependency rebuild.",
+  "completed_utc": "2026-11-12T07:43:25.853559+00:00"
 }
