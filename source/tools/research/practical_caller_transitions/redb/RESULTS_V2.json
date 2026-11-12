@@ -1,0 +1,2935 @@
+{
+  "kind": "R3_SEMANTIC_V2_IMPLEMENTATION_HANDOFF",
+  "full_caller_guarantees_checked_locally": 2,
+  "full_caller_targets": 2,
+  "independent_acceptance": "PENDING_PARENT_REVIEW",
+  "proof_commit": "6eab342a",
+  "runtime_receipt_sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+  "runtime_tools": {
+    "rust_verify": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+    "verus": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+    "libverus_builtin.rlib": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+    "libverus_builtin_macros.so": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+    "libverus_state_machines_macros.so": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+    "vstd.vir": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+    "libvstd.rlib": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+    "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+  },
+  "private_root": "/tmp/redb-semantic-v2-3fa15230",
+  "final_matrix": "final",
+  "source_hashes": {
+    "semantic_v2.rs": "ba9850a8105fbe2096d58d1986b37d65d96b216d47f5ca9a63c6949bf11c0224",
+    "controls_v2.rs": "f1aee72acdf7f6540ea29df961430610e60f86ac0c9fafa51195b64109f30e54",
+    "cases_v2.rs": "33f919240e1b916481e1f9355a117743f61c5998dddfb0e1aa96b379f464d3fd",
+    "replay_v2.py": "02b39a4f05d93e2fde2f51bbb5384947079a3480bb9b00d574fd80a277f2a10f"
+  },
+  "epochs": [
+    {
+      "epoch": "baseline",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/baseline/receipt.json",
+      "receipt_sha256": "fe28efde9b5cc9050172895ee4cb0da6e47ca2c63d2a48ca981480c540f4dfb2",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 14.933947412995622,
+          "stdout_sha256": "5c8921d901421c40088963ba2336df17911ab76dff70b85b84e864f74297e728",
+          "stderr_sha256": "10a36e4106feecdb82e6f0a2806b27df3c7966798de75cdfa9210689e55a78d8",
+          "classification": "RESOURCE_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 46,
+            "errors": 10,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::actual_model",
+            "r3_semantic_v2::add_block",
+            "r3_semantic_v2::alloc_interpret",
+            "r3_semantic_v2::block_in_bounds",
+            "r3_semantic_v2::free_interpret",
+            "r3_semantic_v2::free_semantic",
+            "r3_semantic_v2::model_actual",
+            "r3_semantic_v2::record_alloc_semantic",
+            "r3_semantic_v2::remove_block",
+            "r3_semantic_v2::same_order_disjoint"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer",
+          "exit_code": 1,
+          "seconds": 20.94043421302922,
+          "stdout_sha256": "b6e418c055ff305cd57ce85beafbcec24241470955d6ab934f19d81958a58359",
+          "stderr_sha256": "daaf6c711f4dff1954478cfd1dc3a85ac002757fdd70292b40e870510e3e3329",
+          "classification": "RESOURCE_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 46,
+            "errors": 10,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::actual_model",
+            "r3_semantic_v2::add_block",
+            "r3_semantic_v2::alloc_interpret",
+            "r3_semantic_v2::block_in_bounds",
+            "r3_semantic_v2::free_interpret",
+            "r3_semantic_v2::free_semantic",
+            "r3_semantic_v2::model_actual",
+            "r3_semantic_v2::record_alloc_semantic",
+            "r3_semantic_v2::remove_block",
+            "r3_semantic_v2::same_order_disjoint"
+          ],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "local1",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/local1/receipt.json",
+      "receipt_sha256": "707ab5bc2544cea955c269bc3491d4beca4a2c6f81d494bd5afaa786dedfff30",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 1.3066232810379006,
+          "stdout_sha256": "275be8a5142388b810e84f89423fcd822c4625e501ac1bc440698aae96a919a5",
+          "stderr_sha256": "17feccfcb92d12fbbce77d965dfd2fd9b46547877b1ad5c401538fae641979f7",
+          "classification": "FRONTEND_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "local2",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/local2/receipt.json",
+      "receipt_sha256": "5d1b5af8841f0b0d40086c7dedba6229a25f95b2d38cda5c679ddc72cdbabb73",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 1.3072816250496544,
+          "stdout_sha256": "26adff523bf72f623decd744b8d37cc0bccc8720094f1b998652155e5aea7a51",
+          "stderr_sha256": "0094d09bb367751087b4167c5c1b560e4c2cb90cf3744f7d77d2bdc2accc146a",
+          "classification": "FRONTEND_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "local3",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/local3/receipt.json",
+      "receipt_sha256": "b2b67dbf795225b04a4f5234047971b95694cecc957f9c7b49dbb7394c3f2ea1",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 4.878897671995219,
+          "stdout_sha256": "c49ae3773a656954fe6d674242c2df568347fa55225573f9c28fa73d36ca3f5c",
+          "stderr_sha256": "22398e85ea8a2a78373653a49c3843d7176db5d984ae678404c678ff83d0775b",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 54,
+            "errors": 4,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::block_in_bounds",
+            "r3_semantic_v2::page_witness",
+            "r3_semantic_v2::vacant_disjoint"
+          ],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "local4",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/local4/receipt.json",
+      "receipt_sha256": "d57efe08bf5e7ae89f1fa55757983c5a6ee66a43ba52b5ab11fc166f83d9fe49",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 4.63863239903003,
+          "stdout_sha256": "edcfd37096cf3d571eef1194574eff477c3bf712a741fecfbabf0a311a89c8dc",
+          "stderr_sha256": "83921c72ba8a44f1a33f3099130d89f985c0a2a005236436b335c9e8b46644bf",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 58,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "bridge1",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/bridge1/receipt.json",
+      "receipt_sha256": "8a1a5a7e245463dc34741138cba50f94f192538d04b5274f62e7c07fa8c00045",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 4.77674408594612,
+          "stdout_sha256": "78a1b389913bd78770769d53dd0fd317536eb3547172d66d8e015ffe705c7925",
+          "stderr_sha256": "4ac5c1ed11026d949ced47b8cd6de6282cd5c51c5fcce45874450f959a384ea2",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 63,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "free1",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/free1/receipt.json",
+      "receipt_sha256": "cef250d72a109118e5f00a0525a15248b102160c61762d5985ca9a9ac3370221",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 10.904435519012623,
+          "stdout_sha256": "5cdc91418dc145178a2854fe109e0bcdccb30b89c4fbe7447f56c544d99fad63",
+          "stderr_sha256": "e75a0418fb5a3e6fac2e7d88430e7c7fb6dd2744cb4aefee606f1b07a8e67feb",
+          "classification": "RESOURCE_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 71,
+            "errors": 2,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::free_semantic",
+            "r3_semantic_v2::parent_partition"
+          ],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "free2",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/free2/receipt.json",
+      "receipt_sha256": "b66ec010ae72c1280e8d95c23cfb974f484c7cb76f6913b6a32b564c7d780708",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 1.0068761479924433,
+          "stdout_sha256": "354890e2e0aed3811e7c4091e6c37281ca13b9a9fef322fe9c9807f149e44d22",
+          "stderr_sha256": "838d4335494b9987251ed1d3f08317c1c807c8ab2e8a0b9b3a831a2d932217ad",
+          "classification": "FRONTEND_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "free3",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/free3/receipt.json",
+      "receipt_sha256": "1fd49e0538bc606fec194cd138e1a7bd7f3061cd7d1eda1a51ab565f0dd2a93d",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 0.9627288950141519,
+          "stdout_sha256": "98a088704e3090f4a3422e9cc910aa1d3e15a687cfb9e4b015870572cad9cf29",
+          "stderr_sha256": "f1073794ea4b431a33d3db2f9e4468d2698f1612ece425d516842278bd9bd23f",
+          "classification": "FRONTEND_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": true,
+            "success": false
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "free4",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/free4/receipt.json",
+      "receipt_sha256": "ff45e86cd0c2a80a66dd94cf1995508b4392be98855ae0ad157429096b9e3b1e",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 7.257021077035461,
+          "stdout_sha256": "e95a1759b6e16d9fd8d1378a4ea7361f4230b7621741cbf60a06f6a3a93622aa",
+          "stderr_sha256": "d827b0a722db4e2e75fc5de424b39d26edc003652dc3dca43296242364c887b4",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 76,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "free5",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/free5/receipt.json",
+      "receipt_sha256": "5eee5c6c06d08a3d89d447a6382f8f66f4765c6789f4e4903d2dad48bf2bfa74",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 7.366490649990737,
+          "stdout_sha256": "feb28c89e53245d69de9a2ca3a6b9a28fe6554a9f343327b432046b2febbbb2e",
+          "stderr_sha256": "0e5ab693b02265c917c87a9a8b4bcb152153c0aa5c3e22a9ceb7d73c0d96e185",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 80,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer",
+          "exit_code": 0,
+          "seconds": 12.200045621022582,
+          "stdout_sha256": "d29b3f121b01a296103a4383856f9ca513db96a231c26d12a347bf1283396460",
+          "stderr_sha256": "103a341a140726d05be41ddd44df178471f01b082943077b6456ddb9d2e11e30",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 80,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "free_controls",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/free_controls/receipt.json",
+      "receipt_sha256": "be270289094b6f53ac06fc9663a4c4ff812b91325caaf656f4f5933000dc9568",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 7.117063019017223,
+          "stdout_sha256": "aba88b939bc3856dc1a878f2b15432757b48215c43e94326e486b2ecf3873df9",
+          "stderr_sha256": "6745c117e4440a38908b0d3c0d6c79bad03222da076a950727b9ee1e9f0e7385",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 80,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer",
+          "exit_code": 0,
+          "seconds": 11.92298510397086,
+          "stdout_sha256": "5fa2d9c63397f27f759c08210c2f7bba4a9736291e59bbf7903e90a4cafd0e94",
+          "stderr_sha256": "22e913fb8028b68cfa8fc550d7e6852d03604e5f5ad0ebdcabddf54f31c41e6b",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 80,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_effect",
+          "exit_code": 1,
+          "seconds": 11.58394182799384,
+          "stdout_sha256": "7c2b393a4646f9b501a57c501cc53d7d3b8bbaf294c83b42443c257da0f19724",
+          "stderr_sha256": "5b97b427b5b8f6000ce375d2722f94140aaf0c2e8e6532a69c48764e21a7a93a",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 80,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_effect"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_merge",
+          "exit_code": 1,
+          "seconds": 11.85168258001795,
+          "stdout_sha256": "bf22aeabd76fe27a138ba4d23fadbdf3998d82598215c7a1c7ed491ad50ec67b",
+          "stderr_sha256": "1e49be0b48ed72036a41a9dfb6f83abf394cbf0044946bab8588004b9c564c08",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 80,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_merge"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_domain",
+          "exit_code": 1,
+          "seconds": 11.551968702988233,
+          "stdout_sha256": "a443428b7f498a79c1a42be8cba9ead0ed6d3a97520d1f70599e4ffb930cf75b",
+          "stderr_sha256": "4e59dd4a7a2d651a5a23f3e1aa47c961246a5138a0fe7e71097924270f0d8634",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 80,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_domain"
+          ],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "cover1",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/cover1/receipt.json",
+      "receipt_sha256": "a99f5d2beae4443e82c3252b9baebbe2941cf946918a6e2bd7fb818887fb9240",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 1,
+          "seconds": 8.359286578954197,
+          "stdout_sha256": "36a44eca71283c1a56f82189a7469cb95be024bb8c07999c2627f61c6d0b4179",
+          "stderr_sha256": "f7edd1283847ef6e2c79e361632b813bdff1b019de8e75f9d91397a7128c7572",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 87,
+            "errors": 2,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::cover_ancestor",
+            "r3_semantic_v2::parent_geometry"
+          ],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "cover2",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/cover2/receipt.json",
+      "receipt_sha256": "b5bbe13a6984e150bbac850fa317c4242df706b83aeab17520c4edfcde2a2df3",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 6.879457917006221,
+          "stdout_sha256": "e9e45ed7a9b38e7ef814faba868324db1b87e1bb96bf0ea4c547374d3dcec046",
+          "stderr_sha256": "f1255983ed66a9b56ff782de2c8408b56c55713c81441602d8b99a52a07b34ad",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 89,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "alloc1",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/alloc1/receipt.json",
+      "receipt_sha256": "9b7e99155a452223a3deae9f7b923f20d0509d3dc71054c94e37c1cd45fce150",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 7.492231780022848,
+          "stdout_sha256": "6d9ab8532aefd4e2f476acc17d0e51f84fd6b0ea8ef51a03c75e94d0433d67ea",
+          "stderr_sha256": "bd68236efaf9487f663689d2873491a18a5ffb2a59df492c9d45e02aad522bcc",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 95,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "full_controls1",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/full_controls1/receipt.json",
+      "receipt_sha256": "89c3e9348ebb712e154612f87cfc8bd7fa435a35f1f0d9d844beca4bc1483add",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 8.319871127023362,
+          "stdout_sha256": "7c7570b13aa112a79b4b26b8640197be3b1cb3e6f03d7974d1151433449c44f6",
+          "stderr_sha256": "2d5ce03a15422465cf4fd0e9c35e1cc2a629c8dd818a48c5ac5f184fca07d341",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 95,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer",
+          "exit_code": 0,
+          "seconds": 13.234201047976967,
+          "stdout_sha256": "a953b5070b29b3ee1652670febdb923c1c96f46fd0c99eb11f6a8a265ff723c8",
+          "stderr_sha256": "15cb95f072c400f9e4ca373f673932b077cd63a1bea9f2b30b8fbcaa5686a285",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 95,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_effect",
+          "exit_code": 1,
+          "seconds": 13.028826649999246,
+          "stdout_sha256": "cdae1fc5bb6318c131529e84dd89b6a42125aa7224966e5b6756950cba75306b",
+          "stderr_sha256": "3a6db808882bbfd6bbc9ec5d81b39d5cb907f1d7db2a9b84f56a07a4345e0ae2",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 95,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_effect"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_merge",
+          "exit_code": 1,
+          "seconds": 13.051395137968939,
+          "stdout_sha256": "38c03119ab7e61a4a9a9341e06b773145ff2bcea107b69aa2a0f35510550a7eb",
+          "stderr_sha256": "0bb8a4a0e462c421af844cb7a884a6b1e5664a86d78433d9abe1da6dd03da563",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 95,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_merge"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_domain",
+          "exit_code": 1,
+          "seconds": 13.360396845033392,
+          "stdout_sha256": "17ace655a17303817b899f7ec1c60d56aa0add935457382dc62b4b56a016e0e5",
+          "stderr_sha256": "14cf09d87eef60696c41ca60b41a5d169bf2bc463fd64e399886b3f377326c62",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 95,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_domain"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_alloc_accept",
+          "exit_code": 1,
+          "seconds": 13.933135928004049,
+          "stdout_sha256": "5d462f5aa399fc05c6af9c7f7d9ff9f2beafa0e0e5612e6bf6b67a3ea8b52270",
+          "stderr_sha256": "8e8e523288f3f22381018da9cdc9ab474c96c1006fb74ad920fc10fcf0b039e6",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 95,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_alloc_accept"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_alloc_effect",
+          "exit_code": 1,
+          "seconds": 13.653270713053644,
+          "stdout_sha256": "88ce918b98572780efe2da6ab9af890987bfa4c76c7f5ce9c88524ad6f6742f8",
+          "stderr_sha256": "663ef8df5d5e17e4f636848f007ac4d0e17ca54a9a0691703c5c2e7258e18085",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 95,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_alloc_effect"
+          ],
+          "inferred_helpers": []
+        },
+        {
+          "label": "infer_v2_negative_overlap",
+          "exit_code": 1,
+          "seconds": 13.196342663024552,
+          "stdout_sha256": "e93f641fb4487a5fbaa73b6ab41d7513ae0b36bd123650ee5eaba32f7ecae138",
+          "stderr_sha256": "0a40fdbb1af06d4dfca5a31d4b36a18f8b61e2ceb07742fad9b0f6e51e950922",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 95,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_overlap"
+          ],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "roundtrip",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/roundtrip/receipt.json",
+      "receipt_sha256": "1ad33ca93e751484d5e70278fb3128dc707bce5ce8db20122cdebcf9a62d29c9",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 7.596504264976829,
+          "stdout_sha256": "f28c187480704aff97c2bd67cf36039212c9ce9668941bc56fd31b8bbd4ce62b",
+          "stderr_sha256": "9a80b6b3e1a2bb5f090c007bec2b355568fdd3f2f6a4b943027440431afd419c",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 96,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": []
+        }
+      ]
+    },
+    {
+      "epoch": "final",
+      "receipt": "/tmp/redb-semantic-v2-3fa15230/final/receipt.json",
+      "receipt_sha256": "4d6cba7e0d71cd0078b98b28bde00f27f8c747a87117f8368580359a12ce2db4",
+      "controller_success": true,
+      "controller_failure": null,
+      "commands": [
+        {
+          "label": "ordinary",
+          "exit_code": 0,
+          "seconds": 8.809129217988811,
+          "stdout_sha256": "de54e44284849753a5ea8a6c130ce463913099ccc9b40151474ca74a3cf43b29",
+          "stderr_sha256": "965e489b28c70391df27129c8528ceb270605a4dd3be755102085ec1b8a70510",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 96,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 25,
+            "checked_proof_bodies": 47
+          },
+          "assistance": {
+            "set_pair_assistance": [],
+            "word_sequence_assistance": [],
+            "sequence_pattern_assistance": [],
+            "goal_assistance": []
+          },
+          "native_export_exists": true,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 4144,
+            "rlimit-run": 16929511,
+            "smt-init": 10,
+            "rlimit-init": 20874,
+            "functions": [
+              {
+                "function": "r3_semantic_v2::represented_disjoint",
+                "time-micros": 13738,
+                "rlimit": 55311,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::lift_point_cover",
+                "time-micros": 17117,
+                "rlimit": 49042,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::width_positive",
+                "time-micros": 11629,
+                "rlimit": 47619,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::next_higher_order",
+                "time-micros": 498,
+                "rlimit": 675,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get_height",
+                "time-micros": 15659,
+                "rlimit": 72987,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BuddyAllocator::free_inner",
+                "time-micros": 194833,
+                "rlimit": 734335,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get_level_mut",
+                "time-micros": 13984,
+                "rlimit": 65143,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::dyadic_nested",
+                "time-micros": 20348,
+                "rlimit": 54657,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::legal_from_end",
+                "time-micros": 22475,
+                "rlimit": 85960,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "time-micros": 16990,
+                "rlimit": 57371,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::clear",
+                "time-micros": 24004,
+                "rlimit": 78578,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::update_to_root",
+                "time-micros": 116743,
+                "rlimit": 605513,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::clear_not_full",
+                "time-micros": 12427,
+                "rlimit": 55739,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::semantic_roundtrip",
+                "time-micros": 63488,
+                "rlimit": 177662,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "time-micros": 129162,
+                "rlimit": 580862,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::frame_geometry",
+                "time-micros": 21724,
+                "rlimit": 70986,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::select_mask",
+                "time-micros": 11347,
+                "rlimit": 46271,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "time-micros": 35774,
+                "rlimit": 138098,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "time-micros": 56682,
+                "rlimit": 202641,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::ancestor_quotient",
+                "time-micros": 11074,
+                "rlimit": 48915,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "time-micros": 13273,
+                "rlimit": 51895,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::valid_admission",
+                "time-micros": 11919,
+                "rlimit": 48290,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "time-micros": 76421,
+                "rlimit": 267823,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::page_intro",
+                "time-micros": 14236,
+                "rlimit": 54055,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::block_in_bounds",
+                "time-micros": 27161,
+                "rlimit": 95788,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "time-micros": 96588,
+                "rlimit": 377092,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::set",
+                "time-micros": 23794,
+                "rlimit": 77512,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "time-micros": 165212,
+                "rlimit": 706871,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::same_order_disjoint",
+                "time-micros": 11451,
+                "rlimit": 48232,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::buddy_page",
+                "time-micros": 7142,
+                "rlimit": 13043,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::vacant_disjoint",
+                "time-micros": 50238,
+                "rlimit": 165795,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "time-micros": 81173,
+                "rlimit": 303952,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "time-micros": 172881,
+                "rlimit": 572271,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::word_bits",
+                "time-micros": 48208,
+                "rlimit": 188811,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::flag_membership",
+                "time-micros": 19921,
+                "rlimit": 67984,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::interval_cardinality",
+                "time-micros": 28557,
+                "rlimit": 94457,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::parent_geometry",
+                "time-micros": 89777,
+                "rlimit": 205667,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::state_transport",
+                "time-micros": 18781,
+                "rlimit": 72024,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::boundary_repeated_operations",
+                "time-micros": 606146,
+                "rlimit": 1431699,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::alloc_trace",
+                "time-micros": 8278,
+                "rlimit": 34054,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "time-micros": 66016,
+                "rlimit": 203295,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::canonical_buddy",
+                "time-micros": 13603,
+                "rlimit": 58061,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "time-micros": 14931,
+                "rlimit": 57995,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::record_alloc_semantic",
+                "time-micros": 69419,
+                "rlimit": 207727,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::frame_trans",
+                "time-micros": 15176,
+                "rlimit": 56548,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::page_witness",
+                "time-micros": 15736,
+                "rlimit": 56232,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::width",
+                "time-micros": 539,
+                "rlimit": 806,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::layer_edit",
+                "time-micros": 33856,
+                "rlimit": 157462,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::clear",
+                "time-micros": 13873,
+                "rlimit": 55421,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::valid_boundary_scenario",
+                "time-micros": 14829,
+                "rlimit": 50388,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::block_point",
+                "time-micros": 27551,
+                "rlimit": 88815,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::data_index_of",
+                "time-micros": 12338,
+                "rlimit": 62811,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::same_order_cover",
+                "time-micros": 15964,
+                "rlimit": 48508,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "time-micros": 46269,
+                "rlimit": 150206,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::free_trace",
+                "time-micros": 901,
+                "rlimit": 1996,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::leaf_edit",
+                "time-micros": 92598,
+                "rlimit": 634767,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::get",
+                "time-micros": 11865,
+                "rlimit": 52343,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::free_semantic",
+                "time-micros": 101423,
+                "rlimit": 322658,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::ancestor",
+                "time-micros": 883,
+                "rlimit": 1113,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "time-micros": 112914,
+                "rlimit": 393909,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::propagation",
+                "time-micros": 106921,
+                "rlimit": 853543,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BuddyAllocator::record_alloc_inner",
+                "time-micros": 513010,
+                "rlimit": 3524294,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::alloc_interpret",
+                "time-micros": 75649,
+                "rlimit": 262238,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get_level",
+                "time-micros": 14404,
+                "rlimit": 64648,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::word_frame",
+                "time-micros": 27473,
+                "rlimit": 176886,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::len",
+                "time-micros": 125,
+                "rlimit": 2,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get",
+                "time-micros": 14005,
+                "rlimit": 54502,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::interior_one_split_merge",
+                "time-micros": 199588,
+                "rlimit": 700256,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::ancestor_next",
+                "time-micros": 12460,
+                "rlimit": 54625,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::order_half",
+                "time-micros": 10663,
+                "rlimit": 40695,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::alloc_trace_frame",
+                "time-micros": 21928,
+                "rlimit": 73046,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::len",
+                "time-micros": 11827,
+                "rlimit": 48593,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BuddyAllocator::get_order_free_mut",
+                "time-micros": 12805,
+                "rlimit": 63858,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::model_half",
+                "time-micros": 16119,
+                "rlimit": 58624,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::geometry_to_layout",
+                "time-micros": 26832,
+                "rlimit": 121206,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "time-micros": 19039,
+                "rlimit": 65754,
+                "success": true
+              }
+            ]
+          }
+        },
+        {
+          "label": "infer",
+          "exit_code": 0,
+          "seconds": 14.566973954963032,
+          "stdout_sha256": "ed6332cf4ddb1e8f2ce6b372cef27858cecfd92177750ee5b4337ec15682c1be",
+          "stderr_sha256": "8272fd6f85033df3576e9d498b1f11abb9ce7dbf50714e4c6218aa8cacbfa05b",
+          "classification": "CHECKED",
+          "verification": {
+            "encountered-error": false,
+            "encountered-vir-error": false,
+            "success": true,
+            "verified": 96,
+            "errors": 0,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": true,
+            "checked_exec_bodies": 25,
+            "checked_proof_bodies": 47
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": true,
+          "inference_interface_written": true,
+          "solver": {
+            "smt-run": 4892,
+            "rlimit-run": 26653009,
+            "smt-init": 11,
+            "rlimit-init": 23848,
+            "functions": [
+              {
+                "function": "r3_semantic_v2::record_alloc_semantic",
+                "time-micros": 56280,
+                "rlimit": 204849,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "time-micros": 228898,
+                "rlimit": 2461013,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::clear",
+                "time-micros": 19392,
+                "rlimit": 72927,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::page_witness",
+                "time-micros": 13636,
+                "rlimit": 56386,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "time-micros": 45639,
+                "rlimit": 156447,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "time-micros": 18421,
+                "rlimit": 70915,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::frame_trans",
+                "time-micros": 11760,
+                "rlimit": 50374,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::dyadic_nested",
+                "time-micros": 12411,
+                "rlimit": 50667,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "time-micros": 23254,
+                "rlimit": 88679,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::lift_point_cover",
+                "time-micros": 8451,
+                "rlimit": 42860,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "time-micros": 104614,
+                "rlimit": 554922,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::semantic_roundtrip",
+                "time-micros": 45578,
+                "rlimit": 148742,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::clear_not_full",
+                "time-micros": 13023,
+                "rlimit": 49678,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::len",
+                "time-micros": 8502,
+                "rlimit": 42201,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::update_to_root",
+                "time-micros": 200318,
+                "rlimit": 2101245,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::interior_one_split_merge",
+                "time-micros": 176041,
+                "rlimit": 636777,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::valid_admission",
+                "time-micros": 7985,
+                "rlimit": 41817,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::next_higher_order",
+                "time-micros": 408,
+                "rlimit": 678,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::model_half",
+                "time-micros": 12880,
+                "rlimit": 52786,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "time-micros": 258821,
+                "rlimit": 1506754,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "time-micros": 106530,
+                "rlimit": 397669,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::vacant_disjoint",
+                "time-micros": 70695,
+                "rlimit": 166031,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::ancestor_next",
+                "time-micros": 12702,
+                "rlimit": 48416,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "time-micros": 239274,
+                "rlimit": 1675109,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get_level",
+                "time-micros": 13268,
+                "rlimit": 58540,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::select_mask",
+                "time-micros": 9351,
+                "rlimit": 40088,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get_level_mut",
+                "time-micros": 13226,
+                "rlimit": 58991,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "time-micros": 44214,
+                "rlimit": 143996,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get_height",
+                "time-micros": 15068,
+                "rlimit": 67264,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::canonical_buddy",
+                "time-micros": 14624,
+                "rlimit": 51849,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::interval_cardinality",
+                "time-micros": 26963,
+                "rlimit": 88555,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::alloc_interpret",
+                "time-micros": 62397,
+                "rlimit": 262393,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::free_trace",
+                "time-micros": 609,
+                "rlimit": 1996,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "time-micros": 684443,
+                "rlimit": 3511669,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::buddy_page",
+                "time-micros": 6659,
+                "rlimit": 13043,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::state_transport",
+                "time-micros": 15450,
+                "rlimit": 65661,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::represented_disjoint",
+                "time-micros": 10988,
+                "rlimit": 49100,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::get",
+                "time-micros": 11214,
+                "rlimit": 47903,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::frame_geometry",
+                "time-micros": 18336,
+                "rlimit": 65234,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::ancestor_quotient",
+                "time-micros": 9795,
+                "rlimit": 42733,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::clear",
+                "time-micros": 12152,
+                "rlimit": 49269,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::parent_geometry",
+                "time-micros": 78462,
+                "rlimit": 193100,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "time-micros": 150094,
+                "rlimit": 449743,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BuddyAllocator::get_order_free_mut",
+                "time-micros": 11129,
+                "rlimit": 57706,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::block_in_bounds",
+                "time-micros": 23759,
+                "rlimit": 95970,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::get",
+                "time-micros": 9196,
+                "rlimit": 46169,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::len",
+                "time-micros": 83,
+                "rlimit": 2,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BuddyAllocator::free_inner",
+                "time-micros": 159451,
+                "rlimit": 834178,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BuddyAllocator::record_alloc_inner",
+                "time-micros": 213370,
+                "rlimit": 1219147,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::order_half",
+                "time-micros": 7428,
+                "rlimit": 34522,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::same_order_disjoint",
+                "time-micros": 9754,
+                "rlimit": 42074,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::leaf_edit",
+                "time-micros": 88030,
+                "rlimit": 665987,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::layer_edit",
+                "time-micros": 31364,
+                "rlimit": 149846,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::BtreeBitmap::set",
+                "time-micros": 18332,
+                "rlimit": 70357,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::alloc_trace",
+                "time-micros": 7912,
+                "rlimit": 30912,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::same_order_cover",
+                "time-micros": 8779,
+                "rlimit": 42436,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::word_frame",
+                "time-micros": 27117,
+                "rlimit": 158634,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "time-micros": 17321,
+                "rlimit": 61682,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::data_index_of",
+                "time-micros": 11628,
+                "rlimit": 56553,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::width",
+                "time-micros": 478,
+                "rlimit": 806,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::propagation",
+                "time-micros": 196391,
+                "rlimit": 2401251,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "time-micros": 45584,
+                "rlimit": 318956,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::page_intro",
+                "time-micros": 12485,
+                "rlimit": 54143,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::word_bits",
+                "time-micros": 49750,
+                "rlimit": 182638,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::boundary_repeated_operations",
+                "time-micros": 441650,
+                "rlimit": 1473848,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::block_point",
+                "time-micros": 25340,
+                "rlimit": 82746,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "time-micros": 56040,
+                "rlimit": 238011,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::geometry_to_layout",
+                "time-micros": 22535,
+                "rlimit": 97157,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::alloc_trace_frame",
+                "time-micros": 16966,
+                "rlimit": 66773,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::valid_boundary_scenario",
+                "time-micros": 12568,
+                "rlimit": 44262,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::legal_from_end",
+                "time-micros": 19548,
+                "rlimit": 79935,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::ancestor",
+                "time-micros": 776,
+                "rlimit": 1113,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "time-micros": 229574,
+                "rlimit": 1341139,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::free_semantic",
+                "time-micros": 197931,
+                "rlimit": 655460,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::width_positive",
+                "time-micros": 9019,
+                "rlimit": 41447,
+                "success": true
+              },
+              {
+                "function": "r3_semantic_v2::flag_membership",
+                "time-micros": 18686,
+                "rlimit": 68080,
+                "success": true
+              }
+            ]
+          }
+        },
+        {
+          "label": "infer_v2_negative_effect",
+          "exit_code": 1,
+          "seconds": 13.376499917998444,
+          "stdout_sha256": "c83b3a16a9bb252b3ad9d84ec394c55913104d46c152bb71a479ecdfbe02d598",
+          "stderr_sha256": "ea37225f941c1442838c0eed7aea946033c690e904d98bdb6309b84472a829ed",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 96,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_effect"
+          ],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": false,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 4843,
+            "rlimit-run": 27737351,
+            "smt-init": 10,
+            "rlimit-init": 23980
+          }
+        },
+        {
+          "label": "infer_v2_negative_merge",
+          "exit_code": 1,
+          "seconds": 14.090093075996265,
+          "stdout_sha256": "0f28a7f991346b678228f1bbd75ccb3292277a71fbcdf15d4c7b218f94dc8a9d",
+          "stderr_sha256": "687328f07b89abb9e0123bec04edbe86007a833aac6569513507d4cd742cee61",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 96,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_merge"
+          ],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": false,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 5313,
+            "rlimit-run": 27890863,
+            "smt-init": 11,
+            "rlimit-init": 23958
+          }
+        },
+        {
+          "label": "infer_v2_negative_domain",
+          "exit_code": 1,
+          "seconds": 14.041183523018844,
+          "stdout_sha256": "c7ae65b4226332c5ab3e9a8e1c8426dd26b1492b43c025ce0101c8203c8e12be",
+          "stderr_sha256": "d7f7d5c20141a026ed9bfa617e358feb1f089bc26ff02cb412e969877065843e",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 96,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_free_domain"
+          ],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": false,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 5035,
+            "rlimit-run": 27823844,
+            "smt-init": 12,
+            "rlimit-init": 23924
+          }
+        },
+        {
+          "label": "infer_v2_negative_alloc_accept",
+          "exit_code": 1,
+          "seconds": 14.127076882054098,
+          "stdout_sha256": "c2f078b82c581ca873c9ff521677456b178ce78169055be92fb50d920cbb2708",
+          "stderr_sha256": "88cd25261c849a64ce1307d9091759b1d03ae2910521d054c1b9a0d87fa00dbf",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 96,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_alloc_accept"
+          ],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": false,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 5111,
+            "rlimit-run": 27715904,
+            "smt-init": 12,
+            "rlimit-init": 23957
+          }
+        },
+        {
+          "label": "infer_v2_negative_alloc_effect",
+          "exit_code": 1,
+          "seconds": 13.540719659009483,
+          "stdout_sha256": "46c57a45d1a6772b78e92995348c79f3adbeca39ce8c74799a72e8ec05728d6b",
+          "stderr_sha256": "2d22e1935f15038d4182498b71afd442b9c8da09043e9f47035bb7616d2dde97",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 96,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_alloc_effect"
+          ],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": false,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 4789,
+            "rlimit-run": 27775266,
+            "smt-init": 9,
+            "rlimit-init": 23991
+          }
+        },
+        {
+          "label": "infer_v2_negative_overlap",
+          "exit_code": 1,
+          "seconds": 13.521128634980414,
+          "stdout_sha256": "a22e8cf89ff19c61fa6edde12366112595a0d54d06a98f1539219a0704aac77d",
+          "stderr_sha256": "6644e0b9e960ad0c2543d1fa9cc6cbf5e882bc647533a5dd9a6f36fbeaa38dcc",
+          "classification": "VERIFICATION_FAILURE",
+          "verification": {
+            "encountered-error": true,
+            "encountered-vir-error": false,
+            "success": false,
+            "verified": 96,
+            "errors": 1,
+            "is-verifying-entire-crate": true
+          },
+          "failed_functions": [
+            "r3_semantic_v2::wrong_overlap"
+          ],
+          "inferred_helpers": [],
+          "body_scope": {
+            "complete_selected_scope_verified": false,
+            "checked_exec_bodies": 0,
+            "checked_proof_bodies": 0
+          },
+          "assistance": {
+            "set_pair_assistance": [
+              {
+                "function": "r3_semantic_v2::finish_mutation",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::edit_frame",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::update_clear",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::remove_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::add_block",
+                "terms": 6,
+                "pairs": 30,
+                "lemma_calls": 30,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_pages",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::actual_model",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::model_actual",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::represented_subset",
+                "terms": 3,
+                "pairs": 6,
+                "lemma_calls": 6,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::page_partition",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::cover_ancestor",
+                "terms": 2,
+                "pairs": 2,
+                "lemma_calls": 2,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::parent_whole",
+                "terms": 4,
+                "pairs": 12,
+                "lemma_calls": 12,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              },
+              {
+                "function": "r3_semantic_v2::free_interpret",
+                "terms": 5,
+                "pairs": 20,
+                "lemma_calls": 20,
+                "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+              }
+            ],
+            "word_sequence_assistance": [
+              {
+                "function": "r3_semantic_v2::U64GroupedBitmap::set",
+                "library": "vstd::word::checked_seq_bit_update_at",
+                "snapshots": 1,
+                "quantified_blocks": 1,
+                "library_calls": 1,
+                "checked_by": "ordinary proof and full body recheck"
+              }
+            ],
+            "sequence_pattern_assistance": [
+              {
+                "function": "r3_semantic_v2::storage_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              },
+              {
+                "function": "r3_semantic_v2::geometry_frame",
+                "quantifiers": 1,
+                "checked_by": "original unchanged quantified proposition; alternate sequence-index patterns only"
+              }
+            ],
+            "goal_assistance": []
+          },
+          "native_export_exists": false,
+          "inference_interface_written": false,
+          "solver": {
+            "smt-run": 4932,
+            "rlimit-run": 28205352,
+            "smt-init": 11,
+            "rlimit-init": 24002
+          }
+        }
+      ]
+    }
+  ],
+  "old_artifacts_unchanged": {
+    "FREEZE.json": "ad305a8adb92ba5e0b8314b107f60de5041e2b4961ccc02c56ee263fdddd94b5",
+    "baseline.rs": "96ce8f6ab98a34b7d6d053ddb4ec12ea4bd524dec7a7054bdedbb7416f218d88",
+    "corrected.rs": "a40b714b35d145f005568dcea06994728314da280d4dc96e70625360b4409bb8",
+    "manual.rs": "2432bf633f6c65bef6dc3052169ef97c319803e776f412e30ed40fabb7f5d889",
+    "domain.rs": "d895c194de7b3eafffc2825e52d8ffea4f27ceebaec1b7e24b667e210730b44d",
+    "checks.rs": "25e088cfbfb525cfde365ba94d84359d88b0a1106baf445ba0ff0a9c10cfb95f",
+    "replay.py": "fa3c9670e13b08b872d402b4ab51f4186bf22f9087b5ee953c8df53d6084acae",
+    "REPORT.md": "3d76cfb2d341a11add696a5cce0dd5e943c478a58319d51ee9aea8acb68537ce",
+    "RESULTS.json": "b5b9ec196e9b31da647aa49c7c4c19686b9c23c1594463a81f67fa17f09952a5",
+    "COSTS.json": "b1318332e31e949211667093c43f9e99ad9e568a87d1b585957f10ab88d5f71f"
+  },
+  "checked_exec_identities": [
+    "BtreeBitmap::clear",
+    "BtreeBitmap::get",
+    "BtreeBitmap::get_height",
+    "BtreeBitmap::get_level",
+    "BtreeBitmap::get_level_mut",
+    "BtreeBitmap::len",
+    "BtreeBitmap::set",
+    "BtreeBitmap::update_to_root",
+    "BuddyAllocator::free_inner",
+    "BuddyAllocator::get_order_free_mut",
+    "BuddyAllocator::record_alloc_inner",
+    "U64GroupedBitmap::clear",
+    "U64GroupedBitmap::data_index_of",
+    "U64GroupedBitmap::get",
+    "U64GroupedBitmap::len",
+    "U64GroupedBitmap::select_mask",
+    "U64GroupedBitmap::set",
+    "boundary_repeated_operations",
+    "buddy_page",
+    "free_semantic",
+    "interior_one_split_merge",
+    "next_higher_order",
+    "record_alloc_semantic",
+    "semantic_roundtrip",
+    "valid_boundary_scenario"
+  ],
+  "checked_proof_identities": [
+    "actual_model",
+    "actual_pages",
+    "add_block",
+    "alloc_interpret",
+    "alloc_trace_frame",
+    "ancestor_next",
+    "ancestor_quotient",
+    "block_in_bounds",
+    "block_point",
+    "canonical_buddy",
+    "clear_not_full",
+    "cover_ancestor",
+    "dyadic_nested",
+    "edit_frame",
+    "finish_mutation",
+    "flag_membership",
+    "frame_geometry",
+    "frame_trans",
+    "free_interpret",
+    "geometry_to_layout",
+    "interval_cardinality",
+    "layer_edit",
+    "leaf_edit",
+    "legal_from_end",
+    "lift_point_cover",
+    "model_actual",
+    "model_half",
+    "order_half",
+    "page_intro",
+    "page_partition",
+    "page_witness",
+    "parent_geometry",
+    "parent_partition",
+    "parent_whole",
+    "propagation",
+    "remove_block",
+    "represented_disjoint",
+    "represented_subset",
+    "same_order_cover",
+    "same_order_disjoint",
+    "state_transport",
+    "update_clear",
+    "vacant_disjoint",
+    "valid_admission",
+    "width_positive",
+    "word_bits",
+    "word_frame"
+  ],
+  "original_exec_source_fidelity": {
+    "tree_get_level": "56f4551a72e889e51bf8bd992cad77f354f816e479ee351e546f6b2187c19322",
+    "tree_get_height": "328f401feb79f090e1802b4d222dddae01eefc7ec5a0107a36a3b1c8228c23cb",
+    "tree_set": "feb31327fc4323201bc55149121c75030c7254529533b567da30f2438c7d5bf0",
+    "tree_clear": "b16c9a9e51312ef0e50e9dd811746f9e19157d8afc610bb7f012ebd4bbb79f9d",
+    "tree_get_level_mut": "62c87813e746b61b3368118f24d2c9c0d2850a420504c01a0de867320b5183bd",
+    "tree_update_to_root": "57f01a8f7615d4843e56d7c0cfb469b2734b1efdaaaee9ed5affc13f88e3479c",
+    "word_data_index_of": "8e543eb9e7afe6bf3323813d78e0869a6e920ad0289eb42cfa9609f1c9524a44",
+    "word_select_mask": "47b8283ddbe8656f81a3c58a5912c97764c852553499c3d475e98749100ad684",
+    "word_len": "def1443eb4bf70242958cb207555a0d25c49c353777f9ed0d6b9972b3921b555",
+    "word_get": "3c6f9a6fd3a26b2feb602451248ab1a360d0cf2ae7ef76833639999b348d86ac",
+    "word_set": "26fb3a49b569eb62d2777c744c2eeb32d7d5c996bbe0d366ec55820a4e999de1",
+    "word_clear": "c5321e37a5439f8d08b31d4ce289ef76b908d5e771b11c00be8da04472eac664",
+    "next_higher_order": "1cc5d0688c776c8136d624ac48ceb4c163024c452ea5e7f8ae321f53e4409097",
+    "buddy_page": "f093be25492e72bf9832e525f50f969b570c6a52ea8e692af991dd23d7918f26",
+    "record_alloc_inner": "4f545e64ade6ae5e39fe3f2073e972836a62964391f73efa1e089834625e6da2",
+    "free_inner": "09d0feeed3f15f9a79f855fc280f728972cfdac41430e1336fb9f725cbc590ce",
+    "get_order_free_mut": "a4665390da382ac05dbd6f1a55ddedcdbee5bc9f5df5f7b166da98f02971088e",
+    "BtreeBitmap::get": "d124c454a93d1daba17e1afe3862ac7cf47a08600624ddaca9141225daf084d3",
+    "BtreeBitmap::len": "e158c17228a1b9c8d804da8ecf2934a4fe2ece4449d636ca66febbbdefae7233"
+  },
+  "aggregate_source_sha256": "7380d8cea929172721838357f66da496aa10e234c8c77c6892fc48a26d908124"
+}

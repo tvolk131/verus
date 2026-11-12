@@ -1,0 +1,869 @@
+{
+  "kind": "R3_V2_LITERAL_SEMANTIC_AND_TRANSPORT_COSTS",
+  "inherited_v1_unchanged": {
+    "FREEZE.json": "ad305a8adb92ba5e0b8314b107f60de5041e2b4961ccc02c56ee263fdddd94b5",
+    "baseline.rs": "96ce8f6ab98a34b7d6d053ddb4ec12ea4bd524dec7a7054bdedbb7416f218d88",
+    "corrected.rs": "a40b714b35d145f005568dcea06994728314da280d4dc96e70625360b4409bb8",
+    "manual.rs": "2432bf633f6c65bef6dc3052169ef97c319803e776f412e30ed40fabb7f5d889",
+    "domain.rs": "d895c194de7b3eafffc2825e52d8ffea4f27ceebaec1b7e24b667e210730b44d",
+    "checks.rs": "25e088cfbfb525cfde365ba94d84359d88b0a1106baf445ba0ff0a9c10cfb95f",
+    "replay.py": "fa3c9670e13b08b872d402b4ab51f4186bf22f9087b5ee953c8df53d6084acae",
+    "REPORT.md": "3d76cfb2d341a11add696a5cce0dd5e943c478a58319d51ee9aea8acb68537ce",
+    "RESULTS.json": "b5b9ec196e9b31da647aa49c7c4c19686b9c23c1594463a81f67fa17f09952a5",
+    "COSTS.json": "b1318332e31e949211667093c43f9e99ad9e568a87d1b585957f10ab88d5f71f"
+  },
+  "new_definitions": {
+    "inside": {
+      "bytes": 87,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 41
+    },
+    "interval": {
+      "bytes": 97,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 48
+    },
+    "disjoint_blocks": {
+      "bytes": 132,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 63
+    },
+    "model_shape": {
+      "bytes": 188,
+      "lines": 4,
+      "nonblank_lines": 4,
+      "lexical_tokens_including_comments": 89
+    },
+    "clear_at": {
+      "bytes": 139,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 67
+    },
+    "canonical": {
+      "bytes": 411,
+      "lines": 7,
+      "nonblank_lines": 7,
+      "lexical_tokens_including_comments": 195
+    },
+    "pages": {
+      "bytes": 182,
+      "lines": 4,
+      "nonblank_lines": 4,
+      "lexical_tokens_including_comments": 86
+    },
+    "model_legal": {
+      "bytes": 103,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 46
+    },
+    "sibling": {
+      "bytes": 63,
+      "lines": 1,
+      "nonblank_lines": 1,
+      "lexical_tokens_including_comments": 31
+    },
+    "free_pages": {
+      "bytes": 240,
+      "lines": 4,
+      "nonblank_lines": 4,
+      "lexical_tokens_including_comments": 108
+    },
+    "requested": {
+      "bytes": 128,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 56
+    },
+    "legal_block": {
+      "bytes": 115,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 39
+    },
+    "legal_free": {
+      "bytes": 129,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 45
+    },
+    "edited": {
+      "bytes": 150,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 69
+    },
+    "used_pages": {
+      "bytes": 113,
+      "lines": 1,
+      "nonblank_lines": 1,
+      "lexical_tokens_including_comments": 42
+    },
+    "encloses": {
+      "bytes": 125,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 63
+    },
+    "free_cover": {
+      "bytes": 150,
+      "lines": 3,
+      "nonblank_lines": 3,
+      "lexical_tokens_including_comments": 70
+    }
+  },
+  "new_proof_helpers": {
+    "update_clear": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 565,
+        "lines": 10,
+        "nonblank_lines": 10,
+        "lexical_tokens_including_comments": 246
+      },
+      "signature_contract": {
+        "bytes": 348,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 150
+      },
+      "body": {
+        "bytes": 217,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 96
+      }
+    },
+    "page_intro": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 317,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 126
+      },
+      "signature_contract": {
+        "bytes": 186,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 80
+      },
+      "body": {
+        "bytes": 131,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 46
+      }
+    },
+    "page_witness": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 567,
+        "lines": 10,
+        "nonblank_lines": 10,
+        "lexical_tokens_including_comments": 260
+      },
+      "signature_contract": {
+        "bytes": 203,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 91
+      },
+      "body": {
+        "bytes": 364,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 169
+      }
+    },
+    "represented_disjoint": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 396,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 158
+      },
+      "signature_contract": {
+        "bytes": 244,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 102
+      },
+      "body": {
+        "bytes": 152,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 56
+      }
+    },
+    "vacant_disjoint": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 846,
+        "lines": 18,
+        "nonblank_lines": 18,
+        "lexical_tokens_including_comments": 326
+      },
+      "signature_contract": {
+        "bytes": 271,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 110
+      },
+      "body": {
+        "bytes": 575,
+        "lines": 14,
+        "nonblank_lines": 14,
+        "lexical_tokens_including_comments": 216
+      }
+    },
+    "block_in_bounds": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 814,
+        "lines": 17,
+        "nonblank_lines": 17,
+        "lexical_tokens_including_comments": 304
+      },
+      "signature_contract": {
+        "bytes": 227,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 98
+      },
+      "body": {
+        "bytes": 587,
+        "lines": 14,
+        "nonblank_lines": 14,
+        "lexical_tokens_including_comments": 206
+      }
+    },
+    "same_order_disjoint": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 298,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 101
+      },
+      "signature_contract": {
+        "bytes": 120,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 39
+      },
+      "body": {
+        "bytes": 178,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 62
+      }
+    },
+    "remove_block": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 1811,
+        "lines": 35,
+        "nonblank_lines": 35,
+        "lexical_tokens_including_comments": 733
+      },
+      "signature_contract": {
+        "bytes": 297,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 131
+      },
+      "body": {
+        "bytes": 1514,
+        "lines": 31,
+        "nonblank_lines": 31,
+        "lexical_tokens_including_comments": 602
+      }
+    },
+    "add_block": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 2120,
+        "lines": 38,
+        "nonblank_lines": 38,
+        "lexical_tokens_including_comments": 903
+      },
+      "signature_contract": {
+        "bytes": 408,
+        "lines": 6,
+        "nonblank_lines": 6,
+        "lexical_tokens_including_comments": 181
+      },
+      "body": {
+        "bytes": 1712,
+        "lines": 32,
+        "nonblank_lines": 32,
+        "lexical_tokens_including_comments": 722
+      }
+    },
+    "flag_membership": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 250,
+        "lines": 6,
+        "nonblank_lines": 6,
+        "lexical_tokens_including_comments": 80
+      },
+      "signature_contract": {
+        "bytes": 192,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 68
+      },
+      "body": {
+        "bytes": 58,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 12
+      }
+    },
+    "actual_pages": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 1346,
+        "lines": 24,
+        "nonblank_lines": 24,
+        "lexical_tokens_including_comments": 517
+      },
+      "signature_contract": {
+        "bytes": 135,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 40
+      },
+      "body": {
+        "bytes": 1211,
+        "lines": 21,
+        "nonblank_lines": 21,
+        "lexical_tokens_including_comments": 477
+      }
+    },
+    "frame_geometry": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 449,
+        "lines": 10,
+        "nonblank_lines": 10,
+        "lexical_tokens_including_comments": 152
+      },
+      "signature_contract": {
+        "bytes": 175,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 47
+      },
+      "body": {
+        "bytes": 274,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 105
+      }
+    },
+    "actual_model": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 952,
+        "lines": 19,
+        "nonblank_lines": 19,
+        "lexical_tokens_including_comments": 377
+      },
+      "signature_contract": {
+        "bytes": 215,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 70
+      },
+      "body": {
+        "bytes": 737,
+        "lines": 15,
+        "nonblank_lines": 15,
+        "lexical_tokens_including_comments": 307
+      }
+    },
+    "model_actual": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 1080,
+        "lines": 21,
+        "nonblank_lines": 21,
+        "lexical_tokens_including_comments": 426
+      },
+      "signature_contract": {
+        "bytes": 274,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 86
+      },
+      "body": {
+        "bytes": 806,
+        "lines": 17,
+        "nonblank_lines": 17,
+        "lexical_tokens_including_comments": 340
+      }
+    },
+    "model_half": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 268,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 102
+      },
+      "signature_contract": {
+        "bytes": 136,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 56
+      },
+      "body": {
+        "bytes": 132,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 46
+      }
+    },
+    "parent_partition": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 1453,
+        "lines": 32,
+        "nonblank_lines": 32,
+        "lexical_tokens_including_comments": 593
+      },
+      "signature_contract": {
+        "bytes": 325,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 130
+      },
+      "body": {
+        "bytes": 1128,
+        "lines": 27,
+        "nonblank_lines": 27,
+        "lexical_tokens_including_comments": 463
+      }
+    },
+    "represented_subset": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 426,
+        "lines": 10,
+        "nonblank_lines": 10,
+        "lexical_tokens_including_comments": 155
+      },
+      "signature_contract": {
+        "bytes": 202,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 80
+      },
+      "body": {
+        "bytes": 224,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 75
+      }
+    },
+    "ancestor_quotient": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 251,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 94
+      },
+      "signature_contract": {
+        "bytes": 115,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 44
+      },
+      "body": {
+        "bytes": 136,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 50
+      }
+    },
+    "canonical_buddy": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 434,
+        "lines": 11,
+        "nonblank_lines": 11,
+        "lexical_tokens_including_comments": 197
+      },
+      "signature_contract": {
+        "bytes": 219,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 92
+      },
+      "body": {
+        "bytes": 215,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 105
+      }
+    },
+    "interval_cardinality": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 271,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 86
+      },
+      "signature_contract": {
+        "bytes": 119,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 38
+      },
+      "body": {
+        "bytes": 152,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 48
+      }
+    },
+    "page_partition": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 524,
+        "lines": 10,
+        "nonblank_lines": 10,
+        "lexical_tokens_including_comments": 176
+      },
+      "signature_contract": {
+        "bytes": 235,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 78
+      },
+      "body": {
+        "bytes": 289,
+        "lines": 6,
+        "nonblank_lines": 6,
+        "lexical_tokens_including_comments": 98
+      }
+    },
+    "block_point": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 191,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 71
+      },
+      "signature_contract": {
+        "bytes": 94,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 33
+      },
+      "body": {
+        "bytes": 97,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 38
+      }
+    },
+    "parent_geometry": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 540,
+        "lines": 15,
+        "nonblank_lines": 15,
+        "lexical_tokens_including_comments": 237
+      },
+      "signature_contract": {
+        "bytes": 105,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 39
+      },
+      "body": {
+        "bytes": 435,
+        "lines": 12,
+        "nonblank_lines": 12,
+        "lexical_tokens_including_comments": 198
+      }
+    },
+    "dyadic_nested": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 321,
+        "lines": 11,
+        "nonblank_lines": 11,
+        "lexical_tokens_including_comments": 118
+      },
+      "signature_contract": {
+        "bytes": 175,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 68
+      },
+      "body": {
+        "bytes": 146,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 50
+      }
+    },
+    "lift_point_cover": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 200,
+        "lines": 6,
+        "nonblank_lines": 6,
+        "lexical_tokens_including_comments": 86
+      },
+      "signature_contract": {
+        "bytes": 169,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 73
+      },
+      "body": {
+        "bytes": 31,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 13
+      }
+    },
+    "same_order_cover": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 181,
+        "lines": 7,
+        "nonblank_lines": 7,
+        "lexical_tokens_including_comments": 64
+      },
+      "signature_contract": {
+        "bytes": 110,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 39
+      },
+      "body": {
+        "bytes": 71,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 25
+      }
+    },
+    "cover_ancestor": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 2420,
+        "lines": 56,
+        "nonblank_lines": 56,
+        "lexical_tokens_including_comments": 957
+      },
+      "signature_contract": {
+        "bytes": 269,
+        "lines": 4,
+        "nonblank_lines": 4,
+        "lexical_tokens_including_comments": 112
+      },
+      "body": {
+        "bytes": 2151,
+        "lines": 52,
+        "nonblank_lines": 52,
+        "lexical_tokens_including_comments": 845
+      }
+    },
+    "legal_from_end": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 426,
+        "lines": 9,
+        "nonblank_lines": 9,
+        "lexical_tokens_including_comments": 164
+      },
+      "signature_contract": {
+        "bytes": 181,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 76
+      },
+      "body": {
+        "bytes": 245,
+        "lines": 6,
+        "nonblank_lines": 6,
+        "lexical_tokens_including_comments": 88
+      }
+    },
+    "parent_whole": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 856,
+        "lines": 17,
+        "nonblank_lines": 17,
+        "lexical_tokens_including_comments": 351
+      },
+      "signature_contract": {
+        "bytes": 296,
+        "lines": 3,
+        "nonblank_lines": 3,
+        "lexical_tokens_including_comments": 132
+      },
+      "body": {
+        "bytes": 560,
+        "lines": 14,
+        "nonblank_lines": 14,
+        "lexical_tokens_including_comments": 219
+      }
+    },
+    "alloc_trace_frame": {
+      "category": "representation/readback/transport (still authored and checked)",
+      "whole": {
+        "bytes": 461,
+        "lines": 11,
+        "nonblank_lines": 11,
+        "lexical_tokens_including_comments": 205
+      },
+      "signature_contract": {
+        "bytes": 333,
+        "lines": 5,
+        "nonblank_lines": 5,
+        "lexical_tokens_including_comments": 155
+      },
+      "body": {
+        "bytes": 128,
+        "lines": 6,
+        "nonblank_lines": 6,
+        "lexical_tokens_including_comments": 50
+      }
+    },
+    "alloc_interpret": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 1638,
+        "lines": 36,
+        "nonblank_lines": 36,
+        "lexical_tokens_including_comments": 615
+      },
+      "signature_contract": {
+        "bytes": 440,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 196
+      },
+      "body": {
+        "bytes": 1198,
+        "lines": 28,
+        "nonblank_lines": 28,
+        "lexical_tokens_including_comments": 419
+      }
+    },
+    "free_interpret": {
+      "category": "semantic interval/ancestry/canonicality/cardinality",
+      "whole": {
+        "bytes": 1595,
+        "lines": 34,
+        "nonblank_lines": 34,
+        "lexical_tokens_including_comments": 632
+      },
+      "signature_contract": {
+        "bytes": 480,
+        "lines": 8,
+        "nonblank_lines": 8,
+        "lexical_tokens_including_comments": 215
+      },
+      "body": {
+        "bytes": 1115,
+        "lines": 26,
+        "nonblank_lines": 26,
+        "lexical_tokens_including_comments": 417
+      }
+    }
+  },
+  "new_exec_harness_contracts": {
+    "record_alloc_semantic": {
+      "bytes": 600,
+      "lines": 8,
+      "nonblank_lines": 8,
+      "lexical_tokens_including_comments": 234
+    },
+    "free_semantic": {
+      "bytes": 844,
+      "lines": 11,
+      "nonblank_lines": 11,
+      "lexical_tokens_including_comments": 326
+    }
+  },
+  "files": {
+    "semantic_v2.rs": {
+      "sha256": "ba9850a8105fbe2096d58d1986b37d65d96b216d47f5ca9a63c6949bf11c0224",
+      "bytes": 30302,
+      "lines": 646,
+      "nonblank_lines": 646,
+      "lexical_tokens_including_comments": 11761
+    },
+    "controls_v2.rs": {
+      "sha256": "f1aee72acdf7f6540ea29df961430610e60f86ac0c9fafa51195b64109f30e54",
+      "bytes": 1476,
+      "lines": 48,
+      "nonblank_lines": 48,
+      "lexical_tokens_including_comments": 513
+    },
+    "cases_v2.rs": {
+      "sha256": "33f919240e1b916481e1f9355a117743f61c5998dddfb0e1aa96b379f464d3fd",
+      "bytes": 993,
+      "lines": 25,
+      "nonblank_lines": 25,
+      "lexical_tokens_including_comments": 250
+    },
+    "replay_v2.py": {
+      "sha256": "02b39a4f05d93e2fde2f51bbb5384947079a3480bb9b00d574fd80a277f2a10f",
+      "bytes": 7118,
+      "lines": 66,
+      "nonblank_lines": 65,
+      "lexical_tokens_including_comments": 2217
+    }
+  },
+  "events": {
+    "semantic_v2.rs": {
+      "explicit_proof_blocks": 4,
+      "ghost_snapshots": 2,
+      "assertion_statements": 125,
+      "explicit_triggers": 10,
+      "reveals": 5,
+      "nonlinear_queries": 15,
+      "rlimit_directives": []
+    },
+    "controls_v2.rs": {
+      "explicit_proof_blocks": 0,
+      "ghost_snapshots": 2,
+      "assertion_statements": 5,
+      "explicit_triggers": 0,
+      "reveals": 0,
+      "nonlinear_queries": 0,
+      "rlimit_directives": []
+    },
+    "cases_v2.rs": {
+      "explicit_proof_blocks": 2,
+      "ghost_snapshots": 1,
+      "assertion_statements": 6,
+      "explicit_triggers": 0,
+      "reveals": 0,
+      "nonlinear_queries": 0,
+      "rlimit_directives": []
+    }
+  },
+  "generated_inferred_helpers": 0,
+  "annotations_removed_by_infer": 0,
+  "extra_rlimit_directives": 0
+}
