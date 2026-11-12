@@ -18,6 +18,7 @@ fn run(source: &str, options: &[&str]) -> std::process::Output {
         .arg("-o")
         .arg(c.directory.path().join("libcase.rlib"))
         .args(options)
+        .env("VERUS_INFER_CACHE", c.directory.path().join("infer-cache"))
         .output()
         .unwrap()
 }
@@ -103,6 +104,7 @@ fn local_only_request_invalidates_seeded_export_even_without_a_cell_or_helper() 
         if infer {
             cmd.arg("--infer-goals");
         }
+        cmd.env("VERUS_INFER_CACHE", c.directory.path().join(format!("export-cache-{infer}")));
         let r = cmd.output().unwrap();
         refused(&r, "local-only; selected VIR export is unsupported");
         assert!(!artifact.exists());
@@ -148,6 +150,7 @@ fn cargo_and_explicit_outputs_are_both_invalidated_on_refusal_and_parse_failure(
             if infer {
                 cmd.arg("--infer-goals");
             }
+            cmd.env("VERUS_INFER_CACHE", c.directory.path().join(format!("export-cache-{infer}")));
             let r = cmd.output().unwrap();
             if malformed {
                 refused(&r, "error");

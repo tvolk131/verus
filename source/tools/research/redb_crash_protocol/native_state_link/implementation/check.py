@@ -52,12 +52,13 @@ def env(out):
 
 def run(out,label,argv):
     d=out/label;d.mkdir(exist_ok=False)
-    paths=[*sorted((ROOT/'source/rust_verify/src').glob('*.rs')),HERE/'check.py',ROOT/'source/Cargo.lock']
+    paths=[*sorted((ROOT/'source/rust_verify/src').glob('*.rs')),HERE/'check.py',ROOT/'source/Cargo.lock',ROOT/'source/rust_verify_test/tests/local_checked_owned_cell.rs']
     guard=ArtifactGuard(paths)
     receipt=dict(commands=[],source={str(p.relative_to(ROOT)):digest(p) for p in paths})
     with replay_receipt(d,receipt):
         command=LoggedCommands(d,ROOT/'source',receipt['commands'],timeout=1800,guard=guard)
-        code=command(label,list(map(str,argv)),env(out));receipt['exit']=code
+        environment=env(out);environment['VERUS_INFER_CACHE']=str(d/'infer-cache')
+        code=command(label,list(map(str,argv)),environment);receipt['exit']=code
         guard.check();receipt['guard_passed']=True
         print(label,code,flush=True)
     return code
@@ -76,5 +77,13 @@ def main():
     elif a.action=='vstd':
         sys.exit(run(out,a.label or 'vstd',[out/'target/debug/vstd_build',out/'bundle']))
     else:
+        # The harness resolves tools beside the test executable in build/debug.
+        profile=out/'build/debug'
+        for name in ['rust_verify','verus','z3','libverus_builtin.rlib','libverus_builtin_macros.so','libverus_state_machines_macros.so','libvstd.rlib','vstd.vir','verus-root']:
+            src=out/'bundle'/name;dst=profile/name
+            if dst.exists() and digest(dst)==digest(src):continue
+            if dst.exists():dst.unlink()
+            shutil.copy2(src,dst)
+            require(digest(dst)==digest(src),'private test profile '+name)
         sys.exit(run(out,a.label or 'focused-tests',[TC/'bin/cargo','test','--offline','--locked','-p','rust_verify_test','--test','local_checked_owned_cell','--','--test-threads=1']))
 if __name__=='__main__':main()
