@@ -1,5 +1,5 @@
 {
-  "kind": "ROOT_AUTHENTICATED_D2_PRIVATE_BODY_CHECKPOINT_PENDING_NEW_REVIEW",
+  "kind": "ROOT_AUTHENTICATED_D2_PRIVATE_BODY_CHECKPOINT_CORROBORATED_STAGE_INACTIVE",
   "parent_source_commit": "ff8d275d71d524f918c98c43f74110a69a96faf5",
   "worker_commit": "cc9b088c5",
   "worker_production": "3eba70cc0d7ad56f132056e82e1b7709ad9438c4",
@@ -38,5 +38,12 @@
   "CP2": false,
   "source_coupling_proved": false,
   "hmac_native": "DEFERRED AND UNACHIEVED",
-  "implementation_lane": "idle pending NEW independent D2 review; no automatic next phase"
+  "implementation_lane": "one bounded existing original-client phase; no user activation before all gates/review",
+  "independent_D2_review": {
+    "worker_commit": "991d34809",
+    "root_integration": "20ec63375",
+    "scope": "private method evidence only; no stage acceptance",
+    "P3_root_fix": "d789fa86515fd3a3df7e9b847fdaab8f36213120",
+    "false_future_solver_control": false
+  }
 }
