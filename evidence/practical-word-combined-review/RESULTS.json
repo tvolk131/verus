@@ -1,0 +1,2173 @@
+{
+  "parent": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4",
+  "verdict": "ACCEPT_BOUNDED_COMBINED_PROPOSAL_PENDING_PARENT_BROADER_INTEGRATION",
+  "blocking_findings": [],
+  "epoch": {
+    "schema": 39,
+    "policy": 78,
+    "cache": 81,
+    "version": "verus-infer-v81:checked-set-and-word-sequence:4096"
+  },
+  "fresh_runtime": {
+    "path": "/tmp/practical-word-combined-review-5ecea5fe/bundle",
+    "receipt_sha256": "513b923c6c1a154dace8d217f58dcdce82cca9b073af4eb849f387ba816d38b9",
+    "tools": {
+      "verus": "4a2379cdf3f31899c313d3c24d963ffe46d9a20a12c4c40d98b712a08a7086d7",
+      "rust_verify": "0f396fc878e9a75b9bcf8ce21a99c5533038c6058424362e691a2aa60f77c096",
+      "libverus_builtin.rlib": "82866c1c24b2340c24b555f1771cc1818d4e9adc00d7d6a1e06db8f3dd8394fe",
+      "libverus_builtin_macros.so": "c8bb3d9408670ca18ff0d636ddedcb4c1cd1a7de1a3c045326137282a13d2f4b",
+      "libverus_state_machines_macros.so": "41e64adeed92c8adc82ed6de0c0243c4eb7f4002a426ac300b6f2133e1678c2f",
+      "vstd.vir": "92218808cad15acb6f0d7f676a4a05b3e9cd43f139178082bfab6190f0b5a82b",
+      "libvstd.rlib": "24a9365e62aea720fc1ab90f159a4bfb3491f698885dec646ebed8bd7770feae",
+      "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+    }
+  },
+  "receipt_sha256": {
+    "build": "1cda4803fa0abf038324f93a564f6e438ff15edf5306e9c9c8ad63893a56fdbf",
+    "combined": "32de4f8ac25cffd36d0baad3d5a184cfc75ad999b4c27739230ee528b914b524",
+    "compiler-tests": "776299229077e9f985ac2bae72bf3fde093ebfcbd324296d0e85b954a6e50470",
+    "probes": "cab765615f95431c86a14d1b979a50f160dae5b8cbfa45807f140de0d12e5eea",
+    "supplement": "c547b92d8343253a4d15dd86752e4f356f0e67b552fb9f724861ff3ac65aef5a",
+    "ablations": "d4344715055662399a65d243da063ba7664d94807adab94f9d97df1f3662b6f1"
+  },
+  "cost_seconds": {
+    "build": {
+      "build-release": 476.38599345303373,
+      "units": 148.11464532202808,
+      "vstd": 40.89306267601205
+    },
+    "combined": {
+      "r2_off": 2.7215906149940565,
+      "r2_cold": 8.148737569979858,
+      "r2_repeat": 8.147642377007287,
+      "f2_off": 1.2416124529554509,
+      "f2_cold": 2.515562749991659,
+      "f2_repeat": 2.8842176140169613,
+      "r2_export": 8.935340744967107,
+      "r2_import_False": 1.0311679830192588,
+      "r2_import_True": 2.542207487975247,
+      "r2_version_rejection": 0.044895303959492594,
+      "r2_negative_leaf": 9.787661494978238,
+      "r2_negative_count": 9.495760156016331,
+      "r2_negative_frame": 9.024262873048428,
+      "f2_export": 2.5547247699578293,
+      "f2_import_False": 1.0019623630214483,
+      "f2_import_True": 2.4850193269667216,
+      "f2_version_rejection": 0.05026175797684118,
+      "f2_negative_intersection": 2.772585814993363,
+      "f2_negative_fault": 2.8183284599799663,
+      "f2_zero": 2.750716952024959,
+      "precision": 2.9284325919579715,
+      "safety": 2.780385392019525,
+      "generic_relations": 2.9180466110119596,
+      "generic_false": 2.945319674036,
+      "generic_caller": 2.7921916450140998
+    },
+    "compiler-tests": {
+      "build-library": 213.8980883010081,
+      "list-rust_verify": 0.009552553005050868,
+      "run-rust_verify": 0.541549482033588,
+      "build-focused": 133.8087520150002,
+      "list-infer_word_sequence_goals": 0.008464165031909943,
+      "run-infer_word_sequence_goals": 31.81426088802982,
+      "list-infer_word_goals": 0.010279608017299324,
+      "run-infer_word_goals": 2.797412574989721
+    },
+    "probes": {
+      "effectful_tail_valid_off": 3.5687461469788104,
+      "effectful_tail_valid_on": 5.872132432006765,
+      "effectful_tail_missing_proof": 5.937271877017338,
+      "nested_tail_write": 11.236172172997613,
+      "nested_boolean_tail": 10.591213113977574,
+      "unrelated_field_write": 4.8737766109989025,
+      "unrelated_field_missing_proof": 7.334367114002816
+    },
+    "supplement": {
+      "helpers": 1.6425192409660667,
+      "schema": 0.08154226402984932,
+      "precision": 0.09930726198945194
+    },
+    "ablations": {
+      "build-set": 148.46147720102454,
+      "set_r2": 7.4029649320291355,
+      "set_f2": 1.737881219945848,
+      "build-word": 144.7767663380364,
+      "word_r2": 3.5677955269929953,
+      "word_f2": 2.1251005199737847
+    }
+  },
+  "full_tests": {
+    "AIR": 145,
+    "VIR": 171,
+    "compiler_library": 8,
+    "infer_word_sequence_goals": 7,
+    "infer_word_goals": 3,
+    "replay_guard_units": 5
+  },
+  "combined_outcomes": 25,
+  "independent_probe_outcomes": 7,
+  "strict_new_helpers": {
+    "encountered-error": false,
+    "encountered-vir-error": false,
+    "success": true,
+    "verified": 7,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+  },
+  "metadata_supplement": [
+    "schema",
+    "precision"
+  ],
+  "causal_outcomes": [
+    {
+      "label": "set_r2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 19,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      },
+      "failed": [
+        "finish_mutation"
+      ],
+      "pairs": [],
+      "frames": [
+        {
+          "function": "set_r2::U64GroupedBitmap::set",
+          "library": "vstd::word::checked_seq_bit_update_at",
+          "snapshots": 1,
+          "quantified_blocks": 1,
+          "library_calls": 1,
+          "checked_by": "ordinary proof and full body recheck"
+        },
+        {
+          "function": "set_r2::U64GroupedBitmap::clear",
+          "library": "vstd::word::checked_seq_bit_update_at",
+          "snapshots": 1,
+          "quantified_blocks": 1,
+          "library_calls": 1,
+          "checked_by": "ordinary proof and full body recheck"
+        }
+      ],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "set_r2::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:183:1: 183:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:166:1: 166:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:159:1: 159:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:194:1: 194:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:172:1: 172:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:202:1: 202:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:216:17: 216:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:296:1: 296:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:258:1: 258:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:274:1: 274:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:269:1: 269:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:263:1: 263:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:283:1: 283:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::allocated",
+            "rust_function": "allocated",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::ancestor",
+            "rust_function": "ancestor",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:149:7: 149:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:154:5: 154:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:100:7: 100:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::count",
+            "rust_function": "count",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::edge",
+            "rust_function": "edge",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:107:7: 107:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:65:7: 65:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:86:7: 86:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:306:1: 306:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::member",
+            "rust_function": "member",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::mutation",
+            "rust_function": "mutation",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::path_frame",
+            "rust_function": "path_frame",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::pending",
+            "rust_function": "pending",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::pending_at",
+            "rust_function": "pending_at",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:119:6: 119:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::propagation",
+            "rust_function": "propagation",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:124:7: 124:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_r2::shape",
+            "rust_function": "shape",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::word_change",
+            "rust_function": "word_change",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_r2::words",
+            "rust_function": "words",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.12.28f43fa.dirty"
+        },
+        "num-threads": 1,
+        "total": 7359,
+        "estimated-cpu-time": 7359,
+        "rust": {
+          "total": 118,
+          "init-and-types": 53,
+          "trait-conflicts": 65,
+          "compile": 0
+        },
+        "verification": {
+          "total": 7048,
+          "vir": {
+            "total": 5496,
+            "hir": 18,
+            "import": 435,
+            "rust-to-vir": 4957
+          }
+        },
+        "total-verify": 1451,
+        "total-verify-module-times": [
+          {
+            "module": "",
+            "time": 1451
+          }
+        ],
+        "air": {
+          "total": 190,
+          "module-times": [
+            {
+              "module": "",
+              "time": 190
+            }
+          ]
+        },
+        "smt": {
+          "total": 1100,
+          "smt-init": 1,
+          "rlimit-init": 5379,
+          "smt-init-module-times": [
+            {
+              "module": "",
+              "time": 1,
+              "time-micros": 1907,
+              "rlimit": 5379
+            }
+          ],
+          "smt-run": 1099,
+          "rlimit-run": 7271284,
+          "smt-run-module-times": [
+            {
+              "module": "",
+              "time": 1099,
+              "time-micros": 1099492,
+              "rlimit": 7271284,
+              "function-breakdown": [
+                {
+                  "function": "set_r2::BtreeBitmap::get_level_mut",
+                  "mode:": "exec",
+                  "time": 19,
+                  "time-micros": 19054,
+                  "rlimit": 127650,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::propagation",
+                  "mode:": "proof",
+                  "time": 137,
+                  "time-micros": 137197,
+                  "rlimit": 892534,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::leaf_edit",
+                  "mode:": "proof",
+                  "time": 88,
+                  "time-micros": 88194,
+                  "rlimit": 830364,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::BtreeBitmap::update_to_root",
+                  "mode:": "exec",
+                  "time": 452,
+                  "time-micros": 452111,
+                  "rlimit": 3167102,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::U64GroupedBitmap::clear",
+                  "mode:": "exec",
+                  "time": 33,
+                  "time-micros": 33996,
+                  "rlimit": 208984,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::BtreeBitmap::set",
+                  "mode:": "exec",
+                  "time": 41,
+                  "time-micros": 41919,
+                  "rlimit": 245782,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::ancestor_next",
+                  "mode:": "proof",
+                  "time": 23,
+                  "time-micros": 23808,
+                  "rlimit": 154729,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::BtreeBitmap::clear",
+                  "mode:": "exec",
+                  "time": 49,
+                  "time-micros": 49693,
+                  "rlimit": 301614,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::U64GroupedBitmap::get",
+                  "mode:": "exec",
+                  "time": 26,
+                  "time-micros": 26448,
+                  "rlimit": 128834,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::U64GroupedBitmap::select_mask",
+                  "mode:": "exec",
+                  "time": 17,
+                  "time-micros": 17153,
+                  "rlimit": 101477,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::BtreeBitmap::get_level",
+                  "mode:": "exec",
+                  "time": 19,
+                  "time-micros": 19530,
+                  "rlimit": 131653,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::U64GroupedBitmap::len",
+                  "mode:": "exec",
+                  "time": 0,
+                  "time-micros": 78,
+                  "rlimit": 2,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::finish_mutation",
+                  "mode:": "proof",
+                  "time": 60,
+                  "time-micros": 60499,
+                  "rlimit": 308489,
+                  "success": false
+                },
+                {
+                  "function": "set_r2::U64GroupedBitmap::data_index_of",
+                  "mode:": "exec",
+                  "time": 21,
+                  "time-micros": 21248,
+                  "rlimit": 132106,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::U64GroupedBitmap::set",
+                  "mode:": "exec",
+                  "time": 36,
+                  "time-micros": 36359,
+                  "rlimit": 215579,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::layer_edit",
+                  "mode:": "proof",
+                  "time": 36,
+                  "time-micros": 36861,
+                  "rlimit": 134892,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::ancestor",
+                  "mode:": "spec",
+                  "time": 0,
+                  "time-micros": 585,
+                  "rlimit": 1113,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::clear_not_full",
+                  "mode:": "proof",
+                  "time": 10,
+                  "time-micros": 10504,
+                  "rlimit": 45165,
+                  "success": true
+                },
+                {
+                  "function": "set_r2::BtreeBitmap::get_height",
+                  "mode:": "exec",
+                  "time": 24,
+                  "time-micros": 24246,
+                  "rlimit": 143215,
+                  "success": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "stdout_sha256": "e872007907b0fb70f0cf3a2654f69764f772ae809d9b3b59ef8db20bd7c8a27c",
+      "stderr_sha256": "721c16e1b568aa0fe33cf2cafa213c2c5b837a92614f44a9626bbefcafeadb99"
+    },
+    {
+      "label": "set_f2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 9,
+        "errors": 3,
+        "is-verifying-entire-crate": true
+      },
+      "failed": [
+        "quorum_intersection",
+        "quorum_has_honest",
+        "one_honest_margin"
+      ],
+      "pairs": [],
+      "frames": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "set_f2::NumPeers::clone",
+            "rust_function": "<NumPeers as std::clone::Clone>::clone",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:5:16: 5:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::NumPeers::from",
+            "rust_function": "<NumPeers as std::convert::From<usize>>::from",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:52:5: 52:34",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::NumPeers::from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::from_spec",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:109:17: 109:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_f2::NumPeers::obeys_from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::obeys_from_spec",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:108:15: 108:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_f2::NumPeers::count",
+            "rust_function": "NumPeers::count",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:11:5: 11:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_f2::NumPeers::degree",
+            "rust_function": "NumPeers::degree",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:38:5: 38:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::NumPeers::max_evil",
+            "rust_function": "NumPeers::max_evil",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:26:5: 26:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::NumPeers::one_honest",
+            "rust_function": "NumPeers::one_honest",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:32:5: 32:37",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::NumPeers::threshold",
+            "rust_function": "NumPeers::threshold",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:44:5: 44:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::NumPeers::total",
+            "rust_function": "NumPeers::total",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:20:5: 20:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::fault",
+            "rust_function": "fault",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:13:1: 13:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_f2::one_honest_margin",
+            "rust_function": "one_honest_margin",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:76:1: 76:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::policy_client",
+            "rust_function": "policy_client",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:85:1: 85:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::quorum",
+            "rust_function": "quorum",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:14:1: 14:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "set_f2::quorum_has_honest",
+            "rust_function": "quorum_has_honest",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:68:1: 68:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "set_f2::quorum_intersection",
+            "rust_function": "quorum_intersection",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:59:1: 59:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.12.28f43fa.dirty"
+        },
+        "num-threads": 1,
+        "total": 1698,
+        "estimated-cpu-time": 1698,
+        "rust": {
+          "total": 67,
+          "init-and-types": 19,
+          "trait-conflicts": 48,
+          "compile": 0
+        },
+        "verification": {
+          "total": 1432,
+          "vir": {
+            "total": 1168,
+            "hir": 9,
+            "import": 469,
+            "rust-to-vir": 620
+          }
+        },
+        "total-verify": 233,
+        "total-verify-module-times": [
+          {
+            "module": "",
+            "time": 233
+          }
+        ],
+        "air": {
+          "total": 144,
+          "module-times": [
+            {
+              "module": "",
+              "time": 144
+            }
+          ]
+        },
+        "smt": {
+          "total": 35,
+          "smt-init": 2,
+          "rlimit-init": 792,
+          "smt-init-module-times": [
+            {
+              "module": "",
+              "time": 2,
+              "time-micros": 2480,
+              "rlimit": 792
+            }
+          ],
+          "smt-run": 33,
+          "rlimit-run": 98829,
+          "smt-run-module-times": [
+            {
+              "module": "",
+              "time": 33,
+              "time-micros": 33468,
+              "rlimit": 98829,
+              "function-breakdown": [
+                {
+                  "function": "set_f2::NumPeers::threshold",
+                  "mode:": "exec",
+                  "time": 3,
+                  "time-micros": 3146,
+                  "rlimit": 15066,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::NumPeers::total",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2966,
+                  "rlimit": 5477,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::NumPeers::clone",
+                  "mode:": "exec",
+                  "time": 0,
+                  "time-micros": 141,
+                  "rlimit": 2,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::NumPeers::max_evil",
+                  "mode:": "exec",
+                  "time": 4,
+                  "time-micros": 4881,
+                  "rlimit": 17256,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::one_honest_margin",
+                  "mode:": "proof",
+                  "time": 3,
+                  "time-micros": 3327,
+                  "rlimit": 7964,
+                  "success": false
+                },
+                {
+                  "function": "set_f2::NumPeers::one_honest",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2908,
+                  "rlimit": 9674,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::policy_client",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2906,
+                  "rlimit": 10583,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::NumPeers::ctor%",
+                  "mode:": "exec",
+                  "time": 0,
+                  "time-micros": 58,
+                  "rlimit": 2,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::quorum_intersection",
+                  "mode:": "proof",
+                  "time": 3,
+                  "time-micros": 3432,
+                  "rlimit": 8325,
+                  "success": false
+                },
+                {
+                  "function": "set_f2::quorum_has_honest",
+                  "mode:": "proof",
+                  "time": 4,
+                  "time-micros": 4743,
+                  "rlimit": 8675,
+                  "success": false
+                },
+                {
+                  "function": "set_f2::NumPeers::degree",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2524,
+                  "rlimit": 9584,
+                  "success": true
+                },
+                {
+                  "function": "set_f2::NumPeers::from",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2432,
+                  "rlimit": 6221,
+                  "success": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "stdout_sha256": "c6fb19e458f805f3690f25cbcf1b2c47c6cb90ee570cfcf7c133e8e977898493",
+      "stderr_sha256": "737b0348208ad0f997115233f3027c778b9f640b5128703115c5ffc42d9315f0"
+    },
+    {
+      "label": "word_r2",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 18,
+        "errors": 2,
+        "is-verifying-entire-crate": true
+      },
+      "failed": [
+        "U64GroupedBitmap::set",
+        "U64GroupedBitmap::clear"
+      ],
+      "pairs": [
+        {
+          "function": "word_r2::finish_mutation",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ],
+      "frames": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": false,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 0,
+        "native_functions": [
+          {
+            "function": "word_r2::BtreeBitmap::clear",
+            "rust_function": "BtreeBitmap::clear",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:183:1: 183:28",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::BtreeBitmap::get_height",
+            "rust_function": "BtreeBitmap::get_height",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:166:1: 166:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::BtreeBitmap::get_level",
+            "rust_function": "BtreeBitmap::get_level",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:159:1: 159:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::BtreeBitmap::get_level_mut",
+            "rust_function": "BtreeBitmap::get_level_mut",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:194:1: 194:65",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::BtreeBitmap::set",
+            "rust_function": "BtreeBitmap::set",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:172:1: 172:26",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::BtreeBitmap::update_to_root",
+            "rust_function": "BtreeBitmap::update_to_root",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:202:1: 202:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "BtreeBitmap::update_to_root::__VERUS_REVEAL_INTERNAL__",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:216:17: 216:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::U64GroupedBitmap::clear",
+            "rust_function": "U64GroupedBitmap::clear",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:296:1: 296:30",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::U64GroupedBitmap::data_index_of",
+            "rust_function": "U64GroupedBitmap::data_index_of",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:258:1: 258:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::U64GroupedBitmap::get",
+            "rust_function": "U64GroupedBitmap::get",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:274:1: 274:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::U64GroupedBitmap::len",
+            "rust_function": "U64GroupedBitmap::len",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:269:1: 269:25",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::U64GroupedBitmap::select_mask",
+            "rust_function": "U64GroupedBitmap::select_mask",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:263:1: 263:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::U64GroupedBitmap::set",
+            "rust_function": "U64GroupedBitmap::set",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:283:1: 283:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::allocated",
+            "rust_function": "allocated",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:42:6: 42:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::ancestor",
+            "rust_function": "ancestor",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:29:6: 29:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::ancestor_next",
+            "rust_function": "ancestor_next",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:149:7: 149:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "rust_function": "ancestor_next::__VERUS_REVEAL_INTERNAL__",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:154:5: 154:21",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_item_without_translated_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::clear_not_full",
+            "rust_function": "clear_not_full",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:100:7: 100:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::count",
+            "rust_function": "count",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:45:6: 45:47",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::edge",
+            "rust_function": "edge",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:23:6: 23:63",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::finish_mutation",
+            "rust_function": "finish_mutation",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:107:7: 107:124",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::layer_edit",
+            "rust_function": "layer_edit",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:65:7: 65:101",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::layer_wf",
+            "rust_function": "layer_wf",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:14:6: 14:46",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::leaf_edit",
+            "rust_function": "leaf_edit",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:86:7: 86:92",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "main",
+            "rust_function": "main",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:306:1: 306:10",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::member",
+            "rust_function": "member",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:12:6: 12:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::mutation",
+            "rust_function": "mutation",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:46:6: 46:98",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::path_frame",
+            "rust_function": "path_frame",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:38:6: 38:87",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::pending",
+            "rust_function": "pending",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:53:6: 53:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::pending_at",
+            "rust_function": "pending_at",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:119:6: 119:69",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::physical_bit",
+            "rust_function": "physical_bit",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:13:6: 13:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::propagation",
+            "rust_function": "propagation",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:124:7: 124:102",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "selected_body_not_certified_by_successful_full_run",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_r2::shape",
+            "rust_function": "shape",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:18:6: 18:48",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::storage_frame",
+            "rust_function": "storage_frame",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:34:6: 34:82",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::tree_wf",
+            "rust_function": "tree_wf",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:26:6: 26:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::word_change",
+            "rust_function": "word_change",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:58:6: 58:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_r2::words",
+            "rust_function": "words",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/r2-combined.rs:11:6: 11:29",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.12.28f43fa.dirty"
+        },
+        "num-threads": 1,
+        "total": 3523,
+        "estimated-cpu-time": 3523,
+        "rust": {
+          "total": 127,
+          "init-and-types": 57,
+          "trait-conflicts": 70,
+          "compile": 0
+        },
+        "verification": {
+          "total": 3192,
+          "vir": {
+            "total": 1826,
+            "hir": 20,
+            "import": 449,
+            "rust-to-vir": 1232
+          }
+        },
+        "total-verify": 1264,
+        "total-verify-module-times": [
+          {
+            "module": "",
+            "time": 1264
+          }
+        ],
+        "air": {
+          "total": 233,
+          "module-times": [
+            {
+              "module": "",
+              "time": 233
+            }
+          ]
+        },
+        "smt": {
+          "total": 878,
+          "smt-init": 2,
+          "rlimit-init": 5387,
+          "smt-init-module-times": [
+            {
+              "module": "",
+              "time": 2,
+              "time-micros": 2628,
+              "rlimit": 5387
+            }
+          ],
+          "smt-run": 876,
+          "rlimit-run": 6001502,
+          "smt-run-module-times": [
+            {
+              "module": "",
+              "time": 876,
+              "time-micros": 876260,
+              "rlimit": 6001502,
+              "function-breakdown": [
+                {
+                  "function": "word_r2::leaf_edit",
+                  "mode:": "proof",
+                  "time": 82,
+                  "time-micros": 82476,
+                  "rlimit": 710387,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::U64GroupedBitmap::select_mask",
+                  "mode:": "exec",
+                  "time": 6,
+                  "time-micros": 6514,
+                  "rlimit": 35024,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::layer_edit",
+                  "mode:": "proof",
+                  "time": 31,
+                  "time-micros": 31645,
+                  "rlimit": 135378,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::propagation",
+                  "mode:": "proof",
+                  "time": 97,
+                  "time-micros": 97139,
+                  "rlimit": 831840,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::BtreeBitmap::get_height",
+                  "mode:": "exec",
+                  "time": 10,
+                  "time-micros": 10562,
+                  "rlimit": 59224,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::BtreeBitmap::clear",
+                  "mode:": "exec",
+                  "time": 50,
+                  "time-micros": 50289,
+                  "rlimit": 285707,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::U64GroupedBitmap::clear",
+                  "mode:": "exec",
+                  "time": 56,
+                  "time-micros": 56770,
+                  "rlimit": 201668,
+                  "success": false
+                },
+                {
+                  "function": "word_r2::U64GroupedBitmap::get",
+                  "mode:": "exec",
+                  "time": 23,
+                  "time-micros": 23222,
+                  "rlimit": 128917,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::finish_mutation",
+                  "mode:": "proof",
+                  "time": 147,
+                  "time-micros": 147406,
+                  "rlimit": 1543296,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::U64GroupedBitmap::data_index_of",
+                  "mode:": "exec",
+                  "time": 8,
+                  "time-micros": 8459,
+                  "rlimit": 50950,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::clear_not_full",
+                  "mode:": "proof",
+                  "time": 9,
+                  "time-micros": 9998,
+                  "rlimit": 45174,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::BtreeBitmap::get_level_mut",
+                  "mode:": "exec",
+                  "time": 19,
+                  "time-micros": 19229,
+                  "rlimit": 127638,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::BtreeBitmap::update_to_root",
+                  "mode:": "exec",
+                  "time": 232,
+                  "time-micros": 232218,
+                  "rlimit": 1344442,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::ancestor_next",
+                  "mode:": "proof",
+                  "time": 10,
+                  "time-micros": 10157,
+                  "rlimit": 43029,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::U64GroupedBitmap::len",
+                  "mode:": "exec",
+                  "time": 0,
+                  "time-micros": 65,
+                  "rlimit": 2,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::ancestor",
+                  "mode:": "spec",
+                  "time": 0,
+                  "time-micros": 756,
+                  "rlimit": 1113,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::U64GroupedBitmap::set",
+                  "mode:": "exec",
+                  "time": 39,
+                  "time-micros": 39042,
+                  "rlimit": 173073,
+                  "success": false
+                },
+                {
+                  "function": "word_r2::BtreeBitmap::get_level",
+                  "mode:": "exec",
+                  "time": 8,
+                  "time-micros": 8739,
+                  "rlimit": 51107,
+                  "success": true
+                },
+                {
+                  "function": "word_r2::BtreeBitmap::set",
+                  "mode:": "exec",
+                  "time": 41,
+                  "time-micros": 41566,
+                  "rlimit": 233533,
+                  "success": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "stdout_sha256": "c36d3deb2f82230c0dce662e534f52b5f55410ac2744cd388aa04e705aebf527",
+      "stderr_sha256": "95eb8a32eba44cd610c8cede61906226d9e8b754c2ccc602559270f95a5ff6ec"
+    },
+    {
+      "label": "word_f2",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 12,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "failed": [],
+      "pairs": [
+        {
+          "function": "word_f2::quorum_intersection",
+          "terms": 5,
+          "pairs": 20,
+          "lemma_calls": 20,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "word_f2::quorum_has_honest",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        },
+        {
+          "function": "word_f2::one_honest_margin",
+          "terms": 3,
+          "pairs": 6,
+          "lemma_calls": 6,
+          "checked_by": "ordinary proved vstd helper; full body WF/mode recheck; no inferred helper"
+        }
+      ],
+      "frames": [],
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 8,
+        "checked_proof_bodies": 3,
+        "native_functions": [
+          {
+            "function": "word_f2::NumPeers::clone",
+            "rust_function": "<NumPeers as std::clone::Clone>::clone",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:5:16: 5:21",
+            "automatically_derived": true,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::NumPeers::from",
+            "rust_function": "<NumPeers as std::convert::From<usize>>::from",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:52:5: 52:34",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::NumPeers::from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::from_spec",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:109:17: 109:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_f2::NumPeers::obeys_from_spec",
+            "rust_function": "<NumPeers as vstd::std_specs::convert::FromSpecImpl<usize>>::obeys_from_spec",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:108:15: 108:43",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_f2::NumPeers::count",
+            "rust_function": "NumPeers::count",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:11:5: 11:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_f2::NumPeers::degree",
+            "rust_function": "NumPeers::degree",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:38:5: 38:33",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::NumPeers::max_evil",
+            "rust_function": "NumPeers::max_evil",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:26:5: 26:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::NumPeers::one_honest",
+            "rust_function": "NumPeers::one_honest",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:32:5: 32:37",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::NumPeers::threshold",
+            "rust_function": "NumPeers::threshold",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:44:5: 44:36",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::NumPeers::total",
+            "rust_function": "NumPeers::total",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:20:5: 20:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::fault",
+            "rust_function": "fault",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:13:1: 13:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_f2::one_honest_margin",
+            "rust_function": "one_honest_margin",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:76:1: 76:91",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::policy_client",
+            "rust_function": "policy_client",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:85:1: 85:31",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_exec_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::quorum",
+            "rust_function": "quorum",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:14:1: 14:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "word_f2::quorum_has_honest",
+            "rust_function": "quorum_has_honest",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:68:1: 68:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "word_f2::quorum_intersection",
+            "rust_function": "quorum_intersection",
+            "source": "/home/dev/.t3/worktrees/verus/t3-52a44ba5/source/tools/research/practical_redb_fedimint/common_set/f2-reduced.rs:59:1: 59:86",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "times": {
+        "verus-build": {
+          "profile": "release",
+          "version": "0.2026.11.12.28f43fa.dirty"
+        },
+        "num-threads": 1,
+        "total": 2074,
+        "estimated-cpu-time": 2074,
+        "rust": {
+          "total": 77,
+          "init-and-types": 19,
+          "trait-conflicts": 36,
+          "compile": 20
+        },
+        "verification": {
+          "total": 1808,
+          "vir": {
+            "total": 1654,
+            "hir": 6,
+            "import": 425,
+            "rust-to-vir": 1160
+          }
+        },
+        "total-verify": 127,
+        "total-verify-module-times": [
+          {
+            "module": "",
+            "time": 127
+          }
+        ],
+        "air": {
+          "total": 56,
+          "module-times": [
+            {
+              "module": "",
+              "time": 56
+            }
+          ]
+        },
+        "smt": {
+          "total": 33,
+          "smt-init": 1,
+          "rlimit-init": 1004,
+          "smt-init-module-times": [
+            {
+              "module": "",
+              "time": 1,
+              "time-micros": 1321,
+              "rlimit": 1004
+            }
+          ],
+          "smt-run": 32,
+          "rlimit-run": 182744,
+          "smt-run-module-times": [
+            {
+              "module": "",
+              "time": 32,
+              "time-micros": 32008,
+              "rlimit": 182744,
+              "function-breakdown": [
+                {
+                  "function": "word_f2::quorum_has_honest",
+                  "mode:": "proof",
+                  "time": 2,
+                  "time-micros": 2630,
+                  "rlimit": 13580,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::one_honest",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2130,
+                  "rlimit": 9712,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::degree",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2184,
+                  "rlimit": 9622,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::from",
+                  "mode:": "exec",
+                  "time": 1,
+                  "time-micros": 1981,
+                  "rlimit": 6259,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::clone",
+                  "mode:": "exec",
+                  "time": 0,
+                  "time-micros": 97,
+                  "rlimit": 2,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::quorum_intersection",
+                  "mode:": "proof",
+                  "time": 10,
+                  "time-micros": 10599,
+                  "rlimit": 81574,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::one_honest_margin",
+                  "mode:": "proof",
+                  "time": 2,
+                  "time-micros": 2646,
+                  "rlimit": 13313,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::ctor%",
+                  "mode:": "exec",
+                  "time": 0,
+                  "time-micros": 90,
+                  "rlimit": 2,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::max_evil",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2620,
+                  "rlimit": 17294,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::total",
+                  "mode:": "exec",
+                  "time": 1,
+                  "time-micros": 1554,
+                  "rlimit": 5515,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::policy_client",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2594,
+                  "rlimit": 10767,
+                  "success": true
+                },
+                {
+                  "function": "word_f2::NumPeers::threshold",
+                  "mode:": "exec",
+                  "time": 2,
+                  "time-micros": 2878,
+                  "rlimit": 15104,
+                  "success": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "stdout_sha256": "3231959707d7f73876e29eb6835d6a5802ddf9427d2e79c7e79faecab83230e5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_restoration": {
+    "all_registered_own_source_hashes_match": true,
+    "own_source_files": 3291,
+    "production_diff_empty": true,
+    "mutations": [
+      {
+        "profile": "set",
+        "before": "051a819d533ca22868ac26ad538d8b05a9935c0e974129037b2e1cbd54e84645",
+        "exact_removed_line": "        let functions = set_goals::prepare(&functions, self.imported, report)?;",
+        "restored": true,
+        "disabled": "0ebe1c4e5d3db1c6de8e6eebf9cbace32d9a1bec2eaf0a97bff21c4b446ee109",
+        "tools": {
+          "verus": "4a2379cdf3f31899c313d3c24d963ffe46d9a20a12c4c40d98b712a08a7086d7",
+          "rust_verify": "ce7f41fc6b2933f7cee807576ecfe00fe71b0bd52f129adccedc72749e921cc6",
+          "libverus_builtin.rlib": "82866c1c24b2340c24b555f1771cc1818d4e9adc00d7d6a1e06db8f3dd8394fe",
+          "libverus_builtin_macros.so": "c8bb3d9408670ca18ff0d636ddedcb4c1cd1a7de1a3c045326137282a13d2f4b",
+          "libverus_state_machines_macros.so": "41e64adeed92c8adc82ed6de0c0243c4eb7f4002a426ac300b6f2133e1678c2f",
+          "vstd.vir": "92218808cad15acb6f0d7f676a4a05b3e9cd43f139178082bfab6190f0b5a82b",
+          "libvstd.rlib": "24a9365e62aea720fc1ab90f159a4bfb3491f698885dec646ebed8bd7770feae",
+          "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+        },
+        "after": "051a819d533ca22868ac26ad538d8b05a9935c0e974129037b2e1cbd54e84645"
+      },
+      {
+        "profile": "word",
+        "before": "051a819d533ca22868ac26ad538d8b05a9935c0e974129037b2e1cbd54e84645",
+        "exact_removed_line": "        functions = word_sequence_goals::prepare(&functions, self.imported, report)?;",
+        "restored": true,
+        "disabled": "3690d27b16ab6fb53eb288df3fdbd13e333f14d347ff9fd1d5437c0c2424bcea",
+        "tools": {
+          "verus": "4a2379cdf3f31899c313d3c24d963ffe46d9a20a12c4c40d98b712a08a7086d7",
+          "rust_verify": "26e5e65e17f3496e468f8b3144494c7e505f39deffe7479b29a18f70d1340bca",
+          "libverus_builtin.rlib": "82866c1c24b2340c24b555f1771cc1818d4e9adc00d7d6a1e06db8f3dd8394fe",
+          "libverus_builtin_macros.so": "c8bb3d9408670ca18ff0d636ddedcb4c1cd1a7de1a3c045326137282a13d2f4b",
+          "libverus_state_machines_macros.so": "41e64adeed92c8adc82ed6de0c0243c4eb7f4002a426ac300b6f2133e1678c2f",
+          "vstd.vir": "92218808cad15acb6f0d7f676a4a05b3e9cd43f139178082bfab6190f0b5a82b",
+          "libvstd.rlib": "24a9365e62aea720fc1ab90f159a4bfb3491f698885dec646ebed8bd7770feae",
+          "z3": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765"
+        },
+        "after": "051a819d533ca22868ac26ad538d8b05a9935c0e974129037b2e1cbd54e84645"
+      }
+    ]
+  },
+  "scope": {
+    "parent_owns_broader_matching_combined_checks": true,
+    "native_refinement": false,
+    "whole_goal_publication": false,
+    "HMAC_native": "DEFERRED_AND_UNACHIEVED",
+    "unsupported_denominator": [
+      "F0",
+      "R1",
+      "F1"
+    ]
+  }
+}
