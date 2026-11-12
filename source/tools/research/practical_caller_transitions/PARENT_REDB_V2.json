@@ -1,0 +1,110 @@
+{
+  "scope": "original allocation/free semantics through checked original-call wrappers",
+  "local_results_reproduced": true,
+  "independent_review": "pending_NEW",
+  "full_caller_goal_complete": false,
+  "receipt": "/tmp/practical-r3-v2-parent-final/receipt.json",
+  "receipt_sha256": "c50b04f62d31619dbe94b7590f3e38edc6ab7f5dd52a84551d5f3bdb16463cfa",
+  "results": [
+    {
+      "label": "ordinary",
+      "classification": "CHECKED",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 96,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer",
+      "classification": "CHECKED",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 96,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer_v2_negative_effect",
+      "classification": "VERIFICATION_FAILURE",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 96,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer_v2_negative_merge",
+      "classification": "VERIFICATION_FAILURE",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 96,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer_v2_negative_domain",
+      "classification": "VERIFICATION_FAILURE",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 96,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer_v2_negative_alloc_accept",
+      "classification": "VERIFICATION_FAILURE",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 96,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer_v2_negative_alloc_effect",
+      "classification": "VERIFICATION_FAILURE",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 96,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    },
+    {
+      "label": "infer_v2_negative_overlap",
+      "classification": "VERIFICATION_FAILURE",
+      "verification": {
+        "encountered-error": true,
+        "encountered-vir-error": false,
+        "success": false,
+        "verified": 96,
+        "errors": 1,
+        "is-verifying-entire-crate": true
+      }
+    }
+  ],
+  "new_inferred_helpers": 0,
+  "annotation_removal_demonstrated": 0,
+  "weighted_counter_implementation": "unproved",
+  "hmac_native": "deferred_and_unachieved"
+}

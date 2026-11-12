@@ -1,0 +1,21 @@
+{
+  "reviewed_parent": "1449c585d33b6710a54d01a576f6800ece3a0962",
+  "worker_commits": [
+    "48cc8b25",
+    "6fbb0aad"
+  ],
+  "integrated_review_commits": [
+    "8f0284b7",
+    "25aebb1e"
+  ],
+  "verdict": "accept_fixed_bounded_partial_A_B_and_diagnostic_C",
+  "report": "evidence/practical-caller-first-checkpoint-review/REVIEW.md",
+  "report_sha256": "6209e139d6a3e3004f8412e0cd7cc29bcfa56faa6de79e41a996337ba3cee787",
+  "full_caller_goal_complete": false,
+  "future_R3_V2_and_F3C_accepted": false,
+  "known_limits": [
+    "extra set equality under Infer is measured friction, not annotation reduction",
+    "failed ordinary exports are never eligible providers"
+  ],
+  "hmac_native": "deferred_and_unachieved"
+}
