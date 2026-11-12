@@ -26,3 +26,12 @@ translated/checked-Function reconciliation remains mandatory before activation;
 an attribute list alone cannot replace it. D1 has three proposals and zero full
 native WF/body/state proofs. No authority or experimental user proof is enabled.
 CP1/CP2/source coupling remain false; HMAC/native DEFERRED AND UNACHIEVED.
+
+Root's12 guarded pre-fix comparisons reproduce the two valid directive skips,
+both modes and feature states, with an unmarked checked unit function control.
+Receipt: /tmp/owned-cell-F1-directive-before-70a9c390/receipt.json. These establish
+the finding and default-off baseline, not correctness of the new correction.
+Parent validation is in progress. A new independent recheck can build the frozen
+combined source in parallel; it need not wait for a parent runtime or use any
+parent mutable output/cache. Use a fresh private cache, not a multi-gigabyte copy
+of a completed parent cache. All historical tools/logs stay immutable.
