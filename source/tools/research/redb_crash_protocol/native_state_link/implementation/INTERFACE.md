@@ -6,6 +6,7 @@ not evidence of an installed native bridge. Conservative clock start:
 
 Only production/test files listed in ../design/IMPLEMENTATION_TARGET.md (and its
 explicitly permitted new checked_owned_cell.rs/lib.rs declaration) are owned.
+Minimal config.rs addition is authorized for the explicit default-off flag.
 Research changes stay in this directory. No delegation, live sibling/parent
 reads, shared mutable caches, remote publication, trusted laws or version bumps.
 
@@ -66,3 +67,32 @@ erased native calls must all pass before acceptance. Incomplete remains inactive
 Full Mutex (including atomic Transmute), sharing/acquisition/poison/guard/drop,
 LRUWriteCache and full REDB crash theorem remain UNPROVED. native_bridge_proved,
 source_coupling_proved, CP1, CP2 remain false. HMAC/native DEFERRED AND UNACHIEVED.
+
+## Frozen independent challenge refinement
+
+Read only immutable 4515419e:evidence/native-owned-cell-design-challenge/FINDINGS.md
+(history c6e880a1 -> 6420905e -> 4515419e); no reviewer live checkout access.
+
+F1: executable admission and canonical scalar header/spec admission must differ.
+Use resolved builtin identity and exact canonical shape, existing extract_ensures
+and BodyErasure. The bool-array/header closure and constrain_type type-only self
+call are syntax machinery, not executable callback/recursion. Inspect real scalar
+predicates and captures; no macro-origin, source-attribute, in_ghost or subtree
+blanket exemption. Mandatory pair: real positives versus C executable capture,
+C-bearing spec/quantifier (also user macro), and genuine executable recursion.
+Current preflight installs no descriptor and rejects all requests; F1 is OPEN.
+
+F2: native-method field authority cannot authorize the local client's private
+final-state goal. A DISTINCT diagnostic capability must bind the exact admitted
+exclusive_borrow full Function/body, original mutable input place, actual native
+field and local scope; recheck at WF/backend. It is an ordinary checked goal,
+never premise/public selector/owner forgery/WF skip/SST-only demonstration.
+Positive final=next, false final=entry, wrong place/field/region, and deleted
+store/writeback with result=next are mandatory. Current preflight supplies no
+capability or native state fact; F2 is OPEN.
+
+F3: original native unresolved/resolved names enter erasure lookup before helper
+substitution. Bool From has inherited declarations; these cell methods do not.
+Use original-name checked body entries or a narrowly identity-bound mode mapping;
+never assume-external/no-erasure-check or change runtime calls. Current preflight
+does not rewrite calls or create helpers; F3 is OPEN for any future installer.

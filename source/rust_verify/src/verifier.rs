@@ -3519,6 +3519,20 @@ impl rustc_driver::Callbacks for VerifierCallbacksEraseMacro {
             return rustc_driver::Compilation::Stop;
         }
 
+        // The request never supplies cell authority. Refuse before imports,
+        // pruning and cache reuse; selected stale outputs were invalidated above.
+        if self.verifier.args.experimental_owned_unsafe_cell {
+            if let Err(err) = crate::checked_owned_cell::check_request(
+                tcx,
+                &self.verifier.args,
+                self.verifier.export_vir_path_via_cargo.is_some(),
+            ) {
+                compiler.sess.dcx().err(err.note.clone());
+                self.verifier.encountered_vir_error = true;
+                return rustc_driver::Compilation::Stop;
+            }
+        }
+
         let mut import_virs_via_cargo =
             self.verifier.import_virs_via_cargo.clone().unwrap_or_default();
         if !self.unresolved_import_deps.is_empty() {
