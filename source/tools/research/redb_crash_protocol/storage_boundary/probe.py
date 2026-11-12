@@ -13,7 +13,8 @@ CRASH = HERE.parent
 ROOT = HERE.parents[4]
 sys.path.insert(0, str(ROOT / 'source/tools'))
 from infer_eval_support import ArtifactGuard, digest
-from infer_experiment import LoggedCommands, replay_receipt, require, require_function_coverage
+from infer_experiment import (LoggedCommands, replay_receipt, require, require_function_coverage,
+                             require_failure_kind)
 
 NOMINAL = '''
 #[verifier::external_type_specification]
@@ -46,7 +47,9 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--freeze', type=Path, default=HERE / 'FROZEN.json')
     parser.add_argument('--adapter', action='store_true')
+    parser.add_argument('--wrong-adapter', action='store_true')
     args = parser.parse_args()
+    require(not args.wrong_adapter or args.adapter, 'wrong adapter requires the adapter case')
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
     result = dict(kind='ACTUAL_BACKEND_NOMINAL_ONLY_CONTINUATION', commands=[], outcomes=[],
@@ -59,6 +62,8 @@ def main():
         text = fixture(out)
         if args.adapter:
             text = text.rsplit('}', 1)[0] + ADAPTER + '\n}\n'
+        if args.wrong_adapter:
+            text = text.replace('Self { StorageError::Io(error) }', 'Self { StorageError::Unsupported }')
         source.write_text(text)
         require(digest(source) == freeze['fixture_sha256'], 'prospective fixture')
         cases = json.loads((CRASH / 'CASES.json').read_text())
@@ -92,6 +97,25 @@ def main():
                     'resource/setup error is not a source boundary')
             data = json.loads(stdout)
             require_function_coverage(data.get('verus-infer', {}).get('functions', []), [])
+            if args.adapter:
+                positive = not args.wrong_adapter
+                verification = data['verification-results']
+                require((code == 0) is positive and verification.get('success') is positive
+                        and verification['is-verifying-entire-crate'] is True,
+                        'checked application adapter outcome')
+                scope = data['verus-infer']['verification_scope']
+                status = 'checked_exec_body' if positive else 'selected_body_not_certified_by_successful_full_run'
+                actual = {b['rust_function'] for b in scope['native_functions'] if b['body_status'] == status}
+                require(actual == set(freeze['expected_exec_bodies']), 'exact checked original/default bodies')
+                require(scope['native_collection_completed'] is True, 'complete native inventory')
+                if positive:
+                    require(verification['verified'] == 15 and scope['checked_exec_bodies'] == 10
+                            and scope['checked_proof_bodies'] == 0 and scope['complete_selected_scope_verified'],
+                            'positive adapter counts')
+                else:
+                    require(verification['errors'] == 1 and not verification.get('encountered-vir-error'),
+                            'isolated conversion failure')
+                    require_failure_kind(stderr, 'postcondition not satisfied')
             result['outcomes'].append(dict(label=label, exit_code=code, data=data,
                                            stderr_sha256=digest(out / (label + '.stderr'))))
             print(label, code, data['verification-results'], flush=True)
