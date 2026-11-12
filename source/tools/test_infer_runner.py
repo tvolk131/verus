@@ -3,7 +3,7 @@ import json
 import unittest
 from pathlib import Path
 
-from run_infer_tests import artifacts, check_rust_summary, integration_targets, test_names
+from run_infer_tests import artifacts, check_rust_summary, integration_targets, select_targets, test_names
 
 
 class RunnerTests(unittest.TestCase):
@@ -34,6 +34,16 @@ class RunnerTests(unittest.TestCase):
         self.assertNotIn('infer_application_regressions', integration_targets('compiler'))
         self.assertIn('infer', integration_targets('compiler'))
         self.assertNotIn('local_checked_owned_cell', integration_targets('compiler'))
+
+    def test_focused_selection_cannot_silently_drop_unknown_or_out_of_suite_targets(self):
+        self.assertEqual(select_targets(['compiler'], ['infer_goals', 'infer_goals']),
+                         {'compiler': ['infer_goals']})
+        self.assertEqual(select_targets(['compiler', 'applications'], ['infer_application_regressions']),
+                         {'compiler': [], 'applications': ['infer_application_regressions']})
+        for suites, targets in [(['compiler'], ['typo']), (['tooling'], ['infer']),
+                                (['applications'], ['infer_goals'])]:
+            with self.subTest(suites=suites, targets=targets), self.assertRaises(ValueError):
+                select_targets(suites, targets)
 
 
 if __name__ == '__main__':

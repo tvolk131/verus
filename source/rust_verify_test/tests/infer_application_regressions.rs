@@ -7,7 +7,11 @@ const REDB: &str = include_str!("../fixtures/infer/applications/redb_allocator.r
 const QUORUM: &str = include_str!("../fixtures/infer/applications/fedimint_quorum.rs");
 
 fn check(name: &str, source: &str, options: &[&str], error: Option<(&str, &str, usize)>) {
-    let result = verify_one_file(name, source.to_string(), options);
+    // These frozen inputs import their own prelude. Preserve their source bytes
+    // so diagnostic coordinates refer to the registered function below.
+    let mut options = options.to_vec();
+    options.push("no-auto-import-verus_builtin");
+    let result = verify_one_file(name, source.to_string(), &options);
     match error {
         None => assert!(result.is_ok(), "{}: {:?}", name, result),
         Some((expected, function, count)) => {

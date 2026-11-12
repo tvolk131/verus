@@ -33,6 +33,14 @@ def integration_targets(suite):
     return sorted(names)
 
 
+def select_targets(suites, requested):
+    targets = {s: integration_targets(s) for s in suites if s in ('compiler', 'applications')}
+    available = {name for names in targets.values() for name in names}
+    require(set(requested) <= available, 'unknown target or target outside selected suites')
+    return {suite: [name for name in names if not requested or name in requested]
+            for suite, names in targets.items()}
+
+
 def artifacts(text, expected):
     result = {}
     for line in text.splitlines():
@@ -75,18 +83,21 @@ def main():
     parser.add_argument('--release', action='store_true')
     parser.add_argument('--offline', action='store_true')
     parser.add_argument('--jobs', type=positive_int, default=2)
-    parser.add_argument('--batch-size', type=positive_int, default=32)
+    parser.add_argument('--batch-size', type=positive_int, default=8)
+    parser.add_argument('--test-threads', type=positive_int, default=2)
+    parser.add_argument('--target', action='append', default=[], help='select integration targets (repeatable); compiler units still run')
     parser.add_argument('--timeout', type=positive_timeout, default=600)
     parser.add_argument('--list', action='store_true', help='list suites/targets without running or building')
     args = parser.parse_args()
     suites = ['tooling', 'compiler', 'applications'] if args.suite == 'all' else [args.suite]
+    targets_by_suite = select_targets(suites, args.target)
     if args.list:
-        print(json.dumps({s: integration_targets(s) if s in ('compiler', 'applications') else s for s in suites}, indent=2))
+        print(json.dumps({s: targets_by_suite.get(s, s) for s in suites}, indent=2))
         return
     output = args.output.resolve() if args.output else Path(tempfile.mkdtemp(prefix='verus-infer-tests-'))
     if args.output:
         output.mkdir(parents=True, exist_ok=False)
-    receipt = dict(suites=suites, commands=[], rust_tests=[], application_theorems_claimed=False)
+    receipt = dict(suites=suites, targets=targets_by_suite, commands=[], rust_tests=[], application_theorems_claimed=False)
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
     with replay_receipt(output, receipt):
         guard = ArtifactGuard([Path(__file__), TOOLS / 'infer_experiment.py', TOOLS / 'infer_eval_support.py'])
@@ -127,8 +138,9 @@ def main():
             builds = []
             if suite == 'compiler':
                 builds.append(('units', ['air', 'vir', 'rust_verify'], ['--lib'], ['air', 'vir', 'rust_verify']))
-            targets = integration_targets(suite)
-            builds.append((suite, ['rust_verify_test'], sum((['--test', t] for t in targets), []), targets))
+            targets = targets_by_suite[suite]
+            if targets:
+                builds.append((suite, ['rust_verify_test'], sum((['--test', t] for t in targets), []), targets))
             for group, packages, selection, expected in builds:
                 command = cargo + sum((['-p', p] for p in packages), []) + selection + ['--no-run', '--message-format=json']
                 binaries = artifacts(invoke(group + '-build', command), expected)
@@ -139,7 +151,8 @@ def main():
                         label = name + '-' + str(offset // args.batch_size)
                         selected = test_names(invoke(label + '-selection', [binary, '--list', '--exact', *batch]))
                         require(set(selected) == set(batch), 'Rust exact batch selection changed')
-                        text = invoke(label, [binary, '--exact', *batch, '--test-threads=1'])
+                        threads = 1 if group == 'units' else args.test_threads
+                        text = invoke(label, [binary, '--exact', *batch, '--test-threads=' + str(threads)])
                         receipt['rust_tests'].append(dict(target=name, **check_rust_summary(text, len(batch))))
         if 'nightly' in suites:
             invoke('assurance-mutations', [sys.executable, '-B', TOOLS / 'test_infer_assurance_mutations.py'])
