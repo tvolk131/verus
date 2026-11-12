@@ -1,5 +1,7 @@
 # Completed worker briefs — no active assignments
 
+New authorized assignments live in [practical_caller_transitions/WORKER_BRIEFS.md](../practical_caller_transitions/WORKER_BRIEFS.md). The briefs below remain historical and are not resumed.
+
 [GOAL.md](GOAL.md) and [CURRENT.md](CURRENT.md) replace older Miri/native and initial-case execution instructions. Initial selections remain in SELECTION.json; preregistered replacements are in SELECTION_R2_F2.json. F0/R1/F1 are closed unsupported/unproved checkpoints, not prerequisites. HMAC/native is deferred and unachieved. Historical briefs remain in Git; do not reactivate them.
 
 ## Selected components and accepted ordinary results

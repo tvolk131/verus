@@ -1,0 +1,33 @@
+{
+  "stage": "preflight_candidates_before_proof_trials",
+  "parent_base": "d1668d0d9d425e274860d2e8cb304cbaf1861bcc",
+  "engine_source": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4",
+  "schema": 39,
+  "policy": 78,
+  "cache": 81,
+  "cases": [
+    {
+      "id": "R3",
+      "project": "REDB",
+      "targets": ["BuddyAllocator::record_alloc_inner", "BuddyAllocator::free_inner"],
+      "property": "exact allocation/free split-merge effect, represented-block consistency/non-overlap/conservation, logical no-change on rejected allocation",
+      "domain_status": "must be established from real allocator invariants and callers before trial freeze",
+      "proof_status": "not_run",
+      "previous_component_reused": "R2 bitmap-tree mutation and frame proof"
+    },
+    {
+      "id": "F3",
+      "project": "Fedimint",
+      "targets": ["Keychain::is_complete", "ConsensusEngine::validate_signed_session_outcome"],
+      "property": "concrete distinct signer membership/cardinality linked to quorum admission and insufficient-count rejection",
+      "domain_status": "actual collection/dependency domain must be frozen after source eligibility inspection",
+      "proof_status": "not_run",
+      "previous_component_reused": "F2 NumPeers/quorum policy proof",
+      "warning": "crypto exclusion supplies no assumed callback or unproved runtime-summary bridge; partial guard proof is not full validation"
+    }
+  ],
+  "common_automation_demand": "not_established",
+  "previous_practical_goal": "complete_preserved",
+  "hmac_native": "deferred_and_unachieved",
+  "remote_push_or_pr": false
+}

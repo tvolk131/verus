@@ -1,5 +1,7 @@
 # Practical Infer checkpoint — achieved
 
+The user has now approved the separate [caller-transition milestone](../practical_caller_transitions/GOAL.md). Its [current priorities](../practical_caller_transitions/CURRENT.md) and [worker briefs](../practical_caller_transitions/WORKER_BRIEFS.md) supersede this completed checkpoint for active execution. The results and frozen completion evidence below remain unchanged.
+
 The bounded [user goal](GOAL.md) passes its [completion audit and report](FINAL_REPORT.md). [FINAL_VALIDATION.json](FINAL_VALIDATION.json) records exact receipt identities; [CAPABILITY_MAP.md](CAPABILITY_MAP.md) states remaining manual work, unsupported cases and trust limits.
 
 - Original source-connected REDB R2 bitmap-tree and Fedimint F2 NumPeers/quorum properties pass on combined engine source5ecea5fe:20/0 and12/0 cold/repeat, unchanged algorithms/contracts/actual registered domains.
