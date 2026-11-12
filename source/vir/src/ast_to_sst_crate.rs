@@ -14,7 +14,6 @@ pub fn ast_to_sst_krate(
     bucket_funs: &HashSet<Fun>,
     krate: &Krate,
 ) -> Result<KrateSst, VirErr> {
-    ctx.revalidate_owned_native_unit(krate)?;
     let mut func_workmap: HashMap<Fun, FunctionSst> = HashMap::new();
     for function in krate.functions.iter() {
         let vis = function.x.visibility.clone();

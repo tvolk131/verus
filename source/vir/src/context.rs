@@ -101,7 +101,6 @@ pub struct FunctionCtx {
 
 // Context for verifying one module
 pub struct Ctx {
-    owned_native: Option<crate::internal_repr::OwnedNativeBackendBinding>,
     pub(crate) module: Module,
     pub(crate) datatype_is_encoded: HashMap<Dt, bool>,
     pub(crate) datatypes_with_invariant: HashSet<Dt>,
@@ -800,35 +799,6 @@ impl GlobalCtx {
 }
 
 impl Ctx {
-    pub fn revalidate_owned_native_unit(&self, unit: &Krate) -> Result<(), VirErr> {
-        if let Some(b) = &self.owned_native {
-            // A rejected reconstructed unit may have no datatypes at all.
-            // Report it using the context's stable span, not rejected input.
-            b.validate_unit(unit).map_err(|m| error(&self.global.no_span, m))?;
-        } else if crate::internal_repr::has_owned_cell_descriptor(unit) {
-            return Err(error(&self.global.no_span, "owned native backend: missing authority"));
-        }
-        Ok(())
-    }
-    pub fn revalidate_owned_native_function(&self, function: &Function) -> Result<(), VirErr> {
-        if let Some(b) = &self.owned_native {
-            let ok = self.datatype_map.values().any(|d| b.validate_function(function, d));
-            if !ok || !self.func_map.get(&function.x.name).is_some_and(|f| Arc::ptr_eq(f, function))
-            {
-                return Err(error(
-                    &function.span,
-                    "owned native backend: changed actual Function/descriptor",
-                ));
-            }
-        } else if self.datatype_map.values().any(crate::internal_repr::is_owned_cell_datatype) {
-            return Err(error(
-                &function.span,
-                "owned native backend: inert metadata context has no method authority",
-            ));
-        }
-        Ok(())
-    }
-
     pub fn new(
         krate: &Krate,
         global: GlobalCtx,
@@ -840,81 +810,8 @@ impl Ctx {
         fndef_types: Vec<Fun>,
         resolved_typs: Vec<crate::resolve_axioms::ResolvableType>,
     ) -> Result<Self, VirErr> {
-        Self::new_native_context(
-            krate,
-            global,
-            module,
-            mono_types,
-            spec_fn_types,
-            reached_dyn_traits,
-            used_builtins,
-            fndef_types,
-            resolved_typs,
-            None,
-        )
-    }
-
-    pub fn new_owned_native_methods(
-        krate: &Krate,
-        global: GlobalCtx,
-        module: Module,
-        mono_types: Vec<MonoTyp>,
-        spec_fn_types: Vec<usize>,
-        reached_dyn_traits: HashSet<Path>,
-        used_builtins: crate::prune::UsedBuiltins,
-        fndef_types: Vec<Fun>,
-        resolved_typs: Vec<crate::resolve_axioms::ResolvableType>,
-        authority: &crate::internal_repr::OwnedNativeMethodAuthority<'_>,
-    ) -> Result<Self, VirErr> {
-        Self::new_native_context(
-            krate,
-            global,
-            module,
-            mono_types,
-            spec_fn_types,
-            reached_dyn_traits,
-            used_builtins,
-            fndef_types,
-            resolved_typs,
-            Some(authority),
-        )
-    }
-
-    fn new_native_context(
-        krate: &Krate,
-        global: GlobalCtx,
-        module: Module,
-        mono_types: Vec<MonoTyp>,
-        spec_fn_types: Vec<usize>,
-        reached_dyn_traits: HashSet<Path>,
-        used_builtins: crate::prune::UsedBuiltins,
-        fndef_types: Vec<Fun>,
-        resolved_typs: Vec<crate::resolve_axioms::ResolvableType>,
-        authority: Option<&crate::internal_repr::OwnedNativeMethodAuthority<'_>>,
-    ) -> Result<Self, VirErr> {
-        crate::internal_repr::validate_krate_uses(krate)?;
-        if crate::internal_repr::has_owned_cell_descriptor(krate) && !krate.functions.is_empty() {
-            let span = &krate.datatypes[0].span;
-            let a = authority
-                .ok_or_else(|| error(span, "owned native backend requires exact-unit authority"))?;
-            a.validate(krate).map_err(|m| error(span, m))?;
-            if krate.functions.iter().any(|f| f.x.owning_module.as_ref() != Some(&module.x.path)) {
-                return Err(error(span, "owned native backend: wrong real helper module"));
-            }
-            for d in &krate.datatypes {
-                if let Dt::Path(p) = &d.x.name {
-                    if !global.datatypes.get(p).is_some_and(|(ps, vs)| {
-                        Arc::ptr_eq(ps, &d.x.typ_params) && Arc::ptr_eq(vs, &d.x.variants)
-                    }) {
-                        return Err(error(span, "owned native backend: stale descriptor map"));
-                    }
-                }
-            }
-            for f in &krate.functions {
-                if !global.fun_attrs.get(&f.x.name).is_some_and(|a| Arc::ptr_eq(a, &f.x.attrs)) {
-                    return Err(error(span, "owned native backend: stale Function attributes"));
-                }
-            }
+        for datatype in &krate.datatypes {
+            crate::internal_repr::validate_datatype(datatype)?;
         }
         let name_ctxt = NameCtxt::new();
         let mut datatype_is_encoded: HashMap<Dt, bool> = HashMap::new();
@@ -964,7 +861,6 @@ impl Ctx {
         }
 
         Ok(Ctx {
-            owned_native: authority.map(|a| a.backend_binding()),
             module,
             datatype_is_encoded,
             datatypes_with_invariant,

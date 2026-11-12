@@ -73,16 +73,6 @@ origin = "source/tools/research/practical_redb_fedimint/word_frame/s2-reduced.rs
 sha256 = "f6650e723717ff03e41b3e1533ff998430ea190e91cac54023e9320da5488a20"
 
 [[fixtures]]
-path = "native_cell/owned_goals.rs"
-origin = "source/tools/research/redb_crash_protocol/native_state_link/owned_goals.rs"
-sha256 = "428799275f71323f1683b21f40b0a48aa228b8ebb3b2918295df4d0a404558be"
-
-[[fixtures]]
-path = "native_cell/owned_native.rs"
-origin = "source/tools/research/redb_crash_protocol/native_state_link/owned_native.rs"
-sha256 = "29c59c2507b2e50671622184e56ee4445ea3f237e9e9a5dcfea8394e49f5cf70"
-
-[[fixtures]]
 path = "varint/canonical_manual.rs"
 origin = "source/tools/research/varint_canonical_goal/candidate-004.rs"
 sha256 = "a8de5ba6a08bfa8f56bd28926693e247e4fca24d7e0c576dcb214968ae051e77"

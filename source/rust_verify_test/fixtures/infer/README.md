@@ -19,8 +19,8 @@ bodies, specifications or domains; review intentional changes to these inputs.
 - `varint` retains both manual and assisted canonical-u64 proofs, including their
   authored semantic invariants. `word_sequence` retains bitmap propagation.
 - `constructor_functions` exercises the original tuple-constructor function value.
-- `native_cell` is the source input to the separately archived native experiment;
-  its original clients have no accepted body/state/erasure proof.
+The native-cell inputs and inactive experimental switch are retained only on
+`experiments/infer-native-cell`; no owned-cell capability ships in this tree.
 
 The complete historical reports, upstream pins, adaptations and limitations are
 preserved at commit `7dcabedaa93299a3607746b6ec25f5e4778288a4`, local tag
