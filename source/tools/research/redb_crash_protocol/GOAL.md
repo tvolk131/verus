@@ -1,5 +1,7 @@
 # REDB durable publication and recovery — active goal
 
+Continuation authorization after the bounded experiment: the user asked “Good to keep ripping on the broader goal?” Treat this as resumed application-directed work on the identified native-state link. A concrete, checked implementation may be investigated beyond the previous experiment's first-blocker stop. Preserve no new trusted laws/summaries, original algorithms/checks,45-active-minute value checkpoints and independent review. This is not authorization for an unbounded general Rust/ownership foundation program, unrelated prerequisites, or resuming HMAC/native. The full objective below is unchanged. Historical registration bytes remain available at c008326b.
+
 Authorized by the user's approval on2026-11-12 after the completed caller milestone9bab1ead. Establish a source-connected theorem for REDB's original durable commit/recovery path under an explicit storage-failure contract. Preserve actual algorithms/domains, ordinary checks and existing trust. The completed allocator/caller and component-automation results remain historical accepted inputs, not crash proofs.
 
 ## Required application properties
