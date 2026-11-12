@@ -1,0 +1,22 @@
+{
+  "kind": "NATIVE_SMOKE_PRETRIAL_BINDING_TO_SUCCESSFUL_PREPARATION",
+  "preparation_receipt": "/tmp/redb-crash-native-20261112-prepare2/receipt.json",
+  "inputs": {
+    "/tmp/redb-crash-native-20261112-prepare2/receipt.json": "6eeceae79efdc2e9a4aadb6410e76da28ef2f83c297fc7e9e38417f31411226c",
+    "/tmp/redb-crash-native-20261112-prepare2/target/release/redb-crash-native": "41ef6400d1433581055acb1b471c5e214cce739122f92201d7af806df0383566",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native/baseline.rs": "0cae70343899d8219ef40dcaad2f9c21f1701665394517eb14e2e4e0cef40f76",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native/smoke.py": "d04df70cbf863bf1cee469ffdc3fc69fd4af86a42bfe67d7bfd26ac02487782b",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native/FREEZE_2.json": "ebbd77ea02c41cd692f2ac7bf011eaf486a91bad192aedf53308b6ce7915a502",
+    "/home/dev/projects/verus/source/tools/research/redb_crash_protocol/native/SCOPE.md": "28771a313745027600ca91bf7da011397a30e361a519df36005947a41752636b",
+    "/home/dev/projects/verus/source/tools/infer_experiment.py": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+    "/home/dev/projects/verus/source/tools/infer_eval_support.py": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9"
+  },
+  "expected_profiles": [
+    false,
+    true
+  ],
+  "expected_reopened_pair": "new",
+  "fault_schedules": 0,
+  "source_coupling_proved": false,
+  "fixed_layout": "observe and record; any mismatch is outside first configuration, never discarded"
+}
