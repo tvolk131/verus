@@ -1,0 +1,19 @@
+warning: use of deprecated method `vstd::prelude::ResultAdditionalSpecFns::is_Err`: is_Variant is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html
+ --> /tmp/redb-new-review-03fd44ed-selection/infer_client_wrong.rs:8:15
+  |
+8 |     ensures r.is_Err() == !selection_errors(*old(h)),
+  |               ^^^^^^
+  |
+  = note: `#[warn(deprecated)]` on by default
+
+error: postcondition not satisfied
+  --> /tmp/redb-new-review-03fd44ed-selection/infer_client_wrong.rs:8:13
+   |
+ 8 |     ensures r.is_Err() == !selection_errors(*old(h)),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+...
+13 | { h.select_primary_slot() }
+   |   ----------------------- at the end of the function body
+
+error: aborting due to 1 previous error; 1 warning emitted
+

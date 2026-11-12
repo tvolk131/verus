@@ -1,0 +1,13 @@
+error: precondition not satisfied
+   --> /tmp/redb-new-review-03fd44ed-selection/ordinary_client_unsafe.rs:6:3
+    |
+  6 | { h.select_primary_slot() }
+    |   ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+   ::: /tmp/redb-new-review-03fd44ed-selection/provider.rs:145:10
+    |
+145 | requires old(self).inner.primary_slot < 2, (old(self).inner.primary_slot ^ 1) < 2, old(self).inner.primary_slot != (old(self).inner...
+    |          -------------------------------- failed precondition
+
+error: aborting due to 1 previous error
+

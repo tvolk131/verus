@@ -1,0 +1,64 @@
+warning: use of deprecated method `vstd::prelude::ResultAdditionalSpecFns::is_Err`: is_Variant is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html
+   --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:147:7
+    |
+147 |     r.is_Err() == selection_errors(*old(self)),
+    |       ^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: use of deprecated method `vstd::prelude::ResultAdditionalSpecFns::is_Err`: is_Variant is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html
+   --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:205:11
+    |
+205 | ensures r.is_Err() == self.primary_corrupted,
+    |           ^^^^^^
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:30:10
+   |
+30 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+warning: Verus does not (yet) support autoderive Clone impl when the clone is not a copy; continuing, but without adding a specification for the derived Clone impl
+  --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:41:10
+   |
+41 | #[derive(Clone)]
+   |          ^^^^^
+   |
+   = help: to suppress this warning, use `#[verifier::allow(autoderive_clone_without_spec)]` on the surrounding function, datatype, or module or `#![verifier::allow(autoderive_clone_without_spec)]` in the module or crate
+
+note: Verus Infer selection_checked::TransactionId::eq candidate (mathematical integer arithmetic): requires true; ensures (result == ((self)->TransactionId_0 == (other)->TransactionId_0))
+ --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:3:44
+  |
+3 | #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
+  |                                            ^^^^^^^^^
+
+note: Verus Infer selection_checked::TransactionId::eq: trusted standard models from vstd: vstd::seq::Seq::index, vstd::seq::Seq::len, vstd::seq::Seq::update
+ --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:3:44
+  |
+3 | #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
+  |                                            ^^^^^^^^^
+
+note: Verus Infer selection_checked::TransactionId::eq: soundness: PROVED
+ --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:3:44
+  |
+3 | #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
+  |                                            ^^^^^^^^^
+
+note: Verus Infer selection_checked::TransactionId::eq: safe-domain maximality: PROVED
+ --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:3:44
+  |
+3 | #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
+  |                                            ^^^^^^^^^
+
+note: Verus Infer selection_checked::TransactionId::eq: output exactness: PROVED
+ --> /tmp/redb-new-review-03fd44ed-selection/provider.rs:3:44
+  |
+3 | #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq)]
+  |                                            ^^^^^^^^^
+
+note: Verus Infer: 1 verified contracts available to same-crate callers
+
+warning: 4 warnings emitted
+

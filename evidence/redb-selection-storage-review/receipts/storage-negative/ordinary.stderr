@@ -1,0 +1,12 @@
+error: postcondition not satisfied
+   --> vstd/std_specs/convert.rs:19:12
+    |
+    = note: failed this postcondition
+    |
+   ::: /tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:142:9
+    |
+142 |         StorageError::Io(err)
+    |         --------------------- at the end of the function body
+
+error: aborting due to 1 previous error
+

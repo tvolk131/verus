@@ -1,0 +1,1461 @@
+{
+  "func-details": {
+    "vstd::std_specs::convert::impl&%20::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%39::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%70::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%87::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%42::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%65::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%26::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%21::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%84::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::lock_shared_range": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%23::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%15::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%24::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%37::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::view_reverse_for_eq_sized": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::query_lock_range": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::result::impl&%28::from_residual": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%12::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%25::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%89::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%82::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%36::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::is_ok": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::View::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%40::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%74::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::ResultAdditionalSpecFns::arrow_Ok_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%16::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%69::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%6::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%18::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%46::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%23::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::set_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%68::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%83::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%78::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::SliceAdditionalSpecFns::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%94::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::Corrupted::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%29::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::CheckedBackend::sync_data": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%41::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%30::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::nonzero_spec_get": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%72::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::impl&%2::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::arrow_Corrupted_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%10::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_slice_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%11::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%4::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%30::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%14::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::view_reverse_for_eq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::FromSpec::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal_deep": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::arrow_ValueTooLarge_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::FnWithRequiresEnsures::ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%12::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::BackendError::Io::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%76::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::result::impl&%0::map_err": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::function::axiom_fn_mut_call_ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%0::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%30::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%80::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%81::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%2::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%8::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%92::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::ResultAdditionalSpecFns::arrow_Err_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::BackendError::arrow_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%63::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%28::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%26::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%25::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%48::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%33::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%37::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::is_err": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::impl&%0::arrow_Ok_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%31::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::len%returns_clause_autospec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%13::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%38::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%0::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::impl&%0::requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%11::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%28::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%64::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%50::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%33::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::lock_range": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%34::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%4::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_spec_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%35::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%0::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::ValueTooLarge::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::read": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::impl&%5::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%10::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::strlit_view_id": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::result::impl&%27::branch": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_slice_decreases_to_seq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%44::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::ptrs_mut_eq": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%22::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%35::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::impl&%2::spec_index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::result::impl&%0::arrow_Err_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%90::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%24::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%93::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::sync::atomic::impl&%4::store": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%19::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%3::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%7::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%16::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%18::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%17::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%27::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%73::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%32::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%61::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::write": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%79::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%8::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%22::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%27::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%71::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::close": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%29::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%75::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%16::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%6::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%38::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%20::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%21::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%31::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%9::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%28::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%41::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::arrow_Io_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%8::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%67::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%36::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%88::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::axiom_nonzero_is_not_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%86::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_str_literal_get_char": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::impl&%0::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%32::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::ZeroablePrimitiveSpec::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%85::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::FromSpec::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::sync_data": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%18::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%39::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%11::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%14::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%34::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%5::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::CheckedBackend::check_failure": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%1::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::axiom_slice_has_resolved": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::arrow_LockPoisoned_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%10::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%40::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_new_strlit_view_id": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%26::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::impl&%3::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%20::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%36::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%15::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%2::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%38::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::raw_ptr::ptrs_mut_eq_sized": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::sync::atomic::impl&%4::load": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::lemma_slice_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::unlock_range": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%9::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::control_flow::spec_from_blanket_identity": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%19::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%18::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::BackendError::arrow_Io_0": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%17::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::control_flow::spec_from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%60::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::FnWithRequiresEnsures::requires": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::slice::spec_slice_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%22::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::Io::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%91::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%13::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%40::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%32::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::result::impl&%0::is_err": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%13::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::try_lock_shared_range": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%24::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::string::axiom_str_literal_len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%66::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%77::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_index_decreases": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%12::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::pervasive::impl&%0::ensures": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%9::is_zero": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%7::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::convert::impl&%7::obeys_from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::From::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::len": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::view::impl&%34::view": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::lemma_seq_ext_equal": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageBackend::try_lock_range": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "backend_nominal::StorageError::LockPoisoned::ctor%": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "core::convert::num::impl&%62::from": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::seq::Seq::index": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    },
+    "vstd::std_specs::nonzero::impl&%18::from_spec": {
+      "obligation_proof_notes": [],
+      "failed_proof_notes": []
+    }
+  },
+  "verification-results": {
+    "encountered-error": true,
+    "encountered-vir-error": false,
+    "success": false,
+    "verified": 14,
+    "errors": 1,
+    "is-verifying-entire-crate": true
+  },
+  "verus-infer": {
+    "schema_version": 1,
+    "verification_scope": {
+      "coverage": "selected local Verus items; not all Rust code",
+      "native_collection_completed": true,
+      "complete_selected_scope_verified": false,
+      "checked_exec_bodies": 0,
+      "checked_proof_bodies": 0,
+      "native_functions": [
+        {
+          "function": "backend_nominal::StorageError::from",
+          "rust_function": "<StorageError as std::convert::From<std::io::Error>>::from",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:141:5: 141:44",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageError::from_spec",
+          "rust_function": "<StorageError as vstd::std_specs::convert::FromSpecImpl<std::io::Error>>::from_spec",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:169:17: 169:60",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageError::obeys_from_spec",
+          "rust_function": "<StorageError as vstd::std_specs::convert::FromSpecImpl<std::io::Error>>::obeys_from_spec",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:168:15: 168:43",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::BackendError::arrow_0",
+          "rust_function": "BackendError::arrow_0",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:14:1: 16:17",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "backend_nominal::BackendError::arrow_Io_0",
+          "rust_function": "BackendError::arrow_Io_0",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:14:1: 16:17",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "backend_nominal::CheckedBackend::check_failure",
+          "rust_function": "CheckedBackend::check_failure",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:146:5: 146:42",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::CheckedBackend::sync_data",
+          "rust_function": "CheckedBackend::sync_data",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:157:5: 157:38",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "StorageBackend::VERUS_SPEC__len",
+          "rust_function": "StorageBackend::VERUS_SPEC__len",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:35:5: 35:58",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "StorageBackend::VERUS_SPEC__read",
+          "rust_function": "StorageBackend::VERUS_SPEC__read",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:40:5: 40:87",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "StorageBackend::VERUS_SPEC__set_len",
+          "rust_function": "StorageBackend::VERUS_SPEC__set_len",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:45:5: 45:71",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "StorageBackend::VERUS_SPEC__sync_data",
+          "rust_function": "StorageBackend::VERUS_SPEC__sync_data",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:48:5: 48:63",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "StorageBackend::VERUS_SPEC__write",
+          "rust_function": "StorageBackend::VERUS_SPEC__write",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:51:5: 51:85",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_item_without_translated_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::close",
+          "rust_function": "StorageBackend::close",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:60:5: 60:59",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::len",
+          "rust_function": "StorageBackend::len",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:35:5: 35:59",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "interface_without_checked_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::lock_range",
+          "rust_function": "StorageBackend::lock_range",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:91:5: 95:48",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::lock_shared_range",
+          "rust_function": "StorageBackend::lock_shared_range",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:102:5: 106:48",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::query_lock_range",
+          "rust_function": "StorageBackend::query_lock_range",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:127:5: 131:50",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::read",
+          "rust_function": "StorageBackend::read",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:40:5: 40:88",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "interface_without_checked_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::set_len",
+          "rust_function": "StorageBackend::set_len",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:45:5: 45:72",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "interface_without_checked_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::sync_data",
+          "rust_function": "StorageBackend::sync_data",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:48:5: 48:64",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "interface_without_checked_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::try_lock_range",
+          "rust_function": "StorageBackend::try_lock_range",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:68:5: 72:50",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::try_lock_shared_range",
+          "rust_function": "StorageBackend::try_lock_shared_range",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:80:5: 84:50",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::unlock_range",
+          "rust_function": "StorageBackend::unlock_range",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:115:5: 119:48",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "selected_body_not_certified_by_successful_full_run",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageBackend::write",
+          "rust_function": "StorageBackend::write",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:51:5: 51:86",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "interface_without_checked_body",
+          "inference_candidate": false,
+          "ordinary_contract": false
+        },
+        {
+          "function": "backend_nominal::StorageError::arrow_Corrupted_0",
+          "rust_function": "StorageError::arrow_Corrupted_0",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:20:1: 22:21",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "backend_nominal::StorageError::arrow_Io_0",
+          "rust_function": "StorageError::arrow_Io_0",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:20:1: 25:17",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "backend_nominal::StorageError::arrow_LockPoisoned_0",
+          "rust_function": "StorageError::arrow_LockPoisoned_0",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:20:1: 30:51",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        },
+        {
+          "function": "backend_nominal::StorageError::arrow_ValueTooLarge_0",
+          "rust_function": "StorageError::arrow_ValueTooLarge_0",
+          "source": "/tmp/redb-new-review-03fd44ed-storage-negative/backend_nominal.rs:20:1: 24:24",
+          "automatically_derived": false,
+          "selected": true,
+          "body_status": "specification_definition_or_declaration",
+          "inference_candidate": false,
+          "ordinary_contract": true
+        }
+      ],
+      "limitations": [
+        "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+        "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+        "A checked body is not a claim that unverified callers satisfy its preconditions.",
+        "This report does not certify a requested application property or replace an authored scope/trust inventory."
+      ]
+    },
+    "status": "caller_proof_failed",
+    "crate_success": false,
+    "requested_functions": 0,
+    "generated_functions": 0,
+    "generation_failure": null,
+    "assistance_explanations": {
+      "enabled": false,
+      "profiles": [
+        "growth_loop",
+        "pointwise_transport",
+        "range_loop",
+        "mutable_buffer_u64_radix128"
+      ],
+      "preparation_started": false,
+      "preparation_completed": false,
+      "decisions": []
+    },
+    "word_sequence_assistance": [],
+    "buffer_observation_assistance": [],
+    "range_loop_assistance": [],
+    "set_pair_assistance": [],
+    "pointwise_assistance": [],
+    "sequence_pattern_assistance": [],
+    "mutable_selector_assistance": [],
+    "growth_loop_assistance": [],
+    "local_fold_assistance": [],
+    "factory_assistance": [],
+    "error_callback_assistance": [],
+    "array_callback_assistance": [],
+    "type_invariant_entry_assistance": [],
+    "goal_assistance": [],
+    "failed_functions": [
+      "backend_nominal::StorageError::from"
+    ],
+    "functions": [],
+    "arithmetic": "mathematical integers; explicit machine casts; rust_div/rust_rem truncate toward zero",
+    "trust": "ordinary Verus backend and imported specifications; report is not a proof certificate",
+    "imported_inference_dependencies": [],
+    "trusted_models": [],
+    "interface_written": false,
+    "metrics": {
+      "generation_micros": 0,
+      "total_micros": 1066787
+    }
+  },
+  "times-ms": {
+    "verus-build": {
+      "profile": "release",
+      "version": "0.2026.11.11.5ecea5f"
+    },
+    "num-threads": 1,
+    "total": 1066,
+    "estimated-cpu-time": 1066,
+    "rust": {
+      "total": 63,
+      "init-and-types": 18,
+      "trait-conflicts": 45,
+      "compile": 0
+    },
+    "verification": {
+      "total": 817,
+      "vir": {
+        "total": 639,
+        "hir": 5,
+        "import": 524,
+        "rust-to-vir": 35
+      }
+    },
+    "total-verify": 144,
+    "total-verify-module-times": [
+      {
+        "module": "",
+        "time": 144
+      }
+    ],
+    "air": {
+      "total": 94,
+      "module-times": [
+        {
+          "module": "",
+          "time": 94
+        }
+      ]
+    },
+    "smt": {
+      "total": 10,
+      "smt-init": 1,
+      "rlimit-init": 514,
+      "smt-init-module-times": [
+        {
+          "module": "",
+          "time": 1,
+          "time-micros": 1373,
+          "rlimit": 514
+        }
+      ],
+      "smt-run": 9,
+      "rlimit-run": 22938,
+      "smt-run-module-times": [
+        {
+          "module": "",
+          "time": 9,
+          "time-micros": 9870,
+          "rlimit": 22938,
+          "function-breakdown": [
+            {
+              "function": "backend_nominal::StorageBackend::unlock_range",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 159,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageError::Io::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 71,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageBackend::lock_shared_range",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 77,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageError::from",
+              "mode:": "exec",
+              "time": 4,
+              "time-micros": 4329,
+              "rlimit": 7880,
+              "success": false
+            },
+            {
+              "function": "backend_nominal::CheckedBackend::check_failure",
+              "mode:": "exec",
+              "time": 2,
+              "time-micros": 2058,
+              "rlimit": 7113,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageBackend::lock_range",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 116,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageError::LockPoisoned::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 164,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::BackendError::Io::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 82,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageBackend::query_lock_range",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 72,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::CheckedBackend::sync_data",
+              "mode:": "exec",
+              "time": 2,
+              "time-micros": 2160,
+              "rlimit": 7921,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageBackend::try_lock_shared_range",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 134,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageBackend::close",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 91,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageBackend::try_lock_range",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 189,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageError::ValueTooLarge::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 90,
+              "rlimit": 2,
+              "success": true
+            },
+            {
+              "function": "backend_nominal::StorageError::Corrupted::ctor%",
+              "mode:": "exec",
+              "time": 0,
+              "time-micros": 71,
+              "rlimit": 2,
+              "success": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "verus": {
+    "profile": "release",
+    "version": "0.2026.11.11.5ecea5f",
+    "platform": {
+      "os": "linux",
+      "arch": "x86_64"
+    },
+    "toolchain": "1.99.1-x86_64-unknown-linux-gnu",
+    "commit": "5ecea5fe81c2bc2ef0c9050cdb29cea0c7ef21c4"
+  }
+}

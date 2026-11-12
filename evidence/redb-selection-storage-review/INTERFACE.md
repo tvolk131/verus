@@ -9,3 +9,5 @@ Use authenticated accepted78 complete eight-tool bundle and receipt, private cop
 Acceptance can cover only these exact source components/controller correction. CP1/CP2 and actual cache/lock/write-trace/serialization/recovery coupling remain UNPROVED; source_coupling_proved=false. Earlier native evidence remains finite. HMAC/native remains DEFERRED AND UNACHIEVED.
 
 Initial setup failure retained: ordinary exec sandbox failed before execution with `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`; subsequent authorized commands use reviewed escalation.
+
+Initial commit attempt also failed before writing a commit because this environment lacks Git author configuration. Review commits use the existing parent author identity via per-command settings, with no global/local configuration changes.

@@ -1,0 +1,1404 @@
+{
+  "freeze": {
+    "parent": "c008326bfed88eab958335412cdc5ec0e9c8130e",
+    "candidate_sha256": "e840e6c9ce93b2adfddfe8207d74626e2db95b0abd90c3e409677711da75f47d",
+    "original_candidate": "/home/dev/.t3/worktrees/verus/t3-8ad572f5/source/tools/research/redb_crash_protocol/model/protocol.rs",
+    "expected": "pass",
+    "exec_bodies": [],
+    "proof_bodies": [
+      "outside_writes_unchanged",
+      "publication_requires_first",
+      "retained_image",
+      "submit_frame",
+      "step_retention",
+      "arbitrary_trace_retains",
+      "successful_barrier_covers",
+      "ack_is_after_second",
+      "required_two_barriers_ack_and_crash",
+      "write_establishes",
+      "acknowledged_header_and_pages",
+      "control_byte_from_one_write",
+      "covered_barrier_then_crash",
+      "coherent_nonvacuous_target",
+      "header_selection_with_complete_candidates",
+      "detected_corrupt_preserved",
+      "both_prior_modes_remain",
+      "torn_header_witness",
+      "error_can_be_fully_durable",
+      "prior_false_incomplete_secondary_witness",
+      "concrete_two_barrier_success"
+    ],
+    "full_body_identities": [
+      "model::outside_writes_unchanged",
+      "model::publication_requires_first",
+      "model::retained_image",
+      "model::submit_frame",
+      "model::step_retention",
+      "model::arbitrary_trace_retains",
+      "model::successful_barrier_covers",
+      "model::ack_is_after_second",
+      "model::required_two_barriers_ack_and_crash",
+      "model::write_establishes",
+      "model::acknowledged_header_and_pages",
+      "model::control_byte_from_one_write",
+      "model::covered_barrier_then_crash",
+      "model::coherent_nonvacuous_target",
+      "model::header_selection_with_complete_candidates",
+      "model::detected_corrupt_preserved",
+      "model::both_prior_modes_remain",
+      "model::torn_header_witness",
+      "model::error_can_be_fully_durable",
+      "model::prior_false_incomplete_secondary_witness",
+      "model::concrete_two_barrier_success"
+    ],
+    "full_spec_identities": [
+      "model::valid_write",
+      "model::covers",
+      "model::apply_write",
+      "model::allowed",
+      "model::wf",
+      "model::matches",
+      "model::frames",
+      "model::retained",
+      "model::storage_step",
+      "model::protocol_step",
+      "model::publication",
+      "model::retained_trace",
+      "model::write_covers",
+      "model::slot",
+      "model::selection",
+      "model::header_select",
+      "model::good",
+      "model::selected_good",
+      "model::published_choice",
+      "model::served_recovery",
+      "model::repair_serialize"
+    ],
+    "spec_definitions": [
+      "valid_write",
+      "covers",
+      "apply_write",
+      "allowed",
+      "wf",
+      "matches",
+      "frames",
+      "retained",
+      "storage_step",
+      "protocol_step",
+      "publication",
+      "retained_trace",
+      "write_covers",
+      "slot",
+      "selection",
+      "header_select",
+      "good",
+      "selected_good",
+      "published_choice",
+      "served_recovery",
+      "repair_serialize"
+    ],
+    "expected_infer_helpers": [],
+    "infer_helper_count": 0,
+    "prospective": true,
+    "existing_infer_registry_sha256": "91bbf8963947eaf7055a80f6961d007d0e8fe3bd95a71fc371bcc2d4b6eab883",
+    "source_coupling_proved": false,
+    "model_only": true,
+    "registered_charter": {
+      "GOAL.md": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+      "CURRENT.md": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+      "WORKER_BRIEFS.md": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+      "PREPARATION_NOTE.md": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1"
+    },
+    "integrated_checkpoint": "4ce746ef3b8646820f97a42b2168e604bd01466b",
+    "all_trace_domain": "arbitrary finite Seq; no bounded enumeration implied"
+  },
+  "commands": [
+    {
+      "label": "review_normal_positive_ordinary",
+      "argv": [
+        "/tmp/redb-model-accepted78-mldtb1lx/bundle/verus",
+        "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs",
+        "--crate-type=lib",
+        "--crate-name=model",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--num-threads",
+        "1",
+        "--export",
+        "/tmp/redb-new-review-03fd44ed-model-normal-positive/review_normal_positive_ordinary.vir"
+      ],
+      "cwd": "/tmp/redb-model-accepted78-mldtb1lx",
+      "returncode": 0,
+      "seconds": 1.5313283839495853,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-model-accepted78-mldtb1lx/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-model-accepted78-mldtb1lx/review_normal_positive_ordinary-cache",
+        "CARGO_TARGET_DIR": "/tmp/redb-model-accepted78-mldtb1lx/review_normal_positive_ordinary-target"
+      }
+    },
+    {
+      "label": "review_normal_positive_infer",
+      "argv": [
+        "/tmp/redb-model-accepted78-mldtb1lx/bundle/verus",
+        "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs",
+        "--crate-type=lib",
+        "--crate-name=model",
+        "--no-cheating",
+        "--output-json",
+        "--multiple-errors",
+        "20",
+        "--num-threads",
+        "1",
+        "--export",
+        "/tmp/redb-new-review-03fd44ed-model-normal-positive/review_normal_positive_infer.vir",
+        "--infer-goals"
+      ],
+      "cwd": "/tmp/redb-model-accepted78-mldtb1lx",
+      "returncode": 0,
+      "seconds": 2.949192870000843,
+      "environment": {
+        "RUSTUP_TOOLCHAIN": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+        "VERUS_Z3_PATH": "/tmp/redb-model-accepted78-mldtb1lx/bundle/z3",
+        "VERUS_INFER_CACHE": "/tmp/redb-model-accepted78-mldtb1lx/review_normal_positive_infer-cache",
+        "CARGO_TARGET_DIR": "/tmp/redb-model-accepted78-mldtb1lx/review_normal_positive_infer-target"
+      }
+    }
+  ],
+  "runs": [
+    {
+      "label": "review_normal_positive_ordinary",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 26,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 21,
+        "native_functions": [
+          {
+            "function": "Event::arrow_0",
+            "rust_function": "Event::arrow_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::Event::arrow_Buffer_0",
+            "rust_function": "Event::arrow_Buffer_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 13:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Crash_0",
+            "rust_function": "Event::arrow_Crash_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 14:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Persist_0",
+            "rust_function": "Event::arrow_Persist_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 13:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Submit_0",
+            "rust_function": "Event::arrow_Submit_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 13:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_SyncError_0",
+            "rust_function": "Event::arrow_SyncError_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::ack_is_after_second",
+            "rust_function": "ack_is_after_second",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:171:1: 171:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::acknowledged_header_and_pages",
+            "rust_function": "acknowledged_header_and_pages",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:207:1: 210:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::allowed",
+            "rust_function": "allowed",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:30:1: 30:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::apply_write",
+            "rust_function": "apply_write",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::arbitrary_trace_retains",
+            "rust_function": "arbitrary_trace_retains",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:153:1: 153:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::both_prior_modes_remain",
+            "rust_function": "both_prior_modes_remain",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:302:1: 302:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::coherent_nonvacuous_target",
+            "rust_function": "coherent_nonvacuous_target",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:286:1: 286:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::concrete_two_barrier_success",
+            "rust_function": "concrete_two_barrier_success",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:350:1: 350:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::control_byte_from_one_write",
+            "rust_function": "control_byte_from_one_write",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:229:1: 229:79",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covered_barrier_then_crash",
+            "rust_function": "covered_barrier_then_crash",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:236:1: 236:118",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covers",
+            "rust_function": "covers",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:24:1: 24:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::detected_corrupt_preserved",
+            "rust_function": "detected_corrupt_preserved",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:298:1: 298:104",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::error_can_be_fully_durable",
+            "rust_function": "error_can_be_fully_durable",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:323:1: 323:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::frames",
+            "rust_function": "frames",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:43:1: 43:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::good",
+            "rust_function": "good",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:270:1: 270:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_select",
+            "rust_function": "header_select",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:259:1: 259:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_selection_with_complete_candidates",
+            "rust_function": "header_selection_with_complete_candidates",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:290:1: 290:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::matches",
+            "rust_function": "matches",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:40:1: 40:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::outside_writes_unchanged",
+            "rust_function": "outside_writes_unchanged",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:93:1: 93:70",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::prior_false_incomplete_secondary_witness",
+            "rust_function": "prior_false_incomplete_secondary_witness",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:335:1: 335:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::protocol_step",
+            "rust_function": "protocol_step",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:66:1: 66:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication",
+            "rust_function": "publication",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:88:1: 88:78",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication_requires_first",
+            "rust_function": "publication_requires_first",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:98:1: 98:81",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::published_choice",
+            "rust_function": "published_choice",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:276:1: 276:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::repair_serialize",
+            "rust_function": "repair_serialize",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:294:1: 294:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::required_two_barriers_ack_and_crash",
+            "rust_function": "required_two_barriers_ack_and_crash",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:175:1: 178:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained",
+            "rust_function": "retained",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:47:1: 47:60",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::retained_image",
+            "rust_function": "retained_image",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:102:1: 102:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained_trace",
+            "rust_function": "retained_trace",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:148:1: 148:88",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selected_good",
+            "rust_function": "selected_good",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:271:1: 271:64",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selection",
+            "rust_function": "selection",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:258:1: 258:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::served_recovery",
+            "rust_function": "served_recovery",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:279:1: 279:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::slot",
+            "rust_function": "slot",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:257:1: 257:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::step_retention",
+            "rust_function": "step_retention",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:128:1: 128:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::storage_step",
+            "rust_function": "storage_step",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:50:1: 50:72",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::submit_frame",
+            "rust_function": "submit_frame",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:117:1: 117:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::successful_barrier_covers",
+            "rust_function": "successful_barrier_covers",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:167:1: 167:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::torn_header_witness",
+            "rust_function": "torn_header_witness",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:308:1: 308:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::valid_write",
+            "rust_function": "valid_write",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:21:1: 21:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::wf",
+            "rust_function": "wf",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:35:1: 35:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_covers",
+            "rust_function": "write_covers",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:197:1: 197:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_establishes",
+            "rust_function": "write_establishes",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:201:1: 201:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "helpers": [],
+      "stdout_sha256": "1ae69b242b9e81808c38133f17c2aa63e9cf355ced21860c6128eb5d82b0e904",
+      "stderr_sha256": "be7fde26c3480ee487332ddb57a8759040f20fa82f2b0e099877778b6353828f",
+      "export_sha256": "80a3f4daadc0ae5c3fa14745dd9eb3e3ca7a80fca59df9f09a94e6a6d1845e74"
+    },
+    {
+      "label": "review_normal_positive_infer",
+      "verification": {
+        "encountered-error": false,
+        "encountered-vir-error": false,
+        "success": true,
+        "verified": 26,
+        "errors": 0,
+        "is-verifying-entire-crate": true
+      },
+      "scope": {
+        "coverage": "selected local Verus items; not all Rust code",
+        "native_collection_completed": true,
+        "complete_selected_scope_verified": true,
+        "checked_exec_bodies": 0,
+        "checked_proof_bodies": 21,
+        "native_functions": [
+          {
+            "function": "Event::arrow_0",
+            "rust_function": "Event::arrow_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": false,
+            "body_status": "outside_selected_scope",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::Event::arrow_Buffer_0",
+            "rust_function": "Event::arrow_Buffer_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 13:17",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Crash_0",
+            "rust_function": "Event::arrow_Crash_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 14:38",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Persist_0",
+            "rust_function": "Event::arrow_Persist_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 13:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_Submit_0",
+            "rust_function": "Event::arrow_Submit_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 13:32",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::Event::arrow_SyncError_0",
+            "rust_function": "Event::arrow_SyncError_0",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:12:1: 14:22",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::ack_is_after_second",
+            "rust_function": "ack_is_after_second",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:171:1: 171:68",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::acknowledged_header_and_pages",
+            "rust_function": "acknowledged_header_and_pages",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:207:1: 210:83",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::allowed",
+            "rust_function": "allowed",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:30:1: 30:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::apply_write",
+            "rust_function": "apply_write",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:27:1: 27:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::arbitrary_trace_retains",
+            "rust_function": "arbitrary_trace_retains",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:153:1: 153:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::both_prior_modes_remain",
+            "rust_function": "both_prior_modes_remain",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:302:1: 302:85",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::coherent_nonvacuous_target",
+            "rust_function": "coherent_nonvacuous_target",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:286:1: 286:51",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::concrete_two_barrier_success",
+            "rust_function": "concrete_two_barrier_success",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:350:1: 350:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::control_byte_from_one_write",
+            "rust_function": "control_byte_from_one_write",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:229:1: 229:79",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covered_barrier_then_crash",
+            "rust_function": "covered_barrier_then_crash",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:236:1: 236:118",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::covers",
+            "rust_function": "covers",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:24:1: 24:50",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::detected_corrupt_preserved",
+            "rust_function": "detected_corrupt_preserved",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:298:1: 298:104",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::error_can_be_fully_durable",
+            "rust_function": "error_can_be_fully_durable",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:323:1: 323:42",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::frames",
+            "rust_function": "frames",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:43:1: 43:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::good",
+            "rust_function": "good",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:270:1: 270:39",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_select",
+            "rust_function": "header_select",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:259:1: 259:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::header_selection_with_complete_candidates",
+            "rust_function": "header_selection_with_complete_candidates",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:290:1: 290:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::matches",
+            "rust_function": "matches",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:40:1: 40:59",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::outside_writes_unchanged",
+            "rust_function": "outside_writes_unchanged",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:93:1: 93:70",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::prior_false_incomplete_secondary_witness",
+            "rust_function": "prior_false_incomplete_secondary_witness",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:335:1: 335:56",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::protocol_step",
+            "rust_function": "protocol_step",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:66:1: 66:84",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication",
+            "rust_function": "publication",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:88:1: 88:78",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::publication_requires_first",
+            "rust_function": "publication_requires_first",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:98:1: 98:81",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::published_choice",
+            "rust_function": "published_choice",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:276:1: 276:58",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::repair_serialize",
+            "rust_function": "repair_serialize",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:294:1: 294:74",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::required_two_barriers_ack_and_crash",
+            "rust_function": "required_two_barriers_ack_and_crash",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:175:1: 178:49",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained",
+            "rust_function": "retained",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:47:1: 47:60",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::retained_image",
+            "rust_function": "retained_image",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:102:1: 102:66",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::retained_trace",
+            "rust_function": "retained_trace",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:148:1: 148:88",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selected_good",
+            "rust_function": "selected_good",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:271:1: 271:64",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::selection",
+            "rust_function": "selection",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:258:1: 258:53",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::served_recovery",
+            "rust_function": "served_recovery",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:279:1: 279:57",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::slot",
+            "rust_function": "slot",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:257:1: 257:54",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::step_retention",
+            "rust_function": "step_retention",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:128:1: 128:76",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::storage_step",
+            "rust_function": "storage_step",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:50:1: 50:72",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::submit_frame",
+            "rust_function": "submit_frame",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:117:1: 117:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::successful_barrier_covers",
+            "rust_function": "successful_barrier_covers",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:167:1: 167:77",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          },
+          {
+            "function": "model::torn_header_witness",
+            "rust_function": "torn_header_witness",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:308:1: 308:35",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::valid_write",
+            "rust_function": "valid_write",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:21:1: 21:55",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::wf",
+            "rust_function": "wf",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:35:1: 35:40",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_covers",
+            "rust_function": "write_covers",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:197:1: 197:62",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "specification_definition_or_declaration",
+            "inference_candidate": false,
+            "ordinary_contract": false
+          },
+          {
+            "function": "model::write_establishes",
+            "rust_function": "write_establishes",
+            "source": "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs:201:1: 201:67",
+            "automatically_derived": false,
+            "selected": true,
+            "body_status": "checked_proof_body",
+            "inference_candidate": false,
+            "ordinary_contract": true
+          }
+        ],
+        "limitations": [
+          "Only compiled cfg-enabled named functions/methods are listed; closures belong to their enclosing body and generated methods may appear.",
+          "Outside scope includes unannotated, explicitly excluded and automatically ignored implementations.",
+          "A checked body is not a claim that unverified callers satisfy its preconditions.",
+          "This report does not certify a requested application property or replace an authored scope/trust inventory."
+        ]
+      },
+      "helpers": [],
+      "stdout_sha256": "088b96b8e6adb9687ea1466b22a14b6e283cc7663b23f460b5b2477d1d6b7104",
+      "stderr_sha256": "67cd0f4e7f0f6bc1efc648b7ae0c3b0dfeca4406762a033048d3c93ef8303da9",
+      "export_sha256": "a810d645d24881b4847d97cb5ee7dc4f23774e3d24dd60794fd2d4aad224e183"
+    }
+  ],
+  "artifacts": {
+    "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu/bin/rustc": {
+      "sha256": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+      "size": 648536,
+      "mtime_ns": 1794253061165401039,
+      "inode": 12583580
+    },
+    "/home/dev/.t3/worktrees/verus/t3-8ad572f5/source/tools/infer_eval_support.py": {
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "size": 7981,
+      "mtime_ns": 1794470593573355284,
+      "inode": 14739559
+    },
+    "/home/dev/.t3/worktrees/verus/t3-8ad572f5/source/tools/infer_experiment.py": {
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+      "size": 11144,
+      "mtime_ns": 1794470593573355284,
+      "inode": 14739560
+    },
+    "/home/dev/.t3/worktrees/verus/t3-8ad572f5/source/tools/research/redb_crash_protocol/CASES.json": {
+      "sha256": "747f8ed028d7eb52ec86fa1873e8e2ec95fe87e7c9dd663a6285b28f161e013c",
+      "size": 5522,
+      "mtime_ns": 1794470593242359113,
+      "inode": 14735973
+    },
+    "/home/dev/.t3/worktrees/verus/t3-8ad572f5/source/tools/research/redb_crash_protocol/model/ACCEPTED78_INFER_REGISTRY.json": {
+      "sha256": "91bbf8963947eaf7055a80f6961d007d0e8fe3bd95a71fc371bcc2d4b6eab883",
+      "size": 53424,
+      "mtime_ns": 1794470593259358916,
+      "inode": 14736409
+    },
+    "/home/dev/.t3/worktrees/verus/t3-8ad572f5/source/tools/research/redb_crash_protocol/model/replay.py": {
+      "sha256": "70f2096d622476f09c03fd8f991bb132ec4c310064aaded292b520c68ea12f2a",
+      "size": 9054,
+      "mtime_ns": 1794470593307358361,
+      "inode": 14737080
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/libverus_builtin.rlib": {
+      "sha256": "faedb6bd6ca1e43175d8c82ef59a091f828dca313755b20fd4c38268f2bc1bcf",
+      "size": 956982,
+      "mtime_ns": 1794441059083336530,
+      "inode": 3433095
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/libverus_builtin_macros.so": {
+      "sha256": "d85f0b88842a2856911b21c1ca2ae43fbe38b481a8da3f141725373fdd56b671",
+      "size": 14161240,
+      "mtime_ns": 1794441058207336453,
+      "inode": 3433096
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/libverus_state_machines_macros.so": {
+      "sha256": "c4f2d89854d5d95247e0b9f5845b513990875c5628bbb96fa7007e120d3cb860",
+      "size": 8574616,
+      "mtime_ns": 1794441070903337364,
+      "inode": 3433094
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/libvstd.rlib": {
+      "sha256": "675d5bae09fc7593de96b4216b012ef6bb28db18f91b863b0820cf2ea2db4167",
+      "size": 11094990,
+      "mtime_ns": 1794441143531334888,
+      "inode": 3433098
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/receipt.json": {
+      "sha256": "3e04cec7545fd1b44781ba6e8c2447e2109339a9f5257ef7b605d81896a16452",
+      "size": 1015,
+      "mtime_ns": 1794441145116334696,
+      "inode": 3433093
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/rust_verify": {
+      "sha256": "52fd0be56236ec8ecd7c0a3db9628eb70d857baa5391df0a623ed216723dc6d8",
+      "size": 39049648,
+      "mtime_ns": 1794441025722332159,
+      "inode": 3433097
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/verus": {
+      "sha256": "134afc474dfc592f863126bbef2fcfb68d2b97cb4abd3ad24290f6ee7ebcd4b4",
+      "size": 4692160,
+      "mtime_ns": 1794441031727333171,
+      "inode": 3433092
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/verus-root": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "mtime_ns": 1794440592316897493,
+      "inode": 3433100
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/vstd.vir": {
+      "sha256": "b9a613f5c3321931854033da2eeaa8eb3b657885de37ea470602c99e608d0173",
+      "size": 33770791,
+      "mtime_ns": 1794441108459337664,
+      "inode": 3433099
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/bundle/z3": {
+      "sha256": "e583c4186a45e72411fa2cb2048401eed03f0f8e5f24694676a8f6271a50b765",
+      "size": 34954456,
+      "mtime_ns": 1794413112466532087,
+      "inode": 3433091
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/helpers/infer_eval_support.py": {
+      "sha256": "f1303cc4973d44ad44c73ca9f3a534931375fb72875b70d4018880d493d7ccc9",
+      "size": 7981,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433123
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/helpers/infer_experiment.py": {
+      "sha256": "4e96c73e95658b99c3be4a9b3803aaa36365b9b613c656d5e01762829267a60d",
+      "size": 11144,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433122
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/registered-charter/CURRENT.md": {
+      "sha256": "58bf5c28bee2eafd734c7a122718e8c00bda37e8e5c2f703c8c90fd455bfca02",
+      "size": 1253,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433118
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/registered-charter/GOAL.md": {
+      "sha256": "3928f62cb0a02e454a9e6280143de3debbd40a639c585a9015352a2dc21fa1b3",
+      "size": 6291,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433117
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/registered-charter/PREPARATION_NOTE.md": {
+      "sha256": "cca687a73774511df17ef504f9acf3826422f9b1afe9c955ecf9ee85e430e0b1",
+      "size": 915,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433120
+    },
+    "/tmp/redb-model-accepted78-mldtb1lx/registered-charter/WORKER_BRIEFS.md": {
+      "sha256": "fbcc125e9f5fc1f7d17ad8fa0e896768d593f67deae5d768f60d3f167ae31291",
+      "size": 4159,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433119
+    },
+    "/tmp/redb-new-review-03fd44ed-model-normal-positive/candidate.rs": {
+      "sha256": "e840e6c9ce93b2adfddfe8207d74626e2db95b0abd90c3e409677711da75f47d",
+      "size": 20526,
+      "mtime_ns": 1794470726176947955,
+      "inode": 3433125
+    },
+    "/tmp/redb-new-review-03fd44ed-model-normal-positive/freeze.json": {
+      "sha256": "517242d21626108b3138a23690f6278fcfc4a91035d0d6bef42102bf96e583d3",
+      "size": 3641,
+      "mtime_ns": 1794470726180947916,
+      "inode": 3433126
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/Cargo.toml": {
+      "sha256": "ada9ad18137fbfd68c1f022673a561c036f29c276382e9dbe824fa268e4fb294",
+      "size": 2745,
+      "mtime_ns": 1794253177088167806,
+      "inode": 12595622
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/db.rs": {
+      "sha256": "65c3107446039a3dacba03dae0b2a21c88109562ba81d7cadda0a8ea8c7a6169",
+      "size": 190761,
+      "mtime_ns": 1794253177306167365,
+      "inode": 12595710
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/transaction_tracker.rs": {
+      "sha256": "423252fc12806ff37aed5a61ab9f0217bf35a2c2724dc40f9930dc94dbf3519e",
+      "size": 27248,
+      "mtime_ns": 1794253177307167363,
+      "inode": 12595720
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/transactions.rs": {
+      "sha256": "02b383d6d984a14dfc4827ec04241d78637591f91ff754b42f9671b305d18bde",
+      "size": 129790,
+      "mtime_ns": 1794253177308167361,
+      "inode": 12595721
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/btree_base.rs": {
+      "sha256": "c3a1f5ca0cefdde0bc7d1b40536bc4f2d68a8bce852115433621a8b37fb9ec60",
+      "size": 90552,
+      "mtime_ns": 1794253177309167359,
+      "inode": 12595724
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/base.rs": {
+      "sha256": "ce2ae1188b5bad2babe2f7b7df19d82adc2b8baff6b41b957e978437686938c4",
+      "size": 14695,
+      "mtime_ns": 1794253177310167357,
+      "inode": 12595735
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/cached_file.rs": {
+      "sha256": "cb901d44531b23f87d1bd31f72a24f1dc69308b5417db2167b7508921ffda486",
+      "size": 56801,
+      "mtime_ns": 1794253177310167357,
+      "inode": 12595738
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/header.rs": {
+      "sha256": "35863472a48f9e0eb65a0f9ba0b2517a888a881478476aaafbcbfc77842850f9",
+      "size": 72782,
+      "mtime_ns": 1794253177311167355,
+      "inode": 12595745
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/layout.rs": {
+      "sha256": "0b559f9a739c6960bfdc0fd84c03f3bd8e083a824a74f9ea41b162f1fb99d670",
+      "size": 8105,
+      "mtime_ns": 1794253177311167355,
+      "inode": 12595746
+    },
+    "/tmp/verus-infer-cycle-20261109/applications/redb/src/tree_store/page_store/page_manager.rs": {
+      "sha256": "b062608a527c3f53aa505af870f2b803da3fa7b095169194c681cc6441cb558a",
+      "size": 157364,
+      "mtime_ns": 1794253177312167353,
+      "inode": 12595749
+    }
+  },
+  "private_bundle": "/tmp/redb-model-accepted78-mldtb1lx/bundle",
+  "toolchain": "/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu",
+  "source_coupling_proved": false,
+  "setup_seconds": 1.1133660069899634,
+  "success": true,
+  "total_seconds": 7.167039198975544
+}
