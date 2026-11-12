@@ -18,11 +18,12 @@ from infer_eval_support import ArtifactGuard, digest
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--freeze', type=Path, default=HERE / 'freeze.json')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     receipt = {'kind': 'P0_CALLEE_PROBES_NOT_CALLER_ACCEPTANCE', 'commands': [], 'outcomes': [], 'application_goal_complete': False}
     with replay_receipt(args.output, receipt):
-        freeze = json.loads((HERE / 'freeze.json').read_text())
+        freeze = json.loads(args.freeze.read_text())
         paths = [Path(p) if Path(p).is_absolute() else ROOT / p for p in freeze['inputs']]
         for name, path in zip(freeze['inputs'], paths):
             require(digest(path) == freeze['inputs'][name], 'input identity changed: ' + name)
@@ -53,9 +54,13 @@ def main():
         for label, text in texts.items():
             fixtures[label] = args.output / (label + '.rs')
             fixtures[label].write_text(text)
-        guard = ArtifactGuard(paths + tools + list(fixtures.values()) + [HERE / 'freeze.json'])
+        guard = ArtifactGuard(paths + tools + list(fixtures.values()) + [args.freeze])
         receipt['inputs'] = {str(p): digest(p) for p in paths + tools + list(fixtures.values())}
-        env = dict(os.environ, VERUS_Z3_PATH=str(bundle / 'z3'), VERUS_INFER_CACHE=str(args.output / 'cache'))
+        toolchain = '/home/dev/.rustup/toolchains/1.99.1-x86_64-unknown-linux-gnu'
+        env = dict(os.environ, PATH='/home/dev/.cargo/bin:' + toolchain + '/bin:/usr/bin:/bin',
+                   RUSTUP_HOME='/home/dev/.rustup', RUSTUP_TOOLCHAIN='1.99.1-x86_64-unknown-linux-gnu',
+                   VARGO_TOOLCHAIN='1.99.1-x86_64-unknown-linux-gnu', LD_LIBRARY_PATH=toolchain + '/lib',
+                   VERUS_Z3_PATH=str(bundle / 'z3'), VERUS_INFER_CACHE=str(args.output / 'cache'))
         run = LoggedCommands(args.output, args.output, receipt['commands'], timeout=180, guard=guard)
         cases = [('redb', False), ('redb', True), ('node', False), ('node', True), ('redb_wrong', True), ('node_wrong', True)]
         for case, goals in cases:
