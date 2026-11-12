@@ -1,49 +1,46 @@
-# Practical capability map — incomplete integration checkpoint
+# Practical capability map — proved components, final regression audit pending
 
-This is a scoped evidence map for the [replacement goal](GOAL.md), not a completed automation claim. Accepted baseline is engine f4415999/schema39/policy75/cache78. S1 is integrated and independently accepted within its bounded scope; matching combined S1/S2 acceptance remains pending. S2 has not been delivered or accepted. Original bodies/domains and preregistrations remain in SELECTION.json and SELECTION_R2_F2.json.
+The [replacement goal](GOAL.md) is active. Both frozen component properties now pass on the fresh combined engine, and [independent combined review](../../../../evidence/practical-word-combined-review/REVIEW.md) accepts the bounded implementation and causal removal. Parent broader matching regressions and final completion audit remain open. Original baseline75 and preregistrations stay unchanged; combined schema39/policy78/cache81 uses the distinct checked-set-and-word-sequence cache tag.
 
-## Application coverage
-
-| Attempt | Important property | Verified state and limitation |
+| Attempt | Property and current evidence | Limits |
 |---|---|---|
-| F0 funding verifier | Multi-currency balance/overflow validation | Inspection unsupported at map entry/owned iteration; no proof trial, no success. |
-| R1 multiword resize | Exact interval membership, storage and outside frame | Original div_ceil rejected before body checking; unproved, no rewrite/axiom/prerequisite. |
-| F1 complete fee policy | Nested saturation, bounds/dominance and send/receive accounting | Original saturating_div rejected; genuine Amount comparison/derive boundary also unchecked; unproved. |
-| R2 bitmap-tree mutations | Exact logical leaf set/count, ancestor summaries and hierarchy/storage/padding/nonpath frames | Complete selected extracted property manually proved and independently accepted, full registered valid-tree/index domain. Complete allocator callers/search/init/crash consistency excluded. |
-| F2 complete NumPeers policy | Safe exact policy arithmetic, quorum intersection and honest margins | Complete selected policy/corollaries manually proved and independently accepted. Explicit finite-set/count/fault assumptions; original consensus callers/NodeMap/crypto excluded. |
+| F0 funding inspection | Unsupported map-entry/owned-iteration boundary; no solver trial | Unproved, retained in denominator |
+| R1 multiword resize | Original div_ceil rejected before body checking | Unproved; no algorithm rewrite or new std axiom |
+| F1 complete fee policy | Original saturating_div rejected; Amount comparison/derive boundary also unchecked | Unproved; no financial correctness claim |
+| R2 bitmap-tree mutations | Original twelve-method closure: exact leaf membership/count, ancestor summaries and hierarchy/storage/padding/nonpath frames; fresh combined20/0 cold/repeat | Full registered valid-tree/index domain, arbitrary multiword/multiheight state, spare words and repeats. Complete allocator callers/search/init/resize/crash consistency excluded |
+| F2 NumPeers policy | Original selected numeric policy/From: safe exact thresholds and explicit quorum-intersection/honest-margin corollaries; fresh combined12/0 cold/repeat | From/total include0, subtraction methods require positive usize incl MAX. Explicit finite-universe/count/fault hypotheses; NodeMap, cryptography and full consensus excluded |
 
-Unsupported attempts stay counted. The old one-word REDB/request-helper transfers are scaffolding, not new successes. No financial property is relabeled as proved by the F2 validation replacement. [Coverage and receipts](COVERAGE.md) preserve failures and specification corrections.
+Source connection is concrete: R2 supports BuddyAllocator record_alloc_inner/free_inner and bitmap alloc; F2 supports numeric guards in Keychain::is_complete and ConsensusEngine::validate_signed_session_outcome. Checked ordinary provider/client imports expose the selected component contracts and admission observations; they are not proofs of those complete upstream callers. [Coverage](COVERAGE.md) preserves all unsupported attempts and specification corrections.
 
-## What authors supply
+## Author work actually removed
 
-R2 supplies membership, storage/padding/hierarchy meaning, abstract allocated set/count and intended transition contracts. Word/sequence/path/ancestor transport, snapshots, loop bookkeeping and all8 original proof helpers are MECHANICAL, not hidden semantic inputs. Every helper is checked; no target theorem is assumed as a callee.
+Counts overlap and must not be summed into a total. All remaining path/ancestor/loop mechanics stay charged as mechanical work.
 
-F2 supplies the policy meaning f=floor((n-1)/3), q=n-f, public closed count observation, finite universe/quorum/fault hypotheses and count-to-set correspondence. From/total include0; other methods require positive counts, with zero underflow exposed by a safety control. The4 set-lemma calls+2 conditional blocks are mechanical. The checked FromSpec adapter is disclosed specification work, not an Infer gain.
+| R2 local mechanical category | Original manual | Combined author |
+|---|---:|---:|
+| Proof helpers |8|6|
+| Helper call sites |15|11|
+| Assertions, including quantified assertions |37|28|
+| Ghost snapshots |9|7|
+| Exec-local proof blocks |9|7|
+| Bit-vector directives |3|0|
 
-## Accepted automation versus current experiments
+R2 still authors six loop-entry predicates, three exit predicates, fuel/triggers/decreases, all remaining helper bodies and the clear_not_full full-view library call PLUS bridge assertion. Generated work is additional: two snapshots, two quantified proof blocks, two checked pointwise calls and20 Set calls. The new ordinary library contains one Set and three word proof bodies; its proof calls/BV work are charged separately. The redundant default range broadcast earns no credit.
 
-Existing scalar arithmetic, callee/field propagation, accessors/reborrows and default insert/remove length laws already discharge part of these proofs. Reusing that baseline is not a new gain. F2 arithmetic already verifies ordinarily; R2 count arithmetic works after its allocated-set update equality.
+F2 removes all four original mechanical Set-lemma calls and two conditional blocks without replacement author glue, paying32 generated calls over its three semantic theorem bodies. Policy meaning, universe/quorum/fault/count assumptions and the disclosed checked FromSpec adaptation remain authored. Numeric arithmetic and post-equality insert/remove count algebra already worked in the baseline and earn no new gain.
 
-Current measured accepted75 Infer reduction: **zero in both applications**. Original R2 manual inventory is8 local helpers/15 calls/9 exec proof blocks/9 snapshots/37 assertions/6 loop-entry invariants/3 BV directives, with exit/fuel/trigger work detailed in its report. F2 retains4 generic set calls+2 conditionals. Counts overlap; do not sum categories.
+## Actual common reuse and trust
 
-[C0](common_set/PAIR_PROTOTYPE.md) and independent review prove the SAME generic Set-pair helper supplies necessary observations to both actual properties. Explicit prototype replacement calls remain charged. Independently accepted S1 selects those calls automatically (R2 25/0, F2 12/0; narrow S1-only ablation fails the intended functions), removing the required R2 extensional assertion and F2 set glue. The already-default R2 range broadcast is redundant and earns no credit.
+Disabling ONLY Set preparation on the same frozen combined sources gives R219/1 only at finish_mutation, with both word writers healthy, and F29/3 only at its three corollaries. Disabling ONLY word preparation gives R218/2 only at the two writers while F2 remains12/0. These fresh independent narrow ablations establish common Set reuse in both actual properties and isolate word assistance. A global-off result alone is not used as causal evidence.
 
-[W0](word_frame/PROTOTYPE.md) factors the word proof into a separately checked generic library. Its explicit application prototype has6 local helpers/31 assertions/9 snapshots/0 BV directives; replacement transport/snapshots/calls remain manual. S2 should generate that transport, aiming for6/29/7/0 with2 generated snapshots/forall blocks and remaining loop/tree proofs still authored. These are projected S2 author costs, NOT accepted engine measurements. The extra clear_not_full view bridge remains charged.
+Authors supply membership, hierarchy, storage/padding, allocated-set/count and policy/fault semantics. Infer proposes bounded typed ordinary calls/snapshots/transport; it does not discover the intended semantics or the remaining tree-loop invariants. Unknown representations, aliases, control flow, catalogs or exhausted budgets skip; this is not arbitrary Rust proof automation.
 
-[C1](common_set/COMPOSITION.md) confirms ordinary library composition in the same full R2 proof, independently isolates weak Set/word summaries, and checks F2's ordinary imported client. Library composition does not certify engine generation, metadata/binding preservation or publication.
+Ordinary full Function/source projection, fresh IDs/binders across both passes/imports, WF/mode/resolution/lifetime/trait/body/erasure and required precision checks remain. Fresh replay passed25 expected outcomes including semantic/safety negatives, compiled providers, ordinary/inferred imports, version rejection and stale-export removal. Explicit helper inventories are empty in the applications; scalar precision controls retain all mandatory checks. New helper bodies pass strict ordinary checking; matching NORMAL vstd2257/0 retains inherited admissions normally. No new axiom, hidden stronger contract, narrower domain, replaced algorithm, disabled check or native representation bridge was added.
 
-## Evidence, costs and trust
+Trust remains the existing frontend/macros, Verus backend/pinned SMT and inherited vstd models/admissions. Conditional32/64 verifier semantics and host x86_64 compilation are not native equivalence or execution on32-bit hardware. Original R2 finite-Set and F2 FromSpec corrections were disclosed before automation credit. No cache hit, RSS reduction or speedup is claimed.
 
-[Independent manual-proof review](../../../../evidence/practical-redb-fedimint-proof-review/REVIEW.md) reproduces source/domain/proof/caller/import/control scope and C0. The lane reports record exact compile/solver costs and immutable replay instructions: [R2](redb_tree/REPORT.md), [F2](fedimint_quorum/REPORT.md). Their successful provider repetitions have no inferred helpers/cache entries, so no cache-hit or speedup is claimed. C1 takes23.813 compiler-wall seconds for9 targeted outcomes, excluding hashing/setup; it is not a comparative benchmark.
+## Validation and unfinished acceptance
 
-All application/new-theorem probes retain ordinary --no-cheating, lifetime/trait/WF/mode/body/erasure checks; imports use successful checked providers. Empty inference candidates are inventoried explicitly, not exempted from required precision checks. Failed goals-enabled exports are withheld. The existing ordinary failed --export behavior is disclosed and no failed provider is imported. New libraries use checked bodies and inherited vstd laws, no new axiom or opaque representation bridge.
+Parent combined replay: `/tmp/practical-combined78-5ecea5fe-core/trials/receipt.json`, SHA256 `575d7d495b5d886886af7c070d86495b27e142bbb7371207653e7681957062e1`,25 outcomes,84.121 compiler-wall seconds excluding setup/hash checks. Fresh parent release build478.148s and NORMAL vstd47.404s; AIR145/VIR171 pass. Independent review separately rebuilds/verifies the combined engine, runs the same25 outcomes, narrow ablations, compiler-library8 and focused7+3. [Review](../../../../evidence/practical-word-combined-review/REVIEW.md) records exact receipts, commands, assumptions, costs, source restoration and excluded failures. [Registration](common_set/COMBINED_REGISTRATION.md) and [replay](common_set/replay_s1.py) preserve the fixed inputs and inventories.
 
-Trust remains the existing compiler/macros, Verus backend/SMT and imported vstd specifications. Default verifier architecture is conditional32/64; native builds here are x86_64, not native32-bit execution or a native Rust refinement theorem. Finite source-oracle executions support specifications and do not replace proofs.
-
-## Completion remains unproved
-
-S2 material author-work reduction, matching combined checks, fresh independent implementation review, final measured costs and residual manual-work report remain open. Full Function/source/ID/binding preservation and all ordinary import/precision/publication gates must be validated on the combined engine. Application review and prototype success do not discharge them.
-
-No additional layer beyond S1/S2 is authorized without a concrete value checkpoint; each blocker stops at45 active minutes excluding builds. No foundational prerequisite chain, new assurance subsystem, narrowed input or replacement algorithm. Earlier HMAC suffix/native work remains explicitly deferred and unachieved; no whole-database, whole-protocol, cryptographic, crash-consistency or broader native correctness claim. No push/PR is authorized.
-
-[Independent S1 implementation review](../../../../evidence/practical-set-selector-review/REVIEW.md) accepts causal cross-project removal after fresh release validation and exact function inventories. This does not establish substantial overall R2 reduction or combined acceptance. No speedup is demonstrated; whole Infer enabled overhead was observed on a small no-demand sample and is not isolated to S1.
+Parent broader40-target execution is still pending completion; the older299-test S1 result is not relabeled combined evidence. Final goal completion remains unproved until those matching regressions, reproducible final inventory and requirement-by-requirement audit pass. No new layer beyond S1/S2, prerequisite chain or custom evidence subsystem is authorized;45 active minutes per blocker excluding builds then checkpoint. Earlier HMAC/native is explicitly **DEFERRED AND UNACHIEVED**. No whole-database/protocol/cryptographic/crash/native theorem, push or PR is claimed.
